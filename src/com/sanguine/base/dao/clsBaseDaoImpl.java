@@ -18,8 +18,6 @@ import com.sanguine.base.model.clsBaseModel;
 @Transactional(value = "hibernateTransactionManager")
 public class clsBaseDaoImpl implements intfBaseDao {
 
-	
-	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
