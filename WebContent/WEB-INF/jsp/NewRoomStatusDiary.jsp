@@ -219,7 +219,7 @@
             <div class="cust-info-wrap">
               <div class="cust-name-img">
                 <div class="profile-image">
-                  <img src="/resources/images/user.jpg" alt="user">
+                  <img src="./resources/images/user.jpg" alt="user">
                 </div>
                 <div class="display-name">
                   <div class="name">Tyler Rhodes</div>
