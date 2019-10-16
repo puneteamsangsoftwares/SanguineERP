@@ -20,6 +20,13 @@
 		<put-attribute name="body" value=""></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/jsp/footer.jsp"></put-attribute>
 	</definition>
+	
+	<definition name="new.base.definition" template="/WEB-INF/jsp/mainNewTemplate.jsp">
+		<put-attribute name="title" value=""></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/jsp/newHeader.jsp"></put-attribute>
+		<put-attribute name="aside" value="/WEB-INF/jsp/newAside.jsp"></put-attribute>
+		<put-attribute name="body" value=""></put-attribute>
+	</definition>
 
 	<definition name="base.definition1" template="/WEB-INF/jsp/mainTemplate1.jsp">
 		<put-attribute name="title" value=""></put-attribute>
@@ -4793,10 +4800,15 @@
 			<put-attribute name="body" value="/WEB-INF/jsp/webPMS/reports/frmPaymentDashboard.jsp" />
 		</definition>
 		
-		<definition name="frmMainMenuPMS" extends="base.definitionPMS">
-		<put-attribute name="title" value="Main Screen"></put-attribute>
-		<put-attribute name="body" value="/WEB-INF/jsp/frmMainMenu.jsp"></put-attribute>
-	   </definition>
+		<!-- <definition name="frmMainMenuPMS" extends="base.definitionPMS">
+			<put-attribute name="title" value="Main Screen"></put-attribute>
+			<put-attribute name="body" value="/WEB-INF/jsp/frmMainMenu.jsp"></put-attribute>
+	   	</definition> -->
+	   	
+	   	<definition name="frmMainMenuPMS" extends="new.base.definition">
+			<put-attribute name="title" value="Main Screen"></put-attribute>
+			<put-attribute name="body" value="/WEB-INF/jsp/NewRoomStatusDiary.jsp"></put-attribute>
+	   	</definition>
 		
         <definition name="frmMarketSource" extends="base.definition">
 		<put-attribute name="title" value="MarketSource"></put-attribute>
