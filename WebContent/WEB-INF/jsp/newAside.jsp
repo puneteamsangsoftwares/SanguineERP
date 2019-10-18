@@ -15,25 +15,39 @@
 <body>
 	<main class="app-page">
 		<div class="app-sidebar">
-	        <ul class="side-menu">
-	          <li class="active-tab">
-	            <img />
-	            <div>MASTERS</div>
-	          </li>
-	          <li>
-	            <img />
-	            <div>TOOLS</div>
-	          </li>
-	          <li>
-	            <img />
-	            <div>REPORTS</div>
-	          </li>
-	          <li>
-	            <img />
-	            <div>TRANSACTION</div>
-	          </li>
-	        </ul>
-	      </div>
+        <ul class="side-menu">
+          <li class="active-tab">
+            <a href="#" class="link">
+              <i class="mdi mdi-source-fork rotate"></i>
+              <div class="link-text">MASTERS</div>
+            </a>
+            <div class="submenu">
+              <a href="#">Checkout Discount Master</a>
+              <a href="#">Room Master</a>
+              <a href="#">Income Head Master</a>
+              <a href="#">Attribute Value Master</a>
+            </div>
+          </li>
+          <li>
+            <a href="#" class="link">
+              <i class="mdi mdi-wrench-outline"></i>
+              <div class="link-text">TOOLS</div>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="link">
+              <i class="mdi mdi-file-chart-outline"></i>
+              <div class="link-text">REPORTS</div>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="link">
+              <i class="mdi mdi-credit-card-outline"></i>
+              <div class="link-text">TRANSACTION</div>
+            </a>
+          </li>
+        </ul>
+      </div>
 	 </main>
 </body>
 </html>

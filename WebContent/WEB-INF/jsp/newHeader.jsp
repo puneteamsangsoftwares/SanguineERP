@@ -15,17 +15,27 @@
 </head>
 <body>
 	<header class="app-header">
-	      <nav class="app-nav">
-	        <div class="left-menu">
-	          <div class="navaction app-header-main">
-	            <a href="#">Web PMS</a>
-	          </div>
-	          <div class="navaction app-header-sub">
-	            <div>HOTEL SURYA</div>
-	          </div>
-	        </div>
-	        <div class="right-menu"></div>
-	      </nav>
-	</header>
+      <nav class="app-nav">
+        <div class="left-menu">
+          <div class="navaction app-header-main">
+            <a href="#">Web PMS</a>
+          </div>
+          <div class="navaction app-header-sub">
+            <div>HOTEL SURYA</div>
+          </div>
+        </div>
+        <div class="right-menu">
+          <ul>
+            <li><a href="#" class="mdi mdi-information-outline menu-link"></a></li>
+            <li><a href="#" class="mdi mdi-crosshairs-question menu-link"></a></li>
+            <li><a href="#" class="mdi mdi-home-outline menu-link"></a></li>
+            <li><a href="#" class="mdi mdi-web menu-link"></a></li>
+            <li><a href="#" class="mdi mdi-bank-outline menu-link"></a></li>
+            <li><a href="#" class="mdi mdi-power-standby menu-link"></a></li>
+
+          </ul>
+        </div>
+      </nav>
+    </header>
 </body>
 </html>
