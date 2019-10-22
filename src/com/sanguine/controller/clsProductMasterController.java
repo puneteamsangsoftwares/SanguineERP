@@ -44,7 +44,6 @@ import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -56,6 +55,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mysql.jdbc.Connection;
 import com.sanguine.bean.clsProductMasterBean;
 import com.sanguine.model.clsAttributeMasterModel;
@@ -548,7 +548,7 @@ public class clsProductMasterController {
 
 
 	
-
+	@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 	@RequestMapping(value = "/loadProductMasterData", method = RequestMethod.GET)
 	public @ResponseBody clsProductMasterModel funAssignFields(@RequestParam("prodCode") String prodCode, HttpServletRequest req, HttpServletResponse response) {
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
@@ -1181,6 +1181,7 @@ public class clsProductMasterController {
 		listStock.add(listStockFlashModel);
 		return new ModelAndView("excelView", "stocklist", listStock);
 	}
+	
 	private Blob funBlankBlob() {
 		Blob blob = new Blob() {
 

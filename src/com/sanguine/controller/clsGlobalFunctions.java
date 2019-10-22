@@ -3686,6 +3686,9 @@ public class clsGlobalFunctions {
 		
 		}
 		
+		if(list==null){
+			list=new ArrayList();
+		}
 		
 		
 		

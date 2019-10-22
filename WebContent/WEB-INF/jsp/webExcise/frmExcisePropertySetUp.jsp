@@ -99,7 +99,7 @@ var fieldName;
 				<label> Use Global Brand Master</label>
 			</td>
 			<td>
-				<s:input type="checkbox" id="chkBrandMaster" path="strBrandMaster" value="All" />
+				<s:checkbox  id="chkBrandMaster" path="strBrandMaster" value="All" />
 			</td>
 		</tr>
 		<tr>
@@ -107,7 +107,7 @@ var fieldName;
 				<label> Use Global Size Master</label>
 			</td>
 			<td>
-				<s:input type="checkbox" id="chkSizeMaster" path="strSizeMaster" value="All" />
+				<s:checkbox  id="chkSizeMaster" path="strSizeMaster" value="All" />
 			</td>
 		</tr>
 		<tr>
@@ -115,7 +115,7 @@ var fieldName;
 				<label> Use Global Sub Category Master</label>
 			</td>
 			<td>
-				<s:input type="checkbox" id="chkSubCategoryMaster" path="strSubCategory" value="All" />
+				<s:checkbox id="chkSubCategoryMaster" path="strSubCategory" value="All" />
 			</td>
 		</tr>
 		<tr>
@@ -123,7 +123,7 @@ var fieldName;
 				<label> Use Global Category Master</label>
 			</td>
 			<td>
-				<s:input type="checkbox" id="chkCategoryMaster" path="strCategory" value="All" />
+				<s:checkbox id="chkCategoryMaster" path="strCategory" value="All" />
 			</td>
 		</tr>
 		<tr>
@@ -131,7 +131,7 @@ var fieldName;
 				<label> Use Global Supplier Master</label>
 			</td>
 			<td>
-				<s:input type="checkbox" id="chkSupplierMaster" path="strSupplier" value="All" />
+				<s:checkbox id="chkSupplierMaster" path="strSupplier" value="All" />
 			</td>
 		</tr>
 		<tr>
@@ -139,7 +139,7 @@ var fieldName;
 				<label> Use Global Recipe Master</label>
 			</td>
 			<td>
-				<s:input type="checkbox" id="chkRecipeMaster" path="strRecipe" value="All" />
+				<s:checkbox id="chkRecipeMaster" path="strRecipe" value="All" />
 			</td>
 		</tr>
 		<tr>
@@ -147,7 +147,7 @@ var fieldName;
 				<label> Use Global City Master</label>
 			</td>
 			<td>
-				<s:input type="checkbox" id="chkCityMaster" path="strCity" value="All" />
+				<s:checkbox id="chkCityMaster" path="strCity" value="All" />
 			</td>
 		</tr>
 		<tr>
@@ -155,7 +155,7 @@ var fieldName;
 				<label> Use Global Permit Master</label>
 			</td>
 			<td>
-				<s:input type="checkbox" id="chkPermitMaster" path="strPermit" value="All" />
+				<s:checkbox id="chkPermitMaster" path="strPermit" value="All" />
 			</td>
 		</tr>
 		</table>

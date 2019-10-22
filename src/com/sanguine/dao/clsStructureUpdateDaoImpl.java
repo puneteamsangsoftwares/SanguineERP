@@ -1046,7 +1046,7 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		funExecuteQuery(sql);
 		
 		
-		/*----------------WebStock Forms only---------------------------*/
+		/*----------------WebStock Forms only---------------------------*/    
 		String strIndustryType = "",strWebStockModule="";
 		List<clsCompanyMasterModel> listClsCompanyMasterModel = objSetupMasterService.funGetListCompanyMasterModel();
 		if (listClsCompanyMasterModel.size() > 0) {

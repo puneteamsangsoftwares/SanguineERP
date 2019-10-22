@@ -1437,8 +1437,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 			</tr>
 			<tr>
 				<td>Close Requisition</td>
-				<td><s:input id="cbCloseReq" value="Yes" style="width: 36px;" path="strCloseReq"
-					type="checkbox" onclick="return cbCloseReq_onclick()" />
+				<td><s:checkbox id="cbCloseReq" value="Yes" style="width: 36px;" path="strCloseReq"
+					 onclick="return cbCloseReq_onclick()" />
 				<td>Narration</td>
 				<td><s:textarea id="txtNarration" cols="50" rows="3"
 						path="strNarration" value="${command.strNarration}"

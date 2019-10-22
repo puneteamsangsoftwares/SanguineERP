@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "tbltempledger")
 public class clsTempLedgerModel {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "intId")
 	private long intId;
 

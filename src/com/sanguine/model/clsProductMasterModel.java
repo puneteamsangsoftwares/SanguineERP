@@ -1,7 +1,10 @@
 package com.sanguine.model;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.sql.Blob;
+import java.sql.SQLException;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -14,6 +17,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.sql.rowset.serial.SerialBlob;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -116,7 +120,6 @@ public class clsProductMasterModel implements Serializable {
 
 	@Column(name = "strProductImage", length = 1000000000, nullable = false)
 	@Lob
-	@Basic(fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Blob strProductImage;
 
@@ -471,13 +474,28 @@ public class clsProductMasterModel implements Serializable {
 		this.strSpecification = strSpecification;
 	}
 
-	public Blob getStrProductImage() {
-		return strProductImage;
+	/*public Blob getStrProductImage() {
+		
+		try {
+			return new SerialBlob(strProductImage );
+		} catch (SQLException e) {
+		
+			return funBlankBlob();
+			// TODO Auto-generated catch block
+		//	e.printStackTrace();
+		}
+		 
 	}
 
 	public void setStrProductImage(Blob strProductImage) {
-		this.strProductImage = strProductImage;
-	}
+		
+		try {
+			this.strProductImage = strProductImage.getBytes(1l, (int)strProductImage.length());
+		} catch (SQLException e) {
+			
+			//e.printStackTrace();
+		};
+	}*/
 
 	public double getDblWeight() {
 		return dblWeight;
@@ -845,4 +863,86 @@ public class clsProductMasterModel implements Serializable {
 		this.strHSNCode = (String) setDefaultValue(strHSNCode, "");
 	}
 
+	
+	private Blob funBlankBlob() {
+		Blob blob = new Blob() {
+
+			@Override
+			public void truncate(long len) throws SQLException {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public int setBytes(long pos, byte[] bytes, int offset, int len) throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public int setBytes(long pos, byte[] bytes) throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public OutputStream setBinaryStream(long pos) throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public long position(Blob pattern, long start) throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public long position(byte[] pattern, long start) throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public long length() throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public byte[] getBytes(long pos, int length) throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public InputStream getBinaryStream(long pos, long length) throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public InputStream getBinaryStream() throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void free() throws SQLException {
+				// TODO Auto-generated method stub
+
+			}
+		};
+		return blob;
+	}
+
+	public Blob getStrProductImage() {
+		return strProductImage;
+	}
+
+	public void setStrProductImage(Blob strProductImage) {
+		this.strProductImage = strProductImage;
+	}
+
+	
 }

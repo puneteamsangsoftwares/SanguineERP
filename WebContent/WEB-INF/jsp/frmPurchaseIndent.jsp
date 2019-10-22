@@ -1029,7 +1029,7 @@ $(document).ready(function(){
 			<tr>
 				<td>Close Purchase Indent</td>
 				<td>
-					<s:input id="cbClosePI" type="checkbox" value="Yes" path="strClosePI" />
+					<s:checkbox id="cbClosePI"  value="Yes" path="strClosePI" />
 				</td>
 				<td width="5%"><label>Narration </label></td>
 				<td width="27%"><s:textarea cssStyle="width:100%" path="strNarration" id="txtNarration"/></td>
