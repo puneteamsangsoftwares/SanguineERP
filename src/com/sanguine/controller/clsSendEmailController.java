@@ -8,7 +8,8 @@ import java.util.Map;
 
 import javax.activation.DataSource;
 import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.util.ByteArrayDataSource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,8 +28,10 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,14 +44,15 @@ import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.service.clsProductMasterService;
 import com.sanguine.service.clsSetupMasterService;
 import com.sanguine.util.clsReportBean;
-import com.sun.istack.ByteArrayDataSource;
 
 @Controller
 public class clsSendEmailController
 {
 
 	@Autowired
-	private JavaMailSender mailSender;
+	private MailSender  mailSender;
+	
+	
 	@Autowired
 	private ServletContext servletContext;
 	@Autowired
@@ -216,12 +220,15 @@ public class clsSendEmailController
         				JasperExportManager.exportReportToPdfStream(p, baos);
         				DataSource aAttachment = new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
         				MimeMessageHelper helper = new MimeMessageHelper(mailSender.createMimeMessage(), true);
-
+        			//	SimpleMailMessage crunchifyMsg = new SimpleMailMessage();
         				helper.setTo(receipientsArr[i].toString());
         				helper.setSubject(subject);
         				helper.addAttachment("PO Slip.pdf", aAttachment);
         				helper.setText(message);
         				mailSender.send(helper.getMimeMessage());
+        				
+        				
+        				MimeMessagePreparator preparator = getContentWtihAttachementMessagePreparator(subject,receipientsArr[i].toString(),message,aAttachment);
                 	}                	
                 }
 				
@@ -242,6 +249,28 @@ public class clsSendEmailController
 		}
 
 	}
+	
+	 private MimeMessagePreparator getContentWtihAttachementMessagePreparator(final String subject,final String receipt,final String message,final DataSource aAttachment) {
+		 
+	        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+	 
+	        	@Override
+	            public void prepare(MimeMessage mimeMessage) throws Exception {
+	                MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+	 
+	                helper.setSubject(subject);
+	               // helper.setFrom("customerserivces@yourshop.com");
+	                helper.setTo(receipt);
+	                helper.setText(message);
+	 
+	                // Add a resource as an attachment
+	                helper.addAttachment("PO Slip.pdf", aAttachment);
+	 
+	            }
+	        };
+	        return preparator;
+	    }
+	 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public JasperPrint funCallReport(String POcode, HttpServletRequest req) throws MessagingException
 	{

@@ -623,7 +623,7 @@
     
     <!--Start Email Set Up -->
     
-	<!--  <bean id="mailSender" 
+ <bean id="mailSender" 
 	 class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="${Email.host}" />
         <property name="port" value="${Email.port}" />
@@ -634,15 +634,19 @@
                 <prop key="mail.transport.protocol">smtp</prop>
                 <prop key="mail.smtp.auth">true</prop>
                 <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.debug">true</prop>
             </props>
         </property>
     </bean>
     
-    End of Email Set Up
     
+   
+  <!--     
+    End of Email Set Up
+  
 	<mvc:interceptors>
 		<bean class="com.sanguine.util.clsRequestInterceptor"></bean>
-	</mvc:interceptors> -->
+	</mvc:interceptors>  -->
 </beans>
 
 
