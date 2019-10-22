@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -15,7 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.CollectionOfElements;
+
 
 import com.sanguine.webbooks.model.clsJVDtlModel;
 
@@ -31,7 +32,7 @@ public class clsUserMasterModel {
 		this.strClientCode = clsUserMasterModel_ID.getStrClientCode();
 	}
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tbluserlocdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strUserCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strUserCode", column = @Column(name = "strUserCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })

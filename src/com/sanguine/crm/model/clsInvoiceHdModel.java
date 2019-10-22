@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -15,7 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CollectionOfElements;
+
 
 import com.sanguine.base.model.clsBaseModel;
 import com.sanguine.webbooks.model.clsJVDebtorDtlModel;
@@ -35,25 +36,25 @@ public class clsInvoiceHdModel extends clsBaseModel implements Serializable {
 		strClientCode = objModelID.getStrClientCode();
 	}
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblinvoicedtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strInvCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strInvCode", column = @Column(name = "strInvCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsInvoiceModelDtl> listInvDtlModel = new ArrayList<clsInvoiceModelDtl>();
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblinvtaxdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strInvCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strInvCode", column = @Column(name = "strInvCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsInvoiceTaxDtlModel> listInvTaxDtlModel = new ArrayList<clsInvoiceTaxDtlModel>();
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblinvprodtaxdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strInvCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strInvCode", column = @Column(name = "strInvCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsInvoiceProdTaxDtl> listInvProdTaxDtlModel = new ArrayList<clsInvoiceProdTaxDtl>();
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblinvsalesorderdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strInvCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strInvCode", column = @Column(name = "strInvCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
@@ -61,7 +62,7 @@ public class clsInvoiceHdModel extends clsBaseModel implements Serializable {
 	
 	
 	
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblvoidedproductinvoicedtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strInvCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strInvCode", column = @Column(name = "strInvCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -45,7 +44,7 @@ public class clsUserDefinedReportController {
 		String sql = "select strUDCName,strUDCCode from clsUDReportCategoryMasterModel " + "where strClientCode='" + clientCode + "'";
 		List arList = objGlobalFunctionsService.funGetList(sql, "hql");
 
-		Map<String, String> hmUDReportCategory = new HashedMap();
+		Map<String, String> hmUDReportCategory = new HashMap();
 
 		for (int cnt = 0; cnt < arList.size(); cnt++) {
 			Object[] arrObj = (Object[]) arList.get(cnt);
@@ -399,7 +398,7 @@ public class clsUserDefinedReportController {
 		ModelAndView mv = new ModelAndView("frmUserDefinedReportView");
 		String sql = "select strReportDesc from clsUserDefinedReportModel where strClientCode='" + clientCode + "'";
 		List arList = objGlobalFunctionsService.funGetList(sql, "hql");
-		Map<String, String> hmUDReport = new HashedMap();
+		Map<String, String> hmUDReport = new HashMap();
 
 		for (int cnt = 0; cnt < arList.size(); cnt++) {
 			String name = (String) arList.get(cnt);

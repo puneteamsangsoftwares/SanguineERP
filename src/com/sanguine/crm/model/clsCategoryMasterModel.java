@@ -13,7 +13,6 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
-import org.hibernate.annotations.CollectionOfElements;
 import com.sanguine.base.model.clsBaseModel;
 
 

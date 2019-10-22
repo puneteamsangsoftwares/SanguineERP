@@ -13,9 +13,12 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Query;
-import org.hibernate.SessionFactory;
+import org.hibernate.query.*;
 import org.hibernate.transform.AliasToEntityMapResultTransformer;
+import org.hibernate.SessionFactory;
+
+import java.lang.*; 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -996,9 +999,8 @@ public class clsGlobalFunctionsDaoImpl implements clsGlobalFunctionsDao {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List funGetListReportQuery(String sql) {
-		final AliasToEntityMapResultTransformer INSTANCE = new AliasToEntityMapResultTransformer();
-		Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
-		query.setResultTransformer(INSTANCE);
+		Query query = sessionFactory.getCurrentSession().createNativeQuery(sql);
+		query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 		List<Map<String, Object>> aliasToValueMapList = query.list();
 		return aliasToValueMapList;
 	}

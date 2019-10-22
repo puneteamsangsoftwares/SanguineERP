@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -16,7 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.CollectionOfElements;
 
 @Entity
 @Table(name = "tblworkorderhd")
@@ -46,7 +46,7 @@ public class clsWorkOrderHdModel implements Serializable {
 	// @Column(name="strClientCode"))
 	// })
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblworkorderdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strWOCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strWOCode", column = @Column(name = "strWOCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })

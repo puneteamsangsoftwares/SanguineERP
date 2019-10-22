@@ -16,6 +16,8 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
 import javax.swing.ImageIcon;
 import javax.validation.Valid;
 
@@ -131,7 +133,16 @@ public class clsWebClubMemberPhotoController {
 			byte[] imageBytes = byteArrayOutputStream.toByteArray();
 			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
 
-			Blob blobProdImage = Hibernate.createBlob(byteArrayInputStream);
+			Blob blobProdImage = null;
+			try {
+				blobProdImage = new SerialBlob(imageBytes);
+			} catch (SerialException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}// Hibernate.createBlob(byteArrayInputStream);
 			objModel.setStrMemberImage(blobProdImage);
 
 			if (fileImageIcon.exists()) {

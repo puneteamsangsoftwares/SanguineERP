@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -59,7 +60,7 @@ public class clsRequisitionHdModel implements Serializable {
 	@Autowired(required = false)
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strReqCode", column = @Column(name = "strReqCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
-	@CollectionOfElements(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "tblreqdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strReqCode") })
 	private List<clsRequisitionDtlModel> clsRequisitionDtlModel = new ArrayList<clsRequisitionDtlModel>();
 

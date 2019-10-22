@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -15,7 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CollectionOfElements;
+
 
 import com.sanguine.webbooks.model.clsJVDebtorDtlModel;
 import com.sanguine.webbooks.model.clsJVDtlModel;
@@ -34,25 +35,25 @@ public class clsProFormaInvoiceHdModel implements Serializable {
 		strClientCode = objModelID.getStrClientCode();
 	}
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblproformainvoicedtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strInvCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strInvCode", column = @Column(name = "strInvCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsProFormaInvoiceModelDtl> listInvDtlModel = new ArrayList<clsProFormaInvoiceModelDtl>();
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblproformainvtaxdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strInvCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strInvCode", column = @Column(name = "strInvCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsProFormaInvoiceTaxDtlModel> listInvTaxDtlModel = new ArrayList<clsProFormaInvoiceTaxDtlModel>();
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblproformainvprodtaxdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strInvCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strInvCode", column = @Column(name = "strInvCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsProFormaInvoiceProdTaxDtl> listInvProdTaxDtlModel = new ArrayList<clsProFormaInvoiceProdTaxDtl>();
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblproforminvsalesorderdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strInvCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strInvCode", column = @Column(name = "strInvCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
