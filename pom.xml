@@ -179,7 +179,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.9.6</version>
 		</dependency>
-		
+		<dependency> 
+			<groupId>com.fasterxml.jackson.datatype</groupId> 
+			<artifactId>jackson-datatype-hibernate5</artifactId> 
+			<version>2.9.6</version> 
+		</dependency>
 		<dependency>
 		    <groupId>javax.activation</groupId>
 		    <artifactId>activation</artifactId>

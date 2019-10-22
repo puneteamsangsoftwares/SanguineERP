@@ -68,7 +68,7 @@ public class clsAttachDocController {
 		String strModuleName = objGlobal.funGetModuleName(moduleNo);
 		String transactionName = req.getParameter("transactionName").toString();
 		try {
-			Blob blob = null;//Hibernate.createBlob(file.getInputStream());
+			Blob blob = Hibernate.createBlob(file.getInputStream());
 			if (blob.length() > 0) {
 				clsAttachDocModel objModel = new clsAttachDocModel();
 				// objModel.setStrActualFileName(objBean.getStrActualFileName());

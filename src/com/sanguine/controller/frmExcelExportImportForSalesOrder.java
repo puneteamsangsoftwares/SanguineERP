@@ -12,6 +12,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase.IOFileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,7 +87,7 @@ public class frmExcelExportImportForSalesOrder {
 
 	@SuppressWarnings({ "rawtypes" })
 	@RequestMapping(value = "/ExcelExportImportSales", method = RequestMethod.POST)
-	public @ResponseBody List funUploadExcel(@RequestParam("file") MultipartFile excelfile, HttpServletRequest request, HttpServletResponse res) {
+	public @ResponseBody List funUploadExcel(@RequestParam("file") MultipartFile excelfile, HttpServletRequest request, HttpServletResponse res) throws IOFileUploadException {
 		List list = new ArrayList<>();
 		String formname = request.getParameter("formname").toString();
 		try {

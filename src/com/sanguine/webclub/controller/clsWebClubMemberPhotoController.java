@@ -131,7 +131,7 @@ public class clsWebClubMemberPhotoController {
 			byte[] imageBytes = byteArrayOutputStream.toByteArray();
 			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
 
-			Blob blobProdImage = null;//Hibernate.createBlob(byteArrayInputStream);
+			Blob blobProdImage = Hibernate.createBlob(byteArrayInputStream);
 			objModel.setStrMemberImage(blobProdImage);
 
 			if (fileImageIcon.exists()) {

@@ -22,6 +22,7 @@
 		var urlHits;
 		var listRow=0;
 		var steditable;
+		var clickCount=0;
 		
 		$(document).ready(function () {
 			$("#txtToLocCode").focus();
@@ -697,6 +698,8 @@
 		 */
 		function funCallFormAction() 
 		{
+			if(clickCount==0){
+				clickCount=clickCount+1;
 			var table = document.getElementById("tblProduct");
 			var rowCount = table.rows.length;	
 			if ($("#txtSTDate").val().trim().length==0) 
@@ -728,22 +731,45 @@
 					alert("Location From and Location To cannot be same");
 					return false;
 				}
-			 if(rowCount<1)
+			   if(rowCount==0)
 				{
 					alert("Please Add Product in Grid");
 					$('#txtProdCode').focus();
 					return false;
 				}
+			 
+			   var stkDate=$("#txtSTDate").val();
+				if(funGetMonthEnd(document.all("txtFromLocCode").value,stkDate)!=true)
+				{
+	            	alert("Month End Done For Selected Month");
+		            return false;
+	            }
+				else
+				{
+					return true;
+				}
+				
+			   var stkDate=$("#txtSTDate").val();
+				if(funGetMonthEnd(document.all("txtToLocCode").value,stkDate)!=true)
+				{
+	            	alert("Month End Done For Selected Month");
+		            return false;
+	            }
+				else
+				{
+					return true;
+				}
+				
+			 
 			/*  if(  $("#cmbAgainst").val() == null || $("#cmbAgainst").val().trim().length == 0 )
 			 {
 			 		alert("Please Select Against");
 					return false;
 			 } */
-		 
-			else
-				{
-					 return true;
-				}
+		}
+			else{
+				return false;
+			}
 		}
 		
 		function funLocCustomerLinkedProductData()
@@ -819,7 +845,47 @@
 		
 		
 		
-		
+		//Check Month End done or not
+		function funGetMonthEnd(strLocCode,transDate) {
+			var strMonthEnd="";
+			var searchUrl = "";
+			searchUrl = getContextPath()+ "/checkMonthEnd.html?locCode=" + strLocCode+"&GRNDate="+transDate;
+
+			$.ajax({
+				type : "GET",
+				url : searchUrl,
+				dataType : "json",
+				async: false,
+				success : function(response) {
+					strMonthEnd=response;
+					//alert(strMonthEnd);
+				},
+				error : function(jqXHR, exception) {
+					if (jqXHR.status === 0) {
+						alert('Not connect.n Verify Network.');
+					} else if (jqXHR.status == 404) {
+						alert('Requested page not found. [404]');
+					} else if (jqXHR.status == 500) {
+						alert('Internal Server Error [500].');
+					} else if (exception === 'parsererror') {
+						alert('Requested JSON parse failed.');
+					} else if (exception === 'timeout') {
+						alert('Time out error.');
+					} else if (exception === 'abort') {
+						alert('Ajax request aborted.');
+					} else {
+						alert('Uncaught Error.n' + jqXHR.responseText);
+					}
+				}
+			});
+			if(strMonthEnd=="1" || strMonthEnd=="-1")
+				return false;
+			if(strMonthEnd=="0")
+				return true;
+		}
+    
+    
+    
 		
 		
 		

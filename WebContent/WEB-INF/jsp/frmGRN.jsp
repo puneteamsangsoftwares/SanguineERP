@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
-	<%-- <%@ taglib prefix="tab" uri="http://ditchnet.org/jsp-tabs-taglib" %> --%>
+	<%@ taglib prefix="tab" uri="http://ditchnet.org/jsp-tabs-taglib" %>
 	<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 	<%@ taglib uri="http://www.springframework.org/tags" prefix="sp"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -2846,7 +2846,7 @@
 		function funGetMonthEnd(strLocCode,transDate) {
 			var strMonthEnd="";
 			var searchUrl = "";
-			searchUrl = getContextPath()+ "/checkMonthEnd.html?locCode=" + strLocCode+"&GRNDate="+transDate;;
+			searchUrl = getContextPath()+ "/checkMonthEnd.html?locCode=" + strLocCode+"&GRNDate="+transDate;
 
 			$.ajax({
 				type : "GET",

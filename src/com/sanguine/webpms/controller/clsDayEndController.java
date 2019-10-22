@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.ibm.icu.text.SimpleDateFormat;
 import com.sanguine.controller.clsGlobalFunctions;
+import com.sanguine.controller.clsSendEmailController;
 import com.sanguine.model.clsCompanyMasterModel;
 import com.sanguine.model.clsPropertyMaster;
 import com.sanguine.service.clsGlobalFunctionsService;
@@ -81,8 +82,8 @@ public class clsDayEndController {
 	@Autowired
 	private clsPropertyMasterService objPropertyMasterService;
 	
-	/*@Autowired
-	private clsSendEmailController objSendEmail;*/
+	@Autowired
+	private clsSendEmailController objSendEmail;
 
 	// Open DayEnd
 	@RequestMapping(value = "/frmDayEnd", method = RequestMethod.GET)
@@ -447,7 +448,7 @@ public class clsDayEndController {
 							}
 						}
 					}
-						//objSendEmail.doSendReservationEmail(strReservationNo,strReservationMessege,strModuleName,req);
+						objSendEmail.doSendReservationEmail(strReservationNo,strReservationMessege,strModuleName,req);
 						
 						
 					}

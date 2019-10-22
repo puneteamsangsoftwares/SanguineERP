@@ -253,7 +253,7 @@
 				funSetRoomNo(code);
 			break;
 			
-			case 'roomByRoomTypeForReservation': 
+			case 'roomByRoomType': 
 				funSetRoomNo(code);
 				break;
 			
@@ -1369,7 +1369,7 @@
 			}
 		else
 			{
-			if(transactionName=="roomByRoomTypeForReservation" && condition!=" ")
+			if(transactionName=="roomByRoomType" && condition!=" ")
 			{
 				window.open("searchform.html?formname="+fieldName+"&strRoomTypeCode="+condition+"&searchText=","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
 			
@@ -1848,9 +1848,11 @@
  	     row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" id=\"strTypeRoomDesc."+(rowCount)+"\" value='"+list[2]+"' />";
  	     row.insertCell(2).innerHTML= "<input type=\"text\"    style=\"text-align:right;\"  name=\"listReservationRoomRateDtl["+(rowCount)+"].dblRoomRate\" id=\"dblRoomRate."+(rowCount)+"\" onchange =\"Javacsript:funCalculateTotals()\" value='"+list[1]+"' >";
  	     row.insertCell(3).innerHTML= "<input type=\"hidden\" class=\"Box \"  name=\"listReservationRoomRateDtl["+(rowCount)+"].strRoomType\" id=\"strRoomType."+(rowCount)+"\" value='"+list[3]+"' >";
+ 	  
+ 	     /* totalTerrAmt =list[1];
+ 	  	 $("#txtTotalAmt").val(totalTerrAmt); */
  	   
- 	     totalTerrAmt =totalTerrAmt + list[1];
- 	    $("#txtTotalAmt").val(totalTerrAmt);
+ 	  	
 		}
 		 
 	}
@@ -2180,7 +2182,7 @@
 				<td><input type="text" id="txtRoomTypeCode" name="txtRoomTypeCode" Class="searchTextBox" ondblclick="funHelp('roomType')" /></td>
 				
 			    <td><label id="lblRoomNo">Room</label></td>
-			    <td><input type="text" id="txtRoomNo" name="txtRoomNo" path="strRoomNo" ondblclick="funHelp1('roomByRoomTypeForReservation')" Class="searchTextBox"/></td> 
+			    <td><input type="text" id="txtRoomNo" name="txtRoomNo" path="strRoomNo" ondblclick="funHelp1('roomByRoomType')" Class="searchTextBox"/></td> 
 				 
 				<td><label id="lblExtraBed">Extra Bed</label></td>
 				<td><input type="text" id="txtExtraBed" name="txtExtraBed" Class="searchTextBox" ondblclick="funHelp('extraBed')" /></td>
@@ -2296,8 +2298,8 @@
 	
 	</div>
 	<div style="margin:auto;width: 25%; float:right; margin-right:100px; ">
-	<label>Total</label>
-	<td><s:input id="txtTotalAmt" path=""  readonly="true" cssClass="shortTextBox"/></td>
+	<!-- <label>Total</label> -->
+	<%-- <td><s:input id="txtTotalAmt" path="" style="text-align:right;" readonly="true" cssClass="shortTextBox"/></td> --%>
 	</div>
 	</div>
 	

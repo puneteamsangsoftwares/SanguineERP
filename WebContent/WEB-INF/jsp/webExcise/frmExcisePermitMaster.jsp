@@ -166,7 +166,7 @@
 				
 				<td>Is Lift Time</td>
 				<td colspan="3">
-					<s:checkbox id="txtLifeTime" path="isLifeTime" value="Life Time" />
+					<s:input  type="checkbox" id="txtLifeTime" path="isLifeTime" value="Life Time" />
 				</td>
 			</tr>
 			<tr>

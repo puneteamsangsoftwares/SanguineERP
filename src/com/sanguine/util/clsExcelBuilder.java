@@ -14,14 +14,14 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.view.document.AbstractXlsView;
+import org.springframework.web.servlet.view.document.AbstractExcelView;
 
-public class clsExcelBuilder extends AbstractXlsView {
+public class clsExcelBuilder extends AbstractExcelView {
 
 	@SuppressWarnings({ "rawtypes" })
-	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@Override
+	protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// get data model which is passed by the Spring container
 
 		List Datalist = (List) model.get("stocklist");
@@ -38,7 +38,7 @@ public class clsExcelBuilder extends AbstractXlsView {
 		}
 
 		// create a new Excel sheet
-		HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Sheet");
+		HSSFSheet sheet = workbook.createSheet("Sheet");
 		sheet.setDefaultColumnWidth(20);
 
 		// create style for header cells
@@ -85,5 +85,4 @@ public class clsExcelBuilder extends AbstractXlsView {
 		return str.matches("-?\\d+(\\.\\d+)?"); // match a number with optional
 												// '-' and decimal.
 	}
-
 }

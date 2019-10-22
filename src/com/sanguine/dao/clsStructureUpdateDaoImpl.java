@@ -1046,7 +1046,7 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		funExecuteQuery(sql);
 		
 		
-		/*----------------WebStock Forms only---------------------------*/    
+		/*----------------WebStock Forms only---------------------------*/
 		String strIndustryType = "",strWebStockModule="";
 		List<clsCompanyMasterModel> listClsCompanyMasterModel = objSetupMasterService.funGetListCompanyMasterModel();
 		if (listClsCompanyMasterModel.size() > 0) {
@@ -1365,6 +1365,8 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ " ('frmDeleteTransaction', 'Delete Transaction', 'Tools', 10, 'L', 47, 14, '1', 'delete trasaction.png', '6', 1, '1', '1', 'NO', 'NO', 'frmDeleteTransaction.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y')";
 		funExecuteQuery(sql);
 		
+		sql = "delete from tbltreemast  where strFormName='frmStockReq'";
+		funExecuteQuery(sql);
 		}
 		
 		// //--------------------END----------------------------/////

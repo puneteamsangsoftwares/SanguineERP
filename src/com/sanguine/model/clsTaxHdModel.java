@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -16,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.CollectionOfElements;
 
 import com.sanguine.base.model.clsBaseModel;
 
@@ -33,14 +34,14 @@ public class clsTaxHdModel extends clsBaseModel implements Serializable {
 		strClientCode = clsTaxHdModel_ID.getStrClientCode();
 	}
 
-	@ElementCollection(fetch=FetchType.LAZY)
+	@CollectionOfElements(fetch = FetchType.LAZY)
 	@JoinTable(name = "tbltaxsubgroupdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strTaxCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strTaxCode", column = @Column(name = "strTaxCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	List<clsTaxSubGroupDtl> listTaxSGDtl = new ArrayList<clsTaxSubGroupDtl>();
 
 	
-	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionOfElements(fetch = FetchType.EAGER)
 	@JoinTable(name = "tbltaxsettlement", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strTaxCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strTaxCode", column = @Column(name = "strTaxCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")),@AttributeOverride(name = "strSettlementCode", column = @Column(name = "strSettlementCode")) })

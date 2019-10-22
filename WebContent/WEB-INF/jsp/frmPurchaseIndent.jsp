@@ -17,6 +17,7 @@ var ReceivedconversionUOM="";
 var issuedconversionUOM="";
 var recipeconversionUOM="";
 var ConversionValue=0;
+var clickCount=0;
 /**
  * Ready Function for Ajax Waiting and reset form
  */
@@ -752,6 +753,8 @@ $(document).ready(function(){
 	 */
 	function funCallFormAction(actionName,object) 
 	{	
+		if(clickCount==0){
+			clickCount=clickCount+1;
 		var table = document.getElementById("tblProdDet");
 		var rowCount = table.rows.length;		 
 		
@@ -777,6 +780,10 @@ $(document).ready(function(){
 			return true;
 		
 		}
+	}
+	else{
+		return false;
+	}
 	}
 	
 	function funGetKeyCode(event,controller) {
@@ -1029,7 +1036,7 @@ $(document).ready(function(){
 			<tr>
 				<td>Close Purchase Indent</td>
 				<td>
-					<s:checkbox id="cbClosePI"  value="Yes" path="strClosePI" />
+					<s:input id="cbClosePI" type="checkbox" value="Yes" path="strClosePI" />
 				</td>
 				<td width="5%"><label>Narration </label></td>
 				<td width="27%"><s:textarea cssStyle="width:100%" path="strNarration" id="txtNarration"/></td>

@@ -225,16 +225,14 @@ public class clsGlobalFunctionsServiceImpl implements clsGlobalFunctionsService 
 	}
 
 	@Override
-	@Transactional(value = "hibernateTransactionManager")
-/*	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
 	public void funSaveAuditDtl(clsAuditDtlModel auditDtlModel) {
 		objGlobalDao.funSaveAuditDtl(auditDtlModel);
 
 	}
 
 	@Override
-	/*@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)*/
-	@Transactional(readOnly = true, propagation=Propagation.NOT_SUPPORTED)
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
 	public void funSaveAuditHd(clsAuditHdModel auditHdModel) {
 		objGlobalDao.funSaveAuditHd(auditHdModel);
 

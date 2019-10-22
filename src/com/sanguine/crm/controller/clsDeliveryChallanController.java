@@ -62,6 +62,7 @@ import com.sanguine.service.clsSetupMasterService;
 import com.sanguine.service.clsSubGroupMasterService;
 import com.sanguine.service.clsUOMService;
 import com.sanguine.util.clsReportBean;
+import com.sanguine.webbanquets.model.clsBanquetBookingModelHd;
 
 @Controller
 public class clsDeliveryChallanController {

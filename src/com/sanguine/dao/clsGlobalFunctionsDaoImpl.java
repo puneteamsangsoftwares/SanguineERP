@@ -993,7 +993,7 @@ public class clsGlobalFunctionsDaoImpl implements clsGlobalFunctionsDao {
 		return listResult;
 	}
 
-	/*@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List funGetListReportQuery(String sql) {
 		final AliasToEntityMapResultTransformer INSTANCE = new AliasToEntityMapResultTransformer();
@@ -1001,7 +1001,7 @@ public class clsGlobalFunctionsDaoImpl implements clsGlobalFunctionsDao {
 		query.setResultTransformer(INSTANCE);
 		List<Map<String, Object>> aliasToValueMapList = query.list();
 		return aliasToValueMapList;
-	}*/
+	}
 
 	@SuppressWarnings("finally")
 	@Override
@@ -1267,11 +1267,5 @@ public class clsGlobalFunctionsDaoImpl implements clsGlobalFunctionsDao {
 		}
 
 		return currencyConversion;
-	}
-
-	@Override
-	public List funGetListReportQuery(String sql) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

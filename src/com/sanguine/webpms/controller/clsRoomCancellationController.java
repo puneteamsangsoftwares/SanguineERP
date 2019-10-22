@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
+import com.sanguine.webbanquets.model.clsBanquetBookingModelHd;
 import com.sanguine.webpms.bean.clsRoomCancellationBean;
 import com.sanguine.webpms.model.clsBookingTypeHdModel;
 import com.sanguine.webpms.model.clsReservationDtlModel;

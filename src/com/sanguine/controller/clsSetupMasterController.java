@@ -813,7 +813,8 @@ public class clsSetupMasterController {
 						.funAddUpdatePropertySetupModel(PropertySetupModel);
 				// System.out.println(file.getBytes());
 				if (file.getSize() != 0) {
-					Blob blobProdImage = null;//Hibernate.createBlob(file.getInputStream());
+					Blob blobProdImage = Hibernate.createBlob(file
+							.getInputStream());
 					clsCompanyLogoModel comLogo = new clsCompanyLogoModel();
 					comLogo.setStrCompanyCode(companyCode);
 					comLogo.setStrCompanyLogo(blobProdImage);

@@ -410,6 +410,7 @@ public class clsProFormaInvoice {
 				String userCode = req.getSession().getAttribute("usercode").toString();
 				String propCode = req.getSession().getAttribute("propertyCode").toString();
 				String startDate = req.getSession().getAttribute("startDate").toString();
+				String strModuleName = req.getSession().getAttribute("selectedModuleName").toString();
 				double dblCurrencyConv = 1.0;
 				
 				Date today = Calendar.getInstance().getTime();
@@ -462,10 +463,13 @@ public class clsProFormaInvoice {
 
 				if (objBean.getDblTaxAmt() != null) {
 					taxamt = objBean.getDblTaxAmt();
+					objHDModel.setDblTaxAmt(taxamt);
 				}
+				else
+				{
 				objHDModel.setDblTotalAmt(0.0);
 				objHDModel.setDblTaxAmt(0.0);
-
+				}
 				objHDModel.setStrCurrencyCode(objSetup.getStrCurrencyCode());
 				clsCurrencyMasterModel objModel = objCurrencyMasterService.funGetCurrencyMaster(objSetup.getStrCurrencyCode(), clientCode);
 				if (objModel == null) {
@@ -621,10 +625,25 @@ public class clsProFormaInvoice {
 						if (objInvDtl.getDblWeight() > 0) {
 							prodRateForTaxCal = objInvDtl.getDblUnitPrice() * objInvDtl.getDblWeight() * dblCurrencyConv;
 						}
-						String prodTaxDtl = objInvDtl.getStrProdCode() + "," + prodRateForTaxCal + "," + objInvDtl.getStrCustCode() + "," + objInvDtl.getDblQty() + ",0";
-						Map<String, String> hmProdTaxDtl = objGlobalFunctions.funCalculateTax(prodTaxDtl, "Sales", objBean.getDteInvDate(), "0",objBean.getStrSettlementCode(), req);
+						String prodTaxDtl="";
+						if(objInvDtl.getStrCustCode().equals(""))
+						{
+							prodTaxDtl = objInvDtl.getStrProdCode() + "," + prodRateForTaxCal + "," + objBean.getStrCustCode() + "," + objInvDtl.getDblQty() + ",0";
+						}
+						else
+						{
+							prodTaxDtl = objInvDtl.getStrProdCode() + "," + prodRateForTaxCal + "," + objInvDtl.getStrCustCode() + "," + objInvDtl.getDblQty() + ",0";
+						}
+						Map<String, String> hmProdTaxDtl = null;
+						if(strModuleName.equalsIgnoreCase("7-WebBanquet")){
+							hmProdTaxDtl = objGlobalFunctions.funCalculateTax(prodTaxDtl, "Banquet", objBean.getDteInvDate(), "0",objBean.getStrSettlementCode(), req);
+						}
+						else
+						{
+							hmProdTaxDtl = objGlobalFunctions.funCalculateTax(prodTaxDtl, "Sales", objBean.getDteInvDate(), "0",objBean.getStrSettlementCode(), req);
+						
 						System.out.println("Map Size= " + hmProdTaxDtl.size());
-
+						}
 						Map<String, clsProFormaInvoiceTaxDtlModel> hmInvTaxDtl = new HashMap<String, clsProFormaInvoiceTaxDtlModel>();
 						if (hmInvCustTaxDtl.containsKey(key)) {
 							hmInvTaxDtl = hmInvCustTaxDtl.get(key);
@@ -919,7 +938,7 @@ public class clsProFormaInvoice {
 						objHDModel.setDblTotalAmt(totalAmt);
 					}
 					objHDModel.setDblSubTotalAmt(subTotal);
-					objHDModel.setDblTaxAmt(taxAmt);
+					//objHDModel.setDblTaxAmt(taxAmt);
 					objHDModel.setDblGrandTotal(grandTotal);
 
 					List<clsProFormaInvSalesOrderDtl> listInvSODtl = new ArrayList<clsProFormaInvSalesOrderDtl>();
@@ -3023,21 +3042,45 @@ public class clsProFormaInvoice {
 				if (objSetup == null) {
 					objSetup = new clsPropertySetupModel();
 				}
-				String reportName = servletContext.getRealPath("/WEB-INF/reports/webbanquet/rptProFormaInvoiceSlipFormat5ReportForBanquet.jrxml");
+				String reportName="";
+				if(InvCode.charAt(2)=='I')
+				{
+					reportName = servletContext.getRealPath("/WEB-INF/reports/webbanquet/rptInvoiceSlipFormat5ReportForBanquet.jrxml");
+				}
+				else
+				{
+					reportName = servletContext.getRealPath("/WEB-INF/reports/webbanquet/rptProFormaInvoiceSlipFormat5ReportForBanquet.jrxml");
+				}
+				
 				String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
 				HashMap hm = new HashMap();
 				ArrayList fieldList = new ArrayList();
 				String strAuthLevel1="",strAuthLevel2="",strUserCreated="";
 				
+				double dblPGrandTotal=0.0;
+				double dblPTaxTotal=0.0;
+				double dblPDiscount=0.0;
+				double pdblSubTotal=0.0;
+				
 				hm.put("InvCode", InvCode);
 				hm.put("dteInvDate", dteInvDate);
 
-				String sqlHd = " select a.strInvCode,a.dteInvDate,b.strPName,b.strSAdd1,b.strSAdd2,b.strSCity,b.strSPin,b.strSState " //7
+				String sqlHd = "";
+				if(InvCode.charAt(2)=='I')
+				{
+					sqlHd = " select a.strInvCode,a.dteInvDate,b.strPName,b.strSAdd1,b.strSAdd2,b.strSCity,b.strSPin,b.strSState " //7
+							+ ",b.strSCountry,a.strVehNo,a.dblSubTotalAmt,a.dblTaxAmt,a.strDulpicateFlag,b.strECCNo,a.dblTotalAmt,a.dblGrandTotal " //15
+							+ ",b.strVAT,b.strMAdd1,b.strMAdd2,b.strMCity,b.strMPin,b.strMState,b.strMCountry,a.strPONo,a.strVehNo,a.dblDiscountAmt "//25
+							+ ",a.strAuthLevel1,a.strAuthLevel2 ,a.strUserCreated "
+							+ " from tblinvoicehd a,tblpartymaster b where a.strInvCode='" + InvCode + "'  " + " and a.strCustCode=b.strPCode  and a.strClientCode='" + clientCode + "' and a.strClientCode=b.strClientCode ";
+				}
+				else{
+				sqlHd = " select a.strInvCode,a.dteInvDate,b.strPName,b.strSAdd1,b.strSAdd2,b.strSCity,b.strSPin,b.strSState " //7
 						+ ",b.strSCountry,a.strVehNo,a.dblSubTotalAmt,a.dblTaxAmt,a.strDulpicateFlag,b.strECCNo,a.dblTotalAmt,a.dblGrandTotal " //15
 						+ ",b.strVAT,b.strMAdd1,b.strMAdd2,b.strMCity,b.strMPin,b.strMState,b.strMCountry,a.strPONo,a.strVehNo,a.dblDiscountAmt "//25
 						+ ",a.strAuthLevel1,a.strAuthLevel2 ,a.strUserCreated "
 						+ " from tblproformainvoicehd a,tblpartymaster b where a.strInvCode='" + InvCode + "'  " + " and a.strCustCode=b.strPCode  and a.strClientCode='" + clientCode + "' and a.strClientCode=b.strClientCode ";
-
+				}
 				List list = objGlobalFunctionsService.funGetList(sqlHd, "sql");
 				if (!list.isEmpty()) {
 					Object[] arrObj = (Object[]) list.get(0);
@@ -3081,20 +3124,40 @@ public class clsProFormaInvoice {
 
 				String[] date = dteInvDate.split("-");
 				dteInvDate = date[2] + "-" + date[1] + "-" + date[0];
-
-				
+				double dblTotaltaxAmt = 0.00;
+				String strInvCode = "";
 				String strModuleName = req.getSession().getAttribute("selectedModuleName").toString();
 				String webStockDB=req.getSession().getAttribute("WebStockDB").toString();
 				if(strModuleName.equalsIgnoreCase("7-WebBanquet"))
 				{
+					String sqlDetailQ="";
 					double taxAmt = 0.00;
-					String sqlDetailQ = "SELECT  b.dblQty,c.strDocName,c.strType,b.dblPrice,b.dblQty *b.dblPrice AS amount,b.strProdCode,a.dblDiscountAmt,a.dblGrandTotal "
-							+ "FROM "+webStockDB+".tblproformainvoicehd a "
-							+ "LEFT OUTER "
-							+ "JOIN "+webStockDB+".tblproformainvoicedtl b ON a.strInvCode=b.strInvCode "
-							+ "LEFT OUTER "
-							+ "JOIN tblbqbookingdtl c ON b.strProdCode=c.strDocNo "
-							+ "WHERE a.strInvCode='"+InvCode+"' AND a.strClientCode='"+clientCode+"' group by c.strDocNo";
+					if(InvCode.charAt(2)=='I')
+					{
+						sqlDetailQ = "SELECT  b.dblQty,c.strDocName,c.strType,b.dblPrice,b.dblQty *b.dblPrice AS amount,b.strProdCode,a.dblDiscountAmt,a.dblGrandTotal,d.dblValue,a.strInvCode "
+								+ "FROM "+webStockDB+".tblinvoicehd a "
+								+ "LEFT OUTER "
+								+ "JOIN "+webStockDB+".tblinvoicedtl b ON a.strInvCode=b.strInvCode "
+								+ "LEFT OUTER "
+								+ "JOIN tblbqbookingdtl c ON b.strProdCode=c.strDocNo "
+								+ "LEFT OUTER "
+								+ "JOIN "+webStockDB+".tblinvprodtaxdtl d on c.strDocNo =d.strProdCode "
+								+ "WHERE a.strInvCode='"+InvCode+"' AND a.strClientCode='"+clientCode+"' AND d.strDocNo like 'T%' GROUP BY c.strDocNo";
+					}
+					else
+					{
+						sqlDetailQ = "SELECT  b.dblQty,c.strDocName,c.strType,b.dblPrice,b.dblQty *b.dblPrice AS amount,b.strProdCode,a.dblDiscountAmt,a.dblGrandTotal,d.dblValue,a.strInvCode "
+								+ "FROM "+webStockDB+".tblproformainvoicehd a "
+								+ "LEFT OUTER "
+								+ "JOIN "+webStockDB+".tblproformainvoicedtl b ON a.strInvCode=b.strInvCode "
+								+ "LEFT OUTER "
+								+ "JOIN tblbqbookingdtl c ON b.strProdCode=c.strDocNo "
+								+ "LEFT OUTER "
+								+ "JOIN "+webStockDB+".tblproformainvprodtaxdtl d on c.strDocNo =d.strProdCode "
+								+ "WHERE a.strInvCode='"+InvCode+"' AND a.strClientCode='"+clientCode+"' AND d.strDocNo like 'T%' GROUP BY c.strDocNo";
+					}
+					
+					
 					
 						list = objGlobalFunctionsService.funGetListModuleWise(sqlDetailQ, "sql");
 						if (!list.isEmpty()) {
@@ -3110,11 +3173,20 @@ public class clsProFormaInvoice {
 								objBean.setDblDiscountAmt(Double.parseDouble(arrObj[6].toString()));
 								objBean.setDblTotalAmt(Double.parseDouble(arrObj[3].toString())*Double.parseDouble(arrObj[0].toString()));
 								objBean.setDblGrandTotal(Double.parseDouble(arrObj[7].toString()));
-								
+								strInvCode=arrObj[8].toString();
 								fieldList.add(objBean);
-								objBean.setDblTaxAmt(taxAmt);
-
+								objBean.setDblTaxAmt(Double.parseDouble(arrObj[8].toString()));
+								dblPGrandTotal = Double.parseDouble(arrObj[7].toString());
+								dblPTaxTotal = dblPTaxTotal+Double.parseDouble(arrObj[8].toString());
+								pdblSubTotal=pdblSubTotal+Double.parseDouble(arrObj[3].toString())*Double.parseDouble(arrObj[0].toString());
 							}
+						}
+						
+						String sqlTotalTax = "select a.dblTaxAmt from "+webStockDB+".tblproformainvoicehd a where a.strInvCode='"+strInvCode+"' and a.strClientCode='"+clientCode+"'";
+						List listTotalTax = objGlobalFunctionsService.funGetListModuleWise(sqlTotalTax, "sql");
+						if(listTotalTax!=null && listTotalTax.size()>0)
+						{
+							dblTotaltaxAmt = Double.parseDouble(listTotalTax.get(0).toString());
 						}
 				}
 				else
@@ -3194,7 +3266,10 @@ public class clsProFormaInvoice {
 				hm.put("strAuthLevel1", strAuthLevel1);
 				hm.put("strAuthLevel2", strAuthLevel2);
 				hm.put("strUserCreated", strUserCreated);
-
+				hm.put("dblPGrandTotal", dblPGrandTotal);
+				hm.put("dblPTaxTotal", dblPTaxTotal);
+				hm.put("pdblSubTotal", pdblSubTotal);
+				
 				JasperDesign jd = JRXmlLoader.load(reportName);
 				JasperReport jr = JasperCompileManager.compileReport(jd);
 
@@ -3367,6 +3442,7 @@ public class clsProFormaInvoice {
 				hm.put("totalInvoiceValue", totalInvoiceValue);
 				hm.put("strGSTNo.", objSetup.getStrCST());
 				hm.put("custGSTNo", custGSTNo);
+				
 
 				// ////////////
 

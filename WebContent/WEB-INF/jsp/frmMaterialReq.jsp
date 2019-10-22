@@ -22,6 +22,8 @@
 	var fieldName,listRow=0;/**
 	 * Ready Function for Ajax Waiting
 	 */
+	 var clickCount=0;
+
 	$(document).ready(function() {
 		resetForms('matReq');
 		$("#txtProdCode").focus();
@@ -915,6 +917,9 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 			 */
 			function funCallFormAction(actionName,object) 
 			{	
+				if(clickCount==0){
+					clickCount=clickCount+1;
+				
 				if(!fun_isDate($("#txtReqDate").val())){
 						alert('Invalid Requisition Date');
 			            $("#txtReqDate").focus();
@@ -972,6 +977,10 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 				{
 					return true;
 					
+				}
+			}
+				else{
+					return false;
 				}
 			}
 			
@@ -1586,8 +1595,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 				<span id="spStockUOM"></span>
 				</td>
 				
-				<td style="display: none";>Save Standard List &nbsp; &nbsp; &nbsp;<s:checkbox id="cbSaveStd" value="Y"  path="strSaveSatandard"
-					  /></td>
+				<td style="display: none";>Save Standard List &nbsp; &nbsp; &nbsp;<s:input id="cbSaveStd" value="Y"  path="strSaveSatandard"
+					type="checkbox"  /></td>
 					<td><input type="button" value="Load Standard" onclick="funLoadStandardProduct()" class="form_button"></input>  </td>
 				<td colspan="3"><input type="hidden" id="hidNonStkableItem"/></td>
 
@@ -1711,8 +1720,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 			</tr>
 			<tr>
 				<td>Close Requisition</td>
-				<td><s:checkbox id="cbCloseReq" value="Yes" style="width: 36px;" path="strCloseReq"
-					 onclick="return cbCloseReq_onclick()" />
+				<td><s:input id="cbCloseReq" value="Yes" style="width: 36px;" path="strCloseReq"
+					type="checkbox" onclick="return cbCloseReq_onclick()" />
 				<td>Narration</td>
 				<td><s:textarea id="txtNarration" cols="50" rows="3"
 						path="strNarration" value="${command.strNarration}"

@@ -17,11 +17,34 @@ $(document).ready(function(){
 	<script type="text/javascript">
 	
 		var fieldName;
+		
+		
+		var clickCount =0.0;	
+		function funCallFormAction(actionName,object) 
+			{
+				
+				if ($("#txtAttName").val()=="") 
+				    {
+					 alert('Enter Attribute Name');
+					 $("#txtAttName").focus();
+					 return false;  
+				   
+				}
+			if(clickCount==0){
+				clickCount=clickCount+1;
+			}
+				else
+				{
+					return false;
+				}
+				return true; 
+			}
 		function funResetFields()
 		{
 			
 			$("#txtAttName").focus();
 			$("#lblParentAttName").text("");
+		}
 			var message='';
 			<%if (session.getAttribute("success") != null) {
 				            if(session.getAttribute("successMessage") != null){%>
@@ -36,7 +59,7 @@ $(document).ready(function(){
 				alert("Data Save successfully\n\n"+message);
 			<%
 			}}%>
-	    }
+	    
 		
 		function funSetAttribute(code)
 		{
@@ -228,8 +251,7 @@ $(document).ready(function(){
 		<br /><br />
 		
 		<p align="center">
-			<input type="submit" value="Submit"  class="form_button"
-				onclick="return funValidateFields()" /> 
+			<input type="submit" value="Submit"  class="form_button"onclick="return funCallFormAction('submit',this);" /> 
 				<input type="reset"
 				value="Reset" class="form_button" onclick="funResetFields()"/>
 		</p>

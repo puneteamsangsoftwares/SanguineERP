@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -16,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.CollectionOfElements;
 
 @Entity
 @Table(name = "tblmishd")
@@ -47,7 +48,7 @@ public class clsMISHdModel implements Serializable {
 	@AttributeOverrides({ @AttributeOverride(name = "strMISCode", column = @Column(name = "strMISCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsMISDtlModel> clsMISDtlModel = new ArrayList<clsMISDtlModel>();;
 
-	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionOfElements(fetch = FetchType.EAGER)
 	@JoinTable(name = "tblmisdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strMISCode") })
 	public List<clsMISDtlModel> getClsMISDtlModel() {
 		return clsMISDtlModel;

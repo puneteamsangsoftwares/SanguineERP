@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -16,6 +15,8 @@ import javax.persistence.IdClass;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.CollectionOfElements;
 
 @Entity
 @Table(name = "tblreceipthd")
@@ -31,19 +32,19 @@ public class clsReceiptHdModel implements Serializable {
 		strClientCode = objModelID.getStrClientCode();
 	}
 
-	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionOfElements(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblreceiptdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strVouchNo") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strVouchNo", column = @Column(name = "strVouchNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsReceiptDtlModel> listReceiptDtlModel = new ArrayList<clsReceiptDtlModel>();
 
-	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionOfElements(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblreceiptdebtordtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strVouchNo") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strVouchNo", column = @Column(name = "strVouchNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsReceiptDebtorDtlModel> listReceiptDebtorDtlModel = new ArrayList<clsReceiptDebtorDtlModel>();
 
-	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionOfElements(fetch = FetchType.EAGER)
 	@JoinTable(name = "tblreceiptinvdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strVouchNo") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strVouchNo", column = @Column(name = "strVouchNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })

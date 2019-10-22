@@ -34,6 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sanguine.base.service.intfBaseService;
 import com.sanguine.controller.clsGlobalFunctions;
+import com.sanguine.controller.clsSendEmailController;
 import com.sanguine.model.clsCompanyMasterModel;
 import com.sanguine.model.clsPropertyMaster;
 import com.sanguine.service.clsGlobalFunctionsService;
@@ -111,8 +112,8 @@ public class clsReservationController {
 	@Autowired
 	private intfBaseService objBaseService;
 	
-	/*@Autowired
-	private clsSendEmailController objSendEmail;*/
+	@Autowired
+	private clsSendEmailController objSendEmail;
 	
 	// Open Reservation
 	@RequestMapping(value = "/frmReservation", method = RequestMethod.GET)
@@ -654,7 +655,7 @@ public class clsReservationController {
 		}
 	}
 		
-		//objSendEmail.doSendReservationEmail(strReservationNo,strReservationMessege,strModuleName,req);
+		objSendEmail.doSendReservationEmail(strReservationNo,strReservationMessege,strModuleName,req);
 		
 		
 		

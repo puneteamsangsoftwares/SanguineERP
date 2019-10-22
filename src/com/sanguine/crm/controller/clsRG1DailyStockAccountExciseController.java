@@ -31,6 +31,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -40,13 +41,12 @@ import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.document.AbstractXlsView;
+import org.springframework.web.servlet.view.document.AbstractExcelView;
 
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.model.clsPropertySetupModel;
@@ -56,7 +56,7 @@ import com.sanguine.util.clsRG1DailyStockAccountReportDtl;
 import com.sanguine.util.clsReportBean;
 
 @Controller
-public class clsRG1DailyStockAccountExciseController extends AbstractXlsView {
+public class clsRG1DailyStockAccountExciseController extends AbstractExcelView {
 
 	@Autowired
 	private clsSetupMasterService objSetupMasterService;
@@ -88,7 +88,7 @@ public class clsRG1DailyStockAccountExciseController extends AbstractXlsView {
 	@SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
 	@Override
 	@RequestMapping(value = "/rptRG1DailyStockAccount", method = RequestMethod.GET)
-	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
 		String fromDate = request.getParameter("dtFromDate").toString();
@@ -556,7 +556,7 @@ public class clsRG1DailyStockAccountExciseController extends AbstractXlsView {
 				// hmRG1rpt.put(chp, listOBjModel);
 
 				List listStock = new ArrayList();
-				HSSFSheet sheet = (HSSFSheet) workbook.createSheet(subGroupDesc);
+				HSSFSheet sheet = workbook.createSheet(subGroupDesc);
 				sheet.setDefaultColumnWidth(15);
 				// /Bold Font
 				Font font = workbook.createFont();

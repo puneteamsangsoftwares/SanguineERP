@@ -8,7 +8,6 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +18,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CollectionOfElements;
 
 @Entity
 @Table(name = "tbljvhd")
@@ -34,14 +34,14 @@ public class clsJVHdModel implements Serializable {
 		strClientCode = objModelID.getStrClientCode();
 	}
 
-	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionOfElements(fetch = FetchType.LAZY)
 	// @OneToMany(fetch = FetchType.LAZY, mappedBy = "tbljvhd")
 	@JoinTable(name = "tbljvdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strVouchNo") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strVouchNo", column = @Column(name = "strVouchNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsJVDtlModel> listJVDtlModel = new ArrayList<clsJVDtlModel>();
 
-	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionOfElements(fetch = FetchType.LAZY)
 	// @OneToMany(fetch = FetchType.LAZY, mappedBy = "tbljvhd")
 	@JoinTable(name = "tbljvdebtordtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strVouchNo") })
 	@Id

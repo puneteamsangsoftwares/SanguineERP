@@ -22,7 +22,6 @@ public class clsCRMDayEndServiceImpl implements clsCRMDayEndService {
 	}
 
 	@Override
-	@Transactional
 	public String funGetCRMDayEndLocationDate(String strLocCode, String strClientCode) {
 
 		return objCRMDayEndDao.funGetCRMDayEndLocationDate(strLocCode, strClientCode);

@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -17,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.CollectionOfElements;
 
 @Entity
 @Table(name = "tblscbillhd")
@@ -32,13 +32,13 @@ public class clsSundaryCrBillModel implements Serializable {
 		strClientCode = objModelID.getStrClientCode();
 	}
 
-	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionOfElements(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblscbilldtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strVoucherNo") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strVoucherNo", column = @Column(name = "strVoucherNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsSundaryCrBillDtlModel> listSCBillDtlModel = new ArrayList<clsSundaryCrBillDtlModel>();
 
-	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionOfElements(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblscbillgrndtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strVoucherNo") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strVoucherNo", column = @Column(name = "strVoucherNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })

@@ -12,6 +12,7 @@
 
 	var fieldName,listServiceRow=0,listEquipRow=0,listStaffRow=0,listItemRow=0;
 	var totalTerrAmt = 0.0;
+	var clickCount = 0.0;
 	  $(document).ready(function(){
 		    
 		  $(".tab_content").hide();
@@ -40,6 +41,24 @@
 					<%
 				}
 			}%>
+			
+			
+			var message1='';
+			<%if (session.getAttribute("notsuccess") != null) {
+				if(session.getAttribute("successMessage") != null){%>
+					message1='<%=session.getAttribute("successMessage").toString()%>';
+					<%
+					session.removeAttribute("successMessage");
+				}
+				boolean test1 = ((Boolean) session.getAttribute("notsuccess")).booleanValue();
+				session.removeAttribute("notsuccess");
+				if (test1) {
+					%>	
+					alert(message1);
+					<%
+				}
+			}%>
+			
 
 	   });
 
@@ -392,7 +411,7 @@ function funCreateNewCustomer(){
 	                alert('Not connect.n Verify Network.');
 	            } else if (jqXHR.status == 404) {
 	                alert('Requested page not found. [404]');
-	            } else if (jqXHR.status == 500) {
+	            } else if (jq.XHR.status == 500) {
 	                alert('Internal Server Error [500].');
 	            } else if (exception === 'parsererror') {
 	                alert('Requested JSON parse failed.');
@@ -572,6 +591,7 @@ function funCreateNewCustomer(){
 	        		
 	        		$("#txtBanquetCode").val(response.strBanquetCode);
 	        		$("#lblBanquetName").text(response.strBanquetName);
+	        		funLoadBanquetRate(response.strBanquetCode);
 	        		
 	        	}
 			},
@@ -610,16 +630,17 @@ function funCreateNewCustomer(){
 		if(funDuplicateEuipForUpdate(EquipCode))
 	    {
 			var table = document.getElementById("tblEquipDtl");
-		    var rowCount = table.rows.length;
-		    rowCount=listEquipRow;
+		    var rowCount = table.rows.length;  
 		    var row = table.insertRow(rowCount);
+		    rowCount=listEquipRow;
 		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listEquipDtl["+(rowCount)+"].strDocNo\"  id=\"txtEquipCode."+(rowCount)+"\" value='"+EquipCode+"' />";
 		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"27%\" name=\"listEquipDtl["+(rowCount)+"].strDocName\"  id=\"txtEquipName."+(rowCount)+"\" value='"+EquipName+"'/>"; 
-		    row.insertCell(2).innerHTML= "<input   class=\" decimal-places-amt\" size=\"5%\" name=\"listEquipDtl["+(rowCount)+"].dblDocQty\"  id=\"txtEquipQty."+(rowCount)+"\" value='"+EquipQty+"' onblur=\"funUpdateEuipPrice(this);\"/>";    
+		    row.insertCell(2).innerHTML= "<input   class=\" decimal-places-amt\" size=\"5%\" name=\"listEquipDtl["+(rowCount)+"].dblDocQty\" style=\"text-align: right;\"  id=\"txtEquipQty."+(rowCount)+"\" value='"+EquipQty+"' onblur=\"funUpdateEuipPrice(this);\"/>";    
 		    row.insertCell(3).innerHTML= "<input  readonly=\"readonly\" class=\"Box \" style=\"padding-right: 5px;text-align: right;\" size=\"25%\" name=\"listEquipDtl["+(rowCount)+"].dblDocRate\"  id=\"txtEquipRate."+(rowCount)+"\" value='"+EquipRate+"'/>";
 		    row.insertCell(4).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowEquip(this)">';		    
 		    listEquipRow++;
 		    funCalculateEuipTotal();
+		    funUpdateTotalBookingAmt();
 			
 	    }		
 		
@@ -632,17 +653,60 @@ function funCreateNewCustomer(){
 		
 		var table = document.getElementById("tblStaffCatDtl");
 	    var rowCount = table.rows.length;
-	    rowCount=listStaffRow;
 	    var row = table.insertRow(rowCount);
+	    rowCount=listStaffRow;
 	    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listStaffCatDtl["+(rowCount)+"].strDocNo\"  id=\"txtStaffCatCode."+(rowCount)+"\" value='"+StaffCatCode+"' />";
 	    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"27%\" name=\"listStaffCatDtl["+(rowCount)+"].strDocName\"  id=\"txtStaffCatName."+(rowCount)+"\" value='"+StaffCatName+"'/>";
-	    row.insertCell(2).innerHTML= "<input   class=\" decimal-places-amt\" size=\"5%\" name=\"listStaffCatDtl["+(rowCount)+"].dblDocQty\"  id=\"txtStaffCatNumber."+(rowCount)+"\" value='"+StaffQty+"'/>";
+	    row.insertCell(2).innerHTML= "<input   class=\" decimal-places-amt\" size=\"5%\" name=\"listStaffCatDtl["+(rowCount)+"].dblDocQty\" style=\"text-align: right;\"  id=\"txtStaffCatNumber."+(rowCount)+"\" value='"+StaffQty+"' onblur=\"funCheckStaffNumber(this,'"+StaffCatCode+"','"+rowCount+"');\"/>";
 	    row.insertCell(3).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowStaff(this)">';		    
 	    listStaffRow++;
 	  
 	     
 	    
 	}
+	
+	function funCheckStaffNumber(obj,StaffCatCode,cnt)
+	{
+		var staffCode = StaffCatCode;
+		var staffCnt = obj.value;
+		
+		var searchurl=getContextPath()+ "/checkStaffCnt.html?staffCode=" + staffCode+"&staffCnt="+ staffCnt;
+		$.ajax({
+			type : "GET",
+			url : searchurl,
+			dataType : "json",
+			success : function(response){ 
+				if(response)
+					{
+					
+					}
+				else
+					{
+						alert("Please select less count");
+						$("#txtStaffCatNumber").val(0);
+					}
+			},
+			error : function(e){
+				if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }
+			}
+		});
+		
+	}
+	
 	var MenuTotal=0;
 	function funfillMenuItemDtlRow(ItemCode,ItemName,ItemRate,ItemQty)
 	{
@@ -650,16 +714,17 @@ function funCreateNewCustomer(){
 		{
 			var table = document.getElementById("tblMenuDtl");
 		    var rowCount = table.rows.length;
-		    rowCount=listItemRow;
 		    var row = table.insertRow(rowCount);
+		    rowCount=listItemRow;
 		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listMenuItemDtl["+(rowCount)+"].strDocNo\"  id=\"txtItemCode."+(rowCount)+"\" value='"+ItemCode+"'/>";
 		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"27%\" name=\"listMenuItemDtl["+(rowCount)+"].strDocName\"  id=\"txtItemName."+(rowCount)+"\" value='"+ItemName+"'/>";
-		    row.insertCell(2).innerHTML= "<input  class=\"decimal-places-amt\" size=\"5%\" name=\"listMenuItemDtl["+(rowCount)+"].dblDocQty\"  id=\"txtItemQty."+(rowCount)+"\" value='"+ItemQty+"' onblur=\"funUpdateItemPrice(this);\"/>";
+		    row.insertCell(2).innerHTML= "<input  class=\"decimal-places-amt\" size=\"5%\" name=\"listMenuItemDtl["+(rowCount)+"].dblDocQty\"  id=\"txtItemQty."+(rowCount)+"\" style=\"text-align: right;\" value='"+ItemQty+"' onblur=\"funUpdateItemPrice(this);\"/>";
 		    row.insertCell(3).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"15%\" style=\"padding-right: 5px;text-align: right;\"  name=\"listMenuItemDtl["+(rowCount)+"].dblDocRate\"  id=\"txtItemRate."+(rowCount)+"\" value='"+ItemRate+"'/>";
 		    row.insertCell(4).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowMenu(this)">';	
 		    
 		    listItemRow++;
 		    funCalculateItemTotal();
+		    funUpdateTotalBookingAmt();
 		
 		}
 		
@@ -825,71 +890,87 @@ function funCreateNewCustomer(){
 			});
 		}
 	 
-	   		   $(document).on('change', '[type=checkbox]', function() {
-			     var checkbox = $(this).is(':checked');
-			     var index = this.parentNode.parentNode.rowIndex;
-			         if(checkbox)
-			    	 {
-			        	 var  Rate1=document.getElementById("txtServiceRate."+index).value;
-					     var ServiceRate1 =$("#txtTotalServiceAmt").val();
-					     var Total1=0;
-					     if(ServiceRate1=='')
-				    	 {
-					    	 Total1=  parseFloat(Rate1);
-					    	
-				    	 }
-					     else
-					     {
-					    	 Total1= parseFloat(ServiceRate1) + parseFloat(Rate1);
-					     } 	 
-					     $("#txtTotalServiceAmt").val(Total1);
-			    	 
-			    	 }else{
-			    		 var  Rate2=document.getElementById("txtServiceRate."+index).value;
-					     var ServiceRate2 =$("#txtTotalServiceAmt").val();
-					     var Total2=0;
-					     if(ServiceRate2=='')
-					     {
-					    	 Total2= parseFloat(Rate2);
-					    	 
-					     }
-					     else
-					     {
-					    	 Total2= parseFloat(ServiceRate2) - parseFloat(Rate2);
-					     } 	 
-					   
-					     $("#txtTotalServiceAmt").val(Total2);
-			    		 
-			    	 }
-			    
+	 
+	  function funLoadBanquetRate(code)
+	  {
+
+
+			$.ajax({
+				type : "GET",
+				url : getContextPath()+ "/LoadBanquetRate.html?BanquetCode=" + code,
+				dataType : "json",
+				success : function(response){ 
+					$("#txtBanquetRate").val(response[0][2]);
+					funUpdateTotalBookingAmt();
+				},
+				error : function(e){
+					if (jqXHR.status === 0) {
+		                alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+		                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.n' + jqXHR.responseText);
+		            }
+				}
 			});
+		
+	  }
+ 
+   		   $(document).on('change', '[type=checkbox]', function() {
+		     var checkbox = $(this).is(':checked');
+		     var index = this.parentNode.parentNode.rowIndex;
+		         if(checkbox)
+		    	 {
+		        	 var  Rate1=document.getElementById("txtServiceRate."+index).value;
+				     var ServiceRate1 =$("#txtTotalServiceAmt").val();
+				     var Total1=0;
+				     if(ServiceRate1=='')
+			    	 {
+				    	 Total1=  parseFloat(Rate1);
+				    	
+			    	 }
+				     else
+				     {
+				    	 Total1= parseFloat(ServiceRate1) + parseFloat(Rate1);
+				     } 	 
+				     $("#txtTotalServiceAmt").val(Total1);
+				     funUpdateTotalBookingAmt();
+		    	 
+		    	 }else{
+		    		 var  Rate2=document.getElementById("txtServiceRate."+index).value;
+				     var ServiceRate2 =$("#txtTotalServiceAmt").val();
+				     var Total2=0;
+				     if(ServiceRate2=='')
+				     {
+				    	 Total2= parseFloat(Rate2);
+				    	 
+				     }
+				     else
+				     {
+				    	 Total2= parseFloat(ServiceRate2) - parseFloat(Rate2);
+				     } 	 
+				   
+				     $("#txtTotalServiceAmt").val(Total2);
+				     funUpdateTotalBookingAmt();
+		    		 
+		    	 }
+		    
+		});
 	   		   
-	   	function funOnClickBookingTotal()
-	   	{
-	   	    var rateService =0;
-	   	    if($("#txtTotalServiceAmt").val()!='')
-		   	{
-	   	    	
-	   	    	rateService= $("#txtTotalServiceAmt").val(); 
-		   	}
-	   	    var rateItem =0;
-	   	    if($("#txtTotalItemAmt").val()!='')
-		   	{
-	   	    	rateItem  =$("#txtTotalItemAmt").val();
-		   	}
-	   	    var rateEquip =0;
-	   	    if($("#txtTotalEquipAmt").val()!='')
-		   	{
-	   	    	rateEquip =$("#txtTotalEquipAmt").val(); 
-		   	}
-	   	   var bookingTotal = parseFloat(rateEquip) + parseFloat(rateItem) + parseFloat(rateService);
-	       $("#txtTotalBookingAmt").val(bookingTotal);
-	   		
-	   	}
+	   
 	   	function funUpdateEuipPrice(object)
 		{
 	   		 
 	   		funCalculateEuipTotal();
+	   		funUpdateTotalBookingAmt();
 			/* var index=object.parentNode.parentNode.rowIndex;
 			if(document.getElementById("txtEquipQty."+index).value !='')
 			{
@@ -905,6 +986,7 @@ function funCreateNewCustomer(){
 		function funUpdateItemPrice(object)
 		{
 			funCalculateItemTotal();
+			funUpdateTotalBookingAmt();
 			
 			/* var index=object.parentNode.parentNode.rowIndex;
 			if(document.getElementById("txtItemQty."+index).value !='')
@@ -1004,9 +1086,114 @@ function funCreateNewCustomer(){
 				    
 		   }
 		    return flag;
-		} 
-
+		}
+		function funUpdateTotalBookingAmt()
+		{
+			 var rateService =0;
+		   	    if($("#txtTotalServiceAmt").val()!='')
+			   	{
+		   	    	
+		   	    	rateService= $("#txtTotalServiceAmt").val(); 
+			   	}
+		   	    var rateItem =0;
+		   	    if($("#txtTotalItemAmt").val()!='')
+			   	{
+		   	    	rateItem  =$("#txtTotalItemAmt").val();
+			   	}
+		   	    var rateEquip =0;
+		   	    if($("#txtTotalEquipAmt").val()!='')
+			   	{
+		   	    	rateEquip =$("#txtTotalEquipAmt").val(); 
+			   	}
+		   	    var rateBanquet =0;
+		   	    if($("#txtBanquetRate").val()!='')
+			   	{
+		   	    	rateBanquet =$("#txtBanquetRate").val(); 
+			   	}
+		   	   var FinalAmount = parseFloat(rateEquip) + parseFloat(rateItem) + parseFloat(rateService) + parseFloat(rateBanquet);
+		       $("#txtTotalBookingAmt").val(FinalAmount);
+		}
+		function funValidateForm()
+		{
+			
+			if(clickCount==0){
+				clickCount=clickCount+1;
+			var flag=true;
+			if($("#txtCustomerCode").val().trim().length==0)
+			{
+				 alert("Please Select Customer Name !!");
+				 flag=false;
+			}
+		
+			else if($("#txtAreaCode").val().trim().length==0)
+			{
+				alert("Please Select Area!!");
+				flag=false;
+			}
+			else if($("#txtFunctionCode").val().trim().length==0)
+			{
+				alert("Please Select fuction!!");
+				flag=false;
+			}
+		    return flag;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	 
+		function funChangeArrivalDate()
+		{
+			var arrivalDate=$("#txtFromDate").val();
+			
+		    //var currentDate=datepicker('setDate','todate');
+
+		    var d = new Date();
+		    var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+	    	
+		    if (arrivalDate < currentDate) 
+	  		 {
+			    	alert("Arrival Date Should not be come before Current Date");
+			    	$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
+			    	$("#txtFromDate").datepicker('setDate','todate');
+					return false
+	         }
+	    	
+	    	
+		}
+		
+		function funCheckFromDate()
+		{
+			var arrivalDate=$("#txtFromDate").val();
+		    var todate=$("#txtToDate").val();;
+
+	    	if (todate < arrivalDate) 
+	  		 {
+			    	alert("To date should be greater then from Date");
+			    	$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
+			    	$("#txtToDate").datepicker('setDate','todate');
+					return false;
+	         }
+	    	
+	    	
+		}
+		
+		function funCheckCuurntDate()
+		{
+			var bookinDate=$("#txtBookingDate").val();
+		    var fromDate=$("#txtFromDate").val();;
+
+	    	if (bookinDate < fromDate) 
+	  		 {
+			    	alert("Booking date should be greater then Current Date");
+			    	$("#txtBookingDate").datepicker({ dateFormat: 'dd-mm-yy' });
+			    	$("#txtBookingDate").datepicker('setDate','todate');;
+					return false
+	         }
+	    	
+	    	
+		}
 </script>
 
 </head>
@@ -1024,7 +1211,7 @@ function funCreateNewCustomer(){
 
 		<div id="tab_container" style="height: 550px">
 			<ul class="tabs">
-				<li data-state="tab1" style="width: 6%; padding-left: 2%;"active" onclick="funOnClickBookingTotal()" >Booking</li>
+				<li data-state="tab1" style="width: 6%; padding-left: 2%;"active" >Booking</li>
 				<li data-state="tab2" style="width: 8%; padding-left: 1%">Service</li>
 				<li data-state="tab3" style="width: 8%; padding-left: 1%">Equipment</li>
 				<li data-state="tab4" style="width: 8%; padding-left: 1%">Staff
@@ -1043,13 +1230,13 @@ function funCreateNewCustomer(){
 				</tr>
 
 				<tr>
-					<td><label>Booking No</label></td>
-					<td><s:input type="text" id="txtBookingNo"
+					<td width="150px"><label>Booking No</label></td>
+					<td width="400px" ><s:input type="text" id="txtBookingNo"
 							path="strBookingNo" cssClass="searchTextBox"
 							ondblclick="funHelp('BookingNo');" /></td>
 
-					<td><label>Property</label></td>
-					<td><s:select id="txtPropertyCode" path="strPropertyCode"
+					<td width="150px"><label>Property</label></td>
+					<td width="400px"><s:select id="txtPropertyCode" path="strPropertyCode"
 							items="${listOfProperty}" required="true" cssClass="BoxW200px"></s:select></td>
 
 					<td><label id="lblPropName"></label></td>
@@ -1064,7 +1251,7 @@ function funCreateNewCustomer(){
 
 					<td><label>Booking Date</label></td>
 					<td><s:input type="text" id="txtBookingDate"
-							path="dteBookingDate" cssClass="calenderTextBox" /> <!-- onchange="funChangeArrivalDate();" -->
+							path="dteBookingDate" cssClass="calenderTextBox" onchange="funCheckCuurntDate();"/> <!-- onchange="funChangeArrivalDate();" -->
 						<label id="lblBookingDate"></label></td>
 
 
@@ -1074,12 +1261,12 @@ function funCreateNewCustomer(){
 				<tr>
 					<td><label>From Date</label></td>
 					<td><s:input type="text" id="txtFromDate" path="dteFromDate"
-							cssClass="calenderTextBox" /></td>
+							cssClass="calenderTextBox" onchange="funChangeArrivalDate();" /></td>
 
 					<!-- onchange="funChangeArrivalDate();"  -->
 					<td><label>To Date</label></td>
 					<td><s:input type="text" id="txtToDate" path="dteToDate"
-							cssClass="calenderTextBox" /></td>
+							cssClass="calenderTextBox"  onchange="funCheckFromDate();"/></td>
 					<!-- onchange="CalculateDateDiff();" -->
 					<td colspan="2"></td>
 				</tr>
@@ -1123,7 +1310,7 @@ function funCreateNewCustomer(){
 				</tr>
 
 				<tr>
-					<td width="100px"><label>Function Code</label></td>
+					<td><label>Function Code</label></td>
 					<!--  <td><label>Function Code</label></td> -->
 					<td><s:input id="txtFunctionCode" path="strFunctionCode"
 							readonly="true" ondblclick="funHelp('functionMaster')"
@@ -1144,7 +1331,13 @@ function funCreateNewCustomer(){
 					<td><s:input type="text" id="txtBanquetCode" 
 							path="strBanquetCode" cssClass="searchTextBox"
 							ondblclick="funHelp('banquetCode');" /> <label
-						id="lblBanquetName"></label></td>
+						id="lblBanquetName"></label>
+						&nbsp;&nbsp;
+						<s:input id="txtBanquetRate" path=""
+							style="text-align: right; width: 20%;" 
+						     name="txtBanquetRate" class="longTextBox"  onblur="funUpdateTotalBookingAmt();"/></td>
+							<!-- <label
+						id="lblBanquetRate"></label></td> -->
 				
 					
 				</tr>
@@ -1454,7 +1647,7 @@ function funCreateNewCustomer(){
 							<!-- col2   -->
 
 							<!-- col3   -->
-							<td align="center"">Delete</td>
+							<td align="center" style="width: 15%">Delete</td>
 
 							<!-- col3   -->
 
@@ -1470,24 +1663,24 @@ function funCreateNewCustomer(){
 						
 
 							<!-- col2   -->
-							<col width="20%">
+							<col width="15%">
 							<!-- col2   -->
 
 							<!-- col2   -->
-							<col width="40%">
+							<col width="30%">
 							<!-- col2   -->
 
 							<!-- col2   -->
-							<col width="10%">
+							<col width="12%">
 							<!-- col2   -->
 
-
-							<!-- col2   -->
-							<col width="20%">
-							<!-- col2   -->
 
 							<!-- col2   -->
 							<col width="15%">
+							<!-- col2   -->
+
+							<!-- col2   -->
+							<col width="13.5%">
 							<!-- col2   -->
 
 							</tbody>

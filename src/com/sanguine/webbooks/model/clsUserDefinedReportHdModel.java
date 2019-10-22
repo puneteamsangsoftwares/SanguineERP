@@ -3,11 +3,9 @@ package com.sanguine.webbooks.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -15,7 +13,11 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
+import org.hibernate.annotations.CollectionOfElements;
 import com.sanguine.base.model.clsBaseModel;
+
+
+
 
 @Entity
 @Table(name = "tbluserdefinedreporthd")
@@ -35,7 +37,7 @@ public class clsUserDefinedReportHdModel extends clsBaseModel implements Seriali
 	
 	
 	
-	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionOfElements(fetch = FetchType.EAGER)
 	@JoinTable(name = "tbluserdefinedreportdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strReportId") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strReportId", column = @Column(name = "strReportId")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })

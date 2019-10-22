@@ -2,6 +2,8 @@ package com.sanguine.bean;
 
 import java.util.List;
 
+import com.sanguine.webbooks.bean.clsJVDetailsBean;
+
 public class clsUserMasterBean {
 
 	private String strUserCode1, strUserName1, strPassword1, strSuperUser, strType, strRetire, strProperty, strLoginStatus;

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sanguine.bean.clsMISBean;
 import com.sanguine.bean.clsRequisitionBean;
+import com.sanguine.webclub.model.clsWebClubCompanyTypeMasterModel;
 
 @Controller
 public class clsWebStockHelpController {

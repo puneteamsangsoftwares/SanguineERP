@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -16,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.CollectionOfElements;
 
 @Entity
 @Table(name = "tblpurchaseindendhd")
@@ -36,7 +37,7 @@ public class clsPurchaseIndentHdModel implements Serializable {
 
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strPICode", column = @Column(name = "strPICode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
-	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionOfElements(fetch = FetchType.EAGER)
 	@JoinTable(name = "tblpurchaseindenddtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strPICode") })
 	private List<clsPurchaseIndentDtlModel> clsPurchaseIndentDtlModel = new ArrayList<clsPurchaseIndentDtlModel>();;
 

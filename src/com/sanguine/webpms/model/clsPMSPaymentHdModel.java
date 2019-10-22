@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -14,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+
+import org.hibernate.annotations.CollectionOfElements;
+
 import com.sanguine.webpms.bean.clsPMSPaymentReceiptDtlBean;
 
 @Entity
@@ -30,7 +32,7 @@ public class clsPMSPaymentHdModel implements Serializable {
 		strClientCode = objModelID.getStrClientCode();
 	}
 
-	@ElementCollection(fetch=FetchType.LAZY)
+	@CollectionOfElements(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblreceiptdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strReceiptNo") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")), @AttributeOverride(name = "strReceiptNo", column = @Column(name = "strReceiptNo")) })

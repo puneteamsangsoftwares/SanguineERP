@@ -18,6 +18,9 @@ import com.sanguine.base.model.clsBaseModel;
 @Transactional(value = "hibernateTransactionManager")
 public class clsBaseDaoImpl implements intfBaseDao {
 
+	
+	
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -95,6 +98,8 @@ public class clsBaseDaoImpl implements intfBaseDao {
 			objSessionFactory = WebClubSessionFactory;
 		} else if (moduleType.equals("WebBooks")) {
 			objSessionFactory = webBooksSessionFactory;
+		}else if (moduleType.equals("WebBanquet")) {
+			objSessionFactory = webPMSSessionFactory;
 		}
 		
 		if (queryType.equals("sql")) {

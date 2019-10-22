@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -16,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.CollectionOfElements;
 
 import com.sanguine.webpms.model.clsBillDtlModel;
 
@@ -33,7 +34,7 @@ public class clsSundaryCreditorMasterModel implements Serializable {
 		strClientCode = objModelID.getStrClientCode();
 	}
 
-	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionOfElements(fetch = FetchType.EAGER)
 	@JoinTable(name = "tblsundarycreditoropeningbalance", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strCreditorCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strCreditorCode", column = @Column(name = "strCreditorCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })

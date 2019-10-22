@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -17,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.CollectionOfElements;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
@@ -60,7 +60,7 @@ public class clsRequisitionHdModel implements Serializable {
 	@Autowired(required = false)
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strReqCode", column = @Column(name = "strReqCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
-	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionOfElements(fetch = FetchType.EAGER)
 	@JoinTable(name = "tblreqdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strReqCode") })
 	private List<clsRequisitionDtlModel> clsRequisitionDtlModel = new ArrayList<clsRequisitionDtlModel>();
 
