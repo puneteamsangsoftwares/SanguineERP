@@ -17,8 +17,8 @@ public class clsAuditDtlModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "intId")
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long intId;
 
 	@Column(name = "strTransCode", columnDefinition = "VARCHAR(20) NOT NULL default '' ")
