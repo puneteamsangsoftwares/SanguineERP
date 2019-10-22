@@ -1,5 +1,6 @@
 package com.sanguine.controller;
 
+import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.sql.Blob;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.rowset.serial.SerialBlob;
 
 import org.apache.commons.io.IOUtils;
 import org.hibernate.Hibernate;
@@ -68,8 +70,18 @@ public class clsAttachDocController {
 		String strModuleName = objGlobal.funGetModuleName(moduleNo);
 		String transactionName = req.getParameter("transactionName").toString();
 		try {
-			Blob blob = Hibernate.createBlob(file.getInputStream());
-			if (blob.length() > 0) {
+			byte[] imageData = new byte[(int) file.getSize()];
+			 
+			try {
+			    FileInputStream fileInputStream = (FileInputStream) file.getInputStream();
+			    fileInputStream.read(imageData);
+			    fileInputStream.close();
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
+			
+			//Blob blob = Hibernate.createBlob(Base64.encodeBase64(file.getInputStream()));
+			if (imageData.length > 0) {
 				clsAttachDocModel objModel = new clsAttachDocModel();
 				// objModel.setStrActualFileName(objBean.getStrActualFileName());
 				objModel.setStrChangedFileName(objGlobal.funGetCurrentDate("dd-MM-yyyy").concat(file.getOriginalFilename()));
@@ -78,7 +90,7 @@ public class clsAttachDocController {
 
 				objModel.setStrTrans(transactionName);
 				objModel.setStrCode(docCode);
-				objModel.setBinContent(blob);
+				objModel.setBinContent(new SerialBlob(imageData));
 				objModel.setStrUserCreated(req.getSession().getAttribute("usercode").toString());
 				objModel.setDtCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 				objModel.setStrClientCode(req.getSession().getAttribute("clientCode").toString());

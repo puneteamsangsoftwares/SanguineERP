@@ -17,19 +17,20 @@ import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.document.AbstractExcelView;
+import org.springframework.web.servlet.view.document.AbstractXlsxView;
 
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.service.clsSetupMasterService;
 import com.sanguine.util.clsReportBean;
 
 @Controller
-public class clsRG23APart1Report extends AbstractExcelView {
+public class clsRG23APart1Report extends AbstractXlsxView {
 
 	@Autowired
 	private clsSetupMasterService objSetupMasterService;
@@ -58,9 +59,10 @@ public class clsRG23APart1Report extends AbstractExcelView {
 		}
 	}
 
+	
 	@Override
 	@RequestMapping(value = "/rptRG-23A-Part-I", method = RequestMethod.GET)
-	protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
 		String fromDate = request.getParameter("dtFromDate").toString();
@@ -76,7 +78,7 @@ public class clsRG23APart1Report extends AbstractExcelView {
 		response.setHeader("Content-Disposition", "inline;filename=FORM-RG-23A-Part-I_" + fromDate + "_To_" + toDate + "_" + userCode + ".xls");
 
 		List listDrawDtlRow = new ArrayList();
-		HSSFSheet sheet = workbook.createSheet("18062000");
+		HSSFSheet sheet = (HSSFSheet) workbook.createSheet("18062000");
 		sheet.setDefaultColumnWidth(15);
 		// /Bold Font
 		Font font = workbook.createFont();
@@ -468,4 +470,5 @@ public class clsRG23APart1Report extends AbstractExcelView {
 												// '-' and decimal.
 	}
 
+	
 }

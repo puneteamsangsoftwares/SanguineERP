@@ -24,6 +24,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
 import javax.swing.ImageIcon;
 import javax.validation.Valid;
 
@@ -707,9 +709,18 @@ public class clsProductMasterController {
 				BufferedImage bfImg = scaleImage(200, 240, path);
 				ImageIO.write(bfImg, "jpg", byteArrayOutputStream);
 				byte[] imageBytes = byteArrayOutputStream.toByteArray();
-				ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
+			//	ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
 
-				Blob blobProdImage = Hibernate.createBlob(byteArrayInputStream);
+				Blob blobProdImage=null;
+				try {
+					blobProdImage = new SerialBlob(imageBytes);
+				} catch (SerialException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				objModel.setStrProductImage(blobProdImage);
 
 				if (fileImageIcon.exists()) {
@@ -748,9 +759,18 @@ public class clsProductMasterController {
 					BufferedImage bfImg = scaleImage(200, 240, path);
 					ImageIO.write(bfImg, "jpg", byteArrayOutputStream);
 					byte[] imageBytes = byteArrayOutputStream.toByteArray();
-					ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
+				//	ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
 
-					Blob blobProdImage = Hibernate.createBlob(byteArrayInputStream);
+					Blob blobProdImage=null;
+					try {
+						blobProdImage = new SerialBlob(imageBytes);
+					} catch (SerialException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} //Hibernate.createBlob(byteArrayInputStream);
 					objModel.setStrProductImage(blobProdImage);
 
 					if (fileImageIcon.exists()) {
