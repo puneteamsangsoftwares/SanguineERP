@@ -28,8 +28,8 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.mail.MailSender;
+import org.springframework.mail.MailException;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
@@ -50,7 +50,7 @@ public class clsSendEmailController
 {
 
 	@Autowired
-	private MailSender  mailSender;
+	private JavaMailSender mailSender;
 	
 	
 	@Autowired
@@ -219,16 +219,18 @@ public class clsSendEmailController
         				ByteArrayOutputStream baos = new ByteArrayOutputStream();
         				JasperExportManager.exportReportToPdfStream(p, baos);
         				DataSource aAttachment = new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
-        				MimeMessageHelper helper = new MimeMessageHelper(mailSender.createMimeMessage(), true);
-        			//	SimpleMailMessage crunchifyMsg = new SimpleMailMessage();
-        				helper.setTo(receipientsArr[i].toString());
-        				helper.setSubject(subject);
-        				helper.addAttachment("PO Slip.pdf", aAttachment);
-        				helper.setText(message);
-        				mailSender.send(helper.getMimeMessage());
-        				
-        				
-        				MimeMessagePreparator preparator = getContentWtihAttachementMessagePreparator(subject,receipientsArr[i].toString(),message,aAttachment);
+        			
+        				MimeMessagePreparator preparator = getMimeMessagePreparator(subject,receipientsArr[i].toString(),message,aAttachment);
+        				//http://websystique.com/spring/spring-4-email-with-attachment-tutorial/
+        				try {
+        		            mailSender.send(preparator);
+        		            System.out.println("Message With Attachement has been sent.............................");
+        		           // preparator = getContentAsInlineResourceMessagePreparator(order);
+        		            //mailSender.send(preparator);
+        		            /*System.out.println("Message With Inline Resource has been sent.........................");*/
+        		        } catch (MailException ex) {
+        		            System.err.println(ex.getMessage());
+        		        }
                 	}                	
                 }
 				
@@ -241,7 +243,7 @@ public class clsSendEmailController
 
 			return strReturnValue;
 		}
-		catch (javax.mail.MessagingException e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			logger.info(e);
@@ -250,7 +252,7 @@ public class clsSendEmailController
 
 	}
 	
-	 private MimeMessagePreparator getContentWtihAttachementMessagePreparator(final String subject,final String receipt,final String message,final DataSource aAttachment) {
+	 private MimeMessagePreparator getMimeMessagePreparator(final String subject,final String receipt,final String message,final DataSource aAttachment) {
 		 
 	        MimeMessagePreparator preparator = new MimeMessagePreparator() {
 	 
