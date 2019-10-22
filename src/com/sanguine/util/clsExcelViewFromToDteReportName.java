@@ -14,14 +14,14 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
-import org.springframework.web.servlet.view.document.AbstractExcelView;
-
-public class clsExcelViewFromToDteReportName extends AbstractExcelView 
+import org.springframework.web.servlet.view.document.AbstractXlsxView;
+import org.apache.poi.ss.usermodel.Workbook;
+public class clsExcelViewFromToDteReportName extends AbstractXlsxView 
 {
 	@SuppressWarnings({ "rawtypes" })
 	@Override
 	
-	protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response)
+	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request, HttpServletResponse response)
 			throws Exception 
 	{
 		List Datalist = (List) model.get("listFromToDateReportName");
@@ -55,7 +55,7 @@ public class clsExcelViewFromToDteReportName extends AbstractExcelView
 		}
 
 		// create a new Excel sheet
-		HSSFSheet sheet = workbook.createSheet("Sheet");
+		HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Sheet");
 		sheet.setDefaultColumnWidth(20);
 
 		// create style for header cells

@@ -35,7 +35,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.document.AbstractExcelView;
 
 import com.sanguine.model.clsLocationMasterModel;
 import com.sanguine.model.clsPropertySetupModel;
@@ -46,9 +45,12 @@ import com.sanguine.service.clsLocationMasterService;
 import com.sanguine.service.clsSetupMasterService;
 import com.sanguine.service.clsStkAdjustmentService;
 import com.sanguine.util.clsReportBean;
+import org.springframework.web.servlet.view.document.AbstractXlsxView;
+import org.apache.poi.ss.usermodel.Workbook;
+
 
 @Controller
-public class clsStockVaraianceFlashController extends AbstractExcelView {
+public class clsStockVaraianceFlashController extends AbstractXlsxView {
 
 	@Autowired
 	clsGlobalFunctionsService objGlobalFunctionsService;
@@ -110,7 +112,7 @@ public class clsStockVaraianceFlashController extends AbstractExcelView {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@RequestMapping(value = "/ExportExcelStkVariance", method = RequestMethod.GET)
-	protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		objGlobal = new clsGlobalFunctions();
 		response.setContentType("application/vnd.ms-excel");
 		response.setHeader("Content-Disposition", "inline;filename=stkVarianceReport.xls");
@@ -148,7 +150,7 @@ public class clsStockVaraianceFlashController extends AbstractExcelView {
 			listStockFlashModel.add(DataList);
 		}
 		// create a new Excel sheet
-		HSSFSheet sheet = workbook.createSheet("Sheet");
+		HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Sheet");
 		sheet.setDefaultColumnWidth(20);
 
 		// create style for header cells

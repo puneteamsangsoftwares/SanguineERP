@@ -15,14 +15,15 @@ import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.servlet.view.document.AbstractExcelView;
-
+import org.springframework.web.servlet.view.document.AbstractXlsxView;
+import org.springframework.web.servlet.view.document.AbstractXlsxView;
+import org.apache.poi.ss.usermodel.Workbook;
 @Controller
-public class clsExcelBuilderForAccountReports extends AbstractExcelView {
+public class clsExcelBuilderForAccountReports extends AbstractXlsxView  {
 
 	@SuppressWarnings({ "rawtypes" })
 	@Override
-	protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// get data model which is passed by the Spring container
 
 		List listExcelData = (List) model.get("excelDataList");
@@ -46,7 +47,7 @@ public class clsExcelBuilderForAccountReports extends AbstractExcelView {
 		listData=(List)listExcelData.get(4);
 		
 	// create a new Excel sheet
-		HSSFSheet sheet = workbook.createSheet("Sheet");
+		HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Sheet");
 		sheet.setDefaultColumnWidth(80);
 		sheet.setColumnWidth(1, 5000);
 		sheet.setColumnWidth(3, 5000);

@@ -1,9 +1,11 @@
 package com.sanguine.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +17,8 @@ import java.util.TreeMap;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
 import javax.validation.Valid;
 
 import org.hibernate.Hibernate;
@@ -809,12 +813,23 @@ public class clsSetupMasterController {
 				}
 				clsPropertySetupModel PropertySetupModel = funPrepareMaster(
 						bean, userCode, req);
+				ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+				byte[] imageBytes = byteArrayOutputStream.toByteArray();
 				objSetupMasterService
 						.funAddUpdatePropertySetupModel(PropertySetupModel);
 				// System.out.println(file.getBytes());
 				if (file.getSize() != 0) {
-					Blob blobProdImage = Hibernate.createBlob(file
-							.getInputStream());
+					Blob blobProdImage = null;
+					try {
+						blobProdImage = new SerialBlob(imageBytes);
+					} catch (SerialException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//Hibernate.createBlob(file.getInputStream());
 					clsCompanyLogoModel comLogo = new clsCompanyLogoModel();
 					comLogo.setStrCompanyCode(companyCode);
 					comLogo.setStrCompanyLogo(blobProdImage);
