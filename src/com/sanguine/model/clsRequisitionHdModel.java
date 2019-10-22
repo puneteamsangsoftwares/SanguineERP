@@ -16,7 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.CollectionOfElements;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity

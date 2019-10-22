@@ -2,11 +2,10 @@ package com.sanguine.webbooks.dao;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.hibernate.Session;
 import com.sanguine.webbooks.model.clsDeleteTransactionModel;
 import com.sanguine.webbooks.model.clsDeleteTransactionModel_ID;
 import com.sanguine.webbooks.model.clsWebBooksAuditHdModel;

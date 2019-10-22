@@ -11,6 +11,7 @@ import java.util.TreeSet;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -20,7 +21,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.CollectionOfElements;
+
 
 @Entity
 @Table(name = "tblbillhd")
@@ -36,7 +37,7 @@ public class clsBillHdModel implements Serializable {
 		strClientCode = objModelID.getStrClientCode();
 	}
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblbilldtl", joinColumns = { @JoinColumn(name = "strBillNo"), @JoinColumn(name = "strClientCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strBillNo", column = @Column(name = "strBillNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
@@ -44,7 +45,7 @@ public class clsBillHdModel implements Serializable {
 	// private Set<clsBillDtlModel> setBillDtlModels=new
 	// TreeSet<clsBillDtlModel>();
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblbilltaxdtl", joinColumns = { @JoinColumn(name = "strBillNo"), @JoinColumn(name = "strClientCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strBillNo", column = @Column(name = "strBillNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })

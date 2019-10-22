@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.IdClass;
@@ -15,7 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.CollectionOfElements;
+
 
 import com.sanguine.webpms.model.clsBillDtlModel;
 
@@ -32,7 +33,7 @@ public class clsBanquetBookingModelHd implements Serializable{
 		strClientCode = objModelID.getStrClientCode();
 	}
 	
-	@CollectionOfElements(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "tblbqbookingdtl", joinColumns = { @JoinColumn(name = "strBookingNo"), @JoinColumn(name = "strClientCode") })
 	@Id
 	@AttributeOverrides({

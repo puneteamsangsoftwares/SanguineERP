@@ -3,7 +3,9 @@ package com.sanguine.webpms.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -13,7 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
-import org.hibernate.annotations.CollectionOfElements;
+
+
 
 @Entity
 @Table(name = "tblcheckinhd")
@@ -29,7 +32,7 @@ public class clsCheckInHdModel implements Serializable {
 		strClientCode = objModelID.getStrClientCode();
 	}
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblcheckindtl", joinColumns = { @JoinColumn(name = "strCheckInNo"), @JoinColumn(name = "strClientCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strCheckInNo", column = @Column(name = "strCheckInNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.IdClass;
@@ -15,7 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.CollectionOfElements;
+
 
 import com.sanguine.model.clsTaxSettlementMasterModel;
 
@@ -35,7 +36,7 @@ public class clsFunctionMasterModel implements Serializable{
 	}
 
 	
-	@CollectionOfElements(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "tblfunctionservice", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strFunctionCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strFunctionCode", column = @Column(name = "strFunctionCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")),@AttributeOverride(name = "strServiceCode", column = @Column(name = "strServiceCode")) })

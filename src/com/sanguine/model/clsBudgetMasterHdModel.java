@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -15,7 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CollectionOfElements;
+
 
 import com.sanguine.crm.model.clsInvoiceHdModel_ID;
 import com.sanguine.crm.model.clsInvoiceModelDtl;
@@ -35,7 +36,7 @@ public class clsBudgetMasterHdModel implements Serializable {
 		strClientCode = objModelID.getStrClientCode();
 	}
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblbudgetmasterdtl", joinColumns = { @JoinColumn(name = "strBudgetCode"), @JoinColumn(name = "strClientCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strBudgetCode", column = @Column(name = "strBudgetCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })

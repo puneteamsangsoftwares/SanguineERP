@@ -10,6 +10,7 @@ import com.sanguine.model.clsDeliveryScheduleModulehd_ID;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -18,7 +19,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CollectionOfElements;
 
 @Entity
 @Table(name = "tbldeliveryschedulehd")
@@ -33,7 +33,7 @@ public class clsDeliveryScheduleModulehd implements Serializable {
 		strClientCode = clsDeliveryScheduleModuleHD_ID.getStrClientCode();
 	}
 
-	@CollectionOfElements(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "tbldeliveryscheduledtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strDSCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strDSCode", column = @Column(name = "strDSCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })

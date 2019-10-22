@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -17,7 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.annotations.CollectionOfElements;
 
 @Entity
 @Table(name = "tblsundarydebtormaster")
@@ -33,7 +33,7 @@ public class clsSundryDebtorMasterModel implements Serializable {
 		strClientCode = objModelID.getStrClientCode();
 	}
 
-	@CollectionOfElements(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "tblsundarydebtoropeningbalance", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strDebtorCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strDebtorCode", column = @Column(name = "strDebtorCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
@@ -41,7 +41,7 @@ public class clsSundryDebtorMasterModel implements Serializable {
 
 	
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblsundarydebtoritemdetail", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strDebtorCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strDebtorCode", column = @Column(name = "strDebtorCode")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })

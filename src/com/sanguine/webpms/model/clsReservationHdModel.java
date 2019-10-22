@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -15,7 +16,6 @@ import javax.persistence.IdClass;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 
-import org.hibernate.annotations.CollectionOfElements;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -35,7 +35,7 @@ public class clsReservationHdModel implements Serializable {
 		strClientCode = objModelID.getStrClientCode();
 	}
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblreservationdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strReservationNo") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strReservationNo", column = @Column(name = "strReservationNo")), 
@@ -43,7 +43,7 @@ public class clsReservationHdModel implements Serializable {
 	private List<clsReservationDtlModel> listReservationDtlModel = new ArrayList<clsReservationDtlModel>();
 
 	
-	@CollectionOfElements(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "tblreservationroomratedtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strReservationNo") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strReservationNo", column = @Column(name = "strReservationNo")), 

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -16,7 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.CollectionOfElements;
 
 @Entity
 @Table(name = "tblfoliohd")
@@ -32,13 +32,13 @@ public class clsFolioHdModel implements Serializable {
 		strClientCode = objModelID.getStrClientCode();
 	}
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblfoliodtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strFolioNo") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strFolioNo", column = @Column(name = "strFolioNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsFolioDtlModel> listFolioDtlModel = new ArrayList<clsFolioDtlModel>();
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblfoliotaxdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strFolioNo") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strFolioNo", column = @Column(name = "strFolioNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })

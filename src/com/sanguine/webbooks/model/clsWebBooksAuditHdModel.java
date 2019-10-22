@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -15,7 +16,6 @@ import javax.persistence.IdClass;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 
-import org.hibernate.annotations.CollectionOfElements;
 
 import com.sanguine.model.clsAuditDtlModel;
 
@@ -33,13 +33,13 @@ public class clsWebBooksAuditHdModel implements Serializable {
 		strClientCode = objModelID.getStrClientCode();
 	}
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblauditdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strTransNo") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strTransNo", column = @Column(name = "strTransNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsWebBooksAuditDtlModel> listAuditDtlModel = new ArrayList<clsWebBooksAuditDtlModel>();
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblauditdebtordtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strTransNo") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strTransNo", column = @Column(name = "strTransNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })

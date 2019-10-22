@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -14,8 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
-
-import org.hibernate.annotations.CollectionOfElements;
 
 import com.sanguine.webbooks.model.clsJVDebtorDtlModel;
 import com.sanguine.webbooks.model.clsJVModel_ID;
@@ -34,13 +33,13 @@ public class clsWalkinHdModel implements Serializable {
 		strClientCode = objModelID.getStrClientCode();
 	}
 
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblwalkindtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strWalkinNo") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strWalkinNo", column = @Column(name = "strWalkinNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsWalkinDtl> listWalkinDtlModel = new ArrayList<clsWalkinDtl>();
 	
-	@CollectionOfElements(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "tblwalkinroomratedtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strWalkinNo") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strWalkinNo", column = @Column(name = "strWalkinNo")), 

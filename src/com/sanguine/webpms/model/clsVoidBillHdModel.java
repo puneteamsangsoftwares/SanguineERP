@@ -8,6 +8,7 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -17,7 +18,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CollectionOfElements;
 
 @Entity
 @Table(name = "tblvoidbillhd")
@@ -36,14 +36,14 @@ public class clsVoidBillHdModel implements Serializable  {
 		strClientCode = objModelID.getStrClientCode();
 	}
 	
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblvoidbilldtl", joinColumns = { @JoinColumn(name = "strBillNo"), @JoinColumn(name = "strClientCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strBillNo", column = @Column(name = "strBillNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsVoidBillDtlModel> listVoidBillDtlModels = new ArrayList<clsVoidBillDtlModel>();
 
 	
-	@CollectionOfElements(fetch = FetchType.LAZY)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@JoinTable(name = "tblvoidbilltaxdtl", joinColumns = { @JoinColumn(name = "strBillNo"), @JoinColumn(name = "strClientCode") })
 	@Id
 	@AttributeOverrides({ @AttributeOverride(name = "strBillNo", column = @Column(name = "strBillNo")), @AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
