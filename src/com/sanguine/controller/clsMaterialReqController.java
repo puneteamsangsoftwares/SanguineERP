@@ -28,9 +28,9 @@ import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.design.JRDesignDataset;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.HtmlExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporterParameter;
-import net.sf.jasperreports.engine.export.JRHtmlExporter;
 import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
@@ -905,7 +905,7 @@ public class clsMaterialReqController {
 					resp.setContentType("application/xlsx");
 
 				} else if (type.trim().equalsIgnoreCase("HTML")) {
-					JRExporter exporterhtml = new JRHtmlExporter();
+					HtmlExporter exporterhtml = new HtmlExporter();
 					exporterhtml.setParameter(JRHtmlExporterParameter.JASPER_PRINT_LIST, jprintlist);
 					exporterhtml.setParameter(JRHtmlExporterParameter.OUTPUT_STREAM, resp.getOutputStream());
 					resp.setHeader("Content-Disposition", "attachment;filename=" + "rptReqSlip." + type.trim().toLowerCase());

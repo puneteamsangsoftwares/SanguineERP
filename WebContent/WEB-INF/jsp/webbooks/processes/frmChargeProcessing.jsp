@@ -415,13 +415,13 @@
 			
 			<tr>
 			    <td><label>Instant JV</label></td>	
-			    <td><s:input type="checkbox" id="chkInstantJV"  path="strInstantJVYN" onclick="funSetCheckBoxValueYN(this)"/></td>
+			    <td><s:checkbox id="chkInstantJV"  path="strInstantJVYN" onclick="funSetCheckBoxValueYN(this)"/></td>
 			    <td style="width: 100px;" ><label>Other Functions</label></td>	
 			    <td><s:select id="cmbOtherFunctions" path="strOtherFunctions" items="${listOtherFunctions}" cssClass="BoxW124px" /></td>		    		  
 			</tr>
 			<tr>
 			    <td style="width: 150px"><label>Annual Charge Processing</label></td>	
-			    <td colspan="3"><s:input type="checkbox" id="chkAnnualChargeProcessing"  path="strAnnualChargeProcessYN" onclick="funSetCheckBoxValueYN(this)"/></td>			    		    		 
+			    <td colspan="3"><s:checkbox  id="chkAnnualChargeProcessing"  path="strAnnualChargeProcessYN" onclick="funSetCheckBoxValueYN(this)"/></td>			    		    		 
 			</tr>
 		</table>
          <br>

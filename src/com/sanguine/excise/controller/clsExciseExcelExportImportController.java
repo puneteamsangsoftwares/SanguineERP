@@ -3,7 +3,6 @@ package com.sanguine.excise.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,11 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.tomcat.util.http.fileupload.FileUploadBase.IOFileUploadException;
 //import org.bouncycastle.ocsp.Req;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -359,7 +356,7 @@ public class clsExciseExcelExportImportController {
 
 	@SuppressWarnings({ "rawtypes", "resource" })
 	@RequestMapping(value = "/SaveExciseExcelExportImport", method = RequestMethod.POST)
-	public @ResponseBody List funUploadExcel(@RequestParam("file") MultipartFile excelfile, HttpServletRequest request, HttpServletResponse res) throws IOFileUploadException {
+	public @ResponseBody List funUploadExcel(@RequestParam("file") MultipartFile excelfile, HttpServletRequest request, HttpServletResponse res) throws Exception {
 		List list = new ArrayList<>();
 		String formname = request.getParameter("formname").toString();
 		try {

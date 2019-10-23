@@ -157,10 +157,10 @@
 <!-- 				<option value="Food">Food</option> -->
 				
 <%-- 				</select> --%>
-				<td><s:input type="checkbox" name="splitType" path="strSplitType" value="ROOM"/>&nbsp;&nbsp;ROOM&nbsp;&nbsp;
-				<s:input type="checkbox"  name="splitType" path="strSplitType" value="FOOD"></s:input>&nbsp;&nbsp;FOOD&nbsp;&nbsp;
-				<s:input type="checkbox"  name="splitType" path="strSplitType" value="LIQUOR"></s:input>&nbsp;&nbsp;LIQUOR&nbsp;&nbsp;
-				<s:input type="checkbox"  name="splitType" path="strSplitType" value="GUEST WISE"></s:input>&nbsp;&nbsp;GUEST WISE&nbsp;&nbsp;
+				<td><s:checkbox   name="splitType" path="strSplitType" value="ROOM"/>&nbsp;&nbsp;ROOM&nbsp;&nbsp;
+				<s:checkbox    name="splitType" path="strSplitType" value="FOOD"/>&nbsp;&nbsp;FOOD&nbsp;&nbsp;
+				<s:checkbox    name="splitType" path="strSplitType" value="LIQUOR"/>&nbsp;&nbsp;LIQUOR&nbsp;&nbsp;
+				<s:checkbox    name="splitType" path="strSplitType" value="GUEST WISE"/>&nbsp;&nbsp;GUEST WISE&nbsp;&nbsp;
 				</td>													
 			</tr>
 		

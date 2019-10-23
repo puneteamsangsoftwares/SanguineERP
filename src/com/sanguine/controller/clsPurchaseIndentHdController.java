@@ -25,8 +25,8 @@ import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.design.JRDesignDataset;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.HtmlExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
-import net.sf.jasperreports.engine.export.JRHtmlExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
@@ -713,7 +713,7 @@ public class clsPurchaseIndentHdController {
 				resp.setContentType("application/xlsx");
 
 			} else if (type.trim().equalsIgnoreCase("HTML")) {
-				JRExporter exporterXLS = new JRHtmlExporter();
+				JRExporter exporterXLS = new HtmlExporter();
 				exporterXLS.setParameter(JRPdfExporterParameter.JASPER_PRINT, p);
 				exporterXLS.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, resp.getOutputStream());
 				resp.setHeader("Content-Disposition", "attachment;filename=" + "rptPISlip." + type.trim());

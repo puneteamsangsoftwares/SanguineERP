@@ -28,9 +28,9 @@ import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.design.JRDesignDataset;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.HtmlExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporterParameter;
-import net.sf.jasperreports.engine.export.JRHtmlExporter;
 import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
@@ -44,12 +44,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mysql.jdbc.Connection;
-import com.sanguine.bean.clsAutoGenReqBean;
 import com.sanguine.bean.clsRequisitionBean;
 import com.sanguine.model.clsAuditDtlModel;
 import com.sanguine.model.clsAuditHdModel;
@@ -57,7 +55,6 @@ import com.sanguine.model.clsLocationMasterModel;
 import com.sanguine.model.clsMRPIDtl;
 import com.sanguine.model.clsMRPIDtl_ID;
 import com.sanguine.model.clsProductMasterModel;
-import com.sanguine.model.clsProductStandardModel;
 import com.sanguine.model.clsPropertySetupModel;
 import com.sanguine.model.clsPurchaseIndentDtlModel;
 import com.sanguine.model.clsPurchaseIndentHdModel;
@@ -798,7 +795,7 @@ public class clsStockReqController {
 					resp.setContentType("application/xlsx");
 
 				} else if (type.trim().equalsIgnoreCase("HTML")) {
-					JRExporter exporterhtml = new JRHtmlExporter();
+					JRExporter exporterhtml = new HtmlExporter();
 					exporterhtml.setParameter(JRHtmlExporterParameter.JASPER_PRINT_LIST, jprintlist);
 					exporterhtml.setParameter(JRHtmlExporterParameter.OUTPUT_STREAM, resp.getOutputStream());
 					resp.setHeader("Content-Disposition", "attachment;filename=" + "rptReqSlip." + type.trim().toLowerCase());

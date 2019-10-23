@@ -1595,8 +1595,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 				<span id="spStockUOM"></span>
 				</td>
 				
-				<td style="display: none";>Save Standard List &nbsp; &nbsp; &nbsp;<s:input id="cbSaveStd" value="Y"  path="strSaveSatandard"
-					type="checkbox"  /></td>
+				<td style="display: none";>Save Standard List &nbsp; &nbsp; &nbsp;<s:checkbox   id="cbSaveStd" value="Y"  path="strSaveSatandard"
+					 /></td>
 					<td><input type="button" value="Load Standard" onclick="funLoadStandardProduct()" class="form_button"></input>  </td>
 				<td colspan="3"><input type="hidden" id="hidNonStkableItem"/></td>
 
@@ -1720,8 +1720,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 			</tr>
 			<tr>
 				<td>Close Requisition</td>
-				<td><s:input id="cbCloseReq" value="Yes" style="width: 36px;" path="strCloseReq"
-					type="checkbox" onclick="return cbCloseReq_onclick()" />
+				<td><s:checkbox  id="cbCloseReq" value="Yes" style="width: 36px;" path="strCloseReq"
+					 onclick="return cbCloseReq_onclick()" />
 				<td>Narration</td>
 				<td><s:textarea id="txtNarration" cols="50" rows="3"
 						path="strNarration" value="${command.strNarration}"

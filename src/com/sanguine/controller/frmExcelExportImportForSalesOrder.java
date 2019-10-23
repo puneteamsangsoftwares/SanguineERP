@@ -12,7 +12,6 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.tomcat.util.http.fileupload.FileUploadBase.IOFileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sanguine.crm.bean.clsSalesOrderBean;
 import com.sanguine.crm.model.clsSalesOrderDtl;
-import com.sanguine.model.clsOpeningStkDtl;
 import com.sanguine.model.clsProductMasterModel;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.service.clsProductMasterService;
@@ -87,7 +84,7 @@ public class frmExcelExportImportForSalesOrder {
 
 	@SuppressWarnings({ "rawtypes" })
 	@RequestMapping(value = "/ExcelExportImportSales", method = RequestMethod.POST)
-	public @ResponseBody List funUploadExcel(@RequestParam("file") MultipartFile excelfile, HttpServletRequest request, HttpServletResponse res) throws IOFileUploadException {
+	public @ResponseBody List funUploadExcel(@RequestParam("file") MultipartFile excelfile, HttpServletRequest request, HttpServletResponse res) throws Exception {
 		List list = new ArrayList<>();
 		String formname = request.getParameter("formname").toString();
 		try {
