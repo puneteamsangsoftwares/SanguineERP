@@ -22,7 +22,7 @@ import com.sanguine.webbooks.model.clsCurrentAccountBalMaodel;
 import com.sanguine.webbooks.model.clsLedgerSummaryModel;
 
 @Service("objGlobalFunctionsService")
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+@Transactional(readOnly = true,propagation = Propagation.NOT_SUPPORTED)
 public class clsGlobalFunctionsServiceImpl implements clsGlobalFunctionsService {
 	@Autowired
 	private clsGlobalFunctionsDao objGlobalDao;
@@ -241,14 +241,14 @@ public class clsGlobalFunctionsServiceImpl implements clsGlobalFunctionsService 
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
+	@Transactional( readOnly = true,propagation = Propagation.NOT_SUPPORTED)
 	public void funSaveAuditTaxDtl(clsAuditGRNTaxDtlModel AuditGRNTaxDtlModel) {
 		objGlobalDao.funSaveAuditTaxDtl(AuditGRNTaxDtlModel);
 
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
+	@Transactional( readOnly = true,propagation = Propagation.NOT_SUPPORTED)
 	public List funGetListReportQuery(String sql) {
 		return objGlobalDao.funGetListReportQuery(sql);
 	}

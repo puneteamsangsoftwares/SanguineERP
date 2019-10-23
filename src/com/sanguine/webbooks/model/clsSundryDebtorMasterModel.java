@@ -17,8 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-
 @Entity
 @Table(name = "tblsundarydebtormaster")
 @IdClass(clsSundryDebtorMasterModel_ID.class)

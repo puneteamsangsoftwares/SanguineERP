@@ -549,7 +549,6 @@ public class clsProductMasterController {
 	// }
 
 
-	
 
 	@RequestMapping(value = "/loadProductMasterData", method = RequestMethod.GET)
 	public @ResponseBody clsProductMasterModel funAssignFields(@RequestParam("prodCode") String prodCode, HttpServletRequest req, HttpServletResponse response) {
@@ -608,6 +607,7 @@ public class clsProductMasterController {
 			objModel1.setStrProdCode("Invalid Code");
 			return objModel1;
 		} else {
+			//objModel.setStrProductImage(null); 
 			return objModel;
 		}
 	}

@@ -1,13 +1,10 @@
 package com.sanguine.webbooks.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
@@ -15,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -27,7 +23,6 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JRViewer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +34,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lowagie.text.pdf.hyphenation.TernaryTree.Iterator;
 import com.mysql.jdbc.Connection;
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.model.clsPropertySetupModel;
@@ -47,21 +41,15 @@ import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.service.clsSetupMasterService;
 import com.sanguine.webbooks.bean.clsChargeProcessingBean;
 import com.sanguine.webbooks.bean.clsCreditorOutStandingReportBean;
-import com.sanguine.webbooks.bean.clsJVDetailsBean;
-import com.sanguine.webbooks.bean.clsParameterSetupBean;
-import com.sanguine.webbooks.model.clsBankMasterModel;
 import com.sanguine.webbooks.model.clsChargeMasterModel;
 import com.sanguine.webbooks.model.clsChargeProcessingDtlModel;
 import com.sanguine.webbooks.model.clsChargeProcessingHDModel;
 import com.sanguine.webbooks.model.clsJVDebtorDtlModel;
 import com.sanguine.webbooks.model.clsJVDtlModel;
 import com.sanguine.webbooks.model.clsJVHdModel;
-import com.sanguine.webbooks.model.clsParameterSetupModel;
-import com.sanguine.webbooks.model.clsWebBooksAccountMasterModel;
 import com.sanguine.webbooks.service.clsChargeMasterService;
 import com.sanguine.webbooks.service.clsChargeProcessingService;
 import com.sanguine.webbooks.service.clsJVService;
-import com.sun.glass.ui.Application;
 
 @Controller
 public class clsChargeProcessingController

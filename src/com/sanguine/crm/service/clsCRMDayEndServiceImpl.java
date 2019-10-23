@@ -9,7 +9,7 @@ import com.sanguine.crm.dao.clsCRMDayEndDao;
 import com.sanguine.crm.model.clsCRMDayEndModel;
 
 @Service("objclsCRMDayEndService")
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = false, value = "hibernateTransactionManager")
+@Transactional(readOnly = true,propagation = Propagation.NOT_SUPPORTED, value = "hibernateTransactionManager")
 public class clsCRMDayEndServiceImpl implements clsCRMDayEndService {
 
 	@Autowired
