@@ -3,6 +3,7 @@ package com.sanguine.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -10,8 +11,9 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "tblinitialinvdtl")
 public class clsOpeningStkDtl {
+
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "intId", updatable = false)
 	private long intId;
 

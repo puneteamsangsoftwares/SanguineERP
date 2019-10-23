@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.Query;
+
+
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -252,7 +254,7 @@ public class clsProductMasterDaoImpl implements clsProductMasterDao {
 	@Override
 	public void funProductUpdateCostRM(Double dblCostRM, String strProCode, String strClientCode) {
 		String upadateQuery = "update tblproductmaster set dblCostRM='" + dblCostRM + "' where strProdCode='" + strProCode + "' and strClientCode='" + strClientCode + "' ";
-		Query query = sessionFactory.getCurrentSession().createSQLQuery(upadateQuery);
+		Query query = sessionFactory.getCurrentSession().createNativeQuery(upadateQuery);
 		query.executeUpdate();
 	}
 
@@ -305,7 +307,7 @@ public class clsProductMasterDaoImpl implements clsProductMasterDao {
 			// +
 			// " and strCharCode='"+charCode+"' and strProcessCode='"+processCode+"' "
 					+ "and strClientCode='" + strClientCode + "' ";
-			Query query = sessionFactory.getCurrentSession().createSQLQuery(deleteQuery);
+			Query query = sessionFactory.getCurrentSession().createNativeQuery(deleteQuery);
 			query.executeUpdate();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -359,14 +361,14 @@ public class clsProductMasterDaoImpl implements clsProductMasterDao {
 	@Override
 	public List funGetProdSuppWaiseProdList(String suppCode, String clientCode) {
 		String sql = "select a.strProdCode,a.dblLastCost,a.dblMargin,a.dblStandingOrder,a.dblAMCAmt,a.dteInstallation,a.intWarrantyDays from tblprodsuppmaster a,tblproductmaster b " + "where a.strSuppCode='" + suppCode + "' and a.strClientCode= '" + clientCode + "' and a.strProdCode=b.strProdCode order by b.strProdName ";
-		List list = sessionFactory.getCurrentSession().createSQLQuery(sql).list();
+		List list = sessionFactory.getCurrentSession().createNativeQuery(sql).list();
 
 		return list;
 	}
 
 	public List funGetProdSuppDtl(String prodCode, String strCustCode, String clientCode) {
 		String sql = "select a.strProdCode,a.dblLastCost,a.dblMargin,a.dblAMCAmt,a.dteInstallation,a.intWarrantyDays,a.dblStandingOrder from tblprodsuppmaster a " + "where a.strSuppCode='" + strCustCode + "' and a.strProdCode='" + prodCode + "'and a.strClientCode= '" + clientCode + "' ";
-		List list = sessionFactory.getCurrentSession().createSQLQuery(sql).list();
+		List list = sessionFactory.getCurrentSession().createNativeQuery(sql).list();
 
 		return list;
 

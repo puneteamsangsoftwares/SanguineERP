@@ -1,5 +1,6 @@
 package com.sanguine.controller;
 
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -1944,6 +1945,7 @@ public class clsGRNController {
 							+ "' group by g.strGRNCode ");
 
 			JasperDesign jd = JRXmlLoader.load(reportName);
+			
 			JRDesignQuery newQuery = new JRDesignQuery();
 			newQuery.setText(sqlBuilder.toString());
 			jd.setQuery(newQuery);
