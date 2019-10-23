@@ -607,7 +607,7 @@ public class clsProductMasterController {
 			objModel1.setStrProdCode("Invalid Code");
 			return objModel1;
 		} else {
-			//objModel.setStrProductImage(null); 
+			objModel.setStrProductImage(null); 
 			return objModel;
 		}
 	}
