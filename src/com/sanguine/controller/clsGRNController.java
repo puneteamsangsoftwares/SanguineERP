@@ -646,7 +646,7 @@ public class clsGRNController {
 								.equalsIgnoreCase("N")) {
 							if (objSetUp.getStrWeightedAvgCal().equals(
 									"Property Wise")) {
-								// property wise rate save
+							// property wise rate save
 								double dblreOrderPrice = 0;
 								clsProductReOrderLevelModel objReOrder = objProductMasterService.funGetProdReOrderLvl(ob.getStrProdCode(),objHdModel.getStrLocCode(),clientCode);
 								if (objReOrder != null) {
