@@ -141,7 +141,7 @@ public class clsTransporterMasterController {
 			objModel = new clsTransporterHdModel(new clsTransporterHdModel_ID(docCode, clientCode));
 			objModel.setIntId(lastNo);
 			objModel.setStrUserCreated(userCode);
-			objModel.setDteCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+			objModel.setDteCreatedDate(objGlobal.funGetCurrentDate("yyyy-MM-dd"));
 		} else {
 			clsTransporterHdModel objTrasnModel = objTransporterMasterService.funGetTransporterMaster(objBean.getStrTransCode(), clientCode);
 			if (null == objTrasnModel) {
@@ -150,7 +150,7 @@ public class clsTransporterMasterController {
 				objModel = new clsTransporterHdModel(new clsTransporterHdModel_ID(docCode, clientCode));
 				objModel.setIntId(lastNo);
 				objModel.setStrUserCreated(userCode);
-				objModel.setDteCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+				objModel.setDteCreatedDate(objGlobal.funGetCurrentDate("yyyy-MM-dd"));
 			} else {
 				objModel = new clsTransporterHdModel(new clsTransporterHdModel_ID(objBean.getStrTransCode(), clientCode));
 			}

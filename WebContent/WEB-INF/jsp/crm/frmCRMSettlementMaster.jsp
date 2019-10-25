@@ -214,7 +214,7 @@
 			
 			<tr>
 				<td><label>Applicable</label></td>
-				<td><s:input colspan="1" type="checkbox" id="chkApplicable" 
+				<td><s:checkbox colspan="1"  id="chkApplicable" 
 						name="chkApplicable" path="strApplicable" value ="true" style="width:8%" />
 			
 			<td><label id="lblsettleMaster">Settlement Wise Invoice Series </label></td>

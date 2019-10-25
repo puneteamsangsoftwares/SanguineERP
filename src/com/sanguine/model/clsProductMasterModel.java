@@ -122,8 +122,9 @@ public class clsProductMasterModel implements Serializable {
 	@Column(name = "strSpecification", nullable = false)
 	private String strSpecification;
 
-	@Column(name = "strProductImage", length = 1000000000, nullable = false)
+	@Column(name = "strProductImage", length = 100000, nullable = false)
 	@Lob
+	@Basic(fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Blob strProductImage;
 

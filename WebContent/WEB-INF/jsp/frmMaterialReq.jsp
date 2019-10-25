@@ -1595,8 +1595,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 				<span id="spStockUOM"></span>
 				</td>
 				
-				<td style="display: none";>Save Standard List &nbsp; &nbsp; &nbsp;<s:checkbox   id="cbSaveStd" value="Y"  path="strSaveSatandard"
-					 /></td>
+				<td style="display: none";>Save Standard List &nbsp; &nbsp; &nbsp;
+				<s:checkbox   id="cbSaveStd" value="Y"  path="strSaveSatandard"/></td>
 					<td><input type="button" value="Load Standard" onclick="funLoadStandardProduct()" class="form_button"></input>  </td>
 				<td colspan="3"><input type="hidden" id="hidNonStkableItem"/></td>
 
