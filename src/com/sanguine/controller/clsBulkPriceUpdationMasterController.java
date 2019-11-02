@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.itextpdf.text.pdf.qrcode.ByteArray;
 import com.sanguine.bean.clsProductMasterBean;
 import com.sanguine.model.clsLocationMasterModel;
 import com.sanguine.model.clsProductMasterModel;
@@ -160,7 +161,7 @@ public class clsBulkPriceUpdationMasterController {
 					objModel1.setDblListPrice(obModel.getDblListPrice());
 					objModel1.setDblUnitPrice(obModel.getDblUnitPrice());
 					if (objModel1.getStrProductImage() == null) {
-						objModel1.setStrProductImage(funBlankBlob());
+						objModel1.setStrProductImage(null);
 					}
 					objProductMasterService.funAddUpdateGeneral(objModel1);
 				}
@@ -220,7 +221,7 @@ public class clsBulkPriceUpdationMasterController {
 		objModel.setIntId(lastNo);
 		objModel.setStrUserCreated(userCode);
 		objModel.setDtCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-		objModel.setStrProductImage(funBlankBlob());
+		objModel.setStrProductImage(null);
 		objModel.setStrProdName(objBean.getStrProdName().toUpperCase());
 		objModel.setStrPartNo(objGlobal.funIfNull(objBean.getStrPartNo(), "", objBean.getStrPartNo()));
 		objModel.setStrUOM(objGlobal.funIfNull(objBean.getStrUOM(), "", objBean.getStrUOM()));

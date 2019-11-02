@@ -272,10 +272,17 @@ public class clsProductMasterController {
 	}
 
 	@RequestMapping(value = "/saveProductMaster", method = RequestMethod.POST)
-	public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsProductMasterBean objBean, BindingResult result, HttpServletRequest req, HttpServletResponse resp, @RequestParam("prodImage") MultipartFile file) throws IOException {
+	public ModelAndView funAddUpdate(@ModelAttribute("command") clsProductMasterBean objBean, BindingResult result, HttpServletRequest req, HttpServletResponse resp,@RequestParam("prodImage") MultipartFile file) throws IOException {
 		String urlHits = "1";
 		String defaulltSupplier = "", strProductNameMarathi = "";
+		//MultipartFile file =file;
 		try {
+			
+			if(req.getAttribute("prodImage")!=null){
+				file =(MultipartFile) req.getAttribute("prodImage");	
+			}
+			 
+			
 			req.setCharacterEncoding("UTF-8");
 			resp.setCharacterEncoding("UTF-8");
 			urlHits = req.getParameter("saddr").toString();
@@ -607,7 +614,7 @@ public class clsProductMasterController {
 			objModel1.setStrProdCode("Invalid Code");
 			return objModel1;
 		} else {
-			objModel.setStrProductImage(null); 
+			//objModel.setStrProductImage(null); 
 			return objModel;
 		}
 	}
@@ -646,17 +653,17 @@ public class clsProductMasterController {
 		}
 
 		try {
-			Blob image = null;
+			//Blob image = null;
 			byte[] imgData = null;
-			image = objModel.getStrProductImage();
-			if (null != image && image.length() > 0) {
-				imgData = image.getBytes(1, (int) image.length());
+		//	image = objModel.getStrProductImage();
+			//if (null != image && image.length() > 0) {
+				imgData =objModel.getStrProductImage();
 				response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
 				OutputStream o = response.getOutputStream();
 				o.write(imgData);
 				o.flush();
 				o.close();
-			}
+			//}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -690,7 +697,7 @@ public class clsProductMasterController {
 			objModel.setIntId(lastNo);
 			objModel.setStrUserCreated(userCode);
 			objModel.setDtCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-			if (file.getSize() != 0) {
+			if (file !=null && file.getSize() != 0) {
 				System.out.println(file.getOriginalFilename());
 				File imgFolder = new File(System.getProperty("user.dir") + "\\ProductIcon");
 				if (!imgFolder.exists()) {
@@ -721,7 +728,7 @@ public class clsProductMasterController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				objModel.setStrProductImage(blobProdImage);
+				objModel.setStrProductImage(imageBytes);
 
 				if (fileImageIcon.exists()) {
 					fileImageIcon.delete();
@@ -741,7 +748,7 @@ public class clsProductMasterController {
 				objModel.setStrProductImage(funBlankBlob());
 			} else {
 				objModel = new clsProductMasterModel(new clsProductMasterModel_ID(objBean.getStrProdCode(), clientCode));
-				if (file.getSize() != 0) {
+				if (file !=null && file.getSize() != 0) {
 
 					File imgFolder = new File(System.getProperty("user.dir") + "\\ProductIcon");
 					if (!imgFolder.exists()) {
@@ -771,7 +778,7 @@ public class clsProductMasterController {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} //Hibernate.createBlob(byteArrayInputStream);
-					objModel.setStrProductImage(blobProdImage);
+					objModel.setStrProductImage(imageBytes);
 
 					if (fileImageIcon.exists()) {
 						fileImageIcon.delete();
@@ -1201,7 +1208,9 @@ public class clsProductMasterController {
 		listStock.add(listStockFlashModel);
 		return new ModelAndView("excelView", "stocklist", listStock);
 	}
-	public Blob funBlankBlob() {
+	public byte[] funBlankBlob() {
+		
+		
 		Blob blob = new Blob() {
 
 			@Override
@@ -1270,7 +1279,8 @@ public class clsProductMasterController {
 
 			}
 		};
-		return blob;
+		byte an[]=new byte[100];
+		return an;
 	}
 
 	public BufferedImage scaleImage(int WIDTH, int HEIGHT, String filename) {

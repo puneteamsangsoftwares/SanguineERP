@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sanguine.dao.clsProductMasterDao;
 import com.sanguine.model.clsProdAttMasterModel;
 import com.sanguine.model.clsProdCharMasterModel;
@@ -27,6 +28,7 @@ public class clsProductMasterServiceImpl implements clsProductMasterService {
 		return objProductMasterDao.funGetList(strClientCode);
 	}
 
+	@JsonProperty
 	public clsProductMasterModel funGetObject(String prodCode, String clientCode) {
 		return objProductMasterDao.funGetObject(prodCode, clientCode);
 	}

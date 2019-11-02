@@ -3703,7 +3703,7 @@ public class clsGlobalFunctions {
 	@RequestMapping(value = "/getNotification", method = RequestMethod.GET)
 	public @ResponseBody List funGetPendingRequisitionNotification(HttpServletRequest req,HttpServletResponse resp) {
 		List list = new ArrayList();
-		if (req.getSession().getAttribute("selectedModuleName").toString().equalsIgnoreCase("1-WebStocks")) {
+		if (req.getSession().getAttribute("selectedModuleName")!=null && req.getSession().getAttribute("selectedModuleName").toString().equalsIgnoreCase("1-WebStocks")) {
 
 			String clientCode = req.getSession().getAttribute("clientCode").toString();
 			String strLocCode = req.getSession().getAttribute("locationCode").toString();

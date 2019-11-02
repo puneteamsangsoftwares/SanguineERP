@@ -93,7 +93,7 @@ public class clsSalesOrderBOMController {
 				try {
 					Blob image = null;
 					byte[] imgData = null;
-					image = objeProductMaster.getStrProductImage();
+					image = null;//objeProductMaster.getStrProductImage();
 					if (null != image && image.length() > 0) {
 						imgData = image.getBytes(1, (int) image.length());
 						response.setContentType("image/jpeg, image/jpg, image/png, image/gif");

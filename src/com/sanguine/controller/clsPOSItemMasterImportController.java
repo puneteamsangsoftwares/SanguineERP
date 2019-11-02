@@ -433,7 +433,7 @@ public class clsPOSItemMasterImportController {
 		return listObjbjModel;
 	}
 
-	private Blob funBlankBlob() {
+	private byte[] funBlankBlob() {
 		Blob blob = new Blob() {
 
 			@Override
@@ -502,7 +502,8 @@ public class clsPOSItemMasterImportController {
 
 			}
 		};
-		return blob;
+		byte an[]=new byte[100];
+		return an;
 	}
 
 	@SuppressWarnings("finally")

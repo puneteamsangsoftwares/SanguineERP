@@ -20,13 +20,35 @@
 	<tx:annotation-driven transaction-manager="hibernateTransactionManager"/>
 	<mvc:annotation-driven>
 		<mvc:message-converters>
-			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+			<!-- <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="objectMapper" ref="jacksonObjectMapper" />
-            </bean>
+            </bean> -->
+             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+	             <property name="supportedMediaTypes">
+	                <list>
+	                    <value>text/plain;charset=UTF-8</value>
+	                    <value>text/html;charset=UTF-8</value>
+	                </list>
+	            </property>
+        	</bean>
+           <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+            <property name="supportedMediaTypes">
+                <list>
+                    <value>application/json; charset=UTF-8</value>
+                    <value>application/x-www-form-urlencoded; charset=UTF-8</value>
+                </list>
+            </property>
+            
+            <property name="objectMapper">
+                <bean class="com.sanguine.util.MyJsonMapper">
+                </bean>
+            </property>
+              
+        </bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
-	<bean id="jacksonObjectMapper" class="com.sanguine.util.MyJsonMapper" />
+	<!-- <bean id="jacksonObjectMapper" class="com.sanguine.util.MyJsonMapper" /> -->
 
 	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 	    <property name="messageConverters">
@@ -46,6 +68,10 @@
 	        </list>
 	    </property>
 	</bean>
+	<bean id="viewResolver2" class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="order" value="1"/>
+        <property name="location" value="/WEB-INF/views.xml"/>
+    </bean>
 	
 		<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager"/>
 	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
@@ -53,6 +79,10 @@
 	    <property name="favorPathExtension" value="false" />
 	</bean>
 	
+	<bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- <property name="maxUploadSize" value="10000000" /> -->
+    </bean>
 	
 	
 	<bean id="dataSource"

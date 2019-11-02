@@ -2,6 +2,7 @@
     
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="sp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -1987,13 +1988,13 @@ $(document).ready(function()
 		 
 	</script>
 	
-
+<!-- enctype="multipart/form-data" -->
 </head>
 <body>
 <div id="formHeading">
 		<label>Product Master</label>
 	</div>
-	<s:form name="productMasterForm" method="POST" action="saveProductMaster.html?saddr=${urlHits}" enctype="multipart/form-data">	
+	<s:form name="productMasterForm" method="POST" action="saveProductMaster.html?saddr=${urlHits}" enctype="multipart/form-data" >	
 	
 	<br>
 		<table

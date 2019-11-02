@@ -923,12 +923,14 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 				if(!fun_isDate($("#txtReqDate").val())){
 						alert('Invalid Requisition Date');
 			            $("#txtReqDate").focus();
+			            clickCount=0;
 			            return false;
 				 }
 				if(!fun_isDate($("#txtReqiredDate").val()))
 			    {
 					alert('Invalid Required Date');
 					$("#txtReqiredDate").focus();
+					clickCount=0;
 			    	return false;
 			    } 
 				 var spReqDate=$("#txtReqDate").val().split('-');
@@ -939,6 +941,7 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 				    {
 				    	alert("Required Date Should Not Be Less Than Requisition Date");
 				    	$("#txtReqiredDate").focus();
+				    	clickCount=0;
 						return false;		    	
 				    }
 				var table = document.getElementById("tblProdDet");
@@ -948,27 +951,32 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 				{
 					alert("Please Enter Location By or Search");
 					$("#txtLocBy").focus();
+					clickCount=0;
 					return false;
 				}
 				else if($("#txtLocOn").val()=='')
 				{
 					alert("Please Enter Location To or Search");
 					$("#txtLocOn").focus();
+					clickCount=0;
 					return false;
 				}
 				else if($("#txtLocBy").val()==$("#txtLocOn").val())
 				{
 					alert("Location By and Location On cannot be same");
+					clickCount=0;
 					return false;
 				}
 				else if(rowCount==0)
 				{
 					alert("Please Add Product in Grid");
+					clickCount=0;
 					return false;
 				}
 				 if(  $("#cmbAgainst").val() == null || $("#cmbAgainst").val().trim().length == 0 )
 				 {
 				 		alert("Please Select Against");
+				 		clickCount=0;
 						return false;
 				 }
 				
@@ -980,6 +988,7 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 				}
 			}
 				else{
+					clickCount=0;
 					return false;
 				}
 			}
@@ -1595,8 +1604,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 				<span id="spStockUOM"></span>
 				</td>
 				
-				<td style="display: none";>Save Standard List &nbsp; &nbsp; &nbsp;
-				<s:checkbox   id="cbSaveStd" value="Y"  path="strSaveSatandard"/></td>
+				<td style="display: none";>Save Standard List &nbsp; &nbsp; &nbsp;<s:checkbox   id="cbSaveStd" value="Y"  path="strSaveSatandard"
+					 /></td>
 					<td><input type="button" value="Load Standard" onclick="funLoadStandardProduct()" class="form_button"></input>  </td>
 				<td colspan="3"><input type="hidden" id="hidNonStkableItem"/></td>
 
