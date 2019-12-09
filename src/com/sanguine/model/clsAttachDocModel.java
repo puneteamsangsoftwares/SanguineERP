@@ -2,8 +2,10 @@ package com.sanguine.model;
 
 import java.sql.Blob;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,9 +44,13 @@ public class clsAttachDocModel {
 	@Column(name = "strClientCode", columnDefinition = "VARCHAR(255) NOT NULL default ''")
 	private String strClientCode;
 
-	@Column(name = "binContent")
+	/*@Column(name = "binContent")
 	@Lob
-	private Blob binContent;
+	private Blob binContent;*/
+	
+	@Lob @Basic(fetch = FetchType.LAZY)
+    @Column(name="binContent", nullable=false)
+    private byte[] binContent;
 
 	@Column(name = "strContentType", columnDefinition = "VARCHAR(255) NOT NULL default ''")
 	private String strContentType;
@@ -124,13 +130,6 @@ public class clsAttachDocModel {
 		this.strClientCode = strClientCode;
 	}
 
-	public Blob getBinContent() {
-		return binContent;
-	}
-
-	public void setBinContent(Blob binContent) {
-		this.binContent = binContent;
-	}
 
 	public String getStrContentType() {
 		return strContentType;
@@ -146,6 +145,14 @@ public class clsAttachDocModel {
 
 	public void setStrModuleName(String strModuleName) {
 		this.strModuleName = strModuleName;
+	}
+
+	public byte[] getBinContent() {
+		return binContent;
+	}
+
+	public void setBinContent(byte[] binContent) {
+		this.binContent = binContent;
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.sanguine.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.sql.Blob;
@@ -90,7 +91,8 @@ public class clsAttachDocController {
 
 				objModel.setStrTrans(transactionName);
 				objModel.setStrCode(docCode);
-				objModel.setBinContent(new SerialBlob(imageData));
+				//objModel.setBinContent(new SerialBlob(imageData));
+				objModel.setBinContent(file.getBytes());
 				objModel.setStrUserCreated(req.getSession().getAttribute("usercode").toString());
 				objModel.setDtCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 				objModel.setStrClientCode(req.getSession().getAttribute("clientCode").toString());
@@ -117,7 +119,8 @@ public class clsAttachDocController {
 			response.setHeader("Content-Disposition", "inline;filename=\"" + doc.getStrActualFileName() + "\"");
 			OutputStream out = response.getOutputStream();
 			response.setContentType(doc.getStrContentType());
-			IOUtils.copy(doc.getBinContent().getBinaryStream(), out);
+			IOUtils.copy(new ByteArrayInputStream(doc.getBinContent()),out);
+			//IOUtils.copy(doc.getBinContent().getBinaryStream(), out);
 			out.flush();
 			out.close();
 
