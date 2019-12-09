@@ -7,18 +7,20 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+
 import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.servlet.view.document.AbstractXlsxView;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.view.document.AbstractXlsView;
+
 @Controller
-public class clsExcelBuilderFromDateTodateCompanyNameWithReportName extends AbstractXlsxView {
+public class clsExcelBuilderFromDateTodateCompanyNameWithReportName extends AbstractXlsView {
 
 	@SuppressWarnings({ "rawtypes" })
 	@Override
@@ -54,7 +56,7 @@ public class clsExcelBuilderFromDateTodateCompanyNameWithReportName extends Abst
 
 		
 		// create a new Excel sheet
-		HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Sheet");
+		Sheet sheet =  workbook.createSheet("Sheet");
 		sheet.setDefaultColumnWidth(20);
 
 		// create style for header cells
@@ -68,38 +70,38 @@ public class clsExcelBuilderFromDateTodateCompanyNameWithReportName extends Abst
 		style.setFont(font);
 
 		// create header row
-		HSSFRow titile = sheet.createRow(0);
+		Row titile = sheet.createRow(0);
 
 		for (int rowtitile = 0; rowtitile < tilte1.size(); rowtitile++) {
 			titile.createCell(rowtitile).setCellValue(tilte1.get(rowtitile).toString());
 			titile.getCell(rowtitile).setCellStyle(style);
 		}
 		
-		HSSFRow tit2 = sheet.createRow(1);
+		Row tit2 = sheet.createRow(1);
 		for (int rowtitile = 0; rowtitile < tilte2.size(); rowtitile++) {
 			tit2.createCell(rowtitile).setCellValue(tilte2.get(rowtitile).toString());
 			tit2.getCell(rowtitile).setCellStyle(style);
 		}
 		
-		HSSFRow tit3 = sheet.createRow(2);
+		Row tit3 = sheet.createRow(2);
 		for (int rowtitile = 0; rowtitile < tilte3.size(); rowtitile++) {
 			tit3.createCell(rowtitile).setCellValue(tilte3.get(rowtitile).toString());
 			tit3.getCell(rowtitile).setCellStyle(style);
 		}
 
 		
-		HSSFRow fittler = sheet.createRow(3);
+		Row fittler = sheet.createRow(3);
 		for (int rowfitter = 0; rowfitter < listdate.size(); rowfitter++) {
 			fittler.createCell(rowfitter).setCellValue(listdate.get(rowfitter).toString());
 			fittler.getCell(rowfitter).setCellStyle(style);
 		}
-		HSSFRow blank = sheet.createRow(4);
+		Row blank = sheet.createRow(4);
 		for (int rowtitile = 0; rowtitile < 1; rowtitile++) {
 			blank.createCell(rowtitile).setCellValue("");
 			// titile.getCell(rowtitile).setCellStyle(style);
 		}
 
-		HSSFRow header = sheet.createRow(5);
+		Row header = sheet.createRow(5);
 
 		for (int rowCount = 0; rowCount < HeaderList.length; rowCount++) {
 			header.createCell(rowCount).setCellValue(HeaderList[rowCount].toString());
@@ -110,7 +112,7 @@ public class clsExcelBuilderFromDateTodateCompanyNameWithReportName extends Abst
 		// aRow is add Row
 		int ColrowCount = 6;
 		for (int rowCount = 0; rowCount < listStock.size(); rowCount++) {
-			HSSFRow aRow = sheet.createRow(ColrowCount++);
+			Row aRow = sheet.createRow(ColrowCount++);
 			List arrObj = (List) listStock.get(rowCount);
 			for (int Count = 0; Count < arrObj.size(); Count++) {
 				System.out.print(arrObj.get(Count));

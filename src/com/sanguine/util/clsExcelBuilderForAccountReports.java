@@ -8,18 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.servlet.view.document.AbstractXlsxView;
-import org.springframework.web.servlet.view.document.AbstractXlsxView;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.view.document.AbstractXlsView;
+
+
 @Controller
-public class clsExcelBuilderForAccountReports extends AbstractXlsxView  {
+public class clsExcelBuilderForAccountReports extends AbstractXlsView  {
 
 	@SuppressWarnings({ "rawtypes" })
 	@Override
@@ -47,7 +49,7 @@ public class clsExcelBuilderForAccountReports extends AbstractXlsxView  {
 		listData=(List)listExcelData.get(4);
 		
 	// create a new Excel sheet
-		HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Sheet");
+		Sheet sheet =  workbook.createSheet("Sheet");
 		sheet.setDefaultColumnWidth(80);
 		sheet.setColumnWidth(1, 5000);
 		sheet.setColumnWidth(3, 5000);
@@ -97,12 +99,12 @@ public class clsExcelBuilderForAccountReports extends AbstractXlsxView  {
 		
 		
 		int excelRowCount=4;
-		HSSFRow header = sheet.createRow(excelRowCount);
+		Row header = sheet.createRow(excelRowCount);
 		for (int rowCount = 0; rowCount < listHeaderLevelInfo.size(); rowCount++) {
 			header.createCell(rowCount).setCellValue(listHeaderLevelInfo.get(rowCount).toString());
 			header.getCell(rowCount).setCellStyle(style);
 		}
-		HSSFRow rptName = sheet.createRow(excelRowCount);
+		Row rptName = sheet.createRow(excelRowCount);
 		excelRowCount++;
 		if (listReportName!=null && listReportName.size()>0) {
 			rptName.createCell(0).setCellValue(listReportName.get(0).toString());
@@ -115,7 +117,7 @@ public class clsExcelBuilderForAccountReports extends AbstractXlsxView  {
 		}
 		
 		
-		HSSFRow date = sheet.createRow(excelRowCount);
+		Row date = sheet.createRow(excelRowCount);
 		excelRowCount++;
 		for (int rowfitter = 0; rowfitter < listdate.size(); rowfitter++) {
 			date.createCell(rowfitter).setCellValue(listdate.get(rowfitter).toString());
@@ -123,7 +125,7 @@ public class clsExcelBuilderForAccountReports extends AbstractXlsxView  {
 		}
 				
 		for (int rowtitile = 0; rowtitile < 1; rowtitile++) {
-			HSSFRow blank = sheet.createRow(excelRowCount);
+			Row blank = sheet.createRow(excelRowCount);
 			excelRowCount++;
 			blank.createCell(rowtitile).setCellValue("");
 			// titile.getCell(rowtitile).setCellStyle(style);
@@ -140,7 +142,7 @@ public class clsExcelBuilderForAccountReports extends AbstractXlsxView  {
 		
 		excelRowCount++;
 		int maxListSize=(listAssets.size()>=listLiabilities.size())?listAssets.size():listLiabilities.size(); 
-		HSSFRow aRowHeader = sheet.createRow(excelRowCount);
+		Row aRowHeader = sheet.createRow(excelRowCount);
 		aRowHeader.createCell(0).setCellValue("ASSET");
 		aRowHeader.createCell(1).setCellValue("Balance");
 		aRowHeader.createCell(2).setCellValue("LIABILITY");
@@ -154,7 +156,7 @@ public class clsExcelBuilderForAccountReports extends AbstractXlsxView  {
 		excelRowCount++;
 		for(int rowCount = 0; rowCount <maxListSize; rowCount++ ){
 			
-			HSSFRow aRow = sheet.createRow(excelRowCount);
+			Row aRow = sheet.createRow(excelRowCount);
 			if(rowCount<listAssets.size()){
 				String rowData=(String)listAssets.get(rowCount);
 				if(!rowData.equals("ASSET")){ //Sub Group

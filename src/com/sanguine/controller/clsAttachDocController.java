@@ -72,13 +72,13 @@ public class clsAttachDocController {
 		try {
 			byte[] imageData = new byte[(int) file.getSize()];
 			 
-			try {
+			/*try {
 			    FileInputStream fileInputStream = (FileInputStream) file.getInputStream();
 			    fileInputStream.read(imageData);
 			    fileInputStream.close();
 			} catch (Exception e) {
 			    e.printStackTrace();
-			}
+			}*/
 			
 			//Blob blob = Hibernate.createBlob(Base64.encodeBase64(file.getInputStream()));
 			if (imageData.length > 0) {

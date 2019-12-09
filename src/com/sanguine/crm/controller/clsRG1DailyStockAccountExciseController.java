@@ -1,50 +1,32 @@
 package com.sanguine.crm.controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.AsyncContext;
-import javax.servlet.DispatcherType;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpUpgradeHandler;
-import javax.servlet.http.Part;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.document.AbstractXlsView;
 
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.model.clsPropertySetupModel;
@@ -53,12 +35,8 @@ import com.sanguine.service.clsSetupMasterService;
 import com.sanguine.util.clsRG1DailyStockAccountReportDtl;
 import com.sanguine.util.clsReportBean;
 
-import org.apache.poi.ss.usermodel.Workbook;
-import org.springframework.web.servlet.view.document.AbstractXlsxView;
-
-
 @Controller
-public class clsRG1DailyStockAccountExciseController extends AbstractXlsxView  {
+public class clsRG1DailyStockAccountExciseController extends AbstractXlsView  {
 
 	@Autowired
 	private clsSetupMasterService objSetupMasterService;
@@ -558,7 +536,7 @@ public class clsRG1DailyStockAccountExciseController extends AbstractXlsxView  {
 				// hmRG1rpt.put(chp, listOBjModel);
 
 				List listStock = new ArrayList();
-				HSSFSheet sheet = (HSSFSheet) workbook.createSheet(subGroupDesc);
+				Sheet sheet = workbook.createSheet(subGroupDesc);
 				sheet.setDefaultColumnWidth(15);
 				// /Bold Font
 				Font font = workbook.createFont();
@@ -599,7 +577,7 @@ public class clsRG1DailyStockAccountExciseController extends AbstractXlsxView  {
 
 				// ////First Row////////////////////
 				String firstRow = "" + companyName + ", , , , ,RG - 1 Daily Stock Account ";
-				HSSFRow header = sheet.createRow(0);
+				Row header = sheet.createRow(0);
 				String[] data = firstRow.split(",");
 				// ExportList.add(ExcelHeader);
 				for (int i = 0; i < data.length; i++) {
@@ -618,7 +596,7 @@ public class clsRG1DailyStockAccountExciseController extends AbstractXlsxView  {
 
 				// ///////// SecondRow/////////
 				String scndRow = "" + objSetup.getStrAdd1().split(",")[0] + "'," + objSetup.getStrAdd1().split(",")[1] + ", , ,Self Removal Procedure (Rule 10 of C.Ex.2002) (Rule 11 of C.ex(2)Cenvat Rule 2002)";
-				HSSFRow secndRowHeader = sheet.createRow(1);
+				Row secndRowHeader = sheet.createRow(1);
 				data = scndRow.split(",");
 				for (int i = 0; i < data.length; i++) {
 					secndRowHeader.createCell(i).setCellValue(data[i]);
@@ -640,7 +618,7 @@ public class clsRG1DailyStockAccountExciseController extends AbstractXlsxView  {
 				// ////Third Row////////
 
 				String thrdRow = "" + objSetup.getStrCity() + "- " + objSetup.getStrPin() + " , , , ,Description of Goods.," + subGroupDesc;
-				HSSFRow ThirdRowheader = sheet.createRow(2);
+				Row ThirdRowheader = sheet.createRow(2);
 				data = thrdRow.split(",");
 				for (int i = 0; i < data.length; i++) {
 					ThirdRowheader.createCell(i).setCellValue(data[i]);
@@ -661,7 +639,7 @@ public class clsRG1DailyStockAccountExciseController extends AbstractXlsxView  {
 
 				// //Fourth Row///
 				String fouthRow = "CH No., ," + chp;
-				HSSFRow fouthRowHeader = sheet.createRow(3);
+				Row fouthRowHeader = sheet.createRow(3);
 				data = fouthRow.split(",");
 				for (int i = 0; i < data.length; i++) {
 					fouthRowHeader.createCell(i + 4).setCellValue(data[i]);
@@ -674,7 +652,7 @@ public class clsRG1DailyStockAccountExciseController extends AbstractXlsxView  {
 				}
 				// /////Fifth Row/////////
 				String fifthRow = "ECC No,AAGCM7687NEM001 , ,  ,From, , " + fromDate + " to " + toDate + " ";
-				HSSFRow fifthRowHeader = sheet.createRow(4);
+				Row fifthRowHeader = sheet.createRow(4);
 				data = fifthRow.split(",");
 				for (int i = 0; i < data.length; i++) {
 					fifthRowHeader.createCell(i).setCellValue(data[i]);
@@ -688,7 +666,7 @@ public class clsRG1DailyStockAccountExciseController extends AbstractXlsxView  {
 
 				// //////SixhRow/////////
 				String sixthRow = "C.Ex.Regn.No.,AAGCM7687NEM001";
-				HSSFRow sixthRowHeader = sheet.createRow(5);
+				Row sixthRowHeader = sheet.createRow(5);
 				data = sixthRow.split(",");
 				for (int i = 0; i < data.length; i++) {
 					sixthRowHeader.createCell(i).setCellValue(data[i]);
@@ -700,7 +678,7 @@ public class clsRG1DailyStockAccountExciseController extends AbstractXlsxView  {
 				}
 				// ///////Table Header////
 				String tableData = "Date,Opening Balance,Qty MFG,Total,Removal From Factory, , , , , , , ,For Other Purpose, ,Excise Duty,,Closing Balance,Loose Qty,Remarks, ,Sign";
-				HSSFRow tableHeader = sheet.createRow(6);
+				Row tableHeader = sheet.createRow(6);
 				String[] tblfirstRowData = tableData.split(",");
 				for (int i = 0; i < tblfirstRowData.length; i++) {
 					tableHeader.createCell(i).setCellValue(tblfirstRowData[i]);
@@ -1020,7 +998,7 @@ public class clsRG1DailyStockAccountExciseController extends AbstractXlsxView  {
 
 				int ColrowCount = 11;// starting row no of Dtl data
 				for (int rowCount = 0; rowCount < listStock.size(); rowCount++) {
-					HSSFRow aRow = sheet.createRow(ColrowCount++);
+					Row aRow = sheet.createRow(ColrowCount++);
 					List arrObj = (List) listStock.get(rowCount);
 					for (int Count = 0; Count < arrObj.size(); Count++) {
 						if (null != arrObj.get(Count) && arrObj.get(Count).toString().length() > 0) {

@@ -6,19 +6,16 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.view.document.AbstractXlsxView;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.web.servlet.view.document.AbstractXlsView;
 
-public class clsStyleExcelBuilder extends AbstractXlsxView {
+public class clsStyleExcelBuilder extends AbstractXlsView {
 
 	@SuppressWarnings({ "rawtypes" })
 	@Override
@@ -48,7 +45,7 @@ public class clsStyleExcelBuilder extends AbstractXlsxView {
 		}
 
 		// create a new Excel sheet
-		HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Sheet");
+		Sheet sheet =  workbook.createSheet("Sheet");
 		sheet.setDefaultColumnWidth(20);
 
 		// create style for header cells
@@ -61,20 +58,20 @@ public class clsStyleExcelBuilder extends AbstractXlsxView {
 		font.setColor(HSSFColor.WHITE.index);
 		style.setFont(font);
 
-		HSSFRow rptName = sheet.createRow(0);
+		Row rptName = sheet.createRow(0);
 		for (int rowCount = 0; rowCount < titleRptName.length; rowCount++) {
 			rptName.createCell(rowCount).setCellValue(titleRptName[rowCount].toString());
 			rptName.getCell(rowCount).setCellStyle(style);
 		}
 
-		HSSFRow title = sheet.createRow(1);
+		Row title = sheet.createRow(1);
 		for (int rowCount = 0; rowCount < titleList.length; rowCount++) {
 			title.createCell(rowCount).setCellValue(titleList[rowCount].toString());
 			title.getCell(rowCount).setCellStyle(style);
 		}
 
 		// create header row
-		HSSFRow header = sheet.createRow(3);
+		Row header = sheet.createRow(3);
 		for (int rowCount = 0; rowCount < HeaderList.length; rowCount++) {
 			header.createCell(rowCount).setCellValue(HeaderList[rowCount].toString());
 			header.getCell(rowCount).setCellStyle(style);
@@ -84,7 +81,7 @@ public class clsStyleExcelBuilder extends AbstractXlsxView {
 		// aRow is add Row
 		int ColrowCount = 4;
 		for (int rowCount = 0; rowCount < listSheet.size(); rowCount++) {
-			HSSFRow aRow = sheet.createRow(ColrowCount++);
+			Row aRow = sheet.createRow(ColrowCount++);
 			List arrObj = (List) listSheet.get(rowCount);
 
 			if (arrObj.get(0).toString().contains("#")) {

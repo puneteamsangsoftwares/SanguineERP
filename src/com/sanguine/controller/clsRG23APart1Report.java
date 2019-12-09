@@ -8,29 +8,35 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.CellRangeAddress;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.document.AbstractXlsxView;
+
+
+
 
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.service.clsSetupMasterService;
 import com.sanguine.util.clsReportBean;
 
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+
+
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.springframework.web.servlet.view.document.AbstractXlsView;
+
+
 @Controller
-public class clsRG23APart1Report extends AbstractXlsxView {
+public class clsRG23APart1Report extends AbstractXlsView {
 
 	@Autowired
 	private clsSetupMasterService objSetupMasterService;
@@ -78,7 +84,7 @@ public class clsRG23APart1Report extends AbstractXlsxView {
 		response.setHeader("Content-Disposition", "inline;filename=FORM-RG-23A-Part-I_" + fromDate + "_To_" + toDate + "_" + userCode + ".xls");
 
 		List listDrawDtlRow = new ArrayList();
-		HSSFSheet sheet = (HSSFSheet) workbook.createSheet("18062000");
+		Sheet sheet =  workbook.createSheet("18062000");
 		sheet.setDefaultColumnWidth(15);
 		// /Bold Font
 		Font font = workbook.createFont();
@@ -118,7 +124,7 @@ public class clsRG23APart1Report extends AbstractXlsxView {
 
 		// ////First Row////////////////////
 		String firstRow = ", , , , ,FROM R.G.-23-A Part-I ";
-		HSSFRow header = sheet.createRow(0);
+		Row header = sheet.createRow(0);
 		String[] data = firstRow.split(",");
 		// ExportList.add(ExcelHeader);
 		for (int i = 0; i < data.length; i++) {
@@ -137,7 +143,7 @@ public class clsRG23APart1Report extends AbstractXlsxView {
 
 		// ///////// SecondRow/////////
 		String scndRow = ",,,,Central Excise Series No.55-GG FROM R.G. 23-A PART-I";
-		HSSFRow secndRowHeader = sheet.createRow(1);
+		Row secndRowHeader = sheet.createRow(1);
 		data = scndRow.split(",");
 		for (int i = 0; i < data.length; i++) {
 			secndRowHeader.createCell(i).setCellValue(data[i]);
@@ -157,7 +163,7 @@ public class clsRG23APart1Report extends AbstractXlsxView {
 		));
 		// ////Third Row////////
 		String thrdRow = ", , , ,Stock Account of 'inputs' for use in or in relation to the Manufacture of Final Product of (RULES 57 - A ),";
-		HSSFRow ThirdRowheader = sheet.createRow(2);
+		Row ThirdRowheader = sheet.createRow(2);
 		data = thrdRow.split(",");
 		for (int i = 0; i < data.length; i++) {
 			ThirdRowheader.createCell(i).setCellValue(data[i]);
@@ -179,7 +185,7 @@ public class clsRG23APart1Report extends AbstractXlsxView {
 		// String
 		// fouthRow="Stock Account of 'inputs' for use or in relation to the manufacture of final' final Product, ,";
 		// String fouthRow=", ,";
-		// HSSFRow fouthRowHeader = sheet.createRow(3);
+		// Row fouthRowHeader = sheet.createRow(3);
 		// data=fouthRow.split(",");
 		// for(int i=0;i<data.length;i++)
 		// {
@@ -195,7 +201,7 @@ public class clsRG23APart1Report extends AbstractXlsxView {
 
 		// ///////Table Header////
 		String tableData = "Sr. no.,Date,Description of inputs received,Qty Rec.,Particutor or Challan ARI/Other approved Documents Bill of ,Name and address of the manufacture / importer stock -stock-yard from whom the inputs received ,ECC No of Suppliers , Range & Division Custom House from Whose jursidiction the inputs received ,Issued for use inor in relation to the manufacture of final ,, Issued for clearance as such , , , ,Balance quantity in stock ,Central Excise Officers initials,Remarks";
-		HSSFRow tableHeader = sheet.createRow(4);
+		Row tableHeader = sheet.createRow(4);
 		String[] tblfirstRowData = tableData.split(",");
 		for (int i = 0; i < tblfirstRowData.length; i++) {
 			tableHeader.createCell(i).setCellValue(tblfirstRowData[i]);
@@ -443,7 +449,7 @@ public class clsRG23APart1Report extends AbstractXlsxView {
 
 		int ColrowCount = 8;// starting row no of Dtl data
 		for (int rowCount = 0; rowCount < listDrawDtlRow.size(); rowCount++) {
-			HSSFRow aRow = sheet.createRow(ColrowCount++);
+			Row aRow = sheet.createRow(ColrowCount++);
 			List arrObj = (List) listDrawDtlRow.get(rowCount);
 			for (int Count = 0; Count < arrObj.size(); Count++) {
 				if (null != arrObj.get(Count) && arrObj.get(Count).toString().length() > 0) {

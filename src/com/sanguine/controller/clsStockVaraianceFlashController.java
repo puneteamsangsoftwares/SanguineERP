@@ -21,13 +21,7 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,12 +39,21 @@ import com.sanguine.service.clsLocationMasterService;
 import com.sanguine.service.clsSetupMasterService;
 import com.sanguine.service.clsStkAdjustmentService;
 import com.sanguine.util.clsReportBean;
-import org.springframework.web.servlet.view.document.AbstractXlsxView;
+
 import org.apache.poi.ss.usermodel.Workbook;
+
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.web.servlet.view.document.AbstractXlsView;
 
 
 @Controller
-public class clsStockVaraianceFlashController extends AbstractXlsxView {
+public class clsStockVaraianceFlashController extends AbstractXlsView {
 
 	@Autowired
 	clsGlobalFunctionsService objGlobalFunctionsService;
@@ -150,7 +153,7 @@ public class clsStockVaraianceFlashController extends AbstractXlsxView {
 			listStockFlashModel.add(DataList);
 		}
 		// create a new Excel sheet
-		HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Sheet");
+		Sheet sheet = workbook.createSheet("Sheet");
 		sheet.setDefaultColumnWidth(20);
 
 		// create style for header cells
@@ -163,7 +166,7 @@ public class clsStockVaraianceFlashController extends AbstractXlsxView {
 		font.setColor(HSSFColor.WHITE.index);
 		style.setFont(font);
 
-		HSSFRow header = sheet.createRow(0);
+		Row header = sheet.createRow(0);
 		header.createCell(0).setCellValue("SubGroup Name");
 		header.getCell(0).setCellStyle(style);
 		header.createCell(1).setCellValue("Product Name");
@@ -187,7 +190,7 @@ public class clsStockVaraianceFlashController extends AbstractXlsxView {
 		// create data rows
 		int ColrowCount = 1;
 		for (int rowCount = 0; rowCount < listStockFlashModel.size(); rowCount++) {
-			HSSFRow aRow = sheet.createRow(ColrowCount++);
+			Row aRow = sheet.createRow(ColrowCount++);
 			List arrObj = (List) listStockFlashModel.get(rowCount);
 			for (int Count = 0; Count < arrObj.size(); Count++) {
 				if (arrObj.get(Count).toString().length() > 0) {
@@ -211,7 +214,7 @@ public class clsStockVaraianceFlashController extends AbstractXlsxView {
 		cellfont.setColor(HSSFColor.BLACK.index);
 		cellfont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
 		sellStyle.setFont(cellfont);
-		HSSFRow aRow1 = sheet.createRow(ColrowCount + 1);
+		Row aRow1 = sheet.createRow(ColrowCount + 1);
 		aRow1.createCell(5).setCellValue("Total Variance Value");
 		aRow1.getCell(5).setCellStyle(sellStyle);
 		aRow1.createCell(6).setCellValue(value);

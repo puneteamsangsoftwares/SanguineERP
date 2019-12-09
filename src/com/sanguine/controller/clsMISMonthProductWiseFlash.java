@@ -121,7 +121,7 @@ public class clsMISMonthProductWiseFlash
 		String prodCode = "";
 		String subGrpName = "";
 		List<String> listMonth = funGetMonth(fromDate, toDate);
-		String sql = "select  c.strProdName,c.strUOM ,sum(b.dblQty),DATE_FORMAT(a.dtMISDate,'%M'),b.strProdCode,f.strGName,e.strSGName ,e.strSGCode,c.strProdCode,c.dblCostRM from tblmishd a " + " left outer join tbllocationmaster d on d.strLocCode=a.strLocFrom ,tblmisdtl b " + " left outer join tblproductmaster c on b.strProdCode=c.strProdCode  " + " left outer join tblsubgroupmaster e on c.strSGCode=e.strSGCode " + " left outer join tblgroupmaster f on e.strGCode=f.strGCode " + " where a.dtMISDate between '" + fromDate + "' and '" + toDate + "' and a.strMISCode=b.strMISCode and a.strLocFrom='" + locCode + "' " + " group by   Month(a.dtMISDate),f.strGCode, c.strProdCode  " + " order by e.strSGName, c.strProdName,Year(a.dtMISDate), Month(a.dtMISDate)   asc ";
+		String sql = "select  c.strProdName,c.strUOM ,sum(b.dblQty),DATE_FORMAT(a.dtMISDate,'%M'),f.strGName,e.strSGName ,e.strSGCode,c.strProdCode,c.dblCostRM from tblmishd a " + " left outer join tbllocationmaster d on d.strLocCode=a.strLocFrom ,tblmisdtl b " + " left outer join tblproductmaster c on b.strProdCode=c.strProdCode  " + " left outer join tblsubgroupmaster e on c.strSGCode=e.strSGCode " + " left outer join tblgroupmaster f on e.strGCode=f.strGCode " + " where a.dtMISDate between '" + fromDate + "' and '" + toDate + "' and a.strMISCode=b.strMISCode and a.strLocFrom='" + locCode + "' " + " group by   Month(a.dtMISDate),f.strGCode, c.strProdCode  " + " order by e.strSGName, c.strProdName,Year(a.dtMISDate), Month(a.dtMISDate)   asc ";
 
 		List listMISFlsh = objGlobalService.funGetList(sql);
 		double totalQty = 0.0;
@@ -133,7 +133,7 @@ public class clsMISMonthProductWiseFlash
 			{
 
 				Object[] obj = (Object[]) listMISFlsh.get(i);
-				if (!hmProd.containsKey(obj[8].toString()))
+				if (!hmProd.containsKey(obj[7].toString()))
 				{
 					if (!hmProd.isEmpty())
 					{
@@ -148,7 +148,7 @@ public class clsMISMonthProductWiseFlash
 					{
 						if (cnt == 0)
 						{
-							subGroupList.add("Category :" + obj[6].toString());
+							subGroupList.add("Category :" + obj[5].toString());
 							subGroupList.add("");
 						}
 						else
@@ -166,16 +166,16 @@ public class clsMISMonthProductWiseFlash
 					}
 
 					// hmSubGroup.put(obj[6].toString(), hmProd);
-					hmSubGroup.put(obj[6].toString(), subGroupList);
+					hmSubGroup.put(obj[5].toString(), subGroupList);
 					list = new ArrayList();
-					list.add(obj[6].toString());
+					list.add(obj[5].toString());
 					list.add(obj[0].toString());
 					list.add(obj[1].toString());
 					j = 1;
 					totalQty = 0.0;
 
 				}
-				price = Double.parseDouble(obj[9].toString());
+				price = Double.parseDouble(obj[8].toString());
 				if (listMonth.get(j).toString().equalsIgnoreCase(obj[3].toString()))
 				{
 					list.add(obj[2].toString());
@@ -187,10 +187,10 @@ public class clsMISMonthProductWiseFlash
 					i--;
 				}
 				j++;
-				hmProd.put(obj[8].toString(), list);
+				hmProd.put(obj[7].toString(), list);
 				// hmSubGroup.put(obj[6].toString(), hmProd);
-				prodCode = obj[8].toString();
-				subGrpName = obj[6].toString();
+				prodCode = obj[7].toString();
+				subGrpName = obj[5].toString();
 			}
 
 			if (!hmProd.isEmpty())
@@ -341,7 +341,7 @@ public class clsMISMonthProductWiseFlash
 		Map<String, List> hmHeader = new HashMap<String, List>();
 
 		List<String> listMonth = funGetMonth(fromDate, toDate);
-		String sql = "select  c.strProdName,c.strUOM ,sum(b.dblQty),DATE_FORMAT(a.dtMISDate,'%M'),b.strProdCode,f.strGName,e.strSGName ,e.strSGCode,c.strProdCode,c.dblCostRM from tblmishd a " + " left outer join tbllocationmaster d on d.strLocCode=a.strLocFrom ,tblmisdtl b " + " left outer join tblproductmaster c on b.strProdCode=c.strProdCode  " + " left outer join tblsubgroupmaster e on c.strSGCode=e.strSGCode " + " left outer join tblgroupmaster f on e.strGCode=f.strGCode " + " where a.dtMISDate between '" + fromDate + "' and '" + toDate + "' and a.strMISCode=b.strMISCode and a.strLocFrom='" + locCode + "' " + " group by   Month(a.dtMISDate),f.strGCode, c.strProdCode  " + " order by e.strSGName, c.strProdName,Year(a.dtMISDate), Month(a.dtMISDate)   asc ";
+		String sql = "select  c.strProdName,c.strUOM ,sum(b.dblQty),DATE_FORMAT(a.dtMISDate,'%M'),f.strGName,e.strSGName ,e.strSGCode,c.strProdCode,c.dblCostRM from tblmishd a " + " left outer join tbllocationmaster d on d.strLocCode=a.strLocFrom ,tblmisdtl b " + " left outer join tblproductmaster c on b.strProdCode=c.strProdCode  " + " left outer join tblsubgroupmaster e on c.strSGCode=e.strSGCode " + " left outer join tblgroupmaster f on e.strGCode=f.strGCode " + " where a.dtMISDate between '" + fromDate + "' and '" + toDate + "' and a.strMISCode=b.strMISCode and a.strLocFrom='" + locCode + "' " + " group by   Month(a.dtMISDate),f.strGCode, c.strProdCode  " + " order by e.strSGName, c.strProdName,Year(a.dtMISDate), Month(a.dtMISDate)   asc ";
 
 		List listMISFlsh = objGlobalService.funGetList(sql);
 		double totalQty = 0.0;
@@ -355,7 +355,7 @@ public class clsMISMonthProductWiseFlash
 			for (int i = 0; i < listMISFlsh.size(); i++)
 			{
 				Object[] obj = (Object[]) listMISFlsh.get(i);
-				if (!hmProd.containsKey(obj[8].toString()))
+				if (!hmProd.containsKey(obj[7].toString()))
 				{
 					if (!hmProd.isEmpty())
 					{
@@ -370,7 +370,7 @@ public class clsMISMonthProductWiseFlash
 					{
 						if (cnt == 0)
 						{
-							subGroupList.add("Category :" + obj[6].toString());
+							subGroupList.add("Category :" + obj[5].toString());
 							subGroupList.add("");
 						}
 						else
@@ -393,16 +393,16 @@ public class clsMISMonthProductWiseFlash
 					}
 
 					// hmSubGroup.put(obj[6].toString(), hmProd);
-					hmSubGroup.put(obj[6].toString(), subGroupList);
+					hmSubGroup.put(obj[5].toString(), subGroupList);
 					list = new ArrayList();
-					list.add(obj[6].toString());
+					list.add(obj[5].toString());
 					list.add(obj[0].toString());
 					list.add(obj[1].toString());
 					j = 1;
 					totalQty = 0.0;
 
 				}
-				price = Double.parseDouble(obj[9].toString());
+				price = Double.parseDouble(obj[8].toString());
 				if (listMonth.get(j).toString().equalsIgnoreCase(obj[3].toString()))
 				{
 					list.add(obj[2].toString());
@@ -414,10 +414,10 @@ public class clsMISMonthProductWiseFlash
 					i--;
 				}
 				j++;
-				hmProd.put(obj[8].toString(), list);
+				hmProd.put(obj[7].toString(), list);
 				// hmSubGroup.put(obj[6].toString(), hmProd);
-				prodCode = obj[8].toString();
-				subGrpName = obj[6].toString();
+				prodCode = obj[7].toString();
+				subGrpName = obj[5].toString();
 			}
 
 			if (!hmProd.isEmpty())

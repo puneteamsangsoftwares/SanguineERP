@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sanguine.base.model.clsBaseModel;
 
 @Repository("intfBaseDao")
-@Transactional(value = "hibernateTransactionManager")
+/*@Transactional(value = "hibernateTransactionManager")*/
 public class clsBaseDaoImpl implements intfBaseDao {
 
 	

@@ -7,19 +7,20 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
-import org.springframework.web.servlet.view.AbstractView;
-import org.springframework.web.servlet.view.document.AbstractXlsxView;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.view.document.AbstractXlsView;
 
-public class clsStyleExcelTitleCellBorderBuilder extends AbstractXlsxView {
+public class clsStyleExcelTitleCellBorderBuilder extends AbstractXlsView {
 
 	@SuppressWarnings({ "rawtypes" })
 	@Override
@@ -46,7 +47,7 @@ public class clsStyleExcelTitleCellBorderBuilder extends AbstractXlsxView {
 		}
 
 		// create a new Excel sheet
-		HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Sheet");
+		Sheet sheet = workbook.createSheet("Sheet");
 		sheet.setDefaultColumnWidth(20);
 
 		CellStyle styleOfAligment = workbook.createCellStyle();
@@ -82,20 +83,20 @@ public class clsStyleExcelTitleCellBorderBuilder extends AbstractXlsxView {
 		style.setFont(font);
 		style.setAlignment(style.ALIGN_CENTER);
 
-		HSSFRow tit1 = sheet.createRow(0);
+		Row tit1 = sheet.createRow(0);
 		for (int rowCount = 0; rowCount < tilte1.size(); rowCount++) {
 			tit1.createCell(rowCount).setCellValue(tilte1.get(rowCount).toString());
 			tit1.getCell(rowCount).setCellStyle(styleTitle);
 		}
 
-		HSSFRow tit2 = sheet.createRow(1);
+		Row tit2 = sheet.createRow(1);
 		for (int rowCount = 0; rowCount < tilte2.size(); rowCount++) {
 			tit2.createCell(rowCount).setCellValue(tilte2.get(rowCount).toString());
 
 		}
 
 		// create header row
-		HSSFRow headertable = sheet.createRow(2);
+		Row headertable = sheet.createRow(2);
 		for (int rowCount = 0; rowCount < header.length; rowCount++) {
 			headertable.createCell(rowCount).setCellValue(header[rowCount].toString());
 			headertable.getCell(rowCount).setCellStyle(style);
@@ -105,7 +106,7 @@ public class clsStyleExcelTitleCellBorderBuilder extends AbstractXlsxView {
 		// aRow is add Row
 		int ColrowCount = 3;
 		for (int rowCount = 0; rowCount < listStock.size(); rowCount++) {
-			HSSFRow aRow = sheet.createRow(ColrowCount++);
+			Row aRow = sheet.createRow(ColrowCount++);
 			List arrObj = (List) listStock.get(rowCount);
 			for (int Count = 0; Count < arrObj.size(); Count++) {
 				if (null != arrObj.get(Count) && arrObj.get(Count).toString().length() > 0) {

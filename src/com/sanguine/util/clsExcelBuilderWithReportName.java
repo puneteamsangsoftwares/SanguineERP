@@ -7,24 +7,20 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+
 import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.servlet.view.document.AbstractXlsxView;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.PdfPCell;
+import org.springframework.web.servlet.view.document.AbstractXlsView;
+import org.springframework.stereotype.Controller;
+
 
 @Controller
-public class clsExcelBuilderWithReportName extends AbstractXlsxView {
+public class clsExcelBuilderWithReportName extends AbstractXlsView {
 
 	@SuppressWarnings({ "rawtypes" })
 	@Override
@@ -46,7 +42,7 @@ public class clsExcelBuilderWithReportName extends AbstractXlsxView {
 		}
 
 		// create a new Excel sheet
-		HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Sheet");
+		Sheet sheet = workbook.createSheet("Sheet");
 		sheet.setDefaultColumnWidth(20);
 
 		// create style for header cells
@@ -92,7 +88,7 @@ public class clsExcelBuilderWithReportName extends AbstractXlsxView {
 
 
 		// create header row
-		HSSFRow header = sheet.createRow(0);
+		Row header = sheet.createRow(0);
 		for (int rowCount = 0; rowCount < HeaderList.length; rowCount++) {
 			header.createCell(rowCount).setCellValue(HeaderList[rowCount].toString());
 			header.getCell(rowCount).setCellStyle(style);
@@ -103,7 +99,7 @@ public class clsExcelBuilderWithReportName extends AbstractXlsxView {
 		int ColrowCount = 1;
 		
 		for (int rowCount = 0; rowCount < listStock.size(); rowCount++) {
-			HSSFRow aRow = sheet.createRow(ColrowCount++);
+			Row aRow = sheet.createRow(ColrowCount++);
 			/*if(rowCount==listStock.size()-1)
 			{
 				aRow.setRowStyle((HSSFCellStyle) style);

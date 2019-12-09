@@ -23,6 +23,7 @@ import com.sanguine.model.clsProductMasterModel_ID;
 import com.sanguine.model.clsProductReOrderLevelModel;
 
 @Repository("clsProductMasterDao")
+@Transactional
 public class clsProductMasterDaoImpl implements clsProductMasterDao {
 	@Autowired
 	private SessionFactory sessionFactory;
