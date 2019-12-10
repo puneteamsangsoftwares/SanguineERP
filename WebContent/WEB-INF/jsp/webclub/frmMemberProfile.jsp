@@ -1367,6 +1367,13 @@ function funSetBillingRegionCode(code){
 		return flg;
 	}
 
+	function funloadMemberPhoto(code)
+	{
+		searchUrl=getContextPath()+"/loadWebClubMemberPhoto.html?docCode="+code;
+		$("#memberImage").attr('src', searchUrl);
+	}
+	
+	
 	function funSetDatePicker(variable) 
 	{	
 			$("#variable").datepicker({ dateFormat: 'yy-mm-dd' });
@@ -2380,7 +2387,7 @@ function funSetBillingRegionCode(code){
 		<label style="font-size:20px; padding:0px;">Member Profile</label>
 	</div>
 	<div>
-		<s:form name="frmWebClubMemberProfile" action="savefrmWebClubMemberProfile.html?saddr=${urlHits}" method="POST">
+		<s:form name="frmWebClubMemberProfile" action="savefrmWebClubMemberProfile.html?saddr=${urlHits}" method="POST" enctype="multipart/form-data">
 			<br>
 		<div id="multiAccordion">	
 			<h3><a href="#">Member Profile Detail</a></h3>

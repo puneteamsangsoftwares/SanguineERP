@@ -9,8 +9,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon" sizes="16x16">
 <title>Property Selection</title>
-<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
-	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
+
+<%--   <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesign/bootstrap.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesign/bootstrap.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesign/bootstrap-grid.css"/>" /> 
+ <script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
+	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	 --%>
 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
 <script type="text/javascript">
   $(document).ready(function(){
@@ -217,8 +221,19 @@
   </head>
   
 	<body>
-	<div style="width: 100%;height: 200px;"><img alt="" src="../${pageContext.request.contextPath}/resources/images/${headerImage}" width="100%" height="200px" style="background-repeat: no-repeat"></div>
-	<div style="background-color: inherit; top: 200px; bottom: 0;float: left;padding-left: 40px"><img alt="" src="../${pageContext.request.contextPath}/resources/images/${moduleTitleImage}" height="80px" width="400px">
+	<!-- <div class="wrapper" style="margin:0px; padding:0px"> -->
+	
+<div class="container-fluid">
+		<div class="row">
+
+			<div class="col-md-4">
+			
+			
+			<div class="col-md-4"></div>
+			<div class="col-md-4" style="margin-right:-40px;"> 
+			
+			<div style="width: 100%;height: 200px;"><img alt="" src="../${pageContext.request.contextPath}/resources/images/${headerImage}" width="100%" height="200px" style="background-repeat: no-repeat"></div>
+	<div style="background-color: inherit; top: 200px; bottom: 0;float: left;padding-left: 40px; margin: 145px 100px;"><img alt="" src="../${pageContext.request.contextPath}/resources/images/${moduleTitleImage}" height="150px" width="150px">
 	
 <!-- 	<div style="float: left;padding-left: 40px;"> -->
 <!-- 		<img alt="" -->
@@ -227,19 +242,16 @@
 				
 <!-- 	</div> -->
 	</div>
-<div class="container-fluid">
-		<div class="row">
+	
+	     </div>
+				<s:form name="frmPropSel"  method="GET" action="frmMainMenu.html" style=" margin-top: 90px;">
 
-			<div class="col-md-5"></div>
-			<div class="col-md-3"></div>
-			<div class="col-md-4"> 
-				<s:form name="frmPropSel"  method="GET" action="frmMainMenu.html">
 				<div class="box1" style="margin-top: 50px">
-							<h2 style="width: 22%; float: right; margin-right: 100px; padding-left: 0px;">Sanguine Softwares Solutions Pvt.Ltd</h2>
+							<h2 style="width: 17%; float: right; margin-right: 190px; padding-left: 0px;">Property Selection</h2>
 				</div>
 				<div class="inputbox1">
-								 <label style="margin-left: 945px;">Company</label>
-								 <s:select id="cmbCompany" style="margin-bottom:5px;margin-left: 70%;
+								 <label style="margin-left: 527px; margin-top:263px;">Company</label>
+								 <s:select id="cmbCompany" style="margin-bottom:5px;margin-left: 68%;
   								  width: 18%;" path="strCompanyCode">
 				    			<s:options items="${listComapny}"/>
 				    		</s:select><s:input type="hidden" path="strCompanyName" id="strCompanyName"/>
@@ -247,8 +259,8 @@
 							
 				</div>
 				<div class="inputbox1">
-							<label style="margin-left: 945px;">Property</label>
-							  <s:select id="cmbProperty" path="strPropertyCode" required="true"  style="margin-bottom:5px; margin-left: 70%;
+							<label style="margin-left: 527px;  margin-top:263px;">Property</label>
+							  <s:select id="cmbProperty" path="strPropertyCode" required="true"  style="margin-bottom:5px; margin-left: 68%;
    							 width: 18%;" onchange="funLoadLocation(this.value)">
 				    			<s:options items="${listProperty}"/>
 				    		</s:select><s:input type="hidden" path="strPropertyName" id="strPropertyName"/>
@@ -256,8 +268,8 @@
 							
 				</div>	
 				<div class="inputbox1">
-							  <label style="margin-left: 945px;">Location</label>
-							  <s:select id="cmbLocation" path="strLocationCode"  style="margin-bottom:5px;margin-left: 70%;
+							  <label style="margin-left: 527px;  margin-top:263px;">Location</label>
+							  <s:select id="cmbLocation" path="strLocationCode"  style="margin-bottom:5px;margin-left: 68%;
    								 width: 18%;"> 
 				    			<!-- <s:options  items="${listLocation}"/> -->
 				    		</s:select><s:input type="hidden" path="strLocationName" id="strLocationName"/>
@@ -265,8 +277,8 @@
 							
 				</div>
 				<div class="inputbox1">
-							  <label style="margin-left: 945px;">Fin. Year</label>
-							  <select id="cmbFinancialYear"  style="margin-bottom:5px;margin-left: 70%;
+							  <label style="margin-left: 527px;  margin-top:263px;">Fin. Year</label>
+							  <select id="cmbFinancialYear"  style="margin-bottom:-10px;margin-left: 68%;
    								 width: 18%;">	
 				    		<c:forEach items="${listFinancialYear}" var="draw">	
 				    		<option value="${draw.key}">${draw.value}</option>
@@ -276,7 +288,7 @@
 							
 				</div>
 				<div class="submit" id="divBtn">
-					<h2><input type="submit" onclick="return funSetSessionData()" placeholder="Submit style='color:#fff;'" id="submit" value="Submit" class="loginButton" style="margin-left:1100px; font-size:17px; font-weight:1100px;
+					<h2><input type="submit" onclick="return funSetSessionData()" placeholder="Submit style='color:#fff;'" id="submit" value="Submit" class="loginButton" style="margin-right:170px; float:right; font-size:17px; font-weight:1100px;
     width: 8%; color:#fff;"></h2>
 				</div>
 				
@@ -291,6 +303,7 @@
 			
 				<div id="loginfooter">Copyright &copy; 2014 Sanguine Software Solutions</div>
 		</div> 
-    </div>				
+    </div>	
+   <!--  </div>			 -->
 	</body>
 </html>

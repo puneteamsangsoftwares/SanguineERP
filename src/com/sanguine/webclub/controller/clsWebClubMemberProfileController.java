@@ -1,5 +1,13 @@
 package com.sanguine.webclub.controller;
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,7 +18,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.ImageIcon;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mysql.jdbc.Connection;
@@ -31,6 +42,8 @@ import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webclub.bean.clsWebClubMemberProfileBean;
 import com.sanguine.webclub.model.clsWebClubDependentMasterModel;
+import com.sanguine.webclub.model.clsWebClubMemberPhotoModel;
+import com.sanguine.webclub.model.clsWebClubMemberPhotoModel_ID;
 import com.sanguine.webclub.model.clsWebClubMemberProfileModel;
 import com.sanguine.webclub.model.clsWebClubMemberProfileModel_ID;
 import com.sanguine.webclub.model.clsWebClubPreMemberProfileModel;
@@ -94,7 +107,7 @@ public class clsWebClubMemberProfileController {
 	}
 
 	@RequestMapping(value = "/savefrmWebClubMemberProfile", method = RequestMethod.POST)
-	public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsWebClubMemberProfileBean memProfileBean, BindingResult result, HttpServletRequest req) {
+	public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsWebClubMemberProfileBean memProfileBean, BindingResult result, HttpServletRequest req, @RequestParam("memberImage") MultipartFile file) throws IOException {
 		String urlHits = "1";
 		try {
 			urlHits = req.getParameter("saddr").toString();
@@ -108,7 +121,7 @@ public class clsWebClubMemberProfileController {
 			objMemberProfileService.funAddUpdateMemberProfile(objMemProfileModel);
 
 			// for Spouse member
-			clsWebClubMemberProfileModel objMemberProfileSpouseModel = funPrepardSpouseModel(memProfileBean, objMemProfileModel, req);
+			clsWebClubMemberProfileModel objMemberProfileSpouseModel = funPrepardSpouseModel(memProfileBean, objMemProfileModel, req,file);
 			objMemberProfileService.funAddUpdateMemberProfile(objMemberProfileSpouseModel);
 
 			// for Dependent member
@@ -778,13 +791,67 @@ public class clsWebClubMemberProfileController {
 
 	}
 
-	private clsWebClubMemberProfileModel funPrepardSpouseModel(clsWebClubMemberProfileBean memProfileBean, clsWebClubMemberProfileModel objMemberProfile, HttpServletRequest req) {
+	private clsWebClubMemberProfileModel funPrepardSpouseModel(clsWebClubMemberProfileBean memProfileBean, clsWebClubMemberProfileModel objMemberProfile, HttpServletRequest req,MultipartFile file) throws IOException {
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		String userCode = req.getSession().getAttribute("usercode").toString();
 		String propCode = req.getSession().getAttribute("propertyCode").toString();
 		objGlobal = new clsGlobalFunctions();
 		long lastNo = 0;
-		clsWebClubMemberProfileModel mpModel;
+		clsWebClubMemberProfileModel mpModel=null;
+		
+		
+		
+		//image code
+		
+		
+		objGlobal = new clsGlobalFunctions();
+		clsWebClubMemberPhotoModel objModel;
+		objModel = new clsWebClubMemberPhotoModel(new clsWebClubMemberPhotoModel_ID(objMemberProfile.getStrMemberCode(), clientCode));
+
+		objModel.setStrPropertyCode(propCode);
+		objModel.setStrUserCreated(userCode);
+		objModel.setStrUserModified(userCode);
+		objModel.setDteCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+		objModel.setDteLastModified(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+		objModel.setStrMemberName("");
+
+		if (file.getSize() != 0) {
+			System.out.println(file.getOriginalFilename());
+			File imgFolder = new File(System.getProperty("user.dir") + "\\ProductIcon");
+			if (!imgFolder.exists()) {
+				if (imgFolder.mkdir()) {
+					System.out.println("Directory is created! " + imgFolder.getAbsolutePath());
+				} else {
+					System.out.println("Failed to create directory!");
+				}
+			}
+			File fileImageIcon = new File(System.getProperty("user.dir") + "\\ProductIcon\\" + file.getOriginalFilename());
+			String formatName = "jpg";
+			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			BufferedImage bufferedImage = ImageIO.read(funInputStreamToBytearrayInputStrean(file.getInputStream()));
+			String path = fileImageIcon.getPath().toString();
+			ImageIO.write(bufferedImage, "jpg", new File(path));
+			BufferedImage bfImg = scaleImage(150, 155, path);
+			ImageIO.write(bfImg, "jpg", byteArrayOutputStream);
+			byte[] imageBytes = byteArrayOutputStream.toByteArray();
+			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
+
+			//Blob blobProdImage = Hibernate.createBlob(byteArrayInputStream);
+			//objModel.setStrMemberImage(blobProdImage);
+
+			if (fileImageIcon.exists()) {
+				fileImageIcon.delete();
+			}
+		//image code end 
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		if (memProfileBean.getStrSpouseCustomerCode() == null) {
 
@@ -989,6 +1056,48 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrMemberYesNo("");
 		mpModel.setStrBankCode("");
 		return mpModel;
+	}
+		return mpModel;
+	}
+	public BufferedImage scaleImage(int WIDTH, int HEIGHT, String filename) {
+		BufferedImage bi = null;
+		try {
+			ImageIcon ii = new ImageIcon(filename);// path to image
+			bi = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+			Graphics2D gra2d = (Graphics2D) bi.createGraphics();
+			gra2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
+			gra2d.drawImage(ii.getImage(), 0, 0, WIDTH, HEIGHT, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return bi;
+	}
+
+	@SuppressWarnings("finally")
+	private ByteArrayInputStream funInputStreamToBytearrayInputStrean(InputStream ins) {
+		ByteArrayInputStream byteArrayInputStream = null;
+		try {
+			byte[] buff = new byte[8000];
+
+			int bytesRead = 0;
+
+			ByteArrayOutputStream bao = new ByteArrayOutputStream();
+
+			while ((bytesRead = ins.read(buff)) != -1) {
+				bao.write(buff, 0, bytesRead);
+			}
+
+			byte[] data = bao.toByteArray();
+
+			byteArrayInputStream = new ByteArrayInputStream(data);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+		} finally {
+			return byteArrayInputStream;
+		}
 	}
 
 	@RequestMapping(value = "/loadWebClubMemberProfileData", method = RequestMethod.GET)

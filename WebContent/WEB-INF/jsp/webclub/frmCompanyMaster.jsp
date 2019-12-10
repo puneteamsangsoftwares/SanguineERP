@@ -170,6 +170,7 @@
 		        	}
 		        	else
 		        	{ 
+		        		funSetComCityCode(response.strCityCode);
 			        	$("#txtAreaName").val(response.strAreaName);
 		        	}
 				},
@@ -212,8 +213,11 @@
 		        		$("#txtResidentCtCode").val('');
 		        	}
 		        	else
-		        	{
-			        		$("#txtCityName").val(response.strCityName);
+		        	{		        		
+						funSetComCountryCode(response.strCountryCode);
+		        		funSetComStateCode(response.strStateCode);								
+						$("#txtPinCode").val(response.strSTDCode);
+						$("#txtCityName").val(response.strCityName);
 		        	}
 		        	
 		        },
@@ -301,6 +305,8 @@
 		        	}
 		        	else
 		        	{
+
+		        		funSetComRegionCode(response.strRegionCode);
 		        		$("#txtStateName").val(response.strStateName);
 		        		 
 		        	}

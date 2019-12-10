@@ -112,7 +112,7 @@
 				<div class="row masterTable">
 					<div class="col-md-3">
 						<label>Group Code:</label><br>
-						<s:input type="text" id="txtGroupCode" placeholder="Group Code" path="strGroupCode"  cssClass="searchTextBox" ondblclick="funHelp('WCgroup')" />
+						<s:input type="text" id="txtGroupCode" placeholder="Group Code" readonly="true" path="strGroupCode"  cssClass="searchTextBox" ondblclick="funHelp('WCgroup')" />
 					</div>
 					<div class="col-md-3">
 						<label>Group Name:</label><br>

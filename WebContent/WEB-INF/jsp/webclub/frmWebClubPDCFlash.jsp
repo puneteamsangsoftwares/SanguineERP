@@ -1,12 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+<style>
+.transTable td{
+	border-style:none;}
+	
+	input[type=text] {
+	width:90%;
+}
+
+</style>	
+
 <script type="text/javascript">
 		var fieldName,gurl,listRow=0,mastercode;
 	 $(document).ready(function()
@@ -39,11 +55,13 @@
 	 
 	 function btnExecute() 
 		{	
+		 var flag=false;
 		 var fromDate = $("#txtFromDate").val();
 		 var toDate = $("#txtToDate").val();
 		 var cmbChequeType = $("#cmbChequeType").val();					    
 		 var memCode = $("#txtMemCode").val();
-		 funLoadDateWiseMemberData(fromDate,toDate,cmbChequeType,memCode);					 
+		 funLoadDateWiseMemberData(fromDate,toDate,cmbChequeType,memCode);	
+		 return flag;
 		}	 
 			
 		function btnExport() 
@@ -345,97 +363,77 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>PDC Flash</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="WebClubPDC" method="POST" action="saveWebClubPDC.html">
-
-		<table class="masterTable">
-			<table style="border: 0px solid black; width: 100%; height: 70%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
-				<tr>
-					<td>
-						<div id="tab_container" style="height: 78px">
-							<table class="transTable">
-									<tr>					
-										<td style="width: 220px;">
-											<label>From Date</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											<%-- <s:input id="txtfromDte" path="dtefromDate"  cssClass="calenderTextBox" /> --%>
-											 <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
-											 <s:errors path="dteFromDate"></s:errors>
-										</td>
-										</td>									
-										<td ><label>To Date</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											<%-- <s:input id="txttoDte" path="dtetoDate"  cssClass="calenderTextBox" /></td> --%>
-											 <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
-			        						 <s:errors path="dteToDate"></s:errors>
-										</td>														
-									</tr>
-									
-									<tr>
-									<td style="width: 320px;">
-										<label>Cheque Type </label>&nbsp;
-										<select id="cmbChequeType" path="strChequeType" class="BoxW124px">
-											<option selected="selected">Received</option>
-											<option>Issued</option>
-										</select>				
-									</td>
-									<td>
-										<label>Member Code </label>&nbsp;&nbsp;&nbsp;				
-											<s:input type="text" id="txtMemCode" path="strMemCode"  class="searchTextBox" ondblclick="funHelp('WCmemProfileCustomer');" readonly="true"/>
-											<!-- <td style="width: 120px;"><label id="lblMemCode"></label></td>	 -->	
-										</td>									
-									</tr>
-									
-									<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="button" id="btnExcecute" value="Execute"  class="form_button" onclick="btnExecute()" />
-									</td>	
-									<td>	
-									<input type="button" id="btnExporte" value="Export"  class="form_button" onclick="btnExport()" />
-									
-									</td>					
-								</tr>		
-							</table>
-							<div class="dynamicTableContainer" id="divTable" style="height: 300px; display: none; width: 99.80%;">
-							<table
-								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-								<tr bgcolor="#72BEFC">				
-									<td style="width:6.20%;">Member Name</td>
-									<td style="width:6.2%;">Drawn On</td>
-									<td style="width:6.2%;">Cheque No</td>
-									<td style="width:6.2%;">Cheque Date</td>
-									<td style="width:6.15%;">Amount</td>
-									<td style="width:6.2%;">Type</td>
-								</tr>
-							</table>
-							
-							<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
-								<table id="tblDetails"
-									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-									class="transTablex col8-center">
-									<tbody>			
-										<col style="width:21.4%;">	
-										<col style="width:21.5%;">
-										<col style="width:21.5%;">
-										<col style="width:21.7%;">
-										<col style="width:21.5%;">
-										<col style="width:17%;">
-										<col style="width:2.4%;">
-									</tbody>
-								</table>
+	<div class="container-fuild">
+		<label id="formHeading">PDC Flash</label>
+			<s:form name="WebClubPDC" method="POST" action="saveWebClubPDC.html">
+					<table class="masterTable">
+						<table style="border:0px solid black; width: 100%; height: 70%; margin:0 auto;">
+							<tr>
+								<td>
+									<div id="tab_container" style="height: auto;">
+										<div class="transTable" style="padding:10px;">
+												<div class="row">
+													<div class="col-md-3">
+													<label>From Date:</label><s:input id="txtFromDate"
+														readonly="true" type="text" cssClass="calenderTextBox" path="dteFromDate"></s:input> <s:errors path="dteFromDate"></s:errors>
+													</div>
+													<div class="col-md-3">
+													<label id="lblCityName">Cheque Type:</label><select id="cmbChequeType" type="text" path="strChequeType" >
+														<option selected="selected">Received</option>
+														<option>Issued</option>
+													</select>
+													</div>
+													<div class="col-md-3">
+													<label>To Date:</label><s:input id="txtToDate"  cssClass="calenderTextBox"
+														type="text" path="dteToDate" /><s:errors path="dteToDate"></s:errors>
+													</div>
+													<div class="col-md-3">
+													<label>Member Code:</label><s:input id="txtMemCode" class="searchTextBox" ondblclick="funHelp('WCmemProfileCustomer');" readonly="true"
+														type="text" path="strMemCode" />
+													</div>
+												</div>
+												<div class="center">
+													<a href="#"><button class="btn btn-primary center-block" type="text" 
+									  					class="form_button" id="btnExcecute" onclick="return btnExecute()">Execute</button></a>
+													<a href="#"><button class="btn btn-primary center-block" type="text"  
+						  								class="form_button" id="btnExporte" onclick="btnExport()">Export</button></a>
+												</div>
+										</div>
+													
+										<div class="dynamicTableContainer" id="divTable" style="height: 300px; display: none; width: 99.80%;">
+										<table
+											style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+											<tr>				
+												<td style="width:6.20%;">Member Name</td>
+												<td style="width:6.2%;">Drawn On</td>
+												<td style="width:6.2%;">Cheque No</td>
+												<td style="width:6.2%;">Cheque Date</td>
+												<td style="width:6.15%;">Amount</td>
+												<td style="width:6.2%;">Type</td>
+											</tr>
+										</table>
+										
+										<div style="border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+											<table id="tblDetails"
+												style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+												class="transTablex col8-center">
+												<tbody>			
+													<col style="width:21.4%;">	
+													<col style="width:21.5%;">
+													<col style="width:21.5%;">
+													<col style="width:21.7%;">
+													<col style="width:21.5%;">
+													<col style="width:17%;">
+													<col style="width:2.4%;">
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>						
-					
-					
-						</div>
-					</td>
-				</tr>
-			</table>					
-							
+						</td>
+					</tr>
+				</table>	
 			</table>
 		<label >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 						<label id="lbltotal"></label>
@@ -450,5 +448,6 @@
 			
 			
 	</s:form>
+	</div>
 </body>
 </html>

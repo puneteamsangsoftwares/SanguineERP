@@ -3,6 +3,7 @@ package com.sanguine.webclub.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.jdbc.Blob;
 import com.sanguine.webclub.model.clsWebClubDependentMasterModel;
 
 public class clsWebClubMemberProfileBean {
@@ -300,10 +301,20 @@ public class clsWebClubMemberProfileBean {
 	
 	private String strFieldValue;
 	
+	private Blob strMemberImage;
+	
 	public List<clsWebClubMemberProfileBean> listField;
 
 	public ArrayList<clsWebClubDependentMasterModel> listDependentMember = new ArrayList<clsWebClubDependentMasterModel>();
 	
+	public Blob getStrMemberImage() {
+		return strMemberImage;
+	}
+
+	public void setStrMemberImage(Blob strMemberImage) {
+		this.strMemberImage = strMemberImage;
+	}
+
 	private org.json.simple.JSONArray jsonFieldList;
 	
 	// Setter-Getter Methods

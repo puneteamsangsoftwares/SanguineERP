@@ -28,1162 +28,1258 @@
 }
 </style>
 
+
 <script type="text/javascript">
 
 	$(document).ready(function()
 			{
 	var message='';
 	<%if (session.getAttribute("success") != null) {
-				if (session.getAttribute("successMessage") != null) {%>
-		            message='<%=session.getAttribute("successMessage").toString()%>
-	';
-<%session.removeAttribute("successMessage");
-				}
-				boolean test = ((Boolean) session.getAttribute("success"))
-						.booleanValue();
-				session.removeAttribute("success");
-				if (test) {%>
-	alert("Data Save successfully\n\n" + message);
-<%}
-			}%>
-	});
+		            if(session.getAttribute("successMessage") != null){%>
+		            message='<%=session.getAttribute("successMessage").toString()%>';
+		            <%
+		            session.removeAttribute("successMessage");
+		            }
+					boolean test = ((Boolean) session.getAttribute("success")).booleanValue();
+					session.removeAttribute("success");
+					if (test) {
+					%>	
+		alert("Data Save successfully\n\n"+message);
+	<%
+	}}%>
+	
+});
 
-	function funResetFields() {
-		location.reload(true);
+	function funResetFields()
+	{
+		location.reload(true); 
 	}
 
 	var fieldName;
 
-	$(function() {
-		document.all['Area'].style.display = 'none';
-		document.all['City'].style.display = 'none';
-		document.all['Country'].style.display = 'none';
-		document.all['Region'].style.display = 'none';
-		document.all['State'].style.display = 'none';
-		document.all['Designation'].style.display = 'none';
-		document.all['Education'].style.display = 'none';
-		document.all['Marital'].style.display = 'none';
-		document.all['Profession'].style.display = 'none';
-		document.all['Reason'].style.display = 'none';
-
-		document.all['Relation'].style.display = 'none';
-		document.all['Staff'].style.display = 'none';
-		document.all['CurrencyDetails'].style.display = 'none';
-		document.all['CurrencyDetails2'].style.display = 'none';
-		document.all['CurrencyDetails3'].style.display = 'none';
-		document.all['InvitedBy'].style.display = 'none';
-		document.all['ItemCategory'].style.display = 'none';
-		document.all['Profile'].style.display = 'none';
-		document.all['Salutation'].style.display = 'none';
-		document.all['Title'].style.display = 'none';
-		showDiv('Area');
-
+	$(function() 
+	{
+		document.all[ 'Area' ].style.display = 'none';
+		document.all[ 'City' ].style.display = 'none';
+		document.all[ 'Country' ].style.display = 'none';
+		document.all[ 'Region' ].style.display = 'none';
+ 		document.all[ 'State' ].style.display = 'none';
+ 		document.all[ 'Designation' ].style.display = 'none';
+ 		document.all[ 'Education' ].style.display = 'none';
+ 		document.all[ 'Marital' ].style.display = 'none';
+ 		document.all[ 'Profession' ].style.display = 'none';
+ 		document.all[ 'Reason' ].style.display = 'none';
+ 		
+ 		document.all[ 'Relation' ].style.display = 'none';
+  		document.all[ 'Staff' ].style.display = 'none';
+ 		document.all[ 'CurrencyDetails' ].style.display = 'none';
+ 		document.all[ 'CurrencyDetails2' ].style.display = 'none';
+ 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+  		document.all[ 'InvitedBy' ].style.display = 'none';
+  		document.all[ 'ItemCategory' ].style.display = 'none';
+  		document.all[ 'Profile' ].style.display = 'none';
+  		document.all[ 'Salutation' ].style.display = 'none';
+  		document.all[ 'Title' ].style.display = 'none';
+ 		showDiv( 'Area' );
+ 		
 	});
 
-	function funSetData(code) {
+	function funSetData(code){
 
-		switch (fieldName) {
+		switch(fieldName){
 
-		case 'WCAreaMaster':
-			funSetAreaCode(code);
-			break;
-		case 'WCCityMaster':
-			funSetCityCode(code);
-			break;
-		case 'WCCountryMaster':
-			funSetCountryCode(code);
-			break;
-		case 'WCStateMaster':
-			funSetStateCode(code);
-			break;
-		case 'WCRegionMaster':
-			funSetRegionCode(code);
-			break;
-		case 'WCEducationMaster':
-			funSetEducationCode(code);
-			break;
-		case 'WCMaritalMaster':
-			funSetMaritalCode(code);
-			break;
-		case 'WCProfessionMaster':
-			funSetProfessionCode(code);
-			break;
-		case 'WCDesignationMaster':
-			funSetDesignationCode(code);
-			break;
-		case 'WCReasonMaster':
-			funSetReasonCode(code);
-			break;
-
-		case 'WCCommitteeMemberRole':
-			funSetRoleCode(code);
-			break;
-
-		case 'WCRelationMaster':
-			funSetRelationCode(code);
-			break;
-
-		case 'WCStaffMaster':
-			funSetStaffCode(code);
-			break;
-
-		case 'WCCurrencyDetailsMaster':
-			funSetCurrencyDetailsCode(code);
-			break;
-
-		case 'WCInvitedByMaster':
-			funSetInvitedCode(code);
-			break;
-
-		case 'WCItemCategoryMaster':
-			funSetItemCategoryCode(code);
-			break;
-
-		case 'WCProfileMaster':
-			funSetProfileCode(code);
-			break;
-
-		case 'WCSalutationMaster':
-			funSetSalutationCode(code);
-			break;
-
-		case 'WCTitleMaster':
-			funSetTitleCode(code);
-			break;
-
+			case 'WCAreaMaster' : 
+				funSetAreaCode(code);
+				break;
+			case 'WCCityMaster' : 
+				funSetCityCode(code);
+				break;
+			case 'WCCountryMaster' : 
+				funSetCountryCode(code);
+				break;
+			case 'WCStateMaster' : 
+				funSetStateCode(code);
+				break;
+			case 'WCRegionMaster' : 
+				funSetRegionCode(code);
+				break;
+			case 'WCEducationMaster' : 
+				funSetEducationCode(code);
+				break;
+			case 'WCMaritalMaster' : 
+				funSetMaritalCode(code);
+				break;
+			case 'WCProfessionMaster' : 
+				funSetProfessionCode(code);
+				break;
+			case 'WCDesignationMaster' : 
+				funSetDesignationCode(code);
+				break;
+			case 'WCReasonMaster' : 
+				funSetReasonCode(code);
+				break;
+				
+				
+			case 'WCCommitteeMemberRole' : 
+				funSetRoleCode(code);
+				break;	
+				
+			case 'WCRelationMaster' : 
+				funSetRelationCode(code);
+				break;
+				
+			case 'WCStaffMaster' : 
+				funSetStaffCode(code);
+				break;
+				
+			case 'WCCurrencyDetailsMaster' : 
+				funSetCurrencyDetailsCode(code);
+				break;
+				
+			case 'WCInvitedByMaster' : 
+				funSetInvitedCode(code);
+				break;
+				
+			case 'WCItemCategoryMaster' : 
+				funSetItemCategoryCode(code);
+				break;
+				
+			case 'WCProfileMaster' : 
+				funSetProfileCode(code);
+				break;
+				
+			case 'WCSalutationMaster' : 
+				funSetSalutationCode(code);
+				break;
+				
+			case 'WCTitleMaster' : 
+				funSetTitleCode(code);
+				break;
+				
+				
+				
+				
 		}
 	}
 
-	function funSetAreaCode(code) {
+
+	function funSetAreaCode(code){
 
 		$("#txtAreaCode").val(code);
-		var searchurl = getContextPath() + "/loadAreaCode.html?docCode=" + code;
+		var searchurl=getContextPath()+"/loadAreaCode.html?docCode="+code;
 		//alert(searchurl);
-
-		$
-				.ajax({
-					type : "GET",
-					url : searchurl,
-					dataType : "json",
-					success : function(response) {
-						if (response.strAreaCode == 'Invalid Code') {
-							alert("Invalid Group Code");
-							$("#txtGroupCode").val('');
-						} else {
-							$("#txtAreaName").val(response.strAreaName);
-							$("#txtCityCode").val(response.strCityCode);
-							var citycode = response.strCityCode;
-							if (!(citycode.length == 0)) {
-
-								var searchurl = getContextPath()
-										+ "/loadCityCode.html?docCode="
-										+ citycode;
-								//alert(searchurl);
-
-								$
-										.ajax({
-											type : "GET",
-											url : searchurl,
-											dataType : "json",
-											success : function(response) {
-												if (response.strCityCode == 'Invalid Code') {
-													alert("Invalid City Code In");
-													$("#txtCityCode").val('');
-												} else {
-													$("#txtCityName")
-															.val(
-																	response.strCityName);
-												}
-
-											},
-											error : function(jqXHR, exception) {
-												if (jqXHR.status === 0) {
-													alert('Not connect.n Verify Network.');
-												} else if (jqXHR.status == 404) {
-													alert('Requested page not found. [404]');
-												} else if (jqXHR.status == 500) {
-													alert('Internal Server Error [500].');
-												} else if (exception === 'parsererror') {
-													alert('Requested JSON parse failed.');
-												} else if (exception === 'timeout') {
-													alert('Time out error.');
-												} else if (exception === 'abort') {
-													alert('Ajax request aborted.');
-												} else {
-													alert('Uncaught Error.n'
-															+ jqXHR.responseText);
-												}
-											}
-
-										});
-							}
-
-							$("#txtCityName").focus();
-						}
-					},
-					error : function(jqXHR, exception) {
-						if (jqXHR.status === 0) {
-							alert('Not connect.n Verify Network.');
-						} else if (jqXHR.status == 404) {
-							alert('Requested page not found. [404]');
-						} else if (jqXHR.status == 500) {
-							alert('Internal Server Error [500].');
-						} else if (exception === 'parsererror') {
-							alert('Requested JSON parse failed.');
-						} else if (exception === 'timeout') {
-							alert('Time out error.');
-						} else if (exception === 'abort') {
-							alert('Ajax request aborted.');
-						} else {
-							alert('Uncaught Error.n' + jqXHR.responseText);
-						}
-					}
-				});
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strAreaCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Group Code");
+		        		$("#txtGroupCode").val('');
+		        	}
+		        	else
+		        	{
+			        	$("#txtAreaName").val(response.strAreaName);
+			        	$("#txtCityCode").val(response.strCityCode);
+			        	var citycode=response.strCityCode;
+			        	if(!(citycode.length==0))
+			        		{
+			        			
+				        		var searchurl=getContextPath()+"/loadCityCode.html?docCode="+citycode;
+				        		//alert(searchurl);
+				        		
+				        			$.ajax({
+				        		        type: "GET",
+				        		        url: searchurl,
+				        		        dataType: "json",
+				        		        success: function(response)
+				        		        {
+				        		        	if(response.strCityCode=='Invalid Code')
+				        		        	{
+				        		        		alert("Invalid City Code In");
+				        		        		$("#txtCityCode").val('');
+				        		        	}
+				        		        	else
+				        		        	{
+				        		        		$("#txtCityName").val(response.strCityName);
+				        		        	}
+				        		        	
+				        		        },
+					        		        error: function(jqXHR, exception) {
+					        		            if (jqXHR.status === 0) {
+					        		                alert('Not connect.n Verify Network.');
+					        		            } else if (jqXHR.status == 404) {
+					        		                alert('Requested page not found. [404]');
+					        		            } else if (jqXHR.status == 500) {
+					        		                alert('Internal Server Error [500].');
+					        		            } else if (exception === 'parsererror') {
+					        		                alert('Requested JSON parse failed.');
+					        		            } else if (exception === 'timeout') {
+					        		                alert('Time out error.');
+					        		            } else if (exception === 'abort') {
+					        		                alert('Ajax request aborted.');
+					        		            } else {
+					        		                alert('Uncaught Error.n' + jqXHR.responseText);
+					        		            }		            
+					        		        }
+				        			
+				        			
+				        			});
+			        		}
+			        	
+			        	
+			        	$("#txtCityName").focus();
+		        	}
+				},
+				error: function(jqXHR, exception) {
+		            if (jqXHR.status === 0) {
+		                alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+		                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.n' + jqXHR.responseText);
+		            }		            
+		        }
+			});
 	}
 
-	function funSetCityCode(code) {
 
+	function funSetCityCode(code){
+		
+		
 		var stateCode = "";
 		var countryCode = "";
 		$("#txtCityCode").val(code);
-		var searchurl = getContextPath() + "/loadCityCode.html?docCode=" + code;
+		var searchurl=getContextPath()+"/loadCityCode.html?docCode="+code;
 		//alert(searchurl);
-
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strCityCode == 'Invalid Code') {
-					alert("Invalid City Code In");
-					$("#txtCityCode").val('');
-				} else {
-					$("#txtCityName").val(response.strCityName);
-					$("#txtCityStdCode").val(response.strSTDCode);
-					$("#txtStateCode").val(response.strStateCode);
-					$("#txtCountryCode").val(response.strCountryCode);
-
-					var stateCode = response.strStateCode;
-					var countryCode = response.strCountryCode;
-
-					if (!(countryCode.length == 0)) {
-						var searchurl = getContextPath()
-								+ "/loadCountryCode.html?docCode="
-								+ countryCode;
-						//alert(searchurl);
-
-						$.ajax({
-							type : "GET",
-							url : searchurl,
-							dataType : "json",
-							success : function(response) {
-								if (response.strCountryCode == 'Invalid Code') {
-									alert("Invalid Country Code In");
-									$("#txtCountryCode").val('');
-								} else {
-									$("#txtCountryName").val(
-											response.strCountryName);
-								}
-
-							},
-							error : function(jqXHR, exception) {
-								if (jqXHR.status === 0) {
-									alert('Not connect.n Verify Network.');
-								} else if (jqXHR.status == 404) {
-									alert('Requested page not found. [404]');
-								} else if (jqXHR.status == 500) {
-									alert('Internal Server Error [500].');
-								} else if (exception === 'parsererror') {
-									alert('Requested JSON parse failed.');
-								} else if (exception === 'timeout') {
-									alert('Time out error.');
-								} else if (exception === 'abort') {
-									alert('Ajax request aborted.');
-								} else {
-									alert('Uncaught Error.n'
-											+ jqXHR.responseText);
-								}
-							}
-						});
-
-					}
-
-					if (!(stateCode.lenght == 0)) {
-						var searchurl = getContextPath()
-								+ "/loadStateCode.html?docCode=" + stateCode;
-						//alert(searchurl);
-
-						$.ajax({
-							type : "GET",
-							url : searchurl,
-							dataType : "json",
-							success : function(response) {
-								if (response.strStateCode == 'Invalid Code') {
-									alert("Invalid State Code In");
-									$("#txtStateCode").val('');
-								} else {
-									$("#txtStateName").val(
-											response.strStateName);
-								}
-
-							},
-
-							error : function(jqXHR, exception) {
-								if (jqXHR.status === 0) {
-									alert('Not connect.n Verify Network.');
-								} else if (jqXHR.status == 404) {
-									alert('Requested page not found. [404]');
-								} else if (jqXHR.status == 500) {
-									alert('Internal Server Error [500].');
-								} else if (exception === 'parsererror') {
-									alert('Requested JSON parse failed.');
-								} else if (exception === 'timeout') {
-									alert('Time out error.');
-								} else if (exception === 'abort') {
-									alert('Ajax request aborted.');
-								} else {
-									alert('Uncaught Error.n'
-											+ jqXHR.responseText);
-								}
-							}
-
-						});
-
-					}
-
-				}
-
-			},
-
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strCityCode=='Invalid Code')
+		        	{
+		        		alert("Invalid City Code In");
+		        		$("#txtCityCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtCityName").val(response.strCityName);
+		        		$("#txtCityStdCode").val(response.strSTDCode);
+		        		$("#txtStateCode").val(response.strStateCode);
+		        		$("#txtCountryCode").val(response.strCountryCode);
+		        		
+		        		var stateCode= response.strStateCode;
+		        		var countryCode= response.strCountryCode;
+		        		
+		        		if(!(countryCode.length==0))
+		        			{
+			        			var searchurl=getContextPath()+"/loadCountryCode.html?docCode="+countryCode;
+			        			//alert(searchurl);
+			        			
+			        				$.ajax({
+			        			        type: "GET",
+			        			        url: searchurl,
+			        			        dataType: "json",
+			        			        success: function(response)
+			        			        {
+			        			        	if(response.strCountryCode=='Invalid Code')
+			        			        	{
+			        			        		alert("Invalid Country Code In");
+			        			        		$("#txtCountryCode").val('');
+			        			        	}
+			        			        	else
+			        			        	{
+			        			        		$("#txtCountryName").val(response.strCountryName);
+			        			        	}
+			        			        	
+			        			        },
+			        				error: function(jqXHR, exception) {
+			        		            if (jqXHR.status === 0) {
+			        		                alert('Not connect.n Verify Network.');
+			        		            } else if (jqXHR.status == 404) {
+			        		                alert('Requested page not found. [404]');
+			        		            } else if (jqXHR.status == 500) {
+			        		                alert('Internal Server Error [500].');
+			        		            } else if (exception === 'parsererror') {
+			        		                alert('Requested JSON parse failed.');
+			        		            } else if (exception === 'timeout') {
+			        		                alert('Time out error.');
+			        		            } else if (exception === 'abort') {
+			        		                alert('Ajax request aborted.');
+			        		            } else {
+			        		                alert('Uncaught Error.n' + jqXHR.responseText);
+			        		            }		            
+			        		        }
+			        			});
+		        			
+		        			}
+		        		
+		        		if(!(stateCode.lenght==0))
+		        			{
+		        			var searchurl=getContextPath()+"/loadStateCode.html?docCode="+stateCode;
+		        			//alert(searchurl);
+		        			
+		        				$.ajax({
+		        			        type: "GET",
+		        			        url: searchurl,
+		        			        dataType: "json",
+		        			        success: function(response)
+		        			        {
+		        			        	if(response.strStateCode=='Invalid Code')
+		        			        	{
+		        			        		alert("Invalid State Code In");
+		        			        		$("#txtStateCode").val('');
+		        			        	}
+		        			        	else
+		        			        	{
+		        			        		$("#txtStateName").val(response.strStateName);
+		        			        	}
+		        			        	
+		        			        },
+		        			        
+		        			        error: function(jqXHR, exception) {
+			        		            if (jqXHR.status === 0) {
+			        		                alert('Not connect.n Verify Network.');
+			        		            } else if (jqXHR.status == 404) {
+			        		                alert('Requested page not found. [404]');
+			        		            } else if (jqXHR.status == 500) {
+			        		                alert('Internal Server Error [500].');
+			        		            } else if (exception === 'parsererror') {
+			        		                alert('Requested JSON parse failed.');
+			        		            } else if (exception === 'timeout') {
+			        		                alert('Time out error.');
+			        		            } else if (exception === 'abort') {
+			        		                alert('Ajax request aborted.');
+			        		            } else {
+			        		                alert('Uncaught Error.n' + jqXHR.responseText);
+			        		            }		            
+			        		        }
+		        			        
+		        				});
+		        			
+		        			}
+		        		
+		        		
+		        		
+		        	}
+		        	
+		        },
+		
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
+	
 
-	function funSetRegionCode(code) {
-
+	function funSetRegionCode(code){
+		
 		$("#txtRegionCode").val(code);
-		var searchurl = getContextPath() + "/loadRegionCode.html?docCode="
-				+ code;
+		var searchurl=getContextPath()+"/loadRegionCode.html?docCode="+code;
 		//alert(searchurl);
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strRegionCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Region Code In");
+		        		$("#txtRegionCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtRegionName").val(response.strRegionName);
+		        	}
+		        	
+		        },
 
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strRegionCode == 'Invalid Code') {
-					alert("Invalid Region Code In");
-					$("#txtRegionCode").val('');
-				} else {
-					$("#txtRegionName").val(response.strRegionName);
-				}
-
-			},
-
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
+	
 
-	function funSetCountryCode(code) {
+	function funSetCountryCode(code){
 
 		$("#txtCountryCode").val(code);
-		var searchurl = getContextPath() + "/loadCountryCode.html?docCode="
-				+ code;
+		var searchurl=getContextPath()+"/loadCountryCode.html?docCode="+code;
 		//alert(searchurl);
-
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strCountryCode == 'Invalid Code') {
-					alert("Invalid Country Code In");
-					$("#txtCountryCode").val('');
-				} else {
-					$("#txtCountryName").val(response.strCountryName);
-				}
-
-			},
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strCountryCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Country Code In");
+		        		$("#txtCountryCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtCountryName").val(response.strCountryName);
+		        	}
+		        	
+		        },
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
-
-	function funSetStateCode(code) {
+	
+	function funSetStateCode(code){
 
 		$("#txtStateCode").val(code);
-		var searchurl = getContextPath() + "/loadStateCode.html?docCode="
-				+ code;
+		var searchurl=getContextPath()+"/loadStateCode.html?docCode="+code;
 		//alert(searchurl);
-
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strStateCode == 'Invalid Code') {
-					alert("Invalid State Code In");
-					$("#txtStateCode").val('');
-				} else {
-					$("#txtStateName").val(response.strStateName);
-					$("#txtStateDesc").val(response.strStateDesc);
-					$("#txtCountryCode").val(response.strCountryCode);
-					$("#txtRegionCode").val(response.strRegionCode);
-					var regionCode = response.strRegionCode;
-					var countrycode = response.strCountryCode;
-
-					if (!(regionCode.length == 0)) {
-
-						var searchurl = getContextPath()
-								+ "/loadRegionCode.html?docCode=" + regionCode;
-						//alert(searchurl);
-
-						$.ajax({
-							type : "GET",
-							url : searchurl,
-							dataType : "json",
-							success : function(response) {
-								if (response.strRegionCode == 'Invalid Code') {
-									alert("Invalid Region Code");
-									$("#txtRegionCode").val('');
-								} else {
-									$("#txtRegionName").val(
-											response.strRegionName);
-								}
-
-							},
-							error : function(jqXHR, exception) {
-								if (jqXHR.status === 0) {
-									alert('Not connect.n Verify Network.');
-								} else if (jqXHR.status == 404) {
-									alert('Requested page not found. [404]');
-								} else if (jqXHR.status == 500) {
-									alert('Internal Server Error [500].');
-								} else if (exception === 'parsererror') {
-									alert('Requested JSON parse failed.');
-								} else if (exception === 'timeout') {
-									alert('Time out error.');
-								} else if (exception === 'abort') {
-									alert('Ajax request aborted.');
-								} else {
-									alert('Uncaught Error.n'
-											+ jqXHR.responseText);
-								}
-							}
-
-						});
-					}
-
-					if (!(countrycode.length == 0)) {
-
-						var searchurl = getContextPath()
-								+ "/loadCountryCode.html?docCode="
-								+ countrycode;
-						//alert(searchurl);
-
-						$.ajax({
-							type : "GET",
-							url : searchurl,
-							dataType : "json",
-							success : function(response) {
-								if (response.strCountryCode == 'Invalid Code') {
-									alert("Invalid Country Code");
-									$("#txtCountryCode").val('');
-								} else {
-									$("#txtCountryName").val(
-											response.strCountryName);
-								}
-
-							},
-							error : function(jqXHR, exception) {
-								if (jqXHR.status === 0) {
-									alert('Not connect.n Verify Network.');
-								} else if (jqXHR.status == 404) {
-									alert('Requested page not found. [404]');
-								} else if (jqXHR.status == 500) {
-									alert('Internal Server Error [500].');
-								} else if (exception === 'parsererror') {
-									alert('Requested JSON parse failed.');
-								} else if (exception === 'timeout') {
-									alert('Time out error.');
-								} else if (exception === 'abort') {
-									alert('Ajax request aborted.');
-								} else {
-									alert('Uncaught Error.n'
-											+ jqXHR.responseText);
-								}
-							}
-
-						});
-					}
-
-				}
-
-			},
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strStateCode=='Invalid Code')
+		        	{
+		        		alert("Invalid State Code In");
+		        		$("#txtStateCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtStateName").val(response.strStateName);
+		        		$("#txtStateDesc").val(response.strStateDesc);
+		        		$("#txtCountryCode").val(response.strCountryCode);
+		        		$("#txtRegionCode").val(response.strRegionCode);
+		        		var regionCode=response.strRegionCode;
+		        		var countrycode=response.strCountryCode;
+		        		
+			        	if(!(regionCode.length==0))
+			        		{
+			        			
+				        		var searchurl=getContextPath()+"/loadRegionCode.html?docCode="+regionCode;
+				        		//alert(searchurl);
+				        		
+				        			$.ajax({
+				        		        type: "GET",
+				        		        url: searchurl,
+				        		        dataType: "json",
+				        		        success: function(response)
+				        		        {
+				        		        	if(response.strRegionCode=='Invalid Code')
+				        		        	{
+				        		        		alert("Invalid Region Code");
+				        		        		$("#txtRegionCode").val('');
+				        		        	}
+				        		        	else
+				        		        	{
+				        		        		$("#txtRegionName").val(response.strRegionName);
+				        		        	}
+				        		        	
+				        		        },
+					        		        error: function(jqXHR, exception) {
+					        		            if (jqXHR.status === 0) {
+					        		                alert('Not connect.n Verify Network.');
+					        		            } else if (jqXHR.status == 404) {
+					        		                alert('Requested page not found. [404]');
+					        		            } else if (jqXHR.status == 500) {
+					        		                alert('Internal Server Error [500].');
+					        		            } else if (exception === 'parsererror') {
+					        		                alert('Requested JSON parse failed.');
+					        		            } else if (exception === 'timeout') {
+					        		                alert('Time out error.');
+					        		            } else if (exception === 'abort') {
+					        		                alert('Ajax request aborted.');
+					        		            } else {
+					        		                alert('Uncaught Error.n' + jqXHR.responseText);
+					        		            }		            
+					        		        }
+				        			
+				        			
+				        			});
+			        		}
+			        	
+			        	if(!(countrycode.length==0))
+		        		{
+		        			
+			        		var searchurl=getContextPath()+"/loadCountryCode.html?docCode="+countrycode;
+			        		//alert(searchurl);
+			        		
+			        			$.ajax({
+			        		        type: "GET",
+			        		        url: searchurl,
+			        		        dataType: "json",
+			        		        success: function(response)
+			        		        {
+			        		        	if(response.strCountryCode=='Invalid Code')
+			        		        	{
+			        		        		alert("Invalid Country Code");
+			        		        		$("#txtCountryCode").val('');
+			        		        	}
+			        		        	else
+			        		        	{
+			        		        		$("#txtCountryName").val(response.strCountryName);
+			        		        	}
+			        		        	
+			        		        },
+				        		        error: function(jqXHR, exception) {
+				        		            if (jqXHR.status === 0) {
+				        		                alert('Not connect.n Verify Network.');
+				        		            } else if (jqXHR.status == 404) {
+				        		                alert('Requested page not found. [404]');
+				        		            } else if (jqXHR.status == 500) {
+				        		                alert('Internal Server Error [500].');
+				        		            } else if (exception === 'parsererror') {
+				        		                alert('Requested JSON parse failed.');
+				        		            } else if (exception === 'timeout') {
+				        		                alert('Time out error.');
+				        		            } else if (exception === 'abort') {
+				        		                alert('Ajax request aborted.');
+				        		            } else {
+				        		                alert('Uncaught Error.n' + jqXHR.responseText);
+				        		            }		            
+				        		        }
+			        			
+			        			
+			        			});
+		        		}
+		        		
+		        		
+		        		
+		        		
+		        		
+		        	}
+		        	
+		        },
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
-
-	function funSetEducationCode(code) {
+	
+	
+	function funSetEducationCode(code){
 
 		$("#txtEducationCode").val(code);
-		var searchurl = getContextPath() + "/loadEducation.html?docCode="
-				+ code;
+		var searchurl=getContextPath()+"/loadEducation.html?docCode="+code;
 		//alert(searchurl);
-
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strEducationCode == 'Invalid Code') {
-					alert("Invalid Education Code In");
-					$("#txtEducationCode").val('');
-				} else {
-					$("#txtEducationDesc").val(response.strEducationDesc);
-				}
-
-			},
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strEducationCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Education Code In");
+		        		$("#txtEducationCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtEducationDesc").val(response.strEducationDesc);
+		        	}
+		        	
+		        },
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
-
-	function funSetMaritalCode(code) {
+	
+	
+	
+	
+	function funSetMaritalCode(code){
 
 		$("#txtMaritalCode").val(code);
-		var searchurl = getContextPath() + "/loadMarital.html?docCode=" + code;
+		var searchurl=getContextPath()+"/loadMarital.html?docCode="+code;
 		//alert(searchurl);
-
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strMaritalCode == 'Invalid Code') {
-					alert("Invalid Education Code In");
-					$("#txtMaritalCode").val('');
-				} else {
-					$("#txtMaritalName").val(response.strMaritalName);
-				}
-
-			},
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strMaritalCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Education Code In");
+		        		$("#txtMaritalCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtMaritalName").val(response.strMaritalName);
+		        	}
+		        	
+		        },
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
-
-	function funSetProfessionCode(code) {
+	
+	function funSetProfessionCode(code){
 
 		$("#txtProfessionCode").val(code);
-		var searchurl = getContextPath() + "/loadProfession.html?docCode="
-				+ code;
+		var searchurl=getContextPath()+"/loadProfession.html?docCode="+code;
 		//alert(searchurl);
-
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strProfessionCode == 'Invalid Code') {
-					alert("Invalid Profession Code In");
-					$("#txtProfessionCode").val('');
-				} else {
-					$("#txtProfessionName").val(response.strProfessionName);
-				}
-
-			},
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strProfessionCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Profession Code In");
+		        		$("#txtProfessionCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtProfessionName").val(response.strProfessionName);
+		        	}
+		        	
+		        },
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
-
-	function funSetDesignationCode(code) {
+	
+	
+	
+	
+	function funSetDesignationCode(code){
 
 		$("#txtDesignationCode").val(code);
-		var searchurl = getContextPath() + "/loadDesignation.html?docCode="
-				+ code;
+		var searchurl=getContextPath()+"/loadDesignation.html?docCode="+code;
 		//alert(searchurl);
-
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strDesignationCode == 'Invalid Code') {
-					alert("Invalid Designation Code In");
-					$("#txtDesignationCode").val('');
-				} else {
-					$("#txtDesignationName").val(response.strDesignationName);
-				}
-
-			},
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strDesignationCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Designation Code In");
+		        		$("#txtDesignationCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtDesignationName").val(response.strDesignationName);
+		        	}
+		        	
+		        },
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
-
-	function funSetReasonCode(code) {
+	
+	
+	
+	 
+	function funSetReasonCode(code){
 
 		$("#txtReasonCode").val(code);
-		var searchurl = getContextPath() + "/loadReason.html?docCode=" + code;
+		var searchurl=getContextPath()+"/loadReason.html?docCode="+code;
 		//alert(searchurl);
-
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strReasonCode == 'Invalid Code') {
-					alert("Invalid Reason Code In");
-					$("#txtReasonCode").val('');
-				} else {
-					$("#txtReasonName").val(response.strReasonDesc);
-				}
-
-			},
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strReasonCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Reason Code In");
+		        		$("#txtReasonCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtReasonName").val(response.strReasonDesc);
+		        	}
+		        	
+		        },
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
-
-	function funSetRoleCode(code) {
+	
+	function funSetRoleCode(code){
 
 		$("#txtCommitteeMemberRoleCode").val(code);
-		var searchurl = getContextPath()
-				+ "/loadCommitteeMemberRole.html?docCode=" + code;
+		var searchurl=getContextPath()+"/loadCommitteeMemberRole.html?docCode="+code;
 		//alert(searchurl);
-
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strRoleCode == 'Invalid Code') {
-					alert("Invalid CommitteeMemberRole Code In");
-					$("#txtCommitteeMemberRoleCode").val('');
-				} else {
-					$("#txtCommitteeMemberRoleDesc").val(response.strRoleDesc);
-					$("#txtCommitteeMemberRoleRank").val(response.intRoleRank);
-
-				}
-
-			},
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strRoleCode=='Invalid Code')
+		        	{
+		        		alert("Invalid CommitteeMemberRole Code In");
+		        		$("#txtCommitteeMemberRoleCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtCommitteeMemberRoleDesc").val(response.strRoleDesc);
+		        		$("#txtCommitteeMemberRoleRank").val(response.intRoleRank);
+		        		
+		        	}
+		        	
+		        },
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
+	
+ function funSetRelationCode(code){
+		
+ 		$("#txtRelationCode").val(code);
+ 		var searchurl=getContextPath()+"/loadRelationCode.html?docCode="+code;
+ 		//alert(searchurl);
+		
+ 			$.ajax({
+ 		        type: "GET",
+ 		        url: searchurl,
+ 		        dataType: "json",
+ 		        success: function(response)
+ 		        {
+ 		        	if(response.strRelationCode=='Invalid Code')
+ 		        	{
+ 		        		alert("Invalid Relation Code In");
+		        		$("#txtRelationCode").val('');
+ 		        	}
+ 		        	else
+ 		        	{
+ 		        		$("#txtRelationName").val(response.strRelation);
+ 		        		$("#txtAgeLimit").val(response.strAgeLimit);
+ 		        	}
+		        	
+ 		        },
 
-	function funSetRelationCode(code) {
-
-		$("#txtRelationCode").val(code);
-		var searchurl = getContextPath() + "/loadRelationCode.html?docCode="
-				+ code;
-		//alert(searchurl);
-
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strRelationCode == 'Invalid Code') {
-					alert("Invalid Relation Code In");
-					$("#txtRelationCode").val('');
-				} else {
-					$("#txtRelationName").val(response.strRelation);
-					$("#txtAgeLimit").val(response.strAgeLimit);
-				}
-
-			},
-
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
-		});
-	}
-
-	function funSetStaffCode(code) {
-
+ 			error: function(jqXHR, exception) {
+ 	            if (jqXHR.status === 0) {
+ 	                alert('Not connect.n Verify Network.');
+ 	            } else if (jqXHR.status == 404) {
+ 	                alert('Requested page not found. [404]');
+ 	            } else if (jqXHR.status == 500) {
+ 	                alert('Internal Server Error [500].');
+ 	            } else if (exception === 'parsererror') {
+ 	                alert('Requested JSON parse failed.');
+ 	            } else if (exception === 'timeout') {
+ 	                alert('Time out error.');
+ 	            } else if (exception === 'abort') {
+ 	                alert('Ajax request aborted.');
+ 	            } else {
+ 	                alert('Uncaught Error.n' + jqXHR.responseText);
+ 	            }		            
+ 	        }
+ 		});
+ 	}
+	
+ function funSetStaffCode(code){
+		
 		$("#txtStaffCode").val(code);
-		var searchurl = getContextPath() + "/loadStaffCode.html?docCode="
-				+ code;
+		var searchurl=getContextPath()+"/loadStaffCode.html?docCode="+code;
 		//alert(searchurl);
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strStaffCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Staff Code In");
+		        		$("#txtStaffCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtStaffName").val(response.strStaffName);
+		        	}
+		        	
+		        },
 
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strStaffCode == 'Invalid Code') {
-					alert("Invalid Staff Code In");
-					$("#txtStaffCode").val('');
-				} else {
-					$("#txtStaffName").val(response.strStaffName);
-				}
-
-			},
-
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
-
-	function funSetCurrencyDetailsCode(code) {
-
+	
+ function funSetCurrencyDetailsCode(code){
+		
 		$("#txtCurrencyDetailsCode").val(code);
-		var searchurl = getContextPath()
-				+ "/loadCurrencyDetailsCode.html?docCode=" + code;
+		var searchurl=getContextPath()+"/loadCurrencyDetailsCode.html?docCode="+code;
 		//alert(searchurl);
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strCurrCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Staff Code In");
+		        		$("#txtCurrencyDetailsCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtCurrencyDetailsName").val(response.strDesc);
+		        		$("#txtCurrUnit").val(response.strCurrUnit);
+		        		$("#txtExchangeRate").val(response.strExchangeRate);
+		        		$("#txtTraChkRate").val(response.strTraChkRate);
+		        		$("#txtDec").val(response.intDec);
+		        		$("#txtShortDesc").val(response.strShortDesc);
+		        		$("#txtLongDeciDesc").val(response.strLongDeciDesc);
+		        		$("#txtShortDeciDesc").val(response.strShortDeciDesc);
+		        		
+		        	}
+		        	
+		        },
 
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strCurrCode == 'Invalid Code') {
-					alert("Invalid Staff Code In");
-					$("#txtCurrencyDetailsCode").val('');
-				} else {
-					$("#txtCurrencyDetailsName").val(response.strDesc);
-					$("#txtCurrUnit").val(response.strCurrUnit);
-					$("#txtExchangeRate").val(response.strExchangeRate);
-					$("#txtTraChkRate").val(response.strTraChkRate);
-					$("#txtDec").val(response.intDec);
-					$("#txtShortDesc").val(response.strShortDesc);
-					$("#txtLongDeciDesc").val(response.strLongDeciDesc);
-					$("#txtShortDeciDesc").val(response.strShortDeciDesc);
-
-				}
-
-			},
-
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
-
-	function funSetInvitedCode(code) {
-
+	
+ function funSetInvitedCode(code){
+		
 		$("#txtInvitedByCode").val(code);
-		var searchurl = getContextPath() + "/loadInvitedByCode.html?docCode="
-				+ code;
+		var searchurl=getContextPath()+"/loadInvitedByCode.html?docCode="+code;
 		//alert(searchurl);
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strInvCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Invited Code In");
+		        		$("#txtInvitedByCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtInvitedByName").val(response.strInvName);
+		        		$("#txtMecompCode").val(response.strMecompCode);
+		        	}
+		        	
+		        },
 
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strInvCode == 'Invalid Code') {
-					alert("Invalid Invited Code In");
-					$("#txtInvitedByCode").val('');
-				} else {
-					$("#txtInvitedByName").val(response.strInvName);
-					$("#txtMecompCode").val(response.strMecompCode);
-				}
-
-			},
-
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
-
-	function funSetItemCategoryCode(code) {
-
+	
+ function funSetItemCategoryCode(code){
+		
 		$("#txtItemCategoryCode").val(code);
-		var searchurl = getContextPath()
-				+ "/loadItemCategoryCode.html?docCode=" + code;
+		var searchurl=getContextPath()+"/loadItemCategoryCode.html?docCode="+code;
 		//alert(searchurl);
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strItemCategoryCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Invited Code In");
+		        		$("#txtItemCategoryCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtItemCategoryName").val(response.strItemCategoryName);
+		        		
+		        		$("#txtAccountIn").val(response.strAccountIn);
+		        		$("#txtSideledgerCode").val(response.strSideledgerCode);
+		        		$("#txtTaxCode").val(response.strTaxCode);
+		        		$("#txtTaxName").val(response.strTaxName);
+		        		$("#txtTaxType").val(response.strTaxType);
+		        		$("#txtSideledgerCode").val(response.strSideledgerCode);
+		        		$("#txtGLCode").val(response.strGLCode);
+		        		$("#txtAddUserId").val(response.strAddUserId);
+		        		$("#txtItemTypeCode").val(response.strItemTypeCode);
+		        		$("#txtCatItemType").val(response.strCatItemType);
+		        		$("#txtDisAccIn").val(response.strDisAccIn);
+		        		$("#txtFreeze").val(response.strFreeze);
+		        		
+		        	}
+		        	
+		        },
 
-		$
-				.ajax({
-					type : "GET",
-					url : searchurl,
-					dataType : "json",
-					success : function(response) {
-						if (response.strItemCategoryCode == 'Invalid Code') {
-							alert("Invalid Invited Code In");
-							$("#txtItemCategoryCode").val('');
-						} else {
-							$("#txtItemCategoryName").val(
-									response.strItemCategoryName);
-
-							$("#txtAccountIn").val(response.strAccountIn);
-							$("#txtSideledgerCode").val(
-									response.strSideledgerCode);
-							$("#txtTaxCode").val(response.strTaxCode);
-							$("#txtTaxName").val(response.strTaxName);
-							$("#txtTaxType").val(response.strTaxType);
-							$("#txtSideledgerCode").val(
-									response.strSideledgerCode);
-							$("#txtGLCode").val(response.strGLCode);
-							$("#txtAddUserId").val(response.strAddUserId);
-							$("#txtItemTypeCode").val(response.strItemTypeCode);
-							$("#txtCatItemType").val(response.strCatItemType);
-							$("#txtDisAccIn").val(response.strDisAccIn);
-							$("#txtFreeze").val(response.strFreeze);
-
-						}
-
-					},
-
-					error : function(jqXHR, exception) {
-						if (jqXHR.status === 0) {
-							alert('Not connect.n Verify Network.');
-						} else if (jqXHR.status == 404) {
-							alert('Requested page not found. [404]');
-						} else if (jqXHR.status == 500) {
-							alert('Internal Server Error [500].');
-						} else if (exception === 'parsererror') {
-							alert('Requested JSON parse failed.');
-						} else if (exception === 'timeout') {
-							alert('Time out error.');
-						} else if (exception === 'abort') {
-							alert('Ajax request aborted.');
-						} else {
-							alert('Uncaught Error.n' + jqXHR.responseText);
-						}
-					}
-				});
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
+		});
 	}
-
-	function funSetProfileCode(code) {
-
+	
+ function funSetProfileCode(code){
+		
 		$("#txtProfileCode").val(code);
-		var searchurl = getContextPath() + "/loadProfileCode.html?docCode="
-				+ code;
+		var searchurl=getContextPath()+"/loadProfileCode.html?docCode="+code;
 		//alert(searchurl);
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strProfileCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Invited Code In");
+		        		$("#txtProfileCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtProfileName").val(response.strProfileDesc);
+		        	}
+		        	
+		        },
 
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strProfileCode == 'Invalid Code') {
-					alert("Invalid Invited Code In");
-					$("#txtProfileCode").val('');
-				} else {
-					$("#txtProfileName").val(response.strProfileDesc);
-				}
-
-			},
-
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
 
-	function funSetSalutationCode(code) {
-
+	
+ function funSetSalutationCode(code){
+		
 		$("#txtSalutationCode").val(code);
-		var searchurl = getContextPath() + "/loadSalutationCode.html?docCode="
-				+ code;
+		var searchurl=getContextPath()+"/loadSalutationCode.html?docCode="+code;
 		//alert(searchurl);
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strSalutationCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Invited Code In");
+		        		$("#txtSalutationCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtSalutationName").val(response.strSalutationDesc);
+		        	}
+		        	
+		        },
 
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strSalutationCode == 'Invalid Code') {
-					alert("Invalid Invited Code In");
-					$("#txtSalutationCode").val('');
-				} else {
-					$("#txtSalutationName").val(response.strSalutationDesc);
-				}
-
-			},
-
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
-
-	function funSetTitleCode(code) {
-
+ 
+ function funSetTitleCode(code){
+		
 		$("#txtTitleCode").val(code);
-		var searchurl = getContextPath() + "/loadTitleCode.html?docCode="
-				+ code;
+		var searchurl=getContextPath()+"/loadTitleCode.html?docCode="+code;
 		//alert(searchurl);
+		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	if(response.strTitleCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Invited Code In");
+		        		$("#txtTitleCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtTitleName").val(response.strTitleDesc);
+		        	}
+		        	
+		        },
 
-		$.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response) {
-				if (response.strTitleCode == 'Invalid Code') {
-					alert("Invalid Invited Code In");
-					$("#txtTitleCode").val('');
-				} else {
-					$("#txtTitleName").val(response.strTitleDesc);
-				}
-
-			},
-
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
-			}
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
 		});
 	}
 
-	function funShowTableGUI(divID) {
+	function funShowTableGUI(divID)
+	{
 		// for hide Table GUI
 		document.all["divAreaTable"].style.display = 'none';
 		document.all["divCityTable"].style.display = 'none';
@@ -1196,1542 +1292,1809 @@
 		document.all["divMaritalTable"].style.display = 'none';
 		document.all["divEducationTable"].style.display = 'none';
 		document.all["divCommitteeMemberRoleTable"].style.display = 'none';
-		document.all['divRelationTable'].style.display = 'none';
+		document.all[ 'divRelationTable' ].style.display = 'none';
+		
 
-		document.all["divStaffTable"].style.display = 'none';
-		document.all["divCurrencyDetailsTable"].style.display = 'none';
-		document.all["divInvitedByTable"].style.display = 'none';
-		document.all["divItemCategoryTable"].style.display = 'none';
-		document.all["divProfileTable"].style.display = 'none';
-		document.all["divSalutationTable"].style.display = 'none';
-		document.all["divTitleTable"].style.display = 'none';
-
+ 		document.all["divStaffTable"].style.display = 'none';
+ 		document.all["divCurrencyDetailsTable"].style.display = 'none';
+ 		document.all["divInvitedByTable"].style.display = 'none';
+ 		document.all["divItemCategoryTable"].style.display = 'none';
+ 		document.all["divProfileTable"].style.display = 'none';
+ 		document.all["divSalutationTable"].style.display = 'none';
+ 		document.all["divTitleTable"].style.display = 'none';
+		
+		
 		// for show Table GUI
 		document.all[divID].style.display = 'block';
-
+		
 	}
 
-	function funHelp(transactionName) {
-		fieldName = transactionName;
-		//	window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;");
-		window.open("searchform.html?formname=" + transactionName
-				+ "&searchText=", "",
-				"dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;");
+
+
+	function funHelp(transactionName)
+	{
+		fieldName=transactionName;
+		window.open("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;");
 	}
-
-	function showDiv(id) {
-
-		switch (id) {
-
-		case 'Region':
-
+	
+	
+	
+	function showDiv( id ) {
+		
+		switch (id)
+		{
+		
+		case 'Region' :
+			
+			
 			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
+			funShowTableGUI("div"+id+"Table");
 			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
+			
+			document.all[ id ].style.display = 'block';
 			document.all["lbl" + id + "Code"].style.display = 'block';
 			document.all["txt" + id + "Code"].style.display = 'block';
 			document.all["lbl" + id + "Name"].style.display = 'block';
 			document.all["txt" + id + "Name"].style.display = 'block';
-
+				
+			
 			document.all.txtAreaCode.value = '';
 			document.all["txt" + id + "Code"].focus();
-
+			
 			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Country'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
+			document.all[ 'Area' ].style.display = 'none';
+			document.all[ 'City' ].style.display = 'none';
+			document.all[ 'Country' ].style.display = 'none';
+			document.all[ 'State' ].style.display = 'none';
+			document.all[ 'Designation' ].style.display = 'none';
+			document.all[ 'Education' ].style.display = 'none';
+			document.all[ 'Marital' ].style.display = 'none';
+			document.all[ 'Profession' ].style.display = 'none';
+			document.all[ 'Reason' ].style.display = 'none';
+			document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+			document.all[ 'Relation' ].style.display = 'none';
+			
 
 			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
+ 			document.all["CurrencyDetails"].style.display = 'none';
+ 			document.all[ 'CurrencyDetails2' ].style.display = 'none';
+ 	 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
 			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
+ 			document.all["ItemCategory"].style.display = 'none';
+ 			document.all["ItemCategory2"].style.display = 'none';
+ 			document.all["ItemCategory3"].style.display = 'none';
+ 			document.all["ItemCategory4"].style.display = 'none';
 			document.all["Profile"].style.display = 'none';
 			document.all["Salutation"].style.display = 'none';
 			document.all["Title"].style.display = 'none';
-
+			
+			
 			$("#hidMasterID").val('Region');
-
-			break;
-
-		case 'Area':
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
+			
+			break;	
+		
+		
+			case 'Area' :
+				// shown table, Rows and Form Element	
+			funShowTableGUI("div"+id+"Table");
 			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
+			
+			document.all[ id ].style.display = 'block';
 			document.all["lbl" + id + "Code"].style.display = 'block';
 			document.all["txt" + id + "Code"].style.display = 'block';
 			document.all["lbl" + id + "Name"].style.display = 'block';
 			document.all["txt" + id + "Name"].style.display = 'block';
-
+			
 			document.all.txtAreaCode.value = '';
 			document.all["txt" + id + "Code"].focus();
-
-			document.all['City'].style.display = 'block';
+			
+			document.all[ 'City' ].style.display = 'block';
 			document.all['lblCityCode'].style.display = 'block';
 			document.all['txtCityCode'].style.display = 'block';
-			document.all['lblCityName'].style.display = 'block';
+			document.all['lblCityName'].style.display = 'block';			
 			document.all['txtCityName'].style.display = 'block';
 
 			// Not Shown Rows Fields
 			document.all['lblCityStdCode'].style.display = 'none';
 			document.all['txtCityStdCode'].style.display = 'none';
-
+			
 			// Not shown Rows
-			document.all['Country'].style.display = 'none';
-			document.all['Region'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
+ 			document.all[ 'Country' ].style.display = 'none';
+ 			document.all[ 'Region' ].style.display = 'none';
+ 			document.all[ 'State' ].style.display = 'none';
+ 			document.all[ 'Designation' ].style.display = 'none';
+ 			document.all[ 'Education' ].style.display = 'none';
+ 			document.all[ 'Marital' ].style.display = 'none';
+ 			document.all[ 'Profession' ].style.display = 'none';
+ 			document.all[ 'Reason' ].style.display = 'none';
+ 			document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+ 			document.all[ 'Relation' ].style.display = 'none';
+ 			document.all["Staff"].style.display = 'none';
+ 			document.all["CurrencyDetails"].style.display = 'none';
+ 			document.all[ 'CurrencyDetails2' ].style.display = 'none';
+ 	 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
 			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
+ 			document.all["ItemCategory"].style.display = 'none';
+ 			document.all["ItemCategory2"].style.display = 'none';
+ 			document.all["ItemCategory3"].style.display = 'none';
+ 			document.all["ItemCategory4"].style.display = 'none';
 			document.all["Profile"].style.display = 'none';
 			document.all["Salutation"].style.display = 'none';
 			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('Area');
-
+			
+			
+ 			$("#hidMasterID").val('Area');
+ 			
 			break;
-
-		case 'City':
-
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Name"].style.display = 'block';
-			document.all["txt" + id + "Name"].style.display = 'block';
-			document.all["lbl" + id + "StdCode"].style.display = 'block';
-			document.all["txt" + id + "StdCode"].style.display = 'block';
-
-			document.all.txtAreaCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-			document.all['Country'].style.display = 'block';
-			document.all["lbl" + "Country" + "Code"].style.display = 'block';
-			document.all["txt" + "Country" + "Code"].style.display = 'block';
-			document.all["lbl" + "Country" + "Name"].style.display = 'block';
-			document.all["txt" + "Country" + "Name"].style.display = 'block';
-			document.all['State'].style.display = 'block';
-			document.all["lbl" + "State" + "Code"].style.display = 'block';
-			document.all["txt" + "State" + "Code"].style.display = 'block';
-			document.all["lbl" + "State" + "Name"].style.display = 'block';
-			document.all["txt" + "State" + "Name"].style.display = 'block';
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['Region'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Profile"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('City');
-
-			break;
-
-		case 'Country':
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Name"].style.display = 'block';
-			document.all["txt" + id + "Name"].style.display = 'block';
-
-			document.all.txtAreaCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Region'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Profile"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('Country');
-
-			break;
-
-		case 'State':
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Name"].style.display = 'block';
-			document.all["txt" + id + "Name"].style.display = 'block';
-			document.all["lbl" + id + "Desc"].style.display = 'block';
-			document.all["txt" + id + "Desc"].style.display = 'block';
-
-			document.all.txtStateCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			document.all['Region'].style.display = 'block';
-			document.all['lblRegionCode'].style.display = 'block';
-			document.all['txtRegionCode'].style.display = 'block';
-			document.all['lblRegionName'].style.display = 'block';
-			document.all['txtRegionName'].style.display = 'block';
-
-			document.all['Country'].style.display = 'block';
-			document.all['lblCountryCode'].style.display = 'block';
-			document.all['txtCountryCode'].style.display = 'block';
-			document.all['lblCountryName'].style.display = 'block';
-			document.all['txtCountryName'].style.display = 'block';
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Profile"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('State');
-
-			break;
-
-		case "Designation":
-
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Name"].style.display = 'block';
-			document.all["txt" + id + "Name"].style.display = 'block';
-
-			document.all.txtDesignationCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Region'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Country'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Profile"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('Designation');
-
-			break;
-
-		case "Education":
-
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Desc"].style.display = 'block';
-			document.all["txt" + id + "Desc"].style.display = 'block';
-
-			document.all.txtDesignationCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Region'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Country'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Profile"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('Education');
-
-			break;
-
-		// 			case "Marital" :	
-
-		// 				// shown table, Rows and Form Element	
-		// 				funShowTableGUI("div"+id+"Table");
-		// 				funCallAjexForParticulorTable(id);
-
-		// 				document.all[ id ].style.display = 'block';
-		// 				document.all["lbl" + id + "Code"].style.display = 'block';
-		// 				document.all["txt" + id + "Code"].style.display = 'block';
-		// 				document.all["lbl" + id + "Name"].style.display = 'block';
-		// 				document.all["txt" + id + "Name"].style.display = 'block';
-
-		// 				document.all.txtDesignationCode.value = '';
-		// 				document.all["txt" + id + "Code"].focus();
-
-		// 				// Not shown Rows
-		// 				document.all[ 'Area' ].style.display = 'none';
-		// 				document.all[ 'City' ].style.display = 'none';
-		// 				document.all[ 'Region' ].style.display = 'none';
-		// 				document.all[ 'State' ].style.display = 'none';
-		// 				document.all[ 'Country' ].style.display = 'none';
-		// 				document.all[ 'Designation' ].style.display = 'none';
-		// 				document.all[ 'Education' ].style.display = 'none';
-		// 				document.all[ 'Profession' ].style.display = 'none';
-		// 				document.all[ 'Reason' ].style.display = 'none';
-
-		// 				$("#hidMasterID").val('Education');
-
-		// 				break;
-
-		case "Marital":
-
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Name"].style.display = 'block';
-			document.all["txt" + id + "Name"].style.display = 'block';
-
-			document.all.txtDesignationCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Region'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Country'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Profile"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('Marital');
-
-			break;
-
-		case "Profession":
-
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Name"].style.display = 'block';
-			document.all["txt" + id + "Name"].style.display = 'block';
-
-			document.all.txtDesignationCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Region'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Country'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Profile"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('Profession');
-
-			break;
-
-		case "Reason":
-
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Name"].style.display = 'block';
-			document.all["txt" + id + "Name"].style.display = 'block';
-
-			document.all.txtDesignationCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Region'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Country'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Profile"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('Reason');
-
-			break;
-
-		case "CommitteeMemberRole":
-
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Desc"].style.display = 'block';
-			document.all["txt" + id + "Desc"].style.display = 'block';
-			document.all["lbl" + id + "Rank"].style.display = 'block';
-			document.all["txt" + id + "Rank"].style.display = 'block';
-
-			document.all.txtDesignationCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Region'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Country'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Profile"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('CommitteeMemberRole');
-
-			break;
-
-		case 'Relation':
-
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Name"].style.display = 'block';
-			document.all["txt" + id + "Name"].style.display = 'block';
-			document.all["txtAgeLimit"].style.display = 'block';
-			document.all["lblAgeLimit"].style.display = 'block';
-			//document.all.txtAreaCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Country'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['Region'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Profile"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('Relation');
-
-			break;
-
-		case 'Staff':
-
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Name"].style.display = 'block';
-			document.all["txt" + id + "Name"].style.display = 'block';
-
-			//document.all.txtAreaCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Country'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-
-			document.all['Region'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Profile"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-			document.all["Title"].style.display = 'none';
-			$("#hidMasterID").val('Staff');
-
-			break;
-
-		case 'CurrencyDetails':
-
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all['CurrencyDetails2'].style.display = 'block';
-			document.all['CurrencyDetails3'].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Name"].style.display = 'block';
-			document.all["txt" + id + "Name"].style.display = 'block';
-			document.all["txtCurrUnit"].style.display = 'block';
-			document.all["lblCurrUnit"].style.display = 'block';
-
-			document.all["txtExchangeRate"].style.display = 'block';
-			document.all["lblExchangeRate"].style.display = 'block';
-			document.all["txtTraChkRate"].style.display = 'block';
-			document.all["lblTraChkRate"].style.display = 'block';
-			document.all["txtDec"].style.display = 'block';
-			document.all["lblDec"].style.display = 'block';
-			document.all["txtShortDesc"].style.display = 'block';
-			document.all["lblShortDesc"].style.display = 'block';
-			document.all["txtLongDeciDesc"].style.display = 'block';
-			document.all["lblLongDeciDesc"].style.display = 'block';
-			document.all["txtShortDeciDesc"].style.display = 'block';
-			document.all["lblShortDeciDesc"].style.display = 'block';
-
-			//document.all.txtAreaCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Country'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-
-			document.all['Region'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-
-			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Profile"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('CurrencyDetails');
-
-			break;
-
-		case 'InvitedBy':
-
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Name"].style.display = 'block';
-			document.all["txt" + id + "Name"].style.display = 'block';
-			document.all["txtMecompCode"].style.display = 'block';
-			document.all["lblMecompCode"].style.display = 'block';
-
-			//document.all.txtAreaCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Country'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-
-			document.all['Region'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Profile"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('InvitedBy');
-
-			break;
-
-		case 'ItemCategory':
-
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["ItemCategory2"].style.display = 'block';
-			document.all["ItemCategory3"].style.display = 'block';
-			document.all["ItemCategory4"].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Name"].style.display = 'block';
-			document.all["txt" + id + "Name"].style.display = 'block';
-
-			document.all["txtAccountIn"].style.display = 'block';
-			document.all["lblAccountIn"].style.display = 'block';
-			document.all["txtSideledgerCode"].style.display = 'block';
-			document.all["lblSideledgerCode"].style.display = 'block';
-			document.all["txtTaxCode"].style.display = 'block';
-			document.all["lblTaxCode"].style.display = 'block';
-			document.all["txtTaxName"].style.display = 'block';
-			document.all["lblTaxName"].style.display = 'block';
-			document.all["txtTaxType"].style.display = 'block';
-			document.all["lblTaxType"].style.display = 'block';
-			document.all["txtSideledgerCode"].style.display = 'block';
-			document.all["lblSideledgerCode"].style.display = 'block';
-			document.all["txtGLCode"].style.display = 'block';
-			document.all["lblGLCode"].style.display = 'block';
-			document.all["txtAddUserId"].style.display = 'block';
-			document.all["lblAddUserId"].style.display = 'block';
-			document.all["txtItemTypeCode"].style.display = 'block';
-			document.all["lblItemTypeCode"].style.display = 'block';
-			document.all["txtCatItemType"].style.display = 'block';
-			document.all["lblCatItemType"].style.display = 'block';
-			document.all["txtDisAccIn"].style.display = 'block';
-			document.all["lblDisAccIn"].style.display = 'block';
-			document.all["txtFreeze"].style.display = 'block';
-			document.all["lblFreeze"].style.display = 'block';
-
-			//document.all.txtAreaCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Country'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-
-			document.all['Region'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["InvitedBy"].style.display = 'none';
-
-			document.all["Profile"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('ItemCategory');
-
-			break;
-
-		case 'Profile':
-
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Name"].style.display = 'block';
-			document.all["txt" + id + "Name"].style.display = 'block';
-
-			//document.all.txtAreaCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Country'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-
-			document.all['Region'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('Profile');
-
-			break;
-
-		case 'Salutation':
-
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Name"].style.display = 'block';
-			document.all["txt" + id + "Name"].style.display = 'block';
-
-			//document.all.txtAreaCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Country'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-
-			document.all['Region'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Profile"].style.display = 'none';
-
-			document.all["Title"].style.display = 'none';
-
-			$("#hidMasterID").val('Salutation');
-
-			break;
-
-		case 'Title':
-
-			// shown table, Rows and Form Element	
-			funShowTableGUI("div" + id + "Table");
-			funCallAjexForParticulorTable(id);
-
-			document.all[id].style.display = 'block';
-			document.all["lbl" + id + "Code"].style.display = 'block';
-			document.all["txt" + id + "Code"].style.display = 'block';
-			document.all["lbl" + id + "Name"].style.display = 'block';
-			document.all["txt" + id + "Name"].style.display = 'block';
-
-			//document.all.txtAreaCode.value = '';
-			document.all["txt" + id + "Code"].focus();
-
-			// Not shown Rows
-			document.all['Area'].style.display = 'none';
-			document.all['City'].style.display = 'none';
-			document.all['Country'].style.display = 'none';
-			document.all['State'].style.display = 'none';
-			document.all['Designation'].style.display = 'none';
-			document.all['Education'].style.display = 'none';
-			document.all['Marital'].style.display = 'none';
-			document.all['Profession'].style.display = 'none';
-			document.all['Reason'].style.display = 'none';
-			document.all['CommitteeMemberRole'].style.display = 'none';
-
-			document.all['Region'].style.display = 'none';
-			document.all['Relation'].style.display = 'none';
-			document.all["Staff"].style.display = 'none';
-			document.all["CurrencyDetails"].style.display = 'none';
-			document.all['CurrencyDetails2'].style.display = 'none';
-			document.all['CurrencyDetails3'].style.display = 'none';
-			document.all["InvitedBy"].style.display = 'none';
-			document.all["ItemCategory"].style.display = 'none';
-			document.all["ItemCategory2"].style.display = 'none';
-			document.all["ItemCategory3"].style.display = 'none';
-			document.all["ItemCategory4"].style.display = 'none';
-			document.all["Profile"].style.display = 'none';
-			document.all["Salutation"].style.display = 'none';
-
-			$("#hidMasterID").val('Title');
-
-			break;
-
+			
+			case 'City' :
+
+
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Name"].style.display = 'block';
+				document.all["txt" + id + "Name"].style.display = 'block';
+				document.all["lbl" + id + "StdCode"].style.display = 'block';
+				document.all["txt" + id + "StdCode"].style.display = 'block';
+				
+				document.all.txtAreaCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				document.all[ 'Country' ].style.display = 'block';
+				document.all["lbl" + "Country" + "Code"].style.display = 'block';
+				document.all["txt" + "Country" + "Code"].style.display = 'block';
+				document.all["lbl" + "Country" + "Name"].style.display = 'block';
+				document.all["txt" + "Country" + "Name"].style.display = 'block';
+				document.all[ 'State' ].style.display = 'block';
+				document.all["lbl" + "State" + "Code"].style.display = 'block';
+	 			document.all["txt" + "State" + "Code"].style.display = 'block';
+	 			document.all["lbl" + "State" + "Name"].style.display = 'block';
+	 			document.all["txt" + "State" + "Name"].style.display = 'block';
+				
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+ 				document.all[ 'Region' ].style.display = 'none';
+ 				document.all[ 'Designation' ].style.display = 'none';
+ 				document.all[ 'Education' ].style.display = 'none';
+ 				document.all[ 'Marital' ].style.display = 'none';
+ 				document.all[ 'Profession' ].style.display = 'none';
+ 				document.all[ 'Reason' ].style.display = 'none';
+ 				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+ 				document.all[ 'Relation' ].style.display = 'none';
+ 				document.all["Staff"].style.display = 'none';
+ 	 			document.all["CurrencyDetails"].style.display = 'none';
+ 	 			document.all[ 'CurrencyDetails2' ].style.display = 'none';
+ 	 	 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+ 				document.all["InvitedBy"].style.display = 'none';
+ 	 			document.all["ItemCategory"].style.display = 'none';
+ 	 			document.all["ItemCategory2"].style.display = 'none';
+ 	 			document.all["ItemCategory3"].style.display = 'none';
+ 	 			document.all["ItemCategory4"].style.display = 'none';
+ 				document.all["Profile"].style.display = 'none';
+ 				document.all["Salutation"].style.display = 'none';
+ 				document.all["Title"].style.display = 'none';
+ 				
+ 				
+ 				$("#hidMasterID").val('City');
+ 				
+				break;
+				
+			
+				
+				
+				
+			case 'Country' :
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Name"].style.display = 'block';
+				document.all["txt" + id + "Name"].style.display = 'block';
+				
+				document.all.txtAreaCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Region' ].style.display = 'none';
+				document.all[ 'State' ].style.display = 'none';
+				document.all[ 'Designation' ].style.display = 'none';
+				document.all[ 'Education' ].style.display = 'none';
+				document.all[ 'Marital' ].style.display = 'none';
+				document.all[ 'Profession' ].style.display = 'none';
+				document.all[ 'Reason' ].style.display = 'none';
+				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+				document.all[ 'Relation' ].style.display = 'none';
+				document.all["Staff"].style.display = 'none';
+	 			document.all["CurrencyDetails"].style.display = 'none';
+	 			document.all[ 'CurrencyDetails2' ].style.display = 'none';
+	 	 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+				document.all["InvitedBy"].style.display = 'none';
+	 			document.all["ItemCategory"].style.display = 'none';
+	 			document.all["ItemCategory2"].style.display = 'none';
+	 			document.all["ItemCategory3"].style.display = 'none';
+	 			document.all["ItemCategory4"].style.display = 'none';
+				document.all["Profile"].style.display = 'none';
+				document.all["Salutation"].style.display = 'none';
+				document.all["Title"].style.display = 'none';
+				
+				
+				$("#hidMasterID").val('Country');
+				
+				break;
+				
+				
+			case 'State' :
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+	 			document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Name"].style.display = 'block';
+				document.all["txt" + id + "Name"].style.display = 'block';
+				document.all["lbl" + id + "Desc"].style.display = 'block';
+				document.all["txt" + id + "Desc"].style.display = 'block';
+				
+				document.all.txtStateCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				document.all[ 'Region' ].style.display = 'block';
+				document.all['lblRegionCode'].style.display = 'block';
+				document.all['txtRegionCode'].style.display = 'block';
+				document.all['lblRegionName'].style.display = 'block';			
+				document.all['txtRegionName'].style.display = 'block';
+				
+				document.all[ 'Country' ].style.display = 'block';
+				document.all['lblCountryCode'].style.display = 'block';
+				document.all['txtCountryCode'].style.display = 'block';
+				document.all['lblCountryName'].style.display = 'block';			
+				document.all['txtCountryName'].style.display = 'block';
+	
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Designation' ].style.display = 'none';
+				document.all[ 'Education' ].style.display = 'none';
+				document.all[ 'Marital' ].style.display = 'none';
+				document.all[ 'Profession' ].style.display = 'none';
+				document.all[ 'Reason' ].style.display = 'none';
+				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+				
+				document.all[ 'Relation' ].style.display = 'none';
+				document.all["Staff"].style.display = 'none';
+	 			document.all["CurrencyDetails"].style.display = 'none';
+	 			document.all[ 'CurrencyDetails2' ].style.display = 'none';
+	 	 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+				document.all["InvitedBy"].style.display = 'none';
+	 			document.all["ItemCategory"].style.display = 'none';
+	 			document.all["ItemCategory2"].style.display = 'none';
+	 			document.all["ItemCategory3"].style.display = 'none';
+	 			document.all["ItemCategory4"].style.display = 'none';
+				document.all["Profile"].style.display = 'none';
+				document.all["Salutation"].style.display = 'none';
+				document.all["Title"].style.display = 'none';
+								
+				$("#hidMasterID").val('State');
+			
+				break;	
+				
+				
+			case "Designation" :	
+				
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Name"].style.display = 'block';
+				document.all["txt" + id + "Name"].style.display = 'block';
+				
+				document.all.txtDesignationCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Region' ].style.display = 'none';
+				document.all[ 'State' ].style.display = 'none';
+				document.all[ 'Country' ].style.display = 'none';
+				document.all[ 'Education' ].style.display = 'none';
+				document.all[ 'Marital' ].style.display = 'none';
+				document.all[ 'Profession' ].style.display = 'none';
+				document.all[ 'Reason' ].style.display = 'none';
+				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+				document.all[ 'Relation' ].style.display = 'none';
+				document.all["Staff"].style.display = 'none';
+	 			document.all["CurrencyDetails"].style.display = 'none';
+	 			document.all[ 'CurrencyDetails2' ].style.display = 'none';
+	 	 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+				document.all["InvitedBy"].style.display = 'none';
+	 			document.all["ItemCategory"].style.display = 'none';
+	 			document.all["ItemCategory2"].style.display = 'none';
+	 			document.all["ItemCategory3"].style.display = 'none';
+	 			document.all["ItemCategory4"].style.display = 'none';
+				document.all["Profile"].style.display = 'none';
+				document.all["Salutation"].style.display = 'none';
+				document.all["Title"].style.display = 'none';
+				
+				$("#hidMasterID").val('Designation');
+				
+				break;
+				
+			case "Education" :	
+				
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Desc"].style.display = 'block';
+				document.all["txt" + id + "Desc"].style.display = 'block';
+				
+				document.all.txtDesignationCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Region' ].style.display = 'none';
+				document.all[ 'State' ].style.display = 'none';
+				document.all[ 'Country' ].style.display = 'none';
+				document.all[ 'Designation' ].style.display = 'none';
+				document.all[ 'Marital' ].style.display = 'none';
+				document.all[ 'Profession' ].style.display = 'none';
+				document.all[ 'Reason' ].style.display = 'none';
+				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+				document.all[ 'Relation' ].style.display = 'none';
+				document.all["Staff"].style.display = 'none';
+	 			document.all["CurrencyDetails"].style.display = 'none';
+	 			document.all[ 'CurrencyDetails2' ].style.display = 'none';
+	 	 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+				document.all["InvitedBy"].style.display = 'none';
+	 			document.all["ItemCategory"].style.display = 'none';
+	 			document.all["ItemCategory2"].style.display = 'none';
+	 			document.all["ItemCategory3"].style.display = 'none';
+	 			document.all["ItemCategory4"].style.display = 'none';
+				document.all["Profile"].style.display = 'none';
+				document.all["Salutation"].style.display = 'none';
+				document.all["Title"].style.display = 'none';
+				
+				
+				$("#hidMasterID").val('Education');
+			
+				break;
+				
+// 			case "Marital" :	
+				
+// 				// shown table, Rows and Form Element	
+// 				funShowTableGUI("div"+id+"Table");
+// 				funCallAjexForParticulorTable(id);
+				
+// 				document.all[ id ].style.display = 'block';
+// 				document.all["lbl" + id + "Code"].style.display = 'block';
+// 				document.all["txt" + id + "Code"].style.display = 'block';
+// 				document.all["lbl" + id + "Name"].style.display = 'block';
+// 				document.all["txt" + id + "Name"].style.display = 'block';
+				
+// 				document.all.txtDesignationCode.value = '';
+// 				document.all["txt" + id + "Code"].focus();
+				
+// 				// Not shown Rows
+// 				document.all[ 'Area' ].style.display = 'none';
+// 				document.all[ 'City' ].style.display = 'none';
+// 				document.all[ 'Region' ].style.display = 'none';
+// 				document.all[ 'State' ].style.display = 'none';
+// 				document.all[ 'Country' ].style.display = 'none';
+// 				document.all[ 'Designation' ].style.display = 'none';
+// 				document.all[ 'Education' ].style.display = 'none';
+// 				document.all[ 'Profession' ].style.display = 'none';
+// 				document.all[ 'Reason' ].style.display = 'none';
+				
+// 				$("#hidMasterID").val('Education');
+			
+// 				break;
+				
+			case "Marital" :	
+				
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Name"].style.display = 'block';
+				document.all["txt" + id + "Name"].style.display = 'block';
+				
+				document.all.txtDesignationCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Region' ].style.display = 'none';
+				document.all[ 'State' ].style.display = 'none';
+				document.all[ 'Country' ].style.display = 'none';
+				document.all[ 'Designation' ].style.display = 'none';
+				document.all[ 'Education' ].style.display = 'none';
+				document.all[ 'Profession' ].style.display = 'none';
+				document.all[ 'Reason' ].style.display = 'none';
+				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+				document.all[ 'Relation' ].style.display = 'none';
+				document.all["Staff"].style.display = 'none';
+	 			document.all["CurrencyDetails"].style.display = 'none';
+	 			document.all[ 'CurrencyDetails2' ].style.display = 'none';
+	 	 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+				document.all["InvitedBy"].style.display = 'none';
+	 			document.all["ItemCategory"].style.display = 'none';
+	 			document.all["ItemCategory2"].style.display = 'none';
+	 			document.all["ItemCategory3"].style.display = 'none';
+	 			document.all["ItemCategory4"].style.display = 'none';
+				document.all["Profile"].style.display = 'none';
+				document.all["Salutation"].style.display = 'none';
+				document.all["Title"].style.display = 'none';
+						
+				
+				$("#hidMasterID").val('Marital');
+			
+				break;	
+				
+				
+			case "Profession" :	
+				
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Name"].style.display = 'block';
+				document.all["txt" + id + "Name"].style.display = 'block';
+				
+				document.all.txtDesignationCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Region' ].style.display = 'none';
+				document.all[ 'State' ].style.display = 'none';
+				document.all[ 'Country' ].style.display = 'none';
+				document.all[ 'Designation' ].style.display = 'none';
+				document.all[ 'Marital' ].style.display = 'none';
+				document.all[ 'Reason' ].style.display = 'none';
+				document.all[ 'Education' ].style.display = 'none';
+				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+				document.all[ 'Relation' ].style.display = 'none';
+				document.all["Staff"].style.display = 'none';
+	 			document.all["CurrencyDetails"].style.display = 'none';
+	 			document.all[ 'CurrencyDetails2' ].style.display = 'none';
+	 	 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+				document.all["InvitedBy"].style.display = 'none';
+	 			document.all["ItemCategory"].style.display = 'none';
+	 			document.all["ItemCategory2"].style.display = 'none';
+	 			document.all["ItemCategory3"].style.display = 'none';
+	 			document.all["ItemCategory4"].style.display = 'none';
+				document.all["Profile"].style.display = 'none';
+				document.all["Salutation"].style.display = 'none';
+				document.all["Title"].style.display = 'none';
+				
+				
+				$("#hidMasterID").val('Profession');
+			
+				break;	
+				
+			case "Reason" :	
+				
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Name"].style.display = 'block';
+				document.all["txt" + id + "Name"].style.display = 'block';
+				
+				document.all.txtDesignationCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Region' ].style.display = 'none';
+				document.all[ 'State' ].style.display = 'none';
+				document.all[ 'Country' ].style.display = 'none';
+				document.all[ 'Designation' ].style.display = 'none';
+				document.all[ 'Marital' ].style.display = 'none';
+				document.all[ 'Profession' ].style.display = 'none';
+				document.all[ 'Education' ].style.display = 'none';
+				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+				document.all[ 'Relation' ].style.display = 'none';
+				document.all["Staff"].style.display = 'none';
+	 			document.all["CurrencyDetails"].style.display = 'none';
+	 			document.all[ 'CurrencyDetails2' ].style.display = 'none';
+	 	 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+				document.all["InvitedBy"].style.display = 'none';
+	 			document.all["ItemCategory"].style.display = 'none';
+	 			document.all["ItemCategory2"].style.display = 'none';
+	 			document.all["ItemCategory3"].style.display = 'none';
+	 			document.all["ItemCategory4"].style.display = 'none';
+				document.all["Profile"].style.display = 'none';
+				document.all["Salutation"].style.display = 'none';
+				document.all["Title"].style.display = 'none';
+				
+				
+				$("#hidMasterID").val('Reason');
+			
+				break;	
+				
+				
+			case "CommitteeMemberRole" :	
+				
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Desc"].style.display = 'block';
+				document.all["txt" + id + "Desc"].style.display = 'block';
+				document.all["lbl" + id + "Rank"].style.display = 'block';
+				document.all["txt" + id + "Rank"].style.display = 'block';
+				
+				document.all.txtDesignationCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Region' ].style.display = 'none';
+				document.all[ 'State' ].style.display = 'none';
+				document.all[ 'Country' ].style.display = 'none';
+				document.all[ 'Designation' ].style.display = 'none';
+				document.all[ 'Marital' ].style.display = 'none';
+				document.all[ 'Profession' ].style.display = 'none';
+				document.all[ 'Education' ].style.display = 'none';
+				document.all[ 'Reason' ].style.display = 'none';
+				document.all[ 'Relation' ].style.display = 'none';
+				document.all["Staff"].style.display = 'none';
+	 			document.all["CurrencyDetails"].style.display = 'none';
+	 			document.all[ 'CurrencyDetails2' ].style.display = 'none';
+	 	 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+				document.all["InvitedBy"].style.display = 'none';
+	 			document.all["ItemCategory"].style.display = 'none';
+	 			document.all["ItemCategory2"].style.display = 'none';
+	 			document.all["ItemCategory3"].style.display = 'none';
+	 			document.all["ItemCategory4"].style.display = 'none';
+				document.all["Profile"].style.display = 'none';
+				document.all["Salutation"].style.display = 'none';
+				document.all["Title"].style.display = 'none';
+				
+				
+				$("#hidMasterID").val('CommitteeMemberRole');
+			
+				break;		
+				
+			case 'Relation' :
+				
+				
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				 funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Name"].style.display = 'block';
+				document.all["txt" + id + "Name"].style.display = 'block';
+				document.all["txtAgeLimit"].style.display = 'block';	
+				document.all["lblAgeLimit"].style.display = 'block';
+				//document.all.txtAreaCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Country' ].style.display = 'none';
+				document.all[ 'State' ].style.display = 'none';
+				document.all[ 'Designation' ].style.display = 'none';
+				document.all[ 'Education' ].style.display = 'none';
+				document.all[ 'Marital' ].style.display = 'none';
+				document.all[ 'Profession' ].style.display = 'none';
+				document.all[ 'Reason' ].style.display = 'none';
+				document.all[ 'Region' ].style.display = 'none';
+				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+				document.all["Staff"].style.display = 'none';
+	 			document.all["CurrencyDetails"].style.display = 'none';
+	 			document.all[ 'CurrencyDetails2' ].style.display = 'none';
+	 	 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+				document.all["InvitedBy"].style.display = 'none';
+	 			document.all["ItemCategory"].style.display = 'none';
+	 			document.all["ItemCategory2"].style.display = 'none';
+	 			document.all["ItemCategory3"].style.display = 'none';
+	 			document.all["ItemCategory4"].style.display = 'none';
+				document.all["Profile"].style.display = 'none';
+				document.all["Salutation"].style.display = 'none';
+				document.all["Title"].style.display = 'none';
+				
+				$("#hidMasterID").val('Relation');
+				
+				break;	
+				
+			case 'Staff' :
+				
+				
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				 funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Name"].style.display = 'block';
+				document.all["txt" + id + "Name"].style.display = 'block';
+					
+				
+				//document.all.txtAreaCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Country' ].style.display = 'none';
+				document.all[ 'State' ].style.display = 'none';
+				document.all[ 'Designation' ].style.display = 'none';
+				document.all[ 'Education' ].style.display = 'none';
+				document.all[ 'Marital' ].style.display = 'none';
+				document.all[ 'Profession' ].style.display = 'none';
+				document.all[ 'Reason' ].style.display = 'none';
+				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+				
+				document.all[ 'Region' ].style.display = 'none';
+				document.all[ 'Relation' ].style.display = 'none';
+				
+				document.all["CurrencyDetails"].style.display = 'none';
+				document.all[ 'CurrencyDetails2' ].style.display = 'none';
+		 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+				document.all["InvitedBy"].style.display = 'none';
+	 			document.all["ItemCategory"].style.display = 'none';
+	 			document.all["ItemCategory2"].style.display = 'none';
+	 			document.all["ItemCategory3"].style.display = 'none';
+	 			document.all["ItemCategory4"].style.display = 'none';
+				document.all["Profile"].style.display = 'none';
+				document.all["Salutation"].style.display = 'none';
+				document.all["Title"].style.display = 'none';
+				$("#hidMasterID").val('Staff');
+				
+				break;	
+				
+			case 'CurrencyDetails' :
+				
+				
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all[ 'CurrencyDetails2' ].style.display = 'block';
+		 		document.all[ 'CurrencyDetails3' ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Name"].style.display = 'block';
+				document.all["txt" + id + "Name"].style.display = 'block';
+				document.all["txtCurrUnit"].style.display = 'block';
+				document.all["lblCurrUnit"].style.display = 'block';
+				
+				document.all["txtExchangeRate"].style.display = 'block';
+				document.all["lblExchangeRate"].style.display = 'block';
+				document.all["txtTraChkRate"].style.display = 'block';
+				document.all["lblTraChkRate"].style.display = 'block';
+				document.all["txtDec"].style.display = 'block';
+				document.all["lblDec"].style.display = 'block';
+				document.all["txtShortDesc"].style.display = 'block';
+				document.all["lblShortDesc"].style.display = 'block';
+				document.all["txtLongDeciDesc"].style.display = 'block';
+				document.all["lblLongDeciDesc"].style.display = 'block';
+				document.all["txtShortDeciDesc"].style.display = 'block';
+				document.all["lblShortDeciDesc"].style.display = 'block';
+				
+				
+				
+				//document.all.txtAreaCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Country' ].style.display = 'none';
+				document.all[ 'State' ].style.display = 'none';
+				document.all[ 'Designation' ].style.display = 'none';
+				document.all[ 'Education' ].style.display = 'none';
+				document.all[ 'Marital' ].style.display = 'none';
+				document.all[ 'Profession' ].style.display = 'none';
+				document.all[ 'Reason' ].style.display = 'none';
+				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+				
+				document.all[ 'Region' ].style.display = 'none';
+				document.all[ 'Relation' ].style.display = 'none';
+				document.all["Staff"].style.display = 'none';
+				
+				document.all["InvitedBy"].style.display = 'none';
+	 			document.all["ItemCategory"].style.display = 'none';
+	 			document.all["ItemCategory2"].style.display = 'none';
+	 			document.all["ItemCategory3"].style.display = 'none';
+	 			document.all["ItemCategory4"].style.display = 'none';
+				document.all["Profile"].style.display = 'none';
+				document.all["Salutation"].style.display = 'none';
+				document.all["Title"].style.display = 'none';
+				
+				$("#hidMasterID").val('CurrencyDetails');
+				
+				break;	
+				
+			case 'InvitedBy' :
+				
+				
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				 funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Name"].style.display = 'block';
+				document.all["txt" + id + "Name"].style.display = 'block';
+				document.all["txtMecompCode"].style.display = 'block';	
+				document.all["lblMecompCode"].style.display = 'block';	
+				
+				//document.all.txtAreaCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Country' ].style.display = 'none';
+				document.all[ 'State' ].style.display = 'none';
+				document.all[ 'Designation' ].style.display = 'none';
+				document.all[ 'Education' ].style.display = 'none';
+				document.all[ 'Marital' ].style.display = 'none';
+				document.all[ 'Profession' ].style.display = 'none';
+				document.all[ 'Reason' ].style.display = 'none';
+				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+				
+				document.all[ 'Region' ].style.display = 'none';
+				document.all[ 'Relation' ].style.display = 'none';
+				document.all["Staff"].style.display = 'none';
+				document.all["CurrencyDetails"].style.display = 'none';
+				document.all[ 'CurrencyDetails2' ].style.display = 'none';
+		 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+	 			document.all["ItemCategory"].style.display = 'none';
+	 			document.all["ItemCategory2"].style.display = 'none';
+	 			document.all["ItemCategory3"].style.display = 'none';
+	 			document.all["ItemCategory4"].style.display = 'none';
+				document.all["Profile"].style.display = 'none';
+				document.all["Salutation"].style.display = 'none';
+				document.all["Title"].style.display = 'none';
+				
+				$("#hidMasterID").val('InvitedBy');
+				
+				break;	
+				
+			case 'ItemCategory' :
+				
+				
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["ItemCategory2"].style.display = 'block';
+	 			document.all["ItemCategory3"].style.display = 'block';
+	 			document.all["ItemCategory4"].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Name"].style.display = 'block';
+				document.all["txt" + id + "Name"].style.display = 'block';
+					
+				document.all["txtAccountIn"].style.display = 'block';
+	 			document.all["lblAccountIn"].style.display = 'block';
+	 			document.all["txtSideledgerCode"].style.display = 'block';
+	 			document.all["lblSideledgerCode"].style.display = 'block';
+	 			document.all["txtTaxCode"].style.display = 'block';
+	 			document.all["lblTaxCode"].style.display = 'block';
+	 			document.all["txtTaxName"].style.display = 'block';
+	 			document.all["lblTaxName"].style.display = 'block';
+	 			document.all["txtTaxType"].style.display = 'block';
+	 			document.all["lblTaxType"].style.display = 'block';
+	 			document.all["txtSideledgerCode"].style.display = 'block';
+	 			document.all["lblSideledgerCode"].style.display = 'block';
+	 			document.all["txtGLCode"].style.display = 'block';
+	 			document.all["lblGLCode"].style.display = 'block';
+	 			document.all["txtAddUserId"].style.display = 'block';
+	 			document.all["lblAddUserId"].style.display = 'block';
+	 			document.all["txtItemTypeCode"].style.display = 'block';
+	 			document.all["lblItemTypeCode"].style.display = 'block';
+	 			document.all["txtCatItemType"].style.display = 'block';
+	 			document.all["lblCatItemType"].style.display = 'block';
+	 			document.all["txtDisAccIn"].style.display = 'block';
+	 			document.all["lblDisAccIn"].style.display = 'block';
+	 			document.all["txtFreeze"].style.display = 'block';
+	 			document.all["lblFreeze"].style.display = 'block';
+	 			
+	 			
+				//document.all.txtAreaCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Country' ].style.display = 'none';
+				document.all[ 'State' ].style.display = 'none';
+				document.all[ 'Designation' ].style.display = 'none';
+				document.all[ 'Education' ].style.display = 'none';
+				document.all[ 'Marital' ].style.display = 'none';
+				document.all[ 'Profession' ].style.display = 'none';
+				document.all[ 'Reason' ].style.display = 'none';
+				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+				
+				document.all[ 'Region' ].style.display = 'none';
+				document.all[ 'Relation' ].style.display = 'none';
+				document.all["Staff"].style.display = 'none';
+				document.all["CurrencyDetails"].style.display = 'none';
+				document.all[ 'CurrencyDetails2' ].style.display = 'none';
+		 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+				document.all["InvitedBy"].style.display = 'none';
+	 			
+				document.all["Profile"].style.display = 'none';
+				document.all["Salutation"].style.display = 'none';
+				document.all["Title"].style.display = 'none';
+				
+				$("#hidMasterID").val('ItemCategory');
+				
+				break;	
+				
+			case 'Profile' :
+				
+				
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Name"].style.display = 'block';
+				document.all["txt" + id + "Name"].style.display = 'block';
+					
+				
+				//document.all.txtAreaCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Country' ].style.display = 'none';
+				document.all[ 'State' ].style.display = 'none';
+				document.all[ 'Designation' ].style.display = 'none';
+				document.all[ 'Education' ].style.display = 'none';
+				document.all[ 'Marital' ].style.display = 'none';
+				document.all[ 'Profession' ].style.display = 'none';
+				document.all[ 'Reason' ].style.display = 'none';
+				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+				
+				document.all[ 'Region' ].style.display = 'none';
+				document.all[ 'Relation' ].style.display = 'none';
+				document.all["Staff"].style.display = 'none';
+				document.all["CurrencyDetails"].style.display = 'none';
+				document.all[ 'CurrencyDetails2' ].style.display = 'none';
+		 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+				document.all["InvitedBy"].style.display = 'none';
+	 			document.all["ItemCategory"].style.display = 'none';
+	 			document.all["ItemCategory2"].style.display = 'none';
+	 			document.all["ItemCategory3"].style.display = 'none';
+	 			document.all["ItemCategory4"].style.display = 'none';
+				document.all["Salutation"].style.display = 'none';
+				document.all["Title"].style.display = 'none';
+				
+				$("#hidMasterID").val('Profile');
+				
+				break;	
+				
+			case 'Salutation' :
+				
+				
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Name"].style.display = 'block';
+				document.all["txt" + id + "Name"].style.display = 'block';
+					
+				
+				//document.all.txtAreaCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Country' ].style.display = 'none';
+				document.all[ 'State' ].style.display = 'none';
+				document.all[ 'Designation' ].style.display = 'none';
+				document.all[ 'Education' ].style.display = 'none';
+				document.all[ 'Marital' ].style.display = 'none';
+				document.all[ 'Profession' ].style.display = 'none';
+				document.all[ 'Reason' ].style.display = 'none';
+				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+				
+				document.all[ 'Region' ].style.display = 'none';
+				document.all[ 'Relation' ].style.display = 'none';
+				document.all["Staff"].style.display = 'none';
+				document.all["CurrencyDetails"].style.display = 'none';
+				document.all[ 'CurrencyDetails2' ].style.display = 'none';
+		 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+				document.all["InvitedBy"].style.display = 'none';
+	 			document.all["ItemCategory"].style.display = 'none';
+	 			document.all["ItemCategory2"].style.display = 'none';
+	 			document.all["ItemCategory3"].style.display = 'none';
+	 			document.all["ItemCategory4"].style.display = 'none';
+				document.all["Profile"].style.display = 'none';
+				
+				document.all["Title"].style.display = 'none';
+				
+				$("#hidMasterID").val('Salutation');
+				
+				break;	
+				
+			case 'Title' :
+				
+				
+				// shown table, Rows and Form Element	
+				funShowTableGUI("div"+id+"Table");
+				funCallAjexForParticulorTable(id);
+				
+				document.all[ id ].style.display = 'block';
+				document.all["lbl" + id + "Code"].style.display = 'block';
+				document.all["txt" + id + "Code"].style.display = 'block';
+				document.all["lbl" + id + "Name"].style.display = 'block';
+				document.all["txt" + id + "Name"].style.display = 'block';
+					
+				
+				//document.all.txtAreaCode.value = '';
+				document.all["txt" + id + "Code"].focus();
+				
+				// Not shown Rows
+				document.all[ 'Area' ].style.display = 'none';
+				document.all[ 'City' ].style.display = 'none';
+				document.all[ 'Country' ].style.display = 'none';
+				document.all[ 'State' ].style.display = 'none';
+				document.all[ 'Designation' ].style.display = 'none';
+				document.all[ 'Education' ].style.display = 'none';
+				document.all[ 'Marital' ].style.display = 'none';
+				document.all[ 'Profession' ].style.display = 'none';
+				document.all[ 'Reason' ].style.display = 'none';
+				document.all[ 'CommitteeMemberRole' ].style.display = 'none';
+				
+				document.all[ 'Region' ].style.display = 'none';
+				document.all[ 'Relation' ].style.display = 'none';
+				document.all["Staff"].style.display = 'none';
+				document.all["CurrencyDetails"].style.display = 'none';
+				document.all[ 'CurrencyDetails2' ].style.display = 'none';
+		 		document.all[ 'CurrencyDetails3' ].style.display = 'none';
+				document.all["InvitedBy"].style.display = 'none';
+	 			document.all["ItemCategory"].style.display = 'none';
+	 			document.all["ItemCategory2"].style.display = 'none';
+	 			document.all["ItemCategory3"].style.display = 'none';
+	 			document.all["ItemCategory4"].style.display = 'none';
+				document.all["Profile"].style.display = 'none';
+				document.all["Salutation"].style.display = 'none';
+			
+				
+				$("#hidMasterID").val('Title');
+				
+				break;	
+				
+				
+				
 		}
-	}
-
-	function funAddRowInAreaTable(rowData) {
+	}	
+	
+	function funAddRowInAreaTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblAreaMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-
-		var strAreaCode = rowData[0];
-		var strAreaName = rowData[1];
-		var strCityCode = rowData[2];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    
+	    
+	    var strAreaCode = rowData[0];
+    	var strAreaName = rowData[1];
+   		var strCityCode = rowData[2];
 		var strCityName = rowData[3];
-
-		row.insertCell(0).innerHTML = "<input id=\"cbAreaCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtAreaCode."
-				+ (rowCount) + "\" value='" + strAreaCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtAreaName."
-				+ (rowCount) + "\" value='" + strAreaName + "' />";
-		row.insertCell(3).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCityCode."
-				+ (rowCount) + "\" value='" + strCityCode + "' />";
-		row.insertCell(4).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCityName."
-				+ (rowCount) + "\" value='" + strCityName + "' />";
-		// row.insertCell(7).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';	    
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbAreaCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtAreaCode."+(rowCount)+"\" value='"+strAreaCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtAreaName."+(rowCount)+"\" value='"+strAreaName+"' />";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCityCode."+(rowCount)+"\" value='"+strCityCode+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCityName."+(rowCount)+"\" value='"+strCityName+"' />";
+	    row.insertCell(4).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblAreaMasterData)">';	    
 	}
-
-	function funAddRowInCityTable(rowData) {
+	
+	function funAddRowInCityTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblCityMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strCityCode = rowData[0];
-		var strCityName = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strCityCode = rowData[0];
+    	var strCityName = rowData[1];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbCityCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCityCode."+(rowCount)+"\" value='"+strCityCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCityName."+(rowCount)+"\" value='"+strCityName+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblCityMasterData)">';	    
 
-		//row.insertCell(0).innerHTML= "<input id=\"cbCityCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(0).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCityCode."
-				+ (rowCount) + "\" value='" + strCityCode + "' />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCityName."
-				+ (rowCount) + "\" value='" + strCityName + "' />";
 	}
-
-	function funAddRowInRegionTable(rowData) {
+	
+	function funAddRowInRegionTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblRegionMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strRegionCode = rowData[0];
-		var strRegionName = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strRegionCode = rowData[0];
+    	var strRegionName = rowData[1];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbRegionCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtRegionCode."+(rowCount)+"\" value='"+strRegionCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtRegionName."+(rowCount)+"\" value='"+strRegionName+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblRegionMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbRegionCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtRegionCode."
-				+ (rowCount) + "\" value='" + strRegionCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtRegionName."
-				+ (rowCount) + "\" value='" + strRegionName + "' />";
 	}
-
-	function funAddRowInStateTable(rowData) {
+	
+	function funAddRowInStateTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblStateMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strStateCode = rowData[0];
-		var strStateName = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strStateCode = rowData[0];
+    	var strStateName = rowData[1];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbStateCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtStateCode."+(rowCount)+"\" value='"+strStateCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtStateName."+(rowCount)+"\" value='"+strStateName+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblStateMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbStateCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtStateCode."
-				+ (rowCount) + "\" value='" + strStateCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtStateName."
-				+ (rowCount) + "\" value='" + strStateName + "' />";
 	}
-
-	function funAddRowInCountryTable(rowData) {
+	
+	function funAddRowInCountryTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblCountryMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strCountryCode = rowData[0];
-		var strCountryName = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strCountryCode = rowData[0];
+    	var strCountryName = rowData[1];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbCountryCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCountryCode."+(rowCount)+"\" value='"+strCountryCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCountryName."+(rowCount)+"\" value='"+strCountryName+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblCountryMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbCountryCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCountryCode."
-				+ (rowCount) + "\" value='" + strCountryCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCountryName."
-				+ (rowCount) + "\" value='" + strCountryName + "' />";
 	}
-
-	function funAddRowInEducationTable(rowData) {
+	
+	function funAddRowInEducationTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblEducationMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strEducationCode = rowData[0];
-		var strEducationDesc = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strEducationCode = rowData[0];
+    	var strEducationDesc = rowData[1];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbEducationCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtEducationCode."+(rowCount)+"\" value='"+strEducationCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtEducationDesc."+(rowCount)+"\" value='"+strEducationDesc+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblEducationMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbEducationCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtEducationCode."
-				+ (rowCount) + "\" value='" + strEducationCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtEducationDesc."
-				+ (rowCount) + "\" value='" + strEducationDesc + "' />";
 	}
-
-	function funAddRowInMaritalTable(rowData) {
+	
+	function funAddRowInMaritalTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblMaritalMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strMaritalCode = rowData[0];
-		var strMaritalName = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strMaritalCode = rowData[0];
+    	var strMaritalName = rowData[1];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbMaritalCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtMaritalCode."+(rowCount)+"\" value='"+strMaritalCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtMaritalDesc."+(rowCount)+"\" value='"+strMaritalName+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblMaritalMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbMaritalCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtMaritalCode."
-				+ (rowCount) + "\" value='" + strMaritalCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtMaritalDesc."
-				+ (rowCount) + "\" value='" + strMaritalName + "' />";
 	}
-
-	function funAddRowInProfessionTable(rowData) {
+	
+	function funAddRowInProfessionTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblProfessionMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strProfessionCode = rowData[0];
-		var strProfessionName = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strProfessionCode = rowData[0];
+    	var strProfessionName = rowData[1];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbProfessionCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtProfessionCode."+(rowCount)+"\" value='"+strProfessionCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtProfessionName."+(rowCount)+"\" value='"+strProfessionName+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblProfessionMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbProfessionCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtProfessionCode."
-				+ (rowCount) + "\" value='" + strProfessionCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtProfessionName."
-				+ (rowCount) + "\" value='" + strProfessionName + "' />";
 	}
-
-	function funAddRowInDesignationTable(rowData) {
+	
+	function funAddRowInDesignationTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblDesignationMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strDesignationCode = rowData[0];
-		var strDesignationName = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strDesignationCode = rowData[0];
+    	var strDesignationName = rowData[1];
+		
+	   // row.insertCell(0).innerHTML= "<input id=\"cbDesignationCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtDesignationCode."+(rowCount)+"\" value='"+strDesignationCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtDesignationName."+(rowCount)+"\" value='"+strDesignationName+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblDesignationMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbDesignationCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtDesignationCode."
-				+ (rowCount) + "\" value='" + strDesignationCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtDesignationName."
-				+ (rowCount) + "\" value='" + strDesignationName + "' />";
 	}
-
-	function funAddRowInReasonTable(rowData) {
+	
+	function funAddRowInReasonTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblReasonMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strReasonCode = rowData[0];
-		var strReasonDesc = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strReasonCode = rowData[0];
+    	var strReasonDesc = rowData[1];
+		
+	   // row.insertCell(0).innerHTML= "<input id=\"cbReasonCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtReasonCode."+(rowCount)+"\" value='"+strReasonCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtReasonDesc."+(rowCount)+"\" value='"+strReasonDesc+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblReasonMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbReasonCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtReasonCode."
-				+ (rowCount) + "\" value='" + strReasonCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtReasonDesc."
-				+ (rowCount) + "\" value='" + strReasonDesc + "' />";
 	}
-
-	function funAddRowInCommitteeMemberRole(rowData) {
+	
+	function funAddRowInCommitteeMemberRole(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblCommitteeMemberRoleMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strRoleCode = rowData[0];
-		var strRoleDesc = rowData[1];
-		var intRoleRank = rowData[2];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strRoleCode = rowData[0];
+    	var strRoleDesc = rowData[1];
+    	var intRoleRank = rowData[2];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbRoleCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtReasonCode."+(rowCount)+"\" value='"+strRoleCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtReasonDesc."+(rowCount)+"\" value='"+strRoleDesc+"' />";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtRoleRank."+(rowCount)+"\" value='"+intRoleRank+"' />";
+	    row.insertCell(3).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblCommitteeMemberRoleMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbRoleCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtReasonCode."
-				+ (rowCount) + "\" value='" + strRoleCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtReasonDesc."
-				+ (rowCount) + "\" value='" + strRoleDesc + "' />";
-		row.insertCell(3).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtRoleRank."
-				+ (rowCount) + "\" value='" + intRoleRank + "' />";
 	}
-
-	function funAddRowInRelationTable(rowData) {
+	
+	
+	function funAddRowInRelationTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblRelationMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strRelationCode = rowData[0];
-		var strRelationDesc = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strRelationCode = rowData[0];
+    	var strRelationDesc = rowData[1];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbRelationCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtRelationCode."+(rowCount)+"\" value='"+strRelationCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtRelationDesc."+(rowCount)+"\" value='"+strRelationDesc+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblRelationMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbRelationCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtRelationCode."
-				+ (rowCount) + "\" value='" + strRelationCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtRelationDesc."
-				+ (rowCount) + "\" value='" + strRelationDesc + "' />";
 	}
-
-	function funAddRowInStaffTable(rowData) {
+	
+	function funAddRowInStaffTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblStaffMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strStaffCode = rowData[0];
-		var strStaffName = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strStaffCode = rowData[0];
+    	var strStaffName = rowData[1];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbStaffCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtStaffCode."+(rowCount)+"\" value='"+strStaffCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtStaffName."+(rowCount)+"\" value='"+strStaffName+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblStaffMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbStaffCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtStaffCode."
-				+ (rowCount) + "\" value='" + strStaffCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtStaffName."
-				+ (rowCount) + "\" value='" + strStaffName + "' />";
 	}
-
-	function funAddRowInCurrencyDetailsTable(rowData) {
+	
+	function funAddRowInCurrencyDetailsTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblCurrencyDetailsMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strCurrCode = rowData[0];
-		var strCurrDesc = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strCurrCode = rowData[0];
+    	var strCurrDesc = rowData[1];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbCurrCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCurrCode."+(rowCount)+"\" value='"+strCurrCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCurrDesc."+(rowCount)+"\" value='"+strCurrDesc+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblCurrencyDetailsMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbCurrCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCurrCode."
-				+ (rowCount) + "\" value='" + strCurrCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtCurrDesc."
-				+ (rowCount) + "\" value='" + strCurrDesc + "' />";
 	}
-
-	function funAddRowInInvitedByTable(rowData) {
+	
+	function funAddRowInInvitedByTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblInvitedByMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strInvitedByCode = rowData[0];
-		var strInvitedByDesc = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strInvitedByCode = rowData[0];
+    	var strInvitedByDesc = rowData[1];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbInvitedByCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtInvitedByCode."+(rowCount)+"\" value='"+strInvitedByCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtInvitedByDesc."+(rowCount)+"\" value='"+strInvitedByDesc+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblInvitedByMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbInvitedByCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtInvitedByCode."
-				+ (rowCount) + "\" value='" + strInvitedByCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtInvitedByDesc."
-				+ (rowCount) + "\" value='" + strInvitedByDesc + "' />";
 	}
-
-	function funAddRowInItemCategoryTable(rowData) {
+	
+	function funAddRowInItemCategoryTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblItemCategoryMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strItemCategoryCode = rowData[0];
-		var strItemCategoryDesc = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strItemCategoryCode = rowData[0];
+    	var strItemCategoryDesc = rowData[1];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbItemCategoryCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtItemCategoryCode."+(rowCount)+"\" value='"+strItemCategoryCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtItemCategoryDesc."+(rowCount)+"\" value='"+strItemCategoryDesc+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblItemCategoryMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbItemCategoryCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtItemCategoryCode."
-				+ (rowCount) + "\" value='" + strItemCategoryCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtItemCategoryDesc."
-				+ (rowCount) + "\" value='" + strItemCategoryDesc + "' />";
 	}
-	function funAddRowInProfileTable(rowData) {
+	function funAddRowInProfileTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblProfileMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strProfileCode = rowData[0];
-		var strProfileDesc = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strProfileCode = rowData[0];
+    	var strProfileDesc = rowData[1];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbProfileCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtProfileCode."+(rowCount)+"\" value='"+strProfileCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtProfileDesc."+(rowCount)+"\" value='"+strProfileDesc+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblProfileMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbProfileCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtProfileCode."
-				+ (rowCount) + "\" value='" + strProfileCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtProfileDesc."
-				+ (rowCount) + "\" value='" + strProfileDesc + "' />";
 	}
-	function funAddRowInSalutationTable(rowData) {
+	function funAddRowInSalutationTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblSalutationMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strSalutationCode = rowData[0];
-		var strSalutationDesc = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strSalutationCode = rowData[0];
+    	var strSalutationDesc = rowData[1];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbSalutationCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtSalutationCode."+(rowCount)+"\" value='"+strSalutationCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtSalutationDesc."+(rowCount)+"\" value='"+strSalutationDesc+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblSalutationMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbSalutationCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtSalutationCode."
-				+ (rowCount) + "\" value='" + strSalutationCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtSalutationDesc."
-				+ (rowCount) + "\" value='" + strSalutationDesc + "' />";
 	}
-	function funAddRowInTitleTable(rowData) {
+	function funAddRowInTitleTable(rowData)
+	{
 		//alert(qty);
 		var table = document.getElementById("tblTitleMasterData");
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
-		var strTitleCode = rowData[0];
-		var strTitleDesc = rowData[1];
+	    var rowCount = table.rows.length;
+	    var row = table.insertRow(rowCount);
+	    var strTitleCode = rowData[0];
+    	var strTitleDesc = rowData[1];
+		
+	    //row.insertCell(0).innerHTML= "<input id=\"cbTitleCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtTitleCode."+(rowCount)+"\" value='"+strTitleCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   id=\"txtTitleDesc."+(rowCount)+"\" value='"+strTitleDesc+"' />";
+	    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this,tblTitleMasterData)">';	    
 
-		row.insertCell(0).innerHTML = "<input id=\"cbTitleCodeSel."
-				+ (rowCount)
-				+ "\" type=\"checkbox\" class=\"Box\"  value=\"Tick\" onClick=\"funCheckboxCheck()\" />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtTitleCode."
-				+ (rowCount) + "\" value='" + strTitleCode + "' />";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"   id=\"txtTitleDesc."
-				+ (rowCount) + "\" value='" + strTitleDesc + "' />";
 	}
-	function funCallAjexForParticulorTable(tableName) {
-		flgSACode = false;
-		var searchUrl = "";
-
-		searchUrl = getContextPath()
-				+ "/loadAllDataOfPaticulorMaster.html?docCode=" + tableName;
+	
+	
+	//delete row function 
+	function funDeleteRow(obj,tblname)
+		{
+		    var index = obj.parentNode.parentNode.rowIndex;	
+		    var value,code;
+		    var table = document.getElementById(tblname.id);
+		    table.deleteRow(index);
+		    var tablevalue='';
+		    switch(tblname.id)	
+			{
+				case "tblAreaMasterData" :
+							{
+								//value= obj.parentNode.parentNode.cells[4].childNodes[0].defaultValue;		    
+						    	code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;	
+								tablevalue="Area";
+									break;
+							}
+							
+				case "tblCityMasterData" :
+							{
+								//value= obj.parentNode.parentNode.cells[3].childNodes[0].defaultValue;		    
+						    	code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;	
+								tablevalue="City";
+									break;
+							}
+				
+				case "tblRegionMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;						
+								tablevalue="Region";
+									break;
+							}
+				case "tblStateMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;						
+								tablevalue="State";
+									break;
+							}
+							
+				case "tblCountryMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;
+								tablevalue="Country";
+									break;
+							}
+				case "tblEducationMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;
+								tablevalue="Education";
+									break;
+							}				
+				case "tblMaritalMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;
+								tablevalue="Marital";
+									break;
+							}
+				
+				case "tblProfessionMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;
+								tablevalue="Profession";
+									break;
+							}
+				case "tblDesignationMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;
+								tablevalue="Designation";			
+									break;
+							}
+							
+				case "tblReasonMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;
+								tablevalue="Reason";
+									break;
+							}
+				case "tblCommitteeMemberRoleMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;
+								tablevalue="CommitteeMemberRole";	
+									break;
+							}			
+				
+				case "tblRelationMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;
+								tablevalue="Relation";
+									break;
+							}
+				case "tblStaffMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;
+								tablevalue="Staff";
+									break;
+							}
+				
+				case "tblCurrencyDetailsMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;
+								tablevalue="CurrencyDetails";
+									break;
+							}
+				case "tblInvitedByMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;
+								tablevalue="InvitedBy";
+									break;
+							}
+				case "tblItemCategoryMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;
+								tablevalue="ItemCategory";								
+									break;
+							}
+				case "tblProfileMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;
+								tablevalue="Profile";	
+									break;
+							}
+				case "tblSalutationMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;
+								tablevalue="Salutation";	
+									break;
+							}
+				case "tblTitleMasterData" :
+							{
+								code = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;
+								tablevalue="Title";	
+									break;
+							}
+			}
+		    
+		    
+		    funDeleteRowValue(code,tablevalue);
+		}
+	
+	function funDeleteRowValue(code,tableName)
+	{
+		flgSACode=false;
+		var searchUrl="";
+		
+		searchUrl=getContextPath()+"/deleteRowAreaValue.html?docCode="+code+"&tblname="+tableName;
 		//alert(searchUrl);
 		$.ajax({
-			type : "GET",
-			url : searchUrl,
-			success : function(response) {
-				funDeleteTableAllRowsOfParticulorTable(tableName);
-				$.each(response, function(i, item) {
-					var arr = jQuery.makeArray(response[i]);
+		        type: "GET",
+		        url: searchUrl,
+			    success: function(response)
+			    {		
+					    	
+							
+			    },
+			    error: function(jqXHR, exception) {
+		            if (jqXHR.status === 0) {
+		                alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+		                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.n' + jqXHR.responseText);
+		            }
+		        }
+		      });
+	}
+	function funDeleteRowCity(obj)
+	{
+	    var index = obj.parentNode.parentNode.rowIndex;
+	    var value = obj.parentNode.parentNode.cells[4].childNodes[0].defaultValue;		    
+	    var table = document.getElementById("tblCityMasterData");
+	    table.deleteRow(index);		   
+	}
+	
+	function funCallAjexForParticulorTable(tableName)
+	{
+		flgSACode=false;
+		var searchUrl="";
+		
+		searchUrl=getContextPath()+"/loadAllDataOfPaticulorMaster.html?docCode="+tableName;
+		//alert(searchUrl);
+		$.ajax({
+		        type: "GET",
+		        url: searchUrl,
+			    success: function(response)
+			    {
+    	    		funDeleteTableAllRowsOfParticulorTable(tableName);
+			    	$.each(response, function(i,item)
+					{
+			    		var arr = jQuery.makeArray( response[i] );
+			    		
+			    		funFillDataOfParticulorTable(tableName,arr);
+			    		
+					}); 
+							
+					    	
+							
+			    },
+			    error: function(jqXHR, exception) {
+		            if (jqXHR.status === 0) {
+		                alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+		                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.n' + jqXHR.responseText);
+		            }
+		        }
+		      });
+	}
+	
+	
 
-					funFillDataOfParticulorTable(tableName, arr);
-
-				});
-
-			},
-			error : function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
-					alert('Time out error.');
-				} else if (exception === 'abort') {
-					alert('Ajax request aborted.');
-				} else {
-					alert('Uncaught Error.n' + jqXHR.responseText);
-				}
+	
+	
+	function funDeleteTableAllRowsOfParticulorTable(tableName)
+	{
+		switch(tableName)
+		{
+			case "Area" :
+						{
+								$("#tbl"+tableName+ "MasterData tr").remove();
+								break;
+						}
+			case "City" :
+						{
+								$("#tbl"+tableName+ "MasterData tr").remove();
+								break;
+						}
+			
+			case "Region" :
+						{
+								$("#tbl"+tableName+ "MasterData tr").remove();
+								break;
+						}
+			
+			case "Country" :
+						{
+								$("#tbl"+tableName+ "MasterData tr").remove();
+								break;
+						}
+				
+			case "State" :
+						{
+								$("#tbl"+tableName+ "MasterData tr").remove();
+								break;
+						}
+			
+			case "Education" :
+						{
+								$("#tbl"+tableName+ "MasterData tr").remove();
+								break;
+						}
+			
+			case "Marital" :
+						{
+								$("#tbl"+tableName+ "MasterData tr").remove();
+								break;
+						}
+			
+			case "Profession" :
+						{
+								$("#tbl"+tableName+ "MasterData tr").remove();
+								break;
+						}
+			
+			case "Reason" :
+						{
+								$("#tbl"+tableName+ "MasterData tr").remove();
+								break;
+						}
+		
+			case "Designation" :
+						{
+								$("#tbl"+tableName+ "MasterData tr").remove();
+								break;
+						}
+						
+			case "CommitteeMemberRole" :
+			{
+					$("#tbl"+tableName+ "MasterData tr").remove();
+					break;
+			}			
+			
+			case "Relation" :
+			{
+					$("#tbl"+tableName+ "MasterData tr").remove();
+					break;
 			}
-		});
+			case "Staff" :
+			{
+					$("#tbl"+tableName+ "MasterData tr").remove();
+					break;
+			}
+			
+			case "CurrencyDetails" :
+			{
+					$("#tbl"+tableName+ "MasterData tr").remove();
+					break;
+			}
+			case "InvitedBy" :
+			{
+					$("#tbl"+tableName+ "MasterData tr").remove();
+					break;
+			}
+			case "ItemCategory" :
+			{
+					$("#tbl"+tableName+ "MasterData tr").remove();
+					break;
+			}
+			case "Profile" :
+			{
+					$("#tbl"+tableName+ "MasterData tr").remove();
+					break;
+			}
+			case "Salutation" :
+			{
+					$("#tbl"+tableName+ "MasterData tr").remove();
+					break;
+			}
+			case "Title" :
+			{
+					$("#tbl"+tableName+ "MasterData tr").remove();
+					break;
+			}
+		}
+		
 	}
-
-	function funDeleteTableAllRowsOfParticulorTable(tableName) {
-		switch (tableName) {
-		case "Area": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
+	
+	
+	function funFillDataOfParticulorTable(tableName,arr)
+	{
+		switch(tableName)
+		{
+			case "Area" :
+						{
+								funAddRowInAreaTable(arr);
+								break;
+						}
+			case "City" :
+						{
+								funAddRowInCityTable(arr);
+								break;
+						}
+			
+			case "Region" :
+						{
+								funAddRowInRegionTable(arr);
+								break;
+						}
+			
+			case "Country" :
+						{
+								funAddRowInCountryTable(arr);
+								break;
+						}
+				
+			case "State" :
+						{
+								funAddRowInStateTable(arr);
+								break;
+						}
+			
+			case "Education" :
+						{
+								funAddRowInEducationTable(arr);
+								break;
+						}
+			
+			case "Marital" :
+						{
+								funAddRowInMaritalTable(arr);
+								break;
+						}
+			
+			case "Profession" :
+						{
+								funAddRowInProfessionTable(arr);
+								break;
+						}
+			
+			case "Reason" :
+						{
+								funAddRowInReasonTable(arr);
+								break;
+						}
+		
+			case "Designation" :
+						{
+								funAddRowInDesignationTable(arr);
+								break;
+						}
+						
+			case "CommitteeMemberRole" :
+						{
+								funAddRowInCommitteeMemberRole(arr);
+								break;
+						}			
+		
+			case "Relation" :
+			{
+					funAddRowInRelationTable(arr);
+					break;
+			}
+			
+			case "Staff" :
+			{
+					funAddRowInStaffTable(arr);
+					break;
+			}
+			
+			case "CurrencyDetails" :
+			{
+					funAddRowInCurrencyDetailsTable(arr);
+					break;
+			}
+			
+			case "InvitedBy" :
+			{
+					funAddRowInInvitedByTable(arr);
+					break;
+			}
+			case "ItemCategory" :
+			{
+					funAddRowInItemCategoryTable(arr);
+					break;
+			}
+			case "Profile" :
+			{
+					funAddRowInProfileTable(arr);
+					break;
+			}
+			case "Salutation" :
+			{
+					funAddRowInSalutationTable(arr);
+					break;
+			}
+			case "Title" :
+			{
+					funAddRowInTitleTable(arr);
+					break;
+			}
 		}
-		case "City": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-
-		case "Region": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-
-		case "Country": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-
-		case "State": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-
-		case "Education": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-
-		case "Marital": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-
-		case "Profession": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-
-		case "Reason": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-
-		case "Designation": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-
-		case "CommitteeMemberRole": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-
-		case "Relation": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-		case "Staff": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-
-		case "CurrencyDetails": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-		case "InvitedBy": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-		case "ItemCategory": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-		case "Profile": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-		case "Salutation": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-		case "Title": {
-			$("#tbl" + tableName + "MasterData tr").remove();
-			break;
-		}
-		}
-
+		
+		
 	}
-
-	function funFillDataOfParticulorTable(tableName, arr) {
-		switch (tableName) {
-		case "Area": {
-			funAddRowInAreaTable(arr);
-			break;
-		}
-		case "City": {
-			funAddRowInCityTable(arr);
-			break;
-		}
-
-		case "Region": {
-			funAddRowInRegionTable(arr);
-			break;
-		}
-
-		case "Country": {
-			funAddRowInCountryTable(arr);
-			break;
-		}
-
-		case "State": {
-			funAddRowInStateTable(arr);
-			break;
-		}
-
-		case "Education": {
-			funAddRowInEducationTable(arr);
-			break;
-		}
-
-		case "Marital": {
-			funAddRowInMaritalTable(arr);
-			break;
-		}
-
-		case "Profession": {
-			funAddRowInProfessionTable(arr);
-			break;
-		}
-
-		case "Reason": {
-			funAddRowInReasonTable(arr);
-			break;
-		}
-
-		case "Designation": {
-			funAddRowInDesignationTable(arr);
-			break;
-		}
-
-		case "CommitteeMemberRole": {
-			funAddRowInCommitteeMemberRole(arr);
-			break;
-		}
-
-		case "Relation": {
-			funAddRowInRelationTable(arr);
-			break;
-		}
-
-		case "Staff": {
-			funAddRowInStaffTable(arr);
-			break;
-		}
-
-		case "CurrencyDetails": {
-			funAddRowInCurrencyDetailsTable(arr);
-			break;
-		}
-
-		case "InvitedBy": {
-			funAddRowInInvitedByTable(arr);
-			break;
-		}
-		case "ItemCategory": {
-			funAddRowInItemCategoryTable(arr);
-			break;
-		}
-		case "Profile": {
-			funAddRowInProfileTable(arr);
-			break;
-		}
-		case "Salutation": {
-			funAddRowInSalutationTable(arr);
-			break;
-		}
-		case "Title": {
-			funAddRowInTitleTable(arr);
-			break;
-		}
-		}
-
-	}
+	
+	
+	
+	
+	
+	
 </script>
 
 
@@ -3352,7 +3715,7 @@
 					<td><label id="lblAreaCode" style="display: none">Area
 							Code</label></td>
 					<td><s:input id="txtAreaCode" path="strAreaCode"
-							cssClass="searchTextBox" style="display:none"
+							cssClass="searchTextBox" style="display:none" readonly="true"
 							ondblclick="funHelp('WCAreaMaster')" /></td>
 					<td><label id="lblAreaName" style="display: none">Area
 							Name </label></td>
@@ -3380,7 +3743,7 @@
 					<td><label id="lblCityCode" style="display: none">City
 							Code</label></td>
 					<td><s:input id="txtCityCode" path="strCityCode"
-							cssClass="searchTextBox" style="display:none"
+							cssClass="searchTextBox" style="display:none"  readonly="true"
 							ondblclick="funHelp('WCCityMaster')" /></td>
 					<td><label id="lblCityName" style="display: none">City
 							Name </label></td>
@@ -3398,7 +3761,7 @@
 					<td><label id="lblStateCode" style="display: none">State
 							Code</label></td>
 					<td><s:input id="txtStateCode" path="strStateCode"
-							cssClass="searchTextBox" style="display:none"
+							cssClass="searchTextBox" style="display:none"  readonly="true"
 							ondblclick="funHelp('WCStateMaster')" /></td>
 					<td><label id="lblStateName" style="display: none">State
 							Name </label></td>
@@ -3415,7 +3778,7 @@
 
 					<td><label id="lblCountryCode" style="display: none">Country
 							Code</label></td>
-					<td><s:input id="txtCountryCode" path="strCountryCode"
+					<td><s:input id="txtCountryCode" path="strCountryCode" readonly="true"
 							cssClass="searchTextBox" style="display:none"
 							ondblclick="funHelp('WCCountryMaster')" /></td>
 					<td><label id="lblCountryName" style="display: none">Country
@@ -3429,7 +3792,7 @@
 
 					<td><label id="lblRegionCode" style="display: none">Region
 							Code</label></td>
-					<td><s:input id="txtRegionCode" path="strRegionCode"
+					<td><s:input id="txtRegionCode" path="strRegionCode" readonly="true"
 							cssClass="searchTextBox" style="display:none"
 							ondblclick="funHelp('WCRegionMaster')" /></td>
 					<td><label id="lblRegionName" style="display: none">Region
@@ -3444,7 +3807,7 @@
 					<td><label id="lblDesignationCode" style="display: none">Designation
 							Code</label></td>
 					<td><s:input id="txtDesignationCode"
-							path="strDesignationCode" cssClass="searchTextBox"
+							path="strDesignationCode" cssClass="searchTextBox" readonly="true"
 							style="display:none" ondblclick="funHelp('WCDesignationMaster')" /></td>
 					<td><label id="lblDesignationName" style="display: none">Designation
 							Name </label></td>
@@ -3459,7 +3822,7 @@
 					<td><label id="lblEducationCode" style="display: none">Education
 							Code</label></td>
 					<td><s:input id="txtEducationCode" path="strEducationCode"
-							cssClass="searchTextBox" style="display:none"
+							cssClass="searchTextBox" style="display:none" readonly="true"
 							ondblclick="funHelp('WCEducationMaster')" /></td>
 					<td><label id="lblEducationDesc" style="display: none">Education
 							Desc </label></td>
@@ -3472,7 +3835,7 @@
 
 					<td><label id="lblMaritalCode" style="display: none">Marital
 							Code</label></td>
-					<td><s:input id="txtMaritalCode" path="strMaritalCode"
+					<td><s:input id="txtMaritalCode" path="strMaritalCode" readonly="true"
 							cssClass="searchTextBox" style="display:none"
 							ondblclick="funHelp('WCMaritalMaster')" /></td>
 					<td><label id="lblMaritalName" style="display: none">Marital
@@ -3486,7 +3849,7 @@
 
 					<td><label id="lblProfessionCode" style="display: none">Profession
 							Code</label></td>
-					<td><s:input id="txtProfessionCode" path="strProfessionCode"
+					<td><s:input id="txtProfessionCode" path="strProfessionCode" readonly="true"
 							cssClass="searchTextBox" style="display:none"
 							ondblclick="funHelp('WCProfessionMaster')" /></td>
 					<td><label id="lblProfessionName" style="display: none">Profession
@@ -3500,7 +3863,7 @@
 
 					<td><label id="lblReasonCode" style="display: none">Reason
 							Code</label></td>
-					<td><s:input id="txtReasonCode" path="strReasonCode"
+					<td><s:input id="txtReasonCode" path="strReasonCode" readonly="true"
 							cssClass="searchTextBox" style="display:none"
 							ondblclick="funHelp('WCReasonMaster')" /></td>
 					<td><label id="lblReasonName" style="display: none">Reason
@@ -3515,7 +3878,7 @@
 					<td><label id="lblCommitteeMemberRoleCode"
 						style="display: none">Role Code</label></td>
 					<td><s:input id="txtCommitteeMemberRoleCode"
-							path="strRoleCode" cssClass="searchTextBox" style="display:none"
+							path="strRoleCode" cssClass="searchTextBox" style="display:none" readonly="true"
 							ondblclick="funHelp('WCCommitteeMemberRole')" /></td>
 					<td><label id="lblCommitteeMemberRoleDesc"
 						style="display: none">Role Desc </label></td>
@@ -3532,7 +3895,7 @@
 
 					<td><label id="lblRelationCode" style="display: none">Relation
 							Code</label></td>
-					<td><s:input id="txtRelationCode" path="strRelationCode"
+					<td><s:input id="txtRelationCode" path="strRelationCode" readonly="true"
 							cssClass="searchTextBox" style="display:none"
 							ondblclick="funHelp('WCRelationMaster')" /></td>
 					<td><label id="lblRelationName" style="display: none">Relation
@@ -3550,7 +3913,7 @@
 
 					<td><label id="lblStaffCode" style="display: none">Staff
 							Code</label></td>
-					<td><s:input id="txtStaffCode" path="strStaffCode"
+					<td><s:input id="txtStaffCode" path="strStaffCode" readonly="true"
 							cssClass="searchTextBox" style="display:none"
 							ondblclick="funHelp('WCStaffMaster')" /></td>
 					<td><label id="lblStaffName" style="display: none">Staff
@@ -3564,7 +3927,7 @@
 
 					<td><label id="lblCurrencyDetailsCode" style="display: none">CurrencyDetails
 							Code</label></td>
-					<td><s:input id="txtCurrencyDetailsCode" path="strCurrCode"
+					<td><s:input id="txtCurrencyDetailsCode" path="strCurrCode" readonly="true"
 							cssClass="searchTextBox" style="display:none"
 							ondblclick="funHelp('WCCurrencyDetailsMaster')" /></td>
 					<td><label id="lblCurrencyDetailsName" style="display: none">CurrencyDetails
@@ -3582,7 +3945,7 @@
 
 					<td><label id="lblExchangeRate" style="display: none">Exchange
 							Rate </label></td>
-					<td><s:input id="txtExchangeRate" path="strExchangeRate"
+					<td><s:input id="txtExchangeRate" path="strExchangeRate" readonly="true"
 							cssClass="longTextBox" style="display:none" /></td>
 					<td><label id="lblTraChkRate" style="display: none">TraChkRate
 					</label></td>
@@ -3598,7 +3961,7 @@
 
 					<td><label id="lblShortDesc" style="display: none">Short
 							Desc </label></td>
-					<td><s:input id="txtShortDesc" path="strShortDesc"
+					<td><s:input id="txtShortDesc" path="strShortDesc" readonly="true"
 							cssClass="longTextBox" style="display:none" /></td>
 					<td><label id="lblLongDeciDesc" style="display: none">LongDeciDesc
 					</label></td>
@@ -3613,7 +3976,7 @@
 
 					<td><label id="lblInvitedByCode" style="display: none">InvitedBy
 							Code</label></td>
-					<td><s:input id="txtInvitedByCode" path="strInvCode"
+					<td><s:input id="txtInvitedByCode" path="strInvCode" readonly="true"
 							cssClass="searchTextBox" style="display:none"
 							ondblclick="funHelp('WCInvitedByMaster')" /></td>
 					<td><label id="lblInvitedByName" style="display: none">InvitedBy
@@ -3632,7 +3995,7 @@
 					<td><label id="lblItemCategoryCode" style="display: none">ItemCategory
 							Code</label></td>
 					<td><s:input id="txtItemCategoryCode"
-							path="strItemCategoryCode" cssClass="searchTextBox"
+							path="strItemCategoryCode" cssClass="searchTextBox" readonly="true"
 							style="display:none" ondblclick="funHelp('WCItemCategoryMaster')" /></td>
 					<td><label id="lblItemCategoryName" style="display: none">ItemCategory
 							Name </label></td>
@@ -3671,7 +4034,7 @@
 
 					<td><label id="lblGLCode" style="display: none">GLCode
 					</label></td>
-					<td><s:input id="txtGLCode" path="strGLCode"
+					<td><s:input id="txtGLCode" path="strGLCode" readonly="true"
 							cssClass="longTextBox" style="display:none" /></td>
 
 					<td><label id="lblAddUserId" style="display: none">AddUserId
@@ -3703,7 +4066,7 @@
 
 					<td><label id="lblProfileCode" style="display: none">Profile
 							Code</label></td>
-					<td><s:input id="txtProfileCode" path="strProfileCode"
+					<td><s:input id="txtProfileCode" path="strProfileCode" readonly="true"
 							cssClass="searchTextBox" style="display:none"
 							ondblclick="funHelp('WCProfileMaster')" /></td>
 					<td><label id="lblProfileName" style="display: none">Profile
@@ -3717,7 +4080,7 @@
 
 					<td><label id="lblSalutationCode" style="display: none">Salutation
 							Code</label></td>
-					<td><s:input id="txtSalutationCode" path="strSalutationCode"
+					<td><s:input id="txtSalutationCode" path="strSalutationCode" readonly="true"
 							cssClass="searchTextBox" style="display:none"
 							ondblclick="funHelp('WCSalutationMaster')" /></td>
 					<td><label id="lblSalutationName" style="display: none">Salutation
@@ -3731,7 +4094,7 @@
 
 					<td><label id="lblTitleCode" style="display: none">Title
 							Code</label></td>
-					<td><s:input id="txtTitleCode" path="strTitleCode"
+					<td><s:input id="txtTitleCode" path="strTitleCode" readonly="true"
 							cssClass="searchTextBox" style="display:none"
 							ondblclick="funHelp('WCTitleMaster')" /></td>
 					<td><label id="lblTitleName" style="display: none">Title
