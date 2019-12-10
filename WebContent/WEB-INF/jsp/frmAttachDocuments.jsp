@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<script type="text/javascript">
+	<script type="text/javascript">
 	
 	var deletedString="";
 	
@@ -80,47 +80,48 @@
 </script>
 
 </head>
+
 <body style="height: 100%">
-<div style="width: 100%;height: 100%;background-color:#D8EDFF ">
+ <div style="width: 100%;height: 100%;background-color:#f2f2f2">
 <div id="formHeading">
-		<label id="formName">Attached Documents</label>
+		<label id="formName" style="color:#2d5884">Attached Documents</label>
 	</div>
-	<br><br>
+	
 	<s:form method="post" action="uploadFile.html"
 		enctype="multipart/form-data">
 		<input type="hidden" value="<c:out value="${transactionName}" />" name="transactionName">
-		<table class="masterTable">
+		
+		<table class="masterTable" style="width:30%;">
 			<tr>
-			<th colspan="4" align="left" style="color: white">${formTitle} - Attached Documents</th>
+			<th colspan="4" align="left" style="color: #2d5884">${formTitle} - Attached Documents</th>
 			</tr>
 			<tr><td colspan="4"> &nbsp; </td></tr>
 			<tr>
-				<td width="100px">Transaction</td>
-				<td><input type="hidden" name="formName" id="formId" value="<c:out value="${formTitle}"/>" /> 
-					<input type="hidden" name="test" value="<c:out value="${formTitle}"/>" /> <c:out value="${formTitle}" /></td>
-				<td>Code</td>
+				<td style="border:1px solid white; padding:5px; background-color:#c0c1c0">Transaction  &nbsp&nbsp &nbsp&nbsp
+				<span  style="background-color:white; padding: 4px;"><input type="hidden" name="formName" id="formId" value="<c:out value="${formTitle}"/>" /> 
+					<input type="hidden" name="test" value="<c:out value="${formTitle}"/>" /> <c:out value="${formTitle}" /></span></td>
+			</tr>
+			<tr><td colspan="4"> &nbsp; </td></tr>
+			<tr>	
+				<td>Code  &nbsp&nbsp &nbsp&nbsp
+				<span  style="background-color:white; padding: 4px;"><input type="hidden" name="code" id="code" value="<c:out value="${docCode}"/>" /> <c:out value="${docCode}" /></span></td>
+			</tr>
+			<tr><td colspan="4"> &nbsp; </td></tr>
+			<tr>
+				<%--  <td><s:label path="strActualFileName">Name</s:label>&nbsp&nbsp
+				   <s:input path="strActualFileName" /></td>  --%>
+				   <td style="border:1px solid white; padding:5px; background-color:#c0c1c0"><s:label path="binContent">Document</s:label>&nbsp&nbsp &nbsp&nbsp
+				<input type="file" name="file" id="file_upload"></input></td>
+			</tr>
+			<tr><td colspan="4"> &nbsp; </td></tr>
+			<tr>
 				
-				<td><input type="hidden" name="code" id="code" value="<c:out value="${docCode}"/>" /> <c:out value="${docCode}" /></td>
+				<td><input type="submit" style="background-color:#007bff; color:white;padding:5px;" value="Add Document" /> &nbsp&nbsp
+				     <input type="text" id="txtEmailIds"/></td>
 			</tr>
-		</table>
-
-		<table  class="masterTable">
-			<%-- <tr>
-				 <td><s:label path="strActualFileName">Name</s:label></td>
-				<td><s:input path="strActualFileName" /></td> 
-			</tr> --%>
-			<tr>
-				<td><s:label path="binContent">Document</s:label></td>
-				<td><input type="file" name="file" id="file_upload"></input></td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="Add Document" /></td>
-				<td><input type="text" id="txtEmailIds"/></td>
-				<!-- <td><input type="button" id="btnSendEmail" value="Send Email" onclick="funSendEmail();"/></td>  -->
-			</tr>
-		</table>
-	</s:form>
-
+	<!-- <td><input type="button" id="btnSendEmail" value="Send Email" onclick="funSendEmail();"/></td>  -->
+		</table><br>
+	</s:form> 
 	<br />
 	<!-- <h3 style="padding-left: 10%">Document List</h3> -->
 	<c:if test="${!empty documentList}">
@@ -147,4 +148,5 @@
 <br><br>
 </div>
 </body>
+
 </html>
