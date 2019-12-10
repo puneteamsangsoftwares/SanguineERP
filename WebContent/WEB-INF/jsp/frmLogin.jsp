@@ -13,7 +13,11 @@
 		<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/jQKeyboard.css "/>" />
 		<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/slideKeyboard/jquery.ml-keyboard.css"/>" />
 		<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/slideKeyboard/jquery.ml-keyboard.css"/>" />	
-	
+		 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesign/bootstrap.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesign/bootstrap.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesign/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesign/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
   <script type="text/javascript">
   	/**
 	 *  Set Focus
@@ -57,86 +61,40 @@
   </head>
 
 <body>
-	<div>
-	<div style="float: left;padding-left: 40px">
-		<img alt=""src="../${pageContext.request.contextPath}/resources/images/Sanguine_ERP_Logo_1.jpg" height="100px" width="466px" onclick="funKeyBoard()">
-	</div>
-      <div style="padding-top: 100px">
-		<s:form name="login" method="POST" action="validateUser.html">
-			<div style="padding-right: 12%; padding-bottom: 0px;">
-				<div
-					style="float: right; width: 339px; height: 250px; -webkit-border-radius: 29px; -moz-border-radius: 29px; border-radius: 29px; border: 2px solid #0595D2; background: rgba(252, 253, 255, 0.4); -webkit-box-shadow: #42B3F4 2px 2px 2px; -moz-box-shadow: #42B3F4 2px 2px 2px; box-shadow: #42B3F4 2px 2px 2px;">
-					<div
-						style="width: 340px; height: 62px; background-image: url(../${pageContext.request.contextPath}/resources/images/loginlogo.png);">
-						<br>
-						<p align="center" style="font-size: 17px; font-weight: bold;">
-							Sanguine Softwares Solutions Pvt. Ltd.</p>
-					</div>
-
-					<img alt=""
-						src="../${pageContext.request.contextPath}/resources/images/login.png"
-						style="display: block; padding-left: 1px">
-					<div style="width: 340px; height: 115px;">
-						<table>
-							<tr>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td width="100px" style="padding-left: 30px"><s:label
-										path="strUserCode"
-										cssStyle="font-size: 15px;font-weight: normal;">Username </s:label></td>
-								<td><s:input cssClass="loginInput" name="usercode"
-										path="strUserCode" autocomplete="off" id="username"
-										placeholder="User name" required="true"
-										cssStyle="text-transform: uppercase;" /> <s:errors
-										path="strUserCode"></s:errors></td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-							</tr>
-
-							<tr>
-								<td style="padding-left: 30px"><s:label path="strPassword"
-										cssStyle="font-size: 15px;font-weight: normal;">Password </s:label></td>
-								<td><s:input type="password" placeholder="PASSWORD"
-										required="true" cssClass="loginInput" name="pass"
-										path="strPassword" id="password" /> <s:errors path="strPassword"></s:errors></td>
-							</tr>
-							<tr>
-								<td></td>
-							</tr>
-						</table>
-					</div>
-					<div
-						style="width: 340px; height: 36px; background-image: url(../${pageContext.request.contextPath}/resources/images/loginfoot.png);">
-						<p align="right" style="padding-right: 22px; padding-top: 9px">
-							<input type="submit" value="" class="loginButton" />
-						</p>
-					</div>
-				</div>
-				<div style="float: left;padding-left: 40px;">
-				<img alt=""
-						src="../${pageContext.request.contextPath}/resources/images/company_Logo.png"
-						style="display: block; padding-left: 1px;width : 339px;high : 250px;">
-				
-				</div>
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-			</div>
+	<div class="container-fluid">
+		<div class="row" >	
 		
-		</s:form>
+			<div class="col-md-4">
+				<a href="#">
+					<img alt=""src="../${pageContext.request.contextPath}/resources/images/Sanguine_ERP.jpg" height="165px" width="340px" onclick="funKeyBoard()" style="margin:85px 120px;">
+				</a>
+			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<s:form name="login" method="POST" action="validateUser.html">
+				<div class="box">
+							<h2>Sanguine Softwares Solutions Pvt.Ltd</h2>
+							<h3  style="border: 2px solid #2e6eb1;border-bottom-right-radius:50%;width:50%s; background-color:#2e6eb1; color:#fff;"> Login</h3>
+					<form style="padding-left:30px;">
+						<div class="inputbox">
+							<s:input name="usercode" type="text" path="strUserCode" autocomplete="off" id="username" required="true" cssStyle=" text-transform: uppercase; margin-bottom:20px" /> <s:errors path="strUserCode"></s:errors>
+							<s:label path="strUserCode">Username</s:label>
+							
+						</div>
+						<div class="inputbox">
+							<s:input type="password" required="true" name="pass" path="strPassword" id="password" /> <s:errors path="strPassword"></s:errors>
+							<s:label path="strPassword">Password</s:label>
+							
+						</div>
+						<h2><input type="submit" name="" value="submit" style="margin-left:180px; font-weight:700px"></h2>
+					</form>
+				</div>
+			</s:form>
+			</div>	
 		</div>
+				
 	</div>
+	
 	
 <c:if test="${!empty invalid}">
 <script type="text/javascript">

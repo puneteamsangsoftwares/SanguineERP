@@ -595,10 +595,10 @@ public class clsUserController {
 		switch (selectedModuleName) {
 		case "1-WebStocks":
 			if (strIndustryType.equals("Manufacture") || strIndustryType.equals("Retailing")) {
-				headerImage = "02webstocks-property-header.jpg";
+				headerImage = "02webstocks-property-header2.gif";
 
 			} else {
-				headerImage = "webstocks-property-header.jpg";
+				headerImage = "webstocks-property-header2.gif";
 			}
 			moduleTitleImage = "Sanguine_WebStocks_1.jpg";
 
@@ -608,7 +608,7 @@ public class clsUserController {
 			break;
 
 		case "2-WebExcise":
-			headerImage = "webstocks-property-header.jpg";
+			headerImage = "webstocks-property-header2.gif";
 			moduleTitleImage = "Sanguine_WebExcise_1.jpg";
 
 			moduleMap.put("2-WebExcise", "webexcise_module_icon.png");
@@ -617,7 +617,7 @@ public class clsUserController {
 			break;
 
 		case "3-WebPMS":
-			headerImage = "webstocks-property-header.jpg";
+			headerImage = "webstocks-property-header2.gif";
 			moduleTitleImage = "Sanguine_WebPMS_1.jpg";
 
 			moduleMap.put("3-WebPMS", "webpms_module_icon.png");
@@ -626,7 +626,7 @@ public class clsUserController {
 			break;
 
 		case "4-WebClub":
-			headerImage = "webstocks-property-header.jpg";
+			headerImage = "webstocks-property-header2.gif";
 			moduleTitleImage = "Sanguine_WebClub_1.jpg";
 
 			moduleMap.put("4-WebClub", "webclub_module_icon.png");
@@ -635,7 +635,7 @@ public class clsUserController {
 			break;
 
 		case "5-WebBook":
-			headerImage = "webstocks-property-header.jpg";
+			headerImage = "webstocks-property-header2.gif";
 			moduleTitleImage = "Sanguine_WebBooks_1.jpg";
 
 			moduleMap.put("5-WebBook", "webbooks_icon.png");
@@ -645,10 +645,10 @@ public class clsUserController {
 
 		case "6-WebCRM":
 			if (strIndustryType.equals("Manufacture") || strIndustryType.equals("Retailing")) {
-				headerImage = "02webstocks-property-header.jpg";
+				headerImage = "02webstocks-property-header2.gif";
 
 			} else {
-				headerImage = "webstocks-property-header.jpg";
+				headerImage = "webstocks-property-header2.gif";
 			}
 			moduleTitleImage = "Sanguine_WebCRM_1.jpg";
 
@@ -658,7 +658,7 @@ public class clsUserController {
 			break;
 
 		case "7-WebBanquet":
-			headerImage = "webstocks-property-header.jpg";
+			headerImage = "webstocks-property-header2.gif";
 			moduleTitleImage = "Sanguine_WebPOS_1.jpg";
 
 			moduleMap.put("7-WebBanquet", "webbanquet_module_icon.png");
@@ -668,10 +668,10 @@ public class clsUserController {
 
 		case "5-WebBookAR":
 			if (strIndustryType.equals("Manufacture") || strIndustryType.equals("Retailing")) {
-				headerImage = "02webstocks-property-header.jpg";
+				headerImage = "02webstocks-property-header2.gif";
 
 			} else {
-				headerImage = "webstocks-property-header.jpg";
+				headerImage = "webstocks-property-header2.gif";
 			}
 			moduleTitleImage = "Sanguine_WebBooks_1.jpg";
 
@@ -681,7 +681,7 @@ public class clsUserController {
 			break;
 
 		case "8-WebBookAPGL":
-			headerImage = "webstocks-property-header.jpg";
+			headerImage = "webstocks-property-header2.gif";
 			moduleTitleImage = "Sanguine_WebBooks_1.jpg";
 
 			moduleMap.put("8-WebBookAPGL", "webbooksAPGL_icon.png");

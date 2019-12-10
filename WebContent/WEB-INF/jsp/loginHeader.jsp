@@ -15,7 +15,7 @@
 <body >
 <div style="min-width: 100%;height: 100%">
 
-  <img  src="../${pageContext.request.contextPath}/resources/images/Sanguine_ERP_Header.jpg" width="100%" height="200px" style="background-repeat: no-repeat"> 
+  <img  src="../${pageContext.request.contextPath}/resources/images/Sanguine_ERP_Header3.gif" width="100%" height="200px" style="background-repeat: no-repeat"> 
 </div>
 </body>
 </html>

@@ -53,11 +53,10 @@ import com.sanguine.webclub.model.clsWebClubSalutationMasterModel;
 import com.sanguine.webclub.model.clsWebClubSalutationMasterModel_ID;
 import com.sanguine.webclub.model.clsWebClubStaffMasterModel;
 import com.sanguine.webclub.model.clsWebClubStaffMasterModel_ID;
-import com.sanguine.webclub.model.clsWebClubTitleMasterModel;
-import com.sanguine.webclub.model.clsWebClubTitleMasterModel_ID;
-import com.sanguine.webclub.service.clsWebClubRelationMasterService;
 import com.sanguine.webclub.model.clsWebClubStateMasterModel;
 import com.sanguine.webclub.model.clsWebClubStateMasterModel_ID;
+import com.sanguine.webclub.model.clsWebClubTitleMasterModel;
+import com.sanguine.webclub.model.clsWebClubTitleMasterModel_ID;
 import com.sanguine.webclub.service.clsWebClubAreaMasterService;
 import com.sanguine.webclub.service.clsWebClubCityMasterService;
 import com.sanguine.webclub.service.clsWebClubCommitteeMemberRoleMasterService;
@@ -73,6 +72,7 @@ import com.sanguine.webclub.service.clsWebClubProfessionMasterService;
 import com.sanguine.webclub.service.clsWebClubProfileMasterService;
 import com.sanguine.webclub.service.clsWebClubReasonMasterService;
 import com.sanguine.webclub.service.clsWebClubRegionMasterService;
+import com.sanguine.webclub.service.clsWebClubRelationMasterService;
 import com.sanguine.webclub.service.clsWebClubSalutationMasterService;
 import com.sanguine.webclub.service.clsWebClubStaffMasterService;
 import com.sanguine.webclub.service.clsWebClubStateMasterService;
@@ -144,6 +144,10 @@ public class clsWebClubGeneralMasterController {
 
 	@Autowired
 	private clsWebClubTitleMasterService objTitleMasterService;
+	
+	@Autowired
+	private clsWebClubGeneralMasterService objWebClubGeneralMasterService;
+	
 
 	// Open WebClubGeneralMaster
 	@RequestMapping(value = "/frmGeneralMaster", method = RequestMethod.GET)
@@ -191,7 +195,6 @@ public class clsWebClubGeneralMasterController {
 				objAreaModel.setStrPropertyCode(propCode);
 
 				objAreaMasterService.funAddUpdateWebClubAreaMaster(objAreaModel);
-				;
 				req.getSession().setAttribute("success", true);
 				req.getSession().setAttribute("successMessage", "Area Code : ".concat(objAreaModel.getStrAreaCode()));
 
@@ -330,7 +333,7 @@ public class clsWebClubGeneralMasterController {
 
 			if (masterID.equalsIgnoreCase("Staff")) {
 				clsWebClubStaffMasterModel objStaffModel = (clsWebClubStaffMasterModel) objGenricModel;
-				objStaffModel.setDteLastModifiedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+//				/objStaffModel.setDteLastModifiedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 				objStaffModel.setStrUserModified(userCode);
 				objStaffModel.setStrPropertyCode(propCode);
 
@@ -343,7 +346,7 @@ public class clsWebClubGeneralMasterController {
 			if (masterID.equalsIgnoreCase("CurrencyDetails")) {
 				clsWebClubCurrencyDetailsMasterModel objCurrencyModel = (clsWebClubCurrencyDetailsMasterModel) objGenricModel;
 				objCurrencyModel.setDteLastModifiedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-				objCurrencyModel.setStrUserModified(userCode);
+				objCurrencyModel.setStrUserModified(userCode);				
 				objCurrencyModel.setStrPropertyCode(propCode);
 
 				objCurrencyDetailsMasterService.funAddUpdateWebClubCurrencyDetailsMaster(objCurrencyModel);
@@ -517,6 +520,7 @@ public class clsWebClubGeneralMasterController {
 		switch (masterID) {
 		case "Area": {
 			clsWebClubAreaMasterModel areaMasterModel;
+			String propCode = req.getSession().getAttribute("propertyCode").toString();
 
 			objGlobal = new clsGlobalFunctions();
 			long lastNo = 0;
@@ -543,7 +547,44 @@ public class clsWebClubGeneralMasterController {
 			}
 
 			areaMasterModel.setStrAreaName(objBean.getStrAreaName());
-			areaMasterModel.setStrCityCode(objBean.getStrCityCode());
+			
+			clsWebClubCityMasterModel cityMasterModel;
+
+			objGlobal = new clsGlobalFunctions();
+			long lastNoo = 0;
+			String cityCode="";
+			if (objBean.getStrCityCode().trim().length() == 0) {
+				lastNoo = objGlobalFunctionsService.funGetLastNo("tblcitymaster", "CityMaster", "intGId", clientCode);
+				cityCode = "CT" + String.format("%06d", lastNo);
+				cityMasterModel = new clsWebClubCityMasterModel(new clsWebClubCityMasterModel_ID(cityCode, clientCode));
+				cityMasterModel.setIntGId(lastNoo);
+				cityMasterModel.setDtCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+				cityMasterModel.setStrUserCreated(userCode);
+			} else {
+				clsWebClubCityMasterModel cityModel = objCityMasterService.funGetWebClubCityMaster(objBean.getStrCityCode(), clientCode);
+				if (null == cityModel) {
+					lastNoo = objGlobalFunctionsService.funGetLastNo("tblcitymaster", "CityMaster", "intGId", clientCode);
+					cityCode = "CT" + String.format("%06d", lastNoo);
+					cityMasterModel = new clsWebClubCityMasterModel(new clsWebClubCityMasterModel_ID(cityCode, clientCode));
+					cityMasterModel.setIntGId(lastNoo);
+					cityMasterModel.setDtCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+					cityMasterModel.setStrUserCreated(userCode);
+
+				} else {
+					cityMasterModel = new clsWebClubCityMasterModel(new clsWebClubCityMasterModel_ID(objBean.getStrCityCode(), clientCode));
+				}
+			}
+
+			cityMasterModel.setStrCityName(objBean.getStrCityName());
+			cityMasterModel.setStrCountryCode(objBean.getStrCountryCode());
+			cityMasterModel.setStrSTDCode(objBean.getStrStdCode());
+			cityMasterModel.setStrStateCode(objBean.getStrStateCode());
+			cityMasterModel.setDtLastModified(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+			cityMasterModel.setStrUserModified(userCode);
+			cityMasterModel.setStrPropertyCode(propCode);
+
+			objCityMasterService.funAddUpdateWebClubCityMaster(cityMasterModel);
+			areaMasterModel.setStrCityCode(cityMasterModel.getStrCityCode());
 
 			return areaMasterModel;
 
@@ -934,7 +975,8 @@ public class clsWebClubGeneralMasterController {
 			}
 
 			staffMasterModel.setStrStaffName(objBean.getStrStaffName());
-
+			staffMasterModel.setDteLastModified(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+			//staffMasterModel.setDteLastModifiedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 			return staffMasterModel;
 		}
 		case "CurrencyDetails": {
@@ -948,6 +990,7 @@ public class clsWebClubGeneralMasterController {
 				currencyMasterModel = new clsWebClubCurrencyDetailsMasterModel(new clsWebClubCurrencyDetailsMasterModel_ID(currCode, clientCode));
 				currencyMasterModel.setIntId(lastNo);
 				currencyMasterModel.setDteCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+				currencyMasterModel.setDteUserCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 				currencyMasterModel.setStrUserCreated(userCode);
 			} else {
 				clsWebClubCurrencyDetailsMasterModel reasMasterModel = objCurrencyDetailsMasterService.funGetWebClubCurrencyDetailsMaster(objBean.getStrCurrCode(), clientCode);
@@ -957,6 +1000,7 @@ public class clsWebClubGeneralMasterController {
 					currencyMasterModel = new clsWebClubCurrencyDetailsMasterModel(new clsWebClubCurrencyDetailsMasterModel_ID(currCode, clientCode));
 					currencyMasterModel.setIntId(lastNo);
 					currencyMasterModel.setDteCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+					currencyMasterModel.setDteUserCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 					currencyMasterModel.setStrUserCreated(userCode);
 
 				} else {
@@ -1005,7 +1049,7 @@ public class clsWebClubGeneralMasterController {
 
 			invitedByMasterModel.setStrInvName(objBean.getStrInvName());
 			invitedByMasterModel.setStrMecompCode(objBean.getStrMecompCode());
-
+			//invitedByMasterModel.setDteLastModifiedDate();(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 			return invitedByMasterModel;
 		}
 
@@ -1035,7 +1079,9 @@ public class clsWebClubGeneralMasterController {
 					itemCategoryMasterModel = new clsWebClubItemCategoryMasterModel(new clsWebClubItemCategoryMasterModel_ID(objBean.getStrItemCategoryCode(), clientCode));
 				}
 			}
-
+			itemCategoryMasterModel.setDteModifiedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+			itemCategoryMasterModel.setStrCategoryName("");
+			itemCategoryMasterModel.setStrItemCategory(objBean.getStrItemCategoryName());
 			itemCategoryMasterModel.setStrItemCategoryName(objBean.getStrItemCategoryName());
 			itemCategoryMasterModel.setStrAccountIn(objBean.getStrAccountIn());
 			itemCategoryMasterModel.setIntRowId(lastNo);
@@ -1049,7 +1095,7 @@ public class clsWebClubGeneralMasterController {
 			itemCategoryMasterModel.setStrTaxCode(objBean.getStrTaxCode());
 			itemCategoryMasterModel.setStrTaxName(objBean.getStrTaxName());
 			itemCategoryMasterModel.setStrTaxType(objBean.getStrTaxType());
-
+				
 			return itemCategoryMasterModel;
 		}
 
@@ -1079,9 +1125,11 @@ public class clsWebClubGeneralMasterController {
 					profileMasterModel = new clsWebClubProfileMasterModel(new clsWebClubProfileMasterModel_ID(objBean.getStrProfileCode(), clientCode));
 				}
 			}
-
+				
 			profileMasterModel.setStrProfileDesc(objBean.getStrProfileDesc());
-
+			profileMasterModel.setDteLastModifiedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+			profileMasterModel.setDteLastModified(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+			
 			return profileMasterModel;
 		}
 
@@ -1111,7 +1159,7 @@ public class clsWebClubGeneralMasterController {
 					salutationMasterModel = new clsWebClubSalutationMasterModel(new clsWebClubSalutationMasterModel_ID(objBean.getStrSalutationCode(), clientCode));
 				}
 			}
-
+			salutationMasterModel.setDteLastModified(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 			salutationMasterModel.setStrSalutationDesc(objBean.getStrSalutationDesc());
 
 			return salutationMasterModel;
@@ -1143,11 +1191,11 @@ public class clsWebClubGeneralMasterController {
 					titleMasterModel = new clsWebClubTitleMasterModel(new clsWebClubTitleMasterModel_ID(objBean.getStrTitleCode(), clientCode));
 				}
 			}
-
+			titleMasterModel.setDteLastModified(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 			titleMasterModel.setStrTitleDesc(objBean.getStrTitleDesc());
 
 			return titleMasterModel;
-		}
+			}
 
 		}
 
@@ -1403,6 +1451,18 @@ public class clsWebClubGeneralMasterController {
 			objTitle.setStrTitleCode("Invalid Code");
 		}
 
+		return objTitle;
+	}
+	
+	 
+	
+	@RequestMapping(value = "/deleteRowAreaValue", method = RequestMethod.GET)
+	public @ResponseBody clsWebClubTitleMasterModel  funDeleteGeneralMasterData(@RequestParam("docCode") String currCode,@RequestParam("tblname") String tblname, HttpServletRequest req) {
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		objWebClubGeneralMasterService.funDelWebClubAllPaticulorMasterData(currCode,tblname,clientCode);
+		
+		clsWebClubTitleMasterModel objTitle = new clsWebClubTitleMasterModel();
+			
 		return objTitle;
 	}
 

@@ -96,8 +96,8 @@ public class clsClientDetails {
 			hmClientDtl.put("001.030", clsClientDetails.createClientDetails("001.030", "M/S.NIDO RESTAURANT & BAR", dFormat.parse("2015-08-01"), dFormat.parse("2016-08-30")));
 			hmClientDtl.put("001.031", clsClientDetails.createClientDetails("001.031", "M/S GOA PORTUGUESA REST. PVT. LTD.", dFormat.parse("2015-08-01"), dFormat.parse("2016-08-30")));
 			hmClientDtl.put("001.032", clsClientDetails.createClientDetails("001.032", "M/S. HOTEL METRO PALACE PVT. LTD.", dFormat.parse("2015-08-01"), dFormat.parse("2016-08-30")));
-			hmClientDtl.put("074.001", clsClientDetails.createClientDetails("074.001", "YOGI RESORTS", dFormat.parse("2016-01-21"), dFormat.parse("2099-09-11")));
-
+			hmClientDtl.put("074.001", clsClientDetails.createClientDetails("074.001", "THE POONACLUB LTD", dFormat.parse("2016-01-21"), dFormat.parse("2099-09-11")));
+			
 			// WebStocks Clients
 			hmClientDtl.put("000.000", clsClientDetails.createClientDetails("000.000", "Demo Company", dFormat.parse("2014-06-19"), dFormat.parse("2017-10-22")));
 			hmClientDtl.put("024.001", clsClientDetails.createClientDetails("024.001", "Eden Cake Shop", dFormat.parse("2014-09-23"), dFormat.parse("2019-12-31")));//"024.001" renewed on 27-10-2018 for 1 year till 31-12-2019 "Mr. Salim Bhai", "9820141743", "salimsheliya@gmail.com", 
@@ -217,6 +217,7 @@ public class clsClientDetails {
 			
 			hmClientDtl.put("336.001", clsClientDetails.createClientDetails("336.001", "SHAH SPORTS ACADEMY PRIVATE LIMITED", dFormat.parse("2019-10-05"), dFormat.parse("2019-11-05")));//
 			hmClientDtl.put("337.001", clsClientDetails.createClientDetails("337.001", "Symbiosis University", dFormat.parse("2019-10-08"), dFormat.parse("2019-11-08")));//Abhijit Rege  9112299043 headhospitality@symbiosis.ac.in regeabhijit@gmail.com
+			hmClientDtl.put("345.001", clsClientDetails.createClientDetails("345.001", "YOGI RESORTS", dFormat.parse("2019-12-10"), dFormat.parse("2020-01-10")));//Created Licence On 10-12-2019 to 10-01-2020
 
 			//
 			

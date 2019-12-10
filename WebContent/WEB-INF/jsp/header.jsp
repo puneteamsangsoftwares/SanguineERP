@@ -11,7 +11,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     
    	<%-- Started Default Script For Page  --%>
-    
+    	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 		<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 		<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
 		<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
@@ -31,11 +34,19 @@
 	<%-- Started Default CSS For Page  --%>
 
 	    <link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon" sizes="16x16">
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/materialdesignicons.min.css"/>" />
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.grid.css"/>" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.grid.min.css"/>" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.css"/>" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
 	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
 	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/tree.css"/>" /> 
 	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/jquery-ui.css"/>" />
 	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/main.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/"/>" />
 	 	<link rel="stylesheet"  href="<spring:url value="/resources/css/pagination.css"/>" />
+	 	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+	 
 	 	
  	
  	<%-- End Default CSS For Page  --%>
@@ -51,16 +62,16 @@
   	<title>Web Stocks</title>
 	
 	<script type="text/javascript">
-	var maxQuantityDecimalPlaceLimit=parseInt('<%=session.getAttribute("qtyDecPlace").toString()%>');
-	var maxAmountDecimalPlaceLimit=parseInt('<%=session.getAttribute("amtDecPlace").toString()%>');
-   	function getContextPath() 
+		var maxQuantityDecimalPlaceLimit=parseInt('<%=session.getAttribute("qtyDecPlace").toString()%>');
+		var maxAmountDecimalPlaceLimit=parseInt('<%=session.getAttribute("amtDecPlace").toString()%>');
+   		function getContextPath() 
    	{
 	  	return window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 	}
    
    	
-   	var debugFlag = false;
-   	function debug(value)
+   		var debugFlag = false;
+   		function debug(value)
    	{
    		if(debugFlag)
    		{
@@ -100,33 +111,34 @@
    			var strModule='<%=session.getAttribute("selectedModuleName").toString()%>';
    			if(strModule!=null){
    			
-   				switch(strModule){
+   				switch(strModule)
+   				{
    	   			case '1-WebStocks' :
-   	   				document.getElementById("pageTop").className = "pagetopMenufactureing";
-   						//	$("#pageTop").css("background-image", 'url(.../resources/images/headerimagewebPMS.jpg)');
+   	   				document.getElementById("one").innerHTML = "WebStocks";
    						break;
    	   			case '2-WebExcise' :
-   	   				document.getElementById("pageTop").className = "pagetopMenufactureing";
+   	   				document.getElementById("one").innerHTML = "WebExcise";
    				break;
    	   			case '3-WebPMS' :
-   	   				document.getElementById("pageTop").className = "pagetopMenuWebPMS";
+   	   				document.getElementById("one").innerHTML = "WebPMS";
+   	   				
    				break;
    	   			case '6-WebCRM' :
-   	   				document.getElementById("pageTop").className = "pagetopMenuWebCRM";
+   	   				document.getElementById("one").innerHTML = "WebCRM";
    				break;
    	   			case '4-WebClub' :
-   	   				document.getElementById("pageTop").className = "pagetopMenuWebClub";
+   	   			document.getElementById("one").innerHTML = "WebClub";
    				break;
    	   			case '5-WebBook' :
-   	   				document.getElementById("pageTop").className = "pagetopMenuWebBook";
+   	   				document.getElementById("one").innerHTML = "WebBook";
    				break;
    				
    	   			case '5-WebBookAR' :
-	   				document.getElementById("pageTop").className = "pagetopMenuWebBook";
+	   				document.getElementById("one").innerHTML = "WebBookAR";
 				break;
    				
    	   			case '7-WebBanquet' :
-   	   				document.getElementById("pageTop").className = "pagetopMenuWebBanquet";
+   	   				document.getElementById("one").innerHTML = "WebBookAR";
    				break;
    						
    				default :
@@ -150,11 +162,378 @@ function stopRKey(evt) {
               }
 }
 </script>
+<!-- code for banner -->
+<script type="text/javascript">
+
+//var resFormName="";
+
+var NotificationTimeinterval=parseInt('<%=session.getAttribute("NotificationTimeinterval").toString()%>');
+var chkNetwork=1;
+var NotificationCount="";
+$(document).ready(function(){
+	//window.location.href=getContextPath()+"/loadPendingRequisition.html";
+   		$("#MainDiv").hide();
+   		
+   		<%if(session.getAttribute("selectedModuleName").toString().equalsIgnoreCase("1-WebStocks")){%>
+   			funGetNotification();
+   		<%}%>
+   		
+   	    $("#notification").click(function(){
+   	        $("#MainDiv").fadeToggle();
+   	    });
+   	    
+   	});
+   	
+<%if(session.getAttribute("selectedModuleName").toString().equalsIgnoreCase("1-WebStocks")){%>
+ 	NotificationTimeinterval=parseInt(NotificationTimeinterval)*60000;
+ 	setInterval(function(){funGetNotification()},NotificationTimeinterval);
+ 	
+ 	
+<%}%>
+//     NetworkcheckTimeinterval=parseInt(30)*100;
+// 	setInterval(function(){funCheckNetworkConnection()},NetworkcheckTimeinterval);
+   	
+	
+function funGetNotification()
+{
+	var searchUrl=getContextPath()+"/getNotification.html";
+	$.ajax({
+        type: "GET",
+        url: searchUrl,
+        dataType: "json",
+        success: function(response)
+        {
+        	funRemoveNotification();
+        	var count=0;
+        	$.each(response, function(i,item)
+        	        {
+        				count=i;
+        				funfillNotificationRow(response[i].strReqCode,response[i].Locationby,response[i].strNarration,
+        						response[i].strUserCreated,response[i].FormName,response[i].strLocOn);
+        	        });
+        	if(response.length>0)
+        		{
+        			NotificationCount=count+1;	
+        		}
+        	
+        	$("#lblNotifyCount").text(NotificationCount);
+        },
+        error: function(jqXHR, exception) {
+            if (jqXHR.status === 0) {
+                alert('Not connect.n Verify Network.');
+            } else if (jqXHR.status == 404) {
+                alert('Requested page not found. [404]');
+            } else if (jqXHR.status == 500) {
+                alert('Internal Server Error [500].');
+            } else if (exception === 'parsererror') {
+                alert('Requested JSON parse failed.');
+            } else if (exception === 'timeout') {
+                alert('Time out error.');
+            } else if (exception === 'abort') {
+                alert('Ajax request aborted.');
+            } else {
+                alert('Uncaught Error.n' + jqXHR.responseText);
+            }		            
+        }
+	});
+}
+
+function funfillNotificationRow(docCode,locationby,narration,userCreated,formName,strLocOn) 
+{
+    var table = document.getElementById("tblNotify");
+    var rowCount = table.rows.length;
+    var row = table.insertRow(rowCount);
+    
+    //row.insertCell(0).innerHTML= "<label>"+strReqCode+"</label>";
+    row.insertCell(0).innerHTML= "<input class=\"Box\" readonly = \"readonly\" size=\"24%\" onClick=\"funClick('"+formName+"','"+docCode+"','"+strLocOn+"');\" value='"+docCode+"'>";
+ 	row.insertCell(1).innerHTML= "<input class=\"Box\" readonly = \"readonly\" size=\"24%\"  value='"+locationby+"'>";
+ 	row.insertCell(2).innerHTML= "<input class=\"Box\" readonly = \"readonly\" size=\"24%\"  value='"+narration+"'>";
+    row.insertCell(3).innerHTML= "<input class=\"Box\" readonly = \"readonly\" size=\"24%\"  value='"+userCreated+"'>";
+}
+function funRemoveNotification()
+{
+	 $("#tblNotify").find("tr:gt(0)").remove();
+}
+
+
+	function funClick(formName,docCode,strLocOn,locationby)
+	{
+		switch (formName)
+		{
+			case "PurchaseOrder":
+				window.open("loadPIDataFromNotification.html?PICode="+docCode, "myhelp", "scrollbars=1,width=500,height=350");
+				break;
+				
+				
+				
+			case "MIS":
+				window.open("loadMISDataFromNotification.html?strMRCode="+docCode+"&strLocOn="+strLocOn, "myhelp", "scrollbars=1,width=500,height=350");
+				break;
+				
+			case "Reorder Level" :
+				window.open("rptReorderLevelFromNotification.html?locCode="+locationby, '_blank').focus();
+				break;
+			
+			case "Authorization" :
+				window.open("frmAuthorisationTool.html");
+				break;
+		}
+		
+	}
+	
+
+	
+
+function funHelpWindow(formName)
+{
+	var returnVal ="";
+	
+	
+	//window.showModalDialog(getContextPath()+"/resources/jsp/WEB-INF/frmHelpModulWindow.jsp","","dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;");
+	//window.open(getContextPath()+"/WebRoot/WEB-INF/jsp/frmHelpModuleWindow","_blank");
+	switch (formName)
+	{
+		case  "frmMIS" :
+		
+		//window.open('frmWebStockHelpMaterialIssueSlip.html',"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=900,height=400,left=400px");
+		//returnVal=window.showModalDialog("frmWebStockHelpMaterialIssueSlip.html","","dialogHeight:600px;dialogWidth:500px;dialogLeft:350px;dialogTop:100px");
+		window.open("frmWebStockHelpMaterialIssueSlip.html", "myhelp", "scrollbars=1,width=500,height=350");
+		
+		break;	
+	
+	
+		case  "frmMaterialReq" :
+			window.open("frmWebStockHelpMaterialRequisition.html", "myhelp", "scrollbars=1,width=500,height=350");
+		
+		//window.open('frmWebStockHelpMaterialIssueSlip.html',"mywindow","directories=yes,titlebar=yes,toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=900,height=400,left=400px");
+		//returnVal=window.showModalDialog("frmWebStockHelpMaterialIssueSlip.html","","dialogHeight:600px;dialogWidth:500px;dialogLeft:350px;dialogTop:100px");
+		break;
+		
+		case "frmMaterialReturn":
+			window.open("frmWebStockHelpMaterialReturn.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;
+				
+		case "frmOpeningStock":
+			window.open("frmWebStockHelpOpeningStock.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;
+		
+		case "frmPhysicalStkPosting":
+			window.open("frmWebStockHelpPhysicalStockPosting.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;
+			
+		case "frmPurchaseIndent":
+			window.open("frmWebStockHelpPurchaseIndent.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;
+				
+		case "frmPurchaseOrder":
+			window.open("frmWebStockHelpPurchaseOrder.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;
+			
+		case "frmStockAdjustment":
+			window.open("frmWebStockHelpStockAdjustment.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;
+					
+		case "frmStockTransfer":
+			window.open("frmWebStockHelpStockTransfer.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;
+			
+		case "frmBillPassing":
+			window.open("frmWebStockHelpBillPassing.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;
+
+	 	case "frmWebStockHelpGRN":
+			window.open("frmWebStockHelpGRN.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;
+			
+	 	case "frmWebStockHelpGRNSlip":
+			window.open("frmWebStockHelpGRNSlip.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;
+			
+	 	case "frmWebStockHelpMaterialReturnSlip":
+			window.open("frmWebStockHelpMaterialReturnSlip.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;
+			
+	 	case "frmWebStockHelpMealPlanning":
+			window.open("frmWebStockHelpMealPlanning.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;
+			
+	 	case "frmWebStockHelpProductList":
+			window.open("frmWebStockHelpProductList.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;	
+			
+	 	case "frmWebStockHelpProductWiseSupplierWise":
+			window.open("frmWebStockHelpProductWiseSupplierWise.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;	
+			
+	 	case "frmWebStockHelpPurchaseOrderSlip":
+			window.open("frmWebStockHelpPurchaseOrderSlip.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;		
+		
+	 	case "frmWebStockHelpPurchaseReturn":
+			window.open("frmWebStockHelpPurchaseReturn.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;	
+
+	 	case "frmWebStockHelpPurchaseReturnSlip":
+			window.open("frmWebStockHelpPurchaseReturnSlip.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;
+		case "frmWebStockHelpRateContract":
+			window.open("frmWebStockHelpRateContract.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;
+		case "frmWebStockHelpRequisitionSlip":
+			window.open("frmWebStockHelpRequisitionSlip.html", "myhelp", "scrollbars=1,width=500,height=350");
+			break;
+	
+			
+			
+// 		case "":
+// 			window.open(".html", "myhelp", "scrollbars=1,width=500,height=350");
+// 			break;
+ 	
+	}
+	
+	
+	
+	
+	
+}
+
+
+// function funcheck()
+// {
+// 	//getContextPath();
+// 	//var formname = document.getElementById("lblFormHeadingName").innerHTML;
+// 	funHelpWindow(formname);
+// 	//alert("Help coming soon"+formname);
+	
+// }
+
+function getContextPath() 
+{
+	return window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+}
+
+
+function funGetFormName(){
+
+	$.ajax({
+		type : "GET",
+		url : getContextPath()+ "/getFormName.html",
+		success : function(response){ 
+
+			if(response=='Invalid Code')
+        	{
+        		alert("Invalid FormName");
+        		
+        	}
+        	else
+        	{      
+        		//resFormName=response;
+        		funHelpWindow(response)
+        		
+        	}
+		},
+		error: function(jqXHR, exception) {
+            if (jqXHR.status === 0) {
+                alert('Not connect.n Verify Network.');
+            } else if (jqXHR.status == 404) {
+                alert('Requested page not found. [404]');
+            } else if (jqXHR.status == 500) {
+                alert('Internal Server Error [500].');
+            } else if (exception === 'parsererror') {
+                alert('Requested JSON parse failed.');
+            } else if (exception === 'timeout') {
+                alert('Time out error.');
+            } else if (exception === 'abort') {
+                alert('Ajax request aborted.');
+            } else {
+                alert('Uncaught Error.n' + jqXHR.responseText);
+            }		            
+        }
+  });
+}
+
+
+ <%--   $(document).ready(function()
+{
+	var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';
+	  if(null!=pmsDate)
+ 	  {
+	 	  var dte=pmsDate.split("-");
+		  $("#txtPMSDate").text(dte[0]+"-"+dte[1]+"-"+dte[2]); 	
+	  }
+ });  
+ --%>
+
+</script>
+
+<style>
+  #tblNotify tr:hover{
+	background-color: #72BEFC;
+	
+}
+</style>
 	
   	</head>
 		<body>
-		 <div id="pageTop"   >		
+			<div id="pageTop"> 	
+	 			<header class="app-header">
+      				<nav class="app-nav">
+        				<div class="left-menu">
+         			 		 <div class="navaction app-header-main">
+            					<a href="#" id="one">Web Stocks</a>
+         			 		</div>
+          					<div class="navaction app-header-sub">
+           			 			<p class="para"><img src="../${pageContext.request.contextPath}/resources/images/DSS_logo.png" alt="img" style="max-width:20%; height: auto; padding-left:5px"><span style=" padding-left:16px; font-size:16px; font-weight: 600; color: #4a4a4a;">
+           			 			${companyName}</span> &nbsp; &nbsp;- &nbsp; ${propertyName} &nbsp;- ${locationName} &nbsp;- ${financialYear}</p>
+         		 			</div> 
+        				</div>
+        				<div class="right-menu" id="page_top_banner">
+          					<ul>
+          					<li><a href="#" class="mdi mdi-attachment menu-link" id="" title="Attched document"></a></li>
+					            <li><a href="#" class="mdi mdi-information-outline menu-link" id="notification" title="Notification"></a></li>
+					            <li><a href="#" class="mdi mdi-crosshairs-question menu-link"onclick="funGetFormName()" title="HELP"></a></li>
+					            <li><a href="frmHome.html" class="mdi mdi-home-outline menu-link"  title="HOME"></a></li>
+					            <li><a href="frmPropertySelection.html" class="mdi mdi-web menu-link" title="Change Property"></a></li>
+					            <li><a href="frmChangeModuleSelection.html" class="mdi mdi-bank-outline menu-link" title="Change Module"></a></li>
+					            <li><a href="logout.html" class="mdi mdi-power-standby menu-link" title="LOGOUT"></a></li>
+
+					         </ul>
+					      </div>
+					      <div id="MainDiv" style="background-color: #FFFFFF; border: 1px solid #ccc; height: 238px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 30%;
+							 		position: absolute; z-index: 1; right: 3.5%; top: 10.5%;">
+				
+							<table id="tblNotify"
+								style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll;"
+								class="transTablex">
+								<tbody id="tbodyNotifyid">
+								<tr><td colspan="4">Notifications</td></tr>
+								<%-- <c:forEach items="${Notifcation}" var="draw1" varStatus="status1">
+								<tr>
+								<td>${draw1.strReqCode}</td>
+								<td>${draw1.dtReqDate}</td>
+								<td>${draw1.Locationby}</td>
+								<td>${draw1.LocationOn}</td>
+							</tr>
+								</c:forEach> --%>
+						</tbody>
+						</table>
+					</div>
+			</nav>  
+	</header>
+	</div>
+	<script>
+		window.onscroll = function() {myFunction()};
 		
-		</div>
+		var header = document.getElementById("pageTop");
+		var sticky = header.offsetTop;
+		
+		function myFunction() {
+		  if (window.pageYOffset > sticky) {
+		    header.classList.add("sticky");
+		  } else {
+		    header.classList.remove("sticky");
+		  }
+		}
+		</script>
 		</body>
 </html>

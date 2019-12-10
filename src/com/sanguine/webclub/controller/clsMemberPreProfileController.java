@@ -104,9 +104,6 @@ public class clsMemberPreProfileController {
 			req.getSession().setAttribute("successMessage", "Member Code : ".concat(objPreMemProfileModel.getStrMemberCode()));
 			return new ModelAndView("redirect:/frmMemberProfile.html?saddr=" + urlHits);
 		}
-
-		// return new ModelAndView("savefrmWebClubMemberProfile","command", new
-		// clsWebClubPreMemberProfileBean());
 		return new ModelAndView("redirect:/savefrmWebClubMemberProfile.html?saddr=" + urlHits);
 
 	}
@@ -120,7 +117,7 @@ public class clsMemberPreProfileController {
 		clsWebClubPreMemberProfileModel mpModel;
 		if (memProfileBean.getStrCustomerCode().trim().length() == 0) {
 
-			lastNo = objGlobalFunctionsService.funGetLastNo("tblmembermaster", "MemberProfile", "intGId", clientCode);
+			lastNo = objGlobalFunctionsService.funGetLastNo("tblpremembermaster", "MemberPreProfile", "intGId", clientCode);
 			String customerCode = "C" + String.format("%06d", lastNo);
 			mpModel = new clsWebClubPreMemberProfileModel(new clsWebClubPreMemberProfileModel_ID(customerCode, clientCode));
 			mpModel.setIntGId(lastNo);
@@ -136,7 +133,7 @@ public class clsMemberPreProfileController {
 
 			clsWebClubPreMemberProfileModel objMemberProfile = objPreMemberProfileService.funGetWebClubPreMemberProfile(memProfileBean.getStrCustomerCode(), clientCode);
 			if (null == objMemberProfile) {
-				lastNo = objGlobalFunctionsService.funGetLastNo("tblmembermaster", "MemberProfile", "intGId", clientCode);
+				lastNo = objGlobalFunctionsService.funGetLastNo("tblpremembermaster", "MemberPreProfile", "intGId", clientCode);
 				String customerCode = "C" + String.format("%06d", lastNo);
 				mpModel = new clsWebClubPreMemberProfileModel(new clsWebClubPreMemberProfileModel_ID(customerCode, clientCode));
 				mpModel.setIntGId(lastNo);
@@ -192,7 +189,7 @@ public class clsMemberPreProfileController {
 		mpModel.setStrFirstName(memProfileBean.getStrFirstName());
 		mpModel.setStrMiddleName(memProfileBean.getStrMiddleName());
 		mpModel.setStrLastName(memProfileBean.getStrLastName());
-		mpModel.setStrFullName(memProfileBean.getStrFullName());
+		mpModel.setStrFullName(memProfileBean.getStrFirstName()+" "+memProfileBean.getStrMiddleName()+" "+memProfileBean.getStrLastName());
 		mpModel.setStrNameOnCard(memProfileBean.getStrNameOnCard());
 
 		// Residence Address
@@ -378,7 +375,7 @@ public class clsMemberPreProfileController {
 
 				if (obDM.getStrCustomerCode() == null) {
 
-					lastNo = objGlobalFunctionsService.funGetLastNo("tblmembermaster", "MemberProfile", "intGId", clientCode);
+					lastNo = objGlobalFunctionsService.funGetLastNo("tblpremembermaster", "MemberPreProfile", "intGId", clientCode);
 					String customerCode = "C" + String.format("%06d", lastNo);
 					obDM.setStrCustomerCode(customerCode);
 					obDM.setIntGId(lastNo);
@@ -396,7 +393,7 @@ public class clsMemberPreProfileController {
 				} else {
 					clsWebClubPreMemberProfileModel objMemProfile = objPreMemberProfileService.funGetWebClubPreMemberProfile(obDM.getStrCustomerCode(), clientCode);
 					if (null == objMemProfile) {
-						lastNo = objGlobalFunctionsService.funGetLastNo("tblmembermaster", "MemberProfile", "intGId", clientCode);
+						lastNo = objGlobalFunctionsService.funGetLastNo("tblpremembermaster", "MemberPreProfile", "intGId", clientCode);
 						String customerCode = "C" + String.format("%06d", lastNo);
 
 						obDM.setStrCustomerCode(customerCode);
@@ -578,7 +575,7 @@ public class clsMemberPreProfileController {
 
 		if (memProfileBean.getStrSpouseCustomerCode() == null) {
 
-			lastNo = objGlobalFunctionsService.funGetLastNo("tblmembermaster", "MemberProfile", "intGId", clientCode);
+			lastNo = objGlobalFunctionsService.funGetLastNo("tblpremembermaster", "MemberPreProfile", "intGId", clientCode);
 			String customerCode = "C" + String.format("%06d", lastNo);
 			mpModel = new clsWebClubPreMemberProfileModel(new clsWebClubPreMemberProfileModel_ID(customerCode, clientCode));
 			mpModel.setIntGId(lastNo);
@@ -594,7 +591,7 @@ public class clsMemberPreProfileController {
 
 			clsWebClubPreMemberProfileModel objMemProfile = objPreMemberProfileService.funGetWebClubPreMemberProfile(memProfileBean.getStrSpouseCustomerCode(), clientCode);
 			if (null == objMemProfile) {
-				lastNo = objGlobalFunctionsService.funGetLastNo("tblmembermaster", "MemberProfile", "intGId", clientCode);
+				lastNo = objGlobalFunctionsService.funGetLastNo("tblpremembermaster", "MemberPreProfile", "intGId", clientCode);
 				String customerCode = "C" + String.format("%06d", lastNo);
 				mpModel = new clsWebClubPreMemberProfileModel(new clsWebClubPreMemberProfileModel_ID(customerCode, clientCode));
 				mpModel.setIntGId(lastNo);

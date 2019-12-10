@@ -74,6 +74,10 @@ public class clsWebClubCurrencyDetailsMasterModel implements Serializable {
 	@Column(name = "strPropertyCode")
 	private String strPropertyCode;
 
+	@Column(name = "dteUserCreatedDate")
+	private String dteUserCreatedDate;
+
+	
 	// Setter Getter
 
 	public String getStrCurrCode() {
@@ -217,6 +221,14 @@ public class clsWebClubCurrencyDetailsMasterModel implements Serializable {
 		} else {
 			return defaultValue;
 		}
+	}
+
+	public String getDteUserCreatedDate() {
+		return dteUserCreatedDate;
+	}
+
+	public void setDteUserCreatedDate(String dteUserCreatedDate) {
+		this.dteUserCreatedDate = dteUserCreatedDate;
 	}
 
 }

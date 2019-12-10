@@ -1,11 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> --%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/materialdesignicons.min.css"/>" />
+<%-- 	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/all.min.css"/>" /> --%>
+	  	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.css"/>" /> 
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />  
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	<!--  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	<%-- 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/all.min.js"/>"></script> --%>
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.js"/>"></script> 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		
 <script type="text/javascript">
 	var fieldName;
 
@@ -96,15 +116,40 @@ function funHelp(transactionName)
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Locker Master</label>
+	<div class="container">
+		<label  id="formHeading">Locker Master</label>
+			<s:form name="WebClubLockerMaster" method="POST" action="saveWebClubLockerMaster.html">
+				<div class="row masterTable">
+					<div class="col-md-6">
+						<label>Locker Code:</label><br>
+							<div class="row">
+								<div class="col-md-6"><s:input id="txtLockerCode" type="text" placeholder="Locker Code" path="strLockerCode" readonly="true" 
+				                   cssClass="searchTextBox" ondblclick="funHelp('WCLockerMaster')" ></s:input>
+								</div>
+								<div class="col-md-6">
+									<s:input id="textLockerName" path="strLockerName" required="" type="text" placeholder="Locker Code"></s:input>
+								</div>
+							</div>
+					</div>
+				     <div class="col-md-3">
+						<label>Locker Description:</label><br>
+							<s:input id="txtLockerDesc" path="strLockerDesc" required=""
+				             type="text" placeholder="Locker Code"></s:input>
+				     </div>	
+				</div>
+					<div class="center">
+						<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick=""
+							class="form_button">Submit</button></a>
+						<a href="#"><button class="btn btn-primary center-block" type="reset"
+						 value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
+					</div>
+			</s:form>
 	</div>
 
-<br/>
-<br/>
+</body>
+</html>
 
-	<s:form name="WebClubLockerMaster" method="POST" action="saveWebClubLockerMaster.html">
+	<%-- <s:form name="WebClubLockerMaster" method="POST" action="saveWebClubLockerMaster.html">
 
 		<table class="masterTable">
 		
@@ -134,6 +179,5 @@ function funHelp(transactionName)
 			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
 		</p>
 
-	</s:form>
-</body>
-</html>
+	</s:form> --%>
+

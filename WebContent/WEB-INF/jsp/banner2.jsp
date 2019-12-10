@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -144,16 +144,16 @@ var NotificationCount="";
 			class="transTablex">
 			<tbody id="tbodyNotifyid">
 			<tr><td colspan="4">Notifications</td></tr>
-			<%-- <c:forEach items="${Notifcation}" var="draw1" varStatus="status1">
+			<c:forEach items="${Notifcation}" var="draw1" varStatus="status1">
 			<tr>
 				<td>${draw1.strReqCode}</td>
 				<td>${draw1.dtReqDate}</td>
 				<td>${draw1.Locationby}</td>
 				<td>${draw1.LocationOn}</td>
 			</tr>
-		</c:forEach> --%>
+		</c:forEach>
 		</tbody>
 		</table>
 	</div>
 </body>
-</html>
+</html> --%>

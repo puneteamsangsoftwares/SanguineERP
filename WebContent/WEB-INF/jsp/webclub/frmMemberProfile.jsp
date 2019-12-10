@@ -7,62 +7,74 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
-	<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />	
+	
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />	
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <%-- 	<script type="text/javascript" src="<spring:url value="/resources/js/Accordian/jquery-ui-1.8.13.custom.min.js"/>"></script> --%>
 	<script type="text/javascript" src="<spring:url value="/resources/js/Accordian/jquery.multi-accordion-1.5.3.js"/>"></script>	
 		
-		<style type="text/css">
-		/*demo page css*/
-		body{ font: 62.5% "Trebuchet MS", sans-serif; margin: 0px;}
-	</style>
-	
+		
+<style type="text/css">
+.center {
+	text-align: center;
+}	
+.btn{
+	margin:0px;
+}
+
+</style>
 		
 	
 	<script type="text/javascript">
-		
+	var map1 = new Map();
 	$(document).ready(function() {		   	    
 		
-		
-
+		funAddFieldList();
 	    
 // 	    date picker
-    $("#txtdtDateofBirth").datepicker({ dateFormat: 'yy-mm-dd' });
+    $("#txtdtDateofBirth").datepicker({ dateFormat: 'dd-mm-yy' });
 		$("#txtdtDateofBirth" ).datepicker('setDate', 'today');
 		$("#txtdtDateofBirth").datepicker();
 		
-        $("#txtdtBallotDate").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#txtdtBallotDate").datepicker({ dateFormat: 'dd-mm-yy' });
         $("#txtdtBallotDate" ).datepicker('setDate', 'today');
         $("#txtdtBallotDate").datepicker();
             
-        $("#txtdtMembershipStartDate").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#txtdtMembershipStartDate").datepicker({ dateFormat: 'dd-mm-yy' });
         $("#txtdtMembershipStartDate" ).datepicker('setDate', 'today');
         $("#txtdtMembershipStartDate").datepicker();
         
-        $("#txtdtMembershipEndDate").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#txtdtMembershipEndDate").datepicker({ dateFormat: 'dd-mm-yy' });
         $("#txtdtMembershipEndDate" ).datepicker('setDate', 'today');
         $("#txtdtMembershipEndDate").datepicker();
         
-        $("#txtdtToDate").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#txtdtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
         $("#txtdtToDate" ).datepicker('setDate', 'today');
         $("#txtdtToDate").datepicker();
         
-        $("#txtdtToDate").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#txtdtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
         $("#txtdtToDate" ).datepicker('setDate', 'today');
         $("#txtdtToDate").datepicker();
         
-        $("#txtdtSpouseDateofBirth").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#txtdtSpouseDateofBirth").datepicker({ dateFormat: 'dd-mm-yy' });
         $("#txtdtSpouseDateofBirth" ).datepicker('setDate', 'today');
         $("#txtdtSpouseDateofBirth").datepicker();
         
-        $("#txtdtAnniversary").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#txtdtAnniversary").datepicker({ dateFormat: 'dd-mm-yy' });
         $("#txtdtAnniversary" ).datepicker('setDate', 'today');
         $("#txtdtAnniversary").datepicker();
         
-        $("#txtdteDependentDateofBirth").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#txtdteDependentDateofBirth").datepicker({ dateFormat: 'dd-mm-yy' });
         $("#txtdteDependentDateofBirth" ).datepicker('setDate', 'today');
         $("#txtdteDependentDateofBirth").datepicker();
         
-        $("#txtdteDependentMemExpDate").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#txtdteDependentMemExpDate").datepicker({ dateFormat: 'dd-mm-yy' });
         $("#txtdteDependentMemExpDate" ).datepicker('setDate', 'today');
         $("#txtdteDependentMemExpDate").datepicker();
         
@@ -78,7 +90,7 @@
                 var activeTab = $(this).attr("data-state");
                 $("#" + activeTab).fadeIn();
             }); 
-            
+             
             
        
             
@@ -90,6 +102,9 @@
 	        			document.all[ "headerSpouse" ].style.display = 'block';
 	        			document.all[ "divSpouse" ].style.display = 'block';
 	        			
+	        			document.all[ "headerDependent" ].style.display = 'block';	        			
+	        			document.all[ "divDependent" ].style.display = 'block';
+	        		
 	        			
 	        			$('#txtChangeDependentCode').val("03");
 	        			$('#txtChangeDependentMemberCode').val(memcode);
@@ -103,6 +118,10 @@
         			{
         				document.all[ "headerSpouse" ].style.display = 'none';
             			document.all[ "divSpouse" ].style.display = 'none';
+            			
+            			document.all[ "headerDependent" ].style.display = 'none';	        			
+	        			document.all[ "divDependent" ].style.display = 'none';
+	        			
             			
             			$('#txtChangeDependentCode').val("02");
             			$('#txtChangeDependentMemberCode').val(memcode);
@@ -167,12 +186,26 @@
 						        	$("#txtMemberCode").val(menber[0]);
 						        	$("#txtChangeDependentMemberCode").val(menber[0]);
 						        	$("#txtCustCode").val(response[0].strCustomerCode);
+						        	var isSpous;
 						        	if(response[0].strMaritalStatus=="married")
-						        		{
-							        		document.all[ "headerSpouse" ].style.display = 'block';
-						        			document.all[ "divSpouse" ].style.display = 'block';
-						        		}
-						        	var isSpous=funSetSpouseData(response[1]);
+					        		{
+						        		document.all[ "headerSpouse" ].style.display = 'block';
+					        			document.all[ "divSpouse" ].style.display = 'block';
+					        			
+					        			isSpous=funSetSpouseData(response[1]);
+					        			
+					        			document.all[ "headerDependent" ].style.display = 'block';	        			
+					        			document.all[ "divDependent" ].style.display = 'block';
+					        		}						        	
+						        	else
+				        			{
+				        				document.all[ "headerSpouse" ].style.display = 'none';
+				            			document.all[ "divSpouse" ].style.display = 'none';		
+				            			
+				            			document.all[ "headerDependent" ].style.display = 'none';	        			
+					        			document.all[ "divDependent" ].style.display = 'none';
+				        			}			        	
+						        	
 						        	var k = 1;
 						        	if(isSpous==true)
 						        		{
@@ -183,12 +216,22 @@
 										{
 											funAddDependentTableRow(response[i],i);
 										}
-						        	$("#txtFirstName").val(response[0].strFirstName);							        							        						        	
+						        	
+									$("#txtFirstName").val(response[0].strFirstName);							        							        						        	
 						        	$("#txtMiddleName").val(response[0].strMiddleName);
 						        	$("#txtLastName").val(response[0].strLastName);
 						        	$("#txtFullName").val(response[0].strFullName);
 						        	
 						        	$("#txtFirstName").focus();
+						        	
+						        	$("#txtAadharCardNo").val(response[0].strAadharCardNo);
+						        	$("#txtVoterIdNo").val(response[0].strVoterIdNo);
+						        	$("#txtPassportNo").val(response[0].strPassportNo);
+						        	
+						        	$("#txtBankCode").val(response[0].strBankCode);
+						        	$("#txtIfscCOde").val(response[0].strIfscCOde);
+						        	$("#txtAccNo").val(response[0].strAccNo);
+						        	$("#txtBranchName").val(response[0].strBranchName);						        	
 						        	
 						        	$("#txtCustomerCode").val(response[0].strCustomerCode);
 						        	$("#txtPrefixCode").val(response[0].strPrefixCode);
@@ -263,12 +306,17 @@
 						        	//alert("DOB="+dob);
 						        	
 						        	
-						            $("#txtdtDateofBirth").datepicker({dateFormat: 'dd-mm-yy'}).datepicker('setDate', dob);						        	
+									
+									$("#txtdtMembershipStartDate").val(response[0].dteMembershipStartDate);
+						        	$("#txtdtMembershipEndDate").val(response[0].dteMembershipEndDate);
+						        	
+						            $("#txtdtDateofBirth").datepicker({dateFormat: 'dd-mm-yyyy'}).datepicker('setDate', dob);						        	
 						        	$("#txtdtDateofBirth").val(response[0].dteDateofBirth);
 						        	$("#cmbMaritalStatus").val(response[0].strMaritalStatus);
 						        	$("#txtProfessionCode").val(response[0].strProfessionCode);
-						        	
+						        	funSetProfessionCode(response[0].strProfessionCode);
 						        	$("#txtMSCategoryCode").val(response[0].strCategoryCode);
+						        	funSetMemberCategory(response[0].strCategoryCode);
 						        	$("#txtPanNumber").val(response[0].strPanNumber);
 						        	$("#txtProposerCode").val(response[0].strProposerCode);
 						        	$("#txtSeconderCode").val(response[0].strSeconderCode);
@@ -276,7 +324,9 @@
 						        	
 						        	$("#txtBlockedreasonCode").val(response[0].strBlockedreasonCode);
 						        	$("#txtQualification").val(response[0].strQualification);
+						        	funSetEducationCode(response[0].strQualification);
 						        	$("#txtDesignationCode").val(response[0].strDesignationCode);
+						        	funSetDesignationCode(response[0].strDesignationCode);
 						        	$("#txtLocker").val(response[0].strLocker);
 						        	$("#txtLibrary").val(response[0].strLibrary);
 						        	
@@ -289,8 +339,11 @@
 						        	$("#txtStopCredit").val(response[0].strStopCredit);
 						        	$("txtFatherMemberCode").val(response[0].strFatherMemberCode);
 						        	//$("#txtStatusCode").val(response.strStatusCode);
-						        	
-						        	
+						        	if(response[0].strBlockedreasonCode!="")
+						        		{
+						        			funSetBlockReasonCode(response[0].strBlockedreasonCode);
+							        	
+						        		}
 						        	
 					        	}
 							},
@@ -314,6 +367,52 @@
 				      });
 			}
 		 
+		 function funloadMemberWiseFieldData(code)
+			{
+				var searchurl=getContextPath()+"/loadWebClubMemberWiseFieldData.html?primaryCode="+code;
+				//alert(searchurl);
+				 $.ajax({
+					        type: "GET",
+					        url: searchurl,
+					        success: function(response)
+					        {
+					        	if(response.strMemberCode=='Invalid Code')
+					        	{
+					        		alert("Invalid Member Code");
+					        		$("#txtMemberCode").val('');
+					        		
+					        	}
+					        	else
+					        	{  					        		
+					        		funDeleteTableAllRowsField();
+					        		map1=response;
+						        	for (var i in map1) {	
+						        		if(i!='strMemberCode')
+						        			{
+						        				funAddFieldDataMemberWise(i,map1[i]);						        				
+						        			}		        	    
+						        	} 						        	
+					        	}
+							},
+							error: function(jqXHR, exception) {
+					            if (jqXHR.status === 0) {
+					                alert('Not connect.n Verify Network.');
+					            } else if (jqXHR.status == 404) {
+					                alert('Requested page not found. [404]');
+					            } else if (jqXHR.status == 500) {
+					                alert('Internal Server Error [500].');
+					            } else if (exception === 'parsererror') {
+					                alert('Requested JSON parse failed.');
+					            } else if (exception === 'timeout') {
+					                alert('Time out error.');
+					            } else if (exception === 'abort') {
+					                alert('Ajax request aborted.');
+					            } else {
+					                alert('Uncaught Error.n' + jqXHR.responseText);
+					            }		            
+					        }
+				      });
+			}
 		 
 		 function funSetSpouseData(response)
 		 {
@@ -417,6 +516,7 @@
 			
 			case 'WCmemProfileCustomer' :
 				funloadMemberData(code);
+				funloadMemberWiseFieldData(code);
 				//funloadMemberCustomerData(code);
 				break;	
 				
@@ -446,7 +546,7 @@
 				
 			case 'WCDependentProfessionMaster' :
 				funSetProfessionForDependent(code);
-				break
+				break;
 				
 				
 			case 'WCDependentReasonMaster' : 
@@ -460,7 +560,10 @@
 			case 'WCCatMaster' :	
 				funSetMemberCategory(code);
 				break;
-			
+				
+			case "WCBankCode":
+			     funSetBankMasterData(code);
+				 break;
 				
 				
 		}
@@ -484,7 +587,8 @@
 				        	}
 				        	else
 				        	{
-					        	$("#txtMSCategoryCode").val(code);
+				        		$("#txtMSCategoryCode").val(code);
+					        	$("#txtMemberName").val(response.strCatName);
 					        	
 				        	}
 						},
@@ -507,7 +611,48 @@
 				        }
 			      });
 		}
-		
+	 function funSetBankMasterData(bankCode)
+		{
+		    $("#txtBankCode").val(bankCode);
+			var searchurl=getContextPath()+"/loadWebClubBankMasterData.html?bankCode="+bankCode;
+			 $.ajax({
+				        type: "GET",
+				        url: searchurl,
+				        dataType: "json",
+				        success: function(response)
+				        {
+				        	if(response.strBankCode=='Invalid Code')
+				        	{
+				        		alert("Invalid Bank Code");
+				        		//$("#txtBankCode").val('');
+				        	}
+				        	else
+				        	{
+					        	$("#txtBankName").val(response.strBankName);
+					        	$("#txtBankName").focus();
+					        	$("#txtBranchName").val(response.strBranch);
+					        	$("#txtMICR").val(response.strMICR);
+				        	}
+						},
+						error: function(jqXHR, exception) {
+				            if (jqXHR.status === 0) {
+				                alert('Not connect.n Verify Network.');
+				            } else if (jqXHR.status == 404) {
+				                alert('Requested page not found. [404]');
+				            } else if (jqXHR.status == 500) {
+				                alert('Internal Server Error [500].');
+				            } else if (exception === 'parsererror') {
+				                alert('Requested JSON parse failed.');
+				            } else if (exception === 'timeout') {
+				                alert('Time out error.');
+				            } else if (exception === 'abort') {
+				                alert('Ajax request aborted.');
+				            } else {
+				                alert('Uncaught Error.n' + jqXHR.responseText);
+				            }		            
+				        }
+			      });
+		}
 	
 	function funSetResAreaCode(code){
 
@@ -528,6 +673,7 @@
 		        	}
 		        	else
 		        	{
+		        		funSetResCityCode(response.strCityCode);
 			        	//$("#txtAreaName").val(response.strAreaName);
 		        	}
 				},
@@ -570,6 +716,7 @@
 		        	}
 		        	else
 		        	{
+		        		funSetComCityCode(response.strCityCode);
 			        	$("#txtCompanyAreaName").val(response.strAreaName);
 		        	}
 				},
@@ -612,6 +759,7 @@
 		        	}
 		        	else
 		        	{
+		        		funSetBillingCityCode(response.strCityCode);		        		
 			        	$("#txtBillingAreaName").val(response.strAreaName);
 		        	}
 				},
@@ -639,9 +787,6 @@
 	
 	
 function funSetResCityCode(code){
-		
-		
-		
 		$("#txtResidentCtCode").val(code);
 		var searchurl=getContextPath()+"/loadCityCode.html?docCode="+code;
 		//alert(searchurl);
@@ -659,6 +804,13 @@ function funSetResCityCode(code){
 		        	}
 		        	else
 		        	{
+		        		
+		        		
+		        		
+		        		funSetResStateCode(response.strStateCode);	
+		        		funSetResCountryCode(response.strCountryCode);
+		        		$("#txtResidentPinCode").val(response.strSTDCode);
+		        		
 // 		        		$("#txtCityName").val(response.strCityName);
 // 		        		$("#txtCityStdCode").val(response.strSTDCode);
 // 		        		$("#txtStateCode").val(response.strStateCode);
@@ -708,6 +860,8 @@ function funSetComCityCode(code){
 	        	}
 	        	else
 	        	{
+	        			funSetComStateCode(response.strStateCode);
+	        			$("#txtCompanyPinCode").val(response.strSTDCode);	        			
 		        		$("#txtCompanyCtName").val(response.strCityName);
 	        	}
 	        	
@@ -752,7 +906,11 @@ function funSetBillingCityCode(code){
 	        	}
 	        	else
 	        	{
-		        		$("#txtBillingCtName").val(response.strCityName);
+	        		funSetBillingCountryCode(response.strCountryCode);
+	        		funSetBillingStateCode(response.strStateCode);     		
+	        		
+	        		$("#txtBillingPinCode").val(response.strSTDCode);	        		
+		        	$("#txtBillingCtName").val(response.strCityName);
 	        	}
 	        	
 	        },
@@ -881,6 +1039,7 @@ function funSetBillingCountryCode(code){
 	        	}
 	        	else
 	        	{
+	        		
 	        		$("#txtBillingCountryName").val(response.strCountryName);
 	        	}
 	        	
@@ -924,7 +1083,9 @@ function funSetResStateCode(code){
 	        	}
 	        	else
 	        	{
-	        		//$("#txtStateName").val(response.strStateName);
+	        		
+	        		//funSetResRegionCode(response.strRegionCode);
+	        		$("#txtResidentRegionCode").val(response.strRegionCode);
 	        		
 	        		 
 	        	}
@@ -969,6 +1130,8 @@ function funSetComStateCode(code){
 	        	}
 	        	else
 	        	{
+	        		funSetComRegionCode(response.strRegionCode);
+	        		funSetComCountryCode(response.strCountryCode);	        		
 	        		$("#txtCompanyStateName").val(response.strStateName);
 	        		 
 	        	}
@@ -1014,6 +1177,7 @@ function funSetBillingStateCode(code){
 	        	}
 	        	else
 	        	{
+	        		funSetResRegionCode(response.strRegionCode);
 	        		$("#txtBillingStateName").val(response.strStateName);
 	        		 
 	        	}
@@ -1041,7 +1205,7 @@ function funSetBillingStateCode(code){
 
 function funSetResRegionCode(code){
 	
-	$("#txtResidentRegionCode").val(code);
+	$("#txtBillingRegionCode").val(code);
 	var searchurl=getContextPath()+"/loadRegionCode.html?docCode="+code;
 	//alert(searchurl);
 	
@@ -1054,10 +1218,11 @@ function funSetResRegionCode(code){
 	        	if(response.strRegionCode=='Invalid Code')
 	        	{
 	        		alert("Invalid Region Code In");
-	        		$("#txtRegionCode").val('');
+	        		$("#txtBillingRegionCode").val('');
 	        	}
 	        	else
 	        	{
+	        		$("#txtBillingRegionName").val(response.strRegionName);
 	        		//$("#txtRegionName").val(response.strRegionName);
 	        	}
 	        	
@@ -1170,19 +1335,122 @@ function funSetBillingRegionCode(code){
         }
 	});
 }
-
 	function btnAdd_onclick() 
 	{	
+		var flg=true;
+		
+		if($("#txtDependentName").val().trim().length<1)
+		{
+			alert("Please Enter Dependent Name");
+			flg=false;
+		}
+		else if($("#txtDependentRelation").val().trim().length<1)
+		{
+			alert("Please Enter Relation");
+			flg=false;
+		}
+		
 		var dependentMemberCode=$("#txtChangeDependentMemberCode").val();
 	    var ChangedependentCode =$("#txtChangeDependentCode").val();
 	    var genratedMemberCode = "";
 	    genratedMemberCode = dependentMemberCode+" "+ ChangedependentCode;
 		
-		if(funDuplicateMember(genratedMemberCode))
-			{
-	   		funAddDependentRow();
-			}
+	    if(flg)
+	    	{
+		    	if(funDuplicateMember(genratedMemberCode))
+				{
+		   		funAddDependentRow();
+		   		flg=false;
+				}
+	    	}
+		
+		return flg;
 	}
+
+	function funSetDatePicker(variable) 
+	{	
+			$("#variable").datepicker({ dateFormat: 'yy-mm-dd' });
+			$("#variable" ).datepicker('setDate', 'today');
+			$("#variable").datepicker();
+	}
+	
+	function funSetTimePicker() 
+	{
+		$( function() {
+		    $( "#datepicker" ).datepicker();
+		  } );
+	}
+	
+	function funAddFieldListRow(fieldName,fieldDataType) 
+	{
+				var table = document.getElementById("tblFieldData");
+				var rowCount = table.rows.length;
+				var row = table.insertRow(rowCount);
+							    
+			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listField["+(rowCount)+"].strFieldName\" id=\"txFieldName."+(rowCount)+"\" value='"+fieldName+"'>";
+			    if(fieldDataType=='DATE'||fieldDataType=='DATETIME')
+			   	{ 
+			    	 row.insertCell(1).innerHTML= "<input type=\"date\" class=\"calenderTextBox hasDatepicker\" size=\"40%\" name=\"listField["+(rowCount)+"].strFieldValue\" id=\"txFieldValue."+(rowCount+1)+"\" value=''>";
+			    }
+			    else if(fieldDataType=='TIME')
+			    {			    	
+			    	row.insertCell(1).innerHTML= "<input type=\"time\" size=\"30%\" class=\"calenderTextBox\" name=\"listField["+(rowCount)+"].strFieldValue\" id=\"txFieldValue."+(rowCount)+"\" value=''>";
+			   	}
+			    else if(fieldDataType=='BLOB')
+			    {			    	
+			    	row.insertCell(1).innerHTML= "<input type=\"file\" size=\"30%\" name=\"listField["+(rowCount)+"].strFieldValue\" id=\"txFieldValue."+(rowCount)+"\" value='' >";
+				}
+			    else if(fieldDataType=='BIGINT'||fieldDataType=='INTEGER'||fieldDataType=='DOUBLE')
+			    {
+			       	row.insertCell(1).innerHTML= "<input type=\"text\" class=\"decimal-places numberField\" size=\"30%\" name=\"listField["+(rowCount)+"].strFieldValue\" id=\"txFieldValue."+(rowCount)+"\" value='0' >";
+				}
+			    else if(fieldDataType=='DECIMAL')
+			    {  	 
+			    	row.insertCell(1).innerHTML= "<input type=\"text\" class=\"decimal-places numberField\" size=\"30%\" name=\"listField["+(rowCount)+"].strFieldValue\" id=\"txFieldValue."+(rowCount)+"\" value='0.0' >";
+			    }
+			    else
+			    {
+			     	 row.insertCell(1).innerHTML= "<input type=\"text\" size=\"30%\" name=\"listField["+(rowCount)+"].strFieldValue\" id=\"txFieldValue."+(rowCount)+"\" value='' >";
+				}
+	}
+	
+	function funAddFieldDataMemberWise(fieldName,fieldDataType) 
+	{
+				var table = document.getElementById("tblFieldData");
+				var rowCount = table.rows.length;
+				var row = table.insertRow(rowCount);
+							    
+			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listField["+(rowCount)+"].strFieldName\" id=\"txFieldName."+(rowCount)+"\" value='"+fieldName+"'>";
+			    if(fieldDataType[0]=='DATE'||fieldDataType=='DATETIME')
+			   	{ 
+			    	 row.insertCell(1).innerHTML= "<input type=\"date\" class=\"calenderTextBoxx\" size=\"40%\" name=\"listField["+(rowCount)+"].strFieldValue\" id=\"txFieldValue."+(rowCount+1)+"\" value='"+fieldDataType[1]+"'>";
+			    	
+			   	}
+			    else if(fieldDataType[0]=='TIME')
+			    {			    	
+			    	row.insertCell(1).innerHTML= "<input type=\"time\" size=\"30%\" class=\"calenderTextBox\" name=\"listField["+(rowCount)+"].strFieldValue\" id=\"txFieldValue."+(rowCount+1)+"\" value='"+fieldDataType[1]+"'>";
+			   	}
+			    else if(fieldDataType[0]=='BLOB')
+			    {			    	
+			    	row.insertCell(1).innerHTML= "<input type=\"file\" size=\"30%\" name=\"listField["+(rowCount)+"].strFieldValue\" id=\"txFieldValue."+(rowCount)+"\" value='"+fieldDataType[1]+"' >";
+				}
+			    else if(fieldDataType[0]=='BIGINT'||fieldDataType=='INTEGER'||fieldDataType=='DOUBLE')
+			    {
+			       	row.insertCell(1).innerHTML= "<input type=\"text\" class=\"decimal-places numberField\" size=\"30%\" name=\"listField["+(rowCount)+"].strFieldValue\" id=\"txFieldValue."+(rowCount+1)+"\" value='"+fieldDataType[1]+"' >";
+				}
+			    else if(fieldDataType[0]=='DECIMAL')
+			    {  	 
+			    	row.insertCell(1).innerHTML= "<input type=\"text\" class=\"decimal-places numberField\" size=\"30%\" name=\"listField["+(rowCount)+"].strFieldValue\" id=\"txFieldValue."+(rowCount+1)+"\" value='"+fieldDataType[1]+"' >";
+			    }
+			    else
+			    {
+			     	 row.insertCell(1).innerHTML= "<input type=\"text\" class=\"longTextBox\" size=\"30%\" name=\"listField["+(rowCount)+"].strFieldValue\" id=\"txFieldValue."+(rowCount+1)+"\" value='"+fieldDataType[1]+"' >";
+				}
+	}
+	
+	
+	
+	
 	function funAddDependentRow() 
 	{
 				var table = document.getElementById("tblDependentData");
@@ -1450,13 +1718,74 @@ function funSetBillingRegionCode(code){
 	    
 	    
 	}
+	
+	
+	function funShowImagePreview(input)
+	 {
+		 if (input.files && input.files[0])
+		 {
+			 var filerdr = new FileReader();
+			 filerdr.onloadend = function(event) 
+			 {
+			 $('#memImage').attr('src', event.target.result);
+			 }
+			 filerdr.readAsDataURL(input.files[0]);
+		 }
+	 }
 
 	
-	function funDeleteTableAllRows()
-	{
-		$("#tblDependentData tr").remove();
-	}
+		function funFillNameOnCard()
+		{			
+		$("#txtNameOnCard").val($("#txtFirstName").val()+" "+$("#txtMiddleName").val()+" "+$("#txtLastName").val());
+		var demo=$("#txtFirstName").val()+" "+$("#txtMiddleName").val()+" "+$("#txtLastName").val();
+		//alert(demo);
+		}
+		
+		/* 
+		$(function () {
+			  $('#txtLastName').click(function () {
+			    var $input = $('<input/>').attr('type', 'text').addClass('detectTab').appendTo('#container');
+			    $('<div></div>').appendTo('#txtLastName');
+			    funFillNameOnCard();
+			  });
 
+			  $(document).on('keydown', 'input.detectTab', function(e) { 
+			    var keyCode = e.keyCode || e.which; 
+
+			    if (keyCode == 9) { 
+			      e.preventDefault(); 
+			    // call custom function here
+			      var $div = $(this).next('div');
+			      $div.html('tab pressed...');
+			      setTimeout(function () { $div.html(''); }, 2000 );
+			      funFillNameOnCard();
+			    } 
+			  });
+
+			}); */
+		
+		
+		
+		
+		
+		
+		
+		
+		$("#txtLastName").on('keydown', '#txtNameOnCard', function(e) { 
+			  
+			 
+			});
+	
+			function funDeleteTableAllRows()
+			{
+				$("#tblDependentData tr").remove();
+			}
+			
+			function funDeleteTableAllRowsField()
+			{
+				$("#tblFieldData tr").remove();
+			}
+			
 	
 	function funSetEducationCode(code){
 
@@ -1675,6 +2004,7 @@ function funSetBillingRegionCode(code){
 		});
 	}
 	
+
 	function funRowClick(object)
 	{
 
@@ -1715,8 +2045,18 @@ function funSetBillingRegionCode(code){
     $("#txttblCustomerCode").val(customerCode);
    
 	}
-	
+
 	function funRemoveAllRows() 
+    {
+		 var table = document.getElementById("tblDependentData");
+		 var rowCount = table.rows.length;			   
+		//alert("rowCount\t"+rowCount);
+		for(var i=rowCount-1;i>=0;i--)
+		{
+			table.deleteRow(i);						
+		} 
+    }
+	function funRemoveFieldTableAllRows() 
     {
 		 var table = document.getElementById("tblDependentData");
 		 var rowCount = table.rows.length;			   
@@ -1729,11 +2069,8 @@ function funSetBillingRegionCode(code){
 	
 	
 	function funSetProfessionForMember(code){
-
 		$("#txtProfessionCode").val(code);
 		var searchurl=getContextPath()+"/loadProfession.html?docCode="+code;
-		//alert(searchurl);
-		
 			$.ajax({
 		        type: "GET",
 		        url: searchurl,
@@ -1775,8 +2112,6 @@ function funSetBillingRegionCode(code){
 
 		$("#txtDependentProfessionCode").val(code);
 		var searchurl=getContextPath()+"/loadProfession.html?docCode="+code;
-		//alert(searchurl);
-		
 			$.ajax({
 		        type: "GET",
 		        url: searchurl,
@@ -1790,7 +2125,7 @@ function funSetBillingRegionCode(code){
 		        	}
 		        	else
 		        	{
-		        		$("#strDependentProfessionName").val(response.strProfessionName);
+		        		$("#txtDependentProfessionName").val(response.strProfessionName);
 		        	}
 		        	
 		        },
@@ -1814,12 +2149,10 @@ function funSetBillingRegionCode(code){
 		});
 	}
 	
-	function funSetDependentReasonCode(code){
 
+	function funSetDependentReasonCode(code){
 		$("#txtDependentReasonCode").val(code);
 		var searchurl=getContextPath()+"/loadReason.html?docCode="+code;
-		//alert(searchurl);
-		
 			$.ajax({
 		        type: "GET",
 		        url: searchurl,
@@ -1857,12 +2190,11 @@ function funSetBillingRegionCode(code){
 		});
 	}
 	
+
 	function funSetProfessionForSpouse(code){
 
 		$("#txtSpouseProfessionCode").val(code);
-		var searchurl=getContextPath()+"/loadProfession.html?docCode="+code;
-		//alert(searchurl);
-		
+		var searchurl=getContextPath()+"/loadProfession.html?docCode="+code;		
 			$.ajax({
 		        type: "GET",
 		        url: searchurl,
@@ -1900,6 +2232,41 @@ function funSetBillingRegionCode(code){
 		});
 	}
 	
+	function funAddFieldList(){
+		var searchurl=getContextPath()+"/loadWebClubMemberFieldListData.html";		
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {	 
+		        	map1=response;
+		        	for (var i in map1) {	
+		        		if(i!='strMemberCode'&&i!='strClientCode')
+		        			{
+		        				funAddFieldListRow(i,map1[i])
+		        			}		        	    
+		        	} 		        	       	
+		        },
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
+		});
+	}
 	
 	
 	
@@ -1924,975 +2291,747 @@ function funSetBillingRegionCode(code){
 	    return flag;
 	  
 	}
-	
-	
-		 
 		 	
+
+	function funValidate()
+	{	
+		var flag=true;		
+		$('#multiAccordion').multiAccordion({
+			click: function(event, ui) {
+			},
+			init: function(event, ui) {
+			},
+			tabShown: function(event, ui) {
+			},
+			tabHidden: function(event, ui) {
+			}			
+		});
+		
+		
+		if($("#txtMemberCode").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [0]);
+			document.getElementById("txtMemberCode").focus();
+			alert("Enter Member Code");
+			flag=false;
+		}	
+		else if($("#txtFirstName").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [0]);
+			document.getElementById("txtFirstName").focus();
+			alert("Enter First Name");
+			flag=false;
+		}
+		/* else if($("#txtFullName").val().trim().length<1)
+		{
+			alert("Enter Full Name");
+			flag=false; 
+		}	 */	
+		else if($("#txtResidentAddressLine1").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [1]);
+			  // in this line [0,1,2] wirte then these index are open
+			
+			/* $("#tabAddressInfo").addClass("active"); */ 
+			document.getElementById("txtResidentAddressLine1").focus();
+			alert("Resident Address Line1 ");
+			flag=false;
+		}	
+		else if($("#txtResidentCtCode").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [1]);
+			document.getElementById("txtResidentCtCode").focus();
+			alert("Enter City Name ");
+			flag=false;
+		}		
+		else if($("#txtResidentCountryCode").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [1]);
+			document.getElementById("txtResidentCountryCode").focus();
+			alert("Enter Resident Country Name ");
+			flag=false;
+		} 
+		else{						
+			var table = document.getElementById("tblFieldData");
+			var rowCount = table.rows.length;			
+			for(var i=0;i<=rowCount-1;i++)
+			{
+				var FieldName=document.getElementById("txFieldName."+i).value;
+				var FieldValue=document.getElementById("txFieldValue."+i).value;
+				if(FieldValue.trim().length<1)
+				{
+					$('#multiAccordion').multiAccordion("option", "active", [6]);
+					document.getElementById("txFieldValue."+i).focus();
+					alert("Please Enter Value in  "+FieldName);
+					flag=false;
+					break;
+				}			
+			} 
+		}
+		return flag;		
+	}
+	
+	
 </script>
 		
 </head>
 <body >
-<div id="formHeading">
-	<label>Member Profile</label>
+	<div id="formHeading">
+		<label style="font-size:20px; padding:0px;">Member Profile</label>
 	</div>
 	<div>
-	<s:form name="frmWebClubMemberProfile" action="savefrmWebClubMemberProfile.html?saddr=${urlHits}" method="POST">
-		<br>
-	<div id="multiAccordion">	
-		<h3><a href="#">Member Profile Detail</a></h3>
-		<div>
-					<table class="transTable">
-						<tr>
-							<td width="120px"><label>Member Code</label></td>
-							<td width="150px"><s:input id="txtMemberCode"
+		<s:form name="frmWebClubMemberProfile" action="savefrmWebClubMemberProfile.html?saddr=${urlHits}" method="POST">
+			<br>
+		<div id="multiAccordion">	
+			<h3><a href="#">Member Profile Detail</a></h3>
+			<div>
+				<div class="container transtable"  style="background-color:#f2f2f2;">
+				<div class="row" >
+				<div class="col-md-9">
+  					<div class="row" >
+  					<div class="col-md-4"><label>Member Code</label><br><s:input id="txtMemberCode" type="text" 
 									ondblclick="funHelp('WCmemProfileCustomer')" cssClass="searchTextBox"
-									type="text" path="strMemberCode" ></s:input></td>
-									
-<!-- 							<td width="120px"><label>Customer Code</label></td> -->
-<%-- 							<td width="150px"><s:input id="txtCustCode"  --%>
-<%-- 									ondblclick="funHelp('WCmemProfileCustomer')" cssClass="searchTextBox" readonly="true" --%>
-<%-- 									type="text" path="strCustomerCode" ></s:input></td> --%>
-							
-									
-							<td width="120px"><label>Prefix Code</label></td>
-							<td width="150px"><s:input id="txtPrefixCode" 
-									ondblclick="" cssClass="searchTextBox"
-									type="text" path="strPrefixCode" ></s:input></td>
-			
-							
-							<td></td>
-							<td></td>
-						</tr>
-					 	<tr>
-							<td><label>FirstName</label></td>
-							<td><s:input id="txtFirstName" path="strFirstName" required="required"
-									cssClass="longTextBox" type="text"></s:input></td>
-							
-							<td><label>MiddleName</label></td>
-							<td><s:input id="txtMiddleName" path="strMiddleName" 
-									cssClass="longTextBox" type="text"></s:input></td>			
-									
-							<td  width="8%"><label>LastName</label></td>
-							<td><s:input id="txtLastName" path="strLastName" 
-									cssStyle="width: 56%;" cssClass="longTextBox" type="text"></s:input></td>
-							
-						</tr>
-						<tr>
-							<td><label>Name On Card</label></td>
-							<td><s:input id="txtNameOnCard" path="strNameOnCard" 
-									cssClass="longTextBox" type="text"></s:input></td>
-									
-							<td><label>Full Name</label></td>
-							<td colspan="4"><s:input id="txtFullName" path="strFullName" required="required"
-									cssClass="longTextBox" type="text"></s:input></td>
-						</tr>
-			
-				</table>
-				</div> 
-			
-			
-		<h3><a href="#">Address Information</a></h3>
-		<div>
-		
-				
-		<div id="tab_container" style="height: 130px">
-							<ul class="tabs">
-								<li class="active" data-state="tab1" style="width: 150px;padding-left: 55px">Resident Address</li>
-								<li data-state="tab2"  style="width: 150px;padding-left: 55px">Company Address</li>
-								<li data-state="tab3"  style="width: 150px;padding-left: 55px">Billing Address</li>
-							</ul>
-							
-		<div id="tab1" class="tab_content">					
-		
-			<table class="transTable">
-			<tr>
-			<th align="right" colspan="8"></th> 
-			</tr>
-			<tr>
-			
-				<td><label>Resident Address Line1</label></td>
-				<td><s:input id="txtResidentAddressLine1" path="strResidentAddressLine1" required="required"
-						cssClass="longTextBox" type="text"></s:input></td>
-						
-				<td><label>Resident Address Line2</label></td>
-				<td><s:input id="txtResidentAddressLine2" path="strResidentAddressLine2" 
-						cssClass="longTextBox" type="text"></s:input></td>
-				
-				<td><label>Resident Address Line3</label></td>
-				<td colspan="4"><s:input id="txtResidentAddressLine3" path="strResidentAddressLine3"
-						cssStyle="width: 56%;" cssClass="longTextBox" type="text"></s:input></td>
-			</tr>
-			
-			<tr>
-				<td><label>Resident LandMark</label></td>
-				<td><s:input id="txtResidentLandMark" path="strResidentLandMark" 
-						cssClass="longTextBox" type="text"></s:input></td>
-						
-				 <td><label>Resident Area Code</label></td>
-				<td><s:input id="txtResidentAreaCode" path="strResidentAreaCode" 
-						ondblclick="funHelp('WCResAreaMaster')" cssClass="searchTextBox" type="text"></s:input></td>
-				
-				<td><label>Resident City Code</label></td>
-				<td colspan="4"><s:input id="txtResidentCtCode" path="strResidentCtCode" required="required"
-						 ondblclick="funHelp('WCResCityMaster')" 
-						cssClass="searchTextBox" type="text"></s:input></td>	
-			
-			</tr>
-			
-			<tr>
-				<td><label>Resident State Code</label></td>
-				<td><s:input id="txtResidentStateCode" path="strResidentStateCode" 
-						ondblclick="funHelp('WCResStateMaster')" cssClass="searchTextBox" type="text"></s:input></td>
-						
-				<td><label>Resident Region Code</label></td>
-				<td><s:input id="txtResidentRegionCode" path="strResidentRegionCode" 
-						ondblclick="funHelp('WCResRegionMaster')" cssClass="searchTextBox" type="text"></s:input></td>
-				
-				<td><label>Resident Country Code</label></td>
-				<td colspan="4"><s:input id="txtResidentCountryCode" path="strResidentCountryCode" 
-						required="required" ondblclick="funHelp('WCResCountryMaster')" 
-						cssClass="searchTextBox" type="text"></s:input></td>		
-			         	
-			</tr>
-			<tr>
-			<td><label>Resident Telephone1</label></td>
-				<td><s:input id="txtResidentTelephone1" path="strResidentTelephone1" 
-					class="decimal-places numberField" type="text"></s:input></td>
-				
-				<td><label>Resident Telephone2</label></td>
-				<td><s:input id="txtResidentTelephone2" path="strResidentTelephone2" 
-					class="decimal-places numberField" type="text"></s:input></td>
-				
-				<td><label>Resident Fax1</label></td>
-				<td><s:input id="txtResidentFax1" path="strResidentFax1"  
-					class="decimal-places numberField" type="text"></s:input></td>
+								 	 class="form-control" path="strMemberCode" ></s:input></div>
+					<div class="col-md-4"><label>Prefix Code</label><br><s:select id="cmbPrefixCode" path="strPrefixCode" name="cmbPrefixCode">
+													 <option value="Mr">Mr</option>
+									 				 <option value="Mrs">Mrs</option>
+									 				 <option value="Ms">Ms</option>
+													 </s:select>
+						<%-- <s:input id="txtPrefixCode" ondblclick=""  cssClass="searchTextBox" type="search" path="strPrefixCode" readonly="true"></s:input> --%></div>
+					</div>
+					<div class="row" >
+					<div class="col-md-4"><label>First  Name</label><br><s:input id="txtFirstName" path="strFirstName"  type="text" required="true"></s:input></div>
+					<div class="col-md-4"><label>Middle  Name</label><br><s:input id="txtMiddleName" path="strMiddleName" type="text" required="true"></s:input></div>
+					<div class="col-md-4"><label>Last  Name</label><br><s:input id="txtLastName" path="strLastName" type="text" required="true"></s:input></div>
+					</div>
 					
-				<td><label>Resident Fax2</label></td>
-				<td><s:input id="txtResidentFax2" path="strResidentFax2"  
-					class="decimal-places numberField" type="text"></s:input></td> 
-			</tr> 
-			<tr>
-			<td><label>Resident PinCode</label></td>
-				<td ><s:input id="txtResidentPinCode" path="strResidentPinCode"  
-					class="decimal-places numberField" type="text"></s:input></td> 
-			
-			<td><label>Resident Mobile No</label></td>
-				<td ><s:input id="txtResidentMobileNo" path="strResidentMobileNo"  
-					class="decimal-places numberField" type="text"></s:input></td> 
-			
-			<td ><label>Resident Email ID</label></td>
-				<td colspan="3"><s:input id="txtResidentEmailID" path="strResidentEmailID" 
-						cssClass="longTextBox" type="text"></s:input></td>
-			</tr>
-		</table>
-		</div>
-		
-		<div id="tab2" class="tab_content">
-		 <table class="transTable">
-		<tr>
-			<th align="right" colspan="8"></th> 
-			</tr>
-		<tr>
-							<td width="120px"><label>Company Code</label></td>
-							<td width="150px"><s:input id="txtCompanyCode"
-									ondblclick="" cssClass="searchTextBox"
-									type="text" path="strCompanyCode" ></s:input></td>
+					<div class="row" >
+					<div class="col-md-4"><label>Name On Card</label><br><s:input id="txtNameOnCard" path="strNameOnCard" onclick="funFillNameOnCard()" type="text"></s:input></div>
+					</div>
+				</div>
+				<div class="col-md-3">
+				           <div><img id="memImage" src="" width="170px" height="150px" alt="Member Image"  ></div>
+				                 <div ><input  id="memberImage" name="memberImage"   type="file" accept="image/gif,image/png,image/jpeg" onchange="funShowImagePreview(this);" style="width:170px;background-color: #C0E4FF"/></div></div>
+	       		</div></div>
+			</div>
 									
-							<td><s:input id="txtCompanyName" path="strCompanyName" 
-									cssClass="longTextBox" type="text"></s:input></td>
+				<h3><a href="#">Address Information</a></h3>
+			<div>							
+				<div id="tab_container" style="height: 130px">
+					<div><ul class="tabs">
+							<li class="active" data-state="tab1">Resident Address</li>
+							<li data-state="tab2"> Company Address</li>
+							<li data-state="tab3">Billing Address</li>
+						</ul></div><br>
 									
-									
-							<td width="120px"><label>Job Profile</label></td>
-							<td width="150px"><s:input id="txtJobProfileCode"
-									ondblclick="" cssClass="searchTextBox"
-									type="text" path="strJobProfileCode" ></s:input></td>
-									
-							<td colspan="2"><s:input id="txtJobProfileName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-		
-		</tr>
-		
-		<tr>
-						<td width="120px"><label>Holding Code</label></td>
-							<td width="150px"><s:input id="txtHoldingCode"
-									ondblclick="" cssClass="searchTextBox"
-									type="text" path="strHoldingCode" ></s:input></td>
-									
-						<td><s:input id="txtHoldingName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-						
-						<td width="120px"><label>Address Line1</label></td>
-						<td colspan="3"><s:input id="txtCompanyAddressLine1" path="strCompanyAddressLine1" 
-									cssClass="longTextBox" type="text"></s:input></td>
-		</tr>
-		<tr>
-						<td width="120px"><label>Address Line2</label></td>
-						<td><s:input id="txtCompanyAddressLine2" path="strCompanyAddressLine2" 
-									cssClass="longTextBox" type="text"></s:input></td>
-									
-						<td width="120px"><label>Address Line3</label></td>
-						<td colspan="4"><s:input id="txtCompanyAddressLine3" path="strCompanyAddressLine3" 
-									cssClass="longTextBox" type="text"></s:input></td>					
-		
-		</tr>
-		
-		<tr>
-						<td ><label>Landmark</label></td>
-						<td><s:input id="txtCompanyLandMark" path="strCompanyLandMark"
-									cssClass="longTextBox" type="text"></s:input></td>
-									
-						<td ><label>Area Code</label></td>
-							<td ><s:input id="txtCompanyAreaCode"
-									ondblclick="funHelp('WCComAreaMaster')" cssClass="searchTextBox" 
-									type="text" path="strCompanyAreaCode" ></s:input></td>
-									
-						<td colspan="3"><s:input id="txtCompanyAreaName" path=""
-									cssClass="longTextBox" type="text"></s:input></td>
-		</tr>
-		<tr>
-						<td ><label>City Code</label></td>
-							<td ><s:input id="txtCompanyCtCode"
-									ondblclick="funHelp('WCComCityMaster')" cssClass="searchTextBox" 
-									type="text" path="strCompanyCtCode" ></s:input></td>
-									
-						<td><s:input id="txtCompanyCtName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-									
-						<td ><label>State Code</label></td>
-							<td ><s:input id="txtCompanyStateCode"
-									ondblclick="funHelp('WCComStateMaster')" cssClass="searchTextBox" 
-									type="text" path="strCompanyStateCode" ></s:input></td>
-									
-						<td colspan="2"><s:input id="txtCompanyStateName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>		
-		</tr>
-		<tr>
-						<td><label>Region Code</label></td>
-							<td><s:input id="txtCompanyRegionCode"
-									ondblclick="funHelp('WCComRegionMaster')" cssClass="searchTextBox" 
-									type="text" path="strCompanyRegionCode" ></s:input></td>
-									
-						<td><s:input id="txtCompanyRegionName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>		
-									
-						<td><label>Country Code</label></td>
-						<td><s:input id="txtCompanyCountryCode" 
-									ondblclick="funHelp('WCComCountryMaster')"  cssClass="searchTextBox"
-									type="text" path="strCompanyCountryCode" ></s:input></td>
-									
-						<td colspan="2"><s:input id="txtCompanyCountryName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>	
-		</tr>
-		<tr>
-						<td ><label>PinCode</label></td>
-						<td colspan="2"><s:input id="txtCompanyPinCode" path="strCompanyPinCode" 
-									class="decimal-places numberField" type="text" style="width: 36%"></s:input></td>
-									
-						<td ><label>Telephone</label></td>
-						<td ><s:input id="txtCompanyTelePhone1" path="strCompanyTelePhone1" 
-									class="decimal-places numberField" type="text"></s:input></td>
-						<td ><s:input id="txtCompanyTelePhone2" path="strCompanyTelePhone2" 
-									class="decimal-places numberField" type="text"></s:input></td>
-								
-		</tr>
-		
-		<tr>
-						<td ><label>Fax</label></td>
-						<td><s:input id="txtCompanyFax1" path="strCompanyFax1" 
-									class="decimal-places numberField" type="text"></s:input></td>
-						
-						<td ><s:input id="txtCompanyFax2" path="strCompanyFax2" 
-									class="decimal-places numberField" type="text"></s:input></td>
-									
-						<td ><label>Mobile No</label></td>
-						<td colspan="2"><s:input id="txtCompanyMobileNo" path="strCompanyMobileNo" 
-									class="decimal-places numberField" type="text"></s:input></td>
-						
-		</tr>
-		
-		<tr>
-				<td ><label>Email ID</label></td>
-						<td colspan="7"><s:input id="txtCompanyEmailID" path="strCompanyEmailID" 
-									cssClass="longTextBox" type="text" style="width: 56%" ></s:input></td>
-						
-		</tr>
-						
-		</table>
-		</div>
-		
-		
-		<div id="tab3" class="tab_content">
-		 <table class="transTable">
-		<tr>
-			<th align="right" colspan="8"></th> 
-			</tr>
-		
-		<tr>
-						<td width="120px"><label>Address Line1</label></td>
-						<td colspan="3"><s:input id="txtBillingAddressLine1" path="strBillingAddressLine1" 
-									cssClass="longTextBox" type="text"></s:input></td>
-									
-						<td width="120px"><label>Address Line2</label></td>
-						<td colspan="3"><s:input id="txtBillingAddressLine2" path="strBillingAddressLine2" 
-									cssClass="longTextBox" type="text"></s:input></td>					
-		
-		</tr>
-		
-		<tr>
-						<td width="120px"><label>Address Line3</label></td>
-						<td colspan="3"><s:input id="txtBillingAddressLine3" path="strBillingAddressLine3" 
-									cssClass="longTextBox" type="text"></s:input></td>
-						
-						<td width="120px"><label>Landmark</label></td>
-						<td colspan="3"><s:input id="txtBillingLandMark" path="strBillingLandMark" 
-									cssClass="longTextBox" type="text"></s:input></td>
-		</tr>
-		
-		<tr>
-							
-						<td width="120px"><label>Area Code</label></td>
-							<td width="150px"><s:input id="txtBillingAreaCode"
-									ondblclick="funHelp('WCBillingAreaMaster')" cssClass="searchTextBox" required="required"
-									type="text" path="strBillingAreaCode" ></s:input></td>
-									
-						<td colspan="2"><s:input id="txtBillingAreaName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-									
-						<td width="120px"><label>City Code</label></td>
-							<td width="150px"><s:input id="txtBillingCtCode"
-									ondblclick="funHelp('WCBillingCityMaster')" cssClass="searchTextBox" required="required"
-									type="text" path="strBillingCtCode" ></s:input></td>
-									
-						<td colspan="2"><s:input id="txtBillingCtName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-		</tr>
-		
-		<tr>
-						<td width="120px"><label>Country Code</label></td>
-							<td width="150px"><s:input id="txtBillingCountryCode"
-									ondblclick="funHelp('WCBillingCountryMaster')"  cssClass="searchTextBox" 
-									type="text" path="strBillingCountryCode" ></s:input></td>
-						 	
-						<td colspan="2"> <s:input id="txtBillingCountryName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-									
-						<td width="120px"><label>Region Code</label></td>
-							<td width="150px"><s:input id="txtBillingRegionCode"
-									ondblclick="funHelp('WCBillingRegionMaster')" cssClass="searchTextBox" 
-									type="text" path="strBillingRegionCode" ></s:input></td>
-									
-						<td colspan="2"><s:input id="txtBillingRegionName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-		</tr>
-		
-		<tr>	
-						<td width="120px"><label>Telephone</label></td>
-						<td><s:input id="txtBillingTelePhone1" path="strBillingTelePhone1" 
-									class="decimal-places numberField" type="text"></s:input></td>
-						<td colspan="2"><s:input id="txtBillingTelePhone2" path="strBillingTelePhone2" 
-									class="decimal-places numberField" type="text"></s:input></td>
-									
-						<td width="120px"><label>Fax</label></td>
-						<td><s:input id="txtBillingFax1" path="strBillingFax1" 
-									class="decimal-places numberField" type="text"></s:input></td>
-						<td colspan="2"> <s:input id="txtBillingFax2" path="strBillingFax2" 
-									class="decimal-places numberField" type="text"></s:input></td>
-						
-						
-		</tr>
-		<tr>
-						<td ><label>State Code</label></td>
-							<td width="150px"><s:input id="txtBillingStateCode"
-									ondblclick="funHelp('WCBillingStateMaster')" cssClass="searchTextBox"
-									type="text" path="strBillingStateCode"  required="required" ></s:input></td>
-									
-						<td colspan="2"><s:input id="txtBillingStateName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-						
-						<td ><label>Pincode</label></td>
-						<td colspan="2"><s:input id="txtBillingPinCode" path="strBillingPinCode" 
-									class="decimal-places numberField" type="text"></s:input></td>
-									
-						
-									
-						
-		</tr>
-		<tr>	
-					<td ><label>Mobile</label></td>
-						<td colspan="2"><s:input id="txtBillingMobileNo" path="strBillingMobileNo" 
-									class="decimal-places numberField" type="text"></s:input></td>
-		
-					<td ><label>Email Id</label></td>			
-						<td colspan="5"><s:input id="txtBillingEmailID" path="strBillingEmailID" 
-									class="longTextBox" type="text" style="width: 56%"></s:input></td>
-		</tr>
-		
-		</table>
-		</div>
-		
-		
-		
-		</div>
-		</div>
-		
-		 
-		<h3><a href="#">Personal Information</a></h3>
-		<div>
-		  <table class="transTable">
-		
-		<tr>
-				<td width="5%"><label>Sex</label></td>
-				 <td width="3%"><s:select id="cmbGender" name="cmbGender" path="strGender" cssClass="BoxW124px" >
-				 <option value="M">Male</option>
- 				 <option value="F">Female</option>
-				 </s:select></td>
-				 
-			    <td width="5%"><label>Date Of Birth</label></td>
-			    <td width="5%"><s:input id="txtdtDateofBirth" name="txtdtDateofBirth" path="dteDateofBirth"  cssClass="calenderTextBox" /></td>
-		
-				<td width="4%"><label>Marital Status</label></td>
-				<td width="11%"><s:select id="cmbMaritalStatus" name="cmbMaritalStatus" path="strMaritalStatus" required="required" cssClass="BoxW124px" >
-				 <option value="Single">Single</option>
- 				 <option value="married">married</option>
-				 </s:select></td>
-				 
-		</tr>
-		<tr>
-				<td width="120px"><label>Profession Code</label></td>
-							<td width="150px"><s:input id="txtProfessionCode"
-									ondblclick="funHelp('WCProfessionMaster')" cssClass="searchTextBox"
-									type="text" path="strProfessionCode" ></s:input></td>
-									
-						<td colspan="4"><s:input id="txtProfessionName" path="" 
-									cssStyle="width: 30%%;" cssClass="longTextBox" type="text"></s:input></td>
-		</tr>
-				
-		</table>  
-		</div>
-		
-		<h3 id="headerSpouse" style="display:none"><a href="#">Spouse Information</a></h3>
-		<div id="divSpouse" style="display:none">
-			<table class="transTable">
-			<tr>
-			<td width="120px"><label>Spouse Code</label></td>
-							<td width="150px"><s:input id="txtSpouseCode"
-									ondblclick="" cssClass="searchTextBox" readonly="true"
-									type="text" path="strSpouseCode" ></s:input></td>
-			
-						
-							<td><label>FirstName</label></td>
-							<td><s:input id="txtSpouseFirstName" path="strSpouseFirstName" 
-									cssClass="longTextBox" type="text"></s:input></td>
-							
-							<td><label>MiddleName</label></td>
-							<td><s:input id="txtSpouseMiddleName" path="strSpouseMiddleName" 
-									cssClass="longTextBox" type="text"></s:input></td>			
-									
-							<td  width="8%"><label>LastName</label></td>
-							<td><s:input id="txtSpouseLastName" path="strSpouseLastName" 
-									cssStyle="width: 56%;" cssClass="longTextBox" type="text"></s:input></td>
-			
-			</tr>
-			
-			<tr>
-				<td width="120px"><label>Profession Code</label></td>
-							<td width="150px"><s:input id="txtSpouseProfessionCode"
-									ondblclick="funHelp('WCSpouseProfessionMaster')" cssClass="searchTextBox"
-									type="text" path="strSpouseProfessionCode" ></s:input></td>
-									
-						<td colspan="2"><s:input id="txtSpouseProfessionName" path="" 
-									cssStyle="width: 100%;" cssClass="longTextBox" type="text"></s:input></td>
-									
-						<td width="5%"><label>Date Of Birth</label></td>
-			   		 <td colspan="3"><s:input id="txtdtSpouseDateofBirth" name="txtdtSpouseDateofBirth" path="dteSpouseDateofBirth"  cssClass="calenderTextBox" /></td>
-								
-			</tr>
-			
-			<tr>
-			
-					
-					<td><label>Mobile No</label></td>
-					<td ><s:input id="txtSpouseResidentMobileNo" path="strSpouseResidentMobileNo"  
-					class="decimal-places numberField" type="text"></s:input></td> 
-			
-					<td ><label>Email ID</label></td>
-					<td colspan="5"><s:input id="txtSpouseResidentEmailID" path="strSpouseResidentEmailID" 
-						cssClass="longTextBox" type="text"></s:input></td>
+  					<div id="tab1" class="tab_content">	
+			     <div class="container transtable" style="background-color:#f2f2f2;">
+					<div class="row" style="margin-top:22px;">
+						<div class="col-md-12" style="align:left;"></div>
+		  				<div class="col-md-3"><label>Resident Address Line1</label><br><s:input id="txtResidentAddressLine1" path="strResidentAddressLine1" 
+								type="text"></s:input></div>
+		  				<div class="col-md-3"><label>Resident Address Line2</label><br><s:input id="txtResidentAddressLine2" path="strResidentAddressLine2" type="text"></s:input></div>
+		  				<div class="col-md-3"><label>Resident Address Line3</label><br><s:input id="txtResidentAddressLine3" path="strResidentAddressLine3"
+								 type="text"></s:input></div>
+		  				<div class="col-md-3"><label>Resident LandMark</label><br><s:input id="txtResidentLandMark" path="strResidentLandMark" type="text"></s:input></div>
+		  		
+		  				<div class="col-md-3"><label>Resident Area Code</label><br><s:input id="txtResidentAreaCode" path="strResidentAreaCode" 
+								ondblclick="funHelp('WCResAreaMaster')" type="text" readonly="true" cssClass="searchTextBox"></s:input></div>
+		  				<div class="col-md-3"><label>Resident City Code</label><br><s:input id="txtResidentCtCode" path="strResidentCtCode" ondblclick="funHelp('WCResCityMaster')" type="text" readonly="true"  cssClass="searchTextBox"></s:input></div>
+		  				<div class="col-md-3"><label>Resident State Code</label><br><s:input id="txtResidentStateCode" path="strResidentStateCode" 
+								ondblclick="funHelp('WCResStateMaster')" type="text" readonly="true" cssClass="searchTextBox"></s:input></div>
+		  				<div class="col-md-3"><label>Resident Region Code</label><br><s:input id="txtResidentRegionCode" path="strResidentRegionCode" 
+								ondblclick="funHelp('WCResRegionMaster')" type="text" readonly="true" cssClass="searchTextBox"></s:input></div>
+		  				
+		  				<div class="col-md-3"><label>Resident Country Code</label><br><s:input id="txtResidentCountryCode" path="strResidentCountryCode" 
+								 ondblclick="funHelp('WCResCountryMaster')" readonly="true" cssClass="searchTextBox"
+								type="text"></s:input></div>
+		  				<div class="col-md-3"><label>Resident Telephone1</label><br><s:input id="txtResidentTelephone1" path="strResidentTelephone1" 
+							class="decimal-places numberField" type="text"></s:input></div>
+		  				<div class="col-md-3"><label>Resident Telephone2</label><br><s:input id="txtResidentTelephone2" path="strResidentTelephone2" 
+							class="decimal-places numberField" type="text"></s:input></div>
+		  				<div class="col-md-3"><label>Resident Fax1</label><br><s:input id="txtResidentFax1" path="strResidentFax1"  
+							class="decimal-places numberField" type="text"></s:input></div>
+		  				
+		  				<div class="col-md-3"><label>Resident Fax2</label><br><s:input id="txtResidentFax2" path="strResidentFax2"  
+							class="decimal-places numberField" type="text"></s:input></div>
+		  				<div class="col-md-3"><label>Resident PinCode</label><br><s:input id="txtResidentPinCode" path="strResidentPinCode"  
+							class="decimal-places numberField" type="text"></s:input></div>
+		  				<div class="col-md-3"><label>Resident Mobile No</label><br><s:input id="txtResidentMobileNo" path="strResidentMobileNo"  
+							class="decimal-places numberField" type="text"></s:input></div>
+		  				<div class="col-md-3"><label>Resident Email ID</label><br><s:input id="txtResidentEmailID" path="strResidentEmailID" type="text"></s:input></div>
+					</div>
+				</div>
+			</div>
 			
 			
-			</tr>
+	<div id="tab2" class="tab_content">
 			
-			<tr>
-					<td width="120px"><label>Company Code</label></td>
-							<td width="150px"><s:input id="txtSpouseCompanyCode"
-									ondblclick="" cssClass="searchTextBox"
-									 type="text" path="strSpouseCompanyCode" ></s:input></td>
-									
-							<td><s:input id="txtSpouseCompanyName" path=""  
-									cssClass="longTextBox" type="text"></s:input></td>
-									
-									
-							<td width="120px"><label>Job Profile</label></td>
-							<td width="150px"><s:input id="txtSpouseJobProfileCode"
-									ondblclick="" cssClass="searchTextBox"
-									type="text" path="strSpouseJobProfileCode" ></s:input></td>
-									
-							<td colspan="3"><s:input id="txtSpouseJobProfileName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-			</tr> 
-			
-			<tr>
-						<td width="5%"><label>Anniversary Date</label></td>
-			   		 	<td width="5%"><s:input id="txtdtAnniversary" name="txtdtAnniversary" path="dteAnniversary"  cssClass="calenderTextBox" /></td>
-					
-						<td><label>Spouse Block</label></td>
-			   			<td><s:select id="cmbSpouseFacilityBlock" name="cmbSpouseFacilityBlock" path="strSpouseBlocked" cssClass="BoxW124px" >
-						 <option value="N">No</option>
-		 				 <option value="Y">Yes</option>
-						 </s:select></td>	
-						 
-						  <td width="120px"><label>StopCredit Supply </label></td>
-						 <td ><s:select id="cmbSpouseStopCredit" name="cmbSpouseStopCredit" path="strSpouseStopCredit" cssClass="BoxW124px" >
-						 <option value="N">No</option>
-		 				 <option value="Y">Yes</option>
-						 </s:select></td>
-						 
-<!-- 						 <td ><label>Spouse Liquor License</label></td> -->
-<%-- 						<td ><s:input id="txtSpouseLiquorLicense" path="strSpouseLiquorLicense"  --%>
-<%-- 						cssClass="longTextBox" type="text"></s:input></td> --%>
-			
-			</tr>
-			
-			
-			
-			</table>
-		</div>
-		
-		
-		
-		
-		
-		<h3><a href="#">Membership Information</a></h3>
-		<div>
-		  <table class="transTable">
-		
-		<tr>	
-				<td width="120px"><label>Membership Category</label></td>
-							<td width="150px"><s:input id="txtMSCategoryCode"
-									ondblclick="funHelp('WCCatMaster')" cssClass="searchTextBox" 
-									type="text" path="strCategoryCode" required="required" ></s:input></td>
-									
-						<td><s:input id="txtMemberName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-				
-				 <td><label>Ballot Date</label></td>
-			    <td colspan="2"><s:input id="txtdtBallotDate" name="txtdtBallotDate" path=""  cssClass="calenderTextBox" /></td>
-		</tr>
-		<tr>
-				<td width="120px"><label>Proposer Code</label></td>
-							<td width="150px"><s:input id="txtProposerCode"
-									ondblclick="" cssClass="searchTextBox"
-									type="text" path="strProposerCode" ></s:input></td>
-									
-						<td><s:input id="txtProposerName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-			
-				<td width="120px"><label>Seconder Code</label></td>
-							<td width="150px"><s:input id="txtSeconderCode"
-									ondblclick="" cssClass="searchTextBox"
-									type="text" path="strSeconderCode" ></s:input></td>
-									
-						<td><s:input id="txtSeconderName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-		
-		</tr>
-		<tr>
-				
-				<td width="120px"><label>Father/Mother Code</label></td>
-							<td width="150px"><s:input id="txtFatherMemberCode"
+				<div class="container transtable"  style="background-color:#f2f2f2;">
+			<div class="row" style="margin-top:22px;">
+  				<div class="col-md-6"><label>Company Code</label><br>
+  					<div class="row" ><div class="col-md-6"><s:input id="txtCompanyCode"
 									ondblclick="" cssClass="searchTextBox" 
-									type="text" path="strFatherMemberCode" ></s:input></td>
+									 type="text" path="strCompanyCode" readonly="true" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtCompanyName" path="strCompanyName" type="text"></s:input></div></div></div>
 									
-						<td><s:input id="txtFatherMemberName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
+				<div class="col-md-6"><label>Job Profile</label><br>
+					<div class="row" ><div class="col-md-6"><s:input id="txtJobProfileCode"
+									ondblclick="" cssClass="searchTextBox" readonly="true" 
+									type="text" path="strJobProfileCode" ></s:input></div>
+								  <div class="col-md-6"><s:input id="txtJobProfileName" path="" type="text"></s:input></div></div></div>
 			
-				<td width="120px"><label>Status</label></td>
-							<td width="150px"><s:input id="txtStatusCode"
+			
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Adress Line1 </label><br><s:input id="txtCompanyAddressLine1" path="strCompanyAddressLine1" type="text"></s:input></div>
+			<div class="col-md-6"><label>Adress Line 2</label><br><s:input id="txtCompanyAddressLine2" path="strCompanyAddressLine2" 
+								 type="text"></s:input></div></div></div>
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Adress Line 3</label><br><s:input id="txtCompanyAddressLine3" path="strCompanyAddressLine3" 
+								type="text"></s:input></div>
+			<div class="col-md-6"><label>Landmark</label><br><s:input id="txtCompanyLandMark" path="strCompanyLandMark" 
+									type="text"></s:input></div></div></div>
+									
+									
+			<div class="col-md-6"><label>Holding Code</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtHoldingCode"
+									ondblclick=""  cssClass="searchTextBox"
+									type="text" path="strHoldingCode" ></s:input></div>
+								 <div class="col-md-6"><s:input id="txtHoldingName" path="" type="text"></s:input></div></div></div>
+									
+			<div class="col-md-6"><label>Area Code</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtCompanyAreaCode"
+									ondblclick="funHelp('WCComAreaMaster')" cssClass="searchTextBox" readonly="true" 
+									type="text" path="strCompanyAreaCode" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtCompanyAreaName" path="" readonly="true"
+									 type="text"></s:input></div></div></div>	
+											
+			<div class="col-md-6"><label>City Code</label><br>
+				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyCtCode"
+									ondblclick="funHelp('WCComCityMaster')"  cssClass="searchTextBox" readonly="true" 
+									type="text" path="strCompanyCtCode" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtCompanyCtName" path="" readonly="true"
+									 type="text"></s:input></div></div></div>
+			<div class="col-md-6"><label>State Code</label><br>
+				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyStateCode"
+									ondblclick="funHelp('WCComStateMaster')"  cssClass="searchTextBox" readonly="true" 
+									type="text" path="strCompanyStateCode" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtCompanyStateName" path="" readonly="true"
+									 type="text"></s:input></div></div></div>
+		
+			<div class="col-md-6"><label>Region Code</label><br>
+				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyRegionCode"
+									ondblclick="funHelp('WCComRegionMaster')"  cssClass="searchTextBox" readonly="true" 
+									type="text" path="strCompanyRegionCode" ></s:input></div>
+							     <div class="col-md-6"><s:input id="txtCompanyRegionName" path="" readonly="true" type="text"></s:input></div></div></div>
+			
+			<div class="col-md-6"><label>Country Code</label><br>
+				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyCountryCode" 
+									ondblclick="funHelp('WCComCountryMaster')" cssClass="searchTextBox"  readonly="true" 
+									type="text" path="strCompanyCountryCode" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtCompanyCountryName" path="" readonly="true" type="text"></s:input></div></div></div>
+
+			<div class="col-md-6"><label>Telephone</label><br>
+				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyTelePhone1" path="strCompanyTelePhone1" 
+									class="decimal-places numberField" type="text"></s:input></div>
+									<div class="col-md-6"><s:input id="txtCompanyTelePhone2" path="strCompanyTelePhone2" 
+									class="decimal-places numberField" type="text"></s:input></div></div></div>
+			
+			<div class="col-md-6"><label>Fax</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtCompanyFax1" path="strCompanyFax1" 
+									class="decimal-places numberField" type="text"></s:input></div>
+								<div class="col-md-6"><s:input id="txtCompanyFax2" path="strCompanyFax2" 
+									class="decimal-places numberField" type="text"></s:input></div></div></div>
+				
+				<div class="col-md-6">					
+		    	<div class="row"><div class="col-md-6"><label>Pin Code</label><br><s:input id="txtCompanyPinCode" path="strCompanyPinCode" readonly="true"
+									class="decimal-places numberField" type="text"></s:input></div>
+			
+								<div class="col-md-6"><label>Mobile No</label><br><s:input id="txtCompanyMobileNo" path="strCompanyMobileNo" 
+									class="decimal-places numberField" type="text"></s:input></div></div></div>
+									
+			<div class="col-md-4"><label>Email ID</label><br><s:input id="txtCompanyEmailID" path="strCompanyEmailID" 
+								type="text" style="width: 67%" ></s:input></div>
+	
+		</div></div>
+			</div>			
+			
+			
+<div id="tab3" class="tab_content">		
+			
+			<div class="container transtable"  style="background-color:#f2f2f2;">
+			<div class="row" style="margin-top:22px;">
+  				<div class="col-md-6">
+  					<div class="row"><div class="col-md-6"><label>Address Line 1</label><br><s:input id="txtBillingAddressLine1" path="strBillingAddressLine1" 
+								type="text"></s:input></div>
+									 <div class="col-md-6"><label>Address Line2</label><br><s:input id="txtBillingAddressLine2" path="strBillingAddressLine2" 
+									 type="text"></s:input></div></div></div>
+			
+			<div class="col-md-6">
+  					<div class="row"><div class="col-md-6"><label>Address Line3</label><br><s:input id="txtBillingAddressLine3" path="strBillingAddressLine3" 
+									type="text"></s:input></div>
+									<div class="col-md-6"><label>Landmark</label><br><s:input id="txtBillingLandMark" path="strBillingLandMark" 
+									type="text"></s:input></div></div></div>	
+		
+			<div class="col-md-6"><label>Area Code</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtBillingAreaCode" readonly="true"
+									ondblclick="funHelp('WCBillingAreaMaster')"  cssClass="searchTextBox"
+									type="text" path="strBillingAreaCode" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtBillingAreaName" path=""  readonly="true"
+									 type="text"></s:input></div></div></div>
+			
+			<div class="col-md-6"><label>City Code</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtBillingCtCode"
+									ondblclick="funHelp('WCBillingCityMaster')"  cssClass="searchTextBox" readonly="true"
+									type="text" path="strBillingCtCode" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtBillingCtName" path=""  readonly="true"
+									 type="text"></s:input></div></div></div>	
+
+			<div class="col-md-6"><label>Country Code</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtBillingCountryCode"
+									ondblclick="funHelp('WCBillingCountryMaster')"  cssClass="searchTextBox" readonly="true" 
+									type="text" path="strBillingCountryCode"></s:input></div>
+						 	       <div class="col-md-6"><s:input id="txtBillingCountryName" path=""  readonly="true"
+									type="text"></s:input></div></div></div>
+			<div class="col-md-6"><label>Region Code</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtBillingRegionCode"
+									ondblclick="funHelp('WCBillingRegionMaster')"  cssClass="searchTextBox" readonly="true" 
+									type="text" path="strBillingRegionCode" ></s:input></div>
+							    	<div class="col-md-6"><s:input id="txtBillingRegionName" path=""  readonly="true"
+									 type="text"></s:input></div></div></div>	
+		
+			<div class="col-md-6"><label>Telephone</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtBillingTelePhone1" path="strBillingTelePhone1" 
+									class="decimal-places numberField" type="text"></s:input></div>
+								<div class="col-md-6"><s:input id="txtBillingTelePhone2" path="strBillingTelePhone2" 
+									class="decimal-places numberField" type="text"></s:input></div></div></div>
+			<div class="col-md-6"><label>Fax</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtBillingFax1" path="strBillingFax1" 
+									class="decimal-places numberField" type="text"></s:input></div>
+								 <div class="col-md-6"><s:input id="txtBillingFax2" path="strBillingFax2" 
+									class="decimal-places numberField" type="text"></s:input></div></div></div>	
+			
+			<div class="col-md-6"><label>State Code</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtBillingStateCode"
+									ondblclick="funHelp('WCBillingStateMaster')"  cssClass="searchTextBox" 
+									type="text" path="strBillingStateCode"  readonly="true" ></s:input></div>
+								 <div class="col-md-6"><s:input id="txtBillingStateName" path="" 
+									type="text"></s:input></div></div></div>
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Pin Code</label><br><s:input id="txtBillingPinCode" path="strBillingPinCode"  readonly="true"
+									class="decimal-places numberField" type="text"></s:input></div>
+									<div class="col-md-6"><label>Mobile</label><br><s:input id="txtBillingMobileNo" path="strBillingMobileNo" 
+									class="decimal-places numberField" type="text"></s:input></div></div></div>	
+		
+			
+			<div class="col-md-3"><label>Email ID</label><br><s:input id="txtBillingEmailID" path="strBillingEmailID" 
+								 type="text"></s:input></div>
+			</div></div>
+			</div>
+		
+		</div>
+		</div>
+			
+					
+<h3><a href="#">Personal Information</a></h3>
+		<div>		
+			<div class="container transtable"  style="background-color:#f2f2f2;">
+			<div class="row">
+  				<div class="col-md-6"><label>Profession Code</label><br>
+  					<div class="row"><div class="col-md-6"><s:input id="txtProfessionCode"  ondblclick="funHelp('WCProfessionMaster')" cssClass="searchTextBox" readonly="true" 
+									type="text" path="strProfessionCode" ></s:input></div>
+								<div class="col-md-6"><s:input id="txtProfessionName" path="" 
+									cssStyle="width: 30%%;" type="text"></s:input></div></div></div>
+				
+				<div class="col-md-6">
+					<div class="row"><div class="col-md-6"><label>Date Of Birth</label><br><s:input id="txtdtDateofBirth" name="txtdtDateofBirth" path="dteDateofBirth" cssClass="calenderTextBox"></s:input></div>
+									<div class="col-md-6"><label>Marital Status</label><br><s:select id="cmbMaritalStatus" name="cmbMaritalStatus" path="strMaritalStatus">
+													 <option value="Single">Single</option>
+									 				 <option value="married">married</option>
+													 </s:select></div></div></div>
+				<div class="col-md-3"><label>Sex</label><br><s:select id="cmbGender" name="cmbGender" path="strGender">
+										 <option value="M">Male</option>
+						 				 <option value="F">Female</option>
+										 </s:select></div>
+								  
+			</div></div>
+			</div>
+			
+	<h3 id="headerSpouse" style="display:none"><a href="#">Spouse Information</a></h3>
+		<div id="divSpouse" style="display:none">	
+		
+		<div class="container transtable"  style="background-color:#f2f2f2;">
+			<div class="row">
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Spouse Code</label><br><s:input id="txtSpouseCode"
+									ondblclick="" readonly="true"
+									type="text" path="strSpouseCode" ></s:input></div>
+								   <div class="col-md-6"><label>First Name</label><br><s:input id="txtSpouseFirstName" path="strSpouseFirstName" 
+									type="text"></s:input></div></div></div>
+									
+			<div class="col-md-6">						
+				<div class="row"><div class="col-md-6"><label>Middle Name</label><br><s:input id="txtSpouseMiddleName" path="strSpouseMiddleName" 
+									type="text"></s:input></div>
+									<div class="col-md-6"><label>Last Name</label><br><s:input id="txtSpouseLastName" path="strSpouseLastName" 
+									cssStyle="width: 56%;" type="text"></s:input></div></div></div>
+								
+									
+			<div class="col-md-6"><label>Profession Code</label><br>
+					<div class="row"><div class="col-md-6"><s:input id="txtSpouseProfessionCode" readonly="true"
+									ondblclick="funHelp('WCSpouseProfessionMaster')" 
+									type="text" path="strSpouseProfessionCode" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtSpouseProfessionName" path="" readonly="true"
+									cssStyle="width: 100%;" type="text"></s:input></div></div></div>
+									
+			<div class="col-md-6">						
+				<div class="row"><div class="col-md-6"><label>Date Of Birth</label><br><s:input id="txtdtSpouseDateofBirth" name="txtdtSpouseDateofBirth" cssClass="calenderTextBox" path="dteSpouseDateofBirth"/></div>
+								<div class="col-md-6"><label>Mobile No</label><br><s:input id="txtSpouseResidentMobileNo" path="strSpouseResidentMobileNo"  
+													class="decimal-places numberField" type="text"></s:input></div></div></div>
+	
+	        <div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Email ID</label><br><s:input id="txtSpouseResidentEmailID" path="strSpouseResidentEmailID" 
+						           type="text"></s:input></div>
+				               <div class="col-md-6"><label>Anniversary Date</label><br><s:input id="txtdtAnniversary" name="txtdtAnniversary" path="dteAnniversary" /></div></div></div>
+			
+			<div class="col-md-6"><label>Company Code</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtSpouseCompanyCode"
+									ondblclick="" 
+									 type="text" path="strSpouseCompanyCode" ></s:input></div>
+								 <div class="col-md-6"><s:input id="txtSpouseCompanyName" path=""  
+										type="text"></s:input></div></div></div>
+							
+			<div class="col-md-6"><label>Job Profile</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtSpouseJobProfileCode"
+									ondblclick="" type="text" path="strSpouseJobProfileCode" ></s:input></div>
+								<div class="col-md-6"><s:input id="txtSpouseJobProfileName" path=""  type="text"></s:input></div></div></div>
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Spouse Block</label><br><s:select id="cmbSpouseFacilityBlock" name="cmbSpouseFacilityBlock" path="strSpouseBlocked">
+											 <option value="N">No</option>
+							 				 <option value="Y">Yes</option>
+											 </s:select></div>
+								<div class="col-md-6"><label>StopCredit Supply</label><br><s:select id="cmbSpouseStopCredit" name="cmbSpouseStopCredit" path="strSpouseStopCredit">
+											 <option value="N">No</option>
+								 			 <option value="Y">Yes</option>
+											 </s:select></div></div></div>
+			   </div></div>
+			   </div>
+    	
+    <h3><a href="#">Membership Information</a></h3>
+		<div>		
+			<div class="container transtable"  style="background-color:#f2f2f2;">
+			<div class="row">
+  				
+  				<div class="col-md-6"><label>Membership Category Code</label><br>
+  					<div class="row"><div class="col-md-6"><s:input id="txtMSCategoryCode"
+									ondblclick="funHelp('WCCatMaster')" cssClass="searchTextBox" readonly="true"
+									type="text" path="strCategoryCode"  ></s:input></div>
+								 <div class="col-md-6"><s:input id="txtMemberName" path="" readonly="true"
+										type="text"></s:input></div></div></div>
+				
+				<%-- <div class="col-md-6"><label>Proposer Code</label><br>
+					<div class="row"><div class="col-md-6"><s:input id="txtProposerCode" readonly="true" 
 									ondblclick="" cssClass="searchTextBox"
-									type="text" path="" ></s:input></td>
-									
-						<td><s:input id="txtStatusName" path=""
-									cssClass="longTextBox" type="text"></s:input></td>
-			
-		</tr>
+									type="text" path="strProposerCode" ></s:input></div>
+								  <div class="col-md-6"><s:input id="txtProposerName" path="" 
+										type="text"></s:input></div></div></div> 
+										
+				 <div class="col-md-6"><label>Seconder Code</label><br>
+					<div class="row"><div class="col-md-6"><s:input id="txtSeconderCode"
+									ondblclick=""  cssClass="searchTextBox"
+									type="text" path="strSeconderCode" readonly="true" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtSeconderName" path=""
+											 type="text"></s:input></div></div></div>
 		
-		 <tr>
-				<td><label>Member From</label></td>
-			    <td><s:input id="txtdtMembershipStartDate" name="txtdtMembershipStartDate" path="dteMembershipStartDate"  cssClass="calenderTextBox" /></td>
+	 		<div class="col-md-6"><label>Father/Mother Code</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtFatherMemberCode"
+									ondblclick=""  cssClass="searchTextBox"
+									type="text" path="strFatherMemberCode" readonly="true" ></s:input></div>
+								  <div class="col-md-6"><s:input id="txtFatherMemberName" path="" 
+										 type="text"></s:input></div></div></div> 
+										 
+			<div class="col-md-6"><label>Status</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtStatusCode"
+									ondblclick=""  cssClass="searchTextBox"
+									type="text" path="" ></s:input></div>
+								<div class="col-md-6"><s:input id="txtStatusName" path=""
+											 type="text"></s:input></div></div></div>--%>
+											 
+			<div class="col-md-6"><label>Reason Code</label><br>
+					<div class="row"><div class="col-md-6"><s:input id="txtBlockedReasonCode"
+									ondblclick="funHelp('WCBlockReasonMaster')" cssClass="searchTextBox" path="strBlockedreasonCode"
+									type="text"   readonly="true" ></s:input></div>
+									<div class="col-md-6"><input id="txtBlockedReasonName" readonly="true"
+									type="text"></input></div></div></div>
+		    
+		    <div class="col-md-6"><label>Qualification</label><br>
+					<div class="row"><div class="col-md-6"><s:input id="txtQualification"
+									ondblclick="funHelp('WCEducationMaster')" cssClass="searchTextBox" readonly="true" 
+									type="text" path="strQualification" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtQualificationName" path="" readonly="true"
+									type="text"></s:input></div></div></div>
+			
+			<div class="col-md-6"><label>Designation</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtDesignationCode"
+									ondblclick="funHelp('WCDesignationMaster')"  cssClass="searchTextBox"
+									type="text" path="strDesignationCode" readonly="true" ></s:input></div>
+							      <div class="col-md-6"><s:input id="txtDesignationName" path="" 
+												type="text"></s:input></div></div></div>
+			
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Member From</label><br><s:input id="txtdtMembershipStartDate" name="txtdtMembershipStartDate" cssClass="calenderTextBox" path="dteMembershipStartDate"/></div>
+				                  <div class="col-md-6"><label>Member To</label><br><s:input id="txtdtMembershipEndDate" name="txtdtMembershipEndDate" cssClass="calenderTextBox" path="dteMembershipEndDate"/></div></div></div>									
 				
-				<td><label>Member To</label></td>
-			    <td colspan="3"><s:input id="txtdtMembershipEndDate" name="txtdtMembershipEndDate" path="dteMembershipEndDate"  cssClass="calenderTextBox" /></td>
-		</tr>
-		 
-		<tr>
-				<td><s:select id="cmbMemberBlock" name="" path="strBlocked" cssClass="BoxW124px" >
-				 <option value="N">No</option>
- 				 <option value="Y">Yes</option>
-				 </s:select></td>
-				 
-				 <td><label>Allow Card Validation</label></td>
-			    <td><s:checkbox element="li" id="chkCardValidtion" path="" value="Yes" /></td>
-			    
-			    <td width="120px"><label>Reason Code</label></td>
-							<td width="150px"><s:input id="txtBlockedReasonCode"
-									ondblclick="funHelp('WCBlockReasonMaster')" cssClass="searchTextBox"
-									type="text" path="strBlockedreasonCode"  ></s:input></td>
-									
-						<td><s:input id="txtBlockedReasonName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-		
-		</tr>
-		<tr>
-					 <td width="120px"><label>Qualification</label></td>
-							<td width="150px"><s:input id="txtQualification"
-									ondblclick="funHelp('WCEducationMaster')" cssClass="searchTextBox"
-									type="text" path="strQualification" ></s:input></td>
-									
-						<td><s:input id="txtQualificationName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-		
-						<td width="120px"><label>Designation</label></td>
-							<td width="150px"><s:input id="txtDesignationCode"
-									ondblclick="funHelp('WCDesignationMaster')" cssClass="searchTextBox"
-									type="text" path="strDesignationCode" ></s:input></td>
-									
-						<td><s:input id="txtDesignationName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-		
-		</tr>
-		<tr>
-						<td width="120px"><label>Entrance Fee</label></td>			
-						<td><s:input id="txtdblEntranceFee" path="dblEntranceFee" required="required"
-									class="decimal-places numberField" type="text"></s:input></td>
-									
-						<td width="120px"><label>Subscription Fee</label></td>			
-						<td colspan="3"><s:input id="txtdblSubscriptionFee" path="dblSubscriptionFee" required="required"
-									class="decimal-places numberField" type="text"></s:input></td>
-		
-		
-		</tr>
-		<tr>
-						<td width="120px"><label>Pan Number</label></td>			
-						<td><s:input id="txtPanNumber" path="strPanNumber" 
-									cssClass="longTextBox" type="text"></s:input></td>
-									
-						<td width="120px"><label>Billing Detail</label></td>
-						<td colspan="3"><s:select id="cmbBillingDetail" name="cmbBillingDetail" path="" cssClass="BoxW124px" ></s:select></td>
+			<div class="col-md-6">
+				<div class="row"><%-- <div class="col-md-6"><label>Ballot Date</label><br><s:input id="txtdtBallotDate" name="txtdtBallotDate" cssClass="calenderTextBox" path=""/></div> --%>
+				                 <div class="col-md-6"><label>Allow Card Validation</label><br><s:checkbox element="li" id="chkCardValidtion" path="" value="Yes" /></div></div></div>
+				
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Member Blocked</label><br><s:select id="cmbMemberBlock" name="" path="strBlocked">
+														 <option value="N">No</option>
+										 				 <option value="Y">Yes</option>
+														 </s:select></div>	
+								<div class="col-md-6"><label>Entrance Fee</label><br><s:input id="txtdblEntranceFee" path="dblEntranceFee" 
+									class="decimal-places numberField" type="text"></s:input></div></div></div>
 			
-		</tr>
-		
-		<tr>
-						<td width="120px"><label>Locker Detail</label></td>
-						<td><s:select id="cmbLockerDetail" name="cmbLockerDetail" path="strLocker" cssClass="BoxW124px" >
-						 <option value="N">No</option>
-		 				 <option value="Y">Yes</option>
-						 </s:select></td>
-						 
-						 <td width="120px"><label>Library Facility</label></td>
-						 <td colspan="3"><s:select id="cmbLockerDetail" name="cmbLockerDetail" path="strLibrary" cssClass="BoxW124px" >
-						 <option value="N">No</option>
-		 				 <option value="Y">Yes</option>
-						 </s:select></td>
-		</tr>
-		
-		<tr>
-						<td width="120px"><label>Senior Citizen</label></td>
-						 <td><s:select id="cmbSeniorCitizen" name="cmbSeniorCitizen" path="strSeniorCitizen" cssClass="BoxW124px" >
-						 <option value="N">No</option>
-		 				 <option value="Y">Yes</option>
-						 </s:select></td>
-						 
-						 <td width="120px"><label>StopCredit Supply </label></td>
-						 <td colspan="3"><s:select id="cmbStopCredit" name="cmbStopCredit" path="strStopCredit" cssClass="BoxW124px" >
-						 <option value="N">No</option>
-		 				 <option value="Y">Yes</option>
-						 </s:select></td>
-		</tr>
-		
-		<tr>
-						<td width="120px"><label>Resident</label></td>
-						 <td><s:select id="cmbResident" name="cmbResident" path="" cssClass="BoxW124px" >
-						 <option value="N">No</option>
-		 				 <option value="Y">Yes</option>
-						 </s:select></td>
-						 
-						 <td width="120px"><label>Instation</label></td>
-						 <td colspan="3"><s:select id="txtInstation" name="txtInstation" path="strInstation" cssClass="BoxW124px" >
-						 <option value="N">No</option>
-		 				 <option value="Y">Yes</option>
-						 </s:select></td>
-		</tr>
-		<tr>
-						 <td width="120px"><label>Golf Membership </label></td>
-						 <td colspan="5"><s:select id="cmbGolfMemberShip" name="cmbGolfMemberShip" path="strGolfMemberShip" cssClass="BoxW124px" >
-						 <option value="N">No</option>
-		 				 <option value="Y">Yes</option>
-						 </s:select></td>
-		</tr>
-		
-		<tr>
-						 <td width="120px"><label>Send Innvoice through </label></td>
-						 <td><s:select id="cmbsendInnvoicethrough" name="cmbSendInnvoicethrough" path="" cssClass="BoxW124px" >
-						 <option value="N">No</option>
-		 				 <option value="Y">Yes</option>
-						 </s:select></td>
-						 
-						 <td width="120px"><label>Circulars/Notice </label></td>
-						 <td colspan="3"><s:select id="cmbNotice" name="cmbNotice" path="" cssClass="BoxW124px" >
-						 <option value="N">No</option>
-		 				 <option value="Y">Yes</option>
-						 </s:select></td>
-		</tr>
-		
-		</table>  
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Subscription Fee</label><br><s:input id="txtdblSubscriptionFee" path="dblSubscriptionFee" 
+									class="decimal-places numberField" type="text"></s:input></div>
+							    <div class="col-md-6"><label>Pan Number</label><br><s:input id="txtPanNumber" path="strPanNumber" 
+												type="text"></s:input></div></div></div>
+												
+												
+			<div class="col-md-6">
+						<div class="row">					
+								<div class="col-md-6"><label>Aadhar Card No</label><br><s:input id="txtAadharCardNo" path="strAadharCardNo" 
+									class="decimal-places numberField" type="text"></s:input></div>
+							    <div class="col-md-6"><label>Voter Id Card No</label><br><s:input id="txtVoterIdNo" path="strVoterIdNo" 
+												type="text"></s:input></div>
+								<div class="col-md-6"><label>Passpor No</label><br><s:input id="txtPassportNo" path="strPassportNo" 
+												type="text"></s:input></div>
+						</div>	
+			</div>
+				
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><%-- <label>Billing Detail</label><br><s:select id="cmbBillingDetail" name="cmbBillingDetail" path=""></s:select> --%></div>
+				                  <div class="col-md-6"><label>Locker Detail</label><br><s:select id="txtLocker" name="txtLocker" path="strLocker" >
+																 <option value="N">No</option>
+												 				 <option value="Y">Yes</option>
+																 </s:select></div></div></div>
+														
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Library Facility</label><br><s:select id="txtLibrary" name="txtLibrary" path="strLibrary" >
+															       <option value="N">No</option>
+											 				       <option value="Y">Yes</option>
+															       </s:select></div>
+							     <div class="col-md-6"><label>Senior Citizen</label><br><s:select id="txtSeniorCitizen" name="txtSeniorCitizen" path="strSeniorCitizen">
+																	 <option value="N">No</option>
+													 				 <option value="Y">Yes</option>
+																	 </s:select></div></div></div>
+			
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Stop Credit Supply</label><br><s:select id="txtStopCredit" name="txtStopCredit" path="strStopCredit" >
+															 <option value="N">No</option>
+											 				 <option value="Y">Yes</option>
+															 </s:select></div>
+								<div class="col-md-6"><label>Resident</label><br><s:select id="cmbResident" name="cmbResident" path="">
+															 <option value="N">No</option>
+											 				 <option value="Y">Yes</option>
+															 </s:select></div></div></div>
+								
+		    <div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Instation</label><br><s:select id="txtInstation" name="txtInstation" path="strInstation">
+															 <option value="N">No</option>
+											 				 <option value="Y">Yes</option>
+															 </s:select></div>
+							   <div class="col-md-6"><label>Golf Membership</label><br><s:select id="cmbGolfMemberShip" name="cmbGolfMemberShip" path="strGolfMemberShip">
+															 <option value="N">No</option>
+											 				 <option value="Y">Yes</option>
+															 </s:select></div></div></div>			 
+			
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Send Innvoice through</label><br><s:select id="cmbsendInnvoicethrough" name="cmbSendInnvoicethrough" path="" >
+																 <option value="N">No</option>
+												 				 <option value="Y">Yes</option>
+																 </s:select></div>
+			                     <div class="col-md-6"><label>Circulars/Notice</label><br><s:select id="cmbNotice" name="cmbNotice" path="">
+														 <option value="N">No</option>
+										 				 <option value="Y">Yes</option>
+														 </s:select></div></div></div><br>
+											
+		</div></div>
 		</div>
-		
-		
-		<h3><a href="#">Additional Information</a></h3>
-		<div>
-			<table class="transTable">
-					<tr> 
-					
-					<td>NO pic aviable</td>
-					
-					</tr>
-		</table>
-		</div>
-		
-		
-		<h3><a href="#">Edit Other Information</a></h3>
-		<div>
-			<table class="transTable">
-					<tr> 
-					
-					<td>Not understand</td>
-					
-					</tr>
-		</table>
-			
-			
-		</div>
-		
-		
-		<h3><a href="#">Facility Information</a></h3>
-		<div>
-				<table class="transTable">
-					<tr> 
-						<td width="120px"><label>facility</label></td>
-						 <td width="20%"><s:select id="cmbfacility" name="cmbfacility" path="" cssClass="BoxW124px" >
-						 </s:select></td>
-						
-						<td width="120px"><label>Payment Scheme</label></td>
-						 <td colspan="2"><s:select id="cmbPaymentScheme" name="cmbPaymentScheme" path="" cssClass="BoxW124px" >
-						 </s:select></td>	
-					</tr>
-					
-			<tr>
-				<td><label>From Date</label></td>
-			    <td><s:input id="txtdtFromDate" name="txtdtFromDate" path=""  cssClass="calenderTextBox" /></td>
+			<h3><a href="#">Bank Information</a></h3>
+				<div>	
+					<div class="container transtable"  style="background-color:#f2f2f2;">
+						<div class="row">
+			      			<div class="col-md-6">
+				        		<div class="row">
+				        			<div class="col-md-6">
+				        				<label>Bank Code</label><br>
+				        				<s:input id="txtBankCode" path="strBankCode" ondblclick="funHelp('WCBankCode')" cssClass="searchTextBox" readonly="true"  
+										type="text"></s:input>
+									</div>
+								    <div class="col-md-6">
+								    <label>IFSC Code</label><br><s:input id="txtIfscCOde" path="strIfscCOde" 
+										type="text"></s:input>
+									</div>
+								</div>
+							</div>
+				 		   <div class="col-md-6">		
+					    		<div class="row">
+					    		 	<div class="col-md-6">
+					    		 		<label>Account No</label><br>
+					    		 			<s:input id="txtAccNo" name="txtdtFromDate" path="strAccNo" type="text"/>
+					    		 	</div>
+			                         <div class="col-md-6">
+			                             <label>Branch Name</label><br>
+			                               <s:input id="txtBranchName" name="txtdtFromDate" path="strBranchName"/>
+			                         </div>
+			                    </div>
+			               </div>  
+					</div>
+				</div>
+			</div>
 				
-				<td><label>To Date</label></td>
-			    <td colspan="2"><s:input id="txtdtToDate" name="txtdtFromDate" path=""  cssClass="calenderTextBox" /></td>
-			</tr>
+		
+		
+		
+	<h3><a href="#">Other Information</a></h3>
+	<div>
+		 <table class="table table-striped masterTable"> <!-- style="border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;"> -->
+								<thead>
+									<tr>
+									   <th>Field Name</th>
+									   <th>Field Value</th>
+									 </tr>
+								 </thead>
+								<tbody id="tblFieldData"> <!-- class="transTablex path="strTblProduct" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" -->
+									  
+								</tbody>
+						 </table> 
+						 </div>
+			<h3 id="headerDependent" style="display:none"><a href="#">Dependent List</a></h3>
+			<div id="divDependent" style="display:none">	
 			
-			<tr>
-				<td><label>Facility Blocked</label></td>
-			   <td><s:select id="cmbFacilityBlock" name="cmbFacilityBlock" path="" cssClass="BoxW124px" >
-						 <option value="N">No</option>
-		 				 <option value="Y">Yes</option>
-						 </s:select></td>
-				
-				<td width="120px"><label>Reason Code</label></td>
-							<td width="150px"><s:input id="txtReasonCode"
-									ondblclick="funHelp('WCReasonMaster')" cssClass="searchTextBox"
-									type="text" path="" ></s:input></td>
+				 <div class="container masterTable"  style="background-color:#f2f2f2;">
+					<div class="row">
+						<div class="col-md-6">				
+				<div class="row"><div class="col-md-6"><label>Dependent Code</label><br><s:input id="txtDependentCode" path=""  cssClass="searchTextBox" readonly="true" 
+						 ondblclick="" /></div>
+								<div class="col-md-6"><label>Dependent Name</label><br><s:input type="text" id="txtDependentName" 
+														name="txtDependentName" path="" 
+														cssStyle= "text-transform: uppercase;"/> <s:errors path=""></s:errors></div></div></div>
+											
+			<div class="col-md-6"><label>Change Dependent Code</label><br>				
+				<div class="row"><div class="col-md-6"><s:input type="text" id="txtChangeDependentMemberCode" 
+														name="txtChangeDependentMemberCode" path="" readonly="true"/><s:errors path=""></s:errors></div>
+								 <div class="col-md-6"><s:input  type="text" id="txtChangeDependentCode" 
+														name="txtChangeDependentCode" path="" readonly="true"/> <s:errors path=""></s:errors></div></div></div>
+			
+			<div class="col-md-6"><label>Profession Code</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtDependentProfessionCode"
+									ondblclick="funHelp('WCDependentProfessionMaster')"  cssClass="searchTextBox"
+									type="text" path="strDependentProfessionCode" readonly="true" ></s:input></div>
+						         <div class="col-md-6"><s:input id="txtDependentProfessionName" path=""  readonly="true"
+									cssStyle="width: 30%%;" type="text"></s:input></div></div></div>	
 									
-						<td><s:input id="txtReasonName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-			</tr>
-					
-					
-		</table> 
 				
-		</div>
-		
-		<h3><a href="#">Dependent List</a></h3>
-		<div>
-				<table class="masterTable">
-				
-			<tr >
-				<td >Dependent Code</td>
-				<td ><s:input id="txtDependentCode" path=""
-						cssClass="searchTextBox" ondblclick="" /></td>
-			
-				<td colspan="5"><label>Dependent Name</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<s:input type="text" id="txtDependentName" 
-						name="txtDependentName" path="" 
-						cssStyle="width:53% ; text-transform: uppercase;" cssClass="longTextBox"  /> <s:errors path=""></s:errors></td>
-			</tr>
-			
-			<tr>
-					<td><label>Change Dependent Code</label></td>
-					<td><s:input  type="text" id="txtChangeDependentMemberCode" 
-						name="txtChangeDependentMemberCode" path="" readonly="true"
-						cssStyle="searchTextBox" cssClass="longTextBox"  /> <s:errors path=""></s:errors></td>
-					<td><s:input  type="text" id="txtChangeDependentCode" 
-						name="txtChangeDependentCode" path="" 
-						cssClass="longTextBox"  /> <s:errors path=""></s:errors></td>
-						
-						
-						<td ><label>Sex</label></td>
-						<td ><s:select id="cmbDependentGender" name="cmbDependentGender"
-								path="strDependentGender" cssClass="BoxW124px">
-								<option value="M">Male</option>
-								<option value="F">Female</option>
-							</s:select></td>
-
-
-						<td ><label>Marital Status</label></td>
-						<td ><s:select id="cmbDependentMaritalStatus"
-								name="cmbDependentMaritalStatus" path="strDependentMaritalStatus" required="required"
-								cssClass="BoxW124px">
-								<option value="Single">Single</option>
-								<option value="married">married</option>
-							</s:select></td>
-			
-			</tr>
-			
-				
-				<tr>
-					<td ><label>Date Of Birth</label></td>
-						<td ><s:input id="txtdteDependentDateofBirth"
-								name="txtdteDependentDateofBirth" path="dteDependentDateofBirth"
-								cssClass="calenderTextBox" /></td>
-				
-					<td width="120px"><label>Relation </label></td>
-					<td ><s:input id="txtDependentRelation" path="strDependentRelation" 
-									cssClass="longTextBox" type="text"></s:input></td>
-				
-					<td width="120px"><label>Profession Code</label></td>
-							<td width="150px"><s:input id="txtDependentProfessionCode"
-									ondblclick="funHelp('WCDependentProfessionMaster')" cssClass="searchTextBox"
-									type="text" path="strDependentProfessionCode" ></s:input></td>
 									
-						<td ><s:input id="strDependentProfessionName" path="" 
-									cssStyle="width: 30%%;" cssClass="longTextBox" type="text"></s:input></td>
-									
-						
-				
-				</tr>
-				
-				<tr>
-				
-						<td ><label>Member Exp Date</label></td>
-						<td ><s:input id="txtdteDependentMemExpDate"
-								name="txtdteDependentMemExpDate" path="dteDependentMemExpDate"
-								cssClass="calenderTextBox" /></td>
-						
-						
-							<td><label>Blocked</label></td>
-							<td><s:select id="cmbDependentBlock" name="cmbDependentBlock"
-									path="strDependentBlock" cssClass="BoxW124px">
+			<div class="col-md-6"><label>Block Reason Code</label><br>
+				<div class="row"><div class="col-md-6"><s:input id="txtDependentReasonCode"
+									ondblclick="funHelp('WCDependentReasonMaster')"  cssClass="searchTextBox"
+									type="text" path="strDependentReasonCode" readonly="true" ></s:input></div>
+								<div class="col-md-6"><s:input id="txtDependentReasonName" path=""  readonly="true"
+									 type="text"></s:input></div></div></div>	
+									 						
+				<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Date Of Birth</label><br><s:input id="txtdteDependentDateofBirth"  cssClass="calenderTextBox"
+								name="txtdteDependentDateofBirth" path="dteDependentDateofBirth"/></div>
+			                    <div class="col-md-6"><label>Member Exp Date</label><br><s:input id="txtdteDependentMemExpDate" cssClass="calenderTextBox"
+								   name="txtdteDependentMemExpDate" path="dteDependentMemExpDate"/></div></div></div>
+			
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Relation</label><br><s:input id="txtDependentRelation" path="strDependentRelation" type="text"></s:input></div>
+			                     <div class="col-md-6"><label>Blocked</label><br><s:select id="cmbDependentBlock" name="cmbDependentBlock"
+									path="strDependentBlock">
 									<option value="N">No</option>
 									<option value="Y">Yes</option>
-								</s:select></td>
-
-							<td width="120px"><label>Block Reason Code</label></td>
-							<td width="150px"><s:input id="txtDependentReasonCode"
-									ondblclick="funHelp('WCDependentReasonMaster')" cssClass="searchTextBox"
-									type="text" path="strDependentReasonCode"></s:input></td>
-
-							<td><s:input id="txtDependentReasonName" path="" 
-									cssClass="longTextBox" type="text"></s:input></td>
-						</tr>
-						
-						
-			</table>
-			
-				<br>
-			<p align="center">
-				<input type="button" value="Add"
-					onclick="return btnAdd_onclick()"
-					class="form_button" /> &nbsp; &nbsp; &nbsp; <input type="button"
-					value="Reset" class="form_button" onclick="funResetTableData()()" />
-			</p>
-			
-				<div class="masterTable" style="height:293px !important width :803px!important " >
-						<table
-							style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-							<tr bgcolor="#72BEFC">
-							<td style="width:10%;">Member Code</td>
-							<td style="width:15%;">Full Name</td>
-							<td style="width:6%;">Relation</td>
-							<td style="width:2%;">Sex</td>
-							<td style="width:8%;">Marital</td>
-							<td style="width:9%;">DOB</td>
-							<td style="width:5%;">Blocked</td>
-							<td style="width:9%;">Blocked Reason</td>
-							<td style="width:9%;">Profession</td>
-							<td style="width:9%;">Mem Exp Date</td>
-							<td style="width:1%;"></td>
-										
-						</tr>
-					</table>
-					<div
-							style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
-								<table id="tblDependentData"
-								style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-								class="transTablex col8-center">
-								<tbody>
-								
-								<col style="width:10%">					
-								<col style="width:15%">
-								<col style="width:6%">
-								<col style="width:2%">
-								<col style="width:8%">
-								<col style="width:9%">
-								<col style="width:5%">
-								<col style="width:9%">
-								<col style="width:9%">
-								<col style="width:9%">
-								<col style="width:0%">
-								
-								</tbody>
-							</table>
-						</div>
-					</div>
+								</s:select></div></div></div>	
 		
+			
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Sex</label><br><s:select id="cmbDependentGender" name="cmbDependentGender"
+										path="strDependentGender">
+										<option value="M">Male</option>
+										<option value="F">Female</option></s:select></div>			
+			                    <div class="col-md-6"><label>Marital Status</label><br><s:select id="cmbDependentMaritalStatus"
+											name="cmbDependentMaritalStatus" path="strDependentMaritalStatus">
+											<option value="Single">Single</option>
+											<option value="married">married</option>
+										     </s:select></div></div></div>
+																
+			<div class="col-md-6">	
+					<div class="row">
+						<div class="col-md-6"><label>Mobile No</label><br>
+							<s:input id="txtDepMobileNo" type="text" path="strDepMobileNo"></s:input>
+						</div>						
+						<div class="col-md-6"><label>Aadhar Card No</label><br>
+							<s:input id="txtDepAadharCardNo" type="text" path="strDepAadharCardNo"></s:input>
+						</div>						
+						<div class="col-md-6"><label>Email ID</label><br>
+							<s:input id="txtDepEmailID" type="text" path="strDepEmailID"></s:input>
+						</div>					
+					</div>				
+			</div>	     
+										     
+										     
+			
+		
+		    </div></div>
+		     
+			
+						<div class="center">
+						
+						<a href="#"><button class="btn btn-primary center-block" value="Add" onclick="return btnAdd_onclick()" style="margin:13px"
+						class="form_button">Add</button></a>
+			</div>
+			<div class="scroll-touch">
+		<table class="table table-striped masterTable" style="width :100%" >
+				<thead>
+					<tr>
+						 <th>Member Code</th>
+						 <th>Full Name</th>
+						 <th>Relation</th>
+						 <th>Sex</th>
+						 <th>Marital</th>
+						 <th>DOB</th>
+						 <th>Blocked</th>
+						 <th>Blocked Reason</th>
+						 <th>Profession</th>
+						 <th>Mem Exp Date</th>
+					</tr>
+				</thead>
+				<tbody id="tblDependentData" class="transTablex">
+				</tbody>
+			 </table> 
 		</div>
-		
-		
-		</div> 
-		 
-		<br>
-		<p align="center">
-			<input type="submit" value="Submit"
-				onclick=""
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <input type="reset"
-				value="Reset" class="form_button" onclick="funResetField()" />
-		</p>
-		<br><br>
-		
-		<p>
+				
+			<br>			
+				<br><br>		
+			<div>
 				<s:input type="hidden" id="txtCustCode"  path="strCustomerCode" ></s:input>
 				<s:input type="hidden" id="txtSpouseCustCode"  path="strSpouseCustomerCode" ></s:input>
+			</div>
+			</div></div>
+			<div id="paraSubmit" class="center">
+					<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidate()" 
+						class="form_button">Submit</button></a>
+					<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetField()"
+						class="form_button">Reset</button></a>
 				
-		
-		</p>
-	
-	</s:form>
-</div>
-
+			</div > 
+	</s:form> 
+</div>   
 <script type="text/javascript">
 		$(function(){
 			$('#multiAccordion').multiAccordion({

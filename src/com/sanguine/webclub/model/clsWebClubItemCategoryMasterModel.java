@@ -35,6 +35,9 @@ public class clsWebClubItemCategoryMasterModel implements Serializable {
 	@Column(name = "intRowId")
 	public long intRowId;
 
+	@Column(name = "strCategoryName")
+	public String strCategoryName;	
+
 	@Column(name = "strItemCategoryName")
 	private String strItemCategoryName;
 
@@ -88,6 +91,12 @@ public class clsWebClubItemCategoryMasterModel implements Serializable {
 
 	@Column(name = "strPropertyCode")
 	private String strPropertyCode;
+	
+	@Column(name = "strItemCategory")
+	private String strItemCategory;	
+	
+	@Column(name = "dteModifiedDate")
+	private String dteModifiedDate;		
 
 	public String getStrItemCategoryCode() {
 		return strItemCategoryCode;
@@ -270,5 +279,29 @@ public class clsWebClubItemCategoryMasterModel implements Serializable {
 		} else {
 			return defaultValue;
 		}
+	}
+
+	public String getStrItemCategory() {
+		return strItemCategory;
+	}
+
+	public void setStrItemCategory(String strItemCategory) {
+		this.strItemCategory = strItemCategory;
+	}
+
+	public String getStrCategoryName() {
+		return strCategoryName;
+	}
+
+	public void setStrCategoryName(String strCategoryName) {
+		this.strCategoryName = strCategoryName;
+	}
+
+	public String getDteModifiedDate() {
+		return dteModifiedDate;
+	}
+
+	public void setDteModifiedDate(String dteModifiedDate) {
+		this.dteModifiedDate = dteModifiedDate;
 	}
 }

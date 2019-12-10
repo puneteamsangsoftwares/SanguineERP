@@ -1,11 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/materialdesignicons.min.css"/>" />
+	  	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.css"/>" /> 
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />  
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.js"/>"></script> 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		
 <script type="text/javascript">
 	var fieldName;
 
@@ -121,14 +134,42 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Business Source</label>
+	<div class="container">
+		<label id="formHeading">Business Source</label>
+		<s:form name="WebClubBusinessSourceMaster" method="POST" action="saveWebClubBusinessSourceMaster.html">
+			<div class="row masterTable">
+				<div class="col-md-4">
+					<label>Business Source Code:</label><br>
+					<s:input type="text" id="txtBusinessSrcCode" path="strBusinessSrcCode" placeholder="Business Source Code" cssClass="searchTextBox" readonly="true" ondblclick="funHelp('webClubBusinessSrcCode')" />
+				</div>
+				<div class="col-md-4">
+					<label>Business Source Name:</label><br>
+					<s:input type="text" id="txtBusinessSourceName" path="strBusinessSrcName" placeholder="Business Source Name" />
+				</div>
+				<div class="col-md-4">
+					<label>Business Source Percent:</label><br>
+					<s:input type="text" id="txtBusinessSourcePercent" path="dblPercent" placeholder="Business Source Percent" />
+				</div>
+			</div>
+			<div class="center">
+							<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidate()"
+								class="form_button">Submit</button></a>
+							<a href="#"><button class="btn btn-primary center-block" type="reset"
+								value="Reset" class="form_button" onclick="funResetField()">Reset</button></a>
+						</div>
+		</s:form>
 	</div>
 
-<br/>
-<br/>
 
+
+
+
+</body>
+</html>
+
+	<%-- <div id="formHeading">
+	<label>Business Source</label>
+	</div>
 	<s:form name="WebClubBusinessSourceMaster" method="POST" action="saveWebClubBusinessSourceMaster.html">
 
 		<table class="masterTable">
@@ -159,5 +200,4 @@
 		</p>
 
 	</s:form>
-</body>
-</html>
+ --%>

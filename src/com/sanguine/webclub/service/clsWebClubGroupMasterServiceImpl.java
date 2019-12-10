@@ -18,7 +18,7 @@ public class clsWebClubGroupMasterServiceImpl implements clsWebClubGroupMasterSe
 	@Autowired
 	private clsWebClubGroupMasterDao objGrpMasterDao;
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false,value = "WebClubTransactionManager")
 	public void funAddGroup(clsWebClubGroupMasterModel group) {
 		objGrpMasterDao.funAddGroup(group);
 	}

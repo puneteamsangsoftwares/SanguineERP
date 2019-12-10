@@ -195,11 +195,9 @@
 		<tr>
 				<td width="16%">Member Code</td>
 				<td width="17%"><input id="txtMemberCode" Class="searchTextBox" ondblclick="funHelp('WCmemProfile')"/></td>
-				<td><input type="text" id="txtMemberName" 
-						name="txtMemberName" required=""
-				            Style="width:53% ;" Class="longTextBox" type="text" ></input></td>
+				<td><input type="text" id="txtMemberName" name="txtMemberName" required=" " Style="width:53%;" Class="longTextBox" ></input></td>
 		</tr>	
-		
+	
 		<tr>
 					<td><label>Member Role</label></td>
 					<td colspan="2"><s:select id="cmbMemberRole" items="${listRoleDesc}" path="strRoleDesc" name="cmbMemberRole"  cssClass="BoxW124px" >

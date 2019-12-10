@@ -208,7 +208,7 @@
 				<value>com.sanguine.model.clsSessionMasterModel</value>
 				<value>com.sanguine.model.clsBudgetMasterHdModel</value>
 				<value>com.sanguine.model.clsPurchaseReturnTaxDtlModel</value>
-			
+				<value>com.sanguine.model.clsWebClubBankMasterModel</value>
 			<!-- CRM MODULE MODEL -->
 			
 			
@@ -384,7 +384,9 @@
 					<value>com.sanguine.webclub.model.clsWebClubBusinessSourceMasterModel</value>
 					<value>com.sanguine.webclub.model.clsWebClubFacilityMasterModel</value>
 					<value>com.sanguine.webclub.model.clsWebClubCategeoryWiseFacilityModel</value>
-						
+					<value>com.sanguine.webclub.model.clsWebClubPDCModel</value>	
+					<value>com.sanguine.model.clsWebClubBankMasterModel</value>	
+					<value>com.sanguine.webclub.model.clsWebClubPersonMasterModel</value>			
 				</list>
 			</property>
 			<property name="hibernateProperties">

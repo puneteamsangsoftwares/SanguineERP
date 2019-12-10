@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sanguine.webclub.dao.clsWebClubGeneralMasterDao;
-import com.sanguine.webclub.dao.clsWebClubGroupMasterDao;
+import com.sanguine.webclub.model.clsWebClubTitleMasterModel;
 
 @Service("clsWebClubGeneralMasterService")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebClubTransactionManager")
@@ -20,5 +20,9 @@ public class clsWebClubGeneralMasterServiceImpl implements clsWebClubGeneralMast
 	public List funGetWebClubAllPaticulorMasterData(String tableName, String clientCode) {
 		return objGenralMasterDao.funGetWebClubAllPaticulorMasterData(tableName, clientCode);
 	}
-
+	
+	public List funDelWebClubAllPaticulorMasterData(String currCode,String tableName, String clientCode) {
+		return objGenralMasterDao.funDelWebClubAllPaticulorMasterData(currCode,tableName, clientCode);
+	}
+	
 }

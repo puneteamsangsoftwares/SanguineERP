@@ -3287,6 +3287,17 @@ public class clsSearchFormController {
 			break;
 		}
 
+		case "WCmemPre-ProfileCustomer": {
+			columnNames = "strCustomerCode,strMemberCode,strFullName,strFirstName";
+			tableName = "clsWebClubPreMemberProfileModel where strClientCode='" + clientCode + "' and strCustomerCode=strPrimaryCustomerCode ";
+			listColumnNames = "Customer,Member Code,Member Name,First Name";
+			idColumnName = "strCustomerCode";
+			criteria = getCriteriaQuery(columnNames, search_with, tableName);
+			searchFormTitle = "Member Pre-Profile";
+			break;
+		}
+		
+		
 		case "WCmemProfileCustomer": {
 			columnNames = "strCustomerCode,strMemberCode,strFullName,strFirstName,strCategoryCode";
 			tableName = "clsWebClubMemberProfileModel where strClientCode='" + clientCode + "' and strCustomerCode=strPrimaryCustomerCode ";
@@ -3772,6 +3783,70 @@ public class clsSearchFormController {
 			searchFormTitle = "Facility Master";
 			break;
 		}
+		
+		case "WCMemberCode": {
+			columnNames = "strCustomerCode,strMemberCode,strFullName";
+			tableName = " clsWebClubMemberProfileModel where strClientCode='"+clientCode+"' and strCustomerCode=strPrimaryCustomerCode";
+			listColumnNames = "Customer Code,Member Code,Name ";
+			idColumnName = "strCustomerCode,strClientCode";
+			criteria = getCriteriaQuery(columnNames, search_with, tableName);
+			searchFormTitle = "Profile Explorer";
+			break;
+		}
+		
+		case "WCBankCode": {
+			columnNames = "strBankCode,strBankName,strBranch,strMICR";
+			tableName = " from "+webStockDB+".tblbankmaster where strClientCode='" + clientCode + "' ";
+			listColumnNames = "Bank Code,Bank Name,Branch Name,MIRC";
+			idColumnName = "strBankCode";
+			flgQuerySelection = true;
+			criteria = getCriteriaQuery(columnNames, search_with, tableName);
+			searchFormTitle = "Bank Master";
+			break;
+		}
+		case "WCBankCodee": {
+			columnNames = "strBankCode,strBankName,strBranch,strMICR";
+			tableName = " from "+webStockDB+".tblbankmaster where strClientCode='" + clientCode + "' ";
+			listColumnNames = "Bank Code,Bank Name,Branch Name,MIRC";
+			idColumnName = "strBankCode";
+			flgQuerySelection = true;
+			criteria = getCriteriaQuery(columnNames, search_with, tableName);
+			searchFormTitle = "Bank Master";
+			break;
+		}
+		
+		case "WCmemProfileCustomerIssued": {
+			columnNames = "strCustomerCode,strMemberCode,strFullName,strFirstName,strCategoryCode";
+			tableName = "clsWebClubMemberProfileModel where strClientCode='" + clientCode + "' and strCustomerCode=strPrimaryCustomerCode ";
+			listColumnNames = "Customer,Member Code,Member Name,First Name,Category";
+			idColumnName = "strCustomerCode";
+			criteria = getCriteriaQuery(columnNames, search_with, tableName);
+			searchFormTitle = "Member Profile";
+			break;
+		}
+		
+		
+		case "WCPersonMaster": {
+			columnNames = "strPCode,strPName,strEmail,strMobileNo";
+			tableName = " clsWebClubPersonMasterModel where strClientCode='" + clientCode + "' ";
+			listColumnNames = "Person Code,Person Name,Email,Mobile NO  ";
+			idColumnName = "strPCode";
+			criteria = getCriteriaQuery(columnNames, search_with, tableName);
+			searchFormTitle = "Person Master";
+			break;
+		}
+		
+		case "WCDepChange": {
+			columnNames = "strMemberCode,strFullName";
+			tableName = " clsWebClubMemberProfileModel WHERE 1<SUBSTR(strMemberCode, LENGTH(strMemberCode) , 2) AND strClientCode='" + clientCode + "' ";
+			listColumnNames = "Dependent Code,Dependent Name";
+			idColumnName = "strCustomerCode";
+			criteria = getCriteriaQuery(columnNames, search_with, tableName);
+			searchFormTitle = "Dependent Master";
+			break;
+		}
+		
+		
 
 		}
 

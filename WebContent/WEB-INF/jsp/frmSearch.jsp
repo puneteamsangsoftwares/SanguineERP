@@ -31,10 +31,16 @@
 	src="<spring:url value="/resources/js/dataTables/shCore.js"/>"></script>
 	<script type="text/javascript"
 	src="<spring:url value="/resources/js/dataTables/demo.js"/>"></script>
-	
-
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Web Stocks</title>
+<style>
+
+table.dataTable thead th{background:#dbd9d9;}
+ table.dataTable.display tbody tr{background:#e0e0e1;} 
+ table.dataTable tbody tr td{background:#d3d4d4;}
+ table.display tbody tr, tabletbody tr:hover{
+ background:#000;}
+</style>
 
  <script type="text/javascript">
  $(document).ready(function(){
@@ -132,9 +138,9 @@
 </head>
 
 
-<body style="font-family: trebuchet ms,Helvetica,sans-serif !important; font-size: 11px !important; font-weight: bold !important;">
+<body style="font-family: font-family: 'Roboto', sans-serif; !important; font-size: 11px !important; font-weight: bold !important;">
 
-<div style="width: 100%; height: 30px; background-color: #458CCA">
+<div style="width: 100%; height: 30px; background-color: #c0c0c0">
 		<p align="center" style="padding-top: 5px;color: white; font-size: 14px;">${searchFormTitle}</p>
 	</div>
 <br/>

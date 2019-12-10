@@ -5,15 +5,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
-
-
-
-<%-- <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/jquery-ui.css"/>" /> --%>
-<%-- <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" /> --%>
-
-<%-- <script type="text/javascript" src="<spring:url value="/resources/js/jquery.timepicker.min.js"/>"></script> --%>
-<%-- <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/jquery.timepicker.css"/>" /> --%>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <title>Search Form</title>
 </head>
@@ -26,12 +24,7 @@
 </tr>
 </table> --%>
 
-<div style="  position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-color: #D8EDFF;">
+<div style="position: fixed; top: 0; left: 0; bottom: 0; right: 0; background-color:#f2f2f2; font-family: 'Roboto', sans-serif;">
     <tiles:insertAttribute name="body"></tiles:insertAttribute>
     </div>
 </body>

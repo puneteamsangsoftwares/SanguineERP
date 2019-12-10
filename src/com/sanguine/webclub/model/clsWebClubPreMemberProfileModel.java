@@ -464,7 +464,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrVirtualAccountCode(String strVirtualAccountCode) {
-		this.strVirtualAccountCode = (String) setDefaultValue(strVirtualAccountCode, "NA");
+		this.strVirtualAccountCode = (String) setDefaultValue(strVirtualAccountCode, "");
 		;
 	}
 
@@ -473,7 +473,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrAlternateMemberCode(String strAlternateMemberCode) {
-		this.strAlternateMemberCode = (String) setDefaultValue(strAlternateMemberCode, "NA");
+		this.strAlternateMemberCode = (String) setDefaultValue(strAlternateMemberCode, "");
 		;
 	}
 
@@ -554,7 +554,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCustomerCode(String strCustomerCode) {
-		this.strCustomerCode = (String) setDefaultValue(strCustomerCode, "NA");
+		this.strCustomerCode = (String) setDefaultValue(strCustomerCode, "");
 	}
 
 	public String getStrMemberCode() {
@@ -562,7 +562,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrMemberCode(String strMemberCode) {
-		this.strMemberCode = (String) setDefaultValue(strMemberCode, "NA");
+		this.strMemberCode = (String) setDefaultValue(strMemberCode, "");
 	}
 
 	public String getStrPrefixCode() {
@@ -570,7 +570,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrPrefixCode(String strPrefixCode) {
-		this.strPrefixCode = (String) setDefaultValue(strPrefixCode, "NA");
+		this.strPrefixCode = (String) setDefaultValue(strPrefixCode, "");
 	}
 
 	public String getStrFirstName() {
@@ -578,7 +578,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrFirstName(String strFirstName) {
-		this.strFirstName = (String) setDefaultValue(strFirstName, "NA");
+		this.strFirstName = (String) setDefaultValue(strFirstName, "");
 	}
 
 	public String getStrMiddleName() {
@@ -586,7 +586,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrMiddleName(String strMiddleName) {
-		this.strMiddleName = (String) setDefaultValue(strMiddleName, "NA");
+		this.strMiddleName = (String) setDefaultValue(strMiddleName, "");
 	}
 
 	public String getStrLastName() {
@@ -594,7 +594,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrLastName(String strLastName) {
-		this.strLastName = (String) setDefaultValue(strLastName, "NA");
+		this.strLastName = (String) setDefaultValue(strLastName, "");
 	}
 
 	public String getStrNameOnCard() {
@@ -602,7 +602,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrNameOnCard(String strNameOnCard) {
-		this.strNameOnCard = (String) setDefaultValue(strNameOnCard, "NA");
+		this.strNameOnCard = (String) setDefaultValue(strNameOnCard, "");
 	}
 
 	public String getStrFullName() {
@@ -610,7 +610,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrFullName(String strFullName) {
-		this.strFullName = (String) setDefaultValue(strFullName, "NA");
+		this.strFullName = (String) setDefaultValue(strFullName, "");
 	}
 
 	public String getStrResidentAddressLine1() {
@@ -618,7 +618,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentAddressLine1(String strResidentAddressLine1) {
-		this.strResidentAddressLine1 = (String) setDefaultValue(strResidentAddressLine1, "NA");
+		this.strResidentAddressLine1 = (String) setDefaultValue(strResidentAddressLine1, "");
 	}
 
 	public String getStrResidentAddressLine2() {
@@ -626,7 +626,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentAddressLine2(String strResidentAddressLine2) {
-		this.strResidentAddressLine2 = (String) setDefaultValue(strResidentAddressLine2, "NA");
+		this.strResidentAddressLine2 = (String) setDefaultValue(strResidentAddressLine2, "");
 	}
 
 	public String getStrResidentAddressLine3() {
@@ -634,7 +634,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentAddressLine3(String strResidentAddressLine3) {
-		this.strResidentAddressLine3 = (String) setDefaultValue(strResidentAddressLine3, "NA");
+		this.strResidentAddressLine3 = (String) setDefaultValue(strResidentAddressLine3, "");
 	}
 
 	public String getStrResidentLandMark() {
@@ -642,7 +642,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentLandMark(String strResidentLandMark) {
-		this.strResidentLandMark = (String) setDefaultValue(strResidentLandMark, "NA");
+		this.strResidentLandMark = (String) setDefaultValue(strResidentLandMark, "");
 	}
 
 	public String getStrResidentAreaCode() {
@@ -650,7 +650,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentAreaCode(String strResidentAreaCode) {
-		this.strResidentAreaCode = (String) setDefaultValue(strResidentAreaCode, "NA");
+		this.strResidentAreaCode = (String) setDefaultValue(strResidentAreaCode, "");
 	}
 
 	public String getStrResidentCtCode() {
@@ -658,7 +658,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentCtCode(String strResidentCtCode) {
-		this.strResidentCtCode = (String) setDefaultValue(strResidentCtCode, "NA");
+		this.strResidentCtCode = (String) setDefaultValue(strResidentCtCode, "");
 	}
 
 	public String getStrResidentStateCode() {
@@ -666,7 +666,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentStateCode(String strResidentStateCode) {
-		this.strResidentStateCode = (String) setDefaultValue(strResidentStateCode, "NA");
+		this.strResidentStateCode = (String) setDefaultValue(strResidentStateCode, "");
 	}
 
 	public String getStrResidentRegionCode() {
@@ -674,7 +674,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentRegionCode(String strResidentRegionCode) {
-		this.strResidentRegionCode = (String) setDefaultValue(strResidentRegionCode, "NA");
+		this.strResidentRegionCode = (String) setDefaultValue(strResidentRegionCode, "");
 	}
 
 	public String getStrResidentCountryCode() {
@@ -682,7 +682,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentCountryCode(String strResidentCountryCode) {
-		this.strResidentCountryCode = (String) setDefaultValue(strResidentCountryCode, "NA");
+		this.strResidentCountryCode = (String) setDefaultValue(strResidentCountryCode, "");
 	}
 
 	public String getStrResidentPinCode() {
@@ -690,7 +690,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentPinCode(String strResidentPinCode) {
-		this.strResidentPinCode = (String) setDefaultValue(strResidentPinCode, "NA");
+		this.strResidentPinCode = (String) setDefaultValue(strResidentPinCode, "");
 	}
 
 	public String getStrResidentTelephone1() {
@@ -698,7 +698,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentTelephone1(String strResidentTelephone1) {
-		this.strResidentTelephone1 = (String) setDefaultValue(strResidentTelephone1, "NA");
+		this.strResidentTelephone1 = (String) setDefaultValue(strResidentTelephone1, "");
 	}
 
 	public String getStrResidentTelephone2() {
@@ -706,7 +706,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentTelephone2(String strResidentTelephone2) {
-		this.strResidentTelephone2 = (String) setDefaultValue(strResidentTelephone2, "NA");
+		this.strResidentTelephone2 = (String) setDefaultValue(strResidentTelephone2, "");
 	}
 
 	public String getStrResidentFax1() {
@@ -714,7 +714,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentFax1(String strResidentFax1) {
-		this.strResidentFax1 = (String) setDefaultValue(strResidentFax1, "NA");
+		this.strResidentFax1 = (String) setDefaultValue(strResidentFax1, "");
 	}
 
 	public String getStrResidentFax2() {
@@ -722,7 +722,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentFax2(String strResidentFax2) {
-		this.strResidentFax2 = (String) setDefaultValue(strResidentFax2, "NA");
+		this.strResidentFax2 = (String) setDefaultValue(strResidentFax2, "");
 	}
 
 	public String getStrResidentMobileNo() {
@@ -730,7 +730,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentMobileNo(String strResidentMobileNo) {
-		this.strResidentMobileNo = (String) setDefaultValue(strResidentMobileNo, "NA");
+		this.strResidentMobileNo = (String) setDefaultValue(strResidentMobileNo, "");
 	}
 
 	public String getStrResidentEmailID() {
@@ -738,7 +738,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrResidentEmailID(String strResidentEmailID) {
-		this.strResidentEmailID = (String) setDefaultValue(strResidentEmailID, "NA");
+		this.strResidentEmailID = (String) setDefaultValue(strResidentEmailID, "");
 	}
 
 	public String getStrCompanyCode() {
@@ -746,7 +746,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyCode(String strCompanyCode) {
-		this.strCompanyCode = (String) setDefaultValue(strCompanyCode, "NA");
+		this.strCompanyCode = (String) setDefaultValue(strCompanyCode, "");
 	}
 
 	public String getStrCompanyName() {
@@ -754,7 +754,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyName(String strCompanyName) {
-		this.strCompanyName = (String) setDefaultValue(strCompanyName, "NA");
+		this.strCompanyName = (String) setDefaultValue(strCompanyName, "");
 	}
 
 	public String getStrHoldingCode() {
@@ -762,7 +762,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrHoldingCode(String strHoldingCode) {
-		this.strHoldingCode = (String) setDefaultValue(strHoldingCode, "NA");
+		this.strHoldingCode = (String) setDefaultValue(strHoldingCode, "");
 	}
 
 	public String getStrJobProfileCode() {
@@ -770,7 +770,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrJobProfileCode(String strJobProfileCode) {
-		this.strJobProfileCode = (String) setDefaultValue(strJobProfileCode, "NA");
+		this.strJobProfileCode = (String) setDefaultValue(strJobProfileCode, "");
 	}
 
 	public String getStrCompanyAddressLine1() {
@@ -778,7 +778,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyAddressLine1(String strCompanyAddressLine1) {
-		this.strCompanyAddressLine1 = (String) setDefaultValue(strCompanyAddressLine1, "NA");
+		this.strCompanyAddressLine1 = (String) setDefaultValue(strCompanyAddressLine1, "");
 	}
 
 	public String getStrCompanyAddressLine2() {
@@ -786,7 +786,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyAddressLine2(String strCompanyAddressLine2) {
-		this.strCompanyAddressLine2 = (String) setDefaultValue(strCompanyAddressLine2, "NA");
+		this.strCompanyAddressLine2 = (String) setDefaultValue(strCompanyAddressLine2, "");
 	}
 
 	public String getStrCompanyAddressLine3() {
@@ -794,7 +794,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyAddressLine3(String strCompanyAddressLine3) {
-		this.strCompanyAddressLine3 = (String) setDefaultValue(strCompanyAddressLine3, "NA");
+		this.strCompanyAddressLine3 = (String) setDefaultValue(strCompanyAddressLine3, "");
 	}
 
 	public String getStrCompanyLandMark() {
@@ -802,7 +802,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyLandMark(String strCompanyLandMark) {
-		this.strCompanyLandMark = (String) setDefaultValue(strCompanyLandMark, "NA");
+		this.strCompanyLandMark = (String) setDefaultValue(strCompanyLandMark, "");
 	}
 
 	public String getStrCompanyAreaCode() {
@@ -810,7 +810,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyAreaCode(String strCompanyAreaCode) {
-		this.strCompanyAreaCode = (String) setDefaultValue(strCompanyAreaCode, "NA");
+		this.strCompanyAreaCode = (String) setDefaultValue(strCompanyAreaCode, "");
 	}
 
 	public String getStrCompanyCtCode() {
@@ -818,7 +818,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyCtCode(String strCompanyCtCode) {
-		this.strCompanyCtCode = (String) setDefaultValue(strCompanyCtCode, "NA");
+		this.strCompanyCtCode = (String) setDefaultValue(strCompanyCtCode, "");
 	}
 
 	public String getStrCompanyStateCode() {
@@ -826,7 +826,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyStateCode(String strCompanyStateCode) {
-		this.strCompanyStateCode = (String) setDefaultValue(strCompanyStateCode, "NA");
+		this.strCompanyStateCode = (String) setDefaultValue(strCompanyStateCode, "");
 	}
 
 	public String getStrCompanyRegionCode() {
@@ -834,7 +834,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyRegionCode(String strCompanyRegionCode) {
-		this.strCompanyRegionCode = (String) setDefaultValue(strCompanyRegionCode, "NA");
+		this.strCompanyRegionCode = (String) setDefaultValue(strCompanyRegionCode, "");
 	}
 
 	public String getStrCompanyCountryCode() {
@@ -842,7 +842,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyCountryCode(String strCompanyCountryCode) {
-		this.strCompanyCountryCode = (String) setDefaultValue(strCompanyCountryCode, "NA");
+		this.strCompanyCountryCode = (String) setDefaultValue(strCompanyCountryCode, "");
 	}
 
 	public String getStrCompanyPinCode() {
@@ -850,7 +850,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyPinCode(String strCompanyPinCode) {
-		this.strCompanyPinCode = (String) setDefaultValue(strCompanyPinCode, "NA");
+		this.strCompanyPinCode = (String) setDefaultValue(strCompanyPinCode, "");
 	}
 
 	public String getStrCompanyTelePhone1() {
@@ -858,7 +858,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyTelePhone1(String strCompanyTelePhone1) {
-		this.strCompanyTelePhone1 = (String) setDefaultValue(strCompanyTelePhone1, "NA");
+		this.strCompanyTelePhone1 = (String) setDefaultValue(strCompanyTelePhone1, "");
 	}
 
 	public String getStrCompanyTelePhone2() {
@@ -866,7 +866,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyTelePhone2(String strCompanyTelePhone2) {
-		this.strCompanyTelePhone2 = (String) setDefaultValue(strCompanyTelePhone2, "NA");
+		this.strCompanyTelePhone2 = (String) setDefaultValue(strCompanyTelePhone2, "");
 	}
 
 	public String getStrCompanyFax1() {
@@ -874,7 +874,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyFax1(String strCompanyFax1) {
-		this.strCompanyFax1 = (String) setDefaultValue(strCompanyFax1, "NA");
+		this.strCompanyFax1 = (String) setDefaultValue(strCompanyFax1, "");
 	}
 
 	public String getStrCompanyFax2() {
@@ -882,7 +882,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyFax2(String strCompanyFax2) {
-		this.strCompanyFax2 = (String) setDefaultValue(strCompanyFax2, "NA");
+		this.strCompanyFax2 = (String) setDefaultValue(strCompanyFax2, "");
 	}
 
 	public String getStrCompanyMobileNo() {
@@ -890,7 +890,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyMobileNo(String strCompanyMobileNo) {
-		this.strCompanyMobileNo = (String) setDefaultValue(strCompanyMobileNo, "NA");
+		this.strCompanyMobileNo = (String) setDefaultValue(strCompanyMobileNo, "");
 	}
 
 	public String getStrCompanyEmailID() {
@@ -898,7 +898,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCompanyEmailID(String strCompanyEmailID) {
-		this.strCompanyEmailID = (String) setDefaultValue(strCompanyEmailID, "NA");
+		this.strCompanyEmailID = (String) setDefaultValue(strCompanyEmailID, "");
 	}
 
 	public String getStrBillingAddressLine1() {
@@ -906,7 +906,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingAddressLine1(String strBillingAddressLine1) {
-		this.strBillingAddressLine1 = (String) setDefaultValue(strBillingAddressLine1, "NA");
+		this.strBillingAddressLine1 = (String) setDefaultValue(strBillingAddressLine1, "");
 	}
 
 	public String getStrBillingAddressLine2() {
@@ -914,7 +914,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingAddressLine2(String strBillingAddressLine2) {
-		this.strBillingAddressLine2 = (String) setDefaultValue(strBillingAddressLine2, "NA");
+		this.strBillingAddressLine2 = (String) setDefaultValue(strBillingAddressLine2, "");
 	}
 
 	public String getStrBillingAddressLine3() {
@@ -922,7 +922,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingAddressLine3(String strBillingAddressLine3) {
-		this.strBillingAddressLine3 = (String) setDefaultValue(strBillingAddressLine3, "NA");
+		this.strBillingAddressLine3 = (String) setDefaultValue(strBillingAddressLine3, "");
 	}
 
 	public String getStrBillingLandMark() {
@@ -930,7 +930,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingLandMark(String strBillingLandMark) {
-		this.strBillingLandMark = (String) setDefaultValue(strBillingLandMark, "NA");
+		this.strBillingLandMark = (String) setDefaultValue(strBillingLandMark, "");
 	}
 
 	public String getStrBillingAreaCode() {
@@ -938,7 +938,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingAreaCode(String strBillingAreaCode) {
-		this.strBillingAreaCode = (String) setDefaultValue(strBillingAreaCode, "NA");
+		this.strBillingAreaCode = (String) setDefaultValue(strBillingAreaCode, "");
 	}
 
 	public String getStrBillingCtCode() {
@@ -946,7 +946,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingCtCode(String strBillingCtCode) {
-		this.strBillingCtCode = (String) setDefaultValue(strBillingCtCode, "NA");
+		this.strBillingCtCode = (String) setDefaultValue(strBillingCtCode, "");
 	}
 
 	public String getStrBillingStateCode() {
@@ -954,7 +954,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingStateCode(String strBillingStateCode) {
-		this.strBillingStateCode = (String) setDefaultValue(strBillingStateCode, "NA");
+		this.strBillingStateCode = (String) setDefaultValue(strBillingStateCode, "");
 	}
 
 	public String getStrBillingRegionCode() {
@@ -962,7 +962,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingRegionCode(String strBillingRegionCode) {
-		this.strBillingRegionCode = (String) setDefaultValue(strBillingRegionCode, "NA");
+		this.strBillingRegionCode = (String) setDefaultValue(strBillingRegionCode, "");
 	}
 
 	public String getStrBillingCountryCode() {
@@ -970,7 +970,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingCountryCode(String strBillingCountryCode) {
-		this.strBillingCountryCode = (String) setDefaultValue(strBillingCountryCode, "NA");
+		this.strBillingCountryCode = (String) setDefaultValue(strBillingCountryCode, "");
 	}
 
 	public String getStrBillingPinCode() {
@@ -978,7 +978,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingPinCode(String strBillingPinCode) {
-		this.strBillingPinCode = (String) setDefaultValue(strBillingPinCode, "NA");
+		this.strBillingPinCode = (String) setDefaultValue(strBillingPinCode, "");
 	}
 
 	public String getStrBillingTelePhone1() {
@@ -986,7 +986,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingTelePhone1(String strBillingTelePhone1) {
-		this.strBillingTelePhone1 = (String) setDefaultValue(strBillingTelePhone1, "NA");
+		this.strBillingTelePhone1 = (String) setDefaultValue(strBillingTelePhone1, "");
 	}
 
 	public String getStrBillingTelePhone2() {
@@ -994,7 +994,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingTelePhone2(String strBillingTelePhone2) {
-		this.strBillingTelePhone2 = (String) setDefaultValue(strBillingTelePhone2, "NA");
+		this.strBillingTelePhone2 = (String) setDefaultValue(strBillingTelePhone2, "");
 	}
 
 	public String getStrBillingFax1() {
@@ -1002,7 +1002,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingFax1(String strBillingFax1) {
-		this.strBillingFax1 = (String) setDefaultValue(strBillingFax1, "NA");
+		this.strBillingFax1 = (String) setDefaultValue(strBillingFax1, "");
 	}
 
 	public String getStrBillingFax2() {
@@ -1010,7 +1010,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingFax2(String strBillingFax2) {
-		this.strBillingFax2 = (String) setDefaultValue(strBillingFax2, "NA");
+		this.strBillingFax2 = (String) setDefaultValue(strBillingFax2, "");
 	}
 
 	public String getStrBillingMobileNo() {
@@ -1018,7 +1018,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingMobileNo(String strBillingMobileNo) {
-		this.strBillingMobileNo = (String) setDefaultValue(strBillingMobileNo, "NA");
+		this.strBillingMobileNo = (String) setDefaultValue(strBillingMobileNo, "");
 	}
 
 	public String getStrBillingEmailID() {
@@ -1026,7 +1026,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBillingEmailID(String strBillingEmailID) {
-		this.strBillingEmailID = (String) setDefaultValue(strBillingEmailID, "NA");
+		this.strBillingEmailID = (String) setDefaultValue(strBillingEmailID, "");
 	}
 
 	public String getDteDateofBirth() {
@@ -1050,7 +1050,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrMaritalStatus(String strMaritalStatus) {
-		this.strMaritalStatus = (String) setDefaultValue(strMaritalStatus, "NA");
+		this.strMaritalStatus = (String) setDefaultValue(strMaritalStatus, "");
 	}
 
 	public String getStrProfessionCode() {
@@ -1058,7 +1058,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrProfessionCode(String strProfessionCode) {
-		this.strProfessionCode = (String) setDefaultValue(strProfessionCode, "NA");
+		this.strProfessionCode = (String) setDefaultValue(strProfessionCode, "");
 	}
 
 	public String getDteAnniversaryDate() {
@@ -1074,7 +1074,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCategoryCode(String strCategoryCode) {
-		this.strCategoryCode = (String) setDefaultValue(strCategoryCode, "NA");
+		this.strCategoryCode = (String) setDefaultValue(strCategoryCode, "");
 	}
 
 	public String getDteInterviewDate() {
@@ -1090,7 +1090,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrPanNumber(String strPanNumber) {
-		this.strPanNumber = (String) setDefaultValue(strPanNumber, "NA");
+		this.strPanNumber = (String) setDefaultValue(strPanNumber, "");
 	}
 
 	public String getStrProposerCode() {
@@ -1098,7 +1098,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrProposerCode(String strProposerCode) {
-		this.strProposerCode = (String) setDefaultValue(strProposerCode, "NA");
+		this.strProposerCode = (String) setDefaultValue(strProposerCode, "");
 	}
 
 	public String getStrSeconderCode() {
@@ -1106,7 +1106,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrSeconderCode(String strSeconderCode) {
-		this.strSeconderCode = (String) setDefaultValue(strSeconderCode, "NA");
+		this.strSeconderCode = (String) setDefaultValue(strSeconderCode, "");
 	}
 
 	public String getDteMembershipStartDate() {
@@ -1138,7 +1138,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrBlockedreasonCode(String strBlockedreasonCode) {
-		this.strBlockedreasonCode = (String) setDefaultValue(strBlockedreasonCode, "NA");
+		this.strBlockedreasonCode = (String) setDefaultValue(strBlockedreasonCode, "");
 	}
 
 	public String getStrLiquorPermitNo() {
@@ -1146,7 +1146,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrLiquorPermitNo(String strLiquorPermitNo) {
-		this.strLiquorPermitNo = (String) setDefaultValue(strLiquorPermitNo, "NA");
+		this.strLiquorPermitNo = (String) setDefaultValue(strLiquorPermitNo, "");
 	}
 
 	public String getDtePermitExpDate() {
@@ -1162,7 +1162,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrQualification(String strQualification) {
-		this.strQualification = (String) setDefaultValue(strQualification, "NA");
+		this.strQualification = (String) setDefaultValue(strQualification, "");
 	}
 
 	public String getStrResNonRes() {
@@ -1178,7 +1178,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrDesignationCode(String strDesignationCode) {
-		this.strDesignationCode = (String) setDefaultValue(strDesignationCode, "NA");
+		this.strDesignationCode = (String) setDefaultValue(strDesignationCode, "");
 	}
 
 	public String getStrLocker() {
@@ -1226,7 +1226,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setDblEntranceFee(double dblEntranceFee) {
-		this.dblEntranceFee = (Double) setDefaultValue(dblEntranceFee, "NA");
+		this.dblEntranceFee = (Double) setDefaultValue(dblEntranceFee, "");
 	}
 
 	public double getDblSubscriptionFee() {
@@ -1234,7 +1234,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setDblSubscriptionFee(double dblSubscriptionFee) {
-		this.dblSubscriptionFee = (Double) setDefaultValue(dblSubscriptionFee, "NA");
+		this.dblSubscriptionFee = (Double) setDefaultValue(dblSubscriptionFee, "");
 	}
 
 	public String getStrGolfMemberShip() {
@@ -1266,7 +1266,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrSalesStaffCode(String strSalesStaffCode) {
-		this.strSalesStaffCode = (String) setDefaultValue(strSalesStaffCode, "NA");
+		this.strSalesStaffCode = (String) setDefaultValue(strSalesStaffCode, "");
 	}
 
 	public String getStrDependentYesNo() {
@@ -1290,7 +1290,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrRemark(String strRemark) {
-		this.strRemark = (String) setDefaultValue(strRemark, "NA");
+		this.strRemark = (String) setDefaultValue(strRemark, "");
 	}
 
 	public String getStrPhoto() {
@@ -1298,7 +1298,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrPhoto(String strPhoto) {
-		this.strPhoto = (String) setDefaultValue(strPhoto, "NA");
+		this.strPhoto = (String) setDefaultValue(strPhoto, "");
 	}
 
 	public String getStrDebtorCode() {
@@ -1306,7 +1306,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrDebtorCode(String strDebtorCode) {
-		this.strDebtorCode = (String) setDefaultValue(strDebtorCode, "NA");
+		this.strDebtorCode = (String) setDefaultValue(strDebtorCode, "");
 	}
 
 	public String getStrCustomerID() {
@@ -1314,7 +1314,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrCustomerID(String strCustomerID) {
-		this.strCustomerID = (String) setDefaultValue(strCustomerID, "NA");
+		this.strCustomerID = (String) setDefaultValue(strCustomerID, "");
 	}
 
 	public String getStrPrimaryCustomerCode() {
@@ -1322,7 +1322,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrPrimaryCustomerCode(String strPrimaryCustomerCode) {
-		this.strPrimaryCustomerCode = (String) setDefaultValue(strPrimaryCustomerCode, "NA");
+		this.strPrimaryCustomerCode = (String) setDefaultValue(strPrimaryCustomerCode, "");
 	}
 
 	public String getStrGuestEntry() {
@@ -1338,7 +1338,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrDepedentRelation(String strDepedentRelation) {
-		this.strDepedentRelation = (String) setDefaultValue(strDepedentRelation, "NA");
+		this.strDepedentRelation = (String) setDefaultValue(strDepedentRelation, "");
 	}
 
 	public String getStrDependentMemberCode() {
@@ -1346,7 +1346,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrDependentMemberCode(String strDependentMemberCode) {
-		this.strDependentMemberCode = (String) setDefaultValue(strDependentMemberCode, "NA");
+		this.strDependentMemberCode = (String) setDefaultValue(strDependentMemberCode, "");
 	}
 
 	public String getDteMembershipExpiryDate() {
@@ -1362,7 +1362,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setDblCMSBalance(double dblCMSBalance) {
-		this.dblCMSBalance = (Double) setDefaultValue(dblCMSBalance, "NA");
+		this.dblCMSBalance = (Double) setDefaultValue(dblCMSBalance, "");
 	}
 
 	public String getStrUserCreated() {
@@ -1370,7 +1370,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrUserCreated(String strUserCreated) {
-		this.strUserCreated = (String) setDefaultValue(strUserCreated, "NA");
+		this.strUserCreated = (String) setDefaultValue(strUserCreated, "");
 	}
 
 	public String getDteCreationDate() {
@@ -1386,7 +1386,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrUserModified(String strUserModified) {
-		this.strUserModified = (String) setDefaultValue(strUserModified, "NA");
+		this.strUserModified = (String) setDefaultValue(strUserModified, "");
 	}
 
 	public String getDteModifiedDate() {
@@ -1402,7 +1402,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrClientCode(String strClientCode) {
-		this.strClientCode = (String) setDefaultValue(strClientCode, "NA");
+		this.strClientCode = (String) setDefaultValue(strClientCode, "");
 	}
 
 	public String getStrPropertyId() {
@@ -1410,7 +1410,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrPropertyId(String strPropertyId) {
-		this.strPropertyId = (String) setDefaultValue(strPropertyId, "NA");
+		this.strPropertyId = (String) setDefaultValue(strPropertyId, "");
 	}
 
 	public String getStrMemberYesNo() {
@@ -1434,7 +1434,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setStrFatherMemberCode(String strFatherMemberCode) {
-		this.strFatherMemberCode = (String) setDefaultValue(strFatherMemberCode, "NA");
+		this.strFatherMemberCode = (String) setDefaultValue(strFatherMemberCode, "");
 	}
 
 	public long getIntFormNo() {
@@ -1442,7 +1442,7 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 	}
 
 	public void setIntFormNo(long intFormNo) {
-		this.intFormNo = (Long) setDefaultValue(intFormNo, "NA");
+		this.intFormNo = (Long) setDefaultValue(intFormNo, "");
 	}
 
 	// Function to Set Default Values

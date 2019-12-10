@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -102,7 +102,7 @@ function funfillNotificationRow(docCode,locationby,narration,userCreated,formNam
 }
 function funRemoveNotification()
 {
-	 $("#tblNotify").find("tr:gt(0)").remove();
+	 $("# ").find("tr:gt(0)").remove();
 }
 
 
@@ -303,7 +303,7 @@ function funGetFormName(){
 }
 
 
- <%--   $(document).ready(function()
+   $(document).ready(function()
 {
 	var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';
 	  if(null!=pmsDate)
@@ -312,12 +312,12 @@ function funGetFormName(){
 		  $("#txtPMSDate").text(dte[0]+"-"+dte[1]+"-"+dte[2]); 	
 	  }
  });  
- --%>
+
 
 </script>
 </head>
 <body>
-	<table id="page_top_banner">
+	 <table id="page_top_banner">
 		<thead style="">
 			<tr>
 				<th style="width: 47%; text-align: left;font-weight: bold;font-size: 11px;text-transform: uppercase;padding-top: 5px;padding-bottom: 5px; FONT-FAMILY: trebuchet ms, Helvetica, sans-serif;">${companyName} &nbsp;-&nbsp; ${financialYear} &nbsp;-&nbsp; ${propertyName} &nbsp;-&nbsp; ${locationName}</th>
@@ -347,7 +347,7 @@ function funGetFormName(){
 				</th> 
 			</tr>
 		</thead>
-	</table>
+	</table> 
 	<div id="MainDiv"
 		style="background-color: #FFFFFF; 
 		border: 1px solid #ccc; height: 238px; margin: auto;
@@ -359,16 +359,16 @@ function funGetFormName(){
 			class="transTablex">
 			<tbody id="tbodyNotifyid">
 			<tr><td colspan="4">Notifications</td></tr>
-			<%-- <c:forEach items="${Notifcation}" var="draw1" varStatus="status1">
+			<c:forEach items="${Notifcation}" var="draw1" varStatus="status1">
 			<tr>
 				<td>${draw1.strReqCode}</td>
 				<td>${draw1.dtReqDate}</td>
 				<td>${draw1.Locationby}</td>
 				<td>${draw1.LocationOn}</td>
 			</tr>
-		</c:forEach> --%>
+		</c:forEach>
 		</tbody>
 		</table>
 	</div>
 </body>
-</html>
+</html> --%>

@@ -81,10 +81,16 @@ public class clsWebClubMemberFormGenrationController {
 	@RequestMapping(value = "/loadMemberFormNoData", method = RequestMethod.GET)
 	public @ResponseBody clsWebClubMemberFormGenerationModel funAssignFields(@RequestParam("formNo") String strFormNo, HttpServletRequest req) {
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		objGlobal = new clsGlobalFunctions();
 		clsWebClubMemberFormGenerationModel objMemFormGen = objMemFormGenService.funGetWebClubMemberFormGeneration(strFormNo, clientCode);
 		if (null == objMemFormGen) {
 			objMemFormGen = new clsWebClubMemberFormGenerationModel();
 			objMemFormGen.setStrFormNo("invalid Code");
+		}
+		else
+		{
+			objMemFormGen.setDteCreatedDate(objGlobal.funGetDate("dd-MM-yyyy",objMemFormGen.getDteCreatedDate().split(" ")[0]));
+			objMemFormGen.setDtePrintDate(objMemFormGen.getDtePrintDate());
 		}
 
 		return objMemFormGen;
@@ -100,7 +106,6 @@ public class clsWebClubMemberFormGenrationController {
 
 		clsWebClubMemberFormGenerationModel meberFormGen;
 		if (memFormGenBean.getStrFormNo().trim().length() == 0) {
-			//
 			lastNo = objGlobalFunctionsService.funGetLastNo("tblmemberformgeneration", "FormNo", "intFormNo", clientCode);
 			String strFormNo = String.format("%07d", lastNo);
 			meberFormGen = new clsWebClubMemberFormGenerationModel(new clsWebClubMemberFormGenerationModel_ID(strFormNo, clientCode));
@@ -124,18 +129,21 @@ public class clsWebClubMemberFormGenrationController {
 				meberFormGen.setStrUserCreated(objMemGen.getStrUserCreated());
 				meberFormGen.setStrBusinessSourceCode(memFormGenBean.getStrBusinessSourceCode());
 			}
-
+			
 		}
 		meberFormGen.setIntGId(Integer.parseInt(meberFormGen.getStrFormNo()));
 		meberFormGen.setStrPrint("Y");
 		meberFormGen.setStrRePrint("Y");
 		meberFormGen.setStrMemberCode("");
 		meberFormGen.setIntReprintCount(0);
-
 		meberFormGen.setStrPropertyCode(propCode);
 		meberFormGen.setDtePrintDate(memFormGenBean.getDteFormIssue());
+		meberFormGen.setStrCategoryCode(memFormGenBean.getStrCategoryCode());
+		if(memFormGenBean.getStrFormNo().trim().length() == 0)
+		{
+			meberFormGen.setDtePrintDate(objGlobal.funGetDate("yyyy-MM-dd",memFormGenBean.getDteFormIssue()));
+		}		
 		meberFormGen.setStrProspectName(memFormGenBean.getStrProspectName().toUpperCase());
-		meberFormGen.setStrCategoryCode("");
 		meberFormGen.setStrUserModified(userCode);
 		meberFormGen.setDteLastModified(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 		meberFormGen.setStrBusinessSourceCode(memFormGenBean.getStrBusinessSourceCode());

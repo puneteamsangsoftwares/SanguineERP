@@ -1,6 +1,7 @@
 package com.sanguine.webclub.bean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.sanguine.webclub.model.clsWebClubDependentMasterModel;
 
@@ -273,9 +274,38 @@ public class clsWebClubMemberProfileBean {
 	private String strDependentBlock;
 
 	private String strDependentReasonCode;
+	
+	private String strBankCode;
+	
+	private String strIfscCOde;
+	
+	private String strAccNo;
+	
+	private String strBranchName;
+	
+	
+	private String strDepMobileNo;
+	
+	private String strDepAadharCardNo;
+	
+	private String strDepEmailID;
+	
+	private String strAadharCardNo;
+	
+	private String strVoterIdNo;
+	
+	private String strPassportNo;
+	
+	private String strFieldName;
+	
+	private String strFieldValue;
+	
+	public List<clsWebClubMemberProfileBean> listField;
 
 	public ArrayList<clsWebClubDependentMasterModel> listDependentMember = new ArrayList<clsWebClubDependentMasterModel>();
-
+	
+	private org.json.simple.JSONArray jsonFieldList;
+	
 	// Setter-Getter Methods
 	public String getStrCustomerCode() {
 		return strCustomerCode;
@@ -1357,4 +1387,118 @@ public class clsWebClubMemberProfileBean {
 		this.strDependentReasonCode = strDependentReasonCode;
 	}
 
+	public String getStrIfscCOde() {
+		return strIfscCOde;
+	}
+
+	public void setStrIfscCOde(String strIfscCOde) {
+		this.strIfscCOde = strIfscCOde;
+	}
+
+	public String getStrAccNo() {
+		return strAccNo;
+	}
+
+	public void setStrAccNo(String strAccNo) {
+		this.strAccNo = strAccNo;
+	}
+
+	public String getStrBranchName() {
+		return strBranchName;
+	}
+
+	public void setStrBranchName(String strBranchName) {
+		this.strBranchName = strBranchName;
+	}
+
+	public String getStrDepMobileNo() {
+		return strDepMobileNo;
+	}
+
+	public void setStrDepMobileNo(String strDepMobileNo) {
+		this.strDepMobileNo = strDepMobileNo;
+	}
+
+	public String getStrDepAadharCardNo() {
+		return strDepAadharCardNo;
+	}
+
+	public void setStrDepAadharCardNo(String strDepAadharCardNo) {
+		this.strDepAadharCardNo = strDepAadharCardNo;
+	}
+
+	public String getStrDepEmailID() {
+		return strDepEmailID;
+	}
+
+	public void setStrDepEmailID(String strDepEmailID) {
+		this.strDepEmailID = strDepEmailID;
+	}
+
+	public String getStrVoterIdNo() {
+		return strVoterIdNo;
+	}
+
+	public void setStrVoterIdNo(String strVoterIdNo) {
+		this.strVoterIdNo = strVoterIdNo;
+	}
+
+	public String getStrPassportNo() {
+		return strPassportNo;
+	}
+
+	public void setStrPassportNo(String strPassportNo) {
+		this.strPassportNo = strPassportNo;
+	}
+
+	public String getStrAadharCardNo() {
+		return strAadharCardNo;
+	}
+
+	public void setStrAadharCardNo(String strAadharCardNo) {
+		this.strAadharCardNo = strAadharCardNo;
+	}
+
+	
+	
+	public org.json.simple.JSONArray getJsonFieldList() {
+		return jsonFieldList;
+	}
+
+	public void setJsonFieldList(
+			org.json.simple.JSONArray jsonFieldList) {
+		this.jsonFieldList = jsonFieldList;
+	}
+
+	public String getStrFieldName() {
+		return strFieldName;
+	}
+
+	public void setStrFieldName(String strFieldName) {
+		this.strFieldName = strFieldName;
+	}
+
+	public String getStrFieldValue() {
+		return strFieldValue;
+	}
+
+	public void setStrFieldValue(String strFieldValue) {
+		this.strFieldValue = strFieldValue;
+	}
+
+	public List<clsWebClubMemberProfileBean> getListField() {
+		return listField;
+	}
+
+	public void setListField(List<clsWebClubMemberProfileBean> listField) {
+		this.listField = listField;
+	}
+
+	public String getStrBankCode() {
+		return strBankCode;
+	}
+
+	public void setStrBankCode(String strBankCode) {
+		this.strBankCode = strBankCode;
+	}
 }

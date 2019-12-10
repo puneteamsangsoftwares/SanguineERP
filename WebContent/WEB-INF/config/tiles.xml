@@ -3482,6 +3482,72 @@
 	</definition>
 	
 	
+	<definition name="frmMemberExplorer" extends="base.definition">
+		<put-attribute name="title" value="Member Explorer"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webclub/frmMemberExplorer.jsp"></put-attribute>
+	</definition>
+	<definition name="frmMemberExplorer_1" extends="base.definition4">
+		<put-attribute name="title" value="Member Explorer"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webclub/frmMemberExplorer.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="frmWebClubPDC" extends="base.definition">
+		<put-attribute name="title" value="Post Dated Cheque (PDC)"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webclub/frmWebClubPDC.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="frmWebClubPDC_1" extends="base.definition4">
+		<put-attribute name="title" value="Post Dated Cheque (PDC)"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webclub/frmWebClubPDC.jsp"></put-attribute>
+	</definition>
+	
+	
+	<definition name="frmWebClubPDCFlash" extends="base.definition">
+		<put-attribute name="title" value="PDC Flash"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webclub/frmWebClubPDCFlash.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="frmWebClubPDCFlash_1" extends="base.definition4">
+		<put-attribute name="title" value="PDC Flash"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webclub/frmWebClubPDCFlash.jsp"></put-attribute>
+	</definition>
+	
+	
+	<definition name="frmWebClubBankMaster" extends="base.definition">
+		<put-attribute name="title" value="Bank Master"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webclub/frmWebClubBankMaster.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="frmWebClubBankMaster_1" extends="base.definition4">
+		<put-attribute name="title" value="Bank Master Flash"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webclub/frmWebClubBankMaster.jsp"></put-attribute>
+	</definition>
+	
+	
+	<definition name="frmOtherFieldCreation" extends="base.definition">
+		<put-attribute name="title" value="Other Info Master"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webclub/frmOtherFieldCreation.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="frmOtherFieldCreation_1" extends="base.definition4">
+		<put-attribute name="title" value="Other Info Master"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webclub/frmOtherFieldCreation.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="frmWebClubPersonMaster" extends="base.definition">
+		<put-attribute name="title" value="Person Master"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webclub/frmWebClubPersonMaster.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="frmWebClubPersonMaster_1" extends="base.definition4">
+		<put-attribute name="title" value="Person Master"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webclub/frmWebClubPersonMaster.jsp"></put-attribute>
+	</definition>
+	
+	
+	
+	
+	
 	
 	
 	

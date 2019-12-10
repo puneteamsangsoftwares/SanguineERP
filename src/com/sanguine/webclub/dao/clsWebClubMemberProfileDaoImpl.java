@@ -6,12 +6,10 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.sanguine.webclub.model.clsWebClubAreaMasterModel;
-import com.sanguine.webclub.model.clsWebClubAreaMasterModel_ID;
 import com.sanguine.webclub.model.clsWebClubMemberProfileModel;
 import com.sanguine.webclub.model.clsWebClubMemberProfileModel_ID;
+import com.sanguine.webclub.model.clsWebClubPreMemberProfileModel;
 
 @Repository("clsMemberProfileDao")
 public class clsWebClubMemberProfileDaoImpl implements clsWebClubMemberProfileDao {
@@ -44,6 +42,15 @@ public class clsWebClubMemberProfileDaoImpl implements clsWebClubMemberProfileDa
 		// }
 		return list;
 	}
+	
+	public List<clsWebClubPreMemberProfileModel> funGetAllMemberPreProfile(String primaryCode, String clientCode) {
+		Query query = WebClubSessionFactory.getCurrentSession().createQuery(" from clsWebClubPreMemberProfileModel where strCustomerCode=:primaryCode and strClientCode=:clientCode ");
+		query.setParameter("primaryCode", primaryCode);
+		query.setParameter("clientCode", clientCode);
+		List list = query.list();
+		return list;
+	}
+	
 
 	public clsWebClubMemberProfileModel funGetMember(String memberCode, String clientCode) {
 		clsWebClubMemberProfileModel objModel = null;
@@ -79,7 +86,18 @@ public class clsWebClubMemberProfileDaoImpl implements clsWebClubMemberProfileDa
 		}
 
 		return custID;
-
 	}
+	
+	
+	
+	
+	@SuppressWarnings({ "finally", "rawtypes" })
+	public void funExecuteQuery(String query) {		
+			WebClubSessionFactory.getCurrentSession().createSQLQuery(query).executeUpdate();		
+			/*Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+			query.();*/
+	}
+	
+
 
 }

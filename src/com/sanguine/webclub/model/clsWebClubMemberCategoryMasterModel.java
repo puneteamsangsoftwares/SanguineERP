@@ -103,7 +103,7 @@ public class clsWebClubMemberCategoryMasterModel implements Serializable {
 	}
 
 	public void setStrCatCode(String strCatCode) {
-		this.strCatCode = (String) setDefaultValue(strCatCode, "NA");
+		this.strCatCode = (String) setDefaultValue(strCatCode, "");
 	}
 
 	public String getStrCatName() {
@@ -111,7 +111,7 @@ public class clsWebClubMemberCategoryMasterModel implements Serializable {
 	}
 
 	public void setStrCatName(String strCatName) {
-		this.strCatName = (String) setDefaultValue(strCatName, "NA");
+		this.strCatName = (String) setDefaultValue(strCatName, "");
 	}
 
 	public String getStrGroupCategoryCode() {
@@ -119,7 +119,7 @@ public class clsWebClubMemberCategoryMasterModel implements Serializable {
 	}
 
 	public void setStrGroupCategoryCode(String strGroupCategoryCode) {
-		this.strGroupCategoryCode = (String) setDefaultValue(strGroupCategoryCode, "NA");
+		this.strGroupCategoryCode = (String) setDefaultValue(strGroupCategoryCode, "");
 	}
 
 	public long getIntCreditLimit() {
@@ -127,7 +127,7 @@ public class clsWebClubMemberCategoryMasterModel implements Serializable {
 	}
 
 	public void setIntCreditLimit(long intCreditLimit) {
-		this.intCreditLimit = (Long) setDefaultValue(intCreditLimit, "NA");
+		this.intCreditLimit = (Long) setDefaultValue(intCreditLimit, "");
 	}
 
 	public String getStrRemarks() {
@@ -135,7 +135,7 @@ public class clsWebClubMemberCategoryMasterModel implements Serializable {
 	}
 
 	public void setStrRemarks(String strRemarks) {
-		this.strRemarks = (String) setDefaultValue(strRemarks, "NA");
+		this.strRemarks = (String) setDefaultValue(strRemarks, "");
 	}
 
 	public String getStrUserCreated() {
@@ -143,7 +143,7 @@ public class clsWebClubMemberCategoryMasterModel implements Serializable {
 	}
 
 	public void setStrUserCreated(String strUserCreated) {
-		this.strUserCreated = (String) setDefaultValue(strUserCreated, "NA");
+		this.strUserCreated = (String) setDefaultValue(strUserCreated, "");
 	}
 
 	public String getStrUserModified() {
@@ -151,7 +151,7 @@ public class clsWebClubMemberCategoryMasterModel implements Serializable {
 	}
 
 	public void setStrUserModified(String strUserModified) {
-		this.strUserModified = (String) setDefaultValue(strUserModified, "NA");
+		this.strUserModified = (String) setDefaultValue(strUserModified, "");
 	}
 
 	public String getStrClientCode() {
@@ -159,7 +159,7 @@ public class clsWebClubMemberCategoryMasterModel implements Serializable {
 	}
 
 	public void setStrClientCode(String strClientCode) {
-		this.strClientCode = (String) setDefaultValue(strClientCode, "NA");
+		this.strClientCode = (String) setDefaultValue(strClientCode, "");
 	}
 
 	public String getStrPropertyCode() {
@@ -167,7 +167,7 @@ public class clsWebClubMemberCategoryMasterModel implements Serializable {
 	}
 
 	public void setStrPropertyCode(String strPropertyCode) {
-		this.strPropertyCode = (String) setDefaultValue(strPropertyCode, "NA");
+		this.strPropertyCode = (String) setDefaultValue(strPropertyCode, "");
 	}
 
 	public String getStrVotingRights() {
@@ -175,7 +175,7 @@ public class clsWebClubMemberCategoryMasterModel implements Serializable {
 	}
 
 	public void setStrVotingRights(String strVotingRights) {
-		this.strVotingRights = (String) setDefaultValue(strVotingRights, "NA");
+		this.strVotingRights = (String) setDefaultValue(strVotingRights, "");
 	}
 
 	public String getStrcatdesc() {
@@ -183,7 +183,7 @@ public class clsWebClubMemberCategoryMasterModel implements Serializable {
 	}
 
 	public void setStrcatdesc(String strcatdesc) {
-		this.strcatdesc = (String) setDefaultValue(strcatdesc, "NA");
+		this.strcatdesc = (String) setDefaultValue(strcatdesc, "");
 	}
 
 	public String getStrRuleCode() {
@@ -191,7 +191,7 @@ public class clsWebClubMemberCategoryMasterModel implements Serializable {
 	}
 
 	public void setStrRuleCode(String strRuleCode) {
-		this.strRuleCode = (String) setDefaultValue(strRuleCode, "NA");
+		this.strRuleCode = (String) setDefaultValue(strRuleCode, "");
 	}
 
 	public String getStrCorporate() {
@@ -199,7 +199,7 @@ public class clsWebClubMemberCategoryMasterModel implements Serializable {
 	}
 
 	public void setStrCorporate(String strCorporate) {
-		this.strCorporate = (String) setDefaultValue(strCorporate, "NA");
+		this.strCorporate = (String) setDefaultValue(strCorporate, "");
 	}
 
 	public double getDblCreditAmt() {
@@ -207,7 +207,7 @@ public class clsWebClubMemberCategoryMasterModel implements Serializable {
 	}
 
 	public void setDblCreditAmt(double dblCreditAmt) {
-		this.dblCreditAmt = (Double) setDefaultValue(dblCreditAmt, "NA");
+		this.dblCreditAmt = (Double) setDefaultValue(dblCreditAmt, "");
 	}
 
 	public double getDblDisAmt() {
@@ -215,7 +215,7 @@ public class clsWebClubMemberCategoryMasterModel implements Serializable {
 	}
 
 	public void setDblDisAmt(double dblDisAmt) {
-		this.dblDisAmt = (Double) setDefaultValue(dblDisAmt, "NA");
+		this.dblDisAmt = (Double) setDefaultValue(dblDisAmt, "");
 	}
 
 	// Function to Set Default Values

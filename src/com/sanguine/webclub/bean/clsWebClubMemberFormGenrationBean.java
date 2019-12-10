@@ -4,6 +4,8 @@ public class clsWebClubMemberFormGenrationBean {
 
 	private String strFormNo;
 
+	private String strCategoryCode;
+	
 	private String strMemberCode;
 
 	private String strProspectName;
@@ -60,6 +62,14 @@ public class clsWebClubMemberFormGenrationBean {
 
 	public void setStrBusinessSourceCode(String strBusinessSourceCode) {
 		this.strBusinessSourceCode = strBusinessSourceCode;
+	}
+
+	public String getStrCategoryCode() {
+		return strCategoryCode;
+	}
+
+	public void setStrCategoryCode(String strCategoryCode) {
+		this.strCategoryCode = strCategoryCode;
 	}
 
 }

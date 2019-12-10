@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -6,6 +7,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+	 	<%-- <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/materialdesignicons.min.css"/>" />
+	  	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.css"/>" /> --%>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<%-- <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" /> --%>
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	 
+	 	
+	 	
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<%-- <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.js"/>"></script> --%>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	 
 <script type="text/javascript">
 	var fieldName;
 	
@@ -109,12 +125,50 @@ function funResetFields()
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;Company Type Master</label>
+	 <div class="container">
+		<label id="formHeading">Company Type Master</label>
+		<s:form name="WebClubCompanyTypeMaster" method="POST" action="saveWebClubCompanyTypeMaster.html">
+		<div class="row masterTable">
+			<div class="col-md-6">
+				<label>Company Type:</label><br>
+					<div class="row">
+						<div class="col-md-6"><s:input id="textCompanyTypeCode" ondblclick="funHelp('WCCompanyTypeMaster')" cssClass="searchTextBox"  readonly="true"
+							 placeholder="Company Type" type="text" required="true" path="strCompanyTypeCode" ></s:input>
+						</div>
+					
+						<div class="col-md-6"><s:input id="textstrCompanyName" path="strCompanyName" required="true"
+				              placeholder="Company Type" type="text" ></s:input>
+						</div>
+					</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-6">
+						<label>Min Annual TurnOvers:</label>
+							<s:input id="textAnnualTurnOver" path="strAnnualTurnOver" required="true"
+				             	type="text" placeholder="Minimum Annual TurnOvers"></s:input>	
+				     </div>
+				     <div class="col-md-6">
+						<label>Min Capital & Reserved:</label>
+						<s:input id="textCapitalAndReserved" path="strCapitalAndReserved" required="true"
+				            type="text" placeholder="Minimum Capital and Reserved"></s:input>	
+				     </div>
+				</div>
+			</div>		
+			
+		</div>
+		<div class="center">
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit" onclick=""
+				class="form_button">Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block" type="reset"
+				value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
+		</div>
+		
+		</s:form>
 	</div>
-
-<br/>
+</body>
+</html>
+<%-- <br/>
 <br/>
 
 	<s:form name="WebClubCompanyTypeMaster" method="POST" action="saveWebClubCompanyTypeMaster.html">
@@ -151,6 +205,5 @@ function funResetFields()
 			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
 		</p>
 
-	</s:form>
-</body>
-</html>
+	</s:form> --%>
+

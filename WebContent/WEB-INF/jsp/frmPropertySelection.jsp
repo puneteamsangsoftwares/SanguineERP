@@ -14,7 +14,10 @@
 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
 <script type="text/javascript">
   $(document).ready(function(){
-       $('#submit').focus();
+       $('#
+
+    		   
+').focus();
        
        $(document).ajaxStart(function(){
    	    $("#wait").css("display","block");
@@ -113,7 +116,7 @@
 					   {
 				   html += '</option>';
 				   $('#cmbLocation').html(html);
-				   //document.all['#divBtn'].style.display = 'block';
+				  // document.all['#divBtn'].style.display = 'block';
         		}
 	        
 			},
@@ -168,7 +171,7 @@
 				   $("#cmbLocation").val(loc);
 				   }
 				  // document.all["#divBtn"].style.display = 'block';
-				  // $('#txtWOCode').css('visibility','visible');
+				   // $('#txtWOCode').css('visibility','visible');
 	        
 			},
 			error: function(jqXHR, exception) {
@@ -215,7 +218,7 @@
   
 	<body>
 	<div style="width: 100%;height: 200px;"><img alt="" src="../${pageContext.request.contextPath}/resources/images/${headerImage}" width="100%" height="200px" style="background-repeat: no-repeat"></div>
-	<div style="background-color: inherit; top: 200px; bottom: 0;float: left;padding-left: 40px"><img alt="" src="../${pageContext.request.contextPath}/resources/images/${moduleTitleImage}" height="100px" width="466px">
+	<div style="background-color: inherit; top: 200px; bottom: 0;float: left;padding-left: 40px"><img alt="" src="../${pageContext.request.contextPath}/resources/images/${moduleTitleImage}" height="80px" width="400px">
 	
 <!-- 	<div style="float: left;padding-left: 40px;"> -->
 <!-- 		<img alt="" -->
@@ -224,85 +227,70 @@
 				
 <!-- 	</div> -->
 	</div>
-	
-	<div style="padding-top: 100px">
-		<s:form name="frmPropSel"  method="GET" action="frmMainMenu.html">
-		
-			<div style="padding-right: 12%;">
-			<div
-			style="float:right;width: 339px; height: 300px; -webkit-border-radius: 29px; -moz-border-radius: 29px; border-radius: 29px; border: 2px solid  	#0595D2; background: rgba(252, 253, 255, 0.4); -webkit-box-shadow: #42B3F4 2px 2px 2px; -moz-box-shadow: #42B3F4 2px 2px 2px; box-shadow: #42B3F4 2px 2px 2px;">
-			<div
-				style="width: 340px; height: 62px; background-image: url(../${pageContext.request.contextPath}/resources/images/loginlogo.png);">
-				<br>
-				<p align="center" style="font-size: 17px;font-weight: bold;">Sanguine Softwares Solutions Pvt. Ltd.</p>
-			</div>
-			<img alt="" src="../prjWebStocks/resources/images/property.png"
-				style="display: block; padding-left: 1px">
-			
-			
-			<div style="width: 340px; height: 163px;">
-			<table>
-			
-			<tr>
-			<td style="height: 35px;padding-left: 10px;width: 75px"><label style="font-size: 14px;font-weight: normal;text-shadow: gray;">Company</label></td>
-						<td>
-							<s:select id="cmbCompany" path="strCompanyCode"  cssClass="loginInput" cssStyle="width:98%;padding-left:2px;">
+<div class="container-fluid">
+		<div class="row">
+
+			<div class="col-md-5"></div>
+			<div class="col-md-3"></div>
+			<div class="col-md-4"> 
+				<s:form name="frmPropSel"  method="GET" action="frmMainMenu.html">
+				<div class="box1" style="margin-top: 50px">
+							<h2 style="width: 22%; float: right; margin-right: 100px; padding-left: 0px;">Sanguine Softwares Solutions Pvt.Ltd</h2>
+				</div>
+				<div class="inputbox1">
+								 <label style="margin-left: 945px;">Company</label>
+								 <s:select id="cmbCompany" style="margin-bottom:5px;margin-left: 70%;
+  								  width: 18%;" path="strCompanyCode">
 				    			<s:options items="${listComapny}"/>
 				    		</s:select><s:input type="hidden" path="strCompanyName" id="strCompanyName"/>
-				    	</td>
-			</tr>
-			
-			
-			<tr>
-			<td style="height: 35px;padding-left: 10px;"><label style="font-size: 14px;font-weight: normal;">Property</label></td>
-						<td>
-							<s:select id="cmbProperty" path="strPropertyCode" cssClass="loginInput" 
-							cssStyle="width:98%;padding-left:2px;height:22px;" required="true"  onchange="funLoadLocation(this.value)">
+						
+							
+				</div>
+				<div class="inputbox1">
+							<label style="margin-left: 945px;">Property</label>
+							  <s:select id="cmbProperty" path="strPropertyCode" required="true"  style="margin-bottom:5px; margin-left: 70%;
+   							 width: 18%;" onchange="funLoadLocation(this.value)">
 				    			<s:options items="${listProperty}"/>
 				    		</s:select><s:input type="hidden" path="strPropertyName" id="strPropertyName"/>
-						</td>
-			</tr>
-			<tr><td style="height: 35px;padding-left: 10px;"><label style="font-size: 14px;font-weight: normal;">Location</label></td>
-						<td>
-							<s:select id="cmbLocation" path="strLocationCode"  cssClass="loginInput" cssStyle="width:98%;padding-left:2px;">
-				    			<%-- <s:options  items="${listLocation}"/> --%>
+							
+							
+				</div>	
+				<div class="inputbox1">
+							  <label style="margin-left: 945px;">Location</label>
+							  <s:select id="cmbLocation" path="strLocationCode"  style="margin-bottom:5px;margin-left: 70%;
+   								 width: 18%;"> 
+				    			<!-- <s:options  items="${listLocation}"/> -->
 				    		</s:select><s:input type="hidden" path="strLocationName" id="strLocationName"/>
-						</td>
-				</tr>
-			<tr>
-						<td style="height: 35px;padding-left: 10px;"><label style="font-size: 14px;font-weight: normal;">Fin. Year</label></td>
-						<td>
-						
-				    		
-				    		<select id="cmbFinancialYear" class="loginInput" style="padding-left:2px;" >	
+							
+							
+				</div>
+				<div class="inputbox1">
+							  <label style="margin-left: 945px;">Fin. Year</label>
+							  <select id="cmbFinancialYear"  style="margin-bottom:5px;margin-left: 70%;
+   								 width: 18%;">	
 				    		<c:forEach items="${listFinancialYear}" var="draw">	
 				    		<option value="${draw.key}">${draw.value}</option>
 				    		</c:forEach>	
 				    		</select><s:input type="hidden" path="strFinancialYear" id="strFinancialYear"/>
-						</td>
-					</tr>
-			</table>			
-			</div>
-			<div id="divBtn"  
-				style="width: 340px; height: 36px; background-image: url(../${pageContext.request.contextPath}/resources/images/loginfoot.png);">
-				<p align="right" style="padding-right: 22px; padding-top: 9px">
-					<input type="submit" onclick="return funSetSessionData()" id="submit" value="" class="loginButton"   />
-				</p>
-			</div>
-			</div>
-			
-			</div>
-									
-			<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:50%;left:45%;padding:2px;">
+							
+							
+				</div>
+				<div class="submit" id="divBtn">
+					<h2><input type="submit" onclick="return funSetSessionData()" placeholder="Submit style='color:#fff;'" id="submit" value="Submit" class="loginButton" style="margin-left:1100px; font-size:17px; font-weight:1100px;
+    width: 8%; color:#fff;"></h2>
+				</div>
+				
+				<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:50%;left:45%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 			<script type="text/javascript">
 			funLoadLocation($("#cmbProperty").val());
 			</script>
-		</s:form>
-		</div>
-		<div id="loginfooter">Copyright &copy; 2014 Sanguine Software Solutions</div>
-		
-
+			
+			</s:form>
+			
+				<div id="loginfooter">Copyright &copy; 2014 Sanguine Software Solutions</div>
+		</div> 
+    </div>				
 	</body>
 </html>

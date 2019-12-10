@@ -97,9 +97,27 @@ public class clsWebClubMemberProfileModel implements Serializable {
 	@Column(name = "strResidentLandMark", columnDefinition = "VARCHAR(255) NOT NULL default ''")
 	private String strResidentLandMark;
 
+	@Column(name = "strDepEmailID", columnDefinition = "VARCHAR(255) NOT NULL default ''")
+	private String strDepEmailID;
+	
+	@Column(name = "strAadharCardNo", columnDefinition = "VARCHAR(255) NOT NULL default ''")
+	private String strAadharCardNo;	
+	
+	@Column(name = "strVoterIdNo", columnDefinition = "VARCHAR(255) NOT NULL default ''")
+	private String strVoterIdNo;	
+	
+	@Column(name = "strPassportNo", columnDefinition = "VARCHAR(255) NOT NULL default ''")
+	private String strPassportNo;	
+		
+	@Column(name = "strDepAadharCardNo", columnDefinition = "VARCHAR(12) NOT NULL default ''")
+	private String strDepAadharCardNo;
+	
 	@Column(name = "strResidentMobileNo", columnDefinition = "VARCHAR(12) NOT NULL default ''")
 	private String strResidentMobileNo;
 
+	@Column(name = "strDepMobileNo", columnDefinition = "VARCHAR(12) NOT NULL default ''")
+	private String strDepMobileNo;
+	
 	@Column(name = "strResidentPinCode", columnDefinition = "VARCHAR(10) NOT NULL default ''")
 	private String strResidentPinCode;
 
@@ -414,6 +432,22 @@ public class clsWebClubMemberProfileModel implements Serializable {
 
 	@Column(name = "strMemberYesNo")
 	private String strMemberYesNo;
+	
+	@Column(name = "strBankCode",columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strBankCode;
+	
+	@Column(name = "strIfscCOde",columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strIfscCOde;
+	
+	
+	@Column(name = "strAccNo",columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strAccNo;
+	
+	
+	@Column(name = "strBranchName",columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strBranchName;
+	
+	
 
 	// Setter-Getter Methods
 
@@ -1443,6 +1477,86 @@ public class clsWebClubMemberProfileModel implements Serializable {
 
 	public void setDteAnniversary(String dteAnniversary) {
 		this.dteAnniversary = dteAnniversary;
+	}
+
+	public String getStrIfscCOde() {
+		return strIfscCOde;
+	}
+
+	public void setStrIfscCOde(String strIfscCOde) {
+		this.strIfscCOde = strIfscCOde;
+	}
+
+	public String getStrAccNo() {
+		return strAccNo;
+	}
+
+	public void setStrAccNo(String strAccNo) {
+		this.strAccNo = strAccNo;
+	}
+
+	public String getStrBranchName() {
+		return strBranchName;
+	}
+
+	public void setStrBranchName(String strBranchName) {
+		this.strBranchName = strBranchName;
+	}
+
+	public String getStrDepEmailID() {
+		return strDepEmailID;
+	}
+
+	public void setStrDepEmailID(String strDepEmailID) {
+		this.strDepEmailID = strDepEmailID;
+	}
+
+	public String getStrAadharCardNo() {
+		return strAadharCardNo;
+	}
+
+	public void setStrAadharCardNo(String strAadharCardNo) {
+		this.strAadharCardNo = strAadharCardNo;
+	}
+
+	public String getStrVoterIdNo() {
+		return strVoterIdNo;
+	}
+
+	public void setStrVoterIdNo(String strVoterIdNo) {
+		this.strVoterIdNo = strVoterIdNo;
+	}
+
+	public String getStrPassportNo() {
+		return strPassportNo;
+	}
+
+	public void setStrPassportNo(String strPassportNo) {
+		this.strPassportNo = strPassportNo;
+	}
+
+	public String getStrDepAadharCardNo() {
+		return strDepAadharCardNo;
+	}
+
+	public void setStrDepAadharCardNo(String strDepAadharCardNo) {
+		this.strDepAadharCardNo = strDepAadharCardNo;
+	}
+
+	public String getStrDepMobileNo() {
+		return strDepMobileNo;
+	}
+
+	public void setStrDepMobileNo(String strDepMobileNo) {
+		this.strDepMobileNo = strDepMobileNo;
+	}
+
+	public String getStrBankCode() {
+		return strBankCode;
+	}
+
+	public void setStrBankCode(String strBankCode) {
+		this.strBankCode = strBankCode;
 	}
 
 }

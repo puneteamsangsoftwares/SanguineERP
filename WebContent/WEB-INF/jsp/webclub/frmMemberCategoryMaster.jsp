@@ -5,8 +5,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title></title>
+	  
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+<style>
+	 
+.center {
+	text-align: right;
+    padding-top: 25px;
+}	
+.btn{
+margin:0px;}
+
+</style>
 
 <script type="text/javascript">
 		var fieldName,gurl,listRow=0,mastercode;
@@ -43,9 +60,9 @@
 		});
 	
 	 
-	//satyajit code start
 	 function btnAdd_onclick() 
-		{			
+		{	
+		 	var flag=false;
 			if(($("#txtFacilityCode").val().trim().length == 0) )
 	        {
 				 alert("Please Enter Product Code Or Search");
@@ -62,7 +79,8 @@
 					    var OperationalNY = $("#txtOperationalNY").val();
 						funAddRow(facilityCode,facilityName,OperationalNY);
 	            	}
-			}		 
+			}	
+			return flag;
 		}	 
 	 
 		 /*
@@ -117,6 +135,7 @@
 		{
 		    var index = obj.parentNode.parentNode.rowIndex;
 		    var table = document.getElementById("tblProduct");
+		    index--;
 		    table.deleteRow(index);
 		}
 		
@@ -159,14 +178,11 @@
 		
 	
 		
-	 //satyajit code end
-	 
 	 function funHelp(transactionName)
 		{	       
 			fieldName=transactionName;
-	    //    window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;")
 	        window.open("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;")
-	        
+	       
 	    }
 	 
 	 function funResetFields()
@@ -180,18 +196,17 @@
 		 	{
 
 			case 'WCFacilityMaster' :
-				funSetFacilityData(code);
-				
+				funSetFacilityData(code);				
 				break;
 				
 			case 'WCCatMaster' :				
-				funSetMemberCategoryData(code);					
+				funSetMemberCategoryData(code);
+				funSetFacilityMasterListData();
 				//funSetFacilityMasterListData(code);
 				break;
 			}
 		}
-	 function funSetMemberCategoryData(code){
-		 
+	 function funSetMemberCategoryData(code){		 
 			$("#txtCatCode").val(code);
 			var searchurl=getContextPath()+"/loadWebClubMemberCategoryMaster.html?catCode="+code;
 			//alert(searchurl);
@@ -332,181 +347,141 @@
 
 </head>
 <body>
-	<div id="formHeading">
-		<label>Member Category Master</label>
-	</div>
-	<div>
-		<s:form name="frmMemberCategoryMaster"
-			action="saveWebClubMemberCategoryMaster.html?saddr=${urlHits}"
-			method="POST">
-			<br>
-			<table
-				style="border: 0px solid black; width: 100%; height: 70%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
-				<tr>
-					<td>
-						<div id="tab_container" style="height: 380px">
-							<ul class="tabs">
-								<li class="active" data-state="tab1">Member Category</li>
-								<li data-state="tab2" onclick="funSetFacilityMasterListData()">Facility
-									Master</li>
-							</ul>
-
-							<div id="tab1" class="tab_content" style="height: 290px">
-								<br>
-								<br>
-								<table class="transTable">
-									<tr>
-										<td width="18%">Member Category Code</td>
-										<td width="10%"><s:input id="txtCatCode"
-												path="strCatCode" cssClass="searchTextBox"
-												ondblclick="funHelp('WCCatMaster')" readonly="true" /> <s:input
-												type="text" id="txtMCName" name="txtMCName"
-												path="strCatName" required="true"
-												cssStyle="text-transform: uppercase;" cssClass="longTextBox" />
-											<s:errors path=""></s:errors></td>
-									</tr>
-									<tr>
-										<td width="18%"">Member Group Category Code</td>
-										<td><s:input id="txtGroupCategoryCode"
-												path="strGroupCategoryCode" cssClass="searchTextBox"
-												ondblclick="" readonly="true" /> <%-- <s:input type="text" id="txtMSCName" 
-						name="txtMSCName" path="" required="true"
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox"  /> <s:errors path=""></s:errors> --%></td>
-									</tr>
-
-									<tr>
-										<td width="18%"">Tenure</td>
-										<td><s:input type="text" id="txtTenure" name="txtTenure"
-												path="strTenure" required="true" cssClass="longTextBox"
-												style="width: 118px;" />&nbsp;&nbsp;&nbsp;(Years)</td>
-									</tr>
-
-									<tr>
-										<td width="18%"">Rule Code</td>
-										<td><s:input id="txtRCode" path="strRuleCode"
-												cssClass="searchTextBox" ondblclick="" readonly="true" /> <%-- <s:input type="text" id="txtRName" 
-						name="txtRName" path="" required="true"
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox"  /> <s:errors path=""></s:errors> --%></td>
-									</tr>
-									<tr>
-										<td width="18%"><label>Credit Limit</label></td>
-										<td width="100%"><s:input id="txtCreditLimit"
-												path="intCreditLimit" required="required"
-												class="decimal-places numberField" type="text"></s:input></td>
-
-									</tr>
-
-									<tr>
-										<td><label>Voting Rights</label></td>
-										<td><s:select id="cmbVotingRight" name="cmbVotingRight"
-												path="strVotingRights" cssClass="BoxW124px">
+	<div class="container">
+		<label id="formHeading">Member Category Master</label>
+		<s:form name="frmMemberCategoryMaster" action="saveWebClubMemberCategoryMaster.html?saddr=${urlHits}" method="POST">
+			<div id="tab_container">
+				<ul class="tabs">
+					<li class="active" data-state="tab1">Member Category</li>
+					<li data-state="tab2" >Facility Master</li>
+				</ul> 
+				<div id="tab1" class="tab_content">
+						<div class="row transTable">
+							<div class="col-md-6">
+								<label>Member Category Code:</label>
+									<div class="row">
+										<div class="col-md-6"><s:input id="txtCatCode" ondblclick="funHelp('WCCatMaster')" cssClass="searchTextBox"
+											readonly="true" placeholder="Member Category Code" type="text" path="strCatCode"></s:input>
+										</div>
+					
+										<div class="col-md-6"><s:input id="txtMCName" name="txtMCName" path="strCatName" required="true"
+									 		placeholder="Member Category Code" type="text"></s:input><s:errors path=""></s:errors>
+										</div>
+									</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-6">
+										<label>Member Group Category Code:</label>
+											<s:input id="txtGroupCategoryCode" path="strGroupCategoryCode" 
+							 					placeholder="Member Group Category Code" type="text" ondblclick="" readonly="true"></s:input>
+									</div>
+									<div class="col-md-6">
+										<label>Tenure:</label>
+											<s:input id="txtTenure" name="txtTenure" path="strTenure" required="true"
+							 				placeholder="Tenure" type="text"></s:input>&nbsp;&nbsp;&nbsp;
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-6">
+										<label>Rule Code:</label>
+											<s:input id="txtRCode" path="strRuleCode" 
+							 					placeholder="Rule Code" type="text" cssClass="searchTextBox" ondblclick="" readonly="true"></s:input>
+									</div>
+									<div class="col-md-6">
+										<label>Credit Limit:</label>
+											<s:input id="txtCreditLimit" name="txtTenure" path="intCreditLimit" required="required"
+							 				placeholder="Tenure" class="decimal-places numberField" type="text"></s:input>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-6">
+										<label>Voting Rights:</label>
+											<s:select id="cmbVotingRight" name="cmbVotingRight" path="strVotingRights" cssClass="BoxW124px">
 												<option value="N">No</option>
 												<option value="Y">Yes</option>
-											</s:select></td>
-									</tr>
-
-									<tr>
-										<td><label>Remark</label></td>
-										<td><s:textarea path="strRemarks" id="txtRemarks"
-												style="width: 400px; height: 37px" /></td>
-									</tr>
-									<tr>
-										<td><label>Credit Amount</label></td>
-										<td><s:input id="txtCreditAmt" path="dblCreditAmt"
-												required="required" class="decimal-places numberField"
-												type="text"></s:input></td>
-
-									</tr>
-									<tr>
-										<td><label>Discount Amount</label></td>
-										<td><s:input id="txtDiscountAmt" path="dblDisAmt"
-												required="required" class="decimal-places numberField"
-												type="text"></s:input></td>
-
-									</tr>
-
-
-
-
-								</table>
+											</s:select>
+									</div>
+									<div class="col-md-6">
+										<label>Remark:</label><br>
+											<s:textarea path="strRemarks" id="txtRemarks"/>
+									</div>
+								</div>
 							</div>
-							<div id="tab2" class="tab_content" style="height: 290px">
-								<br>
-								<br>
-								<table class="transTable">
-
-									<tr>
-										<td width="20px"><label>Facility Code</label></td>
-										<td width="20px"><s:input id="txtFacilityCode"
-												path="strFacilityCode" required="" cssClass="searchTextBox"
-												type="text" ondblclick="funHelp('WCFacilityMaster')"
-												readonly="true"></s:input></td>
-
-									</tr>
-									<tr>
-										<td width="30px"><label>Facility Name</label>
-										<td colspan="2"><s:input id="txtFacilityName"
-												path="strFacilityName" required="" cssStyle="width:250% ;"
-												cssClass="longTextBox" type="text"></s:input></td>
-									</tr>
-									<tr>
-										<td width="20px"><label>Operational</label>
-										<td colspan="2"><s:input id="txtOperationalNY"
-												path="strOperationalNY" required="" cssStyle="width:80% ;"
-												cssClass="longTextBox" /></td>
-										<td colspan="4"><input id="btnAdd" type="button"
-											class="smallButton" value="Add"
-											onclick="return btnAdd_onclick();"></input></td>
-									</tr>
-								</table>
-
-
-								<div class="dynamicTableContainer" style="height: 260px">
-									<table
-										style="height: 25px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-
-										<tr bgcolor="#72BEFC">
-											<td width="5%">Facility Code</td>
-											<!--  COl1   -->
-											<td width="27%">Facility Name</td>
-											<!--  COl2   -->
-											<td width="7%">Operational</td>
-											<!--  COl3   -->
-										</tr>
-									</table>
-									<div
-										style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 275px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-										<table id="tblProduct" path="strTblProduct"
-											style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-											class="transTablex col9-center">
-											<tbody>
-											<col style="width: 12.85%">
-											<!--  COl1   -->
-											<col style="width: 70.8%">
-											<!--  COl2   -->
-											<col style="width: 10%">
-											<!--  COl3   -->
-											</tbody>
-										</table>
+							<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-6">
+										<label>Credit Amount:</label>
+											<s:input id="txtCreditAmt" path="dblCreditAmt" required="required"
+							 				placeholder="Credit Amount" class="decimal-places numberField" type="text"></s:input>
+									</div>
+									<div class="col-md-6">
+										<label>Discount Amount:</label>
+											<s:input id="txtDiscountAmt" path="dblDisAmt" required="required"
+							 				placeholder="Credit Amount" class="decimal-places numberField" type="text"></s:input>
 									</div>
 								</div>
 							</div>
 						</div>
-					</td>
-				</tr>
-			</table>
-
-
-			<p align="center">
-				<input type="submit" value="Submit" onclick="" class="form_button" />
-				&nbsp; &nbsp; &nbsp; <input type="reset" value="Reset"
-					class="form_button" onclick="funResetField()" />
-			</p>
-			<br>
-			<br>
-
+					</div>
+					<div id="tab2" class="tab_content">
+						<div class="row transTable">
+							<div class="col-md-6">
+									<div class="row">
+										<div class="col-md-6">
+											<label>Facility Code</label><br>
+										<s:input id="txtFacilityCode" required="" ondblclick="funHelp('WCFacilityMaster')" cssClass="searchTextBox"
+											readonly="true" placeholder="Facility Code" type="text" path="strFacilityCode"></s:input>
+										</div>
+					
+										<div class="col-md-6">
+										<label>Facility Name</label><br><s:input id="txtFacilityName" path="strFacilityName" required="" readonly="true"
+									 		placeholder="Facility Name" type="text"></s:input><s:errors path=""></s:errors>
+										</div>
+									</div>
+							</div>
+							<div class="col-md-6">
+									<div class="row">
+										<div class="col-md-6">
+											<label>Operational</label>
+										<s:input id="txtOperationalNY" 
+											placeholder="Operational" type="text" path="strOperationalNY" readonly="true"></s:input>
+										</div>
+					
+										<div class="col-md-6">
+										<div class="center">
+										<a href="#"><button class="btn btn-primary center-block" id="btnAdd" value="Add" onclick="return btnAdd_onclick()" class="form_button">Add</button></a>
+										</div>
+										</div>
+									</div>
+							</div>
+						</div>
+						  <table class="table table-striped dynamicTableContainer"> <!-- style="border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;"> -->
+								<thead>
+									<tr>
+									   <th>Facility Code</th>
+									   <th>Facility Name</th>
+									    <th>Operational</th>
+									  </tr>
+								 </thead>
+								<tbody id="tblProduct"> <!-- class="transTablex path="strTblProduct" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" -->
+									  
+								</tbody>
+						 </table> 
+					</div>
+					</div>
+					<div class="center"style="text-align:center;">
+						<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick=""
+							class="form_button">Submit</button></a>
+						<a href="#"><button class="btn btn-primary center-block" type="reset"
+						 	value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
+					</div>
+			
 		</s:form>
-	</div>
-
+</div>
 </body>
 </html>

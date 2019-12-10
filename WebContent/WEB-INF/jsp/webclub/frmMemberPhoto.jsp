@@ -1,14 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
 <title></title>
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	 
 <script type="text/javascript">
 	var fieldName;
 
@@ -149,8 +156,53 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
+	<div class="container">
+		<label id="formHeading">Member Photo</label>
+		<s:form name="WebClubMemberPhoto" method="POST" action="saveWebClubMemberPhoto.html"  enctype="multipart/form-data">
+			<div class="row masterTable">
+				<div class="col-md-6">
+					<label>Member Code</label>
+					<div class="row">
+						<div class="col-md-6"><s:input id="txtMemberCode" ondblclick="funHelp('WCmemProfileCustomer')" cssClass="searchTextBox"
+							readonly="true" placeholder="Member Code" type="text" path="strMemberCode"></s:input>
+						</div>
+					
+						<div class="col-md-6"><s:input id="txtMemberName" path="strMemberName" readonly="true"
+									 placeholder="Member Code" type="text"></s:input>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6"></div>
+					<table class="container masterTable" style="margin-top:30px; background-color:#fff;">
+						<tr>
+							<td style="border: 1px solid black;"><label>Member Code</label></td>
+							<td style="border: 1px solid black;"><label>Member Name</label></td>
+							<td style="border: 1px solid black;"><label>Member Photo</label></td>
+						</tr>
+						<tr>
+							<td style="border: 1px solid black;">
+								<label id="lblmemberCode"></label>
+							</td>
+							<td style="border: 1px solid #646777;">
+								<label id="lblmemberName"></label>
+							</td>
+							<td style="border: 1px solid black; width:33%;">
+				 				<div style="width:150px"><img id="memImage" src="" width="150px" height="155px" alt="Member Image"></div>
+								<div ><input  id="memberImage" name="memberImage"  type="file" accept="image/gif,image/png,image/jpeg" class="btn btn-primary center-block" onchange="funShowImagePreview(this);" /></div>
+							</td>
+						</tr>
+					</table>
+			</div>
+			<div class="center">
+				<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick=""
+					class="form_button">Submit</button></a>
+				<a href="#"><button class="btn btn-primary center-block" type="reset"
+					value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
+			</div>	
+		</s:form>
+	</div>
+	
+	<%-- <div id="formHeading">
 	<label>Member Photo</label>
 	</div>
 
@@ -209,6 +261,6 @@
 			<input type="reset" value="Reset" class="form_button" onclick="funReset()"/>
 		</p>
 
-	</s:form>
+	</s:form> --%>
 </body>
 </html>

@@ -44,8 +44,8 @@ public class clsWebClubStaffMasterModel implements Serializable {
 	@Column(name = "strUserModified")
 	private String strUserModified;
 
-	@Column(name = "dteLastModifiedDate")
-	private String dteLastModifiedDate;
+	@Column(name = "dteLastModified")
+	private String dteLastModified;
 
 	@Column(name = "strClientCode")
 	private String strClientCode;
@@ -101,14 +101,14 @@ public class clsWebClubStaffMasterModel implements Serializable {
 		this.strUserModified = strUserModified;
 	}
 
-	public String getDteLastModifiedDate() {
+	/*public String getDteLastModifiedDate() {
 		return dteLastModifiedDate;
 	}
 
 	public void setDteLastModifiedDate(String dteLastModifiedDate) {
 		this.dteLastModifiedDate = dteLastModifiedDate;
 	}
-
+*/
 	public String getStrClientCode() {
 		return strClientCode;
 	}
@@ -138,6 +138,14 @@ public class clsWebClubStaffMasterModel implements Serializable {
 		} else {
 			return defaultValue;
 		}
+	}
+
+	public String getDteLastModified() {
+		return dteLastModified;
+	}
+
+	public void setDteLastModified(String dteLastModified) {
+		this.dteLastModified = dteLastModified;
 	}
 
 }

@@ -120,7 +120,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrCompanyCode(String strCompanyCode) {
-		this.strCompanyCode = (String) setDefaultValue(strCompanyCode, "NA");
+		this.strCompanyCode = (String) setDefaultValue(strCompanyCode, "");
 	}
 
 	public String getStrCompanyName() {
@@ -128,7 +128,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrCompanyName(String strCompanyName) {
-		this.strCompanyName = (String) setDefaultValue(strCompanyName, "NA");
+		this.strCompanyName = (String) setDefaultValue(strCompanyName, "");
 	}
 
 	public String getStrAddress1() {
@@ -136,7 +136,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrAddress1(String strAddress1) {
-		this.strAddress1 = (String) setDefaultValue(strAddress1, "NA");
+		this.strAddress1 = (String) setDefaultValue(strAddress1, "");
 	}
 
 	public String getStrAddress2() {
@@ -144,7 +144,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrAddress2(String strAddress2) {
-		this.strAddress2 = (String) setDefaultValue(strAddress2, "NA");
+		this.strAddress2 = (String) setDefaultValue(strAddress2, "");
 	}
 
 	public String getStrAddress3() {
@@ -152,7 +152,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrAddress3(String strAddress3) {
-		this.strAddress3 = (String) setDefaultValue(strAddress3, "NA");
+		this.strAddress3 = (String) setDefaultValue(strAddress3, "");
 	}
 
 	public String getStrLandmark() {
@@ -160,7 +160,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrLandmark(String strLandmark) {
-		this.strLandmark = (String) setDefaultValue(strLandmark, "NA");
+		this.strLandmark = (String) setDefaultValue(strLandmark, "");
 	}
 
 	public String getStrAreaCode() {
@@ -168,7 +168,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrAreaCode(String strAreaCode) {
-		this.strAreaCode = (String) setDefaultValue(strAreaCode, "NA");
+		this.strAreaCode = (String) setDefaultValue(strAreaCode, "");
 	}
 
 	public String getStrCityCode() {
@@ -176,7 +176,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrCityCode(String strCityCode) {
-		this.strCityCode = (String) setDefaultValue(strCityCode, "NA");
+		this.strCityCode = (String) setDefaultValue(strCityCode, "");
 	}
 
 	public String getStrStateCode() {
@@ -184,7 +184,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrStateCode(String strStateCode) {
-		this.strStateCode = (String) setDefaultValue(strStateCode, "NA");
+		this.strStateCode = (String) setDefaultValue(strStateCode, "");
 	}
 
 	public String getStrRegionCode() {
@@ -192,7 +192,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrRegionCode(String strRegionCode) {
-		this.strRegionCode = (String) setDefaultValue(strRegionCode, "NA");
+		this.strRegionCode = (String) setDefaultValue(strRegionCode, "");
 	}
 
 	public String getStrCountryCode() {
@@ -200,7 +200,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrCountryCode(String strCountryCode) {
-		this.strCountryCode = (String) setDefaultValue(strCountryCode, "NA");
+		this.strCountryCode = (String) setDefaultValue(strCountryCode, "");
 	}
 
 	public String getStrPin() {
@@ -208,7 +208,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrPin(String strPin) {
-		this.strPin = (String) setDefaultValue(strPin, "NA");
+		this.strPin = (String) setDefaultValue(strPin, "");
 	}
 
 	public String getStrTelephone1() {
@@ -216,7 +216,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrTelephone1(String strTelephone1) {
-		this.strTelephone1 = (String) setDefaultValue(strTelephone1, "NA");
+		this.strTelephone1 = (String) setDefaultValue(strTelephone1, "");
 	}
 
 	public String getStrTelephone2() {
@@ -224,7 +224,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrTelephone2(String strTelephone2) {
-		this.strTelephone2 = (String) setDefaultValue(strTelephone2, "NA");
+		this.strTelephone2 = (String) setDefaultValue(strTelephone2, "");
 	}
 
 	public String getStrFax1() {
@@ -232,7 +232,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrFax1(String strFax1) {
-		this.strFax1 = (String) setDefaultValue(strFax1, "NA");
+		this.strFax1 = (String) setDefaultValue(strFax1, "");
 	}
 
 	public String getStrFax2() {
@@ -240,7 +240,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrFax2(String strFax2) {
-		this.strFax2 = (String) setDefaultValue(strFax2, "NA");
+		this.strFax2 = (String) setDefaultValue(strFax2, "");
 	}
 
 	public String getStrMemberCode() {
@@ -248,7 +248,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrMemberCode(String strMemberCode) {
-		this.strMemberCode = (String) setDefaultValue(strMemberCode, "NA");
+		this.strMemberCode = (String) setDefaultValue(strMemberCode, "");
 	}
 
 	public String getStrActiveNominee() {
@@ -256,7 +256,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrActiveNominee(String strActiveNominee) {
-		this.strActiveNominee = (String) setDefaultValue(strActiveNominee, "NA");
+		this.strActiveNominee = (String) setDefaultValue(strActiveNominee, "");
 	}
 
 	public String getStrCategoryCode() {
@@ -264,7 +264,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrCategoryCode(String strCategoryCode) {
-		this.strCategoryCode = (String) setDefaultValue(strCategoryCode, "NA");
+		this.strCategoryCode = (String) setDefaultValue(strCategoryCode, "");
 	}
 
 	public String getStrCompanyType() {
@@ -272,7 +272,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrCompanyType(String strCompanyType) {
-		this.strCompanyType = (String) setDefaultValue(strCompanyType, "NA");
+		this.strCompanyType = (String) setDefaultValue(strCompanyType, "");
 	}
 
 	public double getDblAnnualTrunover() {
@@ -280,7 +280,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setDblAnnualTrunover(double dblAnnualTrunover) {
-		this.dblAnnualTrunover = (Double) setDefaultValue(dblAnnualTrunover, "NA");
+		this.dblAnnualTrunover = (Double) setDefaultValue(dblAnnualTrunover, "");
 	}
 
 	public double getDblCapital() {
@@ -288,7 +288,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setDblCapital(double dblCapital) {
-		this.dblCapital = (Double) setDefaultValue(dblCapital, "NA");
+		this.dblCapital = (Double) setDefaultValue(dblCapital, "");
 	}
 
 	public String getStrUserCreated() {
@@ -296,7 +296,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrUserCreated(String strUserCreated) {
-		this.strUserCreated = (String) setDefaultValue(strUserCreated, "NA");
+		this.strUserCreated = (String) setDefaultValue(strUserCreated, "");
 	}
 
 	public String getStrUserModified() {
@@ -304,7 +304,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrUserModified(String strUserModified) {
-		this.strUserModified = (String) setDefaultValue(strUserModified, "NA");
+		this.strUserModified = (String) setDefaultValue(strUserModified, "");
 	}
 
 	public String getStrClientCode() {
@@ -312,7 +312,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrClientCode(String strClientCode) {
-		this.strClientCode = (String) setDefaultValue(strClientCode, "NA");
+		this.strClientCode = (String) setDefaultValue(strClientCode, "");
 	}
 
 	public String getStrPropertyCode() {
@@ -320,7 +320,7 @@ public class clsWebClubCompanyMasterModel implements Serializable {
 	}
 
 	public void setStrPropertyCode(String strPropertyCode) {
-		this.strPropertyCode = (String) setDefaultValue(strPropertyCode, "NA");
+		this.strPropertyCode = (String) setDefaultValue(strPropertyCode, "");
 	}
 
 	// Function to Set Default Values

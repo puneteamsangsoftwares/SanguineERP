@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sanguine.webclub.dao.clsWebClubMemberProfileDao;
 import com.sanguine.webclub.model.clsWebClubMemberProfileModel;
+import com.sanguine.webclub.model.clsWebClubPreMemberProfileModel;
 
 @Service("clsMemberProfileService")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebClubTransactionManager")
@@ -32,7 +33,11 @@ public class clsWebClubMemberProfileServiceImpl implements clsWebClubMemberProfi
 	public List<clsWebClubMemberProfileModel> funGetAllMember(String primaryCode, String clientCode) {
 		return objMemberProfileDao.funGetAllMember(primaryCode, clientCode);
 	}
-
+	
+	public List<clsWebClubPreMemberProfileModel> funGetAllMemberPreProfile(String primaryCode, String clientCode) {
+		return objMemberProfileDao.funGetAllMemberPreProfile(primaryCode, clientCode);
+	}
+	
 	public clsWebClubMemberProfileModel funGetWebClubAreaMaster(String areaCode, String clientCode) {
 		return objMemberProfileDao.funGetWebClubAreaMaster(areaCode, clientCode);
 
@@ -41,6 +46,11 @@ public class clsWebClubMemberProfileServiceImpl implements clsWebClubMemberProfi
 	public String funGetCustomerID(String customerCode, String clientCode) {
 
 		return objMemberProfileDao.funGetCustomerID(customerCode, clientCode);
+	}
+	
+	public void funExecuteQuery(String sql) {
+
+		objMemberProfileDao.funExecuteQuery(sql);
 	}
 
 }

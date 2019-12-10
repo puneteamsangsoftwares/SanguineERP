@@ -158,8 +158,9 @@ public class clsWebClubMemberCategoryMasterController {
 							
 				    	 for(clsWebClubFacilityMasterModel ob:objBean.getListFacilityDtl())
 				    	 { 	    		 
-				    		
-						    	clsWebClubCategeoryWiseFacilityModel obj = new clsWebClubCategeoryWiseFacilityModel();
+				    		 	if(ob.getStrFacilityCode()!=null)
+				    		 	{				    		 	
+				    		 		clsWebClubCategeoryWiseFacilityModel obj = new clsWebClubCategeoryWiseFacilityModel();
 						      		obj.setStrCatCode(objBean.getStrCatCode());
 							    	obj.setStrClientCode(clientCode);
 							    	obj.setStrFacilityCode(ob.getStrFacilityCode());
@@ -167,7 +168,8 @@ public class clsWebClubMemberCategoryMasterController {
 							    	obj.setStrOperationalYN(ob.getStrOperationalNY());
 							    	//objWebClubMemberCategoryMasterService.funAddUpdateWebClubMemberCategoryMaster(obj);	
 							    	objWebClubMemberCategoryMasterService.funAddUpdateWebClubCategeoryWiseFacility(obj);	  
-				    	 	}
+				    		 	}
+				    	 }
 				     }
 				    		//objModel.setStrFacilityCode(objBean.getStrFacilityCode()); 
 				    	 	objModel.setIntGId(lastNo);

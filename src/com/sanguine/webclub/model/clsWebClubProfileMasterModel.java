@@ -47,6 +47,9 @@ public class clsWebClubProfileMasterModel implements Serializable {
 
 	@Column(name = "dteLastModifiedDate")
 	private String dteLastModifiedDate;
+	
+	@Column(name = "dteLastModified")
+	private String dteLastModified;
 
 	@Column(name = "strClientCode")
 	private String strClientCode;
@@ -139,5 +142,13 @@ public class clsWebClubProfileMasterModel implements Serializable {
 		} else {
 			return defaultValue;
 		}
+	}
+
+	public String getDteLastModified() {
+		return dteLastModified;
+	}
+
+	public void setDteLastModified(String dteLastModified) {
+		this.dteLastModified = dteLastModified;
 	}
 }

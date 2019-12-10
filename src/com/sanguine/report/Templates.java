@@ -1,12 +1,12 @@
 package com.sanguine.report;
 
-import static net.sf.dynamicreports.report.builder.DynamicReports.*;
-
+/*import static net.sf.dynamicreports.report.builder.DynamicReports.*;
+*/
 import java.awt.Color;
 import java.util.Date;
 import java.util.Locale;
 
-import net.sf.dynamicreports.report.base.expression.AbstractValueFormatter;
+/*import net.sf.dynamicreports.report.base.expression.AbstractValueFormatter;
 import net.sf.dynamicreports.report.builder.HyperLinkBuilder;
 import net.sf.dynamicreports.report.builder.ReportTemplateBuilder;
 import net.sf.dynamicreports.report.builder.component.ComponentBuilder;
@@ -16,8 +16,8 @@ import net.sf.dynamicreports.report.builder.tableofcontents.TableOfContentsCusto
 import net.sf.dynamicreports.report.constant.HorizontalAlignment;
 import net.sf.dynamicreports.report.constant.VerticalAlignment;
 import net.sf.dynamicreports.report.definition.ReportParameters;
-
-public class Templates {
+*/
+public class Templates {/*
 	public static final StyleBuilder rootStyle;
 	public static final StyleBuilder boldStyle;
 	public static final StyleBuilder italicStyle;
@@ -64,19 +64,19 @@ public class Templates {
 
 		dynamicReportsComponent = cmp.horizontalList(cmp.image(Templates.class.getResource("../../../resources/img/DSS_logo.png")).setFixedDimension(60, 60), cmp.verticalList(cmp.text("Test Report").setStyle(bold22CenteredStyle).setHorizontalAlignment(HorizontalAlignment.LEFT))).setFixedWidth(300);
 
-		/*
+		
 		 * footerComponent = cmp.pageXofY() .setStyle(
 		 * stl.style(boldCenteredStyle) .setTopBorder(stl.pen1Point()));
-		 */
+		 
 
 		footerComponent1 = cmp.text("Created On:" + new Date().toLocaleString() + "\tBy:SUPER");
 
 	}
 
-	/**
+	*//**
 	 * Creates custom component which is possible to add to any report band
 	 * component
-	 */
+	 *//*
 	public static ComponentBuilder<?, ?> createTitleComponent(String label) {
 		return cmp.horizontalList().add(dynamicReportsComponent, cmp.text(label).setStyle(bold18CenteredStyle).setHorizontalAlignment(HorizontalAlignment.RIGHT)).newRow().add(cmp.line()).newRow().add(cmp.verticalGap(10));
 	}
@@ -107,5 +107,5 @@ public class Templates {
 		public String format(Number value, ReportParameters reportParameters) {
 			return label + currencyType.valueToString(value, reportParameters.getLocale());
 		}
-	}
+	}*/
 }

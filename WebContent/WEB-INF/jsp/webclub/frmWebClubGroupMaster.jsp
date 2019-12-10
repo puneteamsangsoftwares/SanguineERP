@@ -5,8 +5,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+	<%-- <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/materialdesignicons.min.css"/>" />
+	  	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.css"/>" /> --%>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 <%-- 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" /> --%>
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	 
+	 	
+	 	
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<%-- <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.js"/>"></script> --%>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 	
 	<script type="text/javascript">
 	$(document).ready(function()
@@ -93,7 +106,51 @@
 </script>
 </head>
 <body >
-<div id="formHeading">
+	<div class="container">
+		<label id="formHeading">Group Master</label>
+			<s:form name="frmGroupMaster" action="savefrmWebClubGroupMaster.html?saddr=${urlHits}" method="POST">
+				<div class="row masterTable">
+					<div class="col-md-3">
+						<label>Group Code:</label><br>
+						<s:input type="text" id="txtGroupCode" placeholder="Group Code" path="strGroupCode"  cssClass="searchTextBox" ondblclick="funHelp('WCgroup')" />
+					</div>
+					<div class="col-md-3">
+						<label>Group Name:</label><br>
+						<s:input type="text" id="txtGroupName" 
+						name="txtGroupName" path="strGroupName" placeholder="Group Name" required="true"/> <s:errors path=""></s:errors>
+					</div>
+					<div class="col-md-3">
+						<label>Short Name:</label><br>
+						<s:input  type="text" id="txtShortName" 
+						name="txtChangeDependentCode" path="strShortName" required="true" placeholder="Short Name"
+						cssStyle="searchTextBox"/> <s:errors path=""></s:errors>
+					</div>
+					<div class="col-md-3">
+						<label>Category:</label><br>
+						<s:select id="cmbCategory" type="text" placeholder="Category" name="cmbCategory" path="strCategory">
+					 		<option value="Income">Income</option>
+		 				 	<option value="cash Balance">cash Balance</option>
+				 		</s:select>
+					</div>
+					<div class="col-md-3">
+						<label>Default Type:</label><br>
+						<s:select id="cmbDefaultType" type="text" placeholder="Default Type" name="cmbDefaultType" path="strCrDr">
+					 		<option value="Cash">Cash</option>
+		 					 <option value="Credit">Credit</option>
+						 </s:select>
+					</div>
+				</div>
+					<div class="center">
+						<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick=""
+							class="form_button">Submit</button></a>
+						<a href="#"><button class="btn btn-primary center-block" type="reset"
+							value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
+					</div>
+			</s:form>
+		</div>
+</body>
+</html>
+<%-- <div id="formHeading">
 	<label>Group Master</label>
 	</div>
 	<div>
@@ -145,11 +202,4 @@
 	
 	</s:form>
 </div>
-
-	
-</body>
-
-
-
-
-</html>
+ --%>

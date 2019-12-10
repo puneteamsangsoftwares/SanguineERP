@@ -1,11 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/materialdesignicons.min.css"/>" />
+	  	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.css"/>" /> 
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />  
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.js"/>"></script> 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	 
 <script type="text/javascript">
 	var fieldName;
 
@@ -106,47 +119,31 @@ function funSetFacilityData(code){
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Facility Master</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="WebClubFacilityMaster" method="POST" action="saveWebClubFacilityMaster.html">
-
-		<table class="masterTable">
-		
-			<tr>    
-		        <td width="10px">
-		        <label>Facility Code</label></td>
-		        <td width="20px"><s:input id="txtFacilityCode" path="strFacilityCode" required=""
-				              cssClass="searchTextBox" type="text" ondblclick="funHelp('WCFacilityMaster')" ></s:input></td>
-		       
-		</tr>
-		<tr>
-		        <td width="10px">
-		        <label>Facility Name</label>
-		        <td colspan="2"><s:input id="txtFacilityName" path="strFacilityName" required="true"
-				            cssStyle="width:50% ;" cssClass="longTextBox" type="text" ></s:input></td>
-	</tr>
-	<tr>		        
-		         <td width="20px">
-		        <label>Operational</label>		       
-		        <td colspan="2"><s:checkbox id="chkOperationalNY" path="strOperationalNY" value="Y" checked="true" /></td>
-	</tr>
-	
-		
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
-	</s:form>
+	<div class="container">
+		<label id="formHeading">Facility Master</label>
+			<s:form name="WebClubFacilityMaster" method="POST" action="saveWebClubFacilityMaster.html">
+				<div class="row masterTable">
+					<div class="col-md-4">
+						<label>Facility Code:</label><br>
+						<s:input type="text" id="txtFacilityCode" placeholder="Facility Code" path="strFacilityCode"  readonly="true" ondblclick="funHelp('WCFacilityMaster')" />
+					</div>
+					<div class="col-md-4">
+						<label>Facility Name:</label><br>
+						<s:input type="text" id="txtFacilityName" placeholder="Facility Name" path="strFacilityName"  required="true" ondblclick="funHelp('WCFacilityMaster')" />
+					</div>
+					<div class="col-md-4">
+						<label>Operational:</label><br>
+						<%-- <s:input type="radio" id="chkOperationalNY" path="strOperationalNY" value="Y" checked="true" /> --%>
+						<s:checkbox id="chkOperationalNY" path="strOperationalNY" value="Y" checked="true" />
+					</div>
+				</div>
+				<div class="center">
+							<a href="#"><button class="btn btn-primary center-block" value="Submit" tabindex="3"
+								class="form_button">Submit</button></a>
+							<a href="#"><button class="btn btn-primary center-block" type="reset"
+								value="Reset" class="form_button" onclick="funResetFields()" >Reset</button></a>
+						</div>
+			</s:form>
+		</div>
 </body>
 </html>
