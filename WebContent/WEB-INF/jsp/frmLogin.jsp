@@ -14,9 +14,9 @@
 		<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/slideKeyboard/jquery.ml-keyboard.css"/>" />
 		<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/slideKeyboard/jquery.ml-keyboard.css"/>" />	
 		 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesign/bootstrap.css"/>" />
-	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesign/bootstrap.min.css"/>" />
-	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesign/bootstrap-grid.css"/>" />
-	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesign/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
 	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
   <script type="text/javascript">
   	/**

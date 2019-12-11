@@ -600,7 +600,7 @@ public class clsUserController {
 			} else {
 				headerImage = "webstocks-property-header2.gif";
 			}
-			moduleTitleImage = "Sanguine_WebStocks_1.jpg";
+			moduleTitleImage = "webstocks_module_icon.png";
 
 			moduleMap.put("1-WebStocks", "webstocks_module_icon.png");
 			strModule = "1";
@@ -609,7 +609,7 @@ public class clsUserController {
 
 		case "2-WebExcise":
 			headerImage = "webstocks-property-header2.gif";
-			moduleTitleImage = "Sanguine_WebExcise_1.jpg";
+			moduleTitleImage = "webexcise_module_icon.png";
 
 			moduleMap.put("2-WebExcise", "webexcise_module_icon.png");
 			strModule = "2";
@@ -618,7 +618,7 @@ public class clsUserController {
 
 		case "3-WebPMS":
 			headerImage = "webstocks-property-header2.gif";
-			moduleTitleImage = "Sanguine_WebPMS_1.jpg";
+			moduleTitleImage = "webpms_module_icon.png";
 
 			moduleMap.put("3-WebPMS", "webpms_module_icon.png");
 			strModule = "3";
@@ -627,7 +627,7 @@ public class clsUserController {
 
 		case "4-WebClub":
 			headerImage = "webstocks-property-header2.gif";
-			moduleTitleImage = "Sanguine_WebClub_1.jpg";
+			moduleTitleImage = "webclub_module_icon.png";
 
 			moduleMap.put("4-WebClub", "webclub_module_icon.png");
 			strModule = "4";
@@ -636,7 +636,7 @@ public class clsUserController {
 
 		case "5-WebBook":
 			headerImage = "webstocks-property-header2.gif";
-			moduleTitleImage = "Sanguine_WebBooks_1.jpg";
+			moduleTitleImage = "webbooks_icon.png";
 
 			moduleMap.put("5-WebBook", "webbooks_icon.png");
 			strModule = "5";
@@ -650,7 +650,7 @@ public class clsUserController {
 			} else {
 				headerImage = "webstocks-property-header2.gif";
 			}
-			moduleTitleImage = "Sanguine_WebCRM_1.jpg";
+			moduleTitleImage = "webcrm_module_icon.png";
 
 			moduleMap.put("6-WebCRM", "webcrm_module_icon.png");
 			strModule = "6";
@@ -659,7 +659,7 @@ public class clsUserController {
 
 		case "7-WebBanquet":
 			headerImage = "webstocks-property-header2.gif";
-			moduleTitleImage = "Sanguine_WebPOS_1.jpg";
+			moduleTitleImage = "webbanquet_module_icon.png";
 
 			moduleMap.put("7-WebBanquet", "webbanquet_module_icon.png");
 			strModule = "7";
@@ -673,7 +673,7 @@ public class clsUserController {
 			} else {
 				headerImage = "webstocks-property-header2.gif";
 			}
-			moduleTitleImage = "Sanguine_WebBooks_1.jpg";
+			moduleTitleImage = "webbooksAR_icon.png";
 
 			moduleMap.put("5-WebBookAR", "webbooksAR_icon.png");
 			strModule = "5";
@@ -682,7 +682,7 @@ public class clsUserController {
 
 		case "8-WebBookAPGL":
 			headerImage = "webstocks-property-header2.gif";
-			moduleTitleImage = "Sanguine_WebBooks_1.jpg";
+			moduleTitleImage = "webbooksAPGL_icon.png";
 
 			moduleMap.put("8-WebBookAPGL", "webbooksAPGL_icon.png");
 			strModule = "8";

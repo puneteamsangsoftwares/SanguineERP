@@ -143,8 +143,7 @@
 					        success: function(response)
 					        {
 					        	if(response[0].strMemberCode!=null)
-					        		{
-					        		
+					        		{					        		
 					        		funSetMemberData(response[0]);
 					        		}
 					        	else
@@ -199,7 +198,7 @@
 		 function funGetImage()
 			{
 					var code = $("#txtCustCode").val();
-					searchUrl=getContextPath()+"/loadImage.html?custCode="+code;
+					searchUrl=getContextPath()+"/loadMembProfileImage.html?prodCode="+code;
 					$("#itemImage").attr('src', searchUrl);
 					
 				
@@ -218,7 +217,8 @@
 			 $("#txtMemStartDate").text(response.dteMembershipStartDate);
 			 $("#txtMemExpiryDate").text(response.dteMembershipExpiryDate);
 			 
-			 $("#tblExplorer").css("display","block");
+			 document.getElementById('tblExplorer').style.display = "block" ;
+			 //$("#tblExplorer").css("display","none");
 		 }
 		 
 		 function funSetMemberDataReceived(code){
@@ -294,21 +294,21 @@
 					        		$.each(response, function(cnt,item)
 						 					{
 					        					
-					        					$("#txtMemCode").val(item[0]);
-					        					if(item[3]=="Received")
+					        					//$("#txtMemCode").val(item.strMemCode);
+					        					if(item.strType=="Received")
 					        						{
-					        							funAddRowReceived(item[0],item[1],item[2],item[5],item[4]);
-					        							totRec= parseInt($("#lblReceived").text())+parseInt(item[4]);
+					        							funAddRowReceived(item.strMemCode,item.strDrawnOn,item.strChequeNo,item.dteChequeDate,item.dblChequeAmt,item.strType);
+					        							totRec= parseInt($("#lblReceived").text())+parseInt(item.dblChequeAmt);
 					        						    $("#lblReceived").text(totRec);
 					        						}
 					        					else
 					        						{
-					        							funAddRowIssued(item[0],item[1],item[2],item[5],item[4]);
-					        							totIssu= parseInt($("#lblIssued").text())+parseInt(item[4]);
+					        							funAddRowIssued(item.strMemCode,item.strDrawnOn,item.strChequeNo,item.dteChequeDate,item.dblChequeAmt,item.strType);
+					        							totIssu= parseInt($("#lblIssued").text())+parseInt(item.dblChequeAmt);
 					        										    $("#lblIssued").text(totIssu);
 					        						}	
 								      		});		
-					        		$("#txtMemCode").val(code);	 						        						        	
+					        		//$("#txtMemCode").val(code);	 						        						        	
 					        	}
 							},
 							error: function(jqXHR, exception) {
@@ -482,15 +482,14 @@
 				</tr>
 				</table> --> 
 				
-				<table id="tblExplorer" 
-					style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto;>
+				<table id="tblExplorer" display="block" style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto;">
 				<tr>
 					<td> 
 						<div id="tab_container" style="height: 600px">
 							<ul class="tabs">
 								<li class="active" data-state="tab1">General</li>
 								<li data-state="tab2">PDC </li>
-								<li data-state="tab3">Extra Info</li>
+								<li data-state="tab3">Field</li>
 							</ul>
 
 							<div id="tab1" class="tab_content" style="width: 1000px;display: block;">

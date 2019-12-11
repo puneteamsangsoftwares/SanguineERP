@@ -8,6 +8,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Blob;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.swing.ImageIcon;
 import javax.validation.Valid;
 
@@ -39,6 +42,7 @@ import com.mysql.jdbc.ResultSet;
 import com.mysql.jdbc.ResultSetMetaData;
 import com.mysql.jdbc.Statement;
 import com.sanguine.controller.clsGlobalFunctions;
+import com.sanguine.model.clsProductMasterModel;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webclub.bean.clsWebClubMemberProfileBean;
 import com.sanguine.webclub.model.clsWebClubDependentMasterModel;
@@ -51,6 +55,7 @@ import com.sanguine.webclub.service.clsWebClubAreaMasterService;
 import com.sanguine.webclub.service.clsWebClubCityMasterService;
 import com.sanguine.webclub.service.clsWebClubCountryMasterService;
 import com.sanguine.webclub.service.clsWebClubDependentMasterService;
+import com.sanguine.webclub.service.clsWebClubMemberPhotoService;
 import com.sanguine.webclub.service.clsWebClubMemberProfileService;
 import com.sanguine.webclub.service.clsWebClubRegionMasterService;
 import com.sanguine.webclub.service.clsWebClubStateMasterService;
@@ -60,7 +65,7 @@ public class clsWebClubMemberProfileController {
 	
 	@Autowired
 	clsGlobalFunctions objGlobal;
-
+	
 	@Autowired
 	private clsGlobalFunctionsService objGlobalFunctionsService;
 
@@ -85,6 +90,9 @@ public class clsWebClubMemberProfileController {
 	@Autowired
 	private clsWebClubDependentMasterService objDependentMasterService;
 
+	@Autowired
+	private clsWebClubMemberPhotoService objWebClubMemberPhotoService;
+	
 	// Open MemberProfile
 	@RequestMapping(value = "/frmMemberProfile", method = RequestMethod.GET)
 	public ModelAndView funOpenForm(Map<String, Object> model, HttpServletRequest request) {
@@ -120,13 +128,19 @@ public class clsWebClubMemberProfileController {
 			clsWebClubMemberProfileModel objMemProfileModel = funPrepareModel(memProfileBean, req);
 			objMemberProfileService.funAddUpdateMemberProfile(objMemProfileModel);
 
-			// for Spouse member
-			clsWebClubMemberProfileModel objMemberProfileSpouseModel = funPrepardSpouseModel(memProfileBean, objMemProfileModel, req,file);
-			objMemberProfileService.funAddUpdateMemberProfile(objMemberProfileSpouseModel);
+			if(!memProfileBean.getStrMaritalStatus().equalsIgnoreCase("Single"))
+			{
+				// for Spouse member
+				clsWebClubMemberProfileModel objMemberProfileSpouseModel = funPrepardSpouseModel(memProfileBean, objMemProfileModel, req,file);
+				objMemberProfileService.funAddUpdateMemberProfile(objMemberProfileSpouseModel);
 
-			// for Dependent member
-			funPrepardDependentModel(memProfileBean, objMemProfileModel, req);
+			}
+			if(!memProfileBean.getListDependentMember().isEmpty()){
+				// for Dependent member
+				funPrepardDependentModel(memProfileBean, objMemProfileModel, req);
 
+			}
+		
 			req.getSession().setAttribute("success", true);
 			req.getSession().setAttribute("successMessage", "Member Code : ".concat(objMemProfileModel.getStrMemberCode()));
 			return new ModelAndView("redirect:/frmMemberProfile.html?saddr=" + urlHits);
@@ -813,7 +827,7 @@ public class clsWebClubMemberProfileController {
 		objModel.setStrUserModified(userCode);
 		objModel.setDteCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 		objModel.setDteLastModified(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-		objModel.setStrMemberName("");
+		objModel.setStrMemberName(objMemberProfile.getStrFirstName());
 
 		if (file.getSize() != 0) {
 			System.out.println(file.getOriginalFilename());
@@ -841,7 +855,12 @@ public class clsWebClubMemberProfileController {
 
 			if (fileImageIcon.exists()) {
 				fileImageIcon.delete();
+				objModel.setStrMemberImage(imageBytes);
 			}
+			else {
+				//objModel.setStrMemberImage(funBlankBlob());
+			}
+			objWebClubMemberPhotoService.funAddUpdateWebClubMemberPhoto(objModel);
 		//image code end 
 		
 		
@@ -1059,6 +1078,80 @@ public class clsWebClubMemberProfileController {
 	}
 		return mpModel;
 	}
+	
+	private Blob funBlankBlob() {
+		Blob blob = new Blob() {
+
+			@Override
+			public void truncate(long len) throws SQLException {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public int setBytes(long pos, byte[] bytes, int offset, int len) throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public int setBytes(long pos, byte[] bytes) throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public OutputStream setBinaryStream(long pos) throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public long position(Blob pattern, long start) throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public long position(byte[] pattern, long start) throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public long length() throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public byte[] getBytes(long pos, int length) throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public InputStream getBinaryStream(long pos, long length) throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public InputStream getBinaryStream() throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void free() throws SQLException {
+				// TODO Auto-generated method stub
+
+			}
+		};
+		return blob;
+	}
+
+
 	public BufferedImage scaleImage(int WIDTH, int HEIGHT, String filename) {
 		BufferedImage bi = null;
 		try {
@@ -1261,6 +1354,34 @@ public class clsWebClubMemberProfileController {
 		return hm;
 	}
 	
+	//loadMembProfileImage
+	@RequestMapping(value = "/loadMembProfileImage", method = RequestMethod.GET)
+	public void getImage(@RequestParam("prodCode") String prodCode, HttpServletRequest req, HttpServletResponse response) {
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		clsWebClubMemberPhotoModel objmemPhotoModel = null;
+		if (prodCode.length() > 8) {
+			objmemPhotoModel = objWebClubMemberPhotoService.funGetWebClubMemberPhoto(prodCode, clientCode);
+		} else {
+			objmemPhotoModel = objWebClubMemberPhotoService.funGetWebClubMemberPhoto(prodCode, clientCode);
+		}
+
+		try {
+			//Blob image = null;
+			byte[] imgData = null;
+		//	image = objModel.getStrProductImage();
+			//if (null != image && image.length() > 0) {
+				imgData =objmemPhotoModel.getStrMemberImage();
+				response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+				OutputStream o = response.getOutputStream();
+				o.write(imgData);
+				o.flush();
+				o.close();
+			//}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	// //Open MemberProfile
 	// @RequestMapping(value = "/saveMemberPreProfile", method =

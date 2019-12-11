@@ -216,12 +216,12 @@
 		    var row = table.insertRow(rowCount);   
 		    
 		    rowCount=listRow;
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strMemName\" value='"+memCode+"' id=\"txtMemName."+(rowCount)+"\" >";
-			row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strDrawnOn\" value='"+drawnOn+"' id=\"txtBankCode."+(rowCount)+"\" >";
-		    row.insertCell(2).innerHTML= "<input class=\"Box\" type=\"text\" name=\"listPDCDtlRecieved["+(rowCount)+"].strChequeNo\" size=\"15%\" style=\"text-align: right;\" id=\"txtChequeNo."+(rowCount)+"\" value='"+chequeNo+"'/>";	
-		    row.insertCell(3).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listPDCDtlRecieved["+(rowCount)+"].dteChequeDate\" id=\"txtChkDte."+(rowCount)+"\" value="+chequeDate+">";
-		    row.insertCell(4).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listPDCDtlRecieved["+(rowCount)+"].dblChequeAmt\" value='"+chequeAmt+"' id=\"txtAmt."+(rowCount)+"\" >";	
-		    row.insertCell(5).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strType\" value='Received' id=\"txtRecieved."+(rowCount)+"\" >";	
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"15%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strMemName\" value='"+memCode+"' id=\"txtMemName."+(rowCount)+"\" >";
+			row.insertCell(1).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"15%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strDrawnOn\" value='"+drawnOn+"' id=\"txtBankCode."+(rowCount)+"\" >";
+		    row.insertCell(2).innerHTML= "<input class=\"Box\" readonly=\"true\" type=\"text\" name=\"listPDCDtlRecieved["+(rowCount)+"].strChequeNo\" size=\"15%\" style=\"text-align: right;\" id=\"txtChequeNo."+(rowCount)+"\" value='"+chequeNo+"'/>";	
+		    row.insertCell(3).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"15%\" name=\"listPDCDtlRecieved["+(rowCount)+"].dteChequeDate\" id=\"txtChkDte."+(rowCount)+"\" value="+chequeDate+">";
+		    row.insertCell(4).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"15%\" name=\"listPDCDtlRecieved["+(rowCount)+"].dblChequeAmt\" value='"+chequeAmt+"' id=\"txtAmt."+(rowCount)+"\" >";	
+		    row.insertCell(5).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"15%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strType\" value='Received' id=\"txtRecieved."+(rowCount)+"\" >";	
 		    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" type=\"hidden\" class=\"Box\" name=\"listPDCDtlRecieved["+(rowCount)+"].strMemCode\" id=\"txtMemCode."+(rowCount)+"\" value='"+strMemCode+"' />";   
 		    row.insertCell(7).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"1%\" value = \"Delete\" onClick=\"Javacsript:funDeleteRowRecieved(this)\"/>";
 			listRow++;		    
@@ -235,12 +235,12 @@
 		    var row = table.insertRow(rowCount);   
 		    
 		    rowCount=listRow;
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listPDCDtlIssued["+(rowCount)+"].strMemName\" value='"+memCode+"' id=\"txtMemName."+(rowCount)+"\" >";
-			row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listPDCDtlIssued["+(rowCount)+"].strDrawnOn\" value='"+drawnOn+"' id=\"txtBankCode."+(rowCount)+"\" >";
-		    row.insertCell(2).innerHTML= "<input class=\"Box\" type=\"text\" name=\"listPDCDtlIssued["+(rowCount)+"].strChequeNo\" size=\"15%\" style=\"text-align: right;\" id=\"txtChequeNo."+(rowCount)+"\" value='"+chequeNo+"'/>";	
-		    row.insertCell(3).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listPDCDtlIssued["+(rowCount)+"].dteChequeDate\" id=\"txtChkDte."+(rowCount)+"\" value="+chequeDate+">";
-		    row.insertCell(4).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listPDCDtlIssued["+(rowCount)+"].dblChequeAmt\" value='"+chequeAmt+"' id=\"txtAmt."+(rowCount)+"\" >";	
-		    row.insertCell(5).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listPDCDtlIssued["+(rowCount)+"].strType\" value='Issued' id=\"txtRecieved."+(rowCount)+"\" >";	
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"15%\" name=\"listPDCDtlIssued["+(rowCount)+"].strMemName\" value='"+memCode+"' id=\"txtMemName."+(rowCount)+"\" >";
+			row.insertCell(1).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"15%\" name=\"listPDCDtlIssued["+(rowCount)+"].strDrawnOn\" value='"+drawnOn+"' id=\"txtBankCode."+(rowCount)+"\" >";
+		    row.insertCell(2).innerHTML= "<input class=\"Box\" readonly=\"true\" type=\"text\" name=\"listPDCDtlIssued["+(rowCount)+"].strChequeNo\" size=\"15%\" style=\"text-align: right;\" id=\"txtChequeNo."+(rowCount)+"\" value='"+chequeNo+"'/>";	
+		    row.insertCell(3).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"15%\" name=\"listPDCDtlIssued["+(rowCount)+"].dteChequeDate\" id=\"txtChkDte."+(rowCount)+"\" value="+chequeDate+">";
+		    row.insertCell(4).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"15%\" name=\"listPDCDtlIssued["+(rowCount)+"].dblChequeAmt\" value='"+chequeAmt+"' id=\"txtAmt."+(rowCount)+"\" >";	
+		    row.insertCell(5).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"15%\" name=\"listPDCDtlIssued["+(rowCount)+"].strType\" value='Issued' id=\"txtRecieved."+(rowCount)+"\" >";	
 		    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" type=\"hidden\" class=\"Box\" name=\"listPDCDtlIssued["+(rowCount)+"].strMemCode\" id=\"txtMemCode."+(rowCount)+"\" value='"+strMemCode+"' />";   
 		    row.insertCell(7).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"1%\" value = \"Delete\" onClick=\"Javacsript:funDeleteRowIssued(this)\"/>";
 			      
@@ -527,15 +527,15 @@
 				    			var totRecieved=0;				    			
 				        		$.each(response, function(cnt,item)
 					 					{
-				        					$("#txtMemCode").val(item[0]);
+				        					//$("#txtMemCode").val(item[0]);
 				        					if(item.strType=="Received")
 				        						{
 					        						funAddRowReceived(item.strMemName,item.strDrawnOn,item.strChequeNo,item.dteChequeDate,item.dblChequeAmt,item.strMemCode)
-					        						totRecieved=totRecieved+item[4]; 
+					        						totRecieved=totRecieved+item.dblChequeAmt; 
 				        							$("#lblReceived").text(totRecieved);
 				        						}		
 							      		});		
-				        		$("#txtMemCode").val(code);	 					        						        	
+				        		//$("#txtMemCode").val(code);	 					        						        	
 				        	}
 						},
 						error: function(jqXHR, exception) {
@@ -631,7 +631,7 @@
 			        					if(item.strType=="Issued")
 			        						{
 				        						funAddRowIssued(item.strMemName,item.strDrawnOn,item.strChequeNo,item.dteChequeDate,item.dblChequeAmt,item.strMemCode)
-				        						totIssued=totIssued+item[4]; 
+				        						totIssued=totIssued+item.dblChequeAmt; 
 										    	$("#lblIssued").text(totIssued);
 				        					}
 							        	
@@ -673,7 +673,7 @@
 						<li data-state="tab2" >Issued</li>
 					</ul> 
 					<div id="tab1" class="tab_content">
-						<div class="row transTable">
+						<div class="row transTable" style="overflow-x: hidden; overflow-y: hidden; ">
 							<div class="col-md-6">
 								<div class="row">
 									<div class="col-md-6">

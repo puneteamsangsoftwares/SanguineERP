@@ -46,7 +46,7 @@ public class clsWebClubMemberPhotoModel implements Serializable {
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
 	@JsonIgnore
-	private Blob strMemberImage;
+	private byte[] strMemberImage;
 
 	@Column(name = "dteCreatedDate")
 	private String dteCreatedDate;
@@ -143,12 +143,12 @@ public class clsWebClubMemberPhotoModel implements Serializable {
 		}
 	}
 
-	public Blob getStrMemberImage() {
+	public byte[] getStrMemberImage() {
 		return strMemberImage;
 	}
 
-	public void setStrMemberImage(Blob strMemberImage) {
-		this.strMemberImage = strMemberImage;
+	public void setStrMemberImage(byte[] imageBytes) {
+		this.strMemberImage = imageBytes;
 	}
 
 }

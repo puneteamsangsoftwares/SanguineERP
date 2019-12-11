@@ -248,7 +248,8 @@ margin:0px;}
 						        	
 						        	$("#txtCompanyAddressLine3").val(response[0].strCompanyAddressLine3);
 						        	$("#txtCompanyLandMark").val(response[0].strCompanyLandMark);
-						        	$("#txtCompanyAreaCode").val(response[0].strCompanyAreaCode);
+						        	funSetComAreaCode(response[0].strCompanyAreaCode);
+						        	
 						        	$("#txtCompanyCtCode").val(response[0].strCompanyCtCode);
 						        	$("#txtCompanyStateCode").val(response[0].strCompanyStateCode);
 						        	
@@ -267,7 +268,9 @@ margin:0px;}
 						        	$("#txtBillingAddressLine2").val(response[0].strBillingAddressLine2);
 						        	$("#txtBillingAddressLine3").val(response[0].strBillingAddressLine3);
 						        	$("#txtBillingLandMark").val(response[0].strBillingLandMark);
-						        	$("#txtBillingAreaCode").val(response[0].strBillingAreaCode);
+						        	
+						        	funSetBillingAreaCode(response[0].strBillingAreaCode);
+						        	//$("#txtBillingAreaCode").val(response[0].strBillingAreaCode);
 						        	$("#txtBillingCtCode").val(response[0].strBillingCtCode);
 						       
 						        	$("#txtBillingStateCode").val(response[0].strBillingStateCode);
@@ -1151,7 +1154,7 @@ function funSetComRegionCode(code){
 	        	}
 	        	else
 	        	{
-	        		funSetComCountryCode(code);
+	        		
 	        		$("#txtCompanyRegionName").val(response.strRegionName);
 	        	}
 	        	

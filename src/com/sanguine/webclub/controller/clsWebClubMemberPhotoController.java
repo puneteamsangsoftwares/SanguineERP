@@ -138,7 +138,7 @@ public class clsWebClubMemberPhotoController {
 				fileImageIcon.delete();
 			}
 		} else {
-			objModel.setStrMemberImage(funBlankBlob());
+			//objModel.setStrMemberImage(funBlankBlob());
 		}
 
 		return objModel;
@@ -258,7 +258,7 @@ public class clsWebClubMemberPhotoController {
 	}
 
 	// Assign filed function to set data onto form for edit transaction.
-	@RequestMapping(value = "/loadWebClubMemberPhoto", method = RequestMethod.GET)
+	@RequestMapping(value = "/loadWebClubMemberPhoto", method = RequestMethod.POST)
 	public @ResponseBody void funAssignFields(@RequestParam("docCode") String memberCode, HttpServletRequest req, HttpServletResponse response) {
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		clsWebClubMemberPhotoModel objmemPhotoModel = objWebClubMemberPhotoService.funGetWebClubMemberPhoto(memberCode, clientCode);
@@ -267,11 +267,11 @@ public class clsWebClubMemberPhotoController {
 				objmemPhotoModel = new clsWebClubMemberPhotoModel();
 				objmemPhotoModel.setStrMemberCode("Invalid Code");
 			}
-			Blob image = null;
-			byte[] imgData = null;
+			byte[] image = null;
+			int imgData = (Integer) null;
 			image = objmemPhotoModel.getStrMemberImage();
-			if (null != image && image.length() > 0) {
-				imgData = image.getBytes(1, (int) image.length());
+			if (null != image && image.length > 0) {
+				imgData = image.length;
 				response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
 				OutputStream o = response.getOutputStream();
 				o.write(imgData);

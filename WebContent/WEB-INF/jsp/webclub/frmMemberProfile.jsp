@@ -33,6 +33,7 @@
 	
 	<script type="text/javascript">
 	var map1 = new Map();
+	var gsearchurl;
 	$(document).ready(function() {		   	    
 		
 		funAddFieldList();
@@ -171,6 +172,7 @@
 				 $.ajax({
 					        type: "GET",
 					        url: searchurl,
+					        dataType: "json",
 					        success: function(response)
 					        {
 					        	if(response.strMemberCode=='Invalid Code')
@@ -180,6 +182,8 @@
 					        	}
 					        	else
 					        	{  
+					        		funloadMemberPhoto(response[0].strMemberCode);
+					        	
 					        		funRemoveAllRows();
 					        		var memberCode = response[0].strMemberCode ;
 					        		var menber = memberCode.split(" ");
@@ -1367,11 +1371,70 @@ function funSetBillingRegionCode(code){
 		return flg;
 	}
 
-	function funloadMemberPhoto(code)
+	  function funloadMemberPhoto(code)
 	{
-		searchUrl=getContextPath()+"/loadWebClubMemberPhoto.html?docCode="+code;
-		$("#memberImage").attr('src', searchUrl);
-	}
+		var searchUrl1=getContextPath()+"/loadMembProfileImage.html?prodCode="+code;
+		$("#memImage").attr('src', searchUrl1);
+	}  
+	
+	
+	
+
+	/*  function funloadMemberPhoto(code){		
+		 gsearchurl=getContextPath()+"/loadMembProfileImage.html?prodCode="+code;
+			$.ajax({
+		        type: "GET",
+		        url: gsearchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	
+		        	if(response.strRegionCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Region Code In");
+		        		$("#txtRegionCode").val('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtBillingRegionName").val(response.strRegionName);
+		        	}
+		        	
+		        },
+
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	               // alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
+		});
+	}  */
+	
+	 function funShowImagePreview(input)
+	 {
+		 if (input.files && input.files[0])
+		 {
+			 var filerdr = new FileReader();
+			 filerdr.onload = function(e) 
+			 {
+			 $('#memImage').attr('src', e.target.result);
+			 }
+			 filerdr.readAsDataURL(input.files[0]);
+		 }
+		 
+		
+	 }
 	
 	
 	function funSetDatePicker(variable) 
@@ -1580,17 +1643,18 @@ function funSetBillingRegionCode(code){
 			    	customerCode="";
 		    	}
 			    
-			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listDependentMember["+(rowCount)+"].strMemberCode\" id=\"txttblDependentMemberCode."+(rowCount)+"\" value='"+genratedMemberCode+"' onclick=\"funRowClick(this)\"  >";
+			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"12%\" name=\"listDependentMember["+(rowCount)+"].strMemberCode\" id=\"txttblDependentMemberCode."+(rowCount)+"\" value='"+genratedMemberCode+"' onclick=\"funRowClick(this)\"  >";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listDependentMember["+(rowCount)+"].strDependentFullName\" id=\"txttblDependentName."+(rowCount)+"\" value='"+dependentName+"' onclick=\"funRowClick(this)\">";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listDependentMember["+(rowCount)+"].strDepedentRelation\" id=\"txttblDepedentRelation."+(rowCount)+"\" value='"+relation+"' onclick=\"funRowClick(this)\">";
-			    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strGender\" id=\"txttblDependentGender."+(rowCount)+"\" value='"+gender+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strDepedentRelation\" id=\"txttblDepedentRelation."+(rowCount)+"\" value='"+relation+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strGender\" id=\"txttblDependentGender."+(rowCount)+"\" value='"+gender+"' onclick=\"funRowClick(this)\">";
 			    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strMaritalStatus\" id=\"txttblDependentMaritalStatus."+(rowCount)+"\" value='"+mStatus+"' onclick=\"funRowClick(this)\">";
-			    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listDependentMember["+(rowCount)+"].dteDependentDateofBirth\" id=\"txttblDependentDateofBirth."+(rowCount)+"\" value='"+DOB+"' onclick=\"funRowClick(this)\">";
-			    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listDependentMember["+(rowCount)+"].strBlocked\" id=\"txttblDependentBlocked."+(rowCount)+"\" value='"+blocked+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" name=\"listDependentMember["+(rowCount)+"].dteDependentDateofBirth\" id=\"txttblDependentDateofBirth."+(rowCount)+"\" value='"+DOB+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strBlocked\" id=\"txttblDependentBlocked."+(rowCount)+"\" value='"+blocked+"' onclick=\"funRowClick(this)\">";
 			    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strDependentReasonCode\" id=\"txttblDependentReasonCode."+(rowCount)+"\" value='"+blockedReason+"' onclick=\"funRowClick(this)\">";
 			    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strProfessionCode\" id=\"txttblProfessionCode."+(rowCount)+"\" value='"+profession+"' onclick=\"funRowClick(this)\">";
 			    row.insertCell(9).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].dteMembershipExpiryDate\" id=\"txttbldteMembershipExpiryDate."+(rowCount)+"\" value='"+memExpDate+"' onclick=\"funRowClick(this)\">";
-			    row.insertCell(10).innerHTML= "<input Type=\"hidden\" readonly=\"readonly\" class=\"Box\" size=\"1%\" name=\"listDependentMember["+(rowCount)+"].strCustomerCode\" id=\"txttblCustomerCode."+(rowCount)+"\" value='"+customerCode+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(10).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"7%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
+				row.insertCell(11).innerHTML= "<input Type=\"hidden\" readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strCustomerCode\" id=\"txttblCustomerCode."+(rowCount)+"\" value='"+customerCode+"' onclick=\"funRowClick(this)\">";
 			    
 				genratedMemberCode=genratedMemberCode.split(" ");
 
@@ -1626,9 +1690,17 @@ function funSetBillingRegionCode(code){
 		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" name=\"listDependentMember["+(rowCount)+"].strDependentMemberCode\" id=\"txtDependentMemberCode."+(rowCount)+"\" value='"+dependentcode+"'>";
 		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" name=\"listDependentMember["+(rowCount)+"].strDependentName\" id=\"txtDependentName."+(rowCount)+"\" value='"+fullName+"'>";
 		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" name=\"listDependentMember["+(rowCount)+"].strDependentMemberType\" id=\"txtDependentMemberType."+(rowCount)+"\" value='"+typeMember+"'>";
-		 
+		   
 		    $("#txtChangeDependentCode").val("02");  
 		
+	}
+	function funDeleteRow(obj)
+	{
+	    var index = obj.parentNode.parentNode.rowIndex;	    		    
+	    var table = document.getElementById("tblDependentData");
+	    index--;
+	    table.deleteRow(index);
+	 
 	}
 	
 	function funFillDependentMasterTableData(docCode)
@@ -2478,13 +2550,13 @@ function funSetBillingRegionCode(code){
 			<div class="row" style="margin-top:22px;">
   				<div class="col-md-6"><label>Company Code</label><br>
   					<div class="row" ><div class="col-md-6"><s:input id="txtCompanyCode"
-									ondblclick="" cssClass="searchTextBox" 
+									ondblclick="" 
 									 type="text" path="strCompanyCode" readonly="true" ></s:input></div>
 									<div class="col-md-6"><s:input id="txtCompanyName" path="strCompanyName" type="text"></s:input></div></div></div>
 									
 				<div class="col-md-6"><label>Job Profile</label><br>
 					<div class="row" ><div class="col-md-6"><s:input id="txtJobProfileCode"
-									ondblclick="" cssClass="searchTextBox" readonly="true" 
+									ondblclick="" readonly="true" 
 									type="text" path="strJobProfileCode" ></s:input></div>
 								  <div class="col-md-6"><s:input id="txtJobProfileName" path="" type="text"></s:input></div></div></div>
 			
@@ -3002,8 +3074,8 @@ function funSetBillingRegionCode(code){
 						<a href="#"><button class="btn btn-primary center-block" value="Add" onclick="return btnAdd_onclick()" style="margin:13px"
 						class="form_button">Add</button></a>
 			</div>
-			<div class="scroll-touch">
-		<table class="table table-striped masterTable" style="width :100%" >
+			<div class="container masterTable" style="width :100%; overflow:scroll;">
+		<table class="table table-striped masterTable"  >
 				<thead>
 					<tr>
 						 <th>Member Code</th>

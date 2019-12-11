@@ -66,12 +66,13 @@
 			
 		function btnExport() 
 		{		
+			
 			var fromDate = $("#txtFromDate").val();
 		    var toDate = $("#txtToDate").val();
 		    var cmbChequeType = $("#cmbChequeType").val();					    
 		    var memCode = $("#txtMemCode").val();		
 			window.location.href = getContextPath()+"/exportPDCSalesFlash.html?fromDate="+fromDate+"&toDate="+toDate+"&chequeType="+cmbChequeType+"&memCode="+memCode;
-
+			return false;
 		}
 		
 		function funLoadDateWiseMemberData(fromDate,toDate,cmbChequeType,memCode){		 
@@ -90,7 +91,7 @@
 				        	else
 				        	{	
 				        		$("#divTable").css("display","block");
-				        		$("#tab_container").css("height","380px");	
+				        		$("#tab_container").css("height","500px");	
 				        		var totRec=0;
 				        		var table = document.getElementById("tblDetails");
 				    			var rowCount = table.rows.length;
@@ -101,8 +102,8 @@
 				    			}
 				        		$.each(response, function(cnt,item)
 					 			{ 
-				        			funAddRowReceived(item[0],item[2],item[1],item[5],item[4],item[3]);
-				        			totRec= parseInt(totRec)+parseInt(item[4]);
+				        			funAddRowReceived(item.strMemName,item.strDrawnOn,item.strChequeNo,item.dteChequeDate,item.dblChequeAmt,item.strType);
+				        			totRec= parseInt(totRec)+parseInt(item.dblChequeAmt);
 								    $("#lbltotal").text(totRec);
 
 					 			});	
@@ -163,12 +164,12 @@
 		    var row = table.insertRow(rowCount);   
 		    
 		    rowCount=listRow;
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"20%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strMemCode\" value='"+memCode+"' id=\"txtMemCode."+(rowCount)+"\" >";
-			row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"25%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strDrawnOn\" value='"+drawnOn+"' id=\"txtBankCode."+(rowCount)+"\" >";
-		    row.insertCell(2).innerHTML= "<input class=\"Box\" type=\"text\" name=\"listPDCDtlRecieved["+(rowCount)+"].strChequeNo\" size=\"25%\"  id=\"txtChequeNo."+(rowCount)+"\" value='"+chequeNo+"'/>";	
-		    row.insertCell(3).innerHTML= "<input class=\"Box\" size=\"20%\" name=\"listPDCDtlRecieved["+(rowCount)+"].dteChequeDate\" id=\"txtChkDte."+(rowCount)+"\" value="+chequeDate+">";
-		    row.insertCell(4).innerHTML= "<input class=\"Box\" size=\"25%\" name=\"listPDCDtlRecieved["+(rowCount)+"].dblChequeAmt\" value='"+chequeAmt+"' style=\"text-align: right;\" id=\"txtAmt."+(rowCount)+"\" >";	
-		    row.insertCell(5).innerHTML= "<input class=\"Box\" size=\"20%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strChequeType\" value='"+chequeType+"' id=\"txtChequeType."+(rowCount)+"\" >";	
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"20%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strMemCode\" value='"+memCode+"' id=\"txtMemCode."+(rowCount)+"\" >";
+			row.insertCell(1).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"25%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strDrawnOn\" value='"+drawnOn+"' id=\"txtBankCode."+(rowCount)+"\" >";
+		    row.insertCell(2).innerHTML= "<input class=\"Box\" readonly=\"true\" type=\"text\" name=\"listPDCDtlRecieved["+(rowCount)+"].strChequeNo\" size=\"25%\"  id=\"txtChequeNo."+(rowCount)+"\" value='"+chequeNo+"'/>";	
+		    row.insertCell(3).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"20%\" name=\"listPDCDtlRecieved["+(rowCount)+"].dteChequeDate\" id=\"txtChkDte."+(rowCount)+"\" value="+chequeDate+">";
+		    row.insertCell(4).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"25%\" name=\"listPDCDtlRecieved["+(rowCount)+"].dblChequeAmt\" value='"+chequeAmt+"' style=\"text-align: right;\" id=\"txtAmt."+(rowCount)+"\" >";	
+		    row.insertCell(5).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"20%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strChequeType\" value='"+chequeType+"' id=\"txtChequeType."+(rowCount)+"\" >";	
 		    //row.insertCell(5).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strType\" value='"++""' id=\"txtRecieved."+(rowCount)+"\" >";	
 			//row.insertCell(6).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"1%\" value = \"Delete\" onClick=\"Javacsript:funDeleteRowRecieved(this)\"/>";
 			   
@@ -367,15 +368,15 @@
 		<label id="formHeading">PDC Flash</label>
 			<s:form name="WebClubPDC" method="POST" action="saveWebClubPDC.html">
 					<table class="masterTable">
-						<table style="border:0px solid black; width: 100%; height: 70%; margin:0 auto;">
+						<table style="border:0px solid black; width: 100%; height: 70%; margin:0 auto; overflow-y: hidden;">
 							<tr>
 								<td>
 									<div id="tab_container" style="height: auto;">
-										<div class="transTable" style="padding:10px;">
+										<div class="transTable" style="padding:10px; overflow-x: hidden; overflow-y: hidden;">
 												<div class="row">
 													<div class="col-md-3">
 													<label>From Date:</label><s:input id="txtFromDate"
-														readonly="true" type="text" cssClass="calenderTextBox" path="dteFromDate"></s:input> <s:errors path="dteFromDate"></s:errors>
+														 type="text" cssClass="calenderTextBox" path="dteFromDate"></s:input> <s:errors path="dteFromDate"></s:errors>
 													</div>
 													<div class="col-md-3">
 													<label id="lblCityName">Cheque Type:</label><select id="cmbChequeType" type="text" path="strChequeType" >
@@ -396,13 +397,13 @@
 													<a href="#"><button class="btn btn-primary center-block" type="text" 
 									  					class="form_button" id="btnExcecute" onclick="return btnExecute()">Execute</button></a>
 													<a href="#"><button class="btn btn-primary center-block" type="text"  
-						  								class="form_button" id="btnExporte" onclick="btnExport()">Export</button></a>
+						  								class="form_button" id="btnExporte" onclick="return btnExport()">Export</button></a>
 												</div>
 										</div>
 													
-										<div class="dynamicTableContainer" id="divTable" style="height: 300px; display: none; width: 99.80%;">
+										<div class="dynamicTableContainer" id="divTable" style="height: 300px; display: none; width: 100%;">
 										<table
-											style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+											style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold; background:#b5b1b1;">
 											<tr>				
 												<td style="width:6.20%;">Member Name</td>
 												<td style="width:6.2%;">Drawn On</td>
@@ -413,17 +414,17 @@
 											</tr>
 										</table>
 										
-										<div style="border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+										<div style="border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: auto; width: 99.80%;">
 											<table id="tblDetails"
 												style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 												class="transTablex col8-center">
 												<tbody>			
-													<col style="width:21.4%;">	
+													<col style="width:18.4%;">	
 													<col style="width:21.5%;">
 													<col style="width:21.5%;">
 													<col style="width:21.7%;">
 													<col style="width:21.5%;">
-													<col style="width:17%;">
+													<col style="width:21%;">
 													<col style="width:2.4%;">
 												</tbody>
 											</table>
@@ -435,7 +436,7 @@
 					</tr>
 				</table>	
 			</table>
-		<label >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+		<label >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 						<label id="lbltotal"></label>
 		<!-- <p align="center">
 				<input type="submit" value="Submit" onclick="return funValidate();" class="form_button" />

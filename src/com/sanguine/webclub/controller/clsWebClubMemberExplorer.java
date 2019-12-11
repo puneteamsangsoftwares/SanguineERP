@@ -93,7 +93,7 @@ public class clsWebClubMemberExplorer {
 				objModelList.get(i).setDteMembershipStartDate(objGlobal.funGetDate("yyyy-MM-dd", objModelList.get(i).getDteMembershipStartDate()));
 				objModelList.get(i).setDteMembershipExpiryDate(objGlobal.funGetDate("yyyy-MM-dd", objModelList.get(i).getDteMembershipExpiryDate()));
 
-				list.add(objModelList.get(i));
+				list.add(objModelList.get(0));
 				
 			}
 		}
@@ -108,11 +108,11 @@ public class clsWebClubMemberExplorer {
 			clsWebClubMemberPhotoModel obj = objWebClubMemberPhotoService.funGetWebClubMemberPhoto(custCode, clientCode);	
 			
 			try {
-				Blob image = null;
-				byte[] imgData = null;
-				image = obj.getStrMemberImage();
-				if (null != image && image.length() > 0) {
-					imgData = image.getBytes(1, (int) image.length());
+				byte[] image = null;
+				int imgData = (Integer) null;
+				image = (byte[]) obj.getStrMemberImage();
+				if (null != image && image.length > 0) {
+					imgData = image.length;
 					response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
 					OutputStream o = response.getOutputStream();
 					o.write(imgData);
