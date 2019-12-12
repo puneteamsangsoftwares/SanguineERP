@@ -122,21 +122,23 @@ public class clsWebClubPDCFlashController{
 		List headerList = new ArrayList();
 		List totalsList = new ArrayList();
 		DecimalFormat df = new DecimalFormat("0.00");
-		BigDecimal dblTotalValue = new BigDecimal(0);			
+		BigDecimal dblTotalValue = new BigDecimal(0);	
+		double total=0.0;
 		List listSettlementDtl = objGlobalService.funGetListModuleWise(sql,"sql");
 		if (!listSettlementDtl.isEmpty()) {
 			for (int i = 0; i < listSettlementDtl.size(); i++) {
 				Object[] arr2 = (Object[]) listSettlementDtl.get(i);
 				List DataList = new ArrayList<>();
 				DataList.add(arr2[0].toString());
-				DataList.add(arr2[1].toString());
 				DataList.add(arr2[2].toString());
-				DataList.add(objGlobal.funGetDate("dd-MM-yyyy", arr2[3].toString()));
+				DataList.add(arr2[1].toString());
+				DataList.add(objGlobal.funGetDate("dd-MM-yyyy", arr2[5].toString()));
 				DataList.add(df.format(Double.parseDouble(arr2[4].toString())));
-				DataList.add(arr2[5].toString());
+				DataList.add(arr2[3].toString());
 				detailList.add(DataList);
+				total=total+Double.parseDouble(arr2[4].toString());
 			}
-		}		
+		}				
 		retList.add("PDCSalesFlashData_" + strFromDate + "to" + strToDate + "_" + userCode);
 		List titleData = new ArrayList<>();
 		titleData.add("PDC Sales Flash Report");
@@ -169,8 +171,13 @@ public class clsWebClubPDCFlashController{
 			ExcelHeader[k] = objHeader[k].toString();
 		}				
 		List blankList = new ArrayList();
-	    detailList.add(blankList);// Blank Row at Bottom
-	    detailList.add(totalsList);			
+		detailList.add(blankList);// Blank Row at Bottom
+		totalsList.add("");
+		totalsList.add("");
+		totalsList.add("");
+		totalsList.add("Total");
+		totalsList.add(String.valueOf(total));
+	    detailList.add(totalsList);		
         retList.add(ExcelHeader);
 		retList.add(detailList);
 		return new ModelAndView("excelViewFromToDteReportName", "listFromToDateReportName", retList);

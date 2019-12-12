@@ -2177,9 +2177,9 @@ function funSetBillingRegionCode(code){
 									
 					</div>
 					</div>
-				<div class="col-md-3">
+				<!-- <div class="col-md-3">
 				             <div><img id="memImage" src="" width="170px" height="150px" alt="Member Image"  ></div>
-				                 <div ><input  id="memberImage" name="memberImage"   type="file" accept="image/gif,image/png,image/jpeg" onchange="funShowImagePreview(this);" style="width:170px;background-color: #C0E4FF"/></div></div>
+				                 <div ><input  id="memberImage" name="memberImage"   type="file" accept="image/gif,image/png,image/jpeg" onchange="funShowImagePreview(this);" style="width:170px;background-color: #C0E4FF"/></div></div> -->
 	        </div></div>
 	</div>
 									

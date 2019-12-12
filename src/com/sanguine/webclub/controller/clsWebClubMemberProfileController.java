@@ -864,7 +864,7 @@ public class clsWebClubMemberProfileController {
 		//image code end 
 		
 		
-		
+		}
 		
 		
 		
@@ -1075,8 +1075,7 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrMemberYesNo("");
 		mpModel.setStrBankCode("");
 		return mpModel;
-	}
-		return mpModel;
+	
 	}
 	
 	private Blob funBlankBlob() {
@@ -1334,12 +1333,21 @@ public class clsWebClubMemberProfileController {
 				Iterator<Map.Entry<String, String>> itr = hmap.entrySet().iterator(); 
 				while(itr.hasNext()) 
 			    { 	
-					Object obj [] = (Object[]) list.get(i);
+					Object obj [] = (Object[]) list.get(i);					
 					Map.Entry<String, String> entry = itr.next(); 
 					if(!entry.getKey().equalsIgnoreCase("strMemberCode"))
 					{
-						hm.put(entry.getKey(),obj[k+1].toString());
-						k++;
+						if(entry.getValue().equalsIgnoreCase("DATE"))
+						{
+							hm.put(entry.getKey(),obj[k+1].toString());							
+							objGlobal.funGetDate("dd-MM-yyyy",obj[k+1].toString());
+							k++;
+						}
+						else{
+							hm.put(entry.getKey(),obj[k+1].toString());
+							k++;
+						}
+						
 					}
 					
 			        //System.out.println("Key = " + entry.getKey() +  ", Value = " + entry.getValue()); 

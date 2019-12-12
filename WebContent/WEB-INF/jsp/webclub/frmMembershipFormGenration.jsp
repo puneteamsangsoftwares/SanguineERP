@@ -356,7 +356,7 @@
 	
 	
 	<div>
-	<label id="formHeading">Membership Form Generation</label>
+	<label id="formHeading" style="padding-left:55px;">Membership Form Generation</label>
 	</div>
 	<div>
 	<s:form name="frmMembershipFormGenration" action="saveMembershipFormGenration.html?saddr=${urlHits}" method="POST" style="padding:0;">
