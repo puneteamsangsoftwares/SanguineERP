@@ -476,7 +476,7 @@
 				        	}
 				        	else
 				        	{
-				        		$("#txtMemCode").val(code);	 
+				        		$("#txtMemCode").val(response[0].strMemberCode);	 
 					        	$("#lblMemName").text(response[0].strFirstName);
 				        	}
 					        	funSetMemberTableReceived(response[0].strMemberCode);

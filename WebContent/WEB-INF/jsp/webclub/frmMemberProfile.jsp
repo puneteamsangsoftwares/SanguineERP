@@ -1457,7 +1457,7 @@ function funSetBillingRegionCode(code){
 				var rowCount = table.rows.length;
 				var row = table.insertRow(rowCount);
 							    
-			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listField["+(rowCount)+"].strFieldName\" id=\"txFieldName."+(rowCount)+"\" value='"+fieldName+"'>";
+			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" size=\"30%\" name=\"listField["+(rowCount)+"].strFieldName\" id=\"txFieldName."+(rowCount)+"\" value='"+fieldName+"'>";
 			    if(fieldDataType=='DATE'||fieldDataType=='DATETIME')
 			   	{ 
 			    	 row.insertCell(1).innerHTML= "<input type=\"date\" class=\"calenderTextBox hasDatepicker\" size=\"40%\" name=\"listField["+(rowCount)+"].strFieldValue\" id=\"txFieldValue."+(rowCount+1)+"\" value=''>";
@@ -2374,7 +2374,8 @@ function funSetBillingRegionCode(code){
 
 	function funValidate()
 	{	
-		var flag=true;		
+		var flag=true;	
+		
 		$('#multiAccordion').multiAccordion({
 			click: function(event, ui) {
 			},
@@ -2401,6 +2402,20 @@ function funSetBillingRegionCode(code){
 			alert("Enter First Name");
 			flag=false;
 		}
+		else if($("#txtMiddleName").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [0]);
+			document.getElementById("txtMiddleName").focus();
+			alert("Enter Middle Name");
+			flag=false;
+		}
+		else if($("#txtLastName").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [0]);
+			document.getElementById("txtLastName").focus();
+			alert("Enter Last Name");
+			flag=false;
+		}
 		/* else if($("#txtFullName").val().trim().length<1)
 		{
 			alert("Enter Full Name");
@@ -2416,11 +2431,11 @@ function funSetBillingRegionCode(code){
 			alert("Resident Address Line1 ");
 			flag=false;
 		}	
-		else if($("#txtResidentCtCode").val().trim().length<1)
+		else if($("#txtResidentAreaCode").val().trim().length<1)
 		{
 			$('#multiAccordion').multiAccordion("option", "active", [1]);
-			document.getElementById("txtResidentCtCode").focus();
-			alert("Enter City Name ");
+			document.getElementById("txtResidentAreaCode").focus();
+			alert("Select Area Code ");
 			flag=false;
 		}		
 		else if($("#txtResidentCountryCode").val().trim().length<1)
@@ -2429,7 +2444,75 @@ function funSetBillingRegionCode(code){
 			document.getElementById("txtResidentCountryCode").focus();
 			alert("Enter Resident Country Name ");
 			flag=false;
+		}
+		else if($("#txtProfessionCode").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [2]);
+			document.getElementById("txtProfessionCode").focus();
+			alert("Select Profession Code");
+			flag=false; 
 		} 
+		
+		else if($("#txtMSCategoryCode").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [4]);
+			document.getElementById("txtMSCategoryCode").focus();
+			alert("Select Category Code");
+			flag=false; 
+		} 
+		
+		
+		else if($("#txtQualification").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [4]);
+			document.getElementById("txtQualification").focus();
+			alert("Select Qualification");
+			flag=false; 
+		} 
+		
+		else if($("#txtBlockedReasonCode").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [4]);
+			document.getElementById("txtBlockedReasonCode").focus();
+			alert("Select Reason Code");
+			flag=false; 
+		} 
+		
+		else if($("#txtDesignationCode").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [4]);
+			document.getElementById("txtDesignationCode").focus();
+			alert("Select Designation");
+			flag=false; 
+		} 
+		
+
+		else if($("#txtBankCode").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [5]);
+			document.getElementById("txtBankCode").focus();
+			alert("Select Bank Code");
+			flag=false; 
+		} 
+		
+		else if($("#txtIfscCOde").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [5]);
+			document.getElementById("txtIfscCOde").focus();
+			alert("Enter IFSC Code");
+			flag=false;
+		}
+		
+
+		else if($("#txtAccNo").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [5]);
+			document.getElementById("txtAccNo").focus();
+			alert("Enter Account No");
+			flag=false;
+		}
+		
+		
 		else{						
 			var table = document.getElementById("tblFieldData");
 			var rowCount = table.rows.length;			
@@ -2447,6 +2530,7 @@ function funSetBillingRegionCode(code){
 				}			
 			} 
 		}
+		funFillNameOnCard()
 		return flag;		
 	}
 	
@@ -2964,7 +3048,7 @@ function funSetBillingRegionCode(code){
 					    		 	</div>
 			                         <div class="col-md-6">
 			                             <label>Branch Name</label><br>
-			                               <s:input id="txtBranchName" name="txtdtFromDate" path="strBranchName"/>
+			                               <s:input id="txtBranchName" readonly="true" name="txtdtFromDate" path="strBranchName"/>
 			                         </div>
 			                    </div>
 			               </div>  

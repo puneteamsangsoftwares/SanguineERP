@@ -125,13 +125,13 @@ public class clsWebClubMemberProfileController {
 		
 		if (!result.hasErrors()) {
 			// for primary member
-			clsWebClubMemberProfileModel objMemProfileModel = funPrepareModel(memProfileBean, req);
+			clsWebClubMemberProfileModel objMemProfileModel = funPrepareModel(memProfileBean, req,file);
 			objMemberProfileService.funAddUpdateMemberProfile(objMemProfileModel);
 
 			if(!memProfileBean.getStrMaritalStatus().equalsIgnoreCase("Single"))
 			{
 				// for Spouse member
-				clsWebClubMemberProfileModel objMemberProfileSpouseModel = funPrepardSpouseModel(memProfileBean, objMemProfileModel, req,file);
+				clsWebClubMemberProfileModel objMemberProfileSpouseModel = funPrepardSpouseModel(memProfileBean, objMemProfileModel, req);
 				objMemberProfileService.funAddUpdateMemberProfile(objMemberProfileSpouseModel);
 
 			}
@@ -193,12 +193,181 @@ public class clsWebClubMemberProfileController {
 	
 	
 	
-	private clsWebClubMemberProfileModel funPrepareModel(clsWebClubMemberProfileBean memProfileBean, HttpServletRequest req) {
+	private clsWebClubMemberProfileModel funPrepareModel(clsWebClubMemberProfileBean memProfileBean, HttpServletRequest req,MultipartFile file)throws IOException {
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		String userCode = req.getSession().getAttribute("usercode").toString();
 		String propCode = req.getSession().getAttribute("propertyCode").toString();
 		objGlobal = new clsGlobalFunctions();
 		long lastNo = 0;
+		
+		
+	//image code
+		
+		
+		objGlobal = new clsGlobalFunctions();
+		clsWebClubMemberPhotoModel objModel;
+		objModel = new clsWebClubMemberPhotoModel(new clsWebClubMemberPhotoModel_ID(memProfileBean.getStrMemberCode(), clientCode));
+
+		objModel.setStrPropertyCode(propCode);
+		objModel.setStrUserCreated(userCode);
+		objModel.setStrMemberCode(memProfileBean.getStrMemberCode()+" 01");
+		objModel.setStrUserModified(userCode);
+		objModel.setDteCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+		objModel.setDteLastModified(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+		objModel.setStrMemberName(memProfileBean.getStrFirstName());
+		if (file.getSize() != 0) {
+			System.out.println(file.getOriginalFilename());
+			File imgFolder = new File(System.getProperty("user.dir") + "\\ProductIcon");
+			if (!imgFolder.exists()) {
+				if (imgFolder.mkdir()) {
+					System.out.println("Directory is created! " + imgFolder.getAbsolutePath());
+				} else {
+					System.out.println("Failed to create directory!");
+				}
+			}
+			File fileImageIcon = new File(System.getProperty("user.dir") + "\\ProductIcon\\" + file.getOriginalFilename());
+			String formatName = "jpg";
+			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			BufferedImage bufferedImage = ImageIO.read(funInputStreamToBytearrayInputStrean(file.getInputStream()));
+			String path = fileImageIcon.getPath().toString();
+			ImageIO.write(bufferedImage, "jpg", new File(path));
+			BufferedImage bfImg = scaleImage(150, 155, path);
+			ImageIO.write(bfImg, "jpg", byteArrayOutputStream);
+			byte[] imageBytes = byteArrayOutputStream.toByteArray();
+			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
+
+			//Blob blobProdImage = Hibernate.createBlob(byteArrayInputStream);
+			//objModel.setStrMemberImage(blobProdImage);
+
+			if (fileImageIcon.exists()) {
+				fileImageIcon.delete();
+				objModel.setStrMemberImage(imageBytes);
+			}
+			else {
+				//objModel.setStrMemberImage(funBlankBlob());
+			}
+			objWebClubMemberPhotoService.funAddUpdateWebClubMemberPhoto(objModel);
+		//image code end 
+		
+		
+		}
+		// Fileds Code
+		String memberCode = memProfileBean.getStrMemberCode();
+		String WebPMSDB=req.getSession().getAttribute("WebPMSDB").toString();
+		
+		if (memberCode.length() > 0) {
+			memberCode.split(" ");
+
+		}
+	
+		String sql="SELECT * FROM "+WebPMSDB+".tblotherdtl a WHERE a.strMemberCode='"+memberCode+" 01' ";
+		List list =objGlobalFunctionsService.funGetList("SELECT * FROM "+WebPMSDB+".tblotherdtl a WHERE a.strMemberCode='"+memberCode+" 01' ");
+		Map mhasMap = funDataBaseShrink();
+		if(list.isEmpty())
+		{		
+			if(memProfileBean.listField!=null)
+			{	
+				StringBuilder sbSql= new StringBuilder (); 
+				sbSql.append("INSERT INTO tblotherdtl (strMemberCode,strClientCode");
+				for(int i=0;i<memProfileBean.listField.size();i++)
+				{
+					
+					clsWebClubMemberProfileBean obj = new clsWebClubMemberProfileBean();
+					obj=memProfileBean.listField.get(i);
+					if(obj.getStrFieldValue()!=null&&!obj.getStrFieldValue().equalsIgnoreCase(""))
+					{
+						/*if(i==0)
+						{
+							sbSql.append(obj.getStrFieldName());
+						}
+						else 
+						{*/
+							sbSql.append(","+obj.getStrFieldName());
+						//}	
+					}
+				}
+				sbSql.append(") VALUES ('"+memProfileBean.getStrMemberCode() + " 01','"+clientCode+ "',");
+				
+				for(int i=0;i<memProfileBean.listField.size();i++)
+				{
+					
+					clsWebClubMemberProfileBean obj = new clsWebClubMemberProfileBean();
+					obj=memProfileBean.listField.get(i);
+					if(obj.getStrFieldValue()!=null&&!obj.getStrFieldValue().equalsIgnoreCase(""))
+					{
+						if(i==0)
+						{	if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="DATE"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
+							{
+								sbSql.append("'"+obj.getStrFieldValue()+"'");
+							}
+							else
+							{
+								sbSql.append(obj.getStrFieldValue());
+							}					
+						}
+						else 
+						{
+							if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="DATE"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
+							{
+								sbSql.append(",'"+obj.getStrFieldValue()+"'");
+							}
+							else
+							{
+								sbSql.append(","+obj.getStrFieldValue());
+							}					
+						}	
+					}
+				}
+				sbSql.append(");");
+				objMemberProfileService.funExecuteQuery(sbSql.toString());
+				
+				//objGlobal.funGetList(sbSql.toString());
+				}
+			}
+			else
+			{
+				if(memProfileBean.listField!=null)
+				{	StringBuilder sbsqll= new StringBuilder ();				
+					sbsqll.append("UPDATE  "+WebPMSDB+".tblotherdtl a SET ");					
+					for(int i=0;i<memProfileBean.listField.size();i++)
+					{
+						
+						clsWebClubMemberProfileBean obj = new clsWebClubMemberProfileBean();
+						obj=memProfileBean.listField.get(i);
+						if(obj.getStrFieldValue()!=null&&!obj.getStrFieldValue().equalsIgnoreCase(""))
+						{
+							if(i==0)
+							{	if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="DATE"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
+								{
+									sbsqll.append("a."+obj.getStrFieldName()+"='"+obj.getStrFieldValue()+"'");
+								}
+								else
+								{
+									sbsqll.append("a."+obj.getStrFieldName()+"="+obj.getStrFieldValue()+"");
+								}					
+							}
+							else 
+							{
+								if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="DATE"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
+								{
+									sbsqll.append(",a."+obj.getStrFieldName()+"='"+obj.getStrFieldValue()+"'");
+								}
+								else
+								{
+									sbsqll.append(",a."+obj.getStrFieldName()+"="+obj.getStrFieldValue()+"");
+								}									
+							}	
+						}					
+					}
+					Object [] objj = (Object[]) list.get(0);					
+					sbsqll.append(" WHERE a.strMemberCode= '"+objj[0].toString()+"' AND a.strClientCode='"+objj[1].toString()+"'");
+					objMemberProfileService.funExecuteQuery(sbsqll.toString());						
+				}	
+			}
+		
+		//end field cods
+		
+		
 		clsWebClubMemberProfileModel mpModel;
 		if (memProfileBean.getStrCustomerCode().trim().length() == 0) {
 			lastNo = objGlobalFunctionsService.funGetLastNo("tblmembermaster", "MemberProfile", "intGId", clientCode);
@@ -474,118 +643,7 @@ public class clsWebClubMemberProfileController {
 		String userCode = req.getSession().getAttribute("usercode").toString();
 		String propCode = req.getSession().getAttribute("propertyCode").toString();
 		objGlobal = new clsGlobalFunctions();
-		String memberCode = objMemberProfile.getStrMemberCode();
-		String WebPMSDB=req.getSession().getAttribute("WebPMSDB").toString();
 		
-		if (memberCode.length() > 0) {
-			memberCode.split(" ");
-
-		}
-	
-		String sql="SELECT * FROM "+WebPMSDB+".tblotherdtl a WHERE a.strMemberCode='"+memberCode+"' ";
-		List list =objGlobalFunctionsService.funGetList("SELECT * FROM "+WebPMSDB+".tblotherdtl a WHERE a.strMemberCode='"+memberCode+"' ");
-		Map mhasMap = funDataBaseShrink();
-		if(list.isEmpty())
-		{		
-			if(memProfileBean.listField!=null)
-			{	
-				StringBuilder sbSql= new StringBuilder (); 
-				sbSql.append("INSERT INTO tblotherdtl (strMemberCode,strClientCode");
-				for(int i=0;i<memProfileBean.listField.size();i++)
-				{
-					
-					clsWebClubMemberProfileBean obj = new clsWebClubMemberProfileBean();
-					obj=memProfileBean.listField.get(i);
-					if(obj.getStrFieldValue()!=null&&!obj.getStrFieldValue().equalsIgnoreCase(""))
-					{
-						/*if(i==0)
-						{
-							sbSql.append(obj.getStrFieldName());
-						}
-						else 
-						{*/
-							sbSql.append(","+obj.getStrFieldName());
-						//}	
-					}
-				}
-				sbSql.append(") VALUES ('"+memProfileBean.getStrMemberCode() + " 01','"+clientCode+ "',");
-				
-				for(int i=0;i<memProfileBean.listField.size();i++)
-				{
-					
-					clsWebClubMemberProfileBean obj = new clsWebClubMemberProfileBean();
-					obj=memProfileBean.listField.get(i);
-					if(obj.getStrFieldValue()!=null&&!obj.getStrFieldValue().equalsIgnoreCase(""))
-					{
-						if(i==0)
-						{	if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="DATE"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
-							{
-								sbSql.append("'"+obj.getStrFieldValue()+"'");
-							}
-							else
-							{
-								sbSql.append(obj.getStrFieldValue());
-							}					
-						}
-						else 
-						{
-							if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="DATE"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
-							{
-								sbSql.append(",'"+obj.getStrFieldValue()+"'");
-							}
-							else
-							{
-								sbSql.append(","+obj.getStrFieldValue());
-							}					
-						}	
-					}
-				}
-				sbSql.append(");");
-				objMemberProfileService.funExecuteQuery(sbSql.toString());
-				
-				//objGlobal.funGetList(sbSql.toString());
-				}
-			}
-			else
-			{
-				if(memProfileBean.listField!=null)
-				{	StringBuilder sbsqll= new StringBuilder ();				
-					sbsqll.append("UPDATE  "+WebPMSDB+".tblotherdtl a SET ");					
-					for(int i=0;i<memProfileBean.listField.size();i++)
-					{
-						
-						clsWebClubMemberProfileBean obj = new clsWebClubMemberProfileBean();
-						obj=memProfileBean.listField.get(i);
-						if(obj.getStrFieldValue()!=null&&!obj.getStrFieldValue().equalsIgnoreCase(""))
-						{
-							if(i==0)
-							{	if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="DATE"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
-								{
-									sbsqll.append("a."+obj.getStrFieldName()+"='"+obj.getStrFieldValue()+"'");
-								}
-								else
-								{
-									sbsqll.append("a."+obj.getStrFieldName()+"="+obj.getStrFieldValue()+"");
-								}					
-							}
-							else 
-							{
-								if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="DATE"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
-								{
-									sbsqll.append(",a."+obj.getStrFieldName()+"='"+obj.getStrFieldValue()+"'");
-								}
-								else
-								{
-									sbsqll.append(",a."+obj.getStrFieldName()+"="+obj.getStrFieldValue()+"");
-								}									
-							}	
-						}					
-					}
-					Object [] objj = (Object[]) list.get(0);					
-					sbsqll.append(" WHERE a.strMemberCode= '"+objj[0].toString()+"' AND a.strClientCode='"+objj[1].toString()+"'");
-					objMemberProfileService.funExecuteQuery(sbsqll.toString());						
-				}	
-			}
 
 		
 		// clsWebClubDependentMasterModel objDependentMasterModel = new
@@ -805,70 +863,13 @@ public class clsWebClubMemberProfileController {
 
 	}
 
-	private clsWebClubMemberProfileModel funPrepardSpouseModel(clsWebClubMemberProfileBean memProfileBean, clsWebClubMemberProfileModel objMemberProfile, HttpServletRequest req,MultipartFile file) throws IOException {
+	private clsWebClubMemberProfileModel funPrepardSpouseModel(clsWebClubMemberProfileBean memProfileBean, clsWebClubMemberProfileModel objMemberProfile, HttpServletRequest req)  {
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		String userCode = req.getSession().getAttribute("usercode").toString();
 		String propCode = req.getSession().getAttribute("propertyCode").toString();
 		objGlobal = new clsGlobalFunctions();
 		long lastNo = 0;
 		clsWebClubMemberProfileModel mpModel=null;
-		
-		
-		
-		//image code
-		
-		
-		objGlobal = new clsGlobalFunctions();
-		clsWebClubMemberPhotoModel objModel;
-		objModel = new clsWebClubMemberPhotoModel(new clsWebClubMemberPhotoModel_ID(objMemberProfile.getStrMemberCode(), clientCode));
-
-		objModel.setStrPropertyCode(propCode);
-		objModel.setStrUserCreated(userCode);
-		objModel.setStrUserModified(userCode);
-		objModel.setDteCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-		objModel.setDteLastModified(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-		objModel.setStrMemberName(objMemberProfile.getStrFirstName());
-
-		if (file.getSize() != 0) {
-			System.out.println(file.getOriginalFilename());
-			File imgFolder = new File(System.getProperty("user.dir") + "\\ProductIcon");
-			if (!imgFolder.exists()) {
-				if (imgFolder.mkdir()) {
-					System.out.println("Directory is created! " + imgFolder.getAbsolutePath());
-				} else {
-					System.out.println("Failed to create directory!");
-				}
-			}
-			File fileImageIcon = new File(System.getProperty("user.dir") + "\\ProductIcon\\" + file.getOriginalFilename());
-			String formatName = "jpg";
-			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-			BufferedImage bufferedImage = ImageIO.read(funInputStreamToBytearrayInputStrean(file.getInputStream()));
-			String path = fileImageIcon.getPath().toString();
-			ImageIO.write(bufferedImage, "jpg", new File(path));
-			BufferedImage bfImg = scaleImage(150, 155, path);
-			ImageIO.write(bfImg, "jpg", byteArrayOutputStream);
-			byte[] imageBytes = byteArrayOutputStream.toByteArray();
-			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
-
-			//Blob blobProdImage = Hibernate.createBlob(byteArrayInputStream);
-			//objModel.setStrMemberImage(blobProdImage);
-
-			if (fileImageIcon.exists()) {
-				fileImageIcon.delete();
-				objModel.setStrMemberImage(imageBytes);
-			}
-			else {
-				//objModel.setStrMemberImage(funBlankBlob());
-			}
-			objWebClubMemberPhotoService.funAddUpdateWebClubMemberPhoto(objModel);
-		//image code end 
-		
-		
-		}
-		
-		
-		
-		
 		
 		
 
