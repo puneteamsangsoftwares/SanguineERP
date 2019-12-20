@@ -42,9 +42,9 @@ import com.mysql.jdbc.ResultSet;
 import com.mysql.jdbc.ResultSetMetaData;
 import com.mysql.jdbc.Statement;
 import com.sanguine.controller.clsGlobalFunctions;
-import com.sanguine.model.clsProductMasterModel;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webclub.bean.clsWebClubMemberProfileBean;
+import com.sanguine.webclub.bean.clsWebClubMemberProfileSetupBean;
 import com.sanguine.webclub.model.clsWebClubDependentMasterModel;
 import com.sanguine.webclub.model.clsWebClubMemberPhotoModel;
 import com.sanguine.webclub.model.clsWebClubMemberPhotoModel_ID;
@@ -104,6 +104,61 @@ public class clsWebClubMemberProfileController {
 		}
 		model.put("urlHits", urlHits);
 
+		
+		
+		
+		//member master
+		List<clsWebClubMemberProfileSetupBean> listWebClubMemberProfileBean = new ArrayList<>();
+		List list  = new ArrayList<>();
+		clsWebClubMemberProfileBean objWebClubMemberProfileBean = new clsWebClubMemberProfileBean();
+		String WebPMSDB=request.getSession().getAttribute("WebPMSDB").toString();		
+	 	String sqlMemProSetup="SELECT * FROM "+WebPMSDB+".tblmempropertysetup ";
+		List listMemProSetup =objGlobalFunctionsService.funGetList(sqlMemProSetup);		
+		Map<String,String> hashMemProSetupFill = new LinkedHashMap<String,String>();
+		
+		for(int i=0;i<listMemProSetup.size();i++)
+		{
+			Object [] obj=(Object[]) listMemProSetup.get(i);
+			hashMemProSetupFill.put(obj[0].toString(),obj[1].toString());
+		}	
+		String sqlMemMaster="SELECT * FROM "+WebPMSDB+".tblmempropertysetup ";
+		List listMemMaster =objGlobalFunctionsService.funGetList(sqlMemMaster);
+		clsWebClubMemberProfileSetupBean objBean =null;
+		for(int i=0;i<listMemMaster.size();i++)
+		{
+			//objBean = new clsWebClubMemberProfileSetupBean();
+			Object [] obj = (Object []) listMemMaster.get(i);
+			String str=obj[0].toString().split("_")[0];
+			if(obj[0].toString()!=null)
+			{
+				if(obj[1].toString().equalsIgnoreCase("Y"))
+				{
+					//objBean.setStrFieldName(obj[0].toString());	
+					list.add(obj[0].toString().split("_")[1]);
+				}
+				//listWebClubMemberProfileBean.add(objBean);
+				
+			}
+			
+		}
+		String str1="Hello";
+		request.setAttribute("ListMemberValidation", list);
+		//objWebClubMemberProfileBean.setListWebClubMemberProfileSetupBean(listWebClubMemberProfileBean);		
+		//model.put("treeList", objWebClubMemberProfileBean);		
+		
+		/*Map<String,String> hashMapMemMaster = funDataBaseShrink(sqlMemMaster);			
+		 for (Map.Entry<String,String> entry : hashMapMemMaster.entrySet()){  
+	           // System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue()); 
+	            objBean = new clsWebClubMemberProfileSetupBean ();
+	            objBean.setStrFieldName("M_"+entry.getKey().toString());
+	            if(hashMemProSetupFill.containsKey("M_"+entry.getKey().toString())&&hashMemProSetupFill.get("M_"+entry.getKey().toString()).equalsIgnoreCase("Y"))
+	            {
+	            	objBean.setStrFlag("true");
+	            }
+	            listWebClubMemberProfileBean.add(objBean);
+		 }		*/
+		
+		
 		if ("2".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmMemberProfile_1", "command", new clsWebClubMemberProfileBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
@@ -201,7 +256,7 @@ public class clsWebClubMemberProfileController {
 		long lastNo = 0;
 		
 		
-	//image code
+		//image code
 		
 		
 		objGlobal = new clsGlobalFunctions();
@@ -449,17 +504,24 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrResidentAddressLine1(memProfileBean.getStrResidentAddressLine1());
 		mpModel.setStrResidentAddressLine2(memProfileBean.getStrResidentAddressLine2());
 		mpModel.setStrResidentAddressLine3(memProfileBean.getStrResidentAddressLine3());
+		
 		mpModel.setStrResidentAreaCode(memProfileBean.getStrResidentAreaCode());
-		mpModel.setStrResidentCountryCode(memProfileBean.getStrResidentCountryCode());
+		mpModel.setStrResidentAreaName(memProfileBean.getStrResidentAreaName());
 		mpModel.setStrResidentCtCode(memProfileBean.getStrResidentCtCode());
+		mpModel.setStrResidentCtName(memProfileBean.getStrResidentCtName());
+		mpModel.setStrResidentStateCode(memProfileBean.getStrResidentStateCode());
+		mpModel.setStrResidentStateName(memProfileBean.getStrResidentStateName());
+		mpModel.setStrResidentCountryCode(memProfileBean.getStrResidentCountryCode());
+		mpModel.setStrResidentCountryName(memProfileBean.getStrResidentCountryName());
+		mpModel.setStrResidentRegionCode(memProfileBean.getStrResidentRegionCode());
+		mpModel.setStrResidentRegionName(memProfileBean.getStrResidentRegionName());
+		
 		mpModel.setStrResidentEmailID(memProfileBean.getStrResidentEmailID());
 		mpModel.setStrResidentFax1(memProfileBean.getStrResidentFax1());
 		mpModel.setStrResidentFax2(memProfileBean.getStrResidentFax2());
 		mpModel.setStrResidentLandMark(memProfileBean.getStrResidentLandMark());
 		mpModel.setStrResidentMobileNo(memProfileBean.getStrResidentMobileNo());
 		mpModel.setStrResidentPinCode(memProfileBean.getStrResidentPinCode());
-		mpModel.setStrResidentRegionCode(memProfileBean.getStrResidentRegionCode());
-		mpModel.setStrResidentStateCode(memProfileBean.getStrResidentStateCode());
 		mpModel.setStrResidentTelephone1(memProfileBean.getStrResidentTelephone1());
 		mpModel.setStrResidentTelephone2(memProfileBean.getStrResidentTelephone2());
 
@@ -467,10 +529,19 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrCompanyAddressLine1(memProfileBean.getStrCompanyAddressLine1());
 		mpModel.setStrCompanyAddressLine2(memProfileBean.getStrCompanyAddressLine2());
 		mpModel.setStrCompanyAddressLine3(memProfileBean.getStrCompanyAddressLine3());
+		
 		mpModel.setStrCompanyAreaCode(memProfileBean.getStrCompanyAreaCode());
-		mpModel.setStrCompanyCode(memProfileBean.getStrCompanyCode());
-		mpModel.setStrCompanyCountryCode(memProfileBean.getStrCompanyCountryCode());
+		mpModel.setStrCompanyAreaName(memProfileBean.getStrCompanyAreaName());
 		mpModel.setStrCompanyCtCode(memProfileBean.getStrCompanyCtCode());
+		mpModel.setStrCompanyCtName(memProfileBean.getStrCompanyCtName());
+		mpModel.setStrCompanyStateCode(memProfileBean.getStrCompanyStateCode());
+		mpModel.setStrCompanyStateName(memProfileBean.getStrCompanyStateName());
+		mpModel.setStrCompanyCountryCode(memProfileBean.getStrCompanyCountryCode());
+		mpModel.setStrCompanyCountryName(memProfileBean.getStrCompanyCountryName());
+		mpModel.setStrCompanyRegionCode(memProfileBean.getStrCompanyRegionCode());
+		mpModel.setStrCompanyRegionName(memProfileBean.getStrCompanyRegionName());
+		
+		mpModel.setStrCompanyCode(memProfileBean.getStrCompanyCode());
 		mpModel.setStrCompanyEmailID(memProfileBean.getStrCompanyEmailID());
 		mpModel.setStrCompanyFax1(memProfileBean.getStrCompanyFax1());
 		mpModel.setStrCompanyFax2(memProfileBean.getStrCompanyFax2());
@@ -478,20 +549,28 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrCompanyMobileNo(memProfileBean.getStrCompanyMobileNo());
 		mpModel.setStrCompanyName(memProfileBean.getStrCompanyName());
 		mpModel.setStrCompanyPinCode(memProfileBean.getStrCompanyPinCode());
-		mpModel.setStrCompanyRegionCode(memProfileBean.getStrCompanyRegionCode());
-		mpModel.setStrCompanyStateCode(memProfileBean.getStrCompanyStateCode());
 		mpModel.setStrCompanyTelePhone1(memProfileBean.getStrCompanyTelePhone1());
 		mpModel.setStrCompanyTelePhone2(memProfileBean.getStrCompanyTelePhone2());
-		mpModel.setStrHoldingCode(memProfileBean.getStrHoldingCode());
+		mpModel.setStrHoldingCode("");
+		//mpModel.setStrHoldingCode(memProfileBean.getStrHoldingCode());
 		mpModel.setStrJobProfileCode(memProfileBean.getStrJobProfileCode());
 
 		// Bill Address
 		mpModel.setStrBillingAddressLine1(memProfileBean.getStrBillingAddressLine1());
 		mpModel.setStrBillingAddressLine2(memProfileBean.getStrBillingAddressLine2());
 		mpModel.setStrBillingAddressLine3(memProfileBean.getStrBillingAddressLine3());
+		
 		mpModel.setStrBillingAreaCode(memProfileBean.getStrBillingAreaCode());
-		mpModel.setStrBillingCountryCode(memProfileBean.getStrBillingCountryCode());
+		mpModel.setStrBillingAreaName(memProfileBean.getStrBillingAreaName());
 		mpModel.setStrBillingCtCode(memProfileBean.getStrBillingCtCode());
+		mpModel.setStrBillingCtName(memProfileBean.getStrBillingCtName());
+		mpModel.setStrBillingStateCode(memProfileBean.getStrBillingStateCode());
+		mpModel.setStrBillingStateName(memProfileBean.getStrBillingStateName());
+		mpModel.setStrBillingCountryCode(memProfileBean.getStrBillingCountryCode());
+		mpModel.setStrBillingCountryName(memProfileBean.getStrBillingCountryName());
+		mpModel.setStrBillingRegionCode(memProfileBean.getStrBillingRegionCode());
+		mpModel.setStrBillingRegionName(memProfileBean.getStrBillingRegionName());
+		
 		mpModel.setStrBillingEmailID(memProfileBean.getStrBillingEmailID());
 		mpModel.setStrBillingFax1(memProfileBean.getStrBillingFax1());
 		mpModel.setStrBillingFax2(memProfileBean.getStrBillingFax2());
@@ -499,8 +578,6 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrBillingLandMark(memProfileBean.getStrBillingLandMark());
 		mpModel.setStrBillingMobileNo(memProfileBean.getStrBillingMobileNo());
 		mpModel.setStrBillingPinCode(memProfileBean.getStrBillingPinCode());
-		mpModel.setStrBillingRegionCode(memProfileBean.getStrBillingRegionCode());
-		mpModel.setStrBillingStateCode(memProfileBean.getStrBillingStateCode());
 		mpModel.setStrBillingTelePhone1(memProfileBean.getStrBillingTelePhone1());
 		mpModel.setStrBillingTelePhone2(memProfileBean.getStrBillingTelePhone2());
 
@@ -573,6 +650,9 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrGolfMemberShip(memProfileBean.getStrGolfMemberShip());
 		mpModel.setStrBlocked(memProfileBean.getStrBlocked());
 		mpModel.setStrBlockedreasonCode(memProfileBean.getStrBlockedreasonCode());
+		mpModel.setStrResident(memProfileBean.getStrResident());
+		mpModel.setStrSendCircularNoticeThrough(memProfileBean.getStrSendCircularNoticeThrough());
+		mpModel.setStrSendInvThrough(memProfileBean.getStrSendInvThrough());
 		mpModel.setStrDepedentRelation("");
 
 		mpModel.setDtePermitExpDate("1990-01-01 00:00:00");
@@ -589,8 +669,6 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrMemberStatusCode("");
 		mpModel.setStrLikes("");
 		mpModel.setStrDisLikes("");
-		mpModel.setStrSendInvThrough("");
-		mpModel.setStrSendCircularNoticeThrough("");
 		mpModel.setDteInterviewDate("1990-01-01 00:00:00");
 		mpModel.setDblCMSBalance(0.00);
 		mpModel.setStrPhoto("");
@@ -722,8 +800,11 @@ public class clsWebClubMemberProfileController {
 				mpModel.setStrResidentAddressLine2(memProfileBean.getStrResidentAddressLine2());
 				mpModel.setStrResidentAddressLine3(memProfileBean.getStrResidentAddressLine3());
 				mpModel.setStrResidentAreaCode(memProfileBean.getStrResidentAreaCode());
+				mpModel.setStrResidentAreaName(memProfileBean.getStrResidentAreaName());
 				mpModel.setStrResidentCountryCode(memProfileBean.getStrResidentCountryCode());
+				mpModel.setStrResidentCountryName(memProfileBean.getStrResidentCountryName());
 				mpModel.setStrResidentCtCode(memProfileBean.getStrResidentCtCode());
+				mpModel.setStrResidentCtName(memProfileBean.getStrResidentCtName());
 				mpModel.setStrResidentEmailID(memProfileBean.getStrResidentEmailID());
 				mpModel.setStrResidentFax1(memProfileBean.getStrResidentFax1());
 				mpModel.setStrResidentFax2(memProfileBean.getStrResidentFax2());
@@ -731,17 +812,20 @@ public class clsWebClubMemberProfileController {
 				mpModel.setStrResidentMobileNo(memProfileBean.getStrResidentMobileNo());
 				mpModel.setStrResidentPinCode(memProfileBean.getStrResidentPinCode());
 				mpModel.setStrResidentRegionCode(memProfileBean.getStrResidentRegionCode());
+				mpModel.setStrResidentRegionName(memProfileBean.getStrResidentRegionName());
 				mpModel.setStrResidentStateCode(memProfileBean.getStrResidentStateCode());
+				mpModel.setStrResidentStateName(memProfileBean.getStrResidentStateName());
 				mpModel.setStrResidentTelephone1(memProfileBean.getStrResidentTelephone1());
 				mpModel.setStrResidentTelephone2(memProfileBean.getStrResidentTelephone2());
+				
+								
+				
+				
 				// Company Address
 				mpModel.setStrCompanyAddressLine1("");
 				mpModel.setStrCompanyAddressLine2("");
 				mpModel.setStrCompanyAddressLine3("");
-				mpModel.setStrCompanyAreaCode("");
 				mpModel.setStrCompanyCode("");
-				mpModel.setStrCompanyCountryCode("");
-				mpModel.setStrCompanyCtCode("");
 				mpModel.setStrCompanyEmailID("");
 				mpModel.setStrCompanyFax1("");
 				mpModel.setStrCompanyFax2("");
@@ -749,19 +833,32 @@ public class clsWebClubMemberProfileController {
 				mpModel.setStrCompanyMobileNo("");
 				mpModel.setStrCompanyName("");
 				mpModel.setStrCompanyPinCode("");
-				mpModel.setStrCompanyRegionCode("");
-				mpModel.setStrCompanyStateCode("");
 				mpModel.setStrCompanyTelePhone1("");
 				mpModel.setStrCompanyTelePhone2("");
 				mpModel.setStrHoldingCode("");
 				mpModel.setStrJobProfileCode("");
+				
+				
+				mpModel.setStrCompanyAreaCode("");
+				mpModel.setStrCompanyAreaName("");
+				mpModel.setStrCompanyCtCode("");
+				mpModel.setStrCompanyCtName("");
+				mpModel.setStrCompanyStateCode("");
+				mpModel.setStrCompanyStateName("");
+				mpModel.setStrCompanyCountryCode("");
+				mpModel.setStrCompanyCountryName("");
+				mpModel.setStrCompanyRegionCode("");
+				mpModel.setStrCompanyRegionName("");
+				
+				
+				
+				
+				
+				
 				// Bill Address
 				mpModel.setStrBillingAddressLine1("");
 				mpModel.setStrBillingAddressLine2("");
 				mpModel.setStrBillingAddressLine3("");
-				mpModel.setStrBillingAreaCode("");
-				mpModel.setStrBillingCountryCode("");
-				mpModel.setStrBillingCtCode("");
 				mpModel.setStrBillingEmailID("");
 				mpModel.setStrBillingFax1("");
 				mpModel.setStrBillingFax2("");
@@ -769,10 +866,29 @@ public class clsWebClubMemberProfileController {
 				mpModel.setStrBillingLandMark("");
 				mpModel.setStrBillingMobileNo("");
 				mpModel.setStrBillingPinCode("");
-				mpModel.setStrBillingRegionCode("");
-				mpModel.setStrBillingStateCode("");
 				mpModel.setStrBillingTelePhone1("");
 				mpModel.setStrBillingTelePhone2("");
+				
+				
+				mpModel.setStrBillingAreaCode("");
+				mpModel.setStrBillingAreaName("");
+				mpModel.setStrBillingCtCode("");
+				mpModel.setStrBillingCtName("");
+				mpModel.setStrBillingStateCode("");
+				mpModel.setStrBillingStateName("");
+				mpModel.setStrBillingCountryCode("");
+				mpModel.setStrBillingCountryName("");
+				mpModel.setStrBillingRegionCode("");
+				mpModel.setStrBillingRegionName("");
+				
+				mpModel.setStrResident(memProfileBean.getStrResident());
+				mpModel.setStrSendCircularNoticeThrough(memProfileBean.getStrSendCircularNoticeThrough());
+				mpModel.setStrSendInvThrough(memProfileBean.getStrSendInvThrough());
+				
+				
+				
+				
+				
 				// Personal Information
 				mpModel.setStrGender(obDM.getStrGender());
 				mpModel.setDteDateofBirth(objGlobal.funGetDate("yyyy-MM-dd", obDM.getDteDependentDateofBirth()));
@@ -933,8 +1049,11 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrResidentAddressLine2(memProfileBean.getStrResidentAddressLine2());
 		mpModel.setStrResidentAddressLine3(memProfileBean.getStrResidentAddressLine3());
 		mpModel.setStrResidentAreaCode(memProfileBean.getStrResidentAreaCode());
+		mpModel.setStrResidentAreaName(memProfileBean.getStrResidentAreaName());
 		mpModel.setStrResidentCountryCode(memProfileBean.getStrResidentCountryCode());
+		mpModel.setStrResidentCountryName(memProfileBean.getStrResidentCountryName());
 		mpModel.setStrResidentCtCode(memProfileBean.getStrResidentCtCode());
+		mpModel.setStrResidentCtName(memProfileBean.getStrResidentCtName());
 		mpModel.setStrResidentEmailID(memProfileBean.getStrSpouseResidentMobileNo());
 		mpModel.setStrResidentFax1(memProfileBean.getStrResidentFax1());
 		mpModel.setStrResidentFax2(memProfileBean.getStrResidentFax2());
@@ -942,17 +1061,34 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrResidentMobileNo(memProfileBean.getStrSpouseResidentMobileNo());
 		mpModel.setStrResidentPinCode(memProfileBean.getStrResidentPinCode());
 		mpModel.setStrResidentRegionCode(memProfileBean.getStrResidentRegionCode());
+		mpModel.setStrResidentRegionName(memProfileBean.getStrResidentRegionName());
 		mpModel.setStrResidentStateCode(memProfileBean.getStrResidentStateCode());
+		mpModel.setStrResidentStateName(memProfileBean.getStrResidentStateName());
 		mpModel.setStrResidentTelephone1(memProfileBean.getStrResidentTelephone1());
 		mpModel.setStrResidentTelephone2(memProfileBean.getStrResidentTelephone2());
+		
+
+
+		mpModel.setStrResident(memProfileBean.getStrResident());
+		mpModel.setStrSendCircularNoticeThrough(memProfileBean.getStrSendCircularNoticeThrough());
+		mpModel.setStrSendInvThrough(memProfileBean.getStrSendInvThrough());
+		
+		
+		
+		
+		
+		
+		
 		// Company Address
 		mpModel.setStrCompanyAddressLine1("");
 		mpModel.setStrCompanyAddressLine2("");
 		mpModel.setStrCompanyAddressLine3("");
 		mpModel.setStrCompanyAreaCode("");
+		mpModel.setStrCompanyAreaName("");
 		mpModel.setStrCompanyCode(memProfileBean.getStrSpouseCompanyCode());
 		mpModel.setStrCompanyCountryCode("");
 		mpModel.setStrCompanyCtCode("");
+		mpModel.setStrCompanyCtName("");
 		mpModel.setStrCompanyEmailID("");
 		mpModel.setStrCompanyFax1("");
 		mpModel.setStrCompanyFax2("");
@@ -961,18 +1097,28 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrCompanyName("");
 		mpModel.setStrCompanyPinCode("");
 		mpModel.setStrCompanyRegionCode("");
+		mpModel.setStrCompanyRegionName("");
 		mpModel.setStrCompanyStateCode("");
+		mpModel.setStrCompanyCountryCode("");
+		mpModel.setStrCompanyCountryName("");
+		mpModel.setStrCompanyStateName(memProfileBean.getStrCompanyStateName());
 		mpModel.setStrCompanyTelePhone1("");
 		mpModel.setStrCompanyTelePhone2("");
 		mpModel.setStrHoldingCode("");
 		mpModel.setStrJobProfileCode(memProfileBean.getStrSpouseJobProfileCode());
+		
+		
+		
 		// Bill Address
 		mpModel.setStrBillingAddressLine1("");
 		mpModel.setStrBillingAddressLine2("");
 		mpModel.setStrBillingAddressLine3("");
 		mpModel.setStrBillingAreaCode("");
+		mpModel.setStrBillingAreaName("");
 		mpModel.setStrBillingCountryCode("");
+		mpModel.setStrBillingCountryName("");
 		mpModel.setStrBillingCtCode("");
+		mpModel.setStrBillingCtName("");
 		mpModel.setStrBillingEmailID("");
 		mpModel.setStrBillingFax1("");
 		mpModel.setStrBillingFax2("");
@@ -981,9 +1127,13 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrBillingMobileNo("");
 		mpModel.setStrBillingPinCode("");
 		mpModel.setStrBillingRegionCode("");
+		mpModel.setStrBillingRegionName("");		
 		mpModel.setStrBillingStateCode("");
+		mpModel.setStrBillingStateName("");
 		mpModel.setStrBillingTelePhone1("");
 		mpModel.setStrBillingTelePhone2("");
+		
+		
 		// Personal Information
 		mpModel.setStrGender("F");
 		mpModel.setDteDateofBirth(objGlobal.funGetDate("yyyy-mm-dd", memProfileBean.getDteSpouseDateofBirth()));
@@ -1391,31 +1541,56 @@ public class clsWebClubMemberProfileController {
 		}
 	}
 
+	@RequestMapping(value = "/deleteDependenData", method = RequestMethod.GET)
+	public @ResponseBody List funDeleteDepedentData(@RequestParam("docCode") String docCode, HttpServletRequest req) {
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		//clsWebClubMemberProfileModel objbean=null;
+		//objGlobal=new clsGlobalFunctions();
+		String WebClubDB=req.getSession().getAttribute("WebPMSDB").toString();
+		//List<clsWebClubMemberProfileModel> objMemberModelList = objMemberProfileService.funGetAllMember(docCode, clientCode);		
+		objMemberProfileService.funExecuteQuery("DELETE FROM "+WebClubDB+".tblmembermaster WHERE strMemberCode='"+docCode+"' AND strClientCode='"+clientCode+"' ");
+		
+		return null;
+	}
 	
-	// //Open MemberProfile
-	// @RequestMapping(value = "/saveMemberPreProfile", method =
-	// RequestMethod.GET)
-	// public ModelAndView funOpenFormMenberProfile(Map<String,Object> model
-	// ,HttpServletRequest request){
-	// String urlHits="1";
-	// try{
-	// urlHits=request.getParameter("saddr").toString();
-	// }catch(NullPointerException e){
-	// urlHits="1";
-	// }
-	// model.put("urlHits",urlHits);
-	//
-	// if("2".equalsIgnoreCase(urlHits)){
-	// return new ModelAndView("frmMemberProfile_1","command", new
-	// clsWebClubMemberProfileBean());
-	// }else if("1".equalsIgnoreCase(urlHits)){
-	// return new ModelAndView("frmMemberProfile","command", new
-	// clsWebClubMemberProfileBean());
-	// }else {
-	// return null;
-	// }
-	//
-	// }
-	//
-
+	public Map funDataBaseShrink(String Sql)
+    {
+    	  Map hmap = new LinkedHashMap();
+    	  List<String> list=new ArrayList<String>();
+    	  objGlobal=new clsGlobalFunctions();
+    	  //System.out.println("Getting Column Names Example!");
+    	  Connection con = null;
+    	  String url = "jdbc:mysql://localhost:3306/";
+    	  String db = "jdbctutorial";
+    	  String driver = "com.mysql.jdbc.Driver";
+    	  String user = "root";
+    	  String pass = "root";
+    	  String dbName="";
+    	  try{
+    	  Class.forName(driver);
+    	  con = (Connection) DriverManager.getConnection(objGlobal.urlwebclub, objGlobal.urluser, objGlobal.urlPassword);
+    	  try{
+    	  Statement st = (Statement) con.createStatement();
+    	  ResultSet rs = (ResultSet) st.executeQuery(Sql);
+    	  ResultSetMetaData md = (ResultSetMetaData) rs.getMetaData();
+    	  int col = md.getColumnCount();
+    	 /* System.out.println("Number of Column : "+ col);
+    	  System.out.println("Columns Name: ");*/
+    	  for (int i = 1; i <= col; i++){
+    	  String col_name = md.getColumnName(i);
+    	  String col_type = md.getColumnTypeName(i);
+    	  hmap.put(col_name, col_type);
+    	  //list.add(col_name.toString());
+    	  //System.out.println(col_name);
+    	  }
+    	  }
+    	  catch (SQLException s){
+    	  //System.out.println("SQL statement is not executed!");
+    	  }
+    	  }
+    	  catch (Exception e){
+    	  e.printStackTrace();
+    	  }
+    	  return hmap;
+    }
 }

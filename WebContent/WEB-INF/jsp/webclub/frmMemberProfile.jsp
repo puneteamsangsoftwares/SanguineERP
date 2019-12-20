@@ -34,6 +34,8 @@
 	<script type="text/javascript">
 	var map1 = new Map();
 	var gsearchurl;
+	var message1='';
+	var gValidationFields;
 	$(document).ready(function() {		   	    
 		
 		funAddFieldList();
@@ -140,24 +142,28 @@
         $(document)
                 .ready(
                         function()
-                        {
-                            var message = '';
-    <%if (session.getAttribute("success") != null) {
-				            if(session.getAttribute("successMessage") != null){%>
-				            message='<%=session.getAttribute("successMessage").toString()%>';
-				            <%
-				            session.removeAttribute("successMessage");
-				            }
-							boolean test = ((Boolean) session.getAttribute("success")).booleanValue();
-							session.removeAttribute("success");
-							if (test) {
-							%>	
-				alert("Data Save successfully\n\n"+message);
-			<%
-			}}%>
-
-		});
+                        {	
+                        	message1="${ListMemberValidation}";
+                        	//alert(message1);
+                        	gValidationFields=message1.split(",");
+                        	//alert(gValidationFields);
+						});
         
+        
+        var message = '';
+        <%if (session.getAttribute("success") != null) {
+    				            if(session.getAttribute("successMessage") != null){%>
+    				            message='<%=session.getAttribute("successMessage").toString()%>';
+    				            <%
+    				            session.removeAttribute("successMessage");
+    				            }
+    							boolean test = ((Boolean) session.getAttribute("success")).booleanValue();
+    							session.removeAttribute("success");
+    							if (test) {
+    							%>	
+    				alert("Data Save successfully\n\n"+message);
+    			<%
+    			}}%>
         
         function funResetFields()
 		{
@@ -197,6 +203,7 @@
 					        			document.all[ "divSpouse" ].style.display = 'block';
 					        			
 					        			isSpous=funSetSpouseData(response[1]);
+					        			$("#txtChangeDependentCode").val('03');
 					        			
 					        			document.all[ "headerDependent" ].style.display = 'block';	        			
 					        			document.all[ "divDependent" ].style.display = 'block';
@@ -244,13 +251,38 @@
 						        	$("#txtResidentAddressLine2").val(response[0].strResidentAddressLine2);
 						        	
 						        	$("#txtResidentAddressLine3").val(response[0].strResidentAddressLine3);
-						        	$("#txtResidentLandMark").val(response[0].strResidentLandMark);
-						        	$("#txtResidentAreaCode").val(response[0].strResidentAreaCode);
-						        	$("#txtResidentCtCode").val(response[0].strResidentCtCode);
-						        	$("#txtResidentStateCode").val(response[0].strResidentStateCode);
-						        	
-						        	$("#txtResidentRegionCode").val(response[0].strResidentRegionCode);
-						        	$("#txtResidentCountryCode").val(response[0].strResidentCountryCode);
+						        	$("#txtResidentLandMark").val(response[0].strResidentLandMark);						        	
+						        	//$("#txtResidentAreaCode").val(response[0].strResidentAreaCode);	
+									if(response[0].strResidentAreaCode!='')
+									{
+										funSetResAreaCode(response[0].strResidentAreaCode);
+									}
+									if(response[0].strResidentCtCode!='')
+									{
+										funSetResCityCode(response[0].strResidentCtCode);
+									}
+									if(response[0].strResidentStateCode!='')
+									{
+										funSetResStateCode(response[0].strResidentStateCode);
+									}
+									if(response[0].strResidentCountryCode!='')
+									{
+										funSetResCountryCode(response[0].strResidentCountryCode);
+									}
+									if(response[0].strResidentRegionCode!='')
+									{
+										funSetResRegionCode(response[0].strResidentRegionCode);
+									}									
+									
+						        	//funSetResAreaCode(response[0].strResidentAreaCode);
+						        	//$("#txtResidentCtCode").val(response[0].strResidentCtCode);		
+						        	//funSetResCityCode(response[0].strResidentCtCode);
+						        	//$("#txtResidentStateCode").val(response[0].strResidentStateCode);
+						        	//funSetResStateCode(response[0].strResidentStateCode);
+						        	//$("#txtResidentRegionCode").val(response[0].strResidentRegionCode);
+						        	//funSetResRegionCode(response[0].strResidentRegionCode);
+						        	//$("#txtResidentCountryCode").val(response[0].strResidentCountryCode);
+						        	//funSetResCountryCode(response[0].strResidentCountryCode);
 						        	$("#txtResidentPinCode").val(response[0].strResidentPinCode);
 						        	$("#txtResidentTelephone1").val(response[0].strResidentTelephone1);
 						        	$("#txtResidentTelephone2").val(response[0].strResidentTelephone2);
@@ -265,18 +297,44 @@
 						        	$("#txtHoldingCode").val(response[0].strHoldingCode);
 						        	$("#txtJobProfileCode").val(response[0].strJobProfileCode);
 						        	$("#txtCompanyAddressLine1").val(response[0].strCompanyAddressLine1);
-						        	$("#txtCompanyAddressLine2").val(response[0].strCompanyAddressLine2);
-						        	
+						        	$("#txtCompanyAddressLine2").val(response[0].strCompanyAddressLine2);						        	
 						        	$("#txtCompanyAddressLine3").val(response[0].strCompanyAddressLine3);
 						        	$("#txtCompanyLandMark").val(response[0].strCompanyLandMark);
-						        	$("#txtCompanyAreaCode").val(response[0].strCompanyAreaCode);
-						        	$("#txtCompanyCtCode").val(response[0].strCompanyCtCode);
-						        	$("#txtCompanyStateCode").val(response[0].strCompanyStateCode);
 						        	
-						        	$("#txtCompanyRegionCode").val(response[0].strCompanyRegionCode);
-						        	$("#txtCompanyCountryCode").val(response[0].strCompanyCountryCode);
+						        	
+						        	if(response[0].strCompanyAreaCode!='')
+									{
+						        		funSetComAreaCode(response[0].strCompanyAreaCode);
+									}	
+						        	if(response[0].strCompanyCtCode!='')
+									{
+						        		funSetComCityCode(response[0].strCompanyCtCode);
+									}	
+						        	if(response[0].strCompanyStateCode!='')
+									{
+						        		funSetComStateCode(response[0].strCompanyStateCode);
+									}	
+						        	if(response[0].strCompanyCountryCode!='')
+									{
+						        		funSetComCountryCode(response[0].strCompanyCountryCode);
+									}	
+						        	if(response[0].strCompanyRegionCode!='')
+									{
+						        		funSetComRegionCode(response[0].strCompanyRegionCode);
+									}	
+						        	//$("#txtCompanyAreaCode").val(response[0].strCompanyAreaCode);
+						        	//funSetComAreaCode(response[0].strCompanyAreaCode);
+						        	//$("#txtCompanyCtCode").val(response[0].strCompanyCtCode);
+						        	//funSetComCityCode(response[0].strCompanyCtCode);
+						        	//$("#txtCompanyStateCode").val(response[0].strCompanyStateCode);	
+						        	//funSetComStateCode(response[0].strCompanyStateCode);
+						        	//$("#txtCompanyCountryCode").val(response[0].strCompanyCountryCode);	
+						        	//funSetComCountryCode(response[0].strCompanyCountryCode);
+						        	//$("#txtCompanyRegionCode").val(response[0].strCompanyRegionCode);
+						        	//funSetComRegionCode(response[0].strCompanyRegionCode);
+						        	
 						        	$("#txtCompanyPinCode").val(response[0].strCompanyPinCode);
-						        	$("txtCompanyTelePhone1").val(response[0].strCompanyTelePhone1);
+						        	$("#txtCompanyTelePhone1").val(response[0].strCompanyTelePhone1);
 						        	$("#txtCompanyTelePhone2").val(response[0].strCompanyTelePhone2);
 						        	
 						        	$("#txtCompanyFax1").val(response[0].strCompanyFax1);
@@ -288,12 +346,42 @@
 						        	$("#txtBillingAddressLine2").val(response[0].strBillingAddressLine2);
 						        	$("#txtBillingAddressLine3").val(response[0].strBillingAddressLine3);
 						        	$("#txtBillingLandMark").val(response[0].strBillingLandMark);
-						        	$("#txtBillingAreaCode").val(response[0].strBillingAreaCode);
-						        	$("#txtBillingCtCode").val(response[0].strBillingCtCode);
-						       
-						        	$("#txtBillingStateCode").val(response[0].strBillingStateCode);
-						        	$("#txtBillingRegionCode").val(response[0].strBillingRegionCode);
-						        	$("#txtBillingCountryCode").val(response[0].strBillingCountryCode);
+						        	
+						        	
+						        	
+						        	if(response[0].strBillingAreaCode!='')
+									{
+						        		funSetBillingAreaCode(response[0].strBillingAreaCode);
+									}	
+						        	
+						        	if(response[0].strBillingCtCode!='')
+									{
+						        		funSetBillingCityCode(response[0].strBillingCtCode);
+									}							        	
+						        	
+						        	if(response[0].strBillingStateCode!='')
+									{
+						        		funSetBillingStateCode(response[0].strBillingStateCode);
+									}	
+						        	if(response[0].strBillingCountryCode!='')
+									{
+						        		funSetBillingCountryCode(response[0].strBillingCountryCode);
+									}	
+						        	if(response[0].strBillingRegionCode!='')
+									{
+						        		funSetBillingRegionCode(response[0].strBillingRegionCode);
+									}	
+						        	//$("#txtBillingAreaCode").val(response[0].strBillingAreaCode);
+						        	//funSetBillingAreaCode(response[0].strBillingAreaCode);
+						        	//$("#txtBillingCtCode").val(response[0].strBillingCtCode);
+						        	//funSetBillingCityCode(response[0].strBillingCtCode);
+						        	//$("#txtBillingStateCode").val(response[0].strBillingStateCode);
+						        	//funSetBillingStateCode(response[0].strBillingStateCode);
+						        	//$("#txtBillingCountryCode").val(response[0].strBillingCountryCode);
+						        	//funSetBillingCountryCode(response[0].strBillingCountryCode);
+						        	//$("#txtBillingRegionCode").val(response[0].strBillingRegionCode);
+						        	//funSetBillingRegionCode(response[0].strBillingRegionCode);
+						        	
 						        	$("#txtBillingPinCode").val(response[0].strBillingPinCode);
 						        	$("#txtBillingTelePhone1").val(response[0].strBillingTelePhone1);
 						        	
@@ -335,10 +423,14 @@
 						        	$("#txtLibrary").val(response[0].strLibrary);
 						        	
 						        	$("#txtInstation").val(response[0].strInstation);
+						        	$("#cmbGolfMemberShip").val(response[0].strGolfMemberShip);
+						        	$("#cmbSendInnvoicethrough").val(response[0].strSendInvThrough);
+						        	$("#cmbNotice").val(response[0].strSendCircularNoticeThrough);
+						        	$("#cmbResident").val(response[0].strResident);
+						        	
 						        	$("#txtSeniorCitizen").val(response[0].strSeniorCitizen);
 						        	$("#txtdblEntranceFee").val(response[0].dblEntranceFee);
 						        	$("#txtdblSubscriptionFee").val(response[0].dblSubscriptionFee);
-						        	$("#txtGolfMemberShip").val(response[0].strGolfMemberShip);
 						        	
 						        	$("#txtStopCredit").val(response[0].strStopCredit);
 						        	$("txtFatherMemberCode").val(response[0].strFatherMemberCode);
@@ -467,8 +559,7 @@
 				break;
 			case 'WCBillingAreaMaster' : 
 				funSetBillingAreaCode(code);
-				break;
-				
+				break;			
 				
 			case 'WCResCityMaster' : 
 				funSetResCityCode(code);
@@ -678,7 +769,7 @@
 		        	else
 		        	{
 		        		funSetResCityCode(response.strCityCode);
-			        	//$("#txtAreaName").val(response.strAreaName);
+			        	$("#txtResidentAreaName").val(response.strAreaName);
 		        	}
 				},
 				error: function(jqXHR, exception) {
@@ -808,9 +899,7 @@ function funSetResCityCode(code){
 		        	}
 		        	else
 		        	{
-		        		
-		        		
-		        		
+		        		$("#txtResidentCtName").val(response.strCityName);
 		        		funSetResStateCode(response.strStateCode);	
 		        		funSetResCountryCode(response.strCountryCode);
 		        		$("#txtResidentPinCode").val(response.strSTDCode);
@@ -958,6 +1047,7 @@ function funSetResCountryCode(code){
 	        	}
 	        	else
 	        	{
+	        		$("#txtResidentCountryName").val(response.strCountryName);
 	        		//$("#txtCountryName").val(response.strCountryName);
 	        	}
 	        	
@@ -1087,8 +1177,8 @@ function funSetResStateCode(code){
 	        	}
 	        	else
 	        	{
-	        		
-	        		//funSetResRegionCode(response.strRegionCode);
+	        		$("#txtResidentStateName").val(response.strStateName);
+	        		funSetResRegionCode(response.strRegionCode);
 	        		$("#txtResidentRegionCode").val(response.strRegionCode);
 	        		
 	        		 
@@ -1181,7 +1271,7 @@ function funSetBillingStateCode(code){
 	        	}
 	        	else
 	        	{
-	        		funSetResRegionCode(response.strRegionCode);
+	        		funSetBillingRegionCode(response.strRegionCode);
 	        		$("#txtBillingStateName").val(response.strStateName);
 	        		 
 	        	}
@@ -1209,7 +1299,7 @@ function funSetBillingStateCode(code){
 
 function funSetResRegionCode(code){
 	
-	$("#txtBillingRegionCode").val(code);
+	$("#txtResidentRegionCode").val(code);
 	var searchurl=getContextPath()+"/loadRegionCode.html?docCode="+code;
 	//alert(searchurl);
 	
@@ -1226,7 +1316,7 @@ function funSetResRegionCode(code){
 	        	}
 	        	else
 	        	{
-	        		$("#txtBillingRegionName").val(response.strRegionName);
+	        		$("#txtResidentRegionName").val(response.strRegionName);
 	        		//$("#txtRegionName").val(response.strRegionName);
 	        	}
 	        	
@@ -1271,7 +1361,7 @@ function funSetComRegionCode(code){
 	        	}
 	        	else
 	        	{
-	        		$("#txtCompanyRegionName").val(response.strRegionName);
+	        		$("#txtCompanyRegionName").val(response.strRegionName);	        		
 	        	}
 	        	
 	        },
@@ -1460,7 +1550,7 @@ function funSetBillingRegionCode(code){
 			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" size=\"30%\" name=\"listField["+(rowCount)+"].strFieldName\" id=\"txFieldName."+(rowCount)+"\" value='"+fieldName+"'>";
 			    if(fieldDataType=='DATE'||fieldDataType=='DATETIME')
 			   	{ 
-			    	 row.insertCell(1).innerHTML= "<input type=\"date\" class=\"calenderTextBox hasDatepicker\" size=\"40%\" name=\"listField["+(rowCount)+"].strFieldValue\" id=\"txFieldValue."+(rowCount+1)+"\" value=''>";
+			    	 row.insertCell(1).innerHTML= "<input type=\"date\" class=\"calenderTextBox hasDatepicker\" size=\"40%\" name=\"listField["+(rowCount)+"].strFieldValue\" id=\"txFieldValue."+(rowCount+1)+"\" value='01-01-2020'>";
 			    }
 			    else if(fieldDataType=='TIME')
 			    {			    	
@@ -1546,21 +1636,23 @@ function funSetBillingRegionCode(code){
 			    var DOB = $("#txtdteDependentDateofBirth").val();
 			    var memExpDate = $("#txtdteDependentMemExpDate").val();
 			    var blocked = $("#cmbDependentBlock").val();
-			    var blockedReason = $("#txtDependentReasonCode").val();
-			    var profession = $("#txtDependentProfessionCode").val();
+			    var blockedReason = $("#txtDependentReasonName").val();
+			    var profession = $("#txtDependentProfessionName").val();
 			    
 			    
-			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listDependentMember["+(rowCount)+"].strMemberCode\" id=\"txttblDependentMemberCode."+(rowCount)+"\" value='"+genratedMemberCode+"' onclick=\"funRowClick()\" >";
-			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listDependentMember["+(rowCount)+"].strDependentFullName\" id=\"txttblDependentName."+(rowCount)+"\" value='"+dependentName+"'>";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listDependentMember["+(rowCount)+"].strDepedentRelation\" id=\"txttblDepedentRelation."+(rowCount)+"\" value='"+relation+"'>";
-			    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strGender\" id=\"txttblDependentGender."+(rowCount)+"\" value='"+gender+"'>";
-			    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strMaritalStatus\" id=\"txttblDependentMaritalStatus."+(rowCount)+"\" value='"+mStatus+"'>";
-			    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listDependentMember["+(rowCount)+"].dteDependentDateofBirth\" id=\"txttblDependentDateofBirth."+(rowCount)+"\" value='"+DOB+"'>";
-			    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listDependentMember["+(rowCount)+"].strBlocked\" id=\"txttblDependentBlocked."+(rowCount)+"\" value='"+blocked+"'>";
-			    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strDependentReasonCode\" id=\"txttblDependentReasonCode."+(rowCount)+"\" value='"+blockedReason+"'>";
-			    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strProfessionCode\" id=\"txttblProfessionCode."+(rowCount)+"\" value='"+profession+"'>";
-			    row.insertCell(9).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].dteMembershipExpiryDate\" id=\"txttbldteMembershipExpiryDate."+(rowCount)+"\" value='"+memExpDate+"'>";
-			       
+			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listDependentMember["+(rowCount)+"].strMemberCode\" id=\"txttblDependentMemberCode."+(rowCount)+"\" value='"+genratedMemberCode+"' onclick=\"funRowClick()\" >";
+			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"17%\" name=\"listDependentMember["+(rowCount)+"].strDependentFullName\" id=\"txttblDependentName."+(rowCount)+"\" value='"+dependentName+"'>";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strDepedentRelation\" id=\"txttblDepedentRelation."+(rowCount)+"\" value='"+relation+"'>";
+			    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" name=\"listDependentMember["+(rowCount)+"].strGender\" id=\"txttblDependentGender."+(rowCount)+"\" value='"+gender+"'>";
+			    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strMaritalStatus\" id=\"txttblDependentMaritalStatus."+(rowCount)+"\" value='"+mStatus+"'>";
+			    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].dteDependentDateofBirth\" id=\"txttblDependentDateofBirth."+(rowCount)+"\" value='"+DOB+"'>";
+			    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" name=\"listDependentMember["+(rowCount)+"].strBlocked\" id=\"txttblDependentBlocked."+(rowCount)+"\" value='"+blocked+"'>";
+			    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strDependentReasonCode\" id=\"txttblDependentReasonCode."+(rowCount)+"\" value='"+blockedReason+"'>";
+			    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strProfessionCode\" id=\"txttblProfessionCode."+(rowCount)+"\" value='"+profession+"'>";
+			    row.insertCell(9).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].dteMembershipExpiryDate\" id=\"txttbldteMembershipExpiryDate."+(rowCount)+"\" value='"+memExpDate+"'>";
+			    row.insertCell(10).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"7%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
+				//row.insertCell(11).innerHTML= "<input Type=\"hidden\" readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strCustomerCode\" id=\"txttblCustomerCode."+(rowCount)+"\" value='"+customerCode+"' onclick=\"funRowClick(this)\">";
+			    
 			    var dependentNumber = parseInt(ChangedependentCode) + 1;
 			    if(dependentNumber<10)
 			    	{
@@ -1643,16 +1735,16 @@ function funSetBillingRegionCode(code){
 			    	customerCode="";
 		    	}
 			    
-			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"12%\" name=\"listDependentMember["+(rowCount)+"].strMemberCode\" id=\"txttblDependentMemberCode."+(rowCount)+"\" value='"+genratedMemberCode+"' onclick=\"funRowClick(this)\"  >";
-			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listDependentMember["+(rowCount)+"].strDependentFullName\" id=\"txttblDependentName."+(rowCount)+"\" value='"+dependentName+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listDependentMember["+(rowCount)+"].strMemberCode\" id=\"txttblDependentMemberCode."+(rowCount)+"\" value='"+genratedMemberCode+"' onclick=\"funRowClick(this)\"  >";
+			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"17%\" name=\"listDependentMember["+(rowCount)+"].strDependentFullName\" id=\"txttblDependentName."+(rowCount)+"\" value='"+dependentName+"' onclick=\"funRowClick(this)\">";
 			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strDepedentRelation\" id=\"txttblDepedentRelation."+(rowCount)+"\" value='"+relation+"' onclick=\"funRowClick(this)\">";
-			    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strGender\" id=\"txttblDependentGender."+(rowCount)+"\" value='"+gender+"' onclick=\"funRowClick(this)\">";
-			    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strMaritalStatus\" id=\"txttblDependentMaritalStatus."+(rowCount)+"\" value='"+mStatus+"' onclick=\"funRowClick(this)\">";
-			    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" name=\"listDependentMember["+(rowCount)+"].dteDependentDateofBirth\" id=\"txttblDependentDateofBirth."+(rowCount)+"\" value='"+DOB+"' onclick=\"funRowClick(this)\">";
-			    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strBlocked\" id=\"txttblDependentBlocked."+(rowCount)+"\" value='"+blocked+"' onclick=\"funRowClick(this)\">";
-			    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strDependentReasonCode\" id=\"txttblDependentReasonCode."+(rowCount)+"\" value='"+blockedReason+"' onclick=\"funRowClick(this)\">";
-			    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strProfessionCode\" id=\"txttblProfessionCode."+(rowCount)+"\" value='"+profession+"' onclick=\"funRowClick(this)\">";
-			    row.insertCell(9).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].dteMembershipExpiryDate\" id=\"txttbldteMembershipExpiryDate."+(rowCount)+"\" value='"+memExpDate+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" name=\"listDependentMember["+(rowCount)+"].strGender\" id=\"txttblDependentGender."+(rowCount)+"\" value='"+gender+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strMaritalStatus\" id=\"txttblDependentMaritalStatus."+(rowCount)+"\" value='"+mStatus+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].dteDependentDateofBirth\" id=\"txttblDependentDateofBirth."+(rowCount)+"\" value='"+DOB+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" name=\"listDependentMember["+(rowCount)+"].strBlocked\" id=\"txttblDependentBlocked."+(rowCount)+"\" value='"+blocked+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strDependentReasonCode\" id=\"txttblDependentReasonCode."+(rowCount)+"\" value='"+blockedReason+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strProfessionCode\" id=\"txttblProfessionCode."+(rowCount)+"\" value='"+profession+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(9).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].dteMembershipExpiryDate\" id=\"txttbldteMembershipExpiryDate."+(rowCount)+"\" value='"+memExpDate+"' onclick=\"funRowClick(this)\">";
 			    row.insertCell(10).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"7%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
 				row.insertCell(11).innerHTML= "<input Type=\"hidden\" readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strCustomerCode\" id=\"txttblCustomerCode."+(rowCount)+"\" value='"+customerCode+"' onclick=\"funRowClick(this)\">";
 			    
@@ -1700,7 +1792,42 @@ function funSetBillingRegionCode(code){
 	    var table = document.getElementById("tblDependentData");
 	    index--;
 	    table.deleteRow(index);
+
+	    var value = obj.parentNode.parentNode.cells[0].childNodes[0].defaultValue;	
+	    funDeleteDependenData(value);
+	    
 	 
+	}
+
+	function funDeleteDependenData(code){
+		$("#txtResidentAreaCode").val(code);
+		var searchurl=getContextPath()+"/deleteDependenData.html?docCode="+code;
+			$.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        dataType: "json",
+		        success: function(response)
+		        {
+		        	alert("Dependent Deleted Successfully "+code);
+				},
+				error: function(jqXHR, exception) {
+		            if (jqXHR.status === 0) {
+		               // alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		               // alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		               // alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+		              //  alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		             //   alert('Time out error.');
+		            } else if (exception === 'abort') {
+		              //  alert('Ajax request aborted.');
+		            } else {
+		               // alert('Uncaught Error.n' + jqXHR.responseText);
+		            }		            
+		        }
+			});
 	}
 	
 	function funFillDependentMasterTableData(docCode)
@@ -2374,8 +2501,33 @@ function funSetBillingRegionCode(code){
 
 	function funValidate()
 	{	
-		var flag=true;	
+		var flag=true;			
+		for(var i=0;i<gValidationFields.length;i++)
+			{
+				var FieldName;
+				if(i=='0')
+					{
+					gValidationFields[0]=gValidationFields[0].split("[")[1];
+					//alert(FieldName);					
+					}
+				if(i==gValidationFields.length-1)
+				{
+					gValidationFields[gValidationFields.length-1]=gValidationFields[gValidationFields.length-1].split("]")[0];
+					//alert(FieldName);
+				}
+				var str=gValidationFields[i];
+				gValidationFields[i]=str.replace("str", "txt");
+				alert(gValidationFields[i]);
+				
+				/* switch(FieldName){
+				
+				case 'WCResAreaMaster' : 
+					funSetResAreaCode(code);
+					break;
+			} */
 		
+			}
+		/* 
 		$('#multiAccordion').multiAccordion({
 			click: function(event, ui) {
 			},
@@ -2416,35 +2568,41 @@ function funSetBillingRegionCode(code){
 			alert("Enter Last Name");
 			flag=false;
 		}
-		/* else if($("#txtFullName").val().trim().length<1)
-		{
-			alert("Enter Full Name");
-			flag=false; 
-		}	 */	
 		else if($("#txtResidentAddressLine1").val().trim().length<1)
 		{
-			$('#multiAccordion').multiAccordion("option", "active", [1]);
-			  // in this line [0,1,2] wirte then these index are open
-			
-			/* $("#tabAddressInfo").addClass("active"); */ 
+			$('#multiAccordion').multiAccordion("option", "active", [1]);			
 			document.getElementById("txtResidentAddressLine1").focus();
 			alert("Resident Address Line1 ");
 			flag=false;
 		}	
-		else if($("#txtResidentAreaCode").val().trim().length<1)
+		else if($("#txtResidentAreaName").val().trim().length<1)
 		{
 			$('#multiAccordion').multiAccordion("option", "active", [1]);
-			document.getElementById("txtResidentAreaCode").focus();
-			alert("Select Area Code ");
+			document.getElementById("txtResidentAreaName").focus();
+			alert("Select Area Name ");
 			flag=false;
 		}		
-		else if($("#txtResidentCountryCode").val().trim().length<1)
+		else if($("#txtResidentCtName").val().trim().length<1)
 		{
 			$('#multiAccordion').multiAccordion("option", "active", [1]);
-			document.getElementById("txtResidentCountryCode").focus();
+			document.getElementById("txtResidentCtName").focus();
 			alert("Enter Resident Country Name ");
 			flag=false;
 		}
+		else if($("#txtResidentStateName").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [1]);
+			document.getElementById("txtResidentStateName").focus();
+			alert("Enter Resident State Name ");
+			flag=false;
+		}
+		else if($("#txtResidentRegionName").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [1]);
+			document.getElementById("txtResidentRegionName").focus();
+			alert("Enter Resident Region Name ");
+			flag=false;
+		}		
 		else if($("#txtProfessionCode").val().trim().length<1)
 		{
 			$('#multiAccordion').multiAccordion("option", "active", [2]);
@@ -2529,7 +2687,7 @@ function funSetBillingRegionCode(code){
 					break;
 				}			
 			} 
-		}
+		} */
 		funFillNameOnCard()
 		return flag;		
 	}
@@ -2580,7 +2738,7 @@ function funSetBillingRegionCode(code){
 									
 				<h3><a href="#">Address Information</a></h3>
 			<div>							
-				<div id="tab_container" style="height: 130px">
+				<div id="tab_container" style="height: 250px">
 					<div><ul class="tabs">
 							<li class="active" data-state="tab1">Resident Address</li>
 							<li data-state="tab2"> Company Address</li>
@@ -2598,26 +2756,15 @@ function funSetBillingRegionCode(code){
 								 type="text"></s:input></div>
 		  				<div class="col-md-3"><label>Resident LandMark</label><br><s:input id="txtResidentLandMark" path="strResidentLandMark" type="text"></s:input></div>
 		  		
-		  				<div class="col-md-3"><label>Resident Area Code</label><br><s:input id="txtResidentAreaCode" path="strResidentAreaCode" 
-								ondblclick="funHelp('WCResAreaMaster')" type="text" readonly="true" cssClass="searchTextBox"></s:input></div>
-		  				<div class="col-md-3"><label>Resident City Code</label><br><s:input id="txtResidentCtCode" path="strResidentCtCode" ondblclick="funHelp('WCResCityMaster')" type="text" readonly="true"  cssClass="searchTextBox"></s:input></div>
-		  				<div class="col-md-3"><label>Resident State Code</label><br><s:input id="txtResidentStateCode" path="strResidentStateCode" 
-								ondblclick="funHelp('WCResStateMaster')" type="text" readonly="true" cssClass="searchTextBox"></s:input></div>
-		  				<div class="col-md-3"><label>Resident Region Code</label><br><s:input id="txtResidentRegionCode" path="strResidentRegionCode" 
-								ondblclick="funHelp('WCResRegionMaster')" type="text" readonly="true" cssClass="searchTextBox"></s:input></div>
-		  				
-		  				<div class="col-md-3"><label>Resident Country Code</label><br><s:input id="txtResidentCountryCode" path="strResidentCountryCode" 
-								 ondblclick="funHelp('WCResCountryMaster')" readonly="true" cssClass="searchTextBox"
-								type="text"></s:input></div>
-		  				<div class="col-md-3"><label>Resident Telephone1</label><br><s:input id="txtResidentTelephone1" path="strResidentTelephone1" 
-							class="decimal-places numberField" type="text"></s:input></div>
-		  				<div class="col-md-3"><label>Resident Telephone2</label><br><s:input id="txtResidentTelephone2" path="strResidentTelephone2" 
-							class="decimal-places numberField" type="text"></s:input></div>
-		  				<div class="col-md-3"><label>Resident Fax1</label><br><s:input id="txtResidentFax1" path="strResidentFax1"  
-							class="decimal-places numberField" type="text"></s:input></div>
-		  				
-		  				<div class="col-md-3"><label>Resident Fax2</label><br><s:input id="txtResidentFax2" path="strResidentFax2"  
-							class="decimal-places numberField" type="text"></s:input></div>
+		  				<div class="col-md-3"><label>Resident Area Name</label><br><s:input  id="txtResidentAreaName" path="strResidentAreaName" ondblclick="funHelp('WCResAreaMaster')" type="text" readonly="true" cssClass="searchTextBox"></s:input><s:input id="txtResidentAreaCode" path="strResidentAreaCode" type="hidden" readonly="true" ></s:input></div>
+		  				<div class="col-md-3"><label>Resident City Name</label><br><s:input id="txtResidentCtName" path="strResidentCtName" ondblclick="funHelp('WCResCityMaster')" type="text" readonly="true"  cssClass="searchTextBox"></s:input><s:input  id="txtResidentCtCode" path="strResidentCtCode" type="hidden" readonly="true" ></s:input></div>
+		  				<div class="col-md-3"><label>Resident State Name</label><br><s:input id="txtResidentStateName" path="strResidentStateName" ondblclick="funHelp('WCResStateMaster')" type="text" readonly="true" cssClass="searchTextBox"></s:input><s:input id="txtResidentStateCode" path="strResidentStateCode" type="hidden" readonly="true" ></s:input></div>
+		  				<div class="col-md-3"><label>Resident Country Name</label><br><s:input id="txtResidentCountryName" path="strResidentCountryName"  ondblclick="funHelp('WCResCountryMaster')" readonly="true" cssClass="searchTextBox" type="text"></s:input><s:input id="txtResidentCountryCode" path="strResidentCountryCode" type="hidden" readonly="true" ></s:input></div>
+		  				<div class="col-md-3"><label>Resident Region Name</label><br><s:input id="txtResidentRegionName" path="strResidentRegionName" ondblclick="funHelp('WCResRegionMaster')" type="text" readonly="true" cssClass="searchTextBox"></s:input><s:input id="txtResidentRegionCode" path="strResidentRegionCode" type="hidden" readonly="true" ></s:input></div>
+		  				<div class="col-md-3"><label>Resident Telephone1</label><br><s:input id="txtResidentTelephone1" path="strResidentTelephone1" class="decimal-places numberField" type="text"></s:input></div>
+		  				<div class="col-md-3"><label>Resident Telephone2</label><br><s:input id="txtResidentTelephone2" path="strResidentTelephone2" class="decimal-places numberField" type="text"></s:input></div>
+		  				<div class="col-md-3"><label>Resident Fax1</label><br><s:input id="txtResidentFax1" path="strResidentFax1"  class="decimal-places numberField" type="text"></s:input></div>		  				
+		  				<div class="col-md-3"><label>Resident Fax2</label><br><s:input id="txtResidentFax2" path="strResidentFax2"  class="decimal-places numberField" type="text"></s:input></div>
 		  				<div class="col-md-3"><label>Resident PinCode</label><br><s:input id="txtResidentPinCode" path="strResidentPinCode"  
 							class="decimal-places numberField" type="text"></s:input></div>
 		  				<div class="col-md-3"><label>Resident Mobile No</label><br><s:input id="txtResidentMobileNo" path="strResidentMobileNo"  
@@ -2635,14 +2782,14 @@ function funSetBillingRegionCode(code){
   				<div class="col-md-6"><label>Company Code</label><br>
   					<div class="row" ><div class="col-md-6"><s:input id="txtCompanyCode"
 									ondblclick="" 
-									 type="text" path="strCompanyCode" readonly="true" ></s:input></div>
+									 type="text" path="strCompanyCode"  ></s:input></div>
 									<div class="col-md-6"><s:input id="txtCompanyName" path="strCompanyName" type="text"></s:input></div></div></div>
 									
 				<div class="col-md-6"><label>Job Profile</label><br>
 					<div class="row" ><div class="col-md-6"><s:input id="txtJobProfileCode"
-									ondblclick="" readonly="true" 
+									ondblclick="" 
 									type="text" path="strJobProfileCode" ></s:input></div>
-								  <div class="col-md-6"><s:input id="txtJobProfileName" path="" type="text"></s:input></div></div></div>
+								  <%-- <div class="col-md-6"><s:input id="txtJobProfileName" path="" type="text"></s:input></div> --%></div></div>
 			
 			
 			<div class="col-md-6">
@@ -2655,44 +2802,40 @@ function funSetBillingRegionCode(code){
 			<div class="col-md-6"><label>Landmark</label><br><s:input id="txtCompanyLandMark" path="strCompanyLandMark" 
 									type="text"></s:input></div></div></div>
 									
-									
-			<div class="col-md-6"><label>Holding Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtHoldingCode"
-									ondblclick=""  cssClass="searchTextBox"
-									type="text" path="strHoldingCode" ></s:input></div>
-								 <div class="col-md-6"><s:input id="txtHoldingName" path="" type="text"></s:input></div></div></div>
-									
-			<div class="col-md-6"><label>Area Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtCompanyAreaCode"
-									ondblclick="funHelp('WCComAreaMaster')" cssClass="searchTextBox" readonly="true" 
-									type="text" path="strCompanyAreaCode" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtCompanyAreaName" path="" readonly="true"
-									 type="text"></s:input></div></div></div>	
-											
-			<div class="col-md-6"><label>City Code</label><br>
-				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyCtCode"
-									ondblclick="funHelp('WCComCityMaster')"  cssClass="searchTextBox" readonly="true" 
-									type="text" path="strCompanyCtCode" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtCompanyCtName" path="" readonly="true"
-									 type="text"></s:input></div></div></div>
-			<div class="col-md-6"><label>State Code</label><br>
-				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyStateCode"
-									ondblclick="funHelp('WCComStateMaster')"  cssClass="searchTextBox" readonly="true" 
-									type="text" path="strCompanyStateCode" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtCompanyStateName" path="" readonly="true"
-									 type="text"></s:input></div></div></div>
-		
-			<div class="col-md-6"><label>Region Code</label><br>
-				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyRegionCode"
-									ondblclick="funHelp('WCComRegionMaster')"  cssClass="searchTextBox" readonly="true" 
-									type="text" path="strCompanyRegionCode" ></s:input></div>
-							     <div class="col-md-6"><s:input id="txtCompanyRegionName" path="" readonly="true" type="text"></s:input></div></div></div>
+						
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Area Code</label><br><s:input id="txtCompanyAreaName" ondblclick="funHelp('WCComAreaMaster')"  readonly="true" cssClass="searchTextBox" type="text" path="strCompanyAreaName" ></s:input></div>
+																				<s:input id="txtCompanyAreaCode"  type="hidden" path="strCompanyAreaCode" ></s:input>
+								<div class="col-md-6"><label>City Code</label><br><s:input id="txtCompanyCtName" ondblclick="funHelp('WCComCityMaster')"   readonly="true" cssClass="searchTextBox" type="text" path="strCompanyCtName" ></s:input></div>
+																		          <s:input id="txtCompanyCtCode"  type="hidden" path="strCompanyCtCode" ></s:input>
+				</div>	
+			</div>	
 			
-			<div class="col-md-6"><label>Country Code</label><br>
-				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyCountryCode" 
-									ondblclick="funHelp('WCComCountryMaster')" cssClass="searchTextBox"  readonly="true" 
-									type="text" path="strCompanyCountryCode" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtCompanyCountryName" path="" readonly="true" type="text"></s:input></div></div></div>
+			<div class="col-md-6">
+				<div class="row" >					
+					<div class="col-md-6"><label>State Code</label><br>
+									<s:input id="txtCompanyStateName" ondblclick="funHelp('WCComStateMaster')"   readonly="true" cssClass="searchTextBox" type="text" path="strCompanyStateName" ></s:input><s:input id="txtCompanyStateCode"  type="hidden" path="strCompanyStateCode" ></s:input>
+					</div>
+					
+					<div class="col-md-6"><label>Country Code</label><br>
+						<s:input id="txtCompanyCountryName" ondblclick="funHelp('WCComCountryMaster')" readonly="true" cssClass="searchTextBox"  type="text" path="strCompanyCountryName"></s:input><s:input id="txtCompanyCountryCode"  type="hidden" path="strCompanyCountryCode" ></s:input>
+					</div>
+					
+					
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="row" >					
+					
+					<div class="col-md-6"><label>Region Code</label><br>
+						<s:input id="txtCompanyRegionName" ondblclick="funHelp('WCComRegionMaster')"  readonly="true"  cssClass="searchTextBox" type="text" path="strCompanyRegionName" ></s:input><s:input id="txtCompanyRegionCode"  type="hidden" path="strCompanyRegionCode" ></s:input>
+					</div>
+					
+					<div class="col-md-6"><label>Email ID</label><br><s:input id="txtCompanyEmailID" path="strCompanyEmailID" 
+								type="text"  ></s:input></div> 
+				</div>
+			</div>
 
 			<div class="col-md-6"><label>Telephone</label><br>
 				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyTelePhone1" path="strCompanyTelePhone1" 
@@ -2713,9 +2856,7 @@ function funSetBillingRegionCode(code){
 								<div class="col-md-6"><label>Mobile No</label><br><s:input id="txtCompanyMobileNo" path="strCompanyMobileNo" 
 									class="decimal-places numberField" type="text"></s:input></div></div></div>
 									
-			<div class="col-md-4"><label>Email ID</label><br><s:input id="txtCompanyEmailID" path="strCompanyEmailID" 
-								type="text" style="width: 67%" ></s:input></div>
-	
+		
 		</div></div>
 			</div>			
 			
@@ -2736,32 +2877,44 @@ function funSetBillingRegionCode(code){
 									<div class="col-md-6"><label>Landmark</label><br><s:input id="txtBillingLandMark" path="strBillingLandMark" 
 									type="text"></s:input></div></div></div>	
 		
-			<div class="col-md-6"><label>Area Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingAreaCode" readonly="true"
-									ondblclick="funHelp('WCBillingAreaMaster')"  cssClass="searchTextBox"
-									type="text" path="strBillingAreaCode" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtBillingAreaName" path=""  readonly="true"
-									 type="text"></s:input></div></div></div>
 			
-			<div class="col-md-6"><label>City Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingCtCode"
-									ondblclick="funHelp('WCBillingCityMaster')"  cssClass="searchTextBox" readonly="true"
-									type="text" path="strBillingCtCode" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtBillingCtName" path=""  readonly="true"
-									 type="text"></s:input></div></div></div>	
+			 
+			<div class="col-md-6">
+				<div class="row"><div class="col-md-6"><label>Area Code</label><br><s:input id="txtBillingAreaName" ondblclick="funHelp('WCBillingAreaMaster')" required="required" cssClass="searchTextBox" readonly="true" type="text" path="strBillingAreaName" ></s:input></div>
+																				   <s:input id="txtBillingAreaCode"  type="hidden" path="strBillingAreaCode" ></s:input>
+								<div class="col-md-6"><label>City Code</label><br><s:input id="txtBillingCtName" ondblclick="funHelp('WCBillingCityMaster')" required="required" cssClass="searchTextBox" readonly="true" type="text" path="strBillingCtName" ></s:input>
+																				  <s:input id="txtBillingCtCode"  type="hidden" path="strBillingCtCode" ></s:input>
+							</div>								 
+				</div></div>
+			
+			
+			
+			
+			<div class="col-md-6">
+						<div class="row" >					
+							
+							<div class="col-md-6"><label>State Code</label><br>
+								<s:input id="txtBillingStateName" ondblclick="funHelp('WCBillingStateMaster')"  readonly="true"  cssClass="searchTextBox" type="text" path="strBillingStateName"  required="required" ></s:input>
+							    <s:input id="txtBillingStateCode"  type="hidden" path="strBillingStateCode" ></s:input>
+							</div>
+							
+							<div class="col-md-6"><label>Country Code</label><br>
+								<s:input id="txtBillingCountryName" ondblclick="funHelp('WCBillingCountryMaster')"  cssClass="searchTextBox" readonly="true" type="text" path="strBillingCountryName"></s:input>
+								<s:input id="txtBillingCountryCode"  type="hidden" path="strBillingCountryCode" ></s:input>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+					<div class="row" >						
+						<div class="col-md-6"><label>Region Code</label><br>
+							<s:input id="txtBillingRegionName" ondblclick="funHelp('WCBillingRegionMaster')"  readonly="true"  cssClass="searchTextBox" type="text" path="strBillingRegionName" ></s:input>
+							<s:input id="txtBillingRegionCode"  type="hidden" path="strBillingRegionCode" ></s:input>
+						</div>
+						
+						<div class="col-md-6"><label>Email ID</label><br><s:input id="txtBillingEmailID" path="strBillingEmailID" type="text"></s:input></div>
+					</div>
+			</div>
 
-			<div class="col-md-6"><label>Country Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingCountryCode"
-									ondblclick="funHelp('WCBillingCountryMaster')"  cssClass="searchTextBox" readonly="true" 
-									type="text" path="strBillingCountryCode"></s:input></div>
-						 	       <div class="col-md-6"><s:input id="txtBillingCountryName" path=""  readonly="true"
-									type="text"></s:input></div></div></div>
-			<div class="col-md-6"><label>Region Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingRegionCode"
-									ondblclick="funHelp('WCBillingRegionMaster')"  cssClass="searchTextBox" readonly="true" 
-									type="text" path="strBillingRegionCode" ></s:input></div>
-							    	<div class="col-md-6"><s:input id="txtBillingRegionName" path=""  readonly="true"
-									 type="text"></s:input></div></div></div>	
 		
 			<div class="col-md-6"><label>Telephone</label><br>
 				<div class="row"><div class="col-md-6"><s:input id="txtBillingTelePhone1" path="strBillingTelePhone1" 
@@ -2774,21 +2927,14 @@ function funSetBillingRegionCode(code){
 								 <div class="col-md-6"><s:input id="txtBillingFax2" path="strBillingFax2" 
 									class="decimal-places numberField" type="text"></s:input></div></div></div>	
 			
-			<div class="col-md-6"><label>State Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingStateCode"
-									ondblclick="funHelp('WCBillingStateMaster')"  cssClass="searchTextBox" 
-									type="text" path="strBillingStateCode"  readonly="true" ></s:input></div>
-								 <div class="col-md-6"><s:input id="txtBillingStateName" path="" 
-									type="text"></s:input></div></div></div>
+			
 			<div class="col-md-6">
 				<div class="row"><div class="col-md-6"><label>Pin Code</label><br><s:input id="txtBillingPinCode" path="strBillingPinCode"  readonly="true"
 									class="decimal-places numberField" type="text"></s:input></div>
 									<div class="col-md-6"><label>Mobile</label><br><s:input id="txtBillingMobileNo" path="strBillingMobileNo" 
 									class="decimal-places numberField" type="text"></s:input></div></div></div>	
 		
-			
-			<div class="col-md-3"><label>Email ID</label><br><s:input id="txtBillingEmailID" path="strBillingEmailID" 
-								 type="text"></s:input></div>
+		
 			</div></div>
 			</div>
 		
@@ -2969,13 +3115,13 @@ function funSetBillingRegionCode(code){
 									class="decimal-places numberField" type="text"></s:input></div>
 							    <div class="col-md-6"><label>Voter Id Card No</label><br><s:input id="txtVoterIdNo" path="strVoterIdNo" 
 												type="text"></s:input></div>
-								<div class="col-md-6"><label>Passpor No</label><br><s:input id="txtPassportNo" path="strPassportNo" 
-												type="text"></s:input></div>
+							
 						</div>	
 			</div>
 				
 			<div class="col-md-6">
-				<div class="row"><div class="col-md-6"><%-- <label>Billing Detail</label><br><s:select id="cmbBillingDetail" name="cmbBillingDetail" path=""></s:select> --%></div>
+				<div class="row"><div class="col-md-6"><label>Passpor No</label><br><s:input id="txtPassportNo" path="strPassportNo" 
+												type="text"></s:input></div>
 				                  <div class="col-md-6"><label>Locker Detail</label><br><s:select id="txtLocker" name="txtLocker" path="strLocker" >
 																 <option value="N">No</option>
 												 				 <option value="Y">Yes</option>
@@ -2996,7 +3142,7 @@ function funSetBillingRegionCode(code){
 															 <option value="N">No</option>
 											 				 <option value="Y">Yes</option>
 															 </s:select></div>
-								<div class="col-md-6"><label>Resident</label><br><s:select id="cmbResident" name="cmbResident" path="">
+								<div class="col-md-6"><label>Resident</label><br><s:select id="cmbResident" name="cmbResident" path="strResident">
 															 <option value="N">No</option>
 											 				 <option value="Y">Yes</option>
 															 </s:select></div></div></div>
@@ -3012,11 +3158,11 @@ function funSetBillingRegionCode(code){
 															 </s:select></div></div></div>			 
 			
 			<div class="col-md-6">
-				<div class="row"><div class="col-md-6"><label>Send Innvoice through</label><br><s:select id="cmbsendInnvoicethrough" name="cmbSendInnvoicethrough" path="" >
+				<div class="row"><div class="col-md-6"><label>Send Innvoice through</label><br><s:select id="cmbSendInnvoicethrough" name="cmbSendInnvoicethrough" path="strSendInvThrough" >
 																 <option value="N">No</option>
 												 				 <option value="Y">Yes</option>
 																 </s:select></div>
-			                     <div class="col-md-6"><label>Circulars/Notice</label><br><s:select id="cmbNotice" name="cmbNotice" path="">
+			                     <div class="col-md-6"><label>Circulars/Notice</label><br><s:select id="cmbNotice" name="cmbNotice" path="strSendCircularNoticeThrough">
 														 <option value="N">No</option>
 										 				 <option value="Y">Yes</option>
 														 </s:select></div></div></div><br>
@@ -3158,8 +3304,8 @@ function funSetBillingRegionCode(code){
 						<a href="#"><button class="btn btn-primary center-block" value="Add" onclick="return btnAdd_onclick()" style="margin:13px"
 						class="form_button">Add</button></a>
 			</div>
-			<div class="container masterTable" style="width :100%; overflow:scroll;">
-		<table class="table table-striped masterTable"  >
+			<div class="container masterTable" style="width :100%; overflow:auto;">
+		<table class="table table-striped masterTable"  style="width :100%;">
 				<thead>
 					<tr>
 						 <th>Member Code</th>
@@ -3172,6 +3318,7 @@ function funSetBillingRegionCode(code){
 						 <th>Blocked Reason</th>
 						 <th>Profession</th>
 						 <th>Mem Exp Date</th>
+						 <th></th><th></th>
 					</tr>
 				</thead>
 				<tbody id="tblDependentData" class="transTablex">

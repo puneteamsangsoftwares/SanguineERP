@@ -76,14 +76,35 @@ public class clsWebClubMemberProfileModel implements Serializable {
 	@Column(name = "strResidentAddressLine3", columnDefinition = "VARCHAR(255) NOT NULL default ''")
 	private String strResidentAddressLine3;
 
-	@Column(name = "strResidentAreaCode", columnDefinition = "VARCHAR(10) NOT NULL default ''")
+	@Column(name = "strResidentAreaCode", columnDefinition = "VARCHAR(20) NOT NULL default ''")
 	private String strResidentAreaCode;
-
-	@Column(name = "strResidentCountryCode", columnDefinition = "VARCHAR(10) NOT NULL default ''")
-	private String strResidentCountryCode;
-
-	@Column(name = "strResidentCtCode", columnDefinition = "VARCHAR(10) NOT NULL default ''")
+	
+	@Column(name = "strResidentAreaName", columnDefinition = "VARCHAR(20) NOT NULL default ''")
+	private String strResidentAreaName;
+	
+	@Column(name = "strResidentCtCode", columnDefinition = "VARCHAR(20) NOT NULL default ''")
 	private String strResidentCtCode;
+	
+	@Column(name = "strResidentCtName", columnDefinition = "VARCHAR(20) NOT NULL default ''")
+	private String strResidentCtName;	
+
+	@Column(name = "strResidentStateCode", columnDefinition = "VARCHAR(20) NOT NULL default ''")
+	private String strResidentStateCode;
+
+	@Column(name = "strResidentStateName", columnDefinition = "VARCHAR(20) NOT NULL default ''")
+	private String strResidentStateName;
+	
+	@Column(name = "strResidentCountryCode", columnDefinition = "VARCHAR(20) NOT NULL default ''")
+	private String strResidentCountryCode;	
+	
+	@Column(name = "strResidentCountryName", columnDefinition = "VARCHAR(20) NOT NULL default ''")
+	private String strResidentCountryName;	
+	
+	@Column(name = "strResidentRegionCode", columnDefinition = "VARCHAR(20) NOT NULL default ''")
+	private String strResidentRegionCode;	
+
+	@Column(name = "strResidentRegionName", columnDefinition = "VARCHAR(20) NOT NULL default ''")
+	private String strResidentRegionName;
 
 	@Column(name = "strResidentEmailID", columnDefinition = "VARCHAR(255) NOT NULL default ''")
 	private String strResidentEmailID;
@@ -118,15 +139,9 @@ public class clsWebClubMemberProfileModel implements Serializable {
 	@Column(name = "strDepMobileNo", columnDefinition = "VARCHAR(12) NOT NULL default ''")
 	private String strDepMobileNo;
 	
-	@Column(name = "strResidentPinCode", columnDefinition = "VARCHAR(10) NOT NULL default ''")
+	@Column(name = "strResidentPinCode", columnDefinition = "VARCHAR(20) NOT NULL default ''")
 	private String strResidentPinCode;
-
-	@Column(name = "strResidentRegionCode", columnDefinition = "VARCHAR(10) NOT NULL default ''")
-	private String strResidentRegionCode;
-
-	@Column(name = "strResidentStateCode", columnDefinition = "VARCHAR(10) NOT NULL default ''")
-	private String strResidentStateCode;
-
+	
 	@Column(name = "strResidentTelephone1", columnDefinition = "VARCHAR(50) NOT NULL default ''")
 	private String strResidentTelephone1;
 
@@ -144,15 +159,36 @@ public class clsWebClubMemberProfileModel implements Serializable {
 
 	@Column(name = "strCompanyAreaCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
 	private String strCompanyAreaCode;
+	
+	@Column(name = "strCompanyAreaName", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strCompanyAreaName;
+	
+	@Column(name = "strCompanyCtCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strCompanyCtCode;
+	
+	@Column(name = "strCompanyCtName", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strCompanyCtName;
+	
+	@Column(name = "strCompanyStateCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strCompanyStateCode;	
 
-	@Column(name = "strCompanyCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
-	private String strCompanyCode;
+	@Column(name = "strCompanyStateName", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strCompanyStateName;	
 
 	@Column(name = "strCompanyCountryCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
 	private String strCompanyCountryCode;
 
-	@Column(name = "strCompanyCtCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
-	private String strCompanyCtCode;
+	@Column(name = "strCompanyCountryName", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strCompanyCountryName;
+	
+	@Column(name = "strCompanyRegionCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strCompanyRegionCode;
+	
+	@Column(name = "strCompanyRegionName", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strCompanyRegionName;
+
+	@Column(name = "strCompanyCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strCompanyCode;
 
 	@Column(name = "strCompanyEmailID", columnDefinition = "VARCHAR(255) NOT NULL default ''")
 	private String strCompanyEmailID;
@@ -170,13 +206,7 @@ public class clsWebClubMemberProfileModel implements Serializable {
 	private String strCompanyMobileNo;
 
 	@Column(name = "strCompanyName", columnDefinition = "VARCHAR(255) NOT NULL default ''")
-	private String strCompanyName;
-
-	@Column(name = "strCompanyStateCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
-	private String strCompanyStateCode;
-
-	@Column(name = "strCompanyRegionCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
-	private String strCompanyRegionCode;
+	private String strCompanyName;	
 
 	@Column(name = "strCompanyPinCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
 	private String strCompanyPinCode;
@@ -204,12 +234,153 @@ public class clsWebClubMemberProfileModel implements Serializable {
 
 	@Column(name = "strBillingAreaCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
 	private String strBillingAreaCode;
+	
+	@Column(name = "strBillingAreaName", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strBillingAreaName;
+	
+	@Column(name = "strBillingCtCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strBillingCtCode;	
+	
+	@Column(name = "strBillingCtName", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strBillingCtName;
 
+	@Column(name = "strBillingStateCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strBillingStateCode;
+	
+	@Column(name = "strBillingStateName", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strBillingStateName;
+	
 	@Column(name = "strBillingCountryCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
 	private String strBillingCountryCode;
 
-	@Column(name = "strBillingCtCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
-	private String strBillingCtCode;
+	@Column(name = "strBillingRegionName", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strBillingRegionName;	
+
+	@Column(name = "strBillingRegionCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strBillingRegionCode;	
+
+	@Column(name = "strBillingCountryName", columnDefinition = "VARCHAR(15) NOT NULL default ''")
+	private String strBillingCountryName;
+
+	public String getStrResidentAreaName() {
+		return strResidentAreaName;
+	}
+
+	public void setStrResidentAreaName(String strResidentAreaName) {
+		this.strResidentAreaName = strResidentAreaName;
+	}
+
+	public String getStrResidentCtName() {
+		return strResidentCtName;
+	}
+
+	public void setStrResidentCtName(String strResidentCtName) {
+		this.strResidentCtName = strResidentCtName;
+	}
+
+	public String getStrResidentStateName() {
+		return strResidentStateName;
+	}
+
+	public void setStrResidentStateName(String strResidentStateName) {
+		this.strResidentStateName = strResidentStateName;
+	}
+
+	public String getStrResidentCountryName() {
+		return strResidentCountryName;
+	}
+
+	public void setStrResidentCountryName(String strResidentCountryName) {
+		this.strResidentCountryName = strResidentCountryName;
+	}
+
+	public String getStrResidentRegionName() {
+		return strResidentRegionName;
+	}
+
+	public void setStrResidentRegionName(String strResidentRegionName) {
+		this.strResidentRegionName = strResidentRegionName;
+	}
+
+	public String getStrCompanyAreaName() {
+		return strCompanyAreaName;
+	}
+
+	public void setStrCompanyAreaName(String strCompanyAreaName) {
+		this.strCompanyAreaName = strCompanyAreaName;
+	}
+
+	public String getStrCompanyCtName() {
+		return strCompanyCtName;
+	}
+
+	public void setStrCompanyCtName(String strCompanyCtName) {
+		this.strCompanyCtName = strCompanyCtName;
+	}
+
+	public String getStrCompanyStateName() {
+		return strCompanyStateName;
+	}
+
+	public void setStrCompanyStateName(String strCompanyStateName) {
+		this.strCompanyStateName = strCompanyStateName;
+	}
+
+	public String getStrCompanyCountryName() {
+		return strCompanyCountryName;
+	}
+
+	public void setStrCompanyCountryName(String strCompanyCountryName) {
+		this.strCompanyCountryName = strCompanyCountryName;
+	}
+
+	public String getStrCompanyRegionName() {
+		return strCompanyRegionName;
+	}
+
+	public void setStrCompanyRegionName(String strCompanyRegionName) {
+		this.strCompanyRegionName = strCompanyRegionName;
+	}
+
+	public String getStrBillingAreaName() {
+		return strBillingAreaName;
+	}
+
+	public void setStrBillingAreaName(String strBillingAreaName) {
+		this.strBillingAreaName = strBillingAreaName;
+	}
+
+	public String getStrBillingCtName() {
+		return strBillingCtName;
+	}
+
+	public void setStrBillingCtName(String strBillingCtName) {
+		this.strBillingCtName = strBillingCtName;
+	}
+
+	public String getStrBillingStateName() {
+		return strBillingStateName;
+	}
+
+	public void setStrBillingStateName(String strBillingStateName) {
+		this.strBillingStateName = strBillingStateName;
+	}
+
+	public String getStrBillingRegionName() {
+		return strBillingRegionName;
+	}
+
+	public void setStrBillingRegionName(String strBillingRegionName) {
+		this.strBillingRegionName = strBillingRegionName;
+	}
+
+	public String getStrBillingCountryName() {
+		return strBillingCountryName;
+	}
+
+	public void setStrBillingCountryName(String strBillingCountryName) {
+		this.strBillingCountryName = strBillingCountryName;
+	}
 
 	@Column(name = "strBillingEmailID", columnDefinition = "VARCHAR(255) NOT NULL default ''")
 	private String strBillingEmailID;
@@ -229,14 +400,9 @@ public class clsWebClubMemberProfileModel implements Serializable {
 	@Column(name = "strBillingMobileNo", columnDefinition = "VARCHAR(15) NOT NULL default ''")
 	private String strBillingMobileNo;
 
-	@Column(name = "strBillingRegionCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
-	private String strBillingRegionCode;
-
 	@Column(name = "strBillingPinCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
 	private String strBillingPinCode;
 
-	@Column(name = "strBillingStateCode", columnDefinition = "VARCHAR(15) NOT NULL default ''")
-	private String strBillingStateCode;
 
 	@Column(name = "strBillingTelePhone1", columnDefinition = "VARCHAR(15) NOT NULL default ''")
 	private String strBillingTelePhone1;
@@ -375,6 +541,17 @@ public class clsWebClubMemberProfileModel implements Serializable {
 
 	@Column(name = "strSendCircularNoticeThrough")
 	private String strSendCircularNoticeThrough;
+	
+	@Column(name = "strResident")
+	private String strResident;	
+
+	public String getStrResident() {
+		return strResident;
+	}
+
+	public void setStrResident(String strResident) {
+		this.strResident = strResident;
+	}
 
 	@Column(name = "strSendInvThrough")
 	private String strSendInvThrough;

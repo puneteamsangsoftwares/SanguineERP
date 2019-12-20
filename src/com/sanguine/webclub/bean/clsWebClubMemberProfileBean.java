@@ -33,14 +33,24 @@ public class clsWebClubMemberProfileBean {
 	private String strResidentLandMark;
 
 	private String strResidentAreaCode;
+	
+	private String strResidentAreaName;	
 
 	private String strResidentCtCode;
+	
+	private String strResidentCtName;
 
 	private String strResidentStateCode;
+	
+	private String strResidentStateName;
 
 	private String strResidentRegionCode;
+	
+	private String strResidentRegionName;
 
 	private String strResidentCountryCode;
+	
+	private String strResidentCountryName;
 
 	private String strResidentPinCode;
 
@@ -73,15 +83,25 @@ public class clsWebClubMemberProfileBean {
 	private String strCompanyLandMark;
 
 	private String strCompanyAreaCode;
+	
+	private String strCompanyAreaName;
 
 	private String strCompanyCtCode;
 
+	private String strCompanyCtName;
+
 	private String strCompanyStateCode;
+	
+	private String strCompanyStateName;
 
 	private String strCompanyRegionCode;
 
+	private String strCompanyRegionName;
+	
 	private String strCompanyCountryCode;
 
+	private String strCompanyCountryName;
+	
 	private String strCompanyPinCode;
 
 	private String strCompanyTelePhone1;
@@ -105,14 +125,30 @@ public class clsWebClubMemberProfileBean {
 	private String strBillingLandMark;
 
 	private String strBillingAreaCode;
+	
+	private String strSendInvThrough;
+	
+	private String strSendCircularNoticeThrough;
+	
+	private String strResident;	
+
+	private String strBillingAreaName;
 
 	private String strBillingCtCode;
+	
+	private String strBillingCtName;
 
 	private String strBillingStateCode;
+	
+	private String strBillingStateName;
 
 	private String strBillingRegionCode;
 
+	private String strBillingRegionName;
+
 	private String strBillingCountryCode;
+	
+	private String strBillingCountryName;
 
 	private String strBillingPinCode;
 
@@ -305,6 +341,8 @@ public class clsWebClubMemberProfileBean {
 	
 	public List<clsWebClubMemberProfileBean> listField;
 
+	public List<clsWebClubMemberProfileSetupBean> listWebClubMemberProfileSetupBean;
+	
 	public ArrayList<clsWebClubDependentMasterModel> listDependentMember = new ArrayList<clsWebClubDependentMasterModel>();
 	
 	public Blob getStrMemberImage() {
@@ -1512,4 +1550,159 @@ public class clsWebClubMemberProfileBean {
 	public void setStrBankCode(String strBankCode) {
 		this.strBankCode = strBankCode;
 	}
+	
+
+	public String getStrResident() {
+		return strResident;
+	}
+
+	public void setStrResident(String strResident) {
+		this.strResident = strResident;
+	}
+
+	public String getStrSendCircularNoticeThrough() {
+		return strSendCircularNoticeThrough;
+	}
+
+	public void setStrSendCircularNoticeThrough(String strSendCircularNoticeThrough) {
+		this.strSendCircularNoticeThrough = strSendCircularNoticeThrough;
+	}
+
+	public String getStrSendInvThrough() {
+		return strSendInvThrough;
+	}
+
+	public void setStrSendInvThrough(String strSendInvThrough) {
+		this.strSendInvThrough = strSendInvThrough;
+	}
+
+	public String getStrResidentAreaName() {
+		return strResidentAreaName;
+	}
+
+	public void setStrResidentAreaName(String strResidentAreaName) {
+		this.strResidentAreaName = strResidentAreaName;
+	}
+
+	public String getStrResidentCtName() {
+		return strResidentCtName;
+	}
+
+	public void setStrResidentCtName(String strResidentCtName) {
+		this.strResidentCtName = strResidentCtName;
+	}
+
+	public String getStrResidentStateName() {
+		return strResidentStateName;
+	}
+
+	public void setStrResidentStateName(String strResidentStateName) {
+		this.strResidentStateName = strResidentStateName;
+	}
+
+	public String getStrResidentRegionName() {
+		return strResidentRegionName;
+	}
+
+	public void setStrResidentRegionName(String strResidentRegionName) {
+		this.strResidentRegionName = strResidentRegionName;
+	}
+
+	public String getStrResidentCountryName() {
+		return strResidentCountryName;
+	}
+
+	public void setStrResidentCountryName(String strResidentCountryName) {
+		this.strResidentCountryName = strResidentCountryName;
+	}
+
+	public String getStrCompanyAreaName() {
+		return strCompanyAreaName;
+	}
+
+	public void setStrCompanyAreaName(String strCompanyAreaName) {
+		this.strCompanyAreaName = strCompanyAreaName;
+	}
+
+	public String getStrCompanyCtName() {
+		return strCompanyCtName;
+	}
+
+	public void setStrCompanyCtName(String strCompanyCtName) {
+		this.strCompanyCtName = strCompanyCtName;
+	}
+
+	public String getStrCompanyStateName() {
+		return strCompanyStateName;
+	}
+
+	public void setStrCompanyStateName(String strCompanyStateName) {
+		this.strCompanyStateName = strCompanyStateName;
+	}
+
+	public String getStrCompanyRegionName() {
+		return strCompanyRegionName;
+	}
+
+	public void setStrCompanyRegionName(String strCompanyRegionName) {
+		this.strCompanyRegionName = strCompanyRegionName;
+	}
+
+	public String getStrCompanyCountryName() {
+		return strCompanyCountryName;
+	}
+
+	public void setStrCompanyCountryName(String strCompanyCountryName) {
+		this.strCompanyCountryName = strCompanyCountryName;
+	}
+
+	public String getStrBillingAreaName() {
+		return strBillingAreaName;
+	}
+
+	public void setStrBillingAreaName(String strBillingAreaName) {
+		this.strBillingAreaName = strBillingAreaName;
+	}
+
+	public String getStrBillingCtName() {
+		return strBillingCtName;
+	}
+
+	public void setStrBillingCtName(String strBillingCtName) {
+		this.strBillingCtName = strBillingCtName;
+	}
+
+	public String getStrBillingStateName() {
+		return strBillingStateName;
+	}
+
+	public void setStrBillingStateName(String strBillingStateName) {
+		this.strBillingStateName = strBillingStateName;
+	}
+
+	public String getStrBillingRegionName() {
+		return strBillingRegionName;
+	}
+
+	public void setStrBillingRegionName(String strBillingRegionName) {
+		this.strBillingRegionName = strBillingRegionName;
+	}
+
+	public String getStrBillingCountryName() {
+		return strBillingCountryName;
+	}
+
+	public void setStrBillingCountryName(String strBillingCountryName) {
+		this.strBillingCountryName = strBillingCountryName;
+	}
+
+	public List<clsWebClubMemberProfileSetupBean> getListWebClubMemberProfileSetupBean() {
+		return listWebClubMemberProfileSetupBean;
+	}
+
+	public void setListWebClubMemberProfileSetupBean(
+			List<clsWebClubMemberProfileSetupBean> listWebClubMemberProfileSetupBean) {
+		this.listWebClubMemberProfileSetupBean = listWebClubMemberProfileSetupBean;
+	}
+	
 }

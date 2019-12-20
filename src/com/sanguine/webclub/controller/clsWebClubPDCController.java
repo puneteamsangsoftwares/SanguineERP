@@ -162,7 +162,7 @@ public class clsWebClubPDCController{
 			List<clsWebClubPDCBean> listobj = new ArrayList<clsWebClubPDCBean>();
 			//List list = objWebClubPDCService.funGetWebClubPDC(memCode, clientCode);
 			String dbWebStock=req.getSession().getAttribute("WebStockDB").toString();
-			String sql="SELECT b.strFirstName,a.strChequeNo,c.strBankName,a.strType,a.dblChequeAmt,Date(a.dteChequeDate),a.strMemCode FROM tblpdcdtl a,tblmembermaster b,"+dbWebStock+".tblbankmaster c WHERE a.strMemCode='"+memCode+"' and a.strClientCode='"+clientCode+"' AND a.strClientCode=b.strClientCode AND b.strMemberCode='"+memCode+"' AND a.strDrawnOn=c.strBankName ";
+			String sql="SELECT b.strFirstName,a.strChequeNo,c.strBankName,a.strType,a.dblChequeAmt,Date(a.dteChequeDate),a.strMemCode FROM tblpdcdtl a,tblmembermaster b,"+dbWebStock+".tblbankmaster c WHERE a.strMemCode='"+memCode+"' and a.strClientCode='"+clientCode+"' AND a.strClientCode=b.strClientCode AND b.strMemberCode='"+memCode+"' AND a.strDrawnOn=c.strBankName GROUP BY a.strType,a.strDrawnOn";
 			List list=objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
 			if (list.size() > 0){
 				for(int i =0;i<list.size();i++)

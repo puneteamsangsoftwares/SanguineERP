@@ -3280,7 +3280,7 @@ public class clsSearchFormController {
 		case "WCmemProfile": {
 			columnNames = "strCustomerCode,strMemberCode,strFullName,dteCreatedDate,strCategoryCode";
 			tableName = "clsWebClubMemberProfileModel where strClientCode='" + clientCode + "' ";
-			listColumnNames = "Member Code,Member Name,Date,Customer,Category";
+			listColumnNames = "Customer Code,Member Code,Member Name,Date,Category";
 			idColumnName = "strCustomerCode";
 			criteria = getCriteriaQuery(columnNames, search_with, tableName);
 			searchFormTitle = "Member Profile";

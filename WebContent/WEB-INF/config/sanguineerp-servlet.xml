@@ -386,7 +386,8 @@
 					<value>com.sanguine.webclub.model.clsWebClubCategeoryWiseFacilityModel</value>
 					<value>com.sanguine.webclub.model.clsWebClubPDCModel</value>	
 					<value>com.sanguine.model.clsWebClubBankMasterModel</value>	
-					<value>com.sanguine.webclub.model.clsWebClubPersonMasterModel</value>			
+					<value>com.sanguine.webclub.model.clsWebClubPersonMasterModel</value>	
+					<value>com.sanguine.webclub.model.clsWebClubMemberProfileSetupModel</value>			
 				</list>
 			</property>
 			<property name="hibernateProperties">
