@@ -79,10 +79,27 @@ public class clsWebClubDependentMasterModel implements Serializable {
 	private String dteDependentDateofBirth;
 
 	@Column(name = "strDependentReasonCode")
-	private String strDependentReasonCode;
+	private String strDependentReasonCode;	
 
 	@Column(name = "intGId", nullable = false, updatable = false)
 	private Long intGId;
+	
+
+	@Column(name = "strDepMobileNo", nullable = false, updatable = false)
+	private String strDepMobileNo;
+	
+	@Column(name = "strDepAadharCardNo", nullable = false, updatable = false)
+	private String strDepAadharCardNo;
+	
+	@Column(name = "strDepEmailID", nullable = false, updatable = false)
+	private String strDepEmailID;
+	
+	
+	
+	
+	
+	
+	
 
 	// Setter-Getter Methods
 	public String getStrMemberCode() {
@@ -252,4 +269,28 @@ public class clsWebClubDependentMasterModel implements Serializable {
 		this.intGId = intGId;
 	}
 
+
+	public String getStrDepMobileNo() {
+		return strDepMobileNo;
+	}
+
+	public void setStrDepMobileNo(String strDepMobileNo) {
+		this.strDepMobileNo = strDepMobileNo;
+	}
+
+	public String getStrDepAadharCardNo() {
+		return strDepAadharCardNo;
+	}
+
+	public void setStrDepAadharCardNo(String strDepAadharCardNo) {
+		this.strDepAadharCardNo = strDepAadharCardNo;
+	}
+
+	public String getStrDepEmailID() {
+		return strDepEmailID;
+	}
+
+	public void setStrDepEmailID(String strDepEmailID) {
+		this.strDepEmailID = strDepEmailID;
+	}
 }

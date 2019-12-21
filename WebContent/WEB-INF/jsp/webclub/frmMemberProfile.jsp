@@ -109,8 +109,11 @@
 	        			document.all[ "divDependent" ].style.display = 'block';
 	        		
 	        			
-	        			$('#txtChangeDependentCode').val("03");
-	        			$('#txtChangeDependentMemberCode').val(memcode);
+	        			/* $('#txtChangeDependentCode').val("03");
+	        			$('#txtChangeDependentMemberCode').val(memcode); */
+	        			
+	        			
+	        			$('#txtDependentCode').val(memcode+" 03");
 	        			
 	        			
 	        			$('#txtSpouseCode').val(memcode +" 02");
@@ -125,9 +128,13 @@
             			document.all[ "headerDependent" ].style.display = 'none';	        			
 	        			document.all[ "divDependent" ].style.display = 'none';
 	        			
-            			
+            			/* 
             			$('#txtChangeDependentCode').val("02");
-            			$('#txtChangeDependentMemberCode').val(memcode);
+            			$('#txtChangeDependentMemberCode').val(memcode); */
+            			
+            			$('#txtDependentCode').val(memcode+" 02");
+            			
+            			
         			}
         		
         		 
@@ -146,6 +153,31 @@
                         	message1="${ListMemberValidation}";
                         	//alert(message1);
                         	gValidationFields=message1.split(",");
+                        	for(var i=0;i<gValidationFields.length;i++)
+                			{
+                				var FieldName;
+                				if(i=='0')
+                					{
+                					gValidationFields[0]=gValidationFields[0].split("[")[1];
+                					//alert(FieldName);					
+                					}
+                				if(i==gValidationFields.length-1)
+                				{
+                					gValidationFields[gValidationFields.length-1]=gValidationFields[gValidationFields.length-1].split("]")[0];
+                					//alert(FieldName);
+                				}
+                				var str=gValidationFields[i];
+                				gValidationFields[i]=str.replace("str", "txt");
+                				//alert(gValidationFields[i]);
+                				
+                				/* switch(FieldName){
+                				
+                				case 'WCResAreaMaster' : 
+                					funSetResAreaCode(code);
+                					break;
+                			} */
+                		
+                			}
                         	//alert(gValidationFields);
 						});
         
@@ -194,7 +226,9 @@
 					        		var memberCode = response[0].strMemberCode ;
 					        		var menber = memberCode.split(" ");
 						        	$("#txtMemberCode").val(menber[0]);
-						        	$("#txtChangeDependentMemberCode").val(menber[0]);
+						        	//$("#txtChangeDependentMemberCode").val(menber[0]);
+						        	$("#txtDependentCode").val(menber[0]);
+						        	
 						        	$("#txtCustCode").val(response[0].strCustomerCode);
 						        	var isSpous;
 						        	if(response[0].strMaritalStatus=="married")
@@ -203,7 +237,8 @@
 					        			document.all[ "divSpouse" ].style.display = 'block';
 					        			
 					        			isSpous=funSetSpouseData(response[1]);
-					        			$("#txtChangeDependentCode").val('03');
+					        			//$("#txtChangeDependentCode").val('03');
+					        			$("#txtDependentCode").val(menber[0]+" 03");
 					        			
 					        			document.all[ "headerDependent" ].style.display = 'block';	        			
 					        			document.all[ "divDependent" ].style.display = 'block';
@@ -238,8 +273,8 @@
 						        	$("#txtAadharCardNo").val(response[0].strAadharCardNo);
 						        	$("#txtVoterIdNo").val(response[0].strVoterIdNo);
 						        	$("#txtPassportNo").val(response[0].strPassportNo);
-						        	
-						        	$("#txtBankCode").val(response[0].strBankCode);
+						        	funSetBankMasterData(response[0].strBankCode)
+						        	//$("#txtBankCode").val(response[0].strBankCode);
 						        	$("#txtIfscCOde").val(response[0].strIfscCOde);
 						        	$("#txtAccNo").val(response[0].strAccNo);
 						        	$("#txtBranchName").val(response[0].strBranchName);						        	
@@ -763,7 +798,7 @@
 		        {
 		        	if(response.strAreaCode=='Invalid Code')
 		        	{
-		        		alert("Invalid Group Code");
+		        		//alert("Invalid Group Code");
 		        		$("#txtGroupCode").val('');
 		        	}
 		        	else
@@ -806,7 +841,7 @@
 		        {
 		        	if(response.strAreaCode=='Invalid Code')
 		        	{
-		        		alert("Invalid Group Code");
+		        		//alert("Invalid Group Code");
 		        		$("#txtGroupCode").val('');
 		        	}
 		        	else
@@ -849,7 +884,7 @@
 		        {
 		        	if(response.strAreaCode=='Invalid Code')
 		        	{
-		        		alert("Invalid Group Code");
+		        		//alert("Invalid Group Code");
 		        		$("#txtGroupCode").val('');
 		        	}
 		        	else
@@ -1444,8 +1479,9 @@ function funSetBillingRegionCode(code){
 			flg=false;
 		}
 		
-		var dependentMemberCode=$("#txtChangeDependentMemberCode").val();
-	    var ChangedependentCode =$("#txtChangeDependentCode").val();
+		//var dependentMemberCode=$("#txtChangeDependentMemberCode").val();
+		var dependentMemberCode=$("#txtDependentCode").val().split(" ")[0];		
+	    var ChangedependentCode =$("#txtDependentCode").val().split(" ")[1];
 	    var genratedMemberCode = "";
 	    genratedMemberCode = dependentMemberCode+" "+ ChangedependentCode;
 		
@@ -1621,10 +1657,11 @@ function funSetBillingRegionCode(code){
 // 				alert("Hello "+$(this).find('td:first').text())
 				
 				
-				var dependentCode = $("#txtDependentCode").val();
+				var dependentCode = $("#txtDependentCode").val();	;
 				var dependentName = $("#txtDependentName").val()
-				var dependentMemberCode=$("#txtChangeDependentMemberCode").val();
-			    var ChangedependentCode =$("#txtChangeDependentCode").val();
+				//var dependentMemberCode=$("#txtChangeDependentMemberCode").val();
+				var dependentMemberCode=$("#txtDependentCode").val().split(" ")[0];	;
+			    var ChangedependentCode =$("#txtDependentCode").val().split(" ")[1];
 			    var genratedMemberCode = "";
 			    var typeMember = "";
 			    genratedMemberCode = dependentMemberCode+" "+ ChangedependentCode;
@@ -1639,6 +1676,14 @@ function funSetBillingRegionCode(code){
 			    var blockedReason = $("#txtDependentReasonName").val();
 			    var profession = $("#txtDependentProfessionName").val();
 			    
+			    var depMno = $("#txtDepMobileNo").val();
+			    var depAadhaNo = $("#txtDepAadharCardNo").val();
+			    var depEmail = $("#txtDepEmailID").val();
+			    
+			    
+			    
+			    
+			    
 			    
 			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listDependentMember["+(rowCount)+"].strMemberCode\" id=\"txttblDependentMemberCode."+(rowCount)+"\" value='"+genratedMemberCode+"' onclick=\"funRowClick()\" >";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"17%\" name=\"listDependentMember["+(rowCount)+"].strDependentFullName\" id=\"txttblDependentName."+(rowCount)+"\" value='"+dependentName+"'>";
@@ -1650,15 +1695,22 @@ function funSetBillingRegionCode(code){
 			    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strDependentReasonCode\" id=\"txttblDependentReasonCode."+(rowCount)+"\" value='"+blockedReason+"'>";
 			    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strProfessionCode\" id=\"txttblProfessionCode."+(rowCount)+"\" value='"+profession+"'>";
 			    row.insertCell(9).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].dteMembershipExpiryDate\" id=\"txttbldteMembershipExpiryDate."+(rowCount)+"\" value='"+memExpDate+"'>";
-			    row.insertCell(10).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"7%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
-				//row.insertCell(11).innerHTML= "<input Type=\"hidden\" readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strCustomerCode\" id=\"txttblCustomerCode."+(rowCount)+"\" value='"+customerCode+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(10).innerHTML= "<input readonly=\"hidden\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strDepMobileNo\" id=\"txtDepMobileNo."+(rowCount)+"\" value='"+depMno+"'>";
+			    row.insertCell(11).innerHTML= "<input readonly=\"hidden\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strDepAadharCardNo\" id=\"txtDepAadharCardNo."+(rowCount)+"\" value='"+depAadhaNo+"'>";
+			    row.insertCell(12).innerHTML= "<input readonly=\"hidden\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strDepEmailID\" id=\"txtDepEmailID."+(rowCount)+"\" value='"+depEmail+"'>";
+				row.insertCell(13).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"7%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
+			   
+			    
+			    
+			    
+			    //row.insertCell(11).innerHTML= "<input Type=\"hidden\" readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strCustomerCode\" id=\"txttblCustomerCode."+(rowCount)+"\" value='"+customerCode+"' onclick=\"funRowClick(this)\">";
 			    
 			    var dependentNumber = parseInt(ChangedependentCode) + 1;
 			    if(dependentNumber<10)
 			    	{
 			    		dependentNumber = "0" + dependentNumber;
 			    	}
-			    $("#txtChangeDependentCode").val(dependentNumber);
+			    $("#txtDependentCode").val(dependentMemberCode+" "+dependentNumber);
 			    
 			 
 			   return false;
@@ -1681,6 +1733,10 @@ function funSetBillingRegionCode(code){
 			    var blockedReason = response.strBlockedreasonCode;
 			    var profession = response.strProfessionCode;
 			    var customerCode = response.strCustomerCode;
+			    var depMno = response.strDepMobileNo;
+			    var depAadharNo = response.strDepAadharCardNo;
+			    var depEmail = response.strDepEmailID;
+			    
 			    if(genratedMemberCode==null)
 			    	{
 			    		genratedMemberCode="";
@@ -1734,6 +1790,19 @@ function funSetBillingRegionCode(code){
 		    	{
 			    	customerCode="";
 		    	}
+			    if(depMno==null)
+		    	{
+			    	depMno="";
+		    	}
+			    if(depAadharNo==null)
+		    	{
+			    	depAadharNo="";
+		    	}
+			    if(depEmail==null)
+		    	{
+			    	depEmail="";
+		    	}
+			   
 			    
 			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listDependentMember["+(rowCount)+"].strMemberCode\" id=\"txttblDependentMemberCode."+(rowCount)+"\" value='"+genratedMemberCode+"' onclick=\"funRowClick(this)\"  >";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"17%\" name=\"listDependentMember["+(rowCount)+"].strDependentFullName\" id=\"txttblDependentName."+(rowCount)+"\" value='"+dependentName+"' onclick=\"funRowClick(this)\">";
@@ -1745,8 +1814,12 @@ function funSetBillingRegionCode(code){
 			    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strDependentReasonCode\" id=\"txttblDependentReasonCode."+(rowCount)+"\" value='"+blockedReason+"' onclick=\"funRowClick(this)\">";
 			    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strProfessionCode\" id=\"txttblProfessionCode."+(rowCount)+"\" value='"+profession+"' onclick=\"funRowClick(this)\">";
 			    row.insertCell(9).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].dteMembershipExpiryDate\" id=\"txttbldteMembershipExpiryDate."+(rowCount)+"\" value='"+memExpDate+"' onclick=\"funRowClick(this)\">";
-			    row.insertCell(10).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"7%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
-				row.insertCell(11).innerHTML= "<input Type=\"hidden\" readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strCustomerCode\" id=\"txttblCustomerCode."+(rowCount)+"\" value='"+customerCode+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(10).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strDepMobileNo\" id=\"txttbldteMembershipExpiryDate."+(rowCount)+"\" value='"+depMno+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(11).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strDepAadharCardNo\" id=\"txttbldteMembershipExpiryDate."+(rowCount)+"\" value='"+depAadharNo+"' onclick=\"funRowClick(this)\">";
+			    row.insertCell(12).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listDependentMember["+(rowCount)+"].strDepEmailID\" id=\"txttbldteMembershipExpiryDate."+(rowCount)+"\" value='"+depEmail+"' onclick=\"funRowClick(this)\">";
+			    			    
+			    row.insertCell(13).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"7%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
+				row.insertCell(14).innerHTML= "<input Type=\"hidden\" readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listDependentMember["+(rowCount)+"].strCustomerCode\" id=\"txttblCustomerCode."+(rowCount)+"\" value='"+customerCode+"' onclick=\"funRowClick(this)\">";
 			    
 				genratedMemberCode=genratedMemberCode.split(" ");
 
@@ -1758,7 +1831,7 @@ function funSetBillingRegionCode(code){
 					nextdependentCode = "0" + nextdependentCode;
 			    	}
 				
-			    $("#txtChangeDependentCode").val(nextdependentCode);
+			    $("#txtDependentCode").val(genratedMemberCode[0]+" "+nextdependentCode);
 			    
 			   return false;
 	}
@@ -1771,7 +1844,10 @@ function funSetBillingRegionCode(code){
 		funDeleteTableAllRows(); 
 		$('txtDependentName').val("");
 		
-		var dependentMemberCode=$("#txtChangeDependentMemberCode").val();
+		//var dependentMemberCode=$("#txtChangeDependentMemberCode").val();
+		var dependentMemberCode=$("#txtDependentCode").val().split(" ")[0];	;
+		
+		
 		 var fullName = $('#txtFullName').val();
 		 var typeMember = "Primary";
 		 var table = document.getElementById("tblDependentData");
@@ -2245,7 +2321,10 @@ function funSetBillingRegionCode(code){
 	$("#txtDependentProfessionCode").val(profession);
 	$("#txtdteDependentMemExpDate").val(memExpDate);
 	 
-	$("#txtChangeDependentMemberCode").val(DependentMemberCode[0]);
+	//$("#txtChangeDependentMemberCode").val(DependentMemberCode[0]);
+	$("#txtDependentCode").val(DependentMemberCode[0]);
+	
+	
     $("#txtChangeDependentCode").val(DependentMemberCode[1]);
     
     $("#txttblCustomerCode").val(customerCode);
@@ -2501,32 +2580,20 @@ function funSetBillingRegionCode(code){
 
 	function funValidate()
 	{	
-		var flag=true;			
+		var flag=true;		
 		for(var i=0;i<gValidationFields.length;i++)
 			{
-				var FieldName;
-				if(i=='0')
-					{
-					gValidationFields[0]=gValidationFields[0].split("[")[1];
-					//alert(FieldName);					
-					}
-				if(i==gValidationFields.length-1)
+				if($("#"+gValidationFields[i]).val().trim().length<1)
 				{
-					gValidationFields[gValidationFields.length-1]=gValidationFields[gValidationFields.length-1].split("]")[0];
-					//alert(FieldName);
+					//$('#multiAccordion').multiAccordion("option", "active", [0]);
+					//document.getElementById("txtMemberCode").focus();
+					alert("Enter Member Code");
+					flag=false;
 				}
-				var str=gValidationFields[i];
-				gValidationFields[i]=str.replace("str", "txt");
-				alert(gValidationFields[i]);
-				
-				/* switch(FieldName){
-				
-				case 'WCResAreaMaster' : 
-					funSetResAreaCode(code);
-					break;
-			} */
-		
+			
 			}
+		
+		//alert(gValidationFields);
 		/* 
 		$('#multiAccordion').multiAccordion({
 			click: function(event, ui) {
@@ -2710,7 +2777,7 @@ function funSetBillingRegionCode(code){
 				<div class="row" >
 				<div class="col-md-9">
   					<div class="row" >
-  					<div class="col-md-4"><label>Member Code</label><br><s:input id="txtMemberCode" type="text" 
+  					<div class="col-md-4"><label>Member Code</label><br><s:input id="txtMemberCode" type="text" readonly="true"
 									ondblclick="funHelp('WCmemProfileCustomer')" cssClass="searchTextBox"
 								 	 class="form-control" path="strMemberCode" ></s:input></div>
 					<div class="col-md-4"><label>Prefix Code</label><br><s:select id="cmbPrefixCode" path="strPrefixCode" name="cmbPrefixCode">
@@ -2721,9 +2788,9 @@ function funSetBillingRegionCode(code){
 						<%-- <s:input id="txtPrefixCode" ondblclick=""  cssClass="searchTextBox" type="search" path="strPrefixCode" readonly="true"></s:input> --%></div>
 					</div>
 					<div class="row" >
-					<div class="col-md-4"><label>First  Name</label><br><s:input id="txtFirstName" path="strFirstName"  type="text" required="true"></s:input></div>
-					<div class="col-md-4"><label>Middle  Name</label><br><s:input id="txtMiddleName" path="strMiddleName" type="text" required="true"></s:input></div>
-					<div class="col-md-4"><label>Last  Name</label><br><s:input id="txtLastName" path="strLastName" type="text" required="true"></s:input></div>
+					<div class="col-md-4"><label>First  Name</label><br><s:input id="txtFirstName" path="strFirstName"  type="text"></s:input></div>
+					<div class="col-md-4"><label>Middle  Name</label><br><s:input id="txtMiddleName" path="strMiddleName" type="text"></s:input></div>
+					<div class="col-md-4"><label>Last  Name</label><br><s:input id="txtLastName" path="strLastName" type="text"></s:input></div>
 					</div>
 					
 					<div class="row" >
@@ -2946,11 +3013,23 @@ function funSetBillingRegionCode(code){
 		<div>		
 			<div class="container transtable"  style="background-color:#f2f2f2;">
 			<div class="row">
-  				<div class="col-md-6"><label>Profession Code</label><br>
-  					<div class="row"><div class="col-md-6"><s:input id="txtProfessionCode"  ondblclick="funHelp('WCProfessionMaster')" cssClass="searchTextBox" readonly="true" 
-									type="text" path="strProfessionCode" ></s:input></div>
-								<div class="col-md-6"><s:input id="txtProfessionName" path="" 
-									cssStyle="width: 30%%;" type="text"></s:input></div></div></div>
+			
+			
+  			<%-- 	<div class="col-md-6"><label>Profession </label><br>
+  					<div class="row"><div class="col-md-6"><s:input id="txtProfessionCode"  ondblclick="funHelp('WCProfessionMaster')" cssClass="searchTextBox" readonly="true" type="text" path="strProfessionCode" ></s:input></div>
+								
+								<div class="col-md-6"><s:input id="txtProfessionName" path="" ondblclick="funHelp('WCProfessionMaster')" cssClass="searchTextBox" readonly="true" 
+									cssStyle="width: 30%%;" type="text"></s:input></div></div></div> --%>
+				
+				
+				<div class="col-md-6">
+					<div class="row"><div class="col-md-6"><label>Profession</label><br><s:input id="txtProfessionName" path="" ondblclick="funHelp('WCProfessionMaster')" cssClass="searchTextBox" readonly="true" cssStyle="width: 30%%;" type="text"></s:input></div>
+																						<s:input id="txtProfessionCode"  type="hidden" path="strProfessionCode" ></s:input>
+									<div class="col-md-6"><label>Sex</label><br><s:select id="cmbGender" name="cmbGender" path="strGender">
+										 <option value="M">Male</option>
+						 				 <option value="F">Female</option>
+										 </s:select></div></div></div>
+								
 				
 				<div class="col-md-6">
 					<div class="row"><div class="col-md-6"><label>Date Of Birth</label><br><s:input id="txtdtDateofBirth" name="txtdtDateofBirth" path="dteDateofBirth" cssClass="calenderTextBox"></s:input></div>
@@ -2958,11 +3037,12 @@ function funSetBillingRegionCode(code){
 													 <option value="Single">Single</option>
 									 				 <option value="married">married</option>
 													 </s:select></div></div></div>
+				<%-- 									 
 				<div class="col-md-3"><label>Sex</label><br><s:select id="cmbGender" name="cmbGender" path="strGender">
 										 <option value="M">Male</option>
 						 				 <option value="F">Female</option>
 										 </s:select></div>
-								  
+								   --%>
 			</div></div>
 			</div>
 			
@@ -3177,8 +3257,8 @@ function funSetBillingRegionCode(code){
 				        		<div class="row">
 				        			<div class="col-md-6">
 				        				<label>Bank Code</label><br>
-				        				<s:input id="txtBankCode" path="strBankCode" ondblclick="funHelp('WCBankCode')" cssClass="searchTextBox" readonly="true"  
-										type="text"></s:input>
+				        				<s:input id="txtBankName" path="" ondblclick="funHelp('WCBankCode')" cssClass="searchTextBox" readonly="true"  type="text"></s:input>
+				        				<s:input id="txtBankCode" path="strBankCode" type="hidden"></s:input>
 									</div>
 								    <div class="col-md-6">
 								    <label>IFSC Code</label><br><s:input id="txtIfscCOde" path="strIfscCOde" 
@@ -3231,11 +3311,11 @@ function funSetBillingRegionCode(code){
 														name="txtDependentName" path="" 
 														cssStyle= "text-transform: uppercase;"/> <s:errors path=""></s:errors></div></div></div>
 											
-			<div class="col-md-6"><label>Change Dependent Code</label><br>				
+			<%-- <div class="col-md-6"><label>Change Dependent Code</label><br>				
 				<div class="row"><div class="col-md-6"><s:input type="text" id="txtChangeDependentMemberCode" 
 														name="txtChangeDependentMemberCode" path="" readonly="true"/><s:errors path=""></s:errors></div>
 								 <div class="col-md-6"><s:input  type="text" id="txtChangeDependentCode" 
-														name="txtChangeDependentCode" path="" readonly="true"/> <s:errors path=""></s:errors></div></div></div>
+														name="txtChangeDependentCode" path="" readonly="true"/> <s:errors path=""></s:errors></div></div></div> --%>
 			
 			<div class="col-md-6"><label>Profession Code</label><br>
 				<div class="row"><div class="col-md-6"><s:input id="txtDependentProfessionCode"
@@ -3256,7 +3336,7 @@ function funSetBillingRegionCode(code){
 				<div class="col-md-6">
 				<div class="row"><div class="col-md-6"><label>Date Of Birth</label><br><s:input id="txtdteDependentDateofBirth"  cssClass="calenderTextBox"
 								name="txtdteDependentDateofBirth" path="dteDependentDateofBirth"/></div>
-			                    <div class="col-md-6"><label>Member Exp Date</label><br><s:input id="txtdteDependentMemExpDate" cssClass="calenderTextBox"
+			                    <div class="col-md-6"><label>Dependent Exp Date</label><br><s:input id="txtdteDependentMemExpDate" cssClass="calenderTextBox"
 								   name="txtdteDependentMemExpDate" path="dteDependentMemExpDate"/></div></div></div>
 			
 			<div class="col-md-6">
@@ -3272,26 +3352,80 @@ function funSetBillingRegionCode(code){
 				<div class="row"><div class="col-md-6"><label>Sex</label><br><s:select id="cmbDependentGender" name="cmbDependentGender"
 										path="strDependentGender">
 										<option value="M">Male</option>
-										<option value="F">Female</option></s:select></div>			
+										<option value="F">Female</option></s:select>
+								</div>			
 			                    <div class="col-md-6"><label>Marital Status</label><br><s:select id="cmbDependentMaritalStatus"
 											name="cmbDependentMaritalStatus" path="strDependentMaritalStatus">
 											<option value="Single">Single</option>
 											<option value="married">married</option>
-										     </s:select></div></div></div>
+										     </s:select>
+								</div>
+				</div>
+			</div>
 																
-			<div class="col-md-6">	
+			<%-- <div class="col-md-6">	
 					<div class="row">
 						<div class="col-md-6"><label>Mobile No</label><br>
 							<s:input id="txtDepMobileNo" type="text" path="strDepMobileNo"></s:input>
 						</div>						
 						<div class="col-md-6"><label>Aadhar Card No</label><br>
 							<s:input id="txtDepAadharCardNo" type="text" path="strDepAadharCardNo"></s:input>
-						</div>						
+						</div>									
 						<div class="col-md-6"><label>Email ID</label><br>
 							<s:input id="txtDepEmailID" type="text" path="strDepEmailID"></s:input>
 						</div>					
 					</div>				
 			</div>	     
+							 --%>	
+								
+								
+								
+								
+								
+						
+					<div class="container transtable"  style="background-color:#f2f2f2;">
+						<div class="row">
+			      			<div class="col-md-6">
+				        		<div class="row">
+				        			<div class="col-md-6">
+				        				<label>Mobile No</label><br>
+				        				<s:input id="txtDepMobileNo" type="text" path="strDepMobileNo"></s:input>
+									</div>
+								    <div class="col-md-6">
+								    <label>Aadhar Card No</label><br><s:input id="txtDepAadharCardNo" type="text" path="strDepAadharCardNo"></s:input>
+									</div>
+								</div>
+							</div>
+				 		   <div class="col-md-6">		
+					    		<div class="row">
+					    		 	<div class="col-md-6">
+					    		 		<label>Email ID</label><br>
+					    		 			<s:input id="txtDepEmailID" type="text" path="strDepEmailID"></s:input>
+					    		 	</div>
+			                    </div>
+			               </div>  
+					</div>
+				</div>
+							
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
 										     
 										     
 			
@@ -3308,7 +3442,7 @@ function funSetBillingRegionCode(code){
 		<table class="table table-striped masterTable"  style="width :100%;">
 				<thead>
 					<tr>
-						 <th>Member Code</th>
+						 <th>Dependent Code</th>
 						 <th>Full Name</th>
 						 <th>Relation</th>
 						 <th>Sex</th>
@@ -3317,7 +3451,10 @@ function funSetBillingRegionCode(code){
 						 <th>Blocked</th>
 						 <th>Blocked Reason</th>
 						 <th>Profession</th>
-						 <th>Mem Exp Date</th>
+						 <th>Depe Exp Date</th>
+						 <th>Mobile No</th>
+						 <th>Aadhar Card No</th>
+						 <th>Email ID</th>
 						 <th></th><th></th>
 					</tr>
 				</thead>

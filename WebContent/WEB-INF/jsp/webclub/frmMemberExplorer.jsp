@@ -154,7 +154,7 @@
 				break;
 			
 			
-			case 'WCmemProfile' :
+			case 'WCmemProfileCustomer' :
 				funloadMemberData(code);
 				funloadMemberWiseFieldData(code);
 				break;
@@ -511,7 +511,7 @@
 					        	{  
 					        		funloadMemberPhoto(response[0].strMemberCode);
 					        		funSetMemberTableReceived(response[0].strMemberCode);
-					        		//funRemoveAllRows();
+					        		funRemoveAllRows();
 					        		var memberCode = response[0].strMemberCode ;
 					        		var menber = memberCode.split(" ");
 						        	$("#txtMemberCode").text(menber[0]);
@@ -1986,7 +1986,7 @@
 				<tr>
 					<td width="140px" style="border-style:none;">Member Code</td>
 					<td ><s:input id="txtCustCode" path="strCustomerCode" readonly="true"
-							cssClass="searchTextBox" ondblclick="funHelp('WCmemProfile')" /></td>
+							cssClass="searchTextBox" ondblclick="funHelp('WCmemProfileCustomer')" /></td>
 				</tr>
 			</table>
 				<br/>
@@ -2596,7 +2596,7 @@
 						
 		<!--   tab-9 PDC   -->
 						
-							<div id="tab9" class="tab_content" style="width: 1000px;height: 290px; display: none;">
+							<div id="tab9" class="tab_content" style="width: 1190px;height: 290px; display: none;">
 								<br/><br/>
 								<label><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Recieved Cheque</b></label><br/><br/>
 						<div class="dynamicTableContainer" style="height: 300px;width: 99.80%;">

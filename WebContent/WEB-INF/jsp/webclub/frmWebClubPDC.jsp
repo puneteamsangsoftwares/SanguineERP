@@ -102,12 +102,12 @@
 	             return false;
 			}
 			
-			else if(($("#txtChkDte").val().trim().length == 0))
+			/* else if(($("#txtChkDte").val().trim().length == 0))
 			{
 				 alert("Please Cheque Date");
 	             $("#txtChkDte").focus() ; 
 	             return false;
-			}
+			} */
 			else
 		    {
 				 /* if(funDuplicateProduct(txtMemCode,txtBankCode,txtChequeNo,txtChkDte,txtAmt,txtDrawnOn))
@@ -155,12 +155,12 @@
 	             return false;
 			}
 			
-			else if(($("#txtChkDtee").val().trim().length == 0))
+			/* else if(($("#txtChkDtee").val().trim().length == 0))
 			{
 				 alert("Please Cheque Date");
 	             $("#txtChkDtee").focus() ; 
 	             return false;
-			}
+			} */
 			else
 		    {
 				var strMemCode = $("#txtMemCodee").val();
@@ -675,15 +675,15 @@
 					<div id="tab1" class="tab_content">
 						<div class="row transTable" style="overflow-x: hidden; overflow-y: hidden; ">
 							<div class="col-md-6">
-								<div class="row">
+								<div class="row" style="padding-left:18px;">
 									<div class="col-md-6">
-										<label>Member Code:</label>
+										<label>&nbsp;Member Code:</label>
 								          <s:input id="txtMemCode" ondblclick="funHelp('WCmemProfileCustomer');" cssClass="searchTextBox"
 											readonly="true" placeholder="Member Code" type="text" path="strMemCodeRecieved"></s:input><label id="lblMemName"></label>
 									</div>
 					
 									<div class="col-md-6">
-										<label>Cheque No:</label>
+										<label>&nbsp;Cheque No:</label>
 										 <s:input id="txtChequeNo" path="strChequeNo" 
 									 		placeholder="Cheque No" type="text" ></s:input><s:errors path=""></s:errors>
 									</div>
@@ -692,22 +692,22 @@
 							<div class="col-md-6">
 								<div class="row">
 									<div class="col-md-6">
-										<label>Drawn On:</label>
+										<label>&nbsp;Drawn On:</label>
 								          <s:input id="txtDrawnOn" ondblclick="funHelp('WCBankCode');" cssClass="searchTextBox"
 											readonly="true" placeholder="Drawn On" type="text" path="strDrawnOn"></s:input><label id="lbldrawnOn"></label>
 									</div>
 					
 									<div class="col-md-6">
-										<label>Cheque Date</label>
+										<label>&nbsp;Cheque Date</label>
 										 <s:input id="txtChkDte" path="dteChequeDate" 
 									 		placeholder="Cheque Date" type="text" class="calenderTextBox"></s:input><s:errors path=""></s:errors>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="row">
+								<div class="row" style="padding-left:18px;">
 									<div class="col-md-6">
-										<label>Amount:</label>
+										<label>&nbsp;Amount:</label>
 								          <s:input id="txtAmt" class="decimal-places numberField" 
 											placeholder="Amount" type="text" path="dblChequeAmt"></s:input><label id="lblBankCode"></label>
 									</div>
@@ -725,7 +725,7 @@
 								</div>
 							</div>
 						</div>
-						<table class="table table-striped dynamicTableContainer" style="width:100%;"><!--  style="border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;"> -->
+						<table class="table table-striped dynamicTableContainer" style="width:93.7%;"><!--  style="border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;"> -->
 								<thead>
 									<tr>
 									   	<th>Member Name</th>
@@ -734,6 +734,7 @@
 									   	<th>Cheque Date</th>
 										<th>Amount</th>
 										<th>Type</th>
+										<th></th>	<th></th>
 									  </tr>
 								 </thead>
 								<tbody id="tblDetails"> <!-- class="transTablex path="strTblProduct" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"> -->
@@ -744,15 +745,15 @@
 					<div id="tab2" class="tab_content">
 						<div class="row transTable">
 							<div class="col-md-6">
-								<div class="row">
+								<div class="row" style="padding-left:18px;">
 									<div class="col-md-6">
-										<label>Member Code:</label>
+										<label>&nbsp;Member Code:</label>
 								          <s:input id="txtMemCodee" ondblclick="funHelp('WCmemProfileCustomerIssued');" cssClass="searchTextBox"
 											readonly="true" placeholder="Member Code" type="text" path="strMemCodeIssued"></s:input><label id="lblMemNamee"></label>
 									</div>
 					
 									<div class="col-md-6">
-										<label>Cheque No:</label>
+										<label>&nbsp;Cheque No:</label>
 										 <s:input id="txtChequeNoo" path="strChequeNo" 
 									 		placeholder="Cheque No" type="text"></s:input><s:errors path=""></s:errors>
 									</div>
@@ -761,7 +762,7 @@
 							<div class="col-md-6">
 								<div class="row">
 									<div class="col-md-6">
-										<label>Drawn On:</label>
+										<label>&nbsp;Drawn On:</label>
 								          <s:input id="txtDrawnOnn" ondblclick="funHelp('WCBankCodee');" cssClass="searchTextBox"
 											readonly="true" placeholder="Drawn On" type="text" path="strDrawnOn"></s:input><label id="lbldrawnOnn"></label>
 									</div>
@@ -775,16 +776,16 @@
 					
 					
 									<div class="col-md-6">
-										<label>Cheque Date</label>
+										<label>&nbsp;Cheque Date</label>
 										 <s:input id="txtChkDtee" path="dteChequeDate" 
 									 		placeholder="Cheque Date" type="text" class="calenderTextBox"></s:input>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="row">
+								<div class="row" style="padding-left:18px;">
 									<div class="col-md-6">
-										<label>Amount:</label>
+										<label>&nbsp;Amount:</label>
 								          <s:input id="txtAmtt" class="decimal-places numberField" 
 											placeholder="Amount" type="text" path="dblChequeAmt"></s:input><label id="lblBankCode"></label>
 									</div>
@@ -802,7 +803,7 @@
 								</div>
 							</div>
 						</div>
-						<table class="table table-striped dynamicTableContainer" style="width:100%;"><!--  style="border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;"> -->
+						<table class="table table-striped dynamicTableContainer" style="width:93.7%;"><!--  style="border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;"> -->
 								<thead>
 									<tr>
 									   	<th>Member Name</th>
@@ -811,6 +812,7 @@
 									   	<th>Cheque Date</th>
 										<th>Amount</th>
 										<th>Type</th>
+										<th></th>	<th></th>
 									  </tr>
 								 </thead>
 								<tbody id="tblDetailss"> <!-- class="transTablex path="strTblProduct" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"> -->

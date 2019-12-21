@@ -126,8 +126,8 @@ public class clsWebClubMemberProfileController {
 		List<clsWebClubMemberProfileSetupBean> listWebClubMemberProfileBean = new ArrayList<>();
 		List list  = new ArrayList<>();
 		clsWebClubMemberProfileBean objWebClubMemberProfileBean = new clsWebClubMemberProfileBean();
-		String WebPMSDB=request.getSession().getAttribute("WebPMSDB").toString();		
-	 	String sqlMemProSetup="SELECT * FROM "+WebPMSDB+".tblmempropertysetup ";
+		String WebCLUBDB=request.getSession().getAttribute("WebCLUBDB").toString();		
+	 	String sqlMemProSetup="SELECT * FROM "+WebCLUBDB+".tblmempropertysetup ";
 		List listMemProSetup =objGlobalFunctionsService.funGetList(sqlMemProSetup);		
 		Map<String,String> hashMemProSetupFill = new LinkedHashMap<String,String>();
 		
@@ -136,7 +136,7 @@ public class clsWebClubMemberProfileController {
 			Object [] obj=(Object[]) listMemProSetup.get(i);
 			hashMemProSetupFill.put(obj[0].toString(),obj[1].toString());
 		}	
-		String sqlMemMaster="SELECT * FROM "+WebPMSDB+".tblmempropertysetup ";
+		String sqlMemMaster="SELECT * FROM "+WebCLUBDB+".tblmempropertysetup ";
 		List listMemMaster =objGlobalFunctionsService.funGetList(sqlMemMaster);
 		clsWebClubMemberProfileSetupBean objBean =null;
 		for(int i=0;i<listMemMaster.size();i++)
@@ -156,7 +156,7 @@ public class clsWebClubMemberProfileController {
 			}
 			
 		}
-		String str1="Hello";
+		//String str1="Hello";
 		request.setAttribute("ListMemberValidation", list);
 		//objWebClubMemberProfileBean.setListWebClubMemberProfileSetupBean(listWebClubMemberProfileBean);		
 		//model.put("treeList", objWebClubMemberProfileBean);		
@@ -337,15 +337,15 @@ public class clsWebClubMemberProfileController {
 		}
 		// Fileds Code
 		String memberCode = memProfileBean.getStrMemberCode();
-		String WebPMSDB=req.getSession().getAttribute("WebPMSDB").toString();
+		String WebCLUBDB=req.getSession().getAttribute("WebCLUBDB").toString();
 		
 		if (memberCode.length() > 0) {
 			memberCode.split(" ");
 
 		}
 	
-		String sql="SELECT * FROM "+WebPMSDB+".tblotherdtl a WHERE a.strMemberCode='"+memberCode+" 01' ";
-		List list =objGlobalFunctionsService.funGetList("SELECT * FROM "+WebPMSDB+".tblotherdtl a WHERE a.strMemberCode='"+memberCode+" 01' ");
+		String sql="SELECT * FROM "+WebCLUBDB+".tblotherdtl a WHERE a.strMemberCode='"+memberCode+" 01' ";
+		List list =objGlobalFunctionsService.funGetList("SELECT * FROM "+WebCLUBDB+".tblotherdtl a WHERE a.strMemberCode='"+memberCode+" 01' ");
 		Map mhasMap = funDataBaseShrink();
 		if(list.isEmpty())
 		{		
@@ -412,7 +412,7 @@ public class clsWebClubMemberProfileController {
 			{
 				if(memProfileBean.listField!=null)
 				{	StringBuilder sbsqll= new StringBuilder ();				
-					sbsqll.append("UPDATE  "+WebPMSDB+".tblotherdtl a SET ");					
+					sbsqll.append("UPDATE  "+WebCLUBDB+".tblotherdtl a SET ");					
 					for(int i=0;i<memProfileBean.listField.size();i++)
 					{
 						
@@ -761,7 +761,9 @@ public class clsWebClubMemberProfileController {
 			for (clsWebClubDependentMasterModel obDM : listDependentMaster) {
 				long lastNo = 1;
 				clsWebClubMemberProfileModel mpModel = new clsWebClubMemberProfileModel();
-				String dependentMember = obDM.getStrMemberCode();
+				if(obDM.getStrMemberCode()!=null)
+				{							
+				String dependentMember = obDM.getStrMemberCode();				
 				String[] arrCustID = dependentMember.split(" ");
 
 				if (obDM.getStrCustomerCode() == null) {
@@ -944,9 +946,9 @@ public class clsWebClubMemberProfileController {
 				mpModel.setDblEntranceFee(new Double(0));
 				mpModel.setDblSubscriptionFee(new Double(0));
 				mpModel.setStrPanNumber("");
-				mpModel.setStrDepMobileNo("");
-				mpModel.setStrDepEmailID("");
-				mpModel.setStrDepAadharCardNo("");				
+				mpModel.setStrDepMobileNo(obDM.getStrDepMobileNo());
+				mpModel.setStrDepEmailID(obDM.getStrDepEmailID());
+				mpModel.setStrDepAadharCardNo(obDM.getStrDepAadharCardNo());				
 				mpModel.setStrAadharCardNo("");
 				mpModel.setStrPassportNo("");
 				mpModel.setStrVoterIdNo("");
@@ -1003,7 +1005,7 @@ public class clsWebClubMemberProfileController {
 				mpModel.setStrBankCode("");
 				objMemberProfileService.funAddUpdateMemberProfile(mpModel);
 			}
-
+			}
 		}
 
 	}
@@ -1575,7 +1577,7 @@ public class clsWebClubMemberProfileController {
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		//clsWebClubMemberProfileModel objbean=null;
 		//objGlobal=new clsGlobalFunctions();
-		String WebClubDB=req.getSession().getAttribute("WebPMSDB").toString();
+		String WebClubDB=req.getSession().getAttribute("WebCLUBDB").toString();
 		//List<clsWebClubMemberProfileModel> objMemberModelList = objMemberProfileService.funGetAllMember(docCode, clientCode);		
 		objMemberProfileService.funExecuteQuery("DELETE FROM "+WebClubDB+".tblmembermaster WHERE strMemberCode='"+docCode+"' AND strClientCode='"+clientCode+"' ");
 		
