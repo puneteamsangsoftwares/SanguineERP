@@ -41,8 +41,14 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.ResultSet;
 import com.mysql.jdbc.ResultSetMetaData;
 import com.mysql.jdbc.Statement;
+import com.sanguine.base.service.intfBaseService;
 import com.sanguine.controller.clsGlobalFunctions;
+import com.sanguine.model.clsCompanyMasterModel;
 import com.sanguine.service.clsGlobalFunctionsService;
+import com.sanguine.service.clsSetupMasterService;
+import com.sanguine.webbooks.model.clsSundryDebtorMasterModel;
+import com.sanguine.webbooks.model.clsSundryDebtorMasterModel_ID;
+import com.sanguine.webbooks.service.clsSundryDebtorMasterService;
 import com.sanguine.webclub.bean.clsWebClubMemberProfileBean;
 import com.sanguine.webclub.bean.clsWebClubMemberProfileSetupBean;
 import com.sanguine.webclub.model.clsWebClubDependentMasterModel;
@@ -92,6 +98,15 @@ public class clsWebClubMemberProfileController {
 
 	@Autowired
 	private clsWebClubMemberPhotoService objWebClubMemberPhotoService;
+	
+	@Autowired
+	private clsSetupMasterService objSetupMasterService;
+	
+	@Autowired
+	private clsSundryDebtorMasterService objSundryDebtorMasterService;
+	
+	@Autowired
+	private intfBaseService objBaseService;
 	
 	// Open MemberProfile
 	@RequestMapping(value = "/frmMemberProfile", method = RequestMethod.GET)
@@ -171,6 +186,10 @@ public class clsWebClubMemberProfileController {
 
 	@RequestMapping(value = "/savefrmWebClubMemberProfile", method = RequestMethod.POST)
 	public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsWebClubMemberProfileBean memProfileBean, BindingResult result, HttpServletRequest req, @RequestParam("memberImage") MultipartFile file) throws IOException {
+		
+		String userCode = req.getSession().getAttribute("usercode").toString();
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
 		String urlHits = "1";
 		try {
 			urlHits = req.getParameter("saddr").toString();
@@ -180,7 +199,17 @@ public class clsWebClubMemberProfileController {
 		
 		if (!result.hasErrors()) {
 			// for primary member
+			clsSundryDebtorMasterModel objDebtorModel = null;
 			clsWebClubMemberProfileModel objMemProfileModel = funPrepareModel(memProfileBean, req,file);
+			clsCompanyMasterModel objCompModel = objSetupMasterService.funGetObject(clientCode);
+			if (objCompModel.getStrWebBookModule().equalsIgnoreCase("Yes")) {
+				
+				objDebtorModel = funPrepareDebtorModel(memProfileBean, userCode, clientCode, propertyCode);
+				objSundryDebtorMasterService.funAddUpdateSundryDebtorMaster(objDebtorModel);
+				objMemProfileModel.setStrDebtorCode(objDebtorModel.getStrDebtorCode());
+			} else {
+				objMemProfileModel.setStrDebtorCode("");
+			}
 			objMemberProfileService.funAddUpdateMemberProfile(objMemProfileModel);
 
 			if(!memProfileBean.getStrMaritalStatus().equalsIgnoreCase("Single"))
@@ -1593,4 +1622,146 @@ public class clsWebClubMemberProfileController {
     	  }
     	  return hmap;
     }
+	
+	private clsSundryDebtorMasterModel funPrepareDebtorModel(clsWebClubMemberProfileBean objBean, String userCode, String clientCode, String propertyCode) {
+	
+	long lastNo = 0;
+	clsSundryDebtorMasterModel objModel=null;
+	if (objBean.getStrDebtorCode() == null || objBean.getStrDebtorCode().trim().length() == 0) {
+		lastNo = objGlobalFunctionsService.funGetLastNoModuleWise("tblsundarydebtormaster", "DebtorMaster", "intGId", clientCode, "5-WebBook");
+		String debtorCode = "D" + String.format("%08d", lastNo);
+		objModel = new clsSundryDebtorMasterModel(new clsSundryDebtorMasterModel_ID(debtorCode, clientCode));
+		objModel.setIntGId(lastNo);
+		objModel.setDteStartDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+
+	} else {
+		objModel = objSundryDebtorMasterService.funGetSundryDebtorMaster(objBean.getStrDebtorCode().trim(), clientCode);
+		if (null == objModel) {
+			lastNo = objGlobalFunctionsService.funGetLastNoModuleWise("tblsundarydebtormaster", "DebtorMaster", "intGId", clientCode, "5-WebBook");
+			String debtorCode = "D" + String.format("%08d", lastNo);
+			objModel = new clsSundryDebtorMasterModel(new clsSundryDebtorMasterModel_ID(debtorCode, clientCode));
+			objModel.setIntGId(lastNo);
+			objModel.setDteStartDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+		} else {
+			/*String strStarDate = objModel1.getDteStartDate();
+			objModel = new clsSundryDebtorMasterModel(new clsSundryDebtorMasterModel_ID(objBean.getStrDebtorCode(), clientCode));
+			objModel.setDteStartDate(strStarDate);*/
+		}
+	}
+	
+	String accCode="",accName="";
+	try{
+		StringBuilder hql=new StringBuilder("select strAccountCode,strAccountName from clsWebBooksAccountMasterModel where strClientCode='" + clientCode + "' and strDebtor='Yes' ");
+		List listAcc=objBaseService.funGetListModuleWise(hql, "hql", "WebBooks");
+		if(listAcc!=null && listAcc.size()>0){
+			Object[] ob=(Object[]) listAcc.get(0);
+			accCode=ob[0].toString();
+			accName=ob[1].toString();
+		}
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	
+	
+	/* setting main data */
+	objModel.setStrPrefix(objBean.getStrPrefixCode());
+	objModel.setStrFirstName(objBean.getStrFirstName());
+	objModel.setStrMiddleName(objBean.getStrMiddleName());
+	objModel.setStrLastName(objBean.getStrLastName());
+	objModel.setStrCategoryCode("");
+	/* setting main data */
+
+	objModel.setStrAddressLine1(objBean.getStrResidentAddressLine1());
+	objModel.setStrAddressLine2(objBean.getStrResidentAddressLine2());
+	objModel.setStrAddressLine3("");
+	objModel.setStrBlocked("NO");
+	objModel.setStrCity(objBean.getStrResidentCtName());
+	objModel.setLongZipCode(objBean.getStrResidentPinCode());
+	objModel.setStrTelNo1(objGlobal.funIfNull(objBean.getStrResidentMobileNo(), "",objBean.getStrResidentMobileNo()));//objGlobalFunctions.funIfNull(objBean.getStrSubType(), "", "")
+	objModel.setStrTelNo2(objGlobal.funIfNull(objBean.getStrResidentTelephone1(),"",objBean.getStrResidentTelephone1()));
+	objModel.setStrFax(objGlobal.funIfNull(objBean.getStrResidentFax1(),"",objBean.getStrResidentFax1()));
+	objModel.setStrArea(objGlobal.funIfNull(objBean.getStrResidentAreaName(),"",objBean.getStrResidentAreaName()));
+	objModel.setStrEmail(objGlobal.funIfNull(objBean.getStrResidentEmailID(),"",objBean.getStrResidentEmailID()));
+	objModel.setStrContactPerson1(objGlobal.funIfNull(objBean.getStrResidentTelephone2(),"",objBean.getStrResidentTelephone2()));
+	objModel.setStrContactDesignation1("");
+	objModel.setStrContactEmail1("");
+	objModel.setStrContactTelNo1("");
+	objModel.setStrContactPerson2("");
+	objModel.setStrContactDesignation2("");
+	objModel.setStrContactEmail2("");
+	objModel.setStrContactTelNo2("");
+	objModel.setStrLandmark("");
+	objModel.setStrDebtorFullName(objBean.getStrFullName());
+	objModel.setStrExpired("N");
+	objModel.setStrExpiryReasonCode("NA");
+	objModel.setStrECSYN("N");
+	objModel.setStrAccountNo("");
+	objModel.setStrHolderName("");
+	objModel.setStrMICRNo("");
+	objModel.setDblECS("0.00");
+	objModel.setStrSaveCurAccount("NA");
+	objModel.setStrAlternateCode("");
+	objModel.setDblOutstanding("0.00");
+	objModel.setStrStatus("NA");
+	objModel.setIntDays1("0");
+	objModel.setIntDays2("0");
+	objModel.setIntDays3("0");
+	objModel.setIntDays4("0");
+	objModel.setIntDays5("0");
+	objModel.setDblCrAmt("0");
+	objModel.setDblDrAmt("0");
+	objModel.setDteLetterProcess(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+	objModel.setStrReminder1("0");
+	objModel.setStrReminder2("0");
+	objModel.setStrReminder3("0");
+	objModel.setStrReminder4("0");
+	objModel.setStrReminder5("0");
+	objModel.setDblLicenseFee("NA");
+	objModel.setDblAnnualFee("NA");
+	objModel.setStrRemarks("NA");
+	objModel.setStrClientApproval("NA");
+	objModel.setStrAMCLink("NA");
+	objModel.setStrCurrencyType("NA");
+	objModel.setStrAccountHolderCode("NA");
+	objModel.setStrAccountHolderName("NA");
+	objModel.setStrAMCCycle("Yearly");
+
+	objModel.setStrAMCRemarks("");
+	objModel.setStrClientComment("");
+	objModel.setStrBillingToCode("");
+	objModel.setDblAnnualFeeInCurrency("");
+	objModel.setDblLicenseFeeInCurrency("");
+	objModel.setStrState("");
+	objModel.setStrRegion("");
+	objModel.setStrCountry("");
+	objModel.setStrConsolidated("NA");
+	objModel.setIntCreditDays("NA");
+	objModel.setStrDebtorStatusCode("NA");
+	objModel.setLongMobileNo("NA");
+	objModel.setStrECSActivate("NA");
+	objModel.setStrReminderStatus1("NA");
+	objModel.setDteRemainderDate1("NA");
+	objModel.setStrReminderStatus2("NA");
+	objModel.setDteRemainderDate2("NA");
+	objModel.setStrReminderStatus3("NA");
+	objModel.setDteRemainderDate3("NA");
+	objModel.setStrReminderStatus4("NA");
+	objModel.setDteRemainderDate4("NA");
+	objModel.setStrReminderStatus5("NA");
+	objModel.setDteRemainderDate5("");
+	objModel.setStrAllInvoiceHeader("");
+
+	objModel.setStrClientCode(clientCode);
+	objModel.setStrPropertyCode(propertyCode);
+	objModel.setStrUserCreated(userCode);
+	objModel.setDteDateCreated(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+	objModel.setStrUserEdited(userCode);
+	objModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+	objModel.setStrAccountCode(accCode);
+	objModel.setStrAccountName(accName);
+	objModel.setStrOperational("Y");
+	return objModel;
+}
+
+
 }

@@ -79,15 +79,50 @@
 		
 	</script>
 </head>
-
+<%-- <c:when test="${draw1.key}"> --%>
 <body onload="">
 	        <div class="app-sidebar">
         		<ul class="side-menu" id="tree">
         			<c:forEach items="${treeMap}" var="draw1" varStatus="status1">
         				<li>
         				  <a href="#" class="link">
-			             	 <i class="mdi mdi-source-fork rotate"></i>
-			             	 	<div class="link-text">${draw1.key}</div>
+			             	<c:set var="menuMaster" value="Master"/>
+			             	<c:set var="menuReport" value="Report"/>
+			             	<c:set var="menuTools" value="Tools"/>
+			             	<c:set var="menuTransactions" value="Transaction"/> <!--  -->
+			             	<c:choose> 
+			             		<c:when test="${menuMaster == draw1.key}">
+								  <i class="mdi mdi-source-fork rotate"></i>
+									<div class="link-text">
+									${draw1.key}
+									</div>	    
+								  </c:when>
+								   <c:when test="${menuReport == draw1.key}">
+									<i class="mdi mdi-file-chart-outline"></i>
+									<div class="link-text">
+									${draw1.key} 
+									</div>	    
+								  </c:when>
+								   <c:when test="${menuTools == draw1.key}">
+									<i class="mdi mdi-wrench-outline"></i>
+									<div class="link-text">
+									${draw1.key} 
+									</div>	    
+								  </c:when>
+								   <c:when test="${menuTransactions == draw1.key}">
+									<i class="mdi mdi-credit-card-outline"></i>
+									<div class="link-text">
+									${draw1.key} 
+									</div>	    
+								  </c:when>
+								  <c:otherwise>
+								    <i class="mdi mdi-source-fork rotate"></i>
+									<div class="link-text">
+									${draw1.key} 
+									</div>
+								  </c:otherwise>
+								</c:choose>
+			             	 	
 			           	 </a>
 			              	<div class="submenu">
 			           			<c:forEach items="${draw1.value}" var="draw2" varStatus="status2">
