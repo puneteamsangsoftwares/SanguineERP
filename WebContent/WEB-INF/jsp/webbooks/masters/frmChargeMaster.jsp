@@ -1,11 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
 <title></title>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		
 <style type="text/css">
 	#divFieldSelection
 	{
@@ -347,8 +356,182 @@
 
 </head>
 <body>
+	<div class="container">
+		<label id="formHeading">Charge Master</label>
+			<s:form name="ChargeMaster" method="POST" action="saveChargeMaster.html">
+				<div class="row masterTable">
+					<div class="col-md-6">
+						<label>Charge Code:</label><br>
+							<div class="row">
+								<div class="col-md-6">
+									<s:input  type="text" placeholder="Charge Code" id="txtChargeCode" 
+									ondblclick="funHelp('chargeCode')" path="strChargeCode" cssClass="searchTextBox"/>
+								</div>
+								<div class="col-md-6"><s:input  type="text" placeholder="Charge Name" id="txtChargeName" 
+									 path="strChargeName" required="true" />
+								</div>
+							</div>		    			        			   
+						</div>
+						<div class="col-md-6">
+							<label>Account Code:</label><br>
+								<div class="row">
+									<div class="col-md-6">
+										<s:input  type="text" placeholder="Account Code" id="txtAcctCode" readonly="true" 
+										 ondblclick="funHelp('accountCode')" path="strAcctCode" cssClass="searchTextBox"/>
+									</div>
+									<div class="col-md-6"><s:input  type="text" placeholder="Account Name" id="txtAccountName" 
+										 path="strAccountName" required="true" />
+									</div>
+								</div><br>		    			        			   
+						</div>
+						<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-6">
+									<label>Type</label> 
+										<s:select id="cmbType" path="strType" items="${listType}" cssClass="BoxW124px"/>
+									</div>
+									<div class="col-md-6">
+									<label>Frequency</label>
+										<s:select id="cmbFrequency" path="strFreq" items="${listFrequency}" cssClass="BoxW124px"/>
+									</div>
+								</div>		    			        			   
+						</div>
+						<div class="col-md-6">
+							<label>Rs</label>
+								<div class="row">
+									<div class="col-md-6">
+										<s:input id="txtRs" path="dblAmt" required="true"/>
+									</div>
+									<div class="col-md-6">
+										<s:select id="cmbCrDr" path="strCrDr" items="${listRs2}" cssClass="BoxW124px"/>
+									</div>
+								</div>		    			        			   
+						</div>
+						<div class="col-md-6">
+							<label>Value</label>
+								<div class="row">
+									<div class="col-md-6">
+										<s:select id="cmbValue1" path="strDimensionValue" items="${listValue1}" cssClass="BoxW124px"/>
+									</div>
+									<div class="col-md-6">
+										<s:select id="cmbValue2" path="strDimensionValue2" items="${listValue2}" cssClass="BoxW124px"/>
+									</div>
+								</div>		    			        			   
+						</div>
+						<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-6">
+									<label>TAX Indicator</label>
+										<s:select id="cmbTAXIndicator" path="strTaxIndicator" items="${listTAXIndicator}" cssClass="BoxW124px"/>
+									</div>
+									<div class="col-md-6">
+									<label>Allow Editing</label>
+										<s:select id="cmbAllowEditing" path="strAllowEditing" items="${listAllowEditing}" cssClass="BoxW124px"/>
+									</div>
+								</div>		    			        			   
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-6">
+								<label>Active</label>
+										<s:select id="cmbActive" path="strActive" items="${listActive}" cssClass="BoxW124px"/>
+								</div>
+								<div class="col-md-6">
+									<label>Remarks</label>
+										<s:select id="txtRemark" path="strRemark" placeholder="Remarks"  />
+								</div>
+							</div>		    			        			   
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-6">
+									<label>Open Charge</label>
+										<s:select id="cmbOpenCharge" path="strOpenCharge" items="${listOpenCharge}" cssClass="BoxW124px"/>
+								</div>
+								<div class="col-md-6">
+								<label>Criteriya Type</label>
+									<s:select id="cmbCriteriyaType" path="strCriteriaType" items="${listCriteriyaType}" onchange='funOnChangeCriteriaType()' />
+									
+								</div>
+							</div>		    			        			   
+						</div>
+						<div class="col-md-6">
+							<label>Criteria</label>
+							<div class="row">
+								<div class="col-md-6">
+									<s:select id="cmbCriteria" path="strCriteria" items="${mapCriteria}" cssClass="BoxW124px"/>
+								</div>
+								<div class="col-md-6">
+									<s:select id="cmbCondition" path="strCondition" items="${mapCondition}" cssClass="BoxW124px"/>
+								</div>
+							</div>		    			        			   
+						</div> 
+						<div class="col-md-6">
+						<label></label>
+							<div class="row">
+								<div class="col-md-6">
+									<s:input id="txtConditionValue" path="dblConditionValue" required="true" type="text" style="margin-top:16px;"/>
+								</div>
+								<div class="col-md-6"></div>		    			        			   
+							</div>
+						</div>	
+					</div>
+					<table class="masterTable">
+						<tr>
+							<th id="tab_container" style="height: 100%;">
+								<ul class="tabs" >
+									<li data-state="tab1">Parameter Based Criteria</li>
+									<li data-state="tab2">Formula Based Criteria</li>						
+								</ul>
+							</th>
+						</tr>
+				</table>
+				<!-- Parameter Based Criteria Tab -->
+        <div id="tab1" class="tab_conents">
+        	<table class="masterTable">
+        		<tr>
+        			<td><label>Parameter Based Criteria</label></td>
+        		</tr>
+        	</table>
+        </div>
+        <!-- Formula Based Criteria Tab -->
+        <div id="tab2" class="tab_conents">
+        	<table class="masterTable">        
+        		<tr>
+        			<td style="padding-left: 0px;  width: 300px; height: 0px;">
+						<div id="divFieldSelection">
+							<c:forEach var="fieldCriteria" items="${listVMemberDebtorDtlColumnNames}">
+								<a href="#" class="fieldCriteriaLink" ondblclick='funCriteriaFieldSelected(this)'>${fieldCriteria}</a><br>
+						    </c:forEach>
+						</div>
+					</td>  
+					<td></td>  
+					<td>
+						<div id="divCriteriaConainer" >
+					    	<s:textarea id="txtCriteria" path="strSql" style="width: 485px; height: 300px; resize: none;" />
+						</div>
+					</td>         			
+        		</tr>     
+        		<tr>
+        			<td></td>
+        			<td></td>
+        			<td style="text-align: center;"><input id="btnCheckFormula" type="button" value="Check Formula" onclick="funCheckFormula()" /></td>
+        		</tr>   		
+        	</table>
+        </div>
+        <div class="center">
+					<a href="#"><button class="btn btn-primary center-block" tabindex="3" onclick=""
+						class="form_button">Submit</button></a>
+					<a href="#"><button class="btn btn-primary center-block" type="reset"
+						value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
+				</div>
+			</s:form>
+	</div>	
+	</body>
+</html>
+		
 
-	<div id="formHeading">
+	<%-- <div id="formHeading">
 	<label>Charge Master</label>
 	</div>
 
@@ -368,14 +551,14 @@
 			    <td><s:input id="txtAcctCode" path="strAcctCode"  ondblclick="funHelp('accountCode')" cssClass="searchTextBox"/></td>			        			        
 			    <td colspan="4"><s:input id="txtAccountName" path="strAccountName" required="true" readonly="true" cssClass="longTextBox" cssStyle="width:68%" /></td>			    	    		        			  
 			</tr>
-			<%-- <tr>
+			<tr>
 				<td><label>Dimension</label> </td>
 				<td><s:select id="cmbDimension" path="strDimension" items="${listDimension}" cssClass="BoxW124px"/></td>		
 				<td><label>Value</label> </td>
 				<td><s:select id="cmbValue1" path="strDimensionValue" items="${listValue1}" cssClass="BoxW124px"/></td>
 				<td><s:select id="cmbValue2" path="strDimensionValue2" items="${listValue2}" cssClass="BoxW124px"/></td>
 				<td></td>			
-			</tr> --%>
+			</tr>
 			<tr>
 				<td><label>Type</label> </td>
 				<td><s:select id="cmbType" path="strType" items="${listType}" cssClass="BoxW124px"/></td>		
@@ -469,6 +652,4 @@
 			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
 		</p>
 
-	</s:form>	
-</body>
-</html>
+	</s:form>	 --%>

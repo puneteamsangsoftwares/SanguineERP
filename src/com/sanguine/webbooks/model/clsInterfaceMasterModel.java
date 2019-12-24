@@ -41,7 +41,10 @@ public class clsInterfaceMasterModel implements Serializable {
 
 	@Column(name = "strAccountName")
 	private String strAccountName;
-
+		
+	@Column(name = "strDeptCode")
+	private String strDeptCode;
+	
 	@Column(name = "strUserCreated", updatable = false)
 	private String strUserCreated;
 
@@ -100,6 +103,16 @@ public class clsInterfaceMasterModel implements Serializable {
 	public void setStrAccountName(String strAccountName) {
 		this.strAccountName = (String) setDefaultValue(strAccountName, "NA");
 	}
+
+
+	public String getStrDeptCode() {
+		return strDeptCode;
+	}
+
+	public void setStrDeptCode(String strDeptCode) {
+		this.strDeptCode = strDeptCode;
+	}
+
 
 	public String getStrUserCreated() {
 		return strUserCreated;

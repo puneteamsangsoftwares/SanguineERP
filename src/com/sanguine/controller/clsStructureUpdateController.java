@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,6 +51,7 @@ import com.sanguine.util.clsClientDetails;
 import com.sanguine.util.clsDatabaseBackup;
 
 @Controller
+@Transactional
 public class clsStructureUpdateController {
 
 	@Autowired
@@ -264,6 +266,7 @@ public class clsStructureUpdateController {
 	 * @return
 	 */
 	@RequestMapping(value = "/updateStructure", method = RequestMethod.GET)
+	@Transactional
 	public @ResponseBody String funUpdateStructure(HttpServletRequest req) {
 		String clientCode = "";
 		if (null != req.getSession().getAttribute("clientCode")) {

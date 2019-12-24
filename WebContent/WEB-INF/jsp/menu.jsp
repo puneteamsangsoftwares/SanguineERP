@@ -89,13 +89,23 @@
 			             	<c:set var="menuMaster" value="Master"/>
 			             	<c:set var="menuReport" value="Report"/>
 			             	<c:set var="menuTools" value="Tools"/>
-			             	<c:set var="menuTransactions" value="Transaction"/> <!--  -->
+			             	<c:set var="menuTransactions" value="Transaction"/>
+			             	<c:set var="menuProcessing" value="Processing"/>
+			             	<c:set var="menuSetup" value="Setup"/>
+			             	<c:set var="menuReports" value="Reports"/> 
+			             	<c:set var="menuStore" value="Store"/>
+			             	<c:set var="menuAccounts" value="Accounts"/>
+			             	<c:set var="menuCostCenter" value="Cost Center"/> 
+			             	<c:set var="menuProduction" value="Production"/> 
+			             	<c:set var="menuReceiving" value="Receiving"/>   
+			             	<c:set var="menuSales" value="Sales"/>       <!--  -->
+			             	<c:set var="menuPurchase" value="Purchase"/> 
 			             	<c:choose> 
 			             		<c:when test="${menuMaster == draw1.key}">
 								  <i class="mdi mdi-source-fork rotate"></i>
 									<div class="link-text">
 									${draw1.key}
-									</div>	    
+									</div>
 								  </c:when>
 								   <c:when test="${menuReport == draw1.key}">
 									<i class="mdi mdi-file-chart-outline"></i>
@@ -111,6 +121,66 @@
 								  </c:when>
 								   <c:when test="${menuTransactions == draw1.key}">
 									<i class="mdi mdi-credit-card-outline"></i>
+									<div class="link-text">
+									${draw1.key} 
+									</div>	    
+								  </c:when>
+								  <c:when test="${menuProcessing == draw1.key}">
+									<i class="mdi mdi-rotate-right"></i>
+									<div class="link-text">
+									${draw1.key} 
+									</div>	    
+								  </c:when>
+								  <c:when test="${menuSetup == draw1.key}">
+									<i class="mdi mdi-settings"></i>
+									<div class="link-text">
+									${draw1.key} 
+									</div>	    
+								  </c:when>
+								  <c:when test="${menuReports == draw1.key}">
+									<i class="mdi mdi-content-copy"></i>
+									<div class="link-text">
+									${draw1.key} 
+									</div>	  
+								  </c:when>
+								  <c:when test="${menuStore == draw1.key}">
+									<i class="mdi mdi-store"></i>
+									<div class="link-text">
+									${draw1.key} 
+									</div>	    
+								  </c:when>
+								  <c:when test="${menuAccounts == draw1.key}">
+									<i class="mdi mdi-account-plus"></i>
+									<div class="link-text">
+									${draw1.key} 
+									</div>	  
+								  </c:when>
+								  <c:when test="${menuCostCenter == draw1.key}">
+									<i class="mdi mdi-bank"></i>
+									<div class="link-text">
+									${draw1.key} 				
+									</div>	  
+								  </c:when>
+								  <c:when test="${menuProduction == draw1.key}">
+									<i class="mdi mdi-factory"></i>
+									<div class="link-text">
+									${draw1.key} 
+									</div>	    
+								  </c:when>
+								  <c:when test="${ menuReceiving  == draw1.key}">
+									<i class="mdi mdi-read"></i>
+									<div class="link-text">
+									${draw1.key} 
+									</div>	    
+`								  </c:when>
+								    <c:when test="${menuSales == draw1.key}">
+									<i class="mdi mdi-currency-usd"></i>
+									<div class="link-text">
+									${draw1.key} 				
+									</div>	  
+								  </c:when>
+								    <c:when test="${ menuPurchase  == draw1.key}">
+									<i class="mdi  mdi-package-variant"></i>
 									<div class="link-text">
 									${draw1.key} 
 									</div>	    

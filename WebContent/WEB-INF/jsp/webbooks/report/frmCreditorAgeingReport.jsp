@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
-        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+  <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
 	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
 	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
 	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
@@ -33,6 +33,7 @@
 		});
 		$("#txtToDate").datepicker('setDate', 'today');
 
+		
 		$("#txtGLCode").blur(function() 
 				{
 					var code=$('#txtGLCode').val();
@@ -51,7 +52,7 @@
 		var toDate=$("#txtToDate").val();
 		var currency=$("#cmbCurrency").val();
 		
-		window.location.href = getContextPath()+ "/exportDebtorAgeingData.html?glCode=" + glCode+"&fromDate="+fromDate+"&toDate="+toDate+"&currency="+currency;
+		window.location.href = getContextPath()+ "/exportCreditorAgeingData.html?glCode=" + glCode+"&fromDate="+fromDate+"&toDate="+toDate+"&currency="+currency;
 	}
 
 	
@@ -118,7 +119,7 @@
 
 		$.ajax({
 			type : "GET",
-			url : getContextPath()+ "/getDebtorAgeingData.html?glCode=" + glCode+"&fromDate="+fromDate+"&toDate="+toDate+"&currency="+currency,
+			url : getContextPath()+ "/getCreditorAgeingData.html?glCode=" + glCode+"&fromDate="+fromDate+"&toDate="+toDate+"&currency="+currency,
 			dataType : "json",
 			success : function(response)
 			{ 				
@@ -203,7 +204,7 @@
 
 		switch(fieldName){
 
-			case 'debtorAccountCode' : 
+			case 'creditorAccountCode' : 
 				funSetGLCode(code);
 				break;
 				
@@ -219,6 +220,7 @@
 			url : getContextPath()+ "/loadAccontCodeAndName.html?accountCode=" + code,
 			dataType : "json",
 			success : function(response){ 
+				
 				if(response.strAccountCode!="Invalid Code")
 		    	{
 					$("#txtGLCode").val(response.strAccountCode);
@@ -263,34 +265,34 @@
 	
 </script>
 <body>
-	<div class=" container masterTable">
-  <label id="formHeading">Debtor Ageing Report</label>
+	<div class="container masterTable">
+	<label id="formHeading">Creditor Ageing Report</label>
 	
 	<s:form name="AgeingReport" method="GET" action="" >
-	
+		
 				<div class= "row">
 					<div class="col-md-3"><label>GL Code</label>
-				             <s:input type="text" id="txtGLCode" path="strAccountCode" class="searchTextBox" ondblclick="funHelp('debtorAccountCode')"/>
-		                     <label id="lblGLCode"></label>
-				     </div>
-		
+					    <s:input type="text" id="txtGLCode" path="strAccountCode" class="searchTextBox" ondblclick="funHelp('creditorAccountCode')"/>
+					    <label id="lblGLCode"></label>
+				   </div>
+	
 					<div class="col-md-3"><label>From Date</label>
-					         <s:input type="text" id="txtFromDate" path="dteFromDate" class="calenderTextBox" required="required" />
+					    <s:input type="text" id="txtFromDate" path="dteFromDate" class="calenderTextBox" required="required" />
 					</div>
-					
+
 					<div class="col-md-3"><label>To Date</label>
-					         <s:input type="text" id="txtToDate" path="dteToDate" class="calenderTextBox" required="required" />
+						<s:input type="text" id="txtToDate" path="dteToDate" class="calenderTextBox" required="required" />
 					</div>
 				</div>
 				<br>
-				<div class="row"> 
-			    	<div class="col-md-2"><s:input  id="txt1"  path="strCol1_0_30"  cssClass="longTextBox" style="width: 80px; text-align: right;" value="30" /></div>	
+				<div class= "row">
+					<div class="col-md-2"><s:input  id="txt1"  path="strCol1_0_30"  cssClass="longTextBox" style="width: 80px; text-align: right;" value="30" /></div>	
 			    	<div class="col-md-2"><s:input  id="txt2"  path="strCol2_31_60"  cssClass="longTextBox" style="width: 80px; text-align: right;" value="60"/></div>
 			    	<div class="col-md-2"><s:input  id="txt3"  path="strCol3_61_90"  cssClass="longTextBox" style="width: 80px; text-align: right;" value="90"/></div>	
-				    <div class="col-md-2"><s:input  id="txt4"  path="strCol4_91_120"  cssClass="longTextBox" style="width: 80px; text-align: right;" value="120"/></div>						    
-				    <div class="col-md-2"><s:input  id="txt5"  path="strCol5_121_150"  cssClass="longTextBox" style="width: 80px; text-align: right;" value="150"/></div>	
-				    <div class="col-md-2"><input  id="btnExecute" type="button" class="btn btn-primary center-block" value="Execute" tabindex="3" class="smallButton" /></div>
-				 </div>
+				   <div class="col-md-2"><s:input  id="txt4"  path="strCol4_91_120"  cssClass="longTextBox" style="width: 80px; text-align: right;" value="120"/></div>						    
+				   <div class="col-md-2"><s:input  id="txt5"  path="strCol5_121_150"  cssClass="longTextBox" style="width: 80px; text-align: right;" value="150"/></div>	
+				   <div class="col-md-2"><input  id="btnExecute" type="button" class="btn btn-primary center-block" value="Execute" tabindex="3" class="smallButton" /></div>
+				</div>
 				 
 <!-- 				 <tr> -->
 <!-- 					<td><label>Currency </label></td> -->
@@ -298,36 +300,36 @@
 <%-- 						</s:select></td> --%>
 <!-- 					<td colspan="4"></td> -->
 <!-- 				</tr> -->
-				
 			<br>
-			<div class="row" style="background-color: #fafbfb;display: block; height: 400px;overflow-x: scroll; overflow-y: scroll;width: 1030px;">
+			
+			<div style="background-color: #fafbfb;display: block; height: 400px;overflow-x: scroll; overflow-y: scroll;width: 1030px;">
 				<!-- Dynamic Table Generation for tab4 (Opening Balance) -->
 				<table id="tblAgeingReport" class="transTablex" style="width: 100%">				
 					<thead>
 						<tr>							
-					 		<td>Debtor Name</td>
+					 		<td>Creditor Name</td>
 					 		<td>Outstanding</td>
 					        <td>0-30</td>
 					        <td>31-60</td>
 					        <td>61-90</td>
 					        <td>91-120</td>
-					        <td>121-150</td>			       
-				   		</tr>
-				   	</thead>
-				   	<tbody>
-				   	</tbody>			   						   	    				  
-				</table>	
+					        <td>121-150</td>	
+					      </tr>
+					 </thead>
+					  	<tbody>
+				   	</tbody>		       
+				 </table>
 			</div>		
-			
-		<br />
-		<p align="right" style="margin-right:95px;">
+		<br>
+		
+		<p align="right">
 			<!-- <input id="btnExecute" type="button" value="Submit" tabindex="3" class="form_button1" /> -->
 			
 			<input id="btnExport" type="button" value="EXPORT" class="btn btn-primary center-block" class="form_button"	onclick="funExportToExcel()" />
 			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 	</s:form>
-</div>
 
+</div>
 </body>
 </html>

@@ -1,16 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	 
+</head>
 <script type="text/javascript">
 	var fieldName;
 
-	
-	
 	/**
 	* Success Message After Saving Record
 	**/
@@ -383,14 +391,129 @@
 
 </head>
 <body>
-
+	<div class="container">
+		<label id="formHeading">Account Master</label>
+			<s:form name="WebBooksAccountMaster" method="POST" action="saveWebBooksAccountMaster.html">
+				<div class="row masterTable">
+					<div class="col-md-6">
+						<label>Account Code:</label><br>
+							<div class="row">
+								<div class="col-md-6">
+									<s:input  type="text" placeholder="Account Code" id="txtAccountCode" 
+									ondblclick="funHelp('accountCode')" path="strAccountCode" cssClass="searchTextBox"/>
+								</div>
+								<div class="col-md-6"><s:input  type="text" placeholder="Account Code" id="txtAccountName" 
+									ondblclick="funHelp('accountCode')" path="strAccountName" required="true" readonly="true"/> <s:errors path=""></s:errors>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-6">
+								<label>Account Type:</label><br>
+									<s:select id="cmbAccountType" path="strType" items="${listAccountType}" cssClass="BoxW124px"/>
+								</div>
+								<div class="col-md-6">
+								<label>Operational:</label><br><s:select id="cmbOperational" path="strOperational" items="${listOperational}" cssClass="BoxW124px"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-6">
+								<label>Debtor:</label><br>
+									<s:select id="cmbDebtor" path="strDebtor" items="${listDebtor}" cssClass="BoxW124px" />
+								</div>
+								<div class="col-md-6">
+								<label>Creditor:</label><br>
+								<s:select id="cmbCreditor" path="strCreditor" items="${listCreditor}" cssClass="BoxW124px" />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-6">
+								<label>Employee:</label><br>
+									<s:select id="cmbEmployee" path="strEmployee" items="${listEmployee}" cssClass="BoxW124px" />
+								</div>
+								<div class="col-md-6">
+								<label>Branch:</label><br>
+								<s:input id="txtBranch" path="strBranch"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+						<label>Sub Group Code:</label><br>
+							<div class="row">
+								<div class="col-md-6">
+									<s:input  type="text" placeholder="Sub Group Code" id="txtSubGroupCode" 
+									ondblclick="funHelp('acSubGroupCode')" path="strSubGroupCode" cssClass="searchTextBox"/>
+								</div>
+								<div class="col-md-6"><s:input  type="text" placeholder="Sub Group Code" id="txtSubGroupName" 
+									 path="strSubGroupName" required="true" readonly="true"/> <s:errors path=""></s:errors>
+								</div>
+							</div>		    			        			   
+						</div>
+						<div class="col-md-6">
+						<label>Opening Balance:</label><br>
+							<div class="row">
+								<div class="col-md-6">
+									<s:input  type="number" placeholder="Opening Balance" id="txtOpeningBal" 
+									step="0.0001" path="intOpeningBal" required="true" class="decimal-places numberField"/>
+								</div>
+								<div class="col-md-6"><s:input  type="text" placeholder="Opening Balance" id="cmbOpeningBal" 
+									 path="strCreditor" items="${listOpeningBalance}" cssClass="BoxW124px" />
+								</div>
+							</div><br>		    			        			   
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-6">
+								<label>Dr/Cr</label>
+									<s:select id="cmbDrCr" path="strCrDr" cssClass="BoxW124px" >
+									    <option value="Cr">Cr</option>
+										<option value="Dr">Dr</option>
+									</s:select>
+								</div>
+								<div class="col-md-6">
+								<label>Previous Year Balance</label>
+									<s:input  type="text" placeholder="Previous Year Balance" id="txtPrevYearBal" step="0.0001"
+									 path="intPrevYearBal" items="${listOpeningBalance}" class="decimal-places numberField" required="true"/>
+								</div>
+							</div>		    			        			   
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-6">
+								<label>Dr/Cr</label>
+									<s:select id="cmbDrCr" path="strCrDr" cssClass="BoxW124px" >
+									    <option value="Cr">Cr</option>
+										<option value="Dr">Dr</option>
+									</s:select>
+								</div>
+								<div class="col-md-6">
+								<label>Employee Code</label>
+									<s:input  type="text" placeholder="Employee Code" id="txtEmployeeCode" step="0.0001"
+									 path="strEmployeeCode" ondblclick="funHelp('employeeCode')" class="searchTextBox" />
+								</div>
+							</div>		    			        			   
+						</div>
+					</div>
+					<div class="center">
+						<a href="#"><button class="btn btn-primary center-block" tabindex="3"
+							value="Submit" onclick="return funValidation()" class="form_button">Submit</button></a>
+						 <a href="#"><button class="btn btn-primary center-block"
+							type="reset" value="Reset" class="form_button"
+							onclick="funResetField()">Reset</button></a>
+					</div>
+				</s:form>
+			</div>
+	</body>
+</html>
+<%-- 
 	<div id="formHeading">
 	<label> Account Master</label>
 	</div>
-
-<br/>
-<br/>
-
 	<s:form name="WebBooksAccountMaster" method="POST" action="saveWebBooksAccountMaster.html">
 
 		<table class="masterTable">
@@ -442,7 +565,7 @@
 			<tr>
 			    <td><label>Opening Balance</label></td>			   			        			       
 			    <td><s:input id="txtOpeningBal" class="decimal-places numberField" step="0.0001" path="intOpeningBal" type="number"  required="true"  /></td>
-<%-- 			    <td><s:select id="cmbOpeningBal" path="strCreditor" items="${listOpeningBalance}" cssClass="BoxW124px" /></td> --%>
+			    <td><s:select id="cmbOpeningBal" path="strCreditor" items="${listOpeningBalance}" cssClass="BoxW124px" /></td>
 			    <td> <label>Dr/Cr</label></td>
 			    <td><s:select id="cmbDrCr" path="strCrDr" cssClass="BoxW124px" >
 			    <option value="Cr">Cr</option>
@@ -451,8 +574,8 @@
 			</tr>
 					<tr>
 			    <td><label>Previous Year Balance</label></td>			   			        			       
-			    <td  ><s:input id="txtPrevYearBal" class="decimal-places numberField" step="0.0001"  path="intPrevYearBal" type="number" required="true"  /></td>
-			    <td> <label>Dr/Cr</label></td>
+			    <td><s:input id="txtPrevYearBal" class="decimal-places numberField" step="0.0001"  path="intPrevYearBal" type="number" required="true"  /></td>
+			    <td><label>Dr/Cr</label></td>
 			    <td><s:select id="cmbPrevDrCr" path="strPrevCrDr" cssClass="BoxW124px" >
 			    <option value="Cr">Cr</option>
 				<option value="Dr">Dr</option></s:select></td>
@@ -474,6 +597,6 @@
 			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
 		</p>
 
-	</s:form>
+	</s:form> --%>
 </body>
 </html>

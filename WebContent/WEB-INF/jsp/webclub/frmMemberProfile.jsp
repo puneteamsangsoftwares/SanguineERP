@@ -2573,8 +2573,7 @@ function funSetBillingRegionCode(code){
 				});
 			    
 	    	}
-	    return flag;
-	  
+	    return flag;	  
 	}
 		 	
 
@@ -2583,13 +2582,121 @@ function funSetBillingRegionCode(code){
 		var flag=true;		
 		for(var i=0;i<gValidationFields.length;i++)
 			{
-				if($("#"+gValidationFields[i]).val().trim().length<1)
+				var str=gValidationFields[i];
+				var id,message,message1;				
+				try{
+					
+				
+				if(str.includes("txt"))
+				{
+					id='#'+gValidationFields[i];
+					id=id.replace(" ","");
+					 if($(id).val().trim().length<1&&flag==true)
+						{					
+							message1=str.match(/[A-Z][a-z]+/g);// function to serparate each captial word in to array
+							message="Please Enter ";
+							for(var i=0;i<message1.length;i++)
+								{
+									message=message+message1[i]+" ";
+									
+								}
+							alert(message);
+							flag=false;	
+						}
+						}
+					}
+				catch(err)
+				{
+					
+				}
+			
+				if(str.includes("dbl"))
+				{	
+					id='#'+gValidationFields[i];
+					id=id.replace(" ","");
+					try{
+					 if($(id).val().trim().length<1&&flag==true)
+						{					
+							message1=str.match(/[A-Z][a-z]+/g);// function to serparate each captial word in to array
+							message="Please Enter ";
+							for(var i=0;i<message1.length;i++)
+								{
+									message=message+message1[i]+" ";
+									
+								}
+							alert(message);
+							flag=false;	
+						}
+					}
+					catch(err)
+					{
+						
+					}
+				}
+				if(str.includes("dtl"))
+				{		
+					id='#'+gValidationFields[i];
+					id=id.replace(" ","");
+					try{					
+					if($(id).val().trim().length<1&&flag==true)
+						{					
+							message1=str.match(/[A-Z][a-z]+/g);// function to serparate each captial word in to array
+							message="Please Enter ";
+							for(var i=0;i<message1.length;i++)
+								{
+									message=message+message1[i]+" ";
+									
+								}
+							flag=false;	
+						}
+					} 
+					catch(err)
+					{
+						
+					}
+					
+				}
+				if(str.includes("dte"))
+				{		
+					id='#'+gValidationFields[i];
+					id=id.replace(" ","");
+					try{					
+					if($(id).val().trim().length<1&&flag==true)
+						{					
+							message1=str.match(/[A-Z][a-z]+/g);// function to serparate each captial word in to array
+							message="Please Enter ";
+							for(var i=0;i<message1.length;i++)
+								{
+									message=message+message1[i]+" ";
+									
+								}
+							flag=false;	
+						}
+					} 
+					catch(err)
+					{
+						
+					}
+					
+				}
+				
+				/* 
+				if($("#txtMemberCode").val().trim().length<1)
+				{
+					$('#multiAccordion').multiAccordion("option", "active", [0]);
+					document.getElementById("txtMemberCode").focus();
+					alert("Enter Member Code");
+					flag=false;
+				}
+				
+				 */
+				/* if($("#"+gValidationFields[i]).val().trim().length<1)
 				{
 					//$('#multiAccordion').multiAccordion("option", "active", [0]);
 					//document.getElementById("txtMemberCode").focus();
 					alert("Enter Member Code");
 					flag=false;
-				}
+				} */
 			
 			}
 		
@@ -2777,7 +2884,7 @@ function funSetBillingRegionCode(code){
 				<div class="row" >
 				<div class="col-md-9">
   					<div class="row" >
-  					<div class="col-md-4"><label>Member Code</label><br><s:input id="txtMemberCode" type="text" readonly="true"
+  					<div class="col-md-4"><label>Member Code</label><br><s:input id="txtMemberCode" type="text" 
 									ondblclick="funHelp('WCmemProfileCustomer')" cssClass="searchTextBox"
 								 	 class="form-control" path="strMemberCode" ></s:input></div>
 					<div class="col-md-4"><label>Prefix Code</label><br><s:select id="cmbPrefixCode" path="strPrefixCode" name="cmbPrefixCode">

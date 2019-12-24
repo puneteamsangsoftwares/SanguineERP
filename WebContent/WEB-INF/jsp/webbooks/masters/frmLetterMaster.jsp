@@ -1,15 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
 <title></title>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
-<spring:url value="/resources/css/jquery.classyedit.css" var="classyEditCSS" />
-<spring:url value="/resources/js/jquery.classyedit.js" var="classyEditJS" />
+		<spring:url value="/resources/css/jquery.classyedit.css" var="classyEditCSS" />
+		<spring:url value="/resources/js/jquery.classyedit.js" var="classyEditJS" />
 	
 <link href="${classyEditCSS}" rel="stylesheet" />
 <script src="${classyEditJS}"></script>    
@@ -202,66 +209,70 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>LetterMaster</label>
+	<div class="container">
+		<label id="formHeading">Letter Master</label>
+			<s:form name="LetterMaster" method="POST" action="saveLetterMaster.html">
+				<div class="row masterTable">
+					<div class="col-md-6">
+						<label>Letter Code:</label>
+						<div class="row">
+							<div class="col-md-6"><s:input id="txtLetterCode" ondblclick="funHelp('letterCode')" cssClass="searchTextBox" readonly="true" 
+								 placeholder="Letter Code" type="text" path="strLetterCode"></s:input>
+							</div>
+						
+							<div class="col-md-6"><s:input id="txtLetterName" path="strLetterName" required="true"
+								 placeholder="Letter Code" type="text"></s:input>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label>Reminder Letter:</label>
+						<div class="row">
+							<div class="col-md-6"><s:checkbox id="chkReminderLetter" path="strReminderYN" value="N" onclick="funSetCheckBoxValueYN(this)"/>
+							</div>
+							<div class="col-md-6"><s:select id="cmbReminderLetter" path="strReminderLetter" items="${listReminderLetter}" cssClass="BoxW124px" />
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-6">
+								<label>Circular/Notice Letter</label>
+									<s:checkbox id="chkIsCircular" path="strIsCircular" value="N" onclick="funSetCheckBoxValueYN(this)"/>
+							</div>
+							<div class="col-md-6">
+							<label>Letter Process On</label>
+								<s:select id="cmbLetterProcessOn" path="strView" items="${listLetterProcessOn}" cssClass="BoxW200px" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="divFieldSelectionAndDesigning">
+		        	<table class="masterTable">
+		        		<tr>
+		        			<td style="padding-left: 0px;  width: 300px; height: 0px;">
+								<div id="divFieldSelection">
+									<c:forEach var="fieldCriteria" items="${listVMemberDebtorDtlColumnNames}">
+										<a href="#" class="fieldCriteriaLink" ondblclick='funCriteriaFieldSelected(this)'>${fieldCriteria}</a><br>
+								    </c:forEach>
+								</div>
+							</td>  
+							<td></td>  
+							<td style="width: 488px;">
+								<div id="divViewConainer" >
+									<s:textarea id="txtArea" path="strArea" style="width: 485px; height: 300px; resize: none;" />					    						
+								</div>
+							</td>         			
+		        		</tr>             				
+		        	</table>
+		        </div>		
+			<div class="center">
+				<a href="#"><button class="btn btn-primary center-block" tabindex="3" onclick=""
+					class="form_button">Submit</button></a>
+				<a href="#"><button class="btn btn-primary center-block" type="reset"
+					value="Reset" class="form_button" onclick="funResetField()">Reset</button></a>
+			</div> 
+	</s:form> 
 	</div>
-
-<br/>
-<br/>
-
-	<s:form name="LetterMaster" method="POST" action="saveLetterMaster.html">
-
-		<table class="masterTable">
-			<tr>
-			    <td style="width: 125px"><label>Letter Code</label></td>
-			    <td style="width: 125px"><s:input id="txtLetterCode" path="strLetterCode"  ondblclick="funHelp('letterCode')" cssClass="searchTextBox"/></td>			        			        
-			    <td><s:input id="txtLetterName" path="strLetterName" required="true" cssClass="longTextBox" cssStyle="width:68%"/></td>					  		        			  
-			</tr>	
-			<tr>
-			    <td><label>Reminder Letter</label></td>
-			    <td><s:checkbox id="chkReminderLetter" path="strReminderYN" value="N" onclick="funSetCheckBoxValueYN(this)"/></td>			        			        
-			    <td><s:select id="cmbReminderLetter" path="strReminderLetter" items="${listReminderLetter}" cssClass="BoxW124px" /></td>		    		        			   
-			</tr>
-			<tr>
-			    <td><label>Circular/Notice Letter</label></td>
-			    <td colspan="2"><s:checkbox id="chkIsCircular" path="strIsCircular" value="N" onclick="funSetCheckBoxValueYN(this)"/></td>			        			        			    			    		        			  
-			</tr>			
-			<tr>
-			    <td><label>Letter Process On</label></td>
-			    <td colspan="2"><s:select id="cmbLetterProcessOn" path="strView" items="${listLetterProcessOn}" cssClass="BoxW200px" /></td>			        			        			    			    		        			  
-			</tr>			
-		</table>
-		<br />
-		<br />
-		<!--  -->
-		<div id="divFieldSelectionAndDesigning">
-        	<table class="masterTable">
-        		<tr>
-        			<td style="padding-left: 0px;  width: 300px; height: 0px;">
-						<div id="divFieldSelection">
-							<c:forEach var="fieldCriteria" items="${listVMemberDebtorDtlColumnNames}">
-								<a href="#" class="fieldCriteriaLink" ondblclick='funCriteriaFieldSelected(this)'>${fieldCriteria}</a><br>
-						    </c:forEach>
-						</div>
-					</td>  
-					<td></td>  
-					<td style="width: 488px;">
-						<div id="divViewConainer" >
-							<s:textarea id="txtArea" path="strArea" style="width: 485px; height: 300px; resize: none;" />					    						
-						</div>
-					</td>         			
-        		</tr>             				
-        	</table>
-        </div>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
-	</s:form>
 </body>
 </html>

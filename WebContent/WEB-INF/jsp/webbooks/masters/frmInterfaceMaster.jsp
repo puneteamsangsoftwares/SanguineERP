@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
 <title></title>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <script type="text/javascript">
 	var fieldName;
 
@@ -164,8 +172,38 @@
 
 </head>
 <body>
+	<div class="container">
+		<label id="formHeading">Interface Master</label>
+			<s:form name="InterfaceMaster" method="POST" action="saveInterfaceMaster.html">
+				<div class="row masterTable">
+					<div class="col-md-3"><label >Interface Code</label>
+						<s:input id="txtInterfaceCode"  ondblclick="funHelp('interfaceCode')" cssClass="searchTextBox" readonly="true"
+							 placeholder="Interface Code" type="text" path="strInterfaceCode"></s:input>
+					</div>
+					<div class="col-md-3"><label >Interface Name</label>
+						<s:input id="txtInterfaceName"   
+							 placeholder="Interface Name" type="text" path="strInterfaceName"></s:input>
+					</div>
+					<div class="col-md-3"><label >Account Code</label>
+						<s:input id="txtAccountCode"  ondblclick="funHelp('accountCode')" cssClass="searchTextBox" 
+							 placeholder="Account Code" type="text" path="strAccountCode"></s:input>
+					</div>
+					<div class="col-md-3"><label >Account Name</label>
+						<s:input id="txtAccountName" required="true" 
+							 placeholder="Account Name" type="text" path="strAccountName"></s:input>
+					</div> 
+				</div>
+				<div class="center">
+				<a href="#"><button class="btn btn-primary center-block" tabindex="3" onclick=""
+					class="form_button">Submit</button></a>
+				<a href="#"><button class="btn btn-primary center-block" type="reset"
+					value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
+			</div>
+			
+			</s:form>
+	</div>
 
-	<div id="formHeading">
+	<%-- <div id="formHeading">
 	<label>Interface Master</label>
 	</div>
 
@@ -200,6 +238,6 @@
 			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
 		</p>
 
-	</s:form>
+	</s:form> --%>
 </body>
 </html>

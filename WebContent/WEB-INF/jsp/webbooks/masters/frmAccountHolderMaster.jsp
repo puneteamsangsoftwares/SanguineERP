@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
 <title></title>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <script type="text/javascript">
 	var fieldName;
 
@@ -108,8 +116,59 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
+	<div class="container">
+		<label id="formHeading">Account Holder Master</label>
+		<s:form name="AccountHolderMaster" method="POST" action="saveAccountHolderMaster.html">
+			<div class="row masterTable">
+				<div class="col-md-6">
+					<label>Account Holder Code:</label>
+					<div class="row">
+						<div class="col-md-6"><s:input id="txtACHolderCode" ondblclick="funHelp('acHolderCode')" cssClass="searchTextBox"
+							readonly="true" placeholder="Account Holder Code" type="text" path="strACHolderCode"></s:input>
+						</div>
+					
+						<div class="col-md-6"><s:input id="txtACHolderName" path="strACHolderName" required="true"
+							 placeholder="Account Holder Code" type="text"></s:input>
+						</div>
+					</div><br>
+				</div>	
+				<div class="col-md-6"></div>
+				<div class="col-md-12"><p style="margin-bottom:0px;">Contact Details</p></div>
+				
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-6">
+							<label>Designation:</label><s:input id="txtDesignation" 
+								required="true" placeholder="Designation" type="text" path="strDesignation"></s:input>
+						</div>
+					
+						<div class="col-md-6">
+							<label>Mobile No:</label><s:input id="txtMobileNumber" path="intMobileNumber" required="true"
+								 placeholder="Mobile No" type="text"></s:input>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-6">
+							<label>Email Id:</label><s:input id="txtEmailId" 
+								required="true" placeholder="Email Id" type="text" path="strEmailId"></s:input>
+						</div>
+						<div class="col-md-6"></div>
+					</div>
+				</div>		
+			</div>
+			<div class="center">
+				<a href="#"><button class="btn btn-primary center-block"
+						value="Submit" onclick="" class="form_button">Submit</button></a> <a
+					href="#"><button class="btn btn-primary center-block"
+						type="reset" value="Reset" class="form_button"
+						onclick="funResetField()">Reset</button></a>
+			</div>
+			
+		</s:form>
+	</div>
+	<%-- <div id="formHeading">
 	<label> Account Holder Master</label>
 	</div>
 
@@ -152,6 +211,6 @@
 			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
 		</p>
 
-	</s:form>
+	</s:form> --%>
 </body>
 </html>

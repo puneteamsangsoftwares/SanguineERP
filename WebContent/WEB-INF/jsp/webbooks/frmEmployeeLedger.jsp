@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@	taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
 <title></title>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <script type="text/javascript">
 	
 	var fieldName;
@@ -465,101 +473,89 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-		<label>Employee Ledger</label>
+	<div class="container">
+		<label id="formHeading">Employee Ledger</label>
+			<s:form name="EmployeeLedger" method="POST" action="">				
+				<div class="row masterTable">
+					<div class="col-md-6">
+						<label>GL Code</label>
+						<div class="row">
+							<div class="col-md-6">
+								<s:input  type="text" id="txtGLCode" cssClass="searchTextBox" 
+									 	path="strGLCode" ondblclick="funHelp('EmployeeAccountCode');"/>
+							</div>
+							<div class="col-md-6">
+								<label id="lblGLCode"></label>
+							</div>
+						</div> 
+					</div>
+					<div class="col-md-6">
+						<label>Employee Code</label>
+						<div class="row">
+							<div class="col-md-6">
+								<s:input  type="text" id="txtFromEmployeeCode" cssClass="searchTextBox" 
+									 	path="strFromEmployeeCode" ondblclick="funHelp('employeeCode');"/>
+							</div>
+							<div class="col-md-6">
+								<label id="lblFromEmployeeName"></label>
+							</div>
+						</div> 
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-6">
+								<label>From Date</label>
+								<s:input  type="text" id="txtFromDate" cssClass="calenderTextBox" path="dteFromDate"/>
+							</div>
+							<div class="col-md-6">
+								<label>To Date</label>
+								<s:input  type="text" id="txtToDate" cssClass="calenderTextBox" path="dteToDate"/>
+							</div>
+						</div> 
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-6">
+								<label>Currency</label>
+								<s:select id="cmbCurrency" path="currency" items="${currencyList}" cssClass="BoxW124px"></s:select>
+							</div>
+							<div class="col-md-6">
+								<label>Report Type</label>
+								<s:select id="cmbReportType" path="strReportType" class="BoxW124px" >
+									<option value="EXCEL">EXCEL</option>
+									<option value="PDF">PDF</option>
+								</s:select>
+							</div>
+						</div> 
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-6">
+							<label> Show Narration</label>
+								<input type="checkbox" id="chkShowNarration" />
+							</div>
+							<div class="col-md-6"></div>
+						</div> 
+					</div>
+				</div>
+					   				
+				<div id="paraSubmit" class="center" style="text-align:center;">
+					<a href="#"><button class="btn btn-primary center-block" id="btnExecute"   value="Execute" 
+						class="form_button">Execute</button></a>
+					<a href="#"><button class="btn btn-primary center-block" value="Export" id="btnExport" 
+						class="form_button">Export</button></a>
+				</div>
+				<div id="dvEmployeeLedgerBill" style="width: 100% ;height: 100% ;">
+					<table id="tblCreditorLedgerBill"  class="transTable col2-right col3-right"></table>					
+					<table id="tblEmployeeLedgerBill"  class="transTable col5-right col6-right col7-right col8-right col9-right"></table>
+				</div>
+					<br> <br>
+				<div id="dvEmployeeLedgerBillTot" style="width: 30% ;height: 100% ;">
+					<table id="tblEmployeeLedgerBillTot" class="transTable col2-right"></table>
+				</div>
+					
+			</s:form> 
 	</div>
-
-	<br/>
-	<br/>
-
-	<s:form name="EmployeeLedger" method="POST" action="">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>GL Code</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtGLCode" path="strGLCode" class="searchTextBox" ondblclick="funHelp('EmployeeAccountCode');"/>
-				</td>
-				<td  colspan="3"><label id="lblGLCode"></label></td>
-			</tr>
-			
-			<tr>
-				<td>
-					<label>Employee Code</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtFromEmployeeCode" path="strFromEmployeeCode" class="searchTextBox" ondblclick="funHelp('employeeCode');"/>
-				</td>
-				<td>
-					<label id="lblFromEmployeeName"></label>
-				</td>
-				<td colspan="2"></td>
-				
-				
-			</tr>
-
-			<tr>
-				<td>
-					<label>From Date</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtFromDate" path="dteFromDate" cssClass="calenderTextBox" />
-				</td>
-				
-				<td>
-					<label>To Date</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtToDate" path="dteToDate" cssClass="calenderTextBox" />
-				</td>
-				<td></td>
-			</tr>
-			<tr>
-			<td width="10%"><label>Currency</label></td>
-				<td><s:select id="cmbCurrency" path="currency" items="${currencyList}" cssClass="BoxW124px"></s:select></td>
-				<td width="10%"><label>Report Type</label></td>
-				<td>
-					<s:select id="cmbReportType" path="strReportType" class="BoxW124px" >
-						<option value="EXCEL">EXCEL</option>
-						<option value="PDF">PDF</option>
-					</s:select>
-				</td>
-				<td colspan="1"></td>
-			</tr>
-			<tr>
-			<td colspan ="2"></td>
-			<td colspan ="3">
-			<input type="checkbox" id="chkShowNarration" /> Show Narration
-			</td>
-			</tr>
-			
-			<tr>
-			<td ><p align="center">
-			<input type="button" value="Execute" id="btnExecute"   class="form_button" /></p><td>
-			<td ><p align="center"><input type="button" value="Export" id="btnExport" class="form_button" /></p></td>
-			
-			<td colspan="4"></td>
-			</tr>
-			
-		</table>
-
-		<br>
-		<br>
-	
-			
-			<div id="dvEmployeeLedgerBill" style="width: 100% ;height: 100% ;">
-<!-- 				<table id="tblCreditorLedgerBill"  class="transTable col2-right col3-right">					 -->
-		<table id="tblEmployeeLedgerBill"  class="transTable col5-right col6-right col7-right col8-right col9-right"></table>
-		</div>
-		<br> <br>
-		<div id="dvEmployeeLedgerBillTot" style="width: 30% ;height: 100% ;">
-				<table id="tblEmployeeLedgerBillTot" class="transTable col2-right"></table>
-			</div>
-			
-
-	</s:form>
+	 
 </body>
 </html>

@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@	taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+       <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 </head>
 <script type="text/javascript">
 	$(function() {
@@ -29,54 +39,46 @@
 	});
 </script>
 <body>
-	<div id="formHeading">
-		<label>Trial Balance Report</label>
-	</div>
-
-	<br />
-	<br />
-
-	<s:form name="FLR3AReport" method="GET" action="rptTrialBalanceReport.html" target="_blank">
-		<div>
-			<table class="transTable">
-			    <tr>
-					<td width="10%"><label>From Date </label></td>
-					<td width="10%" colspan="1"><s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
-					<td width="10%"><label>To Date </label></td>
-					<td width="10%"><s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</td>	
-				</tr>
-				<tr>
-				<td width="10%"><label> Show Data </label></td>
-				<td ><s:select id="cmbDocType" path="strDocType"
+	<div class=" container transTable">
+		<label id="formHeading">Trial Balance Report</label>
+    
+    <s:form name="FLR3AReport" method="GET" action="rptTrialBalanceReport.html" target="_blank">
+		<div class="row">
+			 <div class="col-md-3"><label>From Date </label>
+					<s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+			 </div>
+					
+			 <div class="col-md-3"><label>To Date </label>
+				     <s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+			 </div>	
+				
+			 <div class="col-md-3"><label> Show Data </label>
+			          <s:select id="cmbDocType" path="strDocType"
 											cssClass="BoxW124px">
 											<s:option value="All">All column</s:option>
 											<s:option value="DebitCredit">Debit and Credit</s:option>
-										
-										</s:select></td>
-					<td ><label>Report Type</label></td>
-					<td >	
-					<s:select id="cmbReportType" path="typeDebitCredit" cssClass="BoxW124px">
+					 </s:select></div>
+					
+			 <div class="col-md-3"><label>Report Type</label>
+					    <s:select id="cmbReportType" path="typeDebitCredit" cssClass="BoxW124px">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
-
-				    </s:select>
-					</td>
-				
-				</tr>
+                       </s:select>
+					</div>
+					
 <!-- 				<tr> -->
 <!-- 					<td><label>Currency </label></td> -->
 <%-- 					<td><s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px"> --%>
 <%-- 						</s:select></td> --%>
 <!-- 					<td colspan="2"></td> -->
 <!-- 				</tr> -->
-			</table>
 		</div>
-		<p align="center">
-				<input type="submit" value="Submit"  class="form_button" />
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+		<br>
+		<p align="right">
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" />
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 	</s:form>
-
+    </div>
 </body>
 </html>

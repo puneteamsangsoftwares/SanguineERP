@@ -35,87 +35,60 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Edit Other Info</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="WebClubEditOtherInfo" method="POST" action="saveWebClubEditOtherInfo.html">
-
-<div >
-	<div class="divBorder" style="float:left; width: 200px; height: 203px; background-color: #C0E4FF;border: 1px solid black; overflow: scroll;"  >
-	
-	
-	<c:forEach var="fieldCriteria" items="${listEditOtherInfo}">
-	<a href="#" class="fieldCriteriaLink" >${fieldCriteria}</a><br>
-	</c:forEach>
-	
-	
-	
-	
-	</div>
-<div class="divBorder" style="float:right; width: 200px; height: 203px; background-color: #C0E4FF;border: 1px solid black; overflow: scroll;">
-<!-- 	&nbsp;&nbsp;<input type="button" value="Add Field" class="form_button" onclick="return btnAdd_onclick()" /> -->
-<!-- 	<br> -->
-<!-- 	<br>&nbsp; -->
-<!-- 	<input type="button" value="Add Value" class="form_button" onclick="return btnAdd_onclick()" /> -->
-<!-- 	<br> -->
-<!-- 	<br>&nbsp; -->
-<!-- 	<input type="button" value="Update" class="form_button" onclick="return btnAdd_onclick()" /> -->
-<!-- 	<br> -->
-<!-- 	<br>&nbsp; -->
-	<input type="button" value="Reset" class="form_button" onclick="return btnAdd_onclick()" />
-	</div>
-	</div>	
-		<div  >
-			<table class="divBorder" style="width: 613px; height: 205px; background-color: #C0E4FF;border: 1px solid black; overflow: scroll;">
-			
-				<tr>
-					<td ><label>Member Code</label></td>
+	<div class="container">
+		<label  id="formHeading" style="padding-bottom:12px;">Edit Other Info</label>
+		<s:form name="WebClubEditOtherInfo" method="POST" action="saveWebClubEditOtherInfo.html">
+		<div>
+			<div class="divBorder" style="float:left; width: 200px; height: 203px ;overflow: scroll; border: 1px solid black; background:#f2f2f2;">
+				<c:forEach var="fieldCriteria" items="${listEditOtherInfo}">
+					<a href="#" class="fieldCriteriaLink" >${fieldCriteria}</a><br>
+				</c:forEach>
+			</div>
+			<div class="divBorder" style="float:right; width: 200px; height: 203px; border: 1px solid black; overflow: scroll; background:#f2f2f2;">
+			<!-- 	&nbsp;&nbsp;<input type="button" value="Add Field" class="form_button" onclick="return btnAdd_onclick()" /> -->
+			<!-- 	<br> -->
+			<!-- 	<br>&nbsp; -->
+			<!-- 	<input type="button" value="Add Value" class="form_button" onclick="return btnAdd_onclick()" /> -->
+			<!-- 	<br> -->
+			<!-- 	<br>&nbsp; -->
+			<!-- 	<input type="button" value="Update" class="form_button" onclick="return btnAdd_onclick()" /> -->
+			<!-- 	<br> -->
+			<!-- 	<br>&nbsp; -->
+				
+				<a href="#"><button style="margin:5px 0px;" class="btn btn-primary center-block" value="Reset" onclick="return btnAdd_onclick()" class="form_button">Reset</button></a> 
+			</div>
+		</div>	
+			<div>
+				<table class="divBorder" style="width: 613px; height: 205px; overflow: scroll;">
+					<tr>
+						<td ><label>Member Code</label></td>
 							<td width="150px"><s:input id="txtMemberCode"
-									ondblclick="funHelp('WCmemProfileCustomer')" cssClass="searchTextBox"
+								ondblclick="funHelp('WCmemProfileCustomer')" cssClass="searchTextBox"
 									type="text" path="strMemberCode" ></s:input></td>
-					<td colspan="4"><s:input id="txtMemberName" path=""
-									cssClass="longTextBox" type="text"  style="width: 34%" ></s:input></td>
-		
-				</tr>
-			
-			<tr>
-			<td></td>
-			
-			</tr>
-			
-			<tr>
-			<td></td>
-			
-			</tr>
-			
-			<tr>
-			<td></td>
-			
-			</tr>
-			
-			</table>
-		</div>
-	
-
-
-
-	
-	
-	
-	
-		
-		
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
-	</s:form>
+							<td colspan="4"><s:input id="txtMemberName" path=""
+								cssClass="longTextBox" type="text"  style="width: 34%" ></s:input>
+							</td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+				<br/>
+				<br/>
+			<div class="center" style="text-align: center;">
+				<a href="#">
+					<button class="btn btn-primary center-block" value="Submit" onclick="" class="form_button"  tabindex="3">Submit</button></a> 
+				<a href="#">
+					<button class="btn btn-primary center-block" type="reset" value="Reset" class="form_button" onclick="funResetField()">Reset</button></a>
+			</div>
+		</s:form>
+	</div>
 </body>
 </html>

@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@	taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+       <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 </head>
 <script type="text/javascript">
 	$(function() {
@@ -196,52 +206,36 @@
 	}
 </script>
 <body>
-	<div id="formHeading">
-		<label>Bank Reconciliation</label>
-	</div>
-
-	<br />
-	<br />
-
-	<s:form name="BankReconciliation" method="GET" action="rptBankReconciliation.html" >
-		<div>
-			<table class="transTable">
-			    <tr>
-					<td width="10%"><label>From Date </label></td>
-					<td width="10%" colspan="1"><s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
-					<td width="10%"><label>To Date </label></td>
-					<td width="10%"><s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</td>	
-					<td colspan="4"></td>
-					
-				</tr>
-				<tr>
-					
-				<td>
-					<label>Bank Code</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtGLCode" path="strGLCode" class="searchTextBox" ondblclick="funHelp('bankAccNo');"/>
-				</td>
-				<td  colspan="3"><label id="lblGLCode"></label></td>
-		
+	<div class="container transTable">
+		<label id="formHeading">Bank Reconciliation</label>
+	   <s:form name="BankReconciliation" method="GET" action="rptBankReconciliation.html" >
+		<div class="row">
+			   <div class="col-md-3"><label>From Date </label>
+				    <s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+			    </div>
+			    
+				<div class="col-md-3"><label>To Date </label>
+					  <s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+				</div>	
+			
+				<div class="col-md-3"><label>Bank Code</label>
+				      <s:input type="text" id="txtGLCode" path="strGLCode" class="searchTextBox" ondblclick="funHelp('bankAccNo');"/>
+				</div>
+				 
+				<div class="col-md-3"><label id="lblGLCode" style="background-color: white;width: 100%;height: 42%;margin: 27px 0px;"></label>
+		        </div>
 <!-- 					<td><label>Currency </label></td> -->
 <%-- 					<td><s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px"> --%>
 <%-- 						</s:select></td> --%>
-					<td colspan="2"></td>
-				</tr>
-				<tr><td><input type="button" id="btnExcecute" value="Excecute"  class="form_button" onclick="funFillData()" /></td>
-				<td colspan="7"></td>
-				</tr>
-				
-			</table>
+				<div class="col-md-12" align="right"><input type="button" id="btnExcecute" value="Excecute" class="btn btn-primary center-block" class="form_button" onclick="funFillData()" />
+				</div>
 		</div>
 		<br/>
-		<br/>
+	
 		<div class="dynamicTableContainer" style="height: 300px;width: 99.80%;">
 		<table
 			style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-			<tr bgcolor="#72BEFC">
+			<tr bgcolor="#c0c0c0">
 				<td style="width:6.5%;">Trans Type</td>
 				<td style="width:6.1%;">Vouch No </td>
 				<td style="width:6.2%;">Cheque No</td>
@@ -255,7 +249,7 @@
 			</tr>
 		</table>
 		
-		<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 			<table id="tblDetails"
 				style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 				class="transTablex col8-center">
@@ -273,9 +267,10 @@
 			</table>
 		</div>
 		</div>
-		<p align="center">
-				<input type="submit" value="Submit"  class="form_button" />
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+		<br>
+		<p align="right">
+				<input type="submit" value="Submit"  class="btn btn-primary center-block" class="form_button" />
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 	</s:form>
 

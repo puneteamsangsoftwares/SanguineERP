@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
 <title></title>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <script type="text/javascript">
 	var fieldName;
 
@@ -132,38 +140,31 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Remark Master</label>
+	<div class="container">
+		<label id="formHeading">Remark Master</label>
+			<s:form name="BankMaster" method="POST" action="saveNarrationMaster.html">
+				<div class="row masterTable">
+						<div class="col-md-4"><label >Remark Code</label>
+							<s:input id="txtRemarkCode"  ondblclick="funHelp('remarkCode')" cssClass="searchTextBox" readonly="true"
+							 placeholder="Remark Code" type="text" path="strRemarkCode"></s:input>
+						</div>
+						
+						<div class="col-md-4"><label >Description</label>
+						<s:input id="txtDescription" path="strDescription" required="true"
+							 placeholder="Description" type="text"></s:input>
+						</div>
+						<div class="col-md-4"><label >Active</label><br>
+						<s:checkbox id="chkActiveYN"  path="strActiveYN" value=""  onclick="funSetActiveYN()"  />
+						</div>
+				</div>
+				<div class="center">
+				<a href="#"><button class="btn btn-primary center-block" tabindex="3" onclick=""
+					class="form_button">Submit</button></a>
+				<a href="#"><button class="btn btn-primary center-block" type="reset"
+					value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
+			</div>
+		</s:form>
 	</div>
 
-<br/>
-<br/>
-
-	<s:form name="RemarkMaster" method="POST" action="saveNarrationMaster.html">
-
-		<table class="masterTable">
-			<tr>
-			    <td><label >Remark Code</label></td>
-			    <td><s:input id="txtRemarkCode" path="strRemarkCode"  ondblclick="funHelp('remarkCode')" cssClass="searchTextBox"/></td>			        			        			    			    		        			  
-			</tr>
-			<tr>
-				<td><label >Description</label></td>
-				<td ><s:input id="txtDescription" path="strDescription" required="true" cssClass="longTextBox"/></td>
-			</tr>
-			<tr>
-				<td><label >Active</label></td>
-				<td><s:checkbox id="chkActiveYN"  path="strActiveYN" value=""  onclick="funSetActiveYN()"  /></td>
-			</tr>
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
-	</s:form>
 </body>
 </html>

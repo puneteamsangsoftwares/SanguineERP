@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@	taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	
 	var fieldName;
@@ -521,136 +531,78 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Receipt</label>
-	</div>
-
-	<br/>
-	<br/>
-
+   <div class="container masterTable">
+	<label id="formHeading"> Debtor Receipt</label>
 	<s:form name="Receipt" method="POST" action="saveDebtorReceipt.html">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>Receipt No</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('ReceiptNo');"/>
-				</td>
-				<td></td>
-				<td>
-					<label>Receipt Date</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" />
-				</td>
-			</tr>
+         <div class="row">
+		     <div class="col-md-3"><label>Receipt No</label>
+				      <s:input colspan="3" type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('ReceiptNo');"/>
+			</div>
 			
-			<tr>
-				<td>
-					<label>Cash/Bank Code</label>
-				</td>
-				<td>
+			<div class="col-md-3"><label>Receipt Date</label>
+				      <s:input colspan="3" type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" />
+			</div>
+				
+			<div class="col-md-3"><label>Cash/Bank Code</label>
 					<s:select id="cmbCFCode" path="strCFCode" class="BoxW124px" items="${CashBankAccounts}">
 					</s:select>
-				</td>
+			</div>
 								
-				<td>
-					<label>Type</label>
-				</td>
-				
-				<td colspan="2">
-					<s:select id="cmbType" path="strType" class="BoxW124px" onchange="funSetTypeLabel()">
+			<div class="col-md-3"><label>Type</label>
+				      <s:select id="cmbType" path="strType" class="BoxW124px" onchange="funSetTypeLabel()">
 						<option value="Cash">Cash</option>
 					  	<option value="Cheque">Cheque</option>
 					  	<option value="Credit Card">Credit Card</option>
 					  	<option value="NEFT">NEFT</option>
 					</s:select>
-				</td>
-			</tr>
-
-			<tr>
-				<td>
-					<label>Debtor Account</label>
-				</td>
-				<td>
-					<s:select id="cmbDebtorAcc" path="strDebtorAccCode" class="BoxW124px" items="${DebtorAccounts}" onchange="funSetDebtorAccDesc()">
+			</div>
+			
+			<div class="col-md-3"><label>Debtor Account</label>
+				    <s:select id="cmbDebtorAcc" path="strDebtorAccCode" class="BoxW124px" items="${DebtorAccounts}" onchange="funSetDebtorAccDesc()">
 					</s:select>
-				</td>
+			</div>
 				
-				<td colspan="3"><s:input id="txtDebtorAccDesc" type="hidden" path="strDebtorAccDesc"/></td>
-			</tr>
+			<div class="col-md-3"><s:input id="txtDebtorAccDesc" type="hidden" path="strDebtorAccDesc" style="background-color: white; width: 100%; height: 42%; margin: 27px 0px;"/>
+			</div>
+					
+			<div class="col-md-3"><label>Received From</label>
+				   <s:input   type="text" id="txtReceivedFrom" path="strReceivedFrom" cssClass="remarkTextBox" />
+			</div>
 			
-			<tr>
-				<td>
-					<label>Received From</label>
-				</td>
-				<td colspan="4">
-					<s:input   type="text" id="txtReceivedFrom" path="strReceivedFrom" cssClass="remarkTextBox" />
-				</td>
-			</tr>
+			<div class="col-md-3"><label>Drawn On</label>
+				      <s:input  type="text" id="txtDrawnOn" path="strDrawnOn" cssClass="searchTextBox" ondblclick="funHelp('bankMaster');"/>
+			</div>
 			
-			<tr>
-				<td><label>Drawn On</label></td>
-				<td colspan="3">
-					<s:input  type="text" id="txtDrawnOn" path="strDrawnOn" cssClass="searchTextBox" ondblclick="funHelp('bankMaster');"/>
-				</td>
-				<td><label id="lblDrawnOnDesc"></label></td>
-			</tr>			
+			<div class="col-md-3"><label id="lblDrawnOnDesc" style="background-color: white;width: 100%;height: 42%;margin: 27px 0px;"></label>
+			</div>			
 			
-			<tr>
-				<td>
-					<label>Branch</label>
-				</td>
-				<td colspan="4">
-					<s:input  type="text" id="txtBranch" path="strBranch" cssClass="longTextBox" />
-				</td>
-			</tr>
+			<div class="col-md-3"><label>Branch</label>
+				       <s:input  type="text" id="txtBranch" path="strBranch" cssClass="longTextBox" />
+			</div>
 			
-			<tr>
-				<td>
-					<label id="lblTypeName">Cash</label>
-				</td>
-				<td colspan="2">
-					<s:input   type="text" id="txtChequeNo" path="strChequeNo" cssClass="remarkTextBox" />
-				</td>
-				<td>
-					<label>Cheque Date</label>
-				</td>
-				<td >
-					<s:input  type="text" id="txtChequeDate" path="dteChequeDate" cssClass="calenderTextBox" />
-				</td>
-			</tr>
+			<div class="col-md-3"><label id="lblTypeName">Cash</label>
+				     <s:input   type="text" id="txtChequeNo" path="strChequeNo" cssClass="remarkTextBox" />
+			</div>
+				
+			<div class="col-md-3"><label>Cheque Date</label>
+				     <s:input  type="text" id="txtChequeDate" path="dteChequeDate" cssClass="calenderTextBox" />
+			</div>
 
-			<tr>
-				<td>
-					<label>Amt</label>
-				</td>
-				<td colspan="4">
-					<s:input  type="number" step="0.01" id="txtAmt" path="dblAmt" class="decimal-places numberField" value="0.00" />
-				</td>
-			</tr>
+			<div class="col-md-3"><label>Amt</label><br>
+				 <s:input  type="number" step="0.01" id="txtAmt" path="dblAmt" class="decimal-places numberField" value="0.00" style="width: 100%; border: none;" />
+			</div>
 						
-			<tr>
-				<td><label>Narration</label></td>
-				<td colspan="4">
-					<s:textarea id="txtNarration" path="strNarration" />
-				</td>
-			</tr>
-		</table>
-
-		<br>
-		<br>
-		
-		<br/>
-		<br/>
-		<p align="center">
-			<input type="submit" value="Submit" onclick="return funValidateHeaderFields()" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+			<div class="col-md-3"><label>Narration</label>
+				<s:textarea id="txtNarration" path="strNarration" style="width:100%;"/>
+			</div>
+		</div>
+	
+		<p align="right">
+			<input type="submit" value="Submit" onclick="return funValidateHeaderFields()" tabindex="3" class="btn btn-primary center-block" class="form_button" />
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

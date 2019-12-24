@@ -463,8 +463,8 @@
 						funSetCheckStatusAndValue(chkMultipleDebtorYN,response.isMultipleDebtor);
 						$("#txtOnlineNEFTACCode").val(response.neftonlineAccountCode);
 						$("#txtOnlineNEFTACName").val(response.neftonlineAccountName);
-						$("#txtPettyCash").val(response.dblPettyAmt);
-						$("#strShowPLRevenue").val(response.strShowPLRevenue);
+						//$("#txtPettyCash").val(response.dblPettyAmt);
+						//$("#strShowPLRevenue").val(response.strShowPLRevenue);
 						
 						
 					/* 	$("#").val(response.PDCAccountCode);
@@ -810,10 +810,10 @@
         		</tr>
         		<tr>
         		<td><label>Petty Cash</label></td>
-        			<td><s:input id="txtPettyCash" path="dblPettyAmt" class="decimal-places numberField"  value="0"  /></td><%-- cssClass="longTextBox" --%>
+        			<td><s:input id="txtPettyCash" path="" class="decimal-places numberField"  value="0"  /></td><%-- cssClass="longTextBox" --%>
         			
         		<td><label>Show P/L Revenue Data </label></td>
-        			<td ><s:select path="strShowPLRevenue" id="strShowPLRevenue" cssClass="BoxW48px" cssStyle="width:100%">
+        			<td ><s:select path="" id="strShowPLRevenue" cssClass="BoxW48px" cssStyle="width:100%">
 					         <s:option selected="selected" value="POS">POS Revenue</s:option>
 					         <s:option  value="Invoice">Invoice</s:option>
 					</s:select></td>

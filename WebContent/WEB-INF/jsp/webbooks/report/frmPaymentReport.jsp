@@ -1,18 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
-
-		
-		
 
 function funHelp(transactionName)
 {
@@ -62,54 +65,50 @@ function funHelp(transactionName)
 
 </head>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>Payment  Report</label>
-	</div>
-	<s:form name="PaymentReport" method="GET"
+   <div class=" container transTable">
+	   <label id="formHeading">Payment  Report</label>
+	
+	  <s:form name="PaymentReport" method="GET"
 		action="rptPaymentReport.html"  target="_blank">
 		<input type="hidden" value="${urlHits}" name="saddr">
 		<br>
-		<table class="transTable">
-			<tr>
-				<td><label>Voucher No</label></td>
-				<td><s:input path="strDocCode" id="txtSOCode"
+	
+			<div class="row">
+				<div class="col-md-4"><label>Voucher No</label>
+				      <s:input path="strDocCode" id="txtSOCode"
 						ondblclick="funHelp('PaymentNoslip')"
-						cssClass="searchTextBox" /></td>
+						cssClass="searchTextBox" /></div>
 																					
-			</tr>
+			
 <!-- 								<tr> -->
 <!-- 									<td><label>Currency </label></td> -->
 	
 <%-- 									<td><s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px"> --%>
 <%-- 										</s:select></td> --%>
 <!-- 								</tr> -->
-			<tr>
-				<td><label>Report Type</label></td>
-				<td ><s:select id="cmbDocType" path="strDocType"
+			
+				<div class="col-md-4"><label>Report Type</label>
+				     <s:select id="cmbDocType" path="strDocType"
 						cssClass="BoxW124px">
 						<s:option value="PDF">PDF</s:option>
 						<s:option value="XLS">EXCEL</s:option>
 						<s:option value="HTML">HTML</s:option>
 						<s:option value="CSV">CSV</s:option>
-					</s:select></td>
-            </tr>
-            
-            <tr>
-				<td><label>Property</label></td>
-				<td ><s:select id="cmbDocType" path="strPropertyCode" cssClass="BoxW124px">
+					   </s:select></div>
+          
+				<div class="col-md-4"><label>Property</label>
+				    <s:select id="cmbDocType" path="strPropertyCode" cssClass="BoxW124px">
 						<s:options items="${listProperty}"/>
-					</s:select></td>
-            </tr>
-
-		</table>
-		
-		<p align="center">
-			<input type="submit" value="Submit"
+					</s:select></div>
+		   </div>
+		<br>
+		<p align="right">
+			<input type="submit" value="Submit" class="btn btn-primary center-block"
 				onclick="return funCallFormAction('submit',this)"
 				class="form_button" /> &nbsp; &nbsp; &nbsp; <a
 				STYLE="text-decoration: none"
 				href="frmPaymentReport.html?saddr=${urlHits}"><input
-				type="button" id="reset" name="reset" value="Reset"
+				type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block"
 				class="form_button" /></a>
 		</p>
 		<br>
@@ -120,6 +119,7 @@ function funHelp(transactionName)
 				width="60px" height="60px" />
 		</div>
 	</s:form>
+	</div>
 	<script type="text/javascript">
 		funApplyNumberValidation();
 	</script>

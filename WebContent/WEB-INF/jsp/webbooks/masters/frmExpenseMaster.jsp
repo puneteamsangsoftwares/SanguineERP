@@ -1,11 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <!-- charset=ISO-8859-1" pageEncoding="ISO-8859-1"%> -->
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<title></title>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 </head>
 
 <script type="text/javascript">
@@ -153,7 +161,45 @@ function funSetExpCode(code){
 </script>
 
 <body onload="funOnLoad();">
-	<div id="formHeading">
+	<div class="container">
+		<label id="formHeading">Expense Master</label>
+			<s:form name="expform" method="POST" action="saveExpenseMaster.html?saddr=${urlHits}">
+				<div class="row masterTable">
+					<div class="col-md-3"><label >Expense Code</label>
+						<s:input id="txtExpCode" ondblclick="funHelp('expense')" cssClass="searchTextBox" readonly="true" 
+							 placeholder="Expense Code" type="text" path="strExpCode"></s:input>
+					</div>
+					<div class="col-md-3"><label >Expense Name</label>
+						<s:input id="txtExpenseName" name="txtExpenseName" required="true"
+							 placeholder="Expense Name" type="text" path="stnExpName"></s:input><s:errors path="stnExpName"></s:errors>
+					</div>
+					<div class="col-md-3"><label >Short Name</label>
+						<s:input id="txtExpSortName" name="txtExpSortName" autocomplete="off"
+							 placeholder="Short Name" type="text" path="strExpShortName"></s:input>
+					</div>
+					<div class="col-md-3"><label >GL Code</label>
+						<s:input id="txtGLCode"  ondblclick="funHelp('GLCode')" cssClass="searchTextBox"
+							 placeholder="GL Code" type="text" path="strGLCode"></s:input>
+					</div>
+				</div>
+				<div class="center">
+					<a href="#"><button class="btn btn-primary center-block" tabindex="3" onclick=""
+						class="form_button">Submit</button></a>
+					<a href="#"><button class="btn btn-primary center-block" type="reset"
+						value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
+				</div>
+			</s:form>
+	</div>
+
+
+
+
+
+
+
+
+
+	<%-- <div id="formHeading">
 		<label>Expense Master</label>
 	</div>
 	<s:form name="expform" method="POST" action="saveExpenseMaster.html?saddr=${urlHits}">
@@ -194,7 +240,7 @@ function funSetExpCode(code){
 			 <input type="reset"
 				value="Reset" class="form_button" onclick="funResetFields()"/>
 		</p>
-	</s:form>
+	</s:form> --%>
 
 </body>
 </html>

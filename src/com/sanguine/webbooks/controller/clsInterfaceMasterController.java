@@ -114,7 +114,7 @@ public class clsInterfaceMasterController {
 		objModel.setDteDateCreated(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 		objModel.setStrUserModified(userCode);
 		objModel.setDteLastModified(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-
+		objModel.setStrDeptCode("");
 		return objModel;
 	}
 

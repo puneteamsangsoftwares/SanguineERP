@@ -1,12 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@	taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+      <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 </head>
 <script type="text/javascript">
 	$(function() {
@@ -144,45 +153,41 @@
 	}
 </script>
 <body>
-	<div id="formHeading">
-		<label>Tax Register</label>
-	</div>
+	<div class="container masterTable">
+		<label id="formHeading">Tax Register</label>
 
-	<br />
-	<br />
-
-	<s:form name="TaxRegister" method="GET" action="rptTaxRegister.html"
+	   <s:form name="TaxRegister" method="GET" action="rptTaxRegister.html"
 		target="_blank">
-		<div>
-			<table class="masterTable">
-				<tr>
-					<td width="10%"><label>From Date </label></td>
-					<td width="10%" colspan="1"><s:input id="txtFromDate"
+		<div class="row">
+			
+					<div class="col-md-3"><label>From Date </label>
+					        <s:input id="txtFromDate"
 							path="dteFromDate" required="true" readonly="readonly"
-							cssClass="calenderTextBox" /></td>
-					<td width="10%"><label>To Date </label></td>
-					<td width="10%"><s:input id="txtToDate" path="dteToDate"
-							required="true" readonly="readonly" cssClass="calenderTextBox" /></td>
-					<td width="10%"><label>Currency</label></td>
-					<td><s:select id="cmbCurrency" path="currency"
-							items="${currencyList}" cssClass="BoxW124px"></s:select></td>
-				</tr>
-			</table>
-		</div>
-
-
-		<table style="width: 80%;" class="transTablex col5-center">
-			<tr>
+							cssClass="calenderTextBox" />
+					</div>
+					<div class="col-md-3"><label>To Date </label>
+					         <s:input id="txtToDate" path="dteToDate"
+							  required="true" readonly="readonly" cssClass="calenderTextBox" />
+					</div>
+					<div class="col-md-3"><label>Currency</label>
+					       <s:select id="cmbCurrency" path="currency"
+							items="${currencyList}" cssClass="BoxW124px"></s:select>
+					</div>
+				
+		</div><br>
+		<div>
+        	<table style="width: 100%;" class="transTablex col5-center">
+			<tr style="background-color:#c0c0c0;">
 				<td style="width: 7%">Bill No</td>
 				<td style="width: 7%">Bill Date</td>
 				<td style="width: 15%">Tax Desc</td>
 				<td style="width: 16%">Taxable Amount</td>
 				<td style="width: 16%">Tax Amount</td>
 			</tr>
-		</table>
-
+			</table>
+		</div>
 		<div
-			style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 300px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 80%;">
+			style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 300px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 			<table id="tblTaxRegister" class="transTablex col5-center"
 				style="width: 100%; height: 100%">
 			    <tbody>
@@ -197,12 +202,12 @@
 
 		<br>
 
-		<div class="dynamicTableContainer " style="height: 200px; width: 80%;">
+		<div class="dynamicTableContainer " style="height: 200px; width: 100%;">
 
 			<table
 				style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;"
 				class="transTablex col3-center">
-				<tr bgcolor="#72BEFC" style="height: 24px;">
+				<tr bgcolor="#c0c0c0" style="height: 24px;">
 					<td width="18%" style="padding-left: 4px">Tax Desc</td>
 					<td width="10%" style="padding-left: 4px">Taxable</td>
 					<td width="10%" style="padding-left: 4px">Tax Amt</td>
@@ -210,7 +215,7 @@
 			</table>
 
 			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 
 				<table id="tblTaxSummary"
 					style="width: 104%; border: #0F0; table-layout: fixed; overflow: scroll"
@@ -231,16 +236,14 @@
 
 		<br>
 
-		<p align="center">
-			<input type="button" value="SUBMIT"
-				onclick="funFillTaxRegisterDetail()" class="form_button" /> <input
-				id="btnExport" type="button" value="EXPORT" class="form_button"
-				onclick="funExportToExcel()" /> <input type="button" value="RESET"
-				class="form_button" onclick="funResetFields()" />
+		<p align="right">
+			<input type="button" value="SUBMIT" class="btn btn-primary center-block" onclick="funFillTaxRegisterDetail()" class="form_button" /> 
+			<input id="btnExport" type="button" value="EXPORT" class="btn btn-primary center-block" class="form_button" onclick="funExportToExcel()" /> 
+			<input type="button" value="RESET" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()" />
 		</p>
 		
 		<br/><br/>
 	</s:form>
-
+    </div>
 </body>
 </html>

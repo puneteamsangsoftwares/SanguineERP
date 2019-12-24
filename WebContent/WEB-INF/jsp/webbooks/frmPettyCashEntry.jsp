@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 </head>
 <script type="text/javascript">
     
@@ -269,61 +279,48 @@ var fieldName;
 </script>
 
 <body>
-	<div id="formHeading">
-		<label>Petty Cash Entry</label>
-	</div>
-		<s:form name="PettyCash" method="POST" action="savePettyCash.html">
-		<br/><br/><br/>
+	<div class="container transTable">
+		<label id="formHeading">Petty Cash Entry</label>
+     	<s:form name="PettyCash" method="POST" action="savePettyCash.html">
 		
-		<div>
-				<table class="transTable">
-							<tr>
-								<td>
-									<label>VouchNo</label>
-								</td>
-								<td >
-									<s:input  type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('pettyCash');"/>
-								</td>
-								
-								<td>
-									<label>VouchDate</label>
-								</td>
-								<td>
-									<s:input  type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" />
-								</td>
-				       </tr>
-				     <tr>
-						<td><label id="lblNarration">Narration</label></td>
-									    <td ><s:textarea cssStyle="width:80%" id="txtNarration" path="strNarration" /></td>
-						<td colspan="3"></td>			    
-						</tr>
-				       
-				       	<tr>
-								<td width="140px">Expense Code</td>
-								<td><s:input id="txtExpCode" path="" cssClass="searchTextBox" ondblclick="funHelp('expense')" /></td>
-						
-								<td><label  id="txtExpenseName"></label></td>
-								<td></td>
-						</tr>
-						<tr>
-						<td ><label id="lblExpNarration">Expense Narration</label></td>
-									    <td ><s:textarea cssStyle="width:80%" id="txtExpNarration" path="" /></td>
-						
-						<td width="10%"><label>Amount</label></td>
-						<td ><input type="text" id="txtAmount" value="0"   class="decimal-places numberField"/>
-					<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="smallButton" />
-				</td>
-						
-						</tr>
-				       
-				    
-				</table>
+		<div class="row">
+				<div class="col-md-3"><label>VouchNo</label>
+					<s:input  type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('pettyCash');"/>
 				</div>
+		
+				<div class="col-md-3"><label>VouchDate</label>
+				    <s:input  type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" />
+				</div>
+				   
+				<div class="col-md-3"><label id="lblNarration">Narration</label>
+					<s:textarea cssStyle="width:80%" id="txtNarration" path="strNarration" />
+				</div>
+				       
+				<div class="col-md-3">Expense Code
+		            <s:input id="txtExpCode" path="" cssClass="searchTextBox" ondblclick="funHelp('expense')" />
+				</div>			
+					
+				<div class="col-md-3"><label  id="txtExpenseName"></label>
+	    		</div>
+	    	
+	    		<div class="col-md-3"><label id="lblExpNarration">Expense Narration</label>
+				 <s:textarea cssStyle="width:100%" id="txtExpNarration" path="" />
+				</div>
+						
+				<div class="col-md-3"><label>Amount</label>
+				<input type="text" id="txtAmount" value="0"   class="decimal-places numberField"/>
+				</div>	
+			
+				<div class="col-md-3">		
+				<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="btn btn-primary center-block" class="smallButton" style="margin:19px 95px;" />
+				</div>
+
+		</div>
 				
 				<div class="dynamicTableContainer" style="height: 300px;width: 99.80%;">
 		<table
 			style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-			<tr bgcolor="#72BEFC">
+			<tr bgcolor="#c0c0c0">
 				<td style="width:8%;">Expense Code</td>
 				<td style="width:12%;">Expense Name</td>
 				<td style="width:22%;">Narration</td>
@@ -333,7 +330,7 @@ var fieldName;
 			</tr>
 		</table>
 		
-		<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 			<table id="tblpettyDetails"
 				style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 				class="transTablex col8-center">
@@ -349,7 +346,7 @@ var fieldName;
 	</div>
 	
 		<div>								
-		<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 			<table 
 				style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 				class="transTablex col8-center">
@@ -368,11 +365,11 @@ var fieldName;
 	
 				<br />
 		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			 <input type="reset"
-				value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="right">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" />
+			 <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 		</s:form>
+	</div>
 </body>
 </html>

@@ -1,11 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+       
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 	
@@ -1530,39 +1539,21 @@ function funSetDebtorMasterData(debtorCode)
 
 </head>
 <body>
+      <div class="container transTable">
+		<label id="formHeading">Payment</label>
+	    <s:form name="Payment" method="POST" action="savePayment.html">
 
-	<div id="formHeading">
-		<label>Payment</label>
-	</div>
-
-	<br/>
-	<br/>
-
-	<s:form name="Payment" method="POST" action="savePayment.html">
-
-		<table class="transTable">
-		
-			<tr>
-				<td>
-					<label>Voucher No</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('PaymentNo');"/>
-				</td>
+		<div class="row">
+			<div class="col-md-3"><label>Voucher No</label>
+				 <s:input colspan="3" type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('PaymentNo');"/>
+			</div>
 				
-				<td>
-					<label>Voucher Date</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" />
-				</td>
+			<div class="col-md-3"><label>Voucher Date</label>
+				  <s:input colspan="3" type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" />
+			</div>
 				
-				<td>
-					<label>Voucher Month</label>
-				</td>
-				
-				<td>				
-					<s:select id="cmbMonth" path="intVouchMonth" class="BoxW124px" >
+			<div class="col-md-3"><label>Voucher Month</label>
+				   <s:select id="cmbMonth" path="intVouchMonth" class="BoxW124px" >
 						<option value="1">January</option>
 						<option value="2">February</option>
 						<option value="3">March</option>
@@ -1578,164 +1569,115 @@ function funSetDebtorMasterData(debtorCode)
 					</s:select>
 				
 					<!-- <s:select id="cmbMonth" path="intVouchNum" items="${Months}" class="BoxW124px" ></s:select> -->
-					
-				</td>
-			</tr>
+			</div>
 			
-			<tr>
-				<td>
-					<label>Bank Code</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtBankCode" path="strBankCode" cssClass="searchTextBox" ondblclick="funHelp('cashBankAccNo');"/>
-				</td>				
-				<td><label id="lblBankDesc"></label></td>
-				
-				<td>
-					<label id="lblBankBalAmt"  style="color:blue; font:bold; font-size:115%;" ></label>
+			<div class="col-md-3"><label>Bank Code</label>
+				   <s:input colspan="3" type="text" id="txtBankCode" path="strBankCode" cssClass="searchTextBox" ondblclick="funHelp('cashBankAccNo');"/>
+				<label id="lblBankDesc"></label>
+				<label id="lblBankBalAmt"  style="color:blue; font:bold; font-size:115%;" ></label>
+			</div>
 					
-				</td>
-				<td>
-					<label>Amt</label> &nbsp;&nbsp;&nbsp;&nbsp;
-					<s:input  type="number" step="0.0001" id="txtAmt" path="dblAmt" class="decimal-places numberField" onChange="funFillAmount()" value="0.00"/>
-				</td>
-				
-				<td>
-					<s:input colspan="3" type="text" id="txtCrDr" value="Cr" path="strCrDr" cssClass="longTextBox" readonly="true"/>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<label>Type</label>
-				</td>
-				<td>
-					<s:select id="cmbType" path="strType" class="BoxW124px" onchange="funSetTypeLabel()">
+			<div class="col-md-3"><label>Amt</label> &nbsp;&nbsp;&nbsp;&nbsp;
+				   <div class="row">
+								<div class="col-md-6"><s:input  type="number" step="0.0001" id="txtAmt" path="dblAmt" class="decimal-places numberField" onChange="funFillAmount()" value="0.00"/></div>
+			       				<div class="col-md-6"><s:input colspan="3" type="text" id="txtCrDr" value="Cr" path="strCrDr" readonly="true"/></div>
+			</div></div>
+		
+			<div class="col-md-3"><label>Type</label>
+				  <s:select id="cmbType" path="strType" class="BoxW124px" onchange="funSetTypeLabel()">
 						  <option value="Cash">Cash</option>
 						  <option value="Cheque">Cheque</option>
 						  <option value="Credit Card">Credit Card</option>
 						  <option value="NEFT">NEFT</option>
-					</s:select>
-				</td>
-				<td><label id="lblTypeName"></label></td>
+				    </s:select>
+				<label id="lblTypeName"></label>
+			    <s:input colspan="3" type="text" id="txtChequeNo" path="strChequeNo" cssClass="longTextBox" />
+			</div>
 				
-				<td>
-					<s:input colspan="3" type="text" id="txtChequeNo" path="strChequeNo" cssClass="longTextBox" />
-				</td>
+			<div class="col-md-3"><label id="lblChequeDate">Cheque Date</label>
+				   <s:input colspan="3" type="text" id="txtChequeDate" path="dteChequeDate" cssClass="calenderTextBox" />
+			</div>
+			
+			<div class="col-md-3"><label>DrawnOn</label>
+				<s:input  type="text" id="txtDrawnOn" path="strDrawnOn" cssClass="searchTextBox" ondblclick="funHelp('bankCode');"/>
+				<label id="lblDrawnOnDesc"></label>
+		    </div>
 				
-				<td><label id="lblChequeDate">Cheque Date</label></td>
-				<td>
-					<s:input colspan="3" type="text" id="txtChequeDate" path="dteChequeDate" cssClass="calenderTextBox" />
-				</td>
-			</tr>
+			<div class="col-md-3"><label>Branch</label>
+				 <s:input  type="text" id="txtBranch" path="strBranch"/>
+			</div>
 			
-			<tr>
-				<td>
-					<label>DrawnOn</label>
-				</td>
-				<td>
-					<s:input  type="text" id="txtDrawnOn" path="strDrawnOn" cssClass="searchTextBox" ondblclick="funHelp('bankCode');"/>
-				</td>
-				<td colspan="2"><label id="lblDrawnOnDesc"></label></td>
-				<td><label>Branch</label></td>
-				<td>
-					<s:input  type="text" id="txtBranch" path="strBranch" cssClass="longTextBox" />
-				</td>
-			</tr>
-			
-			<tr>
-			<td><lable>Link up</lable> </td>
-			<td>	<s:select id="cmbBillType" path="" cssClass="BoxW124px" onchange="funBillType()">
+			<div class="col-md-3"><label>Link up</label> 
+			      <s:select id="cmbBillType" path="" onchange="funBillType()">
 				    		<option value="GRN">GRN</option>
 				    		<option value="SC Bill">SC Bill</option>
-				    	
-				    	</s:select>
-			</td>
-				<td><label>Narration</label></td>
-				<td>
-					<s:textarea  id="txtNarration" path="strNarration"/>
-				</td>
-				<td colspan="2"></td>
-			</tr>
-			<tr>	
-				<td width="10%"><label>Currency</label></td>
-				<td>
-				<s:select id="cmbCurrency" path="strCurrency" items="${currencyList}" cssClass="BoxW124px" onchange="funOnChangeCurrency()"></s:select></td>
-				<td><s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField" style="width:40px"></s:input><td>
-				<td colspan="2"></td>
-		</tr>
-		</table>
-
-		<table class="transTable">
-		</table>
-<br>
-		<br>
-	<div >
+				  </s:select>
+			</div>
+			
+		    <div class="col-md-3"><label>Narration</label>
+				    <s:textarea  id="txtNarration" path="strNarration" style="width:225px;"/>
+			</div>
+			
+			<div class="col-md-3"><label>Currency</label>
+				    <div class="row"><div class="col-md-8"><s:select id="cmbCurrency" path="strCurrency" items="${currencyList}" cssClass="BoxW124px" onchange="funOnChangeCurrency()"></s:select></div>
+				     			<div class="col-md-4"><s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField"></s:input></div>
+		    </div></div>
+	</div >
 	
-	<ul class="tabs" >
+	        <div>
+	                  <ul class="tabs" >
 									<li id="Details" class="active" data-state="tab1"
 										style="width: 100px; padding-left: 55px">Details</li>
 									<li id="GRN" data-state="tab2" style="width: 100px; padding-left: 55px">GRN</li>
 									<li id="SC Bill" data-state="tab3" style="width: 100px; padding-left: 55px">SC Bill</li>
-								</ul>
-		<div id="tab1" class="tab_content" style="height: 470px">
+					  </ul><br><br>
+		<div id="tab1" class="tab_content" style="height: 470px;margin-bottom:20px;">
 		
-		<table class="transTable">
-		
-
-			<tr>
-				<td width="10%"><label>Account Code</label></td>
-				<td width="20%"><input id="txtAccCode" name="txtAccCode" ondblclick="funHelp('accountCode')" class="searchTextBox" /></td>
-				
-<!-- 				<td width="10%">Description</td> -->
-				<td width="65%" colspan="2"><input id="txtDescription" name="txtDescription" Class="longTextBox"  /></td>
-				<td colspan="2"></td>
-					
-			</tr>
-			<tr>
-			<td width="10%"><label id="lblCrdDebCode">Creditor Code</label></td>
-				
-				<td width="20%" ><input id="txtDebtorCode" name="txtDebtorCode" ondblclick="funHelp1()" class="searchTextBox" /></td>
-				<td colspan="2"><input id="txtDebtorName" name="txtDebtorName" readonly="readonly" Class="longTextBox" ></input>
-				</td>
-				<td colspan="2">
-				<label id="lblBalanceAmt"  style="color:blue; font:bold;font-size:115%;"  ></label></td>
+		     <div class="row" style="margin-top: 15px;">
+					<div class="col-md-6"><label>Account Code</label>
+							<div class="row">
+								<div class="col-md-6"><input id="txtAccCode" name="txtAccCode" ondblclick="funHelp('accountCode')" class="searchTextBox" /></div>
+				                <div class="col-md-6"><input id="txtDescription" name="txtDescription" cssClass="longTextBox"/></div>
+				             </div></div>
 			
-			</tr>
+			        <div class="col-md-6"><label id="lblCrdDebCode">Creditor Code</label>
+				           <div class="row">
+								<div class="col-md-6"><input id="txtDebtorCode" name="txtDebtorCode" ondblclick="funHelp1()" class="searchTextBox" /></div>
+				                <div class="col-md-6"><input id="txtDebtorName" name="txtDebtorName" readonly="readonly"></input></div>
+				            </div></div>
+				            
+				<div class="col-md-3">
+				<label id="lblBalanceAmt" style="color:blue;background-color:white;border:none;width:100%;font:bold;font-size:115%;"></label>
+			     </div>
 			
-			<tr>
-				<td><label>Dr/Cr</label>
-				<td width="5%">
-					 <select id="cmbDrCr"  class="BoxW124px">
+			    <div class="col-md-3"><label>Dr/Cr</label>
+				     <select id="cmbDrCr"  class="BoxW124px">
 						  <option value="Dr">Dr</option>
 						  <option value="Cr">Cr</option>
-					</select>
-				</td>
+					 </select>
+				</div>
 				
-				<td width="10%"><label>Amount</label></td>
-				<td><input type="text" id="txtAmount" value="0.00" class="decimal-places numberField"/></td>
+				<div class="col-md-3"><label>Amount</label>
+				          <input type="text" id="txtAmount" value="0.00" class="decimal-places numberField"/>
+				</div>
 				
-				<td width="10%"><label>Dimension</label></td>
-				<td width="5%" >
-					 <select id="cmbDimesion" class="BoxW124px">
+				<div class="col-md-3"><label>Dimension</label>
+				        <select id="cmbDimesion" class="BoxW124px">
 						  <option value="No">No</option>
 						  <option value="Yes">Yes</option>
-					</select>
-				</td>
-			</tr>
-			
-			<tr>
-				<td colspan="6">
-					<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="smallButton" />
-				</td>
-			</tr>
-		</table>
+					   </select>
+				</div>
+				<br />
+			    <div class="col-md-12" align="right">
+					<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="btn btn-primary center-block" class="smallButton" style=" margin: 12px 25px;"/>
+				</div>
+			</div>
 		
 		
 		<div class="dynamicTableContainer" style="height: 300px;">
 		<table
 			style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-			<tr bgcolor="#72BEFC">
+			<tr bgcolor="#c0c0c0">
 				<td style="width:10%;">Account Code</td>
 				<td style="width:10%;">Description</td>
 				<td style="width:7%;">Creditor Code</td>
@@ -1749,7 +1691,7 @@ function funSetDebtorMasterData(debtorCode)
 		</table>
 
 		
-		<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 			<table id="tblReceiptDetails"
 				style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 				class="transTablex col8-center">
@@ -1791,28 +1733,28 @@ function funSetDebtorMasterData(debtorCode)
 	</div>
 
 		<div id="tab2" class="tab_content" style="height: 470px">
-		<table class="transTable">
-		<tr>
-		<td><label>Total GRN Amount</label></td>
-		<td><input type="text" id="txtTotalGRNAmount" readonly="readonly" value="0.00" class="decimal-places numberField"/></td>
+		<div class="row"  style="margin-top:15px;">
+				<div class="col-md-3"><label>Total GRN Amount</label>
+		             <input type="text" id="txtTotalGRNAmount" readonly="readonly" value="0.00" class="decimal-places numberField"/>
+		        </div>
 		
 		
-		<td><label>Pay Amount</label></td>
-		<td><input type="text" id="txtGRNPayAmount" value="0.00" class="decimal-places numberField"/></td>
+		        <div class="col-md-3"><label>Pay Amount</label>
+					 <input type="text" id="txtGRNPayAmount" value="0.00" class="decimal-places numberField"/>
+				</div>
 		
 		
-		<td><input type="Button" value="Add" onclick="funSetGRNPayAmt()" class="smallButton" /></td>
+		 		<div class="col-md-3" align="right"><input type="Button" value="Add" onclick="funSetGRNPayAmt()" class="btn btn-primary center-block" class="smallButton" style="margin-top: 20px;"/>
+		 		</div>
+		  </div>
+		  <br>
 		
-		</tr>
-		
-		
-			<tr><td colspan="5">
-		<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 350px; overflow-x: hidden; overflow-y: scroll;">
+		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 350px; overflow-x: hidden; overflow-y: scroll;">
 		
 									<table id="" class="masterTable"
 										style="width: 100%; border-collapse: separate;">
 										<thead>
-											<tr bgcolor="#72BEFC">
+											<tr bgcolor="#c0c0c0">
 												<td width="5%"><input type="checkbox" checked="checked" 
 												id="chkGRNALL"/>Select</td>
 												<td width="18%">GRN Code</td>
@@ -1829,41 +1771,36 @@ function funSetDebtorMasterData(debtorCode)
 									<table id="tblGRN" class="masterTable"
 										style="width: 100%; border-collapse: separate;">
 		
-										<tr bgcolor="#72BEFC">
+										<tr bgcolor="#c0c0c0">
 											
 		
 										</tr>
 									</table>
-								</div></td>
-								</tr>
-			</table>					
-		
+								</div>
 		</div>
 
 
 		<div id="tab3" class="tab_content" style="height: 470px">
-		<table class="transTable">
-		<tr>
-		<td><label>from Date</label></td>
-		<td><s:input colspan="3" path="" type="text" id="txtDteScFromDate"  cssClass="calenderTextBox" /></td>
+		<div class="row"  style="margin-top:15px;">
+			<div class="col-md-3"><label>from Date</label>
+		        <s:input colspan="3" path="" type="text" id="txtDteScFromDate"  cssClass="calenderTextBox" />
+		    </div>
 		
 		
-		<td><label>ToDate</label></td>
-		<td><s:input colspan="3" path="" type="text" id="txtDteScToDate"  cssClass="calenderTextBox" /></td>
+		<div class="col-md-3"><label>ToDate</label>
+		        <s:input colspan="3" path="" type="text" id="txtDteScToDate"  cssClass="calenderTextBox" />
+		 </div>
 		
 		
-		<td><input type="Button" value="Show" onclick="funSetAddSCDtl()" class="smallButton" /></td>
-		
-		</tr>
-		
-		
-			<tr><td colspan="5">
-		<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 350px; overflow-x: hidden; overflow-y: scroll;">
+		<div class="col-md-3" align="right"><input type="Button" value="Show" onclick="funSetAddSCDtl()" class="btn btn-primary center-block" class="smallButton" />
+		</div>
+		</div>
+		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 350px; overflow-x: hidden; overflow-y: scroll;">
 		
 									<table id="" class="masterTable"
 										style="width: 100%; border-collapse: separate;">
 										<thead>
-											<tr bgcolor="#72BEFC">
+											<tr bgcolor="#c0c0c0">
 												<td width="5%"><input type="checkbox" checked="checked" 
 												id="chkGRNALL"/>Select</td>
 												<td width="18%">SC Code</td>
@@ -1880,33 +1817,29 @@ function funSetDebtorMasterData(debtorCode)
 									<table id="tblSCBill" class="masterTable"
 										style="width: 100%; border-collapse: separate;">
 		
-										<tr bgcolor="#72BEFC">
+										<tr bgcolor="#c0c0c0">
 											
 		
 										</tr>
 									</table>
-								</div></td>
-								</tr>
-			</table>					
-		
+								</div>
 		</div>
-	
 	</div>
+
 <input type="hidden" id="hidGrnYN" value="N"></input>
 <input type="hidden" id="hidSundryType" ></input>
 <s:input type="hidden" id="hidaccountCode" path="accountCode"></s:input>
 <s:input type="hidden" id="hidcreditorCode" path="creditorCode" ></s:input>
 <s:input type="hidden" id="hidclosingAmt" path="closingAmt" ></s:input>
-	<br />
-	<br />
-	<p align="center">
-		<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateHeaderFields()" />
-		<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+
+	<p align="right">
+		<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block"  class="form_button" onclick="return funValidateHeaderFields()" />
+		<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 	</p>
 <br />
 	<br /><br />
 	<br />
 	</s:form>
+	</div>
 </body>
-
 </html>

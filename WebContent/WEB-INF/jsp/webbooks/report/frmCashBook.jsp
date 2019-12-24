@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@	taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 </head>
 <script type="text/javascript">
 	$(function() {
@@ -99,37 +107,33 @@
 	}
 </script>
 <body>
-	<div id="formHeading">
-		<label>Cash Book</label>
-	</div>
-
-	<br />
-	<br />
+   <div class=" container transTable">
+    <label id="formHeading">Cash Book</label>
 
 	<s:form name="FLR3AReport" method="GET" action="rptCashBook.html" target="_blank">
-		<div>
-			<table class="transTable">
-			<tr>
-					<td width="10%"><label>Cash Account </label></td>
-					 <td><s:input id="txtAccountCode" path="strAccountCode"  ondblclick="funHelp('accountCodeCash')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="2"><s:input id="txtAccountName" path="strAccountName"  readonly="true" cssClass="longTextBox"/></td>
-					
-			</tr>		
-					
-			    <tr>
-					<td width="10%"><label>From Date </label></td>
-					<td width="10%" colspan="1"><s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
-					<td width="10%"><label>To Date </label></td>
-					<td width="10%"><s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</td>	
-				</tr>
-			</table>
+		<div class="row">
+		        <div class="col-md-6"><label>Cash Account </label>
+		             <div class="row">
+					  <div class="col-md-6">
+					  <s:input id="txtAccountCode" path="strAccountCode"  ondblclick="funHelp('accountCodeCash')" cssClass="searchTextBox"/></div>			        			        
+			    	  <div class="col-md-6"><s:input id="txtAccountName" path="strAccountName"  readonly="true"/></div>
+				</div></div>
+				<div class="col-md-6">
+		             <div class="row">
+					 <div class="col-md-6"><label>From Date </label>
+					     <s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+					 </div>
+					 <div class="col-md-6"><label>To Date </label>
+					      <s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+					</div>	
+			</div></div>
 		</div>
-		<p align="center">
-				<input type="submit" value="Submit"  class="form_button" />
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+		<br><br>
+		<p align="right">
+				<input type="submit" value="Submit"  class="btn btn-primary center-block" class="form_button" />
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 	</s:form>
-
+   </div>
 </body>
 </html>

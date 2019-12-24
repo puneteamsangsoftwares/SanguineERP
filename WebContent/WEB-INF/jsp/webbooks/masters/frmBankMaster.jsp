@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
 <title></title>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <%-- <style type="text/css">
 	input[type="text"]:valid 
 	{
@@ -124,43 +132,43 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Bank Master</label>
+	<div class="container">
+		<label id="formHeading">Bank Master</label>
+		<s:form name="BankMaster" method="POST" action="saveBankMaster.html">
+			<div class="row masterTable">
+				<div class="col-md-6">
+					<label>Bank Code:</label>
+					<div class="row">
+						<div class="col-md-6"><s:input id="txtBankCode" ondblclick="funHelp('bankCode')" readonly="true" cssClass="searchTextBox"
+							 placeholder="Bank Code" type="text" path="strBankCode"></s:input>
+						</div>
+					
+						<div class="col-md-6"><s:input id="txtBankName" path="strBankName" required="true"
+							 placeholder="Bank Code" type="text"></s:input>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-6">
+						<label>Branch:</label><s:input id="txtBranchName" ondblclick="" 
+							 placeholder="Branch" type="text" path="strBranch"></s:input>
+						</div>
+					
+						<div class="col-md-6">
+						<label>MICR:</label><s:input id="txtMICR" path="strMICR" required="true"
+							 placeholder="Bank Code" type="text"></s:input>
+						</div>
+					</div>
+				</div>		
+			</div> 
+			<div class="center">
+				<a href="#"><button class="btn btn-primary center-block" tabindex="3" onclick=""
+					class="form_button">Submit</button></a>
+				<a href="#"><button class="btn btn-primary center-block" type="reset"
+					value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
+			</div> 
+		</s:form>
 	</div>
-
-<br/>
-<br/>
-
-	<s:form name="BankMaster" method="POST" action="saveBankMaster.html">
-
-		<table class="masterTable">
-			<tr>
-			    <td><label >Bank Code</label></td>
-			    <td style="width: 230px"><s:input id="txtBankCode" path="strBankCode"  ondblclick="funHelp('bankCode')" cssClass="searchTextBox"/></td>			        			        
-			    <td colspan="2"><s:input id="txtBankName" path="strBankName" required="true" cssClass="longTextBox" style="width: 350px"/></td>			    		        			   
-			</tr>
-			<tr>
-				<td><label >Branch</label></td>
-				<td ><s:input id="txtBranchName" path="strBranch" required="true" cssClass="longTextBox"/></td>
-				<td></td>
-				<td></td>	
-			</tr>
-			<tr>
-				<td><label >MICR</label></td>
-				<td ><s:input id="txtMICR" path="strMICR" required="true" cssClass="longTextBox"/></td>
-				<td></td>
-				<td></td>	
-			</tr>
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
-	</s:form>
 </body>
 </html>

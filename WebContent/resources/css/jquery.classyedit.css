@@ -86,6 +86,7 @@
     z-index:1;
     min-height:150px;
     padding:10px;
+    background-color:#fafbfb; 
 }
 .classyedit .html_editor {
     width:95%;

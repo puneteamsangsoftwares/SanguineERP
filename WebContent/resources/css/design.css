@@ -1361,7 +1361,7 @@ the Delete Buttons
 	padding: 1px;
 	height: 25px;
 	border: #c0c0c0 1px thin;
-	background: #78BEF9;
+	background-color: #c0c0c0;
 }
 .table{
 width:80%;
@@ -2357,4 +2357,8 @@ select{
 .app-sidebar .side-menu li i.rotate {
 	transform: rotate(180deg);
 	display: inline-block;
+}
+
+.app-sidebar .side-menu li .link:hover{                    
+	background-color:#d8d8d894;
 }

@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +9,12 @@
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
 <title>Tax Report Day Wise</title>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 
@@ -220,21 +225,23 @@ $(document).ready(function()
 
 </head>
 <body>
-	<div id="formHeading">
-	Tax Report Day Wise
-	</div>
+	<div class=" container masterTable">
+	<label id="formHeading">Tax Report Day Wise</label>
+	
 	<s:form name="frmTaxReportDayWise" method="POST"
 		action="rptTaxReportDayWise1.html" target="_blank">
 	
 <%-- 		<input type="hidden" value="${urlHits}" name="saddr"> --%>
 		<br>
-		<table class="transTable">
-			<tr>
-				<td><label>From Date</label>
-				<td><s:input path="dtFromDate" id="txtFromDate" required="required" cssClass="calenderTextBox" /></td>
-				<td ><label>To Date</label>
-				<td><s:input path="dtToDate" id="txtToDate" required="required" cssClass="calenderTextBox" /></td>
-			</tr>
+		
+				<div class= "row">
+					<div class="col-md-3"><label>From Date</label>
+				          <s:input path="dtFromDate" id="txtFromDate" required="required" cssClass="calenderTextBox" />
+				    </div>
+				    
+				   <div class="col-md-3"><label>To Date</label>
+			              <s:input path="dtToDate" id="txtToDate" required="required" cssClass="calenderTextBox" />
+			       </div>
 <!-- 			<tr> -->
 <!-- 			<td><label>Currency</label> -->
 <%-- 			<td><s:select id="cmbCurrency" path="strCurrency" --%>
@@ -242,24 +249,17 @@ $(document).ready(function()
 <!-- 			<td colspan="2"></td>				 -->
 <!-- 			</tr> -->
 			
-			<tr>
-				<td colspan="2">Tax  &nbsp;&nbsp;&nbsp;
+				<div class="col-md-3">Tax  &nbsp;&nbsp;&nbsp;
 				<input type="text" id="txtTaxCode" 
 				 style="width: 35%;background-position: 150px 2px;"  Class="searchTextBox" placeholder="Type to search"  ></input>
-				<label id="lblTaxName"></label></td>
-				<td colspan="2">
-				</td>
-			</tr>
-			
-			<tr>
-			<td colspan="2">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-
-							<table id="" class="masterTable"
-								style="width: 100%; border-collapse: separate;">
+				<label id="lblTaxName"></label>
+				</div>
+	
+				<br>
+		         <div class="row" style="background-color: #fafbfb; border: 1px solid #ccc;margin:12px 15px; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+							<table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#c0c0c0">
 										<td width="2%"><input type="checkbox" checked="checked" 
 										id="chkTaxALL"/>Select</td>
 										<td width="20%">Tax Code</td>
@@ -267,33 +267,21 @@ $(document).ready(function()
 									</tr>
 								</tbody>
 							</table>
+							
 							<table id="tblTax" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#fafbfb">
 									
 
 								</tr>
 							</table>
 						</div>
-				</td>
-				<td colspan="2">
-				</td>
-				
+			</div>
 			
-			</tr>
-			
-			
-
-		</table>
-		
-		<p align="center">
-			<input type="submit" value="Submit"
-				onclick="return btnSubmit_Onclick();"
-				class="form_button"  /> 
-				<input
-				type="button" id="reset" name="reset" value="Reset"
-				class="form_button" />
+		<p align="right"  style="margin: 0px 280px;">
+			<input type="submit" value="Submit" onclick="return btnSubmit_Onclick();" class="btn btn-primary center-block" class="form_button"  /> 
+			<input type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />
 		</p>
 		<br>
 		<%-- <div id="wait"
@@ -308,6 +296,7 @@ $(document).ready(function()
 		</div> --%>
 		 <s:input type="hidden" id="hidTaxCodes" path="strTaxCode"></s:input> 
 	</s:form>
+	</div>
 	<script type="text/javascript">
 	
 	</script>

@@ -1,13 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	 
 	<script>
 	
 	
@@ -78,43 +86,29 @@
 	</script>
 </head>
 	<body>
-	<div id="formHeading">
-		<label>User Defined Report Master</label>
-	</div>
-	<br/>
-    <br/>
+	<div class="container masterTable">
+		<label id="formHeading">User Defined Report Master</label>
 		<s:form id="frmUserDefinedReportProcess" method="POST" action="getUserDefinedReportProcess.html?saddr=${urlHits}">
 			
-		    <table class="masterTable" style="width: 95%;">
-			    <tr>
-			        <td ><label>Report ID</label></td>
-			        <td><s:input id="txtReportCode" path="strReportId" ondblclick="funHelp('userDefinedReportCode');" class="searchTextBox"/></td>
-			        <td><label id="lblUserName"></label></td>			    			    			    		    
-			    </tr>
+		    <div class="row">
+			    <div class="col-md-3"><label>Report ID</label>
+			            <s:input id="txtReportCode" path="strReportId" ondblclick="funHelp('userDefinedReportCode');" class="searchTextBox"/>
+			            <label id="lblUserName"></label>			    			    			    		    
+			    </div>
 			    
-			    <tr>
-				<td>
-					<label>From Date</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtFromDate" path="dteFDate" cssClass="calenderTextBox" />
-				</td>
+			   <div class="col-md-3"><label>From Date</label>
+				        <s:input colspan="3" type="text" id="txtFromDate" path="dteFDate" cssClass="calenderTextBox" />
+				</div>
 				
-				<td>
-					<label>To Date</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtToDate" path="dteTDate" cssClass="calenderTextBox" />
-				</td>
-			</tr>
-			
-			</table>
-			<p align="center">
-			<input id="btnSubmit" type="submit" value="Execute" class="form_button" />
+				<div class="col-md-3"><label>To Date</label>
+				         <s:input type="text" id="txtToDate" path="dteTDate" cssClass="calenderTextBox" />
+				</div>
+		    </div>
+		    <br>
+			<p align="right" style="margin: 0px 160px;">
+			<input id="btnSubmit" type="submit" value="Execute" class="btn btn-primary center-block" class="form_button" />
 			</p>
 			</s:form>
-			
-			
-
+		</div>
 </body>
 </html>

@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
-<title>Insert title here</title>
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<title></title>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 </head>
 <script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
 <script type="text/javascript">
@@ -256,54 +262,61 @@ var StkFlashData;
 		
 </script>
 <body>
-	<div id="formHeading">
-		<label>Trial Balance  Flash</label>
-	</div>
-
-	<br />
-	<br />
-
-	<s:form name="Trial Balance Report" method="GET" action="" >
-		<div>
-			<table class="transTable">
-<!-- 			 	<tr>	<td> -->
-<!-- 					<label>GL Code</label> -->
-<!-- 				</td> -->
-<!-- 				<td> -->
-<%-- 					<s:input type="text" id="txtGLCode" path="strAccountCode" class="searchTextBox" ondblclick="funHelp('debtorAccountCode');"/> --%>
-<!-- 				</td> -->
-<!-- 				<td  colspan="3"><label id="lblGLCode"></label></td></tr> -->
-			    <tr>
-					<td width="10%"><label>From Date </label></td>
-					<td width="10%" colspan="1"><s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
-					<td width="10%"><label>To Date </label></td>
-					<td width="10%"><s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</td>	
-				</tr>
-				<tr>
-					<td><label>Currency </label></td>
-					<td><s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px">
-						</s:select></td>
-					<td colspan="2"></td>
-				</tr>
-			</table>
-			<p align="center">
-				<input type="button" id="btnExecute" value="Excecute"  class="form_button" />
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
-			</p>
-			
-			<br/>
-			<br/>
+	<div class="container">
+		<label id="formHeading">Trial Balance  Flash</label>
+			<s:form name="Trial Balance Report" method="GET" action="" >			
+				<div class="row transTable">
+					<div class="col-md-6">
+						<label>GL Code</label>
+						<div class="row">
+							<div class="col-md-6">
+								<s:input  type="text" id="txtGLCode" cssClass="searchTextBox" 
+									path="strAccountCode" ondblclick="funHelp('debtorAccountCode');"/>
+							</div>
+							<div class="col-md-6">
+								<label id="lblGLCode"></label>
+							</div>
+						</div> 
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-6">
+								<label>From Date</label>
+									<s:input  type="text" id="txtFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"
+										path="dteFromDate" />
+							</div>
+							<div class="col-md-6">
+								<label>To Date</label>
+								<s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox" type="text"/>
+							</div>
+						</div> 
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-6">
+								<label>Currency</label>
+									<s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px"></s:select>
+							</div>
+							<div class="col-md-6"></div>
+						</div> 
+					</div>
+				</div>
+				<div id="paraSubmit" class="center" style="text-align:center;">
+					<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" 
+						class="form_button">Execute</button></a>
+					<a href="#"><button class="btn btn-primary center-block" onclick="funResetFields()"
+						class="form_button">Reset</button></a>
+				</div>
 				
-			<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
-		<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
-		<%-- <s:input type="hidden" id="hidSubCodes" path="strCatCode"></s:input> --%>	
+				<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
+					<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
+						<s:input type="hidden" id="hidSubCodes" path=""></s:input>	<!-- strCatCode -->
+					</div>
+					
+					<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
+						<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+					</div>
+			</s:form>
 		</div>
-		
-			<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
-				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
-			</div>
-	</s:form>
-
 </body>
 </html>

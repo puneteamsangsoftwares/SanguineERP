@@ -14,6 +14,15 @@
 <script src="${classyEditJS}"></script>    
 
 <title></title>
+
+  <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	 
 <style type="text/css">
 	
 	#txtLetterName
@@ -26,7 +35,7 @@
 	#tblOutStandingMonths td
 	{
 		 padding: 10px 67px 3px 10px;
-		 background: #c0e4ff;
+		 background-color: #fafbfb;
 		 
 	}	
 
@@ -347,31 +356,27 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>LetterProcessing</label>
-	</div>
-
-<br/>
-<br/>
-
+ <div class="container masterTable">
+	<label id="formHeading">LetterProcessing</label>
 	<s:form id="formLetterProc" name="LetterProcessing" method="POST" action="saveLetterProcessing.html">
 
-		<table class="masterTable">
-			<tr>
-			    <td style="width: 12%"><label>Letter Code</label></td>			    
-			    <td style="width: 17%"><s:input id="txtLetterCode" path="strLetterCode" readonly="true" required="true" ondblclick="funHelp('letterCode')" cssClass="searchTextBox"/></td>			        			        			    
-			    <td><s:input id="txtLetterName"  path="strLetterName" readonly="true"    cssClass="longTextBox" cssStyle="width:90%"/></td>	
-			    <td style="width: 20%"><a id="linkHideOrShowParamDtls" href="#" onclick="onViewORHideDtlsLinkClicked()">Hide Parameter Details</a></td>					  		        			  
-			</tr>	
-			<tr>
-				<td style="width: 12%"><label>Letter Subject</label></td>
-			    <td colspan="2"><s:textarea id="txtLetterSubject" path="" cssClass="longTextBox"  style="width: 35%; height:50px; resize:none; overflow-y:scroll; "  /></td>
-			    <td><s:hidden id="txtCondition" path="strCondition"/></td>				
-			</tr>
-		</table>	
+		<div class="row">
+			    <div class="col-md-3"><label>Letter Code</label>			    
+			    		<s:input id="txtLetterCode" path="strLetterCode" readonly="true" required="true" ondblclick="funHelp('letterCode')" cssClass="searchTextBox"/>		        			        			    
+			    <s:input id="txtLetterName"  path="strLetterName" readonly="true"    cssClass="longTextBox" cssStyle="width:90%"/>
+			    </div>
+			    
+			     <div class="col-md-4"><label>Letter Subject</label><br>
+			           <s:textarea id="txtLetterSubject" path=""  style="width:250px; height:50px; resize:none; overflow-y:scroll; "  />
+			         <s:hidden id="txtCondition" path="strCondition"/>	
+			     </div>
+			     <br>
+			     <div class="col-md-4">
+			     			<a id="linkHideOrShowParamDtls" href="#" onclick="onViewORHideDtlsLinkClicked()">Hide Parameter Details</a>			  		        			  
+				</div>
+		</div>	
 		<br />
-		<div id="divParamDetails" style="width: 80%;padding-left: 10%" >
+		<div id="divParamDetails" style="width: 80%;">
 			<table class="transTablex" style="width: 100%">
 				<tr>
 					<th style="width: 40%">Parameters</th>
@@ -390,7 +395,7 @@
 						<s:option value=">="/>
 						</s:select>
 					</td>
-					<td><s:input id="txtValue" path=""  cssClass="longTextBox" required="true" cssStyle="width:98%"/></td>
+					<td><s:input id="txtValue" path="" cssClass="BoxW124px" required="true" cssStyle="padding:12px; width:98%"/></td>
 					<td>
 						<s:select id="cmbCondition" path=""  cssClass="BoxW124px" style="width: 99%">
 						<s:option value="NONE"/>
@@ -402,19 +407,18 @@
 			</table>
 		</div>
 		<br>
-		<table class="masterTable">			
-			<tr>
-				<td style="width: 25%"><label>Reminder Status Update Log</label></td>
-			    <td colspan="3"><s:select id="cmbReminderStatusUpdateLog" path="" items="${listReminderStatusUpdateLog}" cssClass="BoxW124px"></s:select></td>				
-			</tr>
-			<tr>
-				<td style="width: 25%"><label>Letter Via Email</label></td>
-			    <td colspan="3"><s:checkbox id="chkLetterViaEmail" path="" value="N"/></td>				
-			</tr>
-			<tr style="height: 120px">
-				<td style="width: 25%"><label>Outstanding For The Months</label></td>	
-				<td colspan="3">
-					<div>
+		<div class="row">			
+			 <div class="col-md-3"><label>Reminder Status Update Log</label>
+			    <td colspan="3"><s:select id="cmbReminderStatusUpdateLog" path="" items="${listReminderStatusUpdateLog}" cssClass="BoxW124px"></s:select>
+			 </div>		
+			 		
+			 <div class="col-md-3"><label>Letter Via Email</label><br>
+			    <td colspan="3"><s:checkbox id="chkLetterViaEmail" path="" value="N"/>			
+			</div>
+			<br>
+			 <div class="col-md-12"><label>Outstanding For The Months</label>
+			 </div>	
+				<div class="col-md-12">
 						<table id="tblOutStandingMonths">
 							<tr>
 								<td><s:checkbox id="chkJan" label="January" path="" value="N" /></td>
@@ -436,31 +440,32 @@
 							</tr>
 						</table>
 					</div>
-				</td>		   			
-			</tr>
-			<tr>
-				<td style="width: 25%"><label>Exclude Members</label></td>	
-				<td colspan="3"><s:textarea id="txtExcludeMembers" path="" cssClass="longTextBox"  style="width: 98%; height:75px; resize:none; overflow-y:scroll; " ondblclick="funHelp('debtorCode')" /></td>
-			</tr>
-			<tr>
-				<td><label>Dr Date</label></td>	
-			    <td><s:input type="text" id="txtDrDate" class="calenderTextBox" path="dteDrDate"  /></td>
-			    <td><label>Cr Date</label></td>	
-			    <td><s:input type="text" id="txtCrDate" class="calenderTextBox" path="dteCrDate" /></td>
-			</tr>
-		</table>	
+					<br><br>
+					
+				<div class="col-md-12"><label>Exclude Members</label>	<br />
+			 				<s:textarea id="txtExcludeMembers" path="" style="width:720px; height:75px; resize:none; overflow-y:scroll; " ondblclick="funHelp('debtorCode')" />
+			 	</div>
+			
+				<div class="col-md-3"><label>Dr Date</label>
+			              <s:input type="text" id="txtDrDate" class="calenderTextBox" path="dteDrDate"  />
+			    </div>
+			    
+			   <div class="col-md-3"><label>Cr Date</label>
+			           <s:input type="text" id="txtCrDate" class="calenderTextBox" path="dteCrDate" />
+			</div>
+		</div>	
 		<br>
-		<div id="divViewConainer" style="padding-left: 10%;" >
-			<s:textarea id="txtLetter" path="strLetter" style="width: 75%; height: 300px; resize: none;" class="classy-editor" />					    						
+		<div id="divViewConainer">
+			<s:textarea id="txtLetter" path="strLetter" style="width: 75%; height: 300px; background-color:#fafbfb; resize: none;" class="classy-editor" />					    						
 		</div>
 		<br />
-		<br />
-		<p align="center">
-			<input id="btnSubmit" type="button" value="Submit" tabindex="3" class="form_button"  onclick="return funValidate()"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="right" style="margin-right:130px;">
+			<input id="btnSubmit" type="button" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button"  onclick="return funValidate()"/>
+			<input type="reset" value="Reset" class="btn btn-primary center-block"  class="form_button" onclick="funResetFields()"/>
 		</p>
 		<br />
 		<br />
 	</s:form>
+	</div>
 </body>
 </html>

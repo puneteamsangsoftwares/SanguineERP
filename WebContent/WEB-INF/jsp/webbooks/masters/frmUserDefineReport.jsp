@@ -1,11 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<title></title>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <title>Insert title here</title>
 
 	<script>
@@ -148,7 +156,7 @@
 			var table = document.getElementById("tblUserDefindDtl");
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
-		    row.insertCell(0).innerHTML= "<input name=\"listUserDefRptDtlBean["+(rowCount)+"].intSrNo\" readonly=\"readonly\"  class=\"Box\" style=\"text-align: right;\" size=\"3%\" id=\"intSrNo."+(rowCount)+"\" value='"+(rowCount+1)+"' />";	
+		    row.insertCell(0).innerHTML= "<input name=\"listUserDefRptDtlBean["+(rowCount)+"].intSrNo\" readonly=\"readonly\"  class=\"Box\" style=\"text-align: right;\" size=\"3%\" padding=\"0px\" id=\"intSrNo."+(rowCount)+"\" value='"+(rowCount+1)+"' />";	
  		    row.insertCell(1).innerHTML= "<select name=\"listUserDefRptDtlBean["+(rowCount)+"].strType\" class=\"Box\" style=\"width: 100%;\"  id=\"strType."+(rowCount)+"\"  onchange=\"funClickOnType(this.value,"+(rowCount)+")\">   '"+funGetTypeList(selectedType)+"'";
 		    row.insertCell(2).innerHTML= "<select name=\"listUserDefRptDtlBean["+(rowCount)+"].strColumn\" class=\"Box\" style=\"width: 100%;\"  id=\"strColumn."+(rowCount)+"\" >   '"+funGetColumnNoTypeList(strColumn)+"'";
 		    row.insertCell(3).innerHTML= "<select name=\"listUserDefRptDtlBean["+(rowCount)+"].strOperator\" class=\"Box\" style=\"width: 100%;\"  id=\"strOperator."+(rowCount)+"\"  >   '"+funGetOperatorList(selectedOperator)+"'";
@@ -372,7 +380,108 @@
 
 </head>
 	<body>
-	<div id="formHeading">
+	<div class="container-fluid">
+		<label id="formHeading">User Defined Report Master</label>
+			<s:form id="frmUserDefinedReportMaster" method="POST" action="saveUserDefinedReportMaster.html?saddr=${urlHits}">
+				<div class="row masterTable">
+					<div class="col-md-6">
+						<label>Report ID</label><br>
+							<div class="row">
+								<div class="col-md-6">
+									<s:input type="text" id="txtReportCode" path="strReportId" ondblclick="funHelp('userDefinedReportCode');" class="searchTextBox"/>
+								</div>
+								<div class="col-md-6">
+									<s:input id="txtReportName" type="text" required="true" path="strReportName"  readonly="true"/>
+								</div>
+							</div>
+					</div>	
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-6">
+								<label>Date</label>
+									<s:input type="text" id="txtReportCode" path="strReportId" ondblclick="funHelp('userDefinedReportCode');" class="searchTextBox"/>
+							</div>
+							<div class="col-md-6">
+								 <a href="#"><button class="btn btn-primary center-block" onclick="return funAddProductRow('Text','1','Equal','','','','','Desc','','','N')"
+									class="form_button">Add</button></a>
+							</div>
+						</div>
+					</div>		    			        			   
+				</div>
+				<div class="dynamicTableContainer" style="height: 300px; ">
+			
+			 <table class="transTablex col15-center" id="criteriaTable" style="width: 100%; border: #0F0; table-layout: fixed;">
+				<tr style="font-family: sans-serif; background: #c0c0c0;" >
+				    
+				    <td>Sr.No</td>
+					<!--  COl1   -->
+					<td>Type</td>
+					<!--  COl2   -->
+					<td>Print In Col</td>
+					<!--  COl3   -->
+					<td>Operator</td>
+					<!--  COl4   -->
+					<td>Group</td>
+					<!--  COl5   -->
+					<td>Group</td>
+					<!-- COl6   -->
+					<td>Account</td>
+					<!--  COl7   -->
+					<td>Account</td>
+					<!-- COl8   -->
+					<td>Description</td>
+					<!-- COl9   -->
+					<td>Constant</td>
+					<!-- COl10   -->
+					<td>Formula</td>
+					<!-- COl11   -->	
+					<td>Print</td>
+					<!-- COl12   -->
+					<td>Del</td> 
+						
+				</tr>					
+			</table>
+					
+			<table id="tblUserDefindDtl"
+				style="width: 100%; border: #0F0; table-layout: fixed;"
+				class="transTablex col15-center">
+				<tbody>
+				<col>
+				<!--  COl1   -->
+				<col>
+				<!--  COl2   -->
+				<col>
+				<!--  COl3   -->
+				<col> 
+				<!--COl4   -->
+				<col> 
+				<!--COl5   -->
+				<col> 
+				<!-- COl6   -->
+				<col> 
+				<!-- COl7   -->
+				<col> 
+				<!-- COl8   -->
+				<col> 
+				<!--  COl9   -->
+				<col> 
+				<!--  COl10   -->
+				<col> 
+				<!--  COl11  -->
+				<col>
+		    	<!--COl12  -->
+				<col>
+
+				</tbody>
+
+			</table>
+			   
+			</div>
+			
+			</s:form>
+		</div>
+	
+	<%-- div id="formHeading">
 		<label>User Defined Report Master</label>
 	</div>
 	<br/>
@@ -470,6 +579,6 @@
 			<table class="transTable" id="tblReport">					
 			</table>
 		    
-		</s:form>
+		</s:form> --%>
 	</body>
 </html>

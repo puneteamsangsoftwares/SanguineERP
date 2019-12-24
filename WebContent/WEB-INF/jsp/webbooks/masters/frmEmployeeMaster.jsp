@@ -1,10 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <title>Employee Master</title>
 
 <script type="text/javascript">
@@ -337,6 +346,65 @@ var fieldName;
 </head>
 <body>
 
+	<div class="container">
+		<label id="formHeading">Employee Master</label>
+			<s:form name="EmployeeMaster" method="POST" action="saveEmployeeMaster.html">
+				<div class="row masterTable">
+					<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-6">
+								<label >Employee Code</label>
+									<s:input type="text" id="txtEmployeeCode" path="strEmployeeCode" ondblclick="funHelp('employeeCode')" class="searchTextBox" readonly="true"/>
+								</div>
+								<div class="col-md-6">
+									<label >Employee Name</label>
+									<s:input id="txtEmployeeName" type="text" required="true" path="strEmployeeName"  />
+								</div>
+							</div>
+						</div>	
+				</div>
+				
+				<!--Opening Balance-->
+		<div id="tab4" class="tab_content" style="height: auto;">
+		<br> 
+			<table class="masterTable" style="width: 99%">				
+				<tr>
+				        <th><label>Account Code</label></th>
+				        <th><label>Account Name</label></th>
+				        <th><label>Opening Balance</label></th>
+				        <th><label>Dr/Cr</label></th>
+				        <th><label>Current Balance</label></th>		
+				        <th></th>		        
+			   	</tr>			   			
+			   	<tr>
+			    	<td style="padding-left: 0px;"><s:input id="txtAccountCode" path=""  cssClass="searchTextBox" ondblclick='funHelp("EmployeeAccountCode")' /></td>	
+			    	<td><s:input id="txtAccountName" path="" type="text"   /></td>	
+			    	<td><s:input  type="number" id="txtOpeningBalance" path=""   class="decimal-places numberField" cssStyle="text-align: right;" /></td>			    	
+				    <td><s:select id="cmbDrCr" path="" items="${listDrCr}" cssClass="BoxW124px" style="margin:0px;" /></td>	
+				    <td><s:input id="txtCurrentBalance" path=""  readonly="true" value="0"/></td>
+				    <td><input type="button" value="Add"  class="btn btn-primary center-block" onclick='funAddRow("tblOpeningBalance")'/></td>					    				
+			    </tr>		    				   
+			</table>
+			<br>
+			<br>
+			<div style="background-color: #f2f2f2; border: 1px solid #ccc;display: block; height: 150px;
+				    				margin: auto;overflow-x: hidden; overflow-y: scroll;width: 99%;">
+				<!-- Dynamic Table Generation for tab4 (Opening Balance) -->
+				<table id="tblOpeningBalance" class="transTablex" style="width: 100%;">				
+					<tr style="padding:2px; background:#c0c0c0;">
+					        <td>Account Code</td>
+					        <td>Account Name</td>
+					        <td>Opening Balance</td>
+					        <td>Dr/Cr</td>
+					        <td>Current Balance</td>		
+					        <td>Delete</td>				       
+				   	</tr>			   						   	    				  
+				</table>	
+			</div>						
+		</div>	
+			</s:form>
+		</div>
+<%-- 
 	<div id="formHeading">
 		<label>Employee Master</label>
 	</div>
@@ -406,8 +474,8 @@ var fieldName;
 			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateForm();" />
 			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
 		</p>
+ --%>
 
-	</s:form>
 
 </body>
 </html>

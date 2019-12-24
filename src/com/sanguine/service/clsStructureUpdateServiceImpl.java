@@ -10,14 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sanguine.dao.clsStructureUpdateDao;
 
 @Service("clsStructureUpdateService")
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
 public class clsStructureUpdateServiceImpl implements clsStructureUpdateService {
 	@Autowired
 	private clsStructureUpdateDao objStructureUpdateDao;
 
 	@Override
 	public void funUpdateStructure(String clientCode, HttpServletRequest req) {
-		objStructureUpdateDao.funUpdateStructure(clientCode,req);
+		objStructureUpdateDao.funUpdateStructure(clientCode, req);
 	}
 
 	@Override
@@ -33,14 +33,18 @@ public class clsStructureUpdateServiceImpl implements clsStructureUpdateService 
 	}
 
 	@Override
-	public void funClearTransactionByProperty(String clientCode, String[] str, String propName) {
-		objStructureUpdateDao.funClearTransactionByProperty(clientCode, str, propName);
+	public void funClearTransactionByProperty(String clientCode, String[] str,
+			String propName) {
+		objStructureUpdateDao.funClearTransactionByProperty(clientCode, str,
+				propName);
 	}
 
 	@Override
-	public void funUpdateWebBooksStructure(String clientCode, HttpServletRequest req) {
-		objStructureUpdateDao.funUpdateWebBooksStructure(clientCode,req);
+	public void funUpdateWebBooksStructure(String clientCode,
+			HttpServletRequest req) {
+		objStructureUpdateDao.funUpdateWebBooksStructure(clientCode, req);
 	}
+
 	@Override
 	public void funClearWebBooksMaster(String clientCode, String[] str) {
 		objStructureUpdateDao.funClearWebBooksMaster(clientCode, str);
@@ -48,10 +52,12 @@ public class clsStructureUpdateServiceImpl implements clsStructureUpdateService 
 	}
 
 	@Override
-	public void funClearWebBooksTransactionByProperty(String clientCode, String[] str, String propName) {
-		objStructureUpdateDao.funClearWebBooksTransactionByProperty(clientCode, str, propName);
+	public void funClearWebBooksTransactionByProperty(String clientCode,
+			String[] str, String propName) {
+		objStructureUpdateDao.funClearWebBooksTransactionByProperty(clientCode,
+				str, propName);
 	}
-	
+
 	@Override
 	public void funClearWebBooksTransaction(String clientCode, String[] str) {
 		objStructureUpdateDao.funClearWebBooksTransaction(clientCode, str);

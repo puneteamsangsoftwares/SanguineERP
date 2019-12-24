@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	 
 <script type="text/javascript">
 	
 	var fieldName;
@@ -882,151 +892,105 @@
 
 </head>
 <body>
+	<div class="container transTable">
+		<label id="formHeading">JV</label>
+         <s:form name="JV" method="POST" action="saveJV.html">
 
-	<div id="formHeading">
-		<label>JV</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="JV" method="POST" action="saveJV.html">
-
-		<table class="transTable">
-			<tr>
-				<td>
-					<label>VouchNo</label>
-				</td>
-				<td >
+		 <div class="row">
+			<div class="col-md-3"><label>VouchNo</label>
 					<s:input  type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('UserCreatedJVNo');"/>
-				</td>
+			</div>
 				
-				<td>
-					<label>VouchDate</label>
-				</td>
-				<td>
-					<s:input  type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" />
-				</td>
-				<td>
-					<label>Initiated By </label>
-				</td>
-				<td colspan="4">
-					<label id="lblInitialtedby" >USER</label>
-				</td>
-			</tr>
-			<tr>
-				<td><label>Currency</label></td>
-				<td>
-				<s:select id="cmbCurrency" path="strCurrency" items="${currencyList}" cssClass="BoxW124px" onchange="funOnChangeCurrency()"></s:select>
-				<s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField" style="width:40px"></s:input></td>
-				<td>
-					<label>Narration</label>
-				</td>
-				<td colspan="5" >
-					<s:input type="text" id="txtNarration" path="strNarration" cssClass="remarkTextBox" />
-				</td>
-			</tr>
+			<div class="col-md-3"><label>VouchDate</label>
+				<s:input  type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" />
+			</div>
+				
+			<div class="col-md-3"><label>Initiated By </label><br>
+				  <label id="lblInitialtedby" style="background-color:#fff;width:100%">USER</label>
+			</div>
 			
-			<tr>
-				<td><label>User Created</label></td>
-				<td>
-					<s:input type="text" id="txtUserCreated" path="strUserCreated" cssClass="longTextBox" />
-				</td>
-				
-				<td><label>User Edited</label></td>
-				<td>
-					<s:input  type="text" id="txtUserEdited" path="strUserEdited" cssClass="longTextBox" />
-				</td>
-				
-				<td><label>Created Date</label></td>
-				<td>
-					<s:input  type="text" id="txtCreatedDate" path="dteDateCreated" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" />
-				</td>
-				
-				<td><label>Edited Date</label></td>
-				<td>
-					<s:input  type="text" id="txtEditedDate" path="dteDateEdited" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" />
-				</td>
-			</tr>
-			<tr></tr>
-			<tr></tr>
-		</table>
-
-		<br>
-		<br>
-		
-		<table class="transTable">
-		</table>
-
-	<div >
-		<table class="transTable">
-				
-			<tr>
-				<td width="10%"><label>Details</label></td>
-			</tr>
-				
-			<tr>
-				<td width="10%"><label>Account Code</label></td>
-				<td width="20%"><input id="txtAccCode" name="txtAccCode" ondblclick="funHelp('GLCode')" class="searchTextBox" /></td>
-				
-				<td width="10%">Description</td>
-				<td width="30%" colspan="1"><input id="txtDescription" name="txtDescription" style="width: 100%;"  class="remarkTextBox" /></td>
-				<td></td>
-				<td></td>			
-			</tr>
-			<tr>
-				<td width="10%"><label id="lblCrdDebCode">Debtor Code</label></td>
-				<td width="30%"><input id="txtDebtorCode"  name="txtDebtorCode" ondblclick="funHelp1()" class="searchTextBox" /></td>
-				<td><label id="lblCrdDebName"></label></td>
-				<td></td>
-				<td></td>
-				<td></td>	
-				
-			</tr>
+			<div class="col-md-3"><label>Narration</label>
+				 <s:input type="text" id="txtNarration" path="strNarration"/>
+			</div>
 			
-			<tr>
-				<td><label>Dr/Cr</label>
-				<td width="5%">
-					 <select id="cmbDrCr"  class="BoxW124px">
+			<div class="col-md-3"><label>User Created</label>
+				<s:input type="text" id="txtUserCreated" path="strUserCreated"/>
+			</div>
+				
+		    <div class="col-md-3"><label>User Edited</label>
+			     <s:input  type="text" id="txtUserEdited" path="strUserEdited"/>
+		    </div>
+				
+			<div class="col-md-3"><label>Created Date</label>
+				 <s:input  type="text" id="txtCreatedDate" path="dteDateCreated" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" />
+		    </div>
+				
+			<div class="col-md-3"><label>Edited Date</label>
+				  <s:input  type="text" id="txtEditedDate" path="dteDateEdited" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" />
+		    </div>
+		    
+		    <div class="col-md-3"><label>Currency</label>
+				<div class="row">
+			            <div class="col-md-8"><s:select id="cmbCurrency" path="strCurrency" items="${currencyList}" cssClass="BoxW124px" onchange="funOnChangeCurrency()"></s:select></div>
+				        <div class="col-md-4"><s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField"></s:input></div>
+			     </div>
+			</div>
+		</div>
+	     <br>
+	     
+		<div class="row">
+			<div class="col-md-12"><label><b>Details</b></label>
+			</div>
+				
+			<div class="col-md-3"><label>Account Code</label>
+				  <input id="txtAccCode" name="txtAccCode" ondblclick="funHelp('GLCode')" class="searchTextBox" />
+			</div>
+				
+		    <div class="col-md-3"><label>Description</label>
+				  <input id="txtDescription" name="txtDescription" style="width: 100%;"  class="remarkTextBox" />
+			</div>
+			
+			<div class="col-md-3"><label id="lblCrdDebCode">Debtor Code</label>
+			    <input id="txtDebtorCode"  name="txtDebtorCode" ondblclick="funHelp1()" class="searchTextBox" />
+				<label id="lblCrdDebName"></label>
+			</div>
+			
+			<div class="col-md-3"><label>Dr/Cr</label>
+				   <select id="cmbDrCr">
 						  <option value="Dr">Dr</option>
 						  <option value="Cr">Cr</option>
 					</select>
-				</td>
+			</div>
 				
-				<td width="10%"><label>Amount</label></td>
-				<td><input type="text" id="txtAmount" value="" class="decimal-places numberField"/></td>
-				
-				<td width="10%"><label>Dimension</label></td>
-				<td width="5%">
-					 <select id="cmbDimesion" class="BoxW124px">
+		    <div class="col-md-3"><label>Amount</label>
+				<input type="text" id="txtAmount" value="" class="decimal-places numberField"/>
+			</div>	
+			
+			<div class="col-md-3"><label>Dimension</label>
+			      <select id="cmbDimesion" class="BoxW124px">
 						  <option value=""></option>
 						  <option value=""></option>
 					</select>
-				</td>
-			</tr>
+		    </div>
+		    
+			<div class="col-md-3"><label>One Line Account</label>
+				   <input id="txtOneLineAcc" name="txtOneLineAcc" ondblclick="funHelp('oneLineAcc')" class="searchTextBox" />
+			</div>
 			
-			<tr>
-				<td><label>One Line Account</label></td>
-				<td><input id="txtOneLineAcc" name="txtOneLineAcc" ondblclick="funHelp('oneLineAcc')" class="searchTextBox" /></td>
-			
-				<td><label>Narration</label></td>
-				<td>
-					<input type="text" id="txtNarrationDtl" class="remarkTextBox" />
-				</td>
+			<div class="col-md-3"><label>Narration</label>
+				<input type="text" id="txtNarrationDtl" class="remarkTextBox" />
+			</div>
 				
-				<td colspan="3">
-					<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="smallButton" />
-				</td>
-			</tr>
-		</table>
-	</div>
-
-
+			<div class="col-md-12" align="right">
+					<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="btn btn-primary center-block" class="smallButton" />
+			</div>
+			
+		</div><br>
 	
 <div class="dynamicTableContainer" style="height: 300px;width: 99.80%;">
 		<table
 			style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-			<tr bgcolor="#72BEFC">
+			<tr bgcolor="#c0c0c0">
 				<td style="width:8.9%;">Account Code</td>
 				<td style="width:12%;">Debtor Code</td>
 				<td style="width:22%;">Description</td>
@@ -1042,7 +1006,7 @@
 			</tr>
 		</table>
 		
-		<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 			<table id="tblJVDetails"
 				style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 				class="transTablex col8-center">
@@ -1063,6 +1027,7 @@
 			</table>
 		</div>
 	</div>
+	
 		<table class="transTable">
 			<tr>
 				<td width="2%"><label>Difference</label></td>
@@ -1078,16 +1043,15 @@
 				</td>
 			</tr>
 		</table>
-	</div>
+	
 <input type="hidden" id="hidSundryType" ></input>
-	<p align="center">
-		<input type="submit" value="Submit" onclick="return funValidateHeaderFields(this)" tabindex="3" class="form_button" />
-		<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+	<p align="right">
+		<input type="submit" value="Submit" onclick="return funValidateHeaderFields(this)" tabindex="3" class="btn btn-primary center-block" class="form_button" />
+		<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 	</p>
 	
-<br />
-	<br /><br />
 	<br />
 	</s:form>
+</div>
 </body>
 </html>

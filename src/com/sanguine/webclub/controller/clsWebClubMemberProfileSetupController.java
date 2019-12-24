@@ -67,18 +67,21 @@ public class clsWebClubMemberProfileSetupController{
 			model.put("urlHits", urlHits);			
 			List<clsWebClubMemberProfileSetupBean> listWebClubMemberProfileModel = new ArrayList<>();
 			List<clsWebClubMemberProfileSetupBean> listOtherDtl = new ArrayList<>();
-			String WebPMSDB=request.getSession().getAttribute("WebPMSDB").toString();
+			String WebPMSDB=request.getSession().getAttribute("WebCLUBDB").toString();
 			
 			//member master
 		 	String sqlMemProSetup="SELECT * FROM "+WebPMSDB+".tblmempropertysetup ";
 			List listMemProSetup =objGlobalFunctionsService.funGetList(sqlMemProSetup);		
 			Map<String,String> hashMemProSetupFill = new LinkedHashMap<String,String>();
 			
-			for(int i=0;i<listMemProSetup.size();i++)
+			if(listMemProSetup!=null)
 			{
-				Object [] obj=(Object[]) listMemProSetup.get(i);
-				hashMemProSetupFill.put(obj[0].toString(),obj[1].toString());
-			}
+				for(int i=0;i<listMemProSetup.size();i++)
+				{
+					Object [] obj=(Object[]) listMemProSetup.get(i);
+					hashMemProSetupFill.put(obj[0].toString(),obj[1].toString());
+				}
+			}		
 				
 			String sqlMemMaster="SELECT * FROM "+WebPMSDB+".tblmembermaster ";
 			List listMemMaster =objGlobalFunctionsService.funGetList(sqlMemMaster);
@@ -359,7 +362,7 @@ public class clsWebClubMemberProfileSetupController{
 		objGlobal=new clsGlobalFunctions();
 		long lastNo=0;		
 		// Delete all table first all table data 
-		String WebClubDB=req.getSession().getAttribute("WebPMSDB").toString();
+		String WebClubDB=req.getSession().getAttribute("WebCLUBDB").toString();
 		objMemberProfileService.funExecuteQuery("DELETE FROM "+WebClubDB+".tblmempropertysetup ");
 		
 		//List<clsWebClubMemberProfileSetupBean> listWebClubMemberProfileModel = new ArrayList<>();		

@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@	taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	
 	var fieldName;
@@ -1362,198 +1372,136 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Receipt</label>
-	</div>
-
-<br/>
-<br/>
-
+<div class="container transTable">
+	<label id="formHeading">Receipt</label>
 	<s:form name="Receipt" method="POST" action="saveReceipt.html">
 
-		<table class="transTable">
-			<tr>
-				<td>
-					<label>Voucher No</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('ReceiptNo');"/>
-				</td>
-				
-				
-				<td>
-					<label>Voucher Date</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" />
-				</td>
-				
-				<td colspan="3"></td>
-			</tr>
+	  <div class="row">
+		   <div class="col-md-3"><label>Voucher No</label>
+				<s:input colspan="3" type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('ReceiptNo');"/>
+		    </div>
 			
-			<tr>
-				<td>
-					<label>CF Code</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtCFCode" path="strCFCode" cssClass="searchTextBox" ondblclick="funHelp('cashBankAccNo');"/>
-				</td>		
-				<td><label id="lblCFDesc"></label></td>
+			<div class="col-md-3"><label>Voucher Date</label>
+				<s:input colspan="3" type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" />
+			</div>
 				
-				<td>
-					<label id="lblBankBalAmt"  style="color:blue; font:bold; font-size:115%;" ></label>
-					
-				</td>
-				<td>
-					<label>Amt</label> &nbsp;&nbsp;&nbsp;&nbsp;
-					<s:input  type="number" step="0.0001" id="txtAmt" path="dblAmt" class="decimal-places numberField" onChange="funFillAmount()" value="0.00"/>
-				</td>
-				<td>
-					<label>Dr/Cr</label>
+			<div class="col-md-3"><label>CF Code</label>
+				<s:input colspan="3" type="text" id="txtCFCode" path="strCFCode" cssClass="searchTextBox" ondblclick="funHelp('cashBankAccNo');"/>
+			</div>
 				
-					<s:input colspan="3" type="text" id="txtCrDr" value="Dr" path="strCrDr" cssClass="longTextBox" readonly="true"/>
-				</td>
-				<td></td>
-			</tr>
+			<div class="col-md-3"><label id="lblCFDesc"></label>
+			       <label id="lblBankBalAmt"  style="color:blue; font:bold; font-size:115%;" ></label>
+			</div>
 			
-			<tr>
-				<td>
-					<label>Type</label>
-				</td>
-				<td>
-					<!-- <s:select id="txtType" path="strType" cssClass="BoxW124px"/> -->
-					<s:select id="cmbType" path="strType" class="BoxW124px" onchange="funSetTypeLabel()">
+			<div class="col-md-3"><label>Amt</label> <br>
+				<s:input  type="number" step="0.0001" id="txtAmt" path="dblAmt" class="decimal-places numberField" onChange="funFillAmount()" value="0.00"/>
+			</div>
+			
+			<div class="col-md-3"><label>Dr/Cr</label>
+				<s:input colspan="3" type="text" id="txtCrDr" value="Dr" path="strCrDr" cssClass="longTextBox" readonly="true"/>
+			</div>
+			
+			<div class="col-md-3"><label>Type</label>
+				<!-- <s:select id="txtType" path="strType" cssClass="BoxW124px"/> -->
+				<s:select id="cmbType" path="strType" class="BoxW124px" onchange="funSetTypeLabel()">
 						  <option value="Cash">Cash</option>
 						  <option value="Cheque">Cheque</option>
 						  <option value="Credit Card">Credit Card</option>
 						  <option value="NEFT">NEFT</option>
-					</s:select>
-				</td>
+				</s:select>
+			</div>
 			
-				<td><label id="lblTypeName"></label></td>
-				<td>
-					<s:input colspan="3" type="text" id="txtChequeNo" path="strChequeNo" cssClass="longTextBox" />
-				</td>
-				<td><label id="lblChequeDate">Cheque Date</label> </td>
-				<td>	<s:input colspan="3" type="text" id="txtChequeDate" path="dteChequeDate" cssClass="calenderTextBox" />
-				</td>
-				<td></td>
-			</tr>
+			<div class="col-md-3"><label id="lblTypeName"></label>
+			        <s:input colspan="3" type="text" id="txtChequeNo" path="strChequeNo" cssClass="longTextBox" />
+		     </div>
+			   
+			<div class="col-md-3"><label id="lblChequeDate">Cheque Date</label>
+			       <s:input colspan="3" type="text" id="txtChequeDate" path="dteChequeDate" cssClass="calenderTextBox" />
+			 </div>
+			 
+			<div class="col-md-3"><label>Drawn On</label>
+				     <s:input type="text" id="txtDrawnOn" path="strDrawnOn" cssClass="searchTextBox" ondblclick="funHelp('bankCode');"/>
+		     </div>
+		     
+		     <div class="col-md-3"><label id="lblDrawnOnDesc"></label>
+			</div>
 			
-			<tr>
-				<td>
-					<label>Drawn On</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtDrawnOn" path="strDrawnOn" cssClass="searchTextBox" ondblclick="funHelp('bankCode');"/>
-				</td>
-				<td colspan="2"><label id="lblDrawnOnDesc"></label></td>
-				<td>
-					<label>Branch</label></td>
-				<td><s:input  type="text" id="txtBranch" path="strBranch" cssClass="BoxW124px" />
-				</td>
-			<td></td>
-			</tr>
-			
-			<tr>
-				<td>
-					<label>Received From</label>
-				</td>
-				<td>
-					<s:input  type="text" id="txtReceivedFrom" path="strReceivedFrom" cssClass="BoxW124px" />
-				</td>
+		    <div class="col-md-3"><label>Branch</label>
+			         <s:input  type="text" id="txtBranch" path="strBranch" cssClass="BoxW124px" />
+			</div>
 				
-				<td>
-					<label>Narration</label>
-				</td>
-				<td>
-					<s:textarea id="txtNarration" path="strNarration" style="width: 72%;"/>
-				</td>
-			
-				<td colspan="3"></td>
+			<div class="col-md-3"><label>Received From</label>
+				     <s:input  type="text" id="txtReceivedFrom" path="strReceivedFrom" cssClass="BoxW124px" />
+			</div>
 				
-			</tr>
-			<tr>
-			<td width="10%"><label>Currency</label></td>
-			<td><s:select id="cmbCurrency" path="strCurrency" items="${currencyList}" cssClass="BoxW124px" onchange="funOnChangeCurrency()"></s:select></td>
-			<td><s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField" style="width:40px"></s:input></td>
-			<td colspan="4"></td>	
-			</tr>
+			<div class="col-md-3"><label>Narration</label><br>
+				     <s:textarea id="txtNarration" path="strNarration" style="width: 100%;"/>
+			</div>
 			
-		</table>
-
-		<br>
-		<br>
+			<div class="col-md-3"><label>Currency</label>
+			      <div class="row"><div class="col-md-8"><s:select id="cmbCurrency" path="strCurrency" items="${currencyList}" cssClass="BoxW124px" onchange="funOnChangeCurrency()"></s:select></div>
+			                       <div class="col-md-4"><s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField" style="width:40px"></s:input></div>
+		          </div>
+		    </div>	
+				
+		</div>
+       <br>
 		
-		<table class="transTable">
-		
-		
-		
-		</table>
-<div >
-	<ul class="tabs">
+	<!-- 	<table class="transTable">
+		</table> -->
+                 <div >
+	                     <ul class="tabs">
 									<li class="active" data-state="tab1"
 										style="width: 100px; padding-left: 55px">Details</li>
-									<li data-state="tab2" style="width: 100px; padding-left: 55px">Invoice</li>
-								</ul>
-		<div id="tab1" class="tab_content" style="height: 470px">
-
-
-	
-		<table class="transTable">
-				
-			<tr>
-				<td width="10%"><label>Account Code</label></td>
-				<td width="20%"><input id="txtAccCode" name="txtAccCode" ondblclick="funHelp('GLCode')" class="searchTextBox" /></td>
-<!-- 			<td width="10%">Description</td> -->
-				<td colspan="5" ><input id="txtDescription" name="txtDescription" Class="longTextBox"  /></td>
-					
-			</tr>
-			<tr>
-				
-				
-				
-				<td width="10%"><label id="lblCrdDebCode">Debtor Code</label></td>
-						<td ><s:input id="txtDebtorCode" readonly="readonly"  name="txtDebtorCode" ondblclick="funHelp1()" class="searchTextBox" path="strDebtorCode"/></td>
-					<td colspan="3" ><s:input id="txtDebtorName" name="txtDebtorName" readonly="true" cssClass="longTextBox" path="strDebtorName"></s:input></td>
-			<td><label id="lblBalanceAmt"  style="color:blue; font:bold;font-size: 115%;"  ></label></td>
-			</tr>
+									<li data-state="tab2" style="width: 100px; padding-left: 45px">Invoice</li>
+						</ul><br><br>
+		<div id="tab1" class="tab_content" style="height: 470px; margin-bottom:20px;">
+       
+        <div class="row" style="margin-top: 15px;">
+			<div class="col-md-6"><label>Account Code</label>
+				    <div class="row">
+			                  <div class="col-md-6"><input id="txtAccCode" name="txtAccCode" ondblclick="funHelp('GLCode')" class="searchTextBox" /></div>
+<!-- <td width="10%">Description</td> -->
+		                      <div class="col-md-6"><input id="txtDescription" name="txtDescription" Class="longTextBox"/></div>
+			   </div></div>
 			
-			<tr>
-				<td><label>Dr/Cr</label>
-				<td width="5%">
-					 <select id="cmbDrCr"  class="BoxW124px">
+				<div class="col-md-6"><label id="lblCrdDebCode">Debtor Code</label>
+					 <div class="row">
+			                  <div class="col-md-6"><s:input id="txtDebtorCode" readonly="readonly"  name="txtDebtorCode" ondblclick="funHelp1()" class="searchTextBox" path="strDebtorCode"/></div>
+					          <div class="col-md-6"><s:input id="txtDebtorName" name="txtDebtorName" readonly="true" cssClass="longTextBox" path="strDebtorName"></s:input></div>
+			  </div></div>
+			                 
+		      <div class="col-md-3"><label id="lblBalanceAmt"  style="color:blue; font:bold;font-size: 115%;"  ></label>
+		      </div>
+			
+		      <div class="col-md-3"><label>Dr/Cr</label>
+				      <select id="cmbDrCr"  class="BoxW124px">
 						  <option value="Cr">Cr</option>
 						  <option value="Dr">Dr</option>
 						  
 					</select>
-				</td>
+				</div>
 				
-				<td width="10%"><label>Amount</label></td>
-				<td><input type="text" id="txtAmount" value="" class="decimal-places numberField"/></td>
+			<div class="col-md-3"><label>Amount</label>
+				      <input type="text" id="txtAmount" value="" class="decimal-places numberField"/>
+			</div>
 				
-				<td width="10%"><label>Dimension</label></td>
-				<td width="5%">
-					 <select id="cmbDimesion" class="BoxW124px">
+		      <div class="col-md-3"><label>Dimension</label>
+				     <select id="cmbDimesion" class="BoxW124px">
 						  <option value="No">No</option>
 						  <option value="Yes">Yes</option>
 					</select>
-				</td>
-			</tr>
+				</div>
 			
-			<tr>
-				<td colspan="6">
-					<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="smallButton" />
-				</td>
-			</tr>
-		</table>
+		<div class="col-md-12" align="right">
+					<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="btn btn-primary center-block" class="smallButton" style="margin: 12px 200px;"/>
+	     </div>
+		</div>
 	
-
-	<div class="dynamicTableContainer" style="height: 300px;">
+	 <div class="dynamicTableContainer" style="height: 300px;">
 		<table
 			style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-			<tr bgcolor="#72BEFC">
+			<tr bgcolor="#c0c0c0">
 				<td style="width:5.5%;">Account Code</td>
 				<td style="width:5.3%;">Debtor Code</td>
 				<td style="width:24.8%;">Description</td>
@@ -1565,7 +1513,7 @@
 			</tr>
 		</table>
 		
-		<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 			<table id="tblReceiptDetails"
 				style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 				class="transTablex col8-center">
@@ -1606,29 +1554,27 @@
 	</div>	
 		
 		<div id="tab2" class="tab_content" style="height: 470px">
-		<table class="transTable">
-		<tr>
-		<td><label>Total Invoice Amount</label></td>
-		<td><input type="text" id="txtTotalInvAmount" readonly="readonly" value="0.00" class="decimal-places numberField"/></td>
+		 <div class="row" style="margin-top: 15px;">
+			 <div class="col-md-3"><label>Total Invoice Amount</label>
+		       <input type="text" id="txtTotalInvAmount" readonly="readonly" value="0.00" class="decimal-places numberField"/>
+		 </div>
 		
 		
-		<td><label>Get Amount</label></td>
-		<td><input type="text" id="txtInvGetAmount" value="0.00" class="decimal-places numberField"/></td>
+		<div class="col-md-3"><label>Get Amount</label>
+		      <input type="text" id="txtInvGetAmount" value="0.00" class="decimal-places numberField"/>
+		</div>
 		
 		
-		<td><input type="Button" value="Add" onclick="funSetInvPayAmt()" class="smallButton" /></td>
-		
-		</tr>
-		
-		
-		
-		<tr><td colspan="5">
-		<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 350px; overflow-x: hidden; overflow-y: scroll;">
+		<div class="col-md-3"><input type="Button" value="Add" onclick="funSetInvPayAmt()" class="btn btn-primary center-block" class="smallButton"  style="margin: 12px 200px;" />
+		</div>
+		</div>
+	<br>
+		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 350px; overflow-x: hidden; overflow-y: scroll;">
 		
 									<table id="" class="masterTable"
 										style="width: 100%; border-collapse: separate;">
 										<thead>
-											<tr bgcolor="#72BEFC">
+											<tr bgcolor="#c0c0c0">
 												<td width="5%"><input type="checkbox" checked="checked" 
 												id="chkInvALL"/>Select</td>
 												<td width="18%">Inv Code</td>
@@ -1645,33 +1591,27 @@
 									<table id="tblInv" class="masterTable"
 										style="width: 100%; border-collapse: separate;">
 		
-										<tr bgcolor="#72BEFC">
+										<tr bgcolor="#fafbfb">
 											
 		
 										</tr>
 									</table>
-								</div></td>
-								</tr>
-			</table>					
-		
+								</div>
+				
 		</div>
-		
-		
-		
 		
 	</div>
 <input type="hidden" id="hidInvYN" value="N"></input>
 <input type="hidden" id="hidSundryType" ></input>
 
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" onclick="return funValidateHeaderFields()" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="right">
+			<input type="submit" value="Submit" onclick="return funValidateHeaderFields()" tabindex="3" class="btn btn-primary center-block"  class="form_button" />
+			<input type="reset" value="Reset" class="btn btn-primary center-block"  class="form_button" onclick="funResetFields()"/>
 		</p>
  
 <br />
-	<br /><br />
 	<br />
 	</s:form>
+	</div>
 </body>
 </html>

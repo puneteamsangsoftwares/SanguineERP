@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <style type="text/css">  
    	
    	
@@ -376,59 +386,56 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Charge Processing</label>
-	</div>
-
-<br/>
-<br/>
-
+  <div class="container masterTable">
+	<label id="formHeading"> Charge Processing </label>
 	<s:form name="ChargeProcessing" method="POST" action="saveChargeProcessing.html"  >
 
-		<table class="masterTable">
-			<tr>
-			    <td><label>From Date</label></td>	
-			    <td colspan="3"><s:input type="text" id="txtFromDate" class="calenderTextBox" path="dteFromDate"  /></td>		    		  
-			</tr>
-			<tr>
-			    <td><label>To Date</label></td>	
-			    <td colspan="3"><s:input type="text" id="txtToDate" class="calenderTextBox" path="dteToDate"  /></td>		    		  
-			</tr>
-			<tr>
+		<div class="row">
+			<div class="col-md-3"><label>From Date</label>	
+			   		<s:input type="text" id="txtFromDate" class="calenderTextBox" path="dteFromDate"  />	    		  
+			</div>
+			
+			<div class="col-md-3"><label>To Date</label>	
+			    	<s:input type="text" id="txtToDate" class="calenderTextBox" path="dteToDate"  />		    		  
+			</div>
+			
+			<div class="col-md-3">
 			    <td><label>Generated On</label></td>	
-			    <td colspan="3"><s:input type="text" id="txtGeneratedOnDate" class="calenderTextBox" path="dteGeneratedOn" /></td>		    		  
-			</tr>		
-			<tr>
-			    <td><label >Member</label></td>
-			    <td style="width: 100px;" ><s:input id="txtMemberCode" path="strMemberCode" readonly="true" ondblclick="funHelp('memberCode')" cssClass="searchTextBox"/></td>			        			        
-			    <td colspan="2"><s:input id="txtMemberName" path="strMemberName" required="true" readonly="true"  cssClass="longTextBox" cssStyle="width:68%"/></td>			    		        			   
-			</tr>	
+			    <td colspan="3"><s:input type="text" id="txtGeneratedOnDate" class="calenderTextBox" path="dteGeneratedOn" />		    		  
+			</div>	
 			
-		
-			<tr>
-			    <td><label >Account</label></td>
-			    <td style="width: 100px;" ><s:input id="txtAccountCode" path="strAccountCode" readonly="true" ondblclick="funHelp('debtorAccountCode')" cssClass="searchTextBox"/></td>			        			        
-			    <td colspan="2"><s:input id="txtAccountName" path="strAccountName" required="true" readonly="true"  cssClass="longTextBox" cssStyle="width:68%"/></td>			    		        			   
-			</tr>	
+			<div class="col-md-3"></div>	
+			
+			<div class="col-md-6"><label >Member</label>
+			    <div class="row">
+			    <div class="col-md-6"><s:input id="txtMemberCode" path="strMemberCode" readonly="true" ondblclick="funHelp('memberCode')" cssClass="searchTextBox"/></div>			        			        
+			    <div class="col-md-6"><s:input id="txtMemberName" path="strMemberName" required="true" readonly="true"  cssClass="longTextBox" cssStyle="width:100%; height:90%;"/></div>			    		        			   
+			</div></div>	
+	
+			<div class="col-md-6"><label >Account</label>
+			   <div class="row">
+			    <div class="col-md-6"><s:input id="txtAccountCode" path="strAccountCode" readonly="true" ondblclick="funHelp('debtorAccountCode')" cssClass="searchTextBox"/></div>			        			        
+			    <div class="col-md-6"><s:input id="txtAccountName" path="strAccountName" required="true" readonly="true"  cssClass="longTextBox" cssStyle="width:100%; height:90%;"/></div>			    		        			   
+			</div></div>
 															
+		 	 <div class="col-md-3"><label>Instant JV</label><br>	
+			    <s:checkbox id="chkInstantJV" value=""  path="strInstantJVYN" onclick="funSetCheckBoxValueYN(this)"/>
+			</div>
 			
-			<tr>
-			    <td><label>Instant JV</label></td>	
-			    <td><s:checkbox id="chkInstantJV"  path="strInstantJVYN" onclick="funSetCheckBoxValueYN(this)"/></td>
-			    <td style="width: 100px;" ><label>Other Functions</label></td>	
-			    <td><s:select id="cmbOtherFunctions" path="strOtherFunctions" items="${listOtherFunctions}" cssClass="BoxW124px" /></td>		    		  
-			</tr>
-			<tr>
-			    <td style="width: 150px"><label>Annual Charge Processing</label></td>	
-			    <td colspan="3"><s:checkbox  id="chkAnnualChargeProcessing"  path="strAnnualChargeProcessYN" onclick="funSetCheckBoxValueYN(this)"/></td>			    		    		 
-			</tr>
-		</table>
+			<div class="col-md-3"><label>Annual Charge Processing</label><br>	
+			    <s:checkbox  id="chkAnnualChargeProcessing" value="" path="strAnnualChargeProcessYN" onclick="funSetCheckBoxValueYN(this)"/>			    		    		 
+			</div> 
+			
+			 <div class="col-md-3"><label>Other Functions</label>
+			    <s:select id="cmbOtherFunctions" path="strOtherFunctions" items="${listOtherFunctions}" cssClass="BoxW124px" />		    		  
+			</div>
+			
+		</div>
          <br>
          <br>
         
-  		 <div style="background-color: #a4d7ff;border: 1px solid #ccc;display: block; height: 150px;
-				    				margin: auto;overflow-x: scroll; overflow-y: scroll;width: 80%;">
+  		 <div style="background-color: #fafbfb;border: 1px solid #ccc;display: block; height: 150px;
+				    				margin: auto;overflow-x: scroll; overflow-y: scroll;width: 100%;">
 				<!-- Dynamic Table Generation for tab4 (Opening Balance)				 -->
 				<table id="tblChargeProcessing" class="transTablex" style="width: 100%" >					
 					
@@ -496,14 +503,13 @@
 			</div>
 		</div> --%>
 			
-        
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funCheckValidation()"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+       <br />
+	  <p align="right"> 
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCheckValidation()"/>
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+   </div>
 </body>
 </html>

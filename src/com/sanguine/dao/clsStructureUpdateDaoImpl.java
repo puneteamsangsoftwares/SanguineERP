@@ -9,10 +9,13 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sanguine.model.clsCompanyMasterModel;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.service.clsSetupMasterService;
+import com.sanguine.webclub.service.clsWebClubOtherFieldCreationService;
 
 @Repository("clsStructureUpdateDao")
 public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
@@ -33,6 +36,10 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 
 	@Autowired
 	private clsSetupMasterService objSetupMasterService;
+	
+	@Autowired
+	private clsWebClubOtherFieldCreationService objWebClubOtherFieldCreationService;
+	 
 
 	@Override
 	public void funUpdateStructure(String clientCode, HttpServletRequest req) {
@@ -2124,7 +2131,1530 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		/*----------------Excise Forms End---------------------------*/
 
 		/*----------------WebClub Forms Only---------------------------*/
-		sql = " INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`) VALUES "
+		
+		
+		sql = "INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`, `strInvoice`, `strDeliverySchedule`, `strFormAccessYN`) VALUES  "
+				+ " ('frmCompanyMaster', 'Company Master', 'Master', 1, 'M', 1, 10, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmCompanyMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmCompanyTypeMaster', 'Company Type Master', 'Master', 1, 'M', 1, 12, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmCompanyTypeMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmEditOtherInfo', 'Edit Other Info', 'Master', 1, 'M', 1, 15, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmEditOtherInfo.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmLockerMaster', 'Locker Master', 'Master', 1, 'M', 1, 13, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmLockerMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmMemberExplorer', 'Member Explorer', 'Reports', 1, 'R', 1, 14, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmMemberExplorer.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmOtherFieldCreation', 'Other Info Master', 'Master', 1, 'M', 1, 1, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmOtherFieldCreation.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmSubCategoryMaster', 'Sub Category Master', 'Master', 1, 'M', 1, 11, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmSubCategoryMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubBankMaster', 'Bank Master', 'Master', 1, 'M', 1, 1, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmWebClubBankMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubBusinessSourceMaster', 'Business Source Master', 'Master', 1, 'M', 1, 1, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmWebClubBusinessSourceMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubDependentMaster', 'Dependent Master', 'Master', 1, 'M', 1, 2, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmDependentMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubFacilityMaster', 'Facility Master', 'Master', 1, 'M', 1, 3, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmWebClubFacilityMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubGeneralMaster', 'General Master', 'Master', 1, 'M', 1, 9, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmGeneralMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubGroupMaster', 'Group Master', 'Master', 1, 'M', 1, 7, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmWebClubGroupMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubMemberCategoryMaster', 'Member Category Master', 'Master', 1, 'M', 1, 3, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmMemberCategoryMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubMemberHistory', 'Member History', 'Master', 1, 'M', 1, 4, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmMemberHistory.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubMemberPreProfile', 'Member Pre-Profile', 'Master', 1, 'M', 1, 5, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmMemberPreProfile.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubMemberProfile', 'Member Profile', 'Master', 1, 'M', 1, 1, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmMemberProfile.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubMemberProfileSetup', 'Member Profile Setup', 'Tools', 3, 'L', 1, 1, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmWebClubMemberProfileSetup.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubMembershipFormGenration', 'Membership Form Genration', 'Master', 1, 'M', 1, 6, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmMembershipFormGenration.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubPDC', 'Post Dated Cheque(PDC)', 'Master', 1, 'M', 1, 1, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmWebClubPDC.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubPDCFlash', 'PDC Flash', 'Reports', 3, 'R', 1, 1, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmWebClubPDCFlash.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubPersonMaster', 'Person Master', 'Master', 1, 'M', 1, 8, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmWebClubPersonMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubSecurityShellMaster', 'Security Shell', 'Master', 1, 'M', 1, 10, '1', 'default.png', '4', 1, '1', '1', 'NO', 'YES', 'frmWebClubSecurityShell.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
+
+		funExecuteQuery(sql);
+		
+		/*
+		sql = "CREATE TABLE `tblbusinesssource` ("
+				+ "`strBusinessSrcCode` VARCHAR(20) NOT NULL,"
+				+ "`strBusinessSrcName` VARCHAR(100) NOT NULL,"
+				+ "`dblPercent` DOUBLE NOT NULL,"
+				+ "`dteDateCreated` VARCHAR(50) NOT NULL,"
+				+ "`dteDateEdited` VARCHAR(50) NOT NULL,"
+				+ "`strUserCreated` VARCHAR(50) NOT NULL,"
+				+ "`strUserEdited` VARCHAR(50) NOT NULL,"
+				+ "`strClientCode` VARCHAR(50) NOT NULL,"
+				+ "PRIMARY KEY (`strClientCode`, `strBusinessSrcCode`)) "
+				+ "COLLATE='latin1_swedish_ci' "
+				+ "ENGINE=InnoDB ;";
+		
+		funExecuteWebClubQuery(sql);*/
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblareamaster` ("
+				+ "`strAreaCode` VARCHAR(10) NOT NULL,"
+				+ "`strAreaName` VARCHAR(50) NOT NULL DEFAULT '',"
+				+ "`strCityCode` VARCHAR(10) NOT NULL DEFAULT '',"
+				+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+				+ "`dtCreatedDate` DATETIME NOT NULL,"
+				+ "`strUserModified` VARCHAR(20) NOT NULL,"
+				+ "`dtLastModified` DATETIME NOT NULL,"
+				+ "`strClientCode` VARCHAR(20) NOT NULL,"
+				+ "`strPropertyCode` VARCHAR(20) NOT NULL DEFAULT '',"
+				+ "`intGId` BIGINT(20) NOT NULL,"
+				+ "PRIMARY KEY (`strAreaCode`, `strClientCode`)"
+				+ ")"
+				+ "COLLATE='latin1_swedish_ci'"
+				+ "ENGINE=InnoDB"
+				+ ";";
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+
+			
+		sql = "CREATE TABLE IF NOT EXISTS `tblbusinesssource` ("
+			+ "`strBusinessSrcCode` VARCHAR(255) NOT NULL,"
+			+ "`strClientCode` VARCHAR(255) NOT NULL,"
+			+ "`dblPercent` DOUBLE NULL DEFAULT NULL,"
+			+ "`dteDateCreated` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`dteDateEdited` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`strBusinessSrcName` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`strUserCreated` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`strUserEdited` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`intId` BIGINT(20) NULL DEFAULT NULL,"
+			+ "PRIMARY KEY (`strBusinessSrcCode`, `strClientCode`)" 
+			+")"
+			+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+		
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblcategeorywisefacilitydtl` ("
+			+ "`strCatCode` VARCHAR(255) NOT NULL,"
+			+ "`strClientCode` VARCHAR(255) NOT NULL,"
+			+ "`strFacilityCode` VARCHAR(255) NOT NULL,"
+			+ "`strFacilityName` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`strOperationalYN` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "PRIMARY KEY (`strCatCode`, `strClientCode`, `strFacilityCode`)" 
+			+")"
+			+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+		
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+			
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblcitymaster` ("
+			+ "`strCityCode` VARCHAR(10) NOT NULL,"
+			+ "`strCityName` VARCHAR(50) NOT NULL,"
+			+ "`strCountryCode` VARCHAR(10) NOT NULL,"
+			+ "`strStateCode` VARCHAR(10) NOT NULL,"
+			+ "`strSTDCode` VARCHAR(10) NOT NULL,"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dtCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dtLastModified` DATETIME NOT NULL,"
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "PRIMARY KEY (`strCityCode`, `strClientCode`)" 
+			+")"
+			+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblcommitteedtl` ("
+			+ "`strCommitteeCode` VARCHAR(10) NOT NULL,"
+			+ "`strMemberCode` VARCHAR(10) NOT NULL,"
+			+ "`strMemberName` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strRoleCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL,"
+			+ "`intId` BIGINT(20) NOT NULL,"
+			+ "PRIMARY KEY (`intId`)"
+			+")"
+			+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";"; 
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblcommitteemaster` ("
+			+ "`strCommitteeCode` VARCHAR(10) NOT NULL,"
+			+ "`strCommitteeName` VARCHAR(50) NOT NULL,"
+			+ "`strType` VARCHAR(4) NOT NULL,"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyID` VARCHAR(20) NOT NULL,"
+			+ "`chrIsActive` CHAR(1) NOT NULL DEFAULT 'Y',"
+			+ "PRIMARY KEY (`strCommitteeCode`, `strClientCode`)" 
+			+")"
+			+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";"; 
+		
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblcommitteememberrolemaster` ("
+			+ "`strRoleCode` VARCHAR(10) NOT NULL,"
+			+ "`strRoleDesc` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`intRoleRank` BIGINT(10) NOT NULL DEFAULT '0',"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL,"
+			+ "`intID` BIGINT(20) NULL DEFAULT NULL,"
+			+ "PRIMARY KEY (`strRoleCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblcompanymaster` ("
+			+ "`strCompanyCode` VARCHAR(10) NOT NULL,"
+			+ "`strCompanyName` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strAddress1` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strAddress2` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strAddress3` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strLandmark` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strAreaCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strCityCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strStateCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strRegionCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strCountryCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strPin` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strTelephone1` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strTelephone2` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strFax1` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strFax2` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strMemberCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strActiveNominee` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strCategoryCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strCompanyType` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`dblAnnualTrunover` DECIMAL(18,2) NOT NULL DEFAULT '0.00',"
+			+ "`dblCapital` DECIMAL(18,2) NOT NULL DEFAULT '0.00',"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "PRIMARY KEY (`strCompanyCode`, `strClientCode`)" 
+			+")"
+			+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblcompanytypemaster` ("
+			+ "`strCompanyTypeCode` VARCHAR(10) NOT NULL,"
+			+ "`strCompanyName` CHAR(50) NOT NULL DEFAULT '',"
+			+ "`strAnnualTurnOver` DECIMAL(18,2) NOT NULL DEFAULT '0.00',"
+			+ "`strCapitalAndReserved` DECIMAL(18,2) NOT NULL DEFAULT '0.00',"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL,"
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "PRIMARY KEY (`strCompanyTypeCode`, `strClientCode`)" 
+			+")"
+			+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblcountrymaster` ("
+			+ "`strCountryCode` VARCHAR(10) NOT NULL,"
+			+ "`strCountryName` VARCHAR(50) NOT NULL,"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dtCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dtLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "PRIMARY KEY (`strCountryCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";"; 
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblcurrencydetails` ("
+			+ "`strCurrcode` VARCHAR(10) NOT NULL,"
+			+ "`strDesc` VARCHAR(50) NOT NULL,"
+			+ "`strCurrunit` VARCHAR(20) NOT NULL,"
+			+ "`strExchangeRate` VARCHAR(10) NOT NULL ,"
+			+ "`strTraChkRate` VARCHAR(10) NOT NULL ,"
+			+ "`intDec` INT(11) NOT NULL,"
+			+ "`intId` BIGINT(20) NOT NULL,"
+			+ "`strShortDesc` VARCHAR(50) NOT NULL,"
+			+ "`strLongDeciDesc` VARCHAR(50) NOT NULL,"
+			+ "`strShortDeciDesc` VARCHAR(50) NOT NULL,"
+			+ "`dteUserCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserCreated` VARCHAR(50) NOT NULL,"
+			+ "`strClientCode` VARCHAR(50) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(50) NOT NULL,"
+			+ "`dteCreatedDate` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`dteLastModifiedDate` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`strUserModified` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "PRIMARY KEY (`strClientCode`, `strCurrcode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tbldependentmaster` ("
+			+ "`strMemberCode` VARCHAR(10) NOT NULL,"
+			+ "`strDependentMemberCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strDependentName` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`dtDateofBirth` DATETIME NULL DEFAULT NULL,"
+			+ "`strGender` VARCHAR(1) NOT NULL DEFAULT '',"
+			+ "`strDepedentRelation` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strMaritalStatus` VARCHAR(1) NOT NULL DEFAULT '',"
+			+ "`strProfessionCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`dteMembershipExpiryDate` DATETIME NULL DEFAULT NULL,"
+			+ "`strBlocked` VARCHAR(1) NOT NULL DEFAULT '',"
+			+ "`dteMemberBlockDate` DATETIME NULL DEFAULT NULL,"
+			+ "`StrBlockedreasonCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(50) NOT NULL,"
+			+ "`strUserModified` VARCHAR(50) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`dteModifiedDate` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(50) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(10) NOT NULL,"
+			+ "PRIMARY KEY (`strDependentMemberCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tbldesignationmaster` ("
+			+ "`strDesignationCode` VARCHAR(10) NOT NULL,"
+			+ "`strDesignationName` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL,"
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "PRIMARY KEY (`strDesignationCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tbleditotherinfo` ("
+			+ "`strMemberCode` VARCHAR(10) NOT NULL,"
+			+ "`dteAddressChangeDate` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',"
+			+ "`strBloodGroupMember` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strCarSticker1` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strCarSticker2` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strCarSticker3` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strCarSticker4` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`dblChidDepositeAmt` DECIMAL(18,2) NOT NULL DEFAULT '0.00',"
+			+ "`strChidDepositeCategory` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`dteChidDepositeRecepitDate` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',"
+			+ "`strChidDepositeRecepitNo` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`dteCorporateEndingDate` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',"
+			+ "`dteCorporateStartingDate` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',"
+			+ "`strElectionName` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`dteEligibilityDate` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',"
+			+ "`dteMaturityDate` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',"
+			+ "`strMrAndMrs` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`dteMembershipCancelledDate` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',"
+			+ "`strOldCategory` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`dteReInStatementDate` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',"
+			+ "`strSenior` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`dteSeniorDate` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',"
+			+ "`strSeniorFlag` VARCHAR(3) NOT NULL DEFAULT '',"
+			+ "`strSenoirMember` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strStatusCorporateNomineeMship` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strTransferFlag` VARCHAR(3) NOT NULL DEFAULT '',"
+			+ "`strNomineeName` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strOutStationMember` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strSecurityDeposit` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strSuperSenior` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "PRIMARY KEY (`strMemberCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tbleducationmaster` ("
+			+ "`strEducationCode` VARCHAR(10) NOT NULL,"
+			+ "`strEducationDesc` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL,"
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "PRIMARY KEY (`strEducationCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblfacilitymaster` ("
+			+ "`strClientCode` VARCHAR(255) NOT NULL,"
+			+ "`strFacilityCode` VARCHAR(255) NOT NULL,"
+			+ "`dteDateCreated` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`dteDateEdited` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`intGId` BIGINT(20) NULL DEFAULT NULL,"
+			+ "`strFacilityName` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`strOperationalNY` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`strUserCreated` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`strUserEdited` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "PRIMARY KEY (`strClientCode`, `strFacilityCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";"; 
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblgroupmaster` ("
+			+ "`strClientCode` VARCHAR(10) NOT NULL,"
+			+ "`strGroupCode` VARCHAR(10) NOT NULL,"
+			+ "`dtCreatedDate` DATETIME NOT NULL,"
+			+ "`dtLastModified` DATETIME NOT NULL,"
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "`strCategory` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strCrDr` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strGroupName` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strPropertyCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strShortName` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "PRIMARY KEY (`strClientCode`, `strGroupCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";"; 
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblinvitedby` ("
+			+ "`strInvCode` VARCHAR(10) NOT NULL,"
+			+ "`strInvName` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`strMecompCode` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL,"
+			+ "`intId` BIGINT(20) NOT NULL,"
+			+ "`dteLastModifiedDate` DATETIME NOT NULL,"
+			+ "PRIMARY KEY (`strInvCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblitemcategory` ("
+			+ "`strCategoryName` VARCHAR(60) NOT NULL,"
+			+ "`strAccountIn` VARCHAR(50) NOT NULL,"
+			+ "`strGLCode` VARCHAR(16) NOT NULL,"
+			+ "`strSideledgerCode` VARCHAR(9) NOT NULL,"
+			+ "`strTaxcode` VARCHAR(32) NOT NULL,"
+			+ "`strTaxtype` VARCHAR(20) NOT NULL,"
+			+ "`strAdduserId` VARCHAR(10) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`dteModifiedDate` DATETIME NOT NULL,"
+			+ "`strUserCreated` VARCHAR(50) NOT NULL,"
+			+ "`strUserModified` VARCHAR(50) NOT NULL,"
+			+ "`intRowId` INT(11) NOT NULL,"
+			+ "`strItemTypeCode` VARCHAR(50) NOT NULL,"
+			+ "`strTaxName` VARCHAR(20) NOT NULL,"
+			+ "`strCatItemType` VARCHAR(25) NOT NULL,"
+			+ "`strDisAccIn` VARCHAR(16) NOT NULL,"
+			+ "`strFreeze` VARCHAR(10) NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL,"
+			+ "`IntId` BIGINT(20) NOT NULL,"
+			+ "`strItemCategoryCode` VARCHAR(255) NOT NULL,"
+			+ "`dteLastModifiedDate` VARCHAR(255) NOT NULL,"
+			+ "`strItemCategoryName` VARCHAR(255) NOT NULL,"
+			+ "`strItemCategory` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "PRIMARY KEY (`strClientCode`, `strItemCategoryCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tbllockermaster` ("
+			+ "`strLockerCode` VARCHAR(10) NOT NULL,"
+			+ "`strLockerName` CHAR(50) NOT NULL DEFAULT '',"
+			+ "`strLockerDesc` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "PRIMARY KEY (`strLockerCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblmaritalstatusmaster` ("
+			+ "`strMaritalCode` VARCHAR(10) NOT NULL,"
+			+ "`strMaritalName` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL,"
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "PRIMARY KEY (`strMaritalCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblmemberformgeneration` ("
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "`intFormNo` BIGINT(20) NOT NULL,"
+			+ "`strPrint` VARCHAR(50) NOT NULL DEFAULT 'Y',"
+			+ "`strBusinessSourceCode` VARCHAR(50) NOT NULL DEFAULT 'Y',"
+			+ "`strRePrint` VARCHAR(50) NOT NULL DEFAULT 'Y',"
+			+ "`dtePrintDate` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strMemberCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(50) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(50) NOT NULL,"
+			+ "`intReprintCount` BIGINT(20) NOT NULL DEFAULT '0',"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL,"
+			+ "`strProspectName` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strCategoryCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "PRIMARY KEY (`intGId`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblmemberm` ("
+			+ "`strCustomerCode` VARCHAR(10) NOT NULL,"
+			+ "`strMemberCode` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`strPrefixCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strFirstName` VARCHAR(50) NULL DEFAULT NULL,"
+			+ "`strMiddleName` VARCHAR(45) NULL DEFAULT NULL,"
+			+ "`strLastName` VARCHAR(50) NULL DEFAULT NULL,"
+			+ "`strNameOnCard` VARCHAR(150) NULL DEFAULT NULL,"
+			+ "`strFullName` VARCHAR(150) NULL DEFAULT NULL,"
+			+ "`strResidentAddressLine1` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`strResidentAddressLine2` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`strResidentAddressLine3` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`strResidentLandMark` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`strResidentAreaCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strResidentCtCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strResidentStateCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strResidentRegionCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strResidentCountryCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strResidentPinCode` VARCHAR(50) NULL DEFAULT NULL,"
+			+ "`strResidentTelephone1` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`strResidentTelephone2` VARCHAR(20) NULL DEFAULT NULL ,"
+			+ "`strResidentFax1` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strResidentFax2` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strResidentMobileNo` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`strResidentEmailID` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`strCompanyCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strCompanyName` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`strHoldingCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strJobProfileCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strCompanyAddressLine1` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`strCompanyAddressLine2` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`strCompanyAddressLine3` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`strCompanyLandMark` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`strCompanyAreaCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strCompanyCtCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strCompanyStateCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strCompanyRegionCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strCompanyCountryCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strCompanyPinCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strCompanyTelePhone1` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`strCompanyTelePhone2` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`strCompanyFax1` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strCompanyFax2` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strCompanyMobileNo` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`strCompanyEmailID` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`strBillingAddressLine1` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`strBillingAddressLine2` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`strBillingAddressLine3` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`strBillingLandMark` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`strBillingAreaCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strBillingCtCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strBillingStateCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strBillingRegionCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strBillingCountryCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strBillingPinCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strBillingTelePhone1` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`strBillingTelePhone2` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`strBillingFax1` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strBillingFax2` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strBillingMobileNo` VARCHAR(25) NULL DEFAULT NULL,"
+			+ "`strBillingEmailID` VARCHAR(100) NULL DEFAULT NULL,"
+			+ "`dtDateofBirth` DATETIME NULL DEFAULT NULL,"
+			+ "`strGender` VARCHAR(1) NULL DEFAULT NULL,"
+			+ "`strMaritalStatus` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`strProfessionCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`dtAnniversaryDate` DATETIME NULL DEFAULT NULL,"
+			+ "`strCategoryCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`dtInterviewDate` DATETIME NULL DEFAULT NULL,"
+			+ "`strPanNumber` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strProposerCode` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`strSeconderCode` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`dtMembershipStartDate` DATETIME NULL DEFAULT NULL,"
+			+ "`dtMembershipEndDate` DATETIME NULL DEFAULT NULL,"
+			+ "`strBlocked` VARCHAR(1) NULL DEFAULT NULL ,"
+			+ "`strBlockedreasonCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strLiquorPermitNo` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`dtPermitExpDate` DATETIME NULL DEFAULT NULL,"
+			+ "`strQualification` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strResNonRes` VARCHAR(1) NULL DEFAULT NULL,"
+			+ "`strDesignationCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strLocker` VARCHAR(1) NULL DEFAULT NULL,"
+			+ "`strLibrary` VARCHAR(1) NULL DEFAULT NULL,"
+			+ "`strBillingFlag` VARCHAR(1) NULL DEFAULT NULL,"
+			+ "`strInstation` VARCHAR(1) NULL DEFAULT NULL,"
+			+ "`strSeniorCitizen` VARCHAR(1) NULL DEFAULT NULL,"
+			+ "`dblEntranceFee` DECIMAL(18,0) NULL DEFAULT NULL,"
+			+ "`dblSubscriptionFee` DECIMAL(18,0) NULL DEFAULT NULL,"
+			+ "`strGolfMemberShip` VARCHAR(1) NULL DEFAULT NULL,"
+			+ "`strStopCredit` VARCHAR(1) NULL DEFAULT NULL,"
+			+ "`dtProfileCreationDate` DATETIME NULL DEFAULT NULL,"
+			+ "`strSalesStaffCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strDependentYesNo` VARCHAR(1) NULL DEFAULT NULL,"
+			+ "`strAttachment` VARCHAR(1) NULL DEFAULT NULL,"
+			+ "`strRemark` VARCHAR(300) NULL DEFAULT NULL,"
+			+ "`strPhoto` VARCHAR(50) NULL DEFAULT NULL,"
+			+ "`strDebtorCode` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`strCustomerID` VARCHAR(2) NULL DEFAULT NULL,"
+			+ "`strPrimaryCustomerCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strGuestEntry` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strDepedentRelation` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strDependentMemberCode` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`dtMembershipExpiryDate` DATETIME NULL DEFAULT NULL,"
+			+ "`strFatherMemberCode` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`dblCMSBalance` DECIMAL(18,0) NULL DEFAULT NULL,"
+			+ "`strUserCreated` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`dtCreationDate` DATETIME NULL DEFAULT NULL,"
+			+ "`strUserModified` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`dtModifiedDate` DATETIME NULL DEFAULT NULL,"
+			+ "`strClientId` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`strPropertyId` VARCHAR(10) NULL DEFAULT NULL,"
+			+ "`dtMemberBlockDate` DATETIME NULL DEFAULT NULL,"
+			+ "`StrAlternateMemberCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`StrMemberStatusCode` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`StrLikes` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`StrDisLikes` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`StrSendInvThrough` VARCHAR(1) NULL DEFAULT NULL,"
+			+ "`StrSendCircularNoticeThrough` VARCHAR(1) NULL DEFAULT NULL,"
+			+ "`StrVirtualAccountCode` VARCHAR(20) NULL DEFAULT NULL"
+			+")"
+			+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		/*sql = "CREATE TABLE IF NOT EXISTS `tblmembermaster` ("
+			+ "`strClientCode` VARCHAR(10) NOT NULL,"
+			+ "`strMemberCode` VARCHAR(50) NOT NULL,"
+			+ "`strCustomerCode` VARCHAR(10) NOT NULL,"
+			+ "`intGId` BIGINT(20) NOT NULL AUTO_INCREMENT,"
+			+ "`strFirstName` VARCHAR(100) NOT NULL,"
+			+ "`strFullName` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strLastName` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strMiddleName` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strPrefixCode` VARCHAR(15) NOT NULL DEFAULT '',"
+			+ "`strPropertyCode` VARCHAR(10) NOT NULL,"
+			+ "`strUserModified` VARCHAR(10) NOT NULL,"
+			+ "`strUserCreated` VARCHAR(10) NOT NULL,"
+			+ "`strResidentAddressLine1` VARCHAR(500) NOT NULL,"
+			+ "`strResidentAddressLine2` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strResidentAddressLine3` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strResidentAreaCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strResidentAreaName` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strResidentCtCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strResidentCtName` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strResidentStateCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strResidentStateName` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strResidentCountryCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strResidentCountryName` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strResidentRegionCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strResidentRegionName` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strResidentEmailID` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strResidentFax1` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strResidentFax2` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strResidentLandMark` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strResidentMobileNo` VARCHAR(50) NOT NULL,"
+			+ "`strResidentPinCode` VARCHAR(10) NOT NULL,"
+			+ "`strResidentTelephone1` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strResidentTelephone2` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strCompanyAddressLine1` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strCompanyAddressLine2` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strCompanyAddressLine3` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strCompanyCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strCompanyAreaCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strCompanyAreaName` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strCompanyCtCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strCompanyCtName` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strCompanyStateCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strCompanyStateName` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strCompanyCountryCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strCompanyCountryName` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strCompanyRegionCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strCompanyRegionName` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strCompanyEmailID` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strCompanyFax1` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strCompanyFax2` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strCompanyLandMark` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strCompanyMobileNo` VARCHAR(15) NOT NULL DEFAULT '',"
+			+ "`strCompanyName` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strCompanyPinCode` VARCHAR(15) NOT NULL DEFAULT '',"
+			+ "`strCompanyTelePhone1` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strCompanyTelePhone2` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strHoldingCode` VARCHAR(15) NOT NULL DEFAULT '',"
+			+ "`strJobProfileCode` VARCHAR(15) NOT NULL DEFAULT '',"
+			+ "`strBillingAddressLine1` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strBillingAddressLine2` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strBillingAddressLine3` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strBillingAreaCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strBillingAreaName` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strBillingCtCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strBillingCtName` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strBillingStateCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strBillingStateName` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strBillingCountryCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strBillingCountryName` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strBillingRegionCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strBillingRegionName` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strBillingEmailID` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strBillingFax1` VARCHAR(15) NOT NULL DEFAULT '',"
+			+ "`strBillingFax2` VARCHAR(15) NOT NULL DEFAULT '',"
+			+ "`strBillingFlag` VARCHAR(3) NOT NULL DEFAULT 'N',"
+			+ "`strBillingLandMark` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strBillingMobileNo` VARCHAR(15) NOT NULL DEFAULT '',"
+			+ "`strBillingPinCode` VARCHAR(15) NOT NULL DEFAULT '',"
+			+ "`strBillingTelePhone1` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strBillingTelePhone2` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strGender` VARCHAR(5) NOT NULL,"
+			+ "`strMaritalStatus` VARCHAR(15) NOT NULL,"
+			+ "`strProfessionCode` VARCHAR(15) NOT NULL DEFAULT '',"
+			+ "`dblEntranceFee` DECIMAL(18,4) NOT NULL DEFAULT '0.0000',"
+			+ "`dblSubscriptionFee` DECIMAL(18,4) NOT NULL DEFAULT '0.0000',"
+			+ "`strAttachment` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strBlocked` VARCHAR(1) NOT NULL DEFAULT '',"
+			+ "`strBlockedreasonCode` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strDesignationCode` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strFatherMemberCode` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strCategoryCode` VARCHAR(500) NOT NULL DEFAULT '',"
+			+ "`strGolfMemberShip` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strResident` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strInstation` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strLibrary` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strLocker` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strPanNumber` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strProposerCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strQualification` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strResNonRes` VARCHAR(1) NOT NULL DEFAULT 'Y',"
+			+ "`strSeconderCode` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strSeniorCitizen` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strStopCredit` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`dteProfileCreationDate` DATETIME NOT NULL DEFAULT '1990-01-01 00:00:00',"
+			+ "`strSalesStaffCode` VARCHAR(6) NOT NULL DEFAULT '',"
+			+ "`strDependentYesNo` VARCHAR(1) NOT NULL DEFAULT 'N',"
+			+ "`strRemark` VARCHAR(300) NOT NULL DEFAULT '',"
+			+ "`strPhoto` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strNameOnCard` VARCHAR(255) NOT NULL,"
+			+ "`dteDateofBirth` VARCHAR(50) NOT NULL DEFAULT '1990-01-01 00:00:00',"
+			+ "`dteModifiedDate` DATETIME NOT NULL DEFAULT '2016-12-15 15:54:14',"
+			+ "`strDepedentRelation` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`dteMembershipExpiryDate` VARCHAR(50) NOT NULL DEFAULT '1990-01-01 00:00:00',"
+			+ "`dblCMSBalance` DECIMAL(18,2) NOT NULL DEFAULT '0.00',"
+			+ "`dteMemberBlockDate` DATETIME NOT NULL DEFAULT '1990-01-01 00:00:00',"
+			+ "`dteDependentDateofBirth` DATETIME NOT NULL DEFAULT '1990-01-01 00:00:00',"
+			+ "`dteInterviewDate` DATETIME NOT NULL DEFAULT '1990-01-01 00:00:00',"
+			+ "`strDependentReasonCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strDependentMemberCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strCustomerID` VARCHAR(2) NOT NULL DEFAULT '01',"
+			+ "`strDependentFullName` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`dteMembershipEndDate` VARCHAR(50) NOT NULL DEFAULT '1990-01-01 00:00:00',"
+			+ "`dteMembershipStartDate` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strAuthorisedMember` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strMemberStatusCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strMemberYesNo` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strLikes` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strDisLikes` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strSendInvThrough` VARCHAR(1) NOT NULL DEFAULT '',"
+			+ "`strSendCircularNoticeThrough` VARCHAR(1) NOT NULL DEFAULT '',"
+			+ "`strAlternateMemberCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strVirtualAccountCode` VARCHAR(30) NOT NULL DEFAULT '',"
+			+ "`chkmail` BIGINT(20) NOT NULL DEFAULT '0',"
+			+ "`strSSuffixCode` VARCHAR(30) NOT NULL DEFAULT '0',"
+			+ "`strNSuffixCode` VARCHAR(30) NOT NULL DEFAULT '0',"
+			+ "`chrCircularemail` CHAR(7) NOT NULL DEFAULT '0',"
+			+ "`strGuestEntry` VARCHAR(30) NOT NULL DEFAULT 'Y',"
+			+ "`intFormNo` BIGINT(20) NOT NULL DEFAULT '0',"
+			+ "`strLiquorPermitNo` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`dtePermitExpDate` VARCHAR(50) NOT NULL DEFAULT '1990-01-01 00:00:00',"
+			+ "`strDebtorCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`dteAnniversaryDate` VARCHAR(50) NOT NULL DEFAULT '1990-01-01 00:00:00',"
+			+ "`strPrimaryCustomerCode` VARCHAR(30) NOT NULL DEFAULT '',"
+			+ "`strAadharCardNo` VARCHAR(30) NOT NULL DEFAULT '',"
+			+ "`strAccNo` VARCHAR(30) NOT NULL DEFAULT '',"
+			+ "`strBranchName` VARCHAR(30) NOT NULL DEFAULT '',"
+			+ "`strDepAadharCardNo` VARCHAR(30) NOT NULL DEFAULT '',"
+			+ "`strDepEmailID` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strDepMobileNo` VARCHAR(30) NOT NULL DEFAULT '',"
+			+ "`strBankCode` VARCHAR(30) NOT NULL DEFAULT '',"
+			+ "`strIfscCOde` VARCHAR(30) NOT NULL DEFAULT '',"
+			+ "`strPassportNo` VARCHAR(30) NOT NULL DEFAULT '',"
+			+ "`strVoterIdNo` VARCHAR(30) NOT NULL DEFAULT '',"
+			+ "PRIMARY KEY (`strClientCode`, `strCustomerCode`),"
+			+ "INDEX `intGId` (`intGId`)"
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  */
+
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblmembermaster` ("
+				  + "`strClientCode` varchar(10) NOT NULL,"
+				  + "`strMemberCode` varchar(20) NOT NULL,"
+				  + "`strCustomerCode` varchar(10) NOT NULL,"
+				  + "`intGId` bigint(20) NOT NULL AUTO_INCREMENT,"
+				  + "`strFirstName` varchar(100) NOT NULL,"
+				  + "`strFullName` varchar(255) NOT NULL DEFAULT '',"
+				  + "`strLastName` varchar(100) NOT NULL DEFAULT '',"
+				  + "`strMiddleName` varchar(100) NOT NULL DEFAULT '',"
+				  + "`strPrefixCode` varchar(15) NOT NULL DEFAULT '',"
+				  + "`strPropertyCode` varchar(10) NOT NULL,"
+				  + "`strUserModified` varchar(10) NOT NULL,"
+				  + "`strUserCreated` varchar(10) NOT NULL,"
+				  + "`strResidentAddressLine1` varchar(500) NOT NULL,"
+				  + "`strResidentAddressLine2` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strResidentAddressLine3` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strResidentAreaCode` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strResidentCountryCode` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strResidentCtCode` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strResidentEmailID` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strResidentFax1` varchar(50) NOT NULL DEFAULT '',"
+				  + "`strResidentFax2` varchar(50) NOT NULL DEFAULT '',"
+				  + "`strResidentLandMark` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strResidentMobileNo` varchar(50) NOT NULL,"
+				  + "`strResidentPinCode` varchar(10) NOT NULL,"
+				  + "`strResidentRegionCode` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strResidentStateCode` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strResidentTelephone1` varchar(50) NOT NULL DEFAULT '',"
+				  + "`strResidentTelephone2` varchar(50) NOT NULL DEFAULT '',"
+				  + "`strCompanyAddressLine1` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strCompanyAddressLine2` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strCompanyAddressLine3` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strCompanyAreaCode` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strCompanyCode` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strCompanyCountryCode` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strCompanyCtCode` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strCompanyEmailID` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strCompanyFax1` varchar(50) NOT NULL DEFAULT '',"
+				  + "`strCompanyFax2` varchar(50) NOT NULL DEFAULT '',"
+				  + "`strCompanyLandMark` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strCompanyMobileNo` varchar(15) NOT NULL DEFAULT '',"
+				  + "`strCompanyName` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strCompanyPinCode` varchar(15) NOT NULL DEFAULT '',"
+				  + "`strCompanyRegionCode` varchar(15) NOT NULL DEFAULT '',"
+				  + "`strCompanyStateCode` varchar(15) NOT NULL DEFAULT '',"
+				  + "`strCompanyTelePhone1` varchar(50) NOT NULL DEFAULT '',"
+				  + "`strCompanyTelePhone2` varchar(50) NOT NULL DEFAULT '',"
+				  + "`strHoldingCode` varchar(15) NOT NULL DEFAULT '',"
+				  + "`strJobProfileCode` varchar(15) NOT NULL DEFAULT '',"
+				  + "`strBillingAddressLine1` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strBillingAddressLine2` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strBillingAddressLine3` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strBillingAreaCode` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strBillingCountryCode` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strBillingCtCode` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strBillingEmailID` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strBillingFax1` varchar(15) NOT NULL DEFAULT '',"
+				  + "`strBillingFax2` varchar(15) NOT NULL DEFAULT '',"
+				  + "`strBillingFlag` varchar(3) NOT NULL DEFAULT 'N',"
+				  + "`strBillingLandMark` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strBillingMobileNo` varchar(15) NOT NULL DEFAULT '',"
+				  + "`strBillingPinCode` varchar(15) NOT NULL DEFAULT '',"
+				  + "`strBillingRegionCode` varchar(15) NOT NULL DEFAULT '',"
+				  + "`strBillingStateCode` varchar(15) NOT NULL DEFAULT '',"
+				  + "`strBillingTelePhone1` varchar(50) NOT NULL DEFAULT '',"
+				  + "`strBillingTelePhone2` varchar(50) NOT NULL DEFAULT '',"
+				  + "`strGender` varchar(5) NOT NULL,"
+				  + "`strMaritalStatus` varchar(15) NOT NULL,"
+				  + "`strProfessionCode` varchar(15) NOT NULL DEFAULT '',"
+				  + "`dblEntranceFee` decimal(18,4) NOT NULL DEFAULT '0.0000',"
+				  + "`dblSubscriptionFee` decimal(18,4) NOT NULL DEFAULT '0.0000',"
+				  + "`strAttachment` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strBlocked` varchar(1) NOT NULL DEFAULT '',"
+				  + "`strBlockedreasonCode` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strDesignationCode` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strFatherMemberCode` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strCategoryCode` varchar(500) NOT NULL DEFAULT '',"
+				  + "`strGolfMemberShip` varchar(255) NOT NULL DEFAULT '',"
+				  + "`strInstation` varchar(255) NOT NULL DEFAULT '',"
+				  + "`strLibrary` varchar(255) NOT NULL DEFAULT '',"
+				  + "`strLocker` varchar(255) NOT NULL DEFAULT '',"
+				  + "`strPanNumber` varchar(255) NOT NULL DEFAULT '',"
+				  + "`strProposerCode` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strQualification` varchar(255) NOT NULL DEFAULT '',"
+				  + "`strResNonRes` varchar(1) NOT NULL DEFAULT 'Y',"
+				  + "`strSeconderCode` varchar(255) NOT NULL DEFAULT '',"
+				  + "`strSeniorCitizen` varchar(255) NOT NULL DEFAULT '',"
+				  + "`strStopCredit` varchar(255) NOT NULL DEFAULT '',"
+				  + "`dteCreatedDate` datetime NOT NULL,"
+				  + "`dteProfileCreationDate` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',"
+				  + "`strSalesStaffCode` varchar(6) NOT NULL DEFAULT '',"
+				  + "`strDependentYesNo` varchar(1) NOT NULL DEFAULT 'N',"
+				  + "`strRemark` varchar(300) NOT NULL DEFAULT '',"
+				  + "`strPhoto` varchar(50) NOT NULL DEFAULT '',"
+				  + "`strNameOnCard` varchar(255) NOT NULL,"
+				  + "`dteDateofBirth` varchar(50) NOT NULL DEFAULT '1990-01-01 00:00:00',"
+				  + "`dteModifiedDate` datetime NOT NULL DEFAULT '2016-12-15 15:54:14',"
+				  + "`strDepedentRelation` varchar(50) NOT NULL DEFAULT '',"
+				  + "`dteMembershipExpiryDate` varchar(50) NOT NULL DEFAULT '1990-01-01 00:00:00',"
+				  + "`dblCMSBalance` decimal(18,2) NOT NULL DEFAULT '0.00',"
+				  + "`dteMemberBlockDate` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',"
+				  + "`dteDependentDateofBirth` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',"
+				  + "`dteInterviewDate` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',"
+				  + "`strDependentReasonCode` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strDependentMemberCode` varchar(20) NOT NULL DEFAULT '',"
+				  + "`strCustomerID` varchar(2) NOT NULL DEFAULT '01',"
+				  + "`strDependentFullName` varchar(255) NOT NULL DEFAULT '',"
+				  + "`dteMembershipEndDate` varchar(50) NOT NULL DEFAULT '1990-01-01 00:00:00',"
+				  + "`dteMembershipStartDate` varchar(50) NOT NULL DEFAULT '',"
+				  + "`strAuthorisedMember` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strMemberStatusCode` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strMemberYesNo` varchar(10) NOT NULL DEFAULT '',"
+				  + "`strLikes` varchar(255) NOT NULL DEFAULT '',"
+				  + "`strDisLikes` varchar(255) NOT NULL DEFAULT '',"
+				  + "`strSendInvThrough` varchar(1) NOT NULL DEFAULT '',"
+				  + "`strSendCircularNoticeThrough` varchar(1) NOT NULL DEFAULT '',"
+				  + "`strAlternateMemberCode` varchar(20) NOT NULL DEFAULT '',"
+				  + "`strVirtualAccountCode` varchar(30) NOT NULL DEFAULT '',"
+				  + "`chkmail` bigint(20) NOT NULL DEFAULT '0',"
+				  + "`strSSuffixCode` varchar(30) NOT NULL DEFAULT '0',"
+				  + "`strNSuffixCode` varchar(30) NOT NULL DEFAULT '0',"
+				  + "`chrCircularemail` char(7) NOT NULL DEFAULT '0',"
+				  + "`strGuestEntry` varchar(30) NOT NULL DEFAULT 'Y',"
+				  + "`intFormNo` bigint(20) NOT NULL DEFAULT '0',"
+				  + "`strLiquorPermitNo` varchar(20) NOT NULL DEFAULT '',"
+				  + "`dtePermitExpDate` varchar(50) NOT NULL DEFAULT '1990-01-01 00:00:00',"
+				  + "`strDebtorCode` varchar(20) NOT NULL DEFAULT '',"
+				  + "`dteAnniversaryDate` varchar(50) NOT NULL DEFAULT '1990-01-01 00:00:00',"
+				  + "`strPrimaryCustomerCode` varchar(30) NOT NULL DEFAULT '',"
+				  + "`strAadharCardNo` varchar(30) NOT NULL DEFAULT '',"
+				  + "`strAccNo` varchar(30) NOT NULL DEFAULT '',"
+				  + "`strBranchName` varchar(30) NOT NULL DEFAULT '',"
+				  + "`strDepAadharCardNo` varchar(30) NOT NULL DEFAULT '',"
+				  + "`strDepEmailID` varchar(50) NOT NULL DEFAULT '',"
+				  + "`strDepMobileNo` varchar(30) NOT NULL DEFAULT '',"
+				  + "`strBankCode` varchar(30) NOT NULL DEFAULT '',"
+				  + "`strIfscCOde` varchar(30) NOT NULL DEFAULT '',"
+				  + "`strPassportNo` varchar(30) NOT NULL DEFAULT '',"
+				  + "`strVoterIdNo` varchar(30) NOT NULL DEFAULT '',"
+				  + "PRIMARY KEY (`strClientCode`,`strCustomerCode`),"
+				  + "KEY `intGId` (`intGId`)"
+				  + ") ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=latin1;";
+		
+		
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblmemberphoto` ("
+			+ "`strMemberCode` VARCHAR(10) NOT NULL,"
+			+ "`strMemberName` CHAR(50) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`strMemberImage` MEDIUMBLOB NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "PRIMARY KEY (`strMemberCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblmembertypemaster` ("
+			+ "`strCatCode` VARCHAR(10) NOT NULL,"
+			+ "`strClientCode` VARCHAR(10) NOT NULL,"
+			+ "`dblCreditAmt` DECIMAL(18,2) NOT NULL DEFAULT '0.00',"
+			+ "`dblDisAmt` DECIMAL(18,2) NOT NULL DEFAULT '0.00',"
+			+ "`dtCreatedDate` DATETIME NOT NULL,"
+			+ "`dtModifiedDate` DATETIME NOT NULL,"
+			+ "`intCreditLimit` DECIMAL(18,2) NOT NULL DEFAULT '0.00',"
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "`strCatName` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strCorporate` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strGroupCategoryCode` VARCHAR(15) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(15) NOT NULL DEFAULT '',"
+			+ "`strRemarks` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strRuleCode` VARCHAR(15) NOT NULL DEFAULT '',"
+			+ "`strTenure` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(15) NOT NULL,"
+			+ "`strUserModified` VARCHAR(15) NOT NULL,"
+			+ "`strVotingRights` VARCHAR(1) NOT NULL DEFAULT 'N',"
+			+ "`strcatdesc` VARCHAR(15) NOT NULL DEFAULT '',"
+			+ "`strFacilityCode` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "PRIMARY KEY (`strCatCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblmempropertysetup` ("
+			+ "`strFieldName` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strFlag` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strClientCode` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`dtCreatedDate` DATE NULL DEFAULT NULL,"
+			+ "`dtEditedDate` DATE NULL DEFAULT NULL,"
+			+ "`strUserCreated` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strUserEdited` VARCHAR(50) NOT NULL DEFAULT ''"
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblotherdtl` ("
+			+ "`strMemberCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strClientCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`INCOME` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`DOB` DATE NULL DEFAULT NULL,"
+			+ "PRIMARY KEY (`strMemberCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblpdcdtl` ("
+			+ "`strMemCode` VARCHAR(20) NOT NULL,"
+			+ "`strChequeNo` VARCHAR(20) NOT NULL,"
+			+ "`strDrawnOn` VARCHAR(20) NOT NULL,"
+			+ "`strType` VARCHAR(10) NOT NULL,"
+			+ "`dblChequeAmt` DECIMAL(30,4) NOT NULL DEFAULT '0.0000',"
+			+ "`dteChequeDate` VARCHAR(50) NOT NULL DEFAULT '0000-00-00 00:00:00',"
+			+ "`dteDateCreated` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',"
+			+ "`dteDateEdited` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',"
+			+ "`strUserCreated` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strUserEdited` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strClientCode` VARCHAR(10) NOT NULL,"
+			+ "INDEX `strMemCode` (`strMemCode`)"
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblpersonmaster` ("
+			+ "`strPCode` VARCHAR(10) NOT NULL,"
+			+ "`strPName` VARCHAR(30) NOT NULL,"
+			+ "`strEmail` VARCHAR(30) NULL DEFAULT NULL,"
+			+ "`strMobileNo` VARCHAR(20) NULL DEFAULT NULL,"
+			+ "`intGId` BIGINT(20) NULL DEFAULT NULL,"
+			+ "`strUserCreated` VARCHAR(50) NULL DEFAULT NULL,"
+			+ "`strUserEdited` VARCHAR(50) NULL DEFAULT NULL,"
+			+ "`dteDateCreated` DATETIME NULL DEFAULT NULL,"
+			+ "`dteDateEdited` DATETIME NULL DEFAULT NULL,"
+			+ "`strClientCode` VARCHAR(10) NOT NULL,"
+			+ "PRIMARY KEY (`strPCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";"; 
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblpremembermaster` ("
+			+ "`strCustomerCode` VARCHAR(10) NOT NULL,"
+			+ "`strMemberCode` VARCHAR(20) NOT NULL,"
+			+ "`strPrefixCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strFirstName` VARCHAR(255) NOT NULL,"
+			+ "`strMiddleName` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strLastName` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strNameOnCard` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strFullName` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strResidentAddressLine1` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strResidentAddressLine2` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strResidentAddressLine3` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strResidentLandMark` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strResidentAreaCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strResidentCtCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strResidentStateCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strResidentRegionCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strResidentCountryCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strResidentPinCode` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strResidentTelephone1` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strResidentTelephone2` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strResidentFax1` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strResidentFax2` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strResidentMobileNo` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strResidentEmailID` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strCompanyCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strCompanyName` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strHoldingCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strJobProfileCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strCompanyAddressLine1` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strCompanyAddressLine2` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strCompanyAddressLine3` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strCompanyLandMark` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strCompanyAreaCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strCompanyCtCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strCompanyStateCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strCompanyRegionCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strCompanyCountryCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strCompanyPinCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strCompanyTelePhone1` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strCompanyTelePhone2` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strCompanyFax1` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strCompanyFax2` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strCompanyMobileNo` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strCompanyEmailID` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strBillingAddressLine1` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strBillingAddressLine2` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strBillingAddressLine3` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strBillingLandMark` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strBillingAreaCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strBillingCtCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strBillingStateCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strBillingRegionCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strBillingCountryCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strBillingPinCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strBillingTelePhone1` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strBillingTelePhone2` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strBillingFax1` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strBillingFax2` VARCHAR(255) NOT NULL DEFAULT '',"
+			+ "`strBillingMobileNo` VARCHAR(25) NOT NULL DEFAULT '',"
+			+ "`strBillingEmailID` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`dteDateofBirth` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strGender` VARCHAR(1) NOT NULL DEFAULT 'M',"
+			+ "`strMaritalStatus` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strProfessionCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`dteAnniversaryDate` VARCHAR(50) NOT NULL DEFAULT '1990-01-01 00:00:00',"
+			+ "`strCategoryCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`dteInterviewDate` DATETIME NOT NULL,"
+			+ "`strPanNumber` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strProposerCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strSeconderCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`dteMembershipStartDate` VARCHAR(50) NOT NULL DEFAULT '1990-01-01 00:00:00',"
+			+ "`dteMembershipEndDate` VARCHAR(50) NOT NULL DEFAULT '1990-01-01 00:00:00',"
+			+ "`strBlocked` VARCHAR(5) NOT NULL DEFAULT 'N',"
+			+ "`strBlockedreasonCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strLiquorPermitNo` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`dtePermitExpDate` DATETIME NOT NULL DEFAULT '1990-01-01 00:00:00',"
+			+ "`strQualification` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strResNonRes` VARCHAR(1) NOT NULL DEFAULT 'Y',"
+			+ "`strDesignationCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strLocker` VARCHAR(1) NOT NULL DEFAULT 'N',"
+			+ "`strLibrary` VARCHAR(1) NOT NULL DEFAULT 'N',"
+			+ "`strBillingFlag` VARCHAR(1) NOT NULL DEFAULT 'R',"
+			+ "`strInstation` VARCHAR(1) NOT NULL DEFAULT 'Y',"
+			+ "`strSeniorCitizen` VARCHAR(1) NOT NULL DEFAULT 'N',"
+			+ "`dblEntranceFee` DECIMAL(18,2) NOT NULL DEFAULT '0.00',"
+			+ "`dblSubscriptionFee` DECIMAL(18,2) NOT NULL DEFAULT '0.00',"
+			+ "`strGolfMemberShip` VARCHAR(1) NOT NULL DEFAULT 'N',"
+			+ "`strStopCredit` VARCHAR(1) NOT NULL DEFAULT 'N',"
+			+ "`dteProfileCreationDate` DATETIME NOT NULL DEFAULT '1990-01-01 00:00:00',"
+			+ "`strSalesStaffCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strDependentYesNo` VARCHAR(1) NOT NULL DEFAULT 'N',"
+			+ "`strAttachment` VARCHAR(1) NOT NULL DEFAULT 'N',"
+			+ "`strRemark` VARCHAR(300) NOT NULL DEFAULT '',"
+			+ "`strPhoto` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strDebtorCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strCustomerID` VARCHAR(2) NOT NULL DEFAULT '',"
+			+ "`strPrimaryCustomerCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strGuestEntry` VARCHAR(1) NOT NULL DEFAULT 'Y',"
+			+ "`strDepedentRelation` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strDependentMemberCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`dteMembershipExpiryDate` VARCHAR(50) NOT NULL DEFAULT '1990-01-01 00:00:00',"
+			+ "`dblCMSBalance` DECIMAL(18,2) NOT NULL DEFAULT '0.00',"
+			+ "`strUserCreated` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`dteCreationDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`dteModifiedDate` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(10) NOT NULL,"
+			+ "`strPropertyId` VARCHAR(10) NOT NULL,"
+			+ "`strMemberYesNo` VARCHAR(1) NOT NULL DEFAULT '',"
+			+ "`strAuthorisedMember` VARCHAR(1) NOT NULL DEFAULT '',"
+			+ "`strFatherMemberCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strMemberStatusCode` VARCHAR(10) NOT NULL DEFAULT '',"
+			+ "`strLikes` VARCHAR(1) NOT NULL DEFAULT '',"
+			+ "`strDisLikes` VARCHAR(1) NOT NULL DEFAULT '',"
+			+ "`strSendInvThrough` VARCHAR(1) NOT NULL DEFAULT '',"
+			+ "`strSendCircularNoticeThrough` VARCHAR(1) NOT NULL DEFAULT '',"
+			+ "`strAlternateMemberCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`strVirtualAccountCode` VARCHAR(15) NOT NULL DEFAULT '',"
+			+ "`chkmail` BIGINT(20) NOT NULL DEFAULT '0',"
+			+ "`strSSuffixCode` VARCHAR(255) NOT NULL DEFAULT '0',"
+			+ "`strNSuffixCode` VARCHAR(255) NOT NULL DEFAULT '0',"
+			+ "`chrCircularemail` CHAR(7) NOT NULL DEFAULT '',"
+			+ "`intFormNo` BIGINT(10) NOT NULL,"
+			+ "`dteDependentDateofBirth` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`dteMemberBlockDate` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`intGId` BIGINT(20) NULL DEFAULT NULL,"
+			+ "`strDependentFullName` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`strDependentReasonCode` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "PRIMARY KEY (`strCustomerCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblprofessionmaster` ("
+			+ "`strProfessionCode` VARCHAR(10) NOT NULL,"
+			+ "`strProfessionName` VARCHAR(50) NOT NULL,"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "PRIMARY KEY (`strProfessionCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblprofilesource` ("
+			+ "`strProfileCode` VARCHAR(10) NOT NULL,"
+			+ "`strProfileDesc` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL,"
+			+ "`intId` BIGINT(20) NOT NULL,"
+			+ "`dteLastModifiedDate` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "PRIMARY KEY (`strProfileCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblreasonmaster` ("
+			+ "`strReasonCode` VARCHAR(10) NOT NULL,"
+			+ "`strReasonDesc` VARCHAR(50) NOT NULL,"
+			+ "`strExcludeInInvoicePrinting` VARCHAR(1) NOT NULL DEFAULT 'N',"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "PRIMARY KEY (`strReasonCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblregionmaster` ("
+			+ "`strRegionCode` VARCHAR(10) NOT NULL,"
+			+ "`strRegionName` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dtCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dtLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "PRIMARY KEY (`strRegionCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblrelationmaster` ("
+			+ "`strRelationCode` VARCHAR(30) NOT NULL,"
+			+ "`strRelation` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(10) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(10) NOT NULL,"
+			+ "`dteLastModifiedDate` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(10) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(10) NOT NULL,"
+			+ "`strAgeLimit` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`intId` BIGINT(20) NOT NULL,"
+			+ "PRIMARY KEY (`strRelationCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";"; 
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblsalutationmaster` ("
+			+ "`strSalutationCode` VARCHAR(10) NOT NULL,"
+			+ "`strSalutationDesc` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(10) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(10) NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(10) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(10) NOT NULL,"
+			+ "`intId` BIGINT(20) NOT NULL,"
+			+ "`dteLastModifiedDate` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "PRIMARY KEY (`strSalutationCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";"; 
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblstaffmaster` ("
+			+ "`strStaffCode` VARCHAR(30) NOT NULL,"
+			+ "`strStaffName` VARCHAR(100) NOT NULL,"
+			+ "`strUserCreated` VARCHAR(10) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(10) NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(10) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(10) NOT NULL,"
+			+ "`intId` BIGINT(20) NOT NULL,"
+			+ "PRIMARY KEY (`strStaffCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblstatemaster` ("
+			+ "`strStateCode` VARCHAR(10) NOT NULL,"
+			+ "`strStateName` VARCHAR(50) NOT NULL,"
+			+ "`strStateDesc` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strRegionCode` VARCHAR(10) NOT NULL,"
+			+ "`strCountryCode` VARCHAR(10) NOT NULL,"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dtCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dtLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "PRIMARY KEY (`strStateCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";"; 
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblsubcategorymaster` ("
+			+ "`strSCCode` VARCHAR(10) NOT NULL,"
+			+ "`strSCName` VARCHAR(50) NOT NULL DEFAULT '',"
+			+ "`strSCDesc` VARCHAR(100) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL DEFAULT '',"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`intGId` BIGINT(20) NOT NULL,"
+			+ "PRIMARY KEY (`strSCCode`, `strClientCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";"; 
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tbltitlemaster` ("
+			+ "`strTitleCode` VARCHAR(20) NOT NULL,"
+			+ "`titleDesc` CHAR(50) NOT NULL DEFAULT '',"
+			+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+			+ "`dteCreatedDate` DATETIME NOT NULL,"
+			+ "`strUserModified` VARCHAR(20) NOT NULL,"
+			+ "`dteLastModified` DATETIME NOT NULL,"
+			+ "`strClientCode` VARCHAR(20) NOT NULL,"
+			+ "`strPropertyCode` VARCHAR(20) NOT NULL,"
+			+ "`intId` BIGINT(20) NOT NULL,"
+			+ "`dteLastModifiedDate` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "`strTitleDesc` VARCHAR(255) NULL DEFAULT NULL,"
+			+ "PRIMARY KEY (`intId`, `strTitleCode`)" 
+			+")"+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+";";  
+
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
+		
+
+
+		
+		/*sql = " INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`) VALUES "
 				+ " ('frmWebClubSecurityShellMaster', 'Security Shell', 'Master', 1, 'M', 1, 10, '1', 'default.png', '4', 1, '1', '1', 'NO', 'YES', 'frmWebClubSecurityShell.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),"
 				+ " ('frmWebClubBusinessSourceMaster', 'Business Source Master', 'Master', '1', 'M', '1', '1', '1', 'default.png', '4', '1', '1', '1', 'NO', 'NO', 'frmWebClubBusinessSourceMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),"
 				+ " ('frmWebClubFacilityMaster', 'Facility Master', 'Master', 1, 'M', 1, 3, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmWebClubFacilityMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
@@ -2181,9 +3711,30 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 			+ " COLLATE='latin1_swedish_ci' "
 			+ " ENGINE=InnoDB; ";
 		
-		funExecuteWebClubQuery(sql);
+		funExecuteWebClubQuery(sql);*/
 		
-		
+
+		sql = "ALTER TABLE `tblmembermaster` CHANGE COLUMN `strMemberCode` `strMemberCode` VARCHAR(50) NOT NULL AFTER `strClientCode`,"
+				+ "CHANGE COLUMN `strResidentAreaCode` `strResidentAreaCode` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strResidentAddressLine3`,"
+				+ "ADD COLUMN `strResidentAreaName` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strResidentAreaCode`,"
+				+ "ADD COLUMN `strResidentCountryName` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strResidentCountryCode`,"
+				+ "CHANGE COLUMN `strResidentCtCode` `strResidentCtCode` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strResidentCountryName`,"
+				+ "ADD COLUMN `strResidentCtName` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strResidentCtCode`,"
+				+ "CHANGE COLUMN `strResidentRegionCode` `strResidentRegionCode` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strResidentPinCode`,"
+				+ "ADD COLUMN `strResidentRegionName` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strResidentRegionCode`,"
+				+ "CHANGE COLUMN `strResidentStateCode` `strResidentStateCode` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strResidentRegionName`,"
+				+ "ADD COLUMN `strResidentStateName` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strResidentStateCode`,"
+				+ "CHANGE COLUMN `strCompanyAreaCode` `strCompanyAreaCode` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strCompanyAddressLine3`,"
+				+ "ADD COLUMN `strCompanyAreaName` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strCompanyAreaCode`,"
+				+ "CHANGE COLUMN `strCompanyCountryCode` `strCompanyCountryCode` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strCompanyCode`,"
+				+ "ADD COLUMN `strCompanyCountryName` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strCompanyCountryCode`,"
+				+ "CHANGE COLUMN `strCompanyCtCode` `strCompanyCtCode` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strCompanyCountryName`,"
+				+ "ADD COLUMN `strCompanyCtName` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strCompanyCtCode`,"
+				+ "CHANGE COLUMN `strCompanyRegionCode` `strCompanyRegionCode` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strCompanyPinCode`,"
+				+ "ADD COLUMN `strCompanyRegionName` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strCompanyRegionCode`;";
+				
+		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
+		//funExecuteWebClubQuery(sql);
 
 		/*----------------WebClub Forms End---------------------------*/
 		//
@@ -2623,6 +4174,31 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		funExecuteQuery(sql);
 		
 		
+		
+		
+		sql = " CREATE TABLE `tblbankmaster` ("
+				+ "`intGId` BIGINT(20) NOT NULL AUTO_INCREMENT,"
+				+ "`strBankCode` VARCHAR(20) NOT NULL,"
+				+ "`strBankName` VARCHAR(80) NOT NULL,"
+				+ "`strBranch` VARCHAR(50) NOT NULL,"
+				+ "`strMICR` VARCHAR(50) NOT NULL,"
+				+ "`strUserCreated` VARCHAR(20) NOT NULL,"
+				+ "`dteCreatedDate` DATETIME NOT NULL,"
+				+ "`strUserModified` VARCHAR(20) NOT NULL,"
+				+ "`dteLastModified` DATETIME NOT NULL,"
+				+ "`strClientCode` VARCHAR(20) NOT NULL,"
+				+ "`strPropertyCode` VARCHAR(20) NOT NULL,"
+				+ "`dtCreatedDate` VARCHAR(255) NULL DEFAULT NULL,"
+				+ "`dtLastModified` VARCHAR(255) NULL DEFAULT NULL,"
+				+ "PRIMARY KEY (`strBankCode`, `strClientCode`),"
+				+ "INDEX `intGId` (`intGId`)"
+			+ ")"
+			+ "COLLATE='latin1_swedish_ci'"
+			+ "ENGINE=InnoDB"
+			+ "AUTO_INCREMENT=6"
+			+ ";";
+
+		funExecuteQuery(sql);
 		
 		/*----------------WebBook Forms End---------------------------*/
 
@@ -3541,15 +5117,13 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 	}
 
 	@SuppressWarnings("finally")
-	private int funExecuteQuery(String sql) {
+	public void funExecuteQuery(String sql) {
 		try {
-			Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
-			query.executeUpdate();
+			Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);			
 		} catch (Exception e) {
 			//e.printStackTrace();
 		} finally {
 			
-			return 0;
 		}
 	}
 	
@@ -3591,11 +5165,13 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 	}
 	
 	@SuppressWarnings("finally")
+	//@Transactional(propagation = Propagation.REQUIRED, readOnly = false,value = "WebClubTransactionManager")
 	private int funExecuteWebClubQuery(String sql) {
 		try {
 			Query query = WebClubSessionFactory.getCurrentSession().createSQLQuery(sql);
 			query.executeUpdate();
 		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			return 0;
 		}

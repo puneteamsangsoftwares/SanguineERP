@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
 <title></title>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <script type="text/javascript">
 	var fieldName;
 
@@ -215,41 +223,42 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Group Master</label>
+	<div class="container">
+		<label id="formHeading">Sub Group Master</label>
+		<s:form name="BankMaster" method="POST" action="saveACGroupMaster.html">
+				<div class="row masterTable">
+					<div class="col-md-6">
+						<label>Sub Group Code:</label>
+						<div class="row">
+							<div class="col-md-6"><s:input id="txtSubGroupCode" ondblclick="funHelp('acSubGroupCode')" cssClass="searchTextBox" readonly="true"
+								 placeholder="Sub Group Code" type="text" path="strSubGroupCode"></s:input>
+							</div>
+						
+							<div class="col-md-6"><s:input id="txtSubGroupName" path="strSubGroupName" required="true"
+								 placeholder="Sub Group Code" type="text"></s:input>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-6">
+							<label>Group Code:</label><s:input id="txtGroupCode" ondblclick="funHelp('acGroupCode')" cssClass="searchTextBox"
+								 placeholder="Group Code" type="text" path="strGroupCode"></s:input>
+							</div>
+							<div class="col-md-6">
+							<label>Under SubGroup Code:</label><s:input id="txtUnderSubGroup" path="strUnderSubGroup" ondblclick="funHelp('underSubGroupCode')"
+								 placeholder="Under SubGroup Code" type="text" cssClass="searchTextBox"></s:input>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="center">
+					<a href="#"><button class="btn btn-primary center-block" tabindex="3" onclick=""
+						class="form_button">Submit</button></a>
+					<a href="#"><button class="btn btn-primary center-block" type="reset"
+						value="Reset" class="form_button" onclick="funResetField()">Reset</button></a>
+				</div> 
+		</s:form>
 	</div>
-
-<br/>
-<br/>
-
-	<s:form name="BankMaster" method="POST" action="saveACSubGroupMaster.html">
-
-		<table class="masterTable">
-			<tr>
-			    <td><label >Sub Group Code</label></td>
-			    <td><s:input id="txtSubGroupCode" path="strSubGroupCode"  ondblclick="funHelp('acSubGroupCode')" cssClass="searchTextBox"/></td>			        			        
-			    <td><s:input id="txtSubGroupName" path="strSubGroupName" required="true" cssClass="longTextBox"/></td>			    			    			    		        			 
-			</tr>
-			<tr>
-				<td><label>Group Code</label> </td>
-				<td><s:input id="txtGroupCode" path="strGroupCode"  ondblclick="funHelp('acGroupCode')" cssClass="searchTextBox"/></td>
-				<td><label id="lblGroupName"></label></td>					
-			</tr>
-			<tr>
-				<td><label>Under SubGroup Code</label> </td>
-				<td><s:input id="txtUnderSubGroup" path="strUnderSubGroup"  ondblclick="funHelp('underSubGroupCode')" cssClass="searchTextBox"/></td>
-				<td><label id="lblUnderSubGroup"></label></td>					
-			</tr>
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
-	</s:form>
 </body>
 </html>

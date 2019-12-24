@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@	taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
 <title></title>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	
 	var fieldName;
@@ -861,125 +871,111 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-		<label>Debtor Ledger</label>
-	</div>
-
-	<br/>
-	<br/>
-
-	<s:form name="DebtorLedger" method="POST" action="showDebtorLedger.html">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>GL Code</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtGLCode" path="strGLCode" class="searchTextBox" ondblclick="funHelp('debtorAccountCode');"/>
-				</td>
-				<td  colspan="3"><label id="lblGLCode"></label></td>
-			</tr>
-			
-			<tr>
-				<td>
-					<label>Debtor Code</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtFromDebtorCode" path="strFromDebtorCode" class="searchTextBox" ondblclick="funHelp('debtorCode');"/>
-				</td>
-				<td>
-					<label id="lblFromDebtorName"></label>
-				</td>
-				<td>
-					<label>Type</label>
-				</td>
-				<td>
-					<s:select id="cmbType" path="strType" class="BoxW124px" >
-						<option value="By Account">By Account</option>
-						<option value="Bill By Bill">Bill By Bill</option>
-					</s:select>
-				</td>
-			</tr>
-
-<!-- 		<!--  -->
-<!-- 			<tr> -->
-<!-- 				<td> -->
-<!-- 					<label>To Debtor Code</label> -->
-<!-- 				</td> -->
-<!-- 				<td> -->
-<!-- 					<s:input type="text" id="txtToDebtorCode" path="strToDebtorCode" class="searchTextBox" ondblclick="funHelp('DebtorCode');"/> -->
-<!-- 				</td> -->
-<!-- 				<td> -->
-<!-- 					<label id="lblToDebtorCode"></label> -->
-<!-- 				</td> -->
-<!-- 			</tr> -->
-<!-- 		 --> 
-
-<!-- 			<tr> -->
-<!-- 				<td> -->
-<!-- 					<label>Guest Name</label> -->
-<!-- 				</td> -->
-<%-- 				<td><s:input id="txtGuestName" path="strGuestName" type="text" class="longTextBox"/></td> --%>
-<!-- 			</tr> -->
-			
-			<tr>
-				<td>
-					<label>Status</label>
-				</td>
-				<td>
-					<label id="lblStatus"></label>
-				</td>
-				
-				<td>
-					<label>Stop Credit Supply</label>
-				</td>
-				<td>
-					<label id="lblStopCreditSupply"></label>
-				</td>
-				<td>
-					<s:select id="cmbChangeYear" path="strChangeYear" class="BoxW124px">
-						<s:options items="${listChangeYear}"/>
-					</s:select>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<label>From Date</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtFromDate" path="dteFromDate" cssClass="calenderTextBox" />
-				</td>
-				
-				<td colspan="2">
-					<label>To Date</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtToDate" path="dteToDate" cssClass="calenderTextBox" />
-				</td>
-			</tr>
-			<tr>
-			<td width="10%"><label>Currency</label></td>
-				<td><s:select id="cmbCurrency" path="currency" items="${currencyList}" cssClass="BoxW124px"></s:select></td>
-				<td width="10%"><label>Report Type</label></td>
-				<td>
-					<s:select id="cmbReportType" path="strReportType" class="BoxW124px" >
-						<option value="EXCEL">EXCEL</option>
-						<option value="PDF">PDF</option>
-					</s:select>
-				</td>
-				<td colspan="1"></td>
-			</tr>
-			<tr>
-			<td colspan ="2"></td>
-			<td colspan ="3">
-			<input type="checkbox" id="chkShowNarration" /> Show Narration
-			</td>
-			</tr>
-			
-			
+	<div class="container">
+		<label  id="formHeading">Debtor Ledger</label>
+			<s:form name="DebtorLedger" method="POST" action="showDebtorLedger.html">
+				<div class="row masterTable">
+					<div class="col-md-6">
+						<label>GL Code:</label><br>
+							<div class="row">
+								<div class="col-md-6">
+									<s:input  type="text"  id="txtGLCode" cssClass="searchTextBox" 
+									 path="strGLCode" ondblclick="funHelp('debtorAccountCode')"/>
+								</div>
+								<div class="col-md-6">
+									<label id="lblGLCode"></label>
+								</div>
+							</div>
+						</div>	
+						<div class="col-md-6">
+						<label>Debtor Code:</label><br>
+							<div class="row">
+								<div class="col-md-6">
+									<s:input  type="text"  id="txtFromDebtorCode" cssClass="searchTextBox" 
+									 path="strFromDebtorCode" ondblclick="funHelp('debtorCode')"/>
+								</div>
+								<div class="col-md-6">
+									<label id="lblFromDebtorName"></label>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-6">
+								<label>Type:</label><br>
+									<s:select id="cmbType" path="strType" class="BoxW124px" >
+										<option value="By Account">By Account</option>
+										<option value="Bill By Bill">Bill By Bill</option>
+									</s:select>
+								</div>
+								<div class="col-md-6">
+									<label>Status</label>
+									<label id="lblStatus"></label>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-6">
+									<label>Stop Credit Supply:</label><br>
+									<label id="lblStopCreditSupply"></label>
+								</div>
+								<div class="col-md-6">
+									<label>Change Year</label>
+										<s:select id="cmbChangeYear" path="strChangeYear" class="BoxW124px">
+											<s:options items="${listChangeYear}"/>
+										</s:select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-6">
+									<label>From Date:</label><br>
+									<s:input type="text" id="txtFromDate" path="dteFromDate" cssClass="calenderTextBox" />
+								</div>
+								<div class="col-md-6">
+									<label>To Date</label>
+									<s:input type="text" id="txtToDate" path="dteToDate" cssClass="calenderTextBox" />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-6">
+									<label>Currency:</label><br>
+									<s:select id="cmbCurrency" path="currency" items="${currencyList}" cssClass="BoxW124px"></s:select>
+								</div>
+								<div class="col-md-6">
+									<label>Report Type</label>
+									<s:select id="cmbReportType" path="strReportType" class="BoxW124px" >
+										<option value="EXCEL">EXCEL</option>
+										<option value="PDF">PDF</option>
+									</s:select>		
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-6">
+									<label>Show Narration:</label><br>
+										<input type="checkbox" id="chkShowNarration" />
+								</div>
+								<div class="col-md-6"></div>
+							</div>
+						</div>
+				</div>
+				<div id="paraSubmit" class="center" style="text-align:center;">
+					<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute"  onclick="funBtnExecute()"
+						class="form_button">Execute</button></a>
+					<a href="#"><button class="btn btn-primary center-block" id="btnExport" onclick="funBtnExport()"
+						class="form_button">Export</button></a>
+				</div>
+			</s:form>
+		</div>
+<%-- 
+	
+		
 			<tr>
 			<td ><p align="center">
 			<input type="button" value="Execute" id="btnExecute"   class="form_button" onclick="funBtnExecute()"/></p><td>
@@ -1004,6 +1000,6 @@
 			</div>
 			
 
-	</s:form>
+	</s:form> --%>
 </body>
 </html>
