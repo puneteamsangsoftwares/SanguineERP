@@ -77,8 +77,17 @@ public class clsReceiptBean {
 	private double dblConversion;
 	
     private String stInvCode;;
+    
+    private String dteToDate;
+    
+    private String dteFromDate;
+    
+    private String strChequeType;
+    
 
 	private List<clsReceiptDetailBean> listReceiptBeanDtl;
+	
+	private List<clsReceiptBean> listReceiptBean;
 
 	private List<clsReceiptInvDtlModel> listReceiptInvDtlModel = new ArrayList<clsReceiptInvDtlModel>();
 
@@ -379,6 +388,39 @@ public class clsReceiptBean {
 		this.stInvCode = stInvCode;
 	}
 
+	public List<clsReceiptBean> getListReceiptBean() {
+		return listReceiptBean;
+	}
+
+	public void setListReceiptBean(List<clsReceiptBean> listReceiptBean) {
+		this.listReceiptBean = listReceiptBean;
+	}
+
+	public String getDteToDate() {
+		return dteToDate;
+	}
+
+	public void setDteToDate(String dteToDate) {
+		this.dteToDate = dteToDate;
+	}
+
+	public String getDteFromDate() {
+		return dteFromDate;
+	}
+
+	public void setDteFromDate(String dteFromDate) {
+		this.dteFromDate = dteFromDate;
+	}
+
+	public String getStrChequeType() {
+		return strChequeType;
+	}
+
+	public void setStrChequeType(String strChequeType) {
+		this.strChequeType = strChequeType;
+	}
+
+	
 	
 
 }

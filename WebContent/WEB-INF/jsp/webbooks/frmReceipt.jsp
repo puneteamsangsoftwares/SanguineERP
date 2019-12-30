@@ -798,12 +798,12 @@
 			return false;
 		}
 		
-		var amt=parseFloat($("#txtAmt").val());
+		/* var amt=parseFloat($("#txtAmt").val());
 		if(amt<1)
 		{
 			alert('Please Enter Amount!!!');
 			return false;
-		}
+		} */
 		
 		var debitAmt =parseFloat($("#lblDebitAmt").text())
 		var creditAmt =parseFloat($("#lblCreditAmt").text())

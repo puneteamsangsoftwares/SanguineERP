@@ -4269,6 +4269,16 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/webbooks/frmPettyCashFlash.jsp"></put-attribute>
 	</definition>
 	
+	
+	<definition name="frmPDCToReceipt_1" extends="base.definition4">
+		<put-attribute name="title" value="PDC To Receipt"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webbooks/frmPDCToReceipt.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="frmPDCToReceipt" extends="base.definition">
+		<put-attribute name="title" value="PDC To Receipt"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webbooks/frmPDCToReceipt.jsp"></put-attribute>
+	</definition>
 
 <!-- 	APGL Forms Entry Starts -->	
 	

@@ -32,6 +32,8 @@ public class clsWebClubPDCBean{
 	private String strUserEdited;
 
 	private String strClientCode;
+	
+	private String strAccCode;;
 		
 	//private List<clsWebClubPDCBean> listPDCDtl;
 	
@@ -167,6 +169,14 @@ public class clsWebClubPDCBean{
 
 	public void setStrMemName(String strMemName) {
 		this.strMemName = strMemName;
+	}
+
+	public String getStrAccCode() {
+		return strAccCode;
+	}
+
+	public void setStrAccCode(String strAccCode) {
+		this.strAccCode = strAccCode;
 	}
 	
 	

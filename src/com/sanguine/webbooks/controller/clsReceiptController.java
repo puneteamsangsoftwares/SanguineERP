@@ -572,7 +572,11 @@ public class clsReceiptController {
 		double currValue = Double.parseDouble(strCurr);
 		double conversionRate=1;
 		String strPropertyCode = req.getSession().getAttribute("propertyCode").toString();
-		funCallReciptdtlReport(VoucherNo, type, resp, req, currValue,conversionRate,strPropertyCode);
+		String[] list = VoucherNo.split(" ");
+		
+			funCallReciptdtlReport(VoucherNo, type, resp, req, currValue,conversionRate,strPropertyCode);	
+		
+		
 		// funCallReciptdtlReport(VoucherNo,type,resp,req);
 	}
 

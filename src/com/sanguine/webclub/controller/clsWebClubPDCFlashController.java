@@ -65,15 +65,20 @@ public class clsWebClubPDCFlashController{
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		String webStock=req.getSession().getAttribute("WebStockDB").toString();
 		String sql="";
+		String webCLub = req.getSession().getAttribute("WebCLUBDB").toString();
 		List<clsWebClubPDCBean> ojbBeanModel = new ArrayList<clsWebClubPDCBean>();
 		String strFromDate=objGlobal.funGetDate("yyyy-MM-dd", fromDate);
 		String strToDate=objGlobal.funGetDate("yyyy-MM-dd", toDate);
 		if(memCode.equalsIgnoreCase(""))
 		{
-			sql="SELECT c.strFirstName,a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate) FROM tblpdcdtl a,"+webStock+".tblbankmaster b,tblmembermaster c WHERE a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strMemCode=c.strMemberCode AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"'  GROUP BY a.strType,a.strDrawnOn";
+			sql="SELECT c.strFirstName,a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate) FROM "+webCLub+".tblpdcdtl a,"+webStock+".tblbankmaster b,"+webCLub+".tblmembermaster c WHERE a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strMemCode=c.strMemberCode AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"'  GROUP BY a.strType,a.strDrawnOn";
+		}
+		else if(memCode.equalsIgnoreCase("undefined"))
+		{
+			sql="SELECT Concat(c.strFirstName,' ', c.strMiddleName,' ', c.strLastName),a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate),c.strAccNo FROM "+webCLub+".tblpdcdtl a,"+webStock+".tblbankmaster b,"+webCLub+".tblmembermaster c WHERE a.strClientCode='"+clientCode+"'  AND a.strMemCode=c.strMemberCode AND a.strType='"+chequeType+"' AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"'  GROUP BY a.strType,a.strDrawnOn";
 		}
 		else{	
-			sql="SELECT c.strFirstName,a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate) FROM tblpdcdtl a,"+webStock+".tblbankmaster b,tblmembermaster c WHERE a.strMemCode='"+memCode+"' AND a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strMemCode=c.strMemberCode AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"'  GROUP BY a.strType,a.strDrawnOn";				
+			sql="SELECT c.strFirstName,a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate) FROM "+webCLub+".tblpdcdtl a,"+webStock+".tblbankmaster b,"+webCLub+".tblmembermaster c WHERE a.strMemCode='"+memCode+"' AND a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strMemCode=c.strMemberCode AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"'  GROUP BY a.strType,a.strDrawnOn";				
 		}
 		List list=objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
 		if (list.isEmpty()) {				
@@ -92,6 +97,7 @@ public class clsWebClubPDCFlashController{
 				objBean.setStrType(obj[3].toString());
 				objBean.setDblChequeAmt(Double.parseDouble(obj[4].toString()));
 				objBean.setDteChequeDate(objGlobal.funGetDate("dd-MM-yyyy", obj[5].toString()));
+				objBean.setStrAccCode(obj[6].toString());
 				ojbBeanModel.add(objBean);
 			}
 			
