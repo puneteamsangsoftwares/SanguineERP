@@ -159,17 +159,20 @@
 	   <s:form name="TaxRegister" method="GET" action="rptTaxRegister.html"
 		target="_blank">
 		<div class="row">
-			
-					<div class="col-md-3"><label>From Date </label>
+					<div class="col-md-3">
+					<div class="row">
+					    <div class="col-md-6"><label>From Date </label>
 					        <s:input id="txtFromDate"
 							path="dteFromDate" required="true" readonly="readonly"
 							cssClass="calenderTextBox" />
-					</div>
-					<div class="col-md-3"><label>To Date </label>
+					    </div>
+					    <div class="col-md-6"><label>To Date </label>
 					         <s:input id="txtToDate" path="dteToDate"
 							  required="true" readonly="readonly" cssClass="calenderTextBox" />
-					</div>
-					<div class="col-md-3"><label>Currency</label>
+					    </div>
+					 </div></div>
+					 
+					<div class="col-md-2"><label>Currency</label>
 					       <s:select id="cmbCurrency" path="currency"
 							items="${currencyList}" cssClass="BoxW124px"></s:select>
 					</div>
@@ -237,8 +240,8 @@
 		<br>
 
 		<p align="right">
-			<input type="button" value="SUBMIT" class="btn btn-primary center-block" onclick="funFillTaxRegisterDetail()" class="form_button" /> 
-			<input id="btnExport" type="button" value="EXPORT" class="btn btn-primary center-block" class="form_button" onclick="funExportToExcel()" /> 
+			<input type="button" value="SUBMIT" class="btn btn-primary center-block" onclick="funFillTaxRegisterDetail()" class="form_button" /> &nbsp
+			<input id="btnExport" type="button" value="EXPORT" class="btn btn-primary center-block" class="form_button" onclick="funExportToExcel()" /> &nbsp
 			<input type="button" value="RESET" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()" />
 		</p>
 		

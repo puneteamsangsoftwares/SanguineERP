@@ -151,28 +151,32 @@
 	
 	<s:form name="frmBankReconciliationReport" method="GET" action="openRptBankReconciliationReport.html" target="_blank">
 		<div class="row">
-					<div class="col-md-3"><label>From Date </label>
-						<s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+					<div class="col-md-3">
+					<div class="row">
+					<div class="col-md-6"><label>From Date </label>
+						<s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" style="height:50%" cssClass="calenderTextBox"/>
 					</div>
-					
-					<div class="col-md-3"><label>To Date </label>
-						<s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+					<div class="col-md-6"><label>To Date </label>
+						<s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" style="height:50%" cssClass="calenderTextBox"/>
 					</div>
-					
+					</div></div>
 <!-- 					<td><label>Currency </label></td> -->
 <%-- 					<td><s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px"> --%>
 <%-- 						</s:select></td> --%>
-				<div class="col-md-3"><label>Bank Code</label>
-				        <s:input type="text" id="txtBankCode" path="strBankCode" cssClass="searchTextBox" ondblclick="funHelp('cashBankAccNo');"/>
-				</div>				
-				<div class="col-md-3"><label id="lblBankDesc"></label>
-				   <s:input type="hidden" id="txtBankDesc" path="strBankName"/>				
-				   <s:input type="hidden" id="txtBalAmt" path="dblBalAmount"/></div>				
+				
+				<div class="col-md-9"></div>
+				<div class="col-md-2"><label>Bank Code</label>
+				        <s:input type="text" id="txtBankCode" path="strBankCode" cssClass="searchTextBox" readOnly="true" ondblclick="funHelp('cashBankAccNo');"/>
+				</div>
+								
+				<div class="col-md-3"><label id="lblBankDesc" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label></div>
+				<div class="col-md-2"><s:input type="hidden" id="txtBankDesc" path="strBankName"/></div>				
+				<div class="col-md-2"><s:input type="hidden" id="txtBalAmt" path="dblBalAmount"/></div>				
 					
 		</div>
 		<br><br>
-		<p align="right" style="margin: 0px 160px;">
-				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" />
+		<p align="right" style="margin-right:60%;">
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" />&nbsp
 				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 	</s:form>

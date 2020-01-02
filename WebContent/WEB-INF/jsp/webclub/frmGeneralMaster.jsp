@@ -3452,12 +3452,10 @@ function funCheckTableActive()
 					<table
 						style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
 						<tr style="background-color:#c0c0c0;">
-							<td style="width: 10%;">Area Code</td>
-							<td style="width: 20%;">Area Name</td>
-							<td style="width: 9%;">City Code</td>
+							<td style="width: 6.5%;">Area Code</td>
+							<td style="width: 11%;">Area Name</td>
+							<td style="width: 6%;">City Code</td>
 							<td style="width: 25%;">Area Name</td>
-
-
 						</tr>
 					</table>
 					<div

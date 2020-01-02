@@ -22,7 +22,6 @@
 	 $(document).ready(function()
 					{
 		 
-
 			
 			$("#lblReceived").text(0);		 							
 			$("#lblIssued").text(0);
@@ -41,7 +40,6 @@
 			$("#txtChkDtee").val('');
 			$("#txtAmtt").val('');
 			$("#txtDrawnOnn").val('');
-
 			$("#txtChkDte").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtChkDte").datepicker('setDate', 'today');
 			$("#txtChkDtee").datepicker({ dateFormat: 'dd-mm-yy' });
@@ -53,7 +51,6 @@
 				$("ul.tabs li").removeClass("active");
 				$(this).addClass("active");
 				$(".tab_content").hide();
-
 				var activeTab = $(this).attr("data-state");
 				$("#" + activeTab).fadeIn();
 			});
@@ -286,7 +283,6 @@
 			}
 	    } */
 		
-
 		/**
 		 * Clear textfiled after adding data in textfield
 		 */
@@ -295,7 +291,9 @@
 			$("#txtChequeNo").val('');
 			$("#txtAmt").val('');
 			$("#txtDrawnOn").val('');
-			$("#txtChkDte").val('');
+			$("#lbldrawnOn").text('');
+			
+			//$("#txtChkDte").val('');
 			
 		}
 		function funResetProductFieldsIssued()
@@ -303,7 +301,8 @@
 			$("#txtChequeNoo").val('');
 			$("#txtAmtt").val('');
 			$("#txtDrawnOnn").val('');
-			$("#txtChkDtee").val('');
+			$("#lbldrawnOnn").text('');
+			//$("#txtChkDtee").val('');
 		}
 		
 		/* function funRemoveProductRows()
@@ -355,7 +354,6 @@
 		{
 		 switch(fieldName)
 		 	{
-
 			case 'WCmemProfileCustomer' :
 				funSetMemberDataReceived(code);				
 				break;
@@ -403,7 +401,7 @@
 				            } else if (jqXHR.status == 404) {
 				                alert('Requested page not found. [404]');
 				            } else if (jqXHR.status == 500) {
-				                alert('Internal Server Error [500].');
+				               // alert('Internal Server Error [500].');
 				            } else if (exception === 'parsererror') {
 				                alert('Requested JSON parse failed.');
 				            } else if (exception === 'timeout') {
@@ -444,7 +442,7 @@
 			            } else if (jqXHR.status == 404) {
 			                alert('Requested page not found. [404]');
 			            } else if (jqXHR.status == 500) {
-			                alert('Internal Server Error [500].');
+			               // alert('Internal Server Error [500].');
 			            } else if (exception === 'parsererror') {
 			                alert('Requested JSON parse failed.');
 			            } else if (exception === 'timeout') {
@@ -487,7 +485,7 @@
 				            } else if (jqXHR.status == 404) {
 				                alert('Requested page not found. [404]');
 				            } else if (jqXHR.status == 500) {
-				                alert('Internal Server Error [500].');
+				               // alert('Internal Server Error [500].');
 				            } else if (exception === 'parsererror') {
 				                alert('Requested JSON parse failed.');
 				            } else if (exception === 'timeout') {
@@ -544,7 +542,7 @@
 				            } else if (jqXHR.status == 404) {
 				                alert('Requested page not found. [404]');
 				            } else if (jqXHR.status == 500) {
-				                alert('Internal Server Error [500].');
+				                //alert('Internal Server Error [500].');
 				            } else if (exception === 'parsererror') {
 				                alert('Requested JSON parse failed.');
 				            } else if (exception === 'timeout') {
@@ -588,7 +586,7 @@
 				            } else if (jqXHR.status == 404) {
 				                alert('Requested page not found. [404]');
 				            } else if (jqXHR.status == 500) {
-				                alert('Internal Server Error [500].');
+				               // alert('Internal Server Error [500].');
 				            } else if (exception === 'parsererror') {
 				                alert('Requested JSON parse failed.');
 				            } else if (exception === 'timeout') {
@@ -624,7 +622,6 @@
 					    	{table.deleteRow(0);
 					    	   rowCount--;
 					    	}			   
-
 							 var totIssued=0;		    	
 			        		$.each(response, function(cnt,item)
 				 					{
@@ -646,7 +643,7 @@
 			            } else if (jqXHR.status == 404) {
 			                alert('Requested page not found. [404]');
 			            } else if (jqXHR.status == 500) {
-			                alert('Internal Server Error [500].');
+			                //alert('Internal Server Error [500].');
 			            } else if (exception === 'parsererror') {
 			                alert('Requested JSON parse failed.');
 			            } else if (exception === 'timeout') {

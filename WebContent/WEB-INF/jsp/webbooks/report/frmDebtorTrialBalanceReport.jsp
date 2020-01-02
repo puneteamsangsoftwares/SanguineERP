@@ -121,10 +121,10 @@
 	   <s:form name="FLR3AReport" method="GET" action="rptDebtorTrialBalanceReport.html" target="_blank">
 		<div class="row">
 			    <div class="col-md-3"><label>GL Code</label>
-				        <s:input type="text" id="txtGLCode" path="strAccountCode" class="searchTextBox" ondblclick="funHelp('debtorAccountCode');"/>
+				        <s:input type="text" id="txtGLCode" path="strAccountCode" class="searchTextBox" readOnly="true" ondblclick="funHelp('debtorAccountCode');"/>
 				 </div>
 				
-				 <div class="col-md-3"><label id="lblGLCode" style="background-color: white;width: 100%;height: 42%;margin: 27px 0px;"></label>
+				 <div class="col-md-3"><label id="lblGLCode" style="background-color:#dcdada94;width: 100%;height: 42%;margin: 27px 0px;"></label>
 			     </div>
 			     
 				 <div class="col-md-3"><label>From Date </label>

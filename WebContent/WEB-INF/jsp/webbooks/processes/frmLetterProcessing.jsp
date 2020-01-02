@@ -357,35 +357,36 @@
 </head>
 <body>
  <div class="container masterTable">
-	<label id="formHeading">LetterProcessing</label>
+	<label id="formHeading">Letter Processing</label>
 	<s:form id="formLetterProc" name="LetterProcessing" method="POST" action="saveLetterProcessing.html">
-
-		<div class="row">
-			    <div class="col-md-3"><label>Letter Code</label>			    
-			    		<s:input id="txtLetterCode" path="strLetterCode" readonly="true" required="true" ondblclick="funHelp('letterCode')" cssClass="searchTextBox"/>		        			        			    
-			    <s:input id="txtLetterName"  path="strLetterName" readonly="true"    cssClass="longTextBox" cssStyle="width:90%"/>
+			<div class="row">
+			    <div class="col-md-2"><label>Letter Code</label>			    
+			    	<s:input id="txtLetterCode" path="strLetterCode" readonly="true" required="true" style="height:36%" ondblclick="funHelp('letterCode')" cssClass="searchTextBox" type="text" placeholder="Letter Code"/>
 			    </div>
-			    
-			     <div class="col-md-4"><label>Letter Subject</label><br>
-			           <s:textarea id="txtLetterSubject" path=""  style="width:250px; height:50px; resize:none; overflow-y:scroll; "  />
+			    <div class="col-md-3">		        			        			    
+			    	<s:input id="txtLetterName"  path="strLetterName" readonly="true" type="text" placeholder="Letter Name" style="margin-top:27px;"/>
+			    </div>
+			      <div class="col-md-2"></div>
+			     <div class="col-md-5">
+			     	<a class="btn btn-primary center-block" id="linkHideOrShowParamDtls" href="#" onclick="onViewORHideDtlsLinkClicked()" style="margin-top:27px;">Hide Parameter Details</a>			  		        			  
+				</div>
+			   
+			     <div class="col-md-3"><label>Letter Subject</label><br>
+			           <s:textarea id="txtLetterSubject" path=""  style="resize:none;width:75%; overflow-y:scroll;"/>
 			         <s:hidden id="txtCondition" path="strCondition"/>	
 			     </div>
-			     <br>
-			     <div class="col-md-4">
-			     			<a id="linkHideOrShowParamDtls" href="#" onclick="onViewORHideDtlsLinkClicked()">Hide Parameter Details</a>			  		        			  
-				</div>
-		</div>	
+			</div>	
 		<br />
-		<div id="divParamDetails" style="width: 80%;">
-			<table class="transTablex" style="width: 100%">
+		<div id="divParamDetails" style="width:82%;">
+			<table class="transTablex" style="width: 100%; text-align:center;">
 				<tr>
-					<th style="width: 40%">Parameters</th>
+					<th>Parameters</th>
 					<th>Operations</th>
-					<th style="width: 40%">Value</th>
+					<th>Value</th>
 					<th>Condition</th>
 				</tr>
 				<tr>
-					<td><s:select id="cmbParameters" path="" items="${listParameters}" cssClass="BoxW124px" style="width: 99%"></s:select></td>
+					<td><s:select id="cmbParameters" path="" items="${listParameters}"  style="width: 99%"></s:select></td>
 					<td>
 						<s:select id="cmbOperations" path=""  cssClass="BoxW124px" style="width: 99%">
 						<s:option value="<"/>
@@ -395,7 +396,7 @@
 						<s:option value=">="/>
 						</s:select>
 					</td>
-					<td><s:input id="txtValue" path="" cssClass="BoxW124px" required="true" cssStyle="padding:12px; width:98%"/></td>
+					<td><s:input id="txtValue" path="" required="true" cssClass="BoxW124px" cssStyle="width:98%"/></td>
 					<td>
 						<s:select id="cmbCondition" path=""  cssClass="BoxW124px" style="width: 99%">
 						<s:option value="NONE"/>
@@ -408,12 +409,12 @@
 		</div>
 		<br>
 		<div class="row">			
-			 <div class="col-md-3"><label>Reminder Status Update Log</label>
-			    <td colspan="3"><s:select id="cmbReminderStatusUpdateLog" path="" items="${listReminderStatusUpdateLog}" cssClass="BoxW124px"></s:select>
+			 <div class="col-md-2"><label>Reminder Status Update Log</label>
+			   <s:select id="cmbReminderStatusUpdateLog" path="" items="${listReminderStatusUpdateLog}" cssClass="BoxW124px"></s:select>
 			 </div>		
 			 		
 			 <div class="col-md-3"><label>Letter Via Email</label><br>
-			    <td colspan="3"><s:checkbox id="chkLetterViaEmail" path="" value="N"/>			
+			   <s:checkbox id="chkLetterViaEmail" path="" value="N"/>			
 			</div>
 			<br>
 			 <div class="col-md-12"><label>Outstanding For The Months</label>
@@ -446,13 +447,15 @@
 			 				<s:textarea id="txtExcludeMembers" path="" style="width:720px; height:75px; resize:none; overflow-y:scroll; " ondblclick="funHelp('debtorCode')" />
 			 	</div>
 			
-				<div class="col-md-3"><label>Dr Date</label>
-			              <s:input type="text" id="txtDrDate" class="calenderTextBox" path="dteDrDate"  />
-			    </div>
-			    
-			   <div class="col-md-3"><label>Cr Date</label>
-			           <s:input type="text" id="txtCrDate" class="calenderTextBox" path="dteCrDate" />
-			</div>
+				<div class="col-md-3">
+					   <div class="row">
+							<div class="col-md-6"><label>Dr Date</label>
+			              		<s:input type="text" id="txtDrDate" class="calenderTextBox" style="height:50%" path="dteDrDate"  />
+			   				 </div>
+			   				 <div class="col-md-6"><label>Cr Date</label>
+			        			   <s:input type="text" id="txtCrDate" class="calenderTextBox" style="height:50%" path="dteCrDate" />
+							</div>
+				</div></div>
 		</div>	
 		<br>
 		<div id="divViewConainer">
@@ -460,7 +463,7 @@
 		</div>
 		<br />
 		<p align="right" style="margin-right:130px;">
-			<input id="btnSubmit" type="button" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button"  onclick="return funValidate()"/>
+			<input id="btnSubmit" type="button" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button"  onclick="return funValidate()"/>&nbsp
 			<input type="reset" value="Reset" class="btn btn-primary center-block"  class="form_button" onclick="funResetFields()"/>
 		</p>
 		<br />

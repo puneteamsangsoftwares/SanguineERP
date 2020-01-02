@@ -69,16 +69,17 @@ public class clsWebClubPDCFlashController{
 		List<clsWebClubPDCBean> ojbBeanModel = new ArrayList<clsWebClubPDCBean>();
 		String strFromDate=objGlobal.funGetDate("yyyy-MM-dd", fromDate);
 		String strToDate=objGlobal.funGetDate("yyyy-MM-dd", toDate);
+		//export logic
 		if(memCode.equalsIgnoreCase(""))
 		{
-			sql="SELECT c.strFirstName,a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate) FROM "+webCLub+".tblpdcdtl a,"+webStock+".tblbankmaster b,"+webCLub+".tblmembermaster c WHERE a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strMemCode=c.strMemberCode AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"'  GROUP BY a.strType,a.strDrawnOn";
+			sql="SELECT b.strFirstName,a.strChequeNo,c.strBankName,a.strType,a.dblChequeAmt,DATE(a.dteChequeDate),a.strMemCode FROM tblpdcdtl a,tblmembermaster b,"+webStock+".tblbankmaster c  WHERE a.strMemCode=b.strMemberCode AND a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strDrawnOn=c.strBankName AND a.strClientCode=b.strClientCode AND Date(a.dteChequeDate)  BETWEEN '"+strFromDate+"' AND '"+strToDate+"'   ";
 		}
 		else if(memCode.equalsIgnoreCase("undefined"))
 		{
 			sql="SELECT Concat(c.strFirstName,' ', c.strMiddleName,' ', c.strLastName),a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate),c.strAccNo FROM "+webCLub+".tblpdcdtl a,"+webStock+".tblbankmaster b,"+webCLub+".tblmembermaster c WHERE a.strClientCode='"+clientCode+"'  AND a.strMemCode=c.strMemberCode AND a.strType='"+chequeType+"' AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"'  GROUP BY a.strType,a.strDrawnOn";
 		}
 		else{	
-			sql="SELECT c.strFirstName,a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate) FROM "+webCLub+".tblpdcdtl a,"+webStock+".tblbankmaster b,"+webCLub+".tblmembermaster c WHERE a.strMemCode='"+memCode+"' AND a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strMemCode=c.strMemberCode AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"'  GROUP BY a.strType,a.strDrawnOn";				
+				sql="SELECT b.strFirstName,a.strChequeNo,c.strBankName,a.strType,a.dblChequeAmt,DATE(a.dteChequeDate),a.strMemCode FROM tblpdcdtl a,tblmembermaster b,"+webStock+".tblbankmaster c  WHERE  a.strMemCode=b.strMemberCode AND  a.strMemCode='"+memCode+"' AND a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strDrawnOn=c.strBankName AND a.strClientCode=b.strClientCode AND Date(a.dteChequeDate)  BETWEEN '"+strFromDate+"' AND '"+strToDate+"'   ";			
 		}
 		List list=objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
 		if (list.isEmpty()) {				
@@ -118,10 +119,12 @@ public class clsWebClubPDCFlashController{
 		String strToDate=objGlobal.funGetDate("yyyy-MM-dd", toDate);
 		if(memCode.equalsIgnoreCase(""))
 		{
-			sql="SELECT c.strFirstName,a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate) FROM tblpdcdtl a,"+webStock+".tblbankmaster b,tblmembermaster c WHERE a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strMemCode=c.strMemberCode AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"' ";
+			sql="SELECT b.strFirstName,a.strChequeNo,c.strBankName,a.strType,a.dblChequeAmt,DATE(a.dteChequeDate),a.strMemCode FROM tblpdcdtl a,tblmembermaster b,"+webStock+".tblbankmaster c  WHERE a.strMemCode=b.strMemberCode AND a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strDrawnOn=c.strBankName AND a.strClientCode=b.strClientCode AND Date(a.dteChequeDate)  BETWEEN '"+strFromDate+"' AND '"+strToDate+"'   ";
+			//sql="SELECT c.strFirstName,a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate) FROM tblpdcdtl a,"+webStock+".tblbankmaster b,tblmembermaster c WHERE a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strMemCode=c.strMemberCode AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"' ";
 		}
 		else{
-			sql="SELECT c.strFirstName,a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate) FROM tblpdcdtl a,"+webStock+".tblbankmaster b,tblmembermaster c WHERE a.strMemCode='"+memCode+"' AND a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strMemCode=c.strMemberCode AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"' ";				
+			sql="SELECT b.strFirstName,a.strChequeNo,c.strBankName,a.strType,a.dblChequeAmt,DATE(a.dteChequeDate),a.strMemCode FROM tblpdcdtl a,tblmembermaster b,"+webStock+".tblbankmaster c  WHERE  a.strMemCode=b.strMemberCode AND  a.strMemCode='"+memCode+"' AND a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strDrawnOn=c.strBankName AND a.strClientCode=b.strClientCode AND Date(a.dteChequeDate)  BETWEEN '"+strFromDate+"' AND '"+strToDate+"'   ";
+			//sql="SELECT c.strFirstName,a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate) FROM tblpdcdtl a,"+webStock+".tblbankmaster b,tblmembermaster c WHERE a.strMemCode='"+memCode+"' AND a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strMemCode=c.strMemberCode AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"' ";				
 		}		
 		List retList = new ArrayList();
 		List detailList = new ArrayList();

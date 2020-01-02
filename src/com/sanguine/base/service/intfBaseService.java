@@ -40,5 +40,8 @@ public interface intfBaseService {
 	
 	public List funGetListForWebBooks(StringBuilder query, String queryType) throws Exception;
 	
+	public List funGetListForWebStocks(StringBuilder query, String queryType) throws Exception;
+	
+	
 	public void funExcecteUpdateModuleWise(StringBuilder strQuery, String queryType, String moduleType) throws Exception;
 }

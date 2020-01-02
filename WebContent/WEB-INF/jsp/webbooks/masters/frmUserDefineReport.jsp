@@ -384,24 +384,23 @@
 		<label id="formHeading">User Defined Report Master</label>
 			<s:form id="frmUserDefinedReportMaster" method="POST" action="saveUserDefinedReportMaster.html?saddr=${urlHits}">
 				<div class="row masterTable">
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<label>Report ID</label><br>
 							<div class="row">
-								<div class="col-md-6">
-									<s:input type="text" id="txtReportCode" path="strReportId" ondblclick="funHelp('userDefinedReportCode');" class="searchTextBox"/>
+								<div class="col-md-5">
+									<s:input type="text" id="txtReportCode" path="strReportId" readonly="true" style="height:100%" ondblclick="funHelp('userDefinedReportCode');" class="searchTextBox"/>
 								</div>
-								<div class="col-md-6">
-									<s:input id="txtReportName" type="text" required="true" path="strReportName"  readonly="true"/>
+								<div class="col-md-7">
+									<s:input id="txtReportName" type="text" required="true" path="strReportName"  />
 								</div>
 							</div>
 					</div>	
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-5">
 								<label>Date</label>
-									<s:input type="text" id="txtReportCode" path="strReportId" ondblclick="funHelp('userDefinedReportCode');" class="searchTextBox"/>
-							</div>
-							<div class="col-md-6">
+									<s:select id="cmbReportDate" path="dteUserDefDate" items="${listUserDefDate}" cssClass="BoxW124px"> </s:select></div>
+							<div class="col-md-7">
 								 <a href="#"><button class="btn btn-primary center-block" onclick="return funAddProductRow('Text','1','Equal','','','','','Desc','','','N')"
 									class="form_button">Add</button></a>
 							</div>
@@ -477,108 +476,16 @@
 			</table>
 			   
 			</div>
-			
-			</s:form>
-		</div>
-	
-	<%-- div id="formHeading">
-		<label>User Defined Report Master</label>
-	</div>
-	<br/>
-    <br/>
-		<s:form id="frmUserDefinedReportMaster" method="POST" action="saveUserDefinedReportMaster.html?saddr=${urlHits}">
-			
-		    <table class="masterTable" style="width: 95%;">
-			    <tr>
-			        <td ><label>Report ID</label></td>
-			        <td><s:input id="txtReportCode" path="strReportId" ondblclick="funHelp('userDefinedReportCode');" class="searchTextBox"/></td>
-			        <td><s:input id="txtReportName"  required="true" path="strReportName" cssClass="longTextBox"/></td>			    			    			    		    
-			        <td><label>Date</label></td>
-				    <td><s:select id="cmbReportDate" path="dteUserDefDate" items="${listUserDefDate}" cssClass="BoxW124px">
-			    </s:select></td> 
-				    <td><input type="button" value="Add" class="smallButton" onclick="return funAddProductRow('Text','1','Equal','','','','','Desc','','','N')" /></td>
-			    </tr>
-			</table>
 			<br>
-			<div class="dynamicTableContainer" style="height: 300px; ">
-			
-			 <table class="transTablex col15-center" id="criteriaTable" style="width: 100%; border: #0F0; table-layout: fixed;">
-				<tr bgcolor="#72BEFC"  style="font-family: sans-serif">
-				    
-				    <td width="2.5%">Sr.No</td>
-					<!--  COl1   -->
-					<td width="6%">Type</td>
-					<!--  COl2   -->
-					<td width="4%">Print In Col</td>
-					<!--  COl3   -->
-					<td width="6%">Operator</td>
-					<!--  COl4   -->
-					<td width="6%">Group</td>
-					<!--  COl5   -->
-					<td width="6%">Group</td>
-					<!-- COl6   -->
-					<td width="10%">Account</td>
-					<!--  COl7   -->
-					<td width="10.3%">Account</td>
-					<!-- COl8   -->
-					<td width="14.2%">Description</td>
-					<!-- COl9   -->
-					<td width="4.4%">Constant</td>
-					<!-- COl10   -->
-					<td width="4.4%">Formula</td>
-					<!-- COl11   -->	
-					<td width="3%">Print</td>
-					<!-- COl12   -->
-					<td style="width:2%;">Del</td> 
-						
-				</tr>					
-			</table>
-					
-			<table id="tblUserDefindDtl"
-				style="width: 100%; border: #0F0; table-layout: fixed;"
-				class="transTablex col15-center">
-				<tbody>
-				<col style="width: 2.5%">
-				<!--  COl1   -->
-				<col style="width: 6%">
-				<!--  COl2   -->
-				<col style="width: 4%">
-				<!--  COl3   -->
-				<col style="width: 6%"> 
-				<!--COl4   -->
-				<col style="width: 6%"> 
-				<!--COl5   -->
-				<col style="width: 6%"> 
-				<!-- COl6   -->
-				<col style="width: 10%"> 
-				<!-- COl7   -->
-				<col style="width: 10.2%"> 
-				<!-- COl8   -->
-				<col style="width: 14.6%"> 
-				<!--  COl9   -->
-				<col style="width: 4.4%"> 
-				<!--  COl10   -->
-				<col style="width: 4.4%"> 
-				<!--  COl11  -->
-				<col style="width:3%">
-		    	<!--COl12  -->
-				<col style="width:2%">
-
-				</tbody>
-
-			</table>
-			   
-			</div>
-			
-			<br><br>
-			<p align="center">
-			<input id="btnSubmit" type="submit" value="SUBMIT" class="form_button" onclick="return funGetVaildation()" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+			<p align="right">
+			<input id="btnSubmit" type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="return funGetVaildation()" />&nbsp
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 			</p>
 			
 			<table class="transTable" id="tblReport">					
 			</table>
-		    
-		</s:form> --%>
+			
+			</s:form>
+		</div>
 	</body>
 </html>

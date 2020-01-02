@@ -120,10 +120,10 @@ the header
 .app-sidebar .side-menu li {
 	font-size: 11px;
 	color: #9a9daf;
-	padding: 16px 0;
 	border-bottom: 1px solid rgba(100, 103, 119, 0.1);
 	cursor: pointer;
 	list-style: none;
+	padding:0px 0px;
 }
 
 
@@ -237,19 +237,28 @@ label {
 
 button {
 	margin: 25px 0px;
-	background-color: #4283fc;
+	background-color: #fff;
+	color:#000;
 	width: 90px;
+	font-family:'trebuchet ms';
 }
+
 
 .btn-primary {
 	border-radius: 0px;
 	font-size: 13px;
+	font-family:'trebuchet ms';
+	background-color: #fff;
+	color:#000;
+	border:none;
 }
 
 .btn-primary:hover {
-	background-color: #fff;
-	color: #000;
+	background-color: #007bff;
+	color: #fff;
+	font-family:'trebuchet ms';
 }
+
 
 a:link {
 	color: black;
@@ -1173,7 +1182,7 @@ Table
 	margin-left: auto;
 	margin-right: auto;
 	font-size: 11px;
-	background:#f2f2f2;
+	/* background:#f2f2f2; */
 }
 
 .transTable th {

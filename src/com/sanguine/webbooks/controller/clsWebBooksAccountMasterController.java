@@ -122,21 +122,21 @@ public class clsWebBooksAccountMasterController {
 			try
 			{
 				list=objBaseService.funGetListForWebBooks(sbSql, "hql");
-						
-				if(null==list || list.size()==0)
-				{
-					objEmployeeMasterModel = new clsEmployeeMasterModel();
-					objEmployeeMasterModel.setStrEmployeeCode("Invalid Code");
-				}
-				else
-				{
-					objEmployeeMasterModel=(clsEmployeeMasterModel)list.get(0);
-				}
+				
 			}catch(Exception ex)
 			{
 				ex.printStackTrace();
 			}
 			
+			if(null==list || list.size()==0)
+			{
+				objEmployeeMasterModel = new clsEmployeeMasterModel();
+				objEmployeeMasterModel.setStrEmployeeCode("Invalid Code");
+			}
+			else
+			{
+				objEmployeeMasterModel=(clsEmployeeMasterModel)list.get(0);
+			}
 			objModel.setStrEmployeeName(objEmployeeMasterModel.getStrEmployeeName());
 		}
 		
@@ -316,8 +316,7 @@ public class clsWebBooksAccountMasterController {
 		objACModel.setDteCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 		objACModel.setStrUserModified(userCode);
 		objACModel.setDteLastModified(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-		objACModel.setStrCrDr(objBean.getStrCrDr());
-		
+		objACModel.setStrCrDr(objBean.getStrCrDr());		
 		objACModel.setStrPrevCrDr(objBean.getStrPrevCrDr());
 		objACModel.setIntPrevYearBal(objBean.getIntPrevYearBal());
 		return objACModel;

@@ -122,43 +122,38 @@
 		<label id="formHeading">Group Master</label>
 		<s:form name="BankMaster" method="POST" action="saveACGroupMaster.html">
 				<div class="row masterTable">
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<label>Group Code:</label>
 						<div class="row">
-							<div class="col-md-6"><s:input id="txtGroupCode" ondblclick="funHelp('acGroupCode')"  readonly="true" cssClass="searchTextBox"
-								 placeholder="Bank Code" type="text" path="strGroupCode"></s:input>
+							<div class="col-md-5"><s:input id="txtGroupCode" ondblclick="funHelp('acGroupCode')" cssClass="searchTextBox"
+								 placeholder="Group Code" readOnly="true" style="height:95%" type="text" path="strGroupCode"></s:input>
 							</div>
 						
-							<div class="col-md-6"><s:input id="txtGroupName" path="strGroupName" required="true"
-								 placeholder="Bank Code" type="text"></s:input>
+							<div class="col-md-7"><s:input id="txtGroupName" path="strGroupName" required="true"
+								 placeholder="Group Name" type="text"></s:input>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-6">
-								<label>Short Name:</label><s:input id="txtShortName" ondblclick="" 
+					<div class="col-md-7"></div>
+					<div class="col-md-3">
+							<label>Short Name:</label><s:input id="txtShortName" ondblclick="" 
 								 placeholder="Short Name" type="text" path="strShortName"></s:input>
-							</div>
-						
-							<div class="col-md-6">
+					</div>
+					<div class="col-md-9"></div>
+					
+					<div class="col-md-2">
 								<label>Category:</label><s:select id="cmbCategory" path="strCategory" items="${listCategory}" cssClass="BoxW124px"/>
-							</div>
-						</div>
 					</div>
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-6">
+					
+					<div class="col-md-1.8">
 								<label>Default Type:</label><s:select id="cmbDefaultType" path="strDefaultType" items="${listDefaultType}" cssClass="BoxW124px"/>
-							</div>
-						
-							<div class="col-md-6"></div>
-						</div>
 					</div>
+						
+							
 				</div>
-				<div class="center">
+				<div class="center" style="margin-right: 60%;">
 					<a href="#"><button class="btn btn-primary center-block" tabindex="3" onclick=""
-						class="form_button">Submit</button></a>
+						class="form_button">Submit</button></a>&nbsp
 					<a href="#"><button class="btn btn-primary center-block" type="reset"
 						value="Reset" class="form_button" onclick="funResetField()">Reset</button></a>
 				</div> 

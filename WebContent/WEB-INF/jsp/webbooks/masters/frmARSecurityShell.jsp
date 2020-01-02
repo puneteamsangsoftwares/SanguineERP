@@ -170,25 +170,28 @@ var fieldName;
 					<div class="col-md-6">
 						<label>User Code:</label><br>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-5">
 									<s:input  type="text" placeholder="User Code" id="strUserCode" cssClass="searchTextBox" readonly="true"
 									 path="strUserCode" ondblclick="funHelp('usermaster')"/>
 								</div>
-								<div class="col-md-6">
-									<s:input  type="text" placeholder="User Code" id="UserName" readonly="true"
+								<div class="col-md-7">
+									<s:input  type="text" placeholder="User Name" id="UserName" style="height:100%"
 									 path="strUserName" />
 								</div>
 							</div> 
 						</div>
+						
+						<div class="col-md-6"></div>
+						
 						<div class="col-md-6">
 							<label>Like User:</label><br>
 							<div class="row">
-								<div class="col-md-6">
-									<s:input  type="text" placeholder="Like User" id="strLikeUserCode" cssClass="searchTextBox" readonly="true"
+								<div class="col-md-5">
+									<s:input  type="text" placeholder="Like User Code" id="strLikeUserCode" cssClass="searchTextBox" readonly="true"
 									 path="strLikeUserCode" ondblclick="funHelp('Likeusermaster')" />
 								</div>
-								<div class="col-md-6">
-									<s:input  type="text" placeholder="Like User" id="LikeUserName" readonly="true"
+								<div class="col-md-7">
+									<s:input  type="text" placeholder="Like User Name" id="LikeUserName" style="height:100%"
 									 path="strLikeUserName" />
 								</div>
 							</div>
@@ -397,9 +400,9 @@ var fieldName;
 				</tr>
 			</table>
 			<!-- End Of tab container -->
-			<div class="center" style="text-align:center;">
+			<div class="center">
 				<a href="#"><button class="btn btn-primary center-block"  tabindex="3" value="Submit" onclick="" 
-					class="form_button">Submit</button></a>
+					class="form_button">Submit</button></a>&nbsp
 				<a href="frmWebClubSecurityShell.html"><button class="btn btn-primary center-block" value="Reset" onclick="funResetField()"
 					class="form_button">Reset</button></a>
 			</div>

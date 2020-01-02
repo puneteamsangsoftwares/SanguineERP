@@ -557,19 +557,19 @@
 	    
 	    debitAmt=parseFloat(debitAmt).toFixed(maxAmountDecimalPlaceLimit);
 	    creditAmt=parseFloat(creditAmt).toFixed(maxAmountDecimalPlaceLimit);
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"12%\" name=\"listJVDtlBean["+(rowCount)+"].strAccountCode\" id=\"strAccountCode."+(rowCount)+"\" value='"+accountCode+"' />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listJVDtlBean["+(rowCount)+"].strAccountCode\" id=\"strAccountCode."+(rowCount)+"\" value='"+accountCode+"' />";
 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"12%\" name=\"listJVDtlBean["+(rowCount)+"].strDebtorCode\" id=\"strDebtorCode."+(rowCount)+"\" value='"+debtorCode+"' />";
 	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listJVDtlBean["+(rowCount)+"].strDescription\" id=\"strDescription."+(rowCount)+"\" value='"+description+"' />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listJVDtlBean["+(rowCount)+"].strDC\" id=\"strDC."+(rowCount)+"\"style=\"text-align: center;\" value='"+transType+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"1%\" name=\"listJVDtlBean["+(rowCount)+"].strDC\" id=\"strDC."+(rowCount)+"\"style=\"text-align: center;\" value='"+transType+"' />";
 	    row.insertCell(4).innerHTML= "<input type=\"text\"  size=\"7%\" name=\"listJVDtlBean["+(rowCount)+"].dblDebitAmt\" style=\"text-align: right;\"  id=\"dblDebitAmt."+(rowCount)+"\" value='"+debitAmt+"'  onblur=\"Javacsript:funUpdateDebitAmount(this)\" />";
 	    row.insertCell(5).innerHTML= "<input type=\"text\"  size=\"7%\" name=\"listJVDtlBean["+(rowCount)+"].dblCreditAmt\" style=\"text-align: right;\"  id=\"dblCreditAmt."+(rowCount)+"\" value='"+creditAmt+"' onblur=\"Javacsript:funUpdateCreditAmount(this)\" />";
 	    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listJVDtlBean["+(rowCount)+"].strDimension\" id=\"strDimension."+(rowCount)+"\" value='"+dimension+"'/>";
 	   
 	    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" name=\"listJVDtlBean["+(rowCount)+"].strNarration\" id=\"strNarration."+(rowCount)+"\" value='"+narration+"'/>";
-	    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" name=\"listJVDtlBean["+(rowCount)+"].strDebtorYN\" id=\"strDebtorYN."+(rowCount)+"\" value='"+debtorYN+"'/>";
+	    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"1%\" name=\"listJVDtlBean["+(rowCount)+"].strDebtorYN\" id=\"strDebtorYN."+(rowCount)+"\" value='"+debtorYN+"'/>";
 	    row.insertCell(9).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"2%\" value = \"Delete\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
-	    row.insertCell(10).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" size=\"0%\" name=\"listJVDtlBean["+(rowCount)+"].strDebtorName\" id=\"strDebtorName."+(rowCount)+"\" value='"+debtorName+"' />";
-	    row.insertCell(11).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" class=\"Box\" size=\"0%\" name=\"listJVDtlBean["+(rowCount)+"].strOneLineAcc\" id=\"strOneLineAcc."+(rowCount)+"\" value='"+oneLineAcc+"'/>";
+	    //row.insertCell(10).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" size=\"0%\" name=\"listJVDtlBean["+(rowCount)+"].strDebtorName\" id=\"strDebtorName."+(rowCount)+"\" value='"+debtorName+"' />";
+	    //row.insertCell(11).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" class=\"Box\" size=\"0%\" name=\"listJVDtlBean["+(rowCount)+"].strOneLineAcc\" id=\"strOneLineAcc."+(rowCount)+"\" value='"+oneLineAcc+"'/>";
 	    debtorYN='N';
 	    debtorName='';
 	   
@@ -893,43 +893,42 @@
 </head>
 <body>
 	<div class="container transTable">
-		<label id="formHeading">JV</label>
+		<label id="formHeading">JV Entry</label>
          <s:form name="JV" method="POST" action="saveJV.html">
-
 		 <div class="row">
-			<div class="col-md-3"><label>VouchNo</label>
+			<div class="col-md-2"><label>VouchNo</label>
 					<s:input  type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('UserCreatedJVNo');"/>
 			</div>
 				
-			<div class="col-md-3"><label>VouchDate</label>
-				<s:input  type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" />
+			<div class="col-md-2"><label>VouchDate</label>
+				<s:input  type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" style="width:70%;" />
 			</div>
 				
-			<div class="col-md-3"><label>Initiated By </label><br>
+			<div class="col-md-2"><label>Initiated By </label><br>
 				  <label id="lblInitialtedby" style="background-color:#fff;width:100%">USER</label>
 			</div>
 			
-			<div class="col-md-3"><label>Narration</label>
+			<div class="col-md-2"><label>Narration</label>
 				 <s:input type="text" id="txtNarration" path="strNarration"/>
 			</div>
 			
-			<div class="col-md-3"><label>User Created</label>
+			<div class="col-md-2"><label>User Created</label>
 				<s:input type="text" id="txtUserCreated" path="strUserCreated"/>
 			</div>
-				
-		    <div class="col-md-3"><label>User Edited</label>
+			<div class="col-md-2"></div>
+		    <div class="col-md-2"><label>User Edited</label>
 			     <s:input  type="text" id="txtUserEdited" path="strUserEdited"/>
 		    </div>
 				
-			<div class="col-md-3"><label>Created Date</label>
-				 <s:input  type="text" id="txtCreatedDate" path="dteDateCreated" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" />
+			<div class="col-md-2"><label>Created Date</label>
+				 <s:input  type="text" id="txtCreatedDate" path="dteDateCreated" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" style="width:70%;"/>
 		    </div>
 				
-			<div class="col-md-3"><label>Edited Date</label>
-				  <s:input  type="text" id="txtEditedDate" path="dteDateEdited" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" />
+			<div class="col-md-2"><label>Edited Date</label>
+				  <s:input  type="text" id="txtEditedDate" path="dteDateEdited" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" style="width:70%;"/>
 		    </div>
 		    
-		    <div class="col-md-3"><label>Currency</label>
+		    <div class="col-md-2"><label>Currency</label>
 				<div class="row">
 			            <div class="col-md-8"><s:select id="cmbCurrency" path="strCurrency" items="${currencyList}" cssClass="BoxW124px" onchange="funOnChangeCurrency()"></s:select></div>
 				        <div class="col-md-4"><s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField"></s:input></div>
@@ -942,47 +941,47 @@
 			<div class="col-md-12"><label><b>Details</b></label>
 			</div>
 				
-			<div class="col-md-3"><label>Account Code</label>
+			<div class="col-md-2"><label>Account Code</label>
 				  <input id="txtAccCode" name="txtAccCode" ondblclick="funHelp('GLCode')" class="searchTextBox" />
 			</div>
 				
-		    <div class="col-md-3"><label>Description</label>
+		    <div class="col-md-2"><label>Description</label>
 				  <input id="txtDescription" name="txtDescription" style="width: 100%;"  class="remarkTextBox" />
 			</div>
 			
-			<div class="col-md-3"><label id="lblCrdDebCode">Debtor Code</label>
+			<div class="col-md-2"><label id="lblCrdDebCode">Debtor Code</label>
 			    <input id="txtDebtorCode"  name="txtDebtorCode" ondblclick="funHelp1()" class="searchTextBox" />
 				<label id="lblCrdDebName"></label>
 			</div>
 			
-			<div class="col-md-3"><label>Dr/Cr</label>
+			<div class="col-md-1"><label>Dr/Cr</label>
 				   <select id="cmbDrCr">
 						  <option value="Dr">Dr</option>
 						  <option value="Cr">Cr</option>
 					</select>
 			</div>
 				
-		    <div class="col-md-3"><label>Amount</label>
+		    <div class="col-md-2"><label>Amount</label>
 				<input type="text" id="txtAmount" value="" class="decimal-places numberField"/>
 			</div>	
 			
-			<div class="col-md-3"><label>Dimension</label>
+			<div class="col-md-2"><label>Dimension</label>
 			      <select id="cmbDimesion" class="BoxW124px">
 						  <option value=""></option>
 						  <option value=""></option>
 					</select>
 		    </div>
 		    
-			<div class="col-md-3"><label>One Line Account</label>
+			<div class="col-md-2"><label>One Line Account</label>
 				   <input id="txtOneLineAcc" name="txtOneLineAcc" ondblclick="funHelp('oneLineAcc')" class="searchTextBox" />
 			</div>
 			
-			<div class="col-md-3"><label>Narration</label>
+			<div class="col-md-2"><label>Narration</label>
 				<input type="text" id="txtNarrationDtl" class="remarkTextBox" />
 			</div>
 				
 			<div class="col-md-12" align="right">
-					<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="btn btn-primary center-block" class="smallButton" />
+					<input style="margin-right:9%;" type="Button" value="Add" onclick="return funGetDetailsRow()" class="btn btn-primary center-block" class="smallButton" />
 			</div>
 			
 		</div><br>
@@ -991,17 +990,17 @@
 		<table
 			style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
 			<tr bgcolor="#c0c0c0">
-				<td style="width:8.9%;">Account Code</td>
-				<td style="width:12%;">Debtor Code</td>
-				<td style="width:22%;">Description</td>
-				<td style="width:4%;">D/C</td>
-				<td style="width:8%;">Debit Amt</td>
-				<td style="width:8%;">Credit Amt</td>
-				<td style="width:8%;">Dimension</td>
+				<td style="width:9.2%">Account Code</td>
+				<td style="width:9.8%">Debtor Code</td>
+				<td style="width:21.2%">Description</td>
+				<td style="width:3.9%">D/C</td>
+				<td style="width:6.7%">Debit Amt</td>
+				<td style="width:6.7%">Credit Amt</td>
+				<td style="width:7.7%">Dimension</td>
 <!-- 				<td style="width:8%;">One Line Account</td> -->
-				<td style="width:13%;">Narration</td>
-				<td style="width:3%;">Debtor YN</td>
-				<td style="width:2%;">Delete</td>
+				<td style="width:12.40%">Narration</td>
+				<td style="width:6.5%">Debtor YN</td>
+				<td style="width:14.3%">Delete</td>
 				
 			</tr>
 		</table>
@@ -1011,18 +1010,19 @@
 				style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 				class="transTablex col8-center">
 				<tbody>
-					<col style="width:9%">
-					<col style="width:12%">
+					<col style="width:9.5%">
+					<col style="width:10.08%">
 					<col style="width:22%">
 					<col style="width:4%">
-					<col style="width:8%">
-					<col style="width:8%">
+					<col style="width:7%">
+					<col style="width:7%">
 					<col style="width:8%">
 					<col style="width:13%">
 					<col style="width:3%">
 					<col style="width:2%">
 					<col style="width:0%">
-					<col style="width:0%;">
+					<col style="width:0%">
+					<col style="width:0%">
 				</tbody>
 			</table>
 		</div>

@@ -91,22 +91,25 @@
 		<s:form id="frmUserDefinedReportProcess" method="POST" action="getUserDefinedReportProcess.html?saddr=${urlHits}">
 			
 		    <div class="row">
-			    <div class="col-md-3"><label>Report ID</label>
-			            <s:input id="txtReportCode" path="strReportId" ondblclick="funHelp('userDefinedReportCode');" class="searchTextBox"/>
+			    <div class="col-md-2"><label>Report ID</label>
+			            <s:input id="txtReportCode" path="strReportId" style="height:42%" ondblclick="funHelp('userDefinedReportCode');" class="searchTextBox"/>
 			            <label id="lblUserName"></label>			    			    			    		    
 			    </div>
+			    <div class="col-md-10"></div>
 			    
-			   <div class="col-md-3"><label>From Date</label>
-				        <s:input colspan="3" type="text" id="txtFromDate" path="dteFDate" cssClass="calenderTextBox" />
-				</div>
-				
-				<div class="col-md-3"><label>To Date</label>
-				         <s:input type="text" id="txtToDate" path="dteTDate" cssClass="calenderTextBox" />
-				</div>
+			    <div class="col-md-3">
+					   <div class="row">
+			   				<div class="col-md-6"><label>From Date</label>
+				        		<s:input colspan="3" type="text" id="txtFromDate" style="height:50%" path="dteFDate" cssClass="calenderTextBox" />
+							</div>
+						<div class="col-md-6"><label>To Date</label>
+				         	<s:input type="text" id="txtToDate" path="dteTDate" style="height:50%" cssClass="calenderTextBox" />
+						</div>
+		    </div></div>
 		    </div>
 		    <br>
-			<p align="right" style="margin: 0px 160px;">
-			<input id="btnSubmit" type="submit" value="Execute" class="btn btn-primary center-block" class="form_button" />
+			<p align="right" style="margin-right:77%;">
+			   <input id="btnSubmit" type="submit" value="Execute" class="btn btn-primary center-block" class="form_button" />
 			</p>
 			</s:form>
 		</div>

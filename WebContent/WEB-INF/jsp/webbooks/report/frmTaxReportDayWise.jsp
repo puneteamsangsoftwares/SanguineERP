@@ -27,11 +27,11 @@ $(document).ready(function()
 			var startDate="${startDate}";
 			var arr = startDate.split("/");
 			Dat=arr[2]+"-"+arr[1]+"-"+arr[0];
-			$( "#txtFromDate" ).datepicker({ dateFormat: 'yy-mm-dd' });
+			$( "#txtFromDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtFromDate" ).datepicker('setDate', Dat);
 			$("#txtFromDate").datepicker();	
 			
-			 $("#txtToDate").datepicker({ dateFormat: 'yy-mm-dd' });
+			 $("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 				$("#txtToDate" ).datepicker('setDate', 'today');
 				$("#txtToDate").datepicker();	
 				
@@ -233,15 +233,18 @@ $(document).ready(function()
 	
 <%-- 		<input type="hidden" value="${urlHits}" name="saddr"> --%>
 		<br>
-		
-				<div class= "row">
-					<div class="col-md-3"><label>From Date</label>
+		<div class= "row">
+		      <div class="col-md-3">
+		           <div class= "row">
+					<div class="col-md-6"><label>From Date</label>
 				          <s:input path="dtFromDate" id="txtFromDate" required="required" cssClass="calenderTextBox" />
 				    </div>
-				    
-				   <div class="col-md-3"><label>To Date</label>
+				   <div class="col-md-6"><label>To Date</label>
 			              <s:input path="dtToDate" id="txtToDate" required="required" cssClass="calenderTextBox" />
 			       </div>
+			 </div></div> 
+			 <div class="col-md-9"></div>
+			  
 <!-- 			<tr> -->
 <!-- 			<td><label>Currency</label> -->
 <%-- 			<td><s:select id="cmbCurrency" path="strCurrency" --%>
@@ -251,10 +254,10 @@ $(document).ready(function()
 			
 				<div class="col-md-3">Tax  &nbsp;&nbsp;&nbsp;
 				<input type="text" id="txtTaxCode" 
-				 style="width: 35%;background-position: 150px 2px;"  Class="searchTextBox" placeholder="Type to search"  ></input>
-				<label id="lblTaxName"></label>
+				 style="background-position: 235px 7px;"  Class="searchTextBox" placeholder="Type to search"  ></input>
 				</div>
 	
+				<div class="col-md-3"><label id="lblTaxName" style="background-color:#dcdada94; width: 100%; height: 40%; margin: 27px 0px;"></label></div>
 				<br>
 		         <div class="row" style="background-color: #fafbfb; border: 1px solid #ccc;margin:12px 15px; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
 							<table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
@@ -279,8 +282,8 @@ $(document).ready(function()
 						</div>
 			</div>
 			
-		<p align="right"  style="margin: 0px 280px;">
-			<input type="submit" value="Submit" onclick="return btnSubmit_Onclick();" class="btn btn-primary center-block" class="form_button"  /> 
+		<p align="right"  style="margin: 0px 405px;">
+			<input type="submit" value="Submit" onclick="return btnSubmit_Onclick();" class="btn btn-primary center-block" class="form_button"/> &nbsp
 			<input type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />
 		</p>
 		<br>

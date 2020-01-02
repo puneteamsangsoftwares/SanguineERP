@@ -102,7 +102,7 @@
 				var glCode = $("#txtGLCode").val();
 				var debtorCode =$("#txtFromDebtorCode").val()
 				funGetDebtorLedger(fromDate,toDate,glCode,debtorCode,propCode);
-				
+				return false;
 			}
 	
 	
@@ -133,6 +133,7 @@
 				{
 					window.open(getContextPath()+"/rptCreditorReport.html?creditorCode="+creditorCode+"&fromDate="+fromDate+"&toDate="+toDate+"&ledgerName="+ledgerName+"&glCode="+glCode+"&glName="+glName+"&creditorName="+creditorName+"&currency="+currency+"&strShowNarration="+strShowNarration,'_blank');
 				}	
+				return false;
 			}
 	
 	function funGetDebtorLedger(fromDate,toDate,glCode,debtor,propCode)
@@ -209,12 +210,12 @@
 				{
 					dteBillDate='';
 					opBal=(parseFloat(item.dblDebitAmt)/currValue)-(parseFloat(item.dblCreditAmt)/currValue);
-				}else{
+				}/* else{ */
 					cr=cr+(parseFloat(item.dblCreditAmt)/currValue);
 					dr=dr+(parseFloat(item.dblDebitAmt)/currValue);
 					
 					
-				}
+				//}
 				var invoiceUrl=funOpenInvoiceFormat();
 				bal=bal+(parseFloat(item.dblDebitAmt)/currValue)-(parseFloat(item.dblCreditAmt)/currValue);
 				var transType="";
@@ -891,7 +892,7 @@
 						<label>Debtor Code:</label><br>
 							<div class="row">
 								<div class="col-md-6">
-									<s:input  type="text"  id="txtFromDebtorCode" cssClass="searchTextBox" 
+									<s:input  type="text"  id="txtFromDebtorCode" cssClass="searchTextBox" readonly="true"
 									 path="strFromDebtorCode" ondblclick="funHelp('debtorCode')"/>
 								</div>
 								<div class="col-md-6">
@@ -920,12 +921,12 @@
 									<label>Stop Credit Supply:</label><br>
 									<label id="lblStopCreditSupply"></label>
 								</div>
-								<div class="col-md-6">
+								<%-- <div class="col-md-6">
 									<label>Change Year</label>
 										<s:select id="cmbChangeYear" path="strChangeYear" class="BoxW124px">
 											<s:options items="${listChangeYear}"/>
 										</s:select>
-								</div>
+								</div> --%>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -966,11 +967,30 @@
 						</div>
 				</div>
 				<div id="paraSubmit" class="center" style="text-align:center;">
-					<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute"  onclick="funBtnExecute()"
+					<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute"  onclick="return funBtnExecute()"
 						class="form_button">Execute</button></a>
-					<a href="#"><button class="btn btn-primary center-block" id="btnExport" onclick="funBtnExport()"
+					<a href="#"><button class="btn btn-primary center-block" id="btnExport" onclick="return funBtnExport()"
 						class="form_button">Export</button></a>
 				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+			<div id="dvDebtorLedgerBill" style="width: 100% ;height: 100% ;">
+ 				<table id="tblCreditorLedgerBill"  class="transTable col2-right col3-right">					 
+		<table id="tblDebtorLedgerBill"  class="transTable col5-right col6-right col7-right col8-right col9-right"></table>
+		</div>
+		<br> <br>
+		<div id="dvDebtorLedgerBillTot" style="width: 30% ;height: 100% ;">
+				<table id="tblDebtorLedgerBillTot" class="transTable col2-right"></table>
+			</div>
+				
+				
+				
 			</s:form>
 		</div>
 <%-- 
@@ -991,7 +1011,7 @@
 	
 			
 			<div id="dvDebtorLedgerBill" style="width: 100% ;height: 100% ;">
-<!-- 				<table id="tblCreditorLedgerBill"  class="transTable col2-right col3-right">					 -->
+<!-- 				<table id="tblCreditorLedgerBill"  class="transTable col2-right col3-right">					 
 		<table id="tblDebtorLedgerBill"  class="transTable col5-right col6-right col7-right col8-right col9-right"></table>
 		</div>
 		<br> <br>

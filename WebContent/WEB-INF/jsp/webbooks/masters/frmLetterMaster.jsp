@@ -216,37 +216,40 @@
 					<div class="col-md-6">
 						<label>Letter Code:</label>
 						<div class="row">
-							<div class="col-md-6"><s:input id="txtLetterCode" ondblclick="funHelp('letterCode')" cssClass="searchTextBox" readonly="true" 
-								 placeholder="Letter Code" type="text" path="strLetterCode"></s:input>
+							<div class="col-md-5"><s:input id="txtLetterCode" ondblclick="funHelp('letterCode')" cssClass="searchTextBox"
+								 placeholder="Letter Code" readonly="true" type="text" path="strLetterCode"></s:input>
 							</div>
 						
-							<div class="col-md-6"><s:input id="txtLetterName" path="strLetterName" required="true"
-								 placeholder="Letter Code" type="text"></s:input>
+							<div class="col-md-7"><s:input id="txtLetterName" path="strLetterName" required="true"
+								 placeholder="Letter Name" type="text"></s:input>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6">
+					
+					<div class="col-md-6"></div>
+					
+					<div class="col-md-3">
 						<label>Reminder Letter:</label>
 						<div class="row">
 							<div class="col-md-6"><s:checkbox id="chkReminderLetter" path="strReminderYN" value="N" onclick="funSetCheckBoxValueYN(this)"/>
 							</div>
 							<div class="col-md-6"><s:select id="cmbReminderLetter" path="strReminderLetter" items="${listReminderLetter}" cssClass="BoxW124px" />
 							</div>
+							
 						</div>
 					</div>
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-6">
-								<label>Circular/Notice Letter</label>
+					
+					<div class="col-md-2"><label>Circular/Notice Letter</label><br>
 									<s:checkbox id="chkIsCircular" path="strIsCircular" value="N" onclick="funSetCheckBoxValueYN(this)"/>
 							</div>
-							<div class="col-md-6">
+							
+					<div class="col-md-2.1">
 							<label>Letter Process On</label>
 								<s:select id="cmbLetterProcessOn" path="strView" items="${listLetterProcessOn}" cssClass="BoxW200px" />
 							</div>
-						</div>
-					</div>
+						
 				</div>
+				<br>
 				<div id="divFieldSelectionAndDesigning">
 		        	<table class="masterTable">
 		        		<tr>
@@ -265,10 +268,11 @@
 							</td>         			
 		        		</tr>             				
 		        	</table>
-		        </div>		
-			<div class="center">
+		        </div>			<br />
+			<br />
+			<div class="center" style="margin-right:27%">
 				<a href="#"><button class="btn btn-primary center-block" tabindex="3" onclick=""
-					class="form_button">Submit</button></a>
+					class="form_button">Submit</button></a>&nbsp
 				<a href="#"><button class="btn btn-primary center-block" type="reset"
 					value="Reset" class="form_button" onclick="funResetField()">Reset</button></a>
 			</div> 

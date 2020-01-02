@@ -1250,58 +1250,62 @@
 			 <!-- Main Debtor Master Data -->
 								
 				<div class="row masterTable">
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-8">
 								<label>Debtor Code:</label><br>
-									<s:input  type="text" id="txtDebtorCode" cssClass="searchTextBox" 
+									<s:input  type="text" id="txtDebtorCode" cssClass="searchTextBox" style="height:50%"
 									 	path="strDebtorCode" ondblclick="funHelp('debtorCode')"/>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<label></label><br>
-									<s:select id="cmbPrefix" path="strPrefix" items="${listMrMrs}" cssClass="BoxW124px" cssStyle="width:80%; margin:0px; margin-top:20px;" />
+									<s:select id="cmbPrefix" path="strPrefix" items="${listMrMrs}" style="margin-top: 30%;"/>
 							</div>
 						</div> 
 					</div>
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-6">
+				
+				   <div class="col-md-2">
 								<label>First name:</label><br>
 									<s:input  type="text" id="txtFirstName"  
 									 	path="strFirstName" />
-							</div>
-							<div class="col-md-6">
+				   </div>
+				   
+					<div class="col-md-2">
 								<label>Middle name:</label><br>
 									<s:input  type="text" id="txtMiddleName"  
 									 	path="strMiddleName" />
-							</div>
-						</div> 
-					</div>
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-6">
+				     </div>
+						
+					
+					<div class="col-md-2">
 								<label>last name:</label><br>
 									<s:input  type="text" id="txtLastName"  
 									 	path="strLastName" />
-							</div>
-							<div class="col-md-6">
-								<label>Account Code:</label><br>
-									<s:input id="txtGLCode" path="strAccountCode"  ondblclick="funHelp('debtorAccountCode')" cssClass="searchTextBox"/>
-							</div>
-						</div> 
 					</div>
-					<div class="col-md-6">
+					
+					<div class="col-md-3"></div>
+						
+					<div class="col-md-5">
 						<label>Category Code:</label>
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-5">
 								<s:input  type="text" id="txtCategoryCode"  
-									 path="strCategoryCode" ondblclick="funHelp('debtorAccountCode')" cssClass="searchTextBox"/>
+									 path="strCategoryCode" ondblclick="funHelp('categoryCode')" style="width:95%" cssClass="searchTextBox"/>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-7">
 								<s:input id="txtCategoryName" path=""  required="true" readonly="true" />
 							</div>
 						</div> 
 					</div>
+					<div class="col-md-6"></div>
+					<div class="col-md-2">
+								<label>Account Code:</label><br>
+									<s:input id="txtGLCode" path="strAccountCode"  ondblclick="funHelp('debtorAccountCode')"  style="height:50%" cssClass="searchTextBox"/>
+					</div>
+					<div class="col-md-3">
+					   <label id="lblGLCode" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label>
+					</div>
+					
 				</div>
 				<table class="masterTable">
 						<tr>
@@ -1321,177 +1325,187 @@
 				
 			<div id="tab1" class="tab_content" style="height: auto;">
 				<div class="row masterTable">
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-6">
+					
+							<div class="col-md-4">
 								<label>Address Line 1:</label><br>
 									<s:input  type="text" id="txtAddressLine1" 
 									 	path="strAddressLine1" />
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-1">
 								<label>Blocked:</label><br>
 									<s:select id="cmbBlocked" path="strBlocked" items="${listBlocked}" cssClass="BoxW124px" />
 							</div>
-						</div> 
-					</div>	
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-6">
+							
+							<div class="col-md-7"></div>
+							
+							<div class="col-md-4">
 								<label>Address Line 2:</label><br>
 									<s:input  type="text" id="txtAddressLine2" 
 									 	path="strAddressLine2" />
 							</div>
-							<div class="col-md-6">
-								<label>Address Line 3:</label><br>
-									<s:input id="txtAddressLine3" path="strAddressLine3" />
+							
+					<div class="col-md-6">
+						<label>Reason:</label><br>
+						<div class="row">
+							<div class="col-md-5">
+								<s:input type="text" id="txtExpiryReasonCode" path="strExpiryReasonCode" readonly="true" ondblclick="funHelp('reasonCode')" placeholder="Reason Code" cssClass="searchTextBox"/>			        			        
+							</div>
+							<div class="col-md-7">
+								<s:input id="txtExpiryReasonName" path="" type="text" placeholder="Reason Name" readonly="true" />
 							</div>
 						</div> 
 					</div>	
-					<div class="col-md-6">
-							<label>Reason:</label><br>
-						<div class="row">
-							<div class="col-md-6">
-								<s:input type="text" id="txtExpiryReasonCode" path="strExpiryReasonCode" readonly="true" ondblclick="funHelp('reasonCode')" placeholder="Reason" cssClass="searchTextBox"/>			        			        
-							</div>
-							<div class="col-md-6">
-								<s:input id="txtExpiryReasonName" path="" type="text" placeholder="Reason" readonly="true" />
-							</div>
-						</div> 
-					</div>	
+					
+					<div class="col-md-2"></div>
+					
+					<div class="col-md-4">
+						<label>Address Line 3:</label><br>
+							<s:input id="txtAddressLine3" path="strAddressLine3" />
+					</div>
+						
+					
 					<div class="col-md-6">
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-5">
 								<label>FAX:</label><br>
 								<s:input type="text" id="txtFax" path="strFax" />		        			        
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-7">
 								<label>Landmark:</label><br>
-								<s:input id="txtLandmark" path="strLandmark" type="text" placeholder="Landmark" />
-							</div>
-						</div> <br>
-					</div>	
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-6">
-								<label>Email:</label><br>
-								<s:input type="text" id="txtEmail" path="strEmail" placeholder="Email" />			        			        
-							</div>
-							<div class="col-md-6">
-								<label>Currency Type:</label><br>
-								<s:select id="cmbCurrencyType" path="strCurrencyType" items="${listCurrencyType}" cssClass="BoxW124px" />
+								<s:input id="txtLandmark" path="strLandmark" type="text"/>
 							</div>
 						</div> 
 					</div>	
-					<div class="col-md-6">
+					
+					<div class="col-md-2"></div>
+					
+					<div class="col-md-5">
 					<label>Area:</label><br>
 						<div class="row">
-							<div class="col-md-6">
-								<s:input type="text" id="txtArea" path="strArea" placeholder="Area" ondblclick="funHelp('areaCode')" cssClass="searchTextBox"/>			        			        
+							<div class="col-md-5">
+								<s:input type="text" id="txtArea" path="strArea" placeholder="Area code" ondblclick="funHelp('areaCode')" cssClass="searchTextBox"/>			        			        
 							</div>
-							<div class="col-md-6">
-								<s:input id="txtAreaName" path="" readonly="true" type="text" placeholder="Area"/>
+							<div class="col-md-7">
+								<s:input id="txtAreaName" path="" readonly="true" type="text" placeholder="Area Name"/>
 							</div>
 						</div> 
 					</div>
-					<div class="col-md-6">
+					
+					<div class="col-md-3">
+								<label>Email:</label><br>
+								<s:input type="text" id="txtEmail" path="strEmail"/>			        			        
+				  </div>
+				  
+					
+					<div class="col-md-5">
 					<label>City:</label><br>
 						<div class="row">
-							<div class="col-md-6">
-								<s:input type="text" id="txtCity" path="strCity" placeholder="City"  ondblclick="funHelp('cityCode')"  cssClass="searchTextBox"/>			        			        
+							<div class="col-md-5">
+								<s:input type="text" id="txtCity" path="strCity" placeholder="City Code"  ondblclick="funHelp('cityCode')"  cssClass="searchTextBox"/>			        			        
 							</div>
-							<div class="col-md-6">
-								<s:input id="txtCityName" path="" readonly="true" type="text" placeholder="City"/>
+							<div class="col-md-7">
+								<s:input id="txtCityName" path="" readonly="true" type="text" placeholder="City Name"/>
 							</div>
 						</div> 
 					</div>	
-					<div class="col-md-6">
+					
+					<div class="col-md-2">
+								<label>Currency Type:</label><br>
+								<s:select id="cmbCurrencyType" path="strCurrencyType" items="${listCurrencyType}" cssClass="BoxW124px" />
+					</div>
+					
+					<div class="col-md-5"></div>
+					
+					<div class="col-md-5">
 					<label>State:</label><br>
 						<div class="row">
-							<div class="col-md-6">
-								<s:input type="text" id="txtState" path="strState" placeholder="State"  ondblclick="funHelp('stateCode')"  cssClass="searchTextBox"/>			        			        
+							<div class="col-md-5">
+								<s:input type="text" id="txtState" path="strState" placeholder="State Code"  ondblclick="funHelp('stateCode')"  cssClass="searchTextBox"/>			        			        
 							</div>
-							<div class="col-md-6">
-								<s:input id="txtStateName" path="" readonly="true" type="text" placeholder="State"/>
+							<div class="col-md-7">
+								<s:input id="txtStateName" path="" readonly="true" type="text" placeholder="State Name"/>
 							</div>
-						</div> <br>
+						</div>
 					</div>	
-					<div class="col-md-6">
+					
+					<div class="col-md-3">
 						<div class="row">
 							<div class="col-md-6">
 								<label>License Fee in Rs</label><br>
-								<s:input type="text" id="txtLicenseFee" path="dblLicenseFee" placeholder="License Fee" />			        			        
+								<s:input type="text" id="txtLicenseFee" path="dblLicenseFee"/>			        			        
 							</div>
 							<div class="col-md-6">
 								<label>Annual Fee in Rs</label><br>
-								<s:input id="txtAnnualFee" path="dblAnnualFee"  type="text" placeholder="Annual Fee"/>
+								<s:input id="txtAnnualFee" path="dblAnnualFee"  type="text"/>
 							</div>
 						</div> 
 					</div>	
-					<div class="col-md-6">
+					
+					<div class="col-md-4"></div>
+					
+					<div class="col-md-5">
 					<label>Region:</label><br>
 						<div class="row">
-							<div class="col-md-6">
-								<s:input type="text" id="txtRegion" path="strRegion" placeholder="Region" ondblclick="funHelp('regionCode')" cssClass="searchTextBox"/>			        			        
+							<div class="col-md-5">
+								<s:input type="text" id="txtRegion" path="strRegion" placeholder="Region Code" ondblclick="funHelp('regionCode')" cssClass="searchTextBox"/>			        			        
 							</div>
-							<div class="col-md-6">
-								<s:input id="txtRegionName" path="" readonly="true" type="text" placeholder="Region"/>
+							<div class="col-md-7">
+								<s:input id="txtRegionName" path="" readonly="true" type="text" placeholder="Region Name"/>
 							</div>
-						</div><br> 
+						</div>
 					</div>
-					<div class="col-md-6">
+					
+					<div class="col-md-3">
+								<label>Remarks:</label><br>
+									<s:textarea id="txtRemarks" path="strRemarks"  cssStyle="height:30px; width:100%;"/>     
+					</div>
+							
+					<div class="col-md-5">
 						<label>Country:</label><br>
 							<div class="row">
-								<div class="col-md-6">
-									<s:input type="text" id="txtCountry" path="strCountry" placeholder="Counrty" ondblclick="funHelp('countryCode')" cssClass="searchTextBox"/>			        			        
+								<div class="col-md-5">
+									<s:input type="text" id="txtCountry" path="strCountry" placeholder="Country Code" ondblclick="funHelp('countryCode')" cssClass="searchTextBox"/>			        			        
 								</div>
-							<div class="col-md-6">
-								<s:input id="txtCountryName" path="" readonly="true" type="text" placeholder="Counrty"/>
+							<div class="col-md-7">
+								<s:input id="txtCountryName" path="" readonly="true" type="text" placeholder="Country Name"/>
 							</div>
 						</div> 
 					</div>
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-6">
-								<label>Remarks:</label><br>
-									<s:textarea id="txtRemarks" path="strRemarks"  cssStyle="height:30px; width:90%;"/>     
-							</div>
-							<div class="col-md-6">
-								<label>Operational:</label>
-									<s:select id="cmbOperational" path="strOperational" items="${listOperational}" cssClass="BoxW124px"/>
-							</div>
-						</div> 
+					
+					<div class="col-md-1">
+						<label>Operational:</label>
+							<s:select id="cmbOperational" path="strOperational" items="${listOperational}" cssClass="BoxW124px"/>
 					</div>
-					<div class="col-md-6">
+					
+					<div class="col-md-2">
+						<label>Credit Days:</label><br>
+								<s:input id="txtCreditDays" path="intCreditDays" type="text"/>    
+								<%-- <s:input id="txtCreditDays" path="intCreditDays" type="text"  pattern="\d{1,2}-\d{1,2}-\d{4}" /> --%>
+					</div>
+					
+					<div class="col-md-4"></div>
+						
+					<div class="col-md-4">
 						<label>Telephone No:</label><br>
 						<div class="row">
 							<div class="col-md-6">
-								<s:input id="txtTelNo1" path="strTelNo1" placeholder="Telephone No" type="text"/>    
+								<s:input id="txtTelNo1" path="strTelNo1" placeholder="Telephone No 1" type="text"/>    
 							</div>
 							<div class="col-md-6">				
-								<s:input id="txtTelNo2" path="strTelNo2" placeholder="Telephone No" readonly="true" />
+								<s:input id="txtTelNo2" path="strTelNo2" placeholder="Telephone No 2" readonly="true" />
 							</div>
 						</div> 
 					</div>
-					<div class="col-md-6">
-						<label>Credit Days:</label><br>
-						<div class="row">
-							<div class="col-md-6">
-								<s:input id="txtCreditDays" path="intCreditDays" placeholder="Credit Days" type="text"/>    
-							</div>
-							<div class="col-md-6">				
-								<s:input id="txtCreditDays" path="intCreditDays" type="text"  pattern="\d{1,2}-\d{1,2}-\d{4}" />
-							</div>
-						</div><br>
-					</div>
-					<div class="col-md-6">
+					
+					<div class="col-md-4">
 						<div class="row">
 							<div class="col-md-6">
 							<label>Zip:</label><br>
-								<s:input id="txtZipCode" path="longZipCode" placeholder="Zip" type="text"/>  <!-- pattern="[0-9]{7}" -->   
+								<s:input id="txtZipCode" path="longZipCode" type="text"/>  <!-- pattern="[0-9]{7}" -->   
 							</div>
 							<div class="col-md-6">	
 							<label>Mobile No:</label><br>			
-								<s:input id="txtMobileNo" path="longMobileNo"  placeholder="10 digit mobile number" /> <!-- pattern="[0-9]{10}"	 -->
+								<s:input id="txtMobileNo" path="longMobileNo"/> <!-- pattern="[0-9]{10}"	 -->
 							</div>
 						</div> 
 					</div>
@@ -1508,19 +1522,19 @@
 									<div class="row">
 										<div class="col-md-6">
 											<label>Name:</label><br>
-											<s:input id="txtContactPerson1" path="strContactPerson1" placeholder="Name1" type="text"/>
+											<s:input id="txtContactPerson1" path="strContactPerson1"  type="text"/>
 										</div>
 										<div class="col-md-6">
 											<label>Designation:</label><br>
-											<s:input id="txtContactDesignation1" path="strContactDesignation1" placeholder="Name1" type="text"/>
+											<s:input id="txtContactDesignation1" path="strContactDesignation1" type="text"/>
 										</div>
 										<div class="col-md-6">
 											<label>Email:</label><br>
-											<s:input id="txtContactEmail1" path="strContactEmail1" placeholder="Email1" type="text"/>
+											<s:input id="txtContactEmail1" path="strContactEmail1"  type="text"/>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-3">
 											<label>Telephone No:</label><br>
-											<s:input id="txtContactTelNo1" path="strContactTelNo1" placeholder="Telephone No1" type="text"/>
+											<s:input id="txtContactTelNo1" path="strContactTelNo1"  type="text"/>
 										</div>
 									</div>
 								</div>
@@ -1530,63 +1544,68 @@
 								<div class="row">
 										<div class="col-md-6">
 											<label>Name:</label><br>
-											<s:input id="txtContactPerson2" path="strContactPerson2" placeholder="Name2" type="text"/>
+											<s:input id="txtContactPerson2" path="strContactPerson2" type="text"/>
 										</div>
 										<div class="col-md-6">
 											<label>Designation:</label><br>
-											<s:input id="txtContactDesignation2" path="strContactDesignation2" placeholder="Name2" type="text"/>
+											<s:input id="txtContactDesignation2" path="strContactDesignation2"  type="text"/>
 										</div>
 										<div class="col-md-6">
 											<label>Email:</label><br>
-											<s:input id="txtContactEmail2" path="strContactEmail2" placeholder="Email2" type="text"/>
+											<s:input id="txtContactEmail2" path="strContactEmail2" type="text"/>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-3">
 											<label>Telephone No:</label><br>
-											<s:input id="txtContactTelNo1" path="strContactTelNo2" placeholder="Telephone No2" type="text"/>
+											<s:input id="txtContactTelNo1" path="strContactTelNo2" type="text"/>
 										</div>
 								</div><br>
 						</div>
+						
 							<div class="col-md-12"><p style="margin-bottom:0px;">Additional Information</p></div>
+							
 							<div class="col-md-6">
 								<label>Billing To:</label><br>
 									<div class="row">
-										<div class="col-md-6">
-											<s:input id="txtBillingToCode" path="strBillingToCode"  readonly="true" placeholder="Billing To" ondblclick="funHelp('billingTo')" cssClass="searchTextBox" type="text"/>
+										<div class="col-md-5">
+											<s:input id="txtBillingToCode" path="strBillingToCode"  readonly="true" ondblclick="funHelp('billingTo')" cssClass="searchTextBox" type="text"/>
 										</div>
-										<div class="col-md-6">
-											<s:input id=""  readonly="true"  path="" placeholder="Billing To" type="text"/>
+										<div class="col-md-7">
+											<s:input id=""  readonly="true"  path="" type="text"/>
 										</div>								
 									</div>
 							</div>
+							
+							<div class="col-md-3">
+								<div class="row">
+									<div class="col-md-8"><label>Consolidated Billing</label><br>
+										<s:checkbox id="chkConsolidated" path="strConsolidated" value="" onclick='onClickedConsolidatedBilling()' />
+									</div>
+									<div class="col-md-4"></div>								
+								</div>
+							</div>
+							
 							<div class="col-md-6">
 								<label>Account Holder Code:</label><br>
 									<div class="row">
-										<div class="col-md-6">
+										<div class="col-md-5">
 											<s:input id="txtAccountHolderCode" path="strAccountHolderCode" placeholder="Account Holder Code" ondblclick="funHelp('acHolderCode')" cssClass="searchTextBox" type="text"/>
 										</div>
-										<div class="col-md-6">
-											<s:input id="txtAccountHolderName"  readonly="true"  path="strAccountHolderName" placeholder="Account Holder Code" type="text"/>
+										<div class="col-md-7">
+											<s:input id="txtAccountHolderName"  readonly="true"  path="strAccountHolderName" placeholder="Account Holder Name" type="text"/>
 										</div>								
 									</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">
 									<div class="row">
-										<div class="col-md-6"><label>AMC Cycle:</label><br>
+										<div class="col-md-4"><label>AMC Cycle:</label><br>
 											<s:select id="cmbAMCCycle" path="strAMCCycle" items="${listAMCCycle}" cssClass="BoxW124px" />
 										</div>
-										<div class="col-md-6"><label>AMC Remark:</label><br>
-											<s:textarea id="txtAMCRemarks" path="strAMCRemarks"/>
+										<div class="col-md-8"><label>AMC Remark:</label><br>
+											<s:textarea id="txtAMCRemarks" path="strAMCRemarks" style="width: 90%; height: 33%;"/>
 										</div>								
 									</div>
 							</div>
-							<div class="col-md-6">
-								<div class="row">
-									<div class="col-md-6"><label>Consolidated Billing</label>
-										<s:checkbox id="chkConsolidated" path="strConsolidated" value="" onclick='onClickedConsolidatedBilling()' />
-									</div>
-									<div class="col-md-6"></div>								
-								</div>
-							</div>
+							
 				
 						</div>
 					</div>
@@ -1594,42 +1613,47 @@
 		<div id="tab3" class="tab_content" style="height: auto;">
 			<p>ECS Information</p>
 				<div class="row masterTable">
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<div class="row">
-							<div class="col-md-6"><label>ECS Y/N:</label><br>
+							<div class="col-md-4"><label>ECS Y/N:</label><br>
 								<s:select id="cmbECSYN" path="strECSYN" items="${listECSYN}" cssClass="BoxW124px" />
 							</div>
-							<div class="col-md-6"><label>ECS Limit:</label><br>
+							<div class="col-md-8"><label>ECS Limit:</label><br>
 								<s:input id="txtECSLimit" path="dblECS" type="text"/>
 							</div>								
 						</div>
 					</div>
-					<div class="col-md-6">
+					
+					<div class="col-md-4">
 						<div class="row">
-							<div class="col-md-6"><label>Account No:</label><br>
+							<div class="col-md-7"><label>Holder Name:</label><br>
+								<s:input id="txtHolderName" path="strHolderName" type="text"/>
+							</div>
+							<div class="col-md-5"><label>Alternate Code:</label><br>
+								<s:input id="txtAlternateCode" path="strAlternateCode" type="text"/>
+							</div>								
+						</div>
+					</div>
+					
+					<div class="col-md-4"></div>
+					
+					<div class="col-md-4">
+						<div class="row">
+							<div class="col-md-7"><label>Account No:</label><br>
 								<s:input id="txtAccountNo"  readonly="true"  path="strAccountNo" placeholder="Account No" type="text"/>
 							</div>
-							<div class="col-md-6"><label>Saving/Current Account:</label><br>
+							<div class="col-md-5"><label>Account:</label><br>
 								<s:select id="cmbSaveCurAccount" path="strSaveCurAccount" items="${listAccountType}" cssClass="BoxW124px" />	
 							</div>								
 						</div>
 					</div>
-					<div class="col-md-6">
+					
+					<div class="col-md-4">
 						<div class="row">
-							<div class="col-md-6"><label>Holder Name:</label><br>
-								<s:input id="txtHolderName" path="strHolderName" placeholder="Holder Name" type="text"/>
+							<div class="col-md-7"><label>MICR No:</label><br>
+								<s:input id="txtMICRNo" path="strMICRNo" type="text"/>
 							</div>
-							<div class="col-md-6"><label>Alternate Code:</label><br>
-								<s:input id="txtAlternateCode" path="strAlternateCode" placeholder="Alternate Code" type="text"/>
-							</div>								
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-6"><label>MICR No:</label><br>
-								<s:input id="txtMICRNo" path="strMICRNo" placeholder="MICR No" type="text"/>
-							</div>
-							<div class="col-md-6"><label>ECS Activated:</label><br>
+							<div class="col-md-5"><label>ECS Activated:</label><br>
 								<s:select id="cmbECSActivate" path="strECSActivate" items="${listECSActivated}" cssClass="BoxW124px" />							</div>								
 						</div>
 					</div>
@@ -1640,26 +1664,34 @@
 	<!--Opening Balance-->
 		<div id="tab4" class="tab_content" style="height: auto;">
 		<br> 
-			<table class="masterTable" style="width: 99%">				
-				<tr>
-				        <th><label>Account Code</label></th>
-				        <th><label>Account Name</label></th>
-				        <th><label>Opening Balance</label></th>
-				        <th><label>Dr/Cr</label></th>
-				        <th><label>Current Balance</label></th>		
-				        <th></th>		        
-			   	</tr>			   			
-			   	<tr>
-			    	<td style="padding-left: 0px;"><s:input id="txtAccountCode" path=""  cssClass="searchTextBox" ondblclick='funHelp("accountCode")' /></td>	
-			    	<td><s:input id="txtAccountName" path="" type="text"   /></td>	
-			    	<td><s:input  type="number" id="txtOpeningBalance" path=""   class="decimal-places numberField" cssStyle="text-align: right;" /></td>			    	
-				    <td><s:select id="cmbDrCr" path="" items="${listDrCr}" cssClass="BoxW124px" style="margin:0px;" /></td>	
-				    <td><s:input id="txtCurrentBalance" path=""  readonly="true" value="0"/></td>
-				    <td><input type="button" value="Add"  class="btn btn-primary center-block" onclick='funAddRow("tblOpeningBalance")'/></td>					    				
-			    </tr>		    				   
-			</table>			
+				<div class="row">		
+				<div class="col-md-2"><label>Account Code</label>
+									 <s:input id="txtAccountCode" path=""  cssClass="searchTextBox" ondblclick='funHelp("accountCode")' style="height: 47%;"/>
+				</div>
+				
+				<div class="col-md-3"><label>Account Name</label>
+										<s:input id="txtAccountName" path="" type="text"   />
+				</div>
+				
+				 <div class="col-md-2"><label>Opening Balance</label>
+				 					<s:input  type="number" id="txtOpeningBalance" path=""   class="decimal-places numberField" cssStyle="text-align: right;" />
+				 </div>
+				 
+				  <div class="col-md-1"><label>Dr/Cr</label>
+				  					<s:select id="cmbDrCr" path="" items="${listDrCr}" cssClass="BoxW124px" style="margin:0px;" />
+				  </div>
+				  
+				   <div class="col-md-2"><label>Current Balance</label>
+				   					<s:input id="txtCurrentBalance" path=""  readonly="true" value="0"/>
+				   </div>	
+				   	
+				   <div class="col-md-2"><input type="button" value="Add"  class="btn btn-primary center-block" onclick='funAddRow("tblOpeningBalance")' style="padding: 8px 24px;  margin-top: 20px"/>
+				   </div>   		        
+			   	
+			    		    				   
+			  </div>
 			<br>
-			<br>
+		
 			<div style="background-color: #f2f2f2; border: 1px solid #ccc;display: block; height: 150px;
 				    				margin: auto;overflow-x: hidden; overflow-y: scroll;width: 99%;">
 				<!-- Dynamic Table Generation for tab4 (Opening Balance) -->
@@ -1679,38 +1711,47 @@
 <!--Item Detail-->		
 				<div id="tab5" class="tab_content" style="height: auto;">
 					<div class="row masterTable">
-						<div class="col-md-3">
+						<div class="col-md-2">
 							<label>Product Code:</label><br>
-							<s:input id="txtProductCode" path="" cssClass="searchTextBox" placeholder="Product Code" type="text" ondblclick="funHelp('productCodeWebBook')"/>
+							<s:input id="txtProductCode" path="" cssClass="searchTextBox" type="text" style="height: 47%" ondblclick="funHelp('productCodeWebBook')"/>
 						</div>
+						
 						<div class="col-md-3">
 							<label>Product Name</label>
-							<s:input id="txtProductName" path=""  placeholder="Product Name" type="text"/>
+							<s:input id="txtProductName" path="" type="text"/>
 						</div>
-						<div class="col-md-3">
+						
+						<div class="col-md-2">
 							<label>License Amount:</label><br>
 							<s:input id="txtLicenseAmount" path="" type="text" />
 						</div>
-						<div class="col-md-3">
+						
+						<div class="col-md-2">
 							<label>AMC Amount:</label><br>
 							<s:input id="txtAMCAmount" path="" type="text" />
 						</div>
-						<div class="col-md-3">
+						
+						<div class="col-md-1">
 							<label>AMC Type:</label><br>
 							<s:select id="cmbAMCType"  path="" items="${listDrCr}" cssClass="BoxW124px" />
 						</div>
+						
+						<div class="col-md-2"></div>
+						
 						<div class="col-md-3">
-							<label>Installation Date:</label><br>
-							<s:input id="txtInstallationDate" path="" cssClass="calenderTextBox"  type="text" />
-						</div>
+							<div class="row">
+									<div class="col-md-6"><label>Installation Date:</label>
+							             <s:input id="txtInstallationDate" path="" cssClass="calenderTextBox"  type="text" /></div>
+						            <div class="col-md-6"><label>Warranty In Day's:</label>
+							                <s:input id="txtWarrInDays" path="" type="text" /></div>
+						        </div>
+						 </div>
+						
 						<div class="col-md-3">
-							<label>Warranty In Day's:</label><br>
-							<s:input id="txtWarrInDays" path="" type="text" />
-						</div>
-						<div class="col-md-3">
-							<input type="button" value="Add" class="btn btn-primary center-block" onclick='funAddRow("tblItemDetails")' style="margin-top:23px;"/>
+							<input type="button" value="Add" class="btn btn-primary center-block" onclick='funAddRow("tblItemDetails")' style="width:30%; margin-top:23px;"/>
 						</div>
 					</div>
+					<br>
 				<div style="background-color: #f2f2f2 ;border: 1px solid #ccc;display: block; height: 150px;
 				    				margin: auto;overflow-x: hidden; overflow-y: scroll;width: 99%;">	
 				<!-- Dynamic Table Generation for tab5 (Item Details) -->
@@ -1730,7 +1771,7 @@
 			</div>
 				<div id="paraSubmit" class="center">
 					<a href="#"><button class="btn btn-primary center-block" value="Submit"  onclick="return funValidateForm();"
-						class="form_button">Submit</button></a>
+						class="form_button">Submit</button></a>&nbsp
 					<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetFields()"
 						class="form_button">Reset</button></a>
 				</div>					

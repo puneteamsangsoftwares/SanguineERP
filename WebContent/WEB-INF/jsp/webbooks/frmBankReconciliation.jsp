@@ -208,28 +208,29 @@
 <body>
 	<div class="container transTable">
 		<label id="formHeading">Bank Reconciliation</label>
-	   <s:form name="BankReconciliation" method="GET" action="rptBankReconciliation.html" >
-		<div class="row">
-			   <div class="col-md-3"><label>From Date </label>
-				    <s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-			    </div>
-			    
-				<div class="col-md-3"><label>To Date </label>
-					  <s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-				</div>	
-			
-				<div class="col-md-3"><label>Bank Code</label>
-				      <s:input type="text" id="txtGLCode" path="strGLCode" class="searchTextBox" ondblclick="funHelp('bankAccNo');"/>
+	  	 <s:form name="BankReconciliation" method="GET" action="rptBankReconciliation.html" >
+			<div class="row">
+				<div class="col-md-3">
+					<div class="row">
+				   		<div class="col-md-6"><label>From Date </label>
+					   	 	<s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+				   		</div>
+						<div class="col-md-6"><label>To Date </label>
+						 	<s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+						</div>	
+					</div>
 				</div>
-				 
+				<div class="col-md-2"><label>Bank Code</label>
+					  <s:input type="text" id="txtGLCode" path="strGLCode" class="searchTextBox" ondblclick="funHelp('bankAccNo');"/>
+				</div>
 				<div class="col-md-3"><label id="lblGLCode" style="background-color: white;width: 100%;height: 42%;margin: 27px 0px;"></label>
 		        </div>
 <!-- 					<td><label>Currency </label></td> -->
 <%-- 					<td><s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px"> --%>
 <%-- 						</s:select></td> --%>
-				<div class="col-md-12" align="right"><input type="button" id="btnExcecute" value="Excecute" class="btn btn-primary center-block" class="form_button" onclick="funFillData()" />
+				<div class="col-md-12" align="right"><input type="button" id="btnExcecute" value="Excecute" class="btn btn-primary center-block" class="form_button" onclick="funFillData()"/>
 				</div>
-		</div>
+			</div>
 		<br/>
 	
 		<div class="dynamicTableContainer" style="height: 300px;width: 99.80%;">
@@ -273,6 +274,6 @@
 				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 	</s:form>
-
+</div>
 </body>
 </html>

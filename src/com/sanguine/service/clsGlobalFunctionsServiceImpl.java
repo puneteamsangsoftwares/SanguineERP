@@ -311,12 +311,14 @@ public class clsGlobalFunctionsServiceImpl implements clsGlobalFunctionsService 
 	 */
 
 	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false, value = "WebBooksTransactionManager")
 	public int funDeleteWebBookLedgerSummary(String clientCode, String userCode, String propertyCode) {
 		return objGlobalDao.funDeleteWebBookLedgerSummary(clientCode, userCode, propertyCode);
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false, value = "WebBooksTransactionManager")
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebBooksTransactionManager")
+	//@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true, value = "WebBooksTransactionManager")
 	public void funAddUpdateLedgerSummary(clsLedgerSummaryModel cobjLedgerSummaryModel) {
 		objGlobalDao.funAddUpdateLedgerSummary(cobjLedgerSummaryModel);
 	}
@@ -345,5 +347,11 @@ public class clsGlobalFunctionsServiceImpl implements clsGlobalFunctionsService 
 
 	public double funGetCurrencyConversion(double amount, String currency, String clientCode) {
 		return objGlobalDao.funGetCurrencyConversion(amount, currency, clientCode);
+	}
+	
+	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false, value = "WebBooksTransactionManager")
+	public void funExecuteWebBook(String sql, String queryType) {
+		objGlobalDao.funExecuteWebBook(sql, queryType);
 	}
 }

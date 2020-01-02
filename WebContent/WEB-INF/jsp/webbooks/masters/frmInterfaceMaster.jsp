@@ -176,26 +176,28 @@
 		<label id="formHeading">Interface Master</label>
 			<s:form name="InterfaceMaster" method="POST" action="saveInterfaceMaster.html">
 				<div class="row masterTable">
-					<div class="col-md-3"><label >Interface Code</label>
-						<s:input id="txtInterfaceCode"  ondblclick="funHelp('interfaceCode')" cssClass="searchTextBox" readonly="true"
-							 placeholder="Interface Code" type="text" path="strInterfaceCode"></s:input>
+					<div class="col-md-2"><label >Interface Code</label>
+						<s:input id="txtInterfaceCode"  ondblclick="funHelp('interfaceCode')" cssClass="searchTextBox" style="height:50%"
+							readOnly="true" type="text" path="strInterfaceCode"></s:input>
 					</div>
 					<div class="col-md-3"><label >Interface Name</label>
 						<s:input id="txtInterfaceName"   
-							 placeholder="Interface Name" type="text" path="strInterfaceName"></s:input>
+							  type="text" path="strInterfaceName"></s:input>
 					</div>
-					<div class="col-md-3"><label >Account Code</label>
-						<s:input id="txtAccountCode"  ondblclick="funHelp('accountCode')" cssClass="searchTextBox" 
-							 placeholder="Account Code" type="text" path="strAccountCode"></s:input>
+					<div class="col-md-7"></div>
+					<!-- <div class="col-md-7"></div> -->
+					<div class="col-md-2"><label >Account Code</label>
+						<s:input id="txtAccountCode"  ondblclick="funHelp('accountCode')" cssClass="searchTextBox" style="height:50%"
+							   readonly="true" type="text" path="strAccountCode"></s:input>
 					</div>
 					<div class="col-md-3"><label >Account Name</label>
-						<s:input id="txtAccountName" required="true" 
-							 placeholder="Account Name" type="text" path="strAccountName"></s:input>
+						<s:input id="txtAccountName" required="true"
+							 type="text" path="strAccountName"></s:input>
 					</div> 
 				</div>
-				<div class="center">
+				<div class="center" style="margin-right: 60%;">
 				<a href="#"><button class="btn btn-primary center-block" tabindex="3" onclick=""
-					class="form_button">Submit</button></a>
+					class="form_button">Submit</button></a>&nbsp
 				<a href="#"><button class="btn btn-primary center-block" type="reset"
 					value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
 			</div>

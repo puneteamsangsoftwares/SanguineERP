@@ -84,7 +84,7 @@
 	        <div class="app-sidebar">
         		<ul class="side-menu" id="tree">
         			<c:forEach items="${treeMap}" var="draw1" varStatus="status1">
-        				<li>
+        				<li style="padding:0px">
         				  <a href="#" class="link">
 			             	<c:set var="menuMaster" value="Master"/>
 			             	<c:set var="menuReport" value="Report"/>

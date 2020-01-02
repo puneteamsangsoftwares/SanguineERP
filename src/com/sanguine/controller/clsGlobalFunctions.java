@@ -28,8 +28,6 @@ import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jdk.nashorn.internal.ir.RuntimeNode.Request;
-
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -747,7 +745,9 @@ public class clsGlobalFunctions {
 			
 			StringBuilder sbSql=new StringBuilder();
 			sbSql.append(sqlAudit);
-			List listAudit = objBaseService.funGetListModuleWise(sbSql, "sql","WebBooks");
+			
+			List listAudit = objBaseService.funGetListForWebBooks(sbSql, "sql");
+			//List listAudit = objBaseService.funGetListModuleWise(sbSql, "sql","WebBooks");
 			long lastnoAudit;
 			if (listAudit != null && !listAudit.isEmpty() && !listAudit.contains("")) {
 				lastnoAudit = Integer.parseInt(listAudit.get(0).toString());
@@ -758,7 +758,8 @@ public class clsGlobalFunctions {
 			
 			sbSql.setLength(0);
 			sbSql.append(sql);
-			List list = objBaseService.funGetListModuleWise(sbSql, "sql","WebBooks");
+			List list = objBaseService.funGetListForWebBooks(sbSql, "sql");
+			//List list = objBaseService.funGetListModuleWise(sbSql, "sql","WebBooks");
 			long lastnoLive;
 			if (list != null && !list.isEmpty() && !list.contains("")) {
 				lastnoLive = Integer.parseInt(list.get(0).toString());
@@ -4647,8 +4648,16 @@ public class clsGlobalFunctions {
 
 	
 	public void funInvokeWebBookLedger(String acCode, String detorCretditorCode, String startDate, String propertyCode, String fromDate, String toDate, String clientCode, String userCode, HttpServletRequest req, HttpServletResponse resp, String strCrOrDr,String currency) {
-		funDeleteAndInsertWebBookLedgerTable(clientCode, userCode, propertyCode);
-
+//		funDeleteAndInsertWebBookLedgerTable(clientCode, userCode, propertyCode);
+		StringBuilder sbSqll = new StringBuilder();
+		
+		sbSqll.append("delete from tblledgersummary where strUserCode='"+userCode+"' and strClientCode='"+clientCode+"'  and strPropertyCode='"+propertyCode+"'");
+		try {			  
+			objBaseService.funExcecteUpdateModuleWise(sbSqll, "sql", "WebBooks");			
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
 		String webStockDB=req.getSession().getAttribute("WebStockDB").toString();
 		if (!startDate.equals(fromDate)) {
 			String tempFromDate = fromDate.split("-")[2] + "-" + fromDate.split("-")[1] + "-" + fromDate.split("-")[0];
@@ -4716,7 +4725,7 @@ public class clsGlobalFunctions {
 				try {
 					list = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 //				List list = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
 				if (list.size() > 0) {
@@ -4829,13 +4838,23 @@ public class clsGlobalFunctions {
 			StringBuilder sbSql=new StringBuilder(sql);
 			List list=new ArrayList();
 			try {
-				list = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+									  
+				list = objBaseService.funGetListForWebBooks(sbSql, "sql");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 //			List list = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
 			if (list.size() > 0) {
-				funDeleteAndInsertWebBookLedgerTable(clientCode, userCode, propertyCode);
+				//funDeleteAndInsertWebBookLedgerTable(clientCode, userCode, propertyCode);
+				StringBuilder sqll=new StringBuilder("delete from tblledgersummary where strUserCode = '"+userCode+"' and strClientCode= '"+clientCode+"'  and strPropertyCode ='"+propertyCode+"' ");
+				try {
+					objBaseService.funExcecteUpdateModuleWise(sqll, "sql", "WebBooks");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}			
+				
+				
+				
 				for (int i = 0; i < list.size(); i++) {
 					clsLedgerSummaryModel objSummaryledger = new clsLedgerSummaryModel();
 					Object[] objArr = (Object[]) list.get(i);
@@ -4880,7 +4899,6 @@ public class clsGlobalFunctions {
 //				objSummaryledger.setStrBalCrDr("Dr");
 //				objGlobalFunctionsService.funAddUpdateLedgerSummary(objSummaryledger);
 			}
-
 			funProcessWebBookLedgerSummaryNotFromStartDate(acCode, detorCretditorCode, fromDate, toDate, clientCode, userCode, propertyCode, req, resp, strCrOrDr,currency);
 		}
 	}
@@ -5036,9 +5054,9 @@ return 1;
 		StringBuilder sbSql=new StringBuilder(sql);
 		List listjv=new ArrayList();
 		try {
-			listjv = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			listjv = objBaseService.funGetListForWebBooks(sbSql, "sql");
+			//listjv = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
@@ -5068,8 +5086,8 @@ return 1;
 		}
 
 
-		sql = " SELECT DATE(a.dteVouchDate) ,a.strVouchNo,'Payment', a.strVouchNo,  DATE(a.dteChequeDate) ,"
-				+ " c.dblAmt as Dr, 0 Cr,c.dblAmt bal,'Dr',ifnull(a.strNarration,''),'2','" + userCode + "','" + propertyCode + "','" + clientCode + "' ," 
+		sql = " SELECT DATE(a.dteVouchDate) ,a.strVouchNo AS VoucherNo,'Payment', a.strVouchNo,  DATE(a.dteChequeDate) ,"
+				+ " c.dblAmt as Drr, 0 Cr,c.dblAmt bal,'Dr',ifnull(a.strNarration,''),'2','" + userCode + "','" + propertyCode + "','" + clientCode + "' ," 
 				+ " if((e.strCurrencyCode is null) or (e.strCurrencyCode ='NA' ) or (e.strCurrencyCode ='' ), "
 				+ " (select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster "
 				+ " where strCurrencyCode='"+currency+"') ,a.dblConversion) as conv2 "
@@ -5084,9 +5102,9 @@ return 1;
 		 sbSql=new StringBuilder(sql);
 		List listPay=new ArrayList();
 		try {
-			listPay = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			listPay = objBaseService.funGetListForWebBooks(sbSql, "sql");
+			//listPay = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 //		List listPay = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
@@ -5116,7 +5134,7 @@ return 1;
 		}
 
 		// receipt
-				sql = "  SELECT DATE(a.dteVouchDate) ,a.strVouchNo,'Receipt', a.strVouchNo, " 
+				sql = "  SELECT DATE(a.dteVouchDate) ,a.strVouchNo AS VoucherNo,'Receipt', a.strVouchNo, " 
 						+ "DATE(a.dteChequeDate) ,  b.dblDrAmt , b.dblCrAmt ,b.dblDrAmt - b.dblCrAmt ,b.strCrDr,ifnull(a.strNarration,''),'3','" + userCode + "','" + propertyCode + "','" + clientCode + "', "
 						+ " if((e.strCurrencyCode is null) or (e.strCurrencyCode ='NA' ) or (e.strCurrencyCode ='' ), "
 						+ " (select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster "
@@ -5132,9 +5150,9 @@ return 1;
 		 sbSql=new StringBuilder(sql);
 			List listRecept=new ArrayList();
 			try {
-				listRecept = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+				//listRecept = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+				  listRecept = objBaseService.funGetListForWebBooks(sbSql, "sql");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 //		List listRecept = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
@@ -5168,7 +5186,7 @@ return 1;
 
 
 
-
+	
 	public String funCheckFormAuthorization(String formName, HttpServletRequest request)
 	{
 		String authorize="Yes";
@@ -6071,7 +6089,9 @@ return 1;
 			+ " and b.strPCode=a.strMasterCode and a.strClientCode='"+clientCode+"' and a.strPropertyCode='"+propCode+"' ");
 		try
 		{
-			List listAccDtl=objBaseService.funGetListModuleWise(sbSql, "sql", "WebStocks");
+			//List listAccDtl=objBaseService.funGetListModuleWise(sbSql, "sql", "WebStocks");
+			List listAccDtl=objBaseService.funGetListForWebStocks(sbSql, "sql");//new created function
+			
 			if(listAccDtl.size()>0)
 			{
 				Object[] arrObj=(Object[])listAccDtl.get(0);

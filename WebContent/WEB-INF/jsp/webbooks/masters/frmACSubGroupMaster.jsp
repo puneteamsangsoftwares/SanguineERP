@@ -227,34 +227,36 @@
 		<label id="formHeading">Sub Group Master</label>
 		<s:form name="BankMaster" method="POST" action="saveACGroupMaster.html">
 				<div class="row masterTable">
-					<div class="col-md-6">
-						<label>Sub Group Code:</label>
-						<div class="row">
-							<div class="col-md-6"><s:input id="txtSubGroupCode" ondblclick="funHelp('acSubGroupCode')" cssClass="searchTextBox" readonly="true"
-								 placeholder="Sub Group Code" type="text" path="strSubGroupCode"></s:input>
+					
+							<div class="col-md-5"><label>Sub Group Code:</label>
+							<div class="row">
+							<div class="col-md-5"><s:input id="txtSubGroupCode" ondblclick="funHelp('acSubGroupCode')" cssClass="searchTextBox"
+								 placeholder="Sub Group Code" readOnly="true"  type="text" path="strSubGroupCode"></s:input>
 							</div>
 						
-							<div class="col-md-6"><s:input id="txtSubGroupName" path="strSubGroupName" required="true"
-								 placeholder="Sub Group Code" type="text"></s:input>
+							<div class="col-md-7"><s:input id="txtSubGroupName" path="strSubGroupName" required="true"
+								 placeholder="Sub Group Name" type="text"></s:input>
 							</div>
-						</div>
-					</div>
-					<div class="col-md-6">
+						    </div></div>
+						    
+					<div class="col-md-7"></div>
+					
+					<div class="col-md-4">
 						<div class="row">
 							<div class="col-md-6">
 							<label>Group Code:</label><s:input id="txtGroupCode" ondblclick="funHelp('acGroupCode')" cssClass="searchTextBox"
-								 placeholder="Group Code" type="text" path="strGroupCode"></s:input>
+								   type="text" path="strGroupCode" placeholder="Group Code" style="height:48%"></s:input>
 							</div>
 							<div class="col-md-6">
 							<label>Under SubGroup Code:</label><s:input id="txtUnderSubGroup" path="strUnderSubGroup" ondblclick="funHelp('underSubGroupCode')"
-								 placeholder="Under SubGroup Code" type="text" cssClass="searchTextBox"></s:input>
+								  type="text" cssClass="searchTextBox" style="height:48%"></s:input>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="center">
+				<div class="center" style="margin-right:60%">
 					<a href="#"><button class="btn btn-primary center-block" tabindex="3" onclick=""
-						class="form_button">Submit</button></a>
+						class="form_button">Submit</button></a>&nbsp
 					<a href="#"><button class="btn btn-primary center-block" type="reset"
 						value="Reset" class="form_button" onclick="funResetField()">Reset</button></a>
 				</div> 

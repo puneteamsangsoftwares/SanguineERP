@@ -46,22 +46,24 @@
 		
 	<s:form name=" ChequeReceived" method="GET" action="rptChequeReceivedReport.html" target="_blank">
 		<div class="row">
-		
-		   <div class="col-md-4"><label>From Date </label>
-					<s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/></div>
-		   
-		   <div class="col-md-4"><label>To Date </label>
-					<s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</div>	
+		    <div class="col-md-3">
+			         <div class="row">
+		   				<div class="col-md-6"><label>From Date </label>
+							<s:input id="txtFromDate" path="dteFromDate" style="height:50%" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+						</div>
+		   				<div class="col-md-6"><label>To Date </label>
+							<s:input id="txtToDate" path="dteToDate" style="height:50%" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+						</div>	
+			</div></div>
 			
-		   <div class="col-md-4"><label>Select Bank </label>
+		   <div class="col-md-2"><label>Select Bank </label>
 					<s:select id="cmbAccount" items="${bankList}" path="strBankName" cssClass="BoxW124px">
 					</s:select></div>
 			   
 		</div>
 		<br>
-		<p align="right">
-				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" />
+		<p align="center" style="margin-right:31%">
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" /> &nbsp
 				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 	</s:form>

@@ -44,22 +44,25 @@
     
     <s:form name="FLR3AReport" method="GET" action="rptTrialBalanceReport.html" target="_blank">
 		<div class="row">
-			 <div class="col-md-3"><label>From Date </label>
-					<s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-			 </div>
-					
-			 <div class="col-md-3"><label>To Date </label>
-				     <s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-			 </div>	
+		     <div class="col-md-3">
+			        <div class="row">
+			            <div class="col-md-6"><label>From Date </label>
+					      <s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" style="height:50%" cssClass="calenderTextBox"/>
+			            </div>
+					    <div class="col-md-6"><label>To Date </label>
+				            <s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" style="height:50%" cssClass="calenderTextBox"/>
+			             </div>	
+			  </div></div>
 				
-			 <div class="col-md-3"><label> Show Data </label>
+			<div class="col-md-9"></div>
+			 <div class="col-md-2"><label> Show Data </label>
 			          <s:select id="cmbDocType" path="strDocType"
 											cssClass="BoxW124px">
 											<s:option value="All">All column</s:option>
 											<s:option value="DebitCredit">Debit and Credit</s:option>
 					 </s:select></div>
 					
-			 <div class="col-md-3"><label>Report Type</label>
+			 <div class="col-md-1.1"><label>Report Type</label>
 					    <s:select id="cmbReportType" path="typeDebitCredit" cssClass="BoxW124px">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
@@ -74,8 +77,8 @@
 <!-- 				</tr> -->
 		</div>
 		<br>
-		<p align="right">
-				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" />
+		<p align="right" style="margin-right:77%">
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" />&nbsp
 				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 	</s:form>

@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	
 	var fieldName,transactionName;
@@ -213,76 +223,44 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>DeleteTransaction</label>
-	</div>
-
-	<br/>
-	<br/>
-
+   <div class="container masterTable">
+	<label id="formHeading">Delete Transaction</label>
 	<s:form name="DeleteTransaction" method="POST" action="saveWebBooksDeleteTrans.html">
-
-		<table class="masterTable">
-		
-			<tr>
-				<td>
-					<label>FormName</label>
-				</td>
-				<td>
-					<s:select id="cmbFormName" path="strFormName" cssClass="longTextBox">
-						<s:options items="${listFormName}"/>
-					</s:select>
-				</td>
-			
-				<td>
-					<label>Trans Code</label>
-				</td>
-				<td>
-					<s:input  type="text" id="txtTransCode" path="strTransCode" cssClass="searchTextBox" ondblclick="funTransCodeHelp('TransCode');"/>
-				</td>
-			</tr>
-			
-			<tr>
-				<td colspan="4">
-					<select id="cmbDeleteYN" class="BoxW124px">
-						<option value="Yes">Yes</option>
-						<option value="No">No</option>
-					</select>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<label>Reason Code</label>
-				</td>
-				<td colspan="2">
-					<s:input  type="text" id="txtReasonCode" path="strReasonCode" cssClass="searchTextBox" ondblclick="funHelp('reason');"/>
-				</td>
+            <div class="row">
+			       <div class="col-md-2"><label>Form Name</label>
+				             <s:select id="cmbFormName" path="strFormName">
+						       <s:options items="${listFormName}"/>
+					         </s:select>
+				   </div>
+				   
+				   <div class="col-md-3"><label>Trans Code</label>
+				             <s:input  type="text" id="txtTransCode" path="strTransCode" cssClass="searchTextBox" ondblclick="funTransCodeHelp('TransCode');"/>
+				   </div>
+			 
+				   <div class="col-md-1"> <br />
+				   			<select id="cmbDeleteYN" >
+						        <option value="Yes">Yes</option>
+						        <option value="No">No</option>
+					         </select>
+				   </div>
+			       
+			       <div class="col-md-3"><label>Reason Code</label>
+				             <s:input  id="txtReasonCode" path="strReasonCode" cssClass="searchTextBox" ondblclick="funHelp('reason');"/>
+				   </div>
 				
-				<td>
-					<label id="lblReasonDesc"></label>
-				</td>
-			</tr>
+					<div class="col-md-3"><label id="lblReasonDesc"></label>
+				    </div>
 			
-			<tr>
-				<td>
-					<label>Narration</label>
-				</td>
-				<td colspan="3">
-					<s:textarea type="text" id="txtNarration" path="strNarration" />
-				</td>
-			</tr>
-			
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button"  onclick="return funValidateHeaderFields()"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+					<div class="col-md-2"><label>Narration</label>
+				             <s:textarea type="text" id="txtNarration" path="strNarration"  style="width: 100%; height:27px;"/>
+					</div>
+			</div>
+		<p align="right" style="margin-right:26%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button"  onclick="return funValidateHeaderFields()"/>
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

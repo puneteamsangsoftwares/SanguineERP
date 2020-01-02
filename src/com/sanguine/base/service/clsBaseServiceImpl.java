@@ -86,6 +86,10 @@ public class clsBaseServiceImpl implements intfBaseService {
 	public List funGetListForWebBooks(StringBuilder query, String queryType) throws Exception {
 		return objBaseDao.funGetListForWebBooks(query, queryType);
 	}
+	
+	public List funGetListForWebStocks(StringBuilder query, String queryType) throws Exception {
+		return objBaseDao.funGetListForWebStocks(query, queryType);
+	}
 	@Override
 	public void funExcecteUpdateModuleWise(StringBuilder strQuery, String queryType, String moduleType) throws Exception
 	{

@@ -120,69 +120,37 @@
 		<label id="formHeading">Sanction Authority Master</label>
 			<s:form name="SanctionAutherityMaster" method="POST" action="saveSanctionAutherityMaster.html">
 				<div class="row masterTable">
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<label>Sanction Code:</label>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-5">
 									<s:input id="txtSanctionCode" ondblclick="funHelp('sanctionCode')" cssClass="searchTextBox"
-								 		placeholder="Sanction Code" type="text" path="strSanctionCode"></s:input>
+								 		placeholder="Sanction Code" readOnly="true" type="text" path="strSanctionCode"></s:input>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-7">
 									<s:input id="txtSanctionName" path="strSanctionName" required="true"
-								 		placeholder="Sanction Code" type="text"></s:input>
+								 		placeholder="Sanction Name" type="text"></s:input>
 								</div>
 							</div>
 						</div>	
-						<div class="col-md-6">
+						<div class="col-md-7"></div>
+						<div class="col-md-3">
 							<div class="row">
-								<div class="col-md-6"><label>Operational</label>
+								<div class="col-md-4"><label>Operational</label>
 									<s:select id="cmbOperational" path="strOperational" items="${listOperational}" cssClass="BoxW124px"/>
 								</div>
-								<div class="col-md-6"></div>
+								<div class="col-md-8"></div>
 							</div>
 						</div>
 				</div>
-				<div class="center">
+				<div class="center" style="margin-right: 60%;">
 				<a href="#"><button class="btn btn-primary center-block" tabindex="3" onclick=""
-					class="form_button">Submit</button></a>
+					class="form_button">Submit</button></a>&nbsp
 				<a href="#"><button class="btn btn-primary center-block" type="reset"
 					value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
 			</div>
 			</s:form>
 	</div>
 
-
-
-<%-- 
-	<div id="formHeading">
-	<label>Sanction Autherity Master</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="SanctionAutherityMaster" method="POST" action="saveSanctionAutherityMaster.html">
-
-		<table class="masterTable">
-			<tr>
-			    <td><label>Sanction Code</label></td>
-			    <td width="125px"><s:input id="txtSanctionCode" path="strSanctionCode" ondblclick="funHelp('sanctionCode')" cssClass="searchTextBox"/></td>			    			    			        			        			    			    		        			 
-			    <td><s:input id="txtSanctionName" path="strSanctionName" required="true" cssClass="longTextBox"  cssStyle="width:75%"/></td>
-			</tr>			
-			<tr>
-				<td><label>Operational</label></td>				
-				<td><s:select id="cmbOperational" path="strOperational" items="${listOperational}" cssClass="BoxW124px"/></td>
-				<td></td>				 
-			</tr>
-		</table>
-				
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
-	</s:form> --%>
 </body>
 </html>

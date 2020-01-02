@@ -126,7 +126,7 @@
 				        	$("#txtEmployeeCode").val(response.strEmployeeCode);
 				        	
 				        	$("#txtPrevYearBal").val(response.intPrevYearBal);
-				        	$("#cmbPrevDrCr").val(response.strPrevCrDr);
+				        	$("#cmbPrevDrCr").val(response.strCrDr.split(",")[1]);
 				        	 
 				        	if(response.strEmployeeName!=null)
 			        		{
@@ -137,7 +137,7 @@
 				        		$("#lblEmployeeName").text("");
 				        	}	
 				        	
-				        	$("#cmbDrCr").val(response.strCrDr);
+				        	$("#cmbDrCr").val(response.strCrDr.split(",")[0]);
 				        	
 				        	
 			        	}
@@ -395,113 +395,104 @@
 		<label id="formHeading">Account Master</label>
 			<s:form name="WebBooksAccountMaster" method="POST" action="saveWebBooksAccountMaster.html">
 				<div class="row masterTable">
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<label>Account Code:</label><br>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-5">
 									<s:input  type="text" placeholder="Account Code" id="txtAccountCode" 
-									ondblclick="funHelp('accountCode')" path="strAccountCode" cssClass="searchTextBox"/>
+									ondblclick="funHelp('accountCode')" path="strAccountCode"  readonly="true" cssClass="searchTextBox"/>
 								</div>
-								<div class="col-md-6"><s:input  type="text" placeholder="Account Code" id="txtAccountName" 
-									ondblclick="funHelp('accountCode')" path="strAccountName" required="true" readonly="true"/> <s:errors path=""></s:errors>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="row">
-								<div class="col-md-6">
-								<label>Account Type:</label><br>
-									<s:select id="cmbAccountType" path="strType" items="${listAccountType}" cssClass="BoxW124px"/>
-								</div>
-								<div class="col-md-6">
-								<label>Operational:</label><br><s:select id="cmbOperational" path="strOperational" items="${listOperational}" cssClass="BoxW124px"/>
+								<div class="col-md-7"><s:input  type="text" placeholder="Account Name" id="txtAccountName" 
+									ondblclick="funHelp('accountCode')" path="strAccountName" style="height:92%" required="true"/> <s:errors path=""></s:errors>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="row">
-								<div class="col-md-6">
-								<label>Debtor:</label><br>
+					
+					    <div class="col-md-2">
+							<label>Account Type:</label><br>
+								<s:select id="cmbAccountType" path="strType" items="${listAccountType}" cssClass="BoxW124px"/>
+						</div>
+						
+						<div class="col-md-1">
+							<label>Operational:</label><br><s:select id="cmbOperational" path="strOperational" items="${listOperational}" cssClass="BoxW124px"/>
+						</div>
+							
+						<div class="col-md-1">
+							<label>Debtor:</label><br>
 									<s:select id="cmbDebtor" path="strDebtor" items="${listDebtor}" cssClass="BoxW124px" />
-								</div>
-								<div class="col-md-6">
-								<label>Creditor:</label><br>
+						</div>
+						
+						<div class="col-md-1">
+							<label>Creditor:</label><br>
 								<s:select id="cmbCreditor" path="strCreditor" items="${listCreditor}" cssClass="BoxW124px" />
-								</div>
-							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="row">
-								<div class="col-md-6">
-								<label>Employee:</label><br>
-									<s:select id="cmbEmployee" path="strEmployee" items="${listEmployee}" cssClass="BoxW124px" />
-								</div>
-								<div class="col-md-6">
-								<label>Branch:</label><br>
-								<s:input id="txtBranch" path="strBranch"/>
-								</div>
-							</div>
+							
+						<div class="col-md-1">
+							<label>Employee:</label><br>
+								<s:select id="cmbEmployee" path="strEmployee" items="${listEmployee}" cssClass="BoxW124px" />
 						</div>
-						<div class="col-md-6">
+						
+						<div class="col-md-5">
 						<label>Sub Group Code:</label><br>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-5">
 									<s:input  type="text" placeholder="Sub Group Code" id="txtSubGroupCode" 
-									ondblclick="funHelp('acSubGroupCode')" path="strSubGroupCode" cssClass="searchTextBox"/>
+									ondblclick="funHelp('acSubGroupCode')" path="strSubGroupCode" readonly="true" cssClass="searchTextBox"/>
 								</div>
-								<div class="col-md-6"><s:input  type="text" placeholder="Sub Group Code" id="txtSubGroupName" 
-									 path="strSubGroupName" required="true" readonly="true"/> <s:errors path=""></s:errors>
+								<div class="col-md-7"><s:input  type="text" placeholder="Sub Group Name" id="txtSubGroupName" 
+									 path="strSubGroupName" required="true"/> <s:errors path=""></s:errors>
 								</div>
 							</div>		    			        			   
 						</div>
-						<div class="col-md-6">
-						<label>Opening Balance:</label><br>
-							<div class="row">
-								<div class="col-md-6">
-									<s:input  type="number" placeholder="Opening Balance" id="txtOpeningBal" 
-									step="0.0001" path="intOpeningBal" required="true" class="decimal-places numberField"/>
-								</div>
-								<div class="col-md-6"><s:input  type="text" placeholder="Opening Balance" id="cmbOpeningBal" 
-									 path="strCreditor" items="${listOpeningBalance}" cssClass="BoxW124px" />
-								</div>
-							</div><br>		    			        			   
+						
+						<div class="col-md-2">
+							<label>Branch:</label><br>
+								<s:input id="txtBranch" path="strBranch"/>
 						</div>
-						<div class="col-md-6">
-							<div class="row">
-								<div class="col-md-6">
+						
+						<div class="col-md-2">
+						          <label>Opening Balance:</label>
+									<s:input  type="number" placeholder="Opening Balance" id="txtOpeningBal" style="width:80%; text-align:right"
+									step="0.0001" path="intOpeningBal" required="true" class="decimal-places numberField"/>
+								<%-- <s:input  type="text" placeholder="Opening Balance" id="cmbOpeningBal" 
+									 path="strCreditor" items="${listOpeningBalance}" cssClass="BoxW124px" /> --%>
+						</div>
+							
+						<div class="col-md-1">
 								<label>Dr/Cr</label>
 									<s:select id="cmbDrCr" path="strCrDr" cssClass="BoxW124px" >
 									    <option value="Cr">Cr</option>
 										<option value="Dr">Dr</option>
 									</s:select>
-								</div>
-								<div class="col-md-6">
+						</div>
+						
+						<div class="col-md-2"></div>
+								
+						<div class="col-md-2">
+								<label>Employee Code</label>
+									<s:input  type="text" id="txtEmployeeCode" step="0.0001" style="height:48%"
+									 path="strEmployeeCode" ondblclick="funHelp('employeeCode')" class="searchTextBox" />
+					 </div>
+					 
+					 <div class="col-md-2">
 								<label>Previous Year Balance</label>
 									<s:input  type="text" placeholder="Previous Year Balance" id="txtPrevYearBal" step="0.0001"
 									 path="intPrevYearBal" items="${listOpeningBalance}" class="decimal-places numberField" required="true"/>
-								</div>
-							</div>		    			        			   
 						</div>
-						<div class="col-md-6">
-							<div class="row">
-								<div class="col-md-6">
+							
+						
+						<div class="col-md-1">
 								<label>Dr/Cr</label>
-									<s:select id="cmbDrCr" path="strCrDr" cssClass="BoxW124px" >
+									<s:select id="cmbPrevDrCr" path="strCrDr" cssClass="BoxW124px" >
 									    <option value="Cr">Cr</option>
 										<option value="Dr">Dr</option>
 									</s:select>
-								</div>
-								<div class="col-md-6">
-								<label>Employee Code</label>
-									<s:input  type="text" placeholder="Employee Code" id="txtEmployeeCode" step="0.0001"
-									 path="strEmployeeCode" ondblclick="funHelp('employeeCode')" class="searchTextBox" />
-								</div>
-							</div>		    			        			   
 						</div>
+							
 					</div>
-					<div class="center">
+					<div class="center" style="margin-right: 8%;">
 						<a href="#"><button class="btn btn-primary center-block" tabindex="3"
-							value="Submit" onclick="return funValidation()" class="form_button">Submit</button></a>
+							value="Submit" onclick="return funValidation()" class="form_button">Submit</button></a> &nbsp
 						 <a href="#"><button class="btn btn-primary center-block"
 							type="reset" value="Reset" class="form_button"
 							onclick="funResetField()">Reset</button></a>
@@ -510,93 +501,4 @@
 			</div>
 	</body>
 </html>
-<%-- 
-	<div id="formHeading">
-	<label> Account Master</label>
-	</div>
-	<s:form name="WebBooksAccountMaster" method="POST" action="saveWebBooksAccountMaster.html">
 
-		<table class="masterTable">
-			<tr>
-			    <td><label >Account Code</label></td>
-			    <td><s:input id="txtAccountCode" path="strAccountCode"  ondblclick="funHelp('accountCode')" cssClass="searchTextBox"/></td>			        			        
-			    <td colspan="2"><s:input id="txtAccountName" path="strAccountName" required="true" cssClass="longTextBox" style="width: 340px"/></td>			    		        			   
-				
-			</tr>
-			<tr>
-				<td><label>Account Type</label> </td>
-				<td><s:select id="cmbAccountType" path="strType" items="${listAccountType}" cssClass="BoxW124px"/></td>
-				<td></td>
-			    <td></td>
-			    
-			</tr>
-			<tr>
-				<td><label>Operational</label> </td>
-				<td colspan="3"><s:select id="cmbOperational" path="strOperational" items="${listOperational}" cssClass="BoxW124px"/></td>
-			
-			</tr>
-			<tr>
-				<td style="width: 100px;"><label>Debtor</label> </td>
-				<td><s:select id="cmbDebtor" path="strDebtor" items="${listDebtor}" cssClass="BoxW124px" /></td>
-				<td style="width: 100px;"><label>Creditor</label> </td>
-				<td><s:select id="cmbCreditor" path="strCreditor" items="${listCreditor}" cssClass="BoxW124px" /></td>	
-				
-			</tr>
-			<tr>
-				<td><label>Employee</label></td>
-				<td><s:select id="cmbEmployee" path="strEmployee" items="${listEmployee}" cssClass="BoxW124px" /></td>
-				<td></td>
-				<td></td>
-				
-			</tr>
-			<tr>
-			    <td><label >Sub Group Code</label></td>
-			    <td><s:input id="txtSubGroupCode" path="strSubGroupCode"  ondblclick="funHelp('acSubGroupCode')" cssClass="searchTextBox"/></td>			        			        
-			    <td colspan="2"><s:input id="txtSubGroupName" path="strSubGroupName" required="true" readonly="true" cssClass="longTextBox"/></td>			    			        			   
-				
-			</tr>
-			<tr>
-			    <td><label >Branch</label></td>			   			        			       
-			    <td ><s:input id="txtBranch" path="strBranch" cssClass="longTextBox"/></td>
-			    <td></td>
-			    <td></td>
-			    		        			    
-			</tr>
-			<tr>
-			    <td><label>Opening Balance</label></td>			   			        			       
-			    <td><s:input id="txtOpeningBal" class="decimal-places numberField" step="0.0001" path="intOpeningBal" type="number"  required="true"  /></td>
-			    <td><s:select id="cmbOpeningBal" path="strCreditor" items="${listOpeningBalance}" cssClass="BoxW124px" /></td>
-			    <td> <label>Dr/Cr</label></td>
-			    <td><s:select id="cmbDrCr" path="strCrDr" cssClass="BoxW124px" >
-			    <option value="Cr">Cr</option>
-				<option value="Dr">Dr</option></s:select></td>
-			   		        			 
-			</tr>
-					<tr>
-			    <td><label>Previous Year Balance</label></td>			   			        			       
-			    <td><s:input id="txtPrevYearBal" class="decimal-places numberField" step="0.0001"  path="intPrevYearBal" type="number" required="true"  /></td>
-			    <td><label>Dr/Cr</label></td>
-			    <td><s:select id="cmbPrevDrCr" path="strPrevCrDr" cssClass="BoxW124px" >
-			    <option value="Cr">Cr</option>
-				<option value="Dr">Dr</option></s:select></td>
-			   		        			    
-			</tr>
-			<tr>
-				<td><label>Employee Code</label> </td>
-				<td><s:input id="txtEmployeeCode" path="strEmployeeCode"  ondblclick="funHelp('employeeCode')" cssClass="searchTextBox"/></td>
-				<td><label id="lblEmployeeName"></label></td>
-				<td></td>
-				
-			</tr>
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidation() "/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
-	</s:form> --%>
-</body>
-</html>

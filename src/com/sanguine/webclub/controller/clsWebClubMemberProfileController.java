@@ -226,7 +226,7 @@ public class clsWebClubMemberProfileController {
 			}
 		
 			req.getSession().setAttribute("success", true);
-			req.getSession().setAttribute("successMessage", "Member Code : ".concat(objMemProfileModel.getStrMemberCode()));
+			req.getSession().setAttribute("successMessage", "Member Code : ".concat(objMemProfileModel.getStrMemberCode().split(" ")[0]));
 			return new ModelAndView("redirect:/frmMemberProfile.html?saddr=" + urlHits);
 		}
 		return new ModelAndView("redirect:/frmMemberProfile.html?saddr=" + urlHits);
@@ -353,6 +353,7 @@ public class clsWebClubMemberProfileController {
 			{	
 				StringBuilder sbSql= new StringBuilder (); 
 				sbSql.append("INSERT INTO tblotherdtl (strMemberCode,strClientCode");
+				int count=0;
 				for(int i=0;i<memProfileBean.listField.size();i++)
 				{
 					
@@ -368,9 +369,13 @@ public class clsWebClubMemberProfileController {
 						{*/
 							sbSql.append(","+obj.getStrFieldName());
 						//}	
+							count++;
 					}
 				}
-				sbSql.append(") VALUES ('"+memProfileBean.getStrMemberCode() + " 01','"+clientCode+ "',");
+				if(count>0)
+				{
+					sbSql.append(") VALUES ('"+memProfileBean.getStrMemberCode() + " 01','"+clientCode+ "',");
+				}
 				
 				for(int i=0;i<memProfileBean.listField.size();i++)
 				{
@@ -402,8 +407,11 @@ public class clsWebClubMemberProfileController {
 						}	
 					}
 				}
-				sbSql.append(");");
-				objMemberProfileService.funExecuteQuery(sbSql.toString());
+				if(count>0)
+				{
+					sbSql.append(");");
+					objMemberProfileService.funExecuteQuery(sbSql.toString());
+				}
 				
 				//objGlobal.funGetList(sbSql.toString());
 				}
@@ -412,14 +420,15 @@ public class clsWebClubMemberProfileController {
 			{
 				if(memProfileBean.listField!=null)
 				{	StringBuilder sbsqll= new StringBuilder ();				
-					sbsqll.append("UPDATE  "+WebCLUBDB+".tblotherdtl a SET ");					
+					sbsqll.append("UPDATE  "+WebCLUBDB+".tblotherdtl a SET ");	
+					int count=0;
 					for(int i=0;i<memProfileBean.listField.size();i++)
 					{
 						
 						clsWebClubMemberProfileBean obj = new clsWebClubMemberProfileBean();
 						obj=memProfileBean.listField.get(i);
-						if(obj.getStrFieldValue()!=null&&!obj.getStrFieldValue().equalsIgnoreCase(""))
-						{
+						if(obj.getStrFieldValue()!=null)
+						{														
 							if(i==0)
 							{	if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="DATE"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
 								{
@@ -428,7 +437,8 @@ public class clsWebClubMemberProfileController {
 								else
 								{
 									sbsqll.append("a."+obj.getStrFieldName()+"="+obj.getStrFieldValue()+"");
-								}					
+								}	
+								count ++;
 							}
 							else 
 							{
@@ -440,12 +450,15 @@ public class clsWebClubMemberProfileController {
 								{
 									sbsqll.append(",a."+obj.getStrFieldName()+"="+obj.getStrFieldValue()+"");
 								}									
-							}	
+							}							
 						}					
 					}
-					Object [] objj = (Object[]) list.get(0);					
-					sbsqll.append(" WHERE a.strMemberCode= '"+objj[0].toString()+"' AND a.strClientCode='"+objj[1].toString()+"'");
-					objMemberProfileService.funExecuteQuery(sbsqll.toString());						
+					if(count>0)
+					{
+						Object [] objj = (Object[]) list.get(0);					
+						sbsqll.append(" WHERE a.strMemberCode= '"+objj[0].toString()+"' AND a.strClientCode='"+objj[1].toString()+"'");
+						objMemberProfileService.funExecuteQuery(sbsqll.toString());						
+					}
 				}	
 			}
 		
@@ -1654,7 +1667,10 @@ public class clsWebClubMemberProfileController {
 	String accCode="",accName="";
 	try{
 		StringBuilder hql=new StringBuilder("select strAccountCode,strAccountName from clsWebBooksAccountMasterModel where strClientCode='" + clientCode + "' and strDebtor='Yes' ");
-		List listAcc=objBaseService.funGetListModuleWise(hql, "hql", "WebBooks");
+		List listAcc=objBaseService.funGetListForWebBooks(hql, "hql");
+		
+		
+		//List listAcc=objBaseService.funGetListModuleWise(hql, "hql", "WebBooks");
 		if(listAcc!=null && listAcc.size()>0){
 			Object[] ob=(Object[]) listAcc.get(0);
 			accCode=ob[0].toString();
@@ -1723,7 +1739,7 @@ public class clsWebClubMemberProfileController {
 	objModel.setStrRemarks("NA");
 	objModel.setStrClientApproval("NA");
 	objModel.setStrAMCLink("NA");
-	objModel.setStrCurrencyType("NA");
+	objModel.setStrCurrencyType("");
 	objModel.setStrAccountHolderCode("NA");
 	objModel.setStrAccountHolderName("NA");
 	objModel.setStrAMCCycle("Yearly");
@@ -1761,7 +1777,7 @@ public class clsWebClubMemberProfileController {
 	objModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 	objModel.setStrAccountCode(accCode);
 	objModel.setStrAccountName(accName);
-	objModel.setStrOperational("Y");
+	objModel.setStrOperational("Yes");
 	return objModel;
 }
 

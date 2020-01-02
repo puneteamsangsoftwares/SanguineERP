@@ -29,6 +29,7 @@ public class clsWebClubOtherFieldCreationDaoImpl implements clsWebClubOtherField
 			Query query = WebClubSessionFactory.getCurrentSession().createSQLQuery(sql);
 			query.executeUpdate();
 		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			
 		}

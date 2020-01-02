@@ -112,25 +112,28 @@
 
 	<s:form name="FLR3AReport" method="GET" action="rptCashBook.html" target="_blank">
 		<div class="row">
-		        <div class="col-md-6"><label>Cash Account </label>
+		        <div class="col-md-5"><label>Cash Account </label>
 		             <div class="row">
-					  <div class="col-md-6">
-					  <s:input id="txtAccountCode" path="strAccountCode"  ondblclick="funHelp('accountCodeCash')" cssClass="searchTextBox"/></div>			        			        
-			    	  <div class="col-md-6"><s:input id="txtAccountName" path="strAccountName"  readonly="true"/></div>
+					  <div class="col-md-5">
+					  <s:input id="txtAccountCode" path="strAccountCode"  ondblclick="funHelp('accountCodeCash')" placeholder="Account Code" readonly="true" cssClass="searchTextBox"/></div>			        			        
+			    	  <div class="col-md-7"><s:input id="txtAccountName" path="strAccountName" placeholder="Account Name" style="height:100%"/></div>
 				</div></div>
-				<div class="col-md-6">
-		             <div class="row">
-					 <div class="col-md-6"><label>From Date </label>
-					     <s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					 </div>
-					 <div class="col-md-6"><label>To Date </label>
-					      <s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</div>	
-			</div></div>
+				
+				    <div class="col-md-6"></div>
+				    
+				    <div class="col-md-3">
+					   <div class="row">
+					     <div class="col-md-6"><label>From Date </label>
+					        <s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" style="height:50%" cssClass="calenderTextBox"/>
+					      </div>
+					     <div class="col-md-6"><label>To Date </label>
+					          <s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" style="height:50%" cssClass="calenderTextBox"/>
+					     </div>	
+		 			</div></div>
 		</div>
 		<br><br>
-		<p align="right">
-				<input type="submit" value="Submit"  class="btn btn-primary center-block" class="form_button" />
+		<p align="right" style="margin-right:60%">
+				<input type="submit" value="Submit"  class="btn btn-primary center-block" class="form_button" /> &nbsp
 				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 	</s:form>

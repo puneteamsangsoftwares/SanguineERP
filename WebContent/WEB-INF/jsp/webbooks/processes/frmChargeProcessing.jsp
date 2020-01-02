@@ -390,46 +390,55 @@
 	<label id="formHeading"> Charge Processing </label>
 	<s:form name="ChargeProcessing" method="POST" action="saveChargeProcessing.html"  >
 
-		<div class="row">
-			<div class="col-md-3"><label>From Date</label>	
-			   		<s:input type="text" id="txtFromDate" class="calenderTextBox" path="dteFromDate"  />	    		  
-			</div>
+	<div class="row">
+					<div class="col-md-3">
+					   <div class="row">
+							<div class="col-md-6"><label>From Date</label>	
+			   					<s:input type="text" id="txtFromDate" class="calenderTextBox" path="dteFromDate"  />	    		  
+							</div>
+							<div class="col-md-6"><label>To Date</label>	
+			    				<s:input type="text" id="txtToDate" class="calenderTextBox" path="dteToDate"  />		    		  
+							</div>
+					</div></div>
 			
-			<div class="col-md-3"><label>To Date</label>	
-			    	<s:input type="text" id="txtToDate" class="calenderTextBox" path="dteToDate"  />		    		  
-			</div>
-			
-			<div class="col-md-3">
-			    <td><label>Generated On</label></td>	
-			    <td colspan="3"><s:input type="text" id="txtGeneratedOnDate" class="calenderTextBox" path="dteGeneratedOn" />		    		  
-			</div>	
-			
-			<div class="col-md-3"></div>	
-			
-			<div class="col-md-6"><label >Member</label>
+					<div class="col-md-3">
+					   	<div class="row">
+					   		<div class="col-md-6"><label>Generated On</label>	
+			    				<s:input type="text" id="txtGeneratedOnDate" class="calenderTextBox" path="dteGeneratedOn" />		    		  
+							</div>
+							<div class="col-md-6"></div>
+				    </div></div>
+				    
+				    <div class="col-md-6"></div>
+				    
+			<div class="col-md-5"><label >Member</label>
 			    <div class="row">
-			    <div class="col-md-6"><s:input id="txtMemberCode" path="strMemberCode" readonly="true" ondblclick="funHelp('memberCode')" cssClass="searchTextBox"/></div>			        			        
-			    <div class="col-md-6"><s:input id="txtMemberName" path="strMemberName" required="true" readonly="true"  cssClass="longTextBox" cssStyle="width:100%; height:90%;"/></div>			    		        			   
+			    <div class="col-md-5"><s:input id="txtMemberCode" path="strMemberCode" style="height:100%" readonly="true" placeholder="Member Code" ondblclick="funHelp('memberCode')" cssClass="searchTextBox"/></div>			        			        
+			    <div class="col-md-7"><s:input id="txtMemberName" path="strMemberName" required="true" readonly="true" placeholder="Member Name" cssClass="longTextBox" cssStyle="width:100%; height:95%;"/></div>			    		        			   
 			</div></div>	
 	
-			<div class="col-md-6"><label >Account</label>
+	         <div class="col-md-7"></div>
+	         
+			<div class="col-md-5"><label >Account</label>
 			   <div class="row">
-			    <div class="col-md-6"><s:input id="txtAccountCode" path="strAccountCode" readonly="true" ondblclick="funHelp('debtorAccountCode')" cssClass="searchTextBox"/></div>			        			        
-			    <div class="col-md-6"><s:input id="txtAccountName" path="strAccountName" required="true" readonly="true"  cssClass="longTextBox" cssStyle="width:100%; height:90%;"/></div>			    		        			   
+			    <div class="col-md-5"><s:input id="txtAccountCode" path="strAccountCode" style="height:100%" readonly="true" placeholder="Account Code" ondblclick="funHelp('debtorAccountCode')" cssClass="searchTextBox"/></div>			        			        
+			    <div class="col-md-7"><s:input id="txtAccountName" path="strAccountName" required="true" readonly="true" placeholder="Account Name" cssClass="longTextBox" cssStyle="width:100%; height:95%;"/></div>			    		        			   
 			</div></div>
-															
-		 	 <div class="col-md-3"><label>Instant JV</label><br>	
-			    <s:checkbox id="chkInstantJV" value=""  path="strInstantJVYN" onclick="funSetCheckBoxValueYN(this)"/>
-			</div>
-			
-			<div class="col-md-3"><label>Annual Charge Processing</label><br>	
-			    <s:checkbox  id="chkAnnualChargeProcessing" value="" path="strAnnualChargeProcessYN" onclick="funSetCheckBoxValueYN(this)"/>			    		    		 
-			</div> 
-			
-			 <div class="col-md-3"><label>Other Functions</label>
-			    <s:select id="cmbOtherFunctions" path="strOtherFunctions" items="${listOtherFunctions}" cssClass="BoxW124px" />		    		  
-			</div>
-			
+				
+				 <div class="col-md-7"></div>
+				
+			<div class="col-md-5">
+				<div class="row"> 											
+		 	 		<div class="col-md-4"><label>Instant JV</label><br>	
+			   			 <s:checkbox id="chkInstantJV" value=""  path="strInstantJVYN" onclick="funSetCheckBoxValueYN(this)"/>
+					</div>
+					<div class="col-md-4"><label>Annual Charge Processing</label><br>	
+			   			 <s:checkbox  id="chkAnnualChargeProcessing" value="" path="strAnnualChargeProcessYN" onclick="funSetCheckBoxValueYN(this)"/>			    		    		 
+					</div> 
+					<div class="col-md-4"><label>Other Functions</label>
+			   			 <s:select id="cmbOtherFunctions" path="strOtherFunctions" items="${listOtherFunctions}" cssClass="BoxW124px" />		    		  
+					</div>
+			</div></div>
 		</div>
          <br>
          <br>
@@ -461,51 +470,9 @@
 																						   				   				   				   					   	    		
 				</table>	
 			</div>	
-			
-			
-			
-			<%-- <div class="dynamicTableContainer" style="height: 300px;">
-
-			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px;
-													font-weight: bold;">
-				<tr bgcolor="#72BEFC" style="height: 24px;">
-				
-					<td width="1%"><input type="checkbox" id="chkSelectAll" value="N" onclick="funSelectAllCheckBoxClicked(this)"/></td>
-					<td width="5%" style="padding-left: 5px">Charge Code</td>
-					<td width="18%" style="padding-left: 5px">Charge Name</td>
-					<td width="5%">Account Code</td>					
-					<td width="5%" align="right">Amount</td>					
-					<td width="4%">Type</td>					
-					<td width="5%">Cr/Dr</td>					
-					<td width="10%">Narration</td>					
-					
-				</tr>
-			</table>
-
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-
-				<table id="tblChargeProcessing"
-					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-					class="transTablex col8-center">
-
-					<tbody>
-					<col style="width: 1%">
-					<col style="width: 5%" style="padding-left: 5px">
-					<col style="width: 18%" style="padding-left: 5px">
-					<col style="width: 5%">
-					<col style="width: 5%">
-					<col style="width: 4%">
-					<col style="width: 5%">
-					<col style="width: 10%">
-					</tbody>					
-				</table>
-			</div>
-		</div> --%>
-			
-       <br />
+		<br />
 	  <p align="right"> 
-			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCheckValidation()"/>
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCheckValidation()"/>&nbsp
 			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 

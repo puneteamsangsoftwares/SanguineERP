@@ -134,11 +134,11 @@
    				break;
    				
    	   			case '5-WebBookAR' :
-	   				document.getElementById("one").innerHTML = "WebBookAR";
+	   				document.getElementById("one").innerHTML = "WebBooks";
 				break;
    				
    	   			case '7-WebBanquet' :
-   	   				document.getElementById("one").innerHTML = "WebBookAR";
+   	   				document.getElementById("one").innerHTML = "Web Banquet";
    				break;
    						
    				default :
@@ -452,6 +452,18 @@ function funGetFormName(){
   });
 }
 
+$(function()
+		{			
+			$('#baseUrl').click(function() 
+			{  
+				 if($("#txtMemberCode").val().trim()=="")
+				{
+					alert("Please Enter Member Code");
+					return false;
+				} 
+				window.open('attachDoc.html?transName=frmMemberProfile.jsp&formName=Member Profile&code='+$('#txtMemberCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+			});
+		});
 
  <%--   $(document).ready(function()
 {
@@ -489,7 +501,7 @@ function funGetFormName(){
         				</div>
         				<div class="right-menu" id="page_top_banner">
           					<ul>
-          					<li><a href="#" class="mdi mdi-attachment menu-link" id="" title="Attched document"></a></li>
+          						<li><a href="#" class="mdi  mdi-paperclip menu-link" id="baseUrl" title="Attched document"></a></li>
 					            <li><a href="#" class="mdi mdi-information-outline menu-link" id="notification" title="Notification"></a></li>
 					            <li><a href="#" class="mdi mdi-crosshairs-question menu-link"onclick="funGetFormName()" title="HELP"></a></li>
 					            <li><a href="frmHome.html" class="mdi mdi-home-outline menu-link"  title="HOME"></a></li>

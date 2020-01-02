@@ -132,7 +132,7 @@
 	/* To select Tab based on criteria comboBox value */
 	function funOnChangeCriteriaType()
 	{	    	   
-	    $(".tab_conents").hide();
+	    $(".tab_contents").hide();
 	    $("ul.tabs li").removeClass("active");
 	    
 	    var selectedCriteria=$("#cmbCriteriyaType").val();
@@ -151,7 +151,7 @@
 	
 	/* To add runtime anchor tag to div divFieldSelection */
     
-    /* var divFieldSelection = document.getElementById("divFieldSelection");
+   var divFieldSelection = document.getElementById("divFieldSelection");
     var aTag = document.createElement('a');
     aTag.setAttribute('href',"#");
     aTag.setAttribute('class',"fieldCriteriaLink");
@@ -168,7 +168,7 @@
     
     divFieldSelection.appendChild(aTag);
     divFieldSelection.appendChild(brTag);
-    divFieldSelection.appendChild(bTag);	 */
+    divFieldSelection.appendChild(bTag);	
     
 	    	
 	
@@ -360,113 +360,115 @@
 		<label id="formHeading">Charge Master</label>
 			<s:form name="ChargeMaster" method="POST" action="saveChargeMaster.html">
 				<div class="row masterTable">
-					<div class="col-md-6">
+				
+					<div class="col-md-5">
 						<label>Charge Code:</label><br>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-5">
 									<s:input  type="text" placeholder="Charge Code" id="txtChargeCode" 
-									ondblclick="funHelp('chargeCode')" path="strChargeCode" cssClass="searchTextBox"/>
+									ondblclick="funHelp('chargeCode')" readonly="true" path="strChargeCode" cssClass="searchTextBox"/>
 								</div>
-								<div class="col-md-6"><s:input  type="text" placeholder="Charge Name" id="txtChargeName" 
-									 path="strChargeName" required="true" />
+								<div class="col-md-7"><s:input  type="text" placeholder="Charge Name" id="txtChargeName" 
+									 path="strChargeName" required="true"  />
 								</div>
 							</div>		    			        			   
 						</div>
-						<div class="col-md-6">
+						
+						<div class="col-md-7"></div>
+						<div class="col-md-5">
 							<label>Account Code:</label><br>
 								<div class="row">
-									<div class="col-md-6">
-										<s:input  type="text" placeholder="Account Code" id="txtAcctCode" readonly="true" 
-										 ondblclick="funHelp('accountCode')" path="strAcctCode" cssClass="searchTextBox"/>
+									<div class="col-md-5">
+										<s:input  type="text" placeholder="Account Code" id="txtAcctCode" 
+										 ondblclick="funHelp('accountCode')" readonly="true" path="strAcctCode" cssClass="searchTextBox"/>
 									</div>
-									<div class="col-md-6"><s:input  type="text" placeholder="Account Name" id="txtAccountName" 
+									<div class="col-md-7"><s:input  type="text" placeholder="Account Name" id="txtAccountName" 
 										 path="strAccountName" required="true" />
 									</div>
 								</div><br>		    			        			   
 						</div>
-						<div class="col-md-6">
-								<div class="row">
-									<div class="col-md-6">
-									<label>Type</label> 
-										<s:select id="cmbType" path="strType" items="${listType}" cssClass="BoxW124px"/>
-									</div>
-									<div class="col-md-6">
-									<label>Frequency</label>
-										<s:select id="cmbFrequency" path="strFreq" items="${listFrequency}" cssClass="BoxW124px"/>
-									</div>
-								</div>		    			        			   
-						</div>
-						<div class="col-md-6">
+						
+						<div class="col-md-7"></div>
+						
+						<div class="col-md-2">
+							<label>Type</label> 
+								<s:select id="cmbType" path="strType" items="${listType}" cssClass="BoxW124px"/>
+					     </div>
+								
+						<div class="col-md-3">
 							<label>Rs</label>
 								<div class="row">
-									<div class="col-md-6">
-										<s:input id="txtRs" path="dblAmt" required="true"/>
+									<div class="col-md-7">
+										<s:input id="txtRs" path="dblAmt" required="true" style="text-align:right"/>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-5">
 										<s:select id="cmbCrDr" path="strCrDr" items="${listRs2}" cssClass="BoxW124px"/>
 									</div>
 								</div>		    			        			   
 						</div>
-						<div class="col-md-6">
-							<label>Value</label>
-								<div class="row">
-									<div class="col-md-6">
-										<s:select id="cmbValue1" path="strDimensionValue" items="${listValue1}" cssClass="BoxW124px"/>
-									</div>
-									<div class="col-md-6">
-										<s:select id="cmbValue2" path="strDimensionValue2" items="${listValue2}" cssClass="BoxW124px"/>
-									</div>
-								</div>		    			        			   
-						</div>
-						<div class="col-md-6">
-								<div class="row">
-									<div class="col-md-6">
-									<label>TAX Indicator</label>
-										<s:select id="cmbTAXIndicator" path="strTaxIndicator" items="${listTAXIndicator}" cssClass="BoxW124px"/>
-									</div>
-									<div class="col-md-6">
+						
+		<%-- 	<div class="col-md-2">
+			<label>Value</label>
+				<div class="row">
+				<div class="col-md-6">
+					<s:select id="cmbValue1" path="strDimensionValue" items="${listValue1}" cssClass="BoxW124px"/>
+					</div>
+			<div class="col-md-6">
+				<s:select id="cmbValue2" path="strDimensionValue2" items="${listValue2}" cssClass="BoxW124px"/>
+				</div>
+		</div>		    			        			   
+	</div> --%>
+						   <div class="col-md-2">
+						     <label>Frequency</label>
+							     <s:select id="cmbFrequency" path="strFreq" items="${listFrequency}" cssClass="BoxW124px"/>
+					        </div>
+					        
+						    <div class="col-md-2">
 									<label>Allow Editing</label>
 										<s:select id="cmbAllowEditing" path="strAllowEditing" items="${listAllowEditing}" cssClass="BoxW124px"/>
-									</div>
-								</div>		    			        			   
+						     </div>
+					
+						<div class="col-md-2"></div>		
+						<div class="col-md-2">
+									<label>TAX Indicator</label>
+										<s:select id="cmbTAXIndicator" path="strTaxIndicator" items="${listTAXIndicator}" cssClass="BoxW124px"/>
 						</div>
-						<div class="col-md-6">
-							<div class="row">
-								<div class="col-md-6">
-								<label>Active</label>
-										<s:select id="cmbActive" path="strActive" items="${listActive}" cssClass="BoxW124px"/>
-								</div>
-								<div class="col-md-6">
+									
+						<div class="col-md-3">
 									<label>Remarks</label>
-										<s:select id="txtRemark" path="strRemark" placeholder="Remarks"  />
+										<s:select id="txtRemark" path="strRemark" required="true" placeholder="Remarks"  />
 								</div>
-							</div>		    			        			   
+							
+						
+						<div class="col-md-2">
+							<label>Active</label>
+								<s:select id="cmbActive" path="strActive" items="${listActive}" cssClass="BoxW124px"/>
 						</div>
-						<div class="col-md-6">
-							<div class="row">
-								<div class="col-md-6">
+								
+						<div class="col-md-2">
 									<label>Open Charge</label>
 										<s:select id="cmbOpenCharge" path="strOpenCharge" items="${listOpenCharge}" cssClass="BoxW124px"/>
-								</div>
-								<div class="col-md-6">
+						</div>
+						
+						<div class="col-md-3"></div>
+						
+						<div class="col-md-2">
 								<label>Criteriya Type</label>
 									<s:select id="cmbCriteriyaType" path="strCriteriaType" items="${listCriteriyaType}" onchange='funOnChangeCriteriaType()' />
-									
-								</div>
-							</div>		    			        			   
 						</div>
-						<div class="col-md-6">
+							
+						<div class="col-md-3">
 							<label>Criteria</label>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-8">
 									<s:select id="cmbCriteria" path="strCriteria" items="${mapCriteria}" cssClass="BoxW124px"/>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<s:select id="cmbCondition" path="strCondition" items="${mapCondition}" cssClass="BoxW124px"/>
 								</div>
 							</div>		    			        			   
 						</div> 
-						<div class="col-md-6">
+						<div class="col-md-3">
 						<label></label>
 							<div class="row">
 								<div class="col-md-6">
@@ -485,9 +487,9 @@
 								</ul>
 							</th>
 						</tr>
-				</table>
+				</table><br>
 				<!-- Parameter Based Criteria Tab -->
-        <div id="tab1" class="tab_conents">
+        <div id="tab1" class="tab_contents">
         	<table class="masterTable">
         		<tr>
         			<td><label>Parameter Based Criteria</label></td>
@@ -495,7 +497,7 @@
         	</table>
         </div>
         <!-- Formula Based Criteria Tab -->
-        <div id="tab2" class="tab_conents">
+        <div id="tab2"  class="tab_contents">
         	<table class="masterTable">        
         		<tr>
         			<td style="padding-left: 0px;  width: 300px; height: 0px;">
@@ -519,9 +521,9 @@
         		</tr>   		
         	</table>
         </div>
-        <div class="center">
+        <div class="center" style="margin-right: 25%;">
 					<a href="#"><button class="btn btn-primary center-block" tabindex="3" onclick=""
-						class="form_button">Submit</button></a>
+						class="form_button">Submit</button></a>&nbsp
 					<a href="#"><button class="btn btn-primary center-block" type="reset"
 						value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
 				</div>
@@ -531,125 +533,4 @@
 </html>
 		
 
-	<%-- <div id="formHeading">
-	<label>Charge Master</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="ChargeMaster" method="POST" action="saveChargeMaster.html">
-
-		<table class="masterTable">
-			<tr>
-			    <td style="width: 12%"><label >Charge Code</label></td>
-			    <td><s:input id="txtChargeCode" path="strChargeCode"  ondblclick="funHelp('chargeCode')" cssClass="searchTextBox"/></td>			        			        
-			    <td colspan="4"><s:input id="txtChargeName" path="strChargeName" required="true" cssClass="longTextBox" cssStyle="width:68%"/></td>			    		        			   
-			</tr>
-			<tr>
-			    <td><label >Account Code</label></td>
-			    <td><s:input id="txtAcctCode" path="strAcctCode"  ondblclick="funHelp('accountCode')" cssClass="searchTextBox"/></td>			        			        
-			    <td colspan="4"><s:input id="txtAccountName" path="strAccountName" required="true" readonly="true" cssClass="longTextBox" cssStyle="width:68%" /></td>			    	    		        			  
-			</tr>
-			<tr>
-				<td><label>Dimension</label> </td>
-				<td><s:select id="cmbDimension" path="strDimension" items="${listDimension}" cssClass="BoxW124px"/></td>		
-				<td><label>Value</label> </td>
-				<td><s:select id="cmbValue1" path="strDimensionValue" items="${listValue1}" cssClass="BoxW124px"/></td>
-				<td><s:select id="cmbValue2" path="strDimensionValue2" items="${listValue2}" cssClass="BoxW124px"/></td>
-				<td></td>			
-			</tr>
-			<tr>
-				<td><label>Type</label> </td>
-				<td><s:select id="cmbType" path="strType" items="${listType}" cssClass="BoxW124px"/></td>		
-				<td><label>Rs.</label></td>
-				<td><s:input id="txtRs" path="dblAmt" required="true" cssClass="longTextBox" /></td>
-				<td><s:select id="cmbCrDr" path="strCrDr" items="${listRs2}" cssClass="BoxW124px"/></td>
-				<td></td>			
-			</tr>
-			<tr>
-				<td><label>Frequency</label> </td>
-				<td><s:select id="cmbFrequency" path="strFreq" items="${listFrequency}" cssClass="BoxW124px"/></td>		
-				<td><label>Allow Editing</label> </td>
-				<td><s:select id="cmbAllowEditing" path="strAllowEditing" items="${listAllowEditing}" cssClass="BoxW124px"/></td>
-				<td><label>TAX Indicator</label> </td>
-				<td><s:select id="cmbTAXIndicator" path="strTaxIndicator" items="${listTAXIndicator}" cssClass="BoxW124px"/></td>	
-			</tr>
-			<tr>
-				<td><label>Remarks</label></td>
-				<td colspan="6"><s:input id="txtRemark" path="strRemark" required="true" cssClass="longTextBox" cssStyle="width:98%"/></td>
-			</tr>
-			<tr>
-				<td><label>Active</label> </td>
-				<td><s:select id="cmbActive" path="strActive" items="${listActive}" cssClass="BoxW124px"/></td>		
-				<td><label>Open Charge</label> </td>
-				<td><s:select id="cmbOpenCharge" path="strOpenCharge" items="${listOpenCharge}" cssClass="BoxW124px"/></td>
-				<td  width="162px"><label>Criteriya Type</label> </td>
-				<td><s:select id="cmbCriteriyaType" path="strCriteriaType" items="${listCriteriyaType}" cssClass="BoxW124px" cssStyle="width:156px" onchange='funOnChangeCriteriaType()' /></td>	
-			</tr>
-			<tr>
-				<td><label>Criteria</label> </td>
-				<td><s:select id="cmbCriteria" path="strCriteria" items="${mapCriteria}" cssClass="BoxW124px"/></td>						
-				<td><s:select id="cmbCondition" path="strCondition" items="${mapCondition}" cssClass="BoxW124px"/></td>
-				<td><s:input id="txtConditionValue" path="dblConditionValue" required="true" cssClass="longTextBox" /></td>
-				<td colspan="2"></td>	
-			</tr>
-			
-			
-		</table>
-		<br>
-		<br>
-		 <!-- table which holds all tabs header -->
-		<table class="masterTable">
-			<tr>
-				<th id="tab_container" style="height: 100%;">
-					<ul class="tabs" >
-						<li class="active" data-state="tab1" style="width: 23.85%; cursor: default;">Parameter Based Criteria</li>
-						<li data-state="tab2" style="width: 23.85%; cursor: default;">Formula Based Criteria</li>						
-					</ul>
-				</th>
-			</tr>
-		</table>
-        <br>        
-        <!-- Parameter Based Criteria Tab -->
-        <div id="tab1" class="tab_conents">
-        	<table class="masterTable">
-        		<tr>
-        			<td><label>Parameter Based Criteria</label></td>
-        		</tr>
-        	</table>
-        </div>
-        <!-- Formula Based Criteria Tab -->
-        <div id="tab2" class="tab_conents">
-        	<table class="masterTable">        
-        		<tr>
-        			<td style="padding-left: 0px;  width: 300px; height: 0px;">
-						<div id="divFieldSelection">
-							<c:forEach var="fieldCriteria" items="${listVMemberDebtorDtlColumnNames}">
-								<a href="#" class="fieldCriteriaLink" ondblclick='funCriteriaFieldSelected(this)'>${fieldCriteria}</a><br>
-						    </c:forEach>
-						</div>
-					</td>  
-					<td></td>  
-					<td style="width: 488px;">
-						<div id="divCriteriaConainer" >
-					    	<s:textarea id="txtCriteria" path="strSql" style="width: 485px; height: 300px; resize: none;" />
-						</div>
-					</td>         			
-        		</tr>     
-        		<tr>
-        			<td></td>
-        			<td></td>
-        			<td style="text-align: center;"><input id="btnCheckFormula" type="button" value="Check Formula" onclick="funCheckFormula()" /></td>
-        		</tr>   		
-        	</table>
-        </div>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
-	</s:form>	 --%>
+	

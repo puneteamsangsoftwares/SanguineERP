@@ -1218,6 +1218,7 @@ public class clsGlobalFunctionsDaoImpl implements clsGlobalFunctionsDao {
 		return query.executeUpdate();
 	}
 
+	@Override
 	public void funAddUpdateLedgerSummary(clsLedgerSummaryModel cobjLedgerSummaryModel) {
 		if(null==cobjLedgerSummaryModel.getStrDebtorName())
 		{
@@ -1270,4 +1271,14 @@ public class clsGlobalFunctionsDaoImpl implements clsGlobalFunctionsDao {
 
 		return currencyConversion;
 	}
+	
+	@Override
+	public void funExecuteWebBook(String sql, String queryType) {
+		Query query = webBooksSessionFactory.getCurrentSession().createQuery(sql);
+		/*query.setParameter("clientCode", clientCode);
+		query.setParameter("userCode", userCode);
+		query.setParameter("propertyCode", propertyCode);*/
+		 query.executeUpdate();
+	}
+	
 }

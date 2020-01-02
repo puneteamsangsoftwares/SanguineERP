@@ -38,18 +38,21 @@
 		<label id="formHeading">Bank Balance Report</label>
 	<s:form name="BankBalanceReport" method="GET" action="rptBankBalanceReport.html" target="_blank">
 		<div class= "row">
-					<div class="col-md-3"><label>From Date </label>
-					        <s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</div>
-					<div class="col-md-3"><label>To Date </label>
-					        <s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</div>
-					<div class="col-md-3"><label>Currency </label>
+					 <div class="col-md-3">
+					   <div class="row">
+				            	<div class="col-md-6"><label>From Date </label>
+					               <s:input id="txtFromDate" path="dteFromDate" style="height:50%" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+					            </div>
+					            <div class="col-md-6"><label>To Date </label>
+					               <s:input id="txtToDate" path="dteToDate" style="height:50%" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+					           </div>
+					   </div></div>
+					<div class="col-md-2"><label>Currency </label>
 				              <s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px"></s:select>
 				    </div>
 		</div><br>
-		<p align="right" style="margin: 0px 160px;}">
-				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" />
+		<p align="center" style="margin-right:31%">
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" />&nbsp
 				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 	</s:form>

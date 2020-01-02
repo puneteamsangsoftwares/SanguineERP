@@ -925,12 +925,12 @@
 							<label>Stop Credit Supply</label>
 								<label id="lblStopCreditSupply"></label>
 							</div>
-							<div class="col-md-6">
+							<%-- <div class="col-md-6">
 								<label>Change Year</label><br>
 								<s:select id="cmbChangeYear" path="strChangeYear" class="BoxW124px">
 									<s:options items="${listChangeYear}"/>
 								</s:select>
-							</div>
+							</div> --%>
 						</div> 
 					</div>
 					<div class="col-md-6">

@@ -142,24 +142,24 @@
 <body>
 	<div class="container">
 		<label id="formHeading">Remark Master</label>
-			<s:form name="BankMaster" method="POST" action="saveNarrationMaster.html">
+			<s:form name="BankMaster" method="POST" action="saveACGroupMaster.html">
 				<div class="row masterTable">
-						<div class="col-md-4"><label >Remark Code</label>
-							<s:input id="txtRemarkCode"  ondblclick="funHelp('remarkCode')" cssClass="searchTextBox" readonly="true"
-							 placeholder="Remark Code" type="text" path="strRemarkCode"></s:input>
+						<div class="col-md-2"><label >Remark Code</label>
+							<s:input id="txtRemarkCode"  ondblclick="funHelp('remarkCode')" cssClass="searchTextBox" style="height:50%"
+							  readOnly="true" type="text" path="strRemarkCode"></s:input>
 						</div>
 						
 						<div class="col-md-4"><label >Description</label>
-						<s:input id="txtDescription" path="strDescription" required="true"
-							 placeholder="Description" type="text"></s:input>
+						<s:input id="txtDescription" path="strDescription" 
+							 type="text" required="true"></s:input>
 						</div>
-						<div class="col-md-4"><label >Active</label><br>
+						<div class="col-md-1"><label >Active</label><br>
 						<s:checkbox id="chkActiveYN"  path="strActiveYN" value=""  onclick="funSetActiveYN()"  />
 						</div>
 				</div>
-				<div class="center">
+				<div class="center" style="margin-right: 46%;">
 				<a href="#"><button class="btn btn-primary center-block" tabindex="3" onclick=""
-					class="form_button">Submit</button></a>
+					class="form_button">Submit</button></a>&nbsp
 				<a href="#"><button class="btn btn-primary center-block" type="reset"
 					value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
 			</div>

@@ -350,15 +350,15 @@ var fieldName;
 		<label id="formHeading">Employee Master</label>
 			<s:form name="EmployeeMaster" method="POST" action="saveEmployeeMaster.html">
 				<div class="row masterTable">
-					<div class="col-md-6">
+					<div class="col-md-5">
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-5">
 								<label >Employee Code</label>
-									<s:input type="text" id="txtEmployeeCode" path="strEmployeeCode" ondblclick="funHelp('employeeCode')" class="searchTextBox" readonly="true"/>
+									<s:input type="text" id="txtEmployeeCode" path="strEmployeeCode" style="height:48%" ondblclick="funHelp('employeeCode')" readOnly="true" class="searchTextBox"/>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-7">
 									<label >Employee Name</label>
-									<s:input id="txtEmployeeName" type="text" required="true" path="strEmployeeName"  />
+									<s:input id="txtEmployeeName" type="text" required="true" path="strEmployeeName" />
 								</div>
 							</div>
 						</div>	
@@ -366,26 +366,33 @@ var fieldName;
 				
 				<!--Opening Balance-->
 		<div id="tab4" class="tab_content" style="height: auto;">
-		<br> 
-			<table class="masterTable" style="width: 99%">				
-				<tr>
-				        <th><label>Account Code</label></th>
-				        <th><label>Account Name</label></th>
-				        <th><label>Opening Balance</label></th>
-				        <th><label>Dr/Cr</label></th>
-				        <th><label>Current Balance</label></th>		
-				        <th></th>		        
-			   	</tr>			   			
-			   	<tr>
-			    	<td style="padding-left: 0px;"><s:input id="txtAccountCode" path=""  cssClass="searchTextBox" ondblclick='funHelp("EmployeeAccountCode")' /></td>	
-			    	<td><s:input id="txtAccountName" path="" type="text"   /></td>	
-			    	<td><s:input  type="number" id="txtOpeningBalance" path=""   class="decimal-places numberField" cssStyle="text-align: right;" /></td>			    	
-				    <td><s:select id="cmbDrCr" path="" items="${listDrCr}" cssClass="BoxW124px" style="margin:0px;" /></td>	
-				    <td><s:input id="txtCurrentBalance" path=""  readonly="true" value="0"/></td>
-				    <td><input type="button" value="Add"  class="btn btn-primary center-block" onclick='funAddRow("tblOpeningBalance")'/></td>					    				
-			    </tr>		    				   
-			</table>
-			<br>
+	
+			<div class="row">
+				
+					<div class="col-md-2"><label>Account Code</label>
+												<s:input id="txtAccountCode" path=""  style="height:48%; width:105%" cssClass="searchTextBox" readOnly="true" ondblclick='funHelp("EmployeeAccountCode")' />
+						</div>
+						<div class="col-md-3"><label>Account Name</label>
+											<s:input id="txtAccountName" path="" type="text"   />
+						</div>
+				       
+				        <div class="col-md-2"><label style="padding-left: 15px;">Opening Balance</label>
+				        			<s:input  type="number" id="txtOpeningBalance" path=""   class="decimal-places numberField" cssStyle="text-align: right; border:none" />
+				        </div>
+				        
+				        <div class="col-md-1"><label style="padding-left: 15px;">Dr/Cr</label>
+				        			<s:select id="cmbDrCr" path="" items="${listDrCr}" cssClass="BoxW124px" style="margin:0px;" />
+				        </div>
+				        
+				        <div class="col-md-2"><label>Current Balance</label>
+				        			<s:input id="txtCurrentBalance" path=""  style="width:50%; text-align:right;" readonly="true" value="0"/>
+				        </div>		
+				        
+				        <div class="col-md-2">	        
+			   	       				<input type="button" value="Add" style="padding: 8px 24px;  margin-top: 20px"  class="btn btn-primary center-block" onclick='funAddRow("tblOpeningBalance")'/>
+			   	       	</div>			   			
+			  		    				
+			 </div>
 			<br>
 			<div style="background-color: #f2f2f2; border: 1px solid #ccc;display: block; height: 150px;
 				    				margin: auto;overflow-x: hidden; overflow-y: scroll;width: 99%;">
@@ -402,80 +409,13 @@ var fieldName;
 				</table>	
 			</div>						
 		</div>	
+		<br />
+		<p align="right">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateForm();" />&nbsp
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
+		</p>
 			</s:form>
 		</div>
-<%-- 
-	<div id="formHeading">
-		<label>Employee Master</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="EmployeeMaster" method="POST" action="saveEmployeeMaster.html">
-
-		<table class="masterTable">
-			<tr>
-			    <td><label >Employee Code</label></td>
-			    <td style="width: 230px"><s:input id="txtEmployeeCode" path="strEmployeeCode"  ondblclick="funHelp('employeeCode')" cssClass="searchTextBox"/></td>			        			        
-			    <td><label >Employee Name</label></td>
-			    <td colspan="2">
-			    <s:input id="txtEmployeeName" path="strEmployeeName" required="true" cssClass="longTextBox" style="width: 350px"/></td>			    		        			   
-			</tr>
-			
-		</table>
-		
-		<br />
-		<br />
-		
-		<!--Opening Balance-->
-		<div id="tab4" class="tab_content" style="height: auto;">
-		<br> 
-			<table class="masterTable" style="width: 99%">				
-				<tr>
-				        <th><label>Account Code</label></th>
-				        <th><label>Account Name</label></th>
-				        <th><label>Opening Balance</label></th>
-				        <th><label>Dr/Cr</label></th>
-				        <th><label>Current Balance</label></th>		
-				        <th></th>		        
-			   	</tr>			   			
-			   	<tr>
-			    	<td style="padding-left: 0px;"><s:input id="txtAccountCode" path=""  cssClass="searchTextBox" ondblclick='funHelp("EmployeeAccountCode")' /></td>	
-			    	<td><s:input id="txtAccountName" path=""  cssClass="longTextBox" style="width: 235px"  /></td>	
-			    	<td><s:input type="number" id="txtOpeningBalance" path=""  class="decimal-places numberField"  cssStyle="text-align: right;" /></td>			    	
-				    <td><s:select id="cmbDrCr" path="" items="${listDrCr}" cssClass="BoxW124px" /></td>	
-				    <td><s:input id="txtCurrentBalance" path=""  cssClass="longTextBox"  value="0" cssStyle="text-align: right;" /></td>
-				    <td><input type="button" value="Add"  class="smallButton" onclick='funAddRow("tblOpeningBalance")'/></td>					    				
-			    </tr>		    				   
-			</table>			
-			<br>
-			<br>
-			<div style="background-color: #a4d7ff;border: 1px solid #ccc;display: block; height: 150px;
-				    				margin: auto;overflow-x: hidden; overflow-y: scroll;width: 99%;">
-				<!-- Dynamic Table Generation for tab4 (Opening Balance) -->
-				<table id="tblOpeningBalance" class="transTablex" style="width: 100%">				
-					<tr>
-					        <td>Account Code</td>
-					        <td>Account Name</td>
-					        <td>Opening Balance</td>
-					        <td>Dr/Cr</td>
-					        <td>Current Balance</td>		
-					        <td>Delete</td>				       
-				   	</tr>			   						   	    				  
-				</table>	
-			</div>						
-		</div>					
-		<!--Opening Balance-->
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateForm();" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
- --%>
-
 
 </body>
 </html>

@@ -48,7 +48,6 @@ public class clsWebClubEditOtherInfoController {
 		//String sqlEditOtherInfo = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = 'tbleditotherinfo' ";
 		listEditOtherInfo = objGlobalFunctionsService.funGetDataList(sqlEditOtherInfo, "sql");
 		model.put("listEditOtherInfo", listEditOtherInfo);
-
 		return new ModelAndView("frmEditOtherInfo", "command", new clsWebClubEditOtherInfoModel());
 	}
 

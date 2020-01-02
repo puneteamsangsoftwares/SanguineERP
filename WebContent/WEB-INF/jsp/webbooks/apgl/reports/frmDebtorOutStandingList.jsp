@@ -55,8 +55,8 @@
 			</table>
 		</div>
 		<p align="center">
-				<input type="submit" value="Submit"  class="form_button" />
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" />
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 	</s:form>
 

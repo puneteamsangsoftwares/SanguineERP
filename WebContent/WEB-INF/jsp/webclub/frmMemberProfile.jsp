@@ -273,7 +273,11 @@
 						        	$("#txtAadharCardNo").val(response[0].strAadharCardNo);
 						        	$("#txtVoterIdNo").val(response[0].strVoterIdNo);
 						        	$("#txtPassportNo").val(response[0].strPassportNo);
-						        	funSetBankMasterData(response[0].strBankCode)
+						        	if(response[0].strBankCode!='')
+						        		{
+						        			funSetBankMasterData(response[0].strBankCode);
+						        		}
+						        	
 						        	//$("#txtBankCode").val(response[0].strBankCode);
 						        	$("#txtIfscCOde").val(response[0].strIfscCOde);
 						        	$("#txtAccNo").val(response[0].strAccNo);
@@ -281,6 +285,8 @@
 						        	
 						        	$("#txtCustomerCode").val(response[0].strCustomerCode);
 						        	$("#txtPrefixCode").val(response[0].strPrefixCode);
+						        	$("#txtDebtorCode").val(response[0].strDebtorCode);
+						        	
 						        	$("#txtNameOnCard").val(response[0].strNameOnCard);
 						        	$("#txtResidentAddressLine1").val(response[0].strResidentAddressLine1);
 						        	$("#txtResidentAddressLine2").val(response[0].strResidentAddressLine2);
@@ -441,9 +447,15 @@
 						        	$("#txtdtDateofBirth").val(response[0].dteDateofBirth);
 						        	$("#cmbMaritalStatus").val(response[0].strMaritalStatus);
 						        	$("#txtProfessionCode").val(response[0].strProfessionCode);
-						        	funSetProfessionCode(response[0].strProfessionCode);
+						        	if(response[0].strProfessionCode!='')
+					        		{
+						        		funSetProfessionCode(response[0].strProfessionCode);
+					        		}
 						        	$("#txtMSCategoryCode").val(response[0].strCategoryCode);
-						        	funSetMemberCategory(response[0].strCategoryCode);
+						        	if(response[0].strCategoryCode!='')
+					        		{
+						        		funSetMemberCategory(response[0].strCategoryCode);
+					        		}
 						        	$("#txtPanNumber").val(response[0].strPanNumber);
 						        	$("#txtProposerCode").val(response[0].strProposerCode);
 						        	$("#txtSeconderCode").val(response[0].strSeconderCode);
@@ -451,9 +463,15 @@
 						        	
 						        	$("#txtBlockedreasonCode").val(response[0].strBlockedreasonCode);
 						        	$("#txtQualification").val(response[0].strQualification);
-						        	funSetEducationCode(response[0].strQualification);
+						        	if(response[0].strQualification!='')
+					        		{
+						        		funSetEducationCode(response[0].strQualification);
+					        		}
 						        	$("#txtDesignationCode").val(response[0].strDesignationCode);
-						        	funSetDesignationCode(response[0].strDesignationCode);
+						        	if(response[0].strDesignationCode!='')
+					        		{
+						        		funSetDesignationCode(response[0].strDesignationCode);
+					        		}
 						        	$("#txtLocker").val(response[0].strLocker);
 						        	$("#txtLibrary").val(response[0].strLibrary);
 						        	
@@ -517,13 +535,20 @@
 					        	{  					        		
 					        		funDeleteTableAllRowsField();
 					        		map1=response;
+					        		var flag=true;
 						        	for (var i in map1) {	
 						        		if(i!='strMemberCode')
 						        			{
-						        				funAddFieldDataMemberWise(i,map1[i]);						        				
+						        				funAddFieldDataMemberWise(i,map1[i]);
+						        				flag=false;
 						        			}		        	    
 						        	} 						        	
 					        	}
+					        	if(flag==true)
+					        		{
+					        			funAddFieldList();
+					        		}
+					        	
 							},
 							error: function(jqXHR, exception) {
 					            if (jqXHR.status === 0) {
@@ -2886,7 +2911,7 @@ function funSetBillingRegionCode(code){
   					<div class="row" >
   					<div class="col-md-4"><label>Member Code</label><br><s:input id="txtMemberCode" type="text" 
 									ondblclick="funHelp('WCmemProfileCustomer')" cssClass="searchTextBox"
-								 	 class="form-control" path="strMemberCode" ></s:input></div>
+								 	 class="form-control" path="strMemberCode" ></s:input><s:input id="txtDebtorCode" type="hidden" path="strDebtorCode" ></s:input></div>
 					<div class="col-md-4"><label>Prefix Code</label><br><s:select id="cmbPrefixCode" path="strPrefixCode" name="cmbPrefixCode">
 													 <option value="Mr">Mr</option>
 									 				 <option value="Mrs">Mrs</option>

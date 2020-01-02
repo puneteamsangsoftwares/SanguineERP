@@ -120,97 +120,54 @@
 		<label id="formHeading">Account Holder Master</label>
 		<s:form name="AccountHolderMaster" method="POST" action="saveAccountHolderMaster.html">
 			<div class="row masterTable">
-				<div class="col-md-6">
+				<div class="col-md-5">
 					<label>Account Holder Code:</label>
 					<div class="row">
-						<div class="col-md-6"><s:input id="txtACHolderCode" ondblclick="funHelp('acHolderCode')" cssClass="searchTextBox"
+						<div class="col-md-5"><s:input id="txtACHolderCode" ondblclick="funHelp('acHolderCode')" cssClass="searchTextBox"
 							readonly="true" placeholder="Account Holder Code" type="text" path="strACHolderCode"></s:input>
 						</div>
 					
-						<div class="col-md-6"><s:input id="txtACHolderName" path="strACHolderName" required="true"
-							 placeholder="Account Holder Code" type="text"></s:input>
+						<div class="col-md-7"><s:input id="txtACHolderName" path="strACHolderName" required="true"
+							 placeholder="Account Holder Name" type="text"></s:input>
 						</div>
 					</div><br>
 				</div>	
-				<div class="col-md-6"></div>
+				<div class="col-md-8"></div>
 				<div class="col-md-12"><p style="margin-bottom:0px;">Contact Details</p></div>
 				
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<div class="row">
 						<div class="col-md-6">
 							<label>Designation:</label><s:input id="txtDesignation" 
-								required="true" placeholder="Designation" type="text" path="strDesignation"></s:input>
+								required="true" type="text" path="strDesignation"></s:input>
 						</div>
 					
 						<div class="col-md-6">
 							<label>Mobile No:</label><s:input id="txtMobileNumber" path="intMobileNumber" required="true"
-								 placeholder="Mobile No" type="text"></s:input>
+								  type="text"></s:input>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<div class="row">
 						<div class="col-md-6">
 							<label>Email Id:</label><s:input id="txtEmailId" 
-								required="true" placeholder="Email Id" type="text" path="strEmailId"></s:input>
+								required="true"  type="text" path="strEmailId"></s:input>
 						</div>
 						<div class="col-md-6"></div>
 					</div>
 				</div>		
 			</div>
-			<div class="center">
+			<div class="center" style="margin-right:51%">
 				<a href="#"><button class="btn btn-primary center-block"
-						value="Submit" onclick="" class="form_button">Submit</button></a> <a
-					href="#"><button class="btn btn-primary center-block"
+						value="Submit" onclick="" class="form_button">Submit</button></a> &nbsp
+				<a href="#"><button class="btn btn-primary center-block"
 						type="reset" value="Reset" class="form_button"
 						onclick="funResetField()">Reset</button></a>
 			</div>
 			
 		</s:form>
 	</div>
-	<%-- <div id="formHeading">
-	<label> Account Holder Master</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="AccountHolderMaster" method="POST" action="saveAccountHolderMaster.html">
-
-		<table class="masterTable">
-			<tr>
-			    <td style="width: 125px;"><label >Account Holder Code</label></td>
-			    <td><s:input id="txtACHolderCode" path="strACHolderCode" readonly="true" ondblclick="funHelp('acHolderCode')" cssClass="searchTextBox"/></td>			        			        
-			    <td><s:input id="txtACHolderName" path="strACHolderName" required="true" cssClass="longTextBox"  style="width: 350px;"/></td>			    		        			   
-			</tr>	
-			<tr>
-				<th></th>	
-				<th style="padding-left: 125px;"><label style="font-style: italic;">Contact Details</label></th>
-				<th></th>			
-			</tr>		
-			<tr>
-				<td><label>Designation</label></td>
-				<td><s:input id="txtDesignation" path="strDesignation" required="true" cssClass="longTextBox" style="width: 200px;"/></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><label>Mobile No.</label></td>
-				<td ><s:input id="txtMobileNumber" path="intMobileNumber" required="true" cssClass="longTextBox"/></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><label>Email Id</label></td>
-				<td ><s:input id="txtEmailId" path="strEmailId" required="true" cssClass="longTextBox" style="width: 200px;"/></td>
-				<td></td>
-			</tr>
-		</table>
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
-	</s:form> --%>
+	
 </body>
 </html>

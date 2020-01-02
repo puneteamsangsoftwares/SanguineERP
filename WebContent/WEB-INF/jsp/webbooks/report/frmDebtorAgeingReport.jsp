@@ -269,18 +269,23 @@
 	<s:form name="AgeingReport" method="GET" action="" >
 	
 				<div class= "row">
-					<div class="col-md-3"><label>GL Code</label>
-				             <s:input type="text" id="txtGLCode" path="strAccountCode" class="searchTextBox" ondblclick="funHelp('debtorAccountCode')"/>
-		                     <label id="lblGLCode"></label>
-				     </div>
-		
-					<div class="col-md-3"><label>From Date</label>
-					         <s:input type="text" id="txtFromDate" path="dteFromDate" class="calenderTextBox" required="required" />
-					</div>
+					<div class="col-md-2"><label>GL Code</label>
+				             <s:input type="text" id="txtGLCode" path="strAccountCode" class="searchTextBox" style="height:40%" readOnly="true" ondblclick="funHelp('debtorAccountCode')"/>
+		             </div>
 					
-					<div class="col-md-3"><label>To Date</label>
+					<div class="col-md-3"> <label id="lblGLCode" style="background-color:#dcdada94; width: 100%; height: 40%; margin: 27px 0px;"></label></div>
+					<div class="col-md-7"></div>
+					
+					<div class="col-md-3">
+					<div class="row">
+					    <div class="col-md-6"><label>From Date</label>
+					         <s:input type="text" id="txtFromDate" path="dteFromDate" class="calenderTextBox" required="required" />
+					    </div>
+					
+					    <div class="col-md-6"><label>To Date</label>
 					         <s:input type="text" id="txtToDate" path="dteToDate" class="calenderTextBox" required="required" />
-					</div>
+					   </div>
+			        </div></div>
 				</div>
 				<br>
 				<div class="row"> 
@@ -323,7 +328,7 @@
 		<p align="right" style="margin-right:95px;">
 			<!-- <input id="btnExecute" type="button" value="Submit" tabindex="3" class="form_button1" /> -->
 			
-			<input id="btnExport" type="button" value="EXPORT" class="btn btn-primary center-block" class="form_button"	onclick="funExportToExcel()" />
+			<input id="btnExport" type="button" value="EXPORT" class="btn btn-primary center-block" class="form_button"	onclick="funExportToExcel()" />&nbsp
 			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 	</s:form>

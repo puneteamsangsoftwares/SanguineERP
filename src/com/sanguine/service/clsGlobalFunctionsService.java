@@ -134,4 +134,6 @@ public interface clsGlobalFunctionsService {
 	 */
 
 	public double funGetCurrencyConversion(double amount, String currency, String clientCode);
+
+	public void funExecuteWebBook(String sql, String queryType);
 }

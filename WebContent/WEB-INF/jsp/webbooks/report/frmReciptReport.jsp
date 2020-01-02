@@ -80,16 +80,16 @@ function funHelp(transactionName)
 		<br>
 		    <div class="row">
 			
-			<div class="col-md-3"><label>Voucher No</label>
+			<div class="col-md-2"><label>Voucher No</label>
 				   <s:input path="strDocCode" id="txtSOCode"
 						ondblclick="funHelp('ReceiptNoslip')"
-						cssClass="searchTextBox" /></div>
-																					
-			<div class="col-md-3"><label>Currency </label>
+						cssClass="searchTextBox" readonly="true"/></div>
+			<div class="col-md-10"></div>																		
+			<div class="col-md-2"><label>Currency </label>
 				   <s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px">
 										</s:select></div>
 								
-			<div class="col-md-3"><label>Report Type</label>
+			<div class="col-md-1.1"><label>Report Type</label>
 				   <s:select id="cmbDocType" path="strDocType"
 						cssClass="BoxW124px">
 						<s:option value="PDF">PDF</s:option>
@@ -98,16 +98,17 @@ function funHelp(transactionName)
 						<s:option value="CSV">CSV</s:option>
 					</s:select></div>
           
-             <div class="col-md-3"><label>Property</label>
+             <div class="col-md-2"><label>Property</label>
 				    <s:select id="cmbDocType" path="strPropertyCode" cssClass="BoxW124px">
 						<s:options items="${listProperty}"/>
 					 </s:select></div>
 		
 		</div>
-		<p align="right">
+		<br>
+		<p align="right" style="margin-right:62%">
 			<input type="submit" value="Submit" class="btn btn-primary center-block"
 				onclick="return funCallFormAction('submit',this)"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <a
+				class="form_button" /> &nbsp; <a
 				STYLE="text-decoration: none"
 				href="frmReciptReport.html?saddr=${urlHits}"><input
 				type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block"

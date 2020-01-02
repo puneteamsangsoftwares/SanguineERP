@@ -272,7 +272,7 @@
 		
 				<div class= "row">
 					<div class="col-md-3"><label>GL Code</label>
-					    <s:input type="text" id="txtGLCode" path="strAccountCode" class="searchTextBox" ondblclick="funHelp('creditorAccountCode')"/>
+					    <s:input type="text" id="txtGLCode" path="strAccountCode" class="searchTextBox" readOnly="true" ondblclick="funHelp('creditorAccountCode')"/>
 					    <label id="lblGLCode"></label>
 				   </div>
 	

@@ -74,10 +74,10 @@ function funHelp(transactionName)
 		<br>
 	
 			<div class="row">
-				<div class="col-md-4"><label>Voucher No</label>
+				<div class="col-md-2"><label>Voucher No</label>
 				      <s:input path="strDocCode" id="txtSOCode"
 						ondblclick="funHelp('PaymentNoslip')"
-						cssClass="searchTextBox" /></div>
+						cssClass="searchTextBox" readOnly="true"/></div>
 																					
 			
 <!-- 								<tr> -->
@@ -87,7 +87,8 @@ function funHelp(transactionName)
 <%-- 										</s:select></td> --%>
 <!-- 								</tr> -->
 			
-				<div class="col-md-4"><label>Report Type</label>
+			     <div class="col-md-10"></div>
+				<div class="col-md-1.1" style="padding:0 15px"><label>Report Type</label>
 				     <s:select id="cmbDocType" path="strDocType"
 						cssClass="BoxW124px">
 						<s:option value="PDF">PDF</s:option>
@@ -96,16 +97,16 @@ function funHelp(transactionName)
 						<s:option value="CSV">CSV</s:option>
 					   </s:select></div>
           
-				<div class="col-md-4"><label>Property</label>
+				<div class="col-md-2"><label>Property</label>
 				    <s:select id="cmbDocType" path="strPropertyCode" cssClass="BoxW124px">
 						<s:options items="${listProperty}"/>
 					</s:select></div>
 		   </div>
 		<br>
-		<p align="right">
+		<p align="right" style="margin-right:76%">
 			<input type="submit" value="Submit" class="btn btn-primary center-block"
 				onclick="return funCallFormAction('submit',this)"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <a
+				class="form_button" /> &nbsp; <a
 				STYLE="text-decoration: none"
 				href="frmPaymentReport.html?saddr=${urlHits}"><input
 				type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block"

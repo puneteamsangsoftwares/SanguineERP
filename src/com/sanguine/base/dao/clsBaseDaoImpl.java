@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sanguine.base.model.clsBaseModel;
@@ -184,6 +185,7 @@ public class clsBaseDaoImpl implements intfBaseDao {
 		return objBaseModel.getDocCode();
 	}
 	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebBooksTransactionManager")
 	public List funGetListForWebBooks(StringBuilder strQuery, String queryType) throws Exception {
 		Query query;
 		if (queryType.equals("sql")) {
@@ -194,8 +196,21 @@ public class clsBaseDaoImpl implements intfBaseDao {
 			return query.list();
 		}
 	}
-
 	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "hibernateTransactionManager")
+	public List funGetListForWebStocks(StringBuilder strQuery, String queryType) throws Exception {
+		Query query;
+		if (queryType.equals("sql")) {
+			query = sessionFactory.getCurrentSession().createSQLQuery(strQuery.toString());
+			return query.list();
+		} else {
+			query = sessionFactory.getCurrentSession().createQuery(strQuery.toString());
+			return query.list();
+		}
+	}
+	
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebBooksTransactionManager")
 	public void funExcecteUpdateModuleWise(StringBuilder strQuery, String queryType, String moduleType) throws Exception {
 		Query query;
 
@@ -215,10 +230,12 @@ public class clsBaseDaoImpl implements intfBaseDao {
 			objSessionFactory = webBooksSessionFactory;
 		}
 		if (queryType.equals("sql")) {
-			objSessionFactory.getCurrentSession().createSQLQuery(strQuery.toString()).executeUpdate();
+			objSessionFactory.getCurrentSession().createNativeQuery(strQuery.toString()).executeUpdate();
 		} else {
 			objSessionFactory.getCurrentSession().createQuery(strQuery.toString()).executeUpdate();
 		}
+		
+		//webBooksSessionFactory.getCurrentSession().createSQLQuery("delete from tblChargeGenerationTemp where strMemberCode='" + strMemberCode + "' ");
 	}
 
 //	@Override

@@ -66,30 +66,35 @@
 		<label id="formHeading">Balance Sheet</label>
 
 	<s:form name="frmBalanceSheet" method="GET" action="" target="_blank">
-	
-			    <div class="row">
-					<div class="col-md-4"><label>From Date </label>
-							<s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</div>
-					<div class="col-md-4" width="10%"><label>To Date </label>
-							<s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</div>	
-					<div class="col-md-4"><label>Report Type</label>
+			<div class="row">
+			     <div class="col-md-3">
+			        <div class="row">
+					     <div class="col-md-6"><label>From Date </label>
+							<s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" style="height:50%" cssClass="calenderTextBox"/>
+					    </div>
+					     <div class="col-md-6" width="10%"><label>To Date </label>
+							<s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" style="height:50%" cssClass="calenderTextBox"/>
+					      </div>
+				  </div></div>	
+				  
+			     <div class="col-md-3">
+			        <div class="row">
+					   <div class="col-md-6"><label>Report Type</label>
 							<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
-				    		
-				    	</s:select></div>
-				</div>
+				    		</s:select></div>
+				    	<div class="col-md-6"></div>
+				  </div></div>
 				<%-- <tr>
 					<td><label>Currency </label></td>
 					<td><s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px">
 						</s:select></td>
 					<td colspan="2"></td>
 				</tr> --%>
-		<br />
-		<p align="right">
-				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="funOnSubmitBtn()"/>
+		</div><br />
+		<p align="center" style="margin-right:40%">
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="funOnSubmitBtn()"/>&nbsp
 				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 	</s:form>

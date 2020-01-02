@@ -165,26 +165,29 @@ function funSetExpCode(code){
 		<label id="formHeading">Expense Master</label>
 			<s:form name="expform" method="POST" action="saveExpenseMaster.html?saddr=${urlHits}">
 				<div class="row masterTable">
-					<div class="col-md-3"><label >Expense Code</label>
-						<s:input id="txtExpCode" ondblclick="funHelp('expense')" cssClass="searchTextBox" readonly="true" 
-							 placeholder="Expense Code" type="text" path="strExpCode"></s:input>
+					<div class="col-md-2"><label >Expense Code</label>
+						<s:input id="txtExpCode" ondblclick="funHelp('expense')" cssClass="searchTextBox" style="height:45%"
+							 readOnly="true" type="text" path="strExpCode"></s:input>
 					</div>
 					<div class="col-md-3"><label >Expense Name</label>
 						<s:input id="txtExpenseName" name="txtExpenseName" required="true"
-							 placeholder="Expense Name" type="text" path="stnExpName"></s:input><s:errors path="stnExpName"></s:errors>
+							 type="text" path="stnExpName"></s:input><s:errors path="stnExpName"></s:errors>
 					</div>
 					<div class="col-md-3"><label >Short Name</label>
 						<s:input id="txtExpSortName" name="txtExpSortName" autocomplete="off"
-							 placeholder="Short Name" type="text" path="strExpShortName"></s:input>
+							 type="text" path="strExpShortName"></s:input>
 					</div>
-					<div class="col-md-3"><label >GL Code</label>
-						<s:input id="txtGLCode"  ondblclick="funHelp('GLCode')" cssClass="searchTextBox"
-							 placeholder="GL Code" type="text" path="strGLCode"></s:input>
+					
+					<div class="col-md-4"></div>
+					
+					<div class="col-md-2"><label >GL Code</label>
+						<s:input id="txtGLCode"  ondblclick="funHelp('GLCode')" cssClass="searchTextBox" style="height:48%"
+							 readOnly="true" type="text" path="strGLCode"></s:input>
 					</div>
 				</div>
-				<div class="center">
+				<div class="center" style="margin-right: 35%;">
 					<a href="#"><button class="btn btn-primary center-block" tabindex="3" onclick=""
-						class="form_button">Submit</button></a>
+						class="form_button">Submit</button></a>&nbsp
 					<a href="#"><button class="btn btn-primary center-block" type="reset"
 						value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
 				</div>

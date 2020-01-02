@@ -1539,307 +1539,289 @@ function funSetDebtorMasterData(debtorCode)
 
 </head>
 <body>
-      <div class="container transTable">
+     <div class="container transTable">
 		<label id="formHeading">Payment</label>
 	    <s:form name="Payment" method="POST" action="savePayment.html">
 
 		<div class="row">
-			<div class="col-md-3"><label>Voucher No</label>
-				 <s:input colspan="3" type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('PaymentNo');"/>
+			<div class="col-md-2"><label>Voucher No</label>
+				<s:input type="text" id="txtVouchNo" path="strVouchNo" readOnly="true" cssClass="searchTextBox" ondblclick="funHelp('PaymentNo');"/>
 			</div>
-				
-			<div class="col-md-3"><label>Voucher Date</label>
-				  <s:input colspan="3" type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" />
-			</div>
-				
-			<div class="col-md-3"><label>Voucher Month</label>
-				   <s:select id="cmbMonth" path="intVouchMonth" class="BoxW124px" >
-						<option value="1">January</option>
-						<option value="2">February</option>
-						<option value="3">March</option>
-						<option value="4">April</option>
-						<option value="5">May</option>
-						<option value="6">June</option>
-						<option value="7">July</option>
-						<option value="8">August</option>
-						<option value="9">September</option>
-						<option value="10">October</option>
-						<option value="11">November</option>
-						<option value="12">December</option>
-					</s:select>
-				
-					<!-- <s:select id="cmbMonth" path="intVouchNum" items="${Months}" class="BoxW124px" ></s:select> -->
-			</div>
-			
-			<div class="col-md-3"><label>Bank Code</label>
-				   <s:input colspan="3" type="text" id="txtBankCode" path="strBankCode" cssClass="searchTextBox" ondblclick="funHelp('cashBankAccNo');"/>
-				<label id="lblBankDesc"></label>
-				<label id="lblBankBalAmt"  style="color:blue; font:bold; font-size:115%;" ></label>
-			</div>
+			<div class="col-md-3">
+				<div class="row">
+					<div class="col-md-6">
+						<label>Voucher Date</label>
+						  <s:input type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox"/>
+					</div>
+					<div class="col-md-6"><label>Voucher Month</label>
+					   <s:select id="cmbMonth" path="intVouchMonth" class="BoxW124px">
+							<option value="1">January</option>
+							<option value="2">February</option>
+							<option value="3">March</option>
+							<option value="4">April</option>
+							<option value="5">May</option>
+							<option value="6">June</option>
+							<option value="7">July</option>
+							<option value="8">August</option>
+							<option value="9">September</option>
+							<option value="10">October</option>
+							<option value="11">November</option>
+							<option value="12">December</option>
+						</s:select>
 					
-			<div class="col-md-3"><label>Amt</label> &nbsp;&nbsp;&nbsp;&nbsp;
-				   <div class="row">
-								<div class="col-md-6"><s:input  type="number" step="0.0001" id="txtAmt" path="dblAmt" class="decimal-places numberField" onChange="funFillAmount()" value="0.00"/></div>
-			       				<div class="col-md-6"><s:input colspan="3" type="text" id="txtCrDr" value="Cr" path="strCrDr" readonly="true"/></div>
-			</div></div>
+						<!-- <s:select id="cmbMonth" path="intVouchNum" items="${Months}" class="BoxW124px" ></s:select> -->
+					</div>
+				</div>
+			</div>
+			<div class="col-md-7"></div>
+				<div class="col-md-2">
+					<label>Bank Code</label>
+						 <s:input  type="text" id="txtBankCode" path="strBankCode" readOnly="true" cssClass="searchTextBox" ondblclick="funHelp('cashBankAccNo');"/>
+				</div>
+				<div class="col-md-3">
+					<label id="lblBankDesc" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label>
+				</div>
+				<div class="col-md-3">
+					<label id="lblBankBalAmt"  style="color:blue; font:bold; font-size:115%; background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;" ></label>
+				</div>
+				<div class="col-md-3"><label>Amt</label> &nbsp;&nbsp;&nbsp;&nbsp;
+					 <div class="row">
+						<div class="col-md-7"><s:input  type="number" step="0.0001" id="txtAmt" path="dblAmt" class="decimal-places numberField" onChange="funFillAmount()" value="0.00"/></div>
+			       		<div class="col-md-3"><s:input colspan="3" type="text" id="txtCrDr" value="Cr" path="strCrDr" readonly="true"/></div>
+					</div>
+				</div>
 		
-			<div class="col-md-3"><label>Type</label>
+			<div class="col-md-2"><label>Type</label>
 				  <s:select id="cmbType" path="strType" class="BoxW124px" onchange="funSetTypeLabel()">
-						  <option value="Cash">Cash</option>
-						  <option value="Cheque">Cheque</option>
-						  <option value="Credit Card">Credit Card</option>
-						  <option value="NEFT">NEFT</option>
-				    </s:select>
+					 	<option value="Cash">Cash</option>
+						<option value="Cheque">Cheque</option>
+						<option value="Credit Card">Credit Card</option>
+						<option value="NEFT">NEFT</option>
+				   </s:select>
+			</div>    
+			<div class="col-md-2">
 				<label id="lblTypeName"></label>
-			    <s:input colspan="3" type="text" id="txtChequeNo" path="strChequeNo" cssClass="longTextBox" />
+			    <s:input type="text" id="txtChequeNo" path="strChequeNo" />
 			</div>
 				
-			<div class="col-md-3"><label id="lblChequeDate">Cheque Date</label>
-				   <s:input colspan="3" type="text" id="txtChequeDate" path="dteChequeDate" cssClass="calenderTextBox" />
+			<div class="col-md-2"><label id="lblChequeDate">Cheque Date</label>
+				   <s:input colspan="3" type="text" id="txtChequeDate" path="dteChequeDate" cssClass="calenderTextBox"  style="width:70%"/>
 			</div>
-			
-			<div class="col-md-3"><label>DrawnOn</label>
-				<s:input  type="text" id="txtDrawnOn" path="strDrawnOn" cssClass="searchTextBox" ondblclick="funHelp('bankCode');"/>
-				<label id="lblDrawnOnDesc"></label>
-		    </div>
-				
-			<div class="col-md-3"><label>Branch</label>
-				 <s:input  type="text" id="txtBranch" path="strBranch"/>
-			</div>
-			
-			<div class="col-md-3"><label>Link up</label> 
+			<div class="col-md-2"><label>Link up</label> 
 			      <s:select id="cmbBillType" path="" onchange="funBillType()">
 				    		<option value="GRN">GRN</option>
 				    		<option value="SC Bill">SC Bill</option>
 				  </s:select>
 			</div>
-			
-		    <div class="col-md-3"><label>Narration</label>
-				    <s:textarea  id="txtNarration" path="strNarration" style="width:225px;"/>
-			</div>
-			
 			<div class="col-md-3"><label>Currency</label>
-				    <div class="row"><div class="col-md-8"><s:select id="cmbCurrency" path="strCurrency" items="${currencyList}" cssClass="BoxW124px" onchange="funOnChangeCurrency()"></s:select></div>
-				     			<div class="col-md-4"><s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField"></s:input></div>
-		    </div></div>
-	</div >
-	
-	        <div>
-	                  <ul class="tabs" >
-									<li id="Details" class="active" data-state="tab1"
-										style="width: 100px; padding-left: 55px">Details</li>
-									<li id="GRN" data-state="tab2" style="width: 100px; padding-left: 55px">GRN</li>
-									<li id="SC Bill" data-state="tab3" style="width: 100px; padding-left: 55px">SC Bill</li>
-					  </ul><br><br>
-		<div id="tab1" class="tab_content" style="height: 470px;margin-bottom:20px;">
-		
-		     <div class="row" style="margin-top: 15px;">
-					<div class="col-md-6"><label>Account Code</label>
-							<div class="row">
-								<div class="col-md-6"><input id="txtAccCode" name="txtAccCode" ondblclick="funHelp('accountCode')" class="searchTextBox" /></div>
-				                <div class="col-md-6"><input id="txtDescription" name="txtDescription" cssClass="longTextBox"/></div>
-				             </div></div>
+				  <div class="row">
+				  		<div class="col-md-7"><s:select id="cmbCurrency" path="strCurrency" items="${currencyList}" cssClass="BoxW124px" onchange="funOnChangeCurrency()"></s:select></div>
+				     	<div class="col-md-3"><s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField"></s:input></div>
+		   		 </div>
+		    </div>
 			
-			        <div class="col-md-6"><label id="lblCrdDebCode">Creditor Code</label>
-				           <div class="row">
-								<div class="col-md-6"><input id="txtDebtorCode" name="txtDebtorCode" ondblclick="funHelp1()" class="searchTextBox" /></div>
-				                <div class="col-md-6"><input id="txtDebtorName" name="txtDebtorName" readonly="readonly"></input></div>
-				            </div></div>
-				            
-				<div class="col-md-3">
-				<label id="lblBalanceAmt" style="color:blue;background-color:white;border:none;width:100%;font:bold;font-size:115%;"></label>
-			     </div>
-			
-			    <div class="col-md-3"><label>Dr/Cr</label>
-				     <select id="cmbDrCr"  class="BoxW124px">
-						  <option value="Dr">Dr</option>
-						  <option value="Cr">Cr</option>
-					 </select>
-				</div>
+			<div class="col-md-2"><label>DrawnOn</label>
+				<s:input  type="text" id="txtDrawnOn" path="strDrawnOn" readOnly="true" cssClass="searchTextBox" ondblclick="funHelp('bankCode');"/>
+				<label id="lblDrawnOnDesc"></label>
+		    </div>
 				
-				<div class="col-md-3"><label>Amount</label>
-				          <input type="text" id="txtAmount" value="0.00" class="decimal-places numberField"/>
-				</div>
-				
-				<div class="col-md-3"><label>Dimension</label>
-				        <select id="cmbDimesion" class="BoxW124px">
-						  <option value="No">No</option>
-						  <option value="Yes">Yes</option>
-					   </select>
-				</div>
-				<br />
-			    <div class="col-md-12" align="right">
-					<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="btn btn-primary center-block" class="smallButton" style=" margin: 12px 25px;"/>
-				</div>
+			<div class="col-md-2"><label>Branch</label>
+				 <s:input  type="text" id="txtBranch" path="strBranch"/>
 			</div>
-		
-		
-		<div class="dynamicTableContainer" style="height: 300px;">
-		<table
-			style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-			<tr bgcolor="#c0c0c0">
-				<td style="width:10%;">Account Code</td>
-				<td style="width:10%;">Description</td>
-				<td style="width:7%;">Creditor Code</td>
-				<td style="width:9%;">Creditor Name</td>
-				<td style="width:3%;">D/C</td>
-				<td style="width:5.3%;"  align ="right">Debit Amt</td>
-				<td style="width:6%;" align ="right">Credit Amt</td>
-				<td style="width:5%;">Dimension</td>
-				<td style="width:1%;">Delete</td>
-			</tr>
-		</table>
-
-		
-		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
-			<table id="tblReceiptDetails"
-				style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-				class="transTablex col8-center">
-			<tbody>
-						<col style="width=10%">
-						<col style="width:16%">
-						<col style="width:13%">
-						<col style="width:15%">
-						<col style="width:5%">
-						<col style="width:10%">
-						<col style="width:10%">
-						<col style="width:8%">
-						<col style="width:5%">
-<%-- 					<col style="width:2%;;"> --%>
-				</tbody>
-			</table>
+		    <div class="col-md-3"><label>Narration</label>
+				  <s:textarea  id="txtNarration" path="strNarration" style="width:225px; height:27px;"/>
+			</div>
 		</div>
-	</div>
+	    <div>
+	       	 <ul class="tabs" >
+					<li id="Details" class="active" data-state="tab1">Details</li>
+					<li id="GRN" data-state="tab2">GRN</li>
+					<li id="SC Bill" data-state="tab3">SC Bill</li>
+			</ul>
+			<br><br>
+			<div id="tab1" class="tab_content" style="height: 470px;margin-bottom:20px;">
+					<div class="row" style="margin-top: 15px;">
+						<div class="col-md-5">
+							<label>Account Code</label>
+							<div class="row">
+								<div class="col-md-5"><input id="txtAccCode" name="txtAccCode" ondblclick="funHelp('accountCode')" class="searchTextBox" /></div>
+				                <div class="col-md-7"><input id="txtDescription" name="txtDescription" type="text" /></div>
+				            </div>
+				         </div>
+				         <div class="col-md-6">
+				        	 <div class="row">
+				         		<div class="col-md-2"><label>Dr/Cr</label>
+				    		 		<select id="cmbDrCr"  class="BoxW124px">
+						  				<option value="Dr">Dr</option>
+						  				<option value="Cr">Cr</option>
+					 				</select>
+								</div>
+								<div class="col-md-4"><label>Amount</label>
+				         	 		<input type="text" id="txtAmount" value="0.00" class="decimal-places numberField"/>
+								</div>
+								<div class="col-md-2"><label>Dimension</label>
+				        			<select id="cmbDimesion" class="BoxW124px">
+						  				<option value="No">No</option>
+						  				<option value="Yes">Yes</option>
+					   				</select>
+								</div>
+							</div>
+						</div>
+			      	  	<div class="col-md-5">
+			      	  		<label id="lblCrdDebCode">Creditor Code</label>
+				           <div class="row">
+								<div class="col-md-5"><input id="txtDebtorCode" name="txtDebtorCode" ondblclick="funHelp1()" class="searchTextBox" /></div>
+				                <div class="col-md-7"><input id="txtDebtorName" name="txtDebtorName" readonly="readonly" type="text" /></div>
+				            </div>
+				         </div>
+				         <div class="col-md-3">
+							<label id="lblBalanceAmt" style="color:blue; font:bold; font-size:115%; background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label>
+			   			</div>
+			    		<div class="col-md-12" align="right">
+							<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="btn btn-primary center-block" style="margin-right:11%;"/>
+						</div>
+					</div>
+				<div class="dynamicTableContainer" style="height: 300px;">
+					<table
+						style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+						<tr bgcolor="#c0c0c0">
+							<td style="width:10%;">Account Code</td>
+							<td style="width:10%;">Description</td>
+							<td style="width:7%;">Creditor Code</td>
+							<td style="width:9%;">Creditor Name</td>
+							<td style="width:3%;">D/C</td>
+							<td style="width:5.3%;"  align ="right">Debit Amt</td>
+							<td style="width:6%;" align ="right">Credit Amt</td>
+							<td style="width:5%;">Dimension</td>
+							<td style="width:1%;">Delete</td>
+						</tr>
+					</table>
+		
+					<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+						<table id="tblReceiptDetails"
+							style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+							class="transTablex col8-center">
+								<tbody>
+									<col style="width=10%">
+									<col style="width:16%">
+									<col style="width:13%">
+									<col style="width:15%">
+									<col style="width:5%">
+									<col style="width:10%">
+									<col style="width:10%">
+									<col style="width:8%">
+									<col style="width:5%">
+					<%-- 			<col style="width:2%;;"> --%>
+								</tbody>
+						</table>
+					</div>
+				</div>
 
-	<div >
-		<table class="transTable">
-			<tr>
-				<td width="2%"><label>Difference</label></td>
-				<td><label id ="lblDiffAmt">0.00</label></td>
-				<td><label>Total</label></td>
-				<td><label id ="lblDebitAmt">0.00</label></td>
-				<td><label id ="lblCreditAmt">0.00</label></td>
-			</tr>
+				<div>
+					<table class="transTable">
+						<tr>
+							<td width="2%"><label>Difference</label></td>
+							<td><label id ="lblDiffAmt">0.00</label></td>
+							<td><label>Total</label></td>
+							<td><label id ="lblDebitAmt">0.00</label></td>
+							<td><label id ="lblCreditAmt">0.00</label></td>
+						</tr>
+						
+						<tr>
+							<td>
+								<s:input type="hidden" id="txtTotalAmt" path="dblAmt"  readonly="true" cssClass="decimal-places-amt numberField"/>
+							</td>
+						</tr>
+					</table>
 			
-			<tr>
-				<td>
-					<s:input type="hidden" id="txtTotalAmt" path="dblAmt"  readonly="true" cssClass="decimal-places-amt numberField"/>
-				</td>
-			</tr>
-		</table>
+				</div>						
 		
-		</div>						
-		
-	</div>
+			</div>
 
 		<div id="tab2" class="tab_content" style="height: 470px">
-		<div class="row"  style="margin-top:15px;">
-				<div class="col-md-3"><label>Total GRN Amount</label>
+			<div class="row"  style="margin-top:15px;">
+				<div class="col-md-2"><label>Total GRN Amount</label>
 		             <input type="text" id="txtTotalGRNAmount" readonly="readonly" value="0.00" class="decimal-places numberField"/>
 		        </div>
 		
 		
-		        <div class="col-md-3"><label>Pay Amount</label>
+		        <div class="col-md-2"><label>Pay Amount</label>
 					 <input type="text" id="txtGRNPayAmount" value="0.00" class="decimal-places numberField"/>
 				</div>
 		
 		
 		 		<div class="col-md-3" align="right"><input type="Button" value="Add" onclick="funSetGRNPayAmt()" class="btn btn-primary center-block" class="smallButton" style="margin-top: 20px;"/>
 		 		</div>
-		  </div>
+		  	</div>
 		  <br>
-		
-		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 350px; overflow-x: hidden; overflow-y: scroll;">
-		
-									<table id="" class="masterTable"
-										style="width: 100%; border-collapse: separate;">
-										<thead>
-											<tr bgcolor="#c0c0c0">
-												<td width="5%"><input type="checkbox" checked="checked" 
-												id="chkGRNALL"/>Select</td>
-												<td width="18%">GRN Code</td>
-												<td width="8%">Bill No</td>
-												<td align ="right" width="8%">Amount</td>
-												<td width="10%">GRN Date</td>
-												<td width="10%">Bill Date</td>
-												<td width="10%">Due Date</td>
-												<td align ="right" width="10%">Paying Amt</td>
-		
-											</tr>
-										</thead>
-									</table>
-									<table id="tblGRN" class="masterTable"
-										style="width: 100%; border-collapse: separate;">
-		
-										<tr bgcolor="#c0c0c0">
-											
-		
-										</tr>
-									</table>
-								</div>
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 350px; overflow-x: hidden; overflow-y: scroll;">
+				<table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
+					<thead>
+						<tr bgcolor="#c0c0c0">
+							<td width="5%"><input type="checkbox" checked="checked" id="chkGRNALL"/>Select</td>
+							<td width="18%">GRN Code</td>
+							<td width="8%">Bill No</td>
+							<td align ="right" width="8%">Amount</td>
+							<td width="10%">GRN Date</td>
+							<td width="10%">Bill Date</td>
+							<td width="10%">Due Date</td>
+							<td align ="right" width="10%">Paying Amt</td>
+						</tr>
+					</thead>
+				</table>
+					<table id="tblGRN" class="masterTable"
+						style="width: 100%; border-collapse: separate;">
+							<tr bgcolor="#c0c0c0">
+							</tr>
+					</table>
+			</div>
 		</div>
-
-
+		
 		<div id="tab3" class="tab_content" style="height: 470px">
-		<div class="row"  style="margin-top:15px;">
-			<div class="col-md-3"><label>from Date</label>
-		        <s:input colspan="3" path="" type="text" id="txtDteScFromDate"  cssClass="calenderTextBox" />
-		    </div>
+			<div class="row"  style="margin-top:15px;">
+				<div class="col-md-2"><label>from Date</label>
+		        	<s:input colspan="3" path="" type="text" id="txtDteScFromDate"  cssClass="calenderTextBox" />
+		   		</div>
+				<div class="col-md-2"><label>ToDate</label>
+		        	<s:input colspan="3" path="" type="text" id="txtDteScToDate"  cssClass="calenderTextBox" />
+		 		</div>
+				<div class="col-md-3" align="right"><input type="Button" value="Show" onclick="funSetAddSCDtl()" class="btn btn-primary center-block"  style="margin-top: 28px;"/>
+				</div>
+			</div><br>
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 350px; overflow-x: hidden; overflow-y: scroll;">
 		
-		
-		<div class="col-md-3"><label>ToDate</label>
-		        <s:input colspan="3" path="" type="text" id="txtDteScToDate"  cssClass="calenderTextBox" />
-		 </div>
-		
-		
-		<div class="col-md-3" align="right"><input type="Button" value="Show" onclick="funSetAddSCDtl()" class="btn btn-primary center-block" class="smallButton" />
+				<table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
+					<thead> 
+						<tr bgcolor="#c0c0c0">
+							<td width="5%"><input type="checkbox" checked="checked" id="chkGRNALL"/>Select</td>
+							<td width="18%">SC Code</td>
+							<td width="8%">Bill No</td>
+							<td width="8%">Amount</td>
+							<td width="10%">SC Date</td>
+							<td width="10%">Bill Date</td>
+							<td width="10%">Due Date</td>
+							<td width="10%">Paying Amt</td>
+						</tr>
+					</thead>
+				</table>
+				<table id="tblSCBill" class="masterTable" style="width: 100%; border-collapse: separate;">
+					<tr bgcolor="#c0c0c0"></tr>
+				</table>
+			</div>
 		</div>
 		</div>
-		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 350px; overflow-x: hidden; overflow-y: scroll;">
 		
-									<table id="" class="masterTable"
-										style="width: 100%; border-collapse: separate;">
-										<thead>
-											<tr bgcolor="#c0c0c0">
-												<td width="5%"><input type="checkbox" checked="checked" 
-												id="chkGRNALL"/>Select</td>
-												<td width="18%">SC Code</td>
-												<td width="8%">Bill No</td>
-												<td width="8%">Amount</td>
-												<td width="10%">SC Date</td>
-												<td width="10%">Bill Date</td>
-												<td width="10%">Due Date</td>
-												<td width="10%">Paying Amt</td>
+		<input type="hidden" id="hidGrnYN" value="N"></input>
+		<input type="hidden" id="hidSundryType" ></input>
+		<s:input type="hidden" id="hidaccountCode" path="accountCode"></s:input>
+		<s:input type="hidden" id="hidcreditorCode" path="creditorCode" ></s:input>
+		<s:input type="hidden" id="hidclosingAmt" path="closingAmt" ></s:input>
 		
-											</tr>
-										</thead>
-									</table>
-									<table id="tblSCBill" class="masterTable"
-										style="width: 100%; border-collapse: separate;">
-		
-										<tr bgcolor="#c0c0c0">
-											
-		
-										</tr>
-									</table>
-								</div>
-		</div>
-	</div>
-
-<input type="hidden" id="hidGrnYN" value="N"></input>
-<input type="hidden" id="hidSundryType" ></input>
-<s:input type="hidden" id="hidaccountCode" path="accountCode"></s:input>
-<s:input type="hidden" id="hidcreditorCode" path="creditorCode" ></s:input>
-<s:input type="hidden" id="hidclosingAmt" path="closingAmt" ></s:input>
-
-	<p align="right">
-		<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block"  class="form_button" onclick="return funValidateHeaderFields()" />
-		<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
-	</p>
-<br />
-	<br /><br />
-	<br />
+			<p align="right">
+				<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block"  class="form_button" onclick="return funValidateHeaderFields()" />&nbsp
+				<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
+			</p>
 	</s:form>
-	</div>
+</div>
 </body>
 </html>

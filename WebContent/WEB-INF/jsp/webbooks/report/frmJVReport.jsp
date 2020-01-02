@@ -74,9 +74,9 @@ function funHelp(transactionName)
 		<input type="hidden" value="${urlHits}" name="saddr">
 		<br>
 			<div class="row">
-			   <div class="col-md-4"><label>Voucher No</label>
+			   <div class="col-md-2"><label>Voucher No</label>
 						<s:input path="strDocCode" id="txtSOCode"
-								ondblclick="funHelp('JVNoslip')"
+								ondblclick="funHelp('JVNoslip')" readOnly="true"
 								cssClass="searchTextBox" /></div>
 																										
 								
@@ -87,7 +87,7 @@ function funHelp(transactionName)
 <%-- 						</s:select></td> --%>
 <!-- 					</tr> -->
 								
-			   <div class="col-md-4"><label>Report Type</label>
+			   <div class="col-md-1.1"><label>Report Type</label>
 									  <s:select id="cmbDocType" path="strDocType"
 											cssClass="BoxW124px">
 											<s:option value="PDF">PDF</s:option>
@@ -96,17 +96,17 @@ function funHelp(transactionName)
 											<s:option value="CSV">CSV</s:option>
 										</s:select></div>
                                  
-			   <div class="col-md-4"><label>Property</label></td>
+			   <div class="col-md-2"><label>Property</label></td>
 									<td ><s:select id="cmbDocType" path="strPropertyCode"
 											cssClass="BoxW124px">
 											<s:options items="${listProperty}"/>
 										</s:select></div>
                </div>
             <br>   
-		<p align="right">
+		<p align="center" style="margin-right:36%">
 			<input type="submit" value="Submit" class="btn btn-primary center-block"
 				onclick="return funCallFormAction('submit',this)"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <a
+				class="form_button" />  &nbsp; <a
 				STYLE="text-decoration: none"
 				href="frmJVReport.html?saddr=${urlHits}"><input
 				type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block"

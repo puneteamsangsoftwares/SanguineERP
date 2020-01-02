@@ -284,35 +284,35 @@ var fieldName;
      	<s:form name="PettyCash" method="POST" action="savePettyCash.html">
 		
 		<div class="row">
-				<div class="col-md-3"><label>VouchNo</label>
+				<div class="col-md-2"><label>Vouch No</label>
 					<s:input  type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('pettyCash');"/>
 				</div>
 		
-				<div class="col-md-3"><label>VouchDate</label>
-				    <s:input  type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" />
+				<div class="col-md-2"><label>Vouch Date</label>
+				    <s:input  type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" style="width:70%;" />
 				</div>
 				   
-				<div class="col-md-3"><label id="lblNarration">Narration</label>
-					<s:textarea cssStyle="width:80%" id="txtNarration" path="strNarration" />
+				<div class="col-md-2"><label id="lblNarration">Narration</label><br>
+					<s:textarea  id="txtNarration" path="strNarration" style="height: 25px;" />
 				</div>
 				       
-				<div class="col-md-3">Expense Code
+				<div class="col-md-2"><label>Expense Code</label>
 		            <s:input id="txtExpCode" path="" cssClass="searchTextBox" ondblclick="funHelp('expense')" />
 				</div>			
 					
-				<div class="col-md-3"><label  id="txtExpenseName"></label>
+				<div class="col-md-3"><label  id="txtExpenseName" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label>
 	    		</div>
 	    	
-	    		<div class="col-md-3"><label id="lblExpNarration">Expense Narration</label>
-				 <s:textarea cssStyle="width:100%" id="txtExpNarration" path="" />
+	    		<div class="col-md-2"><label id="lblExpNarration">Expense Narration</label><br>
+				 	<s:textarea  id="txtExpNarration" path=""  style="height: 25px; width:100%;"  />
 				</div>
 						
-				<div class="col-md-3"><label>Amount</label>
-				<input type="text" id="txtAmount" value="0"   class="decimal-places numberField"/>
+				<div class="col-md-2"><label>Amount</label>
+					<input type="text" id="txtAmount" value="0"   class="decimal-places numberField"/>
 				</div>	
 			
 				<div class="col-md-3">		
-				<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="btn btn-primary center-block" class="smallButton" style="margin:19px 95px;" />
+					<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="btn btn-primary center-block" class="smallButton" style="margin-top: 21px;"/>
 				</div>
 
 		</div>
@@ -345,7 +345,7 @@ var fieldName;
 		</div>
 	</div>
 	
-		<div>								
+								
 		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 			<table 
 				style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
@@ -366,7 +366,7 @@ var fieldName;
 				<br />
 		<br />
 		<p align="right">
-			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" />
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" />&nbsp
 			 <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 		</s:form>

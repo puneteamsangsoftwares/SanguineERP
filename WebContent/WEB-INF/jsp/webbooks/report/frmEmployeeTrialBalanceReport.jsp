@@ -106,7 +106,7 @@
 	<s:form name="frmEmployeeTrailBalanceReport" method="GET" action="rptEmployeeTrialBalanceReport.html" target="_blank">
 		<div class="row">
 			       <div class= "col-md-3"><label>GL Code</label>
-							<s:input type="text" id="txtGLCode" path="strAccountCode" class="searchTextBox" ondblclick="funHelp('EmployeeAccountCode');"/>
+							<s:input type="text" id="txtGLCode" path="strAccountCode" class="searchTextBox" readOnly="true" ondblclick="funHelp('EmployeeAccountCode');"/>
 				            <label id="lblGLCode"></label>
 			  		</div>
 			  		

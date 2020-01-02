@@ -798,12 +798,12 @@
 			return false;
 		}
 		
-		/* var amt=parseFloat($("#txtAmt").val());
+		var amt=parseFloat($("#txtAmt").val());
 		if(amt<1)
 		{
 			alert('Please Enter Amount!!!');
 			return false;
-		} */
+		}
 		
 		var debitAmt =parseFloat($("#lblDebitAmt").text())
 		var creditAmt =parseFloat($("#lblCreditAmt").text())
@@ -1377,31 +1377,29 @@
 	<s:form name="Receipt" method="POST" action="saveReceipt.html">
 
 	  <div class="row">
-		   <div class="col-md-3"><label>Voucher No</label>
+		   <div class="col-md-2"><label>Voucher No</label>
 				<s:input colspan="3" type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('ReceiptNo');"/>
 		    </div>
 			
-			<div class="col-md-3"><label>Voucher Date</label>
+			<div class="col-md-2"><label>Voucher Date</label>
 				<s:input colspan="3" type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" />
 			</div>
+			<div class="col-md-2"><label>Amt</label> <br>
+				<s:input  type="number" step="0.0001" id="txtAmt" path="dblAmt" class="decimal-places numberField" onChange="funFillAmount()" value="0.00"/>
+			</div>
+			<div class="col-md-1"><label>Dr/Cr</label>
+				<s:input colspan="3" type="text" id="txtCrDr" value="Dr" path="strCrDr" readonly="true"/>
+			</div>
+			<div class="col-md-5"></div>
 				
-			<div class="col-md-3"><label>CF Code</label>
+			<div class="col-md-2"><label>CF Code</label>
 				<s:input colspan="3" type="text" id="txtCFCode" path="strCFCode" cssClass="searchTextBox" ondblclick="funHelp('cashBankAccNo');"/>
 			</div>
 				
-			<div class="col-md-3"><label id="lblCFDesc"></label>
-			       <label id="lblBankBalAmt"  style="color:blue; font:bold; font-size:115%;" ></label>
+			<div class="col-md-2"><label id="lblCFDesc"></label>
+			       <label id="lblBankBalAmt"  style="color:blue; font:bold; font-size:115%; background-color:#dcdada94; width: 100%; height: 45%; margin: 20px 0px;"></label>
 			</div>
-			
-			<div class="col-md-3"><label>Amt</label> <br>
-				<s:input  type="number" step="0.0001" id="txtAmt" path="dblAmt" class="decimal-places numberField" onChange="funFillAmount()" value="0.00"/>
-			</div>
-			
-			<div class="col-md-3"><label>Dr/Cr</label>
-				<s:input colspan="3" type="text" id="txtCrDr" value="Dr" path="strCrDr" cssClass="longTextBox" readonly="true"/>
-			</div>
-			
-			<div class="col-md-3"><label>Type</label>
+			<div class="col-md-2"><label>Type</label>
 				<!-- <s:select id="txtType" path="strType" cssClass="BoxW124px"/> -->
 				<s:select id="cmbType" path="strType" class="BoxW124px" onchange="funSetTypeLabel()">
 						  <option value="Cash">Cash</option>
@@ -1411,36 +1409,37 @@
 				</s:select>
 			</div>
 			
-			<div class="col-md-3"><label id="lblTypeName"></label>
+			<div class="col-md-2"><label id="lblTypeName"></label>
 			        <s:input colspan="3" type="text" id="txtChequeNo" path="strChequeNo" cssClass="longTextBox" />
 		     </div>
 			   
-			<div class="col-md-3"><label id="lblChequeDate">Cheque Date</label>
+			<div class="col-md-2"><label id="lblChequeDate">Cheque Date</label>
 			       <s:input colspan="3" type="text" id="txtChequeDate" path="dteChequeDate" cssClass="calenderTextBox" />
 			 </div>
-			 
-			<div class="col-md-3"><label>Drawn On</label>
+			 <div class="col-md-2"></div>
+			<div class="col-md-2"><label>Drawn On</label>
 				     <s:input type="text" id="txtDrawnOn" path="strDrawnOn" cssClass="searchTextBox" ondblclick="funHelp('bankCode');"/>
 		     </div>
 		     
-		     <div class="col-md-3"><label id="lblDrawnOnDesc"></label>
+		     <div class="col-md-2"><label id="lblDrawnOnDesc" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label>
 			</div>
 			
-		    <div class="col-md-3"><label>Branch</label>
+		    <div class="col-md-2"><label>Branch</label>
 			         <s:input  type="text" id="txtBranch" path="strBranch" cssClass="BoxW124px" />
 			</div>
 				
-			<div class="col-md-3"><label>Received From</label>
+			<div class="col-md-2"><label>Received From</label>
 				     <s:input  type="text" id="txtReceivedFrom" path="strReceivedFrom" cssClass="BoxW124px" />
 			</div>
 				
-			<div class="col-md-3"><label>Narration</label><br>
-				     <s:textarea id="txtNarration" path="strNarration" style="width: 100%;"/>
+			<div class="col-md-2"><label>Narration</label><br>
+				     <s:textarea id="txtNarration" path="strNarration" style="width: 100%; height:27px;"/>
 			</div>
-			
-			<div class="col-md-3"><label>Currency</label>
-			      <div class="row"><div class="col-md-8"><s:select id="cmbCurrency" path="strCurrency" items="${currencyList}" cssClass="BoxW124px" onchange="funOnChangeCurrency()"></s:select></div>
-			                       <div class="col-md-4"><s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField" style="width:40px"></s:input></div>
+			<div class="col-md-2"></div>
+			<div class="col-md-2"><label>Currency</label>
+			      <div class="row">
+			      	<div class="col-md-7"><s:select id="cmbCurrency" path="strCurrency" items="${currencyList}"  onchange="funOnChangeCurrency()"></s:select></div>
+			        <div class="col-md-5"><s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField" style="width:40px"></s:input></div>
 		          </div>
 		    </div>	
 				
@@ -1449,54 +1448,51 @@
 		
 	<!-- 	<table class="transTable">
 		</table> -->
-                 <div >
-	                     <ul class="tabs">
-									<li class="active" data-state="tab1"
-										style="width: 100px; padding-left: 55px">Details</li>
-									<li data-state="tab2" style="width: 100px; padding-left: 45px">Invoice</li>
+                 <div>
+	                 <ul class="tabs">
+							<li class="active" data-state="tab1">Details</li>
+							<li data-state="tab2" style="width: 100px; padding-left: 45px">Invoice</li>
 						</ul><br><br>
 		<div id="tab1" class="tab_content" style="height: 470px; margin-bottom:20px;">
-       
-        <div class="row" style="margin-top: 15px;">
-			<div class="col-md-6"><label>Account Code</label>
-				    <div class="row">
-			                  <div class="col-md-6"><input id="txtAccCode" name="txtAccCode" ondblclick="funHelp('GLCode')" class="searchTextBox" /></div>
-<!-- <td width="10%">Description</td> -->
-		                      <div class="col-md-6"><input id="txtDescription" name="txtDescription" Class="longTextBox"/></div>
-			   </div></div>
-			
-				<div class="col-md-6"><label id="lblCrdDebCode">Debtor Code</label>
-					 <div class="row">
-			                  <div class="col-md-6"><s:input id="txtDebtorCode" readonly="readonly"  name="txtDebtorCode" ondblclick="funHelp1()" class="searchTextBox" path="strDebtorCode"/></div>
-					          <div class="col-md-6"><s:input id="txtDebtorName" name="txtDebtorName" readonly="true" cssClass="longTextBox" path="strDebtorName"></s:input></div>
-			  </div></div>
-			                 
-		      <div class="col-md-3"><label id="lblBalanceAmt"  style="color:blue; font:bold;font-size: 115%;"  ></label>
-		      </div>
-			
-		      <div class="col-md-3"><label>Dr/Cr</label>
+	        <div class="row" style="margin-top: 15px;">
+				<div class="col-md-5"><label>Account Code</label>
+					<div class="row">
+			            <div class="col-md-5"><input id="txtAccCode" name="txtAccCode" ondblclick="funHelp('GLCode')" class="searchTextBox" /></div>
+								<!-- <td width="10%">Description</td> -->
+		                 <div class="col-md-7"><input id="txtDescription" name="txtDescription" type="text" /></div>
+			   		</div>
+			 	</div>
+			 	<div class="col-md-2"><label>Amount</label>
+				      <input type="text" id="txtAmount" value="" class="decimal-places numberField"/>
+				</div>
+				 <div class="col-md-1"><label>Dr/Cr</label>
 				      <select id="cmbDrCr"  class="BoxW124px">
 						  <option value="Cr">Cr</option>
 						  <option value="Dr">Dr</option>
 						  
 					</select>
 				</div>
-				
-			<div class="col-md-3"><label>Amount</label>
-				      <input type="text" id="txtAmount" value="" class="decimal-places numberField"/>
-			</div>
-				
-		      <div class="col-md-3"><label>Dimension</label>
+			 	<div class="col-md-4"></div>
+				<div class="col-md-5">
+					<label id="lblCrdDebCode">Debtor Code</label>
+					 	<div class="row">
+			                <div class="col-md-5"><s:input id="txtDebtorCode" readonly="readonly"  name="txtDebtorCode" ondblclick="funHelp1()" class="searchTextBox" path="strDebtorCode"/></div>
+					        <div class="col-md-7"><s:input id="txtDebtorName" name="txtDebtorName" readonly="true" cssClass="longTextBox" path="strDebtorName"></s:input></div>
+			  			</div>
+			  	</div>     
+			    <div class="col-md-2"><label id="lblBalanceAmt"  style="color:blue; font:bold;font-size: 115%;  background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label>
+			    </div>
+		      <div class="col-md-1"><label>Dimension</label>
 				     <select id="cmbDimesion" class="BoxW124px">
 						  <option value="No">No</option>
 						  <option value="Yes">Yes</option>
 					</select>
 				</div>
 			
-		<div class="col-md-12" align="right">
-					<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="btn btn-primary center-block" class="smallButton" style="margin: 12px 200px;"/>
-	     </div>
-		</div>
+			<div class="col-md-2" align="right">
+					<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="btn btn-primary center-block" class="smallButton" style="margin-top:24px;" />
+	     	</div>
+	    </div>
 	
 	 <div class="dynamicTableContainer" style="height: 300px;">
 		<table
@@ -1554,24 +1550,20 @@
 	</div>	
 		
 		<div id="tab2" class="tab_content" style="height: 470px">
-		 <div class="row" style="margin-top: 15px;">
-			 <div class="col-md-3"><label>Total Invoice Amount</label>
-		       <input type="text" id="txtTotalInvAmount" readonly="readonly" value="0.00" class="decimal-places numberField"/>
-		 </div>
-		
-		
-		<div class="col-md-3"><label>Get Amount</label>
-		      <input type="text" id="txtInvGetAmount" value="0.00" class="decimal-places numberField"/>
-		</div>
-		
-		
-		<div class="col-md-3"><input type="Button" value="Add" onclick="funSetInvPayAmt()" class="btn btn-primary center-block" class="smallButton"  style="margin: 12px 200px;" />
-		</div>
-		</div>
-	<br>
-		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 350px; overflow-x: hidden; overflow-y: scroll;">
-		
-									<table id="" class="masterTable"
+			<div class="row" style="margin-top: 15px;">
+				 <div class="col-md-2"><label>Total Invoice Amount</label>
+				      <input type="text" id="txtTotalInvAmount" readonly="readonly" value="0.00" class="decimal-places numberField"/>
+				 </div>
+				 <div class="col-md-2"><label>Get Amount</label>
+				      <input type="text" id="txtInvGetAmount" value="0.00" class="decimal-places numberField"/>
+				 </div>
+				
+				<div class="col-md-2"><input type="Button" value="Add" onclick="funSetInvPayAmt()" class="btn btn-primary center-block" style="margin-top:24px;" />
+				</div>
+		  </div>
+			<br>
+				<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 350px; overflow-x: hidden; overflow-y: scroll;">
+					<table id="" class="masterTable"
 										style="width: 100%; border-collapse: separate;">
 										<thead>
 											<tr bgcolor="#c0c0c0">
@@ -1605,7 +1597,7 @@
 <input type="hidden" id="hidSundryType" ></input>
 
 		<p align="right">
-			<input type="submit" value="Submit" onclick="return funValidateHeaderFields()" tabindex="3" class="btn btn-primary center-block"  class="form_button" />
+			<input type="submit" value="Submit" onclick="return funValidateHeaderFields()" tabindex="3" class="btn btn-primary center-block"  class="form_button" />&nbsp
 			<input type="reset" value="Reset" class="btn btn-primary center-block"  class="form_button" onclick="funResetFields()"/>
 		</p>
  

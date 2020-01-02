@@ -24,14 +24,14 @@
 	 var startDate="${startDate}";
 		var arr = startDate.split("/");
 		Dat=arr[2]+"-"+arr[1]+"-"+arr[0];
-		$( "#txtInnFromDate" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		$( "#txtInnFromDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 		$("#txtInnFromDate" ).datepicker('setDate', Dat);
 	    /*$("#txtInnFromDate").datepicker({ dateFormat: 'yy-mm-dd' });
 		  $("#txtInnFromDate" ).datepicker('setDate', 'today');
 		*/
 		$("#txtInnFromDate").datepicker();
 		
-		 $("#txtInnToDate").datepicker({ dateFormat: 'yy-mm-dd' });
+		 $("#txtInnToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtInnToDate" ).datepicker('setDate', 'today');
 			$("#txtInnToDate").datepicker();	
 }); 
@@ -97,59 +97,59 @@
         <s:form name="frmInvoicingPrinting" method="GET" action="rptInvoicePrinting.html?saddr=${urlHits}">
 	
 		<div class="row">
-				<div class="col-md-3"><label>T/F Category</label>
+				<div class="col-md-2"><label>T/F Category</label>
 						<s:select id="cmbTFCat" name="cmbTFCat" path="strTFCat" class="BoxW124px" onchange="funForSingleInnvoice()">
 										<option value="Total">Total</option>
 										<option value="T/F">T/F</option>
 										</s:select></div>
 			
-			<div class="col-md-3"><label>Category Form Code</label>
+			<div class="col-md-2"><label>Category Form Code</label>
 								<s:input id="txtCatFormCode" type="text" path="strCatFormCode" class="BoxW116px"  /></div>
 			
-			<div class="col-md-3"><label>Category To Code</label>
+			<div class="col-md-2"><label>Category To Code</label>
 								<s:input id="txtCatToCode" path="strCatToCode" type="text" class="BoxW116px" /></div>
 			
-				<div class="col-md-3"><label>T/F Debtor</label>
+				<div class="col-md-2"><label>T/F Debtor</label>
 				                <s:select id="cmbTFDebtor" name="cmbTFDebtor"
 											path="strTFDebtor" Class="BoxW124px" onchange="funForSingleInnvoice()" >
 											<option value="Total">Total</option>
 											<option value="T/F">T/F</option></s:select></div>
 			
-			<div class="col-md-3"><label>Member Form Code</label>
+			<div class="col-md-2"><label>Member Form Code</label>
 							<s:input id="txtMemberFormCode" type="text" path="strMemberFormCode" class="BoxW116px" /></div>
 			
-			<div class="col-md-3"><label>Member To Code</label>
+			<div class="col-md-2"><label>Member To Code</label>
 									<s:input id="txtMemberToCode" type="text" path="strMemberToCode" class="BoxW116px" /></div>
 			
-			<div class="col-md-3"><label>Invoice Form Code</label>
+			<div class="col-md-2"><label>Invoice Form Code</label>
 									<s:input id="txtInvoiceFormCode" type="text" path="strInvoiceFormCode" class="BoxW116px" /></div>
 			
-			<div class="col-md-3"><label>Invoice To Code</label>
+			<div class="col-md-2"><label>Invoice To Code</label>
 									<s:input id="txtInvoiceToCode" type="text" path="strInvoiceToCode" class="BoxW116px" /></div>
 			
-			<div class="col-md-3"><label>Invoice From Date</label>
+			<div class="col-md-2"><label>Invoice From Date</label>
 								<s:input  id="txtInnFromDate"
-											 Class="calenderTextBox" path="strInnFromDate" /></div>
+											 Class="calenderTextBox" path="strInnFromDate" style="width:60%"/></div>
 											 
-			<div class="col-md-3"><label>Invoice To Date</label>
+			<div class="col-md-2"><label>Invoice To Date</label>
 									<s:input  id="txtInnToDate"
-											 Class="calenderTextBox" path="strInnToDate" /></div>								 
+											 Class="calenderTextBox" path="strInnToDate" style="width:60%"/></div>								 
 			
-				<div class="col-md-3"><label>Account For</label>
-				      <s:select id="cmbAccountFor" name="cmbAccountFor"
+				<div class="col-md-2"><label>Account For</label>
+				      <s:select id="cmbAccountFor" name="cmbAccountFor" style="width:80%"
 											Class="BoxW124px" path="strAccountFor">
 											<option value="Opening Balance">Opening Balance</option>
 											<option value="Y">Yes</option>
 										</s:select></div>
 										
-				<div class="col-md-3"><label>Report For</label>
-				    <s:select id="cmbReportFor" name="cmbReportFor"
+				<div class="col-md-2"><label>Report For</label>
+				    <s:select id="cmbReportFor" name="cmbReportFor" style="width:70%"
 											Class="BoxW124px" path="strReportFor">
 											<option value="Debit Account">Debit Account</option>
 											<option value="Credit Account">Credit Account</option>
 										</s:select></div>
 										
-				<div class="col-md-3"><label>Operator</label>
+				<div class="col-md-1"><label>Operator</label>
 				     <s:select id="cmbOperator" name="cmbOperator"
 											Class="BoxW124px"  path="strOperator" >
 											<option value=">"> > </option>
@@ -161,13 +161,13 @@
 											<option value=""> <> </option>
 										</s:select></div>													
 			
-			<div class="col-md-3"><label>Amount Form</label>
+			<div class="col-md-2"><label>Amount Form</label>
 							<s:input id="txtAmountForm" type="text" class="BoxW116px" path="strAmountForm"/></div>
 			
-			<div class="col-md-3"><label>Amount To</label>
+			<div class="col-md-2"><label>Amount To</label>
 								<s:input id="txtAmountTo" type="text" class="BoxW116px" path="strAmountTo"/></div>
 			
-			<div class="col-md-3"><label>MemberShip Expired</label>
+			<div class="col-md-2"><label>MemberShip Expired</label>
 				   <s:select id="cmbMemExp" name="cmbMemExp"
 											Class="BoxW124px" path="strMemExp">
 											<option value="Including">Including</option>
@@ -175,8 +175,8 @@
 											<option value="Only">Only</option>
 										</s:select></div>
 										
-			<div class="col-md-4"><label>Debtor List</label><br>
-			       <s:textarea Style="width:90%" id="txtDebtorList" path="strDebtorList"></s:textarea></div>							
+			<div class="col-md-2"><label>Debtor List</label><br>
+			       <s:textarea Style="width:140%; height:32%" id="txtDebtorList" path="strDebtorList"></s:textarea></div>							
 											
             <div class="col-md-8"><label>Genration</label><br>
 			
@@ -187,15 +187,11 @@
 				<s:radiobutton name="Genration" value="Genrate" path="strGenration"/>Genrate
 						 
 			</div>
-			
-			
-			
 			</div>
 		
 		<br />
-	
-		<p align="right">
-			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button"  onclick="return funCallFormAction('submit',this);" /> 
+			<p align="right">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button"  onclick="return funCallFormAction('submit',this);" />&nbsp 
 			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 	</s:form>
