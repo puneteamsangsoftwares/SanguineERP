@@ -251,6 +251,11 @@ public class clsPDCToReceiptController {
 				objReceitInvdtl.setDblInvAmt(1 * currConversion);
 				objReceitInvdtl.setDblPayedAmt(1* currConversion);
 				objReceitInvdtl.setStrPropertyCode(propertyCode);
+				objReceitInvdtl.setDteBillDate(objGlobal.funGetCurrentDate("yyyy-MM-dd"));
+				objReceitInvdtl.setDteInvDate(objGlobal.funGetCurrentDate("yyyy-MM-dd"));
+				objReceitInvdtl.setStrInvBIllNo("");
+				objReceitInvdtl.setDteInvDueDate("");
+				objReceitInvdtl.setStrInvCode("");
 				listReceiptInvDtl.add(objReceitInvdtl);
 			
 
