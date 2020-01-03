@@ -89,13 +89,15 @@ public class clsPDCToReceiptController {
 			String strVoucherNo = "";
 			
 			for(clsReceiptBean i:objBean.getListReceiptBean()){
-			
-			clsReceiptHdModel objHdModel = funPrepareHdModel(i, userCode, clientCode, propCode, req);
-			objReceiptService.funAddUpdateReceiptHd(objHdModel);
-			strVoucherNo = strVoucherNo+objHdModel.getStrVouchNo()+" ";
-			req.getSession().setAttribute("success", true);
-			req.getSession().setAttribute("successMessage", "Receipt No : ".concat(objHdModel.getStrVouchNo()));
-			req.getSession().setAttribute("rptVoucherNo",strVoucherNo );
+				if(i.getStrTransMode()!=null)
+				{
+					clsReceiptHdModel objHdModel = funPrepareHdModel(i, userCode, clientCode, propCode, req);
+					objReceiptService.funAddUpdateReceiptHd(objHdModel);
+					strVoucherNo = strVoucherNo+objHdModel.getStrVouchNo()+" ";
+					req.getSession().setAttribute("success", true);
+					req.getSession().setAttribute("successMessage", "Receipt No : ".concat(objHdModel.getStrVouchNo()));
+					req.getSession().setAttribute("rptVoucherNo",strVoucherNo );
+				}
 			}
 			return new ModelAndView("redirect:/frmPDCToReceipt.html");
 		} else {

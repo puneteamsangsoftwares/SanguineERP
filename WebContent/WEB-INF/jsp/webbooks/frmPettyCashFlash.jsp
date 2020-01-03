@@ -79,33 +79,32 @@ function funCalculatePettyCashFlasSummary()
 		<label id="formHeading">Petty Cash Flash</label>
 			<s:form name="Petty Cash Flash" method="GET" action="" >				
 				<div class="row transTable">
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<div class="row">
 							<div class="col-md-6">
-								<label>From Date:</label><br>
-								<s:input  type="text" id="txtFromDate" cssClass="calenderTextBox" readonly="true"
+								<label>From Date</label>
+								<s:input  type="text" id="txtFromDate" cssClass="calenderTextBox" readonly="true" style="height:45%"
 									 path="dteFromDate" required="true" />
 							</div>
 							<div class="col-md-6">
 								<label>To Date </label>
-								<s:input id="txtToDate" type="text" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+								<s:input id="txtToDate" type="text" path="dteToDate" required="true" readonly="readonly" style="height:45%" cssClass="calenderTextBox"/>
 							</div>
-						</div> 
+							</div> 
 					</div>
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-6">
-								<label>Type:</label><br>
-									<s:select id="cmbType" cssClass="combo1" cssStyle="width:125px;height:25px;overflow:scroll" path="">
+					
+							<div class="col-md-1">
+								<label>Type</label>
+									<s:select id="cmbType" path="" style="width: 150%;">
 										<option value="Detail">Detail</option>
 										<option value="Summary">Summary</option>
 									</s:select>
 							</div>
-							<div class="col-md-6"></div>
-						</div> 
-					</div>
+						
+					<div class="col-md-6"></div>
 				</div>
-				<p align="center">
+				<br>
+				<p align="center" style="margin-right:43%">
 					<input type="button" id="btnExecute" value="Excecute" class="btn btn-primary center-block" class="form_button" />
 				</p>
 				<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
@@ -119,56 +118,5 @@ function funCalculatePettyCashFlasSummary()
 				
 			</s:form>
 		</div>
-
-
-<%-- <s:form name="Petty Cash Flash" method="GET" action="" >
-		<div>
-			<table class="transTable">
-			    <tr>
-					<td width="10%"><label>From Date </label></td>
-					<td width="10%" colspan="1"><s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
-					<td width="10%"><label>To Date </label></td>
-					<td width="10%"><s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</td>
-					
-					<td><label>Type</label> </td>
-				<td><s:select id="cmbType" cssClass="combo1" cssStyle="width:125px;height:20px;overflow:scroll" path="">
-					<option value="Detail">Detail</option>
-					<option value="Summary">Summary</option>
-				
-					</s:select></td>
-				</tr>
-				
-				
-
-			</table>
-			
-			<br />
-			<br />
-			<p align="center">
-				<input type="button" id="btnExecute" value="Excecute"  class="form_button" />
-				
-				
-			</p>
-			
-			
-			
-			<br/>
-			<br/>
-			
-				
-			<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
-		<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
-		<s:input type="hidden" id="hidSubCodes" path="strCatCode"></s:input>	
-		</div>
-		
-			<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
-				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
-			</div></div>
-	</s:form>
-
- --%>
-
-
 </body>
 </html>

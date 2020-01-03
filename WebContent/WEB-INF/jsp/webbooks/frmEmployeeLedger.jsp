@@ -477,43 +477,59 @@
 		<label id="formHeading">Employee Ledger</label>
 			<s:form name="EmployeeLedger" method="POST" action="">				
 				<div class="row masterTable">
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<label>GL Code</label>
 						<div class="row">
-							<div class="col-md-6">
-								<s:input  type="text" id="txtGLCode" cssClass="searchTextBox" 
+							<div class="col-md-5">
+								<s:input  type="text" id="txtGLCode" cssClass="searchTextBox" style="height:95%"
 									 	path="strGLCode" ondblclick="funHelp('EmployeeAccountCode');"/>
 							</div>
-							<div class="col-md-6">
-								<label id="lblGLCode"></label>
+							<div class="col-md-7">
+								<label id="lblGLCode" style="background-color:#dcdada94; width: 100%; height: 85%"></label>
 							</div>
 						</div> 
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-7"></div>
+					
+					<div class="col-md-5">
 						<label>Employee Code</label>
 						<div class="row">
-							<div class="col-md-6">
-								<s:input  type="text" id="txtFromEmployeeCode" cssClass="searchTextBox" 
+							<div class="col-md-5">
+								<s:input  type="text" id="txtFromEmployeeCode" cssClass="searchTextBox" style="height:95%"
 									 	path="strFromEmployeeCode" ondblclick="funHelp('employeeCode');"/>
 							</div>
-							<div class="col-md-6">
-								<label id="lblFromEmployeeName"></label>
+							<div class="col-md-7">
+								<label id="lblFromEmployeeName" style="background-color:#dcdada94; width: 100%; height:85%"></label>
 							</div>
 						</div> 
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-7"></div>
+					
+					<div class="col-md-3">
 						<div class="row">
 							<div class="col-md-6">
 								<label>From Date</label>
-								<s:input  type="text" id="txtFromDate" cssClass="calenderTextBox" path="dteFromDate"/>
+								<s:input  type="text" id="txtFromDate" cssClass="calenderTextBox" style="height:50%" path="dteFromDate"/>
 							</div>
 							<div class="col-md-6">
 								<label>To Date</label>
-								<s:input  type="text" id="txtToDate" cssClass="calenderTextBox" path="dteToDate"/>
+								<s:input  type="text" id="txtToDate" cssClass="calenderTextBox" style="height:50%" path="dteToDate"/>
 							</div>
 						</div> 
 					</div>
-					<div class="col-md-6">
+					
+					<div class="col-md-4">
+						<div class="row">
+							<div class="col-md-6">
+							<label> Show Narration</label><br>
+								<input type="checkbox" id="chkShowNarration" />
+							</div>
+							<div class="col-md-6"></div>
+						</div> 
+					</div>
+				    <div class="col-md-5"></div> 
+					
+					<div class="col-md-3">
 						<div class="row">
 							<div class="col-md-6">
 								<label>Currency</label>
@@ -528,20 +544,12 @@
 							</div>
 						</div> 
 					</div>
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-6">
-							<label> Show Narration</label>
-								<input type="checkbox" id="chkShowNarration" />
-							</div>
-							<div class="col-md-6"></div>
-						</div> 
-					</div>
+					
 				</div>
 					   				
-				<div id="paraSubmit" class="center" style="text-align:center;">
+				<div id="paraSubmit" class="center" style="margin-right:60%;">
 					<a href="#"><button class="btn btn-primary center-block" id="btnExecute"   value="Execute" 
-						class="form_button">Execute</button></a>
+						class="form_button">Execute</button></a>&nbsp
 					<a href="#"><button class="btn btn-primary center-block" value="Export" id="btnExport" 
 						class="form_button">Export</button></a>
 				</div>

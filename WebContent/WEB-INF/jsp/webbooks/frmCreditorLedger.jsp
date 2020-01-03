@@ -873,79 +873,80 @@
 
 </head>
 <body>
-	<div class="container">
+	<div class="container masterTable">
 		<label id="formHeading">Creditor Ledger</label>
 			<s:form name="CreditorLedger" method="POST" action="showCreditorLedger.html">
-				<div class="masterTable">
-					<a onclick="funOpenPaymentForm()" href="javascript:void(0);">Make Payment</a>
-				</div>			
-				<div class="row masterTable">
-					<div class="col-md-6">
-					<label>GL Code</label>
+				<div class="masterTable" style="text-align:center; margin-right:-22%;">
+					<a onclick="funOpenPaymentForm()" href="javascript:void(0);" style="text-decoration:underline">Make Payment</a>
+				</div>	
+						
+			<div class="row">
+					<div class="col-md-4">
 						<div class="row">
-							<div class="col-md-6">
-								<s:input  type="text" id="txtGLCode" cssClass="searchTextBox" 
+							<div class="col-md-5"><label>GL Code</label>
+								<s:input  type="text" id="txtGLCode" cssClass="searchTextBox" style="height:50%"
 									 	path="strGLCode" ondblclick="funHelp('creditorAccountCode');"/>
 							</div>
-							<div class="col-md-6">
-								<label id="lblGLCode"></label>
+							<div class="col-md-7">
+								<label id="lblGLCode" style="background-color:#dcdada94; width: 100%; height:50%; margin-top:11%;"></label>
 							</div>
 						</div> 
 					</div>
-					<div class="col-md-6">
-					<label>Creditor Code</label>
+					
+					<div class="col-md-3">
 						<div class="row">
-							<div class="col-md-6">
-								<s:input  type="text" id="txtFromDebtorCode" cssClass="searchTextBox" 
-									 	path="strFromDebtorCode" ondblclick="funHelp('creditorCode');"/>
-							</div>
-							<div class="col-md-6">
-								<label id="lblFromDebtorName"></label>
-							</div>
-						</div> 
-					</div>
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-6">
-							<label>Type</label>
+							<div class="col-md-6"><label>Type</label>
 								<s:select id="cmbType" path="strType" class="BoxW124px" >
 									<option value="By Account">By Account</option>
 									<option value="Bill By Bill">Bill By Bill</option>
 								</s:select>
 							</div>
-							<div class="col-md-6">
-								<label>Status</label><br>
-								<label id="lblStatus"></label>
-							</div>
-						</div> 
-					</div>
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-6">
-							<label>Stop Credit Supply</label>
-								<label id="lblStopCreditSupply"></label>
-							</div>
-							<%-- <div class="col-md-6">
-								<label>Change Year</label><br>
+							<div class="col-md-6"><label>Change Year</label>
 								<s:select id="cmbChangeYear" path="strChangeYear" class="BoxW124px">
 									<s:options items="${listChangeYear}"/>
 								</s:select>
-							</div> --%>
+							</div>
 						</div> 
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-5"></div>
+					
+					<div class="col-md-4">
+						<div class="row">
+							<div class="col-md-5"><label>Creditor Code</label>
+								<s:input  type="text" id="txtFromDebtorCode" cssClass="searchTextBox" style="height:50%"
+									 	path="strFromDebtorCode" ondblclick="funHelp('creditorCode');"/>
+							</div>
+							<div class="col-md-7">
+								<label id="lblFromDebtorName" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top:11%;"></label>
+							</div>
+						</div> 
+					</div>
+					
+					<div class="col-md-2"><label>Status</label>
+						<label id="lblStatus" style="background-color:#dcdada94; width: 100%; height: 50%"></label>
+					</div>
+					
+					<div class="col-md-2">
+					   <label>Stop Credit Supply</label>
+						<label id="lblStopCreditSupply" style="background-color:#dcdada94; width: 100%; height: 50%"></label>
+					</div>
+					
+					<div class="col-md-4"></div>
+					
+					<div class="col-md-3">
 						<div class="row">
 							<div class="col-md-6">
 							<label>From Date</label>
-								<s:input type="text" id="txtFromDate" path="dteFromDate" cssClass="calenderTextBox" />
+								<s:input type="text" id="txtFromDate" path="dteFromDate" cssClass="calenderTextBox" style="height:50%" />
 							</div>
 							<div class="col-md-6">
 								<label>To Date</label><br>
-								<s:input  type="text" id="txtToDate" path="dteToDate" cssClass="calenderTextBox" />
+								<s:input  type="text" id="txtToDate" path="dteToDate" cssClass="calenderTextBox" style="height:50%" />
 							</div>
 						</div> 
 					</div>
-					<div class="col-md-6">
+							
+					<div class="col-md-3">
 						<div class="row">
 							<div class="col-md-6">
 							<label>Currency</label>
@@ -960,7 +961,8 @@
 							</div>
 						</div> 
 					</div>
-					<div class="col-md-6">
+					
+					<div class="col-md-3">
 						<div class="row">
 							<div class="col-md-6">
 							<label>Show Narration</label>
@@ -969,10 +971,11 @@
 							<div class="col-md-6"></div>
 						</div> 
 					</div>
+					
 				</div>
-				<div id="paraSubmit" class="center" style="text-align:center;">
+				<div id="paraSubmit" class="center" style="text-align:center;  margin-right:-16%;">
 					<a href="#"><button class="btn btn-primary center-block" id="btnExecute"   value="Execute" onclick="funButtonExecute()" 
-						class="form_button">Execute</button></a>
+						class="form_button">Execute</button></a>&nbsp
 					<a href="#"><button class="btn btn-primary center-block" value="Export" id="btnExport" onclick="funButtonExport()"
 						class="form_button">Export</button></a>
 				</div>

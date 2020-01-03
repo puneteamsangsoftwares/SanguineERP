@@ -268,7 +268,6 @@ public class clsWebBooksAccountMasterController {
 
 	// Convert bean to model function
 	private clsWebBooksAccountMasterModel funPrepareModel(clsWebBooksAccountMasterBean objBean, String userCode, String clientCode, String propertyCode) {
-		
 		long lastNo = 0;
 		clsWebBooksAccountMasterModel objACModel;
 		if (objBean.getStrAccountCode().trim().length() == 0) {

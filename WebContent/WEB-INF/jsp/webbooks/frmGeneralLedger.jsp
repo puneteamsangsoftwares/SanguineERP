@@ -783,40 +783,33 @@
 		<label id="formHeading">General Ledger</label>
 			<s:form name="GeneralLedger" method="POST" action="showGeneralLedger.html">					
 				<div class="row masterTable">
-						<div class="col-md-6">
+						<div class="col-md-5">
+							<label>GL Code:</label><br>
 								<div class="row">
-									<div class="col-md-6">
-										<label>GL Code:</label><br>
-										<s:input  type="text" id="txtGLCode" cssClass="searchTextBox" readonly="true"
+									<div class="col-md-5">
+										<s:input  type="text" id="txtGLCode" cssClass="searchTextBox" readonly="true" style="height:95%"
 									 	path="strGLCode" ondblclick="funHelp('accountCode');"/>
 									</div>
-									<div class="col-md-6">
-									<label>Type</label>
-									<s:select id="cmbType" path="strType" class="BoxW124px" >
-										<option value="By Account">By Account</option>
-										<option value="Bill By Bill">Bill By Bill</option>
-									</s:select>
+									<div class="col-md-7">
+										<label id="lblGLCode"  style="background-color:#dcdada94; width: 100%; height: 24px;"></label><br>
 									</div>
-								</div> 
+								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-7"></div>
+							
+							<div class="col-md-2"><label>Status</label>
+								<s:input id="lblStatus" path="" ondblclick="" style="background-color:#dcdada94; width: 100%; height: 50%"/>
+							</div>
+							
+							<div class="col-md-3">
 								<div class="row">
 									<div class="col-md-6">
-										<label>Currency</label><br>
-										<s:select id="cmbCurrency" path="currency" items="${currencyList}" cssClass="BoxW124px"></s:select>
-									</div>
-									<div class="col-md-6">
-										<label>Status</label>
-										<s:input  type="text" id="lblStatus" path="" ondblclick=""/>
-									</div>
-								</div> 
-							</div> 
-							<div class="col-md-6">
-								<div class="row">
-									<div class="col-md-6">
-										<label>Stop Credit Supply</label><br>
-										<s:input  type="text" id="lblStopCreditSupply" path="" ondblclick=""/>
-									</div>
+										<label>Type</label>
+										<s:select id="cmbType" path="strType" class="BoxW124px" >
+											<option value="By Account">By Account</option>
+											<option value="Bill By Bill">Bill By Bill</option>
+										</s:select>
+										</div>
 									<div class="col-md-6">
 										<label>change year</label>
 											<s:select id="cmbChangeYear" path="strChangeYear" class="BoxW124px">
@@ -825,7 +818,23 @@
 									</div>
 								</div> 
 							</div> 
-							<div class="col-md-6">
+							
+							<div class="col-md-3">
+								<div class="row">
+									<div class="col-md-6">
+										<label>Currency</label><br>
+										<s:select id="cmbCurrency" path="currency" items="${currencyList}" cssClass="BoxW124px"></s:select>
+										</div>
+										</div> 
+							</div>
+							<div class="col-md-4"></div>
+							
+							<div class="col-md-2">
+										<label>Stop Credit Supply</label>
+										<s:input id="lblStopCreditSupply" path="" ondblclick="" style="background-color:#dcdada94; width: 100%; height: 50%"/>
+							</div>
+									
+							<div class="col-md-3">
 								<div class="row">
 									<div class="col-md-6">
 										<label>From Date</label><br>
@@ -836,20 +845,16 @@
 											<s:input  type="text" id="txtToDate" path="dteToDate" cssClass="calenderTextBox" />
 									</div>
 								</div> 
+							</div> 
+							
+							<div class="col-md-2">
+								<input type="checkbox" id="chkShowNarration" /> <label>Show Narration</label>
 							</div>
-							<div class="col-md-6">
-								<div class="row">
-									<div class="col-md-6">
-										
-										<input type="checkbox" id="chkShowNarration" /> <label>Show Narration</label>
-									</div>
-									<div class="col-md-6"></div>
-								</div> 
-							</div>
+								
 						</div>
-						<div class="center" style="text-align:center;">
+						<div class="center" style="text-align:center; margin-right: 10%;">
 							<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="funClickOnExecuteButton()" 
-								class="form_button">Execute</button></a>
+								class="form_button">Execute</button></a>&nbsp
 							<a href=""><button class="btn btn-primary center-block" id="btnExport" value="Export" onclick="funClickOnExportBtn()"
 								class="form_button">Export</button></a>
 						</div>

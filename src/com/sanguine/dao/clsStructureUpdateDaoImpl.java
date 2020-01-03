@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sanguine.model.clsCompanyMasterModel;
 import com.sanguine.service.clsGlobalFunctionsService;
+import com.sanguine.service.clsLocationMasterService;
 import com.sanguine.service.clsSetupMasterService;
 import com.sanguine.webclub.service.clsWebClubOtherFieldCreationService;
 
@@ -2134,7 +2135,7 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		/*----------------WebClub Forms Only---------------------------*/
 		
 		
-		/*sql = "INSERT IGNORE INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`, `strInvoice`, `strDeliverySchedule`, `strFormAccessYN`) VALUES  "
+		sql = "INSERT IGNORE INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`, `strInvoice`, `strDeliverySchedule`, `strFormAccessYN`) VALUES  "
 			+ " ('frmCompanyMaster', 'Company Master', 'Master', 1, 'M', 1, 10, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmCompanyMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 			+ " ('frmCompanyTypeMaster', 'Company Type Master', 'Master', 1, 'M', 1, 12, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmCompanyTypeMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 			+ " ('frmEditOtherInfo', 'Edit Other Info', 'Master', 1, 'M', 1, 15, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmEditOtherInfo.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
@@ -2159,7 +2160,7 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 			+ " ('frmWebClubPersonMaster', 'Person Master', 'Master', 1, 'M', 1, 8, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmWebClubPersonMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 			+ " ('frmWebClubSecurityShellMaster', 'Security Shell', 'Master', 1, 'M', 1, 10, '1', 'default.png', '4', 1, '1', '1', 'NO', 'YES', 'frmWebClubSecurityShell.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
 
-		*/
+		funExecuteQuery(sql);
 		
 		
 		/*sql = "INSERT INTO`tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`, `strInvoice`, `strDeliverySchedule`, `strFormAccessYN`) VALUES ('frmCompanyMaster', 'Company Master', 'Master', 1, 'M', 1, 10, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmCompanyMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
@@ -3664,9 +3665,7 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 
 		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
 		//funExecuteWebClubQuery(sql);
-		
-		
-		
+				
 		sql = "CREATE TABLE IF NOT EXISTS `tblsubcategorymaster` ("
 			+ "`strSCCode` VARCHAR(10) NOT NULL,"
 			+ "`strSCName` VARCHAR(50) NOT NULL DEFAULT '',"
@@ -3684,8 +3683,7 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 			+";"; 
 
 		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
-		//funExecuteWebClubQuery(sql);
-		
+		//funExecuteWebClubQuery(sql);		
 		
 		sql = "CREATE TABLE IF NOT EXISTS `tbltitlemaster` ("
 			+ "`strTitleCode` VARCHAR(20) NOT NULL,"
@@ -3707,8 +3705,7 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
 		//funExecuteWebClubQuery(sql);
 		
-
-
+		
 		
 		/*sql = " INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`) VALUES "
 				+ " ('frmWebClubSecurityShellMaster', 'Security Shell', 'Master', 1, 'M', 1, 10, '1', 'default.png', '4', 1, '1', '1', 'NO', 'YES', 'frmWebClubSecurityShell.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),"
@@ -3790,10 +3787,7 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ "ADD COLUMN `strCompanyRegionName` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strCompanyRegionCode`;";
 				
 		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
-		//funExecuteWebClubQuery(sql);
-		
-		
-		
+		//funExecuteWebClubQuery(sql);		
 		
 		sql = "ALTER TABLE `tblmembermaster` CHANGE COLUMN `strBillingAreaCode` `strBillingAreaCode` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strBillingAddressLine3`,"
 				+ "ADD COLUMN `strBillingAreaName` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strBillingAreaCode`,"
@@ -3807,19 +3801,13 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
 		//funExecuteWebClubQuery(sql);
 		
-		
-		
 		sql = "ALTER TABLE `tblmembermaster` ADD COLUMN `strCompanyStateName` VARCHAR(15) NOT NULL DEFAULT '' AFTER `strCompanyStateCode`;";
 		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
 		//funExecuteWebClubQuery(sql);
 		
-
-		
 		sql = "ALTER TABLE `tblmembermaster` ADD COLUMN `strResident` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strGolfMemberShip`;";
 		objWebClubOtherFieldCreationService.funExecuteQuery(sql);
 		//funExecuteWebClubQuery(sql);
-		
-		
 		
 		sql = "ALTER TABLE `tblmemberphoto` CHANGE COLUMN `strMemberCode` `strMemberCode` VARCHAR(20) NOT NULL FIRST;";
 				objWebClubOtherFieldCreationService.funExecuteQuery(sql);
@@ -5205,11 +5193,12 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 	}
 
 	@SuppressWarnings("finally")
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public void funExecuteQuery(String sql) {
 		try {
 			Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);			
 		} catch (Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		} finally {
 			
 		}

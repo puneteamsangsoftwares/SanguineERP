@@ -79,7 +79,7 @@ public class clsWebClubPDCFlashController{
 			sql="SELECT Concat(c.strFirstName,' ', c.strMiddleName,' ', c.strLastName),a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate),c.strAccNo,c.strDebtorCode FROM "+webCLub+".tblpdcdtl a,"+webStock+".tblbankmaster b,"+webCLub+".tblmembermaster c WHERE a.strClientCode='"+clientCode+"'  AND a.strMemCode=c.strMemberCode AND a.strType='"+chequeType+"' AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"'  GROUP BY a.strChequeNo";
 		}
 		else{	
-				sql="SELECT b.strFirstName,a.strChequeNo,c.strBankName,a.strType,a.dblChequeAmt,DATE(a.dteChequeDate),a.strMemCode FROM tblpdcdtl a,tblmembermaster b,"+webStock+".tblbankmaster c  WHERE  a.strMemCode=b.strMemberCode AND  a.strMemCode='"+memCode+"' AND a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strDrawnOn=c.strBankName AND a.strClientCode=b.strClientCode AND Date(a.dteChequeDate)  BETWEEN '"+strFromDate+"' AND '"+strToDate+"'   ";			
+			sql="SELECT b.strFirstName,a.strChequeNo,c.strBankName,a.strType,a.dblChequeAmt,DATE(a.dteChequeDate),a.strMemCode FROM tblpdcdtl a,tblmembermaster b,"+webStock+".tblbankmaster c  WHERE  a.strMemCode=b.strMemberCode AND  a.strMemCode='"+memCode+"' AND a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strDrawnOn=c.strBankName AND a.strClientCode=b.strClientCode AND Date(a.dteChequeDate)  BETWEEN '"+strFromDate+"' AND '"+strToDate+"'   ";			
 		}
 		List list=objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
 		if (list.isEmpty()) {				

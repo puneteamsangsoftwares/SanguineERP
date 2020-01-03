@@ -201,11 +201,11 @@
 		    var row = table.insertRow(rowCount);   
 		    
 		    rowCount=listRow;
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"20%\" name=\"listReceiptBean["+(rowCount)+"].strDebtorName\" \ value='"+memCode+"'  id=\"txtMemCode."+(rowCount)+"\" >";
-			row.insertCell(1).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"25%\" name=\"listReceiptBean["+(rowCount)+"].strDrawnOn\" value='"+drawnOn+"' id=\"txtBankCode."+(rowCount)+"\" >";
-		    row.insertCell(2).innerHTML= "<input class=\"Box\" readonly=\"true\" type=\"text\" name=\"listReceiptBean["+(rowCount)+"].strChequeNo\" size=\"25%\" style=\"text-align: right;\" id=\"txtChequeNo."+(rowCount)+"\" value='"+chequeNo+"'/>";	
-		    row.insertCell(3).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"20%\" name=\"listReceiptBean["+(rowCount)+"].dteChequeDate\"  id=\"txtChkDte."+(rowCount)+"\" value="+chequeDate+">";
-		    row.insertCell(4).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"25%\" name=\"listReceiptBean["+(rowCount)+"].dblAmt\" value='"+chequeAmt+"' style=\"text-align: right;\" id=\"txtAmt."+(rowCount)+"\" >";	
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"18%\" name=\"listReceiptBean["+(rowCount)+"].strDebtorName\" \ value='"+memCode+"'  id=\"txtMemCode."+(rowCount)+"\" >";
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"22%\" name=\"listReceiptBean["+(rowCount)+"].strDrawnOn\" value='"+drawnOn+"' id=\"txtBankCode."+(rowCount)+"\" >";
+		    row.insertCell(2).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"22%\" name=\"listReceiptBean["+(rowCount)+"].strChequeNo\"  id=\"txtChequeNo."+(rowCount)+"\" value="+chequeNo+">";
+		    row.insertCell(3).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"22%\" name=\"listReceiptBean["+(rowCount)+"].dteChequeDate\"  id=\"txtChkDte."+(rowCount)+"\" value="+chequeDate+">";
+		    row.insertCell(4).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"22%\" name=\"listReceiptBean["+(rowCount)+"].dblAmt\" value='"+chequeAmt+"' style=\"text-align: right;\" id=\"txtAmt."+(rowCount)+"\" >";	
 		    row.insertCell(5).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"20%\" name=\"listReceiptBean["+(rowCount)+"].strReceiptType\" value='"+chequeType+"' id=\"txtChequeType."+(rowCount)+"\" >";	
 		    row.insertCell(6).innerHTML= "<input id=\"checkBox."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" class=\"suppCheckBoxClass\" name=\"listReceiptBean["+(rowCount)+"].strTransMode\"  value='"+checkboxValue+"' />";
 		    row.insertCell(7).innerHTML= "<input name=\"listReceiptBean["+(rowCount)+"].strSancCode\" type=\"hidden\" value = '"+checkboxValue+"' >";
@@ -454,13 +454,14 @@
 										<table
 											style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold; background:#b5b1b1;">
 											<tr>				
+												<td style="width:1%;"></td>
 												<td style="width:6.20%;">Member Name</td>
-												<td style="width:6.2%;">Drawn On</td>
+												<td style="width:7.2%;">Drawn On</td>
 												<td style="width:6.2%;">Cheque No</td>
-												<td style="width:6.2%;">Cheque Date</td>
-												<td style="width:6.15%;">Amount</td>
-												<td style="width:6.2%;">Type</td>
-												<td style="width:3%;">Select <input type="checkbox" id="chkBill" /></td>
+												<td style="width:7.2%;">Cheque Date</td>
+												<td style="width:5.5%;">Amount</td>
+												<td style="width:5%;">Type</td>
+												<td style="width:8%;">Select <input type="checkbox" id="chkBill" /></td>
 												<!-- <td style="width:6.2%;"></td> -->
 											</tr>
 										</table>

@@ -4674,7 +4674,7 @@ public class clsGlobalFunctions {
 
 				// both opening creditor or debtor opening balance and from date
 				// not eaqual to date opening table
-				String sql = " SELECT ifnull(dteVochDate,''),'Op','Opening','',ifnull(billDate,''), ifnull(SUM(dblDebitAmt),0.00), ifnull(SUM(dblCreditAmt),0.0), ifnull(SUM(dblBalanceAmt),0.0),sum(conv2) from  "
+				String sql = " SELECT ifnull(dteVochDate,''),'Op','Opening','',ifnull(billDate,''), ifnull(SUM(dblDebitAmt),0.00), ifnull(SUM(dblCreditAmt),0.0), ifnull(SUM(dblBalanceAmt),0.0),ifnull(SUM(conv2),0) from  "
 
 				+ "( SELECT dteVochDate dteVochDate,'Op','Opening','',dteBillDate billDate, SUM(dblDebitAmt) dblDebitAmt, " + " SUM(dblCreditAmt) dblCreditAmt, SUM(dblBalanceAmt) dblBalanceAmt ,0 as conv2 " + " FROM tblledgersummary " + " WHERE strUserCode='" + userCode + "' AND strPropertyCode='" + propertyCode + "' AND strClientCode='" + clientCode + "' "
 						+ " GROUP BY strUserCode,strPropertyCode,strClientCode "
@@ -5739,7 +5739,7 @@ return 1;
 		sbSql.append("select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster where strCurrencyCode='"+currency+"' and strClientCode='"+clientCode+"' ");
 		try
 		{
-			List list = objBaseService.funGetList(sbSql,"sql");
+			List list = objBaseService.funGetListForWebBooks(sbSql,"sql");
 			conversionRate=Double.parseDouble(list.get(0).toString());
 		}catch(Exception e)
 		{
@@ -5749,7 +5749,17 @@ return 1;
 		 if(accType.equalsIgnoreCase(accType)){ 
 			//funInvokeWebBookLedger( accCode, startDate,  propCode,  startDate,  toDate,  clientCode,  userCode,  req,  resp,  "Creditor", conversionRate);
 
-			 funDeleteAndInsertWebBookLedgerTable(clientCode, userCode, propCode);
+			 
+			 StringBuilder sbSqll = new StringBuilder();
+				
+				sbSqll.append("delete from tblledgersummary where strUserCode='"+userCode+"' and strClientCode='"+clientCode+"'  and strPropertyCode='"+propCode+"'");
+				try {			  
+					objBaseService.funExcecteUpdateModuleWise(sbSqll, "sql", "WebBooks");			
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			 
+			// funDeleteAndInsertWebBookLedgerTable(clientCode, userCode, propCode);
 
 			 funProcessWebBookLedgerSummaryForBankAcc(accCode,startDate, toDate, clientCode, userCode, propCode, req, resp, accType,conversionRate);
 		}
@@ -5788,7 +5798,7 @@ return 1;
 			     +" and a.strClientCode='"+clientCode+"' and a.strPropertyCode='" + propertyCode + "' ");
 		List listop=new ArrayList();
 		try {
-			listop = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			listop = objBaseService.funGetListForWebBooks(sbSql, "sql");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -5821,7 +5831,8 @@ return 1;
 				+ " WHERE a.strVouchNo=b.strVouchNo " + " AND DATE(a.dteVouchDate) BETWEEN '" + fromDate + "' AND '" + toDate + "' " + " AND b.strAccountCode='" + acCode + "'  " + " AND a.strPropertyCode=b.strPropertyCode " + " AND a.strPropertyCode='" + propertyCode + "' AND a.strClientCode='" + clientCode + "' ");
 		List listjv=new ArrayList();
 		try {
-			listjv = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			listjv = objBaseService.funGetListForWebBooks(sbSql, "sql");
+			//listjv = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -5844,7 +5855,6 @@ return 1;
 				objSummaryledger.setStrClientCode(clientCode);
 				objSummaryledger.setStrUserCode(userCode);
 				objSummaryledger.setStrPropertyCode(propertyCode);
-
 				objGlobalFunctionsService.funAddUpdateLedgerSummary(objSummaryledger);
 			}
 		}
@@ -5854,7 +5864,8 @@ return 1;
 
 		List listPay=new ArrayList();
 		try {
-			listPay = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			listPay = objBaseService.funGetListForWebBooks(sbSql,"sql");
+			//listPay = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -5881,7 +5892,6 @@ return 1;
 				objGlobalFunctionsService.funAddUpdateLedgerSummary(objSummaryledger);
 			}
 		}
-
 		// receipt
 		sbSql.setLength(0);
 		sbSql.append("  SELECT DATE(a.dteVouchDate) ,a.strVouchNo,'Receipt', a.strChequeNo, " 
@@ -5893,12 +5903,12 @@ return 1;
 		 
 		List listRecept=new ArrayList();
 		try {
-			listRecept = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			listRecept =  objBaseService.funGetListForWebBooks(sbSql,"sql");
+			//listRecept = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		if (listRecept.size() > 0) {
 			for (int i = 0; i < listRecept.size(); i++) {
 				clsLedgerSummaryModel objSummaryledger = new clsLedgerSummaryModel();

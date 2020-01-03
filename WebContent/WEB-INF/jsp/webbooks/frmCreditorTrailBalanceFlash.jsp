@@ -262,19 +262,21 @@ var StkFlashData;
 		<label id="formHeading">Creditor Trial Balance Flash</label>
 			<s:form name="FLR3AReport" method="GET" action="" >				
 				<div class="row transTable">
-					<div class="col-md-6">
+					<div class="col-md-5">
 					<label>GL Code:</label><br>
 					   <div class="row">
-							<div class="col-md-6">
+							<div class="col-md-5">
 								<s:input  type="text" id="txtGLCode" cssClass="searchTextBox" 
 									 path="strAccountCode" ondblclick="funHelp('creditorAccountCode');"/>
 							</div>
-							<div class="col-md-6">
-								<label id="lblGLCode"></label>
+							<div class="col-md-7">
+								<label id="lblGLCode" style="background-color:#dcdada94; width: 100%; height: 24px;"></label>
 							</div>
 						</div> 
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-7"></div>
+					
+					<div class="col-md-3">
 					   <div class="row">
 							<div class="col-md-6">
 							<label>From Date:</label><br>
@@ -288,7 +290,7 @@ var StkFlashData;
 							</div>
 						</div> 
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 					   <div class="row">
 							<div class="col-md-6">
 							<label>Currency:</label><br>
@@ -299,9 +301,9 @@ var StkFlashData;
 						</div> 
 					</div>
 				</div>
-				<div id="paraSubmit" class="center" style="text-align:center;">
+				<div id="paraSubmit" class="center" style="margin-right:63%;">
 					<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" 
-						class="form_button">Execute</button></a>
+						class="form_button">Execute</button></a>&nbsp
 					<a href="#"><button class="btn btn-primary center-block" onclick="funResetFields()"
 						class="form_button">Reset</button></a>
 				</div>

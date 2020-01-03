@@ -514,6 +514,7 @@
 	        		$("#txtDrawnOn").val(response.strBankCode);
 	        		$("#lblDrawnOnDesc").text(response.strBankName);
 	        		$("#txtBranch").focus();
+	        		$("#txtBranch").val(response.strBranch);
 	        	}
 			},
 			error : function(e){
@@ -624,13 +625,13 @@
 	    var rowCount = table.rows.length;
 	    var row = table.insertRow(rowCount);
 	    
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strAccountCode\" id=\"strAccountCode."+(rowCount)+"\" value='"+accountCode+"' />";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"12%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strDebtorCode\" id=\"strDebtorCode."+(rowCount)+"\" value='"+debtorCode+"' />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strAccountCode\" id=\"strAccountCode."+(rowCount)+"\" value='"+accountCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"9%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strDebtorCode\" id=\"strDebtorCode."+(rowCount)+"\" value='"+debtorCode+"' />";
 	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strDescription\" id=\"strDescription."+(rowCount)+"\" value='"+description+"' />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strDC\" id=\"strDC."+(rowCount)+"\" value='"+transType+"' />";
-	    row.insertCell(4).innerHTML= "<input type=\"text\" class=\" debitAmt\"  onblur=\"Javacsript:funUpdateDebitAmount(this)\"size=\"10.5%\"  style=\"text-align: right;\" name=\"listReceiptBeanDtl["+(rowCount)+"].dblDebitAmt\" id=\"dblDebitAmt."+(rowCount)+"\" value='"+debitAmt+"'/>";
-	    row.insertCell(5).innerHTML= "<input type=\"text\" class=\" creditAmt\" onblur=\"Javacsript:funUpdateCreditAmount(this)\" size=\"10.5%\" style=\"text-align: right;\" name=\"listReceiptBeanDtl["+(rowCount)+"].dblCreditAmt\" id=\"dblCreditAmt."+(rowCount)+"\" value='"+creditAmt+"'/>";
-	    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strDimension\" id=\"strDimension."+(rowCount)+"\" value='"+dimension+"'/>";	        
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strDC\" id=\"strDC."+(rowCount)+"\" value='"+transType+"' />";
+	    row.insertCell(4).innerHTML= "<input type=\"text\" class=\" debitAmt\"  onblur=\"Javacsript:funUpdateDebitAmount(this)\"size=\"8%\"  style=\"text-align: right;\" name=\"listReceiptBeanDtl["+(rowCount)+"].dblDebitAmt\" id=\"dblDebitAmt."+(rowCount)+"\" value='"+debitAmt+"'/>";
+	    row.insertCell(5).innerHTML= "<input type=\"text\" class=\" creditAmt\" onblur=\"Javacsript:funUpdateCreditAmount(this)\" size=\"8%\" style=\"text-align: right;\" name=\"listReceiptBeanDtl["+(rowCount)+"].dblCreditAmt\" id=\"dblCreditAmt."+(rowCount)+"\" value='"+creditAmt+"'/>";
+	    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strDimension\" id=\"strDimension."+(rowCount)+"\" value='"+dimension+"'/>";	        
 	    row.insertCell(7).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"2%\" value = \"Delete\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
   	    row.insertCell(8).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" size=\"1%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strDebtorName\" id=\"strDebtorName."+(rowCount)+"\" value='"+debtorName+"' />";
 	    
@@ -1498,14 +1499,15 @@
 		<table
 			style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
 			<tr bgcolor="#c0c0c0">
-				<td style="width:5.5%;">Account Code</td>
-				<td style="width:5.3%;">Debtor Code</td>
-				<td style="width:24.8%;">Description</td>
+				<td style="width:5.8%;">Account Code</td>
+				<td style="width:5.6%;">Debtor Code</td>
+				<td style="width:26.7%;">Description</td>
 				<td style="width:2.8%;">D/C</td>
-				<td style="width:7%;">Debit Amt</td>
+				<td style="width:7.2%;">Debit Amt</td>
 				<td style="width:7%;">Credit Amt</td>
 				<td style="width:1%;">Dimension</td>
 				<td style="width:4%;">Delete</td>
+				
 			</tr>
 		</table>
 		

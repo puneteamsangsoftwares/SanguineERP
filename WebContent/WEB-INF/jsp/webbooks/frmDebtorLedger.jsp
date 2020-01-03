@@ -876,60 +876,64 @@
 		<label  id="formHeading">Debtor Ledger</label>
 			<s:form name="DebtorLedger" method="POST" action="showDebtorLedger.html">
 				<div class="row masterTable">
-					<div class="col-md-6">
-						<label>GL Code:</label><br>
+					<div class="col-md-4">
+						<label>GL Code:</label>
 							<div class="row">
-								<div class="col-md-6">
-									<s:input  type="text"  id="txtGLCode" cssClass="searchTextBox" 
+								<div class="col-md-5">
+									<s:input  type="text"  id="txtGLCode" cssClass="searchTextBox" style="height:95%"
 									 path="strGLCode" ondblclick="funHelp('debtorAccountCode')"/>
 								</div>
-								<div class="col-md-6">
-									<label id="lblGLCode"></label>
-								</div>
-							</div>
-						</div>	
-						<div class="col-md-6">
-						<label>Debtor Code:</label><br>
-							<div class="row">
-								<div class="col-md-6">
-									<s:input  type="text"  id="txtFromDebtorCode" cssClass="searchTextBox" readonly="true"
-									 path="strFromDebtorCode" ondblclick="funHelp('debtorCode')"/>
-								</div>
-								<div class="col-md-6">
-									<label id="lblFromDebtorName"></label>
+								<div class="col-md-7">
+									<label id="lblGLCode" style="background-color:#dcdada94; width: 100%; height:100% "></label>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
+						
+						<div class="col-md-3">
 							<div class="row">
 								<div class="col-md-6">
-								<label>Type:</label><br>
+								<label>Type:</label>
 									<s:select id="cmbType" path="strType" class="BoxW124px" >
 										<option value="By Account">By Account</option>
 										<option value="Bill By Bill">Bill By Bill</option>
 									</s:select>
 								</div>
 								<div class="col-md-6">
-									<label>Status</label>
-									<label id="lblStatus"></label>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="row">
-								<div class="col-md-6">
-									<label>Stop Credit Supply:</label><br>
-									<label id="lblStopCreditSupply"></label>
-								</div>
-								<%-- <div class="col-md-6">
 									<label>Change Year</label>
 										<s:select id="cmbChangeYear" path="strChangeYear" class="BoxW124px">
 											<s:options items="${listChangeYear}"/>
 										</s:select>
-								</div> --%>
+								</div>
+							</div></div>
+							
+						<div class="col-md-5"></div>
+						
+						<div class="col-md-4">
+						<label>Debtor Code:</label>
+							<div class="row">
+								<div class="col-md-5">
+									<s:input  type="text"  id="txtFromDebtorCode" cssClass="searchTextBox" style="height:95%"
+									 path="strFromDebtorCode" ondblclick="funHelp('debtorCode')"/>
+								</div>
+								<div class="col-md-7">
+									<label id="lblFromDebtorName" style="background-color:#dcdada94; width: 100%; height:100%"></label>
+								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
+						
+						<div class="col-md-2">
+									<label>Status</label>
+									<label id="lblStatus" style="background-color:#dcdada94; width: 100% ;height:50%"></label>
+						</div>
+						
+					    <div class="col-md-2">
+							<label>Stop Credit Supply:</label>
+								<label id="lblStopCreditSupply" style="background-color:#dcdada94; width: 100% ;height:50%"></label>
+					    </div>
+					    
+					    <div class="col-md-4"></div>
+						
+						<div class="col-md-3">
 							<div class="row">
 								<div class="col-md-6">
 									<label>From Date:</label><br>
@@ -941,7 +945,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
+						
+						<div class="col-md-3">
 							<div class="row">
 								<div class="col-md-6">
 									<label>Currency:</label><br>
@@ -956,23 +961,23 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
+						
+						<div class="col-md-3">
 							<div class="row">
 								<div class="col-md-6">
 									<label>Show Narration:</label><br>
 										<input type="checkbox" id="chkShowNarration" />
 								</div>
-								<div class="col-md-6"></div>
+								<div class="col-md-3"></div>
 							</div>
 						</div>
 				</div>
-				<div id="paraSubmit" class="center" style="text-align:center;">
+				<div id="paraSubmit" class="center" style="margin-right: 34%;">
 					<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute"  onclick="return funBtnExecute()"
-						class="form_button">Execute</button></a>
+						class="form_button">Execute</button></a>&nbsp
 					<a href="#"><button class="btn btn-primary center-block" id="btnExport" onclick="return funBtnExport()"
 						class="form_button">Export</button></a>
 				</div>
-				
 				
 				
 				
