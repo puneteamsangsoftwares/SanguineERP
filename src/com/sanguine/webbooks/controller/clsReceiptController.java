@@ -161,11 +161,19 @@ public class clsReceiptController {
 				currConversion=1.0;
 			}
 			Map<String, clsReceiptDetailBean> hmReceiptDtlBean = new HashMap<String, clsReceiptDetailBean>();
-
+			String CFAccDesc = "";
 			objReceiptBean = new clsReceiptBean();
 			objReceiptBean.setStrVouchNo(objReceipt.getStrVouchNo());
 			objReceiptBean.setStrCFCode(objReceipt.getStrCFCode());
-			String CFAccDesc = objWebBooksAccountMasterService.funGetAccountCodeAndName(objReceipt.getStrCFCode(), clientCode).getStrAccountName();
+			if(objReceipt.getStrCFCode().equals(""))
+			{
+				 
+			}
+			else
+			{
+				CFAccDesc = objWebBooksAccountMasterService.funGetAccountCodeAndName(objReceipt.getStrCFCode(), clientCode).getStrAccountName();	
+			}
+			
 			objReceiptBean.setStrCFDesc(CFAccDesc);
 			objReceiptBean.setDteVouchDate(objGlobal.funGetDate("yyyy/MM/dd", objReceipt.getDteVouchDate()));
 			objReceiptBean.setDteChequeDate(objGlobal.funGetDate("yyyy/MM/dd", objReceipt.getDteChequeDate()));
@@ -554,7 +562,7 @@ public class clsReceiptController {
 		sbSql.append("select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster where strCurrencyCode='"+currencyCode+"' and strClientCode='"+clientCode+"' ");
 		try
 		{
-			List list = objBaseService.funGetList(sbSql,"sql");
+			List list = objBaseService.funGetListForWebStocks(sbSql,"sql");
 			conversionRate=Double.parseDouble(list.get(0).toString());
 		}catch(Exception e)
 		{
@@ -614,7 +622,7 @@ public class clsReceiptController {
 			{
 				sqlHd.append("and a.strPropertyCode='"+strPropertyCode+"' ");
 			}
-			List list = objBaseService.funGetListModuleWise(sqlHd, "sql", "WebBooks");
+			List list = objBaseService.funGetListForWebBooks(sqlHd, "sql");
 			if (!list.isEmpty()) {
 				Object[] arrObj = (Object[]) list.get(0);
 				strVouchNo = arrObj[0].toString();

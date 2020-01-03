@@ -139,7 +139,7 @@
 				    			}
 				        		$.each(response, function(cnt,item)
 					 			{ 
-				        			funAddRowReceived(item.strMemName,item.strDrawnOn,item.strChequeNo,item.dteChequeDate,item.dblChequeAmt,item.strType,item.strAccCode);
+				        			funAddRowReceived(item.strMemName,item.strDrawnOn,item.strChequeNo,item.dteChequeDate,item.dblChequeAmt,item.strType,item.strAccCode,item.strDebtorCode);
 				        			totRec= parseInt(totRec)+parseInt(item.dblChequeAmt);
 								    $("#lbltotal").text(totRec);
 
@@ -194,7 +194,7 @@
 		/**
 		 * Adding Product Data in grid 
 		 */
-		function funAddRowReceived(memCode,drawnOn,chequeNo,chequeDate,chequeAmt,chequeType,checkboxValue,accountCode) 
+		function funAddRowReceived(memCode,drawnOn,chequeNo,chequeDate,chequeAmt,chequeType,checkboxValue,accountCode,strDebtorCode) 
 		{   	    	    
 		    var table = document.getElementById("tblDetails");
 		    var rowCount = table.rows.length;
@@ -209,6 +209,7 @@
 		    row.insertCell(5).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"20%\" name=\"listReceiptBean["+(rowCount)+"].strReceiptType\" value='"+chequeType+"' id=\"txtChequeType."+(rowCount)+"\" >";	
 		    row.insertCell(6).innerHTML= "<input id=\"checkBox."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" class=\"suppCheckBoxClass\" name=\"listReceiptBean["+(rowCount)+"].strTransMode\"  value='"+checkboxValue+"' />";
 		    row.insertCell(7).innerHTML= "<input name=\"listReceiptBean["+(rowCount)+"].strSancCode\" type=\"hidden\" value = '"+checkboxValue+"' >";
+		    row.insertCell(8).innerHTML= "<input name=\"listReceiptBean["+(rowCount)+"].strDebtorCode\" type=\"hidden\" value = '"+accountCode+"' >";
 
 		    
 		    listRow++;		    

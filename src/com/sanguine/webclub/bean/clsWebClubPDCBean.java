@@ -33,7 +33,9 @@ public class clsWebClubPDCBean{
 
 	private String strClientCode;
 	
-	private String strAccCode;;
+	private String strAccCode;
+	
+	private String strDebtorCode;
 		
 	//private List<clsWebClubPDCBean> listPDCDtl;
 	
@@ -177,6 +179,14 @@ public class clsWebClubPDCBean{
 
 	public void setStrAccCode(String strAccCode) {
 		this.strAccCode = strAccCode;
+	}
+
+	public String getStrDebtorCode() {
+		return strDebtorCode;
+	}
+
+	public void setStrDebtorCode(String strDebtorCode) {
+		this.strDebtorCode = strDebtorCode;
 	}
 	
 	

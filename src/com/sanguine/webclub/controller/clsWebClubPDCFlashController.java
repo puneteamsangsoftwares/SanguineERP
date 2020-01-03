@@ -76,7 +76,7 @@ public class clsWebClubPDCFlashController{
 		}
 		else if(memCode.equalsIgnoreCase("undefined"))
 		{
-			sql="SELECT Concat(c.strFirstName,' ', c.strMiddleName,' ', c.strLastName),a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate),c.strAccNo FROM "+webCLub+".tblpdcdtl a,"+webStock+".tblbankmaster b,"+webCLub+".tblmembermaster c WHERE a.strClientCode='"+clientCode+"'  AND a.strMemCode=c.strMemberCode AND a.strType='"+chequeType+"' AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"'  GROUP BY a.strType,a.strDrawnOn";
+			sql="SELECT Concat(c.strFirstName,' ', c.strMiddleName,' ', c.strLastName),a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate),c.strAccNo,c.strDebtorCode FROM "+webCLub+".tblpdcdtl a,"+webStock+".tblbankmaster b,"+webCLub+".tblmembermaster c WHERE a.strClientCode='"+clientCode+"'  AND a.strMemCode=c.strMemberCode AND a.strType='"+chequeType+"' AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"'  GROUP BY a.strChequeNo";
 		}
 		else{	
 				sql="SELECT b.strFirstName,a.strChequeNo,c.strBankName,a.strType,a.dblChequeAmt,DATE(a.dteChequeDate),a.strMemCode FROM tblpdcdtl a,tblmembermaster b,"+webStock+".tblbankmaster c  WHERE  a.strMemCode=b.strMemberCode AND  a.strMemCode='"+memCode+"' AND a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strDrawnOn=c.strBankName AND a.strClientCode=b.strClientCode AND Date(a.dteChequeDate)  BETWEEN '"+strFromDate+"' AND '"+strToDate+"'   ";			
@@ -98,7 +98,10 @@ public class clsWebClubPDCFlashController{
 				objBean.setStrType(obj[3].toString());
 				objBean.setDblChequeAmt(Double.parseDouble(obj[4].toString()));
 				objBean.setDteChequeDate(objGlobal.funGetDate("dd-MM-yyyy", obj[5].toString()));
+				if(memCode.equals("undefined")){
 				objBean.setStrAccCode(obj[6].toString());
+				objBean.setStrDebtorCode(obj[7].toString());
+				}
 				ojbBeanModel.add(objBean);
 			}
 			

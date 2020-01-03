@@ -142,7 +142,7 @@
 <body>
 	<div class="container">
 		<label id="formHeading">Remark Master</label>
-			<s:form name="BankMaster" method="POST" action="saveACGroupMaster.html">
+			<s:form name="BankMaster" method="POST" action="saveNarrationMaster.html">
 				<div class="row masterTable">
 						<div class="col-md-2"><label >Remark Code</label>
 							<s:input id="txtRemarkCode"  ondblclick="funHelp('remarkCode')" cssClass="searchTextBox" style="height:50%"

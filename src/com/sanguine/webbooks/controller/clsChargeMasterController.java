@@ -146,7 +146,7 @@ public class clsChargeMasterController
 		clsChargeMasterModel objModel = null;
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		List listModel = objChargeMasterService.funGetChargeMaster(chargeCode, clientCode);
-		if (null == listModel)
+		if (null == listModel || listModel.size()<=0)
 		{
 			objModel = new clsChargeMasterModel();
 			objModel.setStrChargeCode("Invalid Code");

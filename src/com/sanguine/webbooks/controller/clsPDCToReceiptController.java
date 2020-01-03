@@ -135,7 +135,7 @@ public class clsPDCToReceiptController {
 
 		objModel.setStrCFCode(objBean.getStrCFCode());
 		objModel.setStrType(objGlobal.funIfNull(objBean.getStrType(), "None", objBean.getStrType()));
-		objModel.setStrDebtorCode(objGlobal.funIfNull(objBean.getStrDebtorCode(), "", objBean.getStrDebtorCode()));
+		//objModel.setStrDebtorCode(objGlobal.funIfNull(objBean.getStrDebtorCode(), "", objBean.getStrDebtorCode()));
 		objModel.setStrReceivedFrom(objGlobal.funIfNull(objBean.getStrReceivedFrom(), "", objBean.getStrReceivedFrom()));
 		objModel.setStrChequeNo(objBean.getStrChequeNo());
 		objModel.setStrDrawnOn(objGlobal.funIfNull(objBean.getStrDrawnOn(), "", objBean.getStrDrawnOn()));
@@ -151,6 +151,7 @@ public class clsPDCToReceiptController {
 		objModel.setStrTransMode("R");
 		objModel.setStrUserEdited(userCode);
 		objModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+		objModel.setStrDebtorCode(objBean.getStrDebtorCode());
 	
 			objModel.setStrReceiptType("MR");
 		
@@ -239,7 +240,7 @@ public class clsPDCToReceiptController {
 		
 			
 		
-		objModel.setStrDebtorCode(debtorCode);
+		//objModel.setStrDebtorCode(debtorCode);
 		objModel.setStrDebtorName(debtorName);
 		objModel.setListReceiptDebtorDtlModel(listReceiptDebtorDtlModel);
 
