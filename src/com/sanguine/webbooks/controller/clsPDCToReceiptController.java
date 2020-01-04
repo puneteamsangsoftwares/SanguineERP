@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sanguine.base.service.intfBaseService;
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.model.clsPropertySetupModel;
 import com.sanguine.service.clsGlobalFunctionsService;
@@ -59,6 +60,9 @@ public class clsPDCToReceiptController {
 	private clsSundryCreditorMasterService objSundryCreditorMasterService;
 	@Autowired
 	clsEmployeeMasterController objEmployeeMasterController;
+	
+	@Autowired
+	private intfBaseService objBaseService;
 	
 	@RequestMapping(value = "/frmPDCToReceipt", method = RequestMethod.GET)
 	public ModelAndView funOpenForm(Map<String, Object> model, HttpServletRequest request) {
@@ -125,7 +129,19 @@ public class clsPDCToReceiptController {
 		{
 			currConversion=objBean.getDblConversion();
 		}
-
+		try{
+		StringBuilder hql=new StringBuilder("select strAccountCode,strAccountName from clsWebBooksAccountMasterModel where strClientCode='" + clientCode + "' and strDebtor='Yes' ");
+		List listAcc=objBaseService.funGetListForWebBooks(hql, "hql");
+		//List listAcc=objBaseService.funGetListModuleWise(hql, "hql", "WebBooks");
+				if(listAcc!=null && listAcc.size()>0){
+					Object[] ob=(Object[]) listAcc.get(0);
+					objBean.setStrDebtorAccCode(ob[0].toString());					
+				}
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 		
 		Map<String, clsReceiptDtlModel> hmReceiptDtl = new HashMap<String, clsReceiptDtlModel>();
 		
@@ -180,7 +196,7 @@ public class clsPDCToReceiptController {
 	
 		
 				clsReceiptDtlModel objReceiptDtlModel = new clsReceiptDtlModel();
-				objReceiptDtlModel.setStrAccountCode(objBean.getStrSancCode());
+				objReceiptDtlModel.setStrAccountCode(objBean.getStrDebtorAccCode());
 				objReceiptDtlModel.setStrAccountName(objBean.getStrDebtorName());
 				objReceiptDtlModel.setStrCrDr("");
 				objReceiptDtlModel.setStrNarration("");
@@ -222,9 +238,9 @@ public class clsPDCToReceiptController {
 					
 				
 				
-				objReceiptDebtorDtlModel.setStrDebtorCode("");
+				objReceiptDebtorDtlModel.setStrDebtorCode(objBean.getStrDebtorCode());
 
-				objReceiptDebtorDtlModel.setStrAccountCode("");
+				objReceiptDebtorDtlModel.setStrAccountCode(objBean.getStrDebtorAccCode());
 				objReceiptDebtorDtlModel.setStrNarration("");
 				objReceiptDebtorDtlModel.setStrPropertyCode(propertyCode);
 				objReceiptDebtorDtlModel.setStrCrDr("");

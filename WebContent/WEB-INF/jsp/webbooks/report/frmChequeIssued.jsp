@@ -61,7 +61,7 @@
 					</s:select>
 			   </div>
 	      </div>
-	      <br>
+	      
 		<p align="center" style="margin-right:31%">
 				<input type="submit" value="Submit"  class="btn btn-primary center-block" class="form_button" />&nbsp
 				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>

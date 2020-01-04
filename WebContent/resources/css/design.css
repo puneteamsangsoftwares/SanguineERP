@@ -749,10 +749,12 @@ select {
 .calenderTextBox {
 	background: #FFF url(../images/Calendar_edit.png) no-repeat right;
 	width: 100%;
+	font-size: 12px;
+	 padding-left: 4px;
 	/*  background-color:inherit;
     border: 1px solid #060006; 
     outline:0; 
-    padding-left: 4px;
+   
     height:18px; 
    */
 }

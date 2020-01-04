@@ -76,7 +76,21 @@ margin:0px;}
 	            	{
 						var facilityCode = $("#txtFacilityCode").val();
 					    var facilityName = $("#txtFacilityName").val();
-					    var OperationalNY = $("#txtOperationalNY").val();
+					    var OperationalNY;
+					   
+					    if($("#txtOperationalNY")[0].checked)
+				    		{
+				    			OperationalNY='Y';
+				    		} 
+					    else
+					    	{
+					    		OperationalNY='N';
+					    	}
+					    
+					    
+					    //var OperationalNY2=  !($('#txtOperationalNY').is(':checked'));   //false
+					    
+					  
 						funAddRow(facilityCode,facilityName,OperationalNY);
 	            	}
 			}	
@@ -160,7 +174,7 @@ margin:0px;}
 		{
 			$("#txtFacilityCode").val('');
 			$("#txtFacilityName").val('');
-			$("#txtOperationalNY").val('');
+			//$("#txtOperationalNY").val('');
 		}
 		
 		function funRemoveProductRows()
@@ -278,7 +292,15 @@ margin:0px;}
 					        	$("#txtFacilityCode").val(code);
 					        	mastercode=$("#txtFacilityCode").val(code);
 					        	$("#txtFacilityName").val(response.strFacilityName);
-					        	$("#txtOperationalNY").val(response.strOperationalNY);
+					        	if(response.strOperationalNY=='Y')
+					        	{
+					        		$('#txtOperationalNY').prop('checked', true);
+					        	}
+					        	else
+					        	{
+					        		$('#txtOperationalNY').prop('checked', false);
+					        		
+					        	}
 					        	
 				        	}
 						},
@@ -365,7 +387,7 @@ margin:0px;}
 										</div>
 					
 										<div class="col-md-6"><s:input id="txtMCName" name="txtMCName" path="strCatName" required="true"
-									 		placeholder="Member Category Code" type="text"></s:input><s:errors path=""></s:errors>
+									 		placeholder="Enter Member Category Name" type="text"></s:input><s:errors path=""></s:errors>
 										</div>
 									</div>
 							</div>
@@ -374,7 +396,7 @@ margin:0px;}
 									<div class="col-md-6">
 										<label>Member Group Category Code:</label>
 											<s:input id="txtGroupCategoryCode" path="strGroupCategoryCode" 
-							 					placeholder="Member Group Category Code" type="text" ondblclick="" readonly="true"></s:input>
+							 					placeholder="Enter Member Group Category Code" type="text" ondblclick="" readonly="true"></s:input>
 									</div>
 									<div class="col-md-6">
 										<label>Tenure:</label>
@@ -440,17 +462,23 @@ margin:0px;}
 					
 										<div class="col-md-6">
 										<label>Facility Name</label><br><s:input id="txtFacilityName" path="strFacilityName" required="" readonly="true"
-									 		placeholder="Facility Name" type="text"></s:input><s:errors path=""></s:errors>
+									 		placeholder="Enter Facility Name" type="text"></s:input><s:errors path=""></s:errors>
 										</div>
 									</div>
 							</div>
 							<div class="col-md-6">
 									<div class="row">
-										<div class="col-md-6">
+									
+									<div class="col-md-4">
+										<label>Operational:</label><br>
+										<s:checkbox id="txtOperationalNY" path="strOperationalNY" value="Y" checked="true" />
+									</div>
+									
+										<%-- <div class="col-md-6">
 											<label>Operational</label>
 										<s:input id="txtOperationalNY" 
 											placeholder="Operational" type="text" path="strOperationalNY" readonly="true"></s:input>
-										</div>
+										</div> --%>
 					
 										<div class="col-md-6">
 										<div class="center">

@@ -192,13 +192,13 @@
 					</div>
 					<div class="col-md-3">
 						<label>Dependent Name:</label><br>
-						<s:input type="text" id="txtDependentName" placeholder="Dependent Name" name="txtDependentName" path="strDepName" required="true" readonly="true"
+						<s:input type="text" id="txtDependentName" placeholder="Enter Dependent Name" name="txtDependentName" path="strDepName" required="true" readonly="true"
 							/><s:errors path=""></s:errors>
 					</div>
 					
 					<div class="col-md-3">
 						<label>Change Dependent Code:</label><br>
-						<s:input type="text" id="txtChangeDependentCode"  placeholder="Change Dependent Code" path="strCDepCode" ondblclick="" required="true"/>
+						<s:input type="text" id="txtChangeDependentCode"  placeholder="Select Change Dependent Code" path="strCDepCode" ondblclick="" required="true"/>
 					</div>
 					<div class="col-md-3">
 						<label>Change Dependent Name:</label><br>

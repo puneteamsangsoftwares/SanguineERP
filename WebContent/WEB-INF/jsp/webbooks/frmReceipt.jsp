@@ -1383,7 +1383,7 @@
 		    </div>
 			
 			<div class="col-md-2"><label>Voucher Date</label>
-				<s:input colspan="3" type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" />
+				<s:input colspan="3" type="text" id="txtVouchDate" path="dteVouchDate" style="width:75%" cssClass="calenderTextBox" />
 			</div>
 			<div class="col-md-2"><label>Amt</label> <br>
 				<s:input  type="number" step="0.0001" id="txtAmt" path="dblAmt" class="decimal-places numberField" onChange="funFillAmount()" value="0.00"/>
@@ -1415,7 +1415,7 @@
 		     </div>
 			   
 			<div class="col-md-2"><label id="lblChequeDate">Cheque Date</label>
-			       <s:input colspan="3" type="text" id="txtChequeDate" path="dteChequeDate" cssClass="calenderTextBox" />
+			       <s:input colspan="3" type="text" id="txtChequeDate" path="dteChequeDate" style="width:75%" cssClass="calenderTextBox" />
 			 </div>
 			 <div class="col-md-2"></div>
 			<div class="col-md-2"><label>Drawn On</label>
@@ -1426,7 +1426,7 @@
 			</div>
 			
 		    <div class="col-md-2"><label>Branch</label>
-			         <s:input  type="text" id="txtBranch" path="strBranch" cssClass="BoxW124px" />
+			         <s:input  type="text" id="txtBranch" path="strBranch"/>
 			</div>
 				
 			<div class="col-md-2"><label>Received From</label>

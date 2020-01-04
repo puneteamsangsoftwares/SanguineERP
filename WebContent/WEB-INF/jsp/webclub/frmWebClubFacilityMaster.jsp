@@ -78,11 +78,13 @@ function funSetFacilityData(code){
 	        
 	        	if(response.strOperationalNY=='Y')
 	        	{
-	        		$("#chkOperationalNY").attr('checked', true);
+	        		//$("#chkOperationalNY").attr('checked', true);
+	        		$('#chkOperationalNY').prop('checked', true);
 	        	}
 	        	else
 	        	{
-	        		$("#chkOperationalNY").attr('checked', false);
+	        		//$("#chkOperationalNY").attr('checked', false);
+	        		$('#chkOperationalNY').prop('checked', false);
 	        	}
 				
 	        	
@@ -129,7 +131,7 @@ function funSetFacilityData(code){
 					</div>
 					<div class="col-md-4">
 						<label>Facility Name:</label><br>
-						<s:input type="text" id="txtFacilityName" placeholder="Facility Name" path="strFacilityName"  required="true" ondblclick="funHelp('WCFacilityMaster')" />
+						<s:input type="text" id="txtFacilityName" placeholder="Enter Facility Name" path="strFacilityName"  required="true" ondblclick="funHelp('WCFacilityMaster')" />
 					</div>
 					<div class="col-md-4">
 						<label>Operational:</label><br>

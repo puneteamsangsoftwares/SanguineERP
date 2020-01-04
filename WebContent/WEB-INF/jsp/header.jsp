@@ -501,12 +501,12 @@ $(function()
         				</div>
         				<div class="right-menu" id="page_top_banner">
           					<ul>
-          						<li><a href="#" class="mdi  mdi-paperclip menu-link" id="baseUrl" title="Attched document"></a></li>
+          					 	<li><a href="frmHome.html" class="mdi mdi-home-outline menu-link"  title="HOME"></a></li>
+					           	<li><a href="#" class="mdi  mdi-paperclip menu-link" id="baseUrl" title="Attched document"></a></li>
 					            <li><a href="#" class="mdi mdi-information-outline menu-link" id="notification" title="Notification"></a></li>
 					            <li><a href="#" class="mdi mdi-crosshairs-question menu-link"onclick="funGetFormName()" title="HELP"></a></li>
-					            <li><a href="frmHome.html" class="mdi mdi-home-outline menu-link"  title="HOME"></a></li>
-					            <li><a href="frmPropertySelection.html" class="mdi mdi-web menu-link" title="Change Property"></a></li>
-					            <li><a href="frmChangeModuleSelection.html" class="mdi mdi-bank-outline menu-link" title="Change Module"></a></li>
+					            <li><a href="frmPropertySelection.html" class="mdi mdi-tumblr-reblog menu-link" title="Change Property"></a></li>
+					            <li><a href="frmChangeModuleSelection.html" class="mdi mdi-rotate-left-variant menu-link" title="Change Module"></a></li>
 					            <li><a href="logout.html" class="mdi mdi-power-standby menu-link" title="LOGOUT"></a></li>
 
 					         </ul>

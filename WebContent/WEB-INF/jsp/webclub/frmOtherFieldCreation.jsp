@@ -423,8 +423,8 @@
 											<s:select id="cmbDataType" name="cmbDataType" path="strDataType" onclick="funCheckDataType()">
 														 <option value="VARCHAR">VARCHAR</option>
 														 <option value="DATE">DATE</option>
-														 <option value="TIME">TIME</option>
-														 <option value="INT">INT</option>
+														 <!-- <option value="TIME">TIME</option>
+														 <option value="INT">INT</option> -->
 														 <option value="BIGINT">BIGINT</option>
 														 <option value="DECIMAL">DECIMAL</option>
 														 <!-- <option value="BLOB">BLOB</option>	 -->										 												 

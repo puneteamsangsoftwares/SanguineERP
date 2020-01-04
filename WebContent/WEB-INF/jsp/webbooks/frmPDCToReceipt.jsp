@@ -295,14 +295,13 @@
 		{
 		 	flag=true;
 		 	var table = document.getElementById("tblDetails");
-		    var rowRecieved = table.rows.length;		    	
-		    	/* if($('#txtMemCode').val()=='')
-		    		{
-		    			flag=false;
-		    			alert("Please Enter Data");
-		    		} */
-		 	return flag;
-			
+		    var rowRecieved = table.rows.length;
+		    if(rowRecieved==0)
+		    	{
+		    		alert("Please Enter Data ");
+		    		flag=false;
+		    	}
+		 	return flag;		
 		}	
 	 
 	 
@@ -414,36 +413,38 @@
 
 </head>
 <body>
-	<div class="container-fuild">
+	<div class="container">
 		<label id="formHeading">PDC To Receipt</label>
 			<s:form name="PDCToReceipt" method="POST" action="savePDCToReceipt.html">
 					<table class="masterTable">
-						<table style="border:0px solid black; width: 100%; height: 70%; margin:0 auto; overflow-y: hidden;">
+						<table style="width: 100%; height: 70%; margin:0 auto; overflow-y: hidden;">
 							<tr>
 								<td>
 									<div id="tab_container" style="height: auto;">
 										<div class="transTable" style="padding:10px; overflow-x: hidden; overflow-y: hidden;">
-												<div class="row">
-													<div class="col-md-3">
-													<label>From Date:</label><s:input id="txtFromDate"
-														 type="text" cssClass="calenderTextBox" path="dteFromDate"></s:input> <s:errors path="dteFromDate"></s:errors>
-													</div>
-													<div class="col-md-3">
-													
-													<label id="lblCityName">Cheque Type:</label><select id="cmbChequeType" type="text" path="strChequeType" >
+											<div class="row">
+												<div class="col-md-3">
+													<div class="row">
+													  <div class="col-md-6">
+													   <label>From Date:</label><s:input id="txtFromDate"
+														 type="text" cssClass="calenderTextBox" style="width:100%" path="dteFromDate"></s:input> <s:errors path="dteFromDate"></s:errors>
+													   </div>
+													   <div class="col-md-6">
+													    <label>To Date:</label><s:input id="txtToDate"  cssClass="calenderTextBox"
+														 type="text" style="width:100%" path="dteToDate" /><s:errors path="dteToDate"></s:errors>
+													   </div>
+													 </div>
+												 </div>
+												 
+												<div class="col-md-2"><label id="lblCityName">Cheque Type:</label>
+													<select id="cmbChequeType" type="text" style="width:70%" path="strChequeType" >
 														<option selected="selected">Received</option>
 														<option>Issued</option>
 													</select>
-													</div>
-													
-													<div class="col-md-3">
-													<label>To Date:</label><s:input id="txtToDate"  cssClass="calenderTextBox"
-														type="text" path="dteToDate" /><s:errors path="dteToDate"></s:errors>
-													</div>
-													
 												</div>
+											</div>
 												<div class="center">
-													<a href="#"><button class="btn btn-primary center-block" type="text" 
+													<a href="#"><button class="btn btn-primary center-block" type="text" style="margin-right: 66%;"
 									  					class="form_button" id="btnExcecute" onclick="return btnExecute()">Execute</button></a>
 													<!-- <a href="#"><button class="btn btn-primary center-block" type="text"  
 						  								class="form_button" id="btnExporte" onclick="return btnExport()">Export</button></a> -->
@@ -489,12 +490,13 @@
 					</tr>
 				</table>	
 			</table>
-		<label >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+			
+		<label style="margin-left:64%" >Total</label>
 						<label id="lbltotal"></label>
 		 <p align="center">
-				<input type="submit" value="Submit" id="btnSubmit" onclick="return funValidate();" class="form_button" />
-				&nbsp; &nbsp; &nbsp; 
-				<input type="reset" value="Reset"
+				<input type="submit" value="Submit" id="btnSubmit" onclick="return funValidate();" class="btn btn-primary center-block" class="form_button" />
+				&nbsp;
+				<input type="reset" value="Reset" class="btn btn-primary center-block"
 					class="form_button" onclick="funResetField()" />
 			</p> 
 			<br>

@@ -3775,9 +3775,9 @@ public class clsSearchFormController {
 			break;
 		}
 		case "WCFacilityMaster": {
-			columnNames = "strFacilityCode,strFacilityName";
+			columnNames = "strFacilityCode,strFacilityName,strOperationalNY";
 			tableName = " clsWebClubFacilityMasterModel where strClientCode='" + clientCode + "' ";
-			listColumnNames = "Facility Code,Facility Name ";
+			listColumnNames = "Facility Code,Facility Name ,Operational";
 			idColumnName = "strFacilityCode";
 			criteria = getCriteriaQuery(columnNames, search_with, tableName);
 			searchFormTitle = "Facility Master";

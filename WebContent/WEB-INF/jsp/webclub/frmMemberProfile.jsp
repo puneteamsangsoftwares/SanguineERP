@@ -200,6 +200,7 @@
         function funResetFields()
 		{
 			location.reload(true); 
+			return false; 
 		}
         
 
@@ -2021,9 +2022,7 @@ function funSetBillingRegionCode(code){
 	    else
 	    {
 	    	row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\"  id=\"txtTypeName."+(rowCount)+"\" value=''>";
-	    }
-	    
-	    
+	    }	    
 	}
 	
 	
@@ -2042,46 +2041,13 @@ function funSetBillingRegionCode(code){
 
 	
 		function funFillNameOnCard()
-		{			
-		$("#txtNameOnCard").val($("#txtFirstName").val()+" "+$("#txtMiddleName").val()+" "+$("#txtLastName").val());
-		var demo=$("#txtFirstName").val()+" "+$("#txtMiddleName").val()+" "+$("#txtLastName").val();
-		//alert(demo);
+		{		
+			if($("#txtFirstName").val().trim().length!=0||$("#txtMiddleName").val().trim().length!=0||$("#txtLastName").val().trim().length!=0)
+				{
+					$("#txtNameOnCard").val($("#txtFirstName").val()+" "+$("#txtMiddleName").val()+" "+$("#txtLastName").val());
+				}
 		}
-		
-		/* 
-		$(function () {
-			  $('#txtLastName').click(function () {
-			    var $input = $('<input/>').attr('type', 'text').addClass('detectTab').appendTo('#container');
-			    $('<div></div>').appendTo('#txtLastName');
-			    funFillNameOnCard();
-			  });
-
-			  $(document).on('keydown', 'input.detectTab', function(e) { 
-			    var keyCode = e.keyCode || e.which; 
-
-			    if (keyCode == 9) { 
-			      e.preventDefault(); 
-			    // call custom function here
-			      var $div = $(this).next('div');
-			      $div.html('tab pressed...');
-			      setTimeout(function () { $div.html(''); }, 2000 );
-			      funFillNameOnCard();
-			    } 
-			  });
-
-			}); */
-		
-		
-		
-		
-		
-		
-		
-		
-		$("#txtLastName").on('keydown', '#txtNameOnCard', function(e) { 
-			  
-			 
-			});
+				
 	
 			function funDeleteTableAllRows()
 			{
@@ -2911,7 +2877,7 @@ function funSetBillingRegionCode(code){
   					<div class="row" >
   					<div class="col-md-4"><label>Member Code</label><br><s:input id="txtMemberCode" type="text" 
 									ondblclick="funHelp('WCmemProfileCustomer')" cssClass="searchTextBox"
-								 	 class="form-control" path="strMemberCode" ></s:input><s:input id="txtDebtorCode" type="hidden" path="strDebtorCode" ></s:input></div>
+								 	 class="form-control" placeholder="Enter Member Code" path="strMemberCode" ></s:input><s:input id="txtDebtorCode" type="hidden" path="strDebtorCode" ></s:input></div>
 					<div class="col-md-4"><label>Prefix Code</label><br><s:select id="cmbPrefixCode" path="strPrefixCode" name="cmbPrefixCode">
 													 <option value="Mr">Mr</option>
 									 				 <option value="Mrs">Mrs</option>
@@ -2920,13 +2886,13 @@ function funSetBillingRegionCode(code){
 						<%-- <s:input id="txtPrefixCode" ondblclick=""  cssClass="searchTextBox" type="search" path="strPrefixCode" readonly="true"></s:input> --%></div>
 					</div>
 					<div class="row" >
-					<div class="col-md-4"><label>First  Name</label><br><s:input id="txtFirstName" path="strFirstName"  type="text"></s:input></div>
-					<div class="col-md-4"><label>Middle  Name</label><br><s:input id="txtMiddleName" path="strMiddleName" type="text"></s:input></div>
-					<div class="col-md-4"><label>Last  Name</label><br><s:input id="txtLastName" path="strLastName" type="text"></s:input></div>
+					<div class="col-md-4"><label>First  Name</label><br><s:input id="txtFirstName" path="strFirstName"  placeholder="Enter First Name " type="text"></s:input></div>
+					<div class="col-md-4"><label>Middle  Name</label><br><s:input id="txtMiddleName" path="strMiddleName" placeholder="Enter Middle Name " type="text"></s:input></div>
+					<div class="col-md-4"><label>Last  Name</label><br><s:input id="txtLastName" path="strLastName" placeholder="Enter Last Name " type="text"></s:input></div>
 					</div>
 					
 					<div class="row" >
-					<div class="col-md-4"><label>Name On Card</label><br><s:input id="txtNameOnCard" path="strNameOnCard" onclick="funFillNameOnCard()" type="text"></s:input></div>
+					<div class="col-md-4"><label>Name On Card</label><br><s:input id="txtNameOnCard" path="strNameOnCard" onclick="funFillNameOnCard()" placeholder="Enter Name On Card " type="text"></s:input></div>
 					</div>
 				</div>
 				<div class="col-md-3">
@@ -3155,7 +3121,7 @@ function funSetBillingRegionCode(code){
 				
 				
 				<div class="col-md-6">
-					<div class="row"><div class="col-md-6"><label>Profession</label><br><s:input id="txtProfessionName" path="" ondblclick="funHelp('WCProfessionMaster')" cssClass="searchTextBox" readonly="true" cssStyle="width: 30%%;" type="text"></s:input></div>
+					<div class="row"><div class="col-md-6"><label>Profession</label><br><s:input id="txtProfessionName" path="" ondblclick="funHelp('WCProfessionMaster')" cssClass="searchTextBox" placeholder="Select Profession Code" readonly="true" cssStyle="width: 30%%;" type="text"></s:input></div>
 																						<s:input id="txtProfessionCode"  type="hidden" path="strProfessionCode" ></s:input>
 									<div class="col-md-6"><label>Sex</label><br><s:select id="cmbGender" name="cmbGender" path="strGender">
 										 <option value="M">Male</option>
@@ -3187,18 +3153,18 @@ function funSetBillingRegionCode(code){
 				<div class="row"><div class="col-md-6"><label>Spouse Code</label><br><s:input id="txtSpouseCode"
 									ondblclick="" readonly="true"
 									type="text" path="strSpouseCode" ></s:input></div>
-								   <div class="col-md-6"><label>First Name</label><br><s:input id="txtSpouseFirstName" path="strSpouseFirstName" 
+								   <div class="col-md-6"><label>First Name</label><br><s:input id="txtSpouseFirstName" path="strSpouseFirstName"  placeholder="Enter First Name"
 									type="text"></s:input></div></div></div>
 									
 			<div class="col-md-6">						
-				<div class="row"><div class="col-md-6"><label>Middle Name</label><br><s:input id="txtSpouseMiddleName" path="strSpouseMiddleName" 
+				<div class="row"><div class="col-md-6"><label>Middle Name</label><br><s:input id="txtSpouseMiddleName" path="strSpouseMiddleName" placeholder="Enter Middle Name"
 									type="text"></s:input></div>
-									<div class="col-md-6"><label>Last Name</label><br><s:input id="txtSpouseLastName" path="strSpouseLastName" 
+									<div class="col-md-6"><label>Last Name</label><br><s:input id="txtSpouseLastName" path="strSpouseLastName" placeholder="Enter Last Name"
 									cssStyle="width: 56%;" type="text"></s:input></div></div></div>
 								
 									
 			<div class="col-md-6"><label>Profession Code</label><br>
-					<div class="row"><div class="col-md-6"><s:input id="txtSpouseProfessionCode" readonly="true"
+					<div class="row"><div class="col-md-6"><s:input id="txtSpouseProfessionCode" cssClass="searchTextBox" readonly="true" placeholder="Select Profession Code" 
 									ondblclick="funHelp('WCSpouseProfessionMaster')" 
 									type="text" path="strSpouseProfessionCode" ></s:input></div>
 									<div class="col-md-6"><s:input id="txtSpouseProfessionName" path="" readonly="true"
@@ -3206,16 +3172,16 @@ function funSetBillingRegionCode(code){
 									
 			<div class="col-md-6">						
 				<div class="row"><div class="col-md-6"><label>Date Of Birth</label><br><s:input id="txtdtSpouseDateofBirth" name="txtdtSpouseDateofBirth" cssClass="calenderTextBox" path="dteSpouseDateofBirth"/></div>
-								<div class="col-md-6"><label>Mobile No</label><br><s:input id="txtSpouseResidentMobileNo" path="strSpouseResidentMobileNo"  
+								<div class="col-md-6"><label>Mobile No</label><br><s:input id="txtSpouseResidentMobileNo" path="strSpouseResidentMobileNo"  placeholder="Enter Mobile No" 
 													class="decimal-places numberField" type="text"></s:input></div></div></div>
 	
 	        <div class="col-md-6">
-				<div class="row"><div class="col-md-6"><label>Email ID</label><br><s:input id="txtSpouseResidentEmailID" path="strSpouseResidentEmailID" 
+				<div class="row"><div class="col-md-6"><label>Email ID</label><br><s:input id="txtSpouseResidentEmailID" path="strSpouseResidentEmailID" placeholder="Enter Email ID" 
 						           type="text"></s:input></div>
 				               <div class="col-md-6"><label>Anniversary Date</label><br><s:input id="txtdtAnniversary" name="txtdtAnniversary" path="dteAnniversary" /></div></div></div>
 			
 			<div class="col-md-6"><label>Company Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtSpouseCompanyCode"
+				<div class="row"><div class="col-md-6"><s:input id="txtSpouseCompanyCode" placeholder="Company Code" 
 									ondblclick="" 
 									 type="text" path="strSpouseCompanyCode" ></s:input></div>
 								 <div class="col-md-6"><s:input id="txtSpouseCompanyName" path=""  
@@ -3243,10 +3209,10 @@ function funSetBillingRegionCode(code){
 			<div class="row">
   				
   				<div class="col-md-6"><label>Membership Category Code</label><br>
-  					<div class="row"><div class="col-md-6"><s:input id="txtMSCategoryCode"
+  					<div class="row"><div class="col-md-6"><s:input id="txtMSCategoryCode" placeholder="Select Membership Category Code" 
 									ondblclick="funHelp('WCCatMaster')" cssClass="searchTextBox" readonly="true"
 									type="text" path="strCategoryCode"  ></s:input></div>
-								 <div class="col-md-6"><s:input id="txtMemberName" path="" readonly="true"
+								 <div class="col-md-6"><s:input id="txtMemberName" path="" readonly="true"  placeholder="Membership Category Name" 
 										type="text"></s:input></div></div></div>
 				
 				<%-- <div class="col-md-6"><label>Proposer Code</label><br>
@@ -3278,24 +3244,24 @@ function funSetBillingRegionCode(code){
 											 type="text"></s:input></div></div></div>--%>
 											 
 			<div class="col-md-6"><label>Reason Code</label><br>
-					<div class="row"><div class="col-md-6"><s:input id="txtBlockedReasonCode"
-									ondblclick="funHelp('WCBlockReasonMaster')" cssClass="searchTextBox" path="strBlockedreasonCode"
+					<div class="row"><div class="col-md-6"><s:input id="txtBlockedReasonCode" placeholder="Select Reason Code" 
+									ondblclick="funHelp('WCBlockReasonMaster')" cssClass="searchTextBox" path="strBlockedreasonCode" 
 									type="text"   readonly="true" ></s:input></div>
-									<div class="col-md-6"><input id="txtBlockedReasonName" readonly="true"
+									<div class="col-md-6"><input id="txtBlockedReasonName" readonly="true" placeholder="Reason Name" 
 									type="text"></input></div></div></div>
 		    
 		    <div class="col-md-6"><label>Qualification</label><br>
-					<div class="row"><div class="col-md-6"><s:input id="txtQualification"
+					<div class="row"><div class="col-md-6"><s:input id="txtQualification"  placeholder="Select Qualification" 
 									ondblclick="funHelp('WCEducationMaster')" cssClass="searchTextBox" readonly="true" 
 									type="text" path="strQualification" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtQualificationName" path="" readonly="true"
+									<div class="col-md-6"><s:input id="txtQualificationName" path="" readonly="true" placeholder="Qualification Name" 
 									type="text"></s:input></div></div></div>
 			
 			<div class="col-md-6"><label>Designation</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtDesignationCode"
+				<div class="row"><div class="col-md-6"><s:input id="txtDesignationCode" placeholder="Select Designation"
 									ondblclick="funHelp('WCDesignationMaster')"  cssClass="searchTextBox"
 									type="text" path="strDesignationCode" readonly="true" ></s:input></div>
-							      <div class="col-md-6"><s:input id="txtDesignationName" path="" 
+							      <div class="col-md-6"><s:input id="txtDesignationName" path="" placeholder="Designation Name"
 												type="text"></s:input></div></div></div>
 			
 			<div class="col-md-6">
@@ -3317,22 +3283,22 @@ function funSetBillingRegionCode(code){
 			<div class="col-md-6">
 				<div class="row"><div class="col-md-6"><label>Subscription Fee</label><br><s:input id="txtdblSubscriptionFee" path="dblSubscriptionFee" 
 									class="decimal-places numberField" type="text"></s:input></div>
-							    <div class="col-md-6"><label>Pan Number</label><br><s:input id="txtPanNumber" path="strPanNumber" 
+							    <div class="col-md-6"><label>Pan Number</label><br><s:input id="txtPanNumber" path="strPanNumber" placeholder="Enter Pan Number" 
 												type="text"></s:input></div></div></div>
 												
 												
 			<div class="col-md-6">
 						<div class="row">					
-								<div class="col-md-6"><label>Aadhar Card No</label><br><s:input id="txtAadharCardNo" path="strAadharCardNo" 
+								<div class="col-md-6"><label>Aadhar Card No</label><br><s:input id="txtAadharCardNo" path="strAadharCardNo"  placeholder="Enter Aadhar Card No" 
 									class="decimal-places numberField" type="text"></s:input></div>
-							    <div class="col-md-6"><label>Voter Id Card No</label><br><s:input id="txtVoterIdNo" path="strVoterIdNo" 
+							    <div class="col-md-6"><label>Voter Id Card No</label><br><s:input id="txtVoterIdNo" path="strVoterIdNo"  placeholder="Voter Id Card No"
 												type="text"></s:input></div>
 							
 						</div>	
 			</div>
 				
 			<div class="col-md-6">
-				<div class="row"><div class="col-md-6"><label>Passpor No</label><br><s:input id="txtPassportNo" path="strPassportNo" 
+				<div class="row"><div class="col-md-6"><label>Passpor No</label><br><s:input id="txtPassportNo" path="strPassportNo" placeholder="Passpor No"
 												type="text"></s:input></div>
 				                  <div class="col-md-6"><label>Locker Detail</label><br><s:select id="txtLocker" name="txtLocker" path="strLocker" >
 																 <option value="N">No</option>
@@ -3389,11 +3355,11 @@ function funSetBillingRegionCode(code){
 				        		<div class="row">
 				        			<div class="col-md-6">
 				        				<label>Bank Code</label><br>
-				        				<s:input id="txtBankName" path="" ondblclick="funHelp('WCBankCode')" cssClass="searchTextBox" readonly="true"  type="text"></s:input>
+				        				<s:input id="txtBankName" path=""  placeholder="Select Bank Code" ondblclick="funHelp('WCBankCode')" cssClass="searchTextBox" readonly="true" type="text"></s:input>
 				        				<s:input id="txtBankCode" path="strBankCode" type="hidden"></s:input>
 									</div>
 								    <div class="col-md-6">
-								    <label>IFSC Code</label><br><s:input id="txtIfscCOde" path="strIfscCOde" 
+								    <label>IFSC Code</label><br><s:input id="txtIfscCOde" path="strIfscCOde" placeholder="Enter IFSC Code"
 										type="text"></s:input>
 									</div>
 								</div>
@@ -3402,11 +3368,11 @@ function funSetBillingRegionCode(code){
 					    		<div class="row">
 					    		 	<div class="col-md-6">
 					    		 		<label>Account No</label><br>
-					    		 			<s:input id="txtAccNo" name="txtdtFromDate" path="strAccNo" type="text"/>
+					    		 			<s:input id="txtAccNo" name="txtdtFromDate" placeholder="Enter Account No" path="strAccNo" type="text"/>
 					    		 	</div>
 			                         <div class="col-md-6">
 			                             <label>Branch Name</label><br>
-			                               <s:input id="txtBranchName" readonly="true" name="txtdtFromDate" path="strBranchName"/>
+			                               <s:input id="txtBranchName" readonly="true" placeholder="Branch Name" name="txtdtFromDate" path="strBranchName"/>
 			                         </div>
 			                    </div>
 			               </div>  
@@ -3603,10 +3569,18 @@ function funSetBillingRegionCode(code){
 			</div>
 			</div></div>
 			<div id="paraSubmit" class="center">
-					<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidate()" 
-						class="form_button">Submit</button></a>
-					<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetField()"
-						class="form_button">Reset</button></a>
+					<a href="#"><button class="btn btn-primary center-block" style="margin-top: 5px;width:85px;height: 33px;"  value="Submit" onclick="return funValidate()" 
+						class="form_button">Submit</button></a>&nbsp;
+					 <input type="button" value="Reset" style="margin-top: 7px;width:88px;height: 33px;" class="btn btn-primary center-block" onclick="funResetFields()"/>
+			
+				
+		<!-- 		<input type="submit" value="Submit" onclick="return funCallFormAction('submit',this)" class="form_button"/>
+			 <input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>
+				 -->
+				
+				
+				
+				
 				
 			</div > 
 	</s:form> 

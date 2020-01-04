@@ -329,7 +329,7 @@
 	        
 	    }
 	 
-	 function funResetFields()
+	 function funResetField()
 		{
 			location.reload(true); 
 		}	 

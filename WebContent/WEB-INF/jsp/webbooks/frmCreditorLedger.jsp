@@ -965,7 +965,7 @@
 					<div class="col-md-3">
 						<div class="row">
 							<div class="col-md-6">
-							<label>Show Narration</label>
+							<label>Show Narration</label><br>
 								<input type="checkbox" id="chkShowNarration" />
 							</div>
 							<div class="col-md-6"></div>

@@ -99,13 +99,13 @@ function funHelp(transactionName)
 					</s:select></div>
           
              <div class="col-md-2"><label>Property</label>
-				    <s:select id="cmbDocType" path="strPropertyCode" cssClass="BoxW124px">
+				    <s:select id="cmbDocType" path="strPropertyCode" style="width:80%">
 						<s:options items="${listProperty}"/>
 					 </s:select></div>
 		
 		</div>
-		<br>
-		<p align="right" style="margin-right:62%">
+		
+		<p align="right" style="margin-right:65%">
 			<input type="submit" value="Submit" class="btn btn-primary center-block"
 				onclick="return funCallFormAction('submit',this)"
 				class="form_button" /> &nbsp; <a

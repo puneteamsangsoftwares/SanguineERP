@@ -10,5 +10,6 @@ import com.sanguine.webclub.model.clsWebClubPDCModel;
 public interface clsWebClubOtherFieldCreationService{
 	
 	public void funExecuteQuery(String sql);
+	public List funExecuteList(String sql);
 
 }

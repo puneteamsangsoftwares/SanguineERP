@@ -98,12 +98,12 @@ function funHelp(transactionName)
                                  
 			   <div class="col-md-2"><label>Property</label></td>
 									<td ><s:select id="cmbDocType" path="strPropertyCode"
-											cssClass="BoxW124px">
+											style="width:80%">
 											<s:options items="${listProperty}"/>
 										</s:select></div>
                </div>
             <br>   
-		<p align="center" style="margin-right:36%">
+		<p align="center" style="margin-right:41%">
 			<input type="submit" value="Submit" class="btn btn-primary center-block"
 				onclick="return funCallFormAction('submit',this)"
 				class="form_button" />  &nbsp; <a

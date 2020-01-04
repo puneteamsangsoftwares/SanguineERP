@@ -1,5 +1,7 @@
 package com.sanguine.webclub.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,4 +20,10 @@ public class clsWebClubOtherFieldCreationServiceImpl implements clsWebClubOtherF
 	public void funExecuteQuery(String sql){
 		objWebClubOtherFieldCreationDao.funExecuteQuery(sql);
 	}
+
+	@Override
+	public List funExecuteList(String sql){
+		return objWebClubOtherFieldCreationDao.funExecuteList(sql);
+	}
+
 }

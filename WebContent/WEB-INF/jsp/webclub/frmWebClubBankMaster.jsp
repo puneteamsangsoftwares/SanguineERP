@@ -155,7 +155,7 @@
 				                   		cssClass="searchTextBox"></s:input>
 									</div>
 									<div class="col-md-6">
-										<s:input id="txtBankName" path="strBankName" required="true" type="text" placeholder="Locker Code"></s:input>
+										<s:input id="txtBankName" path="strBankName" required="true" type="text" placeholder="Bank Name"></s:input>
 									</div>
 								</div>
 						</div>
