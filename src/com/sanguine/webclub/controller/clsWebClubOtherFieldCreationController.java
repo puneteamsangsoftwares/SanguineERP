@@ -74,7 +74,6 @@ public class clsWebClubOtherFieldCreationController{
 			String WebCLUBDB=req.getSession().getAttribute("WebCLUBDB").toString();					
 			try{
 				sbSql.append("SELECT * FROM "+WebCLUBDB+".tblotherdtl ; ");
-				//objWebClubOtherFieldCreationService.funExecuteQuery(sbSql.toString());
 				 list =objWebClubOtherFieldCreationService.funExecuteList(sbSql.toString());
 			}
 			catch(Exception e)
@@ -107,27 +106,7 @@ public class clsWebClubOtherFieldCreationController{
 							clsWebClubOtherFieldCreationBean obj = objBean.getListTableCreation().get(i);
 							if(obj.getStrFieldName()!=null)
 							{
-								/*if(k==0)
-								{
-									if(obj.getStrDataType().equalsIgnoreCase("DATE")||obj.getStrDataType().equalsIgnoreCase("TIME")||obj.getStrDataType().equalsIgnoreCase("DATETIME")||obj.getStrDataType().equalsIgnoreCase("BLOB")||obj.getStrDataType().equalsIgnoreCase("TEXT"))
-									{
-										sbSql.append(" `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+" ");
-									}	
-									else if(obj.getStrDataType().equalsIgnoreCase("DECIMAL"))
-									{
-										sbSql.append(" `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+",2) ");
-									}
-									else if(obj.getStrDataType().equalsIgnoreCase("VARCHAR"))
-									{
-										sbSql.append(" `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") NOT NULL DEFAULT ''");
-									}
-									else
-									{
-										sbSql.append(" `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") ");
-									}
-									
-								}
-								else*/ if(k>=1&&i==objBean.getListTableCreation().size()-1)
+								if(k>=1&&i==objBean.getListTableCreation().size()-1)
 								{
 									if(obj.getStrDataType().equalsIgnoreCase("DATE")||obj.getStrDataType().equalsIgnoreCase("TIME")||obj.getStrDataType().equalsIgnoreCase("DATETIME")||obj.getStrDataType().equalsIgnoreCase("BLOB")||obj.getStrDataType().equalsIgnoreCase("TEXT"))
 									{
@@ -179,11 +158,9 @@ public class clsWebClubOtherFieldCreationController{
 			else
 			{
 				sbSql.setLength(0);
-				//sbSql.append("ALTER TABLE `tblotherdtl` ADD COLUMN `DOB` VARCHAR(50) NOT NULL AFTER `INCOME`;");
 				if(!objBean.getListTableCreation().isEmpty())
 				{
 					sbSql.append(" ALTER TABLE `tblotherdtl` ");
-					//Map<String,String> hashMapMemMaster = funDataBaseShrink(sqlMemMaster);
 					 int count=0;
 					 String AfterValue="";
 					 for (Map.Entry<String,List> entry : map.entrySet()){ 
@@ -232,58 +209,9 @@ public class clsWebClubOtherFieldCreationController{
 										{
 											sbSql.append("ADD COLUMN ,`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") AFTER `"+AfterValue+"` ");
 										}
-									 //AfterValue=mapList.get(0).toString();
 								 }
 							}
 					 }
-											 
-					 
-					/* for (Map.Entry<String,List> entry : map.entrySet()){ 
-						 List mapList=entry.getValue(); 						 
-						// ADD COLUMN `Income` VARCHAR(10) NOT NULL DEFAULT '' AFTER `DOB`, ADD COLUMN `Value` VARCHAR(10) NOT NULL DEFAULT '' AFTER `Income`;
-						 
-						 if(count==0)
-						 {
-						    if(mapList.get(1).toString().equalsIgnoreCase("DATE")||mapList.get(1).toString().equalsIgnoreCase("TIME")||mapList.get(1).toString().equalsIgnoreCase("DATETIME")||mapList.get(1).toString().equalsIgnoreCase("BLOB")||mapList.get(1).toString().equalsIgnoreCase("TEXT"))
-							{
-								sbSql.append("ADD COLUMN `"+mapList.get(0).toString()+"` "+mapList.get(1).toString()+" AFTER `DOB` ");
-							}
-							else if(mapList.get(1).toString().equalsIgnoreCase("DECIMAL"))
-							{
-								sbSql.append("ADD COLUMN `"+mapList.get(0).toString()+"` "+mapList.get(1).toString()+"("+mapList.get(2).toString()+",2) AFTER `DOB` ");
-							}
-							else if(mapList.get(1).toString().equalsIgnoreCase("VARCHAR"))
-							{
-								sbSql.append("ADD COLUMN `"+mapList.get(0).toString()+"` "+mapList.get(1).toString()+"("+mapList.get(2).toString()+") NOT NULL DEFAULT '' AFTER `DOB` ");
-							}
-							else
-							{
-								sbSql.append("ADD COLUMN `"+mapList.get(0).toString()+"` "+mapList.get(1).toString()+"("+mapList.get(2).toString()+") AFTER `DOB` ");
-							}
-						    AfterValue=mapList.get(0).toString();
-						    count++;
-						 }
-						 else
-						 {
-							 if(mapList.get(1).toString().equalsIgnoreCase("DATE")||mapList.get(1).toString().equalsIgnoreCase("TIME")||mapList.get(1).toString().equalsIgnoreCase("DATETIME")||mapList.get(1).toString().equalsIgnoreCase("BLOB")||mapList.get(1).toString().equalsIgnoreCase("TEXT"))
-								{
-									sbSql.append(",ADD COLUMN `"+mapList.get(0).toString()+"` "+mapList.get(1).toString()+" AFTER `DOB` ");
-								}
-								else if(mapList.get(1).toString().equalsIgnoreCase("DECIMAL"))
-								{
-									sbSql.append(",ADD COLUMN `"+mapList.get(0).toString()+"` "+mapList.get(1).toString()+"("+mapList.get(2).toString()+",2) AFTER `DOB` ");
-								}
-								else if(mapList.get(1).toString().equalsIgnoreCase("VARCHAR"))
-								{
-									sbSql.append(",ADD COLUMN `"+mapList.get(0).toString()+"` "+mapList.get(1).toString()+"("+mapList.get(2).toString()+") NOT NULL DEFAULT '' AFTER `DOB` ");
-								}
-								else
-								{
-									sbSql.append(",`"+mapList.get(0).toString()+"` "+mapList.get(1).toString()+"("+mapList.get(2).toString()+") AFTER `DOB` ");
-								}
-							 AfterValue=mapList.get(0).toString();
-						 }
-					 }*/
 					objWebClubOtherFieldCreationService.funExecuteQuery(sbSql.toString());
 					req.getSession().setAttribute("success", true);
 					req.getSession().setAttribute("successMessage", "Table tblotherdtl Updated Successfully ");		
@@ -295,65 +223,12 @@ public class clsWebClubOtherFieldCreationController{
 				return new ModelAndView("frmOtherFieldCreation");				
 		}
 	
-	// Assign filed function to set data onto form for edit transaction.
-	/*	@RequestMapping(value = "/loadPDCMemberWiseData", method = RequestMethod.GET)
-		public @ResponseBody List funAssignPDCMemberData(@RequestParam("memCode") String memCode, HttpServletRequest req) {
-			String clientCode = req.getSession().getAttribute("clientCode").toString();
-			clsWebClubOtherFieldCreationBean objModel = new clsWebClubOtherFieldCreationBean();
-			//List list = objWebClubPDCService.funGetWebClubPDC(memCode, clientCode);
-			String sql="SELECT a.strMemCode,a.strChequeNo,a.strDrawnOn,a.strType,a.dblChequeAmt,Date(a.dteChequeDate) FROM tblpdcdtl a WHERE a.strMemCode='"+memCode+"' and a.strClientCode='"+clientCode+"' ";
-			List list=objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
-			if (null == list) {				
-				objModel.setStrMemCode("Invalid Code");
-			}
-			return list;
-		}
-		
-		// Assign filed function to set data onto form for edit transaction.
-				@RequestMapping(value = "/loadWebBookBankCode", method = RequestMethod.GET)
-				public @ResponseBody List funAssignBankCode(@RequestParam("bankCode") String bankCode, HttpServletRequest req) {
-					String clientCode = req.getSession().getAttribute("clientCode").toString();
-					String strWebBooksDB=req.getSession().getAttribute("WebBooksDB").toString();
-					clsWebClubOtherFieldCreationBean objModel = new clsWebClubOtherFieldCreationBean();
-					//List list = objWebClubPDCService.funGetWebClubPDC(memCode, clientCode);
-					String sql="SELECT a.strBankName FROM "+strWebBooksDB+".tblbankmaster a where a.strBankCode='"+bankCode+"' AND a.strClientCode='"+clientCode+"' ";
-					List list=objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
-										
-					return list;
-				}
-		*/
-	
-/*//Convert bean to model function
-	private clsWebClubPDCModel funPrepareModel(clsWebClubOtherFieldCreationBean objBean,String userCode,String clientCode){
-		objGlobal=new clsGlobalFunctions();
-		long lastNo=0;
-		clsWebClubPDCModel objModel = null;
-		
-		for(int i=0;i<objBean.getListPDCDtl().size();i++)
-		{
-			clsWebClubOtherFieldCreationBean obj = objBean.getListPDCDtl().get(i);
-			objModel.setStrMemCode(obj.getStrMemCode());
-			objModel.setStrChequeNo(obj.getStrChequeNo());
-			objModel.setStrDrawnOn(obj.getStrDrawnOn());
-			objModel.setStrType(obj.getStrType());
-			objModel.setDblChequeAmt(obj.getDblChequeAmt());
-			objModel.setDteChequeDate(obj.getDteChequeDate());
-			objModel.setDteDateCreated(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-			objModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-			objModel.setStrUserCreated(userCode);
-			objModel.setStrUserEdited(userCode);
-			objModel.setStrClientCode(clientCode);			
-		}		
-		return objModel;
-
-	}*/
 		public Map funDataBaseShrink(String Sql)
 	    {
 	    	  Map<String,List> hmap = new LinkedHashMap();
 	    	  
 	    	  List<List> list=new ArrayList<List>();
 	    	  objGlobal=new clsGlobalFunctions();
-	    	  //System.out.println("Getting Column Names Example!");
 	    	  Connection con = null;
 	    	  String url = "jdbc:mysql://localhost:3306/";
 	    	  String db = "jdbctutorial";
@@ -369,8 +244,6 @@ public class clsWebClubOtherFieldCreationController{
 	    	  ResultSet rs = (ResultSet) st.executeQuery(Sql);
 	    	  ResultSetMetaData md = (ResultSetMetaData) rs.getMetaData();
 	    	  int col = md.getColumnCount();
-	    	 /* System.out.println("Number of Column : "+ col);
-	    	  System.out.println("Columns Name: ");*/
 	    	  for (int i = 1; i <= col; i++){
 	    	  List listt=new ArrayList<>();
 	    	  String col_name = md.getColumnName(i);
@@ -381,15 +254,11 @@ public class clsWebClubOtherFieldCreationController{
 	    		  listt.add(col_name);
 		    	  listt.add(col_type);
 		    	  listt.add(col_size);
-		    	  //list.add(listt);
 		    	  hmap.put(col_name, listt);
 	    	  }	    	  
-	    	  //list.add(col_name.toString());
-	    	  //System.out.println(col_name);
 	    	  }
 	    	  }
 	    	  catch (SQLException s){
-	    	  //System.out.println("SQL statement is not executed!");
 	    	  }
 	    	  }
 	    	  catch (Exception e){

@@ -312,7 +312,11 @@
 
 			case 'WCmemProfileCustomer' :
 				funSetMemberDataReceived(code);				
-				break;				
+				break;			
+				
+			case 'cashBankAccNo' : 
+				funSetCFCode(code);
+				break;
 						
 			}
 		}
@@ -409,6 +413,68 @@
 	 }
 	 
 	 
+
+	// Function to set CF Code from help	
+		function funSetCFCode(code){
+
+			$.ajax({
+				type : "GET",
+				url : getContextPath()+ "/loadAccontCodeAndName.html?accountCode=" + code,
+				dataType : "json",
+				success : function(response){ 
+					if(response.strAccountCode=='Invalid Code')
+		        	{
+		        		alert("Invalid Account Code");
+		        		$("#txtCFCode").val('');
+		        		$("#lblCFDesc").text('');
+		        		
+		        		$("#lblBankBalAmt").text('');
+		        	}
+		        	else
+		        	{
+		        		$("#txtCFCode").val(response.strAccountCode);
+			        	$("#lblCFDesc").text(response.strAccountName);
+			        	$("#txtBankName").val(response.strAccountName);
+			        	
+//	 		        	$("#txtVouchDate").focus();
+			        	/* $("#txtChequeNo").focus();
+			        	if(response.strType=="Bank")
+			        	{
+			        		$("#cmbType").val("Cheque");
+			        		funSetTypeLabel();
+			        		
+			        	}
+			        	else
+			        	{
+			        		$("#cmbType").val("Cash");
+			        		funSetTypeLabel();
+			        		
+			        		
+			        	} */
+			        	//funSetBankBalanceAmt(response.strType);
+		        	}
+				},
+				error : function(e){
+					if (jqXHR.status === 0) {
+		                alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+		                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.n' + jqXHR.responseText);
+		            }
+				}
+			});
+		}
+
+	 
 </script>
 
 </head>
@@ -425,6 +491,16 @@
 											<div class="row">
 												<div class="col-md-3">
 													<div class="row">
+													
+													<div class="col-md-6"><label>CF Code</label>
+														<s:input colspan="3" type="text" id="txtCFCode" path="strCFCode" cssClass="searchTextBox" ondblclick="funHelp('cashBankAccNo');"/>
+													</div>
+														
+													<div class="col-md-6"><label id="lblCFDesc"></label>
+													    <!--    <label id="lblBankBalAmt"  style="color:blue; font:bold; font-size:115%; background-color:#dcdada94; width: 100%; height: 45%; margin: 20px 0px;"></label> -->
+													</div>
+													<s:input id="txtBankName"  type="hidden"  path="strDebtorName" /><s:errors path="strDebtorName"></s:errors>
+													
 													  <div class="col-md-6">
 													   <label>From Date:</label><s:input id="txtFromDate"
 														 type="text" cssClass="calenderTextBox" style="width:100%" path="dteFromDate"></s:input> <s:errors path="dteFromDate"></s:errors>
