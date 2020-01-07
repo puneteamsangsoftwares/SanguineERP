@@ -71,10 +71,24 @@ public class clsWebClubBusinessSourceMasterController{
 		if(!result.hasErrors()){
 			String clientCode=req.getSession().getAttribute("clientCode").toString();
 			String userCode=req.getSession().getAttribute("usercode").toString();
-			clsWebClubBusinessSourceMasterModel objModel = funPrepareModel(objBean,userCode,clientCode);
-			objWebClubBusinessSourceMasterService.funAddUpdateWebClubBusinessSourceMaster(objModel);
-			req.getSession().setAttribute("success", true);
-			req.getSession().setAttribute("successMessage", "Business Source Code : ".concat(objModel.getStrBusinessSrcCode()));
+			String sqlDuplicateNameCheck = "select a.strBusinessSrcCode from tblbusinesssource a "
+					+ "where a.strBusinessSrcName='"+objBean.getStrBusinessSrcName()+"' and a.strClientCode='"+clientCode+"'";
+			List listModel = objGlobalFunctionsService.funGetListModuleWise(sqlDuplicateNameCheck,"sql");
+			
+			if(listModel!=null && listModel.size()>0)
+			{
+				req.getSession().setAttribute("success", true);
+				req.getSession().setAttribute("successMessage", "Business Source Name already exist   ");	
+			}
+			else
+			{
+				clsWebClubBusinessSourceMasterModel objModel = funPrepareModel(objBean,userCode,clientCode);
+				objWebClubBusinessSourceMasterService.funAddUpdateWebClubBusinessSourceMaster(objModel);
+				req.getSession().setAttribute("success", true);
+				req.getSession().setAttribute("successMessage", "Business Source Code : ".concat(objModel.getStrBusinessSrcCode()));
+			}
+			
+			
 			return new ModelAndView("redirect:/frmWebClubBusinessSourceMaster.html");
 		}
 		else{

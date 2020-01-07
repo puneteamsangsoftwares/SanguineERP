@@ -39,7 +39,15 @@
 						session.removeAttribute("success");
 						if (test) {
 						%>	
-			alert("Data Save successfully\n\n"+message);
+						if(message.includes("Name"))
+							{
+							alert(message);
+							}
+						else
+							{
+							alert("Data Save successfully\n\n"+message);
+							}
+			
 		<%
 		}}%>
 
