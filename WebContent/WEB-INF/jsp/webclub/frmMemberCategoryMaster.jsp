@@ -494,6 +494,7 @@ margin:0px;}
 									   <th>Facility Code</th>
 									   <th>Facility Name</th>
 									    <th>Operational</th>
+									    <th>Delete</th>
 									  </tr>
 								 </thead>
 								<tbody id="tblProduct"> <!-- class="transTablex path="strTblProduct" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" -->

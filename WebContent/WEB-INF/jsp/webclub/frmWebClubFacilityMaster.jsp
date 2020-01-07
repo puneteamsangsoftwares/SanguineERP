@@ -127,7 +127,7 @@ function funSetFacilityData(code){
 				<div class="row masterTable">
 					<div class="col-md-4">
 						<label>Facility Code:</label><br>
-						<s:input type="text" id="txtFacilityCode" placeholder="Facility Code" path="strFacilityCode"  readonly="true" ondblclick="funHelp('WCFacilityMaster')" />
+						<s:input type="text" id="txtFacilityCode" placeholder="Facility Code" path="strFacilityCode" cssClass="searchTextBox" readonly="true" ondblclick="funHelp('WCFacilityMaster')" />
 					</div>
 					<div class="col-md-4">
 						<label>Facility Name:</label><br>

@@ -568,7 +568,7 @@
 	    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" name=\"listJVDtlBean["+(rowCount)+"].strNarration\" id=\"strNarration."+(rowCount)+"\" value='"+narration+"'/>";
 	    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"1%\" name=\"listJVDtlBean["+(rowCount)+"].strDebtorYN\" id=\"strDebtorYN."+(rowCount)+"\" value='"+debtorYN+"'/>";
 	    row.insertCell(9).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"2%\" value = \"Delete\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
-	    //row.insertCell(10).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" size=\"0%\" name=\"listJVDtlBean["+(rowCount)+"].strDebtorName\" id=\"strDebtorName."+(rowCount)+"\" value='"+debtorName+"' />";
+	    row.insertCell(10).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" size=\"0%\" name=\"listJVDtlBean["+(rowCount)+"].strDebtorName\" id=\"strDebtorName."+(rowCount)+"\" value='"+debtorName+"' />";
 	    //row.insertCell(11).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" class=\"Box\" size=\"0%\" name=\"listJVDtlBean["+(rowCount)+"].strOneLineAcc\" id=\"strOneLineAcc."+(rowCount)+"\" value='"+oneLineAcc+"'/>";
 	    debtorYN='N';
 	    debtorName='';
