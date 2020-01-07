@@ -272,8 +272,13 @@ public class clsPDCToReceiptController {
 		String debtorCode = "";
 		String debtorName = "";
 		List<clsReceiptDebtorDtlModel> listReceiptDebtorDtlModel = new ArrayList<clsReceiptDebtorDtlModel>();
-		for(clsReceiptBean i : objBean.getListReceiptBean())
+		int countt=0;
+		double dblAmt=0.0;
+		clsReceiptBean i;
+		for(int j=0;j<objBean.getListReceiptBean().size();j++)
 		{
+			i=new clsReceiptBean();
+			i=objBean.getListReceiptBean().get(j);
 			if(i.getStrTransMode()!=null)
 			{
 				clsReceiptDetailBean objReceiptDetails=new clsReceiptDetailBean();
@@ -304,8 +309,14 @@ public class clsPDCToReceiptController {
 					objReceiptDebtorDtlModel.setStrCreditNo("");
 					objReceiptDebtorDtlModel.setDteBillDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 					objReceiptDebtorDtlModel.setDteInvoiceDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-					objReceiptDebtorDtlModel.setDteDueDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));	
-					listReceiptDebtorDtlModel.add(objReceiptDebtorDtlModel);
+					objReceiptDebtorDtlModel.setDteDueDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+					dblAmt=dblAmt+i.getDblAmt() * currConversion;
+					if(j>=objBean.getListReceiptBean().size()-2)
+					{
+						objReceiptDebtorDtlModel.setDblAmt(dblAmt);							
+						listReceiptDebtorDtlModel.add(objReceiptDebtorDtlModel);						
+					}
+					countt++;
 				}		
 			}
 		}

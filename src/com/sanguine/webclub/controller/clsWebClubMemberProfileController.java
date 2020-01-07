@@ -347,6 +347,8 @@ public class clsWebClubMemberProfileController {
 		String sql="SELECT * FROM "+WebCLUBDB+".tblotherdtl a WHERE a.strMemberCode='"+memberCode+" 01' ";
 		List list =objGlobalFunctionsService.funGetList("SELECT * FROM "+WebCLUBDB+".tblotherdtl a WHERE a.strMemberCode='"+memberCode+" 01' ");
 		Map mhasMap = funDataBaseShrink();
+		if(list!=null)
+		{			
 		if(list.isEmpty())
 		{		
 			if(memProfileBean.listField!=null)
@@ -374,7 +376,7 @@ public class clsWebClubMemberProfileController {
 				}
 				if(count>0)
 				{
-					sbSql.append(") VALUES ('"+memProfileBean.getStrMemberCode() + " 01','"+clientCode+ "',");
+					sbSql.append(") VALUES ('"+memProfileBean.getStrMemberCode() + " 01','"+clientCode+ "' ");
 				}
 				
 				for(int i=0;i<memProfileBean.listField.size();i++)
@@ -430,9 +432,16 @@ public class clsWebClubMemberProfileController {
 						if(obj.getStrFieldValue()!=null)
 						{														
 							if(i==0)
-							{	if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="DATE"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
+							{	if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
 								{
 									sbsqll.append("a."+obj.getStrFieldName()+"='"+obj.getStrFieldValue()+"'");
+								}
+								else if(mhasMap.get(obj.getStrFieldName())=="DATE")
+								{
+									if(!obj.getStrFieldValue().equalsIgnoreCase(""))
+									{
+										sbsqll.append(",a."+obj.getStrFieldName()+"='"+obj.getStrFieldValue()+"'");
+									}
 								}
 								else
 								{
@@ -442,9 +451,16 @@ public class clsWebClubMemberProfileController {
 							}
 							else 
 							{
-								if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="DATE"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
+								if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
 								{
 									sbsqll.append(",a."+obj.getStrFieldName()+"='"+obj.getStrFieldValue()+"'");
+								}
+								else if(mhasMap.get(obj.getStrFieldName())=="DATE")
+								{
+									if(!obj.getStrFieldValue().equalsIgnoreCase(""))
+									{
+										sbsqll.append(",a."+obj.getStrFieldName()+"='"+obj.getStrFieldValue()+"'");
+									}
 								}
 								else
 								{
@@ -461,6 +477,7 @@ public class clsWebClubMemberProfileController {
 					}
 				}	
 			}
+		}
 		
 		//end field cods
 		

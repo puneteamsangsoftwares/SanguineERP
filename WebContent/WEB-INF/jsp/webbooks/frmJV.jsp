@@ -499,7 +499,7 @@
 	    	creditAmt=parseFloat(transAmt).toFixed(maxQuantityDecimalPlaceLimit);
 	    }
 	    funDuplicateAccAndDebtor(accountCode,debtorCode);
-	    
+	  //  debtorName=funGetDebtorName(debtorCode);
 	    funAddDetailsRow(accountCode,debtorCode,description,transType,dimension,oneLineAcc,narration,debitAmt,creditAmt,debtorName);
 	    
 	    if(oneLineAcc.trim()!='')
@@ -547,6 +547,47 @@
 	    return flag;
 	}
 	
+	
+	function funGetDebtorName(debtorCode)
+	{ 
+	   var datorName;
+		var searchurl=getContextPath()+"/loadDetorName.html?debtorCode="+debtorCode;
+		 $.ajax({
+			        type: "GET",
+			        url: searchurl,
+			        dataType: "json",
+			        async:false,
+			        success: function(response)
+			        {
+			        	if(response.strEmployeeCode=='Invalid Code')
+			        	{
+			        		//datorName=response;
+			        	}
+			        	else
+			        	{	
+			        		datorName=response;
+			        	}
+					},
+					error: function(jqXHR, exception) {
+			            if (jqXHR.status === 0) {
+			                alert('Not connect.n Verify Network.');
+			            } else if (jqXHR.status == 404) {
+			                alert('Requested page not found. [404]');
+			            } else if (jqXHR.status == 500) {
+			                alert('Internal Server Error [500].');
+			            } else if (exception === 'parsererror') {
+			                alert('Requested JSON parse failed.');
+			            } else if (exception === 'timeout') {
+			                alert('Time out error.');
+			            } else if (exception === 'abort') {
+			                alert('Ajax request aborted.');
+			            } else {
+			                alert('Uncaught Error.n' + jqXHR.responseText);
+			            }		            
+			        }
+		      });
+		 return datorName;
+	}
 	
 // Function to add detail grid rows	
 	function funAddDetailsRow(accountCode,debtorCode,description,transType,dimension,oneLineAcc,narration,debitAmt,creditAmt,debtorName) 

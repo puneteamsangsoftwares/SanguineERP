@@ -5042,7 +5042,7 @@ return 1;
 	public int funProcessWebBookLedgerSummaryNotFromStartDate(String acCode, String detorCretditorCode, String fromDate, String toDate, String clientCode, String userCode, String propertyCode, HttpServletRequest req, HttpServletResponse resp, String strCrOrDr,String currency){
 		String sql = "";
 		String webStockDB=req.getSession().getAttribute("WebStockDB").toString();
-		sql = " SELECT DATE(a.dteVouchDate) ,a.strVouchNo,'JV'  ,ifnull(a.strSourceDocNo,'')  , ifnull(DATE(c.dteInvoiceDate),DATE(a.dteVouchDate)) , " 
+		sql = " SELECT DATE(a.dteVouchDate) ,a.strVouchNo,'JV'  ,ifnull(a.strSourceDocNo,'')  , CONVERT(IFNULL(DATE(c.dteInvoiceDate), DATE(a.dteVouchDate)), CHAR), " 
 			+ " IF(c.strCrDr='Dr',c.dblAmt,0), IF(c.strCrDr='Cr',c.dblAmt,0),c.dblAmt,'Cr',ifnull(a.strNarration,''),'1','" + userCode + "','" + propertyCode + "','" + clientCode + "', "
 			+ " if((e.strCurrencyCode is null) or (e.strCurrencyCode ='NA' ) or (e.strCurrencyCode ='' ), "
 			+ " (select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster "
@@ -5050,7 +5050,7 @@ return 1;
 			+ " FROM  tbljvdtl b,tbljvdebtordtl c, "
 			+"  tbljvhd a left outer join "+webStockDB+".tblcurrencymaster e on a.strCurrency=e.strCurrencyCode and a.strCurrency='"+currency+"' "
 			+ " WHERE a.strVouchNo=b.strVouchNo AND a.strVouchNo=c.strVouchNo " + " AND DATE(a.dteVouchDate) BETWEEN '" + fromDate + "' AND '" + toDate + "' " + " AND b.strAccountCode='" + acCode + "'  " + " AND a.strPropertyCode=b.strPropertyCode " + " AND c.strDebtorCode='" + detorCretditorCode + "' AND a.strPropertyCode='" + propertyCode + "' AND a.strClientCode='" + clientCode + "' ";
-//		List listjv = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+		//List listjv = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
 		StringBuilder sbSql=new StringBuilder(sql);
 		List listjv=new ArrayList();
 		try {
@@ -5156,6 +5156,7 @@ return 1;
 				e.printStackTrace();
 			}
 //		List listRecept = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+		double dblCrAmt=0.0,dblBalAmt=0.0;
 		if (listRecept.size() > 0) {
 			for (int i = 0; i < listRecept.size(); i++) {
 				clsLedgerSummaryModel objSummaryledger = new clsLedgerSummaryModel();
@@ -5167,8 +5168,7 @@ return 1;
 				objSummaryledger.setStrChequeBillNo(objArr[3].toString());
 				objSummaryledger.setDteBillDate(objArr[4].toString());
 				objSummaryledger.setDblDebitAmt(Double.parseDouble(objArr[5].toString())/con);
-				objSummaryledger.setDblCreditAmt(Double.parseDouble(objArr[6].toString())/con);
-				
+				objSummaryledger.setDblCreditAmt(Double.parseDouble(objArr[6].toString())/con);				
 				objSummaryledger.setDblBalanceAmt(Double.parseDouble(objArr[7].toString())/con);
 				objSummaryledger.setStrBalCrDr(objArr[8].toString());
 				objSummaryledger.setStrNarration(objArr[9].toString());
@@ -5176,7 +5176,13 @@ return 1;
 				objSummaryledger.setStrClientCode(clientCode);
 				objSummaryledger.setStrUserCode(userCode);
 				objSummaryledger.setStrPropertyCode(propertyCode);
-
+				dblCrAmt=dblCrAmt+Double.parseDouble(objArr[6].toString())/con;
+				dblBalAmt=dblBalAmt-Double.parseDouble(objArr[7].toString())/con;
+				if(objArr[8].toString().equalsIgnoreCase("Cr"))
+				{
+					objSummaryledger.setDblCreditAmt(dblCrAmt);		
+					objSummaryledger.setDblBalanceAmt(dblBalAmt-(dblCrAmt*2));
+				}
 				objGlobalFunctionsService.funAddUpdateLedgerSummary(objSummaryledger);
 			}
 		}

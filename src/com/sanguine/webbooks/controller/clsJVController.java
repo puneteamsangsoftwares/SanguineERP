@@ -81,6 +81,7 @@ public class clsJVController {
 	@Autowired
 	intfBaseService objBaseService;
 	
+	
 	// Open JV
 	@RequestMapping(value = "/frmJV", method = RequestMethod.GET)
 	public ModelAndView funOpenForm(Map<String, Object> model, HttpServletRequest request) {
@@ -438,8 +439,8 @@ public class clsJVController {
 			
 			for (clsJVDetailsBean objJVDetails : objBean.getListJVDtlBean()) {
 						clsJVDtlModel objJVDtlModel = new clsJVDtlModel();
-						objJVDtlModel.setStrAccountCode(objJVDetails.getStrAccountCode());
-						objJVDtlModel.setStrAccountName(objJVDetails.getStrDescription());
+						objJVDtlModel.setStrAccountCode(objJVDetails.getStrAccountCode());						
+						objJVDtlModel.setStrAccountName(objJVDetails.getStrDescription());														
 						objJVDtlModel.setStrCrDr(objJVDetails.getStrDC());
 						objJVDtlModel.setStrNarration(objJVDetails.getStrNarration());
 						objJVDtlModel.setStrOneLine(objJVDetails.getStrOneLineAcc());
@@ -464,8 +465,8 @@ public class clsJVController {
 					hmJVDtl.put(objJVDetails.getStrAccountCode(), objJVDtlModel);
 				} else {
 					clsJVDtlModel objJVDtlModel = new clsJVDtlModel();
-					objJVDtlModel.setStrAccountCode(objJVDetails.getStrAccountCode());
-					objJVDtlModel.setStrAccountName(objJVDetails.getStrDescription());
+					objJVDtlModel.setStrAccountCode(objJVDetails.getStrAccountCode());					
+					objJVDtlModel.setStrAccountName(objJVDetails.getStrDescription());					
 					objJVDtlModel.setStrCrDr(objJVDetails.getStrDC());
 					objJVDtlModel.setStrNarration(objJVDetails.getStrNarration());
 					objJVDtlModel.setStrOneLine(objJVDetails.getStrOneLineAcc());
@@ -495,7 +496,26 @@ public class clsJVController {
 			if(null!=objJVDetails.getStrDebtorCode() && !objJVDetails.getStrDebtorCode().equals(""))
 			{
 				objJVDebtorDtlModel.setStrDebtorCode(objJVDetails.getStrDebtorCode());
+				StringBuilder sbSql = new StringBuilder();	
+				List list = null;
+				if(objJVDetails.getStrDebtorCode().startsWith("D"))
+				{						
+					sbSql.append("SELECT a.strFirstName,a.strMiddleName,a.strLastName from tblsundarydebtormaster  a WHERE a.strDebtorCode='"+objJVDetails.getStrDebtorCode()+"' AND a.strClientCode='"+clientCode+"' ");	
+					try {
+						list = objBaseService.funGetListForWebBooks(sbSql, "sql");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 				objJVDebtorDtlModel.setStrDebtorName(objJVDetails.getStrDebtorName());
+				if(list!=null)
+				{
+					if(!list.isEmpty())
+					{
+						Object obj[] = (Object[]) list.get(0);
+						objJVDebtorDtlModel.setStrDebtorName(obj[0]+" "+obj[1]+" "+obj[2]);
+					}
+				}
 				objJVDebtorDtlModel.setStrAccountCode(objJVDetails.getStrAccountCode());
 				objJVDebtorDtlModel.setStrNarration(objJVDetails.getStrNarration());
 				objJVDebtorDtlModel.setStrPropertyCode(propertyCode);
@@ -795,6 +815,22 @@ public class clsJVController {
 		}
 	}
 
+	@RequestMapping(value = "/loadDetorName", method = RequestMethod.GET)
+	public @ResponseBody String funGetDatorName(@RequestParam("debtorCode") String debtorCode, HttpServletRequest req) throws Exception {
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		StringBuilder sbSql = new StringBuilder();
+		String debtorName="";
+		sbSql.append("SELECT a.strFirstName,a.strMiddleName,a.strLastName from tblsundarydebtormaster  a WHERE a.strDebtorCode='"+debtorCode+"' AND a.strClientCode='"+clientCode+"' ");	
+		List list= objBaseService.funGetListForWebBooks(sbSql, "sql");
+		if(!list.isEmpty())
+		{
+			Object obj[] = (Object[]) list.get(0);
+			debtorName=obj[0]+" "+obj[1]+" "+obj[2];
+		}			
+		return debtorName;
+	}
+	
+	
 	 public static Comparator<clsJVDetailsBean> accCodeComparator = new Comparator<clsJVDetailsBean>() {
 
 	        @Override

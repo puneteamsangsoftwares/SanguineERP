@@ -33,7 +33,7 @@
 			var startDate="${startDate}";
 			var arr = startDate.split("/");
 			Dat=arr[0]+"-"+arr[1]+"-"+arr[2];
-			$( "#txtFromDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
+			$("#txtFromDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtFromDate" ).datepicker('setDate', Dat);
 			$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtToDate").datepicker('setDate', 'today');
@@ -169,24 +169,25 @@
 		var table = document.getElementById("tblDebtorLedgerBill");
 		var rowCount = table.rows.length;
 	    var row = table.insertRow(rowCount);
-	    
-		row.insertCell(0).innerHTML= "<label>Transaction Date</label>";
-		row.insertCell(1).innerHTML= "<label>Transaction Type</label>";
-		row.insertCell(2).innerHTML= "<label>Ref No</label>";
+	  
+		row.insertCell(0).innerHTML= "<label><b>Transaction Date</b></label>";
+		
+		row.insertCell(1).innerHTML= "<label><b>Transaction Type</b></label>";
+		row.insertCell(2).innerHTML= "<label><b>Ref No</b></label>";
 		if(strShowNarration){
-			row.insertCell(3).innerHTML= "<label>Narration</label>";
-			row.insertCell(4).innerHTML= "<label>Chq/BillNo</label>";
-			row.insertCell(5).innerHTML= "<label>BillDate</label>";
-			row.insertCell(6).innerHTML= "<label>Dr</label>";
-			row.insertCell(7).innerHTML= "<label>Cr</label>";
-			row.insertCell(8).innerHTML= "<label>Bal</label>";
+			row.insertCell(3).innerHTML= "<label><b>Narration</b></label>";
+			row.insertCell(4).innerHTML= "<label><b>Chq/BillNo</b></label>";
+			row.insertCell(5).innerHTML= "<label><b>BillDate</b></label>";
+			row.insertCell(6).innerHTML= "<label><b>Debitor</b></label>";
+			row.insertCell(7).innerHTML= "<label><b>Creditor</b></label>";
+			row.insertCell(8).innerHTML= "<label><b>Balance</b></label>";
 				
 		}else{
-			row.insertCell(3).innerHTML= "<label>Chq/BillNo</label>";
-			row.insertCell(4).innerHTML= "<label>BillDate</label>";
-			row.insertCell(5).innerHTML= "<label>Dr</label>";
-			row.insertCell(6).innerHTML= "<label>Cr</label>";
-			row.insertCell(7).innerHTML= "<label>Bal</label>";
+			row.insertCell(3).innerHTML= "<label><b>Chq/BillNo</b></label>";
+			row.insertCell(4).innerHTML= "<label><b>BillDate</b></label>";
+			row.insertCell(5).innerHTML= "<label><b>Debitor</b></label>";
+			row.insertCell(6).innerHTML= "<label><b>Creditor</b></label>";
+			row.insertCell(7).innerHTML= "<label><b>Balance</b></label>";
 			
 		}
 		
@@ -319,9 +320,9 @@
 			if(strShowNarration){
 				row2.insertCell(3).innerHTML= "";
 				row2.insertCell(4).innerHTML= "";
-				row2.insertCell(5).innerHTML= "Total";
+				row2.insertCell(5).innerHTML= "<b>Total</b>";
 				row2.insertCell(6).innerHTML= "<label>"+ parseFloat(dr).toFixed(maxQuantityDecimalPlaceLimit) + "</label>";
-				row2.insertCell(7).innerHTML=  "<label>"+ parseFloat(cr).toFixed(maxQuantityDecimalPlaceLimit)+ "</label>";
+				row2.insertCell(7).innerHTML=  "<label>"+ parseFloat(cr).toFixed(maxQuantityDecimalPlaceLimit) + "</label>";
 				if(bal<0)
 				{
 				  bal=(bal)*(-1);
@@ -332,7 +333,7 @@
 				}	
 			}else{
 				row2.insertCell(3).innerHTML= "";
-				row2.insertCell(4).innerHTML= "Total";
+				row2.insertCell(4).innerHTML= "<b>Total</b>";
 				row2.insertCell(5).innerHTML= "<label>"+ parseFloat(dr).toFixed(maxQuantityDecimalPlaceLimit) + "</label>";
 				row2.insertCell(6).innerHTML=  "<label>"+ parseFloat(cr).toFixed(maxQuantityDecimalPlaceLimit)+ "</label>";
 				if(bal<0)
@@ -350,8 +351,8 @@
 		var table = document.getElementById("tblDebtorLedgerBillTot");
 		var rowCount = table.rows.length;
 		var row = table.insertRow(rowCount);
-		row.insertCell(0).innerHTML = "<label>Transaction Type</label>";
-		row.insertCell(1).innerHTML = "<label>Amount</label>";
+		row.insertCell(0).innerHTML = "<label><b>Transaction Type</b></label>";
+		row.insertCell(1).innerHTML = "<label><b>Amount</b></label>";
 		rowCount = rowCount + 1;
 	
 		var row1 = table.insertRow(rowCount);
@@ -823,7 +824,11 @@
 			        async:false,
 			        success: function(response)
 			        {
-			        	$("#cmbCurrency").val(response);
+			        	if(response!='')
+			        		{
+			        		 	$("#cmbCurrency").val(response);
+			        		}
+			       
 					},
 					error: function(jqXHR, exception) {
 			            if (jqXHR.status === 0) {
@@ -880,7 +885,7 @@
 						<label>GL Code:</label>
 							<div class="row">
 								<div class="col-md-5">
-									<s:input  type="text"  id="txtGLCode" cssClass="searchTextBox" style="height:95%"
+									<s:input  type="text"  id="txtGLCode" cssClass="searchTextBox" style="height:95%" readonly="true"
 									 path="strGLCode" ondblclick="funHelp('debtorAccountCode')"/>
 								</div>
 								<div class="col-md-7">
@@ -912,7 +917,7 @@
 						<label>Debtor Code:</label>
 							<div class="row">
 								<div class="col-md-5">
-									<s:input  type="text"  id="txtFromDebtorCode" cssClass="searchTextBox" style="height:95%"
+									<s:input  type="text"  id="txtFromDebtorCode" cssClass="searchTextBox" style="height:95%" readonly="true"
 									 path="strFromDebtorCode" ondblclick="funHelp('debtorCode')"/>
 								</div>
 								<div class="col-md-7">
@@ -979,18 +984,14 @@
 						class="form_button">Export</button></a>
 				</div>
 				
-				
-				
-				
-				
-				
-				
-			<div id="dvDebtorLedgerBill" style="width: 100% ;height: 100% ;">
- 				<table id="tblCreditorLedgerBill"  class="transTable col2-right col3-right">					 
+			
+			<div id="dvDebtorLedgerBill" style="width: 100% ;height: 100% ;background-color:#fafbfb;">
+ 				<table id="tblCreditorLedgerBill"  class="transTable col2-right col3-right ">					 
 		<table id="tblDebtorLedgerBill"  class="transTable col5-right col6-right col7-right col8-right col9-right"></table>
 		</div>
 		<br> <br>
-		<div id="dvDebtorLedgerBillTot" style="width: 30% ;height: 100% ;">
+		
+		<div id="dvDebtorLedgerBillTot" style="width: 30% ;height: 40% ;background-color:#fafbfb;">
 				<table id="tblDebtorLedgerBillTot" class="transTable col2-right"></table>
 			</div>
 				
