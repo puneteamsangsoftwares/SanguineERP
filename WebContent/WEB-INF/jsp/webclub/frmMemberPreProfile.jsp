@@ -2223,6 +2223,15 @@ function funSetBillingRegionCode(code){
 	//alert(demo);
 	}
 	
+	function isNumber(evt) {
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+            return false;
+
+        return true;
+    }  
+	
+	
 		 	
 </script>
 </head>
@@ -2327,7 +2336,7 @@ function funSetBillingRegionCode(code){
   				
   				<div class="col-md-3"><label>Resident Fax2</label><br><s:input id="txtResidentFax2" path="strResidentFax2"  
 					class="decimal-places numberField" type="text"></s:input></div>
-  				<div class="col-md-3"><label>Resident PinCode</label><br><s:input id="txtResidentPinCode" path="strResidentPinCode"  readonly="true" 
+  				<div class="col-md-3"><label>Resident PinCode</label><br><s:input id="txtResidentPinCode" path="strResidentPinCode" onkeypress="javascript:return isNumber(event)" readonly="true" 
 					class="decimal-places numberField" type="text"></s:input></div>
   				<div class="col-md-3"><label>Resident Mobile No</label><br><s:input id="txtResidentMobileNo" path="strResidentMobileNo"  onkeypress="javascript:return isNumber(event)"
 					class="decimal-places numberField" type="text"></s:input></div>
@@ -2403,7 +2412,7 @@ function funSetBillingRegionCode(code){
 									<div class="col-md-6"><s:input id="txtCompanyCountryName" path="" readonly="true" type="text"></s:input></div></div></div>
 
 			<div class="col-md-6"><label>Telephone</label><br>
-				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyTelePhone1" path="strCompanyTelePhone1" 
+				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyTelePhone1" path="strCompanyTelePhone1"  onkeypress="javascript:return isNumber(event)"
 									class="decimal-places numberField" type="text"></s:input></div>
 									<div class="col-md-6"><s:input id="txtCompanyTelePhone2" path="strCompanyTelePhone2" 
 									class="decimal-places numberField" type="text"></s:input></div></div></div>
@@ -2415,10 +2424,10 @@ function funSetBillingRegionCode(code){
 									class="decimal-places numberField" type="text"></s:input></div></div></div>
 				
 				<div class="col-md-6">					
-		    	<div class="row"><div class="col-md-6"><label>Pin Code</label><br><s:input id="txtCompanyPinCode" path="strCompanyPinCode"  readonly="true"
+		    	<div class="row"><div class="col-md-6"><label>Pin Code</label><br><s:input id="txtCompanyPinCode" path="strCompanyPinCode"  readonly="true" onkeypress="javascript:return isNumber(event)"
 									class="decimal-places numberField" type="text"></s:input></div>
 			
-								<div class="col-md-6"><label>Mobile No</label><br><s:input id="txtCompanyMobileNo" path="strCompanyMobileNo" 
+								<div class="col-md-6"><label>Mobile No</label><br><s:input id="txtCompanyMobileNo" path="strCompanyMobileNo" onkeypress="javascript:return isNumber(event)"
 									class="decimal-places numberField" type="text"></s:input></div></div></div>
 									
 			<div class="col-md-4"><label>Email ID</label><br><s:input id="txtCompanyEmailID" path="strCompanyEmailID" 
@@ -2472,7 +2481,7 @@ function funSetBillingRegionCode(code){
 									 type="text"></s:input></div></div></div>	
 		
 			<div class="col-md-6"><label>Telephone</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingTelePhone1" path="strBillingTelePhone1" 
+				<div class="row"><div class="col-md-6"><s:input id="txtBillingTelePhone1" path="strBillingTelePhone1" onkeypress="javascript:return isNumber(event)"
 									class="decimal-places numberField" type="text"></s:input></div>
 								<div class="col-md-6"><s:input id="txtBillingTelePhone2" path="strBillingTelePhone2" 
 									class="decimal-places numberField" type="text"></s:input></div></div></div>
@@ -2490,8 +2499,8 @@ function funSetBillingRegionCode(code){
 									type="text"></s:input></div></div></div>
 			<div class="col-md-6">
 				<div class="row"><div class="col-md-6"><label>Pin Code</label><br><s:input id="txtBillingPinCode" path="strBillingPinCode" readonly="true"
-									class="decimal-places numberField" type="text"></s:input></div>
-									<div class="col-md-6"><label>Mobile</label><br><s:input id="txtBillingMobileNo" path="strBillingMobileNo" 
+								onkeypress="javascript:return isNumber(event)"	class="decimal-places numberField" type="text"></s:input></div>
+									<div class="col-md-6"><label>Mobile</label><br><s:input id="txtBillingMobileNo" path="strBillingMobileNo" onkeypress="javascript:return isNumber(event)"
 									class="decimal-places numberField" type="text"></s:input></div></div></div>	
 		
 			
