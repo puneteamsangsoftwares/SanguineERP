@@ -542,7 +542,7 @@ margin:0px;}
 				
 			case 'WCDependentProfessionMaster' :
 				funSetProfessionForDependent(code);
-				break
+				break;
 				
 				
 			case 'WCDependentReasonMaster' : 
@@ -2105,8 +2105,21 @@ function funSetBillingRegionCode(code){
 		
 	}
 	
+	function isNumber(evt) {
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+            return false;
+
+        return true;
+    }
+	
 	function funValidate()
 	{	
+		
+		//pattern="[789][0-9]{9}"
+		
+		
+		
 		var flag=true;		
 		$('#multiAccordion').multiAccordion({
 			click: function(event, ui) {
@@ -2119,7 +2132,28 @@ function funSetBillingRegionCode(code){
 			}			
 		});
 		
-		if($("#txtMemberCode").val().trim().length<1)
+		
+		
+		if($("#txtResidentMobileNo").val().trim().length>=1)
+		{
+			if(/[789][0-9]{9}/.$("#txtResidentMobileNo").val())
+				{
+				$('#multiAccordion').multiAccordion("option", "active", [0]);
+				document.getElementById("txtResidentMobileNo").focus();
+				alert("Enter Correct Resident Mobile No");
+				flag=false;
+				}
+			
+			
+			/* if(($("#txtResidentMobileNo").val().match("[789][0-9]{9}")))
+			        {
+						$('#multiAccordion').multiAccordion("option", "active", [0]);
+						document.getElementById("txtResidentMobileNo").focus();
+						alert("Enter Correct Resident Mobile No");
+						flag=false;
+			        }		 */	
+		}		
+		else if($("#txtMemberCode").val().trim().length<1)
 		{
 			$('#multiAccordion').multiAccordion("option", "active", [0]);
 			document.getElementById("txtMemberCode").focus();
@@ -2295,7 +2329,7 @@ function funSetBillingRegionCode(code){
 					class="decimal-places numberField" type="text"></s:input></div>
   				<div class="col-md-3"><label>Resident PinCode</label><br><s:input id="txtResidentPinCode" path="strResidentPinCode"  readonly="true" 
 					class="decimal-places numberField" type="text"></s:input></div>
-  				<div class="col-md-3"><label>Resident Mobile No</label><br><s:input id="txtResidentMobileNo" path="strResidentMobileNo"  pattern="[789][0-9]{9}"
+  				<div class="col-md-3"><label>Resident Mobile No</label><br><s:input id="txtResidentMobileNo" path="strResidentMobileNo"  onkeypress="javascript:return isNumber(event)"
 					class="decimal-places numberField" type="text"></s:input></div>
   				<div class="col-md-3"><label>Resident Email ID</label><br><s:input id="txtCompanyEmailID" path="strCompanyEmailID" type="text"></s:input></div>
 			</div></div>
