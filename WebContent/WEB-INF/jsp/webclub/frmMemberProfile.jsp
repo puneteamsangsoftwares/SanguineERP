@@ -2926,6 +2926,8 @@ function funSetBillingRegionCode(code){
 		  				<div class="col-md-3"><label>Resident State Name</label><br><s:input id="txtResidentStateName" path="strResidentStateName" ondblclick="funHelp('WCResStateMaster')" type="text" readonly="true" cssClass="searchTextBox"></s:input><s:input id="txtResidentStateCode" path="strResidentStateCode" type="hidden" readonly="true" ></s:input></div>
 		  				<div class="col-md-3"><label>Resident Country Name</label><br><s:input id="txtResidentCountryName" path="strResidentCountryName"  ondblclick="funHelp('WCResCountryMaster')" readonly="true" cssClass="searchTextBox" type="text"></s:input><s:input id="txtResidentCountryCode" path="strResidentCountryCode" type="hidden" readonly="true" ></s:input></div>
 		  				<div class="col-md-3"><label>Resident Region Name</label><br><s:input id="txtResidentRegionName" path="strResidentRegionName" ondblclick="funHelp('WCResRegionMaster')" type="text" readonly="true" cssClass="searchTextBox"></s:input><s:input id="txtResidentRegionCode" path="strResidentRegionCode" type="hidden" readonly="true" ></s:input></div>
+		  				
+		  				
 		  				<div class="col-md-3"><label>Resident Telephone1</label><br><s:input id="txtResidentTelephone1" path="strResidentTelephone1" class="decimal-places numberField" type="text"></s:input></div>
 		  				<div class="col-md-3"><label>Resident Telephone2</label><br><s:input id="txtResidentTelephone2" path="strResidentTelephone2" class="decimal-places numberField" type="text"></s:input></div>
 		  				<div class="col-md-3"><label>Resident Fax1</label><br><s:input id="txtResidentFax1" path="strResidentFax1"  class="decimal-places numberField" type="text"></s:input></div>		  				

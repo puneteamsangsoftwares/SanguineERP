@@ -271,7 +271,12 @@ margin:0px;}
 						        	
 						        	$("#txtResidentAddressLine3").val(response[0].strResidentAddressLine3);
 						        	$("#txtResidentLandMark").val(response[0].strResidentLandMark);
-						        	$("#txtResidentAreaCode").val(response[0].strResidentAreaCode);
+						        	if(response[0].strResidentAreaCode!='')
+						        		{
+						        			funSetResAreaCode(response[0].strResidentAreaCode);
+						        		}
+						        	
+						        	//$("#txtResidentAreaCode").val(response[0].strResidentAreaCode);
 						        	$("#txtResidentCtCode").val(response[0].strResidentCtCode);
 						        	$("#txtResidentStateCode").val(response[0].strResidentStateCode);
 						        	
@@ -346,7 +351,10 @@ margin:0px;}
 						            $("#txtdtDateofBirth").datepicker({dateFormat: 'dd-mm-yy'}).datepicker('setDate', dob);						        	
 						        	$("#txtdtDateofBirth").val(response[0].dteDateofBirth);
 						        	$("#cmbMaritalStatus").val(response[0].strMaritalStatus);
+						        	if(response[0].strCompanyAreaCode!='')
+					        		{
 						        	funSetProfessionCode(response[0].strProfessionCode);
+					        		}
 						        	//$("#txtProfessionCode").val(response[0].strProfessionCode);
 						        	if(response[0].strCompanyAreaCode!='')
 					        		{
@@ -460,7 +468,6 @@ margin:0px;}
 			case 'WCBillingAreaMaster' : 
 				funSetBillingAreaCode(code);
 				break;
-				
 				
 			case 'WCResCityMaster' : 
 				funSetResCityCode(code);
@@ -610,7 +617,6 @@ margin:0px;}
 	
 	
 	function funSetResAreaCode(code){
-
 		$("#txtResidentAreaCode").val(code);
 		var searchurl=getContextPath()+"/loadAreaCode.html?docCode="+code;
 		//alert(searchurl);
@@ -628,8 +634,9 @@ margin:0px;}
 		        	}
 		        	else
 		        	{
-		        		funSetResCityCode(response.strCityCode);        		
-			        	//$("#txtAreaName").val(response.strAreaName);
+		        		funSetResCityCode(response.strCityCode);  
+		        		//$("#txtResidentAreaCode").val(response.strAreaCode);
+			        	$("#txtResidentAreaName").val(response.strAreaName);
 		        	}
 				},
 				error: function(jqXHR, exception) {
@@ -761,6 +768,11 @@ function funSetResCityCode(code){
 		        	}
 		        	else
 		        	{
+		        		
+		        		
+		        		$("#txtResidentCtCode").val(response.strCityCode);	
+		        		$("#txtResidentCtName").val(response.strCityName);	
+		        		
 		        		$("#txtResidentPinCode").val(response.strSTDCode);	
 		        		funSetResStateCode(response.strStateCode);
 		        		funSetResCountryCode(response.strCountryCode);	       		
@@ -911,6 +923,9 @@ function funSetResCountryCode(code){
 	        	}
 	        	else
 	        	{
+	        		//funSetResRegionCode(response.strRegionCode);
+	        		$("#txtResidentCountryCode").val(response.strCountryCode);
+	        		$("#txtResidentCountryName").val(response.strCountryName);
 	        		//$("#txtCountryName").val(response.strCountryName);
 	        	}
 	        	
@@ -1039,9 +1054,9 @@ function funSetResStateCode(code){
 	        	}
 	        	else
 	        	{
-	        		$("#txtResidentRegionCode").val(response.strRegionCode);	        		
-	        		//$("#txtStateName").val(response.strStateName);       		
-	        		 
+	        		funSetResRegionCode(response.strRegionCode);
+	        		$("#txtResidentStateCode").val(response.strStateCode);
+	        		$("#txtResidentStateName").val(response.strStateName);    
 	        	}
 	        	
 	        },
@@ -1171,11 +1186,14 @@ function funSetResRegionCode(code){
 	        {
 	        	if(response.strRegionCode=='Invalid Code')
 	        	{
-	        		alert("Invalid Region Code In");
+	        		//alert("Invalid Region Code In");
 	        		$("#txtRegionCode").val('');
 	        	}
 	        	else
 	        	{
+	        		$("#txtResidentRegionCode").val(response.strRegionCode);
+	        		$("#txtResidentRegionName").val(response.strRegionName);
+	        		
 	        		//$("#txtRegionName").val(response.strRegionName);
 	        	}
 	        	
@@ -1215,7 +1233,7 @@ function funSetComRegionCode(code){
 	        {
 	        	if(response.strRegionCode=='Invalid Code')
 	        	{
-	        		alert("Invalid Region Code In");
+	        		//alert("Invalid Region Code In");
 	        		$("#txtRegionCode").val('');
 	        	}
 	        	else
@@ -1260,7 +1278,7 @@ function funSetBillingRegionCode(code){
 	        {
 	        	if(response.strRegionCode=='Invalid Code')
 	        	{
-	        		alert("Invalid Region Code In");
+	        		//alert("Invalid Region Code In");
 	        		$("#txtRegionCode").val('');
 	        	}
 	        	else
@@ -2315,18 +2333,21 @@ function funSetBillingRegionCode(code){
 						 type="text"></s:input></div>
   				<div class="col-md-3"><label>Resident LandMark</label><br><s:input id="txtResidentLandMark" path="strResidentLandMark" type="text"></s:input></div>
   		
-  				<div class="col-md-3"><label>Resident Area Code</label><br><s:input id="txtResidentAreaCode" path="strResidentAreaCode" readonly="true"
-						ondblclick="funHelp('WCResAreaMaster')" type="text"  cssClass="searchTextBox"></s:input></div>
-  				<div class="col-md-3"><label>Resident City Code</label><br><s:input id="txtResidentCtCode" path="strResidentCtCode"  readonly="true"
-						 ondblclick="funHelp('WCResCityMaster')" type="text"  cssClass="searchTextBox"></s:input></div>
-  				<div class="col-md-3"><label>Resident State Code</label><br><s:input id="txtResidentStateCode" path="strResidentStateCode" readonly="true"
-						ondblclick="funHelp('WCResStateMaster')" type="text" cssClass="searchTextBox"></s:input></div>
-  				<div class="col-md-3"><label>Resident Region Code</label><br><s:input id="txtResidentRegionCode" path="strResidentRegionCode" readonly="true"
-						ondblclick="funHelp('WCResRegionMaster')" type="text" cssClass="searchTextBox"></s:input></div>
+				<div class="col-md-3"><label>Resident Area Name</label><br><s:input  id="txtResidentAreaName" path="strResidentAreaName" ondblclick="funHelp('WCResAreaMaster')" type="text" readonly="true" cssClass="searchTextBox"></s:input><s:input id="txtResidentAreaCode" path="strResidentAreaCode" type="hidden" readonly="true" ></s:input></div>
+  				<div class="col-md-3"><label>Resident City Name</label><br><s:input id="txtResidentCtName" path="strResidentCtName" ondblclick="funHelp('WCResCityMaster')" type="text" readonly="true"  cssClass="searchTextBox"></s:input><s:input  id="txtResidentCtCode" path="strResidentCtCode" type="hidden" readonly="true" ></s:input></div>
+  				<div class="col-md-3"><label>Resident State Name</label><br><s:input id="txtResidentStateName" path="strResidentStateName" ondblclick="funHelp('WCResStateMaster')" type="text" readonly="true" cssClass="searchTextBox"></s:input><s:input id="txtResidentStateCode" path="strResidentStateCode" type="hidden" readonly="true" ></s:input></div>
+  				<div class="col-md-3"><label>Resident Country Name</label><br><s:input id="txtResidentCountryName" path="strResidentCountryName"  ondblclick="funHelp('WCResCountryMaster')" readonly="true" cssClass="searchTextBox" type="text"></s:input><s:input id="txtResidentCountryCode" path="strResidentCountryCode" type="hidden" readonly="true" ></s:input></div>
+  				<div class="col-md-3"><label>Resident Region Name</label><br><s:input id="txtResidentRegionName" path="strResidentRegionName" ondblclick="funHelp('WCResRegionMaster')" type="text" readonly="true" cssClass="searchTextBox"></s:input><s:input id="txtResidentRegionCode" path="strResidentRegionCode" type="hidden" readonly="true" ></s:input></div>
+		  				
+  		
+  				<%-- <div class="col-md-3"><label>Resident Area Code</label><br><s:input id="txtResidentAreaCode" path="strResidentAreaCode" readonly="true" ondblclick="funHelp('WCResAreaMaster')" type="text"  cssClass="searchTextBox"></s:input></div>
+  				<div class="col-md-3"><label>Resident City Code</label><br><s:input id="txtResidentCtCode" path="strResidentCtCode"  readonly="true" ondblclick="funHelp('WCResCityMaster')" type="text"  cssClass="searchTextBox"></s:input></div>
+  				<div class="col-md-3"><label>Resident State Code</label><br><s:input id="txtResidentStateCode" path="strResidentStateCode" readonly="true" ondblclick="funHelp('WCResStateMaster')" type="text" cssClass="searchTextBox"></s:input></div>
+  				<div class="col-md-3"><label>Resident Region Code</label><br><s:input id="txtResidentRegionCode" path="strResidentRegionCode" readonly="true" ondblclick="funHelp('WCResRegionMaster')" type="text" cssClass="searchTextBox"></s:input></div>
+  				<div class="col-md-3"><label>Resident Country Code</label><br><s:input id="txtResidentCountryCode" path="strResidentCountryCode" readonly="true" required="required" ondblclick="funHelp('WCResCountryMaster')" cssClass="searchTextBox" type="text"></s:input></div>
+  				 --%>
   				
-  				<div class="col-md-3"><label>Resident Country Code</label><br><s:input id="txtResidentCountryCode" path="strResidentCountryCode" readonly="true"
-						required="required" ondblclick="funHelp('WCResCountryMaster')" cssClass="searchTextBox"
-						type="text"></s:input></div>
+  				
   				<div class="col-md-3"><label>Resident Telephone1</label><br><s:input id="txtResidentTelephone1" path="strResidentTelephone1" 
 					class="decimal-places numberField" type="text"></s:input></div>
   				<div class="col-md-3"><label>Resident Telephone2</label><br><s:input id="txtResidentTelephone2" path="strResidentTelephone2" 
@@ -2340,7 +2361,7 @@ function funSetBillingRegionCode(code){
 					class="decimal-places numberField" type="text"></s:input></div>
   				<div class="col-md-3"><label>Resident Mobile No</label><br><s:input id="txtResidentMobileNo" path="strResidentMobileNo"  onkeypress="javascript:return isNumber(event)"
 					class="decimal-places numberField" type="text"></s:input></div>
-  				<div class="col-md-3"><label>Resident Email ID</label><br><s:input id="txtCompanyEmailID" path="strCompanyEmailID" type="text"></s:input></div>
+  				<div class="col-md-3"><label>Resident Email ID</label><br><s:input id="txtCompanyEmailID" path="strResidentEmailID" type="text"></s:input></div>
 			</div></div>
 			</div>
 			
@@ -2364,12 +2385,12 @@ function funSetBillingRegionCode(code){
 			
 			<div class="col-md-6">
 				<div class="row"><div class="col-md-6"><label>Adress Line1 </label><br><s:input id="txtCompanyAddressLine1" path="strCompanyAddressLine1" type="text"></s:input></div>
-			<div class="col-md-6"><label>Adress Line 2</label><br><s:input id="txtBillingAddressLine2" path="strBillingAddressLine2" 
+			<div class="col-md-6"><label>Adress Line 2</label><br><s:input id="txtBillingAddressLine2" path="strCompanyAddressLine2" 
 								 type="text"></s:input></div></div></div>
 			<div class="col-md-6">
 				<div class="row"><div class="col-md-6"><label>Adress Line 3</label><br><s:input id="txtCompanyAddressLine3" path="strCompanyAddressLine3" 
 								type="text"></s:input></div>
-			<div class="col-md-6"><label>Landmark</label><br><s:input id="txtBillingLandMark" path="strBillingLandMark" 
+			<div class="col-md-6"><label>Landmark</label><br><s:input id="txtCompanyLandMark" path="strCompanyLandMark" 
 									type="text"></s:input></div></div></div>
 									
 									
@@ -2379,37 +2400,33 @@ function funSetBillingRegionCode(code){
 									type="text" path="strHoldingCode" ></s:input></div>
 								 <div class="col-md-6"><s:input id="txtHoldingName" path="" type="text"></s:input></div></div></div>
 									
-			<div class="col-md-6"><label>Area Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtCompanyAreaCode"
+			<div class="col-md-6"><label>Area Code</label><br><div class="row"><div class="col-md-6"><s:input id="txtCompanyAreaName"
 									ondblclick="funHelp('WCComAreaMaster')" cssClass="searchTextBox" readonly="true"
-									type="text" path="strCompanyAreaCode" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtCompanyAreaName" path="" readonly="true"
-									 type="text"></s:input></div></div></div>	
+									type="text" path="strCompanyAreaName" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtCompanyAreaCode" path="strCompanyAreaCode" type="hidden"></s:input></div></div></div>	
 											
 			<div class="col-md-6"><label>City Code</label><br>
-				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyCtCode"
+				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyCtName;"
 									ondblclick="funHelp('WCComCityMaster')"  cssClass="searchTextBox" readonly="true"
-									type="text" path="strCompanyCtCode" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtCompanyCtName" path="" readonly="true"
-									 type="text"></s:input></div></div></div>
+									type="text" path="strCompanyCtName" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtCompanyAreaCode" path="strCompanyCtCode" type="hidden"></s:input></div></div></div>
 			<div class="col-md-6"><label>State Code</label><br>
-				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyStateCode"
+				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyStateName"
 									ondblclick="funHelp('WCComStateMaster')"  cssClass="searchTextBox" readonly="true"
-									type="text" path="strCompanyStateCode" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtCompanyStateName" path="" readonly="true"
-									 type="text"></s:input></div></div></div>
+									type="text" path="strCompanyStateName" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtCompanyStateCode" path="strCompanyStateCode" type="hidden"></s:input></div></div></div>
 		
 			<div class="col-md-6"><label>Region Code</label><br>
-				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyRegionCode"
+				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyRegionName"
 									ondblclick="funHelp('WCComRegionMaster')"  cssClass="searchTextBox" readonly="true"
-									type="text" path="strCompanyRegionCode" ></s:input></div>
-							     <div class="col-md-6"><s:input id="txtCompanyRegionName" path="" readonly="true" type="text"></s:input></div></div></div>
+									type="text" path="strCompanyRegionName" ></s:input></div>
+							     <div class="col-md-6"><s:input id="txtCompanyRegionCode" path="strCompanyRegionCode" type="hidden"></s:input></div></div></div>
 			
 			<div class="col-md-6"><label>Country Code</label><br>
-				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyCountryCode" 
+				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyCountryName" 
 									ondblclick="funHelp('WCComCountryMaster')" cssClass="searchTextBox"  readonly="true" 
-									type="text" path="strCompanyCountryCode" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtCompanyCountryName" path="" readonly="true" type="text"></s:input></div></div></div>
+									type="text" path="strCompanyCountryName" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtCompanyCountryCode" path="strCompanyCountryCode" type="hidden"></s:input></div></div></div>
 
 			<div class="col-md-6"><label>Telephone</label><br>
 				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyTelePhone1" path="strCompanyTelePhone1"  onkeypress="javascript:return isNumber(event)"
@@ -2454,31 +2471,31 @@ function funSetBillingRegionCode(code){
 									type="text"></s:input></div></div></div>	
 		
 			<div class="col-md-6"><label>Area Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingAreaCode" readonly="true"
+				<div class="row"><div class="col-md-6"><s:input id="txtBillingAreaName" readonly="true"
 									ondblclick="funHelp('WCBillingAreaMaster')" cssClass="searchTextBox"
-									type="text" path="strBillingAreaCode" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtBillingAreaName" path="" readonly="true"
-									 type="text"></s:input></div></div></div>
+									type="text" path="strBillingAreaName" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtBillingAreaCode" path="strBillingAreaCode" readonly="true"
+									 type="hidden"></s:input></div></div></div>
 			
 			<div class="col-md-6"><label>City Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingCtCode"
+				<div class="row"><div class="col-md-6"><s:input id="txtBillingCtName"
 									ondblclick="funHelp('WCBillingCityMaster')" cssClass="searchTextBox" readonly="true"
-									type="text" path="strBillingCtCode" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtBillingCtName" path="" readonly="true"
-									 type="text"></s:input></div></div></div>	
+									type="text" path="strBillingCtName" ></s:input></div>
+									<div class="col-md-6"><s:input id="txtBillingCtCode" path="strBillingCtCode" readonly="true"
+									 type="hidden"></s:input></div></div></div>	
 
 			<div class="col-md-6"><label>Country Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingCountryCode"
+				<div class="row"><div class="col-md-6"><s:input id="txtBillingCountryName"
 									ondblclick="funHelp('WCBillingCountryMaster')"  cssClass="searchTextBox" readonly="true"
-									type="text" path="strBillingCountryCode"></s:input></div>
-						 	       <div class="col-md-6"><s:input id="txtBillingCountryName" path="" readonly="true"
-									type="text"></s:input></div></div></div>
+									type="text" path="strBillingCountryName"></s:input></div>
+						 	       <div class="col-md-6"><s:input id="txtBillingCountryCode" path="strBillingCountryCode" readonly="true"
+									type="hidden"></s:input></div></div></div>
 			<div class="col-md-6"><label>Region Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingRegionCode"
+				<div class="row"><div class="col-md-6"><s:input id="txtBillingRegionName"
 									ondblclick="funHelp('WCBillingRegionMaster')"  cssClass="searchTextBox" readonly="true"
-									type="text" path="strBillingRegionCode" ></s:input></div>
-							    	<div class="col-md-6"><s:input id="txtBillingRegionName" path="" readonly="true"
-									 type="text"></s:input></div></div></div>	
+									type="text" path="strBillingRegionName" ></s:input></div>
+							    	<div class="col-md-6"><s:input id="txtBillingRegionCode" path="strBillingRegionCode" readonly="true"
+									 type="hidden"></s:input></div></div></div>	
 		
 			<div class="col-md-6"><label>Telephone</label><br>
 				<div class="row"><div class="col-md-6"><s:input id="txtBillingTelePhone1" path="strBillingTelePhone1" onkeypress="javascript:return isNumber(event)"
@@ -2492,11 +2509,11 @@ function funSetBillingRegionCode(code){
 									class="decimal-places numberField" type="text"></s:input></div></div></div>	
 			
 			<div class="col-md-6"><label>State Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingStateCode"
+				<div class="row"><div class="col-md-6"><s:input id="txtBillingStateName"
 									ondblclick="funHelp('WCBillingStateMaster')"  cssClass="searchTextBox" readonly="true"
-									type="text" path="strBillingStateCode"  required="required" ></s:input></div>
-								 <div class="col-md-6"><s:input id="txtBillingStateName" path="" readonly="true"
-									type="text"></s:input></div></div></div>
+									type="text" path="strBillingStateName"  required="required" ></s:input></div>
+								 <div class="col-md-6"><s:input id="txtBillingStateCode" path="strBillingStateCode" readonly="true"
+									type="hidden"></s:input></div></div></div>
 			<div class="col-md-6">
 				<div class="row"><div class="col-md-6"><label>Pin Code</label><br><s:input id="txtBillingPinCode" path="strBillingPinCode" readonly="true"
 								onkeypress="javascript:return isNumber(event)"	class="decimal-places numberField" type="text"></s:input></div>
@@ -2527,7 +2544,7 @@ function funSetBillingRegionCode(code){
 					<div class="row"><div class="col-md-6"><label>Date Of Birth</label><br><s:input id="txtdtDateofBirth" name="txtdtDateofBirth" path="dteDateofBirth" cssClass="calenderTextBox"></s:input></div>
 									<div class="col-md-6"><label>Marital Status</label><br><s:select id="cmbMaritalStatus" name="cmbMaritalStatus" path="strMaritalStatus">
 													 <option value="Single">Single</option>
-									 				 <option value="married">married</option>
+									 				 <option value="Married">Married</option>
 													 </s:select></div></div></div>
 				<div class="col-md-3"><label>Sex</label><br><s:select id="cmbGender" name="cmbGender" path="strGender">
 										 <option value="M">Male</option>

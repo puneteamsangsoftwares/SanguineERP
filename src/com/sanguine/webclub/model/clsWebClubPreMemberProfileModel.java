@@ -68,18 +68,153 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 
 	@Column(name = "strResidentAreaCode")
 	private String strResidentAreaCode;
+	
+	public String getStrResidentAreaName() {
+		return strResidentAreaName;
+	}
+
+	public void setStrResidentAreaName(String strResidentAreaName) {
+		this.strResidentAreaName = strResidentAreaName;
+	}
+
+	public String getStrResidentCtName() {
+		return strResidentCtName;
+	}
+
+	public void setStrResidentCtName(String strResidentCtName) {
+		this.strResidentCtName = strResidentCtName;
+	}
+
+	public String getStrResidentStateName() {
+		return strResidentStateName;
+	}
+
+	public void setStrResidentStateName(String strResidentStateName) {
+		this.strResidentStateName = strResidentStateName;
+	}
+
+	public String getStrResidentRegionName() {
+		return strResidentRegionName;
+	}
+
+	public void setStrResidentRegionName(String strResidentRegionName) {
+		this.strResidentRegionName = strResidentRegionName;
+	}
+
+	public String getStrResidentCountryName() {
+		return strResidentCountryName;
+	}
+
+	public void setStrResidentCountryName(String strResidentCountryName) {
+		this.strResidentCountryName = strResidentCountryName;
+	}
+
+	public String getStrCompanyAreaName() {
+		return strCompanyAreaName;
+	}
+
+	public void setStrCompanyAreaName(String strCompanyAreaName) {
+		this.strCompanyAreaName = strCompanyAreaName;
+	}
+
+	public String getStrCompanyCtName() {
+		return strCompanyCtName;
+	}
+
+	public void setStrCompanyCtName(String strCompanyCtName) {
+		this.strCompanyCtName = strCompanyCtName;
+	}
+
+	public String getStrCompanyStateName() {
+		return strCompanyStateName;
+	}
+
+	public void setStrCompanyStateName(String strCompanyStateName) {
+		this.strCompanyStateName = strCompanyStateName;
+	}
+
+	public String getStrCompanyRegionName() {
+		return strCompanyRegionName;
+	}
+
+	public void setStrCompanyRegionName(String strCompanyRegionName) {
+		this.strCompanyRegionName = strCompanyRegionName;
+	}
+
+	public String getStrCompanyCountryName() {
+		return strCompanyCountryName;
+	}
+
+	public void setStrCompanyCountryName(String strCompanyCountryName) {
+		this.strCompanyCountryName = strCompanyCountryName;
+	}
+
+	public String getStrBillingAreaName() {
+		return strBillingAreaName;
+	}
+
+	public void setStrBillingAreaName(String strBillingAreaName) {
+		this.strBillingAreaName = strBillingAreaName;
+	}
+
+	public String getStrBillingCtName() {
+		return strBillingCtName;
+	}
+
+	public void setStrBillingCtName(String strBillingCtName) {
+		this.strBillingCtName = strBillingCtName;
+	}
+
+	public String getStrBillingStateName() {
+		return strBillingStateName;
+	}
+
+	public void setStrBillingStateName(String strBillingStateName) {
+		this.strBillingStateName = strBillingStateName;
+	}
+
+	public String getStrBillingRegionName() {
+		return strBillingRegionName;
+	}
+
+	public void setStrBillingRegionName(String strBillingRegionName) {
+		this.strBillingRegionName = strBillingRegionName;
+	}
+
+	public String getStrBillingCountryName() {
+		return strBillingCountryName;
+	}
+
+	public void setStrBillingCountryName(String strBillingCountryName) {
+		this.strBillingCountryName = strBillingCountryName;
+	}
+
+	@Column(name = "strResidentAreaName")
+	private String strResidentAreaName;
 
 	@Column(name = "strResidentCtCode")
 	private String strResidentCtCode;
-
+	
+	@Column(name = "strResidentCtName")
+	private String strResidentCtName;
+	
 	@Column(name = "strResidentStateCode")
 	private String strResidentStateCode;
 
+	@Column(name = "strResidentStateName")
+	private String strResidentStateName;
+
 	@Column(name = "strResidentRegionCode")
 	private String strResidentRegionCode;
+	
+	@Column(name = "strResidentRegionName")
+	private String strResidentRegionName;
 
 	@Column(name = "strResidentCountryCode")
 	private String strResidentCountryCode;
+	
+	@Column(name = "strResidentCountryName")
+	private String strResidentCountryName;
 
 	@Column(name = "strResidentPinCode")
 	private String strResidentPinCode;
@@ -128,18 +263,33 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 
 	@Column(name = "strCompanyAreaCode")
 	private String strCompanyAreaCode;
+	
+	@Column(name = "strCompanyAreaName")
+	private String strCompanyAreaName;
 
 	@Column(name = "strCompanyCtCode")
 	private String strCompanyCtCode;
+	
+	@Column(name = "strCompanyCtName")
+	private String strCompanyCtName;
 
 	@Column(name = "strCompanyStateCode")
 	private String strCompanyStateCode;
+	
+	@Column(name = "strCompanyStateName")
+	private String strCompanyStateName;
 
 	@Column(name = "strCompanyRegionCode")
 	private String strCompanyRegionCode;
+	
+	@Column(name = "strCompanyRegionName")
+	private String strCompanyRegionName;
 
 	@Column(name = "strCompanyCountryCode")
 	private String strCompanyCountryCode;
+	
+	@Column(name = "strCompanyCountryName")
+	private String strCompanyCountryName;
 
 	@Column(name = "strCompanyPinCode")
 	private String strCompanyPinCode;
@@ -176,18 +326,33 @@ public class clsWebClubPreMemberProfileModel implements Serializable {
 
 	@Column(name = "strBillingAreaCode")
 	private String strBillingAreaCode;
+	
+	@Column(name = "strBillingAreaName")
+	private String strBillingAreaName;
 
 	@Column(name = "strBillingCtCode")
 	private String strBillingCtCode;
+	
+	@Column(name = "strBillingCtName")
+	private String strBillingCtName;
 
 	@Column(name = "strBillingStateCode")
 	private String strBillingStateCode;
+	
+	@Column(name = "strBillingStateName")
+	private String strBillingStateName;
 
 	@Column(name = "strBillingRegionCode")
 	private String strBillingRegionCode;
+	
+	@Column(name = "strBillingRegionName")
+	private String strBillingRegionName;
 
 	@Column(name = "strBillingCountryCode")
 	private String strBillingCountryCode;
+	
+	@Column(name = "strBillingCountryName")
+	private String strBillingCountryName;
 
 	@Column(name = "strBillingPinCode")
 	private String strBillingPinCode;

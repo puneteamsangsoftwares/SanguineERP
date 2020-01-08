@@ -93,12 +93,18 @@ public class clsMemberPreProfileController {
 			clsWebClubPreMemberProfileModel objPreMemProfileModel = funPrepareModel(memProfileBean, req);
 			objPreMemberProfileService.funAddUpdateWebClubPreMemberProfile(objPreMemProfileModel);
 
-			// for Spouse member
-			clsWebClubPreMemberProfileModel objPreMemberProfileSpouseModel = funPrepardSpouseModel(memProfileBean, objPreMemProfileModel, req);
-			objPreMemberProfileService.funAddUpdateWebClubPreMemberProfile(objPreMemberProfileSpouseModel);
+			if(memProfileBean.getStrMaritalStatus().equalsIgnoreCase("Married"))
+			{
+				// for Spouse member
+				clsWebClubPreMemberProfileModel objPreMemberProfileSpouseModel = funPrepardSpouseModel(memProfileBean, objPreMemProfileModel, req);
+				objPreMemberProfileService.funAddUpdateWebClubPreMemberProfile(objPreMemberProfileSpouseModel);
 
-			// for Dependent member
-			funPrepardDependentModel(memProfileBean, objPreMemProfileModel, req);
+			}
+			if(!memProfileBean.getListDependentMember().isEmpty())
+			{
+				// for Dependent member
+				funPrepardDependentModel(memProfileBean, objPreMemProfileModel, req);
+			}
 
 			req.getSession().setAttribute("success", true);
 			req.getSession().setAttribute("successMessage", "Member Code : ".concat(objPreMemProfileModel.getStrMemberCode()));
@@ -197,8 +203,11 @@ public class clsMemberPreProfileController {
 		mpModel.setStrResidentAddressLine2(memProfileBean.getStrResidentAddressLine2());
 		mpModel.setStrResidentAddressLine3(memProfileBean.getStrResidentAddressLine3());
 		mpModel.setStrResidentAreaCode(memProfileBean.getStrResidentAreaCode());
+		mpModel.setStrResidentAreaName(memProfileBean.getStrResidentAreaName());
 		mpModel.setStrResidentCountryCode(memProfileBean.getStrResidentCountryCode());
+		mpModel.setStrResidentCountryName(memProfileBean.getStrResidentCountryName());
 		mpModel.setStrResidentCtCode(memProfileBean.getStrResidentCtCode());
+		mpModel.setStrResidentCtName(memProfileBean.getStrResidentCtName());
 		mpModel.setStrResidentEmailID(memProfileBean.getStrResidentEmailID());
 		mpModel.setStrResidentFax1(memProfileBean.getStrResidentFax1());
 		mpModel.setStrResidentFax2(memProfileBean.getStrResidentFax2());
@@ -206,7 +215,9 @@ public class clsMemberPreProfileController {
 		mpModel.setStrResidentMobileNo(memProfileBean.getStrResidentMobileNo());
 		mpModel.setStrResidentPinCode(memProfileBean.getStrResidentPinCode());
 		mpModel.setStrResidentRegionCode(memProfileBean.getStrResidentRegionCode());
+		mpModel.setStrResidentRegionName(memProfileBean.getStrResidentRegionName());
 		mpModel.setStrResidentStateCode(memProfileBean.getStrResidentStateCode());
+		mpModel.setStrResidentStateName(memProfileBean.getStrResidentStateName());
 		mpModel.setStrResidentTelephone1(memProfileBean.getStrResidentTelephone1());
 		mpModel.setStrResidentTelephone2(memProfileBean.getStrResidentTelephone2());
 
@@ -215,9 +226,13 @@ public class clsMemberPreProfileController {
 		mpModel.setStrCompanyAddressLine2(memProfileBean.getStrCompanyAddressLine2());
 		mpModel.setStrCompanyAddressLine3(memProfileBean.getStrCompanyAddressLine3());
 		mpModel.setStrCompanyAreaCode(memProfileBean.getStrCompanyAreaCode());
+		mpModel.setStrCompanyAreaName(memProfileBean.getStrCompanyAreaName());
+		mpModel.setStrCompanyCode(memProfileBean.getStrCompanyCode());
 		mpModel.setStrCompanyCode(memProfileBean.getStrCompanyCode());
 		mpModel.setStrCompanyCountryCode(memProfileBean.getStrCompanyCountryCode());
+		mpModel.setStrCompanyCountryName(memProfileBean.getStrCompanyCountryName());
 		mpModel.setStrCompanyCtCode(memProfileBean.getStrCompanyCtCode());
+		mpModel.setStrCompanyCtName(memProfileBean.getStrCompanyCtName());
 		mpModel.setStrCompanyEmailID(memProfileBean.getStrCompanyEmailID());
 		mpModel.setStrCompanyFax1(memProfileBean.getStrCompanyFax1());
 		mpModel.setStrCompanyFax2(memProfileBean.getStrCompanyFax2());
@@ -226,7 +241,9 @@ public class clsMemberPreProfileController {
 		mpModel.setStrCompanyName(memProfileBean.getStrCompanyName());
 		mpModel.setStrCompanyPinCode(memProfileBean.getStrCompanyPinCode());
 		mpModel.setStrCompanyRegionCode(memProfileBean.getStrCompanyRegionCode());
+		mpModel.setStrCompanyRegionName(memProfileBean.getStrCompanyRegionName());
 		mpModel.setStrCompanyStateCode(memProfileBean.getStrCompanyStateCode());
+		mpModel.setStrCompanyStateName(memProfileBean.getStrCompanyStateName());
 		mpModel.setStrCompanyTelePhone1(memProfileBean.getStrCompanyTelePhone1());
 		mpModel.setStrCompanyTelePhone2(memProfileBean.getStrCompanyTelePhone2());
 		mpModel.setStrHoldingCode(memProfileBean.getStrHoldingCode());
@@ -237,8 +254,11 @@ public class clsMemberPreProfileController {
 		mpModel.setStrBillingAddressLine2(memProfileBean.getStrBillingAddressLine2());
 		mpModel.setStrBillingAddressLine3(memProfileBean.getStrBillingAddressLine3());
 		mpModel.setStrBillingAreaCode(memProfileBean.getStrBillingAreaCode());
+		mpModel.setStrBillingAreaName(memProfileBean.getStrBillingAreaName());
 		mpModel.setStrBillingCountryCode(memProfileBean.getStrBillingCountryCode());
+		mpModel.setStrBillingCountryName(memProfileBean.getStrBillingCountryName());
 		mpModel.setStrBillingCtCode(memProfileBean.getStrBillingCtCode());
+		mpModel.setStrBillingCtName(memProfileBean.getStrBillingCtName());
 		mpModel.setStrBillingEmailID(memProfileBean.getStrBillingEmailID());
 		mpModel.setStrBillingFax1(memProfileBean.getStrBillingFax1());
 		mpModel.setStrBillingFax2(memProfileBean.getStrBillingFax2());
@@ -247,10 +267,13 @@ public class clsMemberPreProfileController {
 		mpModel.setStrBillingMobileNo(memProfileBean.getStrBillingMobileNo());
 		mpModel.setStrBillingPinCode(memProfileBean.getStrBillingPinCode());
 		mpModel.setStrBillingRegionCode(memProfileBean.getStrBillingRegionCode());
+		mpModel.setStrBillingRegionCode(memProfileBean.getStrBillingRegionName());
 		mpModel.setStrBillingStateCode(memProfileBean.getStrBillingStateCode());
+		mpModel.setStrBillingStateName(memProfileBean.getStrBillingStateName());
 		mpModel.setStrBillingTelePhone1(memProfileBean.getStrBillingTelePhone1());
 		mpModel.setStrBillingTelePhone2(memProfileBean.getStrBillingTelePhone2());
-
+		mpModel.setStrBillingRegionName(memProfileBean.getStrBillingRegionName());		
+		
 		// Personal Information
 		mpModel.setStrGender(memProfileBean.getStrGender());
 		mpModel.setDteDateofBirth(memProfileBean.getDteDateofBirth());
