@@ -3298,7 +3298,7 @@ function funSetBillingRegionCode(code){
 			</div>
 				
 			<div class="col-md-6">
-				<div class="row"><div class="col-md-6"><label>Passpor No</label><br><s:input id="txtPassportNo" path="strPassportNo" placeholder="Passpor No"
+				<div class="row"><div class="col-md-6"><label>Passport No</label><br><s:input id="txtPassportNo" path="strPassportNo" placeholder="Passpor No"
 												type="text"></s:input></div>
 				                  <div class="col-md-6"><label>Locker Detail</label><br><s:select id="txtLocker" name="txtLocker" path="strLocker" >
 																 <option value="N">No</option>
@@ -3405,7 +3405,7 @@ function funSetBillingRegionCode(code){
 						<div class="col-md-6">				
 				<div class="row"><div class="col-md-6"><label>Dependent Code</label><br><s:input id="txtDependentCode" path=""  cssClass="searchTextBox" readonly="true" 
 						 ondblclick="" /></div>
-								<div class="col-md-6"><label>Dependent Name</label><br><s:input type="text" id="txtDependentName" 
+								<div class="col-md-6"><label>Dependent Name</label><br><s:input type="text" id="txtDependentName"  placeholder="Enter Dependent Name"
 														name="txtDependentName" path="" 
 														cssStyle= "text-transform: uppercase;"/> <s:errors path=""></s:errors></div></div></div>
 											
@@ -3416,19 +3416,19 @@ function funSetBillingRegionCode(code){
 														name="txtChangeDependentCode" path="" readonly="true"/> <s:errors path=""></s:errors></div></div></div> --%>
 			
 			<div class="col-md-6"><label>Profession Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtDependentProfessionCode"
+				<div class="row"><div class="col-md-6"><s:input id="txtDependentProfessionCode" placeholder="Select Profession Code"
 									ondblclick="funHelp('WCDependentProfessionMaster')"  cssClass="searchTextBox"
 									type="text" path="strDependentProfessionCode" readonly="true" ></s:input></div>
-						         <div class="col-md-6"><s:input id="txtDependentProfessionName" path=""  readonly="true"
+						         <div class="col-md-6"><s:input id="txtDependentProfessionName" path=""  readonly="true"  placeholder="Profession Name"
 									cssStyle="width: 30%%;" type="text"></s:input></div></div></div>	
 									
 				
 									
 			<div class="col-md-6"><label>Block Reason Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtDependentReasonCode"
+				<div class="row"><div class="col-md-6"><s:input id="txtDependentReasonCode" placeholder="Select Block Reason Code "
 									ondblclick="funHelp('WCDependentReasonMaster')"  cssClass="searchTextBox"
 									type="text" path="strDependentReasonCode" readonly="true" ></s:input></div>
-								<div class="col-md-6"><s:input id="txtDependentReasonName" path=""  readonly="true"
+								<div class="col-md-6"><s:input id="txtDependentReasonName" path=""  readonly="true" placeholder="Block Reason Name "
 									 type="text"></s:input></div></div></div>	
 									 						
 				<div class="col-md-6">
@@ -3487,10 +3487,10 @@ function funSetBillingRegionCode(code){
 				        		<div class="row">
 				        			<div class="col-md-6">
 				        				<label>Mobile No</label><br>
-				        				<s:input id="txtDepMobileNo" type="text" path="strDepMobileNo"></s:input>
+				        				<s:input id="txtDepMobileNo" type="text" path="strDepMobileNo" placeholder="Enter Mobile No "></s:input>
 									</div>
 								    <div class="col-md-6">
-								    <label>Aadhar Card No</label><br><s:input id="txtDepAadharCardNo" type="text" path="strDepAadharCardNo"></s:input>
+								    <label>Aadhar Card No</label><br><s:input id="txtDepAadharCardNo" type="text" path="strDepAadharCardNo" placeholder="Enter Aadhar Card No"></s:input>
 									</div>
 								</div>
 							</div>
@@ -3498,7 +3498,7 @@ function funSetBillingRegionCode(code){
 					    		<div class="row">
 					    		 	<div class="col-md-6">
 					    		 		<label>Email ID</label><br>
-					    		 			<s:input id="txtDepEmailID" type="text" path="strDepEmailID"></s:input>
+					    		 			<s:input id="txtDepEmailID" type="text" path="strDepEmailID" placeholder="Enter Email ID"></s:input>
 					    		 	</div>
 			                    </div>
 			               </div>  

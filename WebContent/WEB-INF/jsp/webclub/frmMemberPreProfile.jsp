@@ -159,10 +159,57 @@ margin:0px;}
 		});
         
         
-        function funResetFields()
+        function funResetField()
 		{
 			location.reload(true); 
 		}
+        
+        
+        /* function funValidate()
+		{
+        	var flag =true;
+        	
+        	if($("#txtMemberCode").val().trim().length==0)
+        		{
+        			alert("Enter Member Code")
+        			flag =false;
+        		}
+        	else if($("#txtFirstName").val().trim().length==0)
+    		{
+        		alert("Enter FirstName")
+    			flag =false;
+    		}
+        	else if($("#txtResidentAddressLine1").val().trim().length==0)
+    		{
+        		alert("Enter Resident Address Line1")
+    			flag =false;
+    		}
+        	else if($("#txtResidentAreaCode").val().trim().length==0)
+    		{
+        		alert("Enter Resident Area Code")
+    			flag =false;
+    		}
+        	else if($("#txtProfessionCode").val().trim().length==0)
+    		{
+        		alert("Enter Profession Code")
+    			flag =false;
+    		}
+        	else if($("#txtMSCategoryCode").val().trim().length==0)
+    		{
+        		alert("Enter Membership Category")
+    			flag =false;
+    		}
+        	else if($("#txtQualification").val().trim().length==0)
+    		{
+        		alert("Enter Qualification")
+    			flag =false;
+    		}
+        	
+        	
+        	
+        	
+			 return flag;
+		} */
         
 
 		 
@@ -248,8 +295,10 @@ margin:0px;}
 						        	
 						        	$("#txtCompanyAddressLine3").val(response[0].strCompanyAddressLine3);
 						        	$("#txtCompanyLandMark").val(response[0].strCompanyLandMark);
-						        	funSetComAreaCode(response[0].strCompanyAreaCode);
-						        	
+						        	if(response[0].strCompanyAreaCode!='')
+						        		{
+							        		funSetComAreaCode(response[0].strCompanyAreaCode);
+						        		}						        	
 						        	$("#txtCompanyCtCode").val(response[0].strCompanyCtCode);
 						        	$("#txtCompanyStateCode").val(response[0].strCompanyStateCode);
 						        	
@@ -268,8 +317,10 @@ margin:0px;}
 						        	$("#txtBillingAddressLine2").val(response[0].strBillingAddressLine2);
 						        	$("#txtBillingAddressLine3").val(response[0].strBillingAddressLine3);
 						        	$("#txtBillingLandMark").val(response[0].strBillingLandMark);
-						        	
-						        	funSetBillingAreaCode(response[0].strBillingAreaCode);
+						        	if(response[0].strCompanyAreaCode!='')
+					        		{
+						        		funSetBillingAreaCode(response[0].strBillingAreaCode);							        	
+					        		}
 						        	//$("#txtBillingAreaCode").val(response[0].strBillingAreaCode);
 						        	$("#txtBillingCtCode").val(response[0].strBillingCtCode);
 						       
@@ -295,17 +346,32 @@ margin:0px;}
 						            $("#txtdtDateofBirth").datepicker({dateFormat: 'dd-mm-yy'}).datepicker('setDate', dob);						        	
 						        	$("#txtdtDateofBirth").val(response[0].dteDateofBirth);
 						        	$("#cmbMaritalStatus").val(response[0].strMaritalStatus);
-						        	$("#txtProfessionCode").val(response[0].strProfessionCode);
-						        	
-						        	$("#txtMSCategoryCode").val(response[0].strCategoryCode);
+						        	funSetProfessionCode(response[0].strProfessionCode);
+						        	//$("#txtProfessionCode").val(response[0].strProfessionCode);
+						        	if(response[0].strCompanyAreaCode!='')
+					        		{
+							        	funSetMemberCategory(response[0].strCategoryCode);
+					        		}
+						        	//$("#txtMSCategoryCode").val(response[0].strCategoryCode);
 						        	$("#txtPanNumber").val(response[0].strPanNumber);
 						        	$("#txtProposerCode").val(response[0].strProposerCode);
 						        	$("#txtSeconderCode").val(response[0].strSeconderCode);
 						        	$("#txtBlocked").val(response[0].strBlocked);
-						        	
-						        	$("#txtBlockedreasonCode").val(response[0].strBlockedreasonCode);
-						        	$("#txtQualification").val(response[0].strQualification);
-						        	$("#txtDesignationCode").val(response[0].strDesignationCode);
+						        	if(response[0].strCompanyAreaCode!='')
+					        		{
+						        		funSetBlockReasonCode(response[0].strBlockedreasonCode);
+					        		}
+						        	//$("#txtBlockedreasonCode").val(response[0].strBlockedreasonCode);
+						        	if(response[0].strCompanyAreaCode!='')
+					        		{
+						        		funSetEducationCode(response[0].strQualification);
+					        		}
+						        	//$("#txtQualification").val(response[0].strQualification);
+						        	if(response[0].strCompanyAreaCode!='')
+					        		{
+						        		funSetDesignationCode(response[0].strDesignationCode);
+					        		}
+						        	//$("#txtDesignationCode").val(response[0].strDesignationCode);
 						        	$("#txtLocker").val(response[0].strLocker);
 						        	$("#txtLibrary").val(response[0].strLibrary);
 						        	
@@ -557,7 +623,7 @@ margin:0px;}
 		        {
 		        	if(response.strAreaCode=='Invalid Code')
 		        	{
-		        		alert("Invalid Group Code");
+		        		alert("Invalid Area Code");
 		        		$("#txtGroupCode").val('');
 		        	}
 		        	else
@@ -600,7 +666,7 @@ margin:0px;}
 		        {
 		        	if(response.strAreaCode=='Invalid Code')
 		        	{
-		        		alert("Invalid Group Code");
+		        		alert("Invalid Company Area Code");
 		        		$("#txtGroupCode").val('');
 		        	}
 		        	else
@@ -645,7 +711,7 @@ margin:0px;}
 		        {
 		        	if(response.strAreaCode=='Invalid Code')
 		        	{
-		        		alert("Invalid Group Code");
+		        		alert("Invalid Billing Area Code");
 		        		$("#txtGroupCode").val('');
 		        	}
 		        	else
@@ -2066,18 +2132,21 @@ function funSetBillingRegionCode(code){
 			document.getElementById("txtFirstName").focus();
 			alert("Enter First Name");
 			flag=false;
-		}
-		
+		}		
 		else if($("#txtResidentAddressLine1").val().trim().length<1)
 		{
 			$('#multiAccordion').multiAccordion("option", "active", [1]);
-			  // in this line [0,1,2] wirte then these index are open
-			
-			/* $("#tabAddressInfo").addClass("active"); */ 
 			document.getElementById("txtResidentAddressLine1").focus();
 			alert("Resident Address Line1 ");
 			flag=false;
-		}		
+		}			
+		else if($("#txtResidentAreaCode").val().trim().length<1)
+		{
+			$('#multiAccordion').multiAccordion("option", "active", [1]);
+			document.getElementById("txtResidentAreaCode").focus();
+			alert("Enter Resident Area Name ");
+			flag=false;
+		}
 		else if($("#txtResidentCtCode").val().trim().length<1)
 		{
 			$('#multiAccordion').multiAccordion("option", "active", [1]);
@@ -2158,22 +2227,22 @@ function funSetBillingRegionCode(code){
 			<div class="container transtable"  style="background-color:#f2f2f2;">
 			<div class="row" >
 				<div class="col-md-9">
-  					<div class="row" ><div class="col-md-4"><label>Member Code</label><br><s:input id="txtMemberCode" type="search" readonly="true"
-									ondblclick="funHelp('WCmemPre-ProfileCustomer')" cssClass="searchTextBox"
+  					<div class="row" ><div class="col-md-4"><label>Member Code</label><br><s:input id="txtMemberCode" type="search" 
+									ondblclick="funHelp('WCmemPre-ProfileCustomer')" cssClass="searchTextBox" placeholder="Enter Member Code"
 								  class="form-control" path="strMemberCode" ></s:input></div>
 									<div class="col-md-4"><label>Prefix Code</label><br><s:select id="txtPrefixCode" path="strPrefixCode" name="txtPrefixCode">
 													 <option value="Mr">Mr</option>
 									 				 <option value="Mrs">Mrs</option>
 									 				 <option value="Ms">Ms</option>
 													 </s:select></div>
-									<div class="col-md-4"><label>First  Name</label><br><s:input id="txtFirstName" path="strFirstName"  type="text"></s:input></div>
-									<div class="col-md-4"><label>Middle  Name</label><br><s:input id="txtMiddleName" path="strMiddleName" type="text"></s:input></div>
-									<div class="col-md-4"><label>Last  Name</label><br><s:input id="txtLastName" path="strLastName" 
+									<div class="col-md-4"><label>First  Name</label><br><s:input id="txtFirstName" placeholder="Enter First Name "  path="strFirstName"  type="text"></s:input></div>
+									<div class="col-md-4"><label>Middle  Name</label><br><s:input id="txtMiddleName" placeholder="Enter Middle Name " path="strMiddleName" type="text"></s:input></div>
+									<div class="col-md-4"><label>Last  Name</label><br><s:input id="txtLastName" placeholder="Enter Last Name " path="strLastName" 
 										 type="text"></s:input></div>
 					</div>
 					<div class="row" >
 					
-					<div class="col-md-4"><label>Name On Card</label><br><s:input id="txtNameOnCard" path="strNameOnCard" type="text" onclick="funFillNameOnCard()" ></s:input></div>
+					<div class="col-md-4"><label>Name On Card</label><br><s:input id="txtNameOnCard" placeholder="Enter Name On Card " path="strNameOnCard" type="text" onclick="funFillNameOnCard()" ></s:input></div>
 									
 					</div>
 					</div>
@@ -2185,7 +2254,7 @@ function funSetBillingRegionCode(code){
 									
 <h3><a href="#">Address Information</a></h3>
 			<div>							
-	<div id="tab_container" style="height: 130px">
+	<div id="tab_container" style="height: 250px">
 			<div><ul class="tabs">
 					<li class="active" data-state="tab1">Resident Address</li>
 					<li data-state="tab2"> Company Address</li>
@@ -2226,7 +2295,7 @@ function funSetBillingRegionCode(code){
 					class="decimal-places numberField" type="text"></s:input></div>
   				<div class="col-md-3"><label>Resident PinCode</label><br><s:input id="txtResidentPinCode" path="strResidentPinCode"  readonly="true" 
 					class="decimal-places numberField" type="text"></s:input></div>
-  				<div class="col-md-3"><label>Resident Mobile No</label><br><s:input id="txtResidentMobileNo" path="strResidentMobileNo"  
+  				<div class="col-md-3"><label>Resident Mobile No</label><br><s:input id="txtResidentMobileNo" path="strResidentMobileNo"  pattern="[789][0-9]{9}"
 					class="decimal-places numberField" type="text"></s:input></div>
   				<div class="col-md-3"><label>Resident Email ID</label><br><s:input id="txtCompanyEmailID" path="strCompanyEmailID" type="text"></s:input></div>
 			</div></div>
@@ -2407,8 +2476,8 @@ function funSetBillingRegionCode(code){
 			<div class="row">
   				<div class="col-md-6"><label>Profession Code</label><br>
   					<div class="row"><div class="col-md-6"><s:input id="txtProfessionCode"  ondblclick="funHelp('WCProfessionMaster')" cssClass="searchTextBox" readonly="true"
-									type="text" path="strProfessionCode" ></s:input></div>
-								<div class="col-md-6"><s:input id="txtProfessionName" path="" readonly="true"
+									type="text" path="strProfessionCode" placeholder="Select Profession Code" ></s:input></div>
+								<div class="col-md-6"><s:input id="txtProfessionName" path="" placeholder="Profession Name"  readonly="true"
 									cssStyle="width: 30%%;" type="text"></s:input></div></div></div>
 				
 				<div class="col-md-6">
@@ -2434,35 +2503,35 @@ function funSetBillingRegionCode(code){
 				<div class="row"><div class="col-md-6"><label>Spouse Code</label><br><s:input id="txtSpouseCode"
 									ondblclick="" readonly="true"
 									type="text" path="strSpouseCode" ></s:input></div>
-								   <div class="col-md-6"><label>First Name</label><br><s:input id="txtSpouseFirstName" path="strSpouseFirstName" 
+								   <div class="col-md-6"><label>First Name</label><br><s:input id="txtSpouseFirstName" placeholder="Enter First Name" path="strSpouseFirstName" 
 									type="text"></s:input></div></div></div>
 									
 			<div class="col-md-6">						
-				<div class="row"><div class="col-md-6"><label>Middle Name</label><br><s:input id="txtSpouseMiddleName" path="strSpouseMiddleName" 
+				<div class="row"><div class="col-md-6"><label>Middle Name</label><br><s:input id="txtSpouseMiddleName" path="strSpouseMiddleName" placeholder="Enter Middle Name"
 									type="text"></s:input></div>
-									<div class="col-md-6"><label>Last Name</label><br><s:input id="txtSpouseLastName" path="strSpouseLastName" 
+									<div class="col-md-6"><label>Last Name</label><br><s:input id="txtSpouseLastName" path="strSpouseLastName" placeholder="Enter Last Name"
 									cssStyle="width: 56%;" type="text"></s:input></div></div></div>
 								
 									
 			<div class="col-md-6"><label>Profession Code</label><br>
-					<div class="row"><div class="col-md-6"><s:input id="txtSpouseProfessionCode" cssClass="searchTextBox" readonly="true"
+					<div class="row"><div class="col-md-6"><s:input id="txtSpouseProfessionCode" cssClass="searchTextBox" readonly="true" placeholder="Select Profession Code" 
 									ondblclick="funHelp('WCSpouseProfessionMaster')" 
 									type="text" path="strSpouseProfessionCode" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtSpouseProfessionName" path=""  readonly="true"
+									<div class="col-md-6"><s:input id="txtSpouseProfessionName" path=""  readonly="true" placeholder="Profession Name" 
 									cssStyle="width: 100%;" type="text"></s:input></div></div></div>
 									
 			<div class="col-md-6">						
 				<div class="row"><div class="col-md-6"><label>Date Of Birth</label><br><s:input id="txtdtSpouseDateofBirth" name="txtdtSpouseDateofBirth" cssClass="calenderTextBox" path="dteSpouseDateofBirth"/></div>
-								<div class="col-md-6"><label>Mobile No</label><br><s:input id="txtSpouseResidentMobileNo" path="strSpouseResidentMobileNo"  
+								<div class="col-md-6"><label>Mobile No</label><br><s:input id="txtSpouseResidentMobileNo" path="strSpouseResidentMobileNo"  placeholder="Enter Mobile No"
 													class="decimal-places numberField" type="text"></s:input></div></div></div>
 	
 	        <div class="col-md-6">
-				<div class="row"><div class="col-md-6"><label>Email ID</label><br><s:input id="txtSpouseResidentEmailID" path="strSpouseResidentEmailID" 
+				<div class="row"><div class="col-md-6"><label>Email ID</label><br><s:input id="txtSpouseResidentEmailID" path="strSpouseResidentEmailID" placeholder="Enter Email ID" 
 						           type="text"></s:input></div>
 				               <div class="col-md-6"><label>Anniversary Date</label><br><s:input id="txtdtAnniversary" name="txtdtAnniversary" path="dteAnniversary" /></div></div></div>
 			
 			<div class="col-md-6"><label>Company Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtSpouseCompanyCode"
+				<div class="row"><div class="col-md-6"><s:input id="txtSpouseCompanyCode" placeholder="Company Code"
 									ondblclick="" 
 									 type="text" path="strSpouseCompanyCode" ></s:input></div>
 								 <div class="col-md-6"><s:input id="txtSpouseCompanyName" path=""  
@@ -2490,10 +2559,10 @@ function funSetBillingRegionCode(code){
 			<div class="row">
   				
   				<div class="col-md-6"><label>Membership Category</label><br>
-  					<div class="row"><div class="col-md-6"><s:input id="txtMSCategoryCode" readonly="true"
+  					<div class="row"><div class="col-md-6"><s:input id="txtMSCategoryCode" readonly="true" placeholder="Select Membership Category Code" 
 									ondblclick="funHelp('WCCatMaster')"  cssClass="searchTextBox"
 									type="text" path="strCategoryCode" required="required" ></s:input></div>
-								 <div class="col-md-6"><s:input id="txtMemberName" path="" readonly="true"
+								 <div class="col-md-6"><s:input id="txtMemberName" path="" readonly="true" placeholder="Membership Category Name" 
 										type="text"></s:input></div></div></div>
 				<%-- 
 				<div class="col-md-6"><label>Proposer Code</label><br>
@@ -2524,25 +2593,25 @@ function funSetBillingRegionCode(code){
 								<div class="col-md-6"><s:input id="txtStatusName" path=""
 											 type="text"></s:input></div></div></div> --%>
 											 
-			<div class="col-md-6"><label>Region Code</label><br>
-					<div class="row"><div class="col-md-6"><s:input id="txtBlockedReasonCode" readonly="true"
-									ondblclick="funHelp('WCBlockReasonMaster')" 
+			<div class="col-md-6"><label>Reason Code</label><br>
+					<div class="row"><div class="col-md-6"><s:input id="txtBlockedReasonCode" readonly="true" placeholder="Select Reason Code" 
+									ondblclick="funHelp('WCBlockReasonMaster')"  cssClass="searchTextBox"
 									type="text" path="strBlockedreasonCode"  ></s:input></div>
-									<div class="col-md-6"><s:input id="txtBlockedReasonName" path="" 
+									<div class="col-md-6"><s:input id="txtBlockedReasonName" path="" placeholder="Reason Name" 
 									type="text"></s:input></div></div></div>
 		    
 		    <div class="col-md-6"><label>Qualification</label><br>
-					<div class="row"><div class="col-md-6"><s:input id="txtQualification" readonly="true"
+					<div class="row"><div class="col-md-6"><s:input id="txtQualification" readonly="true" placeholder="Select Qualification"
 									ondblclick="funHelp('WCEducationMaster')" cssClass="searchTextBox"
 									type="text" path="strQualification" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtQualificationName" path=""  readonly="true"
+									<div class="col-md-6"><s:input id="txtQualificationName" path=""  readonly="true" placeholder="Qualification Name"
 									type="text"></s:input></div></div></div>
 			
 			<div class="col-md-6"><label>Designation</label><br>
 				<div class="row"><div class="col-md-6"><s:input id="txtDesignationCode"
-									ondblclick="funHelp('WCDesignationMaster')"  cssClass="searchTextBox" readonly="true"
+									ondblclick="funHelp('WCDesignationMaster')"  cssClass="searchTextBox" readonly="true" placeholder="Select Designation"
 									type="text" path="strDesignationCode" ></s:input></div>
-							      <div class="col-md-6"><s:input id="txtDesignationName" path=""  readonly="true"
+							      <div class="col-md-6"><s:input id="txtDesignationName" path=""  readonly="true" placeholder="Designation Name"
 												type="text"></s:input></div></div></div>
 			
 			<div class="col-md-6">
@@ -2564,7 +2633,7 @@ function funSetBillingRegionCode(code){
 			<div class="col-md-6">
 				<div class="row"><div class="col-md-6"><label>Subscription Fee</label><br><s:input id="txtdblSubscriptionFee" path="dblSubscriptionFee" 
 									class="decimal-places numberField" type="text"></s:input></div>
-							    <div class="col-md-6"><label>Pan Number</label><br><s:input id="txtPanNumber" path="strPanNumber" 
+							    <div class="col-md-6"><label>Pan Number</label><br><s:input id="txtPanNumber" path="strPanNumber" placeholder="Enter Pan Number" 
 												type="text"></s:input></div></div></div>
 												
 			<div class="col-md-6">
@@ -2595,10 +2664,10 @@ function funSetBillingRegionCode(code){
 															 </s:select></div></div></div>
 								
 		    <div class="col-md-6">
-				<div class="row"><div class="col-md-6"><label>Instation</label><br><s:select id="txtInstation" name="txtInstation" path="strInstation">
+				<div class="row"><%-- <div class="col-md-6"><label>Instation</label><br><s:select id="txtInstation" name="txtInstation" path="strInstation">
 															 <option value="N">No</option>
 											 				 <option value="Y">Yes</option>
-															 </s:select></div>
+															 </s:select></div> --%>
 							   <div class="col-md-6"><label>Golf Membership</label><br><s:select id="cmbGolfMemberShip" name="cmbGolfMemberShip" path="strGolfMemberShip">
 															 <option value="N">No</option>
 											 				 <option value="Y">Yes</option>
@@ -2742,7 +2811,7 @@ function funSetBillingRegionCode(code){
 			
 		<div id="paraSubmit" class="center" style="display:none">
 						
-						<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="" 
+						<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidate()" 
 						class="form_button">Submit</button></a>
 						<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetField()"
 						class="form_button">Reset</button></a>
