@@ -225,7 +225,7 @@
 <body>
 	<div class="container">
 		<label id="formHeading">Sub Group Master</label>
-		<s:form name="BankMaster" method="POST" action="saveACGroupMaster.html">
+		<s:form name="BankMaster" method="POST" action="saveACSubGroupMaster.html">
 				<div class="row masterTable">
 					
 							<div class="col-md-5"><label>Sub Group Code:</label>

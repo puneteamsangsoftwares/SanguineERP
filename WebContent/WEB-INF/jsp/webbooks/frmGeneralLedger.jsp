@@ -82,7 +82,7 @@
 		var strShowNarration=document.getElementById("chkShowNarration").checked;
 		funGetGeneralLedgerDataBeforeExport(fromDate,toDate,glCode);
 		window.location.href = getContextPath()+ "/frmExportGeneralLedger.html?param1="+ param1 + "&fDate=" + fromDate+ "&tDate=" + toDate+"&currency="+currency+"&strShowNarration="+strShowNarration;
-
+		return false;
 	}
 
 	function funClickOnExecuteButton()
@@ -114,6 +114,8 @@
 		}
 		var glCode = $("#txtGLCode").val();
 		funGetGeneralLedger(fromDate,toDate,glCode);
+		
+		return false;
 	}
 
 	
@@ -853,9 +855,9 @@
 								
 						</div>
 						<div class="center" style="text-align:center; margin-right: 10%;">
-							<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="funClickOnExecuteButton()" 
+							<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return  funClickOnExecuteButton()" 
 								class="form_button">Execute</button></a>&nbsp
-							<a href=""><button class="btn btn-primary center-block" id="btnExport" value="Export" onclick="funClickOnExportBtn()"
+							<a href=""><button class="btn btn-primary center-block" id="btnExport" value="Export" onclick="return funClickOnExportBtn()"
 								class="form_button">Export</button></a>
 						</div>
 						<div id="dvGeneralLedgerBill" style="width: 100% ;height: 300px ;overflow-x: hidden; overflow-y: scroll ;">

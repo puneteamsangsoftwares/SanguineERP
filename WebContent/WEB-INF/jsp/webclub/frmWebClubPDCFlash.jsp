@@ -166,7 +166,7 @@
 		    rowCount=listRow;
 		    row.insertCell(0).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"20%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strMemCode\" value='"+memCode+"' id=\"txtMemCode."+(rowCount)+"\" >";
 			row.insertCell(1).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"25%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strDrawnOn\" value='"+drawnOn+"' id=\"txtBankCode."+(rowCount)+"\" >";
-		    row.insertCell(2).innerHTML= "<input class=\"Box\" readonly=\"true\" type=\"text\" name=\"listPDCDtlRecieved["+(rowCount)+"].strChequeNo\" size=\"25%\"  id=\"txtChequeNo."+(rowCount)+"\" value='"+chequeNo+"'/>";	
+		    row.insertCell(2).innerHTML= "<input class=\"Box\" readonly=\"true\" type=\"text\" name=\"listPDCDtlRecieved["+(rowCount)+"].strChequeNo\" size=\"25%\"   id=\"txtChequeNo."+(rowCount)+"\" value='"+chequeNo+"'/>";	
 		    row.insertCell(3).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"20%\" name=\"listPDCDtlRecieved["+(rowCount)+"].dteChequeDate\" id=\"txtChkDte."+(rowCount)+"\" value="+chequeDate+">";
 		    row.insertCell(4).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"25%\" name=\"listPDCDtlRecieved["+(rowCount)+"].dblChequeAmt\" value='"+chequeAmt+"' style=\"text-align: right;\" id=\"txtAmt."+(rowCount)+"\" >";	
 		    row.insertCell(5).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"20%\" name=\"listPDCDtlRecieved["+(rowCount)+"].strChequeType\" value='"+chequeType+"' id=\"txtChequeType."+(rowCount)+"\" >";	
@@ -358,6 +358,14 @@
 				        }
 			      });
 	 }
+	 
+		function isNumber(evt) {
+	        var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+	        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+	            return false;
+
+	        return true;
+	    }  
 	 
 	 
 </script>

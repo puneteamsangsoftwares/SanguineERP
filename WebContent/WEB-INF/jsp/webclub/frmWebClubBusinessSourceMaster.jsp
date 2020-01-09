@@ -160,7 +160,7 @@
 				</div>
 			</div>
 			<div class="center">
-							<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidate()"
+							<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidateFields()"
 								class="form_button">Submit</button></a>
 							<a href="#"><button class="btn btn-primary center-block" type="reset"
 								value="Reset" class="form_button" onclick="funResetField()">Reset</button></a>

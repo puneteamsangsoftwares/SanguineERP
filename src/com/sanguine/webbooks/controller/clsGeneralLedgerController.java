@@ -131,7 +131,7 @@ public class clsGeneralLedgerController {
 		sbSql.append("select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster where strCurrencyCode='"+currency+"' and strClientCode='"+clientCode+"' ");
 		try
 		{
-			List list = objBaseService.funGetList(sbSql,"sql");
+			List list = objBaseService.funGetListForWebStocks(sbSql,"sql");
 			conversionRate=Double.parseDouble(list.get(0).toString());
 		}catch(Exception e)
 		{
