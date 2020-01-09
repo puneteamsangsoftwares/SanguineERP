@@ -5214,12 +5214,13 @@ return 1;
 				objSummaryledger.setStrClientCode(clientCode);
 				objSummaryledger.setStrUserCode(userCode);
 				objSummaryledger.setStrPropertyCode(propertyCode);
-				dblCrAmt=dblCrAmt+Double.parseDouble(objArr[6].toString())/con;
+				//dblCrAmt=dblCrAmt+Double.parseDouble(objArr[6].toString())/con;
 				dblBalAmt=dblBalAmt-Double.parseDouble(objArr[7].toString())/con;
 				if(objArr[8].toString().equalsIgnoreCase("Cr"))
 				{
+					dblCrAmt=dblCrAmt+Double.parseDouble(objArr[6].toString())/con;					
 					objSummaryledger.setDblCreditAmt(dblCrAmt);		
-					objSummaryledger.setDblBalanceAmt(dblBalAmt-(dblCrAmt*2));
+					objSummaryledger.setDblBalanceAmt(0);
 				}
 				objGlobalFunctionsService.funAddUpdateLedgerSummary(objSummaryledger);
 			}

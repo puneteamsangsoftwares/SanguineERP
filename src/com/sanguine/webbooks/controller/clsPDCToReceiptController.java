@@ -236,10 +236,7 @@ public class clsPDCToReceiptController {
 			{	
 				objReceiptDtlModel = new clsReceiptDtlModel();
 				objReceiptDtlModel.setStrAccountCode("");				
-				objReceiptDtlModel.setStrAccountCode(objBean.getStrDebtorAccCode());
-			
-				
-			
+				objReceiptDtlModel.setStrAccountCode(objBean.getStrDebtorAccCode());	
 				objReceiptDtlModel.setStrAccountName(i.getStrDebtorName());
 				if(i.getStrBankName()!=null){
 					objReceiptDtlModel.setStrAccountName(i.getStrBankName());
@@ -333,8 +330,21 @@ public class clsPDCToReceiptController {
 					if(i.getStrDebtorCode().startsWith("D"))
 					{
 						objReceiptDebtorDtlModel.setDblAmt(dblAmt);	
-						objReceiptDebtorDtlModel.setStrAccountCode("");						
-						listReceiptDebtorDtlModel.add(objReceiptDebtorDtlModel);
+						objReceiptDebtorDtlModel.setStrAccountCode("");							
+						
+						if(!listReceiptDebtorDtlModel.isEmpty())
+						{
+							if(listReceiptDebtorDtlModel.get(j-1).getStrDebtorCode().equalsIgnoreCase(i.getStrDebtorCode()))
+							{
+								listReceiptDebtorDtlModel.set(j-1,objReceiptDebtorDtlModel);
+							}
+						}
+						else
+						{
+							listReceiptDebtorDtlModel.add(objReceiptDebtorDtlModel);
+						}
+						
+							
 					}
 					
 					/*if(j>=objBean.getListReceiptBean().size()-2)

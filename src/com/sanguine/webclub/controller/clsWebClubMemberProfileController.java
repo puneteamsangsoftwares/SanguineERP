@@ -118,10 +118,6 @@ public class clsWebClubMemberProfileController {
 			urlHits = "1";
 		}
 		model.put("urlHits", urlHits);
-
-		
-		
-		
 		//member master
 		List<clsWebClubMemberProfileSetupBean> listWebClubMemberProfileBean = new ArrayList<>();
 		List list  = new ArrayList<>();
@@ -130,49 +126,30 @@ public class clsWebClubMemberProfileController {
 	 	String sqlMemProSetup="SELECT * FROM "+WebCLUBDB+".tblmempropertysetup ";
 		List listMemProSetup =objGlobalFunctionsService.funGetList(sqlMemProSetup);		
 		Map<String,String> hashMemProSetupFill = new LinkedHashMap<String,String>();
-		
-		for(int i=0;i<listMemProSetup.size();i++)
+		if(listMemProSetup!=null && listMemProSetup.size()>0)
 		{
-			Object [] obj=(Object[]) listMemProSetup.get(i);
-			hashMemProSetupFill.put(obj[0].toString(),obj[1].toString());
-		}	
+			for(int i=0;i<listMemProSetup.size();i++)
+			{
+				Object [] obj=(Object[]) listMemProSetup.get(i);
+				hashMemProSetupFill.put(obj[0].toString(),obj[1].toString());
+			}
+		}			
 		String sqlMemMaster="SELECT * FROM "+WebCLUBDB+".tblmempropertysetup ";
 		List listMemMaster =objGlobalFunctionsService.funGetList(sqlMemMaster);
 		clsWebClubMemberProfileSetupBean objBean =null;
 		for(int i=0;i<listMemMaster.size();i++)
 		{
-			//objBean = new clsWebClubMemberProfileSetupBean();
 			Object [] obj = (Object []) listMemMaster.get(i);
 			String str=obj[0].toString().split("_")[0];
 			if(obj[0].toString()!=null)
 			{
 				if(obj[1].toString().equalsIgnoreCase("Y"))
-				{
-					//objBean.setStrFieldName(obj[0].toString());	
+				{	
 					list.add(obj[0].toString().split("_")[1]);
 				}
-				//listWebClubMemberProfileBean.add(objBean);
-				
-			}
-			
+			}			
 		}
-		//String str1="Hello";
 		request.setAttribute("ListMemberValidation", list);
-		//objWebClubMemberProfileBean.setListWebClubMemberProfileSetupBean(listWebClubMemberProfileBean);		
-		//model.put("treeList", objWebClubMemberProfileBean);		
-		
-		/*Map<String,String> hashMapMemMaster = funDataBaseShrink(sqlMemMaster);			
-		 for (Map.Entry<String,String> entry : hashMapMemMaster.entrySet()){  
-	           // System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue()); 
-	            objBean = new clsWebClubMemberProfileSetupBean ();
-	            objBean.setStrFieldName("M_"+entry.getKey().toString());
-	            if(hashMemProSetupFill.containsKey("M_"+entry.getKey().toString())&&hashMemProSetupFill.get("M_"+entry.getKey().toString()).equalsIgnoreCase("Y"))
-	            {
-	            	objBean.setStrFlag("true");
-	            }
-	            listWebClubMemberProfileBean.add(objBean);
-		 }		*/
-		
 		
 		if ("2".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmMemberProfile_1", "command", new clsWebClubMemberProfileBean());
