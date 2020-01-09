@@ -85,7 +85,7 @@ public class clsPDCToReceiptController {
 	}
 	
 	@RequestMapping(value = "/savePDCToReceipt", method = RequestMethod.POST)
-	public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsReceiptBean objBean, BindingResult result, HttpServletRequest req) {
+	public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsReceiptBean objBean, BindingResult result, HttpServletRequest req) throws Exception {
 		if (!result.hasErrors()) {
 			String clientCode = req.getSession().getAttribute("clientCode").toString();
 			String userCode = req.getSession().getAttribute("usercode").toString();
@@ -146,7 +146,7 @@ public class clsPDCToReceiptController {
 		}
 	}
 	
-	public clsReceiptHdModel funPrepareHdModel(clsReceiptBean objBean, String userCode, String clientCode, String propertyCode, HttpServletRequest request,String strCFCode) {
+	public clsReceiptHdModel funPrepareHdModel(clsReceiptBean objBean, String userCode, String clientCode, String propertyCode, HttpServletRequest request,String strCFCode) throws Exception {
 
 		
 		clsReceiptHdModel objModel = new clsReceiptHdModel();
@@ -236,11 +236,29 @@ public class clsPDCToReceiptController {
 			{	
 				objReceiptDtlModel = new clsReceiptDtlModel();
 				objReceiptDtlModel.setStrAccountCode("");				
-				objReceiptDtlModel.setStrAccountCode(objBean.getStrDebtorAccCode());	
+				objReceiptDtlModel.setStrAccountCode(objBean.getStrDebtorAccCode());
+			
+				
+			
 				objReceiptDtlModel.setStrAccountName(i.getStrDebtorName());
 				if(i.getStrBankName()!=null){
 					objReceiptDtlModel.setStrAccountName(i.getStrBankName());
-				}				
+					objReceiptDtlModel.setStrAccountCode(i.getStrDebtorAccCode());
+				}	
+				else
+				{
+					if(!i.getStrDebtorName().equals("") )
+					{
+						StringBuilder sqlDebtorName = new StringBuilder();
+						sqlDebtorName.append("select a.strAccountName from tblacmaster  a "
+								+ "where a.strAccountCode='"+objBean.getStrDebtorAccCode()+"' and a.strClientCode='"+clientCode+"'");
+						List listAcc=objBaseService.funGetListForWebBooks(sqlDebtorName, "sql");
+						if(listAcc!=null && listAcc.size()>0){
+							objReceiptDtlModel.setStrAccountName(listAcc.get(0).toString());
+						}
+
+					}
+				}
 				objReceiptDtlModel.setStrCrDr(objGlobal.funIfNull(i.getStrCrDr(), "Cr", i.getStrCrDr()));
 				objReceiptDtlModel.setStrNarration("");
 				objReceiptDtlModel.setDblCrAmt(i.getDblAmt() * currConversion);			

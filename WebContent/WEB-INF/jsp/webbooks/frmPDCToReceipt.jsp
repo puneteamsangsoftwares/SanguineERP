@@ -200,6 +200,8 @@
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);   
 		    
+		    var debtorAcCode=$("#txtCFCode").val('')
+		    
 		    rowCount=listRow;
 		    row.insertCell(0).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"18%\" name=\"listReceiptBean["+(rowCount)+"].strDebtorName\" \ value='"+memCode+"'  id=\"txtMemCode."+(rowCount)+"\" >";
 		    row.insertCell(1).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"22%\" name=\"listReceiptBean["+(rowCount)+"].strDrawnOn\" value='"+drawnOn+"' id=\"txtBankCode."+(rowCount)+"\" >";
@@ -210,7 +212,8 @@
 		    row.insertCell(6).innerHTML= "<input id=\"checkBox."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" class=\"suppCheckBoxClass\" name=\"listReceiptBean["+(rowCount)+"].strTransMode\"  value='"+checkboxValue+"' />";
 		    row.insertCell(7).innerHTML= "<input name=\"listReceiptBean["+(rowCount)+"].strSancCode\" type=\"hidden\" value = '"+checkboxValue+"' >";
 		    row.insertCell(8).innerHTML= "<input name=\"listReceiptBean["+(rowCount)+"].strDebtorCode\" type=\"hidden\" value = '"+accountCode+"' >";
-
+		    row.insertCell(8).innerHTML= "<input name=\"listReceiptBean["+(rowCount)+"].strDebtorAccCode\" type=\"hidden\" value = '"+debtorAcCode+"' >";
+		    
 		    
 		    listRow++;		    
 		    funResetProductFieldsRecieved();		   		    
