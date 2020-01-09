@@ -389,7 +389,7 @@ public class clsWebClubMemberProfileController {
 						if(i==0)
 						{	if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="DATE"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
 							{
-								sbSql.append("'"+obj.getStrFieldValue()+"'");
+								sbSql.append(",'"+obj.getStrFieldValue()+"'");
 							}
 							else
 							{
@@ -1470,7 +1470,7 @@ public class clsWebClubMemberProfileController {
 		Map hm = new LinkedHashMap<String,List>();		
 		List listField=objGlobalFunctionsService.funGetListModuleWise("SELECT * FROM tblotherdtl a WHERE a.strMemberCode='"+list.get(0).toString()+"' ","sql") ;
 		Map hmap=funDataBaseShrink();
-		if(listField!=null||listField.size()>0)
+		if(listField!=null && listField.size()>0)
 		{
 			for(int i=0;i<listField.size();i++)
 			{
@@ -1484,7 +1484,14 @@ public class clsWebClubMemberProfileController {
 					{	
 						List list1 = new ArrayList<>();						
 						list1.add(entry.getValue());
-						list1.add(obj[k+1].toString());						
+						if(obj[k+1]!=null)
+						{
+							list1.add(obj[k+1].toString());	
+						}			
+						else
+						{
+							list1.add("");
+						}
 						hm.put(entry.getKey(),list1);
 						k++;
 					}

@@ -40,13 +40,13 @@ public class clsWebClubOtherFieldCreationController{
 	private clsGlobalFunctionsService objGlobalFunctionsService;
 	private clsGlobalFunctions objGlobal=null;
 
-//Open WebClubPDC
+	//Open WebClubPDC
 	@RequestMapping(value = "/frmOtherFieldCreation", method = RequestMethod.GET)
 	public ModelAndView funOpenForm(){
 				
 		return new ModelAndView("frmOtherFieldCreation","command", new clsWebClubOtherFieldCreationBean());
 	}
-//Load Master Data On Form
+	//Load Master Data On Form
 	@RequestMapping(value = "/frmOtherFieldCreation1", method = RequestMethod.POST)
 	public @ResponseBody clsWebClubOtherFieldCreationBean funLoadMasterData(HttpServletRequest request){
 		objGlobal=new clsGlobalFunctions();
@@ -70,199 +70,196 @@ public class clsWebClubOtherFieldCreationController{
 			int k=0;
 			if(!objBean.getListTableCreation().isEmpty()&&objBean!=null)
 			{
-			//check table is empty or not
-			String WebCLUBDB=req.getSession().getAttribute("WebCLUBDB").toString();					
-			try{
-				sbSql.append("SELECT * FROM "+WebCLUBDB+".tblotherdtl ; ");
-				 list =objWebClubOtherFieldCreationService.funExecuteList(sbSql.toString());
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-			boolean tableStatus=false;
-			Map<String,List> map=funDataBaseShrink(sbSql.toString());	
-			if(list==null)
-			{
-				tableStatus=true;				
-			}
-			else if(list.isEmpty())
-			{
-				tableStatus=true;
-			}
-					
-				if(tableStatus)
-				{			
-					
-				//drop if empty
-				sbSql.setLength(0);
-				sbSql.append("DROP TABLE IF EXISTS tblotherdtl; ");
-				objWebClubOtherFieldCreationService.funExecuteQuery(sbSql.toString());
-				
-				//create table
-				sbSql.setLength(0);
-				sbSql.append("CREATE TABLE `tblotherdtl` ( strMemberCode VARCHAR(10) NOT NULL DEFAULT '',strClientCode VARCHAR(10) NOT NULL DEFAULT ''");			
-						for(int i=0;i<objBean.getListTableCreation().size();i++)					{	
-							clsWebClubOtherFieldCreationBean obj = objBean.getListTableCreation().get(i);
-							if(obj.getStrFieldName()!=null)
-							{
-								if(k>=1&&i==objBean.getListTableCreation().size()-1)
-								{
-									if(obj.getStrDataType().equalsIgnoreCase("DATE")||obj.getStrDataType().equalsIgnoreCase("TIME")||obj.getStrDataType().equalsIgnoreCase("DATETIME")||obj.getStrDataType().equalsIgnoreCase("BLOB")||obj.getStrDataType().equalsIgnoreCase("TEXT"))
-									{
-										sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+" ");
-									}
-									else if(obj.getStrDataType().equalsIgnoreCase("DECIMAL"))
-									{
-										sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+",2) ");
-									}
-									else if(obj.getStrDataType().equalsIgnoreCase("VARCHAR"))
-									{
-										sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") NOT NULL DEFAULT ''");
-									}
-									else
-									{
-										sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") ");
-									}
-								}
-								else
-								{
-									if(obj.getStrDataType().equalsIgnoreCase("DATE")||obj.getStrDataType().equalsIgnoreCase("TIME")||obj.getStrDataType().equalsIgnoreCase("DATETIME")||obj.getStrDataType().equalsIgnoreCase("BLOB")||obj.getStrDataType().equalsIgnoreCase("TEXT"))
-									{
-										sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+" ");
-									}
-									else if(obj.getStrDataType().equalsIgnoreCase("DECIMAL"))
-									{
-										sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+",2) ");
-									}
-									else if(obj.getStrDataType().equalsIgnoreCase("VARCHAR"))
-									{
-										sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") NOT NULL DEFAULT ''");
-									}
-									else
-									{
-										sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") ");
-									}								
-								}
-								k++;
-							}				
-						}
-						sbSql.append(" ,PRIMARY KEY (`strMemberCode`,`strClientCode`)) ");
-						sbSql.append(" COLLATE='latin1_swedish_ci' ");
-						sbSql.append(" ENGINE=InnoDB ;");	
-						objWebClubOtherFieldCreationService.funExecuteQuery(sbSql.toString());
-				
-						req.getSession().setAttribute("success", true);
-						req.getSession().setAttribute("successMessage", "Table tblotherdtl Created Successfully ");
-				}			
-			else
-			{
-				sbSql.setLength(0);
-				if(!objBean.getListTableCreation().isEmpty())
+				//check table is empty or not
+				String WebCLUBDB=req.getSession().getAttribute("WebCLUBDB").toString();					
+				try{
+					sbSql.append("SELECT * FROM "+WebCLUBDB+".tblotherdtl ; ");
+					 list =objWebClubOtherFieldCreationService.funExecuteList(sbSql.toString());
+				}
+				catch(Exception e)
 				{
-					sbSql.append(" ALTER TABLE `tblotherdtl` ");
-					 int count=0;
-					 String AfterValue="";
-					 for (Map.Entry<String,List> entry : map.entrySet()){ 
-						 AfterValue=entry.getKey(); 
-					 }
-					 for(int i=0;i<objBean.getListTableCreation().size();i++)					{	
-							clsWebClubOtherFieldCreationBean obj = objBean.getListTableCreation().get(i);
-							if(obj.getStrFieldName()!=null)
-							{
-								if(count==0)
-								 {
-									if(obj.getStrDataType().equalsIgnoreCase("DATE")||obj.getStrDataType().equalsIgnoreCase("TIME")||obj.getStrDataType().equalsIgnoreCase("DATETIME")||obj.getStrDataType().equalsIgnoreCase("BLOB")||obj.getStrDataType().equalsIgnoreCase("TEXT"))
+					e.printStackTrace();
+				}
+				boolean tableStatus=false;
+				Map<String,List> map=funDataBaseShrink(sbSql.toString());	
+				if(list==null)
+				{
+					tableStatus=true;				
+				}
+				else if(list.isEmpty())
+				{
+					tableStatus=false;
+				}					
+				if(tableStatus)
+				{					
+					//drop if empty
+					sbSql.setLength(0);
+					sbSql.append("DROP TABLE IF EXISTS tblotherdtl; ");
+					objWebClubOtherFieldCreationService.funExecuteQuery(sbSql.toString());
+					
+					//create table
+					sbSql.setLength(0);
+					sbSql.append("CREATE TABLE `tblotherdtl` ( strMemberCode VARCHAR(10) NOT NULL DEFAULT '',strClientCode VARCHAR(10) NOT NULL DEFAULT ''");			
+							for(int i=0;i<objBean.getListTableCreation().size();i++)					{	
+								clsWebClubOtherFieldCreationBean obj = objBean.getListTableCreation().get(i);
+								if(obj.getStrFieldName()!=null)
+								{
+									if(k>=1&&i==objBean.getListTableCreation().size()-1)
 									{
-										sbSql.append("ADD COLUMN `"+obj.getStrFieldName().toString()+"` "+obj.getStrDataType()+" AFTER `"+AfterValue+"` ");
-									}
-									else if(obj.getStrDataType().equalsIgnoreCase("DECIMAL"))
-									{
-										sbSql.append("ADD COLUMN `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+",2) AFTER `"+AfterValue+"` ");
-									}
-									else if(obj.getStrDataType().equalsIgnoreCase("VARCHAR"))
-									{
-										sbSql.append("ADD COLUMN `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") NOT NULL DEFAULT '' AFTER `"+AfterValue+"` ");
-									}
-									else
-									{
-										sbSql.append("ADD COLUMN `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") AFTER `"+AfterValue+"` ");
-									}
-								    AfterValue=obj.getStrFieldName();
-								    count++;
-								 }
-								 else
-								 {
-									 if(obj.getStrDataType().equalsIgnoreCase("DATE")||obj.getStrDataType().equalsIgnoreCase("TIME")||obj.getStrDataType().toString().equalsIgnoreCase("DATETIME")||obj.getStrDataType().equalsIgnoreCase("BLOB")||obj.getStrDataType().equalsIgnoreCase("TEXT"))
+										if(obj.getStrDataType().equalsIgnoreCase("DATE")||obj.getStrDataType().equalsIgnoreCase("TIME")||obj.getStrDataType().equalsIgnoreCase("DATETIME")||obj.getStrDataType().equalsIgnoreCase("BLOB")||obj.getStrDataType().equalsIgnoreCase("TEXT"))
 										{
-											sbSql.append(",ADD COLUMN `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+" AFTER `"+AfterValue+"` ");
+											sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+" ");
 										}
 										else if(obj.getStrDataType().equalsIgnoreCase("DECIMAL"))
 										{
-											sbSql.append(",ADD COLUMN `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+",2) AFTER `"+AfterValue+"` ");
+											sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+",2) ");
 										}
 										else if(obj.getStrDataType().equalsIgnoreCase("VARCHAR"))
 										{
-											sbSql.append(",ADD COLUMN `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") NOT NULL DEFAULT '' AFTER `"+AfterValue+"` ");
+											sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") NOT NULL DEFAULT ''");
 										}
 										else
 										{
-											sbSql.append("ADD COLUMN ,`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") AFTER `"+AfterValue+"` ");
+											sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") ");
 										}
-								 }
+									}
+									else
+									{
+										if(obj.getStrDataType().equalsIgnoreCase("DATE")||obj.getStrDataType().equalsIgnoreCase("TIME")||obj.getStrDataType().equalsIgnoreCase("DATETIME")||obj.getStrDataType().equalsIgnoreCase("BLOB")||obj.getStrDataType().equalsIgnoreCase("TEXT"))
+										{
+											sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+" ");
+										}
+										else if(obj.getStrDataType().equalsIgnoreCase("DECIMAL"))
+										{
+											sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+",2) ");
+										}
+										else if(obj.getStrDataType().equalsIgnoreCase("VARCHAR"))
+										{
+											sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") NOT NULL DEFAULT ''");
+										}
+										else
+										{
+											sbSql.append(",`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") ");
+										}								
+									}
+									k++;
+								}				
 							}
-					 }
-					objWebClubOtherFieldCreationService.funExecuteQuery(sbSql.toString());
-					req.getSession().setAttribute("success", true);
-					req.getSession().setAttribute("successMessage", "Table tblotherdtl Updated Successfully ");		
+							sbSql.append(" ,PRIMARY KEY (`strMemberCode`,`strClientCode`)) ");
+							sbSql.append(" COLLATE='latin1_swedish_ci' ");
+							sbSql.append(" ENGINE=InnoDB ;");	
+							objWebClubOtherFieldCreationService.funExecuteQuery(sbSql.toString());				
+							req.getSession().setAttribute("success", true);
+							req.getSession().setAttribute("successMessage", "Table tblotherdtl Created Successfully ");
+				}			
+				else
+				{
+					sbSql.setLength(0);
+					if(!objBean.getListTableCreation().isEmpty())
+					{
+						sbSql.append(" ALTER TABLE `tblotherdtl` ");
+						 int count=0;
+						 String AfterValue="";
+						 for (Map.Entry<String,List> entry : map.entrySet()){ 
+							 AfterValue=entry.getKey(); 
+						 }
+						 for(int i=0;i<objBean.getListTableCreation().size();i++)					{	
+								clsWebClubOtherFieldCreationBean obj = objBean.getListTableCreation().get(i);
+								if(obj.getStrFieldName()!=null)
+								{
+									if(count==0)
+									 {
+										if(obj.getStrDataType().equalsIgnoreCase("DATE")||obj.getStrDataType().equalsIgnoreCase("TIME")||obj.getStrDataType().equalsIgnoreCase("DATETIME")||obj.getStrDataType().equalsIgnoreCase("BLOB")||obj.getStrDataType().equalsIgnoreCase("TEXT"))
+										{
+											sbSql.append("ADD COLUMN `"+obj.getStrFieldName().toString()+"` "+obj.getStrDataType()+" AFTER `"+AfterValue+"` ");
+										}
+										else if(obj.getStrDataType().equalsIgnoreCase("DECIMAL"))
+										{
+											sbSql.append("ADD COLUMN `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+",2) AFTER `"+AfterValue+"` ");
+										}
+										else if(obj.getStrDataType().equalsIgnoreCase("VARCHAR"))
+										{
+											sbSql.append("ADD COLUMN `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") NOT NULL DEFAULT '' AFTER `"+AfterValue+"` ");
+										}
+										else
+										{
+											sbSql.append("ADD COLUMN `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") AFTER `"+AfterValue+"` ");
+										}
+									    AfterValue=obj.getStrFieldName();
+									    count++;
+									 }
+									 else
+									 {
+										 if(obj.getStrDataType().equalsIgnoreCase("DATE")||obj.getStrDataType().equalsIgnoreCase("TIME")||obj.getStrDataType().toString().equalsIgnoreCase("DATETIME")||obj.getStrDataType().equalsIgnoreCase("BLOB")||obj.getStrDataType().equalsIgnoreCase("TEXT"))
+											{
+												sbSql.append(",ADD COLUMN `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+" AFTER `"+AfterValue+"` ");
+											}
+											else if(obj.getStrDataType().equalsIgnoreCase("DECIMAL"))
+											{
+												sbSql.append(",ADD COLUMN `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+",2) AFTER `"+AfterValue+"` ");
+											}
+											else if(obj.getStrDataType().equalsIgnoreCase("VARCHAR"))
+											{
+												sbSql.append(",ADD COLUMN `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") NOT NULL DEFAULT '' AFTER `"+AfterValue+"` ");
+											}
+											else
+											{
+												sbSql.append("ADD COLUMN ,`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") AFTER `"+AfterValue+"` ");
+											}
+									 }
+								}
+						 }
+						objWebClubOtherFieldCreationService.funExecuteQuery(sbSql.toString());
+						req.getSession().setAttribute("success", true);
+						req.getSession().setAttribute("successMessage", "Table tblotherdtl Updated Successfully ");		
+					}									
 				}
-								
-			}
 					return new ModelAndView("redirect:/frmOtherFieldCreation.html");
 			}
-				return new ModelAndView("frmOtherFieldCreation");				
+			return new ModelAndView("frmOtherFieldCreation");				
 		}
 	
 		public Map funDataBaseShrink(String Sql)
 	    {
-	    	  Map<String,List> hmap = new LinkedHashMap();
-	    	  
+	    	  Map<String,List> hmap = new LinkedHashMap();	    	  
 	    	  List<List> list=new ArrayList<List>();
 	    	  objGlobal=new clsGlobalFunctions();
 	    	  Connection con = null;
-	    	  String url = "jdbc:mysql://localhost:3306/";
-	    	  String db = "jdbctutorial";
 	    	  String driver = "com.mysql.jdbc.Driver";
-	    	  String user = "root";
-	    	  String pass = "root";
-	    	  String dbName="";
+	    	 // String url = "jdbc:mysql://localhost:3306/";
+	    	 // String db = "jdbctutorial";	    	 
+	    	 // String user = "root";
+	    	 // String pass = "root";
+	    	 // String dbName="";
 	    	  try{
-	    	  Class.forName(driver);
-	    	  con = (Connection) DriverManager.getConnection(objGlobal.urlwebclub, objGlobal.urluser, objGlobal.urlPassword);
-	    	  try{
-	    	  Statement st = (Statement) con.createStatement();
-	    	  ResultSet rs = (ResultSet) st.executeQuery(Sql);
-	    	  ResultSetMetaData md = (ResultSetMetaData) rs.getMetaData();
-	    	  int col = md.getColumnCount();
-	    	  for (int i = 1; i <= col; i++){
-	    	  List listt=new ArrayList<>();
-	    	  String col_name = md.getColumnName(i);
-	    	  String col_type = md.getColumnTypeName(i);
-	    	  int col_size = md.getColumnDisplaySize(i);
-	    	  if(!(col_name.equalsIgnoreCase("strMemberCode")||col_name.equalsIgnoreCase("strClientCode")))
+		    	  Class.forName(driver);
+		    	  con = (Connection) DriverManager.getConnection(objGlobal.urlwebclub, objGlobal.urluser, objGlobal.urlPassword);
+		    	  try{
+			    	  Statement st = (Statement) con.createStatement();
+			    	  ResultSet rs = (ResultSet) st.executeQuery(Sql);
+			    	  ResultSetMetaData md = (ResultSetMetaData) rs.getMetaData();
+			    	  int col = md.getColumnCount();
+			    	  for (int i = 1; i <= col; i++)
+			    	  {
+				    	  List listt=new ArrayList<>();
+				    	  String col_name = md.getColumnName(i);
+				    	  String col_type = md.getColumnTypeName(i);
+				    	  int col_size = md.getColumnDisplaySize(i);
+				    	  if(!(col_name.equalsIgnoreCase("strMemberCode")||col_name.equalsIgnoreCase("strClientCode")))
+				    	  {
+				    		  listt.add(col_name);
+					    	  listt.add(col_type);
+					    	  listt.add(col_size);
+					    	  hmap.put(col_name, listt);
+				    	  }	    	  
+			    	  }				
+		    	  }
+		    	  catch (SQLException s){
+		    	  }
+	    	  }
+	    	  catch (Exception e)
 	    	  {
-	    		  listt.add(col_name);
-		    	  listt.add(col_type);
-		    	  listt.add(col_size);
-		    	  hmap.put(col_name, listt);
-	    	  }	    	  
-	    	  }
-	    	  }
-	    	  catch (SQLException s){
-	    	  }
-	    	  }
-	    	  catch (Exception e){
-	    	  e.printStackTrace();
+	    		  e.printStackTrace();
 	    	  }
 	    	  return hmap;
 	    }

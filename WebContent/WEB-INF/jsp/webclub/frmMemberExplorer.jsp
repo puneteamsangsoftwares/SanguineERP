@@ -743,7 +743,10 @@
 						        			funSetProfessionCode(response[0].strProfessionCode);
 						        		}					        	
 						        	//$("#txtMSCategoryCode").text(response[0].strCategoryCode);
-						        	funSetMemberCategory(response[0].strCategoryCode);
+						        	if(response[0].strCategoryCode!='')
+						        		{
+						        			funSetMemberCategory(response[0].strCategoryCode);
+						        		}
 						        	$("#txtPanNumber").text(response[0].strPanNumber);
 						        	
 						        	$("#txtProposerCode").text(response[0].strProposerCode);
@@ -752,9 +755,15 @@
 						        	
 						        	//$("#txtBlockedReasonCode").text(response[0].strBlockedreasonCode);
 						        	//$("#txtQualification").text(response[0].strQualification);
-						        	funSetEducationCode(response[0].strQualification);
+						        	if(response[0].strQualification!='')
+						        		{
+						        			funSetEducationCode(response[0].strQualification);
+						        		}
 						        	//$("#txtDesignationCode").text(response[0].strDesignationCode);
-						        	funSetDesignationCode(response[0].strDesignationCode);
+						        	if(response[0].strDesignationCode!='')
+						        		{
+						        			funSetDesignationCode(response[0].strDesignationCode);
+						        		}
 						        	$("#txtLocker").text(response[0].strLocker);
 						        	$("#txtLibrary").text(response[0].strLibrary);
 						        	

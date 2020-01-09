@@ -96,7 +96,7 @@ margin:0px;}
             $('#cmbMaritalStatus').change(function () {
             	var memcode=$('#txtMemberCode').val();
         		var maritalStatus = $('#cmbMaritalStatus').val();
-        		if(maritalStatus=="married")
+        		if(maritalStatus=="Married")
         			{
 	        			document.all[ "headerSpouse" ].style.display = 'block';
 	        			document.all[ "divSpouse" ].style.display = 'block';
@@ -304,7 +304,7 @@ margin:0px;}
 						        		{
 							        		funSetComAreaCode(response[0].strCompanyAreaCode);
 						        		}						        	
-						        	$("#txtCompanyCtCode").val(response[0].strCompanyCtCode);
+						        	//$("#txtCompanyCtCode").val(response[0].strCompanyCtCode);
 						        	$("#txtCompanyStateCode").val(response[0].strCompanyStateCode);
 						        	
 						        	$("#txtCompanyRegionCode").val(response[0].strCompanyRegionCode);
@@ -365,17 +365,17 @@ margin:0px;}
 						        	$("#txtProposerCode").val(response[0].strProposerCode);
 						        	$("#txtSeconderCode").val(response[0].strSeconderCode);
 						        	$("#txtBlocked").val(response[0].strBlocked);
-						        	if(response[0].strCompanyAreaCode!='')
+						        	if(response[0].strBlockedreasonCode!='')
 					        		{
 						        		funSetBlockReasonCode(response[0].strBlockedreasonCode);
 					        		}
 						        	//$("#txtBlockedreasonCode").val(response[0].strBlockedreasonCode);
-						        	if(response[0].strCompanyAreaCode!='')
+						        	if(response[0].strQualification!='')
 					        		{
 						        		funSetEducationCode(response[0].strQualification);
 					        		}
 						        	//$("#txtQualification").val(response[0].strQualification);
-						        	if(response[0].strCompanyAreaCode!='')
+						        	if(response[0].strDesignationCode!='')
 					        		{
 						        		funSetDesignationCode(response[0].strDesignationCode);
 					        		}
@@ -434,7 +434,11 @@ margin:0px;}
 				 $("#txtdtAnniversary").val(response.dteAnniversary);
 				 $("#cmbSpouseFacilityBlock").val(response.strBlocked);
 				 $("#cmbSpouseStopCredit").val(response.strStopCredit);
-				 $("#txtSpouseCustCode").val(response.strCustomerCode);
+				 if(response.strCustomerCode!='')
+					 {
+					 $("#txtSpouseCustCode").val(response.strCustomerCode);
+					 }
+				
  			 	 $("#txtSpouseProfessionCode").val(response.strProfessionCode);
 				 $("#txtSpouseResidentEmailID").val(response.strResidentEmailID);
 	 			 $("#txtSpouseResidentMobileNo").val(response.strResidentMobileNo);
@@ -2068,16 +2072,16 @@ function funSetBillingRegionCode(code){
 		if(parseInt(formNo)!=0)
 			{
 			
-				document.all[ 'multiAccordion' ].style.display = 'block';
-				document.all[ 'paraSubmit' ].style.display = 'block';
+				//document.all[ 'multiAccordion' ].style.display = 'block';
+				//document.all[ 'paraSubmit' ].style.display = 'block';
 				
-				document.all[ 'uitblFrom' ].style.display = 'none';
-				document.all[ 'paraProceed' ].style.display = 'none';
+				//document.all[ 'uitblFrom' ].style.display = 'none';
+				//document.all[ 'paraProceed' ].style.display = 'none';
 				
 			//	location.href = "frmMemberPreProfile.html";
-				//window.location.assign(getContextPath()+"/frmMemberPreProfile")
+				window.location.assign(getContextPath()+"/frmMemberProfile.html?saddr=1")
 				
-// 				var searchurl=getContextPath()+"/proceedMemberPreProfile.html?formNo="+formNo;
+// 				var searchurl=getContextPath()+"/frmMemberProfile.html?formNo="+formNo;
 // 				//alert(searchurl);
 				
 // 					$.ajax({ location.href='frmMemberPreProfile.html'
@@ -2115,6 +2119,60 @@ function funSetBillingRegionCode(code){
 // 			            }		            
 // 			        }
 // 				});
+
+
+
+
+
+ function funSetMemberCategory(code)
+		{
+			$("#txtMSCategoryCode").val(code);
+			var searchurl=getContextPath()+"/loadMemberProfileForm.html?";
+			//alert(searchurl);
+			 $.ajax({
+				        type: "GET",
+				        url: searchurl,
+				        dataType: "json",
+				        success: function(response)
+				        {
+				        	if(response.strGCode=='Invalid Code')
+				        	{
+				        		alert("Invalid Category Code");
+				        		$("#txtMSCategoryCode").val('');
+				        	}
+				        	else
+				        	{
+					        	$("#txtMSCategoryCode").val(code);
+					        	$("#txtMemberName").val(response.strCatName);
+				        	}
+						},
+						error: function(jqXHR, exception) {
+				            if (jqXHR.status === 0) {
+				                alert('Not connect.n Verify Network.');
+				            } else if (jqXHR.status == 404) {
+				                alert('Requested page not found. [404]');
+				            } else if (jqXHR.status == 500) {
+				                alert('Internal Server Error [500].');
+				            } else if (exception === 'parsererror') {
+				                alert('Requested JSON parse failed.');
+				            } else if (exception === 'timeout') {
+				                alert('Time out error.');
+				            } else if (exception === 'abort') {
+				                alert('Ajax request aborted.');
+				            } else {
+				                alert('Uncaught Error.n' + jqXHR.responseText);
+				            }		            
+				        }
+			      });
+		}
+
+
+
+
+
+
+
+
  			}
 		else
 			{
@@ -2400,33 +2458,32 @@ function funSetBillingRegionCode(code){
 									type="text" path="strHoldingCode" ></s:input></div>
 								 <div class="col-md-6"><s:input id="txtHoldingName" path="" type="text"></s:input></div></div></div>
 									
-			<div class="col-md-6"><label>Area Code</label><br><div class="row"><div class="col-md-6"><s:input id="txtCompanyAreaName"
-									ondblclick="funHelp('WCComAreaMaster')" cssClass="searchTextBox" readonly="true"
-									type="text" path="strCompanyAreaName" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtCompanyAreaCode" path="strCompanyAreaCode" type="hidden"></s:input></div></div></div>	
+			<div class="col-md-6"><div class="row"><div class="col-md-6"><label>Area Code</label><s:input id="txtCompanyAreaName"
+									ondblclick="funHelp('WCComAreaMaster')" cssClass="searchTextBox" readonly="true" type="text" path="strCompanyAreaName" ></s:input><s:input id="txtCompanyAreaCode" path="strCompanyAreaCode" type="hidden"></s:input></div>
+									<div class="col-md-6">
+									<label>City Code</label>
+				                     <s:input id="txtCompanyCtName" ondblclick="funHelp('WCComCityMaster')"  cssClass="searchTextBox" readonly="true" type="text" path="strCompanyCtName" ></s:input>
+									<s:input id="txtCompanyAreaCode" path="strCompanyCtCode" type="hidden"></s:input>
+									</div>	</div></div>
 											
-			<div class="col-md-6"><label>City Code</label><br>
-				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyCtName;"
-									ondblclick="funHelp('WCComCityMaster')"  cssClass="searchTextBox" readonly="true"
-									type="text" path="strCompanyCtName" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtCompanyAreaCode" path="strCompanyCtCode" type="hidden"></s:input></div></div></div>
-			<div class="col-md-6"><label>State Code</label><br>
-				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyStateName"
+			<div class="col-md-6"><div class="row" >
+			                <div class="col-md-6"><label>State Code</label><s:input id="txtCompanyStateName"
 									ondblclick="funHelp('WCComStateMaster')"  cssClass="searchTextBox" readonly="true"
-									type="text" path="strCompanyStateName" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtCompanyStateCode" path="strCompanyStateCode" type="hidden"></s:input></div></div></div>
-		
-			<div class="col-md-6"><label>Region Code</label><br>
-				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyRegionName"
-									ondblclick="funHelp('WCComRegionMaster')"  cssClass="searchTextBox" readonly="true"
-									type="text" path="strCompanyRegionName" ></s:input></div>
-							     <div class="col-md-6"><s:input id="txtCompanyRegionCode" path="strCompanyRegionCode" type="hidden"></s:input></div></div></div>
-			
-			<div class="col-md-6"><label>Country Code</label><br>
-				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyCountryName" 
+									type="text" path="strCompanyStateName" ></s:input><s:input id="txtCompanyStateCode" path="strCompanyStateCode" type="hidden"></s:input></div>
+							<div class="col-md-6"><label>Country Code</label><s:input id="txtCompanyCountryName" 
 									ondblclick="funHelp('WCComCountryMaster')" cssClass="searchTextBox"  readonly="true" 
-									type="text" path="strCompanyCountryName" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtCompanyCountryCode" path="strCompanyCountryCode" type="hidden"></s:input></div></div></div>
+									type="text" path="strCompanyCountryName" ></s:input>
+									<s:input id="txtCompanyCountryCode" path="strCompanyCountryCode" type="hidden"></s:input>
+									</div></div></div>
+			
+			<div class="col-md-6"><div class="row">
+			            <div class="col-md-6"><label>Region Code</label><s:input id="txtCompanyRegionName"
+									ondblclick="funHelp('WCComRegionMaster')" cssClass="searchTextBox" readonly="true"
+									type="text" path="strCompanyRegionName" ></s:input>
+							    <s:input id="txtCompanyRegionCode" path="strCompanyRegionCode" type="hidden"></s:input></div>
+		                <div class="col-md-6"><label>Pin Code</label><s:input id="txtCompanyPinCode" path="strCompanyPinCode"  readonly="true" onkeypress="javascript:return isNumber(event)"
+									class="decimal-places numberField" type="text"></s:input></div>
+			</div></div>
 
 			<div class="col-md-6"><label>Telephone</label><br>
 				<div class="row" ><div class="col-md-6"><s:input id="txtCompanyTelePhone1" path="strCompanyTelePhone1"  onkeypress="javascript:return isNumber(event)"
@@ -2440,12 +2497,9 @@ function funSetBillingRegionCode(code){
 								<div class="col-md-6"><s:input id="txtCompanyFax2" path="strCompanyFax2" 
 									class="decimal-places numberField" type="text"></s:input></div></div></div>
 				
-				<div class="col-md-6">					
-		    	<div class="row"><div class="col-md-6"><label>Pin Code</label><br><s:input id="txtCompanyPinCode" path="strCompanyPinCode"  readonly="true" onkeypress="javascript:return isNumber(event)"
-									class="decimal-places numberField" type="text"></s:input></div>
 			
-								<div class="col-md-6"><label>Mobile No</label><br><s:input id="txtCompanyMobileNo" path="strCompanyMobileNo" onkeypress="javascript:return isNumber(event)"
-									class="decimal-places numberField" type="text"></s:input></div></div></div>
+			<div class="col-md-3"><label>Mobile No</label><br><s:input id="txtCompanyMobileNo" path="strCompanyMobileNo" onkeypress="javascript:return isNumber(event)"
+									class="decimal-places numberField" type="text"></s:input></div>
 									
 			<div class="col-md-4"><label>Email ID</label><br><s:input id="txtCompanyEmailID" path="strCompanyEmailID" 
 								type="text" style="width: 67%" ></s:input></div>
@@ -2470,33 +2524,37 @@ function funSetBillingRegionCode(code){
 									<div class="col-md-6"><label>Landmark</label><br><s:input id="txtBillingLandMark" path="strBillingLandMark" 
 									type="text"></s:input></div></div></div>	
 		
-			<div class="col-md-6"><label>Area Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingAreaName" readonly="true"
+			<div class="col-md-6"><div class="row"><div class="col-md-6"><label>Area Code</label>
+			                      <s:input id="txtBillingAreaName" readonly="true"
 									ondblclick="funHelp('WCBillingAreaMaster')" cssClass="searchTextBox"
-									type="text" path="strBillingAreaName" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtBillingAreaCode" path="strBillingAreaCode" readonly="true"
-									 type="hidden"></s:input></div></div></div>
-			
-			<div class="col-md-6"><label>City Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingCtName"
+									type="text" path="strBillingAreaName" ></s:input><s:input id="txtBillingAreaCode" path="strBillingAreaCode" readonly="true"
+									 type="hidden"></s:input></div>
+									<div class="col-md-6"><label>City Code</label><s:input id="txtBillingCtName"
 									ondblclick="funHelp('WCBillingCityMaster')" cssClass="searchTextBox" readonly="true"
-									type="text" path="strBillingCtName" ></s:input></div>
-									<div class="col-md-6"><s:input id="txtBillingCtCode" path="strBillingCtCode" readonly="true"
-									 type="hidden"></s:input></div></div></div>	
-
-			<div class="col-md-6"><label>Country Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingCountryName"
+									type="text" path="strBillingCtName" ></s:input><s:input id="txtBillingCtCode" path="strBillingCtCode" readonly="true"
+									 type="hidden"></s:input></div></div></div>
+				
+			<div class="col-md-6"><div class="row">
+			                <div class="col-md-6"> <label>State Code</label><s:input id="txtBillingStateName"
+									ondblclick="funHelp('WCBillingStateMaster')"  cssClass="searchTextBox" readonly="true"
+									type="text" path="strBillingStateName"  required="required" ></s:input>
+								 <s:input id="txtBillingStateCode" path="strBillingStateCode" readonly="true"
+									type="hidden"></s:input></div>
+			                <div class="col-md-6"><label>Country Code</label><s:input id="txtBillingCountryName"
 									ondblclick="funHelp('WCBillingCountryMaster')"  cssClass="searchTextBox" readonly="true"
-									type="text" path="strBillingCountryName"></s:input></div>
-						 	       <div class="col-md-6"><s:input id="txtBillingCountryCode" path="strBillingCountryCode" readonly="true"
+									type="text" path="strBillingCountryName"></s:input><s:input id="txtBillingCountryCode" path="strBillingCountryCode" readonly="true"
 									type="hidden"></s:input></div></div></div>
-			<div class="col-md-6"><label>Region Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingRegionName"
+			
+			<div class="col-md-6"><div class="row">
+			            <div class="col-md-6"><label>Region Code</label><s:input id="txtBillingRegionName"
 									ondblclick="funHelp('WCBillingRegionMaster')"  cssClass="searchTextBox" readonly="true"
-									type="text" path="strBillingRegionName" ></s:input></div>
-							    	<div class="col-md-6"><s:input id="txtBillingRegionCode" path="strBillingRegionCode" readonly="true"
-									 type="hidden"></s:input></div></div></div>	
-		
+									type="text" path="strBillingRegionName" ></s:input>
+							    	<s:input id="txtBillingRegionCode" path="strBillingRegionCode" readonly="true"
+									 type="hidden"></s:input></div>
+			            <div class="col-md-6"><label>Pin Code</label><s:input id="txtBillingPinCode" path="strBillingPinCode" readonly="true"
+								onkeypress="javascript:return isNumber(event)"	class="decimal-places numberField" type="text"></s:input></div>			 	
+			</div></div>		 	
+			
 			<div class="col-md-6"><label>Telephone</label><br>
 				<div class="row"><div class="col-md-6"><s:input id="txtBillingTelePhone1" path="strBillingTelePhone1" onkeypress="javascript:return isNumber(event)"
 									class="decimal-places numberField" type="text"></s:input></div>
@@ -2508,19 +2566,9 @@ function funSetBillingRegionCode(code){
 								 <div class="col-md-6"><s:input id="txtBillingFax2" path="strBillingFax2" 
 									class="decimal-places numberField" type="text"></s:input></div></div></div>	
 			
-			<div class="col-md-6"><label>State Code</label><br>
-				<div class="row"><div class="col-md-6"><s:input id="txtBillingStateName"
-									ondblclick="funHelp('WCBillingStateMaster')"  cssClass="searchTextBox" readonly="true"
-									type="text" path="strBillingStateName"  required="required" ></s:input></div>
-								 <div class="col-md-6"><s:input id="txtBillingStateCode" path="strBillingStateCode" readonly="true"
-									type="hidden"></s:input></div></div></div>
-			<div class="col-md-6">
-				<div class="row"><div class="col-md-6"><label>Pin Code</label><br><s:input id="txtBillingPinCode" path="strBillingPinCode" readonly="true"
-								onkeypress="javascript:return isNumber(event)"	class="decimal-places numberField" type="text"></s:input></div>
-									<div class="col-md-6"><label>Mobile</label><br><s:input id="txtBillingMobileNo" path="strBillingMobileNo" onkeypress="javascript:return isNumber(event)"
-									class="decimal-places numberField" type="text"></s:input></div></div></div>	
+			<div class="col-md-3"><label>Mobile</label><br><s:input id="txtBillingMobileNo" path="strBillingMobileNo" onkeypress="javascript:return isNumber(event)"
+									class="decimal-places numberField" type="text"></s:input></div>
 		
-			
 			<div class="col-md-3"><label>Email ID</label><br><s:input id="txtBillingEmailID" path="strBillingEmailID" 
 								 type="text"></s:input></div>
 			</div></div>

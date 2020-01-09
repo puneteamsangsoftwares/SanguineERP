@@ -721,9 +721,14 @@
 			     funSetBankMasterData(code);
 				 break;
 				
+			case 'WCMemberForm':
+		    	funSetFormNo(code);
+		        break; 	
 				
 		}
 	}
+	
+
 	
 	 function funSetMemberCategory(code)
 		{
@@ -1075,7 +1080,7 @@ function funSetBillingCityCode(code){
             } else if (jqXHR.status == 404) {
                 alert('Requested page not found. [404]');
             } else if (jqXHR.status == 500) {
-                alert('Internal Server Error [500].');
+             //   alert('Internal Server Error [500].');
             } else if (exception === 'parsererror') {
                 alert('Requested JSON parse failed.');
             } else if (exception === 'timeout') {
@@ -1119,7 +1124,7 @@ function funSetResCountryCode(code){
             } else if (jqXHR.status == 404) {
                 alert('Requested page not found. [404]');
             } else if (jqXHR.status == 500) {
-                alert('Internal Server Error [500].');
+               // alert('Internal Server Error [500].');
             } else if (exception === 'parsererror') {
                 alert('Requested JSON parse failed.');
             } else if (exception === 'timeout') {
@@ -1161,7 +1166,7 @@ function funSetComCountryCode(code){
             } else if (jqXHR.status == 404) {
                 alert('Requested page not found. [404]');
             } else if (jqXHR.status == 500) {
-                alert('Internal Server Error [500].');
+           //     alert('Internal Server Error [500].');
             } else if (exception === 'parsererror') {
                 alert('Requested JSON parse failed.');
             } else if (exception === 'timeout') {
@@ -1205,7 +1210,7 @@ function funSetBillingCountryCode(code){
             } else if (jqXHR.status == 404) {
                 alert('Requested page not found. [404]');
             } else if (jqXHR.status == 500) {
-                alert('Internal Server Error [500].');
+           //     alert('Internal Server Error [500].');
             } else if (exception === 'parsererror') {
                 alert('Requested JSON parse failed.');
             } else if (exception === 'timeout') {
@@ -1252,7 +1257,7 @@ function funSetResStateCode(code){
             } else if (jqXHR.status == 404) {
                 alert('Requested page not found. [404]');
             } else if (jqXHR.status == 500) {
-                alert('Internal Server Error [500].');
+              //  alert('Internal Server Error [500].');
             } else if (exception === 'parsererror') {
                 alert('Requested JSON parse failed.');
             } else if (exception === 'timeout') {
@@ -1298,7 +1303,7 @@ function funSetComStateCode(code){
             } else if (jqXHR.status == 404) {
                 alert('Requested page not found. [404]');
             } else if (jqXHR.status == 500) {
-                alert('Internal Server Error [500].');
+               // alert('Internal Server Error [500].');
             } else if (exception === 'parsererror') {
                 alert('Requested JSON parse failed.');
             } else if (exception === 'timeout') {
@@ -1344,7 +1349,7 @@ function funSetBillingStateCode(code){
             } else if (jqXHR.status == 404) {
                 alert('Requested page not found. [404]');
             } else if (jqXHR.status == 500) {
-                alert('Internal Server Error [500].');
+                //alert('Internal Server Error [500].');
             } else if (exception === 'parsererror') {
                 alert('Requested JSON parse failed.');
             } else if (exception === 'timeout') {
@@ -1389,7 +1394,7 @@ function funSetResRegionCode(code){
             } else if (jqXHR.status == 404) {
                 alert('Requested page not found. [404]');
             } else if (jqXHR.status == 500) {
-                alert('Internal Server Error [500].');
+                //alert('Internal Server Error [500].');
             } else if (exception === 'parsererror') {
                 alert('Requested JSON parse failed.');
             } else if (exception === 'timeout') {
@@ -1477,7 +1482,7 @@ function funSetBillingRegionCode(code){
             } else if (jqXHR.status == 404) {
                 alert('Requested page not found. [404]');
             } else if (jqXHR.status == 500) {
-                alert('Internal Server Error [500].');
+              //  alert('Internal Server Error [500].');
             } else if (exception === 'parsererror') {
                 alert('Requested JSON parse failed.');
             } else if (exception === 'timeout') {
@@ -2868,6 +2873,9 @@ function funSetBillingRegionCode(code){
 	<div>
 		<s:form name="frmWebClubMemberProfile" action="savefrmWebClubMemberProfile.html?saddr=${urlHits}" method="POST" enctype="multipart/form-data">
 			<br>
+			
+		
+			
 		<div id="multiAccordion">	
 			<h3><a href="#">Member Profile Detail</a></h3>
 			<div>
@@ -3135,7 +3143,7 @@ function funSetBillingRegionCode(code){
 					<div class="row"><div class="col-md-6"><label>Date Of Birth</label><br><s:input id="txtdtDateofBirth" name="txtdtDateofBirth" path="dteDateofBirth" cssClass="calenderTextBox"></s:input></div>
 									<div class="col-md-6"><label>Marital Status</label><br><s:select id="cmbMaritalStatus" name="cmbMaritalStatus" path="strMaritalStatus">
 													 <option value="Single">Single</option>
-									 				 <option value="married">married</option>
+									 				 <option value="married">Married</option>
 													 </s:select></div></div></div>
 				<%-- 									 
 				<div class="col-md-3"><label>Sex</label><br><s:select id="cmbGender" name="cmbGender" path="strGender">
@@ -3457,7 +3465,7 @@ function funSetBillingRegionCode(code){
 			                    <div class="col-md-6"><label>Marital Status</label><br><s:select id="cmbDependentMaritalStatus"
 											name="cmbDependentMaritalStatus" path="strDependentMaritalStatus">
 											<option value="Single">Single</option>
-											<option value="married">married</option>
+											<option value="married">Married</option>
 										     </s:select>
 								</div>
 				</div>

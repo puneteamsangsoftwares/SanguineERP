@@ -301,6 +301,11 @@
 		    		alert("Please Enter Data ");
 		    		flag=false;
 		    	}
+		    else if($('#txtCFCode').val().trim().length==0)
+		    	{
+			    	alert("Please Enter CF Code ");
+			    	flag=false;
+		    	}
 		 	return flag;		
 		}	
 	 

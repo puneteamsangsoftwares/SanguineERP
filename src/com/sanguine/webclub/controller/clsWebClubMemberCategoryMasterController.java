@@ -47,7 +47,6 @@ public class clsWebClubMemberCategoryMasterController {
 			urlHits = "1";
 		}
 		model.put("urlHits", urlHits);
-
 		if ("2".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmMemberCategoryMaster_1", "command", new clsWebClubMemberCategoryMasterBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
@@ -55,7 +54,6 @@ public class clsWebClubMemberCategoryMasterController {
 		} else {
 			return null;
 		}
-
 	}
 
 	// Load Master Data On Form
@@ -66,12 +64,10 @@ public class clsWebClubMemberCategoryMasterController {
 		String userCode = req.getSession().getAttribute("usercode").toString();
 		clsWebClubMemberCategoryMasterModel objMemCatModel = objWebClubMemberCategoryMasterService.funGetWebClubMemberCategoryMaster(catCode, clientCode);
 		clsWebClubMemberCategoryMasterModel objWebClubMemberCategoryMaster = new clsWebClubMemberCategoryMasterModel();
-
 		if (null == objMemCatModel) {
 			objMemCatModel = new clsWebClubMemberCategoryMasterModel();
 			objMemCatModel.setStrCatCode("Invalid Code");
-		}
-		
+		}		
 		return objMemCatModel;
 	}
 	
@@ -91,7 +87,6 @@ public class clsWebClubMemberCategoryMasterController {
 			}		
 			return objMemCatModel;			
 		}
-	
 		
 		// Load Master Data For Member List
 				@RequestMapping(value = "/loadWebClubFacilityMasterListDtl", method = RequestMethod.GET)
@@ -101,9 +96,9 @@ public class clsWebClubMemberCategoryMasterController {
 					String userCode = req.getSession().getAttribute("usercode").toString();
 					List<String> list =  objWebClubMemberCategoryMasterService.funGetCategoryWiseFacilityDtlList(catCode,clientCode);
 					//clsWebClubCategeoryWiseFacilityModel objWebClubMemberCategoryMaster = new clsWebClubCategeoryWiseFacilityModel();
-					
 					return list;					
 				}
+				
 	// Save or Update WebClubMemberCategoryMaster
 	@RequestMapping(value = "/saveWebClubMemberCategoryMaster", method = RequestMethod.POST)
 	public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsWebClubMemberCategoryMasterBean objBean, BindingResult result, HttpServletRequest req) {
@@ -114,91 +109,85 @@ public class clsWebClubMemberCategoryMasterController {
 		} catch (NullPointerException e) {
 			urlHits = "1";
 		}
-
 		if (!result.hasErrors()) {
 			String clientCode = req.getSession().getAttribute("clientCode").toString();
-			String userCode = req.getSession().getAttribute("usercode").toString();
-			//clsWebClubMemberCategoryMasterModel objModel = funPrepareModel(objBean, userCode, clientCode);
-			
+			String userCode = req.getSession().getAttribute("usercode").toString();			
 			objGlobal = new clsGlobalFunctions();
 			long lastNo = 0;
 			clsWebClubMemberCategoryMasterModel objModel=null;
-			if (objBean.getStrCatCode().trim().length() == 0) {
+			if (objBean.getStrCatCode().trim().length() == 0) 
+			{
 				lastNo = objGlobalFunctionsService.funGetLastNo("tblmembertypemaster", "MemberCategoryMaster", "intGId", clientCode);
 				String catCode = "MC" + String.format("%06d", lastNo);
-			    	 objModel = new clsWebClubMemberCategoryMasterModel(new clsWebClubMemberCategoryMasterModel_ID(catCode, clientCode));
-						objModel.setStrCatCode(catCode);
-		    		 	objModel.setIntGId(lastNo);
-						objModel.setStrUserCreated(userCode);
-						objModel.setStrUserModified(userCode);
-						objModel.setStrClientCode(clientCode);
-						objModel.setStrCatName(objBean.getStrCatName());
-						objModel.setStrGroupCategoryCode(objBean.getStrGroupCategoryCode());
-						objModel.setStrTenure(objBean.getStrTenure());
-						objModel.setStrRuleCode(objBean.getStrRuleCode());
-						objModel.setDblCreditAmt(objBean.getDblCreditAmt());
-						objModel.setStrVotingRights(objBean.getStrVotingRights());
-						objModel.setStrRemarks(objBean.getStrRemarks());
-						objModel.setDblCreditAmt(objBean.getDblCreditAmt());
-						objModel.setDblDisAmt(objBean.getDblDisAmt());
-						objModel.setDtModifiedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-						objModel.setStrcatdesc(objBean.getStrcatdesc());
-						objModel.setStrCorporate("N");
-						objModel.setStrPropertyCode("");			
-						objModel.setDtCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-						objWebClubMemberCategoryMasterService.funAddUpdateWebClubMemberCategoryMaster(objModel); 
+		    	objModel = new clsWebClubMemberCategoryMasterModel(new clsWebClubMemberCategoryMasterModel_ID(catCode, clientCode));
+				objModel.setStrCatCode(catCode);
+    		 	objModel.setIntGId(lastNo);
+				objModel.setStrUserCreated(userCode);
+				objModel.setStrUserModified(userCode);
+				objModel.setStrClientCode(clientCode);
+				objModel.setStrCatName(objBean.getStrCatName());
+				objModel.setStrGroupCategoryCode(objBean.getStrGroupCategoryCode());
+				objModel.setStrTenure(objBean.getStrTenure());
+				objModel.setStrRuleCode(objBean.getStrRuleCode());
+				objModel.setDblCreditAmt(objBean.getDblCreditAmt());
+				objModel.setStrVotingRights(objBean.getStrVotingRights());
+				objModel.setStrRemarks(objBean.getStrRemarks());
+				objModel.setDblCreditAmt(objBean.getDblCreditAmt());
+				objModel.setDblDisAmt(objBean.getDblDisAmt());
+				objModel.setDtModifiedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+				objModel.setStrcatdesc(objBean.getStrcatdesc());
+				objModel.setStrCorporate("N");
+				objModel.setStrPropertyCode("");			
+				objModel.setDtCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+				objWebClubMemberCategoryMasterService.funAddUpdateWebClubMemberCategoryMaster(objModel); 
 			 
-			} else {
-				 
-					objWebClubMemberCategoryMasterService.funGetCategoryWiseFacilityDtl(objBean.getStrCatCode(),clientCode);			    		    	
-					objModel = new clsWebClubMemberCategoryMasterModel();
-					if(objBean.getListFacilityDtl()!=null)
-				     {
-				    	 
-							
-				    	 for(clsWebClubFacilityMasterModel ob:objBean.getListFacilityDtl())
-				    	 { 	    		 
-				    		 	if(ob.getStrFacilityCode()!=null)
-				    		 	{				    		 	
-				    		 		clsWebClubCategeoryWiseFacilityModel obj = new clsWebClubCategeoryWiseFacilityModel();
-						      		obj.setStrCatCode(objBean.getStrCatCode());
-							    	obj.setStrClientCode(clientCode);
-							    	obj.setStrFacilityCode(ob.getStrFacilityCode());
-							    	obj.setStrFacilityName(ob.getStrFacilityName());
-							    	obj.setStrOperationalYN(ob.getStrOperationalNY());
-							    	//objWebClubMemberCategoryMasterService.funAddUpdateWebClubMemberCategoryMaster(obj);	
-							    	objWebClubMemberCategoryMasterService.funAddUpdateWebClubCategeoryWiseFacility(obj);	  
-				    		 	}
-				    	 }
-				     }
-				    		//objModel.setStrFacilityCode(objBean.getStrFacilityCode()); 
-				    	 	objModel.setIntGId(lastNo);
-				    	 	objModel.setStrCatCode(objBean.getStrCatCode());
-				    	 	objModel.setStrUserCreated(userCode);
-				    	 	objModel.setStrUserModified(userCode);
-				    	 	objModel.setStrClientCode(clientCode);
-				 			objModel.setStrCatName(objBean.getStrCatName());
-				 			objModel.setStrGroupCategoryCode(objBean.getStrGroupCategoryCode());
-				 			objModel.setStrTenure(objBean.getStrTenure());
-				 			objModel.setStrRuleCode(objBean.getStrRuleCode());
-				 			objModel.setDblCreditAmt(objBean.getDblCreditAmt());
-				 			objModel.setStrVotingRights(objBean.getStrVotingRights());
-				 			objModel.setStrRemarks(objBean.getStrRemarks());				 			
-				 			objModel.setDblDisAmt(objBean.getDblDisAmt());				 
-				 			objModel.setDtModifiedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-				 			objModel.setStrcatdesc(objBean.getStrcatdesc());
-				 			objModel.setStrCorporate("N");
-				 			objModel.setStrPropertyCode("");			
-				 			objModel.setDtCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-				 			objModel.setStrFacilityCode(objBean.getStrFacilityCode());//optional
-				 			objModel.setIntCreditLimit(objBean.getIntCreditLimit());
-				    		 objWebClubMemberCategoryMasterService.funAddUpdateWebClubMemberCategoryMaster(objModel);	    	
-				    	 			    	
-				     
+			} 
+			else 
+			{				 
+				objWebClubMemberCategoryMasterService.funGetCategoryWiseFacilityDtl(objBean.getStrCatCode(),clientCode);			    		    	
+				objModel = new clsWebClubMemberCategoryMasterModel();
+				if(objBean.getListFacilityDtl()!=null)
+			     {						
+			    	 for(clsWebClubFacilityMasterModel ob:objBean.getListFacilityDtl())
+			    	 { 	    		 
+		    		 	if(ob.getStrFacilityCode()!=null)
+		    		 	{				    		 	
+		    		 		clsWebClubCategeoryWiseFacilityModel obj = new clsWebClubCategeoryWiseFacilityModel();
+				      		obj.setStrCatCode(objBean.getStrCatCode());
+					    	obj.setStrClientCode(clientCode);
+					    	obj.setStrFacilityCode(ob.getStrFacilityCode());
+					    	obj.setStrFacilityName(ob.getStrFacilityName());
+					    	obj.setStrOperationalYN(ob.getStrOperationalNY());
+					    	//objWebClubMemberCategoryMasterService.funAddUpdateWebClubMemberCategoryMaster(obj);	
+					    	objWebClubMemberCategoryMasterService.funAddUpdateWebClubCategeoryWiseFacility(obj);	  
+		    		 	}
+			    	 }
+			     }
+	    		//objModel.setStrFacilityCode(objBean.getStrFacilityCode()); 
+	    	 	objModel.setIntGId(lastNo);
+	    	 	objModel.setStrCatCode(objBean.getStrCatCode());
+	    	 	objModel.setStrUserCreated(userCode);
+	    	 	objModel.setStrUserModified(userCode);
+	    	 	objModel.setStrClientCode(clientCode);
+	 			objModel.setStrCatName(objBean.getStrCatName());
+	 			objModel.setStrGroupCategoryCode(objBean.getStrGroupCategoryCode());
+	 			objModel.setStrTenure(objBean.getStrTenure());
+	 			objModel.setStrRuleCode(objBean.getStrRuleCode());
+	 			objModel.setDblCreditAmt(objBean.getDblCreditAmt());
+	 			objModel.setStrVotingRights(objBean.getStrVotingRights());
+	 			objModel.setStrRemarks(objBean.getStrRemarks());				 			
+	 			objModel.setDblDisAmt(objBean.getDblDisAmt());				 
+	 			objModel.setDtModifiedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+	 			objModel.setStrcatdesc(objBean.getStrcatdesc());
+	 			objModel.setStrCorporate("N");
+	 			objModel.setStrPropertyCode("");			
+	 			objModel.setDtCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+	 			objModel.setStrFacilityCode(objBean.getStrFacilityCode());//optional
+	 			objModel.setIntCreditLimit(objBean.getIntCreditLimit());
+	    		objWebClubMemberCategoryMasterService.funAddUpdateWebClubMemberCategoryMaster(objModel);				     
 			}
 			
 			objWebClubMemberCategoryMasterService.funAddUpdateWebClubMemberCategoryMaster(objModel);
-
 			req.getSession().setAttribute("success", true);
 			req.getSession().setAttribute("successMessage", "Member Category Code : ".concat(objModel.getStrCatCode()));
 			return new ModelAndView("redirect:/frmMemberCategoryMaster.html?saddr=" + urlHits);
@@ -206,13 +195,4 @@ public class clsWebClubMemberCategoryMasterController {
 			return new ModelAndView("frmMemberCategoryMaster");
 		}
 	}
-
-	// Convert bean to model function
-/*	private clsWebClubMemberCategoryMasterModel funPrepareModel(clsWebClubMemberCategoryMasterBean objBean, String userCode, String clientCode) {
-		
-
-		return objModel;*/
-
-	
-
 }

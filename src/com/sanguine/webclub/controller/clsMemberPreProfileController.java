@@ -254,7 +254,7 @@ public class clsMemberPreProfileController {
 		mpModel.setStrBillingAddressLine2(memProfileBean.getStrBillingAddressLine2());
 		mpModel.setStrBillingAddressLine3(memProfileBean.getStrBillingAddressLine3());
 		mpModel.setStrBillingAreaCode(memProfileBean.getStrBillingAreaCode());
-		mpModel.setStrBillingAreaName(memProfileBean.getStrBillingAreaName());
+		mpModel.setStrBillingAreaName(memProfileBean.getStrBillingAreaName()); 
 		mpModel.setStrBillingCountryCode(memProfileBean.getStrBillingCountryCode());
 		mpModel.setStrBillingCountryName(memProfileBean.getStrBillingCountryName());
 		mpModel.setStrBillingCtCode(memProfileBean.getStrBillingCtCode());
@@ -461,8 +461,11 @@ public class clsMemberPreProfileController {
 				mpModel.setStrResidentAddressLine2(memProfileBean.getStrResidentAddressLine2());
 				mpModel.setStrResidentAddressLine3(memProfileBean.getStrResidentAddressLine3());
 				mpModel.setStrResidentAreaCode(memProfileBean.getStrResidentAreaCode());
+				mpModel.setStrResidentAreaName(memProfileBean.getStrResidentAreaName());
 				mpModel.setStrResidentCountryCode(memProfileBean.getStrResidentCountryCode());
+				mpModel.setStrResidentCountryName(memProfileBean.getStrResidentCountryName());
 				mpModel.setStrResidentCtCode(memProfileBean.getStrResidentCtCode());
+				mpModel.setStrResidentCtName(memProfileBean.getStrResidentCtName());
 				mpModel.setStrResidentEmailID(memProfileBean.getStrResidentEmailID());
 				mpModel.setStrResidentFax1(memProfileBean.getStrResidentFax1());
 				mpModel.setStrResidentFax2(memProfileBean.getStrResidentFax2());
@@ -470,7 +473,9 @@ public class clsMemberPreProfileController {
 				mpModel.setStrResidentMobileNo(memProfileBean.getStrResidentMobileNo());
 				mpModel.setStrResidentPinCode(memProfileBean.getStrResidentPinCode());
 				mpModel.setStrResidentRegionCode(memProfileBean.getStrResidentRegionCode());
+				mpModel.setStrResidentRegionName(memProfileBean.getStrResidentRegionName());
 				mpModel.setStrResidentStateCode(memProfileBean.getStrResidentStateCode());
+				mpModel.setStrResidentStateName(memProfileBean.getStrResidentStateName());
 				mpModel.setStrResidentTelephone1(memProfileBean.getStrResidentTelephone1());
 				mpModel.setStrResidentTelephone2(memProfileBean.getStrResidentTelephone2());
 				// Company Address
@@ -478,9 +483,12 @@ public class clsMemberPreProfileController {
 				mpModel.setStrCompanyAddressLine2("");
 				mpModel.setStrCompanyAddressLine3("");
 				mpModel.setStrCompanyAreaCode("");
+				mpModel.setStrCompanyAreaName("");
 				mpModel.setStrCompanyCode("");
 				mpModel.setStrCompanyCountryCode("");
+				mpModel.setStrCompanyCountryName("");
 				mpModel.setStrCompanyCtCode("");
+				mpModel.setStrCompanyCtName("");
 				mpModel.setStrCompanyEmailID("");
 				mpModel.setStrCompanyFax1("");
 				mpModel.setStrCompanyFax2("");
@@ -489,7 +497,9 @@ public class clsMemberPreProfileController {
 				mpModel.setStrCompanyName("");
 				mpModel.setStrCompanyPinCode("");
 				mpModel.setStrCompanyRegionCode("");
+				mpModel.setStrCompanyRegionName("");
 				mpModel.setStrCompanyStateCode("");
+				mpModel.setStrCompanyStateName("");
 				mpModel.setStrCompanyTelePhone1("");
 				mpModel.setStrCompanyTelePhone2("");
 				mpModel.setStrHoldingCode("");
@@ -499,8 +509,11 @@ public class clsMemberPreProfileController {
 				mpModel.setStrBillingAddressLine2("");
 				mpModel.setStrBillingAddressLine3("");
 				mpModel.setStrBillingAreaCode("");
+				mpModel.setStrBillingAreaName("");
 				mpModel.setStrBillingCountryCode("");
+				mpModel.setStrBillingCountryName("");
 				mpModel.setStrBillingCtCode("");
+				mpModel.setStrBillingCtName("");
 				mpModel.setStrBillingEmailID("");
 				mpModel.setStrBillingFax1("");
 				mpModel.setStrBillingFax2("");
@@ -509,7 +522,9 @@ public class clsMemberPreProfileController {
 				mpModel.setStrBillingMobileNo("");
 				mpModel.setStrBillingPinCode("");
 				mpModel.setStrBillingRegionCode("");
+				mpModel.setStrBillingRegionName("");
 				mpModel.setStrBillingStateCode("");
+				mpModel.setStrBillingStateName("");
 				mpModel.setStrBillingTelePhone1("");
 				mpModel.setStrBillingTelePhone2("");
 				// Personal Information
@@ -596,7 +611,7 @@ public class clsMemberPreProfileController {
 		long lastNo = 0;
 		clsWebClubPreMemberProfileModel mpModel;
 
-		if (memProfileBean.getStrSpouseCustomerCode() == null) {
+		if (memProfileBean.getStrSpouseCustomerCode() == null||memProfileBean.getStrSpouseCustomerCode()=="") {
 
 			lastNo = objGlobalFunctionsService.funGetLastNo("tblpremembermaster", "MemberPreProfile", "intGId", clientCode);
 			String customerCode = "C" + String.format("%06d", lastNo);
@@ -656,8 +671,11 @@ public class clsMemberPreProfileController {
 		mpModel.setStrResidentAddressLine2(memProfileBean.getStrResidentAddressLine2());
 		mpModel.setStrResidentAddressLine3(memProfileBean.getStrResidentAddressLine3());
 		mpModel.setStrResidentAreaCode(memProfileBean.getStrResidentAreaCode());
+		mpModel.setStrResidentAreaName(memProfileBean.getStrResidentAreaName());
 		mpModel.setStrResidentCountryCode(memProfileBean.getStrResidentCountryCode());
+		mpModel.setStrResidentCountryName(memProfileBean.getStrResidentCountryName());
 		mpModel.setStrResidentCtCode(memProfileBean.getStrResidentCtCode());
+		mpModel.setStrResidentCtName(memProfileBean.getStrResidentCtName());
 		mpModel.setStrResidentEmailID(memProfileBean.getStrSpouseResidentMobileNo());
 		mpModel.setStrResidentFax1(memProfileBean.getStrResidentFax1());
 		mpModel.setStrResidentFax2(memProfileBean.getStrResidentFax2());
@@ -665,7 +683,9 @@ public class clsMemberPreProfileController {
 		mpModel.setStrResidentMobileNo(memProfileBean.getStrSpouseResidentMobileNo());
 		mpModel.setStrResidentPinCode(memProfileBean.getStrResidentPinCode());
 		mpModel.setStrResidentRegionCode(memProfileBean.getStrResidentRegionCode());
+		mpModel.setStrResidentRegionName(memProfileBean.getStrResidentRegionName());
 		mpModel.setStrResidentStateCode(memProfileBean.getStrResidentStateCode());
+		mpModel.setStrResidentStateName(memProfileBean.getStrResidentStateName());
 		mpModel.setStrResidentTelephone1(memProfileBean.getStrResidentTelephone1());
 		mpModel.setStrResidentTelephone2(memProfileBean.getStrResidentTelephone2());
 		// Company Address
@@ -673,9 +693,12 @@ public class clsMemberPreProfileController {
 		mpModel.setStrCompanyAddressLine2("");
 		mpModel.setStrCompanyAddressLine3("");
 		mpModel.setStrCompanyAreaCode("");
+		mpModel.setStrCompanyAreaName("");
 		mpModel.setStrCompanyCode(memProfileBean.getStrSpouseCompanyCode());
 		mpModel.setStrCompanyCountryCode("");
+		mpModel.setStrCompanyCountryName("");
 		mpModel.setStrCompanyCtCode("");
+		mpModel.setStrCompanyCtName("");
 		mpModel.setStrCompanyEmailID("");
 		mpModel.setStrCompanyFax1("");
 		mpModel.setStrCompanyFax2("");
@@ -684,7 +707,9 @@ public class clsMemberPreProfileController {
 		mpModel.setStrCompanyName("");
 		mpModel.setStrCompanyPinCode("");
 		mpModel.setStrCompanyRegionCode("");
+		mpModel.setStrCompanyRegionName("");
 		mpModel.setStrCompanyStateCode("");
+		mpModel.setStrCompanyStateName("");
 		mpModel.setStrCompanyTelePhone1("");
 		mpModel.setStrCompanyTelePhone2("");
 		mpModel.setStrHoldingCode("");
@@ -694,8 +719,11 @@ public class clsMemberPreProfileController {
 		mpModel.setStrBillingAddressLine2("");
 		mpModel.setStrBillingAddressLine3("");
 		mpModel.setStrBillingAreaCode("");
+		mpModel.setStrBillingAreaName("");
 		mpModel.setStrBillingCountryCode("");
+		mpModel.setStrBillingCountryName("");
 		mpModel.setStrBillingCtCode("");
+		mpModel.setStrBillingCtName("");
 		mpModel.setStrBillingEmailID("");
 		mpModel.setStrBillingFax1("");
 		mpModel.setStrBillingFax2("");
@@ -704,7 +732,9 @@ public class clsMemberPreProfileController {
 		mpModel.setStrBillingMobileNo("");
 		mpModel.setStrBillingPinCode("");
 		mpModel.setStrBillingRegionCode("");
+		mpModel.setStrBillingRegionName("");
 		mpModel.setStrBillingStateCode("");
+		mpModel.setStrBillingStateName("");
 		mpModel.setStrBillingTelePhone1("");
 		mpModel.setStrBillingTelePhone2("");
 		// Personal Information

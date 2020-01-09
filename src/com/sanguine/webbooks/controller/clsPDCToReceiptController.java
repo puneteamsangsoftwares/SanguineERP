@@ -311,11 +311,19 @@ public class clsPDCToReceiptController {
 					objReceiptDebtorDtlModel.setDteInvoiceDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 					objReceiptDebtorDtlModel.setDteDueDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 					dblAmt=dblAmt+i.getDblAmt() * currConversion;
-					if(j>=objBean.getListReceiptBean().size()-2)
+					
+					if(i.getStrDebtorCode().startsWith("D"))
+					{
+						objReceiptDebtorDtlModel.setDblAmt(dblAmt);	
+						objReceiptDebtorDtlModel.setStrAccountCode("");						
+						listReceiptDebtorDtlModel.add(objReceiptDebtorDtlModel);
+					}
+					
+					/*if(j>=objBean.getListReceiptBean().size()-2)
 					{
 						objReceiptDebtorDtlModel.setDblAmt(dblAmt);							
 						listReceiptDebtorDtlModel.add(objReceiptDebtorDtlModel);						
-					}
+					}*/
 					countt++;
 				}		
 			}
