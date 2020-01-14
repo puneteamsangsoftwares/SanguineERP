@@ -122,7 +122,8 @@ public class clsCreditorTrialBalanceController {
 			sbSql.append("select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster where strCurrencyCode='"+currencyCode+"' and strClientCode='"+clientCode+"' ");
 			try
 			{
-				List list = objBaseService.funGetList(sbSql,"sql");
+				//List list = objBaseService.funGetList(sbSql,"sql");
+				List list = objBaseService.funGetListForWebStocks(sbSql,"sql");
 				conversionRate=Double.parseDouble(list.get(0).toString());
 			}catch(Exception e)
 			{
@@ -162,7 +163,9 @@ public class clsCreditorTrialBalanceController {
 			String sql="";
 			StringBuilder sbSqllink=new StringBuilder();
 			sbSqllink.append(" select a.strAccountCode,a.strMasterDesc from "+webStockDB+".tbllinkup a where a.strWebBookAccCode='"+glCode+"' and a.strPropertyCode='"+propertyCode+"' and a.strClientCode='"+clientCode+"' ");
-			 List listDebtor = objBaseService.funGetListModuleWise(sbSqllink, "sql", "WebStocks");	 
+			 //List listDebtor = objBaseService.funGetListModuleWise(sbSqllink, "sql", "WebStocks");	 
+				List listDebtor =objBaseService.funGetListForWebBooks(sbSqllink, "sql");
+ 
 					 if (listDebtor.size() > 0 && listDebtor != null) {
 					for (int i = 0; i < listDebtor.size(); i++) {
 						Object[] debArr = (Object[]) listDebtor.get(i);
@@ -172,7 +175,7 @@ public class clsCreditorTrialBalanceController {
 						double openingbal = 0.00;
 
 						String tempFromDate =  objGlobal.funGetDate("yyyy-MM-dd", fromDate);;
-						 tempFromDate = tempFromDate.split("-")[2] + "-" + tempFromDate.split("-")[1] + "-" + tempFromDate.split("-")[0];
+						tempFromDate = tempFromDate.split("-")[2] + "-" + tempFromDate.split("-")[1] + "-" + tempFromDate.split("-")[0];
 						SimpleDateFormat obj = new SimpleDateFormat("dd-MM-yyyy");
 						Date dt1;
 						try {
@@ -310,7 +313,7 @@ public class clsCreditorTrialBalanceController {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public int funProcessWebBookCreditorTrailBal(String acCode, String detorCretditorCode, String fromDate, String toDate, String clientCode, String userCode, String propertyCode, HttpServletRequest req, HttpServletResponse resp) {
+	public int funProcessWebBookCreditorTrailBal(String acCode, String detorCretditorCode, String fromDate, String toDate, String clientCode, String userCode, String propertyCode, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		objGlobalFunctions.funDeleteAndInsertWebBookLedgerTable(clientCode, userCode, propertyCode);
 		// jv
 		if (detorCretditorCode == "C00000040") {
@@ -322,7 +325,9 @@ public class clsCreditorTrialBalanceController {
 				+ " AND DATE(a.dteVouchDate) BETWEEN '" + fromDate + "' AND '" + toDate + "' " 
 				+ " AND b.strAccountCode='" + acCode + "' and c.strDebtorCode='" + detorCretditorCode + "' "
 				+ " AND a.strPropertyCode=b.strPropertyCode AND a.strPropertyCode='" + propertyCode + "' AND a.strClientCode='" + clientCode + "' ";
-		List listjv = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+		//List listjv = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+		List listjv =objBaseService.funGetListForWebBooks(new StringBuilder(sql), "sql");
+
 		if (listjv.size() > 0) {
 			for (int i = 0; i < listjv.size(); i++) {
 				clsLedgerSummaryModel objSummaryledger = new clsLedgerSummaryModel();
@@ -354,10 +359,8 @@ public class clsCreditorTrialBalanceController {
 			    + " AND DATE(a.dteVouchDate) BETWEEN '" + fromDate + "' AND '" + toDate + "' " 
 				+ " AND b.strAccountCode='" + acCode + "' and c.strDebtorCode='" + detorCretditorCode + "' AND a.strPropertyCode=b.strPropertyCode " 
 			    + " AND a.strPropertyCode='" + propertyCode + "' AND a.strClientCode='" + clientCode + "'  ";
-
-
-
-		List listPay = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+		//List listPay = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+		List listPay =objBaseService.funGetListForWebBooks(new StringBuilder(sql), "sql");
 		if (listPay.size() > 0) {
 			for (int i = 0; i < listPay.size(); i++) {
 				clsLedgerSummaryModel objSummaryledger = new clsLedgerSummaryModel();
@@ -389,7 +392,8 @@ public class clsCreditorTrialBalanceController {
 			    + " AND DATE(a.dteVouchDate) BETWEEN '" + fromDate + "' AND '" + toDate + "' " + " and  b.strAccountCode='" + acCode + "'  and c.strDebtorCode='" + detorCretditorCode + "'  "
 				+ " AND a.strPropertyCode=b.strPropertyCode " 
 			    + " AND a.strPropertyCode='"+ propertyCode + "' AND a.strClientCode='" + clientCode + "'  ";
-		List listRecept = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+		//List listRecept = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+		List listRecept =objBaseService.funGetListForWebBooks(new StringBuilder(sql), "sql");
 		if (listRecept.size() > 0) {
 			for (int i = 0; i < listRecept.size(); i++) {
 				clsLedgerSummaryModel objSummaryledger = new clsLedgerSummaryModel();

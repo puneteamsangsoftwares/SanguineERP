@@ -234,7 +234,9 @@ public class clsChequeIssuedReport
 		listBank.add("All");
 		StringBuilder sbSql=new StringBuilder();
 		sbSql.append("select a.strAccountCode,a.strAccountName from tblacmaster a where a.strClientCode='"+clientCode+"' and a.strType='Bank'; ");
-		List listGetRecord = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+		//List listGetRecord = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+		List listGetRecord = objBaseService.funGetListForWebBooks(sbSql, "sql");
+		
 		if(listGetRecord.size()>0)
 		{
 			for (int j = 0; j < listGetRecord.size(); j++) 

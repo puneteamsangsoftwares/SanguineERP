@@ -5193,7 +5193,8 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 	}
 
 	@SuppressWarnings("finally")
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	//@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	@Transactional(value = "hibernateTransactionManager")
 	public void funExecuteQuery(String sql) {
 		try {
 			Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);			

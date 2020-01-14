@@ -112,7 +112,7 @@ public class clsBaseDaoImpl implements intfBaseDao {
 		}
 	}
 	
-
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "hibernateTransactionManager")
 	public int funExecuteUpdate(String strQuery, String queryType) throws Exception {
 		Query query;
 		if (queryType.equalsIgnoreCase("sql")) {

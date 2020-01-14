@@ -200,7 +200,7 @@
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);   
 		    
-		    var debtorAcCode=$("#txtCFCode").val('')
+		    var debtorAcCode=$("#txtCFCode").val()
 		    
 		    rowCount=listRow;
 		    row.insertCell(0).innerHTML= "<input class=\"Box\" readonly=\"true\" size=\"18%\" name=\"listReceiptBean["+(rowCount)+"].strDebtorName\" \ value='"+memCode+"'  id=\"txtMemCode."+(rowCount)+"\" >";

@@ -86,6 +86,7 @@
  var listRow=0;
  var map = new Map();
  var map1 = new Map();
+ var gMemCode='';
 /**
  * AutoComplte when user Type the Name then Display Exists Group Name
  */
@@ -126,7 +127,7 @@
 	**/
 	function funResetFields()
 	{
-		$("#txtGroupName").focus();
+		
     }
 	
 	
@@ -147,87 +148,46 @@
 		function funSetData(code)
 		{
 			switch(fieldName)
-			{
-			
-			case "WCMemberCode":
-				funSetMemberDataReceived(code);
-				break;
-			
-			
-			case 'WCmemProfileCustomer' :
-				funloadMemberData(code);
-				funloadMemberWiseFieldData(code);
-				break;
+			{			
+				case "WCMemberCode":
+					funSetMemberDataReceived(code);
+					break;			
 				
+				case 'WCmemProfileCustomer' :
+					funloadMemberData(code);
+					funloadMemberWiseFieldData(code);
+					break;				
 			}
 		}
 		
 		
 		function funCallFormAction(actionName,object) 
-		{/* 
-			var flg=true;
-			if($('#txtCustCode').val()!='')
+		{
+			if($("#txtCustCode").val().trim().length<1)
 			{
-				
-				funGetImage();
-					//var code = $('#txtCustCode').val();
-					 $.ajax({
-					        type: "GET",
-					        url: getContextPath()+"/memberExplore.html?code="+code,
-					        async: false,
-					        dataType: "json",
-					        success: function(response)
-					        {
-					        	if(response[0].strMemberCode!=null)
-					        		{
-					        		
-					        		funSetMemberData(response[0]);
-					        		}
-					        	else
-					        		{
-					        		alert("Invalid member code");
-					        		}
-					        	
-							},
-							error: function(jqXHR, exception) {
-					            if (jqXHR.status === 0) {
-					                alert('Not connect.n Verify Network.');
-					            } else if (jqXHR.status == 404) {
-					                alert('Requested page not found. [404]');
-					            } else if (jqXHR.status == 500) {
-					                alert('Internal Server Error [500].');
-					            } else if (exception === 'parsererror') {
-					                alert('Requested JSON parse failed.');
-					            } else if (exception === 'timeout') {
-					                alert('Time out error.');
-					            } else if (exception === 'abort') {
-					                alert('Ajax request aborted.');
-					            } else {
-					                alert('Uncaught Error.n' + jqXHR.responseText);
-					            }		            
-					        }
-							
-				      });
-			
-			
-		
+				alert("Enter Member Code");
+				$("#txtCustCode").focus();				
 			}
 			else
-				{
-				alert("Pleae select member")
-				}  */
-				
-				
-
+			{	
 				$("#tab_container").show();
-				
-				//document.getElementById("tabSpouse").hide();
-				//document.getElementById("tabDepeList").hide();
-				
-				
-			
+			}
 			return false;
 		}
+		
+		function funPrintForm() 
+		{
+			if($("#txtCustCode").val().trim().length<1)
+			{
+				alert("Select Member Code");
+				$("#txtCustCode").focus();				
+			}
+			else{			
+					window.open(getContextPath()+"/printMeberData.html?memberCode="+gMemCode,'_blank');		
+			}
+			return false;
+		}
+		
 		 function funShowImagePreview(input)
 		 {
 			 if (input.files && input.files[0])
@@ -235,7 +195,7 @@
 				 var filerdr = new FileReader();
 				 filerdr.onloadend = function(event) 
 				 {
-				 $('#memImage').attr('src', event.target.result);
+				 	$('#memImage').attr('src', event.target.result);
 				 }
 				 filerdr.readAsDataURL(input.files[0]);
 			 }
@@ -243,16 +203,13 @@
 
 		 function funGetImage()
 			{
-					var code = $("#txtCustCode").val();
-					searchUrl=getContextPath()+"/loadImage.html?custCode="+code;
-					$("#itemImage").attr('src', searchUrl);
-					
-				
+				var code = $("#txtCustCode").val();
+				searchUrl=getContextPath()+"/loadImage.html?custCode="+code;
+				$("#itemImage").attr('src', searchUrl);
 			}
 		 
 		 function funSetMemberData(response)
-		 {
-			 
+		 {			 
 			 var address = response.strResidentAddressLine1+" "+response.strResidentAddressLine2+" "+
 			 response.strResidentAddressLine3+" "+response.strResidentAreaCode+" "+response.strResidentCountryCode;
 			 $("#txtMCName").text(response.strFullName);
@@ -261,8 +218,7 @@
 			 $("#txtAddress").text(address);
 			 $("#txtDob").text(response.dteDateofBirth);
 			 $("#txtMemStartDate").text(response.dteMembershipStartDate);
-			 $("#txtMemExpiryDate").text(response.dteMembershipExpiryDate);
-			 
+			 $("#txtMemExpiryDate").text(response.dteMembershipExpiryDate);			 
 			 $("#tblExplorer").css("display","block");
 		 }
 		 
@@ -494,6 +450,7 @@
 
 		 function funloadMemberData(code)
 			{
+			 	gMemCode=code;
 				var searchurl=getContextPath()+"/loadWebClubMemberProfileData.html?primaryCode="+code;
 				//alert(searchurl);
 				 $.ajax({
@@ -2004,6 +1961,9 @@
 							class="form_button">Submit</button></a>
 						<a href="#"><button class="btn btn-primary center-block" type="reset"
 							value="Reset" class="form_button" onclick="funResetField()">Reset</button></a>
+					
+						<a href="#"><button class="btn btn-primary center-block" value="Print" onclick="return funPrintForm();" class="form_button">Print</button></a>
+					
 					</div>
 					 <!-- <table class="masterTable">
 						<tr>

@@ -44,6 +44,21 @@
 <script type="text/javascript">
 	var fieldName;
 
+	
+	 $(function()
+     		{			
+     			$('#baseUrl').click(function() 
+     			{  
+     				 if($("#txtBankCode").val().trim()=="")
+     				{
+     					alert("Please Enter Bank Code");
+     					return false;
+     				} 
+     				window.open('attachDoc.html?transName=frmWebClubBankMaster.jsp&formName=Bank Information&code='+$('#txtBankCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+     			});
+     		});
+	
+	
 	/**
 	* Success Message After Saving Record
 	**/

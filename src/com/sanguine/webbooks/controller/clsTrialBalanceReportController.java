@@ -127,7 +127,9 @@ public class clsTrialBalanceReportController {
 			sbSql.append("select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster where strCurrencyCode='"+currencyCode+"' and strClientCode='"+clientCode+"' ");
 			try
 			{
-				List list = objBaseService.funGetList(sbSql,"sql");
+				//List list = objBaseService.funGetList(sbSql,"sql");
+				List list = objBaseService.funGetListForWebStocks(sbSql,"sql");
+
 			}catch(Exception e)
 			{
 				e.printStackTrace();
@@ -214,8 +216,10 @@ public class clsTrialBalanceReportController {
 				+ " where s.strGroupCode=b.strGroupCode and s.strSubGroupCode=a.strSubGroupCode and  a.strClientCode='" + clientCode + "' and a.strPropertyCode='" + propertyCode + "' "
 				+ " ORDER by a.strGroupCode ");
 			Map<String,clsCreditorOutStandingReportBean> hmTrailBalance=new HashMap<String,clsCreditorOutStandingReportBean>();
-			List listAccountDetails = objGlobalFunctionsService.funGetListModuleWise(sbSql.toString(), "sql");
-			
+			//List listAccountDetails = objGlobalFunctionsService.funGetListModuleWise(sbSql.toString(), "sql");
+			List listAccountDetails =objBaseService.funGetListForWebBooks(sbSql, "sql");
+
+
 			for (int i = 0; i < listAccountDetails.size(); i++) {
 				Object[] objArr = (Object[]) listAccountDetails.get(i);
 			
@@ -331,7 +335,7 @@ public class clsTrialBalanceReportController {
 				fieldList.add(objHmBean);
 			}*/
 			fieldList.add(objHmBean);
-			 objHmBean =new clsCreditorOutStandingReportBean();
+			objHmBean =new clsCreditorOutStandingReportBean();
 			objHmBean.setStrGroupCode("1002");
 			objHmBean.setStrGroupName("SALES");
 			objHmBean.setStrAccountCode(objModel.getStrClosingCode());
@@ -423,7 +427,6 @@ public class clsTrialBalanceReportController {
 			try {
 				con.close();
 			} catch (SQLException e) {
-
 				e.printStackTrace();
 			}
 		}
@@ -443,8 +446,9 @@ public class clsTrialBalanceReportController {
 			+ " FROM tbljvhd a, tbljvdtl b "
 			+ " WHERE a.strVouchNo=b.strVouchNo AND DATE(a.dteVouchDate) BETWEEN '" + fromDate + "' AND '" + toDate + "' AND a.strPropertyCode=b.strPropertyCode "
 			+ " AND a.strPropertyCode='" + propertyCode + "' AND a.strClientCode='" + clientCode + "' group by b.strAccountCode ") ;
-		List listJvAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
-		
+		//List listJvAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+		List listJvAmt =objBaseService.funGetListForWebBooks(sbSql, "sql");
+
 		for (int j = 0; j < listJvAmt .size(); j++) {
 			clsCreditorOutStandingReportBean objOutStBean=new clsCreditorOutStandingReportBean();
 			Object[] arrObj = (Object[]) listJvAmt .get(j);
@@ -492,8 +496,8 @@ public class clsTrialBalanceReportController {
 				+ " FROM tblpaymenthd a, tblpaymentdtl b "
 				+ " WHERE a.strVouchNo=b.strVouchNo AND DATE(a.dteVouchDate) BETWEEN '" + fromDate + "' AND '" + toDate + "' AND a.strPropertyCode=b.strPropertyCode "
 				+ " AND a.strPropertyCode='" + propertyCode + "' AND a.strClientCode='" + clientCode + "' group by b.strAccountCode ") ;
-		List listPayment = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
-			
+		//List listPayment = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+		  List listPayment =objBaseService.funGetListForWebBooks(sbSql, "sql");
 		for (int j = 0; j < listPayment.size(); j++) {
 			clsCreditorOutStandingReportBean objOutStBean=new clsCreditorOutStandingReportBean();
 			Object[] arrObj = (Object[]) listPayment.get(j);
@@ -540,8 +544,8 @@ public class clsTrialBalanceReportController {
 				+ " FROM tblreceipthd a, tblreceiptdtl b "
 				+ " WHERE a.strVouchNo=b.strVouchNo AND DATE(a.dteVouchDate) BETWEEN '" + fromDate + "' AND '" + toDate + "' AND a.strPropertyCode=b.strPropertyCode "
 				+ " AND a.strPropertyCode='" + propertyCode + "' AND a.strClientCode='" + clientCode + "' group by b.strAccountCode ") ;
-		List listReceipt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
-			
+		//List listReceipt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+		  List listReceipt =objBaseService.funGetListForWebBooks(sbSql, "sql");
 		for (int j = 0; j < listReceipt.size(); j++) {
 			clsCreditorOutStandingReportBean objOutStBean=new clsCreditorOutStandingReportBean();
 			Object[] arrObj = (Object[]) listReceipt.get(j);

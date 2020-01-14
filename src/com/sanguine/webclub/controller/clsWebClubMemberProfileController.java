@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -13,6 +14,7 @@ import java.sql.Blob;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -21,10 +23,25 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.ImageIcon;
 import javax.validation.Valid;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,11 +63,14 @@ import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.model.clsCompanyMasterModel;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.service.clsSetupMasterService;
+import com.sanguine.webbanquets.bean.clsFunctionProspectusBean;
 import com.sanguine.webbooks.model.clsSundryDebtorMasterModel;
 import com.sanguine.webbooks.model.clsSundryDebtorMasterModel_ID;
 import com.sanguine.webbooks.service.clsSundryDebtorMasterService;
+import com.sanguine.webclub.bean.clsWebClubFacilityMasterBean;
 import com.sanguine.webclub.bean.clsWebClubMemberProfileBean;
 import com.sanguine.webclub.bean.clsWebClubMemberProfileSetupBean;
+import com.sanguine.webclub.bean.clsWebClubOtheInfoBean;
 import com.sanguine.webclub.model.clsWebClubDependentMasterModel;
 import com.sanguine.webclub.model.clsWebClubMemberPhotoModel;
 import com.sanguine.webclub.model.clsWebClubMemberPhotoModel_ID;
@@ -107,6 +127,9 @@ public class clsWebClubMemberProfileController {
 	
 	@Autowired
 	private intfBaseService objBaseService;
+	
+	@Autowired
+	private ServletContext servletContext;
 	
 	// Open MemberProfile
 	@RequestMapping(value = "/frmMemberProfile", method = RequestMethod.GET)
@@ -1563,7 +1586,7 @@ public class clsWebClubMemberProfileController {
 	public void getImage(@RequestParam("prodCode") String prodCode, HttpServletRequest req, HttpServletResponse response) {
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		clsWebClubMemberPhotoModel objmemPhotoModel = null;
-		if (prodCode.length() > 8) {
+		if (prodCode.length() > 0) {
 			objmemPhotoModel = objWebClubMemberPhotoService.funGetWebClubMemberPhoto(prodCode, clientCode);
 		} else {
 			objmemPhotoModel = objWebClubMemberPhotoService.funGetWebClubMemberPhoto(prodCode, clientCode);
@@ -1584,6 +1607,40 @@ public class clsWebClubMemberProfileController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//Print Data On Jasper
+	@RequestMapping(value = "/printMeberData", method = RequestMethod.GET)
+	public @ResponseBody void funPringMemberData(@RequestParam("memberCode") String memberCode, HttpServletRequest req, HttpServletResponse res) {
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		clsWebClubMemberProfileModel objbean=null;
+		objGlobal=new clsGlobalFunctions();
+		List<clsWebClubMemberProfileModel> objMemberModelList = objMemberProfileService.funGetAllMember(memberCode, clientCode);
+		List<clsWebClubMemberProfileModel> finalList = new ArrayList<>();
+		if (null != objMemberModelList) {
+			for(int i=0;i<objMemberModelList.size();i++)
+			{
+				if(objMemberModelList.get(i).getStrMemberCode()!=null && objMemberModelList.size()>0 && !objMemberModelList.get(i).getStrMemberCode().equals(""))
+				{
+					objbean=new clsWebClubMemberProfileModel();
+					objbean=objMemberModelList.get(i);				
+					objbean.setDteAnniversary(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDteAnniversary().split(" ")[0]));
+					objbean.setDteDateofBirth(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDteDateofBirth().split(" ")[0]));					
+					objbean.setDteDependentDateofBirth(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDteDependentDateofBirth().split(" ")[0]));
+					objbean.setDteInterviewDate(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDteInterviewDate().split(" ")[0]));
+					objbean.setDteMemberBlockDate(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDteMemberBlockDate().split(" ")[0]));
+					objbean.setDteMembershipEndDate(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDteMembershipEndDate().split(" ")[0]));
+					objbean.setDteMembershipExpiryDate(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDteMembershipExpiryDate().split(" ")[0]));
+					objbean.setDteMembershipStartDate(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDteMembershipStartDate().split(" ")[0]));
+					objbean.setDtePermitExpDate(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDtePermitExpDate().split(" ")[0]));
+					objbean.setDteProfileCreationDate(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDteProfileCreationDate().split(" ")[0]));
+									
+					finalList.add(objbean);
+				}
+			}
+		}	
+		funGenarateMemberProfileForm(req,res,finalList);
+		
 	}
 
 	@RequestMapping(value = "/deleteDependenData", method = RequestMethod.GET)
@@ -1781,6 +1838,316 @@ public class clsWebClubMemberProfileController {
 	objModel.setStrOperational("Yes");
 	return objModel;
 }
+	public void funGenarateMemberProfileForm(HttpServletRequest req,HttpServletResponse resp,List<clsWebClubMemberProfileModel> list) 
+	{
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		String userCode = req.getSession().getAttribute("usercode").toString();
+		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
+		String companyName = req.getSession().getAttribute("companyName").toString();
+		String webStockDB = req.getSession().getAttribute("WebStockDB").toString();
+		String sql="";
+		String fromDate="",toDate="";
+		String strServiceType="";
+		HashMap reportParams = new HashMap();
+		clsFunctionProspectusBean objBean=null;
+		/*List listStaff = new ArrayList<>();
+		List listEquipment = new ArrayList<>();
+		List listService = new ArrayList<>();
+		List listMenu = new ArrayList<>();*/
+		List<clsWebClubMemberProfileModel> listDep=new ArrayList<clsWebClubMemberProfileModel>();;
+		try
+		{
+			String reportName = servletContext.getRealPath("/WEB-INF/reports/webclub/rptMemberProfileForm.jrxml");
+			String imagePath = servletContext.getRealPath("/resources/images/Sanguine_Logo_Icon.png");
+			String WebStocksDB=req.getSession().getAttribute("WebStockDB").toString();	
+			String WebCLUBDB=req.getSession().getAttribute("WebCLUBDB").toString();	
+			reportParams.put("strImagePath", imagePath);
+			List<clsWebClubFacilityMasterBean> listFacilityName = new ArrayList<clsWebClubFacilityMasterBean>();
+			List listProperInfo =objGlobalFunctionsService.funGetList("SELECT b.strPropertyName,a.strAdd1,a.strAdd2,a.strCity from "+WebStocksDB+".tblpropertysetup a,"+WebStocksDB+".tblpropertymaster b WHERE a.strPropertyCode='"+propertyCode+"' AND a.strPropertyCode=b.strPropertyCode ;");	
+			if(listProperInfo!=null)
+			{
+				Object obj[] = (Object []) listProperInfo.get(0);
+				reportParams.put("pCompanyName",objGlobal.funIfNull(obj[0].toString(),"",obj[0].toString()));  
+				reportParams.put("pAddress1",objGlobal.funIfNull(obj[1].toString(),"",obj[1].toString()));  
+				reportParams.put("pAddress2",objGlobal.funIfNull(obj[2].toString()+","+obj[3].toString(),"",obj[2].toString()+","+obj[3].toString()));  
+				//reportParams.put("pstrCity",objGlobal.funIfNull(","+obj[3].toString(),"",","+obj[3].toString()));  
+			}
+			if(list.size()>0)
+			{
+				if(list.get(0) != null)
+				{
+					reportParams.put("strMemberCode",list.get(0).getStrMemberCode().split(" ")[0]);
+					reportParams.put("strPrefixCode",list.get(0).getStrPrefixCode());
+					reportParams.put("strFirstName",list.get(0).getStrFirstName());
+					reportParams.put("strMiddleName",list.get(0).getStrMiddleName());
+					reportParams.put("strLastName",list.get(0).getStrLastName());
+					reportParams.put("strGender",list.get(0).getStrGender());
+					reportParams.put("dteDateofBirth",list.get(0).getDteDateofBirth());
+					reportParams.put("strMaritalStatus",list.get(0).getStrMaritalStatus());
+					
+					//cate code
+					//String FaciltyName="";
+					clsWebClubFacilityMasterBean objFacilityBean =null;
+					List listCateCode =objGlobalFunctionsService.funGetList("SELECT a.strCatName from "+WebCLUBDB+".tblmembertypemaster a WHERE a.strCatCode='"+list.get(0).getStrCategoryCode()+"' AND a.strClientCode='"+clientCode+"';");	
+					if(!listCateCode.isEmpty())
+					{						
+						//facility information
+						List listCateWiseFacilityName =objGlobalFunctionsService.funGetList("SELECT b.strFacilityName FROM "+WebCLUBDB+".tblcategeorywisefacilitydtl a,"+WebCLUBDB+".tblfacilitymaster b WHERE a.strCatCode='"+list.get(0).getStrCategoryCode()+"' AND a.strFacilityCode=b.strFacilityCode and a.strClientCode=b.strClientCode and a.strClientCode='"+clientCode+"' ");	
+						if(!listCateWiseFacilityName.isEmpty())
+						{
+							for(int i=0;i<listCateWiseFacilityName.size();i++)
+							{
+								objFacilityBean = new clsWebClubFacilityMasterBean();
+								objFacilityBean.setStrFacilityName(listCateWiseFacilityName.get(i).toString());
+								listFacilityName.add(objFacilityBean);
+							}
+							reportParams.put("listFacilityName",listFacilityName);	
+						}																
+						reportParams.put("strCategoryCode",objGlobal.funIfNull(listCateCode.get(0).toString(),"",listCateCode.get(0).toString()));						
+					}
+					
+					List<clsWebClubOtheInfoBean> listOtheInfo = new ArrayList<clsWebClubOtheInfoBean>(); 
+					clsWebClubOtheInfoBean objOtheInfo = null;
+					//other info if available
+				/*	List listOtherInfo =objGlobalFunctionsService.funGetList("SELECT * from "+WebCLUBDB+".tblotherdtl a WHERE a.strMemberCode='"+list.get(0).getStrMemberCode()+"' AND a.strClientCode='"+clientCode+"' ");	
+					if(listOtherInfo.size()>=0)
+					{
+						for(int j=0;j<listOtherInfo.size();j++)
+						{
+							Object Obj[] = (Object[])listOtherInfo.get(0); 
+							
+							//objOtheInfo.setStrFieldName(strFieldName);
+							//objOtheInfo.setStrFieldValue(strFieldValue);
+							//listOtheInfo.add(objOtheInfo);
+*/							
+							
+							Map hm = new LinkedHashMap<String,List>();		
+							List listField=objGlobalFunctionsService.funGetListModuleWise("SELECT * FROM tblotherdtl a WHERE a.strMemberCode='"+list.get(0).getStrMemberCode()+"' ","sql") ;
+							Map hmap=funDataBaseShrink();
+							if(listField!=null && listField.size()>0)
+							{
+								for(int i=0;i<listField.size();i++)
+								{
+									int k=1;
+									Iterator<Map.Entry<String, String>> itr = hmap.entrySet().iterator(); 
+									while(itr.hasNext()) 
+								    {
+										Object obj [] = (Object[]) listField.get(i);
+										Map.Entry<String, String> entry = itr.next(); 
+										if(!entry.getKey().equalsIgnoreCase("strMemberCode")&&!entry.getKey().equalsIgnoreCase("strClientCode"))
+										{
+											objOtheInfo = new clsWebClubOtheInfoBean();
+											objOtheInfo.setStrFieldName(entry.getKey());
+											if(obj[k+1]!=null)
+											{
+												objOtheInfo.setStrFieldValue(obj[k+1].toString());	
+											}
+											else
+											{
+												objOtheInfo.setStrFieldValue("");
+											}
+											listOtheInfo.add(objOtheInfo);											
+											k++;
+										}
+								    }	
+								}
+								reportParams.put("listOtherInfo",listOtheInfo);  
+							}														
+					List listBankName =objGlobalFunctionsService.funGetList("SELECT a.strBankName FROM "+WebStocksDB+".tblbankmaster a where a.strBankCode='"+list.get(0).getStrBankCode()+"' AND a.strClientCode='"+clientCode+"' ");	
+					if(!listBankName.isEmpty())
+					{
+						reportParams.put("strBankName",objGlobal.funIfNull(listBankName.get(0).toString(),"",listBankName.get(0).toString()));  
+					}					
+					reportParams.put("dteMembershipStartDate",list.get(0).getDteMembershipStartDate());
+					reportParams.put("dteMembershipEndDate",list.get(0).getDteMembershipStartDate());
+					List listEducationName =objGlobalFunctionsService.funGetList("SELECT a.strEducationDesc FROM "+WebCLUBDB+".tbleducationmaster a WHERE a.strEducationCode='"+list.get(0).getStrQualification()+"' AND a.strClientCode='"+clientCode+"'");	
+					if(!listEducationName.isEmpty())
+					{
+						reportParams.put("strQualification",objGlobal.funIfNull(listEducationName.get(0).toString(),"",listEducationName.get(0).toString()));
+					}
+					List listDesignation =objGlobalFunctionsService.funGetList("SELECT a.strDesignationName FROM "+WebCLUBDB+".tbldesignationmaster a WHERE a.strDesignationCode='"+list.get(0).getStrDesignationCode()+"' AND a.strClientCode='"+clientCode+"'");
+					if(!listDesignation.isEmpty())
+					{
+						reportParams.put("strDesignationCode",objGlobal.funIfNull(listDesignation.get(0).toString(),"",listDesignation.get(0).toString()));
+					}
+					reportParams.put("strAadharCardNo",list.get(0).getStrAadharCardNo());
+					reportParams.put("strPassportNo",list.get(0).getStrPassportNo());
+					reportParams.put("strPanNumber",list.get(0).getStrPanNumber());
+					reportParams.put("strSeniorCitizen",list.get(0).getStrSeniorCitizen());
+					reportParams.put("strBranchName",list.get(0).getStrBranchName());
+					reportParams.put("strIfscCOde",list.get(0).getStrIfscCOde());
+					reportParams.put("strAccNo",list.get(0).getStrAccNo());	
+					List listMemProSetup =objGlobalFunctionsService.funGetList("SELECT a.strBankName FROM "+WebStocksDB+".tblbankmaster a where a.strBankCode='"+list.get(0).getStrBankCode()+"' AND a.strClientCode='"+clientCode+"' ");	
+					if(!listMemProSetup.isEmpty())
+					{
+						reportParams.put("strBankName",objGlobal.funIfNull(listMemProSetup.get(0).toString(),"",listMemProSetup.get(0).toString()));  
+					}
+					
+					
+					//address filling
+							
+					//Resident Address
+					reportParams.put("strResAddrLine1",objGlobal.funIfNull(list.get(0).getStrResidentAddressLine1().toString()," ",list.get(0).getStrResidentAddressLine1().toString()));
+					reportParams.put("strResAddrLine2",objGlobal.funIfNull(list.get(0).getStrResidentAddressLine2().toString()," ",list.get(0).getStrResidentAddressLine2().toString()));
+					reportParams.put("strResAddrLine3",objGlobal.funIfNull(list.get(0).getStrResidentAddressLine3().toString()," ",list.get(0).getStrResidentAddressLine3().toString()));
+					reportParams.put("strResAddrLandmark",objGlobal.funIfNull(list.get(0).getStrResidentLandMark().toString()," ",list.get(0).getStrResidentLandMark().toString()));
+					reportParams.put("strResArea",objGlobal.funIfNull(list.get(0).getStrResidentAreaName().toString()," ",list.get(0).getStrResidentAreaName().toString()));
+					reportParams.put("strResCity",objGlobal.funIfNull(list.get(0).getStrResidentCtName().toString()," ",list.get(0).getStrResidentCtName().toString()));
+					reportParams.put("strResState",objGlobal.funIfNull(list.get(0).getStrResidentStateName().toString()," ",list.get(0).getStrResidentStateName().toString()));
+					reportParams.put("strResCountry",objGlobal.funIfNull(list.get(0).getStrResidentCountryName().toString()," ",list.get(0).getStrResidentCountryName().toString()));
+					reportParams.put("strResReg",objGlobal.funIfNull(list.get(0).getStrResidentRegionName().toString()," ",list.get(0).getStrResidentRegionName().toString()));
+					reportParams.put("strResTel1",objGlobal.funIfNull(list.get(0).getStrResidentTelephone1().toString()," ",list.get(0).getStrResidentTelephone1().toString()));
+					reportParams.put("strResTel2",objGlobal.funIfNull(list.get(0).getStrResidentTelephone2().toString()," ",list.get(0).getStrResidentTelephone2().toString()));
+					reportParams.put("strResFax1",objGlobal.funIfNull(list.get(0).getStrResidentFax1().toString()," ",list.get(0).getStrResidentFax1().toString()));
+					reportParams.put("strResFax2",objGlobal.funIfNull(list.get(0).getStrResidentFax2().toString()," ",list.get(0).getStrResidentFax2().toString()));
+					reportParams.put("strResPin",objGlobal.funIfNull(list.get(0).getStrResidentPinCode().toString()," ",list.get(0).getStrResidentPinCode().toString()));
+					reportParams.put("strResMob",objGlobal.funIfNull(list.get(0).getStrResidentMobileNo().toString()," ",list.get(0).getStrResidentMobileNo().toString()));
+					reportParams.put("strResEmail",objGlobal.funIfNull(list.get(0).getStrResidentEmailID().toString()," ",list.get(0).getStrResidentEmailID().toString()));
+					
+					
+					
+					
+					
+					//comany address
+					reportParams.put("strCompAddrLine1",objGlobal.funIfNull(list.get(0).getStrCompanyAddressLine1().toString()," ",list.get(0).getStrCompanyAddressLine1().toString()));
+					reportParams.put("strCompAddrLine2",objGlobal.funIfNull(list.get(0).getStrCompanyAddressLine2().toString()," ",list.get(0).getStrCompanyAddressLine2().toString()));
+					reportParams.put("strCompAddrLine3",objGlobal.funIfNull(list.get(0).getStrCompanyAddressLine3().toString()," ",list.get(0).getStrCompanyAddressLine3().toString()));
+					reportParams.put("strCompAddrLandmark",objGlobal.funIfNull(list.get(0).getStrCompanyLandMark().toString()," ",list.get(0).getStrCompanyLandMark().toString()));
+					reportParams.put("strCompArea",objGlobal.funIfNull(list.get(0).getStrCompanyAreaName().toString()," ",list.get(0).getStrCompanyAreaName().toString()));
+					reportParams.put("strCompCity",objGlobal.funIfNull(list.get(0).getStrCompanyCtName().toString()," ",list.get(0).getStrCompanyCtName().toString()));
+					reportParams.put("strCompState",objGlobal.funIfNull(list.get(0).getStrCompanyStateName().toString()," ",list.get(0).getStrCompanyStateName().toString()));
+					reportParams.put("strCompCountry",objGlobal.funIfNull(list.get(0).getStrCompanyCountryName().toString()," ",list.get(0).getStrCompanyCountryName().toString()));
+					reportParams.put("strCompReg",objGlobal.funIfNull(list.get(0).getStrCompanyRegionName().toString()," ",list.get(0).getStrCompanyRegionName().toString()));
+					reportParams.put("strCompTel1",objGlobal.funIfNull(list.get(0).getStrCompanyTelePhone1().toString()," ",list.get(0).getStrCompanyTelePhone1().toString()));
+					reportParams.put("strCompTel2",objGlobal.funIfNull(list.get(0).getStrCompanyTelePhone2().toString()," ",list.get(0).getStrCompanyTelePhone2().toString()));
+					reportParams.put("strCompFax1",objGlobal.funIfNull(list.get(0).getStrCompanyFax1().toString()," ",list.get(0).getStrCompanyFax1().toString()));
+					reportParams.put("strCompFax2",objGlobal.funIfNull(list.get(0).getStrCompanyFax2().toString()," ",list.get(0).getStrCompanyFax2().toString()));
+					reportParams.put("strCompPin",objGlobal.funIfNull(list.get(0).getStrCompanyPinCode().toString()," ",list.get(0).getStrCompanyPinCode().toString()));
+					reportParams.put("strCompMob",objGlobal.funIfNull(list.get(0).getStrCompanyMobileNo().toString()," ",list.get(0).getStrCompanyMobileNo().toString()));
+					reportParams.put("strCompEmail",objGlobal.funIfNull(list.get(0).getStrCompanyEmailID().toString()," ",list.get(0).getStrCompanyEmailID().toString()));
+					
+					
+					
+					
+					
+					
+					//billing
+					reportParams.put("strBillAddrLine1",objGlobal.funIfNull(list.get(0).getStrBillingAddressLine1().toString()," ",list.get(0).getStrBillingAddressLine1().toString()));
+					reportParams.put("strBillAddrLine2",objGlobal.funIfNull(list.get(0).getStrBillingAddressLine2().toString()," ",list.get(0).getStrBillingAddressLine2().toString()));
+					reportParams.put("strBillAddrLine3",objGlobal.funIfNull(list.get(0).getStrBillingAddressLine3().toString()," ",list.get(0).getStrBillingAddressLine3().toString()));
+					reportParams.put("strBillAddrLandmark",objGlobal.funIfNull(list.get(0).getStrBillingLandMark().toString()," ",list.get(0).getStrBillingLandMark().toString()));
+					reportParams.put("strBillArea",objGlobal.funIfNull(list.get(0).getStrBillingAreaName().toString()," ",list.get(0).getStrBillingAreaName().toString()));
+					reportParams.put("strBillCity",objGlobal.funIfNull(list.get(0).getStrBillingCtName().toString()," ",list.get(0).getStrBillingCtName().toString()));
+					reportParams.put("strBillState",objGlobal.funIfNull(list.get(0).getStrBillingStateName().toString()," ",list.get(0).getStrBillingStateName().toString()));
+					reportParams.put("strBillCountry",objGlobal.funIfNull(list.get(0).getStrBillingCountryName().toString()," ",list.get(0).getStrBillingCountryName().toString()));
+					reportParams.put("strBillReg",objGlobal.funIfNull(list.get(0).getStrBillingRegionName().toString()," ",list.get(0).getStrBillingRegionName().toString()));
+					reportParams.put("strBillTel1",objGlobal.funIfNull(list.get(0).getStrBillingTelePhone1().toString()," ",list.get(0).getStrBillingTelePhone1().toString()));
+					reportParams.put("strBillTel2",objGlobal.funIfNull(list.get(0).getStrBillingTelePhone2().toString()," ",list.get(0).getStrBillingTelePhone2().toString()));
+					reportParams.put("strBillFax1",objGlobal.funIfNull(list.get(0).getStrBillingFax1().toString()," ",list.get(0).getStrBillingFax1().toString()));
+					reportParams.put("strBillFax2",objGlobal.funIfNull(list.get(0).getStrBillingFax2().toString()," ",list.get(0).getStrBillingFax2().toString()));
+					reportParams.put("strBillPin",objGlobal.funIfNull(list.get(0).getStrBillingPinCode().toString()," ",list.get(0).getStrBillingPinCode().toString()));
+					reportParams.put("strBillMob",objGlobal.funIfNull(list.get(0).getStrBillingMobileNo().toString()," ",list.get(0).getStrBillingMobileNo().toString()));
+					reportParams.put("strBillEmail",objGlobal.funIfNull(list.get(0).getStrBillingEmailID().toString()," ",list.get(0).getStrBillingEmailID().toString()));
+					
+					
+					
+					
+					
+					
+					clsWebClubMemberPhotoModel obj = new clsWebClubMemberPhotoModel();
+					clsWebClubMemberPhotoModel objmemPhotoModel = null;
+					if (list.get(0).getStrMemberCode().toString().length() > 0) {
+						objmemPhotoModel = objWebClubMemberPhotoService.funGetWebClubMemberPhoto(list.get(0).getStrMemberCode().toString(), clientCode);
+					} else {
+						objmemPhotoModel = objWebClubMemberPhotoService.funGetWebClubMemberPhoto(list.get(0).getStrMemberCode().toString(), clientCode);
+					}
+					if(objmemPhotoModel!=null)
+					{
+						Blob image = null;
+						byte[] imgData = null;
+						String prodImage = "";
+						try {
+							if (null != objmemPhotoModel.getStrMemberImage() && objmemPhotoModel.getStrMemberImage().length > 0) {
+								imgData = objmemPhotoModel.getStrMemberImage();
+								try {
+									//imgData = Base64.getDecoder().decode(imgData);// decoding
+																					// of
+																					// byte
+								} catch (Exception ex) {
+									ex.printStackTrace();
+								}
+								File imgFolder = new File(System.getProperty("user.dir") + "\\ProductImageIcon");
+								if (!imgFolder.exists()) {
+									if (imgFolder.mkdir()) {
+										System.out.println("Directory is created! " + imgFolder.getAbsolutePath());
+									} else {
+										System.out.println("Failed to create directory!");
+									}
+								}
+								File fileUserImage = new File(System.getProperty("user.dir") + "\\ProductImageIcon\\" + list.get(0).getStrMemberCode().toString() + "_" + list.get(0).getStrFirstName().toString() + ".jpg");
+								prodImage = System.getProperty("user.dir") + "\\ProductImageIcon\\" + list.get(0).getStrMemberCode().toString()  + "_" + list.get(0).getStrFirstName().toString()+ ".jpg";
+								if (fileUserImage.exists()) {
+									fileUserImage.delete();
+								}
+								fileUserImage.createNewFile();
+								FileOutputStream fos = new FileOutputStream(fileUserImage);
+								fos.write(imgData);
+								fos.close();
+								//objmemPhotoModel.setStrMemberImage(objmemPhotoModel.getStrMemberImage());
+							}}
+						catch (Exception ex) {
+						}						
+						reportParams.put("strMemberImage",prodImage); 
+					}
+				}		
+				if(list.get(0).getStrMaritalStatus().equalsIgnoreCase("Married"))
+				{
+					String strDependent="";
+					for(int i=2;i<list.size();i++)
+					{
+						if(list.get(i)!=null)
+						{
+							listDep.add(list.get(i));
+						}
+					}
+					reportParams.put("listNominies",listDep);				
+				}
+			}
+			
+			
+			// depedent data
+			//dependet show with mobile no adharcar no,email id
 
+
+
+			//other information
+			
+			JasperDesign jd = JRXmlLoader.load(reportName);
+			JasperReport jr = JasperCompileManager.compileReport(jd);
+			JasperPrint jp = JasperFillManager.fillReport(jr, reportParams,new JREmptyDataSource());
+			List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
+			if (jp != null) 
+			{
+				jprintlist.add(jp);
+				ServletOutputStream servletOutputStream = resp.getOutputStream();
+				JRExporter exporter = new JRPdfExporter();
+				resp.setContentType("application/pdf");
+				exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
+				exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, servletOutputStream);
+				exporter.setParameter(JRPdfExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
+				resp.setHeader("Content-Disposition", "inline;filename=FunctionProspectus_" + fromDate + "_To_" + toDate + "_" + userCode + ".pdf");
+				exporter.exportReport();
+				servletOutputStream.flush();
+				servletOutputStream.close();
+			}
+		
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	
+		
+	}
 
 }

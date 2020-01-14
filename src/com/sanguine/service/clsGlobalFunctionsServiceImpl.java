@@ -90,27 +90,31 @@ public class clsGlobalFunctionsServiceImpl implements clsGlobalFunctionsService 
 	}
 
 	@Override
+	@Transactional(value = "hibernateTransactionManager")
 	public int funAddCurrentStock(String clientCode, String userCode, String locCode, String stockableItem) {
 		return objGlobalDao.funAddCurrentStock(clientCode, userCode, locCode, stockableItem);
 	}
 
 	@Override
+	@Transactional(value = "hibernateTransactionManager")
 	public int funUpdateCurrentStock(String hql) {
 		return objGlobalDao.funUpdateCurrentStock(hql);
 	}
 
 	@Override
+	@Transactional(value = "hibernateTransactionManager")
 	public int funAddTempItemStock(String hql, String queryType) {
-
 		return objGlobalDao.funAddTempItemStock(hql, queryType);
 	}
 
 	@Override
+	@Transactional(value = "hibernateTransactionManager")
 	public int funDeleteCurrentStock(String clientCode, String userCode) {
 		return objGlobalDao.funDeleteCurrentStock(clientCode, userCode);
 	}
 
 	@Override
+	@Transactional(value = "hibernateTransactionManager")
 	public int funDeleteTempItemStock(String clientCode, String userCode) {
 		return objGlobalDao.funDeleteTempItemStock(clientCode, userCode);
 	}

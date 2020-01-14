@@ -71,6 +71,46 @@
 		});
 	
 	 
+	 $(function()
+     		{		
+     				
+     				$('#baseUrl').click(function() 
+     		     			{  
+     		     				/*  if($("#txtBankCode").val().trim()=="")
+     		     				{
+     		     					alert("Please Enter Bank Code");
+     		     					return false;
+     		     				} 
+     		     				window.open('attachDoc.html?transName=frmWebClubBankMaster.jsp&formName=Bank Information&code='+$('#txtBankCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+     		     			 */
+     				
+     				
+     				 if($("#t1")[0].className=='active')
+     					{
+     						if($("#txtMemCode").val().trim()=="")
+	     					{
+	         					alert("Please Enter Recieved Member Code");
+	         					return false;
+	         				} 
+	         				window.open('attachDoc.html?transName=frmWebClubPDC.jsp&formName=Post Dated Cheque(PDC)&code='+$('#txtMemCode').val()+' 01R',"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");	         			
+     					}
+     				else
+     					{
+     						if($("#txtMemCodee").val().trim()=="")
+	     					{
+	         					alert("Please Enter Issued Member Code");
+	         					return false;
+	         				} 
+	         				window.open('attachDoc.html?transName=frmWebClubPDC.jsp&formName=Post Dated Cheque(PDC)&code='+$('#txtMemCodee').val()+' 01I',"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");	         			
+	 					} 
+
+     			
+     		     			});
+     			
+     			});
+     		
+	 
+	 
 	 function btnAdd_onclickRecieved() 
 		{	
 			 var flag =false;
@@ -474,7 +514,7 @@
 				        	}
 				        	else
 				        	{
-				        		$("#txtMemCode").val(response[0].strMemberCode);	 
+				        		$("#txtMemCode").val(response[0].strMemberCode.split(' ')[0]);	 
 					        	$("#lblMemName").text(response[0].strFirstName);
 				        	}
 					        	funSetMemberTableReceived(response[0].strMemberCode);
@@ -575,7 +615,7 @@
 				        	}
 				        	else
 				        	{
-				        		$("#txtMemCodee").val(response[0].strMemberCode);	 
+				        		$("#txtMemCodee").val(response[0].strMemberCode.split(' ')[0]);	 
 					        	$("#lblMemNamee").text(response[0].strFirstName);
 					        	funSetMemberTableIssued(response[0].strMemberCode);
 				        	}
@@ -615,7 +655,7 @@
 			        	}
 			        	else
 			        	{
-			        		$("#txtMemCodee").val(code);				        						        			
+			        		//$("#txtMemCodee").val(code);				        						        			
 					    	var table=document.getElementById("tblDetailss");
 					    	var rowCount=table.rows.length;
 					    	while(rowCount>0)
@@ -666,8 +706,8 @@
 			<s:form name="WebClubPDC" method="POST" action="saveWebClubPDC.html">
 				<div id="tab_container">
 					<ul class="tabs">
-						<li class="active" data-state="tab1">Received</li>
-						<li data-state="tab2" >Issued</li>
+						<li class="active" data-state="tab1" id="t1">Received</li>
+						<li data-state="tab2" id="t2">Issued</li>
 					</ul> 
 					<div id="tab1" class="tab_content">
 						<div class="row transTable" style="overflow-x: hidden; overflow-y: hidden; ">

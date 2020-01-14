@@ -16,9 +16,10 @@
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <script type="text/javascript">
 		var fieldName,gurl,listRow=0,mastercode;
+		var map1 = new Map();
 	 $(document).ready(function()
 		{		 dblLength
-		 
+		 funLoadOtherInfoData();
 		 	$("#dblLength").val(10);
 			/*$(".tab_content").hide();
 			$(".tab_content:first").show();
@@ -263,6 +264,55 @@
 			}
 		}
 	 
+	 
+	 
+	 function funLoadOtherInfoData(){		 
+			var searchurl=getContextPath()+"/loadOtherInfoDetails.html?";
+			$.ajax({
+				        type: "GET",
+				        url: searchurl,
+				        dataType: "json",
+				        success: function(response)
+				        {
+				        	map1=response;
+				        	for (var i in map1) {	
+				        		if(i!='strMemberCode'&&i!='strClientCode')
+				        			{
+				        				funAddRowList(i,map1[i].split(",")[0],map1[i].split(",")[1],"NOT NULL DEFAULT ''")
+				        				//funAddFieldListRow(i,map1[i])
+				        			}		        	    
+				        	} 
+						},
+						error: function(jqXHR, exception) {
+				            if (jqXHR.status === 0) {
+				                alert('Not connect.n Verify Network.');
+				            } else if (jqXHR.status == 404) {
+				                alert('Requested page not found. [404]');
+				            } else if (jqXHR.status == 500) {
+				                alert('Internal Server Error [500].');
+				            } else if (exception === 'parsererror') {
+				                alert('Requested JSON parse failed.');
+				            } else if (exception === 'timeout') {
+				                alert('Time out error.');
+				            } else if (exception === 'abort') {
+				                alert('Ajax request aborted.');
+				            } else {
+				                alert('Uncaught Error.n' + jqXHR.responseText);
+				            }		            
+				        }
+			      });
+		 }
+	
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	function funSetBankCodeRecieved(code){		 
 			var searchurl=getContextPath()+"/loadWebBookBankCode.html?bankCode="+code;
 			$.ajax({
@@ -457,8 +507,9 @@
 									<tr>
 									   <th>Field Name</th>
 									   <th>Data Type</th>
-									    <th>Length</th>
-									     <th>Default</th>
+									   <th>Length</th>
+									   <th>Default</th>
+									   <th></th>
 									  </tr>
 								 </thead>
 								<tbody id="tblDetails"> <!-- class="transTablex path="strTblProduct" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" -->

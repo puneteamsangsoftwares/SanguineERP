@@ -100,7 +100,7 @@
             $('#cmbMaritalStatus').change(function () {
             	var memcode=$('#txtMemberCode').val();
         		var maritalStatus = $('#cmbMaritalStatus').val();
-        		if(maritalStatus=="married")
+        		if(maritalStatus=="Married")
         			{
 	        			document.all[ "headerSpouse" ].style.display = 'block';
 	        			document.all[ "divSpouse" ].style.display = 'block';
@@ -203,7 +203,22 @@
 			return false; 
 		}
         
-
+        $(function()
+        		{			
+        			$('#baseUrl').click(function() 
+        			{  
+        				 if($("#txtMemberCode").val().trim()=="")
+        				{
+        					alert("Please Enter Member Code");
+        					return false;
+        				} 
+        				window.open('attachDoc.html?transName=frmMemberProfile.jsp&formName=Member Profile&code='+$('#txtMemberCode').val()+' 01',"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+        			});
+        		});
+        
+        
+        
+        
 		 function funloadMemberData(code)
 			{
 				var searchurl=getContextPath()+"/loadWebClubMemberProfileData.html?primaryCode="+code;
@@ -232,7 +247,7 @@
 						        	
 						        	$("#txtCustCode").val(response[0].strCustomerCode);
 						        	var isSpous;
-						        	if(response[0].strMaritalStatus=="married")
+						        	if(response[0].strMaritalStatus=="Married")
 					        		{
 						        		document.all[ "headerSpouse" ].style.display = 'block';
 					        			document.all[ "divSpouse" ].style.display = 'block';
@@ -3025,7 +3040,7 @@ function funSetBillingRegionCode(code){
 									class="decimal-places numberField" type="text"></s:input></div></div></div>
 				
 				<div class="col-md-6">					
-		    	<div class="row"><div class="col-md-6"><label>Pin Code</label><br><s:input id="txtCompanyPinCode" path="strCompanyPinCode" readonly="true"
+		    	<div class="row"><div class="col-md-6"><label>Pin Code</label><br><s:input id="txtCompanyPinCode" path="strCompanyPinCode" 
 									class="decimal-places numberField" type="text"></s:input></div>
 			
 								<div class="col-md-6"><label>Mobile No</label><br><s:input id="txtCompanyMobileNo" path="strCompanyMobileNo" 
@@ -3104,7 +3119,7 @@ function funSetBillingRegionCode(code){
 			
 			
 			<div class="col-md-6">
-				<div class="row"><div class="col-md-6"><label>Pin Code</label><br><s:input id="txtBillingPinCode" path="strBillingPinCode"  readonly="true"
+				<div class="row"><div class="col-md-6"><label>Pin Code</label><br><s:input id="txtBillingPinCode" path="strBillingPinCode"  
 									class="decimal-places numberField" type="text"></s:input></div>
 									<div class="col-md-6"><label>Mobile</label><br><s:input id="txtBillingMobileNo" path="strBillingMobileNo" 
 									class="decimal-places numberField" type="text"></s:input></div></div></div>	
@@ -3143,7 +3158,7 @@ function funSetBillingRegionCode(code){
 					<div class="row"><div class="col-md-6"><label>Date Of Birth</label><br><s:input id="txtdtDateofBirth" name="txtdtDateofBirth" path="dteDateofBirth" cssClass="calenderTextBox"></s:input></div>
 									<div class="col-md-6"><label>Marital Status</label><br><s:select id="cmbMaritalStatus" name="cmbMaritalStatus" path="strMaritalStatus">
 													 <option value="Single">Single</option>
-									 				 <option value="married">Married</option>
+									 				 <option value="Married">Married</option>
 													 </s:select></div></div></div>
 				<%-- 									 
 				<div class="col-md-3"><label>Sex</label><br><s:select id="cmbGender" name="cmbGender" path="strGender">
@@ -3321,8 +3336,8 @@ function funSetBillingRegionCode(code){
 											 				       <option value="Y">Yes</option>
 															       </s:select></div>
 							     <div class="col-md-6"><label>Senior Citizen</label><br><s:select id="txtSeniorCitizen" name="txtSeniorCitizen" path="strSeniorCitizen">
-																	 <option value="N">No</option>
-													 				 <option value="Y">Yes</option>
+																	 <option value="No">No</option>
+													 				 <option value="Yes">Yes</option>
 																	 </s:select></div></div></div>
 			
 			<div class="col-md-6">
@@ -3465,7 +3480,7 @@ function funSetBillingRegionCode(code){
 			                    <div class="col-md-6"><label>Marital Status</label><br><s:select id="cmbDependentMaritalStatus"
 											name="cmbDependentMaritalStatus" path="strDependentMaritalStatus">
 											<option value="Single">Single</option>
-											<option value="married">Married</option>
+											<option value="Married">Married</option>
 										     </s:select>
 								</div>
 				</div>

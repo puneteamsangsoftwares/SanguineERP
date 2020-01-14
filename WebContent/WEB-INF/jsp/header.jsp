@@ -452,7 +452,7 @@ function funGetFormName(){
   });
 }
 
-$(function()
+/* $(function()
 		{			
 			$('#baseUrl').click(function() 
 			{  
@@ -463,7 +463,7 @@ $(function()
 				} 
 				window.open('attachDoc.html?transName=frmMemberProfile.jsp&formName=Member Profile&code='+$('#txtMemberCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
 			});
-		});
+		}); */
 
  <%--   $(document).ready(function()
 {

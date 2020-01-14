@@ -116,7 +116,7 @@ public class clsCreditorsOutStandingReportController {
 			sbSql.append("select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster where strCurrencyCode='"+currencyCode+"' and strClientCode='"+clientCode+"' ");
 			try
 			{
-				List list = objBaseService.funGetList(sbSql,"sql");
+				List list = objBaseService.funGetListForWebStocks(sbSql,"sql");
 				conversionRate=Double.parseDouble(list.get(0).toString());
 			}catch(Exception e)
 			{
@@ -170,7 +170,9 @@ public class clsCreditorsOutStandingReportController {
 				+ " where debtor.strAccountCode='"+glCode+"' and debtor.strCrDr='Dr' and date(hd.dteVouchDate) between '" + newfromDate + "' AND '" + dteToDate + "' "
 				+ " and hd.strClientCode='"+clientCode+"' "
 				+ " group by debtor.strCrDr,debtor.strDebtorCode ");
-			List listJVAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			//List listJVAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			List listJVAmt = objBaseService.funGetListForWebBooks(sbSql,"sql");
+
 			if (listJVAmt != null && listJVAmt.size() > 0) {
 				for (int j = 0; j < listJVAmt.size(); j++) {
 					Object[] arrObj = (Object[]) listJVAmt.get(j);
@@ -210,7 +212,8 @@ public class clsCreditorsOutStandingReportController {
 				+ " where debtor.strAccountCode='"+glCode+"' and debtor.strCrDr='Dr' and date(hd.dteVouchDate) between '" + newfromDate + "' AND '" + dteToDate + "' "
 				+ " and hd.strClientCode='"+clientCode+"' "
 				+ " group by debtor.strCrDr,debtor.strDebtorCode ");
-			List listPaymentAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			//List listPaymentAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			List listPaymentAmt = objBaseService.funGetListForWebBooks(sbSql,"sql");
 			if (listPaymentAmt != null && listPaymentAmt.size() > 0) {
 				for (int j = 0; j < listPaymentAmt.size(); j++) {
 					Object[] arrObj = (Object[]) listPaymentAmt.get(j);
@@ -250,7 +253,8 @@ public class clsCreditorsOutStandingReportController {
 				+ " where debtor.strAccountCode='"+glCode+"' and debtor.strCrDr='Dr' and date(hd.dteVouchDate) between '" + newfromDate + "' AND '" + dteToDate + "' "
 				+ " and hd.strClientCode='"+clientCode+"' "
 				+ " group by debtor.strCrDr,debtor.strDebtorCode ");
-			List listReceiptAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			//List listReceiptAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			List listReceiptAmt = objBaseService.funGetListForWebBooks(sbSql,"sql");
 			if (listReceiptAmt != null && listReceiptAmt.size() > 0) {
 				for (int j = 0; j < listReceiptAmt.size(); j++) {
 					Object[] arrObj = (Object[]) listReceiptAmt.get(j);

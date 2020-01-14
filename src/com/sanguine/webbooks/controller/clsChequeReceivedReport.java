@@ -138,9 +138,9 @@ public class clsChequeReceivedReport
 			{
 				sbSql.append(" and a.strCFCode='"+hmBank.get(objBean.getStrBankName())+"' ");
 			}
-			sbSql.append(" order by a.strCFCode,a.strVouchNo "); 
-			
-			List listCheckIssue = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			sbSql.append(" order by a.strCFCode,a.strVouchNo "); 			
+			//List listCheckIssue = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			List listCheckIssue =objBaseService.funGetListForWebBooks(sbSql, "sql");
 			if(listCheckIssue.size()>0)
 			{
 				for (int j = 0; j < listCheckIssue.size(); j++) 
@@ -228,7 +228,9 @@ public class clsChequeReceivedReport
 		listBank.add("All");
 		StringBuilder sbSql=new StringBuilder();
 		sbSql.append("select a.strAccountCode,a.strAccountName from tblacmaster a where a.strClientCode='"+clientCode+"' and a.strType='Bank'; ");
-		List listGetRecord = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+		//List listGetRecord = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+		List listGetRecord =objBaseService.funGetListForWebBooks(sbSql, "sql");
+
 		if(listGetRecord.size()>0)
 		{
 			for (int j = 0; j < listGetRecord.size(); j++) 
