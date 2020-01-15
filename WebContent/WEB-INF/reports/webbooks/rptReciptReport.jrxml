@@ -461,7 +461,7 @@ group by strDebtorCode order by strDebtorCode]]>
 				<text><![CDATA[Payment Mode  :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="74" y="154" width="106" height="16" uuid="2ce01a51-387a-4ca1-a39c-203fc3c28f4c"/>
+				<reportElement x="74" y="153" width="106" height="16" uuid="2ce01a51-387a-4ca1-a39c-203fc3c28f4c"/>
 				<textFieldExpression><![CDATA[$P{strPaymentMode}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">

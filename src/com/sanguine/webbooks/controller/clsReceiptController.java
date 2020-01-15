@@ -485,6 +485,18 @@ public class clsReceiptController {
 			}
 			}
 		}
+		if(debtorName.equals(""))
+		{
+			String sqlDebtorName = "select Concat(a.strPrefix,' ',a.strFirstName,' ',a.strMiddleName,' ',a.strLastName) "
+					+ "from tblsundarydebtormaster a where a.strDebtorCode='"+debtorCode+"' and a.strClientCode='"+clientCode+"'";
+			
+			List listName = objGlobalFunctionsService.funGetDataList(sqlDebtorName, "sql");
+			
+			if(listName!=null && listName.size()>0)
+			{
+				debtorName = listName.get(0).toString();
+			}
+		}
 		objModel.setStrDebtorCode(debtorCode);
 		objModel.setStrDebtorName(debtorName);
 		objModel.setListReceiptDebtorDtlModel(listReceiptDebtorDtlModel);
