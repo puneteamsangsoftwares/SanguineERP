@@ -85,7 +85,7 @@ public class clsLetterProcessingController {
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmLetterProcessing", "command", new clsLetterProcessingBean());
 		} else {
-			return new ModelAndView("frmLetterProcessing_1", "command", new clsLetterProcessingBean());
+			return new ModelAndView("frmLetterProcessing", "command", new clsLetterProcessingBean());
 		}
 	}
 

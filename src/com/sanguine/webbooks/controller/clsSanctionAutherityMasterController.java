@@ -55,7 +55,7 @@ public class clsSanctionAutherityMasterController {
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmSanctionAutherityMaster", "command", new clsSanctionAutherityMasterModel());
 		} else {
-			return new ModelAndView("frmSanctionAutherityMaster_1", "command", new clsSanctionAutherityMasterModel());
+			return new ModelAndView("frmSanctionAutherityMaster", "command", new clsSanctionAutherityMasterModel());
 		}
 	}
 

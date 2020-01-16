@@ -156,6 +156,7 @@
 				case 'WCmemProfileCustomer' :
 					funloadMemberData(code);
 					funloadMemberWiseFieldData(code);
+					funShowAttachDocumentsCount(code);
 					break;				
 			}
 		}
@@ -1933,6 +1934,49 @@
 				        }
 			      });
 		}
+	 
+	 
+	 function funShowAttachDocumentsCount(code)
+		{
+			code='MC01';	 
+			var searchurl=getContextPath()+"/loadAttachedDocumentsCount.html?docCode="+code;
+			//alert(searchurl);
+			 $.ajax({
+				        type: "GET",
+				        url: searchurl,
+				        success: function(response)
+				        {
+				        	if(response.strMemberCode=='Invalid Code')
+				        	{
+				        		alert("Invalid Member Code");
+				        		$("#txtMemberCode").val('');				        		
+				        	}
+				        	else
+				        	{  					        		
+				        		$("#txtAttachedDocCount").val();						        	
+				        	}
+						},
+						error: function(jqXHR, exception) {
+				            if (jqXHR.status === 0) {
+				                alert('Not connect.n Verify Network.');
+				            } else if (jqXHR.status == 404) {
+				                alert('Requested page not found. [404]');
+				            } else if (jqXHR.status == 500) {
+				                alert('Internal Server Error [500].');
+				            } else if (exception === 'parsererror') {
+				                alert('Requested JSON parse failed.');
+				            } else if (exception === 'timeout') {
+				                alert('Time out error.');
+				            } else if (exception === 'abort') {
+				                alert('Ajax request aborted.');
+				            } else {
+				                alert('Uncaught Error.n' + jqXHR.responseText);
+				            }		            
+				        }
+			      });
+		}
+	 
+	 
 	 function funDeleteTableAllRowsField()
 		{
 			$("#tblFieldData tr").remove();
@@ -1957,6 +2001,7 @@
 			</table>
 				<br/>
 					<div class="center">
+						<td><label id="txtAttachedDocCount"></label></td>
 						<a href="#"><button class="btn btn-primary center-block" value="Show" onclick="return funCallFormAction('submit',this);" 
 							class="form_button">Submit</button></a>
 						<a href="#"><button class="btn btn-primary center-block" type="reset"

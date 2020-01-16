@@ -54,7 +54,7 @@ public class clsUserDefineReportProcessingController {
 		
 			
 			if ("2".equalsIgnoreCase(urlHits)) {
-				return new ModelAndView("frmUserDefineReportProcessing_1", "command", new clsUserDefineReportBean());
+				return new ModelAndView("frmUserDefineReportProcessing", "command", new clsUserDefineReportBean());
 			} else if ("1".equalsIgnoreCase(urlHits)) {
 				return new ModelAndView("frmUserDefineReportProcessing", "command", new clsUserDefineReportBean());
 			} else {

@@ -101,7 +101,7 @@ public class clsTrialBalanceReportController {
 		model.put("currencyList", hmCurrency);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmTrialBalanceReport_1", "command", new clsCreditorOutStandingReportBean());
+			return new ModelAndView("frmTrialBalanceReport", "command", new clsCreditorOutStandingReportBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmTrialBalanceReport", "command", new clsCreditorOutStandingReportBean());
 		} else {

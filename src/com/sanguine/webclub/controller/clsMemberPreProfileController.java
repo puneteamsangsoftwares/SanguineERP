@@ -70,7 +70,7 @@ public class clsMemberPreProfileController {
 		model.put("urlHits", urlHits);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmMemberPreProfile_1", "command", new clsWebClubPreMemberProfileBean());
+			return new ModelAndView("frmMemberPreProfile", "command", new clsWebClubPreMemberProfileBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmMemberPreProfile", "command", new clsWebClubPreMemberProfileBean());
 		} else {

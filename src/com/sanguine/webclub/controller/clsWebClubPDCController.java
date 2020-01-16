@@ -77,7 +77,7 @@ public class clsWebClubPDCController{
 					clsWebClubPDCBean obj = objBean.getListPDCDtlRecieved().get(i);
 					if(obj.getStrMemCode()!=null&obj.getDteChequeDate()!=null)
 					{
-					objModel.setStrMemCode(obj.getStrMemCode());
+					objModel.setStrMemCode(obj.getStrMemCode()+" 01");
 					objModel.setStrChequeNo(obj.getStrChequeNo());
 					objModel.setStrDrawnOn(obj.getStrDrawnOn());
 					objModel.setStrType(obj.getStrType());
@@ -117,7 +117,7 @@ public class clsWebClubPDCController{
 					clsWebClubPDCBean obj = objBean.getListPDCDtlIssued().get(i);
 					if(obj.getStrMemCode()!=null&obj.getDteChequeDate()!=null)
 					{
-					objModel.setStrMemCode(obj.getStrMemCode());
+					objModel.setStrMemCode(obj.getStrMemCode()+" 01");
 					objModel.setStrChequeNo(obj.getStrChequeNo());
 					objModel.setStrDrawnOn(obj.getStrDrawnOn());
 					objModel.setStrType(obj.getStrType());

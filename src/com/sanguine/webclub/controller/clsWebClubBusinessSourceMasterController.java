@@ -44,7 +44,7 @@ public class clsWebClubBusinessSourceMasterController{
 		model.put("urlHits", urlHits);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmWebClubBusinessSourceMaster_1", "command", new clsWebClubBusinessSourceMasterBean());
+			return new ModelAndView("frmWebClubBusinessSourceMaster", "command", new clsWebClubBusinessSourceMasterBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmWebClubBusinessSourceMaster", "command", new clsWebClubBusinessSourceMasterBean());
 		} else {

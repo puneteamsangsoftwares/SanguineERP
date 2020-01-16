@@ -60,7 +60,7 @@ public class clsPettyCashEntryController {
 			if (urlHits.equalsIgnoreCase("1")) {
 				return new ModelAndView("frmPettyCashEntry", "command", new clsPettyCashEntryBean());
 			} else {
-				return new ModelAndView("frmPettyCashEntry_1", "command", new clsPettyCashEntryBean());
+				return new ModelAndView("frmPettyCashEntry", "command", new clsPettyCashEntryBean());
 			}
 		}
 

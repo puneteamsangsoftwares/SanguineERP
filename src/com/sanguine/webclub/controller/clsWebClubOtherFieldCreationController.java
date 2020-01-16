@@ -69,6 +69,7 @@ public class clsWebClubOtherFieldCreationController{
 			String userCode=req.getSession().getAttribute("usercode").toString();
 			List list=null;		
 			StringBuilder sbSql = new StringBuilder();
+			StringBuilder sbqlCgColu = new StringBuilder();
 			int k=0;
 			if(!objBean.getListTableCreation().isEmpty()&&objBean!=null)
 			{
@@ -215,15 +216,13 @@ public class clsWebClubOtherFieldCreationController{
 									else
 									{
 										//sbSql.append("ADD COLUMN ,`"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") AFTER `"+AfterValue+"` ");
-										sbSql.append("ALTER TABLE `tblotherdtl` CHANGE COLUMN `"+obj.getStrFieldName()+"` `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") NOT NULL DEFAULT '' AFTER `strClientCode`; ");
+										sbqlCgColu.append("ALTER TABLE `tblotherdtl` CHANGE COLUMN `"+obj.getStrFieldName()+"` `"+obj.getStrFieldName()+"` "+obj.getStrDataType()+"("+obj.getDblLength()+") NOT NULL DEFAULT '' AFTER `"+AfterValue+"`; ");
 
 									}
-									
-									
-									
 								}
 						 }
 						objWebClubOtherFieldCreationService.funExecuteQuery(sbSql.toString());
+						objWebClubOtherFieldCreationService.funExecuteQuery(sbqlCgColu.toString());
 						req.getSession().setAttribute("success", true);
 						req.getSession().setAttribute("successMessage", "Table tblotherdtl Updated Successfully ");		
 					}									
@@ -288,6 +287,31 @@ public class clsWebClubOtherFieldCreationController{
 			Map<String,String> hmap=funDataBaseShrink();		
 			return hmap;
 		}
+		
+		
+		//delete row from table
+		@RequestMapping(value = "/deleteOtherInfoDetails", method = RequestMethod.GET)
+		public @ResponseBody List  funAssignFields(@RequestParam("primaryCode") String primaryCode, HttpServletRequest req) {
+			StringBuilder sql = new StringBuilder();
+			List list = new ArrayList<>(); 
+			sql.append(" ALTER TABLE `tblotherdtl` 	DROP COLUMN `"+primaryCode+"` ;  ");
+			try{
+				objWebClubOtherFieldCreationService.funExecuteQuery(sql.toString());
+			}
+			catch(Exception e)
+			{
+			}
+			list.add("Column "+primaryCode+"  Deleted Successfully ");
+			return list;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

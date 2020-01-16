@@ -48,7 +48,7 @@ public class clsDependentMasterController {
 		model.put("urlHits", urlHits);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmDependentMaster_1", "command", new clsDependentMasterBean());
+			return new ModelAndView("frmDependentMaster", "command", new clsDependentMasterBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmDependentMaster", "command", new clsDependentMasterBean());
 		} else {

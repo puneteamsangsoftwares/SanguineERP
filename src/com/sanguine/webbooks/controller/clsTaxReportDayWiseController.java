@@ -85,7 +85,7 @@ public class clsTaxReportDayWiseController {
 		model.put("currencyList", hmCurrency);
 		
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmTaxReportDayWise_1", "command", new clsReportBean());
+			return new ModelAndView("frmTaxReportDayWise", "command", new clsReportBean());
 		} else {
 			return new ModelAndView("frmTaxReportDayWise", "command", new clsReportBean());
 		}

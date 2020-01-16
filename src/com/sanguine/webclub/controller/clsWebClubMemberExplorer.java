@@ -62,7 +62,7 @@ public class clsWebClubMemberExplorer {
 		model.put("urlHits", urlHits);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmMemberExplorer_1", "command", new clsWebClubPreMemberProfileBean());
+			return new ModelAndView("frmMemberExplorer", "command", new clsWebClubPreMemberProfileBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmMemberExplorer", "command", new clsWebClubPreMemberProfileBean());
 		} else {

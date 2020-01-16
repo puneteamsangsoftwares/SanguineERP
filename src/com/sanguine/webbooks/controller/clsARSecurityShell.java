@@ -94,7 +94,7 @@ public class clsARSecurityShell {
 		bean.setListUtilityForms(objUtilitys);
 		model.put("treeList", bean);
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmARSecurityShell_1");
+			return new ModelAndView("frmARSecurityShell");
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmARSecurityShell");
 		} else {

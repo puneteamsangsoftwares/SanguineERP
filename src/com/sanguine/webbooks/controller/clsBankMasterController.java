@@ -50,7 +50,7 @@ public class clsBankMasterController {
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmBankMaster", "command", new clsBankMasterModel());
 		} else {
-			return new ModelAndView("frmBankMaster_1", "command", new clsBankMasterModel());
+			return new ModelAndView("frmBankMaster", "command", new clsBankMasterModel());
 		}
 	}
 

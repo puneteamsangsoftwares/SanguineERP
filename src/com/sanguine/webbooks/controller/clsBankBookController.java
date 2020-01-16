@@ -77,7 +77,7 @@ public class clsBankBookController {
 		}
 		model.put("currencyList", hmCurrency);
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmBankBook_1", "command", new clsCreditorOutStandingReportBean());
+			return new ModelAndView("frmBankBook", "command", new clsCreditorOutStandingReportBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmBankBook", "command", new clsCreditorOutStandingReportBean());
 		} else {

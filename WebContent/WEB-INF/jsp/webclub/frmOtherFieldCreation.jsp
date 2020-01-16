@@ -157,7 +157,11 @@
 		    var index = obj.parentNode.parentNode.rowIndex;
 		    var table = document.getElementById("tblDetails");
 		    index--;
+		    value=table.parentNode.children[1].rows[index].cells[0].childNodes[0].value;
 		    table.deleteRow(index);
+		    
+
+		    funDeleteRow(value)
 		}
 		
 		
@@ -304,6 +308,45 @@
 		 }
 	
 	 
+	 function funDeleteRow(code)
+		{
+			var searchurl=getContextPath()+"/deleteOtherInfoDetails.html?primaryCode="+code;
+			//alert(searchurl);
+			 $.ajax({
+				        type: "GET",
+				        url: searchurl,
+				        dataType: "json",
+				        success: function(response)
+				        {
+				        	if(response.strMemberCode=='Invalid Code')
+				        	{
+				        		//alert("Invalid Member Code");
+				        		$("#txtMemberCode").val('');
+				        	}
+				        	else
+				        	{  				        	
+					        	alert(response);
+				        	}
+						},
+						error: function(jqXHR, exception) {
+				            if (jqXHR.status === 0) {
+				                alert('Not connect.n Verify Network.');
+				            } else if (jqXHR.status == 404) {
+				                alert('Requested page not found. [404]');
+				            } else if (jqXHR.status == 500) {
+				                //alert('Internal Server Error [500].');
+				            } else if (exception === 'parsererror') {
+				                alert('Requested JSON parse failed.');
+				            } else if (exception === 'timeout') {
+				                alert('Time out error.');
+				            } else if (exception === 'abort') {
+				                alert('Ajax request aborted.');
+				            } else {
+				                alert('Uncaught Error.n' + jqXHR.responseText);
+				            }		            
+				        }
+			      });
+		}
 	 
 	 
 	 

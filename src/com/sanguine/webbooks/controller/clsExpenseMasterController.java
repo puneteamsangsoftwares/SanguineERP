@@ -51,7 +51,7 @@ public class clsExpenseMasterController {
 		}
 		model.put("urlHits", urlHits);
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmExpenseMaster_1", "command", new clsExpenseMasterBean());
+			return new ModelAndView("frmExpenseMaster", "command", new clsExpenseMasterBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmExpenseMaster", "command", new clsExpenseMasterBean());
 		} else {

@@ -94,7 +94,7 @@ public class clsBankReconciliationReportController {
 
 			if ("2".equalsIgnoreCase(urlHits))
 			{
-				return new ModelAndView("frmBankReconciliationReport_1", "command", new clsBankReconciliationBean());
+				return new ModelAndView("frmBankReconciliationReport", "command", new clsBankReconciliationBean());
 			}
 			else if ("1".equalsIgnoreCase(urlHits))
 			{
@@ -105,16 +105,14 @@ public class clsBankReconciliationReportController {
 				return null;
 			}
 
-		}
+		}	
 		
 		@RequestMapping(value = "/openRptBankReconciliationReport", method = RequestMethod.GET)
 		private void funOpenPaymentReport(@ModelAttribute("command") clsBankReconciliationBean objBean, HttpServletResponse resp, HttpServletRequest req){
-			
 			String type = "pdf";
 			funCallPaymentdtlReport(objBean, type, resp, req);
 		}
-
-
+		
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		public void funCallPaymentdtlReport(clsBankReconciliationBean objBean, String type, HttpServletResponse resp, HttpServletRequest req) {
 			try {

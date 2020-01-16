@@ -89,7 +89,7 @@ public class clsACGroupMasterController {
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmACGroupMaster", "command", new clsACGroupMasterModel());
 		} else {
-			return new ModelAndView("frmACGroupMaster_1", "command", new clsACGroupMasterModel());
+			return new ModelAndView("frmACGroupMaster", "command", new clsACGroupMasterModel());
 		}
 	}
 

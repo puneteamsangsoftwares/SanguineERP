@@ -87,7 +87,7 @@ public class clsEmployeeTrialBalanceReportController {
 		model.put("currencyList", hmCurrency);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmEmployeeTrailBalanceReport_1", "command", new clsCreditorOutStandingReportBean());
+			return new ModelAndView("frmEmployeeTrailBalanceReport", "command", new clsCreditorOutStandingReportBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmEmployeeTrailBalanceReport", "command", new clsCreditorOutStandingReportBean());
 		} else {

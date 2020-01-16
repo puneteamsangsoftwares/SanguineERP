@@ -71,7 +71,7 @@ public class clsDebtorReceiptController {
 		}
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			ModelAndView modelView = new ModelAndView("frmDebtorReceipt_1", "command", new clsReceiptBean());
+			ModelAndView modelView = new ModelAndView("frmDebtorReceipt", "command", new clsReceiptBean());
 			modelView.addObject("CashBankAccounts", hmCashBankAccounts);
 			modelView.addObject("DebtorAccounts", hmDebtorAccounts);
 			return modelView;

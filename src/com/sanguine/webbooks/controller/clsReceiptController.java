@@ -128,7 +128,7 @@ public class clsReceiptController {
 
 		
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmReceipt_1", "command", new clsReceiptHdModel());
+			return new ModelAndView("frmReceipt", "command", new clsReceiptHdModel());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmReceipt", "command", new clsReceiptHdModel());
 		} else {
@@ -550,7 +550,7 @@ public class clsReceiptController {
 		mapProperty = clsGlobalFunctions.funSortByValues(mapProperty);
 		model.put("listProperty", mapProperty);
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmReciptReport_1", "command", new clsReportBean());
+			return new ModelAndView("frmReciptReport", "command", new clsReportBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmReciptReport", "command", new clsReportBean());
 		} else {

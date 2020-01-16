@@ -185,8 +185,8 @@ public class clsCreditorLedgerController {
 		case "JV":
 			objJVController.funCallJVdtlReport(docCode, "pdf", resp, req,conversionRate,propertyCode);
 			break;
-
-		case "Recepit":
+			  
+		case "Receipt":
 			objclsReceiptController.funCallReciptdtlReport(docCode, "pdf", resp, req, currValue,conversionRate,propertyCode);
 			break;
 

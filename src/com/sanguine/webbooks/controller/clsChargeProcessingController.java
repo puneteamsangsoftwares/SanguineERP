@@ -99,7 +99,7 @@ public class clsChargeProcessingController
 		}
 		else
 		{
-			return new ModelAndView("frmChargeProcessing_1", "command", new clsChargeProcessingBean());
+			return new ModelAndView("frmChargeProcessing", "command", new clsChargeProcessingBean());
 		}
 	}
 

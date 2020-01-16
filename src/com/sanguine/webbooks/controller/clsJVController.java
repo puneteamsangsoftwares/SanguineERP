@@ -103,7 +103,7 @@ public class clsJVController {
 
 		
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmJV_1", "command", new clsJVHdModel());
+			return new ModelAndView("frmJV", "command", new clsJVHdModel());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmJV", "command", new clsJVHdModel());
 		} else {
@@ -605,7 +605,7 @@ public class clsJVController {
 		
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmJVReport_1", "command", new clsReportBean());
+			return new ModelAndView("frmJVReport", "command", new clsReportBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmJVReport", "command", new clsReportBean());
 		} else {

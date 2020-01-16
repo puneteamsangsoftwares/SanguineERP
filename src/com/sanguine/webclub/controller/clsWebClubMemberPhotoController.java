@@ -60,7 +60,7 @@ public class clsWebClubMemberPhotoController {
 		model.put("urlHits", urlHits);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmMemberPhoto_1", "command", new clsWebClubMemberPhotoBean());
+			return new ModelAndView("frmMemberPhoto", "command", new clsWebClubMemberPhotoBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmMemberPhoto", "command", new clsWebClubMemberPhotoBean());
 		} else {

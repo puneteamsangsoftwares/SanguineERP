@@ -130,7 +130,7 @@ public class clsPaymentController {
 
 		
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmPayment_1", "command", new clsPaymentHdModel());
+			return new ModelAndView("frmPayment", "command", new clsPaymentHdModel());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmPayment", "command", new clsPaymentHdModel());
 		} else {
@@ -556,7 +556,7 @@ public class clsPaymentController {
 
 		
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmPaymentReport_1", "command", new clsReportBean());
+			return new ModelAndView("frmPaymentReport", "command", new clsReportBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmPaymentReport", "command", new clsReportBean());
 		} else {

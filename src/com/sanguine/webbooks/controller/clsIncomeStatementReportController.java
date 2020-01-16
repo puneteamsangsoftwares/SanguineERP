@@ -102,7 +102,7 @@ public class clsIncomeStatementReportController
 
 		if ("2".equalsIgnoreCase(urlHits))
 		{
-			return new ModelAndView("frmIncomeStatement_1", "command", new clsIncomeStmtReportBean());
+			return new ModelAndView("frmIncomeStatement", "command", new clsIncomeStmtReportBean());
 		}
 		else if ("1".equalsIgnoreCase(urlHits))
 		{

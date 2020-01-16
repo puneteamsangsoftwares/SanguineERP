@@ -135,7 +135,7 @@ public class clsChargeMasterController
 		}
 		else
 		{
-			return new ModelAndView("frmChargeMaster_1", "command", new clsChargeMasterModel());
+			return new ModelAndView("frmChargeMaster", "command", new clsChargeMasterModel());
 		}
 	}
 

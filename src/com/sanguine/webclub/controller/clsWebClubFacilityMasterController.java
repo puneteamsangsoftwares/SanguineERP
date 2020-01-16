@@ -47,7 +47,7 @@ public class clsWebClubFacilityMasterController {
 		model.put("urlHits", urlHits);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmWebClubFacilityMaster_1", "command", new clsWebClubFacilityMasterModel());
+			return new ModelAndView("frmWebClubFacilityMaster", "command", new clsWebClubFacilityMasterModel());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmWebClubFacilityMaster", "command", new clsWebClubFacilityMasterModel());
 		} else {

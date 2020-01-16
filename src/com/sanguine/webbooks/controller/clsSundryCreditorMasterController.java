@@ -108,7 +108,7 @@ public class clsSundryCreditorMasterController {
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmSundryCreditorMaster", "command", new clsSundaryCreditorMasterModel());
 		} else {
-			return new ModelAndView("frmSundryCreditorMaster_1", "command", new clsSundaryCreditorMasterModel());
+			return new ModelAndView("frmSundryCreditorMaster", "command", new clsSundaryCreditorMasterModel());
 		}
 	}
 

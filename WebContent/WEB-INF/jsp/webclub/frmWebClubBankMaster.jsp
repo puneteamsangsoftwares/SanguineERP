@@ -182,7 +182,7 @@
 								</div>
 								<div class="col-md-6">
 									<label>MICR:</label><br>
-										<s:input id="txtMICR" path="strMICR" required="true" type="text" placeholder="MICR"></s:input>
+										<s:input id="txtMICR" path="strMICR" type="text" placeholder="MICR"></s:input>
 								</div>
 							</div>
 						</div>

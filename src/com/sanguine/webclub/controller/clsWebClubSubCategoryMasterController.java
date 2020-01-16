@@ -49,7 +49,7 @@ public class clsWebClubSubCategoryMasterController {
 		model.put("urlHits", urlHits);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmSubCategoryMaster_1", "command", new clsWebClubSubCategoryMasterModel());
+			return new ModelAndView("frmSubCategoryMaster", "command", new clsWebClubSubCategoryMasterModel());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmSubCategoryMaster", "command", new clsWebClubSubCategoryMasterModel());
 		} else {

@@ -73,14 +73,10 @@ public class clsPDCToReceiptController {
 		} catch (NullPointerException e) {
 			urlHits = "1";
 		}
-
-		
-		
-
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmPDCToReceipt", "command", new clsReceiptBean());
 		} else {
-			return new ModelAndView("frmPDCToReceipt_1", "command", new clsReceiptBean());
+			return new ModelAndView("frmPDCToReceipt", "command", new clsReceiptBean());
 		}
 	}
 	
@@ -114,18 +110,20 @@ public class clsPDCToReceiptController {
 			list = new ArrayList<clsReceiptBean>();	
 			for(clsReceiptBean i : objBean.getListReceiptBean())
 			{
-				
-				if(linkhm.containsKey(i.getStrDebtorCode()))
+				if(i.getStrTransMode()!=null)
 				{
-					linkhm.get(i.getStrDebtorCode()).add(i);
-					linkhm.put(i.getStrDebtorCode(), list);
+					if(linkhm.containsKey(i.getStrDebtorCode()))
+					{
+						linkhm.get(i.getStrDebtorCode()).add(i);
+						linkhm.put(i.getStrDebtorCode(), linkhm.get(i.getStrDebtorCode()));
+					}
+					else
+					{
+						list = new ArrayList<clsReceiptBean>();	
+						list.add(i);
+						linkhm.put(i.getStrDebtorCode(),list);
+					}	
 				}
-				else
-				{
-					list = new ArrayList<clsReceiptBean>();	
-					list.add(i);
-					linkhm.put(i.getStrDebtorCode(),list);
-				}					
 			}
 			clsReceiptHdModel objHdModell=new clsReceiptHdModel();
 			for (Map.Entry<String,List<clsReceiptBean>> entry : linkhm.entrySet()) {
@@ -189,11 +187,17 @@ public class clsPDCToReceiptController {
 		objModel.setStrType(objGlobal.funIfNull(objBean.getStrType(), "Cheque", objBean.getStrType()));
 		//objModel.setStrDebtorCode(objGlobal.funIfNull(objBean.getStrDebtorCode(), "", objBean.getStrDebtorCode()));
 		objModel.setStrReceivedFrom(objGlobal.funIfNull(objBean.getStrReceivedFrom(), "", objBean.getStrReceivedFrom()));
+		String chequNo="";
 		for(clsReceiptBean objTempBean :objBean.getListReceiptBean())
 		{
-			objModel.setStrChequeNo(objTempBean.getStrChequeNo());	
+			if(objTempBean.getStrChequeNo()!=null)
+			{
+				chequNo+=objTempBean.getStrChequeNo();
+				objModel.setStrChequeNo(chequNo);	
+			}
+			chequNo=chequNo+",";
 		}
-		
+		//objModel.setStrChequeNo(objBean.getStrChequeNo());
 		objModel.setStrDrawnOn(objGlobal.funIfNull(objBean.getStrDrawnOn(), "", objBean.getStrDrawnOn()));
 		objModel.setStrBranch(objGlobal.funIfNull(objBean.getStrBranch(), "", objBean.getStrBranch()));
 		objModel.setStrNarration(objGlobal.funIfNull(objBean.getStrNarration(), "NA", objBean.getStrNarration()));
@@ -377,12 +381,10 @@ public class clsPDCToReceiptController {
 		objReceitInvdtl.setStrInvCode("");
 		if(objBean.getStrBankName()==null){
 			listReceiptInvDtl.add(objReceitInvdtl);
-		}
-		
+		}		
 		objModel.setListReceiptInvDtlModel(listReceiptInvDtl);
 		objModel.setStrCurrency("Rupee");
-		objModel.setDblConversion(currConversion);
-	
+		objModel.setDblConversion(currConversion);	
 		return objModel;
 	}
 

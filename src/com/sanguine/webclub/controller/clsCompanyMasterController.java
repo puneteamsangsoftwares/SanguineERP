@@ -46,7 +46,7 @@ public class clsCompanyMasterController {
 		}
 		model.put("urlHits", urlHits);
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmCompanyMaster_1", "command", new clsWebClubCompanyMasterModel());
+			return new ModelAndView("frmCompanyMaster", "command", new clsWebClubCompanyMasterModel());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmCompanyMaster", "command", new clsWebClubCompanyMasterModel());
 		} else {

@@ -49,7 +49,7 @@ public class clsACSubGroupMasterController {
 			if (urlHits.equalsIgnoreCase("1")) {
 				return new ModelAndView("frmACSubGroupMaster", "command", new clsACSubGroupMasterBean());
 			} else {
-				return new ModelAndView("frmACSubGroupMaster_1", "command", new clsACSubGroupMasterBean());
+				return new ModelAndView("frmACSubGroupMaster", "command", new clsACSubGroupMasterBean());
 			}
 		}
 		

@@ -90,7 +90,7 @@ public class clsWebBooksAccountMasterController {
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmWebBooksAccountMaster", "command", new clsWebBooksAccountMasterModel());
 		} else {
-			return new ModelAndView("frmWebBooksAccountMaster_1", "command", new clsWebBooksAccountMasterModel());
+			return new ModelAndView("frmWebBooksAccountMaster", "command", new clsWebBooksAccountMasterModel());
 		}
 	}
 

@@ -94,7 +94,7 @@ public class clsDebitorOutStandingReportController {
 		model.put("currencyList", hmCurrency);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmDebitorOutStandingReport_1", "command", objBean);
+			return new ModelAndView("frmDebitorOutStandingReport", "command", objBean);
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmDebitorOutStandingReport", "command", objBean);
 		} else {

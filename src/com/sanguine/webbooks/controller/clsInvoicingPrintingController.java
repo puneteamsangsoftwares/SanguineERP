@@ -57,7 +57,7 @@ public class clsInvoicingPrintingController {
 		model.put("urlHits", urlHits);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmInvoicingPrinting_1", "command", new clsInvoicePrintingBean());
+			return new ModelAndView("frmInvoicingPrinting", "command", new clsInvoicePrintingBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmInvoicingPrinting", "command", new clsInvoicePrintingBean());
 		} else {

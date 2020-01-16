@@ -96,7 +96,7 @@ public class clsCreditorAgeingReportController {
 		model.put("currencyList", hmCurrency);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmCreditorAgeingReport_1", "command", objBean);
+			return new ModelAndView("frmCreditorAgeingReport", "command", objBean);
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmCreditorAgeingReport", "command", objBean);
 		} else {

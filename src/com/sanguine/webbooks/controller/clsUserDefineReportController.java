@@ -59,7 +59,7 @@ public class clsUserDefineReportController
 	
 		
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmUserDefineReport_1", "command", new clsUserDefineReportBean());
+			return new ModelAndView("frmUserDefineReport", "command", new clsUserDefineReportBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmUserDefineReport", "command", new clsUserDefineReportBean());
 		} else {

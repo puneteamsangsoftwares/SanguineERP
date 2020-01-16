@@ -77,7 +77,7 @@ public class clsProfitLossReportController {
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmProfitLossWebBook", "command", new clsProfitLossReportBean());
 		} else {
-			return new ModelAndView("frmProfitLossWebBook_1", "command", new clsProfitLossReportBean());
+			return new ModelAndView("frmProfitLossWebBook", "command", new clsProfitLossReportBean());
 		}
 	}
 

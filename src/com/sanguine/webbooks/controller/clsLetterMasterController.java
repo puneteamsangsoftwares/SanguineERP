@@ -69,7 +69,7 @@ public class clsLetterMasterController {
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmLetterMaster", "command", new clsLetterMasterModel());
 		} else {
-			return new ModelAndView("frmLetterMaster_1", "command", new clsLetterMasterModel());
+			return new ModelAndView("frmLetterMaster", "command", new clsLetterMasterModel());
 		}
 	}
 

@@ -81,7 +81,7 @@ public class clsBaseDaoImpl implements intfBaseDao {
 		}
 	}
 	
-	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "hibernateTransactionManager")
 	public List funGetListModuleWise(StringBuilder strQuery, String queryType, String moduleType) throws Exception {
 		Query query;
 

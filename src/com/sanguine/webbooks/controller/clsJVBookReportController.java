@@ -96,7 +96,7 @@ public class clsJVBookReportController {
 		model.put("JVTypeList", JVTypeList);
 		
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmJVBookReport_1", "command", new clsReportBean());
+			return new ModelAndView("frmJVBookReport", "command", new clsReportBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmJVBookReport", "command", new clsReportBean());
 		} else {

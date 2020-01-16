@@ -57,7 +57,7 @@ public class clsGeneralLedgerController {
 		model.put("currencyList", hmCurrency);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmGeneralLedger_1", "command", new clsDebtorLedgerBean());
+			return new ModelAndView("frmGeneralLedger", "command", new clsDebtorLedgerBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmGeneralLedger", "command", new clsDebtorLedgerBean());
 		} else {

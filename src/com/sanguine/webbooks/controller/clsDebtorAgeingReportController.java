@@ -96,7 +96,7 @@ public class clsDebtorAgeingReportController {
 		model.put("currencyList", hmCurrency);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmDebtorAgeingReport_1", "command", objBean);
+			return new ModelAndView("frmDebtorAgeingReport", "command", objBean);
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmDebtorAgeingReport", "command", objBean);
 		} else {

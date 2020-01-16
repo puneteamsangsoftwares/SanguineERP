@@ -67,7 +67,7 @@ public class clsCashBookController {
 		}
 		model.put("urlHits", urlHits);
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmCashBook_1", "command", new clsCreditorOutStandingReportBean());
+			return new ModelAndView("frmCashBook", "command", new clsCreditorOutStandingReportBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmCashBook", "command", new clsCreditorOutStandingReportBean());
 		} else {

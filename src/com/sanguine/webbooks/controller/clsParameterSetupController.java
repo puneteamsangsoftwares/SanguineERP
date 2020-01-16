@@ -67,7 +67,7 @@ public class clsParameterSetupController {
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmParameterSetup", "command", new clsParameterSetupBean());
 		} else {
-			return new ModelAndView("frmParameterSetup_1", "command", new clsParameterSetupBean());
+			return new ModelAndView("frmParameterSetup", "command", new clsParameterSetupBean());
 		}
 	}
 

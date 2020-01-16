@@ -49,7 +49,7 @@ public class clsWebClubBankMasterController {
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmWebClubBankMaster", "command", new clsWebClubBankMasterModel());
 		} else {
-			return new ModelAndView("frmWebClubBankMaster_1", "command", new clsWebClubBankMasterModel());
+			return new ModelAndView("frmWebClubBankMaster", "command", new clsWebClubBankMasterModel());
 		}
 	}
 

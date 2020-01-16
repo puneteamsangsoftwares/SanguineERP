@@ -95,7 +95,7 @@ public class clsWebClubSecurityShellController {
 		bean.setListUtilityForms(objUtilitys);
 		model.put("treeList", bean);
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmWebClubSecurityShell_1");
+			return new ModelAndView("frmWebClubSecurityShell");
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmWebClubSecurityShell");
 		} else {

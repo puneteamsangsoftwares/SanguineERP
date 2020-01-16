@@ -28,6 +28,13 @@
 	margin:0px;
 }
 
+
+.ast::before {
+  content: "*";
+  color: red;
+  float: right;
+}
+
 </style>
 		
 	
@@ -2898,10 +2905,10 @@ function funSetBillingRegionCode(code){
 				<div class="row" >
 				<div class="col-md-9">
   					<div class="row" >
-  					<div class="col-md-4"><label>Member Code</label><br><s:input id="txtMemberCode" type="text" 
+  					<div class="col-md-4"><label class="ast">Member Code</label><br><s:input id="txtMemberCode" type="text" 
 									ondblclick="funHelp('WCmemProfileCustomer')" cssClass="searchTextBox"
 								 	 class="form-control" placeholder="Enter Member Code" path="strMemberCode" ></s:input><s:input id="txtDebtorCode" type="hidden" path="strDebtorCode" ></s:input></div>
-					<div class="col-md-4"><label>Prefix Code</label><br><s:select id="cmbPrefixCode" path="strPrefixCode" name="cmbPrefixCode">
+					<div class="col-md-4"><label class="ast">Prefix Code</label><br><s:select id="cmbPrefixCode" path="strPrefixCode" name="cmbPrefixCode">
 													 <option value="Mr">Mr</option>
 									 				 <option value="Mrs">Mrs</option>
 									 				 <option value="Ms">Ms</option>
@@ -2909,9 +2916,9 @@ function funSetBillingRegionCode(code){
 						<%-- <s:input id="txtPrefixCode" ondblclick=""  cssClass="searchTextBox" type="search" path="strPrefixCode" readonly="true"></s:input> --%></div>
 					</div>
 					<div class="row" >
-					<div class="col-md-4"><label>First  Name</label><br><s:input id="txtFirstName" path="strFirstName"  placeholder="Enter First Name " type="text"></s:input></div>
-					<div class="col-md-4"><label>Middle  Name</label><br><s:input id="txtMiddleName" path="strMiddleName" placeholder="Enter Middle Name " type="text"></s:input></div>
-					<div class="col-md-4"><label>Last  Name</label><br><s:input id="txtLastName" path="strLastName" placeholder="Enter Last Name " type="text"></s:input></div>
+					<div class="col-md-4"><label class="ast">First  Name</label><br><s:input id="txtFirstName" path="strFirstName"  placeholder="Enter First Name " type="text"></s:input></div>
+					<div class="col-md-4"><label class="ast">Middle  Name</label><br><s:input id="txtMiddleName" path="strMiddleName" placeholder="Enter Middle Name " type="text"></s:input></div>
+					<div class="col-md-4"><label class="ast">Last  Name</label><br><s:input id="txtLastName" path="strLastName" placeholder="Enter Last Name " type="text"></s:input></div>
 					</div>
 					
 					<div class="row" >
@@ -3146,17 +3153,17 @@ function funSetBillingRegionCode(code){
 				
 				
 				<div class="col-md-6">
-					<div class="row"><div class="col-md-6"><label>Profession</label><br><s:input id="txtProfessionName" path="" ondblclick="funHelp('WCProfessionMaster')" cssClass="searchTextBox" placeholder="Select Profession Code" readonly="true" cssStyle="width: 30%%;" type="text"></s:input></div>
+					<div class="row"><div class="col-md-6" class="ast"><label>Profession</label><br><s:input id="txtProfessionName" path="" ondblclick="funHelp('WCProfessionMaster')" cssClass="searchTextBox" placeholder="Select Profession Code" readonly="true" cssStyle="width: 30%%;" type="text"></s:input></div>
 																						<s:input id="txtProfessionCode"  type="hidden" path="strProfessionCode" ></s:input>
-									<div class="col-md-6"><label>Sex</label><br><s:select id="cmbGender" name="cmbGender" path="strGender">
+									<div class="col-md-6"><label class="ast">Sex</label><br><s:select id="cmbGender" name="cmbGender" path="strGender">
 										 <option value="M">Male</option>
 						 				 <option value="F">Female</option>
 										 </s:select></div></div></div>
 								
 				
 				<div class="col-md-6">
-					<div class="row"><div class="col-md-6"><label>Date Of Birth</label><br><s:input id="txtdtDateofBirth" name="txtdtDateofBirth" path="dteDateofBirth" cssClass="calenderTextBox"></s:input></div>
-									<div class="col-md-6"><label>Marital Status</label><br><s:select id="cmbMaritalStatus" name="cmbMaritalStatus" path="strMaritalStatus">
+					<div class="row"><div class="col-md-6" class="ast"><label>Date Of Birth</label><br><s:input id="txtdtDateofBirth" name="txtdtDateofBirth" path="dteDateofBirth" cssClass="calenderTextBox"></s:input></div>
+									<div class="col-md-6" class="ast"><label>Marital Status</label><br><s:select id="cmbMaritalStatus" name="cmbMaritalStatus" path="strMaritalStatus">
 													 <option value="Single">Single</option>
 									 				 <option value="Married">Married</option>
 													 </s:select></div></div></div>
@@ -3178,17 +3185,17 @@ function funSetBillingRegionCode(code){
 				<div class="row"><div class="col-md-6"><label>Spouse Code</label><br><s:input id="txtSpouseCode"
 									ondblclick="" readonly="true"
 									type="text" path="strSpouseCode" ></s:input></div>
-								   <div class="col-md-6"><label>First Name</label><br><s:input id="txtSpouseFirstName" path="strSpouseFirstName"  placeholder="Enter First Name"
+								   <div class="col-md-6"><label class="ast">First Name</label><br><s:input id="txtSpouseFirstName" path="strSpouseFirstName"  placeholder="Enter First Name"
 									type="text"></s:input></div></div></div>
 									
 			<div class="col-md-6">						
-				<div class="row"><div class="col-md-6"><label>Middle Name</label><br><s:input id="txtSpouseMiddleName" path="strSpouseMiddleName" placeholder="Enter Middle Name"
+				<div class="row"><div class="col-md-6"><label class="ast">Middle Name</label><br><s:input id="txtSpouseMiddleName" path="strSpouseMiddleName" placeholder="Enter Middle Name"
 									type="text"></s:input></div>
-									<div class="col-md-6"><label>Last Name</label><br><s:input id="txtSpouseLastName" path="strSpouseLastName" placeholder="Enter Last Name"
+									<div class="col-md-6"><label class="ast">Last Name</label><br><s:input id="txtSpouseLastName" path="strSpouseLastName" placeholder="Enter Last Name"
 									cssStyle="width: 56%;" type="text"></s:input></div></div></div>
 								
 									
-			<div class="col-md-6"><label>Profession Code</label><br>
+			<div class="col-md-6"><label class="ast">Profession Code</label><br>
 					<div class="row"><div class="col-md-6"><s:input id="txtSpouseProfessionCode" cssClass="searchTextBox" readonly="true" placeholder="Select Profession Code" 
 									ondblclick="funHelp('WCSpouseProfessionMaster')" 
 									type="text" path="strSpouseProfessionCode" ></s:input></div>
@@ -3196,8 +3203,8 @@ function funSetBillingRegionCode(code){
 									cssStyle="width: 100%;" type="text"></s:input></div></div></div>
 									
 			<div class="col-md-6">						
-				<div class="row"><div class="col-md-6"><label>Date Of Birth</label><br><s:input id="txtdtSpouseDateofBirth" name="txtdtSpouseDateofBirth" cssClass="calenderTextBox" path="dteSpouseDateofBirth"/></div>
-								<div class="col-md-6"><label>Mobile No</label><br><s:input id="txtSpouseResidentMobileNo" path="strSpouseResidentMobileNo"  placeholder="Enter Mobile No" 
+				<div class="row"><div class="col-md-6"><label class="ast">Date Of Birth</label><br><s:input id="txtdtSpouseDateofBirth" name="txtdtSpouseDateofBirth" cssClass="calenderTextBox" path="dteSpouseDateofBirth"/></div>
+								<div class="col-md-6"><label class="ast">Mobile No</label><br><s:input id="txtSpouseResidentMobileNo" path="strSpouseResidentMobileNo"  placeholder="Enter Mobile No" 
 													class="decimal-places numberField" type="text"></s:input></div></div></div>
 	
 	        <div class="col-md-6">
@@ -3233,7 +3240,7 @@ function funSetBillingRegionCode(code){
 			<div class="container transtable"  style="background-color:#f2f2f2;">
 			<div class="row">
   				
-  				<div class="col-md-6"><label>Membership Category Code</label><br>
+  				<div class="col-md-6"><label class="ast">Membership Category Code</label><br>
   					<div class="row"><div class="col-md-6"><s:input id="txtMSCategoryCode" placeholder="Select Membership Category Code" 
 									ondblclick="funHelp('WCCatMaster')" cssClass="searchTextBox" readonly="true"
 									type="text" path="strCategoryCode"  ></s:input></div>
@@ -3275,14 +3282,14 @@ function funSetBillingRegionCode(code){
 									<div class="col-md-6"><input id="txtBlockedReasonName" readonly="true" placeholder="Reason Name" 
 									type="text"></input></div></div></div>
 		    
-		    <div class="col-md-6"><label>Qualification</label><br>
+		    <div class="col-md-6"><label class="ast">Qualification</label><br>
 					<div class="row"><div class="col-md-6"><s:input id="txtQualification"  placeholder="Select Qualification" 
 									ondblclick="funHelp('WCEducationMaster')" cssClass="searchTextBox" readonly="true" 
 									type="text" path="strQualification" ></s:input></div>
 									<div class="col-md-6"><s:input id="txtQualificationName" path="" readonly="true" placeholder="Qualification Name" 
 									type="text"></s:input></div></div></div>
 			
-			<div class="col-md-6"><label>Designation</label><br>
+			<div class="col-md-6"><label class="ast">Designation</label><br>
 				<div class="row"><div class="col-md-6"><s:input id="txtDesignationCode" placeholder="Select Designation"
 									ondblclick="funHelp('WCDesignationMaster')"  cssClass="searchTextBox"
 									type="text" path="strDesignationCode" readonly="true" ></s:input></div>
@@ -3290,8 +3297,8 @@ function funSetBillingRegionCode(code){
 												type="text"></s:input></div></div></div>
 			
 			<div class="col-md-6">
-				<div class="row"><div class="col-md-6"><label>Member From</label><br><s:input id="txtdtMembershipStartDate" name="txtdtMembershipStartDate" cssClass="calenderTextBox" path="dteMembershipStartDate"/></div>
-				                  <div class="col-md-6"><label>Member To</label><br><s:input id="txtdtMembershipEndDate" name="txtdtMembershipEndDate" cssClass="calenderTextBox" path="dteMembershipEndDate"/></div></div></div>									
+				<div class="row"><div class="col-md-6"><label class="ast">Member From</label><br><s:input id="txtdtMembershipStartDate" name="txtdtMembershipStartDate" cssClass="calenderTextBox" path="dteMembershipStartDate"/></div>
+				                  <div class="col-md-6"><label class="ast">Member To</label><br><s:input id="txtdtMembershipEndDate" name="txtdtMembershipEndDate" cssClass="calenderTextBox" path="dteMembershipEndDate"/></div></div></div>									
 				
 			<div class="col-md-6">
 				<div class="row"><%-- <div class="col-md-6"><label>Ballot Date</label><br><s:input id="txtdtBallotDate" name="txtdtBallotDate" cssClass="calenderTextBox" path=""/></div> --%>
@@ -3308,13 +3315,13 @@ function funSetBillingRegionCode(code){
 			<div class="col-md-6">
 				<div class="row"><div class="col-md-6"><label>Subscription Fee</label><br><s:input id="txtdblSubscriptionFee" path="dblSubscriptionFee" 
 									class="decimal-places numberField" type="text"></s:input></div>
-							    <div class="col-md-6"><label>Pan Number</label><br><s:input id="txtPanNumber" path="strPanNumber" placeholder="Enter Pan Number" 
+							    <div class="col-md-6"><label class="ast">Pan Number</label><br><s:input id="txtPanNumber" path="strPanNumber" placeholder="Enter Pan Number" 
 												type="text"></s:input></div></div></div>
 												
 												
 			<div class="col-md-6">
 						<div class="row">					
-								<div class="col-md-6"><label>Aadhar Card No</label><br><s:input id="txtAadharCardNo" path="strAadharCardNo"  placeholder="Enter Aadhar Card No" 
+								<div class="col-md-6"><label class="ast">Aadhar Card No</label><br><s:input id="txtAadharCardNo" path="strAadharCardNo"  placeholder="Enter Aadhar Card No" 
 									class="decimal-places numberField" type="text"></s:input></div>
 							    <div class="col-md-6"><label>Voter Id Card No</label><br><s:input id="txtVoterIdNo" path="strVoterIdNo"  placeholder="Voter Id Card No"
 												type="text"></s:input></div>
@@ -3323,7 +3330,7 @@ function funSetBillingRegionCode(code){
 			</div>
 				
 			<div class="col-md-6">
-				<div class="row"><div class="col-md-6"><label>Passport No</label><br><s:input id="txtPassportNo" path="strPassportNo" placeholder="Passpor No"
+				<div class="row"><div class="col-md-6"><label class="ast">Passport No</label><br><s:input id="txtPassportNo" path="strPassportNo" placeholder="Passpor No"
 												type="text"></s:input></div>
 				                  <div class="col-md-6"><label>Locker Detail</label><br><s:select id="txtLocker" name="txtLocker" path="strLocker" >
 																 <option value="N">No</option>
@@ -3335,7 +3342,7 @@ function funSetBillingRegionCode(code){
 															       <option value="N">No</option>
 											 				       <option value="Y">Yes</option>
 															       </s:select></div>
-							     <div class="col-md-6"><label>Senior Citizen</label><br><s:select id="txtSeniorCitizen" name="txtSeniorCitizen" path="strSeniorCitizen">
+							     <div class="col-md-6"><label class="ast">Senior Citizen</label><br><s:select id="txtSeniorCitizen" name="txtSeniorCitizen" path="strSeniorCitizen">
 																	 <option value="No">No</option>
 													 				 <option value="Yes">Yes</option>
 																	 </s:select></div></div></div>
@@ -3379,12 +3386,12 @@ function funSetBillingRegionCode(code){
 			      			<div class="col-md-6">
 				        		<div class="row">
 				        			<div class="col-md-6">
-				        				<label>Bank Code</label><br>
-				        				<s:input id="txtBankName" path=""  placeholder="Select Bank Code" ondblclick="funHelp('WCBankCode')" cssClass="searchTextBox" readonly="true" type="text"></s:input>
+				        				<label class="ast">Bank Name</label><br>
+				        				<s:input id="txtBankName" path=""  placeholder="Select Bank Name" ondblclick="funHelp('WCBankCode')" cssClass="searchTextBox" readonly="true" type="text"></s:input>
 				        				<s:input id="txtBankCode" path="strBankCode" type="hidden"></s:input>
 									</div>
 								    <div class="col-md-6">
-								    <label>IFSC Code</label><br><s:input id="txtIfscCOde" path="strIfscCOde" placeholder="Enter IFSC Code"
+								    <label class="ast">IFSC Code</label><br><s:input id="txtIfscCOde" path="strIfscCOde" placeholder="Enter IFSC Code"
 										type="text"></s:input>
 									</div>
 								</div>
@@ -3392,11 +3399,11 @@ function funSetBillingRegionCode(code){
 				 		   <div class="col-md-6">		
 					    		<div class="row">
 					    		 	<div class="col-md-6">
-					    		 		<label>Account No</label><br>
+					    		 		<label class="ast">Account No</label><br>
 					    		 			<s:input id="txtAccNo" name="txtdtFromDate" placeholder="Enter Account No" path="strAccNo" type="text"/>
 					    		 	</div>
 			                         <div class="col-md-6">
-			                             <label>Branch Name</label><br>
+			                             <label class="ast">Branch Name</label><br>
 			                               <s:input id="txtBranchName" readonly="true" placeholder="Branch Name" name="txtdtFromDate" path="strBranchName"/>
 			                         </div>
 			                    </div>
@@ -3430,7 +3437,7 @@ function funSetBillingRegionCode(code){
 						<div class="col-md-6">				
 				<div class="row"><div class="col-md-6"><label>Dependent Code</label><br><s:input id="txtDependentCode" path=""  cssClass="searchTextBox" readonly="true" 
 						 ondblclick="" /></div>
-								<div class="col-md-6"><label>Dependent Name</label><br><s:input type="text" id="txtDependentName"  placeholder="Enter Dependent Name"
+								<div class="col-md-6"><label class="ast">Dependent Name</label><br><s:input type="text" id="txtDependentName"  placeholder="Enter Dependent Name"
 														name="txtDependentName" path="" 
 														cssStyle= "text-transform: uppercase;"/> <s:errors path=""></s:errors></div></div></div>
 											
@@ -3511,18 +3518,18 @@ function funSetBillingRegionCode(code){
 			      			<div class="col-md-6">
 				        		<div class="row">
 				        			<div class="col-md-6">
-				        				<label>Mobile No</label><br>
+				        				<label class="ast">Mobile No</label><br>
 				        				<s:input id="txtDepMobileNo" type="text" path="strDepMobileNo" placeholder="Enter Mobile No "></s:input>
 									</div>
 								    <div class="col-md-6">
-								    <label>Aadhar Card No</label><br><s:input id="txtDepAadharCardNo" type="text" path="strDepAadharCardNo" placeholder="Enter Aadhar Card No"></s:input>
+								    <label class="ast">Aadhar Card No</label><br><s:input id="txtDepAadharCardNo" type="text" path="strDepAadharCardNo" placeholder="Enter Aadhar Card No"></s:input>
 									</div>
 								</div>
 							</div>
 				 		   <div class="col-md-6">		
 					    		<div class="row">
 					    		 	<div class="col-md-6">
-					    		 		<label>Email ID</label><br>
+					    		 		<label class="ast">Email ID</label><br>
 					    		 			<s:input id="txtDepEmailID" type="text" path="strDepEmailID" placeholder="Enter Email ID"></s:input>
 					    		 	</div>
 			                    </div>

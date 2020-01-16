@@ -158,10 +158,11 @@ public class clsWebClubGeneralMasterController {
 		} catch (NullPointerException e) {
 			urlHits = "1";
 		}
+		urlHits = "1";
 		model.put("urlHits", urlHits);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmGeneralMaster_1", "command", new clsWebClubGeneralMasterBean());
+			return new ModelAndView("frmGeneralMaster", "command", new clsWebClubGeneralMasterBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmGeneralMaster", "command", new clsWebClubGeneralMasterBean());
 		} else {

@@ -48,7 +48,7 @@ public class clsAccountHolderMasterController {
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmAccountHolderMaster", "command", new clsAccountHolderMasterModel());
 		} else {
-			return new ModelAndView("frmAccountHolderMaster_1", "command", new clsAccountHolderMasterModel());
+			return new ModelAndView("frmAccountHolderMaster", "command", new clsAccountHolderMasterModel());
 		}
 	}
 

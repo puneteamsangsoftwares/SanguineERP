@@ -5174,7 +5174,7 @@ return 1;
 			}
 		}
 
-		// receipt
+		/*// receipt
 				sql = "  SELECT DATE(a.dteVouchDate) ,a.strVouchNo AS VoucherNo,'Receipt', a.strVouchNo, " 
 						+ "DATE(a.dteChequeDate) ,  b.dblDrAmt , b.dblCrAmt ,b.dblDrAmt - b.dblCrAmt ,b.strCrDr,ifnull(a.strNarration,''),'3','" + userCode + "','" + propertyCode + "','" + clientCode + "', "
 						+ " if((e.strCurrencyCode is null) or (e.strCurrencyCode ='NA' ) or (e.strCurrencyCode ='' ), "
@@ -5187,7 +5187,38 @@ return 1;
 						+ " and  b.strAccountCode='" + acCode + "'  " + " AND a.strPropertyCode=b.strPropertyCode " 
 						+ " AND c.strDebtorCode='" + detorCretditorCode + "'  " + " AND a.strPropertyCode='"
 						+ propertyCode + "' AND a.strClientCode='" + clientCode + "'  ";
-		 sbSql.setLength(0);
+		 */
+		
+		//receipt
+		//orignal query
+		/*sql = "  SELECT DATE(a.dteVouchDate) ,a.strVouchNo AS VoucherNo,'Receipt', a.strVouchNo, " 
+				+ "DATE(a.dteChequeDate) ,  b.dblDrAmt , sum(b.dblCrAmt) ,b.dblDrAmt - b.dblCrAmt ,b.strCrDr,ifnull(a.strNarration,''),'3','" + userCode + "','" + propertyCode + "','" + clientCode + "', "
+				+ " if((e.strCurrencyCode is null) or (e.strCurrencyCode ='NA' ) or (e.strCurrencyCode ='' ), "
+				+ " (select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster "
+				+ " where strCurrencyCode='"+currency+"') ,a.dblConversion) as conv2 "
+				+ " FROM tblreceiptdtl b,tblreceiptdebtordtl c,  "
+				+"  tblreceipthd a left outer join "+webStockDB+".tblcurrencymaster e on a.strCurrency=e.strCurrencyCode and a.strCurrency='"+currency+"' "
+				+ " WHERE a.strVouchNo=b.strVouchNo and a.strVouchNo=c.strVouchNo "
+				+ " AND DATE(a.dteVouchDate) BETWEEN '" + fromDate + "' AND '" + toDate + "' " 
+				+ " and  b.strAccountCode='" + acCode + "'  " + " AND a.strPropertyCode=b.strPropertyCode " 
+				+ " AND c.strDebtorCode='" + detorCretditorCode + "'  " + " AND a.strPropertyCode='"
+				+ propertyCode + "' AND a.strClientCode='" + clientCode + "' GROUP BY a.strVouchNo ";*/
+
+		sql = "  SELECT DATE(a.dteVouchDate) ,a.strVouchNo AS VoucherNo,'Receipt', a.strVouchNo, " 
+				+ "DATE(a.dteChequeDate) ,  b.dblDrAmt , sum(b.dblCrAmt) ,b.dblDrAmt - b.dblCrAmt ,b.strCrDr,ifnull(a.strNarration,''),'3','" + userCode + "','" + propertyCode + "','" + clientCode + "', "
+				+ " if((e.strCurrencyCode is null) or (e.strCurrencyCode ='NA' ) or (e.strCurrencyCode ='' ), "
+				+ " (select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster "
+				+ " where strCurrencyCode='"+currency+"') ,a.dblConversion) as conv2 ,ifnull(a.strChequeNo,'') "
+				+ " FROM tblreceiptdtl b,tblreceiptdebtordtl c,  "
+				+"  tblreceipthd a left outer join "+webStockDB+".tblcurrencymaster e on a.strCurrency=e.strCurrencyCode and a.strCurrency='"+currency+"' "
+				+ " WHERE a.strVouchNo=b.strVouchNo and a.strVouchNo=c.strVouchNo "
+				+ " AND DATE(a.dteVouchDate) BETWEEN '" + fromDate + "' AND '" + toDate + "' " 
+				+ " and  b.strAccountCode='" + acCode + "'  " + " AND a.strPropertyCode=b.strPropertyCode " 
+				+ " AND c.strDebtorCode='" + detorCretditorCode + "'  " + " AND a.strPropertyCode='"
+				+ propertyCode + "' AND a.strClientCode='" + clientCode + "' GROUP BY a.strVouchNo ";
+		
+		
+				sbSql.setLength(0);
 		 sbSql=new StringBuilder(sql);
 			List listRecept=new ArrayList();
 			try {
@@ -5221,9 +5252,13 @@ return 1;
 				dblBalAmt=dblBalAmt-Double.parseDouble(objArr[7].toString())/con;
 				if(objArr[8].toString().equalsIgnoreCase("Cr"))
 				{
-					dblCrAmt=dblCrAmt+Double.parseDouble(objArr[6].toString())/con;					
-					objSummaryledger.setDblCreditAmt(dblCrAmt);		
+					//dblCrAmt=dblCrAmt+Double.parseDouble(objArr[6].toString())/con;					
+					objSummaryledger.setDblCreditAmt(Double.parseDouble(objArr[6].toString())/con);		
 					objSummaryledger.setDblBalanceAmt(0);
+				}
+				if(!objArr[15].toString().equalsIgnoreCase(""))
+				{
+					objSummaryledger.setStrChequeBillNo(objArr[15].toString());
 				}
 				objGlobalFunctionsService.funAddUpdateLedgerSummary(objSummaryledger);
 			}

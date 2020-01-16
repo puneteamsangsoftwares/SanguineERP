@@ -119,7 +119,7 @@ public class clsSundryDebtorMasterController {
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmSundryDebtorMaster", "command", new clsSundryDebtorMasterModel());
 		} else {
-			return new ModelAndView("frmSundryDebtorMaster_1", "command", new clsSundryDebtorMasterModel());
+			return new ModelAndView("frmSundryDebtorMaster", "command", new clsSundryDebtorMasterModel());
 		}
 	}
 

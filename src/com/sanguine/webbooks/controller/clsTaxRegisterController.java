@@ -93,7 +93,7 @@ public class clsTaxRegisterController
 		model.put("urlHits", urlHits);
 		if ("2".equalsIgnoreCase(urlHits))
 		{
-			return new ModelAndView("frmTaxRegister_1", "command", new clsCreditorOutStandingReportBean());
+			return new ModelAndView("frmTaxRegister", "command", new clsCreditorOutStandingReportBean());
 		}
 		else if ("1".equalsIgnoreCase(urlHits))
 		{
@@ -230,7 +230,8 @@ public class clsTaxRegisterController
 
 			StringBuilder sbSql = new StringBuilder();
 			sbSql.append("select dblConvToBaseCurr from " + webStockDB + ".tblcurrencymaster where strCurrencyCode='" + currency + "' and strClientCode='" + clientCode + "' ");
-			List list = objBaseService.funGetList(sbSql, "sql");
+			//List list = objBaseService.funGetList(sbSql, "sql");
+			List list =objBaseService.funGetListForWebBooks(sbSql, "sql");
 			double conversionRate = Double.parseDouble(list.get(0).toString());
 
 			sbSql.setLength(0);
@@ -238,7 +239,9 @@ public class clsTaxRegisterController
 			sbSql.append(" from  " + webStockDB + ".tbltaxhd a," + webStockDB + ".tblinvtaxdtl b," + webStockDB + ".tblinvoicehd c ," + webStockDB + ".tblsettlementmaster d ");
 			sbSql.append(" where a.strTaxCode=b.strTaxCode and b.strInvCode=c.strInvCode and c.strSettlementCode=d.strSettlementCode " + " and date(c.dteInvDate) between '" + fromDate + "' and '" + toDate + "' "
 				+ " and c.strClientCode='" + clientCode + "' and a.strTaxOnSP='Sales' ");
-			List listTaxRegister = objBaseService.funGetList(sbSql, "sql");
+			//List listTaxRegister = objBaseService.funGetList(sbSql, "sql");
+			List listTaxRegister =objBaseService.funGetListForWebBooks(sbSql, "sql");
+
 
 			List<clsTaxRegisterReportFields> listTaxRegisterDetail = new ArrayList<clsTaxRegisterReportFields>();
 			for (int i = 0; i < listTaxRegister.size(); i++)
@@ -264,9 +267,9 @@ public class clsTaxRegisterController
 			sbSql.append(" select b.strGRNCode,DATE_FORMAT(date(c.dtGRNDate),'%d-%m-%Y') as dtGRNDate ,a.strTaxDesc,b.strTaxableAmt,b.strTaxAmt,c.strUserCreated " 
 						+" from   " + webStockDB + ".tbltaxhd a," + webStockDB + ".tblgrntaxdtl b," + webStockDB + ".tblgrnhd c  where a.strTaxCode=b.strTaxCode and b.strGRNCode  =c.strGRNCode "  
 						+" and date(c.dtGRNDate)  between '" + fromDate + "' and '" + toDate + "'  and c.strClientCode='" + clientCode + "' and a.strTaxOnSP='Purchase' ");
-			
-			
-			listTaxRegister = objBaseService.funGetList(sbSql, "sql");
+			//listTaxRegister = objBaseService.funGetList(sbSql, "sql");
+			listTaxRegister =objBaseService.funGetListForWebBooks(sbSql, "sql");
+
 			for (int i = 0; i < listTaxRegister.size(); i++)
 			{
 				Object[] arrObj = (Object[]) listTaxRegister.get(i);
@@ -286,8 +289,8 @@ public class clsTaxRegisterController
 			sbSql.append("select a.strTaxDesc,sum(b.dblTaxableAmt),sum(b.dblTaxAmt) ");
 			sbSql.append(" from  " + webStockDB + ".tbltaxhd a," + webStockDB + ".tblinvtaxdtl b," + webStockDB + ".tblinvoicehd c ," + webStockDB + ".tblsettlementmaster d ");
 			sbSql.append(" where a.strTaxCode=b.strTaxCode and b.strInvCode=c.strInvCode and c.strSettlementCode=d.strSettlementCode " + " and date(c.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and c.strClientCode='" + clientCode + "' and a.strTaxOnSP='Sales'  group by a.strTaxCode ");
-			List listTaxSummary = objBaseService.funGetList(sbSql, "sql");
-
+			//List listTaxSummary = objBaseService.funGetList(sbSql, "sql");
+			List listTaxSummary  =objBaseService.funGetListForWebBooks(sbSql, "sql");
 			for (int i = 0; i < listTaxSummary.size(); i++)
 			{
 				Object[] arrObj = (Object[]) listTaxSummary.get(i);
@@ -312,10 +315,9 @@ public class clsTaxRegisterController
 			 + " from "+webStockDB+".tblgrnhd a,"+webStockDB+".tblgrntaxdtl b,"+webStockDB+".tbltaxhd c  "
 			 + " where a.strGRNCode=b.strGRNCode and a.strClientCode=b.strClientCode and b.strTaxCode=c.strTaxCode  "
 			 + " and b.strClientCode=c.strClientCode and DATE(a.dtGRNDate) between '"+fromDate+"' and '"+toDate+"' AND a.strClientCode='"+clientCode+"' "
-			 + " group by c.strTaxCode;");
-			
-			listTaxSummary = objBaseService.funGetList(sbSql, "sql");
-
+			 + " group by c.strTaxCode;");			
+			//listTaxSummary = objBaseService.funGetList(sbSql, "sql");
+			 listTaxSummary  =objBaseService.funGetListForWebBooks(sbSql, "sql");
 			for (int i = 0; i < listTaxSummary.size(); i++)
 			{
 				Object[] arrObj = (Object[]) listTaxSummary.get(i);

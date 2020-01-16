@@ -84,7 +84,7 @@ public class clsBankBalanceReportController {
 		model.put("currencyList", hmCurrency);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmBankBalanceReport_1", "command", new clsCreditorOutStandingReportBean());
+			return new ModelAndView("frmBankBalanceReport", "command", new clsCreditorOutStandingReportBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmBankBalanceReport", "command", new clsCreditorOutStandingReportBean());
 		} else {

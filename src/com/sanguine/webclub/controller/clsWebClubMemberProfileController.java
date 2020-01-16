@@ -175,7 +175,7 @@ public class clsWebClubMemberProfileController {
 		request.setAttribute("ListMemberValidation", list);
 		
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmMemberProfile_1", "command", new clsWebClubMemberProfileBean());
+			return new ModelAndView("frmMemberProfile", "command", new clsWebClubMemberProfileBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmMemberProfile", "command", new clsWebClubMemberProfileBean());
 		} else {
@@ -1654,6 +1654,22 @@ public class clsWebClubMemberProfileController {
 		
 		return null;
 	}
+	
+	
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/loadAttachedDocumentsCount", method = RequestMethod.GET)
+	public @ResponseBody List funShowAttachDocumentsCount(@RequestParam("docCode") String memCode, HttpServletRequest req) {
+		List<clsWebClubDependentMasterModel> listDMData = new LinkedList<clsWebClubDependentMasterModel>();
+		List list=objGlobalFunctionsService.funGetListModuleWise("SELECT  ifnull(COUNT(a.strActualFileName),0) from tblattachdocument a WHERE a.strCode='"+memCode+" 01' ","sql") ;
+		if(list!=null && list.size()>0)
+		{
+			String a="";
+		}		
+		return list;
+	}
+	
+	
 	
 	public Map funDataBaseShrink(String Sql)
     {

@@ -64,7 +64,7 @@ public class clsEmployeeMasterController
 		}
 		else
 		{
-			return new ModelAndView("frmEmployeeMaster_1", "command", new clsEmployeeMasterModel());
+			return new ModelAndView("frmEmployeeMaster", "command", new clsEmployeeMasterModel());
 		}
 	}
 

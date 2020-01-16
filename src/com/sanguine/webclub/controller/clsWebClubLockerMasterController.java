@@ -47,7 +47,7 @@ public class clsWebClubLockerMasterController {
 		model.put("urlHits", urlHits);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmLockerMaster_1", "command", new clsWebClubLockerMasterModel());
+			return new ModelAndView("frmLockerMaster", "command", new clsWebClubLockerMasterModel());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmLockerMaster", "command", new clsWebClubLockerMasterModel());
 		} else {

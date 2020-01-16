@@ -113,7 +113,7 @@
 		}
 		
 		function funLoadDateWiseMemberData(fromDate,toDate,cmbChequeType,memCode){		 
-			var searchurl=getContextPath()+"/loadDateWiseMemberData.html?fromDate="+fromDate+"&toDate="+toDate+"&chequeType="+cmbChequeType+"&memCode="+memCode;
+			var searchurl=getContextPath()+"/loadDateWiseForPDCToReceiptMemberData.html?fromDate="+fromDate+"&toDate="+toDate+"&chequeType="+cmbChequeType+"&memCode="+memCode;
 			$.ajax({
 				        type: "GET",
 				        url: searchurl,

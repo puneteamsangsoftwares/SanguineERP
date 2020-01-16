@@ -605,7 +605,7 @@ public class clsStructureUpdateController {
 		}
 		model.put("urlHits", urlHits);
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmWebBooksStructureUpdate_1");
+			return new ModelAndView("frmWebBooksStructureUpdate");
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmWebBooksStructureUpdate");
 		} else {

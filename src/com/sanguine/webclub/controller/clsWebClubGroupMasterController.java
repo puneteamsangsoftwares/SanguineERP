@@ -46,7 +46,7 @@ public class clsWebClubGroupMasterController {
 		model.put("urlHits", urlHits);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmWebClubGroupMaster_1", "command", new clsWebClubGroupMasterBean());
+			return new ModelAndView("frmWebClubGroupMaster", "command", new clsWebClubGroupMasterBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmWebClubGroupMaster", "command", new clsWebClubGroupMasterBean());
 		} else {

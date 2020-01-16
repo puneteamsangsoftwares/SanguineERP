@@ -48,7 +48,7 @@ public class clsNarrationMasterController {
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmNarrationMaster", "command", new clsNarrationMasterModel());
 		} else {
-			return new ModelAndView("frmNarrationMaster_1", "command", new clsNarrationMasterModel());
+			return new ModelAndView("frmNarrationMaster", "command", new clsNarrationMasterModel());
 		}
 	}
 

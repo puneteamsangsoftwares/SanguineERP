@@ -856,7 +856,7 @@ public class clsReportsController {
 		model.put("urlHits", urlHits);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmReceiptRegister_1", "command", new clsReportBean());
+			return new ModelAndView("frmReceiptRegister", "command", new clsReportBean());
 		} else {
 			return new ModelAndView("frmReceiptRegister", "command", new clsReportBean());
 		}
@@ -3116,7 +3116,7 @@ public class clsReportsController {
 		}
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			objModelView = new ModelAndView("frmReceiptIssueConsolidated_1", "command", new clsReportBean());
+			objModelView = new ModelAndView("frmReceiptIssueConsolidated", "command", new clsReportBean());
 		} else {
 			objModelView = new ModelAndView("frmReceiptIssueConsolidated", "command", new clsReportBean());
 		}

@@ -96,7 +96,7 @@ public class clsBalanceSheetController {
 
 			if ("2".equalsIgnoreCase(urlHits))
 			{
-				return new ModelAndView("frmBalanceSheet_1", "command", new clsCreditorOutStandingReportBean());
+				return new ModelAndView("frmBalanceSheet", "command", new clsCreditorOutStandingReportBean());
 			}
 			else if ("1".equalsIgnoreCase(urlHits))
 			{

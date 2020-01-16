@@ -48,7 +48,7 @@ public class clsInterfaceMasterController {
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmInterfaceMaster", "command", new clsInterfaceMasterModel());
 		} else {
-			return new ModelAndView("frmInterfaceMaster_1", "command", new clsInterfaceMasterModel());
+			return new ModelAndView("frmInterfaceMaster", "command", new clsInterfaceMasterModel());
 		}
 	}
 

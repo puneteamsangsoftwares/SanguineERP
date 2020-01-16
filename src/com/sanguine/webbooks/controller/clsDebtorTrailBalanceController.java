@@ -95,7 +95,7 @@ public class clsDebtorTrailBalanceController {
 		model.put("currencyList", hmCurrency);
 		
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmDebtorTrialBalanceReport_1", "command",objBean);
+			return new ModelAndView("frmDebtorTrialBalanceReport", "command",objBean);
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmDebtorTrialBalanceReport", "command", objBean);
 		} else {
@@ -119,11 +119,24 @@ public class clsDebtorTrailBalanceController {
 			String glCode=objBean.getStrAccountCode();
 			double conversionRate=1;
 			String webStockDB=req.getSession().getAttribute("WebStockDB").toString();
+
 			StringBuilder sbSql = new StringBuilder();
+			sbSql.append("SELECT a.strCurrencyCode from "+webStockDB+".tblcurrencymaster a WHERE a.strCurrencyName='Base' and strClientCode='"+clientCode+"' ");
+			try
+			{
+				List list = objBaseService.funGetListForWebStocks(sbSql,"sql");
+				currencyCode=list.get(0).toString();
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+			sbSql.setLength(0);
 			sbSql.append("select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster where strCurrencyCode='"+currencyCode+"' and strClientCode='"+clientCode+"' ");
 			try
 			{
-				List list = objBaseService.funGetList(sbSql,"sql");
+				//List list = objBaseService.funGetList(sbSql,"sql");
+				List list = objBaseService.funGetListForWebStocks(sbSql,"sql");
 				conversionRate=Double.parseDouble(list.get(0).toString());
 			}catch(Exception e)
 			{

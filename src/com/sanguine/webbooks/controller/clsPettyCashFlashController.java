@@ -50,7 +50,7 @@ public class clsPettyCashFlashController {
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
 		
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmPettyCashFlash_1", "command", new clsExpenseMasterBean());
+			return new ModelAndView("frmPettyCashFlash", "command", new clsExpenseMasterBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmPettyCashFlash", "command", new clsExpenseMasterBean());
 		} else {

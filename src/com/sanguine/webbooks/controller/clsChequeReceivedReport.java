@@ -84,7 +84,7 @@ public class clsChequeReceivedReport
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmChequeReceived", "command", new clsChequeReportBean());
 		} else {
-			return new ModelAndView("frmChequeReceived_1", "command", new clsChequeReportBean());
+			return new ModelAndView("frmChequeReceived", "command", new clsChequeReportBean());
 		}
 	}
 	

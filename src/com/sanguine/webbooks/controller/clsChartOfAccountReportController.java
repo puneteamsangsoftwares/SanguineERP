@@ -78,7 +78,7 @@ public class clsChartOfAccountReportController {
 		model.put("currencyList", hmCurrency);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmChartOfAccountReport_1", "command", new clsChartOfAccountReportBean());
+			return new ModelAndView("frmChartOfAccountReport", "command", new clsChartOfAccountReportBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmChartOfAccountReport", "command", new clsChartOfAccountReportBean());
 		} else {

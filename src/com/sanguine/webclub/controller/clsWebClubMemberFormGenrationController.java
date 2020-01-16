@@ -47,7 +47,7 @@ public class clsWebClubMemberFormGenrationController {
 		model.put("urlHits", urlHits);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmMembershipFormGenration_1", "command", new clsWebClubMemberFormGenrationBean());
+			return new ModelAndView("frmMembershipFormGenration", "command", new clsWebClubMemberFormGenrationBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmMembershipFormGenration", "command", new clsWebClubMemberFormGenrationBean());
 		} else {

@@ -2,15 +2,14 @@ package com.sanguine.webclub.controller;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +21,6 @@ import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webclub.bean.clsWebClubPDCBean;
 import com.sanguine.webclub.bean.clsWebClubPDCFlashBean;
-import com.sanguine.webclub.model.clsWebClubPDCModel;
 import com.sanguine.webclub.service.clsWebClubPDCService;
 
 
@@ -194,4 +192,78 @@ public class clsWebClubPDCFlashController{
 		retList.add(detailList);
 		return new ModelAndView("excelViewFromToDteReportName", "listFromToDateReportName", retList);
     }
+	
+	
+	
+	// Assign filed function to set data onto form for edit transaction.
+			@RequestMapping(value = "/loadDateWiseForPDCToReceiptMemberData", method = RequestMethod.GET)
+			public @ResponseBody List funLoadDateWiseForPDCToReceiptMemberData(@RequestParam("fromDate") String fromDate,@RequestParam("toDate") String toDate,@RequestParam("chequeType") String chequeType,@RequestParam("memCode") String memCode, HttpServletRequest req) {
+				objGlobal=new clsGlobalFunctions();
+				String clientCode = req.getSession().getAttribute("clientCode").toString();
+				String webStock=req.getSession().getAttribute("WebStockDB").toString();
+				String sql="";
+				String webCLub = req.getSession().getAttribute("WebCLUBDB").toString();
+				List<clsWebClubPDCBean> ojbBeanModel = new ArrayList<clsWebClubPDCBean>();
+				String strFromDate=objGlobal.funGetDate("yyyy-MM-dd", fromDate);
+				String strToDate=objGlobal.funGetDate("yyyy-MM-dd", toDate);
+				//export logic
+				/*if(memCode.equalsIgnoreCase(""))
+				{
+					sql="SELECT b.strFirstName,a.strChequeNo,c.strBankName,a.strType,a.dblChequeAmt,DATE(a.dteChequeDate),a.strMemCode FROM tblpdcdtl a,tblmembermaster b,"+webStock+".tblbankmaster c  WHERE a.strMemCode=b.strMemberCode AND a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strDrawnOn=c.strBankName AND a.strClientCode=b.strClientCode AND Date(a.dteChequeDate)  BETWEEN '"+strFromDate+"' AND '"+strToDate+"'   ";
+				}*/
+				if(memCode.equalsIgnoreCase("undefined"))
+				{
+					sql="SELECT Concat(c.strFirstName,' ', c.strMiddleName,' ', c.strLastName),a.strChequeNo,b.strBankName,a.strType,a.dblChequeAmt, DATE(a.dteChequeDate),c.strAccNo,c.strDebtorCode FROM "+webCLub+".tblpdcdtl a,"+webStock+".tblbankmaster b,"+webCLub+".tblmembermaster c WHERE a.strClientCode='"+clientCode+"'  AND a.strMemCode=c.strMemberCode AND a.strType='"+chequeType+"' AND c.strClientCode=a.strClientCode AND a.strDrawnOn=b.strBankName AND DATE(a.dteChequeDate) BETWEEN '"+strFromDate+"' AND '"+strToDate+"'  GROUP BY a.strChequeNo";
+				}
+				/*else{	
+					sql="SELECT b.strFirstName,a.strChequeNo,c.strBankName,a.strType,a.dblChequeAmt,DATE(a.dteChequeDate),a.strMemCode FROM tblpdcdtl a,tblmembermaster b,"+webStock+".tblbankmaster c  WHERE  a.strMemCode=b.strMemberCode AND  a.strMemCode='"+memCode+"' AND a.strClientCode='"+clientCode+"' AND a.strType='"+chequeType+"' AND a.strDrawnOn=c.strBankName AND a.strClientCode=b.strClientCode AND Date(a.dteChequeDate)  BETWEEN '"+strFromDate+"' AND '"+strToDate+"'   ";			
+				}*/
+				List list=objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+				if (list.isEmpty()) {				
+					list.add("Invalid Code");
+				}
+				else
+				{
+					for(int i=0;i<list.size();i++)
+					{
+						list.get(i);
+						Object obj[] = (Object[])list.get(i);				
+						sql=" SELECT ifnull(a.strChequeNo,'') from tblreceipthd a,tblreceiptdebtordtl b WHERE b.strDebtorCode='"+obj[7].toString()+"' AND a.strVouchNo=b.strVouchNo GROUP BY a.strChequeNo ";			
+						List listChequeNo=objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+						Map hmap = new HashMap<>();
+						if(listChequeNo.size()>0)
+						{
+							if(!listChequeNo.get(0).toString().equalsIgnoreCase(""))
+							{
+								for(int k=0;k<listChequeNo.size();k++)
+								{
+									String str[]=listChequeNo.get(k).toString().split(",");
+									for(String stra:str)
+									{
+										hmap.put(stra,stra);
+									}
+								}								
+							}							
+						}						
+						if(!hmap.containsKey(obj[1].toString()))
+						{
+							clsWebClubPDCBean objBean = new clsWebClubPDCBean();
+							objBean.setStrMemName(obj[0].toString());
+							objBean.setStrChequeNo(obj[1].toString());
+							objBean.setStrDrawnOn(obj[2].toString());
+							objBean.setStrType(obj[3].toString());
+							objBean.setDblChequeAmt(Double.parseDouble(obj[4].toString()));
+							objBean.setDteChequeDate(objGlobal.funGetDate("dd-MM-yyyy", obj[5].toString()));
+							if(memCode.equals("undefined"))
+							{
+								objBean.setStrAccCode(obj[6].toString());
+								objBean.setStrDebtorCode(obj[7].toString());
+							}
+							ojbBeanModel.add(objBean);
+						}
+					}
+					
+				}
+				return ojbBeanModel;
+			}	
 }

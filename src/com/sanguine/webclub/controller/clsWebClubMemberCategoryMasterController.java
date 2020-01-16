@@ -48,7 +48,7 @@ public class clsWebClubMemberCategoryMasterController {
 		}
 		model.put("urlHits", urlHits);
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmMemberCategoryMaster_1", "command", new clsWebClubMemberCategoryMasterBean());
+			return new ModelAndView("frmMemberCategoryMaster", "command", new clsWebClubMemberCategoryMasterBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmMemberCategoryMaster", "command", new clsWebClubMemberCategoryMasterBean());
 		} else {
