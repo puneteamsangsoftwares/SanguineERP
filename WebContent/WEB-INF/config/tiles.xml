@@ -184,6 +184,10 @@
 			value="/WEB-INF/jsp/frmAttachDocuments.jsp"></put-attribute>
 	</definition>
 
+	<definition name="frmShowAttachDocuments" extends="base.definition5">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/frmShowAttachDocuments.jsp"></put-attribute>
+	</definition>
 
 
 	<definition name="frmTaxMaster" extends="base.definition">

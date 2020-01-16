@@ -136,5 +136,21 @@ public class clsAttachDocController {
 		objAttDocService.funDeleteAttachment(docName, code, clientCode);
 		return true;
 	}
+	
+	
+	@RequestMapping(value = "/onlyShowDocuments", method = RequestMethod.GET)
+	public ModelAndView funOpenFormShowDocument(@ModelAttribute("command") clsAttachDocBean bean, BindingResult result, HttpServletRequest request) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		// String docCode=request.getSession().getAttribute("code").toString();
+		String docCode = request.getParameter("code").toString();
+		String formTitle = request.getParameter("formName").toString();
+		String transactionName = request.getParameter("transName").toString();
+		String clientCode = request.getSession().getAttribute("clientCode").toString();
+		model.put("documentList", objAttDocService.funListDocs(docCode, clientCode));
+		model.put("docCode", docCode);
+		model.put("formTitle", formTitle);
+		model.put("transactionName", transactionName);
+		return new ModelAndView("frmShowAttachDocuments", model);
+	}
 
 }

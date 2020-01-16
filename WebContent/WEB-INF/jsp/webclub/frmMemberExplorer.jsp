@@ -172,6 +172,7 @@
 			else
 			{	
 				$("#tab_container").show();
+				$("#txtAttachedDocCount").css("display","block");
 			}
 			return false;
 		}
@@ -458,6 +459,7 @@
 					        type: "GET",
 					        url: searchurl,
 					        dataType: "json",
+					        async:false,
 					        success: function(response)
 					        {
 					        	if(response.strMemberCode=='Invalid Code')
@@ -1895,6 +1897,7 @@
 			 $.ajax({
 				        type: "GET",
 				        url: searchurl,
+				        async:false,
 				        success: function(response)
 				        {
 				        	if(response.strMemberCode=='Invalid Code')
@@ -1938,22 +1941,24 @@
 	 
 	 function funShowAttachDocumentsCount(code)
 		{
-			code='MC01';	 
+		 	code=$("#txtCustCode").val();	 
 			var searchurl=getContextPath()+"/loadAttachedDocumentsCount.html?docCode="+code;
 			//alert(searchurl);
 			 $.ajax({
 				        type: "GET",
 				        url: searchurl,
+				        async:false,
 				        success: function(response)
 				        {
-				        	if(response.strMemberCode=='Invalid Code')
+				        	if(response=='')
 				        	{
-				        		alert("Invalid Member Code");
-				        		$("#txtMemberCode").val('');				        		
+				        		$("#txtAttachedDocCount").text('Attached Document : 0');
+				        		$("#txtAttachedDocCount").css("display","none");
 				        	}
 				        	else
-				        	{  					        		
-				        		$("#txtAttachedDocCount").val();						        	
+				        	{ 				        		
+				        		$("#txtAttachedDocCount").text('Attached Document : '+response[0]);	
+				        		$("#txtAttachedDocCount").css("display","none");
 				        	}
 						},
 						error: function(jqXHR, exception) {
@@ -1982,7 +1987,33 @@
 			$("#tblFieldData tr").remove();
 		}
 	
-	
+	 $(function()
+     		{			
+     			$('#baseUrl').click(function() 
+     			{  
+     				 if($("#txtCustCode").val().trim()=="")
+     				{
+     					alert("Please Select Member Code");
+     					return false;
+     				} 
+     				window.open('onlyShowDocuments.html?transName=frmMemberExplorer.jsp&formName=Member Explorer&code='+$('#txtCustCode').val()+' 01',"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+     			});
+     		});
+	 
+	 
+	 
+	 $(function()
+	     		{			
+	     			$('#txtAttachedDocCount').click(function() 
+	     			{  
+	     				 if($("#txtCustCode").val().trim()=="")
+	     				{
+	     					alert("Please Select Member Code");
+	     					return false;
+	     				} 
+	     				window.open('onlyShowDocuments.html?transName=frmMemberExplorer.jsp&formName=Member Explorer&code='+$('#txtCustCode').val()+' 01',"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+	     			});
+	     		});
 	
 </script>
 </head>
@@ -2001,14 +2032,14 @@
 			</table>
 				<br/>
 					<div class="center">
-						<td><label id="txtAttachedDocCount"></label></td>
 						<a href="#"><button class="btn btn-primary center-block" value="Show" onclick="return funCallFormAction('submit',this);" 
 							class="form_button">Submit</button></a>
 						<a href="#"><button class="btn btn-primary center-block" type="reset"
 							value="Reset" class="form_button" onclick="funResetField()">Reset</button></a>
 					
 						<a href="#"><button class="btn btn-primary center-block" value="Print" onclick="return funPrintForm();" class="form_button">Print</button></a>
-					
+						<td><label id="txtAttachedDocCount" style=" display: none;"></label></td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						
 					</div>
 					 <!-- <table class="masterTable">
 						<tr>

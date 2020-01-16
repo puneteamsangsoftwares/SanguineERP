@@ -1661,7 +1661,9 @@ public class clsWebClubMemberProfileController {
 	@RequestMapping(value = "/loadAttachedDocumentsCount", method = RequestMethod.GET)
 	public @ResponseBody List funShowAttachDocumentsCount(@RequestParam("docCode") String memCode, HttpServletRequest req) {
 		List<clsWebClubDependentMasterModel> listDMData = new LinkedList<clsWebClubDependentMasterModel>();
-		List list=objGlobalFunctionsService.funGetListModuleWise("SELECT  ifnull(COUNT(a.strActualFileName),0) from tblattachdocument a WHERE a.strCode='"+memCode+" 01' ","sql") ;
+		String webStockDB = req.getSession().getAttribute("WebStockDB").toString();
+		//String sql="SELECT  ifnull(COUNT(a.strActualFileName),0) from "+webStockDB+".tblattachdocument a WHERE a.strCode='"+memCode+" 01' ";
+		List list=objGlobalFunctionsService.funGetListModuleWise("SELECT  ifnull(COUNT(a.strActualFileName),0) from "+webStockDB+".tblattachdocument a WHERE a.strCode='"+memCode+" 01' ","sql") ;
 		if(list!=null && list.size()>0)
 		{
 			String a="";
