@@ -178,7 +178,7 @@
 							<div class="row">
 								<div class="col-md-6">
 									<label>Branch:</label><br>
-										<s:input id="txtBranchName" type="text" placeholder="Branch" path="strBranch" required="true"></s:input>
+										<s:input id="txtBranchName" type="text" placeholder="Branch" path="strBranch" ></s:input>
 								</div>
 								<div class="col-md-6">
 									<label>MICR:</label><br>

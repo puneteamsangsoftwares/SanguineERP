@@ -715,7 +715,7 @@ public class clsReceiptController {
 			else if(strPaymentMode.equalsIgnoreCase("NEFT"))
 			{
 				hm.put("strChequeNo",strChequeNo);
-				hm.put("strtxt","Account No");
+				hm.put("strtxt","NEFT No");
 			}
 			
 			hm.put("strPaymentMode", strPaymentMode);

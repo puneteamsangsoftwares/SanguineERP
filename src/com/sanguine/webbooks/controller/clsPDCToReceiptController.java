@@ -189,7 +189,11 @@ public class clsPDCToReceiptController {
 		objModel.setStrType(objGlobal.funIfNull(objBean.getStrType(), "Cheque", objBean.getStrType()));
 		//objModel.setStrDebtorCode(objGlobal.funIfNull(objBean.getStrDebtorCode(), "", objBean.getStrDebtorCode()));
 		objModel.setStrReceivedFrom(objGlobal.funIfNull(objBean.getStrReceivedFrom(), "", objBean.getStrReceivedFrom()));
-		objModel.setStrChequeNo(objBean.getStrChequeNo());
+		for(clsReceiptBean objTempBean :objBean.getListReceiptBean())
+		{
+			objModel.setStrChequeNo(objTempBean.getStrChequeNo());	
+		}
+		
 		objModel.setStrDrawnOn(objGlobal.funIfNull(objBean.getStrDrawnOn(), "", objBean.getStrDrawnOn()));
 		objModel.setStrBranch(objGlobal.funIfNull(objBean.getStrBranch(), "", objBean.getStrBranch()));
 		objModel.setStrNarration(objGlobal.funIfNull(objBean.getStrNarration(), "NA", objBean.getStrNarration()));
@@ -373,10 +377,12 @@ public class clsPDCToReceiptController {
 		objReceitInvdtl.setStrInvCode("");
 		if(objBean.getStrBankName()==null){
 			listReceiptInvDtl.add(objReceitInvdtl);
-		}		
+		}
+		
 		objModel.setListReceiptInvDtlModel(listReceiptInvDtl);
 		objModel.setStrCurrency("Rupee");
-		objModel.setDblConversion(currConversion);	
+		objModel.setDblConversion(currConversion);
+	
 		return objModel;
 	}
 
