@@ -63,7 +63,7 @@ public class clsExcelBuilderFromDateTodateCompanyNameWithReportName extends Abst
 		CellStyle style = workbook.createCellStyle();
 		Font font = workbook.createFont();
 		font.setFontName("Arial");
-		style.setFillForegroundColor(HSSFColor.BLUE.index);
+		style.setFillForegroundColor(HSSFColor.LIGHT_BLUE.index);
 		style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
 		font.setColor(HSSFColor.WHITE.index);

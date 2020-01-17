@@ -48,7 +48,7 @@
 		funAddFieldList();
 	    
 // 	    date picker
-    $("#txtdtDateofBirth").datepicker({ dateFormat: 'dd-mm-yy' });
+    	$("#txtdtDateofBirth").datepicker({ dateFormat: 'dd-mm-yy' });
 		$("#txtdtDateofBirth" ).datepicker('setDate', 'today');
 		$("#txtdtDateofBirth").datepicker();
 		
@@ -2883,8 +2883,19 @@ function funSetBillingRegionCode(code){
 		funFillNameOnCard()
 		return flag;		
 	}
-	
-	
+		
+		$(document).on("keyup", function(e) {
+			  if ($('#txtNameOnCard').is(":focus")) {
+			    var code = (e.keyCode ? e.keyCode : e.which);
+			    if (code == 9) {
+			    	funFillNameOnCard();
+			    } else {
+			      alert('not tabbed');
+			    }
+			  }
+			});
+		
+	 
 </script>
 		
 </head>
@@ -2918,7 +2929,7 @@ function funSetBillingRegionCode(code){
 					<div class="row" >
 					<div class="col-md-4"><label class="ast">First  Name</label><br><s:input id="txtFirstName" path="strFirstName"  placeholder="Enter First Name " type="text"></s:input></div>
 					<div class="col-md-4"><label class="ast">Middle  Name</label><br><s:input id="txtMiddleName" path="strMiddleName" placeholder="Enter Middle Name " type="text"></s:input></div>
-					<div class="col-md-4"><label class="ast">Last  Name</label><br><s:input id="txtLastName" path="strLastName" placeholder="Enter Last Name " type="text"></s:input></div>
+					<div class="col-md-4"><label class="ast">Last  Name</label><br><s:input id="txtLastName" path="strLastName" placeholder="Enter Last Name " type="text" onkeypress="return blockSpecialChar(event)"></s:input></div>
 					</div>
 					
 					<div class="row" >

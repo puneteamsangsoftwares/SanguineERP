@@ -195,8 +195,7 @@ public class clsWebClubMemberProfileController {
 			urlHits = req.getParameter("saddr").toString();
 		} catch (NullPointerException e) {
 			urlHits = "1";
-		}
-		
+		}		
 		if (!result.hasErrors()) {
 			// for primary member
 			clsSundryDebtorMasterModel objDebtorModel = null;
@@ -222,15 +221,12 @@ public class clsWebClubMemberProfileController {
 			if(!memProfileBean.getListDependentMember().isEmpty()){
 				// for Dependent member
 				funPrepardDependentModel(memProfileBean, objMemProfileModel, req);
-
-			}
-		
+			}		
 			req.getSession().setAttribute("success", true);
 			req.getSession().setAttribute("successMessage", "Member Code : ".concat(objMemProfileModel.getStrMemberCode().split(" ")[0]));
 			return new ModelAndView("redirect:/frmMemberProfile.html?saddr=" + urlHits);
 		}
 		return new ModelAndView("redirect:/frmMemberProfile.html?saddr=" + urlHits);
-
 	}
 	
     public Map funDataBaseShrink()
@@ -413,26 +409,26 @@ public class clsWebClubMemberProfileController {
 				{
 					sbSql.append(");");
 					objMemberProfileService.funExecuteQuery(sbSql.toString());
-				}
-				
+				}				
 				//objGlobal.funGetList(sbSql.toString());
 				}
 			}
 			else
 			{
 				if(memProfileBean.listField!=null)
-				{	StringBuilder sbsqll= new StringBuilder ();				
+				{	
+					StringBuilder sbsqll= new StringBuilder ();				
 					sbsqll.append("UPDATE  "+WebCLUBDB+".tblotherdtl a SET ");	
 					int count=0;
 					for(int i=0;i<memProfileBean.listField.size();i++)
-					{
-						
+					{						
 						clsWebClubMemberProfileBean obj = new clsWebClubMemberProfileBean();
 						obj=memProfileBean.listField.get(i);
 						if(obj.getStrFieldValue()!=null)
 						{														
 							if(i==0)
-							{	if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
+							{	
+								if(mhasMap.get(obj.getStrFieldName())=="VARCHAR"||mhasMap.get(obj.getStrFieldName())=="TIME"||mhasMap.get(obj.getStrFieldName())=="DATETIME")
 								{
 									sbsqll.append("a."+obj.getStrFieldName()+"='"+obj.getStrFieldValue()+"'");
 								}
@@ -516,39 +512,8 @@ public class clsWebClubMemberProfileController {
 				mpModel.setDteModifiedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 				mpModel.setStrPrimaryCode(memProfileBean.getStrCustomerCode());
 			}
-		}
-		
-		/* String memberCode ="";
-		 String custID =
-		 objMemberProfileService.funGetCustomerID(mpModel.getStrCustomerCode(),
-		 clientCode);
-		 if(mpModel.getStrCustomerID()=="01")
-		 {
-		
-		 memberCode = memProfileBean.getStrMemberCode() +
-		 " "+mpModel.getStrCustomerID();
-		 mpModel.setStrMemberCode(memberCode);
-		
-		 }else
-		 {
-		
-		 if(!(memProfileBean.getStrMemberCode().contains(" ")))
-		 {
-		 int intcustId = Integer.parseInt(custID);
-		 intcustId = intcustId+1;
-		 mpModel.setStrCustomerID("0"+intcustId);
-		 memberCode = memProfileBean.getStrMemberCode() +
-		 mpModel.getStrCustomerID();
-		 mpModel.setStrMemberCode(memberCode);
-		 }else
-		 {
-		 mpModel.setStrMemberCode(memProfileBean.getStrMemberCode());
-		 }
-		
-		 }*/
-	
-		mpModel.setStrMemberCode(memProfileBean.getStrMemberCode() + " 01");
-				
+		}	
+		mpModel.setStrMemberCode(memProfileBean.getStrMemberCode() + " 01");				
 		mpModel.setStrUserCreated(userCode);
 		mpModel.setDteCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 		mpModel.setStrPrefixCode(memProfileBean.getStrPrefixCode());
@@ -556,14 +521,12 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrMiddleName(memProfileBean.getStrMiddleName());
 		mpModel.setStrLastName(memProfileBean.getStrLastName());
 		mpModel.setStrFullName(memProfileBean.getStrFirstName()+" "+memProfileBean.getStrMiddleName()+" "+memProfileBean.getStrLastName());
-		//mpModel.setStrFullName(memProfileBean.getStrFullName());
 		mpModel.setStrNameOnCard(memProfileBean.getStrNameOnCard());
 		
 		// Residence Address
 		mpModel.setStrResidentAddressLine1(memProfileBean.getStrResidentAddressLine1());
 		mpModel.setStrResidentAddressLine2(memProfileBean.getStrResidentAddressLine2());
 		mpModel.setStrResidentAddressLine3(memProfileBean.getStrResidentAddressLine3());
-		
 		mpModel.setStrResidentAreaCode(memProfileBean.getStrResidentAreaCode());
 		mpModel.setStrResidentAreaName(memProfileBean.getStrResidentAreaName());
 		mpModel.setStrResidentCtCode(memProfileBean.getStrResidentCtCode());
@@ -574,7 +537,6 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrResidentCountryName(memProfileBean.getStrResidentCountryName());
 		mpModel.setStrResidentRegionCode(memProfileBean.getStrResidentRegionCode());
 		mpModel.setStrResidentRegionName(memProfileBean.getStrResidentRegionName());
-		
 		mpModel.setStrResidentEmailID(memProfileBean.getStrResidentEmailID());
 		mpModel.setStrResidentFax1(memProfileBean.getStrResidentFax1());
 		mpModel.setStrResidentFax2(memProfileBean.getStrResidentFax2());
@@ -588,7 +550,6 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrCompanyAddressLine1(memProfileBean.getStrCompanyAddressLine1());
 		mpModel.setStrCompanyAddressLine2(memProfileBean.getStrCompanyAddressLine2());
 		mpModel.setStrCompanyAddressLine3(memProfileBean.getStrCompanyAddressLine3());
-		
 		mpModel.setStrCompanyAreaCode(memProfileBean.getStrCompanyAreaCode());
 		mpModel.setStrCompanyAreaName(memProfileBean.getStrCompanyAreaName());
 		mpModel.setStrCompanyCtCode(memProfileBean.getStrCompanyCtCode());
@@ -599,7 +560,6 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrCompanyCountryName(memProfileBean.getStrCompanyCountryName());
 		mpModel.setStrCompanyRegionCode(memProfileBean.getStrCompanyRegionCode());
 		mpModel.setStrCompanyRegionName(memProfileBean.getStrCompanyRegionName());
-		
 		mpModel.setStrCompanyCode(memProfileBean.getStrCompanyCode());
 		mpModel.setStrCompanyEmailID(memProfileBean.getStrCompanyEmailID());
 		mpModel.setStrCompanyFax1(memProfileBean.getStrCompanyFax1());
@@ -618,7 +578,6 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrBillingAddressLine1(memProfileBean.getStrBillingAddressLine1());
 		mpModel.setStrBillingAddressLine2(memProfileBean.getStrBillingAddressLine2());
 		mpModel.setStrBillingAddressLine3(memProfileBean.getStrBillingAddressLine3());
-		
 		mpModel.setStrBillingAreaCode(memProfileBean.getStrBillingAreaCode());
 		mpModel.setStrBillingAreaName(memProfileBean.getStrBillingAreaName());
 		mpModel.setStrBillingCtCode(memProfileBean.getStrBillingCtCode());
@@ -629,7 +588,6 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrBillingCountryName(memProfileBean.getStrBillingCountryName());
 		mpModel.setStrBillingRegionCode(memProfileBean.getStrBillingRegionCode());
 		mpModel.setStrBillingRegionName(memProfileBean.getStrBillingRegionName());
-		
 		mpModel.setStrBillingEmailID(memProfileBean.getStrBillingEmailID());
 		mpModel.setStrBillingFax1(memProfileBean.getStrBillingFax1());
 		mpModel.setStrBillingFax2(memProfileBean.getStrBillingFax2());
@@ -643,43 +601,31 @@ public class clsWebClubMemberProfileController {
 		// Personal Information
 		mpModel.setStrGender(memProfileBean.getStrGender());
 		mpModel.setDteDateofBirth(objGlobal.funGetDate("yyyy-MM-dd",memProfileBean.getDteDateofBirth()));
-		
 		//mpModel.setDteDateofBirth(memProfileBean.getDteDateofBirth());
 
 		//Bank Information
 		mpModel.setStrBankCode(memProfileBean.getStrBankCode());
 		mpModel.setStrIfscCOde(memProfileBean.getStrIfscCOde());
 		mpModel.setStrBranchName(memProfileBean.getStrBranchName());
-		mpModel.setStrAccNo(memProfileBean.getStrAccNo());
-		
-		
+		mpModel.setStrAccNo(memProfileBean.getStrAccNo());		
 		mpModel.setStrMaritalStatus(memProfileBean.getStrMaritalStatus());
 		mpModel.setStrProfessionCode(memProfileBean.getStrProfessionCode());
 		mpModel.setDteMembershipStartDate(objGlobal.funGetDate("yyyy-MM-dd", memProfileBean.getDteMembershipStartDate()));
 		mpModel.setDteMembershipEndDate(objGlobal.funGetDate("yyyy-MM-dd", memProfileBean.getDteMembershipEndDate()));
-		
-		
 		//mpModel.setDteMembershipStartDate(memProfileBean.getDteMembershipStartDate());
 		//mpModel.setDteMembershipEndDate(memProfileBean.getDteMembershipEndDate());
-//		/mpModel.setDteAnniversary(memProfileBean.getDteAnniversary());
+		//mpModel.setDteAnniversary(memProfileBean.getDteAnniversary());
 		mpModel.setDteAnniversary(objGlobal.funGetDate("yyyy-MM-dd",memProfileBean.getDteAnniversary()));
 		
-		// mpModel.setStrpName
-
+		
+		
 		// Member Information
-		// mpModel.setStr txtMSCategoryCode
-		// mpModel.setStr txtMSCategoryNamae
 		mpModel.setStrCategoryCode(memProfileBean.getStrCategoryCode());
 		mpModel.setStrProposerCode(memProfileBean.getStrProposerCode());
-		// mpModel.setStrProposerName
 		mpModel.setStrSeconderCode(memProfileBean.getStrSeconderCode());
-		// mpModel.setStrseconderName
 		mpModel.setStrFatherMemberCode(memProfileBean.getStrFatherMemberCode());
 		mpModel.setStrInstation(memProfileBean.getStrInstation());
-
-		// mpModel.set txtdtMembershipStartDate
-		// mpModel.setStr txtdtMembershipEndDate
-		// mpModel.setStrBlocked(memProfileBean.getStrBlocked());
+		//mpModel.setStrBlocked(memProfileBean.getStrBlocked());
 		mpModel.setStrAlternateMemberCode("");
 		mpModel.setStrAttachment("");
 
@@ -699,12 +645,12 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrAccNo(memProfileBean.getStrAccNo());
 		mpModel.setStrBranchName(memProfileBean.getStrBranchName());
 		mpModel.setStrIfscCOde(memProfileBean.getStrIfscCOde());
-		// mpModel.setStr Bill Detail
+		// Bill Detail
 		mpModel.setStrLocker(memProfileBean.getStrLocker());
 		mpModel.setStrLibrary(memProfileBean.getStrLibrary());
 		mpModel.setStrSeniorCitizen(memProfileBean.getStrSeniorCitizen());
 		mpModel.setStrStopCredit(memProfileBean.getStrStopCredit());
-		// mpModel.setStr Rescident Yes/No
+		// Rescident Yes/No
 		mpModel.setStrInstation(memProfileBean.getStrInstation());
 		mpModel.setStrGolfMemberShip(memProfileBean.getStrGolfMemberShip());
 		mpModel.setStrBlocked(memProfileBean.getStrBlocked());
@@ -713,7 +659,6 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrSendCircularNoticeThrough(memProfileBean.getStrSendCircularNoticeThrough());
 		mpModel.setStrSendInvThrough(memProfileBean.getStrSendInvThrough());
 		mpModel.setStrDepedentRelation("");
-
 		mpModel.setDtePermitExpDate("1990-01-01 00:00:00");
 		mpModel.setStrLiquorPermitNo("");
 		mpModel.setIntFormNo(0);
@@ -722,7 +667,6 @@ public class clsWebClubMemberProfileController {
 		mpModel.setChkmail(0);
 		mpModel.setStrSSuffixCode("0");
 		mpModel.setStrNSuffixCode("0");
-
 		mpModel.setChrCircularemail("0");
 		mpModel.setStrAuthorisedMember("");
 		mpModel.setStrMemberStatusCode("");
@@ -737,38 +681,19 @@ public class clsWebClubMemberProfileController {
 		mpModel.setDteProfileCreationDate("1990-01-01 00:00:00");
 		mpModel.setStrResNonRes("Y");
 		mpModel.setDteDependentDateofBirth("1990-01-01 00:00:00");
-		mpModel.setDteMemberBlockDate("1990-01-01 00:00:00");
-		
+		mpModel.setDteMemberBlockDate("1990-01-01 00:00:00");		
 		mpModel.setDteMembershipExpiryDate(objGlobal.funGetDate("yyyy-MM-dd", memProfileBean.getDteMembershipEndDate()));
 		//mpModel.setDteMembershipExpiryDate(memProfileBean.getDteMembershipEndDate());
 		mpModel.setStrDebtorCode("");
 		mpModel.setStrDependentFullName("");
 		mpModel.setStrDependentMemberCode("");
-		mpModel.setStrDependentReasonCode("");
-		
+		mpModel.setStrDependentReasonCode("");		
 		mpModel.setStrAadharCardNo(memProfileBean.getStrAadharCardNo());
 		mpModel.setStrVoterIdNo(memProfileBean.getStrVoterIdNo());
-		mpModel.setStrPassportNo(memProfileBean.getStrPassportNo());
-		
+		mpModel.setStrPassportNo(memProfileBean.getStrPassportNo());		
 		mpModel.setStrCustomerID("");
  		mpModel.setStrBillingFlag("N");
 		mpModel.setStrMemberYesNo("");
-
-		// mpModel.set SEND INNVOICE Through
-
-		// mpModel.setStr Circle Notice
-
-		// Facility Information
-
-		// mpModel.setstr Facility Information
-		// mpModel.setStrPayment;
-
-		// mpModel.set From Date
-		// mpModel.set To Date
-
-		// mpModel.setst Block Facilty
-
-		
 		mpModel.setStrSeconderCode("");
 		mpModel.setStrFatherMemberCode("");
 		mpModel.setStrProposerCode("");
@@ -780,12 +705,6 @@ public class clsWebClubMemberProfileController {
 		String userCode = req.getSession().getAttribute("usercode").toString();
 		String propCode = req.getSession().getAttribute("propertyCode").toString();
 		objGlobal = new clsGlobalFunctions();
-		
-
-		
-		// clsWebClubDependentMasterModel objDependentMasterModel = new
-		// clsWebClubDependentMasterModel();
-
 		List<clsWebClubDependentMasterModel> listDependentMaster = memProfileBean.getListDependentMember();
 		if (null != listDependentMaster && listDependentMaster.size() > 0) {
 			for (clsWebClubDependentMasterModel obDM : listDependentMaster) {
@@ -826,12 +745,10 @@ public class clsWebClubMemberProfileController {
 						obDM.setDteCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 						obDM.setDteModifiedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 						mpModel.setStrPrimaryCode(objMemberProfile.getStrCustomerCode());
-
 						mpModel.setStrCustomerID(arrCustID[1]);
 						mpModel.setStrCustomerCode(obDM.getStrCustomerCode());
 						mpModel.setIntGId(lastNo);
 					} else {
-
 						mpModel.setIntGId(objMemProfile.getIntGId());
 						mpModel.setStrCustomerID(arrCustID[1]);
 						mpModel.setStrCustomerCode(obDM.getStrCustomerCode());
@@ -840,7 +757,6 @@ public class clsWebClubMemberProfileController {
 				}
 
 				mpModel.setStrMemberCode(obDM.getStrMemberCode());
-
 				mpModel.setStrUserCreated(userCode);
 				mpModel.setStrUserModified(userCode);
 				mpModel.setDteCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
@@ -878,10 +794,7 @@ public class clsWebClubMemberProfileController {
 				mpModel.setStrResidentStateName(memProfileBean.getStrResidentStateName());
 				mpModel.setStrResidentTelephone1(memProfileBean.getStrResidentTelephone1());
 				mpModel.setStrResidentTelephone2(memProfileBean.getStrResidentTelephone2());
-				
 								
-				
-				
 				// Company Address
 				mpModel.setStrCompanyAddressLine1("");
 				mpModel.setStrCompanyAddressLine2("");
@@ -897,9 +810,7 @@ public class clsWebClubMemberProfileController {
 				mpModel.setStrCompanyTelePhone1("");
 				mpModel.setStrCompanyTelePhone2("");
 				mpModel.setStrHoldingCode("");
-				mpModel.setStrJobProfileCode("");
-				
-				
+				mpModel.setStrJobProfileCode("");				
 				mpModel.setStrCompanyAreaCode("");
 				mpModel.setStrCompanyAreaName("");
 				mpModel.setStrCompanyCtCode("");
@@ -910,11 +821,6 @@ public class clsWebClubMemberProfileController {
 				mpModel.setStrCompanyCountryName("");
 				mpModel.setStrCompanyRegionCode("");
 				mpModel.setStrCompanyRegionName("");
-				
-				
-				
-				
-				
 				
 				// Bill Address
 				mpModel.setStrBillingAddressLine1("");
@@ -928,9 +834,7 @@ public class clsWebClubMemberProfileController {
 				mpModel.setStrBillingMobileNo("");
 				mpModel.setStrBillingPinCode("");
 				mpModel.setStrBillingTelePhone1("");
-				mpModel.setStrBillingTelePhone2("");
-				
-				
+				mpModel.setStrBillingTelePhone2("");				
 				mpModel.setStrBillingAreaCode("");
 				mpModel.setStrBillingAreaName("");
 				mpModel.setStrBillingCtCode("");
@@ -940,14 +844,10 @@ public class clsWebClubMemberProfileController {
 				mpModel.setStrBillingCountryCode("");
 				mpModel.setStrBillingCountryName("");
 				mpModel.setStrBillingRegionCode("");
-				mpModel.setStrBillingRegionName("");
-				
+				mpModel.setStrBillingRegionName("");				
 				mpModel.setStrResident(memProfileBean.getStrResident());
 				mpModel.setStrSendCircularNoticeThrough(memProfileBean.getStrSendCircularNoticeThrough());
 				mpModel.setStrSendInvThrough(memProfileBean.getStrSendInvThrough());
-				
-				
-				
 				
 				
 				// Personal Information
@@ -956,8 +856,7 @@ public class clsWebClubMemberProfileController {
 				//mpModel.setDteDateofBirth(obDM.getDteDependentDateofBirth());
 				mpModel.setStrMaritalStatus(obDM.getStrMaritalStatus());
 				mpModel.setStrProfessionCode(obDM.getStrProfessionCode());
-				mpModel.setDteAnniversary("1990-01-01 00:00:00");
-				// mpModel.setStrpName
+				mpModel.setDteAnniversary("1990-01-01 00:00:00");			
 
 				// Member Information
 				mpModel.setStrCategoryCode("");
@@ -1003,7 +902,6 @@ public class clsWebClubMemberProfileController {
 				mpModel.setChkmail(0);
 				mpModel.setStrSSuffixCode("0");
 				mpModel.setStrNSuffixCode("0");
-
 				mpModel.setChrCircularemail("0");
 				mpModel.setStrAuthorisedMember("");
 				mpModel.setStrMemberStatusCode("");
@@ -1022,13 +920,11 @@ public class clsWebClubMemberProfileController {
 				mpModel.setDteDependentDateofBirth("1990-01-01 00:00:00");
 				mpModel.setDteMemberBlockDate("1990-01-01 00:00:00");
 				mpModel.setDteMembershipExpiryDate(objGlobal.funGetDate("yyyy-mm-dd", memProfileBean.getDteMembershipEndDate()));
-				
 				//mpModel.setDteMembershipExpiryDate(memProfileBean.getDteMembershipEndDate());
 				mpModel.setStrDebtorCode("");
 				mpModel.setStrDependentFullName("");
 				mpModel.setStrDependentMemberCode("");
 				mpModel.setStrDependentReasonCode("");
-
 				mpModel.setStrCustomerID("");
 				mpModel.setStrBillingFlag("N");
 				mpModel.setStrMemberYesNo("");
@@ -1047,11 +943,7 @@ public class clsWebClubMemberProfileController {
 		objGlobal = new clsGlobalFunctions();
 		long lastNo = 0;
 		clsWebClubMemberProfileModel mpModel=null;
-		
-		
-
 		if (memProfileBean.getStrSpouseCustomerCode() == null) {
-
 			lastNo = objGlobalFunctionsService.funGetLastNo("tblmembermaster", "MemberProfile", "intGId", clientCode);
 			String customerCode = "C" + String.format("%06d", lastNo);
 			mpModel = new clsWebClubMemberProfileModel(new clsWebClubMemberProfileModel_ID(customerCode, clientCode));
@@ -1063,9 +955,7 @@ public class clsWebClubMemberProfileController {
 			mpModel.setDteCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 			mpModel.setDteModifiedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 			mpModel.setStrPrimaryCode(objMemberProfile.getStrCustomerCode());
-
 		} else {
-
 			clsWebClubMemberProfileModel objMemProfile = objMemberProfileService.funGetCustomer(memProfileBean.getStrSpouseCustomerCode(), clientCode);
 			if (null == objMemProfile) {
 				lastNo = objGlobalFunctionsService.funGetLastNo("tblmembermaster", "MemberProfile", "intGId", clientCode);
@@ -1090,7 +980,6 @@ public class clsWebClubMemberProfileController {
 		}
 		
 		mpModel.setStrMemberCode(memProfileBean.getStrSpouseCode());
-
 		mpModel.setStrUserCreated(userCode);
 		mpModel.setStrUserModified(userCode);
 		mpModel.setDteCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
@@ -1127,18 +1016,9 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrResidentStateName(memProfileBean.getStrResidentStateName());
 		mpModel.setStrResidentTelephone1(memProfileBean.getStrResidentTelephone1());
 		mpModel.setStrResidentTelephone2(memProfileBean.getStrResidentTelephone2());
-		
-
-
 		mpModel.setStrResident(memProfileBean.getStrResident());
 		mpModel.setStrSendCircularNoticeThrough(memProfileBean.getStrSendCircularNoticeThrough());
 		mpModel.setStrSendInvThrough(memProfileBean.getStrSendInvThrough());
-		
-		
-		
-		
-		
-		
 		
 		// Company Address
 		mpModel.setStrCompanyAddressLine1("");
@@ -1168,8 +1048,6 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrHoldingCode("");
 		mpModel.setStrJobProfileCode(memProfileBean.getStrSpouseJobProfileCode());
 		
-		
-		
 		// Bill Address
 		mpModel.setStrBillingAddressLine1("");
 		mpModel.setStrBillingAddressLine2("");
@@ -1192,20 +1070,16 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrBillingStateCode("");
 		mpModel.setStrBillingStateName("");
 		mpModel.setStrBillingTelePhone1("");
-		mpModel.setStrBillingTelePhone2("");
-		
+		mpModel.setStrBillingTelePhone2("");		
 		
 		// Personal Information
 		mpModel.setStrGender("F");
 		mpModel.setDteDateofBirth(objGlobal.funGetDate("yyyy-mm-dd", memProfileBean.getDteSpouseDateofBirth()));
-		
 		//mpModel.setDteDateofBirth(memProfileBean.getDteSpouseDateofBirth());
 		mpModel.setStrMaritalStatus("married");
 		mpModel.setStrProfessionCode(memProfileBean.getStrSpouseProfessionCode());
 		mpModel.setDteAnniversary(objGlobal.funGetDate("yyyy-mm-dd", memProfileBean.getDteAnniversary()));
-		
-		//mpModel.setDteAnniversary(memProfileBean.getDteAnniversary());
-		// mpModel.setStrpName
+		//mpModel.setDteAnniversary(memProfileBean.getDteAnniversary());		
 
 		// Member Information
 		mpModel.setStrCategoryCode("");
@@ -1213,11 +1087,9 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrSeconderCode("");
 		mpModel.setStrFatherMemberCode("");
 		mpModel.setDteMembershipStartDate(objGlobal.funGetDate("yyyy-mm-dd", memProfileBean.getDteMembershipStartDate()));
-		
 		//mpModel.setDteMembershipStartDate(memProfileBean.getDteMembershipStartDate());
 		// mpModel.setDteMembershipEndDate(memProfileBean.getDteMembershipExpiryDate());
 		mpModel.setDteMembershipEndDate(objGlobal.funGetDate("yyyy-mm-dd", memProfileBean.getDteMembershipEndDate()));
-		
 		//mpModel.setDteMembershipEndDate(memProfileBean.getDteMembershipEndDate());
 		mpModel.setStrInstation("");
 
@@ -1236,17 +1108,14 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrAccNo("");
 		mpModel.setStrBranchName("");
 		mpModel.setStrIfscCOde("");
-
 		mpModel.setStrStopCredit(memProfileBean.getStrSpouseStopCredit());
 		mpModel.setStrLocker("No");
 		mpModel.setStrLibrary("No");
 		mpModel.setStrSeniorCitizen("No");
-
 		mpModel.setStrInstation("No");
 		mpModel.setStrGolfMemberShip("No");
 		mpModel.setStrBlocked(memProfileBean.getStrSpouseBlocked());
 		mpModel.setStrBlockedreasonCode("");
-
 		mpModel.setDtePermitExpDate("1990-01-01 00:00:00");
 		mpModel.setStrLiquorPermitNo("");
 		mpModel.setIntFormNo(0);
@@ -1274,7 +1143,6 @@ public class clsWebClubMemberProfileController {
 		mpModel.setDteDependentDateofBirth("1990-01-01 00:00:00");
 		mpModel.setDteMemberBlockDate("1990-01-01 00:00:00");
 		mpModel.setDteMembershipExpiryDate(objGlobal.funGetDate("yyyy-mm-dd", memProfileBean.getDteMembershipEndDate()));
-		
 		//mpModel.setDteMembershipExpiryDate(memProfileBean.getDteMembershipEndDate());
 		mpModel.setStrDebtorCode("");
 		mpModel.setStrDependentFullName("");
@@ -1286,17 +1154,14 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrBillingFlag("N");
 		mpModel.setStrMemberYesNo("");
 		mpModel.setStrBankCode("");
-		return mpModel;
-	
+		return mpModel;	
 	}
 	
 	private Blob funBlankBlob() {
 		Blob blob = new Blob() {
-
 			@Override
 			public void truncate(long len) throws SQLException {
 				// TODO Auto-generated method stub
-
 			}
 
 			@Override
@@ -1428,7 +1293,6 @@ public class clsWebClubMemberProfileController {
 					objbean.setDteMembershipStartDate(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDteMembershipStartDate().split(" ")[0]));
 					objbean.setDtePermitExpDate(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDtePermitExpDate().split(" ")[0]));
 					objbean.setDteProfileCreationDate(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDteProfileCreationDate().split(" ")[0]));
-									
 					finalList.add(objbean);
 				}
 			}
@@ -1499,9 +1363,7 @@ public class clsWebClubMemberProfileController {
 			}
 			
 		}
-		return hm;
-		
-		
+		return hm;		
 	}
 	
 	
@@ -1522,7 +1384,6 @@ public class clsWebClubMemberProfileController {
 		List<clsWebClubDependentMasterModel> listDMData = new LinkedList<clsWebClubDependentMasterModel>();
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		listDMData = objDependentMasterService.funGetWebClubDependentMasterList(docCode, clientCode);
-
 		return listDMData;
 	}
 
@@ -1565,19 +1426,11 @@ public class clsWebClubMemberProfileController {
 						else{
 							hm.put(entry.getKey(),obj[k+1].toString());
 							k++;
-						}
-						
-					}
-					
-			        //System.out.println("Key = " + entry.getKey() +  ", Value = " + entry.getValue()); 
-			    
-			        
+						}						
+					}			        
 			    }	
-			}
-			
-		}
-		 
-		
+			}			
+		}		
 		return hm;
 	}
 	
@@ -1591,7 +1444,6 @@ public class clsWebClubMemberProfileController {
 		} else {
 			objmemPhotoModel = objWebClubMemberPhotoService.funGetWebClubMemberPhoto(prodCode, clientCode);
 		}
-
 		try {
 			//Blob image = null;
 			byte[] imgData = null;
@@ -1634,13 +1486,11 @@ public class clsWebClubMemberProfileController {
 					objbean.setDteMembershipStartDate(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDteMembershipStartDate().split(" ")[0]));
 					objbean.setDtePermitExpDate(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDtePermitExpDate().split(" ")[0]));
 					objbean.setDteProfileCreationDate(objGlobal.funGetDate("dd-MM-yyyy",objMemberModelList.get(i).getDteProfileCreationDate().split(" ")[0]));
-									
 					finalList.add(objbean);
 				}
 			}
 		}	
-		funGenarateMemberProfileForm(req,res,finalList);
-		
+		funGenarateMemberProfileForm(req,res,finalList);		
 	}
 
 	@RequestMapping(value = "/deleteDependenData", method = RequestMethod.GET)
@@ -1651,11 +1501,8 @@ public class clsWebClubMemberProfileController {
 		String WebClubDB=req.getSession().getAttribute("WebCLUBDB").toString();
 		//List<clsWebClubMemberProfileModel> objMemberModelList = objMemberProfileService.funGetAllMember(docCode, clientCode);		
 		objMemberProfileService.funExecuteQuery("DELETE FROM "+WebClubDB+".tblmembermaster WHERE strMemberCode='"+docCode+"' AND strClientCode='"+clientCode+"' ");
-		
 		return null;
 	}
-	
-	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/loadAttachedDocumentsCount", method = RequestMethod.GET)
@@ -1664,14 +1511,8 @@ public class clsWebClubMemberProfileController {
 		String webStockDB = req.getSession().getAttribute("WebStockDB").toString();
 		//String sql="SELECT  ifnull(COUNT(a.strActualFileName),0) from "+webStockDB+".tblattachdocument a WHERE a.strCode='"+memCode+" 01' ";
 		List list=objGlobalFunctionsService.funGetListModuleWise("SELECT  ifnull(COUNT(a.strActualFileName),0) from "+webStockDB+".tblattachdocument a WHERE a.strCode='"+memCode+" 01' ","sql") ;
-		if(list!=null && list.size()>0)
-		{
-			String a="";
-		}		
 		return list;
 	}
-	
-	
 	
 	public Map funDataBaseShrink(String Sql)
     {
@@ -1724,7 +1565,6 @@ public class clsWebClubMemberProfileController {
 		objModel = new clsSundryDebtorMasterModel(new clsSundryDebtorMasterModel_ID(debtorCode, clientCode));
 		objModel.setIntGId(lastNo);
 		objModel.setDteStartDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-
 	} else {
 		objModel = objSundryDebtorMasterService.funGetSundryDebtorMaster(objBean.getStrDebtorCode().trim(), clientCode);
 		if (null == objModel) {
@@ -1743,9 +1583,7 @@ public class clsWebClubMemberProfileController {
 	String accCode="",accName="";
 	try{
 		StringBuilder hql=new StringBuilder("select strAccountCode,strAccountName from clsWebBooksAccountMasterModel where strClientCode='" + clientCode + "' and strDebtor='Yes' ");
-		List listAcc=objBaseService.funGetListForWebBooks(hql, "hql");
-		
-		
+		List listAcc=objBaseService.funGetListForWebBooks(hql, "hql");		
 		//List listAcc=objBaseService.funGetListModuleWise(hql, "hql", "WebBooks");
 		if(listAcc!=null && listAcc.size()>0){
 			Object[] ob=(Object[]) listAcc.get(0);
@@ -1763,8 +1601,8 @@ public class clsWebClubMemberProfileController {
 	objModel.setStrMiddleName(objBean.getStrMiddleName());
 	objModel.setStrLastName(objBean.getStrLastName());
 	objModel.setStrCategoryCode("");
+	
 	/* setting main data */
-
 	objModel.setStrAddressLine1(objBean.getStrResidentAddressLine1());
 	objModel.setStrAddressLine2(objBean.getStrResidentAddressLine2());
 	objModel.setStrAddressLine3("");
@@ -1819,7 +1657,6 @@ public class clsWebClubMemberProfileController {
 	objModel.setStrAccountHolderCode("NA");
 	objModel.setStrAccountHolderName("NA");
 	objModel.setStrAMCCycle("Yearly");
-
 	objModel.setStrAMCRemarks("");
 	objModel.setStrClientComment("");
 	objModel.setStrBillingToCode("");
@@ -1844,7 +1681,6 @@ public class clsWebClubMemberProfileController {
 	objModel.setStrReminderStatus5("NA");
 	objModel.setDteRemainderDate5("");
 	objModel.setStrAllInvoiceHeader("");
-
 	objModel.setStrClientCode(clientCode);
 	objModel.setStrPropertyCode(propertyCode);
 	objModel.setStrUserCreated(userCode);
@@ -1868,15 +1704,11 @@ public class clsWebClubMemberProfileController {
 		String strServiceType="";
 		HashMap reportParams = new HashMap();
 		clsFunctionProspectusBean objBean=null;
-		/*List listStaff = new ArrayList<>();
-		List listEquipment = new ArrayList<>();
-		List listService = new ArrayList<>();
-		List listMenu = new ArrayList<>();*/
 		List<clsWebClubMemberProfileModel> listDep=new ArrayList<clsWebClubMemberProfileModel>();;
 		try
 		{
 			String reportName = servletContext.getRealPath("/WEB-INF/reports/webclub/rptMemberProfileForm.jrxml");
-			String imagePath = servletContext.getRealPath("/resources/images/Sanguine_Logo_Icon.png");
+			String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
 			String WebStocksDB=req.getSession().getAttribute("WebStockDB").toString();	
 			String WebCLUBDB=req.getSession().getAttribute("WebCLUBDB").toString();	
 			reportParams.put("strImagePath", imagePath);
@@ -1888,7 +1720,6 @@ public class clsWebClubMemberProfileController {
 				reportParams.put("pCompanyName",objGlobal.funIfNull(obj[0].toString(),"",obj[0].toString()));  
 				reportParams.put("pAddress1",objGlobal.funIfNull(obj[1].toString(),"",obj[1].toString()));  
 				reportParams.put("pAddress2",objGlobal.funIfNull(obj[2].toString()+","+obj[3].toString(),"",obj[2].toString()+","+obj[3].toString()));  
-				//reportParams.put("pstrCity",objGlobal.funIfNull(","+obj[3].toString(),"",","+obj[3].toString()));  
 			}
 			if(list.size()>0)
 			{
@@ -1904,7 +1735,6 @@ public class clsWebClubMemberProfileController {
 					reportParams.put("strMaritalStatus",list.get(0).getStrMaritalStatus());
 					
 					//cate code
-					//String FaciltyName="";
 					clsWebClubFacilityMasterBean objFacilityBean =null;
 					List listCateCode =objGlobalFunctionsService.funGetList("SELECT a.strCatName from "+WebCLUBDB+".tblmembertypemaster a WHERE a.strCatCode='"+list.get(0).getStrCategoryCode()+"' AND a.strClientCode='"+clientCode+"';");	
 					if(!listCateCode.isEmpty())
@@ -1925,20 +1755,7 @@ public class clsWebClubMemberProfileController {
 					}
 					
 					List<clsWebClubOtheInfoBean> listOtheInfo = new ArrayList<clsWebClubOtheInfoBean>(); 
-					clsWebClubOtheInfoBean objOtheInfo = null;
-					//other info if available
-				/*	List listOtherInfo =objGlobalFunctionsService.funGetList("SELECT * from "+WebCLUBDB+".tblotherdtl a WHERE a.strMemberCode='"+list.get(0).getStrMemberCode()+"' AND a.strClientCode='"+clientCode+"' ");	
-					if(listOtherInfo.size()>=0)
-					{
-						for(int j=0;j<listOtherInfo.size();j++)
-						{
-							Object Obj[] = (Object[])listOtherInfo.get(0); 
-							
-							//objOtheInfo.setStrFieldName(strFieldName);
-							//objOtheInfo.setStrFieldValue(strFieldValue);
-							//listOtheInfo.add(objOtheInfo);
-*/							
-							
+					clsWebClubOtheInfoBean objOtheInfo = null;											
 							Map hm = new LinkedHashMap<String,List>();		
 							List listField=objGlobalFunctionsService.funGetListModuleWise("SELECT * FROM tblotherdtl a WHERE a.strMemberCode='"+list.get(0).getStrMemberCode()+"' ","sql") ;
 							Map hmap=funDataBaseShrink();
@@ -2021,11 +1838,7 @@ public class clsWebClubMemberProfileController {
 					reportParams.put("strResPin",objGlobal.funIfNull(list.get(0).getStrResidentPinCode().toString()," ",list.get(0).getStrResidentPinCode().toString()));
 					reportParams.put("strResMob",objGlobal.funIfNull(list.get(0).getStrResidentMobileNo().toString()," ",list.get(0).getStrResidentMobileNo().toString()));
 					reportParams.put("strResEmail",objGlobal.funIfNull(list.get(0).getStrResidentEmailID().toString()," ",list.get(0).getStrResidentEmailID().toString()));
-					
-					
-					
-					
-					
+										
 					//comany address
 					reportParams.put("strCompAddrLine1",objGlobal.funIfNull(list.get(0).getStrCompanyAddressLine1().toString()," ",list.get(0).getStrCompanyAddressLine1().toString()));
 					reportParams.put("strCompAddrLine2",objGlobal.funIfNull(list.get(0).getStrCompanyAddressLine2().toString()," ",list.get(0).getStrCompanyAddressLine2().toString()));
@@ -2043,12 +1856,7 @@ public class clsWebClubMemberProfileController {
 					reportParams.put("strCompPin",objGlobal.funIfNull(list.get(0).getStrCompanyPinCode().toString()," ",list.get(0).getStrCompanyPinCode().toString()));
 					reportParams.put("strCompMob",objGlobal.funIfNull(list.get(0).getStrCompanyMobileNo().toString()," ",list.get(0).getStrCompanyMobileNo().toString()));
 					reportParams.put("strCompEmail",objGlobal.funIfNull(list.get(0).getStrCompanyEmailID().toString()," ",list.get(0).getStrCompanyEmailID().toString()));
-					
-					
-					
-					
-					
-					
+										
 					//billing
 					reportParams.put("strBillAddrLine1",objGlobal.funIfNull(list.get(0).getStrBillingAddressLine1().toString()," ",list.get(0).getStrBillingAddressLine1().toString()));
 					reportParams.put("strBillAddrLine2",objGlobal.funIfNull(list.get(0).getStrBillingAddressLine2().toString()," ",list.get(0).getStrBillingAddressLine2().toString()));
@@ -2066,12 +1874,7 @@ public class clsWebClubMemberProfileController {
 					reportParams.put("strBillPin",objGlobal.funIfNull(list.get(0).getStrBillingPinCode().toString()," ",list.get(0).getStrBillingPinCode().toString()));
 					reportParams.put("strBillMob",objGlobal.funIfNull(list.get(0).getStrBillingMobileNo().toString()," ",list.get(0).getStrBillingMobileNo().toString()));
 					reportParams.put("strBillEmail",objGlobal.funIfNull(list.get(0).getStrBillingEmailID().toString()," ",list.get(0).getStrBillingEmailID().toString()));
-					
-					
-					
-					
-					
-					
+										
 					clsWebClubMemberPhotoModel obj = new clsWebClubMemberPhotoModel();
 					clsWebClubMemberPhotoModel objmemPhotoModel = null;
 					if (list.get(0).getStrMemberCode().toString().length() > 0) {
@@ -2131,15 +1934,6 @@ public class clsWebClubMemberProfileController {
 					reportParams.put("listNominies",listDep);				
 				}
 			}
-			
-			
-			// depedent data
-			//dependet show with mobile no adharcar no,email id
-
-
-
-			//other information
-			
 			JasperDesign jd = JRXmlLoader.load(reportName);
 			JasperReport jr = JasperCompileManager.compileReport(jd);
 			JasperPrint jp = JasperFillManager.fillReport(jr, reportParams,new JREmptyDataSource());
@@ -2157,15 +1951,20 @@ public class clsWebClubMemberProfileController {
 				exporter.exportReport();
 				servletOutputStream.flush();
 				servletOutputStream.close();
-			}
-		
+			}		
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
-		}
-	
+		}		
+	}
+
+	@RequestMapping(value = "/uploadImg", method = RequestMethod.POST)
+	public ModelAndView funUpload(HttpServletRequest req, @RequestParam("memberImage") MultipartFile file) throws IOException {
 		
+		String userCode = req.getSession().getAttribute("usercode").toString();
+		String clientCode = req.getSession().getAttribute("clientCode").toString();		
+		return new ModelAndView("redirect:/frmMemberProfile.html?saddr=" + 1);
 	}
 
 }

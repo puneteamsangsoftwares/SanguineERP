@@ -137,10 +137,10 @@
 		    var row = table.insertRow(rowCount);   
 		    
 		    rowCount=listRow;
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listTableCreation["+(rowCount)+"].strFieldName\" value='"+fieldName+"' id=\"txtFieldName."+(rowCount)+"\" >";
-			row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listTableCreation["+(rowCount)+"].strDataType\" value='"+dataType+"' id=\"txtBankCode."+(rowCount)+"\" >";
-		    row.insertCell(2).innerHTML= "<input class=\"Box\" type=\"text\" name=\"listTableCreation["+(rowCount)+"].dblLength\" size=\"15%\" style=\"text-align: right;\" id=\"txtChequeNo."+(rowCount)+"\" value='"+length+"'/>";	
-		    row.insertCell(3).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listTableCreation["+(rowCount)+"].strDefault\" id=\"txtChkDte."+(rowCount)+"\" value="+deefault+">";
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"15%\" readonly=\"true\" name=\"listTableCreation["+(rowCount)+"].strFieldName\" value='"+fieldName+"' id=\"txtFieldName."+(rowCount)+"\" >";
+			row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"15%\" readonly=\"true\" name=\"listTableCreation["+(rowCount)+"].strDataType\" value='"+dataType+"' id=\"txtBankCode."+(rowCount)+"\" >";
+		    row.insertCell(2).innerHTML= "<input class=\"Box\" type=\"text\" readonly=\"true\" name=\"listTableCreation["+(rowCount)+"].dblLength\" size=\"15%\" style=\"text-align: right;\" id=\"txtChequeNo."+(rowCount)+"\" value='"+length+"'/>";	
+		    row.insertCell(3).innerHTML= "<input class=\"Box\" size=\"15%\" readonly=\"true\" name=\"listTableCreation["+(rowCount)+"].strDefault\" id=\"txtChkDte."+(rowCount)+"\" value="+deefault+">";
 			row.insertCell(4).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"1%\" value = \"Delete\" onClick=\"Javacsript:funDeleteRowRecieved(this)\"/>";
 			   
 		    listRow++;		    
@@ -495,6 +495,15 @@
 	 }
 	 
 	 
+	 
+	 
+	 function blockSpecialChar(e){
+	         var k;
+	        document.all ? k = e.keyCode : k = e.which;
+	        return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8);	   
+	 }
+	 
+	 
 </script>
 
 </head>
@@ -509,7 +518,7 @@
 									<div class="col-md-6">
 										<label>Field Name:</label><br>
 											<s:input  type="text" placeholder="Field Name" id="txtFieldName" 
-												 path="strFieldName" /><s:errors path=""></s:errors>
+												 path="strFieldName" onkeypress="return blockSpecialChar(event)"/><s:errors path=""></s:errors>
 									</div>
 									<div class="col-md-6">
 										<label>Data Type:</label><br>

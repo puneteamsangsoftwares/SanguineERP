@@ -189,6 +189,10 @@ public class clsCreditorLedgerController {
 		case "Receipt":
 			objclsReceiptController.funCallReciptdtlReport(docCode, "pdf", resp, req, currValue,conversionRate,propertyCode);
 			break;
+			
+		case "Recepit":
+			objclsReceiptController.funCallReciptdtlReport(docCode, "pdf", resp, req, currValue,conversionRate,propertyCode);
+			break;
 
 		}
 	}
@@ -196,14 +200,18 @@ public class clsCreditorLedgerController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/frmExportLedger", method = RequestMethod.GET)
 	private ModelAndView funExportLedger(@RequestParam(value = "param1") String param1, @RequestParam(value = "fDate") String fDate, @RequestParam(value = "tDate") String tDate,
-			@RequestParam(value="strShowNarration") boolean isShowNarration,HttpServletRequest req, HttpServletResponse resp) {
+			@RequestParam(value="strShowNarration") boolean isShowNarration,HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		String userCode = req.getSession().getAttribute("usercode").toString();
+		String companyName=req.getSession().getAttribute("companyName").toString();
 		String[] spParam1 = param1.split(",");
 		String glCode = spParam1[0];
-		String creditorCode = spParam1[1];
+		String creditorCode = spParam1[1];	
+		String reportName = "Creditor Ledger Report";
 		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
+		String strDetorOrCreditorName = "";
+		String sqlCreditorOrDetor="";
 		double currValue = 1.0;
 		DecimalFormat df =objGlobal.funGetDecimatFormat(req);
 			
@@ -211,13 +219,38 @@ public class clsCreditorLedgerController {
 		clsCurrencyMasterModel objCurrModel = objCurrencyMasterService.funGetCurrencyMaster(currency, clientCode);
 		if (objCurrModel != null) {
 			currValue = objCurrModel.getDblConvToBaseCurr();
-
 		}
-
+		if(creditorCode.startsWith("D"))
+		{
+			reportName="Debtor Ledger Report";
+			sqlCreditorOrDetor="SELECT CONCAT(a.strFirstName,' ',a.strMiddleName,' ',a.strLastName) FROM tblsundarydebtormaster a WHERE a.strDebtorCode='"+creditorCode+"' ";
+		}
+		else
+		{			
+			sqlCreditorOrDetor="SELECT a.strCreditorFullName FROM tblsundarycreditormaster a WHERE a.strCreditorCode='"+creditorCode+"' ";
+		}
+		List listGetRecord =objBaseService.funGetListForWebBooks(new StringBuilder(sqlCreditorOrDetor), "sql");
+		if(listGetRecord.size()>0)
+		{
+			strDetorOrCreditorName=listGetRecord.get(0).toString();
+		}
 		String fromDate = objGlobal.funGetDate("yyyy-MM-dd", fDate);
 		String toDate = objGlobal.funGetDate("yyyy-MM-dd", tDate);
 		List listLedger = new ArrayList();
+		List listComapnyName = new ArrayList();	
+		List listReportNameTitle = new ArrayList();	
+		List listFromDate = new ArrayList();
+		List listBlank = new ArrayList();
 		listLedger.add("Ledger_" + fromDate + "to" + toDate + "_" + userCode);
+		listComapnyName.add(companyName);
+		listLedger.add(listComapnyName);
+		listReportNameTitle.add(reportName);
+		listLedger.add(listReportNameTitle);
+		listBlank.add(strDetorOrCreditorName);
+		listLedger.add(listBlank);
+		listFromDate.add("From Date : "+fromDate);
+		listFromDate.add("To Date : "+toDate);
+		listLedger.add(listFromDate);
 		String[] ExcelHeader = { "Transaction Date", "Transaction Type", "Ref No", "Chq/BillNo", "Bill Date", "Dr", "Cr", "Balance" };
 		if(isShowNarration){
 			ExcelHeader =new String[] { "Transaction Date", "Transaction Type", "Ref No", "Narration","Chq/BillNo", "Bill Date", "Dr", "Cr", "Balance" };
@@ -387,8 +420,11 @@ public class clsCreditorLedgerController {
 		listemp.add("");
 		objList.add(listemp);
 		
-		
-		return new ModelAndView("excelViewWithReportName", "listWithReportName", listLedger);
+		//listLedger.add("");
+
+		return new ModelAndView("excelViewFromDateTodateCompanyNameWithReportName", "listFromDateTodateWithReportName", listLedger);
+
+		//return new ModelAndView("excelViewWithReportName", "listWithReportName", listLedger);
 	}
 	
 	@RequestMapping(value = "/rptCreditorReport", method = RequestMethod.GET)

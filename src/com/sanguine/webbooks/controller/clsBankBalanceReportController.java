@@ -98,7 +98,6 @@ public class clsBankBalanceReportController {
 		objGlobal = new clsGlobalFunctions();
 		Connection con = objGlobal.funGetConnection(req);
 		try {
-
 			String clientCode = req.getSession().getAttribute("clientCode").toString();
 			String companyName = req.getSession().getAttribute("companyName").toString();
 			String userCode = req.getSession().getAttribute("usercode").toString();
@@ -110,15 +109,14 @@ public class clsBankBalanceReportController {
 			sbSql.append("select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster where strCurrencyCode='"+currencyCode+"' and strClientCode='"+clientCode+"' ");
 			try
 			{
-				List list = objBaseService.funGetList(sbSql,"sql");
+				//List list = objBaseService.funGetList(sbSql,"sql");
+				List list =objBaseService.funGetListForWebBooks(sbSql, "sql");
 				conversionRate=Double.parseDouble(list.get(0).toString());
 			}catch(Exception e)
 			{
 				e.printStackTrace();
-			}
-			
+			}			
 //			double currValue = Double.parseDouble(req.getSession().getAttribute("currValue").toString());
-
 			clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
 			if (objSetup == null) {
 				objSetup = new clsPropertySetupModel();
@@ -135,11 +133,13 @@ public class clsBankBalanceReportController {
 			String tm = toDate.split("-")[1];
 			String ty = toDate.split("-")[2];
 
+						
+			
 			String dteFromDate = fy + "-" + fm + "-" + fd;
 			String dteToDate = ty + "-" + tm + "-" + td;
 			String reportName = servletContext.getRealPath("/WEB-INF/reports/webbooks/rptBankBalanceReport.jrxml");
 			String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
-
+		
 			ArrayList bankBalList = new ArrayList();
 			ArrayList cashBalList = new ArrayList();
 			String startDate = req.getSession().getAttribute("startDate").toString();

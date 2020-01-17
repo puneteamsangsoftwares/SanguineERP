@@ -128,7 +128,8 @@ public class clsJVBookReportController {
 			sbSql.append("select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster where strCurrencyCode='"+currencyCode+"' and strClientCode='"+clientCode+"' ");
 			try
 			{
-				List list = objBaseService.funGetList(sbSql,"sql");
+				//List list = objBaseService.funGetList(sbSql,"sql");
+				List list =objBaseService.funGetListForWebBooks(sbSql, "sql");
 				conversionRate=Double.parseDouble(list.get(0).toString());
 			}catch(Exception e)
 			{
@@ -162,8 +163,8 @@ public class clsJVBookReportController {
 				sbSql.append(" and a.strSource='"+objBean.getStrDocType()+"' ");
 			}		
 			sbSql.append(" order by a.strVouchNo,a.dteVouchDate");
-
-			List list = objBaseService.funGetListModuleWise(sbSql,"sql","WebBooks");
+			List list =objBaseService.funGetListForWebBooks(sbSql, "sql");
+			//List list = objBaseService.funGetListModuleWise(sbSql,"sql","WebBooks");
 			List<clsJVBookReportBean> listBean=new ArrayList();
 			if(null!=list && list.size()>0){
 				clsJVBookReportBean obBean;
