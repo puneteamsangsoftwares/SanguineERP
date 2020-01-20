@@ -133,7 +133,9 @@ public class clsCreditorAgeingReportController {
 			StringBuilder sbSql = new StringBuilder();
 			sbSql.append("select dblConvToBaseCurr from " + webStockDB + ".tblcurrencymaster where strCurrencyCode='"
 					+ currency + "' and strClientCode='" + clientCode + "' ");
-			List list = objBaseService.funGetList(sbSql, "sql");
+			//List list = objBaseService.funGetList(sbSql, "sql");
+			List list =objBaseService.funGetListForWebBooks(sbSql, "sql");
+			
 			double conversionRate = 1;
 			if (list != null && list.size() > 0) {
 				Double.parseDouble(list.get(0).toString());
@@ -254,8 +256,9 @@ public class clsCreditorAgeingReportController {
 					+ " where debtor.strAccountCode='" + glCode
 					+ "' and debtor.strCrDr='Dr' and date(hd.dteVouchDate) between '" + fromDateToCalculateOutStanding
 					+ "' AND '" + toDateToCalculateuteOutStanding + "' " + " and hd.strClientCode='" + clientCode + "' "
-					+ " group by debtor.strCrDr,debtor.strDebtorCode ");
-			List listJVAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+					+ " group by debtor.strCrDr,debtor.strDebtorCode ");			
+		  //List listJVAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			List listJVAmt =objBaseService.funGetListForWebBooks(sbSql, "sql");
 			if (listJVAmt != null && listJVAmt.size() > 0) {
 				for (int j = 0; j < listJVAmt.size(); j++) {
 					Object[] arrObj = (Object[]) listJVAmt.get(j);
@@ -287,7 +290,8 @@ public class clsCreditorAgeingReportController {
 					+ "' and debtor.strCrDr='Dr' and date(hd.dteVouchDate) between '" + fromDateToCalculateOutStanding
 					+ "' AND '" + toDateToCalculateuteOutStanding + "' " + " and hd.strClientCode='" + clientCode + "' "
 					+ " group by debtor.strCrDr,debtor.strDebtorCode ");
-			List listPaymentAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			//List listPaymentAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			List listPaymentAmt =objBaseService.funGetListForWebBooks(sbSql, "sql");
 			if (listPaymentAmt != null && listPaymentAmt.size() > 0) {
 				for (int j = 0; j < listPaymentAmt.size(); j++) {
 					Object[] arrObj = (Object[]) listPaymentAmt.get(j);
@@ -311,7 +315,6 @@ public class clsCreditorAgeingReportController {
 					hmOutstanding.put(arrObj[0].toString(), objOutStBean);
 				}
 			}
-
 			sbSql.setLength(0);
 			sbSql.append("select debtor.strDebtorCode,'',debtor.strCrDr, sum(ifnull(debtor.dblAmt,0.00)) "
 					+ " from tblreceiptdebtordtl debtor inner join tblreceipthd hd on hd.strVouchNo=debtor.strVouchNo "
@@ -319,7 +322,8 @@ public class clsCreditorAgeingReportController {
 					+ "' and debtor.strCrDr='Dr' and date(hd.dteVouchDate) between '" + fromDateToCalculateOutStanding
 					+ "' AND '" + toDateToCalculateuteOutStanding + "' " + " and hd.strClientCode='" + clientCode + "' "
 					+ " group by debtor.strCrDr,debtor.strDebtorCode ");
-			List listReceiptAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			//List listReceiptAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			List listReceiptAmt =objBaseService.funGetListForWebBooks(sbSql, "sql");
 			if (listReceiptAmt != null && listReceiptAmt.size() > 0) {
 				for (int j = 0; j < listReceiptAmt.size(); j++) {
 					Object[] arrObj = (Object[]) listReceiptAmt.get(j);
@@ -440,7 +444,8 @@ public class clsCreditorAgeingReportController {
 				sbSql.append("GROUP BY cm.strCreditorCode  ");
 
 				int listSise = -1;
-				List listDrJVAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+				//List listDrJVAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+				List listDrJVAmt =objBaseService.funGetListForWebBooks(sbSql, "sql");
 				if (listDrJVAmt != null && listDrJVAmt.size() > 0) {
 					for (int j = 0; j < listDrJVAmt.size(); j++) {
 						Object[] arrObj = (Object[]) listDrJVAmt.get(j);

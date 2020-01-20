@@ -69,7 +69,8 @@ public class clsBaseDaoImpl implements intfBaseDao {
 
 		return query.list();
 	}
-
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "hibernateTransactionManager")
 	public List funGetList(StringBuilder strQuery, String queryType) throws Exception {
 		Query query;
 		if (queryType.equals("sql")) {

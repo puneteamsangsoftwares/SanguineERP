@@ -76,7 +76,7 @@ public class clsInvoicingPrintingController {
 		String innvToNo = objBean.getStrInvoiceToCode();
 		String fromAmt = objBean.getStrAmountForm();
 		String toAmt = objBean.getStrAmountTo();
-
+		
 		// String showBOM = objBean.getStrShowBOM();
 		if (objBean.getStrTFCat().equals("Total") && objBean.getStrTFDebtor().equals("Total")) {
 			funCallReportInvoicingPrintingList(strFromCatCode, strToCatCode, innFromDate, innToDate, innvFromNo, innvToNo, fromAmt, toAmt, resp, req);

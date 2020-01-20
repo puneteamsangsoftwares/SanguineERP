@@ -280,6 +280,18 @@ a:HOVER {
 	font-weight:normal;
 }
 
+
+
+.pagetop{
+        box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+    max-height: 56px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+}
+
 /* .pagetopMenufactureing {
 	
   background-image: url(../images/headerimageManufacture.jpg); 
@@ -352,6 +364,8 @@ a:HOVER {
 	
 	background-position: left;
 	width: auto;
+	
+	
 	
 	background-size: cover;
 }
@@ -538,6 +552,7 @@ footer {
 	background: #d8d8d894;
 	padding: 20px 14px;
 	min-height: calc(100vh - 57px);
+	margin-top: 59px;
 }
 
 .clearfix {

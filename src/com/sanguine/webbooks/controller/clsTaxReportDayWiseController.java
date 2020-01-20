@@ -158,7 +158,7 @@ public class clsTaxReportDayWiseController {
 			conversionRate=Double.parseDouble(list.get(0).toString());
 		}catch(Exception e)
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 		String tempTaxCode[] = objBean.getStrTaxCode().split(",");

@@ -136,14 +136,14 @@
 											 Class="calenderTextBox" path="strInnToDate" style="width:60%"/></div>								 
 			
 				<div class="col-md-2"><label>Account For</label>
-				      <s:select id="cmbAccountFor" name="cmbAccountFor" style="width:80%"
+				      <s:select id="cmbAccountFor" name="cmbAccountFor" style="width:100%"
 											Class="BoxW124px" path="strAccountFor">
 											<option value="Opening Balance">Opening Balance</option>
 											<option value="Y">Yes</option>
 										</s:select></div>
 										
 				<div class="col-md-2"><label>Report For</label>
-				    <s:select id="cmbReportFor" name="cmbReportFor" style="width:70%"
+				    <s:select id="cmbReportFor" name="cmbReportFor" style="width:100%"
 											Class="BoxW124px" path="strReportFor">
 											<option value="Debit Account">Debit Account</option>
 											<option value="Credit Account">Credit Account</option>
