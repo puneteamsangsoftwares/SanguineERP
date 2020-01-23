@@ -318,8 +318,8 @@ public class clsARSecurityShell {
 				if (null != arrOb[10]) {
 					objTree.setStrPrint(arrOb[10].toString());
 				}
-				if (null != arrOb[12]) {
-					objTree.setStrAuthorise(arrOb[12].toString());
+				if (null != arrOb[11]) {
+					objTree.setStrAuthorise(arrOb[11].toString());
 				}
 				objTransactions.add(objTree);
 
@@ -345,7 +345,7 @@ public class clsARSecurityShell {
 		bean.setListUtilityForms(objUtilitys);
 		model.put("treeList", bean);
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmARSecurityShell_1");
+			return new ModelAndView("frmARSecurityShell");
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmARSecurityShell");
 		} else {
@@ -427,8 +427,8 @@ public class clsARSecurityShell {
 				if (null != arrOb[10]) {
 					objTree.setStrPrint(arrOb[10].toString());
 				}
-				if (null != arrOb[12]) {
-					objTree.setStrAuthorise(arrOb[12].toString());
+				if (null != arrOb[11]) {
+					objTree.setStrAuthorise(arrOb[11].toString());
 				}
 				objTransactions.add(objTree);
 
@@ -454,7 +454,7 @@ public class clsARSecurityShell {
 		bean.setListUtilityForms(objUtilitys);
 		model.put("treeList", bean);
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmARSecurityShell_1");
+			return new ModelAndView("frmARSecurityShell");
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmARSecurityShell");
 		} else {

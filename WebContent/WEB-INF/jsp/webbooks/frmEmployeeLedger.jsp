@@ -481,7 +481,7 @@
 						<label>GL Code</label>
 						<div class="row">
 							<div class="col-md-5">
-								<s:input  type="text" id="txtGLCode" cssClass="searchTextBox" style="height:95%"
+								<s:input  type="text" id="txtGLCode" readonly="true" cssClass="searchTextBox" style="height:95%"
 									 	path="strGLCode" ondblclick="funHelp('EmployeeAccountCode');"/>
 							</div>
 							<div class="col-md-7">
@@ -495,7 +495,7 @@
 						<label>Employee Code</label>
 						<div class="row">
 							<div class="col-md-5">
-								<s:input  type="text" id="txtFromEmployeeCode" cssClass="searchTextBox" style="height:95%"
+								<s:input  type="text" id="txtFromEmployeeCode" readonly="true" cssClass="searchTextBox" style="height:95%"
 									 	path="strFromEmployeeCode" ondblclick="funHelp('employeeCode');"/>
 							</div>
 							<div class="col-md-7">

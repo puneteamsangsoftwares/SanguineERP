@@ -2158,8 +2158,10 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 			+ " ('frmWebClubPDC', 'Post Dated Cheque(PDC)', 'Master', 1, 'M', 1, 1, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmWebClubPDC.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 			+ " ('frmWebClubPDCFlash', 'PDC Flash', 'Reports', 3, 'R', 1, 1, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmWebClubPDCFlash.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 			+ " ('frmWebClubPersonMaster', 'Person Master', 'Master', 1, 'M', 1, 8, '1', 'default.png', '4', 1, '1', '1', 'NO', 'NO', 'frmWebClubPersonMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
-			+ " ('frmWebClubSecurityShellMaster', 'Security Shell', 'Master', 1, 'M', 1, 10, '1', 'default.png', '4', 1, '1', '1', 'NO', 'YES', 'frmWebClubSecurityShell.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
+			+ " ('frmWebClubSecurityShellMaster', 'Security Shell', 'Master', 1, 'M', 1, 10, '1 ', 'default.png', '4', 1, '1', '1', 'NO', 'YES', 'frmWebClubSecurityShell.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+			+ " ('frmWebClubStructureUpdate', 'Structure Update', 'Tools', 1, 'L', 6, 6, '1', 'defaults.png', '4', 1, '1', '1', 'NO', 'NO', 'frmWebClubStructureUpdate.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
 
+		
 		funExecuteQuery(sql);
 		
 		
@@ -5197,7 +5199,8 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 	@Transactional(value = "hibernateTransactionManager")
 	public void funExecuteQuery(String sql) {
 		try {
-			Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);			
+			Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+					query.executeUpdate();			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

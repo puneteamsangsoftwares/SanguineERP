@@ -614,6 +614,26 @@ public class clsStructureUpdateController {
 
 	}
 
+	@RequestMapping(value = "/frmWebClubStructureUpdate", method = RequestMethod.GET)
+	public ModelAndView funOpenWebClubStructureUpdateForm(Map<String, Object> model, HttpServletRequest req) {
+
+		String urlHits = "1";
+		try {
+			urlHits = req.getParameter("saddr").toString();
+		} catch (NullPointerException e) {
+			urlHits = "1";
+		}
+		model.put("urlHits", urlHits);
+		if ("2".equalsIgnoreCase(urlHits)) {
+			return new ModelAndView("frmWebClubStructureUpdate");
+		} else if ("1".equalsIgnoreCase(urlHits)) {
+			return new ModelAndView("frmWebClubStructureUpdate");
+		} else {
+			return null;
+		}
+
+	}
+	
 	/**
 	 * Update Structure in Data base
 	 * 

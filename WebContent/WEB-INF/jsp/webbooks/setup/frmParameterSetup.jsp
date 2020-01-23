@@ -1,19 +1,28 @@
-<%@page import="java.text.SimpleDateFormat"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <style type="text/css">
 		
 		
 	.txtTextArea
 	{
-		width: 350px; 
-		height:70px;
+		width: 270px;
+        height: 45px;
 		resize: none;		
 	}		
 	
@@ -463,8 +472,8 @@
 						funSetCheckStatusAndValue(chkMultipleDebtorYN,response.isMultipleDebtor);
 						$("#txtOnlineNEFTACCode").val(response.neftonlineAccountCode);
 						$("#txtOnlineNEFTACName").val(response.neftonlineAccountName);
-						//$("#txtPettyCash").val(response.dblPettyAmt);
-						//$("#strShowPLRevenue").val(response.strShowPLRevenue);
+						$("#txtPettyCash").val(response.dblPettyAmt);
+						$("#strShowPLRevenue").val(response.strShowPLRevenue);
 						
 						
 					/* 	$("#").val(response.PDCAccountCode);
@@ -619,434 +628,457 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>ParameterSetup</label>
-	</div>
-
-<br/>
-<br/>
-
+   <div class="container masterTable">
+	<label id="formHeading">Parameter Setup</label>
 	<s:form name="ParameterSetup" method="POST" action="saveParameterSetup.html" >
         <!-- table which holds all tabs header -->
-		<table class="masterTable">
-			<tr>
-				<th id="tab_container" style="height: 100%;">
+		
+			<div class="row">
+				<div id="tab_container" style="height: 100%;">
 					<ul class="tabs" >
 						<li class="active" data-state="tab1" style="width: 23.5%; ">AR Parameters</li>
 						<li data-state="tab2" style="width: 23.5%; ">Invoicing Parameters</li>
 						<li data-state="tab3" style="width: 23.5%; ">Narration Builder</li>
 						<li data-state="tab4" style="width: 23.5%; ">Email Settings</li>						
 					</ul>
-				</th>
-			</tr>
-		</table>
+				</div>
         <br>
         <br>
         
         <!-- AR Parameters Tab -->
         <div id="tab1" class="tab_conents">
-        	<table class="masterTable">
-        		<tr>
-			    	<td><label>Debtor Control A/C</label></td>
-			    	<td><s:input id="txtDebtorControlACCode" path="strControlCode" readonly="true" ondblclick="funSetACType('debtorControlAC')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="7"><s:input id="txtDebtorControlACName" path="strControlName" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>			    				    		        			  
-				</tr>
-				<tr>
-			    	<td><label>Debtor Billable A/C</label></td>
-			    	<td><s:input id="txtDebtorBillableACCode" path="strBillableCode" readonly="true" ondblclick="funSetACType('debtorBillableAC')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="7"><s:input id="txtDebtorBillableACName" path="strBillableName" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>			    		        			   
-				</tr>
-				<tr>
-			    	<td><label>Debtor Suspense A/C</label></td>
-			    	<td><s:input id="txtDebtorSuspenseACCode" path="strDbtrSuspAcctCode" readonly="true" ondblclick="funSetACType('debtorSuspenseAC')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="7"><s:input id="txtDebtorSuspenseACName" path="strDbtrSuspAcctName" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>			    		        			   
-				</tr>															
-				<tr>
-			    	<td><label>Debtors Suspense Code</label></td>
-			    	<td><s:input id="txtDebtorsSuspenseCode" path="strSuspenceCode" readonly="true" ondblclick="funSetACType('debtorSuspenseCode')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="7"><s:input id="txtDebtorsSuspenseName" path="strSuspenceName" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>			    		        			   
-				</tr>
-				<tr>
-			    	<td><label>Rounding Off A/C</label></td>
-			    	<td><s:input id="txtRoundingOffACCode" path="strRoundingCode" readonly="true" ondblclick="funSetACType('roundingOffAC')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="7"><s:input id="txtRoundingOffACName" path="strRoundingName" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>			    		        			   
-				</tr>
-				<tr>
-			    	<td><label>Reservation Advance Party A/C</label></td>
-			    	<td><s:input id="txtReservationAdvPartyACCode" path="strReserveAccCode" readonly="true" ondblclick="funSetACType('reservationAdvPartyAC')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="7"><s:input id="txtReservationAdvPartyACName" path="strReserveAccName" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>			    		        			   
-				</tr>
-				<tr>
-			    	<td><label>Room Advance A/C</label></td>
-			    	<td><s:input id="txtRoomAdvACCode" path="strDbtRoomAdvCode" readonly="true" ondblclick="funSetACType('roomAdvAC')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="7"><s:input id="txtRoomAdvACName" path="strDbtRoomAdvName" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>			    		        			   
-				</tr>
-				<tr>
-			    	<td><label>Invoicer Advance </label></td>
-			    	<td><s:input id="txtInvoicerAdvCode" path="strInvoicerAdvCode" readonly="true" ondblclick="funSetACType('invoicerAdv')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="7"><s:input id="txtInvoicerAdvName" path="strInvoicerAdvName" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>			    		        			   
-				</tr>
-				<tr>
-			    	<td><label>Online NEFT A/C Code</label></td>
-			    	<td><s:input id="txtOnlineNEFTACCode" path="NEFTOnlineAccountCode" readonly="true" ondblclick="funSetACType('onlineNEFTAC')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="7"><s:input id="txtOnlineNEFTACName" path="NEFTOnlineAccountName" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>			    		        			   
-				</tr>
-				<tr>
-			    	<td><label>Room A/C</label></td>
-			    	<td><s:input id="txtRoomACCode" path="strDbtRoomACCode" readonly="true" ondblclick="funSetACType('roomAC')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="7"><s:input id="txtRoomACName" path="strDbtRoomACName" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>			    		        			   
-				</tr>
-				<tr>
-			    	<td><label>Post Dated Cheque A/C</label></td>
-			    	<td><s:input id="txtPostDatedChequeACCode" path="strPostDatedChequeACCode" readonly="true" ondblclick="funSetACType('postDatedAdvAC')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="7"><s:input id="txtPostDatedChequeACName" path="strPostDatedChequeACName" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>			    		        			   
-				</tr>
-				<tr>
-			  	    <td><label>Last A/R Transfer Date</label></td>	
-			  	    <td colspan="8"><s:input type="text" id="dteLastARTransDate" path="dteLastAR"  class="calenderTextBox" style="width: 117px; background-position: 100px -2px;" /></td>			   	    		    		 
-				</tr>
-				<tr>
-			  	    <td><label>Revenue Transfer Date</label></td>	
-			   	    <td colspan="8"><s:input type="text" id="dteRevenueTransDate" path="dteLastRV" class="calenderTextBox"  style="width: 117px;background-position: 100px -2px;" /></td>		    		  
-				</tr>
-				<tr>
-			  	    <td><label>Revenue Posted UpTo</label></td>	
-			   	    <td colspan="8"><s:input type="text" id="dteRevenuePostedUpToDate" path="dteRVPosted"  class="calenderTextBox" style="width: 117px;background-position: 100px -2px;" /></td>		    		  
-				</tr>
-				<tr>
-			    	<td><label>ECS Bank</label></td>
-			    	<td><s:input id="txtECSBankCode" path="strECSBankcode" readonly="true" ondblclick="funSetACType('ecsBank')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="7"><s:input id="txtECSBankName" path="strECSBankName" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>			    		        			   
-				</tr>
-				<tr>
-			    	<td><label>Default Sanction</label></td>
-			    	<td><s:input id="txtDefaultSanctionCode" path="strSancCode" readonly="true" ondblclick="funSetACType('defaultSanction')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="7"><s:input id="txtDefaultSanctionName" path="strSancName" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>			    		        			   
-				</tr>
-				<tr>
-			    	<td><label>Reminder Letter Code Prefix</label></td>
-			    	<td colspan="8"><s:input id="txtReminderLetterCodePrefix" path="strLetterPrefix"  cssClass="simpleTextBox" style="width: 117px" /></td>			        			        			    				    		        			  
-				</tr>
-				<tr>
-			    	<td><label>Credit Limit Control</label></td>
-			    	<td colspan="8"><s:checkbox id="chkCreditLimitCtlYN"  path="strCreditLimit" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>			        			        			    				    		        			  
-				</tr>
-				<tr>
-			    	<td><label>Block Transactions For Black Listed Members</label></td>
-			    	<td><label>JV Entry</label></td>
-			    	<td><s:checkbox id="chkBlockJVEntryYN"  path="strjventry" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>	
-			    	<td><label>Payment Entry</label></td>
-			    	<td><s:checkbox id="chkBlockPaymentEntryYN"  path="strpayentry" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>
-			    	<td><label>Receipt Entry</label></td>
-			    	<td><s:checkbox id="chkBlockReceiptEntryYN"  path="strrecpentry" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>
-			    	<td><label>Member Receipt</label></td>
-			    	<td><s:checkbox id="chkBlockMemberReceiptYN"  path="strmembrecp" value=""  onclick="funSetCheckBoxValueYN(this)"/></td>			        			        			    				    		        			  
-				</tr>
-				<tr>
-			    	<td><label>Debtor Currency</label></td>
-			    	<td><s:input id="txtDebtorCurrencyAmt" path="strCurrencyDesc" placeholder="Amount" cssClass="simpleTextBox" style="width: 117px" /></td>			        			        
-			    	<td colspan="7"><s:input id="txtDebtorCurrencyAmtUnit" path="strCurrencyCode" placeholder="Rs. / CR / $ / etc." cssClass="longTextBox" cssStyle="width:30%"/></td>			    		        			   
-				</tr>
-				<tr>
-			    	<td><label>Amadeus PMS Interface</label></td>
-			    	<td colspan="8"><s:checkbox id="chkAmadeusInterfaceYN"  path="strAmadeusInterface" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>			        			        			    				    		        			  
-				</tr>
-				<tr>
-			    	<td><label>Debtor Ledger A/C</label></td>
-			    	<td><s:input id="txtDebtorLedgerACCode" path="strDebtorLedgerACCode" readonly="true" ondblclick="funSetACType('debtorLedgerAC')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="7"><s:input id="txtDebtorLedgerACName" path="strDebtorLedgerACName" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>			    		        			   
-				</tr>
-				<tr>
-			    	<td><label>Advance A/C</label></td>
-			    	<td><s:input id="txtAdvACCode" path="strAdvanceACCode" readonly="true" ondblclick="funSetACType('advAC')" cssClass="searchTextBox"/></td>			        			        
-			    	<td colspan="7"><s:input id="txtAdvACName" path="strAdvanceAcct" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>			    		        			   
-				</tr>
-				<tr>
-			    	<td><label>Master Driven Narration</label></td>
-			    	<td colspan="8"><s:checkbox id="chkMasterDrivenNarrationYN"  path="StrMasterDrivenNarration" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>			        			        			    				    		        			  
-				</tr>
-				<tr>
-			    	<td><label>MS-Office Installed</label></td>
-			    	<td colspan="8"><s:checkbox id="chkMSOfficeInstalledYN"  path="IsMSOfficeInstalled" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>			        			        			    				    		        			  
-				</tr>
-				<tr>
-			    	<td><label>Include Banquet Member</label></td>
-			    	<td colspan="8"><s:checkbox id="chkIncludeBanquetMemberYN"  path="IncludeBanquetMember" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>			        			        			    				    		        			  
-				</tr>
-				<tr>
-			    	<td><label>Mupltiple Debtor</label></td>
-			    	<td colspan="8"><s:checkbox id="chkMultipleDebtorYN"  path="IsMultipleDebtor" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>			        			        			    				    		        			  
-				</tr>
-				<tr>
-			    	<td><label>Single User Login</label></td>
-			    	<td colspan="8"><s:checkbox id="chkSingleUserYN"  path="AllowSingleUserLogin" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>			        			        			    				    		        			  
-				</tr>
-				<tr>
-			    	<td><label>Email Via Outlook</label></td>
-			    	<td colspan="8"><s:checkbox id="chkEmailViaOutlookYN"  path="EmailViaOutlook" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>			        			        			    				    		        			  
-				</tr>
-				<tr>
-			    	<td><label>Tally/Alif Transaction Lock</label></td>
-			    	<td colspan="8"><s:checkbox id="chkTallyAlifTransLockYN"  path="strTallyAlifTransLockYN" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>			        			        			    				    		        			  
-				</tr>
+        	<div class="row">
+        		<div class="col-md-6"><label>Debtor Control A/C</label>
+			    	<div class="row">
+        				<div class="col-md-6"><s:input id="txtDebtorControlACCode" path="strControlCode" readonly="true" ondblclick="funSetACType('debtorControlAC')" cssClass="searchTextBox"/></div>			        			        
+			    		<div class="col-md-6"><s:input id="txtDebtorControlACName" path="strControlName" cssClass="longTextBox" cssStyle="width:96%"/></div>			    				    		        			  
+				</div></div>
 				
-				<tr>
-        			<td><label>Stock In Hand Code</label></td>
-        			<td><s:input id="txtstckInHandCode" path="strStockInHandAccCode" cssClass="longTextBox"  /></td><%-- cssClass="longTextBox" --%>
+				<div class="col-md-6"><label>Debtor Billable A/C</label>
+			    	<div class="row">
+        				<div class="col-md-6"><s:input id="txtDebtorBillableACCode" path="strBillableCode" readonly="true" ondblclick="funSetACType('debtorBillableAC')" cssClass="searchTextBox"/></div>			        			        
+			    		<div class="col-md-6"><s:input id="txtDebtorBillableACName" path="strBillableName" cssClass="longTextBox" cssStyle="width:96%"/></div>			    		        			   
+				</div></div>
+				
+				<div class="col-md-6"><label>Debtor Suspense A/C</label>
+			    	<div class="row">
+        				<div class="col-md-6"><s:input id="txtDebtorSuspenseACCode" path="strDbtrSuspAcctCode" readonly="true" ondblclick="funSetACType('debtorSuspenseAC')" cssClass="searchTextBox"/></div>			        			        
+			    		<div class="col-md-6"><s:input id="txtDebtorSuspenseACName" path="strDbtrSuspAcctName" cssClass="longTextBox" cssStyle="width:96%"/></div>			    		        			   
+				</div></div>	
+																		
+				<div class="col-md-6"><label>Debtors Suspense Code</label>
+			    	<div class="row">
+        				<div class="col-md-6"><s:input id="txtDebtorsSuspenseCode" path="strSuspenceCode" readonly="true" ondblclick="funSetACType('debtorSuspenseCode')" cssClass="searchTextBox"/></div>			        			        
+			    		<div class="col-md-6"><s:input id="txtDebtorsSuspenseName" path="strSuspenceName" cssClass="longTextBox" cssStyle="width:96%"/></div>			    		        			   
+				</div></div>
+				
+				<div class="col-md-6"><label>Rounding Off A/C</label>
+			    	<div class="row">
+        				<div class="col-md-6"><s:input id="txtRoundingOffACCode" path="strRoundingCode" readonly="true" ondblclick="funSetACType('roundingOffAC')" cssClass="searchTextBox"/></div>			        			        
+			    		<div class="col-md-6"><s:input id="txtRoundingOffACName" path="strRoundingName" cssClass="longTextBox" cssStyle="width:96%"/></div>			    		        			   
+				</div></div>
+				
+				<div class="col-md-6"><label>Reservation Advance Party A/C</label>
+			    	<div class="row">
+        				<div class="col-md-6"><s:input id="txtReservationAdvPartyACCode" path="strReserveAccCode" readonly="true" ondblclick="funSetACType('reservationAdvPartyAC')" cssClass="searchTextBox"/></div>			        			        
+			    		<div class="col-md-6"><s:input id="txtReservationAdvPartyACName" path="strReserveAccName" cssClass="longTextBox" cssStyle="width:96%"/></div>			    		        			   
+				</div></div>
+				
+				<div class="col-md-6"><label>Room Advance A/C</label>
+			    	<div class="row">
+        				<div class="col-md-6"><s:input id="txtRoomAdvACCode" path="strDbtRoomAdvCode" readonly="true" ondblclick="funSetACType('roomAdvAC')" cssClass="searchTextBox"/></div>			        			        
+			    		<div class="col-md-6"><s:input id="txtRoomAdvACName" path="strDbtRoomAdvName" cssClass="longTextBox" cssStyle="width:96%"/></div>			    		        			   
+				</div></div>
+				
+				<div class="col-md-6"><label>Invoicer Advance </label>
+			    	<div class="row">
+        				<div class="col-md-6"><s:input id="txtInvoicerAdvCode" path="strInvoicerAdvCode" readonly="true" ondblclick="funSetACType('invoicerAdv')" cssClass="searchTextBox"/></div>			        			        
+			    		<div class="col-md-6"><s:input id="txtInvoicerAdvName" path="strInvoicerAdvName" cssClass="longTextBox" cssStyle="width:96%"/></div>			    		        			   
+				</div></div>
+				
+				<div class="col-md-6"><label>Online NEFT A/C Code</label>
+			    	<div class="row">
+        				<div class="col-md-6"><s:input id="txtOnlineNEFTACCode" path="NEFTOnlineAccountCode" readonly="true" ondblclick="funSetACType('onlineNEFTAC')" cssClass="searchTextBox"/></div>			        			        
+			    		<div class="col-md-6"><s:input id="txtOnlineNEFTACName" path="NEFTOnlineAccountName" cssClass="longTextBox" cssStyle="width:96%"/></div>			    		        			   
+				</div></div>
+				
+				<div class="col-md-6"><label>Room A/C</label>
+			    	<div class="row">
+        				<div class="col-md-6"><s:input id="txtRoomACCode" path="strDbtRoomACCode" readonly="true" ondblclick="funSetACType('roomAC')" cssClass="searchTextBox"/></div>			        			        
+			    		<div class="col-md-6"><s:input id="txtRoomACName" path="strDbtRoomACName" cssClass="longTextBox" cssStyle="width:96%"/></div>			    		        			   
+				</div></div>
+				
+				<div class="col-md-6"><label>Post Dated Cheque A/C</label>
+			    	<div class="row">
+        				<div class="col-md-6"><s:input id="txtPostDatedChequeACCode" path="strPostDatedChequeACCode" readonly="true" ondblclick="funSetACType('postDatedAdvAC')" cssClass="searchTextBox"/></div>			        			        
+			    		<div class="col-md-6"><s:input id="txtPostDatedChequeACName" path="strPostDatedChequeACName" cssClass="longTextBox" cssStyle="width:96%"/></div>			    		        			   
+				</div></div>
+				
+				<div class="col-md-6"><label>ECS Bank</label>
+			    	<div class="row">
+        				<div class="col-md-6"><s:input id="txtECSBankCode" path="strECSBankcode" readonly="true" ondblclick="funSetACType('ecsBank')" cssClass="searchTextBox"/></div>		        			        
+			    	    <div class="col-md-6"><s:input id="txtECSBankName" path="strECSBankName" cssClass="longTextBox" cssStyle="width:96%"/></div>			    		        			   
+				</div></div>
+				
+				<div class="col-md-6"><label>Default Sanction</label>
+			    	<div class="row">
+        				<div class="col-md-6"><s:input id="txtDefaultSanctionCode" path="strSancCode" readonly="true" ondblclick="funSetACType('defaultSanction')" cssClass="searchTextBox"/></div>			        			        
+			    		<div class="col-md-6"><s:input id="txtDefaultSanctionName" path="strSancName" cssClass="longTextBox" cssStyle="width:96%"/></div>			    		        			   
+				</div></div>
+				
+				<div class="col-md-3"><label>Reminder Letter Code Prefix</label>
+			    	 	<s:input id="txtReminderLetterCodePrefix" path="strLetterPrefix"  cssClass="simpleTextBox" style="width:100%" />			        			        			    				    		        			  
+				</div>
+				
+				<div class="col-md-3"><label>Debtor Currency</label>
+			    <div class="row">
+			    			<div class="col-md-6"><s:input id="txtDebtorCurrencyAmt" path="strCurrencyDesc" placeholder="Amount" cssClass="simpleTextBox" style="width: 100%" /></div>				        			        
+			    			<div class="col-md-6"><s:input id="txtDebtorCurrencyAmtUnit" path="strCurrencyCode" placeholder="Rs. / CR / $ / etc." cssClass="longTextBox" cssStyle="width:100%"/></div>				    		        			   
+				</div></div>
+				
+				<div class="col-md-3"><label>Last A/R Transfer Date</label>	
+			  	   <s:input type="text" id="dteLastARTransDate" path="dteLastAR"  class="calenderTextBox" style="width:100%; background-position: 240px 4px;" />			   	    		    		 
+				</div>
+				
+				<div class="col-md-3"><label>Revenue Transfer Date</label>	
+			   	    <s:input type="text" id="dteRevenueTransDate" path="dteLastRV" class="calenderTextBox"  style="width:100%; background-position: 240px 4px;" />		    		  
+				</div>
+				
+				<div class="col-md-3"><label>Revenue Posted UpTo</label>	
+			   	    <s:input type="text" id="dteRevenuePostedUpToDate" path="dteRVPosted"  class="calenderTextBox" style="width:100%; background-position: 240px 4px;" />		    		  
+				</div>
+				
+				<div class="col-md-3"><label>Credit Limit Control</label><br />
+			    		<s:checkbox id="chkCreditLimitCtlYN"  path="strCreditLimit" value=""  onclick="funSetCheckBoxValueYN(this)" />			        			        			    				    		        			  
+				</div>
+				
+				<div class="col-md-12" style="height:15px;"></div>
+				
+				 <div class="col-md-12"><label>Block Transactions For Black Listed Members</label></div>
+			    	
+			    	<div class="col-md-2"><label>JV Entry</label>
+			    		<s:checkbox id="chkBlockJVEntryYN"  path="strjventry" value=""  onclick="funSetCheckBoxValueYN(this)" />
+			    	</div>	
+			    	
+			    	<div class="col-md-2"><label>Payment Entry</label>
+			    		<s:checkbox id="chkBlockPaymentEntryYN"  path="strpayentry" value=""  onclick="funSetCheckBoxValueYN(this)" />
+			    	</div>
+			    	
+			    	<div class="col-md-2"><label>Receipt Entry</label>
+			    		<s:checkbox id="chkBlockReceiptEntryYN"  path="strrecpentry" value=""  onclick="funSetCheckBoxValueYN(this)" />
+			    	</div>
+			    	
+			    	<div class="col-md-2"><label>Member Receipt</label>
+			    		<s:checkbox id="chkBlockMemberReceiptYN"  path="strmembrecp" value=""  onclick="funSetCheckBoxValueYN(this)"/>			        			        			    				    		        			  
+				    </div>
+				
+				<div class="col-md-2"><label>Amadeus PMS Interface</label>
+			    		<s:checkbox id="chkAmadeusInterfaceYN"  path="strAmadeusInterface" value=""  onclick="funSetCheckBoxValueYN(this)" />		        			        			    				    		        			  
+				</div>
+				
+				<div class="col-md-12" style="height:15px;"></div>
+				
+				<div class="col-md-6"><label>Debtor Ledger A/C</label>
+				<div class="row">
+			    	<div class="col-md-6"><s:input id="txtDebtorLedgerACCode" path="strDebtorLedgerACCode" readonly="true" ondblclick="funSetACType('debtorLedgerAC')" cssClass="searchTextBox"/></div>			        			        
+			    	<div class="col-md-6"><s:input id="txtDebtorLedgerACName" path="strDebtorLedgerACName" cssClass="longTextBox" cssStyle="width:96%"/></div>			    		        			   
+				</div></div>
+				
+				<div class="col-md-6"><label>Advance A/C</label>
+			    <div class="row">
+			    	<div class="col-md-6"><s:input id="txtAdvACCode" path="strAdvanceACCode" readonly="true" ondblclick="funSetACType('advAC')" cssClass="searchTextBox"/></div>		        			        
+			    	<div class="col-md-6"><s:input id="txtAdvACName" path="strAdvanceAcct" cssClass="longTextBox" cssStyle="width:96%"/></div>			    		        			   
+				</div></div>
+				
+				<div class="col-md-3"><label>Master Driven Narration</label><br>
+			    		<s:checkbox id="chkMasterDrivenNarrationYN"  path="StrMasterDrivenNarration" value=""  onclick="funSetCheckBoxValueYN(this)" />			        			        			    				    		        			  
+				</div>
+				
+				<div class="col-md-3"><label>MS-Office Installed</label><br>
+			    		<s:checkbox id="chkMSOfficeInstalledYN"  path="IsMSOfficeInstalled" value=""  onclick="funSetCheckBoxValueYN(this)" />			        			        			    				    		        			  
+				</div>
+				
+				<div class="col-md-3"><label>Include Banquet Member</label><br>
+			    		<s:checkbox id="chkIncludeBanquetMemberYN"  path="IncludeBanquetMember" value=""  onclick="funSetCheckBoxValueYN(this)" />		        			        			    				    		        			  
+				</div>
+				
+				<div class="col-md-3"><label>Mupltiple Debtor</label><br>
+			    		<s:checkbox id="chkMultipleDebtorYN"  path="IsMultipleDebtor" value=""  onclick="funSetCheckBoxValueYN(this)" />			        			        			    				    		        			  
+				</div>
+				<br><br>
+				<div class="col-md-3"><label>Single User Login</label><br>
+			    		<s:checkbox id="chkSingleUserYN"  path="AllowSingleUserLogin" value=""  onclick="funSetCheckBoxValueYN(this)" />			        			        			    				    		        			  
+				</div>
+				
+				<div class="col-md-3"><label>Email Via Outlook</label><br>
+			    		<s:checkbox id="chkEmailViaOutlookYN"  path="EmailViaOutlook" value=""  onclick="funSetCheckBoxValueYN(this)" />		        			        			    				    		        			  
+				</div>
+				
+				<div class="col-md-3"><label>Tally/Alif Transaction Lock</label><br>
+			    		<s:checkbox id="chkTallyAlifTransLockYN"  path="strTallyAlifTransLockYN" value=""  onclick="funSetCheckBoxValueYN(this)" />			        			        			    				    		        			  
+				</div>
+				
+				<div class="col-md-3"><label>Stock In Hand Code</label><br>
+        				<s:input id="txtstckInHandCode" path="strStockInHandAccCode" cssClass="longTextBox"  /><%-- cssClass="longTextBox" --%>
+        		</div>
         		
-        			<td ><label>Stock In Hand Name</label></td>
-        			<td colspan="2"><s:input id="txtstckInHandName" path="strStockInHandAccName" cssClass="longTextBox"  /></td><%-- cssClass="longTextBox" --%>
-        			<td colspan="7"></td>
-        		</tr>
+        		<div class="col-md-12" style="height:15px;"></div>
         		
-        			<tr>
-        			<td ><label>Closing Stock(P&I) Code</label></td>
-        			<td><s:input id="txtstckInHandCode" path="strClosingCode" cssClass="longTextBox"  /></td><%-- cssClass="longTextBox" --%>
+        		<div class="col-md-3"><label>Stock In Hand Name</label>
+        				<s:input id="txtstckInHandName" path="strStockInHandAccName" cssClass="longTextBox"  /><%-- cssClass="longTextBox" --%>
+        		</div>
         		
-        			<td><label>Closing Stock Name</label></td>
-        			<td colspan="2"><s:input id="txtstckInHandName" path="strClosingName" cssClass="longTextBox"  /></td><%-- cssClass="longTextBox" --%>
-        		<td colspan="7"></td>
-        		</tr>
-        		<tr>
-        		<td><label>Petty Cash</label></td>
-        			<td><s:input id="txtPettyCash" path="" class="decimal-places numberField"  value="0"  /></td><%-- cssClass="longTextBox" --%>
+        		<div class="col-md-3"><label>Closing Stock(P & I) Code</label>
+        	 			<s:input id="txtstckInHandCode" path="strClosingCode" cssClass="longTextBox"  /><%-- cssClass="longTextBox" --%>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Closing Stock Name</label>
+        		         <s:input id="txtstckInHandName" path="strClosingName" cssClass="longTextBox"  /><%-- cssClass="longTextBox" --%>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Petty Cash</label>
+        				<s:input id="txtPettyCash" path="" class="decimal-places numberField"  value="0"  />
+        		</div>																							<%-- cssClass="longTextBox" --%>
         			
-        		<td><label>Show P/L Revenue Data </label></td>
-        			<td ><s:select path="" id="strShowPLRevenue" cssClass="BoxW48px" cssStyle="width:100%">
+        		<div class="col-md-3"><label>Show P/L Revenue Data </label>
+        			 <s:select path="strShowPLRevenue" id="txtShowPLRevenue" cssClass="BoxW48px" cssStyle="width:100%">
 					         <s:option selected="selected" value="POS">POS Revenue</s:option>
 					         <s:option  value="Invoice">Invoice</s:option>
-					</s:select></td>
-					<td colspan="5"></td>
+					</s:select>
+				</div>
 					
 <!--         		<td colspan="1"></td> -->
-        		</tr>
-        	</table>
+        	</div>
         </div>
         <!-- Invoicing Parameters Tab -->
         <div id="tab2" class="tab_conents">
-        	<table class="masterTable">
-        		<tr>
-        			<td><label>Invoice Header 1</label></td>
-        			<td><s:textarea id="txtInvoiceHeader1" path="strInvoiceHeader1" class="txtTextArea" /></td><%-- cssClass="longTextBox" --%>
-        		</tr>
-        		<tr>
-        			<td><label>Invoice Header 2</label></td>
-        			<td><s:textarea id="txtInvoiceHeader2" path="strInvoiceHeader2" class="txtTextArea" /></td><%-- cssClass="longTextBox" --%>
-        		</tr>
-        		<tr>
-        			<td><label>Invoice Header 3</label></td>
-        			<td><s:textarea id="txtInvoiceHeader3" path="strInvoiceHeader3" class="txtTextArea" /></td><%-- cssClass="longTextBox" --%>
-        		</tr>
-        		<tr>
-        			<td><label>Invoice Footer 1</label></td>
-        			<td><s:textarea id="txtInvoiceFooter1" path="strInvoiceFooter1" class="txtTextArea" /></td><%-- cssClass="longTextBox" --%>
-        		</tr>
-        		<tr>
-        			<td><label>Invoice Footer 2</label></td>
-        			<td><s:textarea id="txtInvoiceFooter2" path="strInvoiceFooter2" class="txtTextArea" /></td><%-- cssClass="longTextBox" --%>
-        		</tr>
-        		<tr>
-        			<td><label>Invoice Footer 3</label></td>
-        			<td><s:textarea id="txtInvoiceFooter3" path="strInvoiceFooter3" class="txtTextArea" /></td><%-- cssClass="longTextBox" --%>
-        		</tr>
-        		<tr>
-        			<td><label>Invoice Based On</label></td>
-        			<td><s:select id="cmbInvoiceBasedOn" path="strInvoiceBasedOn" items="${listInvoiceBasedOn}" cssClass="BoxW124px" /></td>
-        		</tr>
-        		<tr>
-			    	<td><label>Bill Prefix</label></td>
-			    	<td><s:input id="txtBillPrefix" path="strBillPrefix" cssClass="simpleTextBox" style="width: 117px" /></td>			        			        			    				    		        			  
-				</tr>
-				<tr>
-        			<td><label>TAX Indiactor In Transaction</label></td>
-        			<td><s:select id="cmbTAXIndicatorInTransYN" path="strTaxIndicator" items="${listTAXIndicatorInTrans}" cssClass="BoxW124px" /></td>
-        		</tr>
-        		<tr>
-        			<td><label>Integrity Check</label></td>
-        			<td><s:checkbox id="chkIntegrityCheckYN"  path="strIntegrityChk" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>
-        		</tr>
-        		<tr>
-			    	<td><label>Common DataBase Name</label></td>			    				        			       
-			    	<td><s:input id="txtCommonDBName" path="strPOSCommonDB" cssClass="longTextBox" /></td>			    		        			   
-				</tr>
-				<tr>
-			    	<td><label>Q File DataBase Name</label></td>			    				        			       
-			    	<td><s:input id="txtQFileDBName" path="strPOSQfileDB" cssClass="longTextBox" /></td>			    		        			   
-				</tr>
-				<tr>
-			    	<td><label>MSDN DataBase Name</label></td>			    				        			       
-			    	<td><s:input id="txtMSDNDBName" path="strPOSMSDNdb" cssClass="longTextBox" /></td>			    		        			   
-				</tr>
-        	</table>
+        	<div class="row">
+        		<div class="col-md-3"><label>Invoice Header 1</label>
+        		       <s:textarea id="txtInvoiceHeader1" path="strInvoiceHeader1" class="txtTextArea"  style="border:none;"/><%-- cssClass="longTextBox" --%>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Invoice Header 2</label>
+        			   <s:textarea id="txtInvoiceHeader2" path="strInvoiceHeader2" class="txtTextArea"  style="border:none;"/><%-- cssClass="longTextBox" --%>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Invoice Header 3</label>
+        			   <s:textarea id="txtInvoiceHeader3" path="strInvoiceHeader3" class="txtTextArea"  style="border:none;"/><%-- cssClass="longTextBox" --%>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Invoice Footer 1</label>
+        		       <s:textarea id="txtInvoiceFooter1" path="strInvoiceFooter1" class="txtTextArea"  style="border:none;" /><%-- cssClass="longTextBox" --%>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Invoice Footer 2</label>
+        			   <s:textarea id="txtInvoiceFooter2" path="strInvoiceFooter2" class="txtTextArea"  style="border:none;"/><%-- cssClass="longTextBox" --%>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Invoice Footer 3</label>
+        				<s:textarea id="txtInvoiceFooter3" path="strInvoiceFooter3" class="txtTextArea"  style="border:none;"/><%-- cssClass="longTextBox" --%>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Invoice Based On</label>
+        				<s:select id="cmbInvoiceBasedOn" path="strInvoiceBasedOn" items="${listInvoiceBasedOn}" cssClass="BoxW124px" />
+        		</div>
+        		
+        		<div class="col-md-3"><label>Bill Prefix</label>
+			    		<s:input id="txtBillPrefix" path="strBillPrefix" cssClass="simpleTextBox" style="width: 100%" />			        			        			    				    		        			  
+				</div>
+				
+				<div class="col-md-3"><label>TAX Indiactor In Transaction</label>
+        				<s:select id="cmbTAXIndicatorInTransYN" path="strTaxIndicator" items="${listTAXIndicatorInTrans}" cssClass="BoxW124px" />
+        		</div>
+        		
+        		<div class="col-md-3"><label>Integrity Check</label><br>
+        				<s:checkbox id="chkIntegrityCheckYN"  path="strIntegrityChk" value=""  onclick="funSetCheckBoxValueYN(this)" />
+        		</div>
+        		
+        		<div class="col-md-4"><label>Common DataBase Name</label>			    				        			       
+			 			<s:input id="txtCommonDBName" path="strPOSCommonDB"/>			    		        			   
+				</div>
+				
+				<div class="col-md-4"><label>Q File DataBase Name</label>			    				        			       
+			    		<s:input id="txtQFileDBName" path="strPOSQfileDB"/>			    		        			   
+				</div>
+				
+				<div class="col-md-4"><label>MSDN DataBase Name</label>			    				        			       
+			    		<s:input id="txtMSDNDBName" path="strPOSMSDNdb"/>			    		        			   
+				</div>
+        	</div>
         </div>
         <!-- Narration Builder Tab -->
         <div id="tab3" class="tab_conents">
-        	<table class="masterTable" id="narrationBuilderTbl">
-        		<tr>
-        			<th colspan="4"><label>Journal Voucher</label></th>
-        		</tr>
-        		<tr>
-        			<td><label>Voucher Narration</label></td>
-        			<td colspan="3"><s:textarea id="txtVoucherNarrationJV" path="strVouchNarrJv" class="txtTextArea" /></td><%-- cssClass="longTextBox" --%>
-        		</tr>
-        		<tr>
-        			<td><label>Account Narration</label></td>
-        			<td colspan="3"><s:textarea id="txtAccountNarrationJV" path="strAcctNarrJv" class="txtTextArea" /></td><%-- cssClass="longTextBox" --%>
-        		</tr>
-        		<tr>
-        			<td><label>Debtor Narration</label></td>
-        			<td colspan="3"><s:textarea id="txtDebtorNarrationJV" path="strDebtorNarrJv" class="txtTextArea" /></td><%-- cssClass="longTextBox" --%>
-        		</tr>
-        		<tr>
-        			<td><label>Select Parameters</label></td>
-        			<td><s:select id="cmbSelectParameters" path="" items="${listSelectParameters}" cssClass="BoxW200px" /></td>        		
-        			<td><label>Activate Journal Voucher Narration</label></td>
-        			<td><s:checkbox id="chkActivateJourVoucherNarrJVYN"  path="strNarrActivateJv" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>        		
-        		</tr>        		
-        		<tr>
-        			<th colspan="4"><label>Payments</label></th>
-        		</tr>
-        		<tr>
-        			<td><label>Voucher Narration</label></td>
-        			<td colspan="3"><s:textarea id="txtVoucherNarrationPay" path="strVouchNarrPay" class="txtTextArea" /></td><%-- cssClass="longTextBox" --%>
-        		</tr>
-        		<tr>
-        			<td><label>Select Parameters</label></td>
-        			<td><s:select id="cmbPaySelectParameters" path="" items="${listSelectParameters}" cssClass="BoxW200px" /></td>        		
-        			<td><label>Activate Payments Narration</label></td>
-        			<td><s:checkbox id="chkActivateJourVoucherNarrPayYN"  path="strNarrActivatePay" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>        		
-        		</tr>
-        		<tr>
-        			<th colspan="4"><label>Receipts</label></th>
-        		</tr>
-        		<tr>
-        			<td><label>Voucher Narration</label></td>
-        			<td colspan="3"><s:textarea id="txtVoucherNarrationReceipt" path="strVouchNarrRec" class="txtTextArea" /></td><%-- cssClass="longTextBox" --%>
-        		</tr>
-        		<tr>
-        			<td><label>Select Parameters</label></td>
-        			<td><s:select id="cmbRecptSelectParameters" path="" items="${listSelectParameters}" cssClass="BoxW200px" /></td>        		
-        			<td><label>Activate Receipts Narration</label></td>
-        			<td><s:checkbox id="chkActivateJourVoucherNarrReceiptYN"  path="strNarrActivateRec" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>        		
-        		</tr>
-        		<tr>
-        			<th colspan="4"><label>Invoice</label></th>
-        		</tr>
-        		<tr>
-        			<td><label>Voucher Narration</label></td>
-        			<td colspan="3"><s:textarea id="txtVoucherNarrationInvoice" path="strVouchNarrInvoice" class="txtTextArea" /></td><%-- cssClass="longTextBox" --%>
-        		</tr>
-        		<tr>
-        			<td><label>Select Parameters</label></td>
-        			<td><s:select id="cmbInvSelectParameters" path="" items="${listSelectParameters}" cssClass="BoxW200px" /></td>        		
-        			<td><label>Activate Invoice Narration</label></td>
-        			<td><s:checkbox id="chkActivateJourVoucherNarrInvoiceYN"  path="strNarrActivateInv" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>        		
-        		</tr>
-        	</table>
+        	<div class="row" id="narrationBuilderTbl">
+        	
+        		<div class="col-md-12"><label><b> Journal Voucher </b></label>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Voucher Narration</label>
+        				<s:textarea id="txtVoucherNarrationJV" path="strVouchNarrJv" class="txtTextArea" style="border:none;"/><%-- cssClass="longTextBox" --%>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Account Narration</label>
+        				<s:textarea id="txtAccountNarrationJV" path="strAcctNarrJv" class="txtTextArea" style="border:none;"/><%-- cssClass="longTextBox" --%>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Debtor Narration</label>
+        				<s:textarea id="txtDebtorNarrationJV" path="strDebtorNarrJv" class="txtTextArea" style="border:none;" /><%-- cssClass="longTextBox" --%>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Select Parameters</label>
+        			   <s:select id="cmbSelectParameters" path="" items="${listSelectParameters}" cssClass="BoxW200px" /> 
+        	    </div>  
+        	         		
+        		<div class="col-md-3"><label>Activate Journal Voucher Narration</label><br>
+        				<s:checkbox id="chkActivateJourVoucherNarrJVYN"  path="strNarrActivateJv" value=""  onclick="funSetCheckBoxValueYN(this)" />      		
+        		</div> 
+        		<br>       		
+        		<div class="col-md-12"><label><b> Payments </b></label>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Voucher Narration</label>
+        				<s:textarea id="txtVoucherNarrationPay" path="strVouchNarrPay" class="txtTextArea" style="border:none;"/><%-- cssClass="longTextBox" --%>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Select Parameters</label>
+        			    <s:select id="cmbPaySelectParameters" path="" items="${listSelectParameters}" cssClass="BoxW200px" /> 
+        	     </div>  
+        	          		
+        		<div class="col-md-3"><label>Activate Payments Narration</label><br>
+        			   <s:checkbox id="chkActivateJourVoucherNarrPayYN"  path="strNarrActivatePay" value=""  onclick="funSetCheckBoxValueYN(this)" />        		
+        		</div>
+        		
+        		<div class="col-md-12"><label><b> Receipts </b></label>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Voucher Narration</label>
+        			  <s:textarea id="txtVoucherNarrationReceipt" path="strVouchNarrRec" class="txtTextArea" style="border:none;" /><%-- cssClass="longTextBox" --%>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Select Parameters</label>
+        			<s:select id="cmbRecptSelectParameters" path="" items="${listSelectParameters}" cssClass="BoxW200px" /> 
+        		</div>    
+        		  		
+        		<div class="col-md-3"><label>Activate Receipts Narration</label><br>
+        			<s:checkbox id="chkActivateJourVoucherNarrReceiptYN"  path="strNarrActivateRec" value=""  onclick="funSetCheckBoxValueYN(this)" />        		
+        		</div>
+        		
+        		<div class="col-md-12"><label><b> Invoice </b></label>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Voucher Narration</label>
+        				<s:textarea id="txtVoucherNarrationInvoice" path="strVouchNarrInvoice" class="txtTextArea" style="border:none;" /><%-- cssClass="longTextBox" --%>
+        		</div>
+        		
+        		<div class="col-md-3"><label>Select Parameters</label>
+        				<s:select id="cmbInvSelectParameters" path="" items="${listSelectParameters}" cssClass="BoxW200px" />    
+        		</div>   
+        		 		
+        		<div class="col-md-3"><label>Activate Invoice Narration</label><br>
+        			 <s:checkbox id="chkActivateJourVoucherNarrInvoiceYN"  path="strNarrActivateInv" value=""  onclick="funSetCheckBoxValueYN(this)" />        		
+        		</div>
+        	</div>
         </div>
         <!-- Email Settings Tab -->
+        
         <div id="tab4" class="tab_conents">
-        	<table class="masterTable">
-        		<tr>
-        			<td><label>SMTP Server ID</label></td>        						    				        			      
-			    	<td colspan="3"><s:input id="txtEmailSMTPServerId" path="strEmailSmtpServer" cssClass="longTextBox" /></td>			    		        			   				
-        		</tr>
-        		<tr>
-        			<td><label>Is SSL Required</label></td>        						    				        			      
-			    	<td colspan="3"><s:checkbox id="chkSSLRequiredYN"  path="strSSLRequiredYN" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>		        			   				
-        		</tr>
-        		<tr>
-        			<td><label>Port No.</label></td>        						    				        			      
-			    	<td colspan="3"><s:input id="txtPortNo" path="strEmailSMTPPort" cssClass="longTextBox" /></td>			    		        			   				
-        		</tr>
-        		<tr>
-        			<td><label>User ID</label></td>        						    				        			      
-			    	<td colspan="3"><s:input id="txtUserId" path="strUserid" cssClass="longTextBox" /></td>			    		        			   				
-        		</tr>
-        		<tr>
-        			<td><label>Password</label></td>        						    				        			      
-			    	<td colspan="3"><s:password id="txtPassword" path="strPassword" cssClass="longTextBox" /></td>			    		        			   				
-        		</tr>
-        		<tr>
-        			<td><label>From</label></td>        						    				        			      
-			    	<td><s:input id="txtFromEmailId" path="strEmailFrom" cssClass="longTextBox" style="width: 345px;" /></td>		
-			    	<td><a href="#">(Show Details...)</a></td>
-			    	<td></td>   	    		        			   				
-        		</tr>
-        		<tr>
-        			<td><label>Cc</label></td>
-        			<td><s:textarea id="txtCcEmailId" path="strEmailCc" class="txtTextArea" /></td><%-- cssClass="longTextBox" --%>
-        			<td><label>Use ; as Seperator</label></td>   
-        			<td></td>
-        		</tr>
-        		<tr>
-        			<td><label>Bcc</label></td>
-        			<td><s:textarea id="txtBccEmailId" path="strEmailBcc" class="txtTextArea" /></td><%-- cssClass="longTextBox" --%>
-        			<td><label>Use ; as Seperator</label></td>
-        			<td></td>
-        		</tr>
-        		<tr>
-			    	<td style="width: 135px;"><label>Invoice Letter Code</label></td>
-			    	<td><s:input id="txtInvoiceLetterCode" path="strLetterCode" readonly="true" ondblclick="funSetACType('')" cssClass="searchTextBox"/></td>			        			        
-			    	<td style="float: right; width: 165%; "><s:input id="txtInvoiceLetterName" path="" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>
-			    	<td></td>			    		    				    		        			 
-				</tr>
-				<tr>
-			    	<td><label>Receipt Letter Code</label></td>
-			    	<td><s:input id="txtReceiptLetterCode" path="strReceiptLetterCode" readonly="true" ondblclick="funSetACType('')" cssClass="searchTextBox"/></td>			        			        
-			    	<td style="float: right; width: 165%; "><s:input id="txtReceiptLetterName" path="" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>
-			    	<td></td>			    			    				    		        			 
-				</tr>
-				<tr>
-			    	<td><label>ECS Letter Code</label></td>
-			    	<td><s:input id="txtECSLetterCode" path="strEcsLetterCode" readonly="true" ondblclick="funSetACType('')" cssClass="searchTextBox"/></td>			        			        
-			    	<td style="float: right; width: 165%; "><s:input id="txtECSLetterName" path="" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></td>
-			    	<td></td>	
-				</tr>
-				<tr>
-        			<td><label>Password Protect PDF's</label></td>        						    				        			      
-			    	<td><s:checkbox id="chkPassProtPDFYN"  path="" value=""  onclick="funSetCheckBoxValueYN(this)" /></td>	
-			    	<td style="float: right; width: 165%; "><label>Note: Password Format(Membership No + Date Of Birth(ddmmyyyy))</label></td>
-			    	<td></td>				    	      			   			
-        		</tr>        		  	
-        	</table>
-        	<br>        	
+        	<div class="row">
+        		<div class="col-md-3"><label>SMTP Server ID</label>        						    				        			      
+			    		<s:input id="txtEmailSMTPServerId" path="strEmailSmtpServer" cssClass="longTextBox" />			    		        			   				
+        		</div>
+        		
+        		<div class="col-md-3"><label>Is SSL Required</label><br>        						    				        			      
+			    		<s:checkbox id="chkSSLRequiredYN"  path="strSSLRequiredYN" value=""  onclick="funSetCheckBoxValueYN(this)" />		        			   				
+        		</div>
+        		
+        		<div class="col-md-3"><label>Port No.</label>       						    				        			      
+			    		<s:input id="txtPortNo" path="strEmailSMTPPort" cssClass="longTextBox" />			    		        			   				
+        		</div>
+        		
+        		<div class="col-md-3"><label>User ID</label>       						    				        			      
+			    		<s:input id="txtUserId" path="strUserid" cssClass="longTextBox" />			    		        			   				
+        		</div>
+        		
+        		<div class="col-md-3"><label>Password</label>        						    				        			      
+			    		<s:password id="txtPassword" path="strPassword" cssClass="longTextBox" />			    		        			   				
+        		</div>
+        		
+        		<div class="col-md-3"><label>From</label>        						    				        			      
+			    		<s:input id="txtFromEmailId" path="strEmailFrom" cssClass="longTextBox"/>		
+			    		<a href="#">(Show Details...)</a>
+			   	</div>
+			   	
+        		<div class="col-md-3"><label>Cc</label>
+        			<s:textarea id="txtCcEmailId" path="strEmailCc" class="txtTextArea" /><%-- cssClass="longTextBox" --%>
+        			<label>(Use ; as Seperator)</label>   
+        		</div>
+        		
+        		<div class="col-md-3"><label>Bcc</label>
+        			<s:textarea id="txtBccEmailId" path="strEmailBcc" class="txtTextArea" /><%-- cssClass="longTextBox" --%>
+        			<label>(Use ; as Seperator)</label>
+        		</div>
+        		
+        		<div class="col-md-6"><label>Invoice Letter Code</label>
+			    	<div class="row">
+			    		<div class="col-md-6"><s:input id="txtInvoiceLetterCode" path="strLetterCode" readonly="true" ondblclick="funSetACType('')" cssClass="searchTextBox"/></div>		        			        
+			    		<div class="col-md-6"><s:input id="txtInvoiceLetterName" path="" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></div>
+					</div>
+				</div>
+				
+				<div class="col-md-6"><label>Receipt Letter Code</label>
+			    	<div class="row">
+			    		<div class="col-md-6"><s:input id="txtReceiptLetterCode" path="strReceiptLetterCode" readonly="true" ondblclick="funSetACType('')" cssClass="searchTextBox"/></div>			        			        
+			    		<div class="col-md-6"><s:input id="txtReceiptLetterName" path="" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></div>
+			    	</div>	
+			    </div>
+			    
+				<div class="col-md-6"><label>ECS Letter Code</label>
+			    	<div class="row">
+			    		<div class="col-md-6"><s:input id="txtECSLetterCode" path="strEcsLetterCode" readonly="true" ondblclick="funSetACType('')" cssClass="searchTextBox"/></div>			        			        
+			    		<div class="col-md-6"><s:input id="txtECSLetterName" path="" readonly="true" cssClass="longTextBox" cssStyle="width:96%"/></div>
+			    	</div>
+			    </div>
+			    
+				<div class="col-md-6"><label>Password Protect PDF's</label> <br>      						    				        			      
+			    		<s:checkbox id="chkPassProtPDFYN"  path="" value=""  onclick="funSetCheckBoxValueYN(this)" /><br>
+			    		<label>Note: Password Format(Membership No + Date Of Birth(ddmmyyyy))</label>
+			    </div>        		  	
+        	</div>
+       <br />  <br /> 
+        	     	
         	<table class="masterTable">        		
         		<tr>
-        			<th style="width: 15px; height: 15px;"><input type="button" id="btnIconified" class="btnMaximize" onclick='funIconified()'/></th>
-        			<th id="thTittleBar" colspan="2" style="width: 15px; height: 15px;">Reco Report Parameters (Hide Details)</th>
+        			<th><input type="button" class="btn btn-primary center-block" id="btnIconified" class="btnMaximize" onclick='funIconified()' style="width:100px; height:22px"/></th>
+        			<th id="thTittleBar" colspan="2" style="height: 30px;">Reco Report Parameters (Hide Details)</th>
         		</tr>
         		<tr   id="divBox" >                		    	
 			    	<td colspan="4">
 			    		<div style="height: 150px; " >
 			    			<table class="masterTable" style="margin: 0px; width: 100%">
 			    				<tr>
-				        			<td style="background-color: #c0e4ff"><label>Revenue Posting &amp; JV Reco To Email</label></td>
-				        			<td style="background-color: #c0e4ff"><s:textarea id="txtCcEmailId" path="" class="txtTextArea" /></td><!-- cssClass="longTextBox" -->
-				        			<td style="background-color: #c0e4ff"><label>Use ; as Seperator</label></td>   				        			
+				        			<td style="background-color: #c0c0c0"><label>Revenue Posting &amp; JV Reco To Email</label></td>
+				        			<td style="background-color: #c0c0c0"><s:textarea id="txtCcEmailId" path="" class="txtTextArea" /></td><!-- cssClass="longTextBox" -->
+				        			<td style="background-color: #c0c0c0"><label>(Use ; as Seperator)</label></td>   				        			
 				        		</tr>
 				        		<tr>
 				        			<td><label>Revenue Posting &amp; JV Reco Cc Email</label></td>
 				        			<td><s:textarea id="txtBccEmailId" path="" class="txtTextArea" /></td><!-- cssClass="longTextBox" -->
-				        			<td><label>Use ; as Seperator</label></td>				        			
+				        			<td><label>(Use ; as Seperator)</label></td>				        			
 				        		</tr>
 			    			</table>
 			    		</div>			    		
 			    	</td>				    	      			   			
         		</tr>        		
-        	</table>        	        
+        	</table>
+        </div>        	        
         </div>
 		
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="right">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" />&nbsp
+			<input type="reset" value="Reset"  class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
-		<br />
-		<br />
-	
-	</s:form>	
+		
+	</s:form>
+	</div>	
 </body>
 </html>

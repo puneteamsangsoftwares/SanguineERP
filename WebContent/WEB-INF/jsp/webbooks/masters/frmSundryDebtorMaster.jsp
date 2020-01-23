@@ -353,29 +353,47 @@
 				        	$("#txtGLCode").val(response.strAccountCode);
 							$("#lblGLCode").text(response.strAccountName);
 				        	//set category data
-				        //	funSetCategoryData(response.strCategoryCode);				        					        	
+				        	if(response.strCategoryCode.length!=0)
+				        	{			        	
+				        		funSetCategoryData(response.strCategoryCode);	
+				        	}
 				        	$("#txtAddressLine1").val(response.strAddressLine1);
 				        	$("#txtAddressLine2").val(response.strAddressLine2);
 				        	$("#txtAddressLine3").val(response.strAddressLine3);
 				        	$("#cmbBlocked").val(response.strBlocked);
 				        	//fun set reason master data
-				        	if(response.strExpiryReasonCode.toString.length!=0)
+				        	if(response.strExpiryReasonCode.length!=0)
 				        	{
-				        	funSetReasonData(response.strExpiryReasonCode);				        					        	
+				        		funSetReasonData(response.strExpiryReasonCode);				        					        	
 				        	}
 				        	$("#txtFax").val(response.strFax);
 				        	$("#txtLandmark").val(response.strLandmark);
 				        	$("#txtEmail").val(response.strEmail);
 				        	//set area data
-				        //	funSetAreaData(response.strArea);
+				        	if(response.strArea.length!=0)
+				        	{
+				        		funSetAreaData(response.strArea);
+				        	}
 				        	//set city data
-				        //	funSetCityData(response.strCity);
+				       		if(response.strCity.length!=0)
+				        	{
+				        		funSetCityData(response.strCity);
+				        	}
 				        	//set state data
-				       // 	funSetStateData(response.strState);
+				      		if(response.strState.length!=0)
+				        	{
+				    	   		funSetStateData(response.strState);
+				        	}
 				        	//set region data
-				       // 	funSetRegionData(response.strRegion);
+				       		if(response.strRegion.length!=0)
+				        	{ 	
+				       			funSetRegionData(response.strRegion);
+				        	}
 				        	//set country data
-				       // 	funSetCountryData(response.strCountry);				        	
+				       		if(response.strCountry.length!=0)
+				        	{ 	
+				       			funSetCountryData(response.strCountry);				        	
+				        	}
 				        	$("#cmbCurrencyType").val(response.strCurrencyType);
 				        	$("#txtLicenseFee").val(response.dblLicenseFee);
 				        	$("#txtAnnualFee").val(response.dblAnnualFee);
@@ -603,7 +621,8 @@
 			        		$("#txtAreaName").val('');
 			        	}
 			        	else 
-			        	{		
+			        	{	
+			        		funSetCityData(response.strCityCode);
 			        	    $("#txtAreaName").val(response.strAreaName);				        							        						       
 			        	}
 					},
@@ -645,6 +664,7 @@
 			        	}
 			        	else 
 			        	{		
+			        		funSetStateData(response.strStateCode);
 			        	    $("#txtCityName").val(response.strCityName);				        							        						       
 			        	}
 					},
@@ -686,6 +706,8 @@
 			        	}
 			        	else 
 			        	{		
+			        		funSetRegionData(response.strRegionCode);
+			        		funSetCountryData(response.strCountryCode);
 			        	    $("#txtStateName").val(response.strStateName);				        							        						       
 			        	}
 					},
@@ -1255,7 +1277,7 @@
 							<div class="col-md-8">
 								<label>Debtor Code:</label><br>
 									<s:input  type="text" id="txtDebtorCode" cssClass="searchTextBox" style="height:50%"
-									 	path="strDebtorCode" ondblclick="funHelp('debtorCode')"/>
+									 	path="strDebtorCode"  readonly="true" ondblclick="funHelp('debtorCode')"/>
 							</div>
 							<div class="col-md-4">
 								<label></label><br>
@@ -1290,7 +1312,7 @@
 						<div class="row">
 							<div class="col-md-5">
 								<s:input  type="text" id="txtCategoryCode"  
-									 path="strCategoryCode" ondblclick="funHelp('categoryCode')" style="width:95%" cssClass="searchTextBox"/>
+									 path="strCategoryCode"  readonly="true" ondblclick="funHelp('categoryCode')" style="width:95%" cssClass="searchTextBox"/>
 							</div>
 							<div class="col-md-7">
 								<s:input id="txtCategoryName" path=""  required="true" readonly="true" />
@@ -1300,7 +1322,7 @@
 					<div class="col-md-6"></div>
 					<div class="col-md-2">
 								<label>Account Code:</label><br>
-									<s:input id="txtGLCode" path="strAccountCode"  ondblclick="funHelp('debtorAccountCode')"  style="height:50%" cssClass="searchTextBox"/>
+									<s:input id="txtGLCode"  readonly="true" path="strAccountCode"  ondblclick="funHelp('debtorAccountCode')"  style="height:50%" cssClass="searchTextBox"/>
 					</div>
 					<div class="col-md-3">
 					   <label id="lblGLCode" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label>
@@ -1383,10 +1405,10 @@
 					<label>Area:</label><br>
 						<div class="row">
 							<div class="col-md-5">
-								<s:input type="text" id="txtArea" path="strArea" placeholder="Area code" ondblclick="funHelp('areaCode')" cssClass="searchTextBox"/>			        			        
+								<s:input type="text" id="txtArea"  readonly="true" path="strArea" placeholder="Area code" ondblclick="funHelp('areaCode')" cssClass="searchTextBox"/>			        			        
 							</div>
 							<div class="col-md-7">
-								<s:input id="txtAreaName" path="" readonly="true" type="text" placeholder="Area Name"/>
+								<s:input id="txtAreaName" path="strAreaName" readonly="true" type="text" placeholder="Area Name"/>
 							</div>
 						</div> 
 					</div>
@@ -1401,10 +1423,10 @@
 					<label>City:</label><br>
 						<div class="row">
 							<div class="col-md-5">
-								<s:input type="text" id="txtCity" path="strCity" placeholder="City Code"  ondblclick="funHelp('cityCode')"  cssClass="searchTextBox"/>			        			        
+								<s:input type="text" id="txtCity" readonly="true" path="strCity" placeholder="City Code"  ondblclick="funHelp('cityCode')"  cssClass="searchTextBox"/>			        			        
 							</div>
 							<div class="col-md-7">
-								<s:input id="txtCityName" path="" readonly="true" type="text" placeholder="City Name"/>
+								<s:input id="txtCityName" path="strCityName" readonly="true" type="text" placeholder="City Name"/>
 							</div>
 						</div> 
 					</div>	
@@ -1420,10 +1442,10 @@
 					<label>State:</label><br>
 						<div class="row">
 							<div class="col-md-5">
-								<s:input type="text" id="txtState" path="strState" placeholder="State Code"  ondblclick="funHelp('stateCode')"  cssClass="searchTextBox"/>			        			        
+								<s:input type="text" id="txtState" readonly="true" path="strState" placeholder="State Code"  ondblclick="funHelp('stateCode')"  cssClass="searchTextBox"/>			        			        
 							</div>
 							<div class="col-md-7">
-								<s:input id="txtStateName" path="" readonly="true" type="text" placeholder="State Name"/>
+								<s:input id="txtStateName" path="strStateName" readonly="true" type="text" placeholder="State Name"/>
 							</div>
 						</div>
 					</div>	
@@ -1447,10 +1469,10 @@
 					<label>Region:</label><br>
 						<div class="row">
 							<div class="col-md-5">
-								<s:input type="text" id="txtRegion" path="strRegion" placeholder="Region Code" ondblclick="funHelp('regionCode')" cssClass="searchTextBox"/>			        			        
+								<s:input type="text" id="txtRegion" readonly="true" path="strRegion" placeholder="Region Code" ondblclick="funHelp('regionCode')" cssClass="searchTextBox"/>			        			        
 							</div>
 							<div class="col-md-7">
-								<s:input id="txtRegionName" path="" readonly="true" type="text" placeholder="Region Name"/>
+								<s:input id="txtRegionName" path="strRegionName" readonly="true" type="text" placeholder="Region Name"/>
 							</div>
 						</div>
 					</div>
@@ -1464,10 +1486,10 @@
 						<label>Country:</label><br>
 							<div class="row">
 								<div class="col-md-5">
-									<s:input type="text" id="txtCountry" path="strCountry" placeholder="Country Code" ondblclick="funHelp('countryCode')" cssClass="searchTextBox"/>			        			        
+									<s:input type="text" id="txtCountry" readonly="true" path="strCountry" placeholder="Country Code" ondblclick="funHelp('countryCode')" cssClass="searchTextBox"/>			        			        
 								</div>
 							<div class="col-md-7">
-								<s:input id="txtCountryName" path="" readonly="true" type="text" placeholder="Country Name"/>
+								<s:input id="txtCountryName" path="strCountryName" readonly="true" type="text" placeholder="Country Name"/>
 							</div>
 						</div> 
 					</div>
@@ -1588,7 +1610,7 @@
 								<label>Account Holder Code:</label><br>
 									<div class="row">
 										<div class="col-md-5">
-											<s:input id="txtAccountHolderCode" path="strAccountHolderCode" placeholder="Account Holder Code" ondblclick="funHelp('acHolderCode')" cssClass="searchTextBox" type="text"/>
+											<s:input id="txtAccountHolderCode"  readonly="true" path="strAccountHolderCode" placeholder="Account Holder Code" ondblclick="funHelp('acHolderCode')" cssClass="searchTextBox" type="text"/>
 										</div>
 										<div class="col-md-7">
 											<s:input id="txtAccountHolderName"  readonly="true"  path="strAccountHolderName" placeholder="Account Holder Name" type="text"/>
@@ -1666,7 +1688,7 @@
 		<br> 
 				<div class="row">		
 				<div class="col-md-2"><label>Account Code</label>
-									 <s:input id="txtAccountCode" path=""  cssClass="searchTextBox" ondblclick='funHelp("accountCode")' style="height: 47%;"/>
+									 <s:input id="txtAccountCode" path=""  readonly="true"  cssClass="searchTextBox" ondblclick='funHelp("accountCode")' style="height: 47%;"/>
 				</div>
 				
 				<div class="col-md-3"><label>Account Name</label>
@@ -1713,7 +1735,7 @@
 					<div class="row masterTable">
 						<div class="col-md-2">
 							<label>Product Code:</label><br>
-							<s:input id="txtProductCode" path="" cssClass="searchTextBox" type="text" style="height: 47%" ondblclick="funHelp('productCodeWebBook')"/>
+							<s:input id="txtProductCode" path="" readonly="true" cssClass="searchTextBox" type="text" style="height: 47%" ondblclick="funHelp('productCodeWebBook')"/>
 						</div>
 						
 						<div class="col-md-3">

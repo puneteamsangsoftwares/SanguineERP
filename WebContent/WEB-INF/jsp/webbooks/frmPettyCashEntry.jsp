@@ -285,7 +285,7 @@ var fieldName;
 		
 		<div class="row">
 				<div class="col-md-2"><label>Vouch No</label>
-					<s:input  type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('pettyCash');"/>
+					<s:input  type="text" id="txtVouchNo" readonly="true" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('pettyCash');"/>
 				</div>
 		
 				<div class="col-md-2"><label>Vouch Date</label>
@@ -297,7 +297,7 @@ var fieldName;
 				</div>
 				       
 				<div class="col-md-2"><label>Expense Code</label>
-		            <s:input id="txtExpCode" path="" cssClass="searchTextBox" ondblclick="funHelp('expense')" />
+		            <s:input id="txtExpCode" readonly="true" path="" cssClass="searchTextBox" ondblclick="funHelp('expense')" />
 				</div>			
 					
 				<div class="col-md-3"><label  id="txtExpenseName" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label>

@@ -245,11 +245,11 @@
 						<div class="row">
 							<div class="col-md-6">
 							<label>Group Code:</label><s:input id="txtGroupCode" ondblclick="funHelp('acGroupCode')" cssClass="searchTextBox"
-								   type="text" path="strGroupCode" placeholder="Group Code" style="height:48%"></s:input>
+								   type="text" path="strGroupCode" readonly="true"  placeholder="Group Code" style="height:48%"></s:input>
 							</div>
 							<div class="col-md-6">
 							<label>Under SubGroup Code:</label><s:input id="txtUnderSubGroup" path="strUnderSubGroup" ondblclick="funHelp('underSubGroupCode')"
-								  type="text" cssClass="searchTextBox" style="height:48%"></s:input>
+								  type="text" cssClass="searchTextBox"  readonly="true" style="height:48%"></s:input>
 							</div>
 						</div>
 					</div>

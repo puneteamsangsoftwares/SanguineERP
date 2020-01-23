@@ -3559,16 +3559,18 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/webclub/frmWebClubMemberProfileSetup.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="frmWebClubStructureUpdate" extends="base.definition">
+		<put-attribute name="title" value="Structure Update"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webclub/frmWebClubStructureUpdate.jsp"></put-attribute>
+	</definition>
 	
+	<definition name="frmWebClubStructureUpdate_1" extends="base.definition4">
+		<put-attribute name="title" value="Structure Update"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webclub/frmWebClubStructureUpdate.jsp"></put-attribute>
+	</definition>
 	
-	
-	
-	
-	
-	
-	
-	
-<!-- 	End Of WebClub Tiles Entry -->
+			
+	<!-- 	End Of WebClub Tiles Entry -->
 
 
 
@@ -4067,8 +4069,7 @@
 		<put-attribute name="title" value="Structure Update"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/jsp/webbooks/frmWebBooksStructureUpdate.jsp"></put-attribute>
 	</definition>
-	
-	
+				
 	<definition name="frmWebBooksDeleteModuleList" extends="base.searchFormDefination">
 		<put-attribute name="title" value="Transaction List"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/jsp/webbooks/frmWebBooksDeleteModuleList.jsp"></put-attribute>

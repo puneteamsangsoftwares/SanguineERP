@@ -245,7 +245,7 @@
 				   </div>
 			       
 			       <div class="col-md-3"><label>Reason Code</label>
-				             <s:input  id="txtReasonCode" path="strReasonCode" cssClass="searchTextBox" ondblclick="funHelp('reason');"/>
+				             <s:input  id="txtReasonCode" readonly="true" path="strReasonCode" cssClass="searchTextBox" ondblclick="funHelp('reason');"/>
 				   </div>
 				
 					<div class="col-md-3"><label id="lblReasonDesc"></label>

@@ -614,39 +614,46 @@
 	<label id="formHeading">Sundry Creditor Bill</label>
 	<s:form name="SuppGRNBill" method="POST" action="saveSuppGRNBill.html">
 			<div class="row">
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<label>Voucher No</label>
-				    <s:input  type="text" id="txtVoucherNo" path="strVoucherNo" cssClass="searchTextBox" ondblclick="funHelp('SCCode');"/>
+				    <s:input  type="text" id="txtVoucherNo" readonly="true" path="strVoucherNo" cssClass="searchTextBox" ondblclick="funHelp('SCCode');"/>
 				</div>
 				
-				<div class="col-md-6"><label>Supp Code</label>
+				<div class="col-md-5"><label>Supp Code</label>
 				     <div class="row">
-				             <div class="col-md-6"><s:input  type="text" id="txtSuppCode" path="strSuppCode" cssClass="searchTextBox" ondblclick="funHelp('suppLinkedWeb-Service');"/></div>
-				             <div class="col-md-6"><s:input  type="text" id="txtSuppName" readonly="readonly" path="strSuppName" cssClass="BoxW124px" /></div>
-				</div></div>
+				             <div class="col-md-5"><s:input  type="text" id="txtSuppCode" path="strSuppCode" cssClass="searchTextBox" ondblclick="funHelp('suppLinkedWeb-Service');" readonly="true" placeholder="Supp Code"/></div>
+				             <div class="col-md-7"><s:input  type="text" id="txtSuppName" readonly="readonly" path="strSuppName" placeholder="Supp Name"/></div>
+					</div><br>
+				</div>
 			
-			    <div class="col-md-3"><label>Bill No</label>
+			    <div class="col-md-2"><label>Bill No</label>
 				     <s:input  type="text" id="txtBillNo" path="strBillNo" cssClass="BoxW124px" />
 				</div>
+				<div class="col-md-3"></div>
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-6"><label>Bill Date</label>
+						      <s:input  type="text" id="txtBillDate" path="dteBillDate" cssClass="calenderTextBox" />
+						</div>
 				
-				<div class="col-md-3"><label>Bill Date</label>
-				      <s:input  type="text" id="txtBillDate" path="dteBillDate" cssClass="calenderTextBox" />
-				</div>
+					    <div class="col-md-6"><label>Due Date</label>
+						         <s:input  type="text" id="txtDueDate" path="dteDueDate" cssClass="calenderTextBox" />
+						</div>       
+					 </div>
+				</div> 
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-6"><label>Total Amount</label><br>
+							<s:input type="number" step="0.01" id="txtTotalAmount" readonly="readonly" path="dblTotalAmount" value="0.00" />
+						</div>
 				
-			    <div class="col-md-3"><label>Due Date</label>
-				         <s:input  type="text" id="txtDueDate" path="dteDueDate" cssClass="calenderTextBox" />
-				</div>       
-				         
-				<div class="col-md-3"><label>Total Amount</label><br>
-				         <s:input type="number" step="0.01" style="text-align: right;" id="txtTotalAmount" readonly="readonly" path="dblTotalAmount" cssClass="longTextBox" value="0.00" />
-				</div>
-				
-			    <div class="col-md-3"><label>Voucher Date</label>
-				         <s:input  type="text" id="txtVoucherDate" path="dteVoucherDate" cssClass="calenderTextBox" />
-				</div>
-				
+					    <div class="col-md-6"><label>Voucher Date</label>
+						    <s:input  type="text" id="txtVoucherDate" path="dteVoucherDate" cssClass="calenderTextBox" />
+						</div>
+				 	</div>
+				</div> 
 				<div class="col-md-3"><label>Narration</label><br>
-				        <s:textarea id="txtNarration" path="strNarration" style="width:100%;"/>
+				    <s:textarea id="txtNarration" path="strNarration" style="width:100%; height: 27px; type=text"/>
 				</div>
 		   </div>
 		<br>
@@ -654,38 +661,37 @@
 			<div>
 					<div id="tab_container" style="height:420px; margin-bottom:20px;">
 								<ul class="tabs">
-									<li class="active" data-state="tab1"
-										style="width: 100px; padding-left: 55px">Details</li>
-									<li data-state="tab2" style="width: 100px; padding-left: 55px">GRN</li>
+									<li class="active" data-state="tab1">Details</li>
+									<li data-state="tab2">GRN</li>
 								</ul>
 								<div id="tab1" class="tab_content" style="height: 390px">
 		
 									<div class="row" style="margin-top:47px;">
-									      <div class="col-md-6"><label>Account Code</label>
-										  <div class="row">
-									             <div class="col-md-6"><input type="text" id="txtACCode"
-											      Class="searchTextBox" ondblclick="funHelp('accountCode');" /></div>
-										          <div class="col-md-6"><input type="text" id="txtACName"
-											      Class="BoxW124px" readonly="readonly" style="width:100%;"/></div>	
+									     <div class="col-md-5"><label>Account Code</label>
+										  	<div class="row">
+									             <div class="col-md-5"><input type="text" id="txtACCode" readonly="true" 
+											       	Class="searchTextBox" ondblclick="funHelp('accountCode');" /></div>
+										          <div class="col-md-7"><input type="text" id="txtACName"
+											       	Class="BoxW124px" readonly="readonly" style="width:100%;"/></div>	
 										    </div>
-										   </div>
-										<div class="col-md-3"><label>Cr/Dr</label>
+										 </div>
+										<div class="col-md-1"><label>Cr/Dr</label>
 										    <select id="cmbCrDr">
 												<option value="Cr">Cr</option>
 												<option value="Dr">Dr</option>
 										    </select>
 										</div>
-								
+										
 								    	<div class="col-md-3"><label>Amount</label><br>
 										      <input type="number" step="0.01" id="txtAmount" readonly="readonly" />
 										</div>
-										
-										<div class="col-md-3"><label>Remark</label>
+											<div class="col-md-3"></div>
+										<div class="col-md-2"><label>Remark</label>
 										      <input type="text" id="txtRemark"/>
 										</div>	
-										
-										<div class="col-md-3"><input type="Button" value="Add"
-											onclick="return funFillAccRow()" class="btn btn-primary center-block" class="smallButton"  style="margin: 12px 390px;" />
+										<div class="col-md-6"></div>
+										<div class="col-md-4"><input type="Button" value="Add"
+											onclick="return funFillAccRow()" class="btn btn-primary center-block" style="margin:10px 0px;" />
 									     </div>
 									</div>	
 									
@@ -746,22 +752,25 @@
 								</div>
 								
 							<div id="tab2" class="tab_content" style="height: 390px">
-							<div class="row" style="margin-top:47px;">
-							<div class="col-md-3"><label>From Date </label>
-							       <input id="txtFromDate"  value="" readonly="readonly" Class="calenderTextBox" style="border-style: none; padding: 4px;"/>
-							 </div>
-							 
-							<div class="col-md-3"><label>To Date </label>
-							       <input id="txtToDate"  value="" readonly="readonly" Class="calenderTextBox" style="border-style: none; padding: 4px;"/>
-							</div>
-							
-							<div class="col-md-3"><input type="Button" value="Show" class="btn btn-primary center-block" style="margin: 15px 175px;"
-											onclick="return funShowGRN()" class="smallButton" />
-							</div>
-							</div>
+								<div class="row" style="margin-top:47px;">
+									<div class="col-md-3">
+										<div class="row">
+											<div class="col-md-6"><label>From Date </label>
+										       <input id="txtFromDate"  value="" readonly="readonly" Class="calenderTextBox" style="border-style: none; padding: 4px;"/>
+										 	</div>
+										 
+											<div class="col-md-6"><label>To Date </label>
+										       <input id="txtToDate"  value="" readonly="readonly" Class="calenderTextBox" style="border-style: none; padding: 4px;"/>
+											</div>
+										</div>
+									</div>	
+									<div class="col-md-3"><input type="Button" value="Show" class="btn btn-primary center-block" style="margin: 5px 175px; margin-top:22px;"
+												onclick="return funShowGRN()" class="smallButton" />
+									</div>
+								</div>
 							
 							<div
-							style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 350px; overflow-x: hidden; overflow-y: scroll;">
+							style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 350px; overflow-x: hidden; overflow-y: scroll; margin-top:10px;">
 
 							<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
@@ -793,7 +802,7 @@
 			</div>
 		
 		<p align="right">
-			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateFields();" />
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateFields();" />&nbsp
 			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 		

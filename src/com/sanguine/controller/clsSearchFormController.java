@@ -5020,7 +5020,7 @@ public class clsSearchFormController {
 		}
 		case "cityCode": {
 			columnNames = "strCityCode,strCityName,strCountryCode,strStateCode,strSTDCode";
-			tableName = "clsWSCityMasterModel where strClientCode='" + clientCode + "' ";
+			tableName = "clsCityMasterModel where strClientCode='" + clientCode + "' ";
 			/*if (showPrptyWiseProdDoc.equalsIgnoreCase("Y")) {
 				tableName += " and strPropertyCode = '" + propertyCode + "' ";
 			}*/

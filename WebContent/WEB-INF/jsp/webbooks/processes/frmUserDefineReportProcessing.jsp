@@ -83,6 +83,20 @@
 		});
 	}
 	
+	
+	
+	function funValidate()
+	{		
+		if($("#txtReportCode").val().trim().length<1)
+		{
+			alert("Please Select Report ID.");
+			$("#txtReportCode").focus();
+			return false;
+		}				
+	}
+	
+	
+	
 	</script>
 </head>
 	<body>
@@ -92,7 +106,7 @@
 			
 		    <div class="row">
 			    <div class="col-md-2"><label>Report ID</label>
-			            <s:input id="txtReportCode" path="strReportId" style="height:42%" ondblclick="funHelp('userDefinedReportCode');" class="searchTextBox"/>
+			            <s:input id="txtReportCode" path="strReportId" style="height:42%" readonly="true" ondblclick="funHelp('userDefinedReportCode');" class="searchTextBox"/>
 			            <label id="lblUserName"></label>			    			    			    		    
 			    </div>
 			    <div class="col-md-10"></div>
@@ -109,7 +123,7 @@
 		    </div>
 		    <br>
 			<p align="right" style="margin-right:77%;">
-			   <input id="btnSubmit" type="submit" value="Execute" class="btn btn-primary center-block" class="form_button" />
+			   <input id="btnSubmit" type="submit" value="Execute" class="btn btn-primary center-block" class="form_button" onclick="return funValidate()"/>
 			</p>
 			</s:form>
 		</div>

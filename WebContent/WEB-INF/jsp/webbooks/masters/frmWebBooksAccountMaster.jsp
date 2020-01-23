@@ -470,7 +470,7 @@
 								
 						<div class="col-md-2">
 								<label>Employee Code</label>
-									<s:input  type="text" id="txtEmployeeCode" step="0.0001" style="height:48%"
+									<s:input  type="text" id="txtEmployeeCode" step="0.0001" style="height:48%" readonly="true" 
 									 path="strEmployeeCode" ondblclick="funHelp('employeeCode')" class="searchTextBox" />
 					 </div>
 					 

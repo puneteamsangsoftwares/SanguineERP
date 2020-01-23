@@ -303,7 +303,10 @@ public class clsChargeProcessingController
 
 		String debtorAccountCode = objBean.getStrAccountCode();
 		String debtorAccountName = objBean.getStrAccountName();
-
+		if(objBean.getStrInstantJVYN()==null)
+		{
+			objBean.setStrInstantJVYN("N");
+		}		
 		List<clsChargeProcessingDtlModel> listOfChargesToBeProcess = new ArrayList<clsChargeProcessingDtlModel>();
 
 		java.util.Iterator<clsChargeProcessingDtlModel> it = objBean.getListChargeDtl().iterator();

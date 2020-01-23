@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+	<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -335,29 +335,47 @@
 				        	$("#txtGLCode").val(response.strAccountCode);
 							$("#lblGLCode").text(response.strAccountName);
 				        	//set category data
-				        //	funSetCategoryData(response.strCategoryCode);				        					        	
+				        	if(response.strCategoryCode.length!=0)
+				        	{	
+				        		funSetCategoryData(response.strCategoryCode);				        					        	
+				        	}
 				        	$("#txtAddressLine1").val(response.strAddressLine1);
 				        	$("#txtAddressLine2").val(response.strAddressLine2);
 				        	$("#txtAddressLine3").val(response.strAddressLine3);
 				        	$("#cmbBlocked").val(response.strBlocked);
 				        	//fun set reason master data
-				        	if(response.strExpiryReasonCode.toString.length!=0)
+				        	if(response.strExpiryReasonCode.length!=0)
 				        	{
-				        	funSetReasonData(response.strExpiryReasonCode);
+				        		funSetReasonData(response.strExpiryReasonCode);
 				        	}
 				        	$("#txtFax").val(response.strFax);
 				        	$("#txtLandmark").val(response.strLandmark);
 				        	$("#txtEmail").val(response.strEmail);
 				        	//set area data
-				        //	funSetAreaData(response.strArea);
+				        	if(response.strArea.length!=0)
+				        	{
+				        		funSetAreaData(response.strArea);
+				        	}
 				        	//set city data
-				        //	funSetCityData(response.strCity);
+				        	if(response.strCity.length!=0)
+				        	{
+				        		funSetCityData(response.strCity);
+				        	}
 				        	//set state data
-				       // 	funSetStateData(response.strState);
+				       		if(response.strState.length!=0)
+				        	{ 	
+				       			funSetStateData(response.strState);
+				        	}
 				        	//set region data
-				       // 	funSetRegionData(response.strRegion);
-				        	//set country data
-				       // 	funSetCountryData(response.strCountry);				        	
+				       		if(response.strRegion.length!=0)
+				        	{	
+				       			funSetRegionData(response.strRegion);
+				        	}
+				        	//set country data				       
+				        	if(response.strCountry.length!=0)
+				        	{ 	
+				        		funSetCountryData(response.strCountry);				        	
+				        	}
 				        	$("#cmbCurrencyType").val(response.strCurrencyType);
 				        	$("#txtLicenseFee").val(response.dblLicenseFee);
 				        	$("#txtAnnualFee").val(response.dblAnnualFee);
@@ -557,6 +575,7 @@
 			        	}
 			        	else 
 			        	{		
+			        		funSetCityData(response.strCityCode);
 			        	    $("#txtAreaName").val(response.strAreaName);				        							        						       
 			        	}
 					},
@@ -598,6 +617,7 @@
 			        	}
 			        	else 
 			        	{		
+			        		funSetStateData(response.strStateCode);
 			        	    $("#txtCityName").val(response.strCityName);				        							        						       
 			        	}
 					},
@@ -639,6 +659,8 @@
 			        	}
 			        	else 
 			        	{		
+			        		funSetRegionData(response.strRegionCode);
+			        		funSetCountryData(response.strCountryCode);
 			        	    $("#txtStateName").val(response.strStateName);				        							        						       
 			        	}
 					},
@@ -1575,7 +1597,7 @@
 		<br> 
 			<div class="row">		
 				<div class="col-md-2"><label>Account Code</label>
-							<s:input id="txtAccountCode" path=""  cssClass="searchTextBox" ondblclick='funHelp("accountCode")' />
+							<s:input id="txtAccountCode" path="" readonly="true" cssClass="searchTextBox" ondblclick='funHelp("accountCode")' />
 				</div>
 				
 				<div class="col-md-3"><label>Account Name</label>
@@ -1624,7 +1646,7 @@
 					<div class="row masterTable">
 						<div class="col-md-2">
 							<label>Product Code:</label><br>
-							<s:input id="txtProductCode" path="" cssClass="searchTextBox" placeholder="Product Code" type="text" />
+							<s:input id="txtProductCode" path=""  readonly="true" cssClass="searchTextBox" placeholder="Product Code" type="text" />
 						</div>
 						<div class="col-md-3">
 							<label>Product Name</label>

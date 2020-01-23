@@ -221,7 +221,7 @@
 					</div>
 				</div>
 				<div class="col-md-2"><label>Bank Code</label>
-					  <s:input type="text" id="txtGLCode" path="strGLCode" class="searchTextBox" ondblclick="funHelp('bankAccNo');"/>
+					  <s:input type="text" id="txtGLCode" readonly="true" path="strGLCode" class="searchTextBox" ondblclick="funHelp('bankAccNo');"/>
 				</div>
 				<div class="col-md-3"><label id="lblGLCode" style="background-color: white;width: 100%;height: 42%;margin: 27px 0px;"></label>
 		        </div>

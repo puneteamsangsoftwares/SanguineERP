@@ -884,7 +884,7 @@
 					<div class="col-md-4">
 						<div class="row">
 							<div class="col-md-5"><label>GL Code</label>
-								<s:input  type="text" id="txtGLCode" cssClass="searchTextBox" style="height:50%"
+								<s:input  type="text" id="txtGLCode" readonly="true" cssClass="searchTextBox" style="height:50%"
 									 	path="strGLCode" ondblclick="funHelp('creditorAccountCode');"/>
 							</div>
 							<div class="col-md-7">
@@ -913,7 +913,7 @@
 					<div class="col-md-4">
 						<div class="row">
 							<div class="col-md-5"><label>Creditor Code</label>
-								<s:input  type="text" id="txtFromDebtorCode" cssClass="searchTextBox" style="height:50%"
+								<s:input  type="text" id="txtFromDebtorCode" readonly="true" cssClass="searchTextBox" style="height:50%"
 									 	path="strFromDebtorCode" ondblclick="funHelp('creditorCode');"/>
 							</div>
 							<div class="col-md-7">

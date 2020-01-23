@@ -1644,7 +1644,7 @@ function funSetDebtorMasterData(debtorCode)
 						<div class="col-md-5">
 							<label>Account Code</label>
 							<div class="row">
-								<div class="col-md-5"><input id="txtAccCode" name="txtAccCode" ondblclick="funHelp('accountCode')" class="searchTextBox" /></div>
+								<div class="col-md-5"><input id="txtAccCode" readonly="true" name="txtAccCode" ondblclick="funHelp('accountCode')" class="searchTextBox" /></div>
 				                <div class="col-md-7"><input id="txtDescription" name="txtDescription" type="text" /></div>
 				            </div>
 				         </div>
@@ -1670,7 +1670,7 @@ function funSetDebtorMasterData(debtorCode)
 			      	  	<div class="col-md-5">
 			      	  		<label id="lblCrdDebCode">Creditor Code</label>
 				           <div class="row">
-								<div class="col-md-5"><input id="txtDebtorCode" name="txtDebtorCode" ondblclick="funHelp1()" class="searchTextBox" /></div>
+								<div class="col-md-5"><input id="txtDebtorCode" readonly="true" name="txtDebtorCode" ondblclick="funHelp1()" class="searchTextBox" /></div>
 				                <div class="col-md-7"><input id="txtDebtorName" name="txtDebtorName" readonly="readonly" type="text" /></div>
 				            </div>
 				         </div>

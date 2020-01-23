@@ -938,7 +938,7 @@
          <s:form name="JV" method="POST" action="saveJV.html">
 		 <div class="row">
 			<div class="col-md-2"><label>VouchNo</label>
-					<s:input  type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('UserCreatedJVNo');"/>
+					<s:input  type="text" id="txtVouchNo" readonly="true" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('UserCreatedJVNo');"/>
 			</div>
 				
 			<div class="col-md-2"><label>VouchDate</label>
@@ -983,7 +983,7 @@
 			</div>
 				
 			<div class="col-md-2"><label>Account Code</label>
-				  <input id="txtAccCode" name="txtAccCode" ondblclick="funHelp('GLCode')" class="searchTextBox" />
+				  <input id="txtAccCode" name="txtAccCode" readonly="true" ondblclick="funHelp('GLCode')" class="searchTextBox" />
 			</div>
 				
 		    <div class="col-md-2"><label>Description</label>
@@ -1014,7 +1014,7 @@
 		    </div>
 		    
 			<div class="col-md-2"><label>One Line Account</label>
-				   <input id="txtOneLineAcc" name="txtOneLineAcc" ondblclick="funHelp('oneLineAcc')" class="searchTextBox" />
+				   <input id="txtOneLineAcc" name="txtOneLineAcc" readonly="true" ondblclick="funHelp('oneLineAcc')" class="searchTextBox" />
 			</div>
 			
 			<div class="col-md-2"><label>Narration</label>

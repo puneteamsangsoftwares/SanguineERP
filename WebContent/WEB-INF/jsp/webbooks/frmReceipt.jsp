@@ -1379,7 +1379,7 @@
 
 	  <div class="row">
 		   <div class="col-md-2"><label>Voucher No</label>
-				<s:input colspan="3" type="text" id="txtVouchNo" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('ReceiptNo');"/>
+				<s:input colspan="3" type="text" id="txtVouchNo" readonly="true" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('ReceiptNo');"/>
 		    </div>
 			
 			<div class="col-md-2"><label>Voucher Date</label>
@@ -1394,7 +1394,7 @@
 			<div class="col-md-5"></div>
 				
 			<div class="col-md-2"><label>CF Code</label>
-				<s:input colspan="3" type="text" id="txtCFCode" path="strCFCode" cssClass="searchTextBox" ondblclick="funHelp('cashBankAccNo');"/>
+				<s:input colspan="3" type="text" id="txtCFCode" readonly="true" path="strCFCode" cssClass="searchTextBox" ondblclick="funHelp('cashBankAccNo');"/>
 			</div>
 				
 			<div class="col-md-2"><label id="lblCFDesc"></label>
@@ -1419,7 +1419,7 @@
 			 </div>
 			 <div class="col-md-2"></div>
 			<div class="col-md-2"><label>Drawn On</label>
-				     <s:input type="text" id="txtDrawnOn" path="strDrawnOn" cssClass="searchTextBox" ondblclick="funHelp('bankCode');"/>
+				     <s:input type="text" id="txtDrawnOn" readonly="true" path="strDrawnOn" cssClass="searchTextBox" ondblclick="funHelp('bankCode');"/>
 		     </div>
 		     
 		     <div class="col-md-2"><label id="lblDrawnOnDesc" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label>
@@ -1458,7 +1458,7 @@
 	        <div class="row" style="margin-top: 15px;">
 				<div class="col-md-5"><label>Account Code</label>
 					<div class="row">
-			            <div class="col-md-5"><input id="txtAccCode" name="txtAccCode" ondblclick="funHelp('GLCode')" class="searchTextBox" /></div>
+			            <div class="col-md-5"><input id="txtAccCode" readonly="true" name="txtAccCode" ondblclick="funHelp('GLCode')" class="searchTextBox" /></div>
 								<!-- <td width="10%">Description</td> -->
 		                 <div class="col-md-7"><input id="txtDescription" name="txtDescription" type="text" /></div>
 			   		</div>
@@ -1477,7 +1477,7 @@
 				<div class="col-md-5">
 					<label id="lblCrdDebCode">Debtor Code</label>
 					 	<div class="row">
-			                <div class="col-md-5"><s:input id="txtDebtorCode" readonly="readonly"  name="txtDebtorCode" ondblclick="funHelp1()" class="searchTextBox" path="strDebtorCode"/></div>
+			                <div class="col-md-5"><s:input id="txtDebtorCode" readonly="true" name="txtDebtorCode" ondblclick="funHelp1()" class="searchTextBox" path="strDebtorCode"/></div>
 					        <div class="col-md-7"><s:input id="txtDebtorName" name="txtDebtorName" readonly="true" cssClass="longTextBox" path="strDebtorName"></s:input></div>
 			  			</div>
 			  	</div>     

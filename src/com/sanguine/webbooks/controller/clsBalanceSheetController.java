@@ -683,7 +683,7 @@ public class clsBalanceSheetController {
 				}
 				catch (Exception e)
 				{
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 
 				double currValue = Double.parseDouble(req.getSession().getAttribute("currValue").toString());
@@ -863,17 +863,20 @@ public class clsBalanceSheetController {
 				
 				listExcelData.add("BALANCE SHEET");	//0
 				List listData1=new ArrayList();
-				listData1.add(companyName);				
+				listData1.add(companyName);			
 				listData1.add("BALANCE SHEET");
-				listExcelData.add(listData1);	//1
+				listExcelData.add(listData1);		//1
 				
 				List listDates=new ArrayList();
 				listDates.add("From Date : "+fromDate);
 				listDates.add("To Date : "+toDate);
-				listExcelData.add(listDates);	//2
-								
-				List listData=new ArrayList();
-								
+				listExcelData.add(listDates);		//2
+											
+				List listBlankHeader=new ArrayList();
+				listBlankHeader.add("");
+				listExcelData.add(listBlankHeader);	 //3
+				
+				List listData=new ArrayList();								
 				List<List> listTotals=new ArrayList<List>();
 				List list=new ArrayList();
 				list.add("TOTAL");
@@ -892,11 +895,11 @@ public class clsBalanceSheetController {
 				listData.add(listCapitals);
 				listData.add(listCapitalTotals);
 								
-				listExcelData.add(listData);	//3
+				listExcelData.add(listData);	//4
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 			finally
 			{
@@ -1332,7 +1335,7 @@ public class clsBalanceSheetController {
 				listExcelData.add(listHeaders); //3
 				
 				List<List> listTotals=new ArrayList<List>();
-				 list=new ArrayList();
+				list=new ArrayList();
 				list.add("TOTAL");
 				list.add(String.valueOf(0));
 				listTotals.add(list);

@@ -266,7 +266,7 @@ var StkFlashData;
 					<label>GL Code:</label><br>
 					   <div class="row">
 							<div class="col-md-5">
-								<s:input  type="text" id="txtGLCode" cssClass="searchTextBox" 
+								<s:input  type="text" id="txtGLCode" readonly="true" cssClass="searchTextBox" 
 									 path="strAccountCode" ondblclick="funHelp('creditorAccountCode');"/>
 							</div>
 							<div class="col-md-7">

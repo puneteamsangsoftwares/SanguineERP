@@ -436,7 +436,8 @@
 									
 						<div class="col-md-3">
 									<label>Remarks</label>
-										<s:select id="txtRemark" path="strRemark" required="true" placeholder="Remarks"  />
+										<s:input  type="text" placeholder="Enter Remarks" id="txtRemark" 
+										 path="strRemark"  />
 								</div>
 							
 						

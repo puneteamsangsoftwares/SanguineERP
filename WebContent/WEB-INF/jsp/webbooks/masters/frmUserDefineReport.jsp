@@ -170,7 +170,7 @@
 		    row.insertCell(11).innerHTML= "<select name=\"listUserDefRptDtlBean["+(rowCount)+"].strPrint\" class=\"Box\" style=\"width: 100%;\"  id=\"strPrint."+(rowCount)+"\"  >   '"+funGetPrintYNList(selectedPrintYN)+"'";
 		    row.insertCell(12).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';
 		    funClickOnType(selectedType,rowCount);   
-		    
+		    return false;
 		}
 		
 		function funGetTypeList(selectedType)

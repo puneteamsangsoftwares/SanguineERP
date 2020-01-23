@@ -181,6 +181,7 @@ public class clsBaseDaoImpl implements intfBaseDao {
 	}
 	
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebBooksTransactionManager")
 	public String funSaveForWebBooks(clsBaseModel objBaseModel) {
 		webBooksSessionFactory.getCurrentSession().saveOrUpdate(objBaseModel);
 		return objBaseModel.getDocCode();

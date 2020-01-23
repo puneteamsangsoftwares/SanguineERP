@@ -501,7 +501,7 @@
 													<div class="row">
 													
 													<div class="col-md-6"><label>CF Code</label>
-														<s:input colspan="3" type="text" id="txtCFCode" path="strCFCode" cssClass="searchTextBox" ondblclick="funHelp('cashBankAccNo');"/>
+														<s:input colspan="3" type="text" id="txtCFCode" readonly="true" path="strCFCode" cssClass="searchTextBox" ondblclick="funHelp('cashBankAccNo');"/>
 													</div>
 														
 													<div class="col-md-6"><label id="lblCFDesc"></label>
