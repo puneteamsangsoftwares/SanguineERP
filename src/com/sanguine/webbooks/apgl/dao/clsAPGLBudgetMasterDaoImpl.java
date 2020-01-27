@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
+import org.hibernate.Query;
 import com.sanguine.webbooks.apgl.model.clsAPGLBudgetModel;
 
 @Repository("clsAPGLBudgetMasterDao")
@@ -34,4 +34,16 @@ public class clsAPGLBudgetMasterDaoImpl implements clsAPGLBudgetMasterDao {
 		webBooksSessionFactory.getCurrentSession().saveOrUpdate(objBudgetModel);
 	}
 
+
+	
+	public int funExecuteWebBooksQuery(String sql) {
+		try {
+			Query query = webBooksSessionFactory.getCurrentSession().createSQLQuery(sql);
+			query.executeUpdate();
+		} catch (Exception e) {
+			//e.printStackTrace();
+		} finally {
+			return 0;
+		}
+	}
 }

@@ -31,35 +31,38 @@ public class clsWebClubOtherFieldCreationDaoImpl implements clsWebClubOtherField
 			Query query = WebClubSessionFactory.getCurrentSession().createSQLQuery(sql);
 			query.executeUpdate();
 		} catch (Exception e) {
+		} finally {
+			
+		}
+		
+	}
+	
+	
+	
+
+	@Override
+	public List funExecuteList(String sql) {
+		List list=null;
+	
+		try {
+			Query query = WebClubSessionFactory.getCurrentSession().createSQLQuery(sql);
+			list = query.list();
+			query.executeUpdate();
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			
 		}
-	}
-		@Override
-		public List funExecuteList(String sql) {
-			List list=null;
-		
-			try {
-				Query query = WebClubSessionFactory.getCurrentSession().createSQLQuery(sql);
-				list = query.list();
-				query.executeUpdate();
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				
-			}
-			return list;
-		/*@Override
-		public List funExecuteList(String sql) {
-			Query query = WebClubSessionFactory.getCurrentSession().createSQLQuery(sql);
-			//query.setParameter("OPCode", OPCode);
-			//query.setParameter("clientCode", clientCode);
-			List list = query.list();
-			return list;
-		}*/
-		
+		return list;
+	/*@Override
+	public List funExecuteList(String sql) {
+		Query query = WebClubSessionFactory.getCurrentSession().createSQLQuery(sql);
+		//query.setParameter("OPCode", OPCode);
+		//query.setParameter("clientCode", clientCode);
+		List list = query.list();
+		return list;
+	}*/
 	}
 
 }

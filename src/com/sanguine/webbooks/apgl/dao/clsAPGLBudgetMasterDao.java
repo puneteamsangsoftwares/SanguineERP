@@ -10,4 +10,6 @@ public interface clsAPGLBudgetMasterDao {
 
 	public void funSaveBudgetTableData(clsAPGLBudgetModel objBudgetModel);
 
+	public int funExecuteWebBooksQuery(String sql);
+	
 }

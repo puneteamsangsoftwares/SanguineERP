@@ -20,10 +20,8 @@ public class clsWebClubOtherFieldCreationServiceImpl implements clsWebClubOtherF
 	public void funExecuteQuery(String sql){
 		objWebClubOtherFieldCreationDao.funExecuteQuery(sql);
 	}
-
 	@Override
 	public List funExecuteList(String sql){
 		return objWebClubOtherFieldCreationDao.funExecuteList(sql);
 	}
-
 }

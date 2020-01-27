@@ -23,4 +23,8 @@ public class clsAPGLBudgetMasterServiceImpl implements clsAPGLBudgetMasterServic
 	public void funSaveBudgetTableData(clsAPGLBudgetModel objBudgetModel) {
 		objDao.funSaveBudgetTableData(objBudgetModel);
 	}
+	
+	public int funExecuteWebBooksQuery(String sql) {
+		return objDao.funExecuteWebBooksQuery(sql);
+	}
 }

@@ -9,4 +9,5 @@ public interface clsBookerMasterDao {
 
 	public clsBookerMasterHdModel funGetBookerMaster(String docCode, String clientCode);
 
+	public int funExecutePMSQuery(String sql);
 }

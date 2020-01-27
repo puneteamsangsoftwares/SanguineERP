@@ -239,8 +239,8 @@
 </head>
 <body>
 <div id="formHeading">
-		<label>Structure Update</label>
-	</div>
+	<label>Structure Update</label>
+</div>
 	<s:form>
 	<br>
 	<br>
@@ -256,7 +256,6 @@
 	<input type="button" value="" class="dataBaseBackup_button"  onclick="funTakeDBBackup();">
 	
 	</p>
-	
 	
 	</s:form>
 	<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">

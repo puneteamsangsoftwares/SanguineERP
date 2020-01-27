@@ -1760,39 +1760,57 @@ large buttons
 
 
 .structureUpdate_button {
-     background: url(../images/StructureUpdate.png) no-repeat;
+	height: 200px;
+	width: 242px;
+	background: url(../images/StructureUpdate.png) no-repeat;
+	background-size: 242px 200px;
 }
 
 .structureUpdate_button:HOVER {
-    background: url(../images/StructureUpdate.png) no-repeat;
+	height: 203px;
+	width: 245px;
+	background: url(../images/StructureUpdate.png) no-repeat;
+	background-size: 245px 203px;
 }
 
- .clearMaster_button {
+.clearMaster_button {
+	height: 200px;
+	width: 242px;
 	background: url(../images/ClearMaster.png) no-repeat;
+	background-size: 242px 200px;
 }
- 
- .clearMaster_button:HOVER {
-      background: url(../images/ClearMaster.png) no-repeat;
+
+.clearMaster_button:HOVER {
+	height: 203px;
+	width: 245px;
+	background: url(../images/ClearMaster.png) no-repeat;
+	background-size: 245px 203px;
 }
- 
+
 .clearTransaction_button {
+	height: 200px;
+	width: 242px;
 	background: url(../images/ClearTransaction.png) no-repeat;
+	background-size: 242px 200px;
 }
 
 .clearTransaction_button:HOVER {
+	height: 203px;
+	width: 245px;
 	background: url(../images/ClearTransaction.png) no-repeat;
-}
-
-.dataBaseBackup_button{
+	background-size: 245px 203px;
+}.dataBaseBackup_button{
+   height: 200px;
+   width: 242px;
    background:url(../images/imgDatabaseBackup.png) no-repeat;
+   background-size: 242px 200px;
 }
-
 .dataBaseBackup_button:HOVER {	 
+   height: 203px;
+   width: 245px;
    background:url(../images/imgDatabaseBackup.png) no-repeat;
- }
-
-
-
+   background-size: 245px 203px;
+}
 /* .logingeaderimage{
 	background-image: url(../images/Sanguine_ERP_Header.jpg) ;
 	background-color: #0080c0;

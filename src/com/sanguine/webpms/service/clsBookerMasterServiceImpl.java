@@ -65,5 +65,12 @@ public class clsBookerMasterServiceImpl implements clsBookerMasterService {
 		return objBookerMasterHdModel;
 
 	}
+	
+	
+	@Override
+	public int funExecutePMSQuery(String sql) {
+		return objBookerMasterDao.funExecutePMSQuery(sql);
+	}
+	
 
 }

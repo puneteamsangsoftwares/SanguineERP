@@ -5980,7 +5980,9 @@ public class clsSearchFormController {
 			JSONArray jArrData = new JSONArray();
 			if(sbSql.length()>0)
 			{
-				List list=objBaseService.funGetListModuleWise(sbSql, "sql","WebBooks");
+
+				List list =objBaseService.funGetListForWebBooks(sbSql, "sql");
+				//List list=objBaseService.funGetListModuleWise(sbSql, "sql","WebBooks");
 				if(list.size()>0)
 				{
 					for(int cn=0;cn<list.size();cn++)

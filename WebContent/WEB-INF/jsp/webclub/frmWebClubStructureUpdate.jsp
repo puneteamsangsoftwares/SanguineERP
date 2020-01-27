@@ -243,20 +243,23 @@
 
 </head>
 <body>
-  <div class="container">
-	 <label id="formHeading">Structure Update</label>
+  <div id="formHeading">
+	 <label>Structure Update</label>
+</div>
 	<s:form>
 	<br>
-    <div class="row">
+	<br>
+	<br>
+	<p align="center">
 	
-	<input type="button" value="" class="structureUpdate_button" style="width: 17%;height: 145px" onclick="funUpdateStructure();">
-    <input type="button" class="clearMaster_button" style="width: 17%;height: 145px" value="" onclick="funList('Master');">
-	<input type="button" class="clearTransaction_button" style="width:17%;height: 145px" value="" onclick="funList('Transaction');">
-	<input type="button" value="" class="dataBaseBackup_button" style="width: 17%;height: 145px" onclick="funTakeDBBackup();">
+	<input type="button" value="" class="structureUpdate_button" style="width: 17%;height: 200px" onclick="funUpdateStructure();">
+    <input type="button" class="clearMaster_button" style="width: 17%;height: 200px" value="" onclick="funList('Master');">
+	<input type="button" class="clearTransaction_button" style="width:17%;height: 200px" value="" onclick="funList('Transaction');">
+	<input type="button" value="" class="dataBaseBackup_button" style="width: 17%;height: 200px" onclick="funTakeDBBackup();">
 	
-	</div>
-    </s:form>
-	</div>
+	</p>
+	
+	</s:form>
 	   <div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 	    </div>

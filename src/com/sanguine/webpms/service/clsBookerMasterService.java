@@ -10,5 +10,7 @@ public interface clsBookerMasterService {
 	public clsBookerMasterHdModel funGetBookerMaster(String docCode, String clientCode);
 
 	public clsBookerMasterHdModel funPrepareModel(clsBookerMasterBean objBean, String userCode, String clientCode);
+	
+	public int funExecutePMSQuery(String sql);
 
 }

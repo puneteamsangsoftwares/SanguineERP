@@ -683,7 +683,7 @@
 										</div>
 										
 								    	<div class="col-md-3"><label>Amount</label><br>
-										      <input type="number" step="0.01" id="txtAmount" readonly="readonly" />
+										      <input type="number" step="0.01" id="txtAmount"  />
 										</div>
 											<div class="col-md-3"></div>
 										<div class="col-md-2"><label>Remark</label>

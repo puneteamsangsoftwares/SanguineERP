@@ -11,5 +11,4 @@ public interface clsWebClubOtherFieldCreationService{
 	
 	public void funExecuteQuery(String sql);
 	public List funExecuteList(String sql);
-
 }

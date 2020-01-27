@@ -4,6 +4,6 @@ import java.util.List;
 
 
 public interface clsWebClubOtherFieldCreationDao{
-	void funExecuteQuery(String sql);	
+	void funExecuteQuery(String sql);
 	List funExecuteList(String sql);
 }

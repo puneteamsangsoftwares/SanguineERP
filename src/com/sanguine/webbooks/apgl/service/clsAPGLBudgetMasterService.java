@@ -9,4 +9,9 @@ public interface clsAPGLBudgetMasterService {
 	public List funGetBudgetTableData(String strYear, String strClientCode);
 
 	public void funSaveBudgetTableData(clsAPGLBudgetModel objBudgetModel);
+	
+	public int funExecuteWebBooksQuery(String sql);
+	
+	
+	
 }
