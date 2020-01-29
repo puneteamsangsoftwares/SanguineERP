@@ -30,9 +30,11 @@
 
 
 .ast::before {
-  content: "*";
+  content: 	" *";
   color: red;
   float: right;
+  font-size: 18px;
+  
 }
 
 </style>
@@ -1550,7 +1552,7 @@ function funSetBillingRegionCode(code){
 		return flg;
 	}
 
-	  function funloadMemberPhoto(code)
+	function funloadMemberPhoto(code)
 	{
 		var searchUrl1=getContextPath()+"/loadMembProfileImage.html?prodCode="+code;
 		$("#memImage").attr('src', searchUrl1);
@@ -2894,6 +2896,11 @@ function funSetBillingRegionCode(code){
 			    }
 			  }
 			});
+		
+		
+		
+		
+		
 		
 	 
 </script>

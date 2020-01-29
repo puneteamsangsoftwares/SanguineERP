@@ -41,10 +41,20 @@ var StkFlashData;
 		{
 			funSetGLCode(glCode);
 		}
+		
 		//debtorCode
 		$("#btnExecute").click(function( event )
-				{
-			funCalculateDebtorFlash();
+				{					
+					if($("#txtGLCode").val()=='')
+					{
+						alert("Enter GL Code!");
+						return false;
+					}
+					else
+					{
+						funCalculateDebtorFlash();
+						return false;
+					}
 				});
 
 		$('#txtGLCode').blur(function() {
@@ -176,7 +186,7 @@ var StkFlashData;
 		    var newcontent="";
 			
 			    	
-			   	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">Creditor Code</td><td id="labld2">Creditor Name</td><td id="labld3"> Opening</td>	<td id="labld4">Debit</td>	<td id="labld5"> Credit</td><td id="labld6" align="right">Balance</td></tr>';
+			   	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#b5b1b1"><td id="labld1" size="10%">Creditor Code</td><td id="labld2">Creditor Name</td><td id="labld3"> Opening</td>	<td id="labld4">Debit</td>	<td id="labld5"> Credit</td><td id="labld6" align="right">Balance</td></tr>';
 			   	// Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
 			    {

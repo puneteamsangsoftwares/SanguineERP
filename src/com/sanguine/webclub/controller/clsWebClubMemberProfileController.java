@@ -282,8 +282,6 @@ public class clsWebClubMemberProfileController {
 		
 		
 		//image code
-		
-		
 		objGlobal = new clsGlobalFunctions();
 		clsWebClubMemberPhotoModel objModel;
 		objModel = new clsWebClubMemberPhotoModel(new clsWebClubMemberPhotoModel_ID(memProfileBean.getStrMemberCode(), clientCode));
@@ -327,10 +325,11 @@ public class clsWebClubMemberProfileController {
 				//objModel.setStrMemberImage(funBlankBlob());
 			}
 			objWebClubMemberPhotoService.funAddUpdateWebClubMemberPhoto(objModel);
-		//image code end 
-		
-		
 		}
+			//image code end 
+		
+		
+		
 		// Fileds Code
 		String memberCode = memProfileBean.getStrMemberCode();
 		String WebCLUBDB=req.getSession().getAttribute("WebCLUBDB").toString();

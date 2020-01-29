@@ -2491,7 +2491,7 @@
 										<td><label id="txtVoterIdNo"></label></td>
 									</tr>
 									<tr>
-										<td width="18%">Passpor No</td>
+										<td width="18%">Passport No</td>
 										<td><label id="txtPassportNo"></label></td>
 									</tr>
 									<!-- <tr>

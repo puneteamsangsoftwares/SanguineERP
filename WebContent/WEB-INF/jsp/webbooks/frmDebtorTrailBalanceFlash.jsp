@@ -43,7 +43,17 @@ var StkFlashData;
 		
 		$("#btnExecute").click(function( event )
 				{
-			funCalculateDebtorFlash();
+					if($("#txtGLCode").val()=='')
+					{
+						alert("Enter GL Code!");
+						return false;
+					}
+					else
+						{
+							funCalculateDebtorFlash();
+							
+						}
+					return false;
 				});
 		
 		
@@ -124,9 +134,7 @@ var StkFlashData;
 		
 		
 		function funCalculateDebtorFlash()
-		{
-			
-			
+		{		
 			var fromDat=$("#txtFromDate").val();
 			var toDat=$("#txtToDate").val();
 			var GLCode=$("#txtGLCode").val();
@@ -161,6 +169,8 @@ var StkFlashData;
 			            }		            
 			        }
 			      });
+			
+			return false;
 		}
 		
 	 	function showTable()
@@ -193,7 +203,7 @@ var StkFlashData;
     				currValue=1;
     			}	
 			    	
-			   	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">Debtor Code</td><td id="labld2">Debtor Name</td><td id="labld3"> Opening</td>	<td id="labld4">Debit</td>	<td id="labld5"> Credit</td><td id="labld6">Balance</td></tr>';
+			   	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#b5b1b1"><td id="labld1" size="10%">Debtor Code</td><td id="labld2">Debtor Name</td><td id="labld3"> Opening</td>	<td id="labld4">Debit</td>	<td id="labld5"> Credit</td><td id="labld6">Balance</td></tr>';
 			   	// Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
 			    {

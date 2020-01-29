@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.5.0.final using JasperReports Library version 6.5.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="742ef197-00f2-4607-abe0-b4afc8718546">
 	<property name="ireport.zoom" value="1.3310000000000008"/>
 	<property name="ireport.x" value="0"/>
@@ -383,28 +383,28 @@ group by strDebtorCode order by strDebtorCode]]>
 	<title>
 		<band height="192" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="30" width="352" height="15" uuid="167c3251-fc5b-407e-a789-37176a1811e2"/>
+				<reportElement x="197" y="42" width="352" height="15" uuid="167c3251-fc5b-407e-a789-37176a1811e2"/>
 				<textElement textAlignment="Center">
 					<font fontName="Serif" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{strAddr1}+", "+$P{strAddr2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{strAddr2}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="45" width="352" height="15" uuid="8ced9356-c706-4aae-974d-ffc7d8da4ce5"/>
+				<reportElement x="197" y="57" width="352" height="15" uuid="8ced9356-c706-4aae-974d-ffc7d8da4ce5"/>
 				<textElement textAlignment="Center">
 					<font fontName="Serif" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{strCity}+", "+$P{strState}+", "+$P{strCountry}+", "+$P{strPin}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="200" y="3" width="352" height="28" uuid="a8f73ee2-beb2-4b34-b536-266e0da28088"/>
+				<reportElement x="197" y="-1" width="352" height="28" uuid="a8f73ee2-beb2-4b34-b536-266e0da28088"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font fontName="Serif" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{strCompanyName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="200" y="60" width="352" height="17" uuid="23bd89f5-cd2e-47e8-aee8-ccc0fb60566c"/>
+				<reportElement x="194" y="72" width="352" height="17" uuid="23bd89f5-cd2e-47e8-aee8-ccc0fb60566c"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Serif" size="12" isBold="true" isUnderline="true"/>
 				</textElement>
@@ -497,6 +497,13 @@ group by strDebtorCode order by strDebtorCode]]>
 				</textElement>
 				<text><![CDATA[Currency]]></text>
 			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="197" y="27" width="352" height="15" uuid="af665e42-09de-49ae-bc54-4b4e494e81f5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{strAddr1}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

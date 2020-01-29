@@ -61,7 +61,7 @@
 					}
 					if($("#txtFromEmployeeCode").val()=='')
 					{
-						alert("Enter Debtor Code!");
+						alert("Enter Employee Code!");
 						return false;
 					}
 					
@@ -85,7 +85,7 @@
 					var glCode = $("#txtGLCode").val();
 					var employeeCode =$("#txtFromEmployeeCode").val()
 					funGetEmployeeLedger(fromDate,toDate,glCode,employeeCode,propCode);
-					
+					return false;
 				});
 
 		
@@ -96,7 +96,11 @@
 					var toDate = $("#txtToDate").val();
 					var glCode = $("#txtGLCode").val();
 					var employeeCode = $("#txtFromEmployeeCode").val();
-					
+					if($("#txtFromEmployeeCode").val()=='')
+					{
+						alert("Enter Employee Code!");
+						return false;
+					}
 					var param1=glCode+","+employeeCode;
 					var reportType = $("#cmbReportType").val();
 					var ledgerName = "employeeLedger";
@@ -116,6 +120,7 @@
 					{
 						window.open(getContextPath()+"/rptEmployeeReport.html?employeeCode="+employeeCode+"&fromDate="+fromDate+"&toDate="+toDate+"&ledgerName="+ledgerName+"&glCode="+glCode+"&glName="+glName+"&employeeName="+employeeName+"&currency="+currency,'_blank');
 					}	
+					return false;
 				});
 		
 	});

@@ -13,14 +13,13 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.hibernate.query.*;
-import org.hibernate.transform.AliasToEntityMapResultTransformer;
 import org.hibernate.SessionFactory;
-
-import java.lang.*; 
-
+import org.hibernate.query.Query;
+import org.hibernate.transform.AliasToEntityMapResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sanguine.bean.clsSecurityShellBean;
 import com.sanguine.model.clsAuditDtlModel;

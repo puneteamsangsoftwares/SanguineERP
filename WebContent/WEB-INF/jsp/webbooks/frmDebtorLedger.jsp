@@ -62,7 +62,7 @@
 			}
 		});
 
-		
+		return false;
 	});
 	
 	
@@ -120,27 +120,42 @@
 				var glName = $("#lblGLCode").text();
 				var creditorName = $("#lblFromDebtorName").text();
 				var strShowNarration=document.getElementById("chkShowNarration").checked;
-				if(reportType=="EXCEL")
+				if($("#txtFromDebtorCode").val()=='')
+				{
+					alert("Enter Debtor Code!");
+					return false;
+				}
+				if($("#txtFromDebtorCode").val()!='')
+				{
+					if(reportType=="EXCEL")
+					{
+						var propCode='<%=session.getAttribute("propertyCode").toString()%>';
+						funGetDebtorLedgerDataBeforeExport(fromDate,toDate,glCode,creditorCode,propCode);
+					    window.location.href = getContextPath()+ "/frmExportLedger.html?param1="+ param1 + "&fDate=" + fromDate	+ "&tDate=" + toDate + "&currency="+currency+"&strShowNarration="+strShowNarration;
+					}
+					else
+					{
+						window.open(getContextPath()+"/rptCreditorReport.html?creditorCode="+creditorCode+"&fromDate="+fromDate+"&toDate="+toDate+"&ledgerName="+ledgerName+"&glCode="+glCode+"&glName="+glName+"&creditorName="+creditorName+"&currency="+currency+"&strShowNarration="+strShowNarration,'_blank');
+					}	
+				}
+				<%-- if(reportType=="EXCEL")
 				{
 					var propCode='<%=session.getAttribute("propertyCode").toString()%>';
 					funGetDebtorLedgerDataBeforeExport(fromDate,toDate,glCode,creditorCode,propCode);
-				    window.location.href = getContextPath()
-						+ "/frmExportLedger.html?param1="
-						+ param1 + "&fDate=" + fromDate
-						+ "&tDate=" + toDate+"&currency="+currency+"&strShowNarration="+strShowNarration;
+				    window.location.href = getContextPath()+ "/frmExportLedger.html?param1="+ param1 + "&fDate=" + fromDate	+ "&tDate=" + toDate + "&currency="+currency+"&strShowNarration="+strShowNarration;
 				}
 				else
 				{
 					window.open(getContextPath()+"/rptCreditorReport.html?creditorCode="+creditorCode+"&fromDate="+fromDate+"&toDate="+toDate+"&ledgerName="+ledgerName+"&glCode="+glCode+"&glName="+glName+"&creditorName="+creditorName+"&currency="+currency+"&strShowNarration="+strShowNarration,'_blank');
-				}	
+				} --%>	
 				return false;
 			}
 	
 	function funGetDebtorLedger(fromDate,toDate,glCode,debtor,propCode)
 	{
-		var currency=$("#cmbCurrency").val();
+	    var currency=$("#cmbCurrency").val();
 // 		var currValue=funGetCurrencyCode(currency);
-       var currValue=1;
+        var currValue=1;
 		var param1=glCode+","+debtor+","+propCode;
 		var searchUrl=getContextPath()+"/getDebtorLedger.html?param1="+param1+"&fDate="+fromDate+"&tDate="+toDate+"&currency="+currency;
 
@@ -871,6 +886,7 @@
 			       	alert('Error:=' + e);
 			    }
 		      });
+		return false;
 	}
 	
 </script>

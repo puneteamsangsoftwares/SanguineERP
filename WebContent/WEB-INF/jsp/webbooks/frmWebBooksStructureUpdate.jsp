@@ -249,10 +249,10 @@
 	<br>
     <div class="row">
 	
-	<input type="button" value="" class="structureUpdate_button" style="width: 17%;height: 145px" onclick="funUpdateStructure();">
-    <input type="button" class="clearMaster_button" style="width: 17%;height: 145px" value="" onclick="funList('Master');">
-	<input type="button" class="clearTransaction_button" style="width:17%;height: 145px" value="" onclick="funList('Transaction');">
-	<input type="button" value="" class="dataBaseBackup_button" style="width: 17%;height: 145px" onclick="funTakeDBBackup();">
+	<input type="button" value="" class="structureUpdate_button" style="width: 20%;height: 200px" onclick="funUpdateStructure();">
+    <input type="button" class="clearMaster_button" style="width: 20%;height: 200px" value="" onclick="funList('Master');">
+	<input type="button" class="clearTransaction_button" style="width:20%;height: 200px" value="" onclick="funList('Transaction');">
+	<input type="button" value="" class="dataBaseBackup_button" style="width: 20%;height: 200px" onclick="funTakeDBBackup();">
 	
 	</div>
     </s:form>

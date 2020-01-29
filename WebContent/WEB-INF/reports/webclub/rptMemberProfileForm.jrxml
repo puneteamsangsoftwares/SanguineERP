@@ -638,14 +638,14 @@ FROM dual]]>
 				<textFieldExpression><![CDATA[$P{pCompanyName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="195" y="18" width="176" height="20" uuid="fceb3f57-7ced-411b-afce-db5d8498b58d"/>
+				<reportElement x="195" y="22" width="205" height="20" uuid="fceb3f57-7ced-411b-afce-db5d8498b58d"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pAddress1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="195" y="38" width="175" height="20" uuid="b32659a6-5d00-4818-b441-06a3b88f0591"/>
+				<reportElement x="195" y="42" width="205" height="20" uuid="b32659a6-5d00-4818-b441-06a3b88f0591"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
