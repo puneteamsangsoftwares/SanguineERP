@@ -1448,12 +1448,12 @@ public class clsWebClubMemberProfileController {
 			byte[] imgData = null;
 		//	image = objModel.getStrProductImage();
 			//if (null != image && image.length() > 0) {
-				imgData =objmemPhotoModel.getStrMemberImage();
-				response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-				OutputStream o = response.getOutputStream();
-				o.write(imgData);
-				o.flush();
-				o.close();
+			imgData =objmemPhotoModel.getStrMemberImage();
+			response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+			OutputStream o = response.getOutputStream();
+			o.write(imgData);
+			o.flush();
+			o.close();
 			//}
 		} catch (Exception e) {
 			e.printStackTrace();
