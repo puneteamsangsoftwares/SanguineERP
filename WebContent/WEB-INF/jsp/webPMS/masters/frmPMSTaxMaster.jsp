@@ -565,12 +565,12 @@
 	    var row = table.insertRow(rowCount);
 	    var cnt=0;
 	    var insertRowflg='Y';
-	    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listSettlement["+(rowCount)+"].strSettlementCode\"  id=\"txtSettlementCode."+(rowCount)+"\" value='"+SettleCode+"' />";
-	    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"27%\" name=\"listSettlement["+(rowCount)+"].strSettlementName\"  id=\"txtSettlementName."+(rowCount)+"\" value='"+SettleName+"'/>";
+	    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"30%\"  style=\"width:252%;\" name=\"listSettlement["+(rowCount)+"].strSettlementCode\"  id=\"txtSettlementCode."+(rowCount)+"\" value='"+SettleCode+"' />";
+	    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"30%\" style=\"margin-left: 25%;width: 63%;\" name=\"listSettlement["+(rowCount)+"].strSettlementName\"  id=\"txtSettlementName."+(rowCount)+"\" value='"+SettleName+"'/>";
 	    if(applicable=='Y'){
-	    	row.insertCell(2).innerHTML= "<input id=\"chkApplicable."+(rowCount)+"\" type=\"checkbox\" class=\"GCheckBoxClass\"  name=\"listSettlement["+(rowCount)+"].strApplicable\" checked=\"checked\"  value='"+checked+"' />"; /*  checked=\"checked\"  */
+	    	row.insertCell(2).innerHTML= "<input id=\"chkApplicable."+(rowCount)+"\" type=\"checkbox\"  style=\"margin-left:-60%;\" name=\"listSettlement["+(rowCount)+"].strApplicable\" checked=\"checked\"  value='"+checked+"' />"; /*  checked=\"checked\"  */
 	    }else{
-	    	row.insertCell(2).innerHTML= "<input id=\"chkApplicable."+(rowCount)+"\" type=\"checkbox\" class=\"GCheckBoxClass\"  name=\"listSettlement["+(rowCount)+"].strApplicable\"  value=\"false\" />"; /*  checked=\"checked\"  */	
+	    	row.insertCell(2).innerHTML= "<input id=\"chkApplicable."+(rowCount)+"\" type=\"checkbox\" style=\"margin-left:-60%;\" class=\"GCheckBoxClass\" name=\"listSettlement["+(rowCount)+"].strApplicable\"  value=\"false\" />"; /*  checked=\"checked\"  */	
 	    }
 	     
 	    
@@ -741,16 +741,16 @@
 			
 			<div id="tab3" class="tab_content" style="height: 309px;margin-top: 60px;">
 			
-			<table class="masterTable">
+			<table class="masterTable" style="width:50%;">
 					<tr style="background-color: #c0c0c0">
-						<th style="border: 1px white solid;width: 6%"><label>Settlement Code</label></th>
-						<th style="border: 1px white solid;width: 35%;padding-left: 90px;"><label>Settlement Desc</label></th>
-						<th style="border: 1px white solid;width: 8%"><label>Select</label></th>
+						<th style="border: 1px white solid;width: 2%"><label>Settlement Code</label></th>
+						<th style="border: 1px white solid;width: 3%;"><label>Settlement Desc</label></th>
+						<th style="border: 1px white solid;width: 1%"><label>Select</label></th>
 					</tr>
 				</table>
 				
-				<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 210px; overflow-x: hidden; overflow-y: scroll;">
-					<table id="tblSettlement" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col5-center">
+				<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block;width: 50%; height: 210px; overflow-x: hidden; overflow-y: scroll;">
+					<table id="tblSettlement" style="width: 108%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col5-center">
 						<tbody>
 							<col style="width: 5%"><!-- col1   -->
 						    <col style="width: 25%"><!-- col2   -->

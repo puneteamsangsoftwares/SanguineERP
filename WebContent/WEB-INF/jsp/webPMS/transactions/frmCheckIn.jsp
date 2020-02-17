@@ -21,9 +21,6 @@ padding-left:1px;
 
 }
 
-
-
-
 </style>
 <script type="text/javascript">
 	
@@ -532,21 +529,21 @@ padding-left:1px;
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    var roomtypeDesc=funSetRoomType(roomTypeCode);
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\"  name=\"listCheckInDetailsBean["+(rowCount)+"].strGuestName\" id=\"strGuestName."+(rowCount)+"\" value='"+guestName+"'/>";	    
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\"  name=\"listCheckInDetailsBean["+(rowCount)+"].lngMobileNo\" id=\"lngMobileNo."+(rowCount)+"\" value='"+mobileNo+"' />";	   
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\"  id=\"strRoomTypeDesc."+(rowCount)+"\" value='"+roomtypeDesc+"' />";
-		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" style=\"background-color: #dcdada94;\" class=\"searchTextBox\"  name=\"listCheckInDetailsBean["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+(rowCount)+"\" value='"+roomNo+"'  ondblclick=\"Javacsript:funHelp1('roomByRoomType',"+(rowCount)+",'"+roomTypeCode+"' )\"/>";
-		    row.insertCell(4).innerHTML= "<input readonly=\"readonly\"  id=\"strRoomDesc."+(rowCount)+"\" value='"+roomDesc+"' />";
-		    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" style=\"background-color: #dcdada94;\" class=\"searchTextBox\"  name=\"listCheckInDetailsBean["+(rowCount)+"].strExtraBedCode\" id=\"strExtraBedCode."+(rowCount)+"\" value='"+extraBedCode+"' ondblclick=\"Javacsript:funHelp1('extraBed',"+(rowCount)+",'')\" />";
+		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].strGuestName\" id=\"strGuestName."+(rowCount)+"\" value='"+guestName+"'/>";	    
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" style=\"width:70%;margin-left: -6%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].lngMobileNo\" id=\"lngMobileNo."+(rowCount)+"\" value='"+mobileNo+"' />";	   
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" style=\"width:75%;margin-left: -22%;\" id=\"strRoomTypeDesc."+(rowCount)+"\" value='"+roomtypeDesc+"' />";
+		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;margin-left: -44%;background-color: #dcdada94;\" class=\"searchTextBox\"  name=\"listCheckInDetailsBean["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+(rowCount)+"\" value='"+roomNo+"'  ondblclick=\"Javacsript:funHelp1('roomByRoomType',"+(rowCount)+",'"+roomTypeCode+"' )\"/>";
+		    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" style=\"width:73%;margin-left: -44%\"  id=\"strRoomDesc."+(rowCount)+"\" value='"+roomDesc+"' />";
+		    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;margin-left: -55%;background-color: #dcdada94;\" class=\"searchTextBox\"  name=\"listCheckInDetailsBean["+(rowCount)+"].strExtraBedCode\" id=\"strExtraBedCode."+(rowCount)+"\" value='"+extraBedCode+"' ondblclick=\"Javacsript:funHelp1('extraBed',"+(rowCount)+",'')\" />";
 		    
 		     
 		    if(payee=='Y')
 		    {
-		    	row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" class=\"Box payeeSel\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\"  value=\"Y\" onClick=\"Javacsript:funCheckBoxRow(this)\"  />";
+		    	row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" style=\"margin-left: -605%;\" class=\"Box payeeSel\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\"  value=\"Y\" onClick=\"Javacsript:funCheckBoxRow(this)\"  />";
 		    }
 		    else
 		    {
-		    	row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box payeeSel\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\" value=\"N\" onClick=\"Javacsript:funCheckBoxRow(this)\" />";	
+		    	row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box payeeSel\" style=\"margin-left: -605%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\" value=\"N\" onClick=\"Javacsript:funCheckBoxRow(this)\" />";	
 		    } 
 		    
 		    
@@ -561,7 +558,7 @@ padding-left:1px;
 	    	row.insertCell(5).innerHTML= "<input readonly=\"readonly\"  style=\"display:none\" class=\"searchTextBox\" size=\"1%\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\" id=\"strPayee."+(rowCount)+"\" value=\"N\" />";	
 	    } */
 	    
-	    row.insertCell(7).innerHTML= "<input class=\"Box\" size=\"2%\" name=\"listCheckInDetailsBean["+(rowCount)+"].intNoOfFolios\" id=\"intNoOfFolios."+(rowCount)+"\" value='1' />";
+	    row.insertCell(7).innerHTML= "<input class=\"Box\" size=\"2%\" style=\"margin-left: -150%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].intNoOfFolios\" id=\"intNoOfFolios."+(rowCount)+"\" value='1' />";
 	    row.insertCell(8).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"6%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
 	    
 	     row.insertCell(9).innerHTML= "<input size=\"1%\" name=\"listCheckInDetailsBean["+(rowCount)+"].strGuestCode\" id=\"strGuestCode."+(rowCount)+"\" value='"+guestCode+"' type='hidden' />";
@@ -1540,8 +1537,8 @@ padding-left:1px;
 				<tr bgcolor="#c0c0c0">
 				
 					<td style="width:14.5%;">Name</td>
-					<td style="width:14.5%;">Mb No</td>
-					<td style="width:14%;">Room Type</td>
+					<td style="width:11.5%;">Mb No</td>
+					<td style="width:11%;">Room Type</td>
 					<td style="width:14%;">Room Code</td>
 					<td style="width:14%;">Room No</td>
 					<td style="width:13%;">Extra Bed</td>					
