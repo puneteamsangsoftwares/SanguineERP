@@ -35,6 +35,7 @@ public class clsRoomTypeMasterServiceImpl implements clsRoomTypeMasterService {
 
 		objRoomTypeMasterModel.setStrRoomTypeDesc(objRoomTypeMasterBean.getStrRoomTypeDesc());
 		objRoomTypeMasterModel.setDblRoomTerrif(objRoomTypeMasterBean.getDblRoomTerrif());
+		objRoomTypeMasterModel.setDblDoubleTariff(objRoomTypeMasterBean.getDblDoubleTariff());
 		objRoomTypeMasterModel.setStrUserEdited(userCode);
 		objRoomTypeMasterModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 		objRoomTypeMasterModel.setStrClientCode(clientCode);

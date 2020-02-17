@@ -4,9 +4,12 @@ public class clsRoomTypeMasterBean {
 	private String strRoomTypeCode;
 	private String strRoomTypeDesc;
 	private double dblRoomTerrif;
-
+	
+	
 	private String strRoomDesc;
 
+	private double dblDoubleTariff;
+	
 	public String getStrRoomTypeCode() {
 		return strRoomTypeCode;
 	}
@@ -37,6 +40,14 @@ public class clsRoomTypeMasterBean {
 
 	public void setStrRoomDesc(String strRoomDesc) {
 		this.strRoomDesc = strRoomDesc;
+	}
+
+	public double getDblDoubleTariff() {
+		return dblDoubleTariff;
+	}
+
+	public void setDblDoubleTariff(double dblDoubleTariff) {
+		this.dblDoubleTariff = dblDoubleTariff;
 	}
 
 }
