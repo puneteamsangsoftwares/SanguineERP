@@ -11,7 +11,7 @@ public class clsRoomStatusDtlBean {
 
 	private String strGuestName;
 
-	private String strReservationNo;
+	private String strReservationNo="";
 
 	private String strCheckInNo;
 

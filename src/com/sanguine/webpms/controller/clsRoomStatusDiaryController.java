@@ -1232,31 +1232,59 @@ public class clsRoomStatusDiaryController {
 						int intRoomAccupied=0;
 						for(int i=1;i<=7;i++)
 						{
-							sql=" select count(*) "
-									+ " from  tblcheckindtl a,tblroom b,tblcheckinhd c where a.strCheckInNo=c.strCheckInNo and"
-									+ " a.strRoomNo=b.strRoomCode and date(c.dteCheckInDate) <= '"+tempPMSDate+"'  "
-									+ "  and date(c.dteDepartureDate)>='"+tempPMSDate+"' and b.strRoomTypeDesc='"+listRoomDesc.get(j)+"' and b.strStatus='Occupied' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' AND c.strClientCode='"+clientCode+"'";
-							
-							List listCheckInData = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
-							String dd1=String.valueOf((Integer.parseInt(dd)+i));
-
-							if(listCheckInData.size()>0)
+							if(PMSDate.equals(tempPMSDate))
 							{
-								if(strRoomData.isEmpty())
+								sql=" select count(*) "
+										+ " from  tblcheckindtl a,tblroom b,tblcheckinhd c where a.strCheckInNo=c.strCheckInNo and"
+										+ " a.strRoomNo=b.strRoomCode and date(c.dteCheckInDate) <= '"+tempPMSDate+"'  "
+										+ "  and date(c.dteDepartureDate)>='"+tempPMSDate+"' and b.strRoomTypeDesc='"+listRoomDesc.get(j)+"' and b.strStatus='Occupied' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' AND c.strClientCode='"+clientCode+"'";
+								
+								List listCheckInData = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+								String dd1=String.valueOf((Integer.parseInt(dd)+i));
+
+								if(listCheckInData.size()>0)
 								{
-									strRoomData=listRoomDesc.get(j)+"/"+listCheckInData.get(0);
+									if(strRoomData.isEmpty())
+									{
+										strRoomData=listRoomDesc.get(j)+"/"+listCheckInData.get(0);
+									}
+									else
+									{
+										strRoomData=strRoomData+"/"+listCheckInData.get(0);
+									}
 								}
-								else
-								{
-									strRoomData=strRoomData+"/"+listCheckInData.get(0);
-								}
+								tempPMSDate=yy+"-"+mm+"-"+dd1;
 							}
-							tempPMSDate=yy+"-"+mm+"-"+dd1;
+							else
+							{
+								sql = "SELECT count(a.strReservationNo) "
+										+ "FROM tblreservationdtl a,tblroomtypemaster b,tblreservationhd c "
+										+ "WHERE  DATE(c.dteArrivalDate) <= '"+tempPMSDate+"' AND DATE(c.dteDepartureDate)>='"+tempPMSDate+"' AND b.strRoomTypeDesc='"+listRoomDesc.get(j)+"' AND a.strRoomType=b.strRoomTypeCode "
+										+ " AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' AND c.strClientCode='"+clientCode+"'";
+										
+								List listCheckInData = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+								String dd1=String.valueOf((Integer.parseInt(dd)+i));
+
+								if(listCheckInData.size()>0)
+								{
+									if(strRoomData.isEmpty())
+									{
+										strRoomData=listRoomDesc.get(j)+"/"+listCheckInData.get(0);
+									}
+									else
+									{
+										strRoomData=strRoomData+"/"+listCheckInData.get(0);
+									}
+								}
+								tempPMSDate=yy+"-"+mm+"-"+dd1;
+							}
+							objRoomStatusDtlBean.put(listRoomDesc.get(j),strRoomData);
+							/*listRoomStatus.put(objRoomStatusDtlBean);*/
+							/*objRoomStatusData.put(rsRoomInfo1.getString(1), strRoomData);*/
 						}
-						objRoomStatusDtlBean.put(listRoomDesc.get(j),strRoomData);
-						/*listRoomStatus.put(objRoomStatusDtlBean);*/
-						/*objRoomStatusData.put(rsRoomInfo1.getString(1), strRoomData);*/
-					}
+							}
+							
+							
 				}
 			}
 			else

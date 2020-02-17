@@ -1,10 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title></title>
 <script type="text/javascript">
 	var fieldName;
@@ -85,69 +96,50 @@
 		});
 	}
 
+
+
+
+
+
+
+
+
+
 	function funHelp(transactionName)
 	{
 		fieldName=transactionName;
 		window.open("searchform.html?formname="+transactionName+"&searchText=","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
 	}
-	
-	 $('#baseUrl').click(function() 
-				{  
-					 if($("#txtHouseKeepCode").val().trim()=="")
-					{
-						alert("Please Select Housekeeping Code...  ");
-						return false;
-					} 
-						window.open('attachDoc.html?transName=frmHouseKeepingMaster.jsp&formName=Member Profile&code='+$('#txtHouseKeepCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
-				});
 </script>
 
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Housekeeping Master</label>
-	</div>
+	<div class="container">
+		<label id="formHeading">Housekeeping Master</label>
+		<s:form name="HouseKeepingMaster" method="POST" action="saveHouseKeepingMaster.html">
 
-<br/>
-<br/>
-
-	<s:form name="HouseKeepingMaster" method="POST" action="saveHouseKeepingMaster.html">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>Housekeeping Code</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtHouseKeepCode" path="strHouseKeepCode" cssClass="searchTextBox" ondblclick="funHelp('houseKeepCode')" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Housekeeping Name</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtHouseKeepName" path="strHouseKeepName" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Description</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtRemarks" path="strRemarks" cssClass="longTextBox" />
-				</td>
-			</tr>
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
+		<div class="row masterTable">
+			<div class="col-md-2">
+				<label>Housekeeping Code</label>
+				<s:input colspan="3" type="text" id="txtHouseKeepCode" path="strHouseKeepCode" cssClass="searchTextBox" ondblclick="funHelp('houseKeepCode')" />
+			</div>
+			<div class="col-md-2">
+				<label>Housekeeping Name</label>
+				<s:input colspan="3" type="text" id="txtHouseKeepName" path="strHouseKeepName"  />
+			</div>
+			<div class="col-md-2">
+				<label>Description</label>
+				<s:input colspan="3" type="text" id="txtRemarks" path="strRemarks"  />
+			</div>
+		</div>
+		<div class="center" style="margin-right:52%;">
+			<a href="#"><button class="btn btn-primary center-block" value="Submit" 
+				class="form_button">Submit</button></a>&nbsp;
+			<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetFields()"
+				class="form_button">Reset</button></a>
+		</div>
 	</s:form>
+</div>
 </body>
 </html>

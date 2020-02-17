@@ -155,23 +155,23 @@ public class clsPMSSecurityShellController {
 
 				objTree.setStrFormName(arrOb[0].toString());
 				objTree.setStrFormDesc(arrOb[1].toString());
+				if (null != arrOb[5]) {
+					objTree.setStrAdd(arrOb[5].toString());
+				}
 				if (null != arrOb[6]) {
-					objTree.setStrAdd(arrOb[6].toString());
+					objTree.setStrEdit(arrOb[6].toString());
 				}
 				if (null != arrOb[7]) {
-					objTree.setStrEdit(arrOb[7].toString());
+					objTree.setStrDelete(arrOb[7].toString());
 				}
 				if (null != arrOb[8]) {
-					objTree.setStrDelete(arrOb[8].toString());
+					objTree.setStrView(arrOb[8].toString());
 				}
 				if (null != arrOb[9]) {
-					objTree.setStrView(arrOb[9].toString());
+					objTree.setStrPrint(arrOb[9].toString());
 				}
-				if (null != arrOb[10]) {
-					objTree.setStrPrint(arrOb[10].toString());
-				}
-				if (null != arrOb[12]) {
-					objTree.setStrAuthorise(arrOb[12].toString());
+				if (null != arrOb[11]) {
+					objTree.setStrAuthorise(arrOb[11].toString());
 				}
 				objTransactions.add(objTree);
 
@@ -266,23 +266,23 @@ public class clsPMSSecurityShellController {
 
 				objTree.setStrFormName(arrOb[0].toString());
 				objTree.setStrFormDesc(arrOb[1].toString());
+				if (null != arrOb[5]) {
+					objTree.setStrAdd(arrOb[5].toString());
+				}
 				if (null != arrOb[6]) {
-					objTree.setStrAdd(arrOb[6].toString());
+					objTree.setStrEdit(arrOb[6].toString());
 				}
 				if (null != arrOb[7]) {
-					objTree.setStrEdit(arrOb[7].toString());
+					objTree.setStrDelete(arrOb[7].toString());
 				}
 				if (null != arrOb[8]) {
-					objTree.setStrDelete(arrOb[8].toString());
+					objTree.setStrView(arrOb[8].toString());
 				}
 				if (null != arrOb[9]) {
-					objTree.setStrView(arrOb[9].toString());
+					objTree.setStrPrint(arrOb[9].toString());
 				}
-				if (null != arrOb[10]) {
-					objTree.setStrPrint(arrOb[10].toString());
-				}
-				if (null != arrOb[12]) {
-					objTree.setStrAuthorise(arrOb[12].toString());
+				if (null != arrOb[11]) {
+					objTree.setStrAuthorise(arrOb[11].toString());
 				}
 				objTransactions.add(objTree);
 

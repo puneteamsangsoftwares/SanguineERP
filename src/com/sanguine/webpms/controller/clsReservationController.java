@@ -955,7 +955,8 @@ public class clsReservationController {
 		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
 		String arrvDate=objGlobal.funGetDate("yyyy-MM-dd", arrivalDate);
 		String deptDate=objGlobal.funGetDate("yyyy-MM-dd", departureDate);
-		
+		double dblDoubleRoomRate = 0.0;
+
 		List returnList=new ArrayList();
 		List listRoomCode = new ArrayList();
 
@@ -991,6 +992,7 @@ public class clsReservationController {
 		{
 			clsRoomTypeMasterModel objRoomTypeMasterModel = (clsRoomTypeMasterModel) listRoomData.get(0);
 			roomRate=objRoomTypeMasterModel.getDblRoomTerrif();
+			dblDoubleRoomRate = objRoomTypeMasterModel.getDblDoubleTariff();
 			//roomRate = funCalculateTax(roomRate);
 			
 			roomTypedesc=objRoomTypeMasterModel.getStrRoomTypeDesc();
@@ -1005,6 +1007,7 @@ public class clsReservationController {
 			listRoomRate.add(roomRate);
 			listRoomRate.add(roomTypedesc);
 			listRoomRate.add(roomCode);
+			listRoomRate.add(dblDoubleRoomRate);
 			
 			if(noOfDay==0)
 			{

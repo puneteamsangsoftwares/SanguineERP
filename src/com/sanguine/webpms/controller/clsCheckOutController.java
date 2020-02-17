@@ -243,7 +243,19 @@ public class clsCheckOutController {
 			} 
 			for (int i = 0; i < listCheckOutRoomDtlBeans.size(); i++) {
 				clsCheckOutRoomDtlBean objCheckOutRoomDtlBean = listCheckOutRoomDtlBeans.get(i);
+				if(objCheckOutRoomDtlBean.getStrRemoveTax()==null)
+				{
+					objCheckOutRoomDtlBean.setStrRemoveTax("N");
+				}
+				
 				clsFolioHdModel objFolioHdModel = objCheckOutService.funGetFolioHdModel(objCheckOutRoomDtlBean.getStrRoomNo(), objCheckOutRoomDtlBean.getStrRegistrationNo(), "", clientCode);
+				if(objCheckOutRoomDtlBean.getStrRemoveTax().equals("Y"))
+				{
+					String sqlDeleteTaxes = "delete from tblfoliotaxdtl where strFolioNo='"+objFolioHdModel.getStrFolioNo()+"' and strClientCode='"+clientCode+"'";
+					objWebPMSUtility.funExecuteUpdate(sqlDeleteTaxes, "sql");	
+
+				}
+				
 				if (objFolioHdModel != null) {
 					// generate billNo.
 					String transaDate = objGlobal.funGetCurrentDateTime("dd-MM-yyyy").split(" ")[0];
@@ -300,19 +312,26 @@ public class clsCheckOutController {
 					// Set<clsBillTaxDtlModel> setBillTaxDtlModel=new
 					// TreeSet<clsBillTaxDtlModel>();
 					List<clsFolioTaxDtl> listFolioTaxDtlModel = objFolioHdModel.getListFolioTaxDtlModel();
-					for (clsFolioTaxDtl objFolioTaxDtlModel : listFolioTaxDtlModel) {
-						clsBillTaxDtlModel objBillTaxDtlModel = new clsBillTaxDtlModel();
-						objBillTaxDtlModel.setStrDocNo(objFolioTaxDtlModel.getStrDocNo());
-						objBillTaxDtlModel.setStrTaxCode(objFolioTaxDtlModel.getStrTaxCode());
-						objBillTaxDtlModel.setStrTaxDesc(objFolioTaxDtlModel.getStrTaxDesc());
-						objBillTaxDtlModel.setDblTaxableAmt(objFolioTaxDtlModel.getDblTaxableAmt());
-						objBillTaxDtlModel.setDblTaxAmt(objFolioTaxDtlModel.getDblTaxAmt());
-						grandTotal += objBillTaxDtlModel.getDblTaxAmt();
+					if(objCheckOutRoomDtlBean.getStrRemoveTax().equals("Y"))
+					{
 						
-						
-						listBillTaxDtlModel.add(objBillTaxDtlModel);
-						// setBillTaxDtlModel.add(objBillTaxDtlModel);
 					}
+					else
+						{
+						for (clsFolioTaxDtl objFolioTaxDtlModel : listFolioTaxDtlModel) {
+							clsBillTaxDtlModel objBillTaxDtlModel = new clsBillTaxDtlModel();
+							objBillTaxDtlModel.setStrDocNo(objFolioTaxDtlModel.getStrDocNo());
+							objBillTaxDtlModel.setStrTaxCode(objFolioTaxDtlModel.getStrTaxCode());
+							objBillTaxDtlModel.setStrTaxDesc(objFolioTaxDtlModel.getStrTaxDesc());
+							objBillTaxDtlModel.setDblTaxableAmt(objFolioTaxDtlModel.getDblTaxableAmt());
+							objBillTaxDtlModel.setDblTaxAmt(objFolioTaxDtlModel.getDblTaxAmt());
+							grandTotal += objBillTaxDtlModel.getDblTaxAmt();
+							
+							
+							listBillTaxDtlModel.add(objBillTaxDtlModel);
+							// setBillTaxDtlModel.add(objBillTaxDtlModel);
+						}
+						}
 					objBillHdModel.setStrBillSettled("N");
 					objBillHdModel.setDblGrandTotal(Double.parseDouble(df.format(grandTotal)));
 					objBillHdModel.setListBillDtlModels(listBillDtlModel);

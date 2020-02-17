@@ -24,6 +24,7 @@
 
 	var fieldName,listRow=0;
 	var totalTerrAmt = 0.0;
+	var dblPaxCnt = 0;
 	  $(document).ready(function(){
 		    
 		  $(".tab_content").hide();
@@ -1345,6 +1346,7 @@
 	    	}
 	    
 	    listRow++;
+	    dblPaxCnt++;
 	    
 	   
 	}
@@ -1509,7 +1511,7 @@
 			
 		}	
 		
-		
+		dblPaxCnt = 0;
 				
 		return flg;
 	}
@@ -1859,10 +1861,15 @@
 // 		 {
 // 			 month='0'+month;
 // 		 } 
+		var dblRate = list[1];
+		if(dblPaxCnt==2)
+			{
+				dblRate = list[4];
+			}
 		 date=day+"-"+month+"-"+dateSplit[0];
 		 row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:50%;\" name=\"listReservationRoomRateDtl["+(rowCount)+"].dtDate\"  id=\"dtDate."+(rowCount)+"\" value='"+date+"' >";
  	     row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" id=\"strTypeRoomDesc."+(rowCount)+"\" value='"+list[2]+"' />";
- 	     row.insertCell(2).innerHTML= "<input type=\"text\"    style=\"text-align:right;\"  name=\"listReservationRoomRateDtl["+(rowCount)+"].dblRoomRate\" id=\"dblRoomRate."+(rowCount)+"\" onchange =\"Javacsript:funCalculateTotals()\" value='"+list[1]+"' >";
+ 	     row.insertCell(2).innerHTML= "<input type=\"text\"    style=\"text-align:right;\"  name=\"listReservationRoomRateDtl["+(rowCount)+"].dblRoomRate\" id=\"dblRoomRate."+(rowCount)+"\" onchange =\"Javacsript:funCalculateTotals()\" value='"+dblRate+"' >";
  	     row.insertCell(3).innerHTML= "<input type=\"hidden\" class=\"Box \"  name=\"listReservationRoomRateDtl["+(rowCount)+"].strRoomType\" id=\"strRoomType."+(rowCount)+"\" value='"+list[3]+"' >";
  	  
  	     /* totalTerrAmt =list[1];
@@ -1937,6 +1944,7 @@
 	    var table = document.getElementById("tblIncomeHeadDtl");
 	    table.deleteRow(index);
 	    funCalculateTotals();
+	    dblPaxCnt--;
 	}
 	
 	function funRemoveProductRowsForIncomeHead()

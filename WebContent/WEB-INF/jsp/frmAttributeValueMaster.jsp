@@ -1,11 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title>ATTRIBUTE VALUE MASTER</title>
 	
 <script type="text/javascript">
@@ -167,66 +177,45 @@ $(document).ready(function(){
 	
 </head>
 <body onload="funResetFields()">
-<div id="formHeading">
-		<label>Attribute Value Master</label>
-	</div>
-	<s:form name="frmAttrValMaster" method="POST" action="saveAttributeValueMaster.html?saddr=${urlHits}">
-		<br />
-		<br />
-		<table class="masterTable">
-				
-			<tr>
-		        <th align="right" colspan="2"> <a id="baseUrl" href="#"> Attach Documents </a> &nbsp; &nbsp; &nbsp;
-						&nbsp; </th>
-		    </tr>
-		    	
-		    <tr>
-		        <td width="150px"><label>Attribute Value Code</label></td>
-		        <td><s:input id="txtAttValueCode" name="txtAttValueCode" path="strAVCode" ondblclick="funHelp('attributevaluemaster')"  cssClass="searchTextBox"/></td>
-		    </tr>
-		    	
-		    <tr>
-		        <td>
-		        	<label>Name</label>
-		        </td>
-		        <td>
-		        	<s:input type="text" id="txtAttValueName" size="80px" name="txtAttValueName" path="strAVName" required="true" cssClass="longTextBox"/>
-		        	<s:errors path="strAVName"></s:errors>
-		        </td>
-		    </tr>
-			    
-		    <tr>
-			    <td>
-			    	<label>Attribute code</label>
-			    </td>
-			    <td>
-			    	<s:input typr="text" id="txtAttCode" name="txtAttCode" path="strAttCode" ondblclick="funHelp('attributemaster')" required="true" cssClass="searchTextBox"/>
-			    	<s:errors path="strAttCode"></s:errors>
-			    	<label id="lblAttName"></label>
-			    </td>
-			</tr>
-			    
-			<tr> 
-			    <td><label>Description</label></td>
-		        <td><s:input id="txtAttValueDesc"  name="txtAttValueDesc" path="strAVDesc"  cssClass="longTextBox"/></td>
-			</tr>
-			   	
-			<tr>
-			    <td ></td>
-			    <td ></td>
-		    </tr>
-		    
-		</table>
-		<br /><br />
+	<div class="container">
+		<label id="formHeading">Attribute Value Master</label>
+		<s:form name="frmAttrValMaster" method="POST" action="saveAttributeValueMaster.html?saddr=${urlHits}">
 		
-		<p align="center">
-			<input type="submit" value="Submit"  class="form_button"
-				onclick="return funValidateFields()" /> 
-				<input type="reset"
-				value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
+		<div class="row masterTable">
+		 <!--  <a id="baseUrl" href="#"> Attach Documents </a> &nbsp; &nbsp; &nbsp; -->
+			<div class="col-md-2">
+		    	<label>Attribute Value Code</label>
+		        <s:input id="txtAttValueCode" name="txtAttValueCode" path="strAVCode" ondblclick="funHelp('attributevaluemaster')"  cssClass="searchTextBox"/>
+		    </div>
+		    <div class="col-md-2">
+		  		<label>Name</label>
+		        <s:input type="text" id="txtAttValueName" size="80px" name="txtAttValueName" path="strAVName" required="true"/>
+		        <s:errors path="strAVName"></s:errors>
+		     </div>
+		     <div class="col-md-2">
+			  	<label>Description</label>
+		        <s:input id="txtAttValueDesc"  name="txtAttValueDesc" path="strAVDesc"/>
+		     </div>
+		     <div class="col-md-6"></div>
+		     <div class="col-md-2">
+			   	<label>Attribute code</label>
+			  	<s:input typr="text" id="txtAttCode" name="txtAttCode" path="strAttCode" ondblclick="funHelp('attributemaster')" required="true" cssClass="searchTextBox"/>
+			    <s:errors path="strAttCode"></s:errors>
+			 </div>
+			 <div class="col-md-2">
+			   	<label id="lblAttName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+			   	></label>
+			  </div> 
+			
+		</div>
 		
-		
+		<div class="center" style="margin-right:52%;">
+			<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidateFields()"
+				class="form_button">Submit</button></a>&nbsp;
+			<a href="#"><button class="btn btn-primary center-block" id="reset" value="Reset" onclick="funResetFields()"
+				class="form_button">Reset</button></a>
+		</div>
 	</s:form>
+</div>
 </body>
 </html>

@@ -14,7 +14,7 @@ public class clsCheckOutRoomDtlBean {
 	private String dteCheckOutDate;
 	private String strCorporate;
 	private String strRoomDesc;
-
+	private String strRemoveTax;
 	// getters and setters
 	public String getStrRoomNo() {
 		return strRoomNo;
@@ -94,6 +94,14 @@ public class clsCheckOutRoomDtlBean {
 
 	public void setStrRoomDesc(String strRoomDesc) {
 		this.strRoomDesc = strRoomDesc;
+	}
+
+	public String getStrRemoveTax() {
+		return strRemoveTax;
+	}
+
+	public void setStrRemoveTax(String strRemoveTax) {
+		this.strRemoveTax = strRemoveTax;
 	}
 
 }

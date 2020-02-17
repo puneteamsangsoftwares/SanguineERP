@@ -114,7 +114,10 @@
 		row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].dteCheckInDate\" id=\"dteCheckInDate."+(rowCount)+"\"  value='"+obj.dteCheckInDate+"' >";
 		row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].dteCheckOutDate\" id=\"dteCheckOutDate."+(rowCount)+"\"  value='"+obj.dteCheckOutDate+"' >";
 		row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].strCorporate\" id=\"strCorporate."+(rowCount)+"\" value='"+obj.strCorporate+"' >";
+		row.insertCell(8).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\" checked=\"checked\" class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].strRemoveTax\" id=\"strRemoveTax."+(rowCount)+"\" value='Y' >";
+
 	}
+	
 	
 	
 	function funGetRoomDtl(roomCode)
@@ -412,6 +415,10 @@
 					<td style="width: 70px;"align="center">Corporate</td>
 					<!-- col8   -->
 					
+					<!-- col9   -->
+					<td style="width: 70px;"align="center">Remove Taxes</td>
+					<!-- col9   -->
+					
 					<!-- col10   -->
 					<td ></td>
 					<!-- col10   -->
@@ -452,6 +459,10 @@
 						<!-- col8   -->
 						<col style="width: 70px;">
 						<!-- col8   -->
+						
+						<!-- col9   -->
+						<col style="width: 70px;">
+						<!-- col9   -->
 						
 						<!-- col10   -->
 						<col >
