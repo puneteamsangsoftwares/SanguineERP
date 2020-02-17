@@ -58,7 +58,7 @@ public class clsRoomCancellationController {
 		List listOfReservationType = new ArrayList<String>();
 		listOfReservationType.add("All");
 		model.put("listOfReservationType", listOfReservationType);
-
+		model.put("selectedModuleName", request.getSession().getAttribute("selectedModuleName").toString());
 		if (urlHits.equalsIgnoreCase("1")) {
 			return new ModelAndView("frmRoomCancellation", "command", new clsRoomCancellationBean());
 		} else {

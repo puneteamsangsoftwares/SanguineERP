@@ -1,10 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <title>Process Master</title>
 <script type="text/javascript">
 	var fieldName;
@@ -144,49 +154,35 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>ProcessMaster</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="ProcessMaster" method="POST" action="saveProcessMaster.html">
-
-		<table class="masterTable">
+	<div class="container">
+		<label id="formHeading">ProcessMaster</label>
+		<s:form name="ProcessMaster" method="POST" action="saveProcessMaster.html">
 		
-		 
-			<tr>
-				<td width="140px">Process Code</td>
-				<td><s:input id="txtProcessCode" path="strProcessCode"
-						cssClass="searchTextBox" ondblclick="funHelp('processcode')" /></td>
-			</tr>
-			<tr>
-				<td><label>Name</label></td>
-				<td><s:input colspan="3" type="text" id="txtProcessName" 
-						name="txtProcessName" path="strProcessName" required="true"
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox"  /> </td>
-			</tr>
-			<tr>
-				<td><label>Description</label></td>
-				<td><s:input colspan="3" id="txtDesc" name="txtDesc"
-						cssStyle="text-transform: uppercase;" path="strDesc" cssClass="longTextBox" autocomplete="off" /> </td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-			</tr>
-	</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" 
-			onclick="return funCallFormAction('submit',this);"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
+		<div class="row masterTable">
+			<div class="col-md-2">
+				<label>Process Code</label>
+				<s:input id="txtProcessCode" path="strProcessCode" readonly="true"
+					cssClass="searchTextBox" ondblclick="funHelp('processcode')" />
+			</div>
+			<div class="col-md-2">
+				<label>Name</label>
+				<s:input colspan="3" type="text" id="txtProcessName" 
+						name="txtProcessName" path="strProcessName" required="true"/>
+			</div>
+			<div class="col-md-2">
+				<label>Description</label>
+				<s:input colspan="3" id="txtDesc" name="txtDesc"
+						cssStyle="text-transform: uppercase;" path="strDesc" autocomplete="off" /> </td>
+			</div>
+		</div>
+		<div class="center" style="margin-right: 51%;">
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="submit" onclick="return funCallFormAction('submit',this);"
+				>submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetFields()"
+				>Reset</button></a>
+		</div>
+		
 	</s:form>
+</div>
 </body>
 </html>

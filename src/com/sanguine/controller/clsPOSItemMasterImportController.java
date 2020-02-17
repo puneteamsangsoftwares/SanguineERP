@@ -399,7 +399,7 @@ public class clsPOSItemMasterImportController {
 					objModel.setStrNonStockableItem("");
 					objModel.setStrNotInUse("N");
 					objModel.setStrPosItemCode(objPurerModel.getStrPosItemCode());
-					objModel.setStrProductImage(funBlankBlob());
+					/*objModel.setStrProductImage(funBlankBlob());*/
 					objModel.setStrRevLevel("");
 					objModel.setStrSelectedPOSItem("");
 					objModel.setStrSGName(objBean.getStrSGName());
@@ -433,7 +433,7 @@ public class clsPOSItemMasterImportController {
 		return listObjbjModel;
 	}
 
-	private byte[] funBlankBlob() {
+	private Blob funBlankBlob() {
 		Blob blob = new Blob() {
 
 			@Override
@@ -502,8 +502,7 @@ public class clsPOSItemMasterImportController {
 
 			}
 		};
-		byte an[]=new byte[100];
-		return an;
+		return blob;
 	}
 
 	@SuppressWarnings("finally")

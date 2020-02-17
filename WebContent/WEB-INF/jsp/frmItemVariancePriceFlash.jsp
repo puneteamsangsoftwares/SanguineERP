@@ -5,7 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <title>Insert title here</title>
 <script type="text/javascript">
     var loggedInProperty="",loggedInLocation="";
@@ -28,10 +37,11 @@
     		$(document).ready(function() 
 			{
 				var startDate="${startDate}";
+				var startDateOfMonth="${startDateOfMonth}";
 				var arr = startDate.split("/");
 				Dat=arr[0]+"-"+arr[1]+"-"+arr[2];
 				$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
-				$("#txtFromDate").datepicker('setDate',Dat);
+				$("#txtFromDate").datepicker('setDate',startDateOfMonth);
 				$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 				$("#txtToDate").datepicker('setDate', 'today');
 			});
@@ -160,65 +170,59 @@
 </head>
 <body>
 
-<div id="formHeading">
-		<label>Items Variance Report</label>
-	</div>
-	<s:form action="rptItemsVarReport.html" method="POST" name="frmItemVariancePriceFlash" target="_blank">
-	<br>
-			<table class="transTable">
-			<tr>
-				    <td><label id="lblFromDate">From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="dtFromDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dtFromDate"></s:errors>
-			        </td>
-				    <td></td>    
-				    <td></td>
-			        <td width="10%"><label id="lblToDate">To Date</label></td>
-			        <td>
-			            <s:input id="txtToDate" name="toDate" path="dtToDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dtToDate"></s:errors>
-			        </td>
-		</tr>
-				<tr>
-				<td width="10%"><label>Product</label></td>
-					<td width="10%">
-			            <s:input id="txtProdCode" ondblclick="funHelp('productmaster');" class="searchTextBox" path="strProdCode" placeholder="All Product" />
-			        </td>
-			        <td colspan="2">
-			            <label  id="lblProdName" style="font-size: 12px;"></label>
-			        </td>
-				
-				<td width="10%">Supplier</td>
-				<td> <s:input id="txtSuppCode"  ondblclick="funHelp('suppcode')" Class="searchTextBox" path="strSuppCode" placeholder="All Supplier" />
-				<label id="txtSuppName" style="font-size: 12px;"></label>
-				
-				</td>
-			</tr>
-				<tr>
-					<td><label>Report Type</label></td>
-					<td colspan="7">
-						<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
-				    		<s:option value="PDF">PDF</s:option>
-				    		<s:option value="XLS">EXCEL</s:option>
-				    		<s:option value="HTML">HTML</s:option>
-				    		<s:option value="CSV">CSV</s:option>
-				    	</s:select>
-					</td>
-				</tr>
-				</table>
-				<br>
-			<br>
-			<p align="center">
-				 <input type="submit" value="Submit" class="form_button"/>
-				 <input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>			     
-			</p>
-			<div id="wait"
+	<div class="container">
+		<label id="formHeading">Items Variance Report</label>
+		<s:form action="rptItemsVarReport.html" method="POST" name="frmItemVariancePriceFlash" target="_blank">
+		
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label id="lblFromDate">From Date</label>
+			     <s:input id="txtFromDate" name="fromDate" path="dtFromDate" cssClass="calenderTextBox"/>
+			      <s:errors path="dtFromDate"></s:errors>
+			 </div> 
+			 <div class="col-md-2">   
+				<label id="lblToDate">To Date</label>
+			  	<s:input id="txtToDate" name="toDate" path="dtToDate" cssClass="calenderTextBox"/>
+			    <s:errors path="dtToDate"></s:errors>
+			 </div> 
+			 <div class="col-md-2">   
+				<label>Product</label>
+			    <s:input id="txtProdCode" ondblclick="funHelp('productmaster');" class="searchTextBox" path="strProdCode" placeholder="All Product" />
+			  </div> 
+			  <div class="col-md-2">   
+			      <label  id="lblProdName" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px; text-align:center;"></label>
+			  </div>
+			  <div class="col-md-4"></div>    
+			  <div class="col-md-2">   
+					<label>Supplier</label>
+				    <s:input id="txtSuppCode"  ondblclick="funHelp('suppcode')" Class="searchTextBox" path="strSuppCode" placeholder="All Supplier" />
+			  </div>
+			  <div class="col-md-2">   
+					<label id="txtSuppName" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px; text-align:center;"></label>
+			</div>
+			<div class="col-md-2"> 	
+					<label>Report Type</label>
+					<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+				    	<s:option value="PDF">PDF</s:option>
+				    	<s:option value="XLS">EXCEL</s:option>
+				    	<s:option value="HTML">HTML</s:option>
+				    	<s:option value="CSV">CSV</s:option>
+				    </s:select>
+			</div>		
+			
+		</div>
+		<div class="center" style="margin-right: 40%;">
+			<a href="#"><button class="btn btn-primary center-block" value="Submit">Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block"  value="Reset" onclick="funResetFields()">Reset</button></a>
+		</div>	
+			
+		<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
-			<img
-				src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
+			<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
 				width="60px" height="60px" />
 		</div>
 	</s:form>
+	
+</div>
 </body>
 </html>

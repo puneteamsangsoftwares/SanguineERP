@@ -1,13 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 var frmDte1="",toDte1="",maxQuantityDecimalPlaceLimit=2;
 
@@ -90,6 +97,7 @@ function funShowTableGUI(divID)
 	document.all["divVoidBillList"].style.display = 'none';
 	document.all["divPayment"].style.display = 'none';
 	document.all["divBillPrinting"].style.display = 'none';
+	document.all["divHousekeepingSummary"].style.display = 'none';
 	
 	
 	// for show Table GUI
@@ -865,7 +873,10 @@ function funExportReport()
 	else if(hidReportName=='divBillPrinting')
 	 {
 		window.location.href = getContextPath()+"/exportPMSBillPrinting.html?frmDte="+frmDte1+"&toDte="+toDte1;
-	 }
+	 } else if(hidReportName=='divHousekeepingSummary')
+	 {
+			window.location.href = getContextPath()+"/exportPMSHousekeepingSummary.html?frmDte="+frmDte1+"&toDte="+toDte1;
+	} 
 	
 	
 	
@@ -938,6 +949,175 @@ function funOnClickPayment( divId)
 	            }		            
 	        }
 	      });
+}
+
+function funOnClickHousekeepingSummary( divId)
+{
+	funShowTableGUI(divId);
+	
+	var frmDte1=$('#dteFromDate').val();
+    var toDte1=$('#dteToDate').val();
+	var searchUrl=getContextPath()+"/loadHousekeepingSummary.html?frmDte="+frmDte1+"&toDte="+toDte1;
+	$.ajax({
+	        type: "GET",
+	        url: searchUrl,
+		    dataType: "json",
+		    success: function(response)
+		    {
+		    	funSetHousekeepingSummary(response);
+		    	
+		    	
+		    },
+		    error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
+	      });
+	
+}
+
+function funSetHousekeepingSummary(response)
+{
+	$('#tblHousekeepingSummary tbody').empty();
+	 var table = document.getElementById("tblHousekeepingSummary");
+     var rowCount = table.rows.length;
+     var row = table.insertRow();
+     var cnt=0;
+     var list = [];
+     
+    
+     row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='Room No' >";
+     $.each(response.date, function(j, item) {
+    	 
+    	 row.insertCell(j+1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='"+item+"' >";	 
+     });
+     
+     $.each(response.data, function(i, item) {
+    	 
+    		// for(var j=0;j<item.length;j++)
+    			// {
+    			// if(item[j].includes(' '))
+        		// {
+    				 cnt=item.length;
+    				 var row1 = table.insertRow();
+    				 for(var c=0;c<cnt;c++)
+    					 {
+    					 var symbol;
+    					 if(item[c].includes('Completed'))
+    						 {
+    						 symbol = "&#10003";
+    						 }
+    					 else
+    						 {
+    						 	symbol ="&#9747";
+    						 }
+    					 if(item[c].includes(' '))
+    						 {
+    						 row1.insertCell(c).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='"+item[c]+"' >";	 
+    						 }
+    					 else
+    						 {
+    						 row1.insertCell(c).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='"+symbol+"' >";
+    						 }
+    					 	 
+    					 }
+    				 
+    				
+    			// }
+    			/*  else
+    				 {
+    					row.insertCell(cnt).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='"+item[i][j]+"' >";		 
+    				 } */
+    		 	
+    		    		 
+    		 	//cnt++;
+    		// }
+     
+     });
+     /* 
+     $.each(response.data, function(i, item) {
+    		 for(var p=0;p<item.length;p++)
+    			 {
+                 if(!item.includes('-'))
+                	 {
+                	 for(var s=0;s<item.length;s++)
+                		 {
+                		 
+                	 
+                	 
+                	 if(!list.includes(item[s][0]))
+                		 {
+	                		var row1 = table.insertRow();
+	          			 	row1.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 50px;\" value='"+item[s][0]+"' >";
+	          			 	
+	          			 	
+                		 }
+                	 
+                	 list.push(item[s][0]);
+                	 
+                	
+                	 }
+                	 
+                	 break;
+                	 }
+                 break;
+    			 };
+    			 
+    			 
+     });
+     cnt=1;
+   $.each(response.data, function(i, item) {
+		 for(var p=0;p<item.length-(item.length-1);p++)
+			 {
+             if(!item.includes('-'))
+            	 {
+            	 for(var s=0;s<item.length;s++)
+            		 {
+            		 
+            	 
+            	 
+            	 if(!list.includes(item[s][1]))
+            		 {
+                		var row = table.insertRow();
+                		
+                		row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='SS' >";
+                		row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='"+item[s][1]+"' >"; 
+            		 	 cnt++;
+          			 
+            		 }
+            	 list.push(item[s][0]);
+            	
+            	 }
+            	 break;
+            	 }
+             break;
+			 };  
+			 
+ }); */
+    	 
+    
+    		
+		
+	
+    
+    
+	
+    
+        
+	
 }
 
 function funCalculateTotal (data)
@@ -1021,209 +1201,160 @@ function funClick(obj)
 	funGetBillPerticular(billNo);
     window.open(getContextPath()+"/rptBillPrinting.html?fromDate="+frmDte1+"&toDate="+toDte1+"&billNo="+billNo+"&strSelectBill="+strSelectBill+"");
 	
-}	
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 </script>
 </head>
 
-
 <body onload="funOnLoad();">
-<div id="formHeading">
-		<label>Sales Flash </label>
-	</div>
-	<s:form name="frmPMSSalesFlash" method="GET" action="">
-	<br />
-	<table class="transTable">
-	       <tr>
-				<td><label>From Date</label></td>
-				<td><s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" /></td>
-				<td><label>To Date</label></td>
-				<td><s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" /></td>
-				
-				
-				<td colspan="9"><input id="btnExport" type="button" value="EXPORT"  class="form_button1" onclick="funExportReport()"/>
-				<s:input type="hidden" id="hidReportName" path=""></s:input>	
-				</td>				
-	       </tr>
-	</table>
-	
-	<br/>
-		<div id="divSettlementWise" class="dynamicTableContainer"
-			style="height: 400px;">
-			<table style="width: 100%; border: #0F0; table-layout: fixed;"
-				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
-					<td width="8%">Settlement Type </td>
-					<td width="6.1%">Settlement Amount</td>
-					
-			     </tr>
+	<div class="container">
+		<label id="formHeading">Sales Flash </label>
+		<s:form name="frmPMSSalesFlash" method="GET" action="">
+			<div class="row transTable">
+	     		<div class="col-md-3">
+	     			<div class="row">
+	     				<div class="col-md-6">
+							<label>From Date</label>
+							<s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" />
+						</div>
+						<div class="col-md-6">
+							<label>To Date</label>
+							<s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" />
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<input id="btnExport" type="button" value="EXPORT"  class="btn btn-primary center-block form_button1" onclick="funExportReport()" style="margin-top:27px; color:#000;"/>
+				</div>
+				<div class="col-md-2">
+					<s:input type="hidden" id="hidReportName" path=""></s:input>
+				</div>
+			</div>
+		<br/>
+		
+		<div id="divHousekeepingSummary" class="dynamicTableContainer" style="height: 400px;">
+			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
+				</tr>
 			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-				<table id="tblSettlementDet"
-					style="width: 100%; border: #0F0; table-layout: fixed;"
-					class="transTablex col15-center">
-					<tbody>
-					<col style="width: 10%">
-					<col style="width: 6%">
-					
-					</tbody>
-
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: scroll; overflow-y: scroll; width: 100%;">
+				<table id="tblHousekeepingSummary" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTable">
 				</table>
 			</div>
-
+		</div>
+	
+		<div id="divSettlementWise" class="dynamicTableContainer" style="height: 378px;">
+			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
+					<td width="8%">Settlement Type </td>
+					<td width="6.1%">Settlement Amount</td>
+			     </tr>
+			</table>
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblSettlementDet" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+					<tbody>
+						<col style="width: 10%">
+						<col style="width: 6%">
+					</tbody>
+				</table>
+			</div>
 		</div>
 		
-		<div id="divRevenueHeadWise" class="dynamicTableContainer"
-			style="height: 400px;">
-			<table style="width: 100%; border: #0F0; table-layout: fixed;"
-				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+		<div id="divRevenueHeadWise" class="dynamicTableContainer" style="height: 400px;">
+			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
 					<td width="7.4%">Revenue Type</td>
 					<td width="9.3%">Amount </td>
 					<td width="4.5%">Tax Amount</td>
-
 				</tr>
 			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-				<table id="tblRevenueHeadDet"
-					style="width: 100%; border: #0F0; table-layout: fixed;"
-					class="transTablex col15-center">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblRevenueHeadDet" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
 					<tbody>
-					<col style="width: 7.2%">
-					<col style="width: 9.2%">
-					<col style="width: 4.5%">
-					
-				
+						<col style="width: 7.2%">
+						<col style="width: 9.2%">
+						<col style="width: 4.5%">
 					</tbody>
-
 				</table>
 			</div>
-
 		</div>
 		
 		<div id="divTaxWise" class="dynamicTableContainer"
 			style="height: 400px;">
 			<table style="width: 100%; border: #0F0; table-layout: fixed;"
 				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#c0c0c0">
 					<td width="7.4%">Tax Description</td>
 					<td width="9.3%">Taxable Amount </td>
 					<td width="4.5%">Tax Amount</td>
-					
 				</tr>
 			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblTaxDet"
 					style="width: 100%; border: #0F0; table-layout: fixed;"
 					class="transTablex col15-center">
 					<tbody>
-					<col style="width: 7.2%">
-					<col style="width: 9.2%">
-					<col style="width: 4.5%">
-					
-
+						<col style="width: 7.2%">
+						<col style="width: 9.2%">
+						<col style="width: 4.5%">
 					</tbody>
-
 				</table>
 			</div>
-
 		</div>
 		
-		<div id="divExpectedArrList" class="dynamicTableContainer"
-			style="height: 400px;">
-			<table style="width: 100%; border: #0F0; table-layout: fixed;"
-				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+		<div id="divExpectedArrList" class="dynamicTableContainer" style="height: 400px;">
+			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
 					<td width="7.4%">Reservation No</td>
 					<td width="4.5%">Reservation Date </td>
 					<td width="9.3%">Guest Name</td>
 					<td width="4.8%">Departure Date</td>
 					<td width="7.6%">Arrival Date</td>
 					<td width="5.1%">Receipt Amount</td>
-					
 				</tr>
 			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-				<table id="tblExpectedArrDet"
-					style="width: 100%; border: #0F0; table-layout: fixed;"
-					class="transTablex col15-center">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblExpectedArrDet" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
 					<tbody>
-					<col style="width: 7.2%">
-					<col style="width: 4.5%">
-					<col style="width: 9.2%">
-					<col style="width: 4.6%">
-					<col style="width: 7.6%">
-					<col style="width: 5%">
-					
-
+						<col style="width: 7.2%">
+						<col style="width: 4.5%">
+						<col style="width: 9.2%">
+						<col style="width: 4.6%">
+						<col style="width: 7.6%">
+						<col style="width: 5%">
 					</tbody>
-
 				</table>
 			</div>
-
 		</div>
 		
-		
-		<div id="divExpectedDeptList" class="dynamicTableContainer"
-			style="height: 400px;">
-			<table style="width: 100%; border: #0F0; table-layout: fixed;"
-				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+		<div id="divExpectedDeptList" class="dynamicTableContainer" style="height: 400px;">
+			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
 					<td width="7.4%">Check In No </td>
 					<td width="10%">Guest Name</td>
 					<td width="6.1%">Departure Date</td>
 					<td width="5%">Room Description</td>
 					<td width="4.5%">Room Type</td>
 					<td width="4.5%">Booking Type</td>
-				
-					
-					
 				</tr>
 			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-				<table id="tblExpectedDeptDet"
-					style="width: 100%; border: #0F0; table-layout: fixed;"
-					class="transTablex col15-center">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblExpectedDeptDet" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
 					<tbody>
-					<col style="width: 7.2%">
-					<col style="width: 10%">
-					<col style="width: 6%">
-					<col style="width: 5%">
-					<col style="width: 4.5%">
-					<col style="width: 4.5%">
-					
-					
+						<col style="width: 7.2%">
+						<col style="width: 10%">
+						<col style="width: 6%">
+						<col style="width: 5%">
+						<col style="width: 4.5%">
+						<col style="width: 4.5%">
 					</tbody>
-
 				</table>
 			</div>
-
 		</div>
 		
-		
-		<div id="divCheckInList" class="dynamicTableContainer"
-			style="height: 400px;">
-			<table style="width: 100%; border: #0F0; table-layout: fixed;"
-				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+		<div id="divCheckInList" class="dynamicTableContainer" style="height: 400px;">
+			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
 					<td width="7.4%">Check In No </td>
 					<td width="10%">Guest Name</td>
 					<td width="6.1%">CheckIn Date</td>
@@ -1231,36 +1362,26 @@ function funClick(obj)
 					<td width="4.5%">Room Type</td>
 					<td width="4.5%">Booking Type</td>
 					<td width="5.1%">Arrival Time</td>
-					
-					
 				</tr>
 			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-				<table id="tblCheckInDet"
-					style="width: 100%; border: #0F0; table-layout: fixed;"
-					class="transTablex col15-center">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblCheckInDet" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
 					<tbody>
-					<col style="width: 7.2%">
-					<col style="width: 10%">
-					<col style="width: 6%">
-					<col style="width: 5%">
-					<col style="width: 4.5%">
-					<col style="width: 4.5%">
-					<col style="width: 5%">
-					
+						<col style="width: 7.2%">
+						<col style="width: 10%">
+						<col style="width: 6%">
+						<col style="width: 5%">
+						<col style="width: 4.5%">
+						<col style="width: 4.5%">
+						<col style="width: 5%">
 					</tbody>
-
 				</table>
 			</div>
-
 		</div>
 		
-		<div id="divCheckOutList" class="dynamicTableContainer"
-			style="height: 400px;">
-			<table style="width: 100%; border: #0F0; table-layout: fixed;"
-				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+		<div id="divCheckOutList" class="dynamicTableContainer" style="height:400px;">
+			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
 					<td width="7.4%">Bill No </td>
 					<td width="10%">Guest Name</td>
 					<td width="6.1%">Departure Date</td>
@@ -1268,39 +1389,26 @@ function funClick(obj)
 					<td width="4.5%">Room Type</td>
 					<td width="4.5%">Booking Type</td>
 					<td width="5.1%">Grand Total</td>
-					
-					
 				</tr>
 			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-				<table id="tblCheckOutDet"
-					style="width: 100%; border: #0F0; table-layout: fixed;"
-					class="transTablex col15-center">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblCheckOutDet" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
 					<tbody>
-					<col style="width: 7.2%">
-					<col style="width: 10%">
-					<col style="width: 6%">
-					<col style="width: 5%">
-					<col style="width: 4.5%">
-					<col style="width: 4.5%">
-					<col style="width: 5%">
-					
+						<col style="width: 7.2%">
+						<col style="width: 10%">
+						<col style="width: 6%">
+						<col style="width: 5%">
+						<col style="width: 4.5%">
+						<col style="width: 4.5%">
+						<col style="width: 5%">
 					</tbody>
-
 				</table>
 			</div>
-
 		</div>
 		
-		
-		
-		
-		<div id="divCancelationList" class="dynamicTableContainer"
-			style="height: 400px;">
-			<table style="width: 100%; border: #0F0; table-layout: fixed;"
-				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+		<div id="divCancelationList" class="dynamicTableContainer" style="height: 400px;">
+			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
 					<td width="7.4%">Reservation No </td>
 					<td width="10%">Guest Name</td>
 					<td width="6.1%">Booking Type</td>
@@ -1310,67 +1418,49 @@ function funClick(obj)
 					<td width="5.1%">Room Description</td>
 					<td width="8.1%">Reason</td>
 					<td width="7.1%">Remark</td>
-					
 				</tr>
 			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-				<table id="tblCancelationDet"
-					style="width: 100%; border: #0F0; table-layout: fixed;"
-					class="transTablex col15-center">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblCancelationDet" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
 					<tbody>
-					<col style="width: 7.2%">
-					<col style="width: 10%">
-					<col style="width: 6%">
-					<col style="width: 5%">
-					<col style="width: 4.5%">
-					<col style="width: 4.5%">
-					<col style="width: 5%">
-					<col style="width: 8%">
-					<col style="width: 7%">
+						<col style="width: 7.2%">
+						<col style="width: 10%">
+						<col style="width: 6%">
+						<col style="width: 5%">
+						<col style="width: 4.5%">
+						<col style="width: 4.5%">
+						<col style="width: 5%">
+						<col style="width: 8%">
+						<col style="width: 7%">
 					</tbody>
-
 				</table>
 			</div>
-
 		</div>
 		
-		<div id="divNoShowList" class="dynamicTableContainer"
-			style="height: 400px;">
-			<table style="width: 100%; border: #0F0; table-layout: fixed;"
-				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+		<div id="divNoShowList" class="dynamicTableContainer" style="height: 400px;">
+			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
 					<td width="7.4%">Guest Name</td>
 					<td width="6.1%">Reservation No</td>
 					<td width="4.5%">No Of Rooms</td>
 					<td width="4.8%">Payment</td>
-					
 				</tr>
 			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-				<table id="tblNoShowDet"
-					style="width: 100%; border: #0F0; table-layout: fixed;"
-					class="transTablex col15-center">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblNoShowDet" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
 					<tbody>
-					<col style="width: 7.2%">
-					<col style="width: 7%">
-					<col style="width: 4.5%">
-					<col style="width: 4.6%">
-					
-
+						<col style="width: 7.2%">
+						<col style="width: 7%">
+						<col style="width: 4.5%">
+						<col style="width: 4.6%">
 					</tbody>
-
 				</table>
 			</div>
-
 		</div>
 		
-		<div id="divVoidBillList" class="dynamicTableContainer"
-			style="height: 400px;">
-			<table style="width: 100%; border: #0F0; table-layout: fixed;"
-				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+		<div id="divVoidBillList" class="dynamicTableContainer" style="height: 400px;">
+			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
 					<td width="4%">Bill No</td>
 					<td width="3.5%">Bil Date </td>
 					<td width="6%">Guest Name</td>
@@ -1383,74 +1473,52 @@ function funClick(obj)
 					<td width="4.7%">Void User</td>
 				</tr>
 			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-				<table id="tblVoidBillDet"
-					style="width: 100%; border: #0F0; table-layout: fixed;"
-					class="transTablex col15-center">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblVoidBillDet" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
 					<tbody>
-					<col style="width: 5%">
-					<col style="width: 4%">
-					<col style="width: 7.8%">
-					<col style="width: 4%">
-					<col style="width: 10.5%">
-					<col style="width: 3.5%">
-					<col style="width: 7.1%" >
-					<col style="width: 5.1%">
-					<col style="width: 5.1%">
-					<col style="width: 6%">
-					
-
+						<col style="width: 5%">
+						<col style="width: 4%">
+						<col style="width: 7.8%">
+						<col style="width: 4%">
+						<col style="width: 10.5%">
+						<col style="width: 3.5%">
+						<col style="width: 7.1%" >
+						<col style="width: 5.1%">
+						<col style="width: 5.1%">
+						<col style="width: 6%">
 					</tbody>
-
 				</table>
 			</div>
-
 		</div>
 		
-		
-		
-		<div id="divPayment" class="dynamicTableContainer"
-			style="height: 400px;">
-			<table style="width: 100%; border: #0F0; table-layout: fixed;"
-				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+		<div id="divPayment" class="dynamicTableContainer" style="height: 400px;">
+			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
 					<td width="2%">Receipt No </td>
 					<td width="2%">Receipt Date</td>
 					<td width="4%">Name</td>
 					<td width="2%">Type</td>
 					<td width="2%">Settlement</td>
 					<td width="2%">Amount</td>
-					
-					
-					
 				</tr>
 			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-				<table id="tblPayment"
-					style="width: 100%; border: #0F0; table-layout: fixed;"
-					class="transTablex col15-center">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblPayment" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
 					<tbody>
-					<col style="width: 2%">
-					<col style="width: 2%">
-					<col style="width: 4%">
-					<col style="width: 2%">
-					<col style="width: 2%">
-					<col style="width: 2%">
-					
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 4%">
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 2%">
 					</tbody>
-
 				</table>
 			</div>
-
 		</div>
 		
-		<div id="divBillPrinting" class="dynamicTableContainer"
-			style="height: 400px;">
-			<table style="width: 100%; border: #0F0; table-layout: fixed;"
-				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+		<div id="divBillPrinting" class="dynamicTableContainer" style="height: 400px;">
+			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
 					<td width="2%">Bill No </td>
 					<td width="2%">Bill Date</td>
 					<td width="2%">Room No</td>
@@ -1459,111 +1527,103 @@ function funClick(obj)
 					<td width="2%">Discount</td>
 					<td width="2%">Tax Amount</td>
 					<td width="2%">Advance Amount</td>
-					
-					
-					
 				</tr>
 			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-				<table id="tblBillPrinting"
-					style="width: 100%; border: #0F0; table-layout: fixed;"
-					class="transTablex col15-center">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblBillPrinting" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
 					<tbody>
-					<col style="width: 2%">
-					<col style="width: 2%">
-					<col style="width: 2%">
-					<col style="width: 3%">
-					<col style="width: 2%">
-					<col style="width: 2%">
-					<col style="width: 2%">
-					<col style="width: 2%">
-					
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 3%">
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 2%">
+						<col style="width: 2%">
 					</tbody>
-
 				</table>
 			</div>
-
 		</div>
 		
-		
-		
-		<div id="divValueTotal"
-			style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 25px; margin: auto; overflow-x: hidden; overflow-y: hidden; width: 94%;">
-			<table id="tblTotalFlash" class="transTablex"
-				style="width: 100%; font-size: 11px; font-weight: bold;">
+		<div id="divValueTotal" style="background-color: #c0c0c0; border: 1px solid #ccc; display: block; height: 25px; margin: auto; overflow-x: hidden; overflow-y: hidden; width: 94%;">
+			<table id="tblTotalFlash" class="transTablex" style="width: 100%; font-size: 11px; font-weight: bold;">
 				<tr style="margin-left: 28px">
 					<td id="labld26" width="50%" align="right">Total Value</td>
-					<td id="tdTotValue" width="20%" align="right"><input
-						id="txtTotValue" style="width: 100%; text-align: right;"
-						class="Box"></input></td>
-					<td id="tdTaxTotValue" width="20%" align="right"><input
-						id="txtTaxTotValue" style="width: 100%; text-align: right;"
-						class="Box"></input></td>
-					
-
+					<td id="tdTotValue" width="10%" align="right">
+						<input id="txtTotValue" style="width: 80%; text-align: right;" class="Box"></input>
+					</td>
+					<td id="tdTaxTotValue" width="10%" align="right">
+						<input id="txtTaxTotValue" style="width: 80%; text-align: right;" class="Box"></input>
+					</td>
 				</tr>
 			</table>
 		</div>
-		
-
-		<div style=" border: 1px solid #ccc; display: block; height: 30px; margin: auto;  width: 94%;">
-		<table class="transTable" style="width:100%;height:30px; ">
-          <tr>
-			<td ><input id="btnSettlmentWise" type="button" 
-			class="form_button" value="Settlement Wise" onclick="funOnClckSettlementWiseBtn('divSettlementWise')" style="background-size: 140px 24px; width: 150px;" /></td>
+		<div style=" border: 1px solid #ccc; display: block; height: 31px; margin: auto;  width: 94%;">
+			<table class="transTable" style="width:100%;height:30px; ">
+          	<tr>
+				<td ><input id="btnSettlmentWise" type="button" 
+					class="btn btn-primary center-block form_button" value="Settlement Wise" onclick="funOnClckSettlementWiseBtn('divSettlementWise')" style="background-size: 140px 24px; width: 150px; color:#000;" />
+				</td>
 			
-			<td colspan="3"><input id="btnRevenueWise" type="button" 
-			class="form_button"  value="Revenue Head Wise" onclick="funOnClckRevenueHeadWiseBtn('divRevenueHeadWise')"  style="background-size: 150px 24px; width: 150px;"/></td>
+				<td colspan="3"><input id="btnRevenueWise" type="button" 
+					class="btn btn-primary center-block form_button"  value="Revenue Head Wise" onclick="funOnClckRevenueHeadWiseBtn('divRevenueHeadWise')"  style="background-size: 150px 24px; width: 150px; color:#000;"/>
+				</td>
 			
-			<td colspan="5" ><input id="btnTaxWise" type="button"
-			class="form_button" value="Tax Wise"  onclick="funOnClckTaxWiseBtn('divTaxWise')" style="background-size: 140px 24px; width: 150px;"/></td>
+				<td colspan="5" ><input id="btnTaxWise" type="button"
+					class="btn btn-primary center-block form_button" value="Tax Wise"  onclick="funOnClckTaxWiseBtn('divTaxWise')" style="background-size: 140px 24px; width: 150px; color:#000;"/></td>
 			
-			<td colspan="7"><input id="btnExpectedArrList" type="button"
-			class="form_button" value="Expected Arrival List"  onclick="funOnClckExpectedArrWiseBtn('divExpectedArrList')" style="background-size: 150px 24px; width: 150px;" /></td>
+				<td colspan="7"><input id="btnExpectedArrList" type="button"
+					class="btn btn-primary center-block form_button" value="Expected Arrival List"  onclick="funOnClckExpectedArrWiseBtn('divExpectedArrList')" style="background-size: 150px 24px; width: 150px; color:#000;" />
+				</td>
 			
-			<td colspan="9"><input id="btnExpectedDeptList" type="button"
-			class="form_button" value="Expected Departure List"  onclick="funOnClckExpectedDeptWiseBtn('divExpectedDeptList')" style="background-size: 150px 24px; width: 150px;" /></td>
+				<td colspan="9"><input id="btnExpectedDeptList" type="button"
+					class="btn btn-primary center-block form_button" value="Expected Departure List"  onclick="funOnClckExpectedDeptWiseBtn('divExpectedDeptList')" style="background-size: 150px 24px; width: 150px; color:#000;" />
+				</td>
 			
-			<td colspan="3"><input id="btnBillPrinting" type="button"
-			class="form_button" value="Bill Wise"  onclick="funOnClckBillPrinting('divBillPrinting')" style="background-size: 140px 24px; width: 150px;" /></td>
-			
-		</tr>
-		</table>
+				<td colspan="3"><input id="btnBillPrinting" type="button"
+					class="btn btn-primary center-block form_button" value="Bill Wise"  onclick="funOnClckBillPrinting('divBillPrinting')" style="background-size: 140px 24px; width: 150px; color:#000;" />
+				</td>
+			</tr>
+			</table>
 		</div>
-		<div
-		style=" border: 1px solid #ccc; display: block; height: 30px; margin: auto;  width: 94%;">
-		<table class="transTable" style="width:100%;height:30px; ">
-		 <tr>
-			<td><input id="btnCheckInList" type="button"
-			class="form_button" value="Check In List"  onclick="funOnClckCheckInBtn('divCheckInList')" style="background-size: 140px 24px; width: 150px;" /></td>	
+		<div style=" border: 1px solid #ccc; display: block; height: 31px; margin: auto;  width: 94%;">
+			<table class="transTable" style="width:100%;height:30px; ">
+		 	<tr>
+				<td><input id="btnCheckInList" type="button"
+					class="btn btn-primary center-block form_button" value="Check In List"  onclick="funOnClckCheckInBtn('divCheckInList')" style="background-size: 140px 24px; width: 150px; color:#000;" /></td>	
 			
-			<td colspan="3"><input id="btnCheckOutList" type="button"
-			class="form_button" value="Check Out List"  onclick="funOnClckCheckOutBtn('divCheckOutList')" style="background-size: 140px 24px; width: 150px;" /></td>
+				<td colspan="3"><input id="btnCheckOutList" type="button"
+					class="btn btn-primary center-block form_button" value="Check Out List"  onclick="funOnClckCheckOutBtn('divCheckOutList')" style="background-size: 140px 24px; width: 150px; color:#000;" /></td>
 			
-			<td colspan="5"><input id="btnCancelationList" type="button"
-			class="form_button" value="Cancellation List"  onclick="funOnClckCancelationWiseBtn('divCancelationList')" style="background-size: 140px 24px; width: 150px;" /></td>
+				<td colspan="5"><input id="btnCancelationList" type="button"
+					class="btn btn-primary center-block form_button" value="Cancellation List"  onclick="funOnClckCancelationWiseBtn('divCancelationList')" style="background-size: 140px 24px; width: 150px; color:#000;" /></td>
 		   
-		    <td colspan="7"><input id="btnNoShowList" type="button"
-			class="form_button" value="No Show List"  onclick="funOnClckNoShowWiseBtn('divNoShowList')" style="background-size: 140px 24px; width: 150px;" /></td>	
+		    	<td colspan="7"><input id="btnNoShowList" type="button"
+					class="btn btn-primary center-block form_button" value="No Show List"  onclick="funOnClckNoShowWiseBtn('divNoShowList')" style="background-size: 140px 24px; width: 150px; color:#000;" /></td>	
 			
-			<td colspan="9"><input id="btnVoidBillList" type="button"
-			class="form_button" value="Void Bill List"  onclick="funOnClckVoidBillWiseBtn('divVoidBillList')" style="background-size: 140px 24px; width: 150px;" /></td>
+				<td colspan="9"><input id="btnVoidBillList" type="button"
+					class="btn btn-primary center-block form_button" value="Void Bill List"  onclick="funOnClckVoidBillWiseBtn('divVoidBillList')" style="background-size: 140px 24px; width: 150px; color:#000;" /></td>
 			
-			<td><input id="btnPayment" type="button"
-			class="form_button" value="Payment"  onclick="funOnClickPayment('divPayment')" style="background-size: 140px 24px; width: 150px;" /></td>	
+				<td><input id="btnPayment" type="button"
+					class="btn btn-primary center-block form_button" value="Payment"  onclick="funOnClickPayment('divPayment')" style="background-size: 140px 24px; width: 150px; color:#000;" /></td>	
 			
-		 </tr>
-		</table>
+		 	</tr>
+			</table>
 		</div>
 		
-		<br /><br />
-<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
+		<div style=" border: 1px solid #ccc; display: block; height: 36px; margin: auto;  width: 94%;">
+			<table class="transTable" style="width:100%;height:30px; ">
+			 	<tr>
+					<td><input id="btnHousekeepingSummary" type="button"
+						class="btn btn-primary center-block" value="Housekeeping"  onclick="funOnClickHousekeepingSummary('divHousekeepingSummary')" style="background-size: 140px 24px; width: 150px; color:#000;" /></td>	
+				 </tr>
+			</table>
+		</div>
+		<br/><br/>
+			<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
-	
-	
 	</s:form>
-
+</div>
 </body>
 </html>

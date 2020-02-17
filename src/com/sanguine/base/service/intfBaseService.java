@@ -44,4 +44,6 @@ public interface intfBaseService {
 	
 	
 	public void funExcecteUpdateModuleWise(StringBuilder strQuery, String queryType, String moduleType) throws Exception;
+	
+	public List funGetListForWebPMS(StringBuilder query, String queryType) throws Exception;
 }

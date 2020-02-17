@@ -40,6 +40,12 @@ public interface intfBaseDao {
 	
 	public List funGetListForWebStocks(StringBuilder query, String queryType) throws Exception;
 	
-	
 	public void funExcecteUpdateModuleWise(StringBuilder strQuery, String queryType, String moduleType) throws Exception;
+	
+
+	public String funSaveForWebPMS(clsBaseModel objBaseModel) throws Exception; 
+	
+	public List funGetListForWebPMS(StringBuilder query, String queryType) throws Exception;
+
 }
+

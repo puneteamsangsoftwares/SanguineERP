@@ -8,6 +8,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+    
 </head>
 
 <script type="text/javascript">
@@ -15,15 +22,18 @@
 	var inPeg;
 	$(document).ready(function() {
 		var startDate="${startDate}";
+		var startDateOfMonth="${startDateOfMonth}";
+		var arr1 = startDateOfMonth.split("-");
+		Dat1=arr1[2]+"-"+arr1[1]+"-"+arr1[0];
 		var arr = startDate.split("/");
 		Dat=arr[2]+"-"+arr[1]+"-"+arr[0];
 		$("#txtFromDate").datepicker({
-			dateFormat : 'yy-mm-dd'
+			dateFormat : 'dd-mm-yy'
 		});
-		$("#txtFromDate").datepicker('setDate', Dat);
+		$("#txtFromDate").datepicker('setDate', startDateOfMonth);
 
 		$("#txtToDate").datepicker({
-			dateFormat : 'yy-mm-dd'
+			dateFormat : 'dd-mm-yy'
 		});
 		$("#txtToDate").datepicker('setDate', 'today');
 
@@ -85,33 +95,26 @@
 	
 </script>
 <body>
+	<div class="container masterTable">
+	<label id="formHeading">Master List</label>
 	<s:form name="frmMasterList" method="GET" action="rptMasterList.html?saddr=${urlHits}">
-		<div >
 		
-			<div id="formHeading">
-		<label >Master List</label>
-	</div><br/>
-	<br/>
-	<br/>
-			<table class="masterTable">
-				<tr>
-					<td><label>From Date</label></td>
-					<td><s:input type="text" id="txtFromDate"
-							class="calenderTextBox" path="dtFromDate" required="required" />
-					</td>
-				</tr>
-				<tr>
-					<td><label>To Date</label></td>
-					<td><s:input type="text" id="txtToDate"
-							class="calenderTextBox" path="dtToDate" required="required" /></td>
-				</tr>
-				<tr>
-					<td><label>Module</label></td>
-					
-				<td><s:select id="cmbModule" cssClass="combo1" cssStyle="width:125px;height:20px;overflow:scroll" path="strAgainst">
+	  <div class="row">	
+		        <div class="col-md-2"><label>From Date</label>
+					  <s:input type="text" id="txtFromDate"
+							class="calenderTextBox" path="dtFromDate" required="required" style="width:70%"/>
+				</div>
+				<div class="col-md-10"></div>
+				
+				<div class="col-md-2"><label>To Date</label>
+					  <s:input type="text" id="txtToDate" class="calenderTextBox" path="dtToDate" required="required" style="width:70%"/>
+				</div>
+				<div class="col-md-10"></div>
+				
+				<div class="col-md-3"><label>Module</label>
+				  <s:select id="cmbModule" cssClass="combo1" cssStyle="width:auto;height:20px;overflow:scroll" path="strAgainst">
 					<option value="tblattributemaster">Attribute Master</option>
 					<option value="tbludcategory">UD Report Category Master</option>
-					
 					<option value="tblcharacteristics">Characteristics Master</option>
 					<option value="tblgroupmaster">Group Master</option>
 					<option value="tbllocationmaster">Location Master</option>
@@ -125,23 +128,18 @@
 					<option value="tbltcmaster">TC Master</option>
 					<option value="tbluommaster">UOM Master</option>
 					<!-- <option value=""></option> -->
-				
-			
-					</s:select></td>			
-				</tr>
-			</table>
+				</s:select>			
+			   </div>
 		</div>
-		<br />
-		<br />
-		<br />
-		<br />
+	
 		<br />
 	
-		<p align="center">
-			 <input type="submit" value="Submit"
-				class="form_button" id="btnSubmit" /> <input type="reset" value="Reset"
-				class="form_button" />
+		<p align="center" style="margin-right:51%">
+			 <input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" id="btnSubmit" /> 
+			  &nbsp;
+		  	 <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />
 		</p>
 	</s:form>
+	</div>
 </body>
 </html>

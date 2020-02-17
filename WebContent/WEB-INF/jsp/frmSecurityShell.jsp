@@ -1,14 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<%-- <%@ taglib prefix="tab" uri="http://ditchnet.org/jsp-tabs-taglib" %> --%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
-
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <script type="text/javascript">
 	$(document).ready(function() {
 
@@ -143,43 +148,44 @@ var fieldName;
 </head>
 <body>
 
-	<div id="formHeading">
-		<label>Security Shell</label>
-	</div>
+	<div class="container">
+		<label id="formHeading">Security Shell</label>
 	<div>
 		<s:form action="saveSecurityShell.html?saddr=${urlHits}" method="POST"
 			name="securityShell">
 			<input type="hidden" value="${urlHits}" name="saddr">
 			<br />
 			
-			<table
-				style="border: 0px solid black; width: 70%; margin-left: auto; margin-right: auto;background-color:#A3D0F7;font-size:11px;
-			font-weight: bold;" class="transTable">
-				<thead>
-					<tr >
-						<td width="100px"><label>User Code</label></td>
-						<td width="100px"> <s:input path="strUserCode"
-								cssClass="searchTextBox" id="strUserCode" readonly="true"
-								ondblclick="funHelp('usermaster')" /></td>
-						<td > <s:input id="UserName"
-							cssClass="Box" cssStyle="width:50%;height:18px;" readonly="true" path="strUserName"/></td>
-					</tr>
-					<tr>
-					<td width="100px"><label>Like User </label></td>
-						<td width="100px"> <s:input path="strLikeUserCode" 
-								cssClass="searchTextBox" id="strLikeUserCode" readonly="true"
-								ondblclick="funHelp('Likeusermaster')" /></td>
-					<td > <s:input id="LikeUserName"
-							cssClass="Box" cssStyle="width:50%;height:18px;" readonly="true" path="strLikeUserName"/></td>
-					</tr>
-				</thead>
-				
-			</table>
-			<br>
-
+			<div class="row">
+				<div class="col-md-5">
+					<label>User Code</label>
+					<div class="row">
+						<div class="col-md-5">
+							<s:input path="strUserCode" cssClass="searchTextBox" id="strUserCode" readonly="true"
+								ondblclick="funHelp('usermaster')" />
+						</div>
+						<div class="col-md-7">
+							<s:input id="UserName" readonly="true" path="strUserName"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-7"></div>
+				<div class="col-md-5">
+					<label>Like User </label>
+						<div class="row">
+							<div class="col-md-5">
+								<s:input path="strLikeUserCode" cssClass="searchTextBox" id="strLikeUserCode" readonly="true"
+									ondblclick="funHelp('Likeusermaster')" />
+				 			</div>
+				 			<div class="col-md-7">
+				 				<s:input id="LikeUserName"  readonly="true" path="strLikeUserName"/></td>
+							</div>
+						</div>
+				</div>
+			</div>
+		<br>
 			<!-- Start of tab container -->
-			<table
-				style="border: 0px solid black; width: 70%; margin-left: auto; margin-right: auto;background-color:#C0E4FF;">
+			<table style="width: 100%;">
 				<tr>
 					<td>
 						<div id="tab_container">
@@ -369,18 +375,19 @@ var fieldName;
 								Applications Tab</div> -->
 							<!-- End of Mobile Applications Tab -->
 
-
 						</div>
 					</td>
 				</tr>
 			</table>
 			<!-- End Of tab container -->
-			
-			<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			 <a STYLE="text-decoration:none"  href="frmSecurityShell.html" ><input type="button" value="Reset" class="form_button" /></a><br/></p>
-		
+			<div class="center" >
+				<a href="#"><button class="btn btn-primary center-block"  value="Submit" 
+				>Submit</button></a>
+				<a href="frmSecurityShell.html"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()"
+				>Reset</button></a>
+		</div>
 		</s:form>
 	</div>
+</div>
 </body>
 </html>

@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,6 +9,13 @@
   	<link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Web Stocks</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+ 
     <script type="text/javascript">
     
     /**
@@ -16,10 +25,11 @@
     $(function() 
 			{	
 		    	var startDate="${startDate}";
+		    	var startDateOfMonth="${startDateOfMonth}";
 				var arr = startDate.split("/");
 				Date1=arr[0]+"-"+arr[1]+"-"+arr[2];
 				$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
-				$("#txtFromDate" ).datepicker('setDate', Date1);
+				$("#txtFromDate" ).datepicker('setDate', startDateOfMonth);
 				$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 				$("#txtToDate" ).datepicker('setDate', 'today');
 			});
@@ -152,56 +162,50 @@
   </head>
   
 	<body >
-	<div id="formHeading">
-		<label>Productwise Supplierwise</label>
-	</div>
-	<br />
-	<br />
-		<s:form name="frmProductwiseSupplierwise" method="GET" action="rptProductwiseSupplierwise.html" target="_blank">
-			<table class="masterTable">
-	<tr><th colspan="5"></th></tr>
-			<tr>
-				<td width="10%"><label id="lblFromDate">From Date</label></td>
-				<td width="10%"><s:input id="txtFromDate" name="fromDate"
-						path="dtFromDate" cssClass="calenderTextBox" required="true"/> <s:errors
-						path="dtFromDate"></s:errors></td>
-				<td width="10%"><label id="lblToDate">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-				To Date</label></td>
-				<td colspan="3"><s:input id="txtToDate" name="toDate"
-						path="dtToDate" cssClass="calenderTextBox" required="true"/> <s:errors
-						path="dtToDate"></s:errors></td>
+	<div class="container masterTable">
+		<label id="formHeading">Productwise Supplierwise</label>
+	    <s:form name="frmProductwiseSupplierwise" method="GET" action="rptProductwiseSupplierwise.html" target="_blank">
+		
+		<div class="row">
+			 <div class="col-md-2"><label id="lblFromDate">From Date</label>
+				<s:input id="txtFromDate" name="fromDate" path="dtFromDate" cssClass="calenderTextBox" style="width: 70%;" required="true"/> 
+				<s:errors path="dtFromDate"></s:errors>
+			 </div>
+			
+			 <div class="col-md-2"><label id="lblToDate">To Date</label>
+				 <s:input id="txtToDate" name="toDate" path="dtToDate" cssClass="calenderTextBox" style="width: 70%;" required="true"/> 
+				 <s:errors path="dtToDate"></s:errors>
+			 </div>
+			<div class="col-md-8"></div>
 						
-			</tr>
-				<tr>
-					<td width="15%">Supplier Code</td>
-					<td width="10%"><s:input  id="txtSuppCode" path="strDocCode" ondblclick="funHelp('suppcode')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/></td>
-					<td colspan="5"><span id="txtSuppName" style="font-size: 12px;"></span></td>
-				</tr>
+			<div class="col-md-2"><label>Supplier Code</label>
+					<s:input  id="txtSuppCode" path="strDocCode" ondblclick="funHelp('suppcode')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
+			</div>
+			
+			<div class="col-md-2" style="font-size: 12px;background-color:#dcdada94; width: 100%; height: 42%; margin-top: 27px;"><span id="txtSuppName"></span></div>
+			<div class="col-md-8"></div>
 				
-				<tr>
-					<td><label>Report Type</label></td>
-					<td colspan="5">
-						<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+			<div class="col-md-2"><label>Report Type</label>
+					<s:select id="cmbDocType" path="strDocType" style="width:auto;">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
 				    		<s:option value="HTML">HTML</s:option>
 				    		<s:option value="CSV">CSV</s:option>
-				    	</s:select>
-					</td>
-				</tr>
-				
-				<tr>
-				<td colspan="5"></td>
+				    </s:select>
+			</div>
+			
 					<!-- <td><input type="submit" value="Submit" /></td>
 					<td><input type="reset" value="Reset" onclick="funResetFields()"/></td>	 -->				
-				</tr>
-			</table>
+		</div>
+			
 			<br>
-			<p align="center">
-				<input type="submit" value="Submit"  class="form_button" onclick="return formSubmit();"/>
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+			<p align="center" style="margin-right: 46%;">
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="return formSubmit();"/>
+				 &nbsp;
+				<input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 			
 		</s:form>
+		</div>
 	</body>
 </html>

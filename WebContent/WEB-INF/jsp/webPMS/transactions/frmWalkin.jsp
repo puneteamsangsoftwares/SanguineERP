@@ -1,11 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	       
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+		<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />	
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+<%-- 	<script type="text/javascript" src="<spring:url value="/resources/js/Accordian/jquery-ui-1.8.13.custom.min.js"/>"></script> --%>
+		<script type="text/javascript" src="<spring:url value="/resources/js/Accordian/jquery.multi-accordion-1.5.3.js"/>"></script>
+	
 <title></title>
+<style>
+.container{
+background:#f2f2f2;
+}
+.ui-widget input{
+font-size:13px;
+}
+
+</style>
+
 <script type="text/javascript">
 
 	var fieldName,listRow=0;
@@ -573,7 +596,7 @@
 	 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:50%;\"  name=\"listRoomPackageDtl["+(rowCount)+"].strIncomeHeadCode\"    id=\"strIncomeHeadCode."+(rowCount)+"\" value='"+incomeHeadCode+"' >";
 	 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:50%;\" name=\"listRoomPackageDtl["+(rowCount)+"].strIncomeHeadName\"   id=\"strIncomeHeadDesc."+(rowCount)+"\" value='"+incomeHeadName+"' >";
 	 	    row.insertCell(2).innerHTML= "<input type=\"readonly\"   class=\"Box \"  style=\"text-align:right;\" name=\"listRoomPackageDtl["+(rowCount)+"].dblIncomeHeadAmt\"   id=\"dblIncomeRate."+(rowCount)+"\" value='"+incomeHeadAmt+"' >";
-	 	    row.insertCell(3).innerHTML= "<input type=\"button\" value=\"Delete\" style=\"padding-right: 5px;width:80%;text-align: right;\" class=\"deletebutton\" onclick=\"funRemoveRow(this)\" />";
+	 	    row.insertCell(3).innerHTML= "<input type=\"button\" value=\"\" style=\"padding-right: 5px;width:80%;text-align: right;\" class=\"deletebutton\" onclick=\"funRemoveRow(this)\" />";
 					
 		//calculate totals
 			funCalculateTotals();
@@ -1088,7 +1111,7 @@
 	    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" name=\"listWalkinDetailsBean["+(rowCount)+"].intNoOfChild\" id=\"intNoOfChild."+(rowCount)+"\" value='"+noOfChild+"' />";
 	    row.insertCell(9).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listWalkinDetailsBean["+(rowCount)+"].strRemark\" id=\"strRemark."+(rowCount)+"\" value='"+remark+"' />";
 	    
-	    row.insertCell(9).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"5%\" value = \"Delete\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
+	    row.insertCell(9).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"5%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
 	    row.insertCell(10).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" name=\"listWalkinDetailsBean["+(rowCount)+"].strGuestCode\" id=\"strGuestCode."+(rowCount)+"\" value='"+guestCode+"' type='hidden' />";
 	    row.insertCell(11).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" name=\"listWalkinDetailsBean["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+(rowCount)+"\" value='"+roomNo+"' type='hidden' />";
 	    row.insertCell(12).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" name=\"listWalkinDetailsBean["+(rowCount)+"].strExtraBedCode\" id=\"strExtraBedCode."+(rowCount)+"\" value='"+extraBedCode+"' type='hidden' />";
@@ -1448,7 +1471,7 @@
 
 		function funCalculateDiscount()
 		{
-			
+				$("#txtTotalAmt").val(totalTerrAmt);
 				var discPer=$("#txtDiscount").val();
 				var grandTotCal=$("#txtTotalAmt").val()-($("#txtTotalAmt").val()*(discPer/100));
 				
@@ -1463,236 +1486,188 @@
 
 </head>
 <body>
+	<label id="formHeading">Walk In</label>
+		<s:form name="Walkin" method="POST" action="saveWalkin.html">
+		<div id="multiAccordion">	
+<!--   General Tab Start -->
+			<h3><a href="#">General</a></h3>
+		 		 <div>
+					<div class="container transTable">
+						<div class="row" style="padding: 10px 0px;">
+							<div class="col-md-2">
+								<label>Walkin No</label>
+								<s:input type="text" id="txtWalkinNo" path="strWalkinNo" cssClass="searchTextBox" ondblclick="funHelp('WalkinNo');"/>
+							</div>
+							<div class="col-md-2">
+								<label>Walkin Date</label>
+								<s:input type="text" id="txtWalkinDate" path="dteWalkinDate"  cssClass="calenderTextBox"  onchange="funChangeWalkinDate();" style="width:75%;" />
+							</div>
+							<div class="col-md-2">
+								<label>Walkin Time</label>
+								<s:input type="text" id="txtWalkinTime" path="tmeWalkinTime"  cssClass="calenderTextBox" style="width:75%;"/>
+							</div>
+							<div class="col-md-2">
+								<label>Check-Out Date</label>
+								<s:input type="text" id="txtCheckOutDate" path="dteCheckOutDate" cssClass="calenderTextBox"  onchange="CalculateDateDiff();" style="width:75%;"/>
+							</div>
+							<div class="col-md-2">
+								<label>Check-Out Time</label>
+								<s:input type="text" id="txtCheckOutTime" items="${tmeCheckOutPropertySetupTime}" path="tmeCheckOutTime"  cssClass="calenderTextBox" style="width:75%;"/>				
+							</div><br><br><br>
+							<div class="col-md-2"></div>
+							<div class="col-md-2">
+								<label>Corporate Code</label>
+								<s:input type="text" id="txtCorporateCode" path="strCorporateCode" cssClass="searchTextBox" ondblclick="funHelp('CorporateCode');"/>
+							</div>
+							<div class="col-md-2">
+								<label>Booker Code</label>
+								<s:input type="text" id="txtBookerCode" path="strBookerCode" cssClass="searchTextBox" ondblclick="funHelp('BookerCode');"/>
+							</div>
+							<div class="col-md-2">
+								<label>Agent Code</label>
+								<s:input type="text" id="txtAgentCode" path="strAgentCode" cssClass="searchTextBox" ondblclick="funHelp('AgentCode');"/>
+							</div>
+							<div class="col-md-2">
+								<label>Room Type</label>
+	                  			<input type="text" id="txtRoomTypeCode" name="txtRoomTypeCode" Class="searchTextBox" ondblclick="funHelp('roomType')" />
+	                  		</div>		
+	                  		<div class="col-md-2">
+								<label id="lblRoomType" style="background-color:#dcdada94; width: 100%; height: 43%; margin: 23px 0px;"></label>
+							</div>
+							<div class="col-md-2"></div>
+							<div class="col-md-2">
+								<label>Room No</label>
+								<s:input type="text" id="txtRoomNo" name="txtRoomNo" ondblclick="funHelp1('roomByRoomType')" path="strRoomNo" cssClass="searchTextBox"/>
+							</div>
+							<div class="col-md-2"> 
+								<label id="lblRoomDesc" style="background-color:#dcdada94; width: 100%; height: 43%; margin: 23px 0px;"></label>
+							</div>
+							<div class="col-md-2"> 
+								<label>Extra Bed</label>
+								<s:input type="text" id="txtExtraBed" name="txtExtraBed" path="strExtraBedCode" cssClass="searchTextBox" ondblclick="funHelp('extraBed')" />
+							</div>
+							<div class="col-md-2"> 
+								<label id="lblExtraBed" style="background-color:#dcdada94; width: 100%; height: 43%; margin: 23px 0px;"></label>
+							</div>
+							<div class="col-md-2">
+								<div class="row"> 
+									<div class="col-md-6">  
+										<label>#Adult</label>
+										<s:input id="txtNoOfAdults" value = '1' name="txtNoOfAdults" path="intNoOfAdults" type="number" min="1" step="1" style="text-align: right;"/>
+									</div>
+									<div class="col-md-6"> 
+										<label>#Child</label>
+										<s:input id="txtNoOfChild" path="intNoOfChild" type="number" min="0" step="1" name="txtNoOfChild" style="text-align: right;"/>				
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2"></div>
+							<div class="col-md-2"> 
+								<label>No Of Nights</label>
+								<s:input   id="txtNoOfNights" path="intNoOfNights"  type="number"  style="text-align: right;width: 70%;" />
+							</div>
+							<div class="col-md-2"> 
+								<label>Remarks</label>
+								<s:input id="txtRemarks" path="strRemarks" />
+							</div>			
+						</div>
+					</div>
+				</div>
+<!--   General Tab end -->
 
-	<div id="formHeading">
-	<label>Walk In</label>
-	</div>
-
-<br/>
-
-
-	<s:form name="Walkin" method="POST" action="saveWalkin.html">
-	
-			<div id="tab_container" style="height: 580px">
-			<ul class="tabs">
-				<li data-state="tab1" style="width: 6%; padding-left: 2%">General</li>
-<!-- 					<li data-state="tab2" style="width: 8%; padding-left: 1%">Guest Details</li> -->
-				<li data-state="tab2" style="width: 8%; padding-left: 1%">Tariff</li>
-				<li data-state="tab3" style="width: 8%; padding-left: 1%">Package</li>
-			</ul>
+<!--   Guest Tab start -->
+			<h3><a href="#">Guest Details</a></h3>
+				<div>
+					<div class="container transTable">
+						<div class="row">			
+					  		<div class="col-md-2"> 
+						   	 	<label>Guest Code</label>
+						   		<input id="txtGuestCode"  ondblclick="funHelp('guestCode')" class="searchTextBox" />
+						   	</div>
+							<div class="col-md-2"> 
+								<input type="Button" value="New Guest" onclick="return funCreateNewGuest()" class="btn btn-primary center-block" style="margin-top:20px;" />
+							</div>
+							<div class="col-md-8"></div>
+							<div class="col-md-2"> 
+								<label>Mobile No</label>
+								<input id="txtMobileNo"  name="txtMobileNo" type="text" />				
+					  		</div>
+					  		
+					  		<div class="col-md-2"> 
+					    		<label>Guest Name</label>
+						 		<input id="txtGuestFirstName"  name="txtGuestFirstName" type="text" />
+						 	</div>
+						 	<div class="col-md-2"> 
+								 <label>Middle Name</label>
+					     		<input id="txtGuestMiddleName"  name="txtGuestMiddleName" type="text" />
+					     	</div>
+					     	<div class="col-md-2"> 
+					     		<label>Last Name</label>
+						 		<input id="txtGuestLastName"  name="txtGuestLastName" type="text" />
+							</div>
+							<div class="col-md-4"></div>					
+					 		<div class="col-md-2"> 
+								<label>Address</label>
+						 		<input id="txtAddress"  name="txtAddress" type="text" />
+						 	</div>
+						 	<div class="col-md-2"> 
+						 		<label>Remarks</label>
+								<input type="text" id="txtRemark" path="strRemark" type="text" />
+							</div>
+							<div class="col-md-2"> 
+						 		<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="btn btn-primary center-block" style="margin-top:20px;" />
+						 	</div>
+						</div>
+						
+					<br> 
+					<div class="dynamicTableContainer" style="height: 200px; margin-bottom:15px;">
+						<table style="height: 28px; border: #0F0; width: 109%; font-size: 11px;">
+							<tr bgcolor="#c0c0c0">
+		<!-- 					<td style="width:13%;">Room Desc</td> -->
+								<td style="width:13.5%;">Extra Bed</td>
+								<td style="width:11%;">Room Type</td>
+								<td style="width:12%;">Room No</td>
+								<td style="width:13%;">First Name</td>
+								<td style="width:13%;">Middle Name</td>
+								<td style="width:10%;">Last Name</td>
+								<td style="width:4%;">Mobile No</td>
+								<td style="width:5%;">Adults</td>
+								<td style="width:5%;">Child</td>
+								<td style="width:5%;">Remarks</td>
+								<td style="width:5%;">Delete</td>
+							</tr>
+						</table>
 				
-				<br/><br/>
-							
-				<!-- General Tab Start -->
-				<div id="tab1" class="tab_content" style="height: 400px">
-					<br/>
-					<br/>
-			
-					<table class="transTable">
-					<tr>
-						<td>
-							<label>Walkin No</label>
-						</td>
-						<td>
-							<s:input type="text" id="txtWalkinNo" path="strWalkinNo" cssClass="searchTextBox" ondblclick="funHelp('WalkinNo');"/>
-						</td>
-						<td colspan="3"></td>
-					</tr>
-					<tr>
-						<td>
-							<label>Walkin Date</label>
-						</td>
-						<td>
-							<s:input type="text" id="txtWalkinDate" path="dteWalkinDate"  cssClass="calenderTextBox"  onchange="funChangeWalkinDate();" />
-						</td>
-						<td>
-							<label>Walkin Time</label>
-						</td>
-						<td>
-							<s:input type="text" id="txtWalkinTime" path="tmeWalkinTime"  cssClass="calenderTextBox" />
-						</td>
-					</tr>
-					
-					<tr>
-						<td>
-							<label>Check-Out Date</label>
-						</td>
-						<td>
-							<s:input type="text" id="txtCheckOutDate" path="dteCheckOutDate" cssClass="calenderTextBox"  onchange="CalculateDateDiff();" />
-						</td>
-						
-						<td>
-							<label>Check-Out Time</label>
-						</td>
-						<td>
-							<s:input type="text" id="txtCheckOutTime" items="${tmeCheckOutPropertySetupTime}" path="tmeCheckOutTime"  cssClass="calenderTextBox" />				
-						</td>
-					</tr>
-					
-					<tr>
-						<td>
-							<label>Corporate Code</label>
-						</td>
-						<td>
-							<s:input type="text" id="txtCorporateCode" path="strCorporateCode" cssClass="searchTextBox" ondblclick="funHelp('CorporateCode');"/>
-						</td>
-						
-						<td>
-							<label>Booker Code</label>
-						</td>
-						<td>
-							<s:input type="text" id="txtBookerCode" path="strBookerCode" cssClass="searchTextBox" ondblclick="funHelp('BookerCode');"/>
-						</td>
-					</tr>
-					
-					<tr>
-						<td>
-							<label>Agent Code</label>
-						</td>
-						<td>
-							<s:input type="text" id="txtAgentCode" path="strAgentCode" cssClass="searchTextBox" ondblclick="funHelp('AgentCode');"/>
-						</td>
-						<td colspan="3"></td>
-					</tr>
-					
-					<tr>
-<!-- 						<td width="10%"><label>Room No</label></td> -->
-						<td width="10%"><label>Room Type</label></td>
-				<td>
-                  <input type="text" id="txtRoomTypeCode" name="txtRoomTypeCode" Class="searchTextBox" ondblclick="funHelp('roomType')" />
-				<label id="lblRoomType"></label></td>
-				
-				<td><label>Room No</label></td>
-					<td><s:input type="text" id="txtRoomNo" name="txtRoomNo" ondblclick="funHelp1('roomByRoomType')" path="strRoomNo" cssClass="searchTextBox"/> 
-							<label id="lblRoomDesc"></label> 
-						<label id="lblRoomType"></label> 
-						</td>
-						<td colspan="3"></td>
-					</tr>
-		
-					<tr>
-						<td><label>Extra Bed</label></td>
-						<td><s:input type="text" id="txtExtraBed" name="txtExtraBed" path="strExtraBedCode" cssClass="searchTextBox" ondblclick="funHelp('extraBed')" /></td>
-						<td><label id="lblExtraBed"></label></td>
-					</tr>
-					
-					<tr>
-						<td><label>#Adult</label></td>
-						<td><s:input id="txtNoOfAdults" value = '1' name="txtNoOfAdults" path="intNoOfAdults" type="number" min="1" step="1" class="longTextBox" style="text-align: right;width: 117px;"/></td>
-					
-					
-						<td><label>#Child</label></td>
-						<td><s:input id="txtNoOfChild" path="intNoOfChild" type="number" min="0" step="1" name="txtNoOfChild" class="longTextBox" style="text-align: right; width:20%"/></td>				
-					</tr>
-					
-					
-					<tr>
-						<td>
-							<label>No Of Nights</label>
-						</td>
-						<td>
-							<s:input   id="txtNoOfNights" path="intNoOfNights"  type="number" class="longTextBox" style="text-align: right;width: 117px;" />
-						</td>
-						<td>
-							<label>Remarks</label>
-						</td>
-						<td>
-							<s:input id="txtRemarks" path="strRemarks" Class="longTextBox" />
-						</td>						
-					</tr>
-					
-				</table>
-				
-				<br/>
-				<br/>
-			
-				<div >
-				<table class="transTable">				
-				  	<tr>
-					    <td><label>Guest Code</label></td>
-					   	<td><input id="txtGuestCode"  ondblclick="funHelp('guestCode')" class="searchTextBox" /></td>
-						<td>
-						<input type="Button" value="New Guest" onclick="return funCreateNewGuest()" class="form_button" />
-						</td>
-						
-						<td><label>Mobile No</label></td>
-						<td><input id="txtMobileNo"  name="txtMobileNo"  class="longTextBox" /></td>					
-				  		<td></td>
-				  	</tr>
-						
-				 	<tr>
-				    	<td ><label>Guest Name</label></td>
-					 	<td><input id="txtGuestFirstName"  name="txtGuestFirstName"  class="longTextBox"/></td>
-					 	<td><label>Middle Name</label></td>
-				     	<td><input id="txtGuestMiddleName"  name="txtGuestMiddleName"  class="longTextBox" /></td>
-				     	<td><label>Last Name</label></td>
-					 	<td><input id="txtGuestLastName"  name="txtGuestLastName"  class="longTextBox" /></td>						
-				 		<td colspan="3"></td>
-				 	</tr>
-						
-					<tr>						
-						<td><label>Address</label></td>
-					 	<td><input id="txtAddress"  name="txtAddress"  class="longTextBox" /></td>
-					 	<td><label>Remarks</label></td>
-						<td><input type="text" id="txtRemark" path="strRemark" Class="longTextBox"  /></td>
-					 	<td><input type="Button" value="Add" onclick="return funGetDetailsRow()" class="smallButton" /></td>						
-					</tr>
-				
-				</table>
-			</div>
-			<br>
-			
-			<div class="dynamicTableContainer" style="height: 200px;">
-				<table
-					style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-					<tr bgcolor="#72BEFC">
-<!-- 						<td style="width:13%;">Room Desc</td> -->
-						<td style="width:13%;">Extra Bed</td>
-						<td style="width:13%;">Room Type</td>
-						<td style="width:13%;">Room No</td>
-						<td style="width:13%;">First Name</td>
-						<td style="width:13%;">Middle Name</td>
-						<td style="width:10%;">Last Name</td>
-						<td style="width:4%;">Mobile No</td>
-						<td style="width:5%;">Adults</td>
-						<td style="width:5%;">Child</td>
-						<td style="width:5%;">Remarks</td>
-						<td style="width:5%;">Delete</td>
-						
-					</tr>
-				</table>
-				
-				<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 150px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-					<table id="tblwalkindtl"
-						style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-						class="transTablex col8-center">
-						<tbody>					
-							
-							<col style="width:13%">
-							<col style="width:13%">
-							<col style="width:13%">
-							<col style="width:13%">
-							<col style="width:13%">
-							<col style="width:10%">
-							<col style="width:10%">
-							<col style="width:4%">
-							<col style="width:5%">
-							<col style="width:5%">
-							<col style="width:5%">
-							<col style="display:none;">
-						</tbody>
-					</table>
+					 <div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 150px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 109%;">
+						<table id="tblwalkindtl" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+							class="transTablex col8-center">
+							<tbody>	
+								<col style="width:13%">
+								<col style="width:13%">
+								<col style="width:13%">
+								<col style="width:13%">
+								<col style="width:13%">
+								<col style="width:10%">
+								<col style="width:10%">
+								<col style="width:4%">
+								<col style="width:5%">
+								<col style="width:5%">
+								<col style="width:5%">
+								<col style="display:none;">
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>	
-			</div>
-						<!--General Tab End  -->
-						
-						
+		</div>
+
+<!--   Guest Tab End  -->
+
+
 <!-- 			<!-- Guest Details Tab Start --> 
 <!-- 			<div id="tab2" class="tab_content" style="height: 400px"> -->
 <!-- 			<br> <br> -->
 <!-- 			 <table class="transTable"> -->
-						
 <!-- 				<tr> -->
 <!-- 					 <td> -->
 <!-- 						   <label>GuestPrefix</label> -->
@@ -1702,31 +1677,26 @@
 <%-- 			    			<s:options items="${prefix}"/> --%>
 <%-- 			    	    </s:select>							 --%>
 <!-- 					</td> -->
-					
 <!-- 					<td> -->
 <!-- 						<label>FirstName</label> -->
 <!-- 					</td> -->
-					
 <!-- 					<td> -->
-<%-- 						<s:input colspan="3" type="text" id="txtFirstName" path="strFirstName" cssClass="longTextBox" />							 --%>
+<%-- 						<s:input colspan="3" type="text" id="txtFirstName" path="strFirstName"  />							 --%>
 <!-- 					</td> -->
-						
 <!-- 					<td> -->
 <!-- 						<label>MiddleName</label> -->
 <!-- 					</td> -->
 <!-- 					<td> -->
-<%-- 					 	<s:input colspan="3" type="text" id="txtMiddleName" path="strMiddleName" cssClass="longTextBox" />						 --%>
+<%-- 					 	<s:input colspan="3" type="text" id="txtMiddleName" path="strMiddleName"  />						 --%>
 <!-- 					</td> -->
 <!-- 				</tr> -->
-				
 <!-- 				<tr> -->
 <!-- 		      		<td> -->
 <!-- 				    	<label>LastName</label> -->
 <!-- 					</td> -->
 <!-- 					<td>				 -->
-<%-- 						<s:input colspan="3" type="text" id="txtLastName" path="strLastName" cssClass="longTextBox" /> --%>
+<%-- 						<s:input colspan="3" type="text" id="txtLastName" path="strLastName"  /> --%>
 <!-- 					</td> -->
-				
 <!-- 					<td> -->
 <!-- 						<label>Gender</label> -->
 <!-- 					</td> -->
@@ -1742,20 +1712,17 @@
 <%-- 					    <s:input colspan="3" type="text" id="txtDOB" path="dteDOB" cssClass="calenderTextBox" /> --%>
 <!-- 					</td> -->
 <!-- 				</tr> -->
-				
-<!-- 				<tr> -->
 <!-- 				    <td> -->
 <!-- 						<label>Designation</label> -->
 <!-- 					</td> -->
 <!-- 					<td> -->
-<%-- 						 <s:input colspan="3" type="text" id="txtDesignation" path="strDesignation" cssClass="longTextBox" />							 --%>
+<%-- 						 <s:input colspan="3" type="text" id="txtDesignation" path="strDesignation"  />							 --%>
 <!-- 					</td> -->
-				
 <!-- 					<td> -->
 <!-- 						<label>Address</label> -->
 <!-- 					</td> -->
 <!-- 					<td> -->
-<%-- 						<s:input colspan="3" type="text" id="txtAddress" path="strAddress" cssClass="longTextBox" />							 --%>
+<%-- 						<s:input colspan="3" type="text" id="txtAddress" path="strAddress"  />							 --%>
 <!-- 					</td> -->
 <!-- 					<td> -->
 <!-- 					   	<label>City</label> -->
@@ -1766,8 +1733,8 @@
 <%-- 			    		</s:select>						 	 --%>
 <!-- 					</td> -->
 <!-- 				</tr> -->
-				
-<!-- 			  	<tr> -->
+<!-- 			  	
+<tr> -->
 <!-- 					<td> -->
 <!-- 						<label>State</label> -->
 <!-- 					</td> -->
@@ -1776,7 +1743,6 @@
 <%-- 			    			<s:options items="${listState}"/> --%>
 <%-- 			    		</s:select> --%>
 <!-- 					</td> -->
-						
 <!-- 						<td> -->
 <!-- 							<label>Country</label> -->
 <!-- 						</td> -->
@@ -1792,8 +1758,9 @@
 					
 <!-- 							<label>Nationality</label> -->
 <!-- 						</td> -->
-<!-- 						<td> -->
-<%-- 						   <s:input colspan="3" type="text" id="txtNationality" path="strNationality" cssClass="longTextBox" /> --%>
+<!-- 						
+<td> -->
+<%-- 						   <s:input colspan="3" type="text" id="txtNationality" path="strNationality"  /> --%>
 							
 <!-- 						</td> -->
 <!-- 				</tr> -->
@@ -1803,22 +1770,23 @@
 <!-- 						   <label>PinCode</label> -->
 <!-- 						</td> -->
 <!-- 						<td> -->
-<%-- 						<s:input colspan="3" type="text" id="txtPinCode" path="intPinCode" cssClass="longTextBox" /> --%>
+<%-- 						<s:input colspan="3" type="text" id="txtPinCode" path="intPinCode"/> --%>
 							
 <!-- 						</td> -->
 <!-- 						<td> -->
 <!-- 							<label>MobileNo</label> -->
 <!-- 						</td> -->
 <!-- 						<td> -->
-<%-- 						      <s:input colspan="3" type="text" id="txtMobileNo" path="intMobileNo" cssClass="longTextBox" onblur="fun1(this);" /> --%>
+<%-- 						      <s:input colspan="3" type="text" id="txtMobileNo" path="intMobileNo" onblur="fun1(this);" /> --%>
 							 
 <!-- 						</td> -->
 						
-<!-- 						<td> -->
+<!-- 						
+<td> -->
 <!-- 							<label>FaxNo</label> -->
 <!-- 						</td> -->
 <!-- 						<td> -->
-<%-- 						   <s:input colspan="3" type="text" id="txtFaxNo" path="intFaxNo" cssClass="longTextBox" /> --%>
+<%-- 						   <s:input colspan="3" type="text" id="txtFaxNo" path="intFaxNo" /> --%>
 							
 <!-- 						</td> -->
 						
@@ -1829,22 +1797,23 @@
 <!-- 							<label>EmailId</label> -->
 <!-- 						</td> -->
 <!-- 						<td> -->
-<%-- 						   <s:input colspan="3" type="text" id="txtEmailId" path="strEmailId" cssClass="longTextBox" /> --%>
+<%-- 						   <s:input colspan="3" type="text" id="txtEmailId" path="strEmailId" /> --%>
 							
 <!-- 						</td> -->
 						
 <!-- 						<td> -->
 <!-- 						   <label>PANNo</label> -->
 <!-- 						</td> -->
-<!-- 						<td> -->
-<%-- 						   <s:input colspan="3" type="text" id="txtPANNo" path="strPANNo" cssClass="longTextBox" /> --%>
+<!-- 						
+<td> -->
+<%-- 						   <s:input colspan="3" type="text" id="txtPANNo" path="strPANNo"  /> --%>
 						
 <!-- 						</td> -->
 <!-- 						<td> -->
 <!-- 							<label>ArrivalFrom</label> -->
 <!-- 						</td> -->
 <!-- 						<td> -->
-<%-- 						    <s:input colspan="3" type="text" id="txtArrivalFrom" path="strArrivalFrom" cssClass="longTextBox" /> --%>
+<%-- 						    <s:input colspan="3" type="text" id="txtArrivalFrom" path="strArrivalFrom"  /> --%>
 							
 <!-- 						</td> -->
 <!-- 				</tr> -->
@@ -1855,7 +1824,7 @@
 <!-- 							<label>ProceedingTo</label> -->
 <!-- 						</td> -->
 <!-- 						<td> -->
-<%-- 						  <s:input colspan="3" type="text" id="txtProceedingTo" path="strProceedingTo" cssClass="longTextBox" /> --%>
+<%-- 						  <s:input colspan="3" type="text" id="txtProceedingTo" path="strProceedingTo" /> --%>
 							
 <!-- 						</td> -->
 						
@@ -1863,30 +1832,27 @@
 <!-- 							<label>Status</label> -->
 <!-- 						</td> -->
 <!-- 						<td> -->
-<%-- 						   <s:input colspan="3" type="text" id="txtStatus" path="strStatus" cssClass="longTextBox" /> --%>
+<%-- 						   <s:input colspan="3" type="text" id="txtStatus" path="strStatus" /> --%>
 							
-<!-- 						</td> -->
+<!-- 						
+</td> -->
 						
 <!-- 						<td> -->
 <!-- 						   <label>VisitingType</label> -->
 <!-- 						</td> -->
 <!-- 						<td> -->
-<%-- 					      <s:input colspan="3" type="text" id="txtVisitingType" path="strVisitingType" cssClass="longTextBox" /> --%>
+<%-- 					      <s:input colspan="3" type="text" id="txtVisitingType" path="strVisitingType"  /> --%>
 						
 <!-- 						</td> -->
 <!-- 				</tr> -->
-					
-					
 <!-- 				<tr> -->
-					 
 <!-- 						<td> -->
 <!-- 							<label>PassportNo</label> -->
 <!-- 						</td> -->
 <!-- 						<td> -->
-<%-- 						    <s:input colspan="3" type="text" id="txtPassportNo" path="strPassportNo" cssClass="longTextBox" /> --%>
+<%-- 						    <s:input colspan="3" type="text" id="txtPassportNo" path="strPassportNo"  /> --%>
 							
 <!-- 						</td> -->
-						
 <!-- 						<td> -->
 <!-- 							<label>PassportIssueDate</label> -->
 <!-- 						</td> -->
@@ -1903,127 +1869,123 @@
 						
 <!-- 						</td> -->
 <!-- 				</tr> -->
-					
 <!-- 				</table> -->
-				
-				
 <!-- 				</div> -->
-<!-- 			<!--Personal Tab End  -->	 
-			
-<!-- 			Start Tariff Tab -->
-			
-			<div id="tab2" class="tab_content" style="height: 400px">
-			<br/> <br/>
-			
-				<div class="dynamicTableContainer" style="height: 200px; width: 80%">
-			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
-				<tr bgcolor="#72BEFC" style="height: 24px;">
-					<!-- col1   -->
-					<td align="center" style="width: 35%">Date</td>
-					<!-- col1   -->
-					
-					<!-- col2   -->
-					<td align="center" style="width: 35%">room Type.</td>
-					<!-- col2   -->
-					
-					<!-- col3   -->
-					<td align="center" style="width: 35%">Rate.</td>
-					<!-- col3   -->
-					
-													
-				</tr>
-			</table>
-			<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-				<table id="tblRommRate" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col3-center">
-					<tbody>
-						<!-- col1   -->
-						<col style="width:34%">
-						<!-- col1   -->
-						
-						<!-- col2   -->
-						<col style="width:34%" >
-						<!-- col2   -->
-						
-						<!-- col3   -->
-						<col style="width:34%" >
-						<!-- col3   -->
-						
-						<!-- col4   -->
-						<col style="width:0%" >
-						<!-- col4   -->
-						
-					</tbody>
-				</table>
-			</div>			
-	
-	</div>
-	
-	<div style="margin:auto;width: 25%; float:right; margin-right:100px; ">
-	<label>Total</label>
-	<td><s:input id="txtTotalAmt" path=""  readonly="true" cssClass="shortTextBox"/></td>
-	</div>
-	<div style="margin:auto;width: 25%; float:right; margin-right:100px; ">
-	<label>Discount</label>
-	<td><s:input id="txtDiscount" step="0.01" path="dblDiscountPercent" style = "text-align:right;" onblur="funCalculateDiscount();" cssClass="BoxW124px" /></td>
-	</div>		
-				
-			
+<!-- 			<!--Personal Tab End  -->
+
+<!-- Start Tariff Tab -->
+
+			<h3><a href="#">Tariff</a></h3>
+			<div>
+		 		<div class="container">
+					<div class="dynamicTableContainer" style="height: auto; width: 85%">
+						<table style="height: 28px; border: #0F0; width: 100%;font-size:13px;">
+							<tr bgcolor="#c0c0c0" style="height: 24px;">
+								<!-- col1   -->
+								<td align="center" style="width: 35%">Date</td>
+									<!-- col1   -->
+									<!-- col2   -->
+								<td align="center" style="width: 35%">room Type.</td>
+									<!-- col2   -->
+									<!-- col3   -->
+								<td align="center" style="width: 35%">Rate.</td>
+									<!-- col3   -->		
+							</tr>
+						</table>
+						<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+							<table id="tblRommRate" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col3-center">
+								<tbody>
+									<!-- col1   -->
+									<col style="width:34%">
+									<!-- col1   -->
+									
+									<!-- col2   -->
+									<col style="width:34%" >
+									<!-- col2   -->
+									
+									<!-- col3   -->
+									<col style="width:34%" >
+									<!-- col3   -->
+									
+									<!-- col4   -->
+									<col style="width:0%" >
+									<!-- col4   -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="row" style="padding-bottom:10px;">
+						<div class="col-md-2">
+							<label>Total</label>
+							<s:input id="txtTotalAmt" path=""  readonly="true"/>
+						</div>
+						<div class="col-md-2">
+							<label>Discount</label>
+							<s:input id="txtDiscount" step="0.01" path="dblDiscountPercent" style = "text-align:right;" onblur="funCalculateDiscount();"  />
+						</div>
+					</div>
+				</div>
 			</div>
-			
-<!-- 			End Tariff Tab -->
+<!-- End Tariff Tab -->
+
+
 
 <!-- Start of Package Tab -->
-
-	 <div id="tab3" class="tab_content" style="height: 400px">
-	 <br><br>
-	 
-	 	<table class="transTable">
-	 	    <tr>
-			    <td><label>Package Code</label></td>
-			    <td><s:input id="txtPackageCode" path="strPackageCode"  readonly="true"  ondblclick="funHelp('package')" cssClass="searchTextBox"/></td>
-			    <td><label>Package Name</label></td>
-			    <td><s:input id="txtPackageName" path="strPackageName" class="longTextBox" /></td>
-			</tr>
-			<tr>
-			    <td><label>Income Head</label></td>
-			    <td><s:input id="txtIncomeHead" path=""  readonly="true"  ondblclick="funHelp('incomeHead')" cssClass="searchTextBox"/></td>
-			    <td><label>Income Head Name</label></td>
-				<td><input type="text" id="txtIncomeHeadName" path="" Class="longTextBox"  /></td> 
-			</tr>
-			<tr>
-			    <td><label>Amount</label></td>
-			    <td><input type="text" id="txtIncomeHeadAmt" path="" Class="BoxW124px"  /></td>
-			    <td><input type="button" value="Add"  class="smallButton" onclick='return funAddRow()'/></td>
-	
-			</tr>
-		</table>
+	 <h3><a href="#">Package</a></h3>
+		 <div>
+	 		<div class="container transTable">
+	 			<div class="row" style="padding:10px">
+			 	  <div class="col-md-2">
+					   <label>Package Code</label>
+					   <s:input id="txtPackageCode" path="strPackageCode"  readonly="true"  ondblclick="funHelp('package')" cssClass="searchTextBox"/>
+				  </div>
+				  <div class="col-md-2">
+					   <label>Package Name</label>
+					   <s:input id="txtPackageName" path="strPackageName" />
+				  </div>
+				  <div class="col-md-2">
+					  <label>Income Head</label>
+					  <s:input id="txtIncomeHead" path=""  readonly="true"  ondblclick="funHelp('incomeHead')" cssClass="searchTextBox"/>
+				  </div>
+				  <div class="col-md-2">
+					   	<label>Income Head Name</label>
+						<input type="text" id="txtIncomeHeadName" path=""   />
+				  </div>
+				  <div class="col-md-2">
+					    <label>Amount</label>
+					    <input type="text" id="txtIncomeHeadAmt" path="" Class="BoxW124px"  />
+				  </div>
+				   <div class="col-md-2"></div>
+				  <div class="col-md-2">
+						<input type="button" value="Add" class="btn btn-primary center-block" style="margin-top:20px;" onclick='return funAddRow()'/>
+				 </div>
+			</div>
 		
-		<br/>
 		<!-- Generate Dynamic Table   -->		
-		<div class="dynamicTableContainer" style="height: 320px; width: 80%">
-			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
-				<tr bgcolor="#72BEFC" style="height: 24px;">
-					<!-- col1   -->
-					<td align="left" style="width: 30.6%">Income Head Code</td>
-					<!-- col1   -->
-					
-					<!-- col2   -->
-					<td align="left" style="width: 30.6%">Income Head Name</td>
-					<!-- col2   -->
-					
-					<!-- col3   -->
-					<td align="right" style="width: 30.6%">Amount</td>
-					<!-- col3   -->
-					
-					<!-- col4   -->
-					<td align="center">Delete</td>
-					<!-- col4  -->									
-				</tr>
-			</table>
-			<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div class="dynamicTableContainer" style="height: 320px;margin-bottom: 15px;">
+				<table style="height: 28px; border: #0F0; width: 100%;font-size:13px;">
+					<tr bgcolor="c0c0c0" style="height: 24px;">
+						<!-- col1   -->
+						<td align="left" style="width: 30.6%">Income Head Code</td>
+						<!-- col1   -->
+						
+						<!-- col2   -->
+						<td align="left" style="width: 30.6%">Income Head Name</td>
+						<!-- col2   -->
+						
+						<!-- col3   -->
+						<td align="right" style="width: 30.6%">Amount</td>
+						<!-- col3   -->
+						<!-- col4   -->
+						<td align="center">Delete</td>
+						<!-- col4  -->									
+					</tr>
+				</table>
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblIncomeHeadDtl" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col3-center">
 					<tbody>
 						<!-- col1   -->
+					
 						<col width="100%">
 						<!-- col1   -->
 						
@@ -2042,13 +2004,12 @@
 				</table>
 			</div>	
 			
-			<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 120px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 120px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblTotalPackageDtl" style="width: 100%; border: #0F0; font-size:15px; font-weight: bold; table-layout: fixed; overflow: scroll" class="display dataTable no-footer">
 					<tbody>
 						<!-- col1   -->
 						<col width="100%" >
 						<!-- col1   -->
-						
 						<!-- col2   -->
 						<col width="100%" >
 						<!-- col2   -->
@@ -2059,31 +2020,52 @@
 					</tbody>
 				</table>
 			</div>		
-		</div>		
-	 
+		</div>
 	 </div>
 	 
-<!-- End of Package Tab -->	
-			
+   <!-- End of Package Tab -->
 					
-				</div>	
-					
-			
-		<br>
-		<br>
+</div>
 		
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateForm();"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<!-- <div class="center">
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit" onclick="return funValidateForm();"
+				class="form_button">Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetFields()"
+				class="form_button">Reset</button></a>
+		</div> -->
+		
+		<p class="center" style="margin-top:10px;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block form_button" onclick="return funValidateForm();" style="color:#000;padding-bottom: 23px;"/>
+			&nbsp;<input type="reset" value="Reset" class="btn btn-primary center-block form_button" onclick="funResetFields()" style="color:#000;padding-bottom: 23px;"/>
 		</p>	
 		
-		<s:input type="hidden" id="hidIncomeHead" path="strIncomeHeadCode"></s:input>
-		<s:input type="hidden" id="txtTotalPackageAmt" path="strTotalPackageAmt"></s:input>
+			<s:input type="hidden" id="hidIncomeHead" path="strIncomeHeadCode"></s:input>
+			<s:input type="hidden" id="txtTotalPackageAmt" path="strTotalPackageAmt"></s:input>
 		<br>
 		<br>
-
+</div>
 	</s:form>
-	
+
+
+
+<script type="text/javascript">
+		$(function(){
+			$('#multiAccordion').multiAccordion({
+// 				active: [1, 2],
+				click: function(event, ui) {
+				},
+				init: function(event, ui) {
+				},
+				tabShown: function(event, ui) {
+				},
+				tabHidden: function(event, ui) {
+				}
+				
+			});
+			
+			$('#multiAccordion').multiAccordion("option", "active", [0]);  // in this line [0,1,2] wirte then these index are open
+		});
+		</script>
 		
 </body>
 </html>

@@ -1,10 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <title></title>
 <script type="text/javascript">
 	var fieldName;
@@ -118,51 +128,33 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Route Master</label>
-	</div>
+	<div class="container">
+		<label id="formHeading">Route Master</label>
+	
+		<s:form name="RouteMaster" method="POST" action="saveRouteMaster.html?saddr=${urlHits}">
+		<div class="row masterTable">
+			<div class="col-md-2">
+				<label>Route Code</label>
+				<s:input colspan="3" type="text" id="txtRouteCode" path="strRouteCode" cssClass="searchTextBox" ondblclick="funHelp('RouteCode');" readOnly="true"/>
+			</div>
+			<div class="col-md-2">
+				<label>Route Name</label>
+				<s:input colspan="3" type="text" id="txtRouteName" path="strRouteName" cssClass="BoxW124px" />
+			</div>
+			<div class="col-md-2">
+				<label>Description</label>
+				<s:input colspan="3" type="text" id="txtDesc" path="strDesc" cssClass="BoxW124px" />
+			</div>
+		</div>
 
-<br/>
-<br/>
-
-	<s:form name="RouteMaster" method="POST" action="saveRouteMaster.html?saddr=${urlHits}">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>Route Code</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtRouteCode" path="strRouteCode" cssClass="searchTextBox" ondblclick="funHelp('RouteCode');"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Route Name</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtRouteName" path="strRouteName" cssClass="BoxW124px" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Description</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtDesc" path="strDesc" cssClass="BoxW124px" />
-				</td>
-				
-				</tr>
-				
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funCallFormAction('submit',this);" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
+		<div class="center" style="margin-right: 51%;">
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit" onclick="return funCallFormAction('submit',this);"
+			>Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()"
+			>Reset</button></a>
+		</div>
+		
 	</s:form>
+	</div>
 </body>
 </html>

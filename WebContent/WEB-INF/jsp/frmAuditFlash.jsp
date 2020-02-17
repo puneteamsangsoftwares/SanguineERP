@@ -5,6 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 	<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
 	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
@@ -24,11 +34,12 @@
  $(document).ready(function() 
 			{
 				var startDate="${startDate}";
+				var startDateOfMonth="${startDateOfMonth}";
 				//alert(startDate);
 				var arr = startDate.split("/");
 				Dat=arr[0]+"-"+arr[1]+"-"+arr[2];		
 				$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
-				$("#txtFromDate").datepicker('setDate',Dat);			
+				$("#txtFromDate").datepicker('setDate',startDateOfMonth);			
 				$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 				$("#txtToDate").datepicker('setDate', 'today');
 				var strPropCode='<%=session.getAttribute("propertyCode").toString()%>';
@@ -37,7 +48,7 @@
 				$("#cmbLocation").val(locationCode);
 				$("#btnExecute").click(function( event )
 				{
-					funGetAuditFlashData();
+					
 				});
 				/**
 				 * Ready Function for Ajax Waiting
@@ -142,7 +153,7 @@
 		    	if(TransType=="GRN(Good Receiving Note)")
 		    	   {
 		    				TransType=TransType.replace(/\s/g,"%20");
-					    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">GRN Code</td><td id="labld2">Date</td><td id="labld5">Supplier Code</td><td id="labld6">Supplier Name</td><td>Loc Code</td><td>Location Name</td><td>Bill No.</td><td id="labld7">Pay Mode</td><td>Total Amt</td><td>User Created</td><td>User Modified</td><td>Date Created</td><td>Last Modified</td></tr>';
+					    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">GRN Code</td><td id="labld2">Date</td><td id="labld5">Supplier Code</td><td id="labld6">Supplier Name</td><td>Loc Code</td><td>Location Name</td><td>Bill No.</td><td id="labld7">Pay Mode</td><td>Total Amt</td><td>User Created</td><td>User Modified</td><td>Date Created</td><td>Last Modified</td></tr>';
 					    	// Iterate through a selection of the content and build an HTML string
 						    for(var i=page_index*items_per_page;i<max_elem;i++)
 						    {
@@ -166,7 +177,7 @@
 		    if(TransType== "Opening Stock")
 		    	{
 		    		TransType=TransType.replace(/\s/g,"%20");
-			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">Opening Stock Code</td><td id="labld2">Loc Code</td><td id="labld3">Location Name</td><td id="labld4">User Created</td><td id="labld5">User Modified</td><td id="labld6">Created Date</td><td id="labld7">Last Modified</td></tr>';
+			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">Opening Stock Code</td><td id="labld2">Loc Code</td><td id="labld3">Location Name</td><td id="labld4">User Created</td><td id="labld5">User Modified</td><td id="labld6">Created Date</td><td id="labld7">Last Modified</td></tr>';
 			    	// Iterate through a selection of the content and build an HTML string
 				    for(var i=page_index*items_per_page;i<max_elem;i++)
 				    {
@@ -183,7 +194,7 @@
 		    if(TransType== "Physical Stk Posting")
 		    	{
 		    		TransType=TransType.replace(/\s/g,"%20");
-			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">Physical Stock Code</td><td id="labld2">Date</td><td id="labld3">Location Code</td><td id="labld4">Location Name</td><td id="labld5">SA Code</td><td id="labld6">User Created</td><td id="labld7">User Modified</td><td id="labld8">Created Date</td><td id="labld9">Last Modified</td></tr>';
+			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">Physical Stock Code</td><td id="labld2">Date</td><td id="labld3">Location Code</td><td id="labld4">Location Name</td><td id="labld5">SA Code</td><td id="labld6">User Created</td><td id="labld7">User Modified</td><td id="labld8">Created Date</td><td id="labld9">Last Modified</td></tr>';
 			    	// Iterate through a selection of the content and build an HTML string
 				    for(var i=page_index*items_per_page;i<max_elem;i++)
 				    {
@@ -206,7 +217,7 @@
 		    if(TransType== "Purchase Indent")
 		    	{
 		    		TransType=TransType.replace(/\s/g,"%20");
-			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">PI Code</td><td id="labld2">Date</td><td id="labld3">Location Code</td><td id="labld4">Location Name</td><td id="labld5">Narration</td><td id="labld6">Total Amt</td><td id="labld7">User Created</td><td id="labld8">User Modified</td><td id="labld9">Created Date</td><td id="labld10">Last Modified</td></tr>';
+			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">PI Code</td><td id="labld2">Date</td><td id="labld3">Location Code</td><td id="labld4">Location Name</td><td id="labld5">Narration</td><td id="labld6">Total Amt</td><td id="labld7">User Created</td><td id="labld8">User Modified</td><td id="labld9">Created Date</td><td id="labld10">Last Modified</td></tr>';
 			    	// Iterate through a selection of the content and build an HTML string
 				    for(var i=page_index*items_per_page;i<max_elem;i++)
 				    {
@@ -226,7 +237,7 @@
 		    if(TransType== "Purchase Order")
 		    	{
 		    		TransType=TransType.replace(/\s/g,"%20");																														    	
-			    	newcontent = '<table  id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">PO Code</td><td id="labld2">Date</td><td id="labld3">Supplier Code</td><td id="labld4">Supplier Name</td><td id="labld5">Against</td><td id="labld6">Total Amt</td><td id="labld7">User Created</td><td id="labld8">User Modified</td><td id="labld9">Created Date</td><td id="labld10">Last Modified</td></tr>';
+			    	newcontent = '<table  id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">PO Code</td><td id="labld2">Date</td><td id="labld3">Supplier Code</td><td id="labld4">Supplier Name</td><td id="labld5">Against</td><td id="labld6">Total Amt</td><td id="labld7">User Created</td><td id="labld8">User Modified</td><td id="labld9">Created Date</td><td id="labld10">Last Modified</td></tr>';
 			    	// Iterate through a selection of the content and build an HTML string
 				    for(var i=page_index*items_per_page;i<max_elem;i++)
 				    {
@@ -246,7 +257,7 @@
 		    if(TransType=="Purchase Return")
 		    	{
 		    		TransType=TransType.replace(/\s/g,"%20");
-			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1">PR Code</td><td id="labld2">Date</td><td id="labld3">Against</td><td id="labld5">Narration</td><td id="labld6">Supp Code</td><td id="labld7">Supplier Name</td><td id="labld8">Total Amt</td><td id="labld9">User Created</td><td id="labld10">User Modified</td><td id="labld11">Date Created</td><td id="labld10">Last Modified</td></tr>';
+			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1">PR Code</td><td id="labld2">Date</td><td id="labld3">Against</td><td id="labld5">Narration</td><td id="labld6">Supp Code</td><td id="labld7">Supplier Name</td><td id="labld8">Total Amt</td><td id="labld9">User Created</td><td id="labld10">User Modified</td><td id="labld11">Date Created</td><td id="labld10">Last Modified</td></tr>';
 				    // Iterate through a selection of the content and build an HTML string
 				    for(var i=page_index*items_per_page;i<max_elem;i++)
 				    {
@@ -266,7 +277,7 @@
 		    if(TransType=="Stock Adjustment")
 		    	{
 		    		TransType=TransType.replace(/\s/g,"%20");
-		    	 	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1">SA Code</td><td id="labld2">Date</td><td id="labld3">Loc Code</td><td id="labld4">Location Name</td><td id="labld5">Narration</td><td id="labld6">Total Amt</td><td id="labld7">User Created</td><td id="labld8">User Modified</td><td id="labld9">Date Created</td><td id="labld10">Last Modified</td></tr>';
+		    	 	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1">SA Code</td><td id="labld2">Date</td><td id="labld3">Loc Code</td><td id="labld4">Location Name</td><td id="labld5">Narration</td><td id="labld6">Total Amt</td><td id="labld7">User Created</td><td id="labld8">User Modified</td><td id="labld9">Date Created</td><td id="labld10">Last Modified</td></tr>';
 				    // Iterate through a selection of the content and build an HTML string
 				    for(var i=page_index*items_per_page;i<max_elem;i++)
 				    {
@@ -285,7 +296,7 @@
 		    if(TransType=="Stock Transfer")
 		    	{
 		    		TransType=TransType.replace(/\s/g,"%20");
-			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">ST Code</td><td id="labld2">Date</td><td id="labld3">From Location</td><td id="labld4">To Location</td><td id="labld5">Against</td><td id="labld6">Material Issue</td><td id="labld7">Narration</td><td id="labld8">User Created</td><td id="labld9">User Modified</td><td id="labld10">Created Date</td><td id="labld11">Last Modified</td></tr>';
+			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">ST Code</td><td id="labld2">Date</td><td id="labld3">From Location</td><td id="labld4">To Location</td><td id="labld5">Against</td><td id="labld6">Material Issue</td><td id="labld7">Narration</td><td id="labld8">User Created</td><td id="labld9">User Modified</td><td id="labld10">Created Date</td><td id="labld11">Last Modified</td></tr>';
 			    	// Iterate through a selection of the content and build an HTML string
 				    for(var i=page_index*items_per_page;i<max_elem;i++)
 				    {
@@ -310,7 +321,7 @@
 		    if(TransType=="Material Return")
 		    	{
 		    		TransType=TransType.replace(/\s/g,"%20");
-			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">Material Return Code</td><td id="labld2">Date</td><td id="labld3">From Location</td><td id="labld4">To Location</td><td id="labld5">Against</td><td id="labld6">MIS Code</td><td id="labld7">Narration</td><td id="labld8">User Created</td><td id="labld9">User Modified</td><td id="labld10">Created Date</td><td id="labld11">Last Modified</td></tr>';
+			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">Material Return Code</td><td id="labld2">Date</td><td id="labld3">From Location</td><td id="labld4">To Location</td><td id="labld5">Against</td><td id="labld6">MIS Code</td><td id="labld7">Narration</td><td id="labld8">User Created</td><td id="labld9">User Modified</td><td id="labld10">Created Date</td><td id="labld11">Last Modified</td></tr>';
 			    	// Iterate through a selection of the content and build an HTML string
 			    	for(var i=page_index*items_per_page;i<max_elem;i++)
 				    {
@@ -331,7 +342,7 @@
 		    if(TransType=="Material Issue Slip")
 		    	{
 		    		TransType=TransType.replace(/\s/g,"%20");
-			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">MIS Code</td><td id="labld2">Date</td><td id="labld3">From Location</td><td id="labld4">To Location</td><td id="labld5">Against</td><td id="labld6">Req Code</td><td id="labld7">Total Amt</td><td id="labld8">Narration</td><td id="labld9">User Created</td><td id="labld10">User Modified</td><td id="labld11">Created Date</td><td id="labld12">Last Modified</td></tr>';
+			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">MIS Code</td><td id="labld2">Date</td><td id="labld3">From Location</td><td id="labld4">To Location</td><td id="labld5">Against</td><td id="labld6">Req Code</td><td id="labld7">Total Amt</td><td id="labld8">Narration</td><td id="labld9">User Created</td><td id="labld10">User Modified</td><td id="labld11">Created Date</td><td id="labld12">Last Modified</td></tr>';
 			    	// Iterate through a selection of the content and build an HTML string
 				    for(var i=page_index*items_per_page;i<max_elem;i++)
 				    {
@@ -353,7 +364,7 @@
 		    if(TransType=="Material Requisition")
 		    	{
 		    		TransType=TransType.replace(/\s/g,"%20");
-			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">Req Code</td><td id="labld2">Date</td><td id="labld3">From Location</td><td id="labld4">To Location</td><td id="labld5">Against</td><td id="labld6">Total Amt</td><td id="labld7">Narration</td><td id="labld8">User Created</td><td id="labld9">User Modified</td><td id="labld10">Created Date</td><td id="labld11">Last Modified</td></tr>';
+			    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">Req Code</td><td id="labld2">Date</td><td id="labld3">From Location</td><td id="labld4">To Location</td><td id="labld5">Against</td><td id="labld6">Total Amt</td><td id="labld7">Narration</td><td id="labld8">User Created</td><td id="labld9">User Modified</td><td id="labld10">Created Date</td><td id="labld11">Last Modified</td></tr>';
 			    	// Iterate through a selection of the content and build an HTML string
 				    for(var i=page_index*items_per_page;i<max_elem;i++)
 				    {
@@ -375,7 +386,7 @@
 		    if(TransType=="Invoice")
 	    	{
 		    	TransType=TransType.replace(/\s/g,"%20");
-		    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1">Invoice Code</td><td id="labld2">Date</td><td id="labld3">Loc Code</td><td id="labld4">Location Name</td><td id="labld5">Narration</td><td id="labld6">Total Amt</td><td id="labld7">User Created</td><td id="labld8">User Modified</td><td id="labld9">Date Created</td><td id="labld10">Last Modified</td></tr>';
+		    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1">Invoice Code</td><td id="labld2">Date</td><td id="labld3">Loc Code</td><td id="labld4">Location Name</td><td id="labld5">Narration</td><td id="labld6">Total Amt</td><td id="labld7">User Created</td><td id="labld8">User Modified</td><td id="labld9">Date Created</td><td id="labld10">Last Modified</td></tr>';
 			    // Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
 			    {
@@ -396,7 +407,7 @@
 			}
 		    if(rptType=="Deleted")
 			{
-		    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">Transaction Code</td><td id="labld2">Date</td><td id="labld3">User</td><td id="labld4">Reason </td><td id="labld5">Narration</td></tr>';
+		    	newcontent = '<table id="tblAuditFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">Transaction Code</td><td id="labld2">Date</td><td id="labld3">User</td><td id="labld4">Reason </td><td id="labld5">Narration</td></tr>';
 		    	// Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
 			    {
@@ -504,95 +515,74 @@
 					    }
 				return invPath;
 			}
+		 function onClick()
+		 {
+			 funGetAuditFlashData();
+			 return false;
+		 }
+		 
 	</script>
 </head>
 <body>
-<div id="formHeading">
-		<label>Audit Flash</label>
-	</div>
-	<s:form action="frmAuditFlash.html" method="GET" name="frmAuditFlash">
+<div class="container">
+		<label id="formHeading">Audit Flash</label>
+		<s:form action="frmAuditFlash.html" method="GET" name="frmAuditFlash">
 		<br>
-	
-			<table class="transTable">
-			<tr><th colspan="7"></th></tr>
-				<tr>
-					<td width="10%">Property Name</td>
-					<td width="15%">
-						<s:select id="cmbProperty" name="propCode" path="strPropertyCode" cssClass="longTextBox" cssStyle="width:80%" onchange="funChangeLocationCombo();">
-			    			<s:options items="${listProperty}"/>
-			    		</s:select>
-					</td>
-						
-					<td width="5%"><label>Location</label></td>
-					<td width="30%" colspan="2">
-						<s:select id="cmbLocation" name="locCode" path="strLocationCode" cssClass="longTextBox" cssStyle="width:100%;" >
-			    			<s:options items="${listLocation}"/>
-			    		</s:select>
-					</td>
-					<td>
-					</td>
-					</tr>
-					<tr>
-					<td width="8%"><label>Report Type</label></td>
-					<td width="20%">
-						<s:select id="cmbReportType" path="" cssClass="longTextBox">
+			<div class="row transTable">
+				<div class="col-md-2">	
+					<label>Property Name</label>
+					<s:select id="cmbProperty" name="propCode" path="strPropertyCode" onchange="funChangeLocationCombo();">
+				    	<s:options items="${listProperty}"/>
+				    </s:select>
+				</div>		
+				<div class="col-md-2">		
+					<label>Location</label>
+					<s:select id="cmbLocation" name="locCode" path="strLocationCode">
+			    		<s:options items="${listLocation}"/>
+			    	</s:select>
+				</div>
+				<div class="col-md-2">		
+					<label>Report Type</label>
+					<s:select id="cmbReportType" path="">
 						  <option value="Edited">Edited</option>
 						  <option value="Deleted">Deleted</option>
 					</s:select>
-			    		
-					</td>
-					<td width="8%"><label>Transaction Type</label></td>
-					<td width="30%" colspan="2">
-						<s:select id="cmbTransType" path="" cssClass="longTextBox">
-							<s:options items="${listAuditName}"/>
-						</s:select>
-			    		
-					</td>
-					<td>
-					</td>
-				</tr>
-					
-				<tr>
-				    <td><label id="lblFromDate">From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="" cssClass="calenderTextBox"/>
-			        </td>
-				        
-			        <td><label id="lblToDate">To Date</label></td>
-			        <td>
-			            <s:input id="txtToDate" name="toDate" path="" cssClass="calenderTextBox"/>
-			        </td>
-			        <td>
-			        </td>
-			        <td>
-			        </td>
-				</tr>
-						
-				<tr>
-					<td colspan="1">
-						
-						<input id="btnExecute" type="button" class="form_button1" value="EXECUTE"/>
-					</td>
-					<td>
-					<s:select path="strExportType" id="cmbExportType"  cssClass="BoxW124px">
-							<option value="Excel">Excel</option>
-						</s:select>	
-						</td>
-						<td colspan="4">				
-						<input id="btnExport" type="button" value="EXPORT"  class="form_button1"/>
-					</td>
-					
-				</tr>
-			</table>
+			    </div>		
+				<div class="col-md-2">	
+					<label>Transaction Type</label>
+					<s:select id="cmbTransType" path="">
+						<s:options items="${listAuditName}"/>
+					</s:select>
+			    </div>	
+			    <div class="col-md-4"></div>	
+				<div class="col-md-2">		
+					<label id="lblFromDate">From Date</label>
+			      	<s:input id="txtFromDate" name="fromDate" path="" cssClass="calenderTextBox" style="width:80%;"/>
+			     </div> 
+				 <div class="col-md-2">      
+			        <label id="lblToDate">To Date</label>
+			        <s:input id="txtToDate" name="toDate" path="" cssClass="calenderTextBox" style="width:80%;"/>
+			     </div>
+			     
+				<div class="col-md-2"> 	
+					<s:select path="strExportType" id="cmbExportType"  cssClass="BoxW124px" style="margin-top:26px; width:80%;">
+						<option value="Excel">Excel</option>
+					</s:select>	
+				</div>
+			</div>
+			<div class="center" style="margin-right:40%;">
+				<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return onClick()" >Execute</button></a>&nbsp
+			 	<a href="#"><button class="btn btn-primary center-block" id="btnExport" value="Export">Export</button></a>
+			 </div>
 			
-			<br><br>
+		<br><br>
 			<dl id="Searchresult" style="padding-left: 26px;overflow:auto;width: 95%"></dl>
-		<div id="Pagination" class="pagination" style="padding-left: 26px;"></div>
+			<div id="Pagination" class="pagination" style="padding-left: 26px;"></div>
 		
-		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
+			<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 	</s:form>
-	
+</div>
 </body>
 </html>

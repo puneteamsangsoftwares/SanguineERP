@@ -46,16 +46,31 @@ public class clsReOpenFolioController
 		@RequestMapping(value = "/frmReOpenFolio", method = RequestMethod.GET)
 		public ModelAndView funOpenForm(Map<String, Object> model, HttpServletRequest request) {
 			String urlHits = "1";
-			try {
+			String strBillNo="";
+			if(request.getParameter("folioNo")!=null)
+			{
+				strBillNo=request.getParameter("folioNo").toString();
+			}
+			
+			
+			String sql="SELECT a.strFolioNo FROM tblbillhd a WHERE a.strBillNo='"+strBillNo+"' ";
+			List list = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+			clsFolioHdBean objBean=new clsFolioHdBean();
+			if(list.size()>0 && list!=null)
+			{
+				objBean.setStrFolioNo(list.get(0).toString());
+			}
+			try 
+			{
 				urlHits = request.getParameter("saddr").toString();
 			} catch (NullPointerException e) {
 				urlHits = "1";
 			}
 			model.put("urlHits", urlHits);
 			if ("2".equalsIgnoreCase(urlHits)) {
-				return new ModelAndView("frmReOpenFolio_1", "command", new clsFolioHdBean());
+				return new ModelAndView("frmReOpenFolio_1", "command", objBean);
 			} else if ("1".equalsIgnoreCase(urlHits)) {
-				return new ModelAndView("frmReOpenFolio", "command", new clsFolioHdBean());
+				return new ModelAndView("frmReOpenFolio", "command", objBean);
 			} else {
 				return null;
 			}
@@ -65,8 +80,11 @@ public class clsReOpenFolioController
 		
 		// Save data in foliohd
 		@RequestMapping(value = "/saveFolio", method = RequestMethod.POST)
-		public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsFolioHdBean objBean, BindingResult result, HttpServletRequest req) {
-			if (!result.hasErrors()) {
+		public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsFolioHdBean objBean, BindingResult result, HttpServletRequest req) 
+		{
+			clsFolioHdBean objFolioBean = null;
+			if (!result.hasErrors()) 
+			{	
 				
 				String clientCode = req.getSession().getAttribute("clientCode").toString();
 				String sql = "select a.strFolioNo, e.strRoomCode,a.strCheckInNo,a.strRegistrationNo,a.strReservationNo,b.strWalkInNo, "
@@ -81,7 +99,7 @@ public class clsReOpenFolioController
 				for (int cnt = 0; cnt < list.size(); cnt++) 
 				{
 					Object[] arrObjData = (Object[]) list.get(cnt);
-					clsFolioHdBean objFolioBean = new clsFolioHdBean();
+					objFolioBean = new clsFolioHdBean();
 					objFolioBean.setStrFolioNo(objBean.getStrFolioNo());
 					objFolioBean.setStrRoomNo(arrObjData[1].toString());
 					objFolioBean.setStrCheckInNo(arrObjData[2].toString());
@@ -100,9 +118,9 @@ public class clsReOpenFolioController
 				
 				req.getSession().setAttribute("success", true);
 				req.getSession().setAttribute("successMessage", "ReOpened Folio No : ".concat(objBean.getStrFolioNo()) );
-				return new ModelAndView("redirect:/frmReOpenFolio.html");
+				return new ModelAndView("frmReOpenFolio", "command", new clsFolioHdBean());
 			} else {
-				return new ModelAndView("frmReOpenFolio");
+				return new ModelAndView("frmReOpenFolio", "command",new clsFolioHdBean());
 			}
 		}
 

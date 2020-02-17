@@ -20,13 +20,13 @@ public class clsBaggageMasterDaoImpl implements clsBaggageMasterDao {
 	@Autowired
 	private SessionFactory webPMSSessionFactory;
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public void funAddUpdateBaggageMaster(clsBaggageMasterModel objBaggageMasterModel) {
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objBaggageMasterModel);
 
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	@Override
 	public List funGetBaggageMaster(String baggageCode, String clientCode) {
 		List list = null;

@@ -227,7 +227,7 @@ public class clsFolioPrintingController {
 
 						if(!strCompletePertName.contains("POS"))
 						{
-						sqlFolioDtl = "SELECT DATE_FORMAT(date(a.dteDocDate),'%d-%m-%Y'),a.strDocNo,b.strTaxDesc,b.dblTaxAmt,0,0 " + " FROM tblfoliodtl a,tblfoliotaxdtl b where a.strDocNo=b.strDocNo " + " and  a.strFolioNo='" + folioNo + "' and a.strDocNo='" + docNo + "' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'";
+						sqlFolioDtl = "SELECT DATE_FORMAT(date(a.dteDocDate),'%d-%m-%Y'),a.strDocNo,b.strTaxDesc,b.dblTaxAmt,0 " + " FROM tblfoliodtl a,tblfoliotaxdtl b where a.strDocNo=b.strDocNo " + " and  a.strFolioNo='" + folioNo + "' and a.strDocNo='" + docNo + "' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'";
 						List listFolioTaxDtl = objWebPMSUtility.funExecuteQuery(sqlFolioDtl, "sql");
 						for (int cnt = 0; cnt < listFolioTaxDtl.size(); cnt++) {
 							Object[] arrObjFolioTaxDtl = (Object[]) listFolioTaxDtl.get(cnt);

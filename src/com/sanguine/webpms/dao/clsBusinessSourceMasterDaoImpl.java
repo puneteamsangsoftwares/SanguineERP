@@ -20,13 +20,13 @@ public class clsBusinessSourceMasterDaoImpl implements clsBusinessSourceMasterDa
 	@Autowired
 	private SessionFactory webPMSSessionFactory;
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public void funAddUpdateBusinessMaster(clsBusinessSourceMasterModel objBusinessMasterModel) {
 
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objBusinessMasterModel);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	@Override
 	public List funGetBusinessMaster(String businessCode, String clientCode) {
 

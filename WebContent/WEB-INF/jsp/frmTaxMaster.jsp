@@ -1,12 +1,27 @@
-<%@ page language="java" contentType="text/html;charset=ISO-8859-1" 
-    pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
+<style>
+input[type=number]{
+padding:0px;
+
+}
+</style>	
 <title>TAX MASTER</title>
 	
 	<script type="text/javascript">
@@ -824,243 +839,202 @@
 </head>
 
 <body onload="funChangeState();">
-<div id="formHeading">
-		<label>Tax Master</label>
-	</div>
-	<s:form name="taxForm" method="POST" action="saveTaxMaster.html?saddr=${urlHits}">
-	
-		<div id="tab_container" class="masterTable"  style="height: 700px;">
+	<div class="container">
+		<label id="formHeading">Tax Master</label>
+		<s:form name="taxForm" method="POST" action="saveTaxMaster.html?saddr=${urlHits}">
+		
+		<div id="tab_container" class="masterTable">
 			<ul class="tabs">
-				<li class="active" data-state="tab1" style="width: 25%; left: 10%">GENERAL</li>
-				<li data-state="tab2" style="width: 10%; padding-left: 55px">Tax On Tax</li>
-				<li data-state="tab3" style="width: 10%; padding-left: 55px">Tax On Subgroup</li>
-				<li data-state="tab4" style="width: 10%; padding-left: 55px">Settlement</li>
-
-<!-- 				<li data-state="tab4" style="width: 10%; padding-left: 55px">Settlement Wise Tax</li> -->
+				<li data-state="tab1" class="active">General</li>
+				<li data-state="tab2">Tax On Tax</li>
+				<li data-state="tab3">Tax On Subgroup</li>
+				<li data-state="tab4">Settlement</li>
+				<!-- <li data-state="tab4" style="width: 10%; padding-left: 55px">Settlement Wise Tax</li> -->
 			</ul>
 		
-			<div id="tab1" class="tab_content" style="height: 700px">
-				<table class="masterTable">
-				
-					<tr>
-				       	<th align="right" colspan="4"> <a id="baseUrl" href="#">Attach Documents</a>  &nbsp; &nbsp; &nbsp;&nbsp;</th>
-				    </tr>
-					<tr></tr>
-											
-				    <tr>
-				        <td width="120px"><label>TaxCode</label></td>
-				        <td colspan="3"><s:input id="txtTaxCode" name="txtTaxCode" path="strTaxCode" value=""  ondblclick="funHelp('taxmaster')" cssClass="searchTextBox"/></td>
-				    </tr>
-				    	
-				    <tr>
-				        <td><label>Description</label></td>
-				        <td>
-				        	<s:input type="text" id="txtTaxDesc" name="txtTaxDesc" cssStyle="text-transform: uppercase;" path="strTaxDesc" required="true" cssClass="BoxW124px" />
-				        	<s:errors path="strTaxDesc"></s:errors>
-				        </td>
-				        
-				        <td><label>Short Name</label></td>
-				        <td>
-				        	<s:select id="cmbShortName" name="cmbShortName" cssStyle="text-transform: uppercase;" path="strShortName"  cssClass="BoxW124px"> 
-				        		<option selected="selected" value=" "></option>
-					            <option value="CGST">CGST</option>
-					            <option value="SGST">SGST</option>
-					            </s:select>
-				        	
-				        	<s:errors path="strShortName"></s:errors>
-				        </td>
-				    </tr>
-					    
-				    <tr>
-					    <td>
-					    	<label>Tax On S/P</label>
-					    </td>
-					    <td>
-					    	<s:select id="cmbTaxOnSP" path="strTaxOnSP" cssClass="BoxW124px">
+			<div id="tab1" class="tab_content" style="margin-top: 45px;">
+				<div class="row masterTable">
+					<div class="col-md-2">
+						<label>TaxCode</label>
+				        <s:input id="txtTaxCode" name="txtTaxCode" path="strTaxCode" value=""  ondblclick="funHelp('taxmaster')" cssClass="searchTextBox" readOnly="true"/>
+				   </div>
+				   <div class="col-md-2">
+				   		<label>Description</label>
+				        <s:input type="text" id="txtTaxDesc" name="txtTaxDesc" cssStyle="text-transform: uppercase;" path="strTaxDesc" required="true" cssClass="BoxW124px" />
+				        <s:errors path="strTaxDesc"></s:errors>
+				    </div>
+				    <div class="col-md-2">   
+				       <label>Short Name</label>
+				       <s:select id="cmbShortName" name="cmbShortName" cssStyle="text-transform: uppercase; width:70%;" path="strShortName"> 
+				        	<option selected="selected" value=" "></option>
+					        <option value="CGST">CGST</option>
+					        <option value="SGST">SGST</option>
+					    </s:select>
+				        <s:errors path="strShortName"></s:errors>
+				     </div>
+				     <div class="col-md-2">
+				   			<label>Tax On S/P</label>
+					   		<s:select id="cmbTaxOnSP" path="strTaxOnSP" cssClass="BoxW124px" style="width:70%;">
 					    		<s:options items="${taxOnSPList}"/>
 					    	</s:select>
-					    </td>
-					     <td><label>GST No</label></td>
-					     <td>
-				        	<s:input type="text" id="txtGSTNo" name="txtGSTNo" cssStyle="text-transform: uppercase;" path="strGSTNo"  cssClass="BoxW124px" />
-				        	<s:errors path="strGSTNo"></s:errors>
-				        </td>
-					    
-					</tr>
+					 </div>
+					  <div class="col-md-4"></div>
+					 <div class="col-md-2">
+					     <label>GST No</label>
+					   	 <s:input type="text" id="txtGSTNo" name="txtGSTNo" cssStyle="text-transform: uppercase;" path="strGSTNo"  cssClass="BoxW124px" />
+				        <s:errors path="strGSTNo"></s:errors>
+				     </div>
+				     <div class="col-md-2">
+					 	<label>Tax Type</label>
+					    <s:select id="cmbtaxType" path="strTaxType"  onchange="funChangeState();" style="width:80%;">
+						    <option selected="selected" value="Percent">Percent</option>
+					           <option value="Fixed Amount">Fixed Amount</option>
+				        </s:select>
+					 </div>
+					 <div class="col-md-2">
+					    <label>External Code</label>
+						<s:input id="txtExternalCode" name="txtExternalCode" path="strExternalCode"  autocomplete="off" cssClass="BoxW116px"/>
+						<s:errors path="strExternalCode"></s:errors>
+					</div>	  
+					<div class="col-md-2"> 	
+						<label>Percent</label>
+				      	<s:input type="number" max="100" step="0.01" id="txtTaxPer" name="txtTaxPer" path="dblPercent" required="true" style="width:70%;"/>
+				        <s:errors path="dblPercent"></s:errors>
+				    </div>
+				    <div class="col-md-4"></div>
+				   	<div class="col-md-2">				
+				   		<label>Amount</label>
+				       	<s:input type="number" step="0.01" id="txtTaxAmt" name="txtTaxAmt" path="dblAmount" style="width:80%;"/>
+				        <s:errors path="dblAmount"></s:errors>
+				    </div>
+				    <div class="col-md-2">
+				   		<label>Tax On G/D</label>
+					   	<s:select id="cmbTaxOnGD" path="strTaxOnGD" items="${taxOnGDList}" style="width:80%;"/>
+					</div>
+					 
+					<div class="col-md-2">
+						<label>Date Valid From</label>
+					    <s:input id="txtDtFromDate" name="txtDtFromDate" path="dtValidFrom" cssClass="calenderTextBox" style="width:80%;"/>
+					</div>
+					<div class="col-md-2">
+					  	<label>Date Valid To</label>
+					    <s:input id="txtDtToDate" name="txtDtToDate" path="dtValidTo"  cssClass="calenderTextBox" style="width:80%;"/>
+					</div>
+					<div class="col-md-4"></div>
+					<div class="col-md-2">
+						<label>Tax Indicator</label>
+					   <s:select id="cmbTaxIndicator" path="strTaxIndicator" items="${taxIndicatorList}" style="width:80%;" />
+					</div>
+					<div class="col-md-2">
+						<label>Party Indicator</label>
+					    <s:select id="cmbPartyInd" path="strPartyIndicator" items="${partyIndicatorList}"  style="width:80%;"/>
+					</div>
 					
-					<tr>
-					    <td><label>Tax Type</label></td>
-					    <td>
-					    	<s:select id="cmbtaxType" path="strTaxType"  onchange="funChangeState();"  cssClass="BoxW124px">
-						    	<option selected="selected" value="Percent">Percent</option>
-					            <option value="Fixed Amount">Fixed Amount</option>
-				            </s:select>
-					    </td>
-					    	<td><label>External Code</label></td>
-						    <td>
-						    	<s:input id="txtExternalCode" name="txtExternalCode" path="strExternalCode"  autocomplete="off" cssClass="BoxW116px"/>
-						    	<s:errors path="strExternalCode"></s:errors>
-						    </td>
-					   	
-					</tr>
-					    
-					<tr>
-				        <td><label>Percent</label></td>
-				        <td>
-				        	<s:input type="number" max="100" step="0.01" id="txtTaxPer" name="txtTaxPer" path="dblPercent" required="true"  cssClass="BoxW116px right-Align"/>
-				        	<s:errors path="dblPercent"></s:errors>
-				        </td>
-				        
-				        <td><label>Not Applicable For Comesa Region</label></td>
-						<td><s:checkbox id="chkNotApplicableForComesa" path="strNotApplicableForComesa" value="Y"></s:checkbox></td>
-									
-				    </tr>
-					    
-					<tr>
-				        <td><label>Amount</label></td>
-				        <td colspan="3">
-				        	<s:input type="number" step="0.01" id="txtTaxAmt" name="txtTaxAmt" path="dblAmount" cssClass="BoxW116px right-Align"/>
-				        	<s:errors path="dblAmount"></s:errors>
-				        </td>
-				    </tr>
-					    
-					<tr>
-					    <td><label>Tax On G/D</label></td>
-					    <td colspan="3"><s:select id="cmbTaxOnGD" path="strTaxOnGD" items="${taxOnGDList}"  cssClass="BoxW124px"/></td>
-					</tr>
-					
-					<tr>
-					    <td><label>Date Valid From</label></td>
-					    <td colspan="3"><s:input id="txtDtFromDate" name="txtDtFromDate" path="dtValidFrom" cssClass="calenderTextBox"/></td>
-					</tr>
-					
-					<tr>
-					    <td><label>Date Valid To</label></td>
-					    <td colspan="3"><s:input id="txtDtToDate" name="txtDtToDate" path="dtValidTo"  cssClass="calenderTextBox" /></td>
-					</tr>
-						
-					<tr>
-					    <td><label>Tax Indicator</label></td>
-					    <td colspan="3"><s:select id="cmbTaxIndicator" path="strTaxIndicator" items="${taxIndicatorList}" cssClass="BoxW48px" /></td>
-					</tr>
-					
-					<tr>
-					    <td><label>Party Indicator</label></td>
-					    <td colspan="3"><s:select id="cmbPartyInd" path="strPartyIndicator" items="${partyIndicatorList}"  cssClass="BoxW48px"/></td>
-					</tr>
-						
-					<tr>
-			    		<td><label>Tax Rounded</label></td>
-			    		<td colspan="3"><s:checkbox element="li" id="chkTaxRounded" path="strTaxRounded" value="Yes" /></td>
-					</tr>
-						
-					<tr>
-					    <td><label>Property Code</label></td>
-					    <td colspan="3"><s:input id="txtPropCode" name="txtPropCode" path="strPropertyCode" cssClass="BoxW116px"/>
-					    <label id="lblPropName"></label></td>
-					</tr>
-						
-					<tr>
-					    <td><label>Tax On SubTotal</label></td>
-					    <td colspan="3"><s:checkbox element="li" id="chkTaxOnST" path="strTaxOnST" value=""/></td>
-					</tr>
-						
-					<tr>
-					    <td><label>Tax On Tax</label></td>
-					    <td colspan="3"><s:checkbox element="li" id="chkTaxOnTax" path="strTaxOnTax" value=""/></td>
-					</tr>
-						
-					<tr>
-					    <td><label>Excisable</label></td>
-					    <td colspan="3"><s:checkbox element="li" id="chkExcisable" path="strExcisable" value=""/></td>
-					</tr>
-						
-					<tr>
-					    <td><label>Applicable On</label></td>
-					    <td colspan="3"><s:select id="cmbApplOn" path="strApplOn" items="${applicableOnList}"  cssClass="BoxW124px"/></td>
-					</tr>
-						
-					<tr>
-						<td><label>Tax Calculation</label></td>
-					    <td colspan="3"><s:select id="cmbTaxCalType" path="strTaxCalculation" items="${taxCalList}"  cssClass="BoxW124px"/></td>
-					</tr>
-					
-					<tr>
-						<td><label>Tax On Subgroup</label></td>
-					    <td colspan="3"><s:checkbox element="li" id="chkTaxOnSubGroup" path="strTaxOnSubGroup" value=""/></td>
-					</tr>
-					
-					<tr>
-						<td><label>Calculate Tax On MRP</label></td>
-					    <td colspan="3"><s:checkbox element="li" id="chkCalTaxOnMRP" path="strCalTaxOnMRP" value=""/></td>
-					</tr>
-					
-					<tr>
-				        <td><label>Abatement %</label></td>
-				        <td colspan="3">
-				        	<s:input type="text" id="txtAbatement" name="txtAbatement" cssStyle="text-transform: uppercase;" path="dblAbatement" required="true" cssClass="BoxW124px" />
-				        	<s:errors path="dblAbatement"></s:errors>
-				        </td>
-				    </tr>
-				    
-				    <tr>
-						<td><label>Calculate TOT for MRP Items</label></td>
-					    <td colspan="3"><s:checkbox element="li" id="chkTOTForMRPItems" path="strTOTOnMRPItems" value=""/></td>
-					</tr>
-					
-					<tr>
-					    <td><label>Tax Reversal</label></td>
-					    <td colspan="3"><s:checkbox element="li" id="chkTaxReversal" path="strTaxReversal" value="Y"/></td>
-					</tr>
-					
-					<tr>
-					    <td><label>Charges Payable</label></td>
-					    <td colspan="3"><s:checkbox element="li" id="chkChargesPayable" path="strChargesPayable" value="Y"/></td>
-					</tr>
-					
-				</table>
+					<div class="col-md-2">   
+				      	<label>Not Applicable For Comesa Region</label>
+						<s:checkbox id="chkNotApplicableForComesa" path="strNotApplicableForComesa" value="Y"></s:checkbox>
+					</div>
+					<div class="col-md-2">
+						<label>Tax Rounded</label><br>
+			    		<s:checkbox element="li" id="chkTaxRounded" path="strTaxRounded" value="Yes" />
+					</div>
+						<div class="col-md-4"></div>
+					<div class="col-md-2">
+						<label>Property Code</label>
+					   <s:input id="txtPropCode" name="txtPropCode" path="strPropertyCode" cssClass="BoxW116px"/>
+					</div>
+					<div class="col-md-2">
+					    <label id="lblPropName" style="background-color:#dcdada94; width: 100%; height: 51%; margin-top: 26px; text-align: center;"></label>
+					</div>
+					<div class="col-md-2">
+						<label>Tax On SubTotal</label><br>
+					    <s:checkbox element="li" id="chkTaxOnST" path="strTaxOnST" value=""/>
+					</div>
+					<div class="col-md-2">
+						<label>Tax On Tax</label><br>
+					    <s:checkbox element="li" id="chkTaxOnTax" path="strTaxOnTax" value=""/>
+					</div>
+					<div class="col-md-4"></div>
+					<div class="col-md-2">
+						<label>Applicable On</label>
+					    <s:select id="cmbApplOn" path="strApplOn" items="${applicableOnList}" style="width:80%;"/>
+					</div>
+					<div class="col-md-2">
+						<label>Tax Calculation</label>
+					    <s:select id="cmbTaxCalType" path="strTaxCalculation" items="${taxCalList}"  style="width:80%;"/>
+					</div>
+					<div class="col-md-2">
+						<label>Excisable</label><br>
+					    <s:checkbox element="li" id="chkExcisable" path="strExcisable" value=""/>
+					</div>
+					<div class="col-md-2">
+						<label>Tax On Subgroup</label><br>
+					    <s:checkbox element="li" id="chkTaxOnSubGroup" path="strTaxOnSubGroup" value=""/>
+					</div>
+					<div class="col-md-4"></div>
+					<div class="col-md-2">
+						<label>Abatement %</label>
+				      	<s:input type="number" id="txtAbatement" name="txtAbatement" cssStyle="text-transform: uppercase; width:80%;" path="dblAbatement" required="true" />
+				        <s:errors path="dblAbatement"></s:errors>
+				    </div>
+				    <div class="col-md-2">
+						<label>Calculate Tax On MRP</label><br>
+					    <s:checkbox element="li" id="chkCalTaxOnMRP" path="strCalTaxOnMRP" value=""/>
+					</div>
+				    <div class="col-md-2">
+				    	<label>Calculate TOT for MRP Items</label><br>
+					    <s:checkbox element="li" id="chkTOTForMRPItems" path="strTOTOnMRPItems" value=""/>
+					</div>
+					<div class="col-md-2">
+						<label>Tax Reversal</label><br>
+					   	<s:checkbox element="li" id="chkTaxReversal" path="strTaxReversal" value="Y"/>
+					</div>
+						<div class="col-md-4"></div>
+					<div class="col-md-2">
+					    <label>Charges Payable</label><br>
+					    <s:checkbox element="li" id="chkChargesPayable" path="strChargesPayable" value="Y"/>
+					</div>
+				</div>
 			</div> 
 		
-			<div id="tab2" class="tab_content" style="height: 520px">
-				<table class="masterTable">
-					<tr>
-						<th style="border: 1px white solid;width: 10%"><label>Tax Code</label></th>
-						<th style="border: 1px white solid;width: 50%"><label>Tax Desc</label></th>
-						<th style="border: 1px white solid;width: 10%"><label>Select</label></th>
-						
-					</tr>
-				</table>
+		<div id="tab2" class="tab_content" style="margin-top: 45px;">
+		<br>
+			<table class="masterTable" style="width:80%; background-color: #c0c0c0; ">
+				<tr>
+					<th><label>Tax Code</label></th>
+					<th><label>Tax Desc</label></th>
+					<th><label>Select</label></th>
+				</tr>
+			</table>
 				
-				<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 80%;">
-					<table id="tblTaxes" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col5-center">
-						<tbody>
-							<col style="width: 5%"><!-- col1   -->
-						    <col style="width: 25%"><!-- col2   -->
-							<col style="width: 5%"><!-- col3   -->
-						</tbody>
-					</table>
+			<div style="background-color: #fbfafa; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 80%;">
+				<table id="tblTaxes" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col5-center">
+					<tbody>
+						<col style="width: 5%"><!-- col1   -->
+						<col style="width: 25%"><!-- col2   -->
+						<col style="width: 5%"><!-- col3   -->
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div id="tab3" class="tab_content">
+			<div class="row transTable" style="overflow:hidden;">
+				<div class="col-md-2">
+					<label>Sub Group</label>
+					<input id="txtSGCode" ondblclick="funHelp('subgroup');" class="searchTextBox" />
+				</div>
+				<div class="col-md-2">
+					<label id="lblSGName"style="background-color:#dcdada94; width: 100%; height: 51%; margin-top: 26px; text-align: center;"></label>
+				</div>
+				<div class="col-md-2">
+					<input type="Button" value="Add" onclick="return funFillSGGrid()"  class="btn btn-primary center-block" style="color:#000; margin-top:20px;"/>
 				</div>
 			</div>
-			
-			
-			<div id="tab3" class="tab_content" style="height: 520px">
-				<table class="transTable">
 				
-					<tr>
-						<td><label>Sub Group</label></td>
-						<td width="10%"><input id="txtSGCode" ondblclick="funHelp('subgroup');" class="searchTextBox" /></td>
-						<td width="10%"><label id="lblSGName" ></label></td>
-					</tr>
-					
-					<tr>
-						<td colspan="3"><input type="Button" value="Add" onclick="return funFillSGGrid()" class="smallButton" /></td>
-					</tr>
-				</table>
-				
-				
-				<div class="dynamicTableContainer" style="height: 300px;">
+			<div class="dynamicTableContainer" style="height: 300px;">
 				<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-					<tr bgcolor="#72BEFC">
+					<tr bgcolor="#c0c0c0">
 						<td style="width:20%;">Tax</td>
 						<td style="width:20%;">Sub Group Name</td>
 						<td style="width:20%;">Sub Group Code</td>
@@ -1068,7 +1042,7 @@
 					</tr>
 				</table>
 			
-				<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 					<table id="tblTaxSGDtl"
 						style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 						class="transTablex col8-center">
@@ -1082,22 +1056,19 @@
 				</div>
 			</div>
 		</div>
-				<div id="tab4" class="tab_content" style="height: 550px">
-						
-							<div
-								style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
-									<table id="tblSettlement"
-									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-									class="transTablex col8-center">
-									<tbody>
-									<col style="width:10%"/>
-									<col style="width:16%">					
-									<col style="width:10%">
-								
-									</tbody>
-								</table>
-							</div>
-						</div>
+			<div id="tab4" class="tab_content">
+			<br><br><br>
+				<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+					<table id="tblSettlement" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+						class="transTablex col8-center">
+						<tbody>
+							<col style="width:10%"/>
+							<col style="width:16%">					
+							<col style="width:10%">
+						</tbody>
+					</table>
+				</div>
+		  </div>
 		
 <!-- 			<div id="tab4" class="tab_content" style="height: 520px"> -->
 <!-- 			<br/> -->
@@ -1126,16 +1097,18 @@
 			
 		<br />
 		<br />
-					
-		<p align="center">
-			<input type="submit" value="Submit" id="btnSubmit" class="form_button" " onclick="return funCallFormAction('submit',this);"/> 
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-			
+		</div>
+		<div class="center">
+				<a href="#"><button class="btn btn-primary center-block" id="btnSubmit" value="Submit" onclick="return funCallFormAction('submit',this);" 
+				>Submit</button></a>
+				<a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()"
+				>Reset</button></a>
+		</div>
 		<s:input type="hidden" id="hidTaxesCodes" path="strTaxOnTaxCode"></s:input>
 		<s:input type="hidden" id="hidSettlementCode" path="strSettlementCode"></s:input>
 		
 		<br><br>
 	</s:form>
+</div>
 </body>
 </html>

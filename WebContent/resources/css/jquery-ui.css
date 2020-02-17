@@ -312,7 +312,6 @@ button.ui-button::-moz-focus-inner {
 	width: 17em;
 	padding: .2em .2em 0;
 	display: none;
-	background:#d2cccc;
 }
 .ui-datepicker .ui-datepicker-header {
 	position: relative;
@@ -857,7 +856,7 @@ body .ui-tooltip {
 .ui-widget-header {
 	border: 1px solid #6c757d;
 	/* background: #75c0ff url("../images/ui-bg_gloss-wave_35_f6a828_500x100.png") 50% 50% repeat-x; */
-	color: #ffffff;
+	color: #302a2a;
 	font-weight: bold;
 }
 .ui-widget-header a {
@@ -1193,28 +1192,25 @@ Corner radius
 .ui-corner-left,
 .ui-corner-tl {
 	border-top-left-radius: 4px;
-	
 }
 .ui-corner-all,
 .ui-corner-top,
 .ui-corner-right,
 .ui-corner-tr {
 	border-top-right-radius: 4px;
-	
 }
 .ui-corner-all,
 .ui-corner-bottom,
 .ui-corner-left,
 .ui-corner-bl {
 	border-bottom-left-radius: 4px;
-	
 }
 .ui-corner-all,
 .ui-corner-bottom,
 .ui-corner-right,
 .ui-corner-br {
 	border-bottom-right-radius: 4px;
-	
+	background:#dddada;
 }
 
 Overlays

@@ -1,12 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="sp"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE >
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 
 <title>MIS</title>
 
@@ -155,6 +163,11 @@
 			{
 				//funHelp("WorkOrderST");
 			}
+		else if ($("#cmbAgainst").val()=="Production Order")
+			{
+				funHelp("Production");
+			}
+		
 		else
 			{
 				if($("#txtLocFrom").val()=="")
@@ -255,6 +268,12 @@
 			case 'MIS':
 				funGetMISData(code);
  			break;	
+ 			
+			case 'Production':
+				funSetProductionData(code);
+ 			break;	
+ 			
+ 			
 		}
 		
 	}
@@ -702,16 +721,16 @@
 	    	}
 	    dblStock=parseFloat(dblStock).toFixed(maxQuantityDecimalPlaceLimit);
 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listMISDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";	    
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" name=\"listMISDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
-	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\"  name=\"listMISDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value='"+strUOM+"' />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listMISDtl["+(rowCount)+"].dblStock\" id=\"dblStock."+(rowCount)+"\" value='"+dblStock+"'/>";
-	    row.insertCell(4).innerHTML= "<input type=\"text\" required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listMISDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\" >";
-	    row.insertCell(5).innerHTML= "<input class=\"inputText-Auto Box\" disabled=\"disabled\" id=\"dblPendingQty."+(rowCount)+"\" value="+dblIssueQty+" >";
-	    row.insertCell(6).innerHTML= "<input readonly=\"true\"  required = \"required\" style=\"text-align: right;\" class=\"inputText-Auto\" name=\"listMISDtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\" value="+dblUnitPrice+" >";
-	    row.insertCell(7).innerHTML= "<input class=\"Box\" style=\"text-align: right;\" readonly=\"readonly\" size=\"7%\" name=\"listMISDtl["+(rowCount)+"].dblTotalPrice\" id=\"dblTotalPrice."+(rowCount)+"\" value="+dblTotalPrice+" >";
-	    row.insertCell(8).innerHTML= "<input readonly=\"true\" size=\"14%\" class=\"Box\" name=\"listMISDtl["+(rowCount)+"].strReqCode\" id=\"strReqCode."+(rowCount)+"\" value="+strReqcode+" >";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"35%\" name=\"listMISDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"3%\"  name=\"listMISDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value='"+strUOM+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listMISDtl["+(rowCount)+"].dblStock\" id=\"dblStock."+(rowCount)+"\" value='"+dblStock+"'/>";
+	    row.insertCell(4).innerHTML= "<input type=\"text\" required = \"required\" size=\"7%\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listMISDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\" >";
+	    row.insertCell(5).innerHTML= "<input class=\"inputText-Auto Box\" size=\"7%\" disabled=\"disabled\" id=\"dblPendingQty."+(rowCount)+"\" value="+dblIssueQty+" >";
+	    row.insertCell(6).innerHTML= "<input readonly=\"true\"  required = \"required\" size=\"7%\" style=\"text-align: right;\" class=\"inputText-Auto\" name=\"listMISDtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\" value="+dblUnitPrice+" >";
+	    row.insertCell(7).innerHTML= "<input class=\"Box\" size=\"7%\" style=\"text-align: right;\" readonly=\"readonly\" size=\"7%\" name=\"listMISDtl["+(rowCount)+"].dblTotalPrice\" id=\"dblTotalPrice."+(rowCount)+"\" value="+dblTotalPrice+" >";
+	    row.insertCell(8).innerHTML= "<input readonly=\"true\" size=\"12%\" class=\"Box\" name=\"listMISDtl["+(rowCount)+"].strReqCode\" id=\"strReqCode."+(rowCount)+"\" value="+strReqcode+" >";
 	    row.insertCell(9).innerHTML= "<input size=\"20%\" name=\"listMISDtl["+(rowCount)+"].strRemarks\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"' />";		    
-	    row.insertCell(10).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';
+	    row.insertCell(10).innerHTML='<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';
 	    row.insertCell(11).innerHTML= "<input name=\"listMISDtl["+(rowCount)+"].strExpiry\" type=\"hidden\" value = '"+strExpiry+"' >";
 	    funApplyNumberValidation();
 	    funCalculateTotalAmt();
@@ -1606,120 +1625,247 @@
 						        	
 		}
 		
-
+		function funSetProductionData(code)
+		{
+			var searchUrl="";		
+			searchUrl=getContextPath()+"/loadProductionData.html?PDCode="+code;
+			//alert(searchUrl);
+			$.ajax({
+			        type: "GET",
+			        url: searchUrl,
+				    dataType: "json",
+				    success: function(response)
+				    {
+				    	$.each(response, function(i,item)
+				    	{
+				    		if(response[i].strPDCode!="Invalid Code")
+				    			{
+				    				funFillDataForBatching(response);	
+				    			}
+				    		else
+				    			{
+				    				
+				    			}
+				    	
+					     });
+				    },
+				    error: function(jqXHR, exception) {
+			            if (jqXHR.status === 0) {
+			                alert('Not connect.n Verify Network.');
+			            } else if (jqXHR.status == 404) {
+			                alert('Requested page not found. [404]');
+			            } else if (jqXHR.status == 500) {
+			                alert('Internal Server Error [500].');
+			            } else if (exception === 'parsererror') {
+			                alert('Requested JSON parse failed.');
+			            } else if (exception === 'timeout') {
+			                alert('Time out error.');
+			            } else if (exception === 'abort') {
+			                alert('Ajax request aborted.');
+			            } else {
+			                alert('Uncaught Error.n' + jqXHR.responseText);
+			            }		            
+			        }
+			      });
+		}
+		
+		function funFillDataForBatching(response)
+		{
+			var count=0;
+			$.each(response, function(i,item)
+	    			{		
+						count=i;
+						$("#txtReqCode").val(response[i].strPDCode);									    
+			    		$("#txtLocFrom").val(response[i].strLocCode)
+			    		funGetProdDataForBatching($("#txtReqCode").val());
+	    			});
+			listRow=count+1;
+		}
+		
+		function funGetProdDataForBatching(strPDcode)
+		{	
+			searchUrl=getContextPath()+"/loadProductionDtlData.html?PDCode="+strPDcode;				
+			$.ajax({				
+	        	type: "GET",
+		        url: searchUrl,
+		        dataType: "json",
+		        success: function(response)
+		        {				        	
+		        	/* funRemRows(); */
+					$.each(response, function(i,item)
+	                {
+						funfillProdRowForBatching(response[i].strProdCode,response[i].strPartNo,response[i].strProdName,response[i].strProcessCode,response[i].strProcessName,response[i].strUOM,response[i].dblQtyProd,response[i].dblQtyRej,response[i].dblWeight,response[i].dblPrice,response[i].dblActTime);
+	                                               
+	                });
+					
+				},
+				error: function(jqXHR, exception) {
+		            if (jqXHR.status === 0) {
+		                alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+		                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.n' + jqXHR.responseText);
+		            }		            
+		        }
+	      });
+		}
+		
+		function funfillProdRowForBatching(strProdCode,strPartNo,strProdName,strProcessCode,strProcessName,strUOM,dblQtyProd,dblQtyRej,dblWeight,dblPrice,dblActTime)
+		{	  
+		    var dblAcceptedQty=dblQtyProd-dblQtyRej;
+	        var dblTotWt=dblQtyProd*dblWeight;
+	        var dblTotalPrice=dblAcceptedQty*dblPrice;
+		    var table = document.getElementById("tblProdDet");
+		    var rowCount = table.rows.length;
+		    var row = table.insertRow(rowCount);
+		  
+		    row.insertCell(0).innerHTML= "<input name=\"listonMISDtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" size=\"8%\"   id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";	
+		    row.insertCell(1).innerHTML= "<input name=\"listonMISDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"48%\"  id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' />";	
+		    row.insertCell(2).innerHTML= "<input name=\"listonMISDtl["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" size=\"3%\"  id=\"txtUOM."+(rowCount)+"\" value='"+strUOM+"' />";
+		    row.insertCell(3).innerHTML=" <input name=\"listonMISDtl["+(rowCount)+"].strProcessCode\" readonly=\"readonly\" class=\"Box\" size=\"8%\"  id=\"strProcessCode."+(rowCount)+"\" value="+strProcessCode+">";
+		    row.insertCell(4).innerHTML=" <input name=\"listonMISDtl["+(rowCount)+"].strProcessName\" readonly=\"readonly\" class=\"Box\" size=\"8%\"  id=\"strProcessName."+(rowCount)+"\" value="+strProcessName+">";	
+		    row.insertCell(5).innerHTML= "<input name=\"listonMISDtl["+(rowCount)+"].dblQty\" type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%\" size=\"5%\" id=\"txtQtyProd."+(rowCount)+"\" value="+dblQtyProd+">";
+		    row.insertCell(6).innerHTML= "<input name=\"listonMISDtl["+(rowCount)+"].dblWeight\" type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%\"  size=\"5%\" id=\"txtWt."+(rowCount)+"\" value="+dblWeight+">";
+		    row.insertCell(7).innerHTML= "<input name=\"listonMISDtl["+(rowCount)+"].dtlTotWt\"  class=\"Box\" style=\"text-align: right;width:100%\" size=\"5%\" id=\"dtlTotWt."+(rowCount)+"\" value="+dblTotWt+">";
+		    row.insertCell(8).innerHTML= "<input name=\"listonMISDtl["+(rowCount)+"].dblUnitPrice\"  type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%\" size=\"5%\" id=\"dblPrice."+(rowCount)+"\" value="+dblPrice+">";
+		    row.insertCell(9).innerHTML= "<input name=\"listonMISDtl["+(rowCount)+"].dblTotalPrice\"  class=\"Box\" style=\"text-align: right;width:100%\" size=\"5%\" id=\"dblTotalPrice."+(rowCount)+"\" value="+dblTotalPrice+">";
+		    row.insertCell(10).innerHTML= "<input name=\"listonMISDtl["+(rowCount)+"].dblQtyRej\" type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%\" size=\"5%\" id=\"txtQtyRej."+(rowCount)+"\" value="+dblQtyRej+">";
+		    row.insertCell(11).innerHTML= "<input name=\"listonMISDtl["+(rowCount)+"].dblAcceptedQty\"  type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%\"  size=\"5%\" id=\"dblAcceptedQty."+(rowCount)+"\" value="+dblAcceptedQty+">";	    
+		    row.insertCell(12).innerHTML= "<input name=\"listonMISDtl["+(rowCount)+"].dblActTime\"  type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%\"  size=\"5%\" id=\"txtActTime."+(rowCount)+"\" value="+dblActTime+">";		    
+		    row.insertCell(13).innerHTML= '<input type="button" value = "Delete" class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
+		    
+		}
 		
 </script>
 
 </head>
 <body>
-	<div id="formHeading">
-		<label>Material Issue Slip</label>
-	</div>
-	<s:form name="MIS" id="MIS" action="saveMIS.html?saddr=${urlHits}" method="POST" >
-		<br>
+	<div class="container">
+		<label id="formHeading">Material Issue Slip</label>
+		<s:form name="MIS" id="MIS" action="saveMIS.html?saddr=${urlHits}" method="POST" >
+		
 		<s:input path="strAuthorise" type="hidden" id="hidAuthorise"  name="strAuthorise" value=""></s:input>
-		<table class="transTable">
-			<tr>
-
-				<th align="right"><a id="baseUrl" href="#">
-						Attach Documents</a>&nbsp; &nbsp; &nbsp; &nbsp;
-						<a onclick="funOpenExportImport()"
-					href="javascript:void(0);">Export/Import</a>&nbsp; &nbsp; &nbsp;
-					&nbsp;
-						</th>
-			</tr>
-		</table>
-
-		<table class="transTable">
-			<tr>
-				<td width="10%"><label>MIS Code</label></td>
-				<td width="120px"><s:input id="txtMISCode" name="txtMISCode"
-						path="strMISCode" value="${command.strMISCode}"
-						ondblclick="funHelp('MIS')" cssClass="searchTextBox" /></td>
-				<td></td>
+		<div class="row transTable">
+			<div class="col-md-12">
+			 	<!-- <a id="baseUrl" href="#">Attach Documents</a> -->
+				<a onclick="funOpenExportImport()"href="javascript:void(0);">Export/Import</a>
+			</div>
+			<div class="col-md-2">
+				<label>MIS Code</label>
+				<s:input id="txtMISCode" name="txtMISCode" path="strMISCode" value="${command.strMISCode}"
+						ondblclick="funHelp('MIS')" cssClass="searchTextBox" />
+			</div>
+			<div class="col-md-2">
 				<!-- <td><label>MIS Date:</label></td> -->
-				<td width="220px">MIS Date&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<s:input
-						id="txtMISDate" name="txtMISDate" type="text" required="required" path="dtMISDate" pattern="\d{1,2}-\d{1,2}-\d{4}" 
-						value="${command.dtMISDate}" cssClass="calenderTextBox" /></td>
-				<td></td>
-				<td></td>
-			</tr>
-
-			<tr>
-				<td><s:label path="strLocFrom">Location By</s:label></td>
-				<td><s:input id="txtLocFrom" name="txtLocFrom" path="strLocFrom" value="${command.strLocFrom}"
-						ondblclick="funHelp('StoreLocationTo')" cssClass="searchTextBox" /></td>
-				<td><s:label path="strLocFrom" id="lblLocFrom"
-						cssClass="namelabel"></s:label></td>
-				<td><s:label path="strLocTo">Location To</s:label>&nbsp;
-					&nbsp; &nbsp;<s:input id="txtLocTo" name="txtLocTo" path="strLocTo"						
-						ondblclick="funLocationOnOpen('loconMIS');" cssClass="searchTextBox" /></td>
-				<td><s:label id="lblLocTo" path="strLocTo" cssClass="namelabel"></s:label></td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td><label>Against</label></td>
-				<td><s:select id="cmbAgainst" items="${strProcessList}"  onchange="funOnChange();"	name="cmbAgainst" cssClass="BoxW124px" path="strAgainst">
+				<label>MIS Date</label>
+				<s:input id="txtMISDate" name="txtMISDate" type="text" required="required" path="dtMISDate" pattern="\d{1,2}-\d{1,2}-\d{4}" 
+						value="${command.dtMISDate}" cssClass="calenderTextBox" style="width:80%;"/>
+			</div>
+			<div class="col-md-2">
+				<s:label path="strLocFrom">Location By</s:label>
+				<s:input id="txtLocFrom" name="txtLocFrom" path="strLocFrom" value="${command.strLocFrom}"
+						ondblclick="funHelp('StoreLocationTo')" cssClass="searchTextBox" />
+			</div>
+			<div class="col-md-2">			
+				<s:label path="strLocFrom" id="lblLocFrom" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align: center;"></s:label>
+			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-2">
+				<s:label path="strLocTo">Location To</s:label>
+				<s:input id="txtLocTo" name="txtLocTo" path="strLocTo"						
+						ondblclick="funLocationOnOpen('loconMIS');" cssClass="searchTextBox" />
+			</div>
+			<div class="col-md-2">
+				<s:label id="lblLocTo" path="strLocTo"  style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align: center;"></s:label>
+			</div>
+			<div class="col-md-2">
+				<label>Against</label>
+				<s:select id="cmbAgainst" items="${strProcessList}"  onchange="funOnChange();"	name="cmbAgainst" cssClass="BoxW124px" path="strAgainst">
 					</s:select>
-				</td>  
-				<td ><s:input id="txtReqCode" name="txtReqCode" path="strReqCode" ondblclick="return funOpenAgainst();"   cssClass="searchTextBox " cssStyle="width:90%;background-position: 165px 2px;"/></td>
-				<td><span id="spQty" style="display:none"> Qty </span></td>
-				<td><s:input id="txtWoQty" name="txtWoQty" path="" value=""	type="number" style="display:none"/></td>
-				<td><label id="lblCloseReq" style="display:block"> Close Req.</label></td>
-<!-- 				<td><input id="chkCloseReq" value="Y" style="width: 36px;" 	type="checkbox" onclick="return cbCloseReq_onclick()" /> -->
-				<td><s:checkbox id="chkCloseReq" path="strCloseReq" value="Y" /></td>	
-				
-				<td colspan="2"><input type="Button" id="btnFill" value="Fill" 	onclick="return btnFill_onclick()" class="smallButton" style="display:none"/></td>
-			</tr>
-		</table>
-		<table class="transTableMiddle">
-			<tr>
-				<td width="10%"><label>Product Code</label></td>
+			</div>
+			<div class="col-md-2">
+				<s:input id="txtReqCode" name="txtReqCode" path="strReqCode" ondblclick="return funOpenAgainst();" cssClass="searchTextBox" style="margin-top:27px;"/>
+			</div>
+			<div class="col-md-2">
+				<span id="spQty" style="display:none">Qt</span>
+				<s:input id="txtWoQty" name="txtWoQty" path="" value=""	type="number" style="display:none"/>
+			</div>
+			<div class="col-md-2"></div>
+			<div class="col-md-2">
+				<label id="lblCloseReq" style="display:block"> Close Req.</label>
+<!--            <td><input id="chkCloseReq" value="Y" style="width: 36px;" 	type="checkbox" onclick="return cbCloseReq_onclick()" /> -->
+				<s:checkbox id="chkCloseReq" path="strCloseReq" value="Y" />	
+			</div>
+			<div class="col-md-2">
+				<input type="Button" id="btnFill" value="Fill" 	onclick="return btnFill_onclick()" class="btn btn-primary center-block" style="margin-top: 20px; display:none"/>
+			</div>
+		</div>
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label>Product Code</label>
 				<!-- <td width="20%"><input id="txtProdCode" name="txtProdCode" ondblclick="funHelp('productmasterStkable')" class="searchTextBox" /></td> -->
-				<td width="20%"><input id="txtProdCode" name="txtProdCode" ondblclick="funHelp('productInUse')" class="searchTextBox" /></td>
+				<input id="txtProdCode" name="txtProdCode" ondblclick="funHelp('productInUse')" class="searchTextBox" />
+			</div>
+			<div class="col-md-2">
 				<!-- productInUse -->
-				<td width="10%">Product Name</td>
-				<td width="65%"><span id="spProdName" class="namelabel" style="font-size: 12px;"></span></td>
-				</tr>
-				<tr>
-				<td><label>UOM</label> 
-				<td width="5%"><s:select id="strUOM" name="strUOM"
-						path="" items="${uomList}"  cssClass="BoxW124px"/></td>
+				<label>Product Name</label>
+				<label id="spProdName" style="background-color:#dcdada94; width: 100%; height: 52%;text-align: center;"></label>
+			</div>	
+			<div class="col-md-2">	
+				<label>UOM</label> 
+				<s:select id="strUOM" name="strUOM" path="" items="${uomList}"  cssClass="BoxW124px"/>
 				<%-- <td><span id="strUOM"></span></td> --%>
-				<td  width="10%"><label>Stock</label></td><td  width="10%"><label id="spStock" class="namelabel"></label><span id="spStockUOM"></span></td>
-			</tr>
-			<tr>
-				<td><label>Issue Qty</label></td>
-				<td><input id="txtProdQty" name="txtProdQty" type="text" step="any" class="decimal-places numberField" onkeypress="funGetKeyCode(event,'IssueQty')"/></td>					
-				<td><label>Unit Price</label></td>
-				<td><input id="txtUnitPrice" name="txtUnitPrice" type="text" step="any" class="decimal-places numberField"  readonly /></td>	
-				</tr><tr>	
-				<td><label>Remarks</label></td>
-				<td><input id="txtRemarks" name="txtRemarks" class="remarkTextBox" />
+			</div>
+			<div class="col-md-2">
+				<label>Stock</label>
+				<label id="spStock" class="namelabel"></label>
+				<span id="spStockUOM"></span>
+			</div>	
+			<div class="col-md-4"></div>
+			<div class="col-md-2">
+				<label>Issue Qty</label>
+				<input id="txtProdQty" name="txtProdQty" type="text" step="any" class="decimal-places numberField" onkeypress="funGetKeyCode(event,'IssueQty')"/>
+			</div>
+			<div class="col-md-2">				
+				<label>Unit Price</label>
+				<input id="txtUnitPrice" name="txtUnitPrice" type="text" step="any" class="decimal-places numberField"  readonly />	
+			</div>
+			<div class="col-md-2">	
+				<label>Remarks</label>
+				<input id="txtRemarks" name="txtRemarks" type="text" />
 				<input type="hidden" id="hidExpDate">
-				</td>
-				<td colspan="3"><input type="Button" value="Add" onclick="return btnAdd_onclick()" class="smallButton" /></td>
-			</tr>
-		</table>
+			</div>
+			<div class="col-md-2">
+				<input type="Button" value="Add" onclick="return btnAdd_onclick()" class="btn btn-primary center-block" style="margin-top: 20px;"/>
+			</div>
+		</div><br>
 		<div class="dynamicTableContainer" style="height: 300px;">
 			<table style="height: 20px; border: #0F0;width: 100%;font-size:11px;
-			font-weight: bold;">
-				<tr bgcolor="#72BEFC">
-					<td width="6%">Prod Code</td>					
-					<td width="22%">Product Name</td>	
-					<td width="3%">UOM</td>	
-					<td width="3%">Stock</td>				
+				font-weight: bold;">
+				<tr bgcolor="#c0c0c0">
+					<td width="7%">Prod Code</td>					
+					<td width="28%">Product Name</td>	
+					<td width="5%">UOM</td>	
+					<td width="4%">Stock</td>				
 					<td width="5%">Issue Qty</td>
-                    <td width="5%">Pending Qty</td> 
-                    <td width="5%">Unit Price</td>
-                    <td width="5%">Total Price</td> 
-                    <td width="8%">MR Code</td>        
-					<td width="14%">Remarks</td>
+                    <td width="7%">Pending Qty</td> 
+                    <td width="6%">Unit Price</td>
+                    <td width="7%">Total Price</td> 
+                    <td width="9%">MR Code</td>        
+					<td width="0%">Remarks</td>
 					<td width="5%">Delete</td>
 				</tr>
 			</table>
-			<div
-				style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+			<div  style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 					<table id="tblProdDet"
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col11-center">
@@ -1735,41 +1881,33 @@
 					<col style="width:8%">
 					<col style="width:14%">
 					<col style="width:3.5%">
-					<col  style="width:0%">
+					<col style="width:0%">
 					</tbody>
 				</table>
 			</div>
 		</div>
-
-		
-		<table class="transTableMiddle">
-			<tr>
-				<td style="height: 61px">Total Amt:</td>
-				<td style="height: 61px"> <s:input type="text" cssClass="decimal-places numberField" cssStyle="text-align:right;width:10%" id="txtTotalAmt" readonly="true" path="dblTotalAmt"/> </td>
-			</tr>
-		
-			<tr>
-				<td style="height: 61px">Narration</td>
-				<td style="height: 61px"><s:textarea id="txtNarration"
-						cols="50" rows="3" path="strNarration"
-						value="${command.strNarration}" style="width: 80%"></s:textarea></td>
-				
-			</tr>
-		</table>
-		<br>
-		<p align="center">
-			<input type="submit" value="Submit" class="form_button" onclick="return funCallFormAction('submit',this);" />
-			 <input type="button" value="Reset" class="form_button" onclick="funResetFields()" />
-		</p>
-		
-<%-- 		<s:input type="hidden" id="hidReqClose" path="strCloseReq"></s:input> --%>
-		
-		
-		<br><br>
-		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
-				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label>Total Amt:</label><br>
+				<s:input type="text" cssClass="decimal-places numberField" id="txtTotalAmt" style="text-align:right;" readonly="true" path="dblTotalAmt"/>
 			</div>
+			<div class="col-md-2">	
+				<label>Narration</label><br>
+				<s:textarea id="txtNarration" path="strNarration" value="${command.strNarration}" style="width:100%; height:27px;"></s:textarea>
+			</div>
+		</div>
+		
+		<div class="center" style="text-align:center">
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit" onclick="return funCallFormAction('submit',this)">Submit</button></a>&nbsp
+			<a href="#"><button class="btn btn-primary center-block"  value="Reset" onclick="funResetFields();">Reset</button></a>
+		</div>
+<%-- 		<s:input type="hidden" id="hidReqClose" path="strCloseReq"></s:input> --%>
+			<br><br>
+		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
+			<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+		</div>
 	</s:form>
+</div>
 	<script type="text/javascript">
 	funApplyNumberValidation();
 	funOnChange();

@@ -13,11 +13,12 @@
 		<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/jQKeyboard.css "/>" />
 		<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/slideKeyboard/jquery.ml-keyboard.css"/>" />
 		<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/slideKeyboard/jquery.ml-keyboard.css"/>" />	
-		 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesign/bootstrap.css"/>" />
+		 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.css"/>" />
 	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
 	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
 	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 
   <script type="text/javascript">
   	/**
 	 *  Set Focus
@@ -66,7 +67,7 @@
 		
 			<div class="col-md-4">
 				<a href="#">
-					<img alt=""src="../${pageContext.request.contextPath}/resources/images/Sanguine_ERP.jpg" height="165px" width="340px" onclick="funKeyBoard()" style="margin:85px 120px;">
+					<img alt=""src="../${pageContext.request.contextPath}/resources/images/Sanguine_ERP.jpg" height="165px" width="340px" onclick="funKeyBoard()" style ="margin:135px 100px;">
 				</a>
 			</div>
 			<div class="col-md-4"></div>
@@ -86,7 +87,7 @@
 							<s:label path="strPassword">Password</s:label>
 							
 						</div>
-						<h2><input type="submit" name="" value="submit" style="margin-left:180px; font-weight:700px"></h2>
+						<h2><input type="submit" name="" value="submit" style="margin-left:200px; font-weight:700px"></h2>
 					</form>
 				</div>
 			</s:form>

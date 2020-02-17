@@ -286,6 +286,7 @@ public class clsParameterSetupBean {
 	
 	private String strClosingName;
 	
+	private String strShowPLRevenue;
 	
 	
 
@@ -1424,6 +1425,14 @@ public class clsParameterSetupBean {
 
 	public void setStrClosingName(String strClosingName) {
 		this.strClosingName = strClosingName;
+	}
+
+	public String getStrShowPLRevenue() {
+		return strShowPLRevenue;
+	}
+
+	public void setStrShowPLRevenue(String strShowPLRevenue) {
+		this.strShowPLRevenue = strShowPLRevenue;
 	}
 
 }

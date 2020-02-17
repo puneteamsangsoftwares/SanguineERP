@@ -626,7 +626,7 @@ public class clsPMSSalesFlashController {
 					objBean.setDblDiscount(dblDiscAmt);
 				}
 				
-				String sqlTaxAmt = "select sum(a.dblTaxAmt) from tblbilltaxdtl a where a.strBillNo='"+arr2[0].toString()+"' and a.strTaxCode like 'TC%' and a.strClientCode='"+strClientCode+"'";
+				String sqlTaxAmt = "select ifnull(sum(a.dblTaxAmt),0.0) from tblbilltaxdtl a where a.strBillNo='"+arr2[0].toString()+"' and a.strTaxCode like 'TC%' and a.strClientCode='"+strClientCode+"'";
 				List listTaxAmt = objGlobalService.funGetListModuleWise(sqlTaxAmt, "sql");
 				if(listTaxAmt!=null && listTaxAmt.size()>0)
 				{

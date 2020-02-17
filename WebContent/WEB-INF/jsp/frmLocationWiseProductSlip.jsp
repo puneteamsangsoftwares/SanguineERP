@@ -1,4 +1,6 @@
- <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,6 +9,19 @@
   	<link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Web Stocks</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+  
+  <style>  
+   .transTable td {    
+        padding-left: 29px;
+      }
+  </style>
+      
     <script type="text/javascript">
     var fieldName;
     
@@ -417,44 +432,36 @@
   </head>
 
 <body>
-	<div id="formHeading">
-		<label>LocationWise Product Slip </label>
-	</div>
-	<br />
-	<s:form name="frmlocWiseprodectSlip" method="GET"
-		action="rptLocationWiseProductSlip.html" target="_blank">
-		<table class="transTable">
-			<tr>
-				<th colspan="5"></th>
-			</tr>
-			<tr>
-				<td width="10%"><label>Product Code</label></td>
-				<td colspan="5"><s:input id="txtProdCode" path="strProdCode"
-						ondblclick="funHelp('productmasterslip')" cssClass="searchTextBox"
-						cssStyle="width:150px;background-position: 136px 4px;" /> <label
-					id="lblProdName" style="font-size: 12px;">All Product</label></td>
-			</tr>
-		</table>
-
-		<br>
-		<table class="transTable">
-			<tr>
-				<td>Location&nbsp;&nbsp;&nbsp;
-			<input type="text" id="txtToLocCode" 
-			ondblclick="funHelp('locationmaster')" Class="searchTextBox"></input>
-			<label id="lblToLocName"></label></td>
-			</tr>
-			<tr>
-				<td style="padding: 0 !important;">
+	<div class="container transTable">
+	   <label id="formHeading">LocationWise Product Slip </label>
+	    <s:form name="frmlocWiseprodectSlip" method="GET" action="rptLocationWiseProductSlip.html" target="_blank">
+		<div class="row">
+			 <div class="col-md-2"><label>Product Code</label>
+				   <s:input id="txtProdCode" path="strProdCode" ondblclick="funHelp('productmasterslip')" cssClass="searchTextBox"
+						cssStyle="width:150px;background-position: 136px 4px;" /> 
+			 </div>
+			 
+			  <div class="col-md-2">	
+			       <label id="lblProdName" style="font-size: 12px;background-color:#dcdada94; width: 100%; height:51%;margin-top: 27px;padding:4px;">All Product</label>
+			  </div>
+	          <div class="col-md-8"></div>
+	          
+			  <div class="col-md-2"><label>Location</label>
+			       <input type="text" id="txtToLocCode" ondblclick="funHelp('locationmaster')" Class="searchTextBox"></input>
+			       <label id="lblToLocName"></label>
+			  </div>
+			   <div class="col-md-10"></div>
+			   
+			   <div class="col-md-6">
 					<div class="transTablex">
 						<div
-							style="background-color: #a4d7ff; width: 49%; float: left; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+							style="background-color: #fafbfb; width:100%; float: left; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
 
 							<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
-										<td width="15%"><input type="checkbox" id="chkLocALL"
+									<tr bgcolor="#c0c0c0">
+										<td width="10%"><input type="checkbox" id="chkLocALL"
 											checked="checked" />Select</td>
 										<td width="25%">Location Code</td>
 										<td width="65%">Location Name</td>
@@ -465,7 +472,7 @@
 							<table id="tblloc" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#fafbfb">
 									<td width="15%"></td>
 									<td width="25%"></td>
 									<td width="65%"></td>
@@ -474,25 +481,21 @@
 							</table>
 						</div>
 					</div>
-				</td>
-			</tr>
-		</table>
-		<br>
-		<table class="transTable">
-			<tr>
-				<td width="49%">Group</td>
-				<td width="49%">Sub Group</td>
-			</tr>
-			<tr></tr>
-			<tr>
-				<td style="padding: 0 !important;">
-					<div
-						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+				</div>
+				
+			<div class="col-md-6"></div>
+			
+		    <div class="col-md-6"><label>Group</label></div>
+	
+		    <div class="col-md-6"><label>Sub Group</label></div>
+		
+			 <div class="col-md-6">
+				<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
 						<table id="" class="masterTable"
 							style="width: 100%; border-collapse: separate;">
 							<tbody>
-								<tr bgcolor="#72BEFC">
-									<td width="15%"><input type="checkbox" id="chkGALL"
+								<tr bgcolor="#c0c0c0">
+									<td width="10%"><input type="checkbox" id="chkGALL"
 										checked="checked" onclick="funCheckUncheck()" />Select</td>
 									<td width="20%">Group Code</td>
 									<td width="65%">Group Name</td>
@@ -503,7 +506,7 @@
 						<table id="tblGroup" class="masterTable"
 							style="width: 100%; border-collapse: separate;">
 							<tbody>
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#fafbfb">
 									<td width="15%"></td>
 									<td width="20%"></td>
 									<td width="65%"></td>
@@ -512,16 +515,15 @@
 							</tbody>
 						</table>
 					</div>
-				</td>
-				<td style="padding: 0 !important;">
-					<div
-						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-
-						<table id="" class="masterTable"
+			     </div>
+			     
+				<div class="col-md-6">
+					<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+                        <table id="" class="masterTable"
 							style="width: 100%; border-collapse: separate;">
 							<tbody>
-								<tr bgcolor="#72BEFC">
-									<td width="15%"><input type="checkbox" id="chkSGALL"
+								<tr bgcolor="#c0c0c0">
+									<td width="10%"><input type="checkbox" id="chkSGALL"
 										checked="checked" onclick="funCheckUncheckSubGroup()" />Select</td>
 									<td width="25%">Sub Group Code</td>
 									<td width="65%">Sub Group Name</td>
@@ -532,7 +534,7 @@
 						<table id="tblSubGroup" class="masterTable"
 							style="width: 100%; border-collapse: separate;">
 							<tbody>
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#fafbfb">
 									<td width="15%"></td>
 									<td width="25%"></td>
 									<td width="65%"></td>
@@ -541,26 +543,22 @@
 							</tbody>
 						</table>
 					</div>
-				</td>
-			</tr>
-		</table>
-		<br>
-		<table class="transTable">
-			<tr>
-				<td width="10%"><label>Report Type</label></td>
-				<td colspan="5"><s:select id="cmbDocType" path="strDocType"
-						cssClass="BoxW124px">
+				</div>
+	
+		       <div class="col-md-2"><label>Report Type</label>
+				  <s:select id="cmbDocType" path="strDocType" style="width:auto;">
 						<s:option value="PDF">PDF</s:option>
 						<s:option value="XLS">EXCEL</s:option>
 						<s:option value="HTML">HTML</s:option>
 						<s:option value="CSV">CSV</s:option>
-					</s:select></td>
-			</tr>
-		</table>
+					</s:select>
+			  </div>
+		  </div>
 		<br>
 		<p align="center">
-			<input type="submit" value="Submit" class="form_button"	onclick="return btnSubmit_Onclick();"/>
-			<input type="button" value="Reset" class="form_button" onclick="funResetFields()" />
+			<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="return btnSubmit_Onclick();"/>
+			 &nbsp;
+			<input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()" />
 		</p>
 		<s:input type="hidden" id="hidLocCodes" path="strToLocCode"></s:input>
 		<s:input type="hidden" id="hidSubCodes" path="strSGCode"></s:input>
@@ -571,5 +569,6 @@
 				width="60px" height="60px" />
 		</div>
 	</s:form>
+	</div>
 </body>
 </html>

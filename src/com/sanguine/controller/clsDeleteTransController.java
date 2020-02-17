@@ -226,7 +226,7 @@ public class clsDeleteTransController {
 		List listPay=null;
 		switch (formName) {
 		case "GRN(Good Receiving Note)":
-			double grandTotal=0.0;
+			double grandTotal=0.00;
 			flgTrans = true;
 			sbSql.setLength(0);
 			
@@ -240,11 +240,11 @@ public class clsDeleteTransController {
 			}else{
 				
 				sbSql.setLength(0);
-				sbSql.append("select dblTotal from clsGRNHdModel  where strGRNCode='"+objBean.getStrTransCode()+"'");
-				List listAmt= objBaseService.funGetListModuleWise(sbSql ,"hql",  "WebStocks");
+				sbSql.append("select round(dblTotal,2) from tblgrnhd  where strGRNCode='"+objBean.getStrTransCode()+"'");
+				List listAmt= objBaseService.funGetListModuleWise(sbSql ,"sql",  "WebStocks");
 				if(null!=listAmt && listAmt.size()>0)
 				{
-					grandTotal=(double) listAmt.get(0);
+					grandTotal=Double.parseDouble(listAmt.get(0).toString());
 				}
 				objGRN.funSaveAudit(objBean.getStrTransCode(), type, req);
 				sqlBuilder_UpdateHd.append(" clsGRNHdModel set dblSubTotal=0,dblDisRate=0,dblDisAmt=0,dblTaxAmt=0,dblExtra=0,dblTotal=0,"
@@ -503,6 +503,20 @@ public class clsDeleteTransController {
 					}
 					
 				}
+				String strDCcode="";
+				sbSql.setLength(0);
+				sbSql.append("select a.strDCCode from tbldeliverychallanhd a  where a.strSOCode='"+objBean.getStrTransCode()+"' ");
+				List listdel= objBaseService.funGetListModuleWise(sbSql ,"sql",  "WebStocks");
+				if(null!=listdel && listdel.size()>0)
+				{
+					for(int cnt=0;cnt<listdel.size();cnt++)
+					{
+						Object objData = (Object) listdel.get(cnt);
+						strDCcode=objData.toString();
+						
+					}
+					
+				}
 				objInvController.funSaveAudit(objBean.getStrTransCode(), type, req);
 				objDelTransService.funDeleteRecord("update tblinvoicehd a set a.dblTaxAmt=0,a.dblTotalAmt=0,a.dblSubTotalAmt=0 ,a.dblDiscount=0,a.dblDiscountAmt=0,a.dblGrandTotal=0,strNarration='"+narration+"',a.strSOCode='' where a.strInvCode='" + objBean.getStrTransCode() + "' and a.strClientCode='" + clientCode + "'", "sql");
 				objDelTransService.funDeleteRecord("delete from tblinvprodtaxdtl where strInvCode='" + objBean.getStrTransCode() + "' and strClientCode='" + clientCode + "'", "sql");
@@ -510,6 +524,9 @@ public class clsDeleteTransController {
 				objDelTransService.funDeleteRecord("delete from tblinvsettlementdtl where strInvCode='" + objBean.getStrTransCode() + "' and strClientCode='" + clientCode + "'", "sql");
 				objDelTransService.funDeleteRecord("delete from tblinvtaxdtl where strInvCode='" + objBean.getStrTransCode() + "' and strClientCode='" + clientCode + "'", "sql");
 				objDelTransService.funDeleteRecord("delete from tblinvoicedtl where strInvCode='" + objBean.getStrTransCode() + "' and strClientCode='" + clientCode + "'", "sql");
+				objDelTransService.funDeleteRecord("delete from tbldeliverychallandtl where strDCCode='"+strDCcode+"' and strClientCode='" + clientCode + "'", "sql");
+				objDelTransService.funDeleteRecord("update tbldeliverychallanhd a set a.strNarration='"+narration+"' where a.strDCCode='"+strDCcode+"' and a.strClientCode='" + clientCode + "'", "sql");
+				
 				
 				StringBuilder sqlSalsRet=new StringBuilder();
 				sqlSalsRet.append("select strSRCode from clsSalesReturnHdModel where strDCCode='"+objBean.getStrTransCode()+"' ");

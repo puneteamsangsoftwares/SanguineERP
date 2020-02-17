@@ -1,11 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-	<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
-	<%@ taglib uri="http://www.springframework.org/tags" prefix="sp"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title>Rate Contractor</title>
 <script type="text/javascript">
 
@@ -686,196 +695,172 @@
 
 <body onload="funOnload();">
 
-<div id="formHeading">
-		<label>Rate Contract</label>
-	</div>
+<div class="container">
+	<label id="formHeading">Rate Contract</label>
 	<s:form id="frmRateCont" name="rateContract" method="POST" action="saveRateCotract.html?saddr=${urlHits}">
 		<input type="hidden" value="${urlHits}" name="saddr">
 		<br>
-		<table style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
-				<tr>
-				<td>	
-		<div id="tab_container" style="height: 550px">
-							<ul class="tabs">
-								<li class="active" data-state="tab1" style="width: 100px;padding-left: 55px">General</li>
-								<li data-state="tab2"  style="width: 150px;padding-left: 55px">Terms & Conditions</li>
-							</ul>
+		<div>	
+			<div id="tab_container">
+				<ul class="tabs">
+					<li class="active" data-state="tab1">General</li>
+					<li data-state="tab2">Terms & Conditions</li>
+				</ul>
 							
-				<div id="tab1" class="tab_content" style="height: 450px" >
-				<table class="transTable">
-					
-					<tr>				    
-				        <th align="right" colspan="4"> <a id="baseUrl" href="#">Attach Documents</a>&nbsp; &nbsp; &nbsp; &nbsp; </th>
-				    </tr>
-						
-				    <tr>
-				        <td width="16%"><label id="lblRateContNo" >Rate Contract Code</label></td>
-				        <td width="16%"><s:input id="txtRateContractNo" path="strRateContNo" ondblclick="funHelp('ratecontno')"  cssClass="searchTextBox"/></td>
-				        
-				        <td  width="14%"><label id="lblRateContDate">Rate Contract Date</label></td>
-				        <td>
-				            <s:input id="txtRateContDate" required="required" path="dtRateContDate" pattern="\d{1,2}-\d{1,2}-\d{4}"  cssClass="calenderTextBox"/>
+				<div id="tab1" class="tab_content">
+					<div class="row transTable">
+						<!-- <a id="baseUrl" href="#">Attach Documents</a> -->
+				   		<div class="col-md-2">
+				   			<label id="lblRateContNo" >Rate Contract Code</label>
+				        	<s:input id="txtRateContractNo" path="strRateContNo" ondblclick="funHelp('ratecontno')" cssClass="searchTextBox"/>
+				        </div>
+				        <div class="col-md-2">
+				       		<label id="lblRateContDate">Rate Contract Date</label>
+				         	<s:input id="txtRateContDate" required="required" path="dtRateContDate" pattern="\d{1,2}-\d{1,2}-\d{4}"  cssClass="calenderTextBox" style="width:80%;"/>
 				        	<s:errors path="dtRateContDate"></s:errors>
-				        </td>
-				        
-				         <td width="16%"><label id="lblLikeRateContNo" >Like Rate Contract Code</label></td>
-				        <td width="16%"><s:input id="txtLikeRateContractNo" path="" ondblclick="funHelp('likeRatecontno')"  cssClass="searchTextBox"/></td>
-				        
-				        
-				    </tr>
-					    
-				    <tr>
-					    <td><label id="lblSuppCode" >Supplier Code</label></td>
-				        <td><s:input id="txtSupplierCode" required="required" path="strSuppCode" ondblclick="funHelp('suppcodeActive')"  cssClass="searchTextBox"/></td>
-					    <td colspan="4"><label for="strSuppName" id="txtSupplierName" class="namelabel" style="font-size: 12px;"></label></td>
-					</tr>
-					
-					<tr>
-					    <td><label id="lblFromDate">From Date</label></td>
-				        <td>
-				            <s:input id="txtFromDate" required="required" path="dtFromDate" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox"/>
+				        </div>
+				       	<div class="col-md-2">
+					        <label id="lblLikeRateContNo" >Like Rate Contract Code</label>
+				        	<s:input id="txtLikeRateContractNo" path="" ondblclick="funHelp('likeRatecontno')"  cssClass="searchTextBox"/>
+				       </div>
+				       <div class="col-md-2">
+				       		 <label id="lblSuppCode" >Supplier Code</label>
+				       		<s:input id="txtSupplierCode" required="required" path="strSuppCode" ondblclick="funHelp('suppcodeActive')"  cssClass="searchTextBox"/>
+				       </div>
+				       <div class="col-md-2">
+				       		<label for="strSuppName" id="txtSupplierName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:center;"></label>
+					   </div>
+					    <div class="col-md-2"></div>
+					   <div class="col-md-2">
+							<label id="lblFromDate">From Date</label>	
+				       		<s:input id="txtFromDate" required="required" path="dtFromDate" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" style="width:80%;"/>
 				        	<s:errors path="dtFromDate"></s:errors>
-				        </td>
-				        
-				        <td><label id="lblToDate">To Date</label></td>
-				        <td>
-				            <s:input id="txtToDate" required="required" path="dtToDate" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox"/>
+				       </div>
+				       <div class="col-md-2">
+				        	<label id="lblToDate">To Date</label>
+				     		<s:input id="txtToDate" required="required" path="dtToDate" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" style="width:80%;"/>
 				        	<s:errors path="dtToDate"></s:errors>
-				        </td>
-					</tr>
-					
-					<tr>
-					    <td><label id="lblDateChange">Date Change</label></td>
-				        <td>
-				            <s:select id="cmbDateChange" required="required" path="strDateChg" items="${dateChgList}"  cssClass="simpleTextBox"/>
-				        </td>
-				        
-				        <td><label id="lblCurrency">Currency</label></td>
-				        <td>
-				        	<s:select id="cmbCurrency" path="strCurrency" items="${currencyList}"  cssClass="simpleTextBox"/>
-				        </td>
-					</tr>
-					
-					<tr>
-					    <td><label id="lblProduct">All Products</label></td>
-				        <td colspan="4" align="left">
-				            <s:select id="cmbAllProduct" path="strProdFlag" items="${allProdList}"  cssClass="simpleTextBox"/>
-				        </td>
-					</tr>					
-				</table>
-					
-					<table class="transTableMiddle1">
-					<tr>
-					<td width="16%">Product Code</td>
-					<td  width="16%"><input id="txtProdCode"  ondblclick="funHelp('productmaster')" class="searchTextBox"></input></td>
-					<td  width="12%">Product Name</td>
-					<td width="28%"><label id="lblProdName" style="font-size: 12px;"></label></td>
-					<td  width="10%">POS Item Code</td>
-					<td  width="8%"><label id="lblPOSItemCode" class="namelabel"></label></td>
-					<td  width="5%">UOM</td>
-					<td width="5%"><label id="txtUOM" class="namelabel"></label></td>
-					</tr>
-					
-					<tr>
-					<td>Rate</td>
-					<td><input id="txtRate" type="text"  class="decimal-places-amt numberField"></input></td>
-					<td>Discount</td>
-					<td colspan="5"><input id="txtDiscount" type="text" value="0" class="decimal-places numberField"></input></td>
-					</tr>
-					
-					<tr>
-					<td>Narration</td>
-					<td><input id="txtNarration" style="width: 100%" class="simpleTextBox"></input></td>
-					<td colspan="6" align="left"><input id="btnAdd" type="button" value="Add"  class="smallButton" onclick="return  btnAdd_onclick();"></input></td>
-					</tr>
-					</table>
-					
+				      </div>
+				      <div class="col-md-2">
+							<label id="lblDateChange">Date Change</label>
+				       		<s:select id="cmbDateChange" required="required" path="strDateChg" items="${dateChgList}" style="width:50%;"/>
+				      </div>
+				      <div class="col-md-2">
+				       		<label id="lblCurrency">Currency</label>
+				       		<s:select id="cmbCurrency" path="strCurrency" items="${currencyList}" style="width:80%;"/>
+				       </div>
+				       <div class="col-md-2">
+				       		<label id="lblProduct">All Products</label>
+				   			<s:select id="cmbAllProduct" path="strProdFlag" items="${allProdList}" style="width:50%;"/>
+				      	</div>
+				      	<div class="col-md-2"></div>
+					 	<div class="col-md-2">
+							<label>Product Code</label>
+							<input id="txtProdCode"  ondblclick="funHelp('productmaster')" class="searchTextBox"></input>
+						</div>
+						<div class="col-md-2">
+							<label>Product Name</label><br>
+							<label id="lblProdName" style="background-color:#dcdada94; width: 100%; height: 52%;text-align: center;"></label>
+						</div>
+						<div class="col-md-2">
+							<label>POS Item Code</label>
+							<label id="lblPOSItemCode" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; text-align:   center;"
+							></label>
+						</div>
+						<div class="col-md-2">
+							<label>UOM</label>
+							<label id="txtUOM" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%;text-align:   center;"
+							></label>
+						</div>
+						<div class="col-md-2">
+							<label>Rate</label>
+							<input id="txtRate" type="text"  class="decimal-places-amt numberField"></input>
+						</div>
+						<div class="col-md-2"></div>
+						<div class="col-md-2">
+							<label>Discount</label>
+							<input id="txtDiscount" type="text" value="0" class="decimal-places numberField"></input>
+						</div>
+						<div class="col-md-2">
+							<label>Narration</label>
+							<input id="txtNarration" type="text" ></input>
+						</div>
+						<div class="col-md-2">
+							<input id="btnAdd" type="button" value="Add" class="btn btn-primary center-block" style="margin-top:20px;" onclick="return  btnAdd_onclick();"></input>
+						</div>
+					</div>
+					<br>
 						<div class="dynamicTableContainer" style="height: 260px">
-						<table  style="height:20px;border:#0F0;width:100%;font-size:11px;
-			font-weight: bold;">	
-		
-							<tr bgcolor="#72BEFC" >
-							<td width="4%">Product Code</td><!--  COl1   -->
-							<td width="18%">Product Name</td><!--  COl2   -->
-							<td width="5%">POS Item Code</td><!--  COl3   -->
-							<td width="3%">UOM</td><!--  COl4   -->
-							<td width="3%">Rate</td><!--  COl5   -->
-							<td width="2%">Discount</td><!--  COl6   -->
-							<td width="15%">Narration</td><!--  COl7   -->		
-							<td width="5%">Delete</td><!--  COl9   -->
-		
-							</tr>
-						</table>
-							<div style="background-color:  	#a4d7ff;
-					    border: 1px solid #ccc;
-					    display: block;
-					    height: 210px;
-					    margin: auto;
-					    overflow-x: hidden;
-					    overflow-y: scroll;
-					    width: 99.8%;">
-					   <table id="tblProduct" style="width:100%;border:
-						#0F0;table-layout:fixed;overflow:scroll" class="transTablex col8-center">
-							<tbody>    
-							<col style="width:4%"><!--  COl1   -->
-							<col style="width:18%"><!--  COl2   -->
-							<col style="width:5%"><!--  COl3   -->
-							<col style="width:3%"><!--  COl4   -->
-							<col style="width:3%"><!--  COl5   -->
-							<col style="width:3.5%"><!--  COl6   -->
-							<col style="width:15%"><!--  COl7   -->	
-							<col style="width:4%"><!--  COl9   -->
-					</tbody>
-		</table>
-					   
-					    </div>
-    				</div>
-				</div>
-				
-				<!--    -->			
-								
+							<table style="height:20px;border:#0F0;width:100%;font-size:11px; font-weight: bold;">	
+								<tr bgcolor="#c0c0c0" >
+									<td width="4%">Product Code</td><!--  COl1   -->
+									<td width="18%">Product Name</td><!--  COl2   -->
+									<td width="5%">POS Item Code</td><!--  COl3   -->
+									<td width="3%">UOM</td><!--  COl4   -->
+									<td width="3%">Rate</td><!--  COl5   -->
+									<td width="2%">Discount</td><!--  COl6   -->
+									<td width="15%">Narration</td><!--  COl7   -->		
+									<td width="5%">Delete</td><!--  COl9   -->
+								</tr>
+							</table>
+							<div style="background-color:#fbfafa; border: 1px solid #ccc;display: block; height: 210px; margin: auto; overflow-x: hidden;overflow-y: scroll;width: 99.8%;">
+							   <table id="tblProduct" style="width:100%;border: #0F0; table-layout:fixed; overflow:scroll" class="transTablex col8-center">
+									<tbody>    
+										<col style="width:4%"><!--  COl1   -->
+										<col style="width:18%"><!--  COl2   -->
+										<col style="width:5%"><!--  COl3   -->
+										<col style="width:3%"><!--  COl4   -->
+										<col style="width:3%"><!--  COl5   -->
+										<col style="width:3.5%"><!--  COl6   -->
+										<col style="width:15%"><!--  COl7   -->	
+										<col style="width:4%"><!--  COl9   -->
+									</tbody>
+								</table>
+					   	 	</div>
+    					</div>
+					</div>
+				<!--    -->		
 				<div id="tab2" class="tab_content">
-				
-					<table class="transTableMiddle">
-						<tr>
-							<td> <label class="namelabel">TC Code</label> </td>
-							<td><input id="txtTCCode" ondblclick="funHelp('tcForSetup')" class="searchTextBox" /></td>									
-							<td> <label id="lblTCName" class="namelabel"></label> </td>
-							<td> <label class="namelabel">TC Description</label> </td>
-							<td><input id="txtTCDesc" class="longTextBox" /></td>
-							<td colspan="3"><input type="Button" value="Add" id="btnAddTC" class="smallButton" /></td>
-						</tr>
-					</table>
-						
+					<div class="row transTable">
+						<div class="col-md-2">
+							<label class="namelabel">TC Code</label> 
+							<input id="txtTCCode" ondblclick="funHelp('tcForSetup')" class="searchTextBox" />
+						</div>
+						<div class="col-md-2">
+							<label id="lblTCName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+							></label>
+						</div>
+						<div class="col-md-2">
+							<label class="namelabel">TC Description</label> 
+							<input id="txtTCDesc" type="text" />
+						</div>
+						<div class="col-md-2">
+							<input type="Button" value="Add" id="btnAddTC" class="btn btn-primary center-block" style="margin-top:20px;" />
+						</div>
+					</div><br>
 					<table class="transTable" id="tblTermsAndCondColumns">
 						<tr>
-							<td width="40%">TC Name</td>
+							<td width="20%">TC Name</td>
 							<td width="80%">TC Description</td>
 						</tr>
 					</table>
-				
 					<table border="1" class="myTable" style="font-size:11px;
-						font-weight: bold;" id="tblTermsAndCond">
-						
+							font-weight: bold;" id="tblTermsAndCond">
 					</table>
-				</div>			
-							
-							
-		</div>
-		</td>
-		</tr>
-		</table>
-		
-		<br>
-		<p align="center">
-			<input type="submit" value="Submit" id="btnSubmit" onclick="return funCallFormAction('submit',this);" class="form_button" />
-		    <input type="button" value="Reset" onclick="funResetFields()" class="form_button" />
-		</p>
-		<br><br>
-		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
-				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+				</div>	
 			</div>
+		</div>
+	<br>
+		<div class="center" style="text-align:center">
+			<a href="#"><button class="btn btn-primary center-block" id="btnSubmit" value="Submit" onclick="return funCallFormAction('submit',this)">Submit</button></a>&nbsp
+			<a href="#"><button class="btn btn-primary center-block"  value="Reset" onclick="funResetFields();">Reset</button></a>
+		</div>
+		
+		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
+			<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+		</div>
 	</s:form>
+</div>
 	<script type="text/javascript">funApplyNumberValidation();</script>
 </body>
 </html>

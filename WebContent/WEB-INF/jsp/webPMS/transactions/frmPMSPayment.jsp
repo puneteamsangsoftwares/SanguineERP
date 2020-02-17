@@ -1,23 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
-	var fieldName,settlementType="";
-	var clickCount=0.0;
+	var fieldName,settlementType="",gstrIndustryType;
 	
 	$(function() 
 	{
-		var pmsDate='2019-05-05'; <%-- '<%=session.getAttribute("PMSDate").toString()%>'; --%>
+		var pmsDate='2019-11-11';
+		<%-- '<%=session.getAttribute("PMSDate").toString()%>'; --%>
 		
+		 <%-- '<%=session.getAttribute("PMSDate").toString()%>'; --%>
+		 
 		$("#txtExpiryDate").datepicker({ dateFormat: 'dd-mm-yy' });
 		$("#txtExpiryDate").datepicker('setDate', pmsDate);		
 		
-		 var pmsDate='2019-05-05';<%-- '<%=session.getAttribute("PMSDate").toString()%>'; --%>
 		  var dte=pmsDate.split("-");
 		  $("#txtPMSDate").val(dte[2]+"-"+dte[1]+"-"+dte[0]);
 		  
@@ -37,12 +47,41 @@
 			  
 		  }
 		  
-		  var strIndustryType='<%=session.getAttribute("selectedModuleName").toString()%>';
-	   		if(strIndustryType=='7-WebBanquet') 
+		<%--   var strIndustryType='';
+		  gstrIndustryType=strIndustryType;
+		  if(strIndustryType=='7-WebBanquet') 
 	   		{
 	   			$('#trGuest').hide();
 	   			
 	   		}
+	   		
+	   		var bookingNo='<%=session.getAttribute("BookingNo").toString()%>';
+	   		var obookingNo='<%=session.getAttribute("OBookingNo").toString()%>';	   		
+	   		var invoiceCode='<%=session.getAttribute("invoiceCode").toString()%>';
+	   		var date='<%=session.getAttribute("date").toString()%>';			   		
+	   		if(invoiceCode!=''&&bookingNo!='')
+	   		{
+	   		 $("#txtDocCode").val(invoiceCode);				
+	   		 $("#cmbAgainst").val('Invoice');
+	   		 funSetPaymentGuestInvoiceCodeData(bookingNo,"Booking");  
+	   		 <%session.removeAttribute("BookingNo");%>	
+			 <%session.removeAttribute("invoiceCode");%>
+	   		}
+	   		else if(obookingNo!='')
+	   		{
+		   		$("#txtDocCode").val(invoiceCode);
+				funSetPaymentGuestData(obookingNo,"Booking");
+				<%session.removeAttribute("OBookingNo");%>	
+	   		}
+			else
+			{				
+				$("#txtDocCode").val("");
+				<%session.removeAttribute("BookingNo");%>					 
+				<%session.removeAttribute("invoiceCode");%>
+				<%session.removeAttribute("date");%>
+			} 
+	   		 --%>
+	   		
 		  
 	});
 
@@ -83,12 +122,54 @@
 				funSetGuestCode(code);
 				break;
 				
-			case 'BillForBanquet' : 
-				funSetPaymentGuestData(code,"Banquet");
+			case 'BillForBooking' : 
+				funSetPaymentGuestData(code,"Booking");
+				break;
+				
+			case 'proformaInvoice' : 
+				funSetInvoiceData(code);
 				break;
 		}
 	}
 
+	function funSetInvoiceData(code)
+	{
+		gurl=getContextPath()+"/loadProFormaInvoiceHdData.html?invCode="+code;
+		$.ajax({
+	        type: "GET",
+	        url: gurl,
+	        dataType: "json",
+	        success: function(response)
+	        {		        	
+	        		if(null == response.strInvCode){
+	        			alert("Invalid  Invoice Code");
+	        			$("#txtDocCode").val('');
+	        			$("#txtDocCode").focus();	        			
+	        		}else{		        			
+	        			$('#txtDocCode').val(code);
+	        			$('#txtReceiptAmt').val(response.dblGrandTotal);
+	        		}
+			},
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
+      });
+	}
+	
 	function funSetGuestCode(code){
 		
 		$.ajax({
@@ -126,8 +207,7 @@
 		$("#txtCreditName").val(obj.strGuestCode);
 		$("#txtCredit").val(obj.strFirstName);
 	
-	}
-	
+	}	
 	
 	function funSetReceiptData(code){
 
@@ -187,7 +267,7 @@
 	}
 	
 	
-//set PaymentGuestDetails Data
+	//set PaymentGuestDetails Data
 	function funSetPaymentGuestData(code,type)
 	{
 		var searchUrl=getContextPath()+"/loadPaymentGuestDetails.html?docCode="+code+ "&docName=" + type;
@@ -234,6 +314,53 @@
 		});
 	}
 
+	
+	//set PaymentGuestDetails redirected from diary
+	function funSetPaymentGuestInvoiceCodeData(code,type)
+	{
+		var searchUrl=getContextPath()+"/loadPaymentGuestDetails.html?docCode="+code+ "&docName=" + type;
+		$.ajax({
+			
+			url:searchUrl,
+			type :"GET",
+			dataType: "json",
+	        success: function(response)
+	        {
+	        	if(response.strRoomCode=='Invalid Code')
+	        	{
+	        		alert("Invalid Doc Code");
+	        		$("#txtDocCode").val('');
+	        	}
+	        	else
+	        	{
+	        		
+	        		$("#lblGuestName").text("Guest Name");
+	        		$("#lblGuestFullName").text(response[0].strFirstName+" "+response[0].strMiddleName+" "+response[0].strLastName);
+	        		$( "#txtReceiptAmt" ).focus();
+	        		$( "#lblBalnceAmount").text(response[0].dblBalanceAmount);
+	        		 $("#txtReceiptAmt").val(response[0].dblBalanceAmount);
+	        	}
+			},
+			error: function(jqXHR, exception) 
+			{
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }
+	        }
+		});
+	}
 	
 	function funSetBillNo(code)
 	{
@@ -289,7 +416,6 @@
 		});
 	}
 	
-	
 	//Open Against Form
 	function funOpenAgainst() {
 		if ($("#cmbAgainst").val() == "Reservation")
@@ -316,12 +442,16 @@
 		else if ($("#cmbAgainst").val() == "Banquet")
 		{
 			funHelp("BillForBanquet");
-			fieldName = "BillForBanquet";
+			fieldName = "BillForBooking";
+		}
+		else if ($("#cmbAgainst").val() == "Invoice")
+		{
+			funHelp("proformaInvoice");
+			fieldName = "proformaInvoice";
 		}
 		
 	}
 	
-
 	function funSetReceiptInfo(response)
 	{
 		$("#txtReceiptNo").val(response.strReceiptNo);
@@ -351,8 +481,6 @@
 		
 	}
 	
-	
-
 	function funHelp(transactionName)
 	{
 		fieldName=transactionName;
@@ -360,8 +488,6 @@
 		//window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;");
 	}
 	
-
-
 /**
 * Success Message After Saving Record
 **/
@@ -423,14 +549,8 @@
 		
 	});
  	
- 	
- 	
- 	
 	function funValidateFields(actionName,object)
 	{
-		
-		if(clickCount==0){
-			clickCount=clickCount+1;
 		var flg=true;
 		
 		if($("#txtSettlementCode").val().trim().length==0)
@@ -450,11 +570,15 @@
 		
 		if(settlementType=="Credit")
 		{
-			if($("#txtCreditName").val().trim().length==0)
-			{
-				alert("Please Enter Credit Name !!");
-				 flg=false;
-			}
+			if(gstrIndustryType!='7-WebBanquet')
+				{
+				if($("#txtCreditName").val().trim().length==0)
+				{
+					alert("Please Enter Credit Name !!");
+					 flg=false;
+				}
+				}
+			
 		}
 		
 		if(parseFloat($("#lblBalnceAmount").text())>='0.0')
@@ -474,17 +598,11 @@
 		}
 		else
 		{
-			alert("Please Enter Amount");
-			 flg=false;
+			//alert("Please Enter Amount");
+			 //flg=false;
 		}	
-		
-		
+	
 		return flg;
-		}
-		else
-		{
-			return false;
-		}
 	}
 	
 function funCreateNewGuest(){
@@ -492,130 +610,94 @@ function funCreateNewGuest(){
 		window.open("frmGuestMaster.html", "myhelp", "scrollbars=1,width=500,height=350");
 <%-- 		var GuestDetails='<%=session.getAttribute("GuestDetails").toString()%>'; --%>
 // 		var guest=GuestDetails.split("#");
-		
 	}
-	
-	
-	
-	
-
 </script>
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Payment</label>
-	</div>
-
-<br/>
-<br/>
-
-<s:form name="Payment" method="GET" action="savePMSPayment.html">
+  <div class="container masterTable">
+	<label id="formHeading">Payment</label>
+	  <s:form name="Payment" method="GET" action="savePMSPayment.html">
 	
-	<table class="masterTable">
-	
-		<tr>
-			<td>Payment Receipt No</td>
+	   <div class="row">
+            <div class="col-md-2"><label>Payment Receipt No</label>
+		            <s:input id="txtReceiptNo" path="strReceiptNo" readonly="readonly" ondblclick="funHelp('receiptNo');" style="height: 45%;" class="searchTextBox"></s:input>
+			</div>
 		
-			<td>
-				<s:input id="txtReceiptNo" path="strReceiptNo" readonly="readonly" ondblclick="funHelp('receiptNo');" class="searchTextBox"></s:input>
-			</td>
-			<td colspan="3"></td>
-		</tr>
-		
-	   	<tr>
-			<td>Against</td>
-			
-			<td>
-				<s:select id="cmbAgainst" items="${listAgainst}" name="cmbAgainst"  cssClass="BoxW124px" path="strAgainst"></s:select>
-			</td>
-			
-			<td><s:input id="txtDocCode" path="strDocNo" readonly="readonly" ondblclick="funOpenAgainst()" class="searchTextBox"></s:input></td>
-		    	<td colspan="2"></td>
-		</tr>
+	   	    <div class="col-md-3"><label>Against</label>
+	   	       <div class="row">
+			     <div class="col-md-6"><s:select id="cmbAgainst" items="${listAgainst}" name="cmbAgainst" path="strAgainst"></s:select></div>
+			     <div class="col-md-6"><s:input id="txtDocCode" path="strDocNo" readonly="readonly" ondblclick="funOpenAgainst()" style="height: 95%;" class="searchTextBox" ></s:input></div>
+		    </div></div>
 		  
-	  	<tr>
-	      	<td colspan="1"><label id="lblGuestName"></label></td>
-		   	<td colspan="2" ><label id="lblGuestFullName"></label></td>	
-		   	<td colspan="2"></td>
-	  	</tr>
-
-		<tr>
-			<td><label>Amount</label></td>
-			
-			<td><s:input colspan="3" style="text-align: right;width: 118px;" id="txtReceiptAmt" path="dblReceiptAmt" cssClass="longTextBox" /></td>
-			<td><label>Balance Amount</label></td>
-			<td><label id="lblBalnceAmount" readonly="readonly"></label></td>
-			
-		</tr>
-		
-		
+	  	    <div class="col-md-2"><label id="lblGuestName"></label>
+		          <label id="lblGuestFullName" style="background-color:#dcdada94; width: 100%; height: 42%;margin-top: 20px;"></label>
+		    </div>
+            
+            <div class="col-md-5"></div>
+            
+		    <div class="col-md-1"><label>Amount</label>
+			     <s:input style="" id="txtReceiptAmt" path="dblReceiptAmt"/>
+			</div>
+			 
+		    <div class="col-md-2"><label> Balance Amount</label><br>
+			      <label id="lblBalnceAmount" readonly="readonly" style="background-color:#dcdada94; width: 100%; height: 42%;"></label>
+			</div>
+	
 			<%-- <tr>
 			<td>Settlement Type</td>
 			
 			<td>
-				<s:select id="cmbAgainst" items="${listSettlement}" name="cmbSettlementType"  cssClass="BoxW124px" path=""></s:select>
+				<s:select id="cmbAgainst" items="${listSettlement}" name="cmbSettlementType" path=""></s:select>
 			</td>
 		    </tr> --%>
 		   
-						
-		<tr>
-			<td width="15%"><label>Settlement Code</label></td>
-			
-			<td>
-				<s:input colspan="3" type="text" id="txtSettlementCode" path="strSettlementCode" cssClass="searchTextBox" ondblclick="funHelp('settlementCode');"/>
+			<div class="col-md-2"><label>Settlement Code</label>
+			      <s:input type="text" id="txtSettlementCode" path="strSettlementCode" style="height: 45%;" cssClass="searchTextBox" ondblclick="funHelp('settlementCode'); "/>
 				<%-- onselect="funSelect();" --%>
-			</td>
+			</div>
 				  
-			<td><label>Settlement Desc</label></td>
-			
-			<td><s:input colspan="3" type="text" id="txtSettlementDesc" path="strSettlementDesc" cssClass="longTextBox" /></td>
-		</tr>
-			
-		<tr>
-			
-			<td id="lblCardOrCheck"><label>Card No</label></td>
-			<td><s:input colspan="3" type="text" id="txtCardNo" path="strCardNo" cssClass="longTextBox" /></td>
-			
-			<td><label>Expiry Date</label></td>
-			
-			<td><s:input colspan="3" type="text" id="txtExpiryDate" path="dteExpiryDate" cssClass="calenderTextBox" /></td>
-		</tr>
+			<div class="col-md-2"><label>Settlement Desc</label>
+			      <s:input type="text" id="txtSettlementDesc" path="strSettlementDesc"/>
+		    </div>
 		
-		<tr>
-			<td><label>Remark</label></td>
-			    
-			<td><s:input colspan="3" type="text" id="txtRemarks" path="strRemarks" cssClass="longTextBox" /></td>
-			<td colspan="3"></td>
-		</tr>
-		
-		<tr id="trGuest">
-			<td>Credit Name</td>
-		
-			<td>
-				<s:input id="txtCreditName" path="strCustomerCode" readonly="readonly" ondblclick="funHelp('guestCode');" class="searchTextBox"></s:input>
-			</td>
-			<td>
-			<s:input id="txtCredit"  path="" readonly="true" cssClass="longTextBox" ></s:input>
-			</td>
-			<td>
-					<input type="Button" value="New Guest" onclick="return funCreateNewGuest()" class="form_button" />
-					</td>
-			<td colspan="3"></td>
-		</tr>
-		
-		
-		
-	</table>
-
+		    <div class="col-md-5"></div>
+		    
+			<div class="col-md-3">
+	   	       <div class="row">
+			     <div class="col-md-6" id="lblCardOrCheck"><label>Card No</label>
+			        <s:input type="text" id="txtCardNo" path="strCardNo"/>
+			     </div>
+			     <div class="col-md-6"><label>Expiry Date</label>
+			        <s:input type="text" id="txtExpiryDate" path="dteExpiryDate" cssClass="calenderTextBox" />
+		         </div>
+		   </div></div>
+		   
+		    <div class="col-md-4">
+	   	       <div class="row"><div class="col-md-6" id="trGuest"><label>Credit Name</label>
+		          <s:input id="txtCreditName" path="strCustomerCode" readonly="readonly" ondblclick="funHelp('guestCode');" style="height: 45%;" class="searchTextBox"></s:input>
+			</div>
+			<div class="col-md-6"><s:input id="txtCredit"  path="" readonly="true" style="margin-top: 27px;"></s:input>
+			</div>
+	       </div></div>
+            <div class="col-md-5"></div>
+            
+		    <div class="col-md-2"><label>Remark</label>
+			       <s:input type="text" id="txtRemarks" path="strRemarks"/>
+		    </div>
+		      
+           <div class="col-md-1">
+                   <input type="Button" value="New Guest" onclick="return funCreateNewGuest()" class="btn btn-primary center-block" class="form_button" style="margin-top: 25px;"/>
+            </div>
+        </div>
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateFields('submit',this)" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right:-2%">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateFields('submit',this)" />
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
        <s:input type="hidden"  id="flagForAdvAmt" path="strFlagOfAdvAmt" value="N" name="saddr" />
 	</s:form>
+	</div>
 </body>
 </html>

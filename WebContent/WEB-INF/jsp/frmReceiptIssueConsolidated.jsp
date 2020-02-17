@@ -1,12 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Receipt Issue Consolidated</title>
+ <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 </head>
 <script type="text/javascript">
 	/**
@@ -148,50 +156,48 @@
 		}
      </script>
 <body>
-<div id="formHeading">
-		<label>Receipt Issue Consolidated</label>
-	</div>
-<s:form name="frmReceiptIssueConsolidated" method="POST" action="rptReceiptIssueConsolidated.html" target="_blank">
-	   		<br />
-	   		<table class="masterTable">
-			    <tr>
-					<td width="10%"><label>From Date :</label></td>
-					<td colspan="1" width="10%"><s:input id="txtFromDate" path="dtFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
-					<td width="10%"><label>To Date :</label></td>
-					<td colspan="1"><s:input id="txtToDate" path="dtToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</td>	
-				</tr>
-				<tr>
-					<td width="10%">Property Code</td>
-					<td width="20%">
-						<s:select id="cmbProperty" name="propCode" path="strPropertyCode" cssClass="longTextBox" cssStyle="width:100%" onchange="funChangeLocationCombo();">
-			    			<s:options items="${listProperty}"/>
+<div class="container masterTable">
+	  <label id="formHeading">Receipt Issue Consolidated</label>
+       <s:form name="frmReceiptIssueConsolidated" method="POST" action="rptReceiptIssueConsolidated.html" target="_blank">
+	       <div class="row">
+			     <div class="col-md-2"><label>From Date :</label>
+					   <s:input id="txtFromDate" path="dtFromDate" required="true" readonly="readonly"  style="width:70%" cssClass="calenderTextBox"/>
+			    </div>
+			
+				<div class="col-md-2"><label>To Date :</label>
+					  <s:input id="txtToDate" path="dtToDate" required="true" readonly="readonly"  style="width:70%" cssClass="calenderTextBox"/>
+			    </div>
+		         <div class="col-md-8"></div>
+		         
+				<div class="col-md-2"><label>Property Code</label>
+					    <s:select id="cmbProperty" name="propCode" path="strPropertyCode"  style="width:auto;" onchange="funChangeLocationCombo();">
+			    			<s:options items="${listProperty}" />
 			    		</s:select>
-					</td>
+				</div>
 						
-					<td width="5%"><label>Location</label></td>
-					<td colspan="2">
+				<div class="col-md-2"><label>Location</label>
 					<s:input id="txtLocCode" path="strLocationCode" required="required" value="${locationCode}"
 				     ondblclick="funHelp('PropertyWiseLocation')" cssClass="searchTextBox"/>
-				      <label id="lblLocName" ></label>
-					</td>
-				</tr>
-			<tr>
-				<td width="10%"><label>Report Type</label></td>
-				<td colspan="3"><s:select id="cmbDocType" path="strDocType"
-						cssClass="BoxW124px">
+				</div>
+				
+				<div class="col-md-2"><label id="lblLocName" style="background-color:#dcdada94; width: 100%; height:51%;margin-top: 27px;padding:4px;"></label></div>
+			    <div class="col-md-6"></div>
+			    
+			    <div class="col-md-2"><label>Report Type</label>
+				    <s:select id="cmbDocType" path="strDocType" style="width:auto;">
 						<s:option value="PDF">PDF</s:option>
 						<s:option value="XLS">EXCEL</s:option>
 						<s:option value="HTML">HTML</s:option>
 						<s:option value="CSV">CSV</s:option>
-					</s:select></td>
-			</tr>
-			
-		</table>
+					</s:select>
+			    </div>
+		     </div>
+		
 			<br>
-			<p align="center">
-				 <input type="button" value="Submit" class="form_button" onclick="return btnSubmit_Onclick();"/>
-				 <input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>			     
+			<p align="center" style="margin-right: 15%;">
+				 <input type="button" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="return btnSubmit_Onclick();"/>
+				 &nbsp;
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>			     
 			</p>
 		<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
@@ -200,5 +206,6 @@
 				width="60px" height="60px" />
 		</div>
 		</s:form>
+	</div>
 </body>
 </html>

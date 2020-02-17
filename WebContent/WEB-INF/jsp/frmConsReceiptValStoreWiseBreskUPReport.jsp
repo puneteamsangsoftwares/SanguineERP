@@ -1,18 +1,30 @@
- <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Consolidated Receipt value Store Wise BreakUP</title>
-     <style>
-   #tblloc tr:hover{
-	background-color: #72BEFC;
-	
-}
-</style>
+    
+      <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+    
+   <style>
+       #tblloc tr:hover{
+	   background-color: #c0c0c0;
+       }
+       .transTable td {
+    padding-left: 25px;
+     }
+   </style>
     <script type="text/javascript">
     
   //Ajax Wait Image display
@@ -47,9 +59,9 @@
 	    	   var startDate="${startDate}";
 				var arr = startDate.split("/");
 				Dat=arr[0]+"-"+arr[1]+"-"+arr[2];
-	    	  
+				var startDateOfMonth="${startDateOfMonth}";
     			$( "#txtFromDate" ).datepicker({ dateFormat: 'dd-mm-yy' });		
-    			$("#txtFromDate" ).datepicker('setDate', Dat); 
+    			$("#txtFromDate" ).datepicker('setDate', startDateOfMonth); 
     			
     			$( "#txtToDate" ).datepicker({ dateFormat: 'dd-mm-yy' });		
     			$("#txtToDate" ).datepicker('setDate', 'today'); 
@@ -84,8 +96,11 @@
       //Get and set All Location on the basis of all Property
       function funSetAllLocationAllPrpoerty() {
 			var searchUrl = "";
-			searchUrl = getContextPath()
-					+ "/loadAllLocationForAllProperty.html";
+			//searchUrl = getContextPath()
+				//	+ "/loadAllLocationForAllProperty.html";  
+			var property="${propertyCode}";
+				searchUrl = getContextPath()
+					+ "/loadLocationForProperty.html?propCode="+property;
 			$.ajax({
 				type : "GET",
 				url : searchUrl,
@@ -106,7 +121,8 @@
 					{
 						$.each(response, function(i,item)
 						 		{
-							funfillLocationGrid(response[i].strLocCode,response[i].strLocName);
+							//funfillLocationGrid(response[i].strLocCode,response[i].strLocName);
+							funfillLocationGrid(response[i][1],response[i][0]);
 								});
 						
 					}
@@ -283,38 +299,34 @@
   </head>
   	
 	<body>
-	<div id="formHeading">
-		<label>Consolidated Receipt value Store Wise BreakUP</label>
-	</div>
-		<s:form name="frmConsReceiptValStoreWiseBreskUPReport" method="POST" action="rptConsReceiptValStoreWiseBreskUPReport.html" target="_blank" >
+	<div  class="container transTable">
+		<label id="formHeading">Consolidated Receipt value Store Wise BreakUP</label>
+	    <s:form name="frmConsReceiptValStoreWiseBreskUPReport" method="POST" action="rptConsReceiptValStoreWiseBreskUPReport.html" target="_blank" >
 	   		<br />
-	   		<table class="transTable">
-			    <tr>
-					<td width="10%"><label>From Date :</label></td>
-					<td width="10%" colspan="1"><s:input id="txtFromDate" path="dtFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
-					<td width="10%"><label>To Date :</label></td>
-					<td colspan="1"><s:input id="txtToDate" path="dtToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</td>	
-				</tr>
-			    </table>
-			    
-			    <br>
-			<table id="" class="transTable" >
-				<tr><td colspan="5">Location&nbsp;&nbsp;&nbsp;
-				<input type="text" id="txtToLocCode" 
-					ondblclick="funHelp('locationmaster')" Class="searchTextBox" placeholder="Type to search"
-					style="width: 25%;background-position: 240px 2px;"  ></input>
-					<label id="lblToLocName"></label>
-				</td></tr>
-			</table>
+	   	<div class="row">	
+		    <div class="col-md-2"><label>From Date :</label>
+					<s:input id="txtFromDate" path="dtFromDate" required="true" readonly="readonly" cssClass="calenderTextBox" style="width: 70%;"/>
+			</div>
+			<div class="col-md-2"><label>To Date :</label>
+					<s:input id="txtToDate" path="dtToDate" required="true" readonly="readonly" cssClass="calenderTextBox" style="width: 70%;"/>
+			</div>	
+		</div>
+	
+		<br>
+		<div class="col-md-2"><label>Location</label>
+			<input type="text" id="txtToLocCode" ondblclick="funHelp('locationmaster')" Class="searchTextBox" placeholder="Type to search"
+					style="width:105%;background-position: 240px 2px;"  ></input>
+			<label id="lblToLocName"></label>
+		</div>
+		<br>
 		<div
-			style="background-color: #a4d7ff; width: 95%; margin-left: 28px; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll;">
+			style="background-color: #fafbfb; width: 95%; margin-left: 28px; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll;">
 			
 			<table id="" class="masterTable"
 				style="width: 100%; border-collapse: separate;">
 				<tbody>
 				
-					<tr bgcolor="#72BEFC"> 
+					<tr bgcolor="#c0c0c0"> 
 						<td width="6%"><input type="checkbox" id="chkLocALL" checked="checked"
 							/>Select</td>
 						<td width="25%">Location Code</td>
@@ -326,7 +338,7 @@
 			<table id="tblloc" class="masterTable"
 				style="width: 100%; border-collapse: separate;">
 
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#fafbfb">
 					<td width="6%"></td>
 					<td width="23%"></td>
 					<td width="65%"></td>
@@ -335,24 +347,23 @@
 			</table>
 		</div>
 		<br>
-			    <table class="transTable">
-			    <tr>
-					<td width="10%"><label>Report Type :</label></td>
-					<td colspan="3">
-						<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+		 <div class="row">	
+		    <div class="col-md-2"><label>Report Type :</label>
+					<s:select id="cmbDocType" path="strDocType" style="width:auto;">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
 				    		<s:option value="HTML">HTML</s:option>
 				    		<s:option value="CSV">CSV</s:option>
-				    	</s:select>
-					</td>
-				</tr>
-			</table>
+				    </s:select>
+			 </div>
+		 </div>
+	
 			<br>
 			<s:input type="hidden" id="hidLocCodes" path="strFromLocCode"></s:input>
 			<p align="center">
-				 <input type="button" value="Submit" onclick="return formSubmit();" class="form_button" />
-				 <input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>			     
+				 <input type="button" value="Submit" onclick="return formSubmit();" class="btn btn-primary center-block" class="form_button" />
+				 &nbsp;
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>			     
 			</p>
 			<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
@@ -361,5 +372,6 @@
 				width="60px" height="60px" />
 		</div>
 		</s:form>
+		</div>
 	</body>
 </html>

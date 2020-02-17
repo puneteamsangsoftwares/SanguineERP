@@ -22,12 +22,12 @@ public class clsDepartmentMasterDaoImpl implements clsDepartmentMasterDao {
 	@Autowired
 	private SessionFactory webPMSSessionFactory;
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public void funAddUpdateDeptMaster(clsDepartmentMasterModel objDeptMasterModel) {
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objDeptMasterModel);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false,value="WebPMSTransactionManager" )
 	@Override
 	public List funGetDepartmentMaster(String deptCode, String clientCode) {
 		List list = null;

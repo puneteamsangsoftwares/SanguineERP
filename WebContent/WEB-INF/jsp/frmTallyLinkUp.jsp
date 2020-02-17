@@ -1,10 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <title></title>
 <script type="text/javascript">
 	var fieldName;
@@ -166,31 +176,24 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Tally Link Up</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="TallyLinkUp" method="POST" action="saveTallyLinkUp.html">
-
-		<table class="masterTable">
+	<div class="container">
+		<label id="formHeading">Tally Link Up</label>
+		<s:form name="TallyLinkUp" method="POST" action="saveTallyLinkUp.html">
 		
-		<tr>
-			<td><lable>Link up</lable> </td>
-			<td colspan="3">	<s:select id="cmbLinkup" path="strLinkup" cssClass="BoxW124px" onchange="funLinkupData(this.value)">
-				    		<s:option value="Supplier">Supplier</s:option>
-				    		<s:option value="Tax">Tax</s:option>
-				    		<s:option value="Customer">Customer</s:option>
-				    		<s:option value="SubGroup">SubGroup</s:option>
-				    	</s:select>
-					</td>
-		</tr>
-		
-		
-			<tr bgcolor="#72BEFC">
+		<div class="row masterTable">
+			<div class="col-md-2">
+				<label>Link up</lable>
+				<s:select id="cmbLinkup" path="strLinkup" onchange="funLinkupData(this.value)">
+				    <s:option value="Supplier">Supplier</s:option>
+				    <s:option value="Tax">Tax</s:option>
+				    <s:option value="Customer">Customer</s:option>
+				    <s:option value="SubGroup">SubGroup</s:option>
+				 </s:select>
+			</div>	
+		</div>
+		<br>
+		<table class="masterTable" style="width:100%;">
+			<tr bgcolor="#c0c0c0">
 				<td>
 					<label>Group/Tax Code</label>
 				</td>
@@ -209,7 +212,7 @@
 			</tr>
 		</table>
 
-		<table class="masterTable" style="height: 100%; text-align: center; border: 1px solid black; font-size: 11px; font-weight: bold;">
+		<table class="masterTable" style=" width:100%; height: 100%; text-align: center; border: 1px solid black; font-size: 11px; font-weight: bold;">
 			<tr>
 				<td>
 					<table  id="tblTermsAndCond">
@@ -245,17 +248,13 @@
 				</td>
 			</tr>
 		</table>
-
 		<br />
 		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-		<br />
-		<br />
-		<br />
-		<br />
+		<div class="center">
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit">Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block"  value="Reset" onclick="funResetFields()">Reset</button></a>
+		</div>
 	</s:form>
+</div>
 </body>
 </html>

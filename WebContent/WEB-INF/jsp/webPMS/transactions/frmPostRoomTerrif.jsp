@@ -1,11 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	
 	var fieldName;
@@ -84,7 +93,6 @@
 		}
 	}
 	
-	
 	function funValidateData()
 	{
 		var flg=false;
@@ -145,23 +153,15 @@
 		  $("#txtPMSDate").val(dte[2]+"-"+dte[1]+"-"+dte[0]);
 	});
 	
-	
 </script>
 
 </head>
 <body>
+  <div class="container masterTable">
+	<label id="formHeading">Post Room Tariff</label>
+	    <s:form name="PostRoomTerrif" method="POST" action="postRoomTerrif.html">
 
-	<div id="formHeading">
-	<label>Post Room Tariff</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="PostRoomTerrif" method="POST" action="postRoomTerrif.html">
-
-		<table class="masterTable">
-		<tr>
+		
 			<!-- 
 			    <td><label>Select Folio </label></td>
 			    <td colspan="4">
@@ -172,39 +172,37 @@
 			    </td>
 			</tr>
 			-->
+		  <div class="row">
+            <div class="col-md-6"><label>Room</label>
+               <div class="row">
+				 <div class="col-md-3"><s:input id="txtRoomNo" path="strRoomNo" ondblclick="funHelp('roomCodeForFolio')" style="height:94%" cssClass="searchTextBox" /></div>
+				 <div class="col-md-3"><s:input id="txtRoomDesc" path="strRoomDesc" readonly="true"/></div>
+				 <div class="col-md-3"><s:input id="txtActualPostingAmt" path="dblActualPostingAmt"/></div>
+				 <div class="col-md-3"><label id="lblCheckPkgAmt" style="background-color:#dcdada94; width: 135%; height: 109%;"></label></div>
+		      </div>
+		     </div>
+			    <div class="col-md-6"></div>
+			    
+			  <div class="col-md-2"><label>Registration No</label>
+				   <s:input id="txtRegNo" path="strRegistrationNo" readonly="true"/>
+			  </div>
 			
-			<tr>
-			    <td><label>Room</label></td>
-				<td><s:input id="txtRoomNo" path="strRoomNo" ondblclick="funHelp('roomCodeForFolio')" cssClass="searchTextBox" /></td>
-				<td><s:input id="txtRoomDesc" path="strRoomDesc" readonly="true" cssClass="longTextBox" /></td>
-				<td><s:input id="txtActualPostingAmt" path="dblActualPostingAmt"  cssClass="longTextBox"/></td>
-				<td><label id="lblCheckPkgAmt"></label></td>
-				<td></td>
-			</tr>
-			
-			<tr>
-			    <td><label>Registration No</label></td>
-				<td><s:input id="txtRegNo" path="strRegistrationNo" readonly="true" cssClass="longTextBox"/></td>
-				<td colspan="3"></td>
-			</tr>
-			
-			<tr>
-			    <td><label>Name</label></td>
-				<td><s:input id="txtName" path="strGuestName" readonly="true" cssClass="longTextBox"  /></td>
-			    <td colspan="3"></td>
-			</tr>
-		</table>
+			 <div class="col-md-2"><label>Name</label>
+				   <s:input id="txtName" path="strGuestName" readonly="true"/>
+			 </div>
+		</div>
 		
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateData()"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right:14%">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateData()"/>
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 		<s:input type="hidden" id="hidOriginalPostingAmt" path="dblOriginalPostingAmt"></s:input>
 		<s:input type="hidden" id="hidPackageAmt" path="dblPackageAmt"></s:input>
 		<s:input type="hidden" id="hidRoomTariff" path="dblRoomTerrif"></s:input>
 	
 	</s:form>
+	</div>
 </body>
 </html>

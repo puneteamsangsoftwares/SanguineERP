@@ -20,12 +20,12 @@ public class clsExtraBedMasterDaoImpl implements clsExtraBedMasterDao {
 	@Autowired
 	private SessionFactory webPMSSessionFactory;
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false,value="WebPMSTransactionManager")
 	public void funAddUpdateExtraBedMaster(clsExtraBedMasterModel objExtraBedeMasterModel) {
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objExtraBedeMasterModel);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false,value="WebPMSTransactionManager")
 	@Override
 	public List funGetExtraBedMaster(String extraBedCode, String clientCode) {
 		List list = null;

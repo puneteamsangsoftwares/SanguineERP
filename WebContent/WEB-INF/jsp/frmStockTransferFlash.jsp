@@ -5,6 +5,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 	<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
 	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
@@ -132,23 +138,15 @@
 		
 		$(document).ready(function() 
 		{
+			var startDateOfMonth="${startDateOfMonth}";
 
 			$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
-			$("#txtFromDate").datepicker('setDate','today');
+			$("#txtFromDate").datepicker('setDate','startDateOfMonth');
 			$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtToDate").datepicker('setDate', 'today');
 			
 			$("#cmbLocation").val("${locationCode}");
-			$("#btnExecute").click(function( event )
-			{
-				var fromDate=$("#txtFromDate").val();
-				var toDate=$("#txtToDate").val();
-				
-					funCalculateStockTransferFlash();
 			
-							
-				
-			});
 				
 			$(document).ajaxStart(function()
 			{
@@ -179,7 +177,7 @@
 		    var max_elem = Math.min((page_index+1) * items_per_page, StkFlashData.length);
 		    var newcontent="";
 			    	
-			   	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld2"> Product Code</td><td id="labld3"> Product Name</td>	<td id="labld4"> Transfer Qty </td>	</tr>';
+			   	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr style="background:#c0c0c0;"><td id="labld2"> Product Code</td><td id="labld3"> Product Name</td>	<td id="labld4"> Transfer Qty </td>	</tr>';
 			   	// Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
 			    {
@@ -255,100 +253,99 @@
 		
 		$(document).ready(function () 
 		{			 
-			$("#btnExport").click(function (e)
-			{
-				var reportType=$("#cmbExportType").val();
-				var fromDate=$("#txtFromDate").val();
-				var toDate=$("#txtToDate").val();
-				var fromLocCode=$("#cmbFromLocation").val();
-				var toLocCode=$("#cmbToLocation").val();
-				var param1=reportType+","+fromLocCode+","+toLocCode;
-				if(reportType=='Excel')
-					{
-							window.location.href=getContextPath()+"/downloadStockTransferExcel.html?param1="+param1+"&fDate="+fromDate+"&tDate="+toDate;
-					}else
-						{
-							window.location.href=getContextPath()+"/rptStkTransferFlashReport.html?param1="+param1+"&fDate="+fromDate+"&tDate="+toDate;
-						}
-				
-					
-			});
+
 		});
 		  
+		
+		function funOnExecute()
+		{
+			{
+				var fromDate=$("#txtFromDate").val();
+				var toDate=$("#txtToDate").val();
+				
+					funCalculateStockTransferFlash();
+			}
+			return false;
+		}
+		
+		function funOnExport()
+		{
+			var reportType=$("#cmbExportType").val();
+			var fromDate=$("#txtFromDate").val();
+			var toDate=$("#txtToDate").val();
+			var fromLocCode=$("#cmbFromLocation").val();
+			var toLocCode=$("#cmbToLocation").val();
+			var param1=reportType+","+fromLocCode+","+toLocCode;
+			if(reportType=='Excel')
+				{
+						window.location.href=getContextPath()+"/downloadStockTransferExcel.html?param1="+param1+"&fDate="+fromDate+"&tDate="+toDate;
+				}else
+					{
+						window.location.href=getContextPath()+"/rptStkTransferFlashReport.html?param1="+param1+"&fDate="+fromDate+"&tDate="+toDate;
+					}
+			
+			return false
+		}
 		 
 		 
 	</script>
 </head>
 <body onload="funOnLoad();">
-<div id="formHeading">
-		<label>Stock Transfer Flash</label>
-	</div>
-	<s:form action="frmStockTransferFlashReport.html" method="GET" name="frmStockTransferFlash" target="_blank">
-		<br>
-	
-			<table class="transTable">
-			<tr><th colspan="10"></th></tr>
-				<tr>
-					<td width="5%"><label>From Location</label></td>
-					<td>
-						<s:select id="cmbFromLocation" name="fromLocCode" path="strFromLocCode" cssClass="longTextBox" cssStyle="width:180px;" >
-			    			<s:options items="${listFromLocation}"/>
-			    		</s:select>
-					</td>
-						
-					<td width="5%"><label>To Location</label></td>
-					<td>
-						<s:select id="cmbToLocation" name="toLocCode" path="strToLocCode" cssClass="longTextBox" cssStyle="width:180px;" >
-			    			<s:options items="${listToLocation}"/>
-			    		</s:select>
-					</td>
-
-				</tr>
-				
-				<tr>
-				    <td><label id="lblFromDate">From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
+	<div class="container">
+		<label id="formHeading">Stock Transfer Flash</label>
+		<s:form action="frmStockTransferFlashReport.html" method="GET" name="frmStockTransferFlash" target="_blank">
+			<div class="row transTable">
+				<div class="col-md-2">
+					<label>From Location</label>
+					<s:select id="cmbFromLocation" name="fromLocCode" path="strFromLocCode"  >
+			    		<s:options items="${listFromLocation}"/>
+			    	</s:select>
+				</div>
+				<div class="col-md-2">		
+					<label>To Location</label>
+					<s:select id="cmbToLocation" name="toLocCode" path="strToLocCode" >
+			    		<s:options items="${listToLocation}"/>
+			    	</s:select>
+				</div>	
+				<div class="col-md-8"></div>
+				<div class="col-md-2">	
+					<label id="lblFromDate">From Date</label>
+			     	<s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox" style="width:80%;"/>
 			        	<s:errors path="dteFromDate"></s:errors>
-			        </td>
-				        
-			        <td><label id="lblToDate">To Date</label></td>
-			        <td>
-			            <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
+			     </div>
+				 <div class="col-md-2">     
+			        <label id="lblToDate">To Date</label>
+			      	<s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox" style="width:80%;"/>
 			        	<s:errors path="dteToDate"></s:errors>
-			        </td>
-				</tr>
-				
+			     </div> 
+ 				 <div class="col-md-2">    
+					<s:select path="strExportType" id="cmbExportType" style="margin-top: 26px;">
+						<option value="Excel">Excel</option>
+						<option value="PDF">PDF</option>
+					</s:select>
+				 </div>
+			</div>
 			
-				
-				<tr>
-					<td><input id="btnExecute" type="button" class="form_button1" value="EXECUTE"/></td>
-					
-					<td>
-						<s:select path="strExportType" id="cmbExportType"  cssClass="BoxW124px">
-							<option value="Excel">Excel</option>
-							<option value="PDF">PDF</option>
-						</s:select>
-					</td>
-					<td colspan="7">						
-						<input id="btnExport" type="button" value="EXPORT"  class="form_button1"/>
-					</td>
-				</tr>
-			</table>
-			
-			<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
-		<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
+			<div class="center" style="margin-right: 55%;">
+				<a href="#"><button class="btn btn-primary center-block" id="btnExecute" onclick="return funOnExecute()" value="Execute" 
+					>Execute</button></a>
+				<a href="#"><button class="btn btn-primary center-block" id="btnExport" onclick="return funOnExport()" value="Export" 
+					>Export</button></a>
+			</div>
 		
-		</div>
-		<br>
-		<br>
-		<div id="divValueTotal">
-		<table id="tblTotalFlash" class="transTablex" style="width: 95%;font-size:11px;font-weight: bold;">
-		<tr style="margin-left: 28px">
-			<td id="labld26" width="80%" align="right">Total Value</td>
-			<td id="tdTotValue" width="10%" align="right">
-			<input id="txtTotValue" style="width: 100%;text-align: right;" class="Box"></input></td>
-			<td width="10%" align="right"></td>
+			<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
+			<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
+		
+			</div>
+			<br>
+			<br>
+			<div id="divValueTotal">
+				<table id="tblTotalFlash" class="transTablex" style="width: 95%;font-size:11px;font-weight: bold;">
+					<tr style="margin-left: 28px">
+						<td id="labld26" width="80%" align="right">Total Value</td>
+						<td id="tdTotValue" width="10%" align="right">
+					<input id="txtTotValue" style="width: 100%;text-align: right;" class="Box"></input></td>
+				<td width="10%" align="right"></td>
 			</tr>
 		</table>
 		</div>
@@ -356,6 +353,6 @@
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 	</s:form>
-	
+</div>	
 </body>
 </html>

@@ -1,19 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="sp"%>
 <!DOCTYPE html>
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Material Production</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
+<style>
+.transTable td {
+          padding-left: 1px;
+         } 
+.transTable th {
+          padding: 0px;  
+         }   
+</style>
 <script type="text/javascript">
 		/**
 		 * Global variable
 		 */
 		var strUOM,listRow=0;
+		var list;
 		/**
 		 * Ready Function for Initialize textField with default value
 		 * And Set date in date picker 
@@ -333,7 +349,7 @@
 		    var row = table.insertRow(rowCount);
 		  
 		    row.insertCell(0).innerHTML= "<input name=\"listProductionDtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" size=\"8%\"   id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";	
-		    row.insertCell(1).innerHTML= "<input name=\"listProductionDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"48%\"  id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' />";	
+		    row.insertCell(1).innerHTML= "<input name=\"listProductionDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"23%\"  id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' />";	
 		    row.insertCell(2).innerHTML= "<input name=\"listProductionDtl["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" size=\"3%\"  id=\"txtUOM."+(rowCount)+"\" value='"+strUOM+"' />";
 		    row.insertCell(3).innerHTML=" <input name=\"listProductionDtl["+(rowCount)+"].strProcessCode\" readonly=\"readonly\" class=\"Box\" size=\"8%\"  id=\"strProcessCode."+(rowCount)+"\" value="+strProcessCode+">";
 		    row.insertCell(4).innerHTML=" <input name=\"listProductionDtl["+(rowCount)+"].strProcessName\" readonly=\"readonly\" class=\"Box\" size=\"8%\"  id=\"strProcessName."+(rowCount)+"\" value="+strProcessName+">";	
@@ -420,9 +436,27 @@
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		   	rowCount=listRow;
-		    row.insertCell(0).innerHTML= "<input name=\"listProductionDtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" size=\"8%\"   id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";	
-		    row.insertCell(1).innerHTML= "<input name=\"listProductionDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"48%\"  id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' />";	
-		    row.insertCell(2).innerHTML= "<input name=\"listProductionDtl["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" size=\"3%\"  id=\"txtUOM."+(rowCount)+"\" value='"+strUOM+"' />";
+		   	list = funGetToolTipData(strProdCode,dblQtyProd);
+		   	var toolTip="";
+		   	for(var i = 0;i<list.length;i++)
+		   		{
+		   			var pName = list[i][0];
+		   			var uom = list[i][1];
+		   			var finalWeight = list[i][2];
+		   			var costRM = list[i][3];
+		   			
+		   			toolTip = toolTip+pName+" - "+uom+" "+finalWeight+" - "+costRM+"\n"
+		   			
+		   		}
+		   	var x1 = row.insertCell(0);
+		   	x1.title = toolTip;
+		   	
+		   	var x2 = row.insertCell(1);
+		   	x2.title = toolTip;
+		   	
+		   	x1.innerHTML= "<input name=\"listProductionDtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" size=\"8%\"   id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";	
+		   	x2.innerHTML= "<input name=\"listProductionDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"17%\"  id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' />";	
+		    row.insertCell(2).innerHTML= "<input name=\"listProductionDtl["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" size=\"10%\"  id=\"txtUOM."+(rowCount)+"\" value='"+strUOM+"' />";
 		    row.insertCell(3).innerHTML=" <input name=\"listProductionDtl["+(rowCount)+"].strProcessCode\" readonly=\"readonly\" class=\"Box\" size=\"8%\"  id=\"strProcessCode."+(rowCount)+"\" value="+strProcessCode+">";
 		    row.insertCell(4).innerHTML=" <input name=\"listProductionDtl["+(rowCount)+"].strProcessName\" readonly=\"readonly\" class=\"Box\" size=\"8%\"  id=\"strProcessName."+(rowCount)+"\" value="+strProcessName+">";	
 		    row.insertCell(5).innerHTML= "<input name=\"listProductionDtl["+(rowCount)+"].dblQtyProd\" type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%\"   size=\"5%\" id=\"txtQtyProd."+(rowCount)+"\" value="+dblQtyProd+">";
@@ -634,117 +668,150 @@
 		{
 			location.reload(true);
 		}
+		
+		function funGetToolTipData(prodCode,qty)
+		{
+			var list1;
+			searchUrl=getContextPath()+"/loadToolTipData.html?prodCode="+prodCode+"&qty="+qty;				
+			$.ajax({				
+	        	type: "GET",
+		        url: searchUrl,
+		        dataType: "json",
+		        async:false,
+		        success: function(response)
+		        {				        	
+		        	list1 = response;
+				},
+				error: function(jqXHR, exception) {
+		            if (jqXHR.status === 0) {
+		                alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+		                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.n' + jqXHR.responseText);
+		            }		            
+		        }
+	      });
+			return list1;
+		} 
+		
+		
+		
 </script>
 </head>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>Material Production</label>
-	</div>
-	<s:form name="PD" action="savePD.html?saddr=${urlHits}" method="POST">
+	<div  class="container transTable">
+		<label id="formHeading">Material Production</label>
+	    <s:form name="PD" action="savePD.html?saddr=${urlHits}" method="POST">
 
-		<br>
-		<table class="transTable">
+		<table>
 			<tr>
 
-				<th><s:input type="hidden" id="userCreated" name="userCreated"
+				<th style="background-color:#d8d8d8"><s:input type="hidden" id="userCreated" name="userCreated"
 						path="strUserCreated" value="${command.strUserCreated}" /></th>
 				<th><s:input type="hidden" id="dateCreated" name="dateCreated"
 						path="dtCreatedDate" value="${command.dtCreatedDate}" /></th>
-				<th align="right"><a id="baseUrl" href="#">Attatch
-						Documents</a>&nbsp; &nbsp; &nbsp; &nbsp;</th>
+				<!-- <th align="right"><a id="baseUrl" href="#">Attatch Document</a></th> -->
 			</tr>
 		</table>
 
+        <div class="row">
+			 <div class="col-md-2"><label>Production Code</label>
+				   <s:input id="txtPDCode" ondblclick="funHelp('Production')" cssClass="searchTextBox"
+						type="text" path="strPDCode" value="${command.strPDCode}"></s:input>
+			 </div>
 
-		<table class="transTable">
-			<tr>
-				<td width="120px"><label>Production Code</label></td>
-				<td width="150px"><s:input id="txtPDCode"
-						ondblclick="funHelp('Production')" cssClass="searchTextBox"
-						type="text" path="strPDCode" value="${command.strPDCode}"></s:input></td>
-
-				<td>Date   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<s:input id="txtPDDate"
-						name="txtPDDate" required="required" cssClass="calenderTextBox" path="dtPDDate"
-						value="${command.dtPDDate}" type="text"></s:input></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><label>Location</label></td>
-				<td><s:input id="txtLocCode" path="strLocCode" required="required"
-						value="${command.strLocCode}"
-						ondblclick="return funHelp('locationmaster');"
-						cssClass="searchTextBox" type="text"></s:input></td>
-				<td><label id="spLocName" class="namelabel"></label></td>
-				<td width="120px"><label>Work Order Code</label></td>
-				<td><s:input id="txtWOCode" path="strWOCode" 
-						value="${command.strWOCode}"
-						ondblclick="return funHelp('WorkOrder');" cssClass="searchTextBox"
-						cssStyle="width:40%" type="text" ></s:input></td>
-
-			</tr>
-		</table>
-		<table class="transTableMiddle1">
-			<tr>
-				<td width="120px"><label>Product</label></td>
-				<td width="150px"><input id="txtProdCode"
-					ondblclick="funHelp('productmaster');" type="text"
-					class="searchTextBox"></input></td>
-				<td width="4px"><input id="btnChar" disabled="disabled"
-					onclick="return btnChar_onclick()" type="button" value=".." /></td>
-				<td><label id="spProdName" class="namelabel" style="font-size: 12px;"></label></td>
-
-				<td width="100px" align="center"><label> Process </label></td>
-				<td colspan="2"><s:select id="cmbProcess" items="${strProcess}" path="" onchange="" class="BoxW124px"></s:select>
+			  <div class="col-md-2"><label>Date</label>
+			       <s:input id="txtPDDate" name="txtPDDate" required="required" cssClass="calenderTextBox" path="dtPDDate" style="width:70%"
+						value="${command.dtPDDate}" type="text"></s:input>
+			  </div>
+			  <div class="col-md-8"></div>
+			  
+			  <div class="col-md-2"><label>Location</label>
+				  <s:input id="txtLocCode" path="strLocCode" required="required" value="${command.strLocCode}"
+						ondblclick="return funHelp('locationmaster');" cssClass="searchTextBox" type="text"></s:input>
+			   </div>
+			   
+				<div class="col-md-2"><label id="spLocName" class="namelabel" style="background-color:#dcdada94; width: 100%; height:51%;margin-top: 27px;padding:4px;"></label></div>
 				
+				<div class="col-md-2"><label>Work Order Code</label>
+				    <s:input id="txtWOCode" path="strWOCode" value="${command.strWOCode}"
+					   ondblclick="return funHelp('WorkOrder');" cssClass="searchTextBox" type="text" ></s:input>
+				</div>
+                 <div class="col-md-6"></div>
+                 
+		        <div class="col-md-2"><label>Product</label>
+				      <input id="txtProdCode" ondblclick="funHelp('productmaster');" type="text" class="searchTextBox"></input>
+				</div>
+				
+				<div class="col-md-1"><br><br>
+				     <input id="btnChar" disabled="disabled" onclick="return btnChar_onclick()" type="button" value=".." />
+				</div>
+				
+				<div class="col-md-1">
+				     <label id="spProdName" class="namelabel" style="font-size: 12px;background-color:#dcdada94; width: 166%; height:51%;margin-top: 27px;margin-left:-45px;padding:4px;"></label>
+				</div>
+
+				<div class="col-md-2"><label> Process </label>
+				     <s:select id="cmbProcess" items="${strProcess}" path="" onchange="" style="width:auto;"></s:select>
+				</div>
 <!-- 				<option value="Assamble">Assamble</option> -->
 <!--  				 <option value="Reparing">Reparing</option> -->
-				</td>
-			</tr>
-			<tr>
-				<td><label>Price/Unit</label></td>
-				<td><input id="txtPrice" type="text"
-					class="decimal-places-amt numberField"></input></td>
-				<td><label>Wt/Unit:</label></td>
-				<td colspan="2"><input id="txtWt" ondblclick="" type="text"
-					class="decimal-places numberField"></input></td>
-				<td colspan="2">
-				<label>Direct </label> <input type="Checkbox" id="chkDirectWorkOrder"/>
-				</td>
-
-			</tr>
-			<tr>
-				<td><label>Quantity Produced</label></td>
-				<td><input id="txtQtyProd" type="text" 
-					class="decimal-places numberField" /></td>
-				<td><label>Quantity Rejected</label></td>
-				<td width="120px"><input id="txtQtyRej" type="text"
-					 class="decimal-places numberField" /></td>
-				<td><label> Actual Time taken</label></td>
-				<td width="120px"><input id="txtActTime" ondblclick=""
-					type="text"  class="decimal-places numberField" /></td>
-				<td><input id="btnAdd" class="smallButton" type="button"
-					value="Add" onclick="return btnAdd_onclick()" /></td>
-			</tr>
-
-		</table>
-
-
+				
+			    <div class="col-md-6"></div>
+			    
+				<div class="col-md-2"><label>Price/Unit</label>
+				    <input id="txtPrice" type="text" class="decimal-places-amt numberField"></input>
+				</div>
+				
+				<div class="col-md-2"><label>Wt/Unit:</label>
+				    <input id="txtWt" ondblclick="" type="text" class="decimal-places numberField"></input>
+				</div>	
+					
+				<div class="col-md-2"><label>Direct </label><br>
+				    <input type="Checkbox" id="chkDirectWorkOrder"/>
+				</div>
+                 <div class="col-md-6"></div>
+                 
+			    <div class="col-md-2"><label>Quantity Produced</label>
+				    <input id="txtQtyProd" type="text" class="decimal-places numberField" />
+				</div>
+				
+				<div class="col-md-2"><label>Quantity Rejected</label>
+				    <input id="txtQtyRej" type="text" class="decimal-places numberField" />
+			     </div>
+			     
+				<div class="col-md-2"><label> Actual Time taken</label>
+				    <input id="txtActTime" ondblclick="" type="text"  class="decimal-places numberField" />
+				</div>
+				
+				<div class="col-md-2"><br>
+				      <input id="btnAdd" class="btn btn-primary center-block" class="smallButton" type="button"
+					value="Add" onclick="return btnAdd_onclick()" />
+				</div>
+			</div>
+          
 		<div class="dynamicTableContainer">
-			<table style="height: 20px; border: #0F0; width: 100%;font-size:11px;
-			font-weight: bold;">
-
-				<tr bgcolor="#72BEFC">
-					<td width="8%">Product Code</td>
+			<table style="height: 20px; border: #0F0; width: 100%;font-size:11px;font-weight: bold;">
+               <tr bgcolor="#c0c0c0">
+					<td width="6%">Product Code</td>
 					<!--  COl1   -->
-					<td width="30%">Product Name</td>
+					<td width="11%">Product Name</td>
 					<!--  COl2   -->
-					<td width="3%">UOM</td>
+					<td width="6%">UOM</td>
 					<!--  COl3   -->
 					<td width="6%">Process Code</td>
 					<td width="7%">Process</td>
 					<!--  COl4   -->
-					<td width="5%">Qty Produced</td>
+					<td width="7%">Qty Produced</td>
 					<!--  COl5   -->
 					<td width="5%">Wt/Unit</td>
 					<!--  COl6   -->
@@ -764,18 +831,16 @@
 					<!--  COl13   -->
 				</tr>
 			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-
-				<table id="tblProdDet"
+		 <div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+              <table id="tblProdDet"
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col13-center">
 					<tbody>
-					<col style="width: 8%">
+					<col style="width: 6%">
 					<!--  COl1   -->
-					<col style="width: 30%">
+					<col style="width:10%">
 					<!--  COl2   -->
-					<col style="width: 3%">
+					<col style="width:7%">
 					<!--  COl3   -->
 					<col style="width: 6%">
 					<!--  COl4   -->
@@ -802,32 +867,24 @@
 					<c:forEach items="${command.listProductionDtl}" var="pddtl"
 						varStatus="status">
 						<tr>
-							<td><input
-								name="listProductionDtl[${status.index}].strProdCode"
+							<td><input name="listProductionDtl[${status.index}].strProdCode"
 								value="${pddtl.strProdCode}" /></td>
-							<td><input
-								name="listProductionDtl[${status.index}].strProdName"
+							<td><input name="listProductionDtl[${status.index}].strProdName"
 								value="${pddtl.strProdName}" /></td>
 							<td><input name="listProductionDtl[${status.index}].strUOM"
 								value="${pddtl.strUOM}" /></td>
-							<td><input
-								name="listProductionDtl[${status.index}].strProcessCode"
+							<td><input name="listProductionDtl[${status.index}].strProcessCode"
 								value="${pddtl.strProcessCode}" /></td>
-							<td><input
-								name="listProductionDtl[${status.index}].dblQtyProd"
+							<td><input name="listProductionDtl[${status.index}].dblQtyProd"
 								value="${pddtl.dblQtyProd}" /></td>
-							<td><input
-								name="listProductionDtl[${status.index}].dblWeight"
+							<td><input name="listProductionDtl[${status.index}].dblWeight"
 								value="${pddtl.dblWeight}" /></td>
 							<td><input value="${pddtl.dblWeight * pddtl.dblQtyProd}" /></td>
-							<td><input
-								name="listProductionDtl[${status.index}].dblQtyRej"
+							<td><input name="listProductionDtl[${status.index}].dblQtyRej"
 								value="${pddtl.dblQtyRej}" /></td>
-							<td><input
-								name="listProductionDtl[${status.index}].dblPrice"
+							<td><input name="listProductionDtl[${status.index}].dblPrice"
 								value="${pddtl.dblPrice}" type="hidden" /></td>
-							<td><input
-								name="listProductionDtl[${status.index}].dblActTime"
+							<td><input name="listProductionDtl[${status.index}].dblActTime"
 								value="${pddtl.dblActTime}" /></td>
 							<td><input type="Button" class="deletebutton" value="Delete" /></td>
 						</tr>
@@ -839,33 +896,23 @@
 			</div>
 		</div>
 
+          <div class="col-md-2"><label>Narration</label>
+				<s:textarea id="txtNarration" cols="50" rows="3" path="strNarration" value="${command.strNarration}" style="width: 130%" />
+			</div>
 
-
-
-		<table class="transTableMiddle1">
-
-			<tr>
-				<td>Narration</td>
-				<td><s:textarea id="txtNarration" cols="50" rows="3"
-						path="strNarration" value="${command.strNarration}"
-						style="width: 80%" /></td>
-
-			</tr>
-
-		</table>
-
-		<br>
+		
 		<p align="center">
-			<input type="submit" value="Submit"
-				onclick="return funCallFormAction('submit',this)"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <input type="reset"
-				value="Reset" class="form_button" onclick="funResetField()" />
+			<input type="submit" value="Submit" class="btn btn-primary center-block"
+				onclick="return funCallFormAction('submit',this)" class="form_button" />
+		    &nbsp;
+		    <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetField()" />
 		</p>
 		<br><br>
 		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 	</s:form>
+	</div>
 	<script type="text/javascript">funApplyNumberValidation();</script>
 </body>
 </html>

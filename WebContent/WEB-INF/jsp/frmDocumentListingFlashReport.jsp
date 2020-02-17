@@ -5,14 +5,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 	<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
 	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
         <!-- Load data to paginate -->
 	<link rel="stylesheet" href="<spring:url value="/resources/css/pagination.css"/>" />
-
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	
 	<script type="text/javascript">
 
  		var DocFlashData;
@@ -169,19 +178,17 @@
 		$(document).ready(function() 
 		{
 			var startDate="${startDate}";
+			var startDateOfMonth="${startDateOfMonth}";
 			var arr = startDate.split("/");
 			Dat=arr[0]+"-"+arr[1]+"-"+arr[2];
 			$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
-			$("#txtFromDate").datepicker('setDate',Dat);
+			$("#txtFromDate").datepicker('setDate',startDateOfMonth);
 			$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtToDate").datepicker('setDate', 'today');
 			$("#cmbLocation").val("${locationCode}");
 			$("#btnExecute").click(function( event )
 			{
-				var fromDate=$("#txtFromDate").val();
-				var toDate=$("#txtToDate").val();
 				
-				funDocFlashReport();
 			});
 		
 		
@@ -346,9 +353,7 @@
 		{			 
 			$("#btnExport").click(function (e)
 			{
-				var docFlashType=$("#cmbDoctype").val();
 				
-				window.location.href=getContextPath()+"/downloadDocFlashExcel.html?docFlashType="+docFlashType ;
 			});
 		});
 		  
@@ -367,77 +372,74 @@
 				}
 		}
 		 
-		 
+	function funOnExecute()
+	{
+		var fromDate=$("#txtFromDate").val();
+		var toDate=$("#txtToDate").val();
+		
+		funDocFlashReport();
+		
+		return false;
+	}
+		
+	function funOnExport()
+	{
+		var docFlashType=$("#cmbDoctype").val();
+		
+		window.location.href=getContextPath()+"/downloadDocFlashExcel.html?docFlashType="+docFlashType ;
+		
+		return false;
+	}
 	</script>
 </head>
 <body onload="funOnLoad();">
-<div id="formHeading">
-		<label>Document Listing Flash</label>
-	</div>
-	<s:form action="frmDocumentListingFlashReport.html" method="GET" name="frmDocListingFlash">
-		<br>
-	
-			<table class="transTable">
-			<tr><th colspan="10"></th></tr>
-				<tr>
-				
-					<td>Document Type </td>
-					<td width="20%">
-						<s:select id="cmbDoctype" name="DocType" path="strDocType" cssClass="longTextBox" cssStyle="width:100%" onchange="funDoumentSelection();" >
-			    			<s:option value="GRN">GRN</s:option><s:options/>
-			    			<s:option value="MR">Matrial Requsition</s:option><s:options/>
-			    			<s:option value="MIS">Matrial Issue Slip</s:option><s:options/>
-			    		</s:select>
-					</td>
-				
-					<td width="10%">Property Code</td>
-					<td width="20%">
-						<s:select id="cmbProperty" name="propCode" path="strPropertyCode" cssClass="longTextBox" cssStyle="width:100%" onchange="funChangeLocationCombo();">
-			    			<s:options items="${listProperty}"/>
-			    		</s:select>
-					</td>
-						
-					<td width="5%"><label id='lblLocName'>Location</label></td>
-					<td>
-						<s:select id="cmbLocation" name="locCode" path="strLocationCode" cssClass="longTextBox" cssStyle="width:180px;" >
-			    			<s:options items="${listLocation}"/>
-			    		</s:select>
-					</td>
-					
-				</tr>
-				
-				<tr>
-				    <td><label id="lblFromDate">From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="dtFromDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dtFromDate"></s:errors>
-			        </td>
-				        
-			        <td><label id="lblToDate">To Date</label></td>
-			        <td colspan="3">
-			            <s:input id="txtToDate" name="toDate" path="dtToDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dtToDate"></s:errors>
-			        </td>
-			        
-					
-				</tr>
-				
-								
-				<tr>
-					<td><input id="btnExecute" type="button" class="form_button1" value="EXECUTE"/></td>
-					
-					<td>
-						<s:select path="strExportType" id="cmbExportType"  cssClass="BoxW124px">
-							<option value="Excel">Excel</option>
-						</s:select>
-					</td>
-					<td colspan="7">						
-						<input id="btnExport" type="button" value="EXPORT"  class="form_button1"/>
-					</td>
-				</tr>
-			</table>
-			
-			<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
+	<div class="container">
+		<label id="formHeading">Document Listing Flash</label>
+		<s:form action="frmDocumentListingFlashReport.html" method="GET" name="frmDocListingFlash">
+		
+		<div class="row transTable">
+			 <div class="col-md-2">	
+				<label>Document Type </label>
+				<s:select id="cmbDoctype" name="DocType" path="strDocType" onchange="funDoumentSelection();" >
+			    	<s:option value="GRN">GRN</s:option><s:options/>
+			    	<s:option value="MR">Matrial Requsition</s:option><s:options/>
+			    	<s:option value="MIS">Matrial Issue Slip</s:option><s:options/>
+			    </s:select>
+			</div>	
+			<div class="col-md-2">	
+				<label>Property Code</label>
+				<s:select id="cmbProperty" name="propCode" path="strPropertyCode"  onchange="funChangeLocationCombo();">
+			    	<s:options items="${listProperty}"/>
+			    </s:select>
+			</div>		
+			<div class="col-md-2">			
+				<label id='lblLocName'>Location</label>
+				<s:select id="cmbLocation" name="locCode" path="strLocationCode" >
+			    	<s:options items="${listLocation}"/>
+			    </s:select>
+			</div>
+			<div class="col-md-6">	</div>		
+			<div class="col-md-2">		
+				<label id="lblFromDate">From Date</label>
+			     <s:input id="txtFromDate" name="fromDate" path="dtFromDate" cssClass="calenderTextBox" style="width:80%;"/>
+			     <s:errors path="dtFromDate"></s:errors>
+			</div>       
+			<div class="col-md-2">	        
+			     <label id="lblToDate">To Date</label>
+			     <s:input id="txtToDate" name="toDate" path="dtToDate" cssClass="calenderTextBox" style="width:80%;"/>
+			     <s:errors path="dtToDate"></s:errors>
+			 </div>
+			<div class="col-md-2">		
+				<s:select path="strExportType" id="cmbExportType"  cssClass="BoxW124px" style="margin-top:26px; width:70%;">
+					<option value="Excel">Excel</option>
+				</s:select>
+			</div>
+		</div>
+		<div class="center" style="margin-right: 54%;">
+			<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return funOnExecute()">Execute</button></a>
+			<a href="#"><button class="btn btn-primary center-block" id="btnExport" value="EXPORT" onclick="return funOnExport()">Export</button></a>
+		</div>
+		<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
 		<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
 		
 		</div>
@@ -492,6 +494,6 @@
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 	</s:form>
-	
+</div>	
 </body>
 </html>

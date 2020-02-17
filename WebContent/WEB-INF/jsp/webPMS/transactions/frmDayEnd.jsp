@@ -7,6 +7,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	
 	var fieldName;
@@ -83,9 +91,7 @@
 	  	});
 	}
 	
-	
-	
-	function funCheckStartDay()
+  function funCheckStartDay()
 	{
 		var startDay='<%=session.getAttribute("PMSStartDay").toString()%>';
 		if(startDay=='N')
@@ -99,10 +105,7 @@
 		}
 	}
 
-	
-
-
-	function funHelp(transactionName)
+   function funHelp(transactionName)
 	{
 		fieldName=transactionName;
 		window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;");
@@ -111,33 +114,26 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-		<label>DayEnd</label>
-	</div>
-<br/>
-<br/>
-
-	<s:form name="DayEnd" method="POST" action="dayEndProcess.html">
-
-		<table class="masterTable">
-			<tr>
-				<td><label id="lblDate">PMS Date</label>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<td><s:input style="width: 17%;" id="txtPMSDate" path="dtePMSDate" readonly="true" value="${PMSDate}" cssClass="longTextBox"/></td>
+  <div class="container masterTable">
+    <label  id="formHeading">DayEnd</label>
+	  <s:form name="DayEnd" method="POST" action="dayEndProcess.html">
+      <div class="row">
+           <div class="col-md-3">
+                  <label id="lblDate">PMS Date</label>
+				   <s:input style="width: 40%;" id="txtPMSDate" path="dtePMSDate" readonly="true" value="${PMSDate}"/>
+			</div>
 				<!-- <td><s:input type="text" id="txtPMSDate" path="dtePMSDate" required="true" readonly="true" class="calenderTextBox" /></td> -->
-			</tr>
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
+		</div>
+		<br>
+       <p align="center" style="margin-right:61%">
 			
 			<!--  
 			<input type="button" value="Start Day" id="btnStartDay" tabindex="3" class="form_button" />
 			-->
-			<input type="submit" value="Day End" id="btnDayEnd" tabindex="3" class="form_button"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+			<input type="submit" value="Day End" id="btnDayEnd" tabindex="3" class="btn btn-primary center-block" class="form_button"/>&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 	</s:form>
+	</div>
 </body>
 </html>

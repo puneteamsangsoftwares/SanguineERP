@@ -264,7 +264,7 @@ public class clsGlobalFunctionsServiceImpl implements clsGlobalFunctionsService 
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
+	@Transactional(value = "hibernateTransactionManager")
 	public int funExcuteQuery(String sql) {
 		return objGlobalDao.funExcuteQuery(sql);
 
@@ -282,6 +282,7 @@ public class clsGlobalFunctionsServiceImpl implements clsGlobalFunctionsService 
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false,value = "WebPMSTransactionManager")
 	public long funGetPMSMasterLastNo(String tableName, String masterName, String columnName, String clientCode) {
 
 		return objGlobalDao.funGetPMSMasterLastNo(tableName, masterName, columnName, clientCode);

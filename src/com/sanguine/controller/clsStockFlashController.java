@@ -51,6 +51,10 @@ public class clsStockFlashController {
 
 	@Autowired
 	private clsCurrencyMasterService objCurrencyMasterService;
+	
+	@Autowired
+	clsGRNController objGRN;
+
 
 	@RequestMapping(value = "/frmStockFlash", method = RequestMethod.GET)
 	private ModelAndView funLoadPropertySelection(@ModelAttribute("command") clsStockFlashBean objPropBean, BindingResult result, HttpServletRequest req, Map<String, Object> model) {
@@ -197,9 +201,9 @@ public class clsStockFlashController {
 		if (qtyWithUOM.equals("No")) {
 			sql = "select f.strPropertyName,a.strProdCode,b.strProdName,e.strLocName" + ",d.strGName,c.strSGName,b.strUOM,b.strBinNo "
 					// + ",b.dblCostRM,"
-					+ " ,if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice), " + "a.dblOpeningStk,(a.dblGRN+dblSCGRN+a.dblStkTransIn+a.dblStkAdjIn+a.dblMISIn+a.dblQtyProduced+a.dblMaterialReturnIn) as Receipts " + ",(a.dblStkTransOut-a.dblStkAdjOut-a.dblMISOut-a.dblQtyConsumed-a.dblSales-a.dblMaterialReturnOut-a.dblDeliveryNote) as Issue " + ",a.dblClosingStk,"
+					+ " ,if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice), " + "a.dblOpeningStk,(a.dblGRN+a.dblFreeQty+dblSCGRN+a.dblStkTransIn+a.dblStkAdjIn+a.dblMISIn+a.dblQtyProduced+a.dblMaterialReturnIn) as Receipts " + ",(a.dblStkTransOut-a.dblStkAdjOut-a.dblMISOut-a.dblQtyConsumed-a.dblSales-a.dblMaterialReturnOut-a.dblDeliveryNote) as Issue " + ",(a.dblClosingStk),"
 					// + "(a.dblClosingStk*b.dblCostRM) as Value"
-					+ "(a.dblClosingStk*if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice)) as Value"
+					+ "((a.dblClosingStk)*if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice)) as Value"
 
 					+ ",a.dblClosingStk as IssueUOMStock " + ",b.dblIssueConversion,b.strIssueUOM,b.strPartNo "
 					/*
@@ -235,16 +239,16 @@ public class clsStockFlashController {
 					// + ",b.dblCostRM"
 					+ " ,if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice) " + ",funGetUOM(a.dblOpeningStk,b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM) as OpeningStk"
 
-					+ ",funGetUOM((a.dblGRN+dblSCGRN+a.dblStkTransIn+a.dblStkAdjIn+a.dblMISIn+a.dblQtyProduced+a.dblMaterialReturnIn),b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM) as Receipts "
+					+ ",funGetUOM((a.dblGRN+a.dblFreeQty+dblSCGRN+a.dblStkTransIn+a.dblStkAdjIn+a.dblMISIn+a.dblQtyProduced+a.dblMaterialReturnIn),b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM) as Receipts "
 
 					+ ",funGetUOM((a.dblStkTransOut-a.dblStkAdjOut-a.dblMISOut-a.dblQtyConsumed-a.dblSales-a.dblMaterialReturnOut-a.dblDeliveryNote),b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM) as Issue "
 
-					+ ",funGetUOM(a.dblClosingStk,b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM)"
+					+ ",funGetUOM((a.dblClosingStk),b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM)"
 
 					// + ",(a.dblClosingStk*b.dblCostRM) as Value, "
 					+ ",(a.dblClosingStk*if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice)) as Value,"
 
-					+ " a.dblClosingStk as IssueUOMStock " + ",b.dblIssueConversion,b.strIssueUOM,b.strPartNo "
+					+ " (a.dblClosingStk) as IssueUOMStock " + ",b.dblIssueConversion,b.strIssueUOM,b.strPartNo "
 					/*
 					 * +
 					 * "from tblcurrentstock a,tblproductmaster b,tblsubgroupmaster c,tblgroupmaster d,tbllocationmaster e"
@@ -316,6 +320,20 @@ public class clsStockFlashController {
 			objStkFlashModel.setDblCostRM(arrObj[8].toString());
 			objStkFlashModel.setDblOpStock(arrObj[9].toString());
 
+			try{
+				if (qtyWithUOM.equals("No")) {
+					if(arrObj[6].toString().equalsIgnoreCase("NOS")){
+						objStkFlashModel.setDblOpStock(String.valueOf(Math.round(Double.parseDouble(arrObj[9].toString())))); // openStk
+					}	
+				}else{
+					if(arrObj[6].toString().equalsIgnoreCase("NOS")){
+						objStkFlashModel.setDblOpStock(funGetDecimalNOSValue(arrObj[9].toString())); // openStk
+					}
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
 			double issueQty = 0.0;
 			double receipt = 0.0;
 			double dblClosing = 0.0;
@@ -338,10 +356,18 @@ public class clsStockFlashController {
 				}
 				if (!arrObj[12].toString().equals("")) {
 					dblClosing = Double.parseDouble(arrObj[12].toString().split(" ")[0]);
-
 					objStkFlashModel.setDblClosingStock(Double.toString(dblClosing));
+					try{
+						if(arrObj[6].toString().equalsIgnoreCase("NOS")){
+							objStkFlashModel.setDblClosingStock(funGetDecimalNOSValue(arrObj[12].toString()));
+						}
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+					
+					
 				} else {
-					objStkFlashModel.setDblClosingStock("");
+					objStkFlashModel.setDblClosingStock("0");
 				}
 			} else {
 				issueQty = Double.parseDouble(arrObj[11].toString());
@@ -351,7 +377,9 @@ public class clsStockFlashController {
 				objStkFlashModel.setDblIssue(Double.toString(issueQty));
 				objStkFlashModel.setDblReceipts(arrObj[10].toString());
 				objStkFlashModel.setDblClosingStock(arrObj[12].toString());
-
+				if(arrObj[6].toString().equalsIgnoreCase("NOS")){
+					objStkFlashModel.setDblClosingStock(String.valueOf(Math.round(Double.parseDouble(arrObj[12].toString()))));
+				}
 			}
 
 			double value = Double.parseDouble(arrObj[13].toString());
@@ -364,8 +392,24 @@ public class clsStockFlashController {
 			objStkFlashModel.setDblIssueUOMStock(arrObj[12].toString());
 			objStkFlashModel.setDblIssueConversion(arrObj[15].toString());
 			objStkFlashModel.setStrIssueUOM(arrObj[16].toString());
-			objStkFlashModel.setStrPartNo(arrObj[17].toString());
+			try{
+				if (qtyWithUOM.equals("No")) {
+					if(arrObj[6].toString().equalsIgnoreCase("NOS")){
+						objStkFlashModel.setStrIssueUOM(funGetDecimalNOSValue(arrObj[16].toString())); // openStk
 
+					}	
+				}else{
+					if(arrObj[6].toString().equalsIgnoreCase("NOS")){
+						objStkFlashModel.setStrIssueUOM(funGetDecimalNOSValue(arrObj[16].toString())); // openStk
+						
+					}
+				}
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+			objStkFlashModel.setStrPartNo(arrObj[17].toString());
+		//	objStkFlashModel.setDblFreeQty(dblFreeQty);
 			listStockFlashModel.add(objStkFlashModel);
 		}
 
@@ -392,6 +436,11 @@ public class clsStockFlashController {
 		String strNonStkItems = spParam1[5];
 		String strGCode = spParam1[6];
 		String qtyWithUOM = spParam1[7];
+		
+		String ratePickUpFrom="Weighted AVG";//"Last Supplier Rate";
+		if(spParam1.length>8){
+			ratePickUpFrom=spParam1[8];	
+		}
 		String fromDate = objGlobal.funGetDate("yyyy-MM-dd", fDate);
 		String toDate = objGlobal.funGetDate("yyyy-MM-dd", tDate);
 		// double dblTotalValue=0;
@@ -418,8 +467,8 @@ public class clsStockFlashController {
 		clsCurrencyMasterModel objModel = objCurrencyMasterService.funGetCurrencyMaster(currCode, clientCode);
 
 		if (qtyWithUOM.equals("No")) {
-			sql = "select f.strPropertyName,a.strProdCode,b.strProdName,e.strLocName" + ",d.strGName,c.strSGName,b.strUOM,b.strBinNo " + " ,if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice) " + ",a.dblOpeningStk,a.dblGRN,a.dblSCGRN" + ",a.dblStkTransIn,a.dblStkAdjIn,a.dblMISIn,a.dblQtyProduced" + ",a.dblSalesReturn,a.dblMaterialReturnIn,a.dblPurchaseReturn"
-					+ ",a.dblDeliveryNote,a.dblStkTransOut,a.dblStkAdjOut,a.dblMISOut" + ",a.dblQtyConsumed,a.dblSales,a.dblMaterialReturnOut " + ",a.dblClosingStk," + "(a.dblClosingStk*if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice)) as Value"
+			sql = "select f.strPropertyName,a.strProdCode,b.strProdName,e.strLocName" + ",d.strGName,c.strSGName,b.strUOM,b.strBinNo " + " ,if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice) " + ",a.dblOpeningStk,a.dblGRN,a.dblFreeQty,a.dblSCGRN" + ",a.dblStkTransIn,a.dblStkAdjIn,a.dblMISIn,a.dblQtyProduced" + ",a.dblSalesReturn,a.dblMaterialReturnIn,a.dblPurchaseReturn"
+					+ ",a.dblDeliveryNote,a.dblStkTransOut,a.dblStkAdjOut,a.dblMISOut" + ",a.dblQtyConsumed,a.dblSales,a.dblMaterialReturnOut " + ",a.dblClosingStk," + "((a.dblClosingStk)*if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice)) as Value"
 					// + "(a.dblClosingStk*b.dblCostRM) as Value"
 					+ ",a.dblClosingStk as IssueUOMStock "
 					+ ",b.dblIssueConversion,b.strIssueUOM,b.strPartNo "
@@ -458,9 +507,11 @@ public class clsStockFlashController {
 					// + " ,b.dblCostRM"
 					+ " ,if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice) "
 
-					+ ",funGetUOM(a.dblOpeningStk,b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM) as OpeningStk"
+					+ " ,funGetUOM(a.dblOpeningStk,b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM) as OpeningStk"
 
 					+ " ,funGetUOM(a.dblGRN,b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM)"
+					
+                    + " ,funGetUOM(a.dblFreeQty,b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM)"
 
 					+ " ,funGetUOM(a.dblSCGRN,b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM)"
 
@@ -495,7 +546,7 @@ public class clsStockFlashController {
 					+ " ,funGetUOM(a.dblClosingStk,b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM)"
 
 					// + ",(a.dblClosingStk*b.dblCostRM) as Value,"
-					+ ",(a.dblClosingStk*if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice)) as Value,"
+					+ ",((a.dblClosingStk)*if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice)) as Value,"
 
 					+ "a.dblClosingStk as IssueUOMStock "
 					+ ",b.dblIssueConversion,b.strIssueUOM,b.strPartNo "
@@ -512,7 +563,7 @@ public class clsStockFlashController {
 					// + " and g.strLocationCode='"+locCode+"' ";
 
 					+ " FROM tblcurrentstock a " + " left outer join tblproductmaster b on a.strProdCode=b.strProdCode " + " left outer join tblsubgroupmaster c on b.strSGCode=c.strSGCode " + " left outer join tblgroupmaster d on c.strGCode=d.strGCode " + " left outer join tbllocationmaster e on a.strLocCode=e.strLocCode "
-					+ " left outer join tblpropertymaster f on e.strPropertyCode=f.strPropertyCode " + " left outer join tblreorderlevel g on a.strProdCode=g.strProdCode and g.strLocationCode='" + locCode + "'  " + " where  a.strUserCode='" + userCode + "' ";
+					+ " left outer join tblpropertymaster f on e.strPropertyCode=f.strPropertyCode " + " left outer join tblreorderlevel g on a.strProdCode=g.strProdCode and g.strLocationCode='" + locCode + "'  " + " where  a.strUserCode='" + userCode + "'   AND b.strNotInUse='N' ";
 
 			if (strNonStkItems.equals("Non Stockable")) {
 				sql += "	and b.strNonStockableItem='Y' ";
@@ -543,7 +594,7 @@ public class clsStockFlashController {
 		 * if(strNonStkItems.equals("Non Stockable")) { sql+=
 		 * "and b.strNonStockableItem='Y' "; }
 		 */
-
+		//sql+=" And a.strProdCode='P0000052' ";
 		if (showZeroItems.equals("No")) {
 			sql += "and (a.dblOpeningStk >0 or a.dblGRN >0 or dblSCGRN >0 or a.dblStkTransIn >0 or a.dblStkAdjIn >0 " + "or a.dblMISIn >0 or a.dblQtyProduced >0 or a.dblMaterialReturnIn>0 or a.dblStkTransOut >0 " + "or a.dblStkAdjOut >0 or a.dblMISOut >0 or a.dblQtyConsumed  >0 or a.dblSales  >0 " + "or a.dblMaterialReturnOut  >0 or a.dblDeliveryNote > 0)";
 		}
@@ -571,28 +622,100 @@ public class clsStockFlashController {
 			objStkFlashModel.setStrSubGroupName(arrObj[5].toString());
 			objStkFlashModel.setStrUOM(arrObj[6].toString());
 			objStkFlashModel.setStrBinNo(arrObj[7].toString());
-			objStkFlashModel.setDblCostRM(arrObj[8].toString());
 			objStkFlashModel.setDblOpStock(funGetDecimalValue(arrObj[9].toString())); // openStk
+			try{
+				if (qtyWithUOM.equals("No")) {
+					if(arrObj[6].toString().equalsIgnoreCase("NOS")){
+						objStkFlashModel.setDblOpStock(String.valueOf(Math.round(Double.parseDouble(arrObj[9].toString())))); // openStk
+					}	
+				}else{
+					if(arrObj[6].toString().equalsIgnoreCase("NOS")){
+						objStkFlashModel.setDblOpStock(funGetDecimalNOSValue(arrObj[9].toString())); // openStk
+						
+					}
+				}
+	
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+						
+			
 			objStkFlashModel.setDblGRN(funGetDecimalValue(arrObj[10].toString())); // GRN
-			objStkFlashModel.setDblSCGRN(funGetDecimalValue(arrObj[11].toString())); // SCGRN
-			objStkFlashModel.setDblStkTransIn(funGetDecimalValue(arrObj[12].toString())); // stkTrans
-			objStkFlashModel.setDblStkAdjIn(funGetDecimalValue(arrObj[13].toString())); // STKAdj
-			objStkFlashModel.setDblMISIn(funGetDecimalValue(arrObj[14].toString()));
-			objStkFlashModel.setDblQtyProduced(funGetDecimalValue(arrObj[15].toString()));
-			objStkFlashModel.setDblSalesReturn(funGetDecimalValue(arrObj[16].toString()));
-			objStkFlashModel.setDblMaterialReturnIn(funGetDecimalValue(arrObj[17].toString()));
-			objStkFlashModel.setDblPurchaseReturn(funGetDecimalValue(arrObj[18].toString()));
-			objStkFlashModel.setDblDeliveryNote(funGetDecimalValue(arrObj[19].toString()));
-			objStkFlashModel.setDblStkTransOut(funGetDecimalValue(arrObj[20].toString()));
-			objStkFlashModel.setDblStkAdjOut(funGetDecimalValue(arrObj[21].toString()));
-			objStkFlashModel.setDblMISOut(funGetDecimalValue(arrObj[22].toString()));
-			objStkFlashModel.setDblQtyConsumed(funGetDecimalValue(arrObj[23].toString()));
-			objStkFlashModel.setDblSales(funGetDecimalValue(arrObj[24].toString()));
-			objStkFlashModel.setDblMaterialReturnOut(arrObj[25].toString());
-			objStkFlashModel.setDblClosingStock(funGetDecimalValue(arrObj[26].toString()));
+			objStkFlashModel.setDblFreeQty(funGetDecimalValue(arrObj[11].toString()));
+			objStkFlashModel.setDblSCGRN(funGetDecimalValue(arrObj[12].toString())); // SCGRN
+			objStkFlashModel.setDblStkTransIn(funGetDecimalValue(arrObj[13].toString())); // stkTrans
+			objStkFlashModel.setDblStkAdjIn(funGetDecimalValue(arrObj[14].toString())); // STKAdj
+			objStkFlashModel.setDblMISIn(funGetDecimalValue(arrObj[15].toString()));
+			objStkFlashModel.setDblQtyProduced(funGetDecimalValue(arrObj[16].toString()));
+			objStkFlashModel.setDblSalesReturn(funGetDecimalValue(arrObj[17].toString()));
+			objStkFlashModel.setDblMaterialReturnIn(funGetDecimalValue(arrObj[18].toString()));
+			objStkFlashModel.setDblPurchaseReturn(funGetDecimalValue(arrObj[19].toString()));
+			objStkFlashModel.setDblDeliveryNote(funGetDecimalValue(arrObj[20].toString()));
+			objStkFlashModel.setDblStkTransOut(funGetDecimalValue(arrObj[21].toString()));
+			objStkFlashModel.setDblStkAdjOut(funGetDecimalValue(arrObj[22].toString()));
+			objStkFlashModel.setDblMISOut(funGetDecimalValue(arrObj[23].toString()));
+			objStkFlashModel.setDblQtyConsumed(funGetDecimalValue(arrObj[24].toString()));
+			objStkFlashModel.setDblSales(funGetDecimalValue(arrObj[25].toString()));
+			objStkFlashModel.setDblMaterialReturnOut(arrObj[26].toString());
+			
+			double dblCurrStk = 0.0;
+			
+			/*if(arrObj[27].toString().contains(" "))
+			{
+				String[] strCurrStkArr = arrObj[27].toString().split(" ");
+				dblCurrStk = Double.parseDouble(strCurrStkArr[0].toString());
+			}
+			else if(arrObj[27].toString().isEmpty())
+			{
+				dblCurrStk = 0;
+			}else{
+				dblCurrStk = Double.parseDouble(funGetDecimalValue(arrObj[27].toString()));
+			}*/
+			
+			/*if(arrObj[11].toString().equals(""))
+			{
+				
+			}
+			else
+			{
+				if(arrObj[11].toString().contains(" "))
+				{
+					String[] strFreeArr = arrObj[11].toString().split(" ");
+					dblFree = Double.parseDouble(strFreeArr[0].toString());
+				}
+				else
+				{
+					dblFree = Double.parseDouble(funGetDecimalValue(arrObj[11].toString()));
+				}
+	
+			}*/
+						
+			//double strClosingBal = dblCurrStk;
+		//	objStkFlashModel.setDblClosingStock(Double.toString(strClosingBal));
+			objStkFlashModel.setDblClosingStock(funGetDecimalValue(arrObj[27].toString()));
+			try{
+				if (qtyWithUOM.equals("No")) {
+					if(arrObj[6].toString().equalsIgnoreCase("NOS")){
+						objStkFlashModel.setDblClosingStock(String.valueOf(Math.round(Double.parseDouble(arrObj[27].toString())))); // openStk
+					}	
+				}else{
+					if(arrObj[6].toString().equalsIgnoreCase("NOS")){
+						objStkFlashModel.setDblClosingStock(funGetDecimalNOSValue(arrObj[27].toString())); // openStk
+						
+					}
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 
-			BigDecimal value = new BigDecimal(arrObj[27].toString());
+			BigDecimal value = new BigDecimal(arrObj[28].toString());
 			// double value=Double.parseDouble(arrObj[27].toString());
+			if(ratePickUpFrom.equalsIgnoreCase("Last Supplier Rate")){
+				if (qtyWithUOM.equals("No")) {
+					value= new BigDecimal(objGRN.funGetLastGrnRate(arrObj[1].toString(),clientCode) * Double.parseDouble(arrObj[27].toString()));	
+				}
+				
+			}
 			BigDecimal zero = new BigDecimal("0");
 			// double temp=value;
 			if (value.compareTo(BigDecimal.ZERO) < 0) {
@@ -600,11 +723,29 @@ public class clsStockFlashController {
 			}
 
 			dblTotalValue = dblTotalValue.add(value);
+			if(ratePickUpFrom.equalsIgnoreCase("Last Supplier Rate"))
+			{
+			    if (qtyWithUOM.equals("No"))
+			    {
+				  objStkFlashModel.setDblCostRM(String.valueOf(objGRN.funGetLastGrnRate(arrObj[1].toString(),clientCode)));
+			    }
+			    else
+			    {
+					  objStkFlashModel.setDblCostRM(String.valueOf(objGRN.funGetLastGrnRate(arrObj[1].toString(),clientCode)));
+
+			    }
+			}
+			else
+			{
+				objStkFlashModel.setDblCostRM(arrObj[8].toString());
+			}
+			
+			
 			objStkFlashModel.setDblValue(String.valueOf(value));
-			objStkFlashModel.setDblIssueUOMStock(funGetDecimalValue(arrObj[26].toString()));
-			objStkFlashModel.setDblIssueConversion(arrObj[29].toString());
-			objStkFlashModel.setStrIssueUOM(arrObj[30].toString());
-			objStkFlashModel.setStrPartNo(arrObj[31].toString());
+			objStkFlashModel.setDblIssueUOMStock(funGetDecimalValue(arrObj[27].toString()));
+			objStkFlashModel.setDblIssueConversion(arrObj[30].toString());
+			objStkFlashModel.setStrIssueUOM(arrObj[31].toString());
+			objStkFlashModel.setStrPartNo(arrObj[32].toString());
 
 			listStockFlashModel.add(objStkFlashModel);
 		}
@@ -734,10 +875,69 @@ public class clsStockFlashController {
 		{
 			strVal = spl[0];
 		}
-
+		if(strVal.isEmpty()){
+			strVal="0.0";
+		}
 		return strVal;
 	}
 
+	private String funGetDecimalNOSValue(String strValue) {
+		
+		String strVal = "";
+		String[] spl = strValue.split(" ");
+		if (spl.length == 2) // for Single UOM
+		{
+
+			strVal=strValue;
+			/*String[] splValue = strValue.split("\\.");
+			if (splValue.length == 2) {
+				String firstValue = splValue[0];
+				String secondValue = String.valueOf(Math.round(Double.parseDouble("0."+splValue[1].toString())));
+				strVal = firstValue + " " + secondValue.split(" ")[1];
+			} else {
+				strVal = splValue[0];
+			}*/
+		}
+		if (spl.length == 3)// for Two UOM
+		{
+			
+			String[] splValue = strValue.split("\\.");
+			if (splValue.length > 1) {
+				String high="0";
+				if(splValue[0].contains(" ")){
+					high=splValue[0].split(" ")[0];
+				}
+				String lowval="0";
+				try{
+					if(splValue[2].contains(" ")){
+						lowval=splValue[2].split(" ")[0];
+						strVal=String.valueOf(Double.parseDouble(high)+ Math.round(Double.parseDouble("0."+lowval))+" NOS");	
+					}
+					
+				}catch(Exception e){
+					strVal=strValue;
+				}
+				/*String firstValue = splValue[0];
+				String secondValue = splValue[1];
+				if (splValue.length == 3) {
+					strVal = firstValue + " " + secondValue + " " + splValue[2].split(" ")[1];
+				}
+				if (splValue.length == 2) {
+					strVal = firstValue + " " + secondValue;
+				}*/
+			} else {
+				strVal = splValue[0];
+			}
+		}
+		if (spl.length == 1)// for No UOM
+		{
+			strVal = spl[0];
+		}
+		if(strVal.isEmpty()){
+			strVal="0.0";
+		}
+		return strVal;
+	}
 	/*
 	 * private String funGetDecimalValue(String strValue) { String strVal = "";
 	 * if(strValue.contains("BTL") || strValue.contains("ML")) {
@@ -816,10 +1016,10 @@ public class clsStockFlashController {
 
 		objGlobal.funInvokeStockFlash(startDate, locCode, fromDate, toDate, clientCode, userCode, stockableItem, req, resp);
 		String sql = "";// clsPropertyMaster
-
-		sql = "select a.strProdCode,b.strProdName," + "a.dblClosingStk,"
+		if (qtyWithUOM.equals("No")) {
+		sql = "select a.strProdCode,b.strProdName," + "(a.dblClosingStk),"
 				// + "(a.dblClosingStk*b.dblCostRM) as Value "
-				+ "(a.dblClosingStk*if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice)) as Value"
+				+ "((a.dblClosingStk)*if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice)) as Value,b.strUOM "
 
 				/*
 				 * +
@@ -833,7 +1033,15 @@ public class clsStockFlashController {
 
 				+ " FROM tblcurrentstock a " + " left outer join tblproductmaster b on a.strProdCode=b.strProdCode " + " left outer join tblsubgroupmaster c on b.strSGCode=c.strSGCode " + " left outer join tblgroupmaster d on c.strGCode=d.strGCode " + " left outer join tbllocationmaster e on a.strLocCode=e.strLocCode "
 				+ " left outer join tblpropertymaster f on e.strPropertyCode=f.strPropertyCode " + " left outer join tblreorderlevel g on a.strProdCode=g.strProdCode and g.strLocationCode='" + locCode + "'  " + " where  a.strUserCode='" + userCode + "' ";
+		}else{
+			sql = "select a.strProdCode,b.strProdName," + " funGetUOM((a.dblClosingStk),b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM),"
 
+					+ "((a.dblClosingStk)*if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice)) as Value,b.strUOM "
+
+					+ " FROM tblcurrentstock a " + " left outer join tblproductmaster b on a.strProdCode=b.strProdCode " + " left outer join tblsubgroupmaster c on b.strSGCode=c.strSGCode " + " left outer join tblgroupmaster d on c.strGCode=d.strGCode " + " left outer join tbllocationmaster e on a.strLocCode=e.strLocCode "
+					+ " left outer join tblpropertymaster f on e.strPropertyCode=f.strPropertyCode " + " left outer join tblreorderlevel g on a.strProdCode=g.strProdCode and g.strLocationCode='" + locCode + "'  " + " where  a.strUserCode='" + userCode + "' ";
+			
+		}
 		if (strNonStkItems.equals("Non Stockable")) {
 			sql += "	and b.strNonStockableItem='Y' ";
 		} else if (strNonStkItems.equals("Stockable")) {
@@ -906,13 +1114,29 @@ public class clsStockFlashController {
 			// objStkFlashModel.setDblIssue(Double.toString(issueQty));
 
 			objStkFlashModel.setDblClosingStock(arrObj[2].toString());
+			try{
+				if (qtyWithUOM.equals("No")) {
+					if(arrObj[4].toString().equalsIgnoreCase("NOS")){
+						objStkFlashModel.setDblClosingStock(String.valueOf(Math.round(Double.parseDouble(arrObj[2].toString())))); // openStk
+					}	
+				}else{
+					if(arrObj[4].toString().equalsIgnoreCase("NOS")){
+						objStkFlashModel.setDblClosingStock(funGetDecimalNOSValue(arrObj[2].toString())); // openStk
+						
+					}
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
+
 			totVal += Double.parseDouble(arrObj[3].toString());
 			double value = Double.parseDouble(arrObj[3].toString());
 			if (value < 0) {
 				value = value * (0);
 			}
 			double temp = Double.parseDouble(df.format(value));
-			dblTotalValue = Double.parseDouble(df.format(dblTotalValue)) + temp;
+			dblTotalValue = Double.parseDouble(df.format(totVal));// + temp;
 			objStkFlashModel.setDblValue(String.valueOf(value));
 			// objStkFlashModel.setDblIssueUOMStock(arrObj[12].toString());
 			// objStkFlashModel.setDblIssueConversion(arrObj[15].toString());
@@ -976,8 +1200,8 @@ public class clsStockFlashController {
 		String currCode = req.getSession().getAttribute("currencyCode").toString();
 		clsCurrencyMasterModel objModel = objCurrencyMasterService.funGetCurrencyMaster(currCode, clientCode);
 
-		if (qtyWithUOM.equals("No")) {
-			sql = "select f.strPropertyName,a.strProdCode,b.strProdName,e.strLocName" + ",d.strGName,c.strSGName,b.strUOM,b.strBinNo " + " ,if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice) " + ",a.dblOpeningStk,a.dblGRN,a.dblSCGRN" + ",a.dblStkTransIn,a.dblStkAdjIn,a.dblMISIn,a.dblQtyProduced" + ",a.dblSalesReturn,a.dblMaterialReturnIn,a.dblPurchaseReturn"
+		if (true) {//qtyWithUOM.equals("No")
+			sql = "select f.strPropertyName,a.strProdCode,b.strProdName,e.strLocName" + ",d.strGName,c.strSGName,b.strUOM,b.strBinNo " + " ,if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice) " + ",a.dblOpeningStk,a.dblGRN+a.dblFreeQty,a.dblSCGRN" + ",a.dblStkTransIn,a.dblStkAdjIn,a.dblMISIn,a.dblQtyProduced" + ",a.dblSalesReturn,a.dblMaterialReturnIn,a.dblPurchaseReturn"
 					+ ",a.dblDeliveryNote,a.dblStkTransOut,a.dblStkAdjOut,a.dblMISOut" + ",a.dblQtyConsumed,a.dblSales,a.dblMaterialReturnOut " + ",a.dblClosingStk," + "(a.dblClosingStk*if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice)) as Value"
 					+ ",a.dblClosingStk as IssueUOMStock "
 					+ ",b.dblIssueConversion,b.strIssueUOM,b.strPartNo "
@@ -1005,7 +1229,7 @@ public class clsStockFlashController {
 
 					+ ",funGetUOM(a.dblOpeningStk,b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM) as OpeningStk"
 
-					+ " ,funGetUOM(a.dblGRN,b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM)"
+					+ " ,funGetUOM(a.dblGRN+a.dblFreeQty,b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM)"
 
 					+ " ,funGetUOM(a.dblSCGRN,b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM)"
 

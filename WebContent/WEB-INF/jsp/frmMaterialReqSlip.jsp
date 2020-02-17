@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -7,6 +9,19 @@
   	<link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Material Requisition Slip</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+ 
+ <style> 
+ .transTable td {
+    padding-left: 25px;
+ }
+ </style>
+ 
     <script type="text/javascript">
     
     /**
@@ -68,10 +83,11 @@
     	$(function() 
     			{	
 		    		var startDate="${startDate}";
+		    		var startDateOfMonth="${startDateOfMonth}";
 					var arr = startDate.split("/");
 					Dat=arr[0]+"-"+arr[1]+"-"+arr[2];
     				$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
-    				$("#txtFromDate" ).datepicker('setDate',Dat);
+    				$("#txtFromDate" ).datepicker('setDate',startDateOfMonth);
     				$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
     				$("#txtToDate" ).datepicker('setDate', 'today');
     				var strPropCode='<%=session.getAttribute("propertyCode").toString()%>';
@@ -356,51 +372,43 @@
     </script>
   </head>
 <body>
-<div id="formHeading">
-		<label>Material Requisition Slip</label>
-	</div>
-<s:form name="ReqSlip" method="GET" action="rptReqSlip.html" target="_blank">
-
-<br />
-<br />
-<table class="transTable">
-	<tr><th colspan="8"></th></tr>
-	<tr>
-				<td width="10%"><label id="lblFromDate">From Date</label></td>
-				<td width="20%"><s:input id="txtFromDate" name="fromDate"
-						path="dtFromDate" cssClass="calenderTextBox" required="true"/> <s:errors
-						path="dtFromDate"></s:errors></td>
-						<td width="15%"></td>
-				<td width="10%"><label id="lblToDate">To Date</label></td>
-				<td width="10%"><s:input id="txtToDate" name="toDate"
-						path="dtToDate" cssClass="calenderTextBox" required="true"/> <s:errors
-						path="dtToDate"></s:errors></td>
-						<td></td>
-						<td></td>
-						
-			</tr>
-	<tr>
-	</table>
-	<br>
-		<table class="transTable">
-			<tr><td width="49%">From Location&nbsp;&nbsp;&nbsp;<input type="text" id="txtFromLocCode" 
-			ondblclick="funHelp('locby')" Class="searchTextBox"></input>
-			<label id="lblFromLocName"></label></td>
-			<td width="49%">To Location&nbsp;&nbsp;&nbsp;
-			<input type="text" id="txtToLocCode" 
-			 style="width: 50%;background-position: 225px 2px;"  class="searchTextBox" placeholder="Type to search"></input>
-			<label id="lblToLocName"></label></td></tr>
-			<tr>
+   <div class="container transTable">
+		<label id="formHeading">Material Requisition Slip</label>
+	<s:form name="ReqSlip" method="GET" action="rptReqSlip.html" target="_blank">
+     
+        <div class="row">	
+		         <div class="col-md-2"><label id="lblFromDate">From Date</label>
+				       <s:input id="txtFromDate" name="fromDate"
+						path="dtFromDate" cssClass="calenderTextBox" required="true" style="width:70%"/> 
+						<s:errors path="dtFromDate"></s:errors>
+				</div>
+					
+				<div class="col-md-2"><label id="lblToDate">To Date</label>
+				       <s:input id="txtToDate" name="toDate"
+						path="dtToDate" cssClass="calenderTextBox" required="true" style="width:70%"/> 
+						<s:errors path="dtToDate"></s:errors>
+				</div>
+	             <div class="col-md-8"></div>
+	             
+		        <div class="col-md-2"><label>From Location</label>
+		                <input type="text" id="txtFromLocCode" ondblclick="funHelp('locby')" Class="searchTextBox" readOnly="true"></input>
+			     </div>
+			     
+			     <div class="col-md-3"><label id="lblFromLocName" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label></div>
+			     <div class="col-md-1"></div>
+			     
+			     <div class="col-md-2"><label>To Location</label>
+			           <input type="text" id="txtToLocCode" style="width:100%;" class="searchTextBox" placeholder="Type to search"></input>
+			     </div>
 			
-				<td style="padding: 0 !important;">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-
-							<table id="" class="masterTable"
-								style="width: 100%; border-collapse: separate;">
+			     <div class="col-md-3"><label id="lblToLocName" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label></div>
+			
+				 <div class="col-md-6">
+					<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+                        <table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
-										<td width="15%"><input type="checkbox" id="chkFromLocALL"
+									<tr bgcolor="#c0c0c0">
+										<td width="10%"><input type="checkbox" id="chkFromLocALL"
 											checked="checked" />Select</td>
 										<td width="25%">From Location Code</td>
 										<td width="65%">From Location Name</td>
@@ -411,7 +419,7 @@
 							<table id="tblFromloc" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#fafbfb">
 									<td width="15%"></td>
 									<td width="25%"></td>
 									<td width="65%"></td>
@@ -419,16 +427,13 @@
 								</tr>
 							</table>
 						</div>
-						</td>
-						<td style="padding: 0 !important;">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-
-							<table id="" class="masterTable"
-								style="width: 100%; border-collapse: separate;">
+					</div>
+					 <div class="col-md-6">
+						<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+                            <table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
-										<td width="15%"><input type="checkbox" checked="checked" 
+									<tr bgcolor="#c0c0c0">
+										<td width="10%"><input type="checkbox" checked="checked" 
 										id="chkToLocALL"/>Select</td>
 										<td width="25%">To Location Code</td>
 										<td width="65%">To Location Name</td>
@@ -439,7 +444,7 @@
 							<table id="tblToloc" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#fafbfb">
 									<td width="15%"></td>
 									<td width="25%"></td>
 									<td width="65%"></td>
@@ -447,44 +452,38 @@
 								</tr>
 							</table>
 						</div>
-				</td>
-			</tr>
-		</table>
-		<br>
-	<table class="transTable">
-	<tr>
-		<td width="10%">Requisition Code</td>
+				       </div>
+		   	
+		      <div class="col-md-2"><label>Requisition Code</label>
+		
 		<%-- <td width="150px" colspan="2"><s:input type ="text" path="strDocCode" id="txtReqCode" name="strMISCode" readonly="readonly"  class="searchTextBox" style="width: 150px;background-position: 136px 4px;" ondblclick="funHelp('MaterialReq')"/> </td> --%>
-		<td width="1%" colspan="2">		
-		<s:input type ="text" path="strFromDocCode" id="txtFromReqCode" name="strFromReqCode" readonly="true" placeholder="From Requisition Code"  class="searchTextBox" style="width: 162px;background-position: 150px 2px;" ondblclick="funHelp('MaterialReqSlip')"/> 
-		</td>  
-		<td width="0%" colspan="2">
-		<s:input type ="text" path="strToDocCode" id="txtToReqCode" name="strToReqCode" readonly="true" placeholder="To Requisition Code"  class="searchTextBox" style="width: 150px;background-position: 136px 2px;" ondblclick="funHelp('ToMaterialReq')"/> 
-		</td>
-	</tr>
-	<tr>
-	<td><label>Report Type</label></td>
-					<td colspan="4">
-						<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+		
+		           <s:input type ="text" path="strFromDocCode" id="txtFromReqCode" name="strFromReqCode" readonly="true" placeholder="From Requisition Code"  class="searchTextBox" style="width: 155px;background-position: 137px 5px;" ondblclick="funHelp('MaterialReqSlip')"/> 
+		      </div>
+		        
+		 <div class="col-md-2">
+		        <s:input type ="text" path="strToDocCode" id="txtToReqCode" name="strToReqCode" readonly="true" placeholder="To Requisition Code"  class="searchTextBox" style="width: 150px;background-position: 136px 2px;margin-top:27px" ondblclick="funHelp('ToMaterialReq')"/> 
+		</div>
+		
+	 <div class="col-md-8"></div>
+	 <div class="col-md-2"><label>Report Type</label>
+					<s:select id="cmbDocType" path="strDocType" style="width:50%">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
 				    		<s:option value="HTML">HTML</s:option>
 				    		<s:option value="CSV">CSV</s:option>
-				    	</s:select>
-			</td>
-	</tr>
-	<tr>
-		<td colspan="4"></td>
-		
-	</tr>
-</table>
-<br>
+				    </s:select>
+	  </div>
+	</div>
+
 		<p align="center">
-			<input type="submit" value="Submit" onclick="return funCallFormAction('submit',this)" class="form_button"/>
-			 <input type="button" value="Reset" class="form_button" onclick="funResetFields();"/>
+			<input type="submit" value="Submit" onclick="return funCallFormAction('submit',this)" class="btn btn-primary center-block" class="form_button"/>
+			 &nbsp;
+			 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields();"/>
 		</p>
 			<s:input type="hidden" id="hidFromLocCodes" path="strFromLocCode"></s:input>
 			<s:input type="hidden" id="hidToLocCodes" path="strToLocCode"></s:input>
-</s:form>
+ </s:form>
+ </div>
 </body>
 </html>

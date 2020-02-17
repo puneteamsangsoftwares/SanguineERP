@@ -1,11 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Extra Bed Master</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 
@@ -256,7 +263,15 @@ function funSetAccountCode(code){
 				        return true;
 				    }  
 		
-		
+			 $('#baseUrl').click(function() 
+		    			{  
+		    				 if($("#txtExtraBedTypeCode").val().trim()=="")
+		    				{
+		    					alert("Please Select Extra Bed Type..  ");
+		    					return false;
+		    				} 
+		    					window.open('attachDoc.html?transName=frmExtraBed.jsp&formName=Member Profile&code='+$('#txtExtraBedTypeCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+		    			});
 	
 </script>
 
@@ -268,82 +283,64 @@ function funSetAccountCode(code){
 
 </head>
 <body>
-	<div id="formHeading">
-		<label>Extra Bed Master</label>
-	</div>
-	
-	<s:form name="ExtraBed" method="GET" action="saveExtraBedMaster.html?" >
-	<br> 
-					<br>
-	<div id="tab_container" style="height: 405px">
+	<div class="container masterTable"> 
+		<label id="formHeading">Extra Bed Master</label>
+	    <s:form name="ExtraBed" method="GET" action="saveExtraBedMaster.html?" >
+	     <div id="tab_container" style="height: 205px">
 				<ul class="tabs">
-					<li data-state="tab1" style="width: 6%; padding-left: 2%;margin-left: 10%; " class="active" >General</li>
-					<li data-state="tab2" style="width: 8%; padding-left: 1%">LinkUp</li>
+					<li data-state="tab1" style="width: 7%" class="active" >General</li>
+					<li data-state="tab2" style="width: 7%">LinkUp</li>
 				</ul>
 							
 				<!-- General Tab Start -->
-				<div id="tab1" class="tab_content" style="height: 400px">
-					
-		<table class="masterTable">
-
-          <tr>
-				<th align="right" colspan="2"><a id="baseUrl"
+		<div id="tab1" class="tab_content" style="height: 200px">
+	 		<div class="row" style="margin-top: 4%">
+				<div class="col-md-12" align="center"><a id="baseUrl" style="margin-left:-48%;display:none"
 					href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
-						&nbsp;</th>
-			</tr>
-
-
-			<tr>
-			    <td><label>Extra Bed Type</label></td>
-				<td><s:input id="txtExtraBedTypeCode" path="strExtraBedTypeCode" cssClass="searchTextBox" ondblclick="funHelp('extraBed')" /></td>				
-			</tr>
+					&nbsp;</div>
 			
-			<tr>
-			    <td><label>Extra Bed Type Desc</label></td>
-				<td><s:input id="txtExtraBedTypeDesc" path="strExtraBedTypeDesc" cssClass="longTextBox" /></td>				
-			</tr>
+			<div class="col-md-2"><label>Extra Bed Type</label>
+				<s:input id="txtExtraBedTypeCode" path="strExtraBedTypeCode" cssClass="searchTextBox" style="height: 50%;" ondblclick="funHelp('extraBed')" />				
+			</div>
 			
-			<tr>
-			    <td><label>No Of Beds</label></td>
-				<td><s:input id="txtNoOfBed" path="intNoBeds" cssClass="longTextBox" style="text-align:right;" onkeypress="javascript:return isNumber(event)"/></td>				
-			</tr>
+			<div class="col-md-2"><label>Extra Bed Type Desc</label>
+				<s:input id="txtExtraBedTypeDesc" path="strExtraBedTypeDesc"/>				
+			</div>
+			<div class="col-md-8"></div>
 			
-			<tr>
-			    <td><label>Charge Per Bed</label></td>
-				<td><s:input id="txtChargePerBed" path="dblChargePerBed" style="text-align:right;" cssClass="longTextBox" onkeypress="javascript:return isNumber(event)" /></td>				
-			</tr>
+			<div class="col-md-1"><label>No Of Beds</label>
+				<s:input id="txtNoOfBed" path="intNoBeds" style="text-align:right;" onkeypress="javascript:return isNumber(event)"/>				
+			</div>
 			
+			<div class="col-md-1.1"><label>Charge Per Bed</label>
+				<s:input id="txtChargePerBed" path="dblChargePerBed" style="text-align:right;width: 50%;" onkeypress="javascript:return isNumber(event)" />				
+			</div>
 			
-			
-		</table>
+		</div>
 		</div>
 		<!--General Tab End  -->
 						
 						
 			<!-- Linkedup Details Tab Start -->
-			<div id="tab2" class="tab_content" style="height: 400px">
+			<div id="tab2" class="tab_content" style="height:200px">
 			<br> 
 			<br>			
-				<table class="masterTable">
-						<tr>
-						    <td><label>Account Code</label></td>
-						    <td><s:input id="txtAccountCode" path="strAccountCode" readonly="true" ondblclick="funHelp('accountCode')" cssClass="searchTextBox"/></td>
-						    <td colspan="2"><s:input id="txtAccountName" path="" readonly="true" cssClass="longTextBox"  style="width: 316px"/></td>			        			        						    			    		        			  
-						</tr>
-				</table>
+				<div class="row">
+						<div class="col-md-2"><label>Account Code</label>
+						    <s:input id="txtAccountCode" path="strAccountCode" readonly="true" ondblclick="funHelp('accountCode')" style="height: 45%" cssClass="searchTextBox"/>
+						</div>
+						 <div class="col-md-2"><s:input id="txtAccountName" path="" readonly="true" style="margin-top:17%"/>		        			        						    			    		        			  
+						</div>
+				</div>
 			</div>
-			
 		</div>
 		
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button"  onclick="return funCallFormAction('submit',this);"  />
-            <input type="reset" value="Reset" class="form_button" />
-          
-            
-		</p>
+		<p align="center" style="margin-right:48%">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button"  onclick="return funCallFormAction('submit',this);"  />
+            &nbsp;
+            <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />
+       </p>
 	</s:form>
-	
+	</div>
 </body>
 </html>

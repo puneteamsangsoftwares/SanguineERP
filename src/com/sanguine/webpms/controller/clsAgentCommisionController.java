@@ -78,6 +78,8 @@ public class clsAgentCommisionController {
 			objModel = new clsAgentCommisionHdModel();
 			objModel.setStrAgentCommCode("Invalid Code");
 		}
+		objModel.setDteFromDate(objGlobal.funGetDate("dd-MM-yyyy", objModel.getDteFromDate()));
+		objModel.setDteToDate(objGlobal.funGetDate("dd-MM-yyyy", objModel.getDteToDate()));
 		return objModel;
 	}
 

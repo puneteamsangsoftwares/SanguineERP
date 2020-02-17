@@ -1,13 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 </head>
 
 <script>
@@ -58,6 +64,7 @@
 			$("#btnExecute").click(function( event )
 			{
 			funCalculateStockFlashForSummary();
+			return false;
 			});
 		});
 		
@@ -141,7 +148,7 @@
     			}	
 		
 		   
-			   	newcontent = '<table id="tblNoShow" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labls1">Guest Name</td><td id="labls2">Reservation No</td><td id="labls3">No Of Rooms</td><td id="labls4">Payment</td></tr>';
+			   	newcontent = '<table id="tblNoShow" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labls1">Guest Name</td><td id="labls2">Reservation No</td><td id="labls3">No Of Rooms</td><td id="labls4">Payment</td></tr>';
 					   
 			    // Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
@@ -191,33 +198,35 @@
 		
 </script>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>No Show Report </label>
-	</div>
-	<s:form name="frmNoShowReport" method="GET" action="" >
-		
-	<table class="masterTable">
-		<br/><br/>
-			<tr>
-				<td><label>From Date</label></td>
-				<td><s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" /></td>
-				<td><label>To Date</label></td>
-				<td><s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" /></td>				
-			</tr>
-			<tr>
-					<td><input id="btnExecute" type="button" class="form_button1" value="EXECUTE"/></td>
-					
-					<td>
-						<s:select path="strExportType" id="cmbExportType"  cssClass="BoxW124px">
-							<option value="Excel">Excel</option>
-							
-						</s:select>
-					</td>
-					<td colspan="7">						
-						<input id="btnExport" type="button" value="EXPORT"  class="form_button1"/>
-					</td>
-				</tr>
-		</table>
+	<div class="container">
+		<label id="formHeading">No Show Report </label>
+		<s:form name="frmNoShowReport" method="GET" action="" >
+			<div class="row masterTable">
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-6">
+							<label>From Date</label>
+							<s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" />
+						</div>
+						<div class="col-md-6">
+							<label>To Date</label>
+							<s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" />
+						</div>	
+					</div>
+				</div>
+				<div class="col-md-1">
+					<s:select path="strExportType" id="cmbExportType" style="margin-top:27px;">
+						<option value="Excel">Excel</option>
+					</s:select>
+				</div>
+			</div>
+			<div class="center" style="margin-right:68%;">
+				<button class="btn btn-primary center-block" id="btnExecute"  value="Execute" onclick=""
+					class="form_button">Execute</button>&nbsp
+				<button class="btn btn-primary center-block" id="btnExport" value="Export" 
+					class="form_button">Export</button>
+			</div>
+			
 		<br>
 		<br>
 		<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
@@ -230,8 +239,7 @@
 			<td id="labld26" width="80%" align="right">Total Value</td>
 			<td id="tdTotValue" width="10%" align="right">
 			<input id="txtTotValue" style="width: 100%;text-align: right;" class="Box"></input></td>
-			<td width="10%" align="right"></td>
-			</tr>
+		</tr>
 		</table>
 		</div>
 		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
@@ -239,6 +247,6 @@
 			</div>
 	
 	</s:form>
-
+</div>
 </body>
 </html>

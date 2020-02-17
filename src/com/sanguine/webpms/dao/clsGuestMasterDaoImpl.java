@@ -18,7 +18,7 @@ public class clsGuestMasterDaoImpl implements clsGuestMasterDao {
 	@Autowired
 	private SessionFactory webPMSSessionFactory;
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false,value="WebPMSTransactionManager")
 	public void funAddUpdateGuestMaster(clsGuestMasterHdModel objGuestMasterModel) {
 		//String sqlDelete = "delete from tblguestmaster where lngMobileNo='" + objGuestMasterModel.getLngMobileNo() + "' " + " and strClientCode='" + objGuestMasterModel.getStrClientCode() + "'";
 		//webPMSSessionFactory.getCurrentSession().createSQLQuery(sqlDelete).executeUpdate();
@@ -26,7 +26,7 @@ public class clsGuestMasterDaoImpl implements clsGuestMasterDao {
 
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false,value="WebPMSTransactionManager")
 	@Override
 	public List funGetGuestMaster(String guestCode, String clientCode) {
 

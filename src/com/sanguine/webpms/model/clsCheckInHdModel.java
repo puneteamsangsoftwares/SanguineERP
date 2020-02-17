@@ -109,6 +109,9 @@ public class clsCheckInHdModel implements Serializable {
 	@Column(name="strComplimentry")
 	private String strComplimentry;
 
+	@Column(name="strDontApplyTax")
+	private String strDontApplyTax;
+
 	
 	public List<clsCheckInDtl> getListCheckInDtl() {
 		return listCheckInDtl;
@@ -316,6 +319,14 @@ public class clsCheckInHdModel implements Serializable {
 
 	public void setStrComplimentry(String strComplimentry) {
 		this.strComplimentry = strComplimentry;
+	}
+
+	public String getStrDontApplyTax() {
+		return strDontApplyTax;
+	}
+
+	public void setStrDontApplyTax(String strDontApplyTax) {
+		this.strDontApplyTax = strDontApplyTax;
 	}
 
 	

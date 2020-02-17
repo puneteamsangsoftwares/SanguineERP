@@ -288,7 +288,7 @@
 							
 				</div>
 				<div class="submit" id="divBtn">
-					<h2><input type="submit" onclick="return funSetSessionData()" placeholder="Submit style='color:#fff;'" id="submit" value="Submit" class="loginButton" style="margin-right:170px; float:right; font-size:17px; font-weight:1100px;
+					<h2><input type="submit" onclick="return funSetSessionData()" placeholder="Submit style='color:#fff;'" id="submit" value="Submit" class="loginButton" style="margin-right:170px; float:right; font-size:17px; font-family:trebuchet ms; font-weight:1100px;
     width: 8%; color:#fff;"></h2>
 				</div>
 				

@@ -4525,13 +4525,13 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		
 		
 		sql = "ALTER TABLE `tblpropertysetup` "
-				+ "ADD COLUMN `strCheckInEmailContent` VARCHAR(255) NOT NULL DEFAULT '' AFTER `strPanNo`;";
+				+ "ADD COLUMN `strCheckInEmailContent` VARCHAR(255) NOT NULL DEFAULT 'NOT SELECTED' AFTER `strPanNo`;";
 		funExecutePMSQuery(sql);
 		
 		
 		sql = "ALTER TABLE `tblpropertysetup`"
 				+ "ADD COLUMN `strReservationEmailContent` VARCHAR(255) "
-				+ "NOT NULL DEFAULT '' AFTER `strCheckInEmailContent`;";
+				+ "NOT NULL DEFAULT 'NOT SELECTED' AFTER `strCheckInEmailContent`;";
 		funExecutePMSQuery(sql);
 		
 		sql = "ALTER TABLE `tblfoliodtl`"
@@ -4558,8 +4558,64 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		
 		funExecutePMSQuery(sql);
 		
+		sql = "CREATE TABLE `tblroomhousekeepdtl` ("
+				+ "`strHouseKeepCode` VARCHAR(20) NOT NULL,"
+				+ "`strRoomCode` VARCHAR(20) NOT NULL,"
+				+ "`dteDate` DATETIME NOT NULL DEFAULT '1990-10-10 00:00:00',"
+				+ "`strUser` VARCHAR(50) NOT NULL,"
+				+ "`strRemarks` VARCHAR(50) NOT NULL,"
+				+ "`strRoomCodeFlg` VARCHAR(5) NOT NULL DEFAULT 'N',"
+				+ "`strClientCode` VARCHAR(50) NOT NULL"
+				+ ") COLLATE='utf8_general_ci' ENGINE=InnoDB;";
+		funExecutePMSQuery(sql);
 		
-		// For PMS Form Of Tree master Start///
+		sql = "ALTER TABLE `tblroom` "
+				+ "ADD COLUMN `strHouseKeepingFlg` VARCHAR(5) NOT NULL DEFAULT 'Y' AFTER `strRoomTypeDesc`;";
+		funExecutePMSQuery(sql);
+		
+		sql = "CREATE TABLE `tblhousekeepmaster` ("
+				+ "`strClientCode` VARCHAR(255) NOT NULL,"
+				+ "`strHouseKeepCode` VARCHAR(255) NOT NULL,"
+				+ "`dteDateCreated` VARCHAR(255) NULL DEFAULT NULL,"
+				+ "`dteDateEdited` VARCHAR(255) NULL DEFAULT NULL,"
+				+ "`strHouseKeepName` VARCHAR(255) NULL DEFAULT NULL,"
+				+ "`strRemarks` VARCHAR(255) NULL DEFAULT NULL,"
+				+ "`strUserCreated` VARCHAR(255) NULL DEFAULT NULL,"
+				+ "`strUserEdited` VARCHAR(255) NULL DEFAULT NULL,"
+				+ "PRIMARY KEY (`strClientCode`, `strHouseKeepCode`))"
+				+ " COLLATE='utf8_general_ci' ENGINE=InnoDB ;";		
+		
+		funExecutePMSQuery(sql);
+		
+		sql = "ALTER TABLE `tblfoliotaxdtl`"
+				+ " CHANGE COLUMN `dblTaxableAmt` `dblTaxableAmt` DECIMAL(18,4) NOT NULL AFTER `strTaxDesc`,CHANGE COLUMN `dblTaxAmt` `dblTaxAmt` DECIMAL(18,4) NOT NULL AFTER `dblTaxableAmt`;";
+		
+		funExecutePMSQuery(sql);
+		
+		sql = "ALTER TABLE `tblguestmaster`"
+				+ " ADD COLUMN `strGuestImage` MEDIUMBLOB NULL AFTER `intPinCodeOfc`;";
+		
+		funExecutePMSQuery(sql);
+		
+		sql = "ALTER TABLE `tblpropertysetup`"
+				+ " ADD COLUMN `strEnableWebCam` VARCHAR(20) NOT NULL DEFAULT 'N' AFTER `strEnableHousekeeping`;";
+		
+		funExecutePMSQuery(sql);
+		
+		sql = "ALTER TABLE `tblpropertysetup` ADD COLUMN `strEnableHousekeeping` VARCHAR(20) NOT NULL DEFAULT 'N' AFTER `strReservationEmailContent`;";
+		
+		funExecutePMSQuery(sql);
+		
+		sql = "ALTER TABLE `tblcheckinhd` "
+				+ "ADD COLUMN `strDontApplyTax` VARCHAR(5) NOT NULL DEFAULT 'N' AFTER `strComplimentry`;";
+		
+		funExecutePMSQuery(sql);
+		
+		sql = "ALTER TABLE `tblreservationhd` "
+				+ "ADD COLUMN `strDontApplyTax` VARCHAR(10) NOT NULL DEFAULT 'N' AFTER `tmePickUpTime`;";
+		
+		funExecutePMSQuery(sql);
+				// For PMS Form Of Tree master Start///
 		sql = " INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`) VALUES "
 
 				+ " ('frmAgentCommision', 'Agent Commision', 'Master', 1, 'M', 13, 13, '1', 'imgAgentCommission.png', '3', 1, '1', '1', 'NO', 'NO', 'frmAgentCommision.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
@@ -5069,6 +5125,19 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		}
 	}*/
 	
+	
+	/*@SuppressWarnings("finally")
+	private int funExecutePMSQuery(String sql) {
+		try {
+			objBookerMasterService.funExecutePMSQuery(sql);
+			Query query = webPMSSessionFactory.getCurrentSession().createSQLQuery(sql);
+			query.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {			
+			return 0;
+		}
+	}*/
 	
 	@SuppressWarnings("finally")
 	private int funExecutePMSQuery(String sql) {

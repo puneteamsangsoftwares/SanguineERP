@@ -1,11 +1,16 @@
 package com.sanguine.controller;
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Blob;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,11 +19,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.rowset.serial.SerialBlob;
-import javax.sql.rowset.serial.SerialException;
+import javax.swing.ImageIcon;
 import javax.validation.Valid;
 
 import org.hibernate.Hibernate;
@@ -600,6 +605,8 @@ public class clsSetupMasterController {
 		bean.setStrSMSAPI(objSetup.getStrSMSAPI());
 		
 		bean.setStrSMSContent(objSetup.getStrSMSContent());
+		bean.setStrFifo(objSetup.getStrFifo());
+		
 	}
 
 	private void funSetBlankPropertyData(clsSetupMasterBean bean) {
@@ -813,28 +820,59 @@ public class clsSetupMasterController {
 				}
 				clsPropertySetupModel PropertySetupModel = funPrepareMaster(
 						bean, userCode, req);
-				ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-				byte[] imageBytes = byteArrayOutputStream.toByteArray();
 				objSetupMasterService
 						.funAddUpdatePropertySetupModel(PropertySetupModel);
 				// System.out.println(file.getBytes());
+				
+				
+				clsCompanyLogoModel comLogo = new clsCompanyLogoModel();
+				comLogo.setStrCompanyCode(companyCode);
+				//comLogo.setStrCompanyLogo(blobProdImage);
+				
 				if (file.getSize() != 0) {
-					Blob blobProdImage = null;
-					try {
-						blobProdImage = new SerialBlob(imageBytes);
-					} catch (SerialException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					System.out.println(file.getOriginalFilename());
+					File imgFolder = new File(System.getProperty("user.dir") + "\\ProductIcon");
+					if (!imgFolder.exists()) {
+						if (imgFolder.mkdir()) {
+							System.out.println("Directory is created! " + imgFolder.getAbsolutePath());
+						} else {
+							System.out.println("Failed to create directory!");
+						}
 					}
-					//Hibernate.createBlob(file.getInputStream());
+					File fileImageIcon = new File(System.getProperty("user.dir") + "\\ProductIcon\\" + file.getOriginalFilename());
+					String formatName = "jpg";
+					ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+					BufferedImage bufferedImage = ImageIO.read(funInputStreamToBytearrayInputStrean(file.getInputStream()));
+					String path = fileImageIcon.getPath().toString();
+					ImageIO.write(bufferedImage, "jpg", new File(path));
+					BufferedImage bfImg = scaleImage(200, 240, path);
+					ImageIO.write(bfImg, "jpg", byteArrayOutputStream);
+					byte[] imageBytes = byteArrayOutputStream.toByteArray();
+					ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);				
+					comLogo.setStrCompanyLogo(imageBytes);
+					if (fileImageIcon.exists()) {
+						fileImageIcon.delete();
+					}					
+				} else {
+					//objModel.setStrProductImage(funBlankBlob());
+				}				
+				objSetupMasterService.funSaveUpdateCompanyLogo(comLogo);				
+			/*	
+				
+				if (file.getSize() != 0) {
+					Blob blobProdImage = Hibernate.createBlob(file
+							.getInputStream());
 					clsCompanyLogoModel comLogo = new clsCompanyLogoModel();
 					comLogo.setStrCompanyCode(companyCode);
 					comLogo.setStrCompanyLogo(blobProdImage);
 					objSetupMasterService.funSaveUpdateCompanyLogo(comLogo);
-				}
+				}*/
+				
+				
+				
+				
+				
+				
 				if (null != bean.getListclsTransactionTimeModel()) {
 					for (clsTransactionTimeModel ob : bean
 							.getListclsTransactionTimeModel()) {
@@ -862,15 +900,13 @@ public class clsSetupMasterController {
 						objTransactionTimeService.funAddUpdate(ob);
 					}
 				}
-				clsCompanyLogoModel objCompanyLogo = objSetupMasterService
-						.funGetCompanyLogoObject(companyCode);
+				clsCompanyLogoModel objCompanyLogo = objSetupMasterService.funGetCompanyLogoObject(companyCode);
 				if (objCompanyLogo.getStrCompanyLogo() != null) {
-					Blob blob = objCompanyLogo.getStrCompanyLogo();
 					String imagePath = servletContext
 							.getRealPath("/resources/images");
-					int blobLength = (int) blob.length();
-					byte[] blobAsBytes = blob.getBytes(1, blobLength);
-
+					//int blobLength = (int) blob.length();
+					//byte[] blobAsBytes = blob.getBytes(1, blobLength);
+					byte[] blobAsBytes = objCompanyLogo.getStrCompanyLogo();
 					fileOuputStream = new FileOutputStream(imagePath
 							+ "/company_Logo.png");
 					fileOuputStream.write(blobAsBytes);
@@ -885,6 +921,47 @@ public class clsSetupMasterController {
 		return new ModelAndView("redirect:/frmSetup.html?saddr=" + urlHits);
 	}
 
+	public BufferedImage scaleImage(int WIDTH, int HEIGHT, String filename) {
+		BufferedImage bi = null;
+		try {
+			ImageIcon ii = new ImageIcon(filename);// path to image
+			bi = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+			Graphics2D gra2d = (Graphics2D) bi.createGraphics();
+			gra2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
+			gra2d.drawImage(ii.getImage(), 0, 0, WIDTH, HEIGHT, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return bi;
+	}
+
+	@SuppressWarnings("finally")
+	private ByteArrayInputStream funInputStreamToBytearrayInputStrean(InputStream ins) {
+		ByteArrayInputStream byteArrayInputStream = null;
+		try {
+			byte[] buff = new byte[8000];
+
+			int bytesRead = 0;
+
+			ByteArrayOutputStream bao = new ByteArrayOutputStream();
+
+			while ((bytesRead = ins.read(buff)) != -1) {
+				bao.write(buff, 0, bytesRead);
+			}
+
+			byte[] data = bao.toByteArray();
+
+			byteArrayInputStream = new ByteArrayInputStream(data);
+			System.out.println(byteArrayInputStream.available());
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+		} finally {
+			return byteArrayInputStream;
+		}
+	}
 	@SuppressWarnings("finally")
 	private int funSetAuthorizationFormStatus(HttpServletRequest req) {
 		try {
@@ -1195,6 +1272,9 @@ public class clsSetupMasterController {
 		objPropertySetupModel.setStrUserModified(string);
 		objPropertySetupModel.setClientCode(req.getSession()
 				.getAttribute("clientCode").toString());
+		objPropertySetupModel.setStrFifo(objGlobal.funIfNull(bean.getStrFifo(),"N",bean.getStrFifo()));
+		
+		
 		List auditFormList = bean.getListAuditForm();
 		String AuditFrom = "";
 		if (auditFormList != null) {
@@ -1475,17 +1555,17 @@ public class clsSetupMasterController {
 		clsCompanyLogoModel objSetup = objSetupMasterService
 				.funGetCompanyLogoObject(strCompanyCode);
 		try {
-			Blob image = null;
+			//Blob image = null;
 			byte[] imgData = null;
-			image = objSetup.getStrCompanyLogo();
-			if (null != image && image.length() > 0) {
-				imgData = image.getBytes(1, (int) image.length());
+			imgData = objSetup.getStrCompanyLogo();
+			
+				//imgData = image.getBytes(1, (int) image.length());
 				response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
 				OutputStream o = response.getOutputStream();
 				o.write(imgData);
 				o.flush();
 				o.close();
-			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sanguine.base.service.intfBaseService;
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.model.clsPropertySetupModel;
 import com.sanguine.service.clsGlobalFunctionsService;
@@ -72,7 +73,8 @@ public class clsBillPrintingController {
 	@Autowired
 	private clsPropertySetupService objPropertySetupService;
 	
-	
+	@Autowired
+	private intfBaseService objBaseService;
 
 	// Open Folio Printing
 	@RequestMapping(value = "/frmBillPrinting", method = RequestMethod.GET)
@@ -100,11 +102,9 @@ public class clsBillPrintingController {
 		model.put("urlHits", urlHits);
 		
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmBillPrinting_1", "command",
-					new clsBillPrintingBean());
+			return new ModelAndView("frmBillPrinting_1", "command",new clsBillPrintingBean());
 		} else if ("1".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmBillPrinting", "command",
-					new clsBillPrintingBean());
+			return new ModelAndView("frmBillPrinting", "command",new clsBillPrintingBean());
 		} else {
 			return null;
 		}
@@ -129,6 +129,7 @@ public class clsBillPrintingController {
 			String temp[] = strSelectBill.split(",");
 			String billNames = "";
 			String pSupportVoucher="";
+			String pSupportVoucherTextFielf="";
 			double pRoomTariff=0.0;
 			double dblTotalRoomTarrif = 0.0;
 			int count=0;
@@ -520,15 +521,14 @@ public class clsBillPrintingController {
 						}
 
 						}
-						sqlBillDtl = "SELECT date(a.dteDocDate),a.strDocNo,b.strTaxDesc,b.dblTaxAmt,0,0 "
+						sqlBillDtl = "SELECT date(a.dteDocDate),a.strDocNo,b.strTaxDesc,b.dblTaxAmt,0 "
 								+ " FROM tblbilldtl a, tblbilltaxdtl b where a.strDocNo=b.strDocNo "
 								+ " AND a.strBillNo='"
 								+ billNo
 								+ "' and a.strDocNo='" + docNo + "' AND a.strClientCode='"+clientCode+"'";
 						// + " and DATE(a.dteDocDate) BETWEEN '" + fromDate +
 						// "' AND '" + toDate + "' ";
-						List listBillTaxDtl = objWebPMSUtility.funExecuteQuery(
-								sqlBillDtl, "sql");
+						List listBillTaxDtl = objBaseService.funGetListForWebPMS(new StringBuilder(sqlBillDtl), "sql");
 						for (int cnt = 0; cnt < listBillTaxDtl.size(); cnt++) {
 							Object[] arrObjBillTaxDtl = (Object[]) listBillTaxDtl.get(cnt);
 							billPrintingBean = new clsBillPrintingBean();
@@ -674,7 +674,7 @@ public class clsBillPrintingController {
 							+ "d.dblSettlementAmt AS creditAmt,'0.00' AS balance "
 							+ "FROM tblreceipthd c, tblreceiptdtl d, tblsettlementmaster e "
 							+ "WHERE c.strReceiptNo=d.strReceiptNo AND d.strSettlementCode=e.strSettlementCode "
-							+ "AND c.strReservationNo='"+strResNo+"' AND d.strClientCode='"+clientCode+"'";
+							+ "AND c.strReservationNo='"+strResNo+"' AND d.strClientCode='"+clientCode+"' AND c.strReservationNo='"+strResNo+"'";
 					
 					paymentDtlList = objGlobalFunctionsService.funGetDataList(sqlResPayment, "sql");
 					 for (int i = 0; i < paymentDtlList.size(); i++) {
@@ -769,13 +769,12 @@ public class clsBillPrintingController {
 					}
 				}
 */
-				String sqlDisc = " select date(a.dteBillDate),'','Discount','0.00',a.dblDiscAmt,'0.00' from  tblbilldiscount a "
+				String sqlDisc = " select date(a.dteBillDate),'','Discount','0.00',a.dblDiscAmt from  tblbilldiscount a "
 						+ " WHERE a.strBillNo='"
 						+ billNo
 						+ "' and strClientCode='" + clientCode + "' ";
 
-				List billDiscList = objFolioService
-						.funGetParametersList(sqlDisc);
+				List billDiscList = objBaseService.funGetListForWebPMS(new StringBuilder(sqlDisc), "sql");
 				for (int i = 0; i < billDiscList.size(); i++) {
 					Object[] billDicArr = (Object[]) billDiscList.get(i);
 
@@ -868,15 +867,18 @@ public class clsBillPrintingController {
 			if(list.size()>0)
 			{
 				pSupportVoucher="Yes";
+				/*pSupportVoucherTextFielf = "Supporting Voucher";*/
 			}
 			else
 			{
-				pSupportVoucher="No";
+				pSupportVoucher="";
+				/*pSupportVoucherTextFielf = "";*/
 			}
 			
 			pRoomTariff = funGetRoomTariffData(billNo,folio,registrationNo,clientCode,checkInNo);
 			reportParams.put("listtax", listtax);
 			reportParams.put("pSupportVoucher", pSupportVoucher);
+			reportParams.put("pSupportVoucherTextFielf", pSupportVoucherTextFielf);
 			reportParams.put("pHmRoomTariff", pRoomTariff);
 			JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(dataList);
 			JasperDesign jd = JRXmlLoader.load(reportName);
@@ -902,8 +904,8 @@ public class clsBillPrintingController {
 	}
 
 	private void funDeleteTaxesAndUpdateBillHd(String strTaxOfBill, String clientCode, String billNo, double dblTaxAmt) {
-		
 		try{
+			
 			
 			String updateBillHd = "update tblbillhd a set a.dblGrandTotal=(a.dblGrandTotal-"+dblTaxAmt+") where a.strBillNo='"+billNo+"' and a.strClientCode='"+clientCode+"' ";
 			objWebPMSUtility.funExecuteUpdate(updateBillHd, "sql");
@@ -1529,7 +1531,7 @@ public class clsBillPrintingController {
 		return listVoidDtl;
 	}
 	
-	public double funGetRoomTariffData(String billNo,String folio, String registrationNo,String clientCode,String checkInNo )
+	public double funGetRoomTariffData(String billNo,String folio, String registrationNo,String clientCode,String checkInNo ) throws Exception
 	{
 		double pRoomTariff=0.0;
 		List dataList = new ArrayList<>();
@@ -1583,12 +1585,12 @@ public class clsBillPrintingController {
 						hmParticulars.put(particulars,billPrintingBean);
 					}
 					
-					sqlBillDtl = "SELECT date(a.dteDocDate),a.strDocNo,b.strTaxDesc,b.dblTaxAmt,0,0 "
+					sqlBillDtl = "SELECT date(a.dteDocDate),a.strDocNo,b.strTaxDesc,b.dblTaxAmt,0"
 							+ " FROM tblbilldtl a, tblbilltaxdtl b where a.strDocNo=b.strDocNo "
 							+ " AND a.strBillNo='"
 							+ billNo
 							+ "' and a.strDocNo='" + docNo + "' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'";
-					List listBillTaxDtl = objWebPMSUtility.funExecuteQuery(sqlBillDtl, "sql");
+					List listBillTaxDtl = objBaseService.funGetListForWebPMS(new StringBuilder(sqlBillDtl), "sql");
 					for (int cnt = 0; cnt < listBillTaxDtl.size(); cnt++) {
 						Object[] arrObjBillTaxDtl = (Object[]) listBillTaxDtl.get(cnt);
 						billPrintingBean = new clsBillPrintingBean();
@@ -1699,11 +1701,10 @@ public class clsBillPrintingController {
 			}
 		}
 		
-		String sqlDisc = " select date(a.dteBillDate),'','Discount','0.00',a.dblDiscAmt,'0.00' from  tblbilldiscount a "
+		String sqlDisc = " select date(a.dteBillDate),'','Discount','0.00',a.dblDiscAmt from  tblbilldiscount a "
 				+ " WHERE a.strBillNo='"+billNo+"' and strClientCode='" + clientCode + "' ";
 
-		List billDiscList = objFolioService
-				.funGetParametersList(sqlDisc);
+		List billDiscList = objBaseService.funGetListForWebPMS(new StringBuilder(sqlDisc), "sql");
 		for (int i = 0; i < billDiscList.size(); i++) 
 		{
 			Object[] billDicArr = (Object[]) billDiscList.get(i);

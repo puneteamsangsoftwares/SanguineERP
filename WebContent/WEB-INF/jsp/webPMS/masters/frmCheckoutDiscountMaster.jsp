@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+ <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	
 	var fieldName;
@@ -158,45 +166,47 @@
 
         return true;
     }
+	
+	
+	
+				
+ 			$('#baseUrl').click(function() 
+ 			{  
+ 				 if($("#strFolioNo").val().trim()=="")
+ 				{
+ 					alert("Please select Folio no..");
+ 					return false;
+ 				} 
+ 				window.open('attachDoc.html?transName=frmCheckoutDiscountMaster.jsp&formName=Member Profile&code='+$('#strFolioNo').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+ 			});
 </script>
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>CheckOut Discount Master</label>
-	</div>
-
-<br/>
-<br/>
-
+  <div class="container masterTable">	
+	<label id="formHeading">CheckOut Discount Master</label>
 	<s:form name="CheckOut Discount Master" method="POST" action="saveCheckoutDiscount.html">
-
-		<table class="masterTable">
-		
-			<tr>
-			    <td><label>Folio No.</label></td>
-			    <td colspan="4"><s:input id="strFolioNo" path="strFolioNo" readonly="true"  ondblclick="funHelp('folioNo')" cssClass="searchTextBox"/></td>
-			</tr>
+		<div class="row">
+			    <div class="col-md-2"><label>Folio No.</label>
+			    	<s:input id="strFolioNo" path="strFolioNo" readonly="true" style="height: 48%" ondblclick="funHelp('folioNo')" cssClass="searchTextBox"/>
+				</div>
 			
-			<tr>
-			    <td><label>Sub Total</label></td>
-			    <td><s:input id="txtSubTotal" path="dblDebitAmt"   class="decimal-places-amt numberField" value="0" placeholder="amt" onkeypress="javascript:return isNumber(event)" /></td>
-			</tr>
-			<tr>
-			    <td><label>Discount %</label></td>
-			    <td><s:input id="txtDiscountPer" path="dblDiscPer"   class="decimal-places-amt numberField" value="0" placeholder="disc" onkeypress="javascript:return isNumber(event)" /></td>
-			</tr>
+				<div class="col-md-1"><label>Sub Total</label>
+			    	<s:input id="txtSubTotal" path="dblDebitAmt"   class="decimal-places-amt numberField" value="0" placeholder="amt" onkeypress="javascript:return isNumber(event)" />
+				</div>
 			
-		</table>
-		
+				<div class="col-md-1"><label>Discount %</label>
+			    	<s:input id="txtDiscountPer" path="dblDiscPer"   class="decimal-places-amt numberField" value="0" placeholder="disc" onkeypress="javascript:return isNumber(event)" />
+				</div>
+			
+		</div>
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateFields()"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right:48%">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateFields()"/>&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

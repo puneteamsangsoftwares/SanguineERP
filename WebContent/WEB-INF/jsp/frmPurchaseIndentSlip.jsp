@@ -1,12 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
   	<link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Purchase Indent Slip</title>
+    
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+    
     <script type="text/javascript">
     	
     	var fieldName;
@@ -17,10 +27,11 @@
     	$(function() 
     			{	
 		    		var startDate="${startDate}";
+		    		var startDateOfMonth="${startDateOfMonth}";
 					var arr = startDate.split("/");
 					Dat=arr[0]+"-"+arr[1]+"-"+arr[2];
     				$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
-    				$("#txtFromDate" ).datepicker('setDate', Dat);
+    				$("#txtFromDate" ).datepicker('setDate', startDateOfMonth);
     				$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
     				$("#txtToDate" ).datepicker('setDate', 'today');
     			});
@@ -106,59 +117,48 @@
     </script>
   </head>
 <body>
-<div id="formHeading">
-		<label>Purchase Indent Slip</label>
-	</div>
-<s:form name="PISlip" method="GET" action="rptPISlip.html" target="_blank">
+  <div class="container masterTable">
+	 <label id="formHeading">Purchase Indent Slip</label>
+	  <s:form name="PISlip" method="GET" action="rptPISlip.html" target="_blank">
 
-<br />
-<br />
-<table class="masterTable">
-	<tr><th colspan="4"></th></tr>
-			<tr>
-				<td width="10%"><label id="lblFromDate">From Date</label></td>
-				<td width="10%"><s:input id="txtFromDate" name="fromDate"
-						path="dtFromDate" cssClass="calenderTextBox" required="true"/> <s:errors
-						path="dtFromDate"></s:errors></td>
-				<td width="10%"><label id="lblToDate">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
-				To Date</label></td>
-				<td colspan="3"><s:input id="txtToDate" name="toDate"
-						path="dtToDate" cssClass="calenderTextBox" required="true"/> <s:errors
-						path="dtToDate"></s:errors></td>
-						
-			</tr>
-	<tr>
-		<td width="10%">PI Code</td>
-		<td width="1%" colspan="2">
-		<s:input type ="text" path="strFromDocCode" id="txtFromPICode" name="strFromPICode" readonly="true" placeholder="From PI Code"  class="searchTextBox" style="width: 118px;background-position: 104px 2px;" ondblclick="funHelp('PICodeslip')"/> 
-		</td>
-		<td width="0%" colspan="2">
-		<s:input type ="text" path="strToDocCode" id="txtToPICode" name="strToPICode" readonly="true" placeholder="To PI Code"  class="searchTextBox" style="width: 118px;background-position: 104px 2px;" ondblclick="funHelp('ToPICode')"/> 
-		</td>
-		
-	</tr>
-	<tr>
-	<td><label>Report Type</label></td>
-					<td colspan="5">
-						<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+	  <div class="row">	
+		    <div class="col-md-2"><label id="lblFromDate">From Date</label>
+				  <s:input id="txtFromDate" name="fromDate" path="dtFromDate" cssClass="calenderTextBox" style="width:70%;" required="true"/> <s:errors
+						   path="dtFromDate"></s:errors>
+		     </div>
+			
+			<div class="col-md-2"><label id="lblToDate">To Date</label>
+				<s:input id="txtToDate" name="toDate" path="dtToDate" cssClass="calenderTextBox" style="width:70%;" required="true"/>
+			    <s:errors path="dtToDate"></s:errors>
+			</div>
+		   <div class="col-md-8"></div>
+		   
+		  <div class="col-md-2"><label>PI Code</label>
+		         <s:input type ="text" path="strFromDocCode" id="txtFromPICode" name="strFromPICode" readonly="true" placeholder="From PI Code"  class="searchTextBox" style="width: 118px;background-position: 104px 2px;" ondblclick="funHelp('PICodeslip')"/> 
+		  </div>
+		   
+		  <div class="col-md-2"><br>
+		         <s:input type ="text" path="strToDocCode" id="txtToPICode" name="strToPICode" readonly="true" placeholder="To PI Code"  class="searchTextBox" style="width: 118px;background-position: 104px 2px;" ondblclick="funHelp('ToPICode')"/> 
+		  </div>
+	      <div class="col-md-8"></div>
+	      
+	      <div class="col-md-2"><label>Report Type</label>
+				<s:select id="cmbDocType" path="strDocType" style="width:auto;">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
 				    		<s:option value="HTML">HTML</s:option>
 				    		<s:option value="CSV">CSV</s:option>
-				    	</s:select>
-			</td>
-	</tr>
-	<tr>
-		<td colspan="4"></td>
-		
-	</tr>
-</table>
+				</s:select>
+	     </div>
+      </div>
 <br>
-		<p align="center">
-			<input type="submit" value="Submit" onclick="return funCallFormAction('submit',this)" class="form_button"/>
-			 <input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-left:-57%">
+			<input type="submit" value="Submit" onclick="return funCallFormAction('submit',this)"  class="btn btn-primary center-block" class="form_button"/>
+			&nbsp;
+		   <input type="button" value="Reset"  class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 </s:form>
+</div>
 </body>
 </html>

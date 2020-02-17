@@ -5,6 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 	<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
 	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
@@ -12,8 +22,14 @@
         <!-- Load data to paginate -->
 	<link rel="stylesheet" href="<spring:url value="/resources/css/pagination.css"/>" />
 
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<script type="text/javascript">
+<style type="text/css">
+.transTablex td{
+border:1px solid #fff;
+}
+
+
+</style>
+<script type="text/javascript">
 
  		var StkFlashData;
  		var loggedInProperty="";
@@ -138,7 +154,11 @@
 		{
 			var startDate="${startDate}";
 			var arr = startDate.split("/");
-			Dat=arr[0]+"-"+arr[1]+"-"+arr[2];
+			 
+			var date = new Date(); 
+			var month=date.getMonth()+1;
+            Dat= 1 +"-"+month+"-"+date.getFullYear();
+			
 			$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtFromDate").datepicker('setDate',Dat);
 			$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
@@ -147,28 +167,6 @@
 			
 			$("#btnExecute").click(function( event )
 			{
-				var fromDate=$("#txtFromDate").val();
-				var toDate=$("#txtToDate").val();
-				if($("#cmbReportType").val()=='Detail')
-				{
-					document.getElementById("divValueTotal").style.visibility = "visible";
-					funCalculateStockFlashForDetail();
-				}
-				if($("#cmbReportType").val()=='Summary')
-				{
-					document.getElementById("divValueTotal").style.visibility = "visible";
-					funCalculateStockFlashForSummary();
-				}
-				if($("#cmbReportType").val()=='Mini')
-				{
-					document.getElementById("divValueTotal").style.visibility = "visible";
-					funCalculateMiniStockFlash();
-				}
-				if($("#cmbReportType").val()=='Total')
-				{
-					document.getElementById("divValueTotal").style.visibility = "hidden"; 
-					funCalculateStockFlashForTotal();
-				}
 				
 				
 			});
@@ -208,7 +206,7 @@
     			}	
 		    if($("#cmbReportType").val()=='Detail')
 		   	{		    	
-			   	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">Property Name</td><td id="labld2"> Product Code</td><td id="labld3"> Product Name</td>	<td id="labld4"> Location </td>	<td id="labld5"> Group</td><td id="labld6"> Sub Group</td><td id="labld7"> UOM</td><td id="labld8"> Bin No</td><td id="labld9"> Unit Price</td><td id="labld10"> Opening Stock</td><td id="labld11"> GRN</td><td id="labld12"> SCGRN</td><td id="labld13"> Stock Transfer In</td><td id="labld14"> Stock Adj In</td><td id="labld15"> MIS In</td><td id="labld16"> Qty Produced</td><td id="labld17"> Sales Return</td><td id="labld18"> Material Return</td><td id="labld19"> Purchase Return</td><td id="labld20"> Delivery Note</td><td id="labld21"> Stock Trans Out</td><td id="labld22"> Stock Adj Out</td><td id="labld23"> MIS Out</td><td id="labld24"> Qty Consumed</td><td id="labld25"> Sales</td><td id="labld26">Closing Stock</td><td id="labld27">Value</td><td id="labld28">Issue UOM Stock</td><td id="labld29">Issue Conversion</td><td id="labld30">Issue UOM </td><td id="labld31">Part No</td></tr>';
+			   	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">Property Name</td><td id="labld2"> Product Code</td><td id="labld3"> Product Name</td>	<td id="labld4"> Location </td>	<td id="labld5"> Group</td><td id="labld6"> Sub Group</td><td id="labld7"> UOM</td><td id="labld8"> Bin No</td><td id="labld9"> Weighted Avg Price</td><td id="labld10"> Opening Stock</td><td id="labld11"> GRN</td><td id="labld12"> Free Qty</td><td id="labld13"> SCGRN</td><td id="labld14"> Stock Transfer In</td><td id="labld15"> Stock Adj In</td><td id="labld16"> MIS In</td><td id="labld17"> Qty Produced</td><td id="labld18"> Sales Return</td><td id="labld19"> Material Return</td><td id="labld20"> Purchase Return</td><td id="labld21"> Delivery Note</td><td id="labld22"> Stock Trans Out</td><td id="labld23"> Stock Adj Out</td><td id="labld24"> MIS Out</td><td id="labld25"> Qty Consumed</td><td id="labld26"> Sales</td><td id="labld27">Closing Stock</td><td id="labld28">Value</td><td id="labld29">Issue UOM Stock</td><td id="labld30">Issue Conversion</td><td id="labld31">Issue UOM </td><td id="labld32">Part No</td></tr>';
 			   	// Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
 			    {
@@ -223,12 +221,14 @@
 			        newcontent += '<td>'+StkFlashData[i].strBinNo+'</td>';
 			    	        
 			        var qtyWithUOM=$("#cmbQtyWithUOM").val();
-			        if(qtyWithUOM=='No')
+			         if(qtyWithUOM=='No')
 			        {
 				        newcontent += '<td align="right">'+(parseFloat(StkFlashData[i].dblCostRM)/currValue).toFixed(maxAmountDecimalPlaceLimit)+'</td>';
 				        newcontent += '<td align="right">'+parseFloat(StkFlashData[i].dblOpStock).toFixed(maxQuantityDecimalPlaceLimit)+'</td>';
 				        newcontent += '<td align="right">'+parseFloat(StkFlashData[i].dblGRN).toFixed(maxQuantityDecimalPlaceLimit)+'</td>';
+				        newcontent += '<td align="right">'+parseFloat(StkFlashData[i].dblFreeQty).toFixed(maxQuantityDecimalPlaceLimit)+'</td>';
 				        newcontent += '<td align="right">'+parseFloat(StkFlashData[i].dblSCGRN).toFixed(maxQuantityDecimalPlaceLimit)+'</td>';
+				        
 				        newcontent += '<td align="right">'+parseFloat(StkFlashData[i].dblStkTransIn).toFixed(maxQuantityDecimalPlaceLimit)+'</td>';
 				        newcontent += '<td align="right">'+parseFloat(StkFlashData[i].dblStkAdjIn).toFixed(maxQuantityDecimalPlaceLimit)+'</td>';
 				        newcontent += '<td align="right">'+parseFloat(StkFlashData[i].dblMISIn).toFixed(maxQuantityDecimalPlaceLimit)+'</td>';
@@ -254,6 +254,7 @@
 				        newcontent += '<td align="right">'+StkFlashData[i].dblCostRM/currValue+'</td>';
 				        newcontent += '<td align="right">'+StkFlashData[i].dblOpStock+'</td>';
 				        newcontent += '<td align="right">'+StkFlashData[i].dblGRN+'</td>';
+				        newcontent += '<td align="right">'+StkFlashData[i].dblFreeQty+'</td>';
 				        newcontent += '<td align="right">'+StkFlashData[i].dblSCGRN+'</td>';
 				        newcontent += '<td align="right">'+StkFlashData[i].dblStkTransIn+'</td>';
 				        newcontent += '<td align="right">'+StkFlashData[i].dblStkAdjIn+'</td>';
@@ -282,7 +283,7 @@
 		    }
 		    if($("#cmbReportType").val()=='Summary') 
 		    {
-			   	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labls1">Property Name</td><td id="labls2">Product Code</td><td id="labls3">Product Name</td><td id="labls4">Location</td><td id="labls5">Group</td><td id="labls6">Sub Group</td><td id="labls7">UOM</td><td id="labls8">Bin No</td><td id="labls9">Unit Price</td><td id="labls10">Opening Stock</td><td id="labls11">Receipts</td><td id="labls12">Issue</td><td id="labls13">Closing Stock</td><td id="labls14">Value</td><td id="labls15">Issue UOM Stock</td><td id="labls16">Issue Conversion</td><td id="labls17">Issue UOM</td><td id="labls18">Part No</td></tr>';
+			   	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labls1">Property Name</td><td id="labls2">Product Code</td><td id="labls3">Product Name</td><td id="labls4">Location</td><td id="labls5">Group</td><td id="labls6">Sub Group</td><td id="labls7">UOM</td><td id="labls8">Bin No</td><td id="labls9">Weighted Avg Price</td><td id="labls10">Opening Stock</td><td id="labls11">Receipts</td><td id="labls12">Issue</td><td id="labls13">Closing Stock</td><td id="labls14">Value</td><td id="labls15">Issue UOM Stock</td><td id="labls16">Issue Conversion</td><td id="labls17">Issue UOM</td><td id="labls18">Part No</td></tr>';
 					   
 			    // Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
@@ -329,14 +330,19 @@
 		    }
 		    if($("#cmbReportType").val()=='Mini') 
 		    {
-	        	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labls2">Product Code</td><td id="labls3">Product Name</td><td id="labls13">Closing Stock</td><td id="labls14">Value</td><td style="width: 10%;"></td></tr>';
+	        	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labls2">Product Code</td><td id="labls3">Product Name</td><td id="labls13">Closing Stock</td><td id="labls14">Value</td><td style="width: 10%;"></td></tr>';
 				   
 			    // Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
 			    {
 			        newcontent += '<td><a id="stkLedgerUrl.'+i+'" href="#" onclick="funClick(this);">'+StkFlashData[i].strProdCode+'</a></td>';
 			        newcontent += '<td>'+StkFlashData[i].strProdName+'</td>';
-			        newcontent += '<td align="right">'+parseFloat(StkFlashData[i].dblClosingStock).toFixed(maxQuantityDecimalPlaceLimit)+'</td>';
+			        if(qtyWithUOM=='No'){
+			        	newcontent += '<td align="right">'+parseFloat(StkFlashData[i].dblClosingStock).toFixed(maxQuantityDecimalPlaceLimit)+'</td>';	
+			        }else{
+			        	newcontent += '<td align="right">'+StkFlashData[i].dblClosingStock+'</td>';
+			        }
+			        
 			        newcontent += '<td align="right">'+parseFloat(StkFlashData[i].dblValue/currValue).toFixed(maxAmountDecimalPlaceLimit)+'</td>';
 
 			        newcontent += '<td></td><tr>';
@@ -344,7 +350,7 @@
 		    }
 		    if($("#cmbReportType").val()=='Total') 
 		    {
-	        	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 50%;  float:left;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labls3" style="font-size:14px;">Transaction Type</td><td align="right" id="labls14" style="font-size:14px;">Value</td></tr>';
+	        	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 80%;  float:left;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labls3" style="font-size:14px;">Transaction Type</td><td align="right" id="labls14" style="font-size:14px;">Value</td></tr>';
 				   
 			    // Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
@@ -433,8 +439,9 @@
 			var qtyWithUOM=$("#cmbQtyWithUOM").val();
 			var prodType=$("#txtProdType").val();
 			var prodClass=$("#cmbProductClass").val();
+			var ratePickUpFrom = $("#cmbPriceCalculation").val();
 			
-			var param1=reportType+","+locCode+","+propCode+","+showZeroItems+","+strSGCode+","+strNonStkItems+","+strGCode+","+qtyWithUOM;
+			var param1=reportType+","+locCode+","+propCode+","+showZeroItems+","+strSGCode+","+strNonStkItems+","+strGCode+","+qtyWithUOM+","+ratePickUpFrom;
 			var paramForStkLedger=locCode+","+propCode;		
 			var manufCode=$("#txtManufacturerCode").val();
 			var searchUrl=getContextPath()+"/frmStockFlashDetailReport.html?param1="+param1+"&fDate="+fromDate+"&tDate="+toDate+"&prodType="+prodType+"&ManufCode="+manufCode+"&prodClass="+prodClass;
@@ -594,7 +601,8 @@
 				var qtyWithUOM=$("#cmbQtyWithUOM").val();
 				var strExportType=$("#cmbExportType").val();
 				var prodType=$("#txtProdType").val();
-				var param1=reportType+","+locCode+","+propCode+","+showZeroItems+","+strSGCode+","+strNonStkItems+","+strGCode+","+qtyWithUOM+","+strExportType;
+				var ratePickUpFrom = $("#cmbPriceCalculation").val();
+				var param1=reportType+","+locCode+","+propCode+","+showZeroItems+","+strSGCode+","+strNonStkItems+","+strGCode+","+qtyWithUOM+","+strExportType+","+ratePickUpFrom;
 				//var param1=reportType+","+locCode+","+propCode+","+showZeroItems;
 				var manufCode=$("#txtManufacturerCode").val();
 				if(reportType=='Summary' && strExportType=="PDF" )
@@ -643,152 +651,161 @@
         	 }	 
 		} 
 		 
+        function funOnClick()
+        {
+        	var fromDate=$("#txtFromDate").val();
+			var toDate=$("#txtToDate").val();
+			if($("#cmbReportType").val()=='Detail')
+			{
+				document.getElementById("divValueTotal").style.visibility = "visible";
+				funCalculateStockFlashForDetail();
+			}
+			if($("#cmbReportType").val()=='Summary')
+			{
+				document.getElementById("divValueTotal").style.visibility = "visible";
+				funCalculateStockFlashForSummary();
+			}
+			if($("#cmbReportType").val()=='Mini')
+			{
+				document.getElementById("divValueTotal").style.visibility = "visible";
+				funCalculateMiniStockFlash();
+			}
+			if($("#cmbReportType").val()=='Total')
+			{
+				document.getElementById("divValueTotal").style.visibility = "hidden"; 
+				funCalculateStockFlashForTotal();
+			}
+			
+			return false;
+        }
 		 
 	</script>
 </head>
-<body onload="funOnLoad();">
-<div id="formHeading">
-		<label>Stock Flash</label>
-	</div>
-	<s:form action="frmStockFlashReport.html" method="GET" name="frmStkFlash" target="_blank">
-		<br>
-	
-			<table class="transTable">
-			<tr><th colspan="10"></th></tr>
-				<tr>
-					<td width="10%">Property Code</td>
-					<td width="20%">
-						<s:select id="cmbProperty" name="propCode" path="strPropertyCode" cssClass="longTextBox" cssStyle="width:100%" onchange="funChangeLocationCombo();">
-			    			<s:options items="${listProperty}"/>
-			    		</s:select>
-					</td>
-						
-					<td width="5%"><label>Location</label></td>
-					<td>
-						<s:select id="cmbLocation" name="locCode" path="strLocationCode" cssClass="longTextBox" cssStyle="width:180px;" >
-			    			<s:options items="${listLocation}"/>
-			    		</s:select>
-					</td>
-					<td><label>Group</label></td>
-					<td><s:select path="strGCode" items="${listGroup}"
-							id="strGCode" onchange="funFillCombo(this.value);" cssClass="BoxW124px"></s:select></td>
-					<td><label>SubGroup</label></td>
-					<td><s:select path="strSGCode" items="${listSubGroup}"
-							id="strSGCode" cssClass="BoxW124px">
-						</s:select>
-					</td>
-				</tr>
-				
-				<tr>
-				    <td><label id="lblFromDate">From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dteFromDate"></s:errors>
-			        </td>
-				        
-			        <td><label id="lblToDate">To Date</label></td>
-			        <td>
-			            <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dteToDate"></s:errors>
-			        </td>
-			        <td>Report Type</td>
-					<td>
-						<s:select path="strReportType" id="cmbReportType" cssClass="BoxW124px" onchange="funAddExportType();">
-							<option value="Detail">Detail</option>
-							<option value="Summary">Summary</option>
-							<option value="Mini">Mini</option>
-							<option value="Total">Total</option>
-						</s:select>
-					</td>
-											
-					<td>Zero Transaction Products</td>
-					<td>
-						<select id="cmbShowZeroItems" class="BoxW124px">
-							<option>No</option>
-							<option>Yes</option>
-						</select>
-					</td>
-				</tr>
-				
-				<tr>
-					<td>Items Type</td>
-					<td>
-						<select id="cmbNonStkItems" class="BoxW124px">
-							<option selected="selected">Stockable</option>
-							<option>Non Stockable</option>
-							<option>Both</option>
-						</select>
-					</td>
-					
-					<td>Quantity With UOM</td>
-					<td >
-						<select id="cmbQtyWithUOM" class="BoxW124px">
-							<option selected="selected">No</option>
-							<option>Yes</option>
-						</select>
-						
-					</td>
-					
-					<td>Product Type</td>
-						<td ><s:select id="txtProdType" name="prodType" path="strProdType" items="${typeList}" cssClass="BoxW124px"/></td>
-						
-					<td >Manufacturer Code</td>
-				<td><s:input id="txtManufacturerCode" path="strManufacturerCode"
-						cssClass="searchTextBox jQKeyboard form-control" readonly="true" ondblclick="funHelp('manufactureMaster')" /></td>
-				</tr>
-				
-				<tr>
-					<td><input id="btnExecute" type="button" class="form_button1" value="EXECUTE"/></td>
-					
-					<td>
-						<s:select path="strExportType" id="cmbExportType"  cssClass="BoxW124px">
-							<option value="Excel">Excel</option>
-						</s:select>
-					</td>
-					<td><label >Product Class</label></td>
-				        <td><s:select id="cmbProductClass" name="class" path="strProductClass" items="${classProductlist}" cssClass="BoxW48px" /></td>
-					
-					
-					
-					<td colspan="7">						
-						<input id="btnExport" type="button" value="EXPORT"  class="form_button1"/>
-					</td>
-				</tr>
-			</table>
-			
-			<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
-		<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
-		
+<body> <!--  onload="funOnLoad();" -->
+<div class="container">
+		<label id="formHeading">Stock Flash</label>
+		<s:form action="frmStockFlashReport.html" method="GET" name="frmStkFlash" target="_blank">
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label>Property Code</label>
+					<s:select id="cmbProperty" name="propCode" path="strPropertyCode" onchange="funChangeLocationCombo();">
+			    		<s:options items="${listProperty}"/>
+			    	</s:select>
+			</div>		
+			<div class="col-md-2">			
+				<label>Location</label>
+				<s:select id="cmbLocation" name="locCode" path="strLocationCode" >
+			    		<s:options items="${listLocation}"/>
+			    </s:select>
+			</div>
+			<div class="col-md-2">		
+				<label>Group</label>
+				<s:select path="strGCode" items="${listGroup}" id="strGCode" onchange="funFillCombo(this.value);"></s:select>
+			</div>
+			<div class="col-md-2">	
+				<label>SubGroup</label>
+				<s:select path="strSGCode" items="${listSubGroup}" id="strSGCode"></s:select>
+			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-2">
+				<label id="lblFromDate">From Date</label>
+			    <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox" style="width:80%;"/>
+			     <s:errors path="dteFromDate"></s:errors>
+			</div>
+			<div class="col-md-2">   
+				<label id="lblToDate">To Date</label>
+			    <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox" style="width:80%;"/>
+			    <s:errors path="dteToDate"></s:errors>
+			</div>
+			<div class="col-md-2">     
+			     <label>Report Type</label>
+				<s:select path="strReportType" id="cmbReportType" cssClass="BoxW124px" onchange="funAddExportType();">
+					<option value="Detail">Detail</option>
+					<option value="Summary">Summary</option>
+					<option value="Mini">Mini</option>
+					<option value="Total">Total</option>
+				</s:select>
+			</div>
+			<div class="col-md-2">   							
+				<label>Zero Trans ProductsM</label>
+				<select id="cmbShowZeroItems" class="BoxW124px" style="width:50%;">
+					<option>No</option>
+					<option>Yes</option>
+				</select>
+			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-2">   
+				<label>Items Type</label>
+				<select id="cmbNonStkItems" class="BoxW124px">
+					<option selected="selected">Stockable</option>
+					<option>Non Stockable</option>
+					<option>Both</option>
+				</select>
+			</div>
+			<div class="col-md-2">		
+				<label>Quantity With UOM</label>
+				<select id="cmbQtyWithUOM" class="BoxW124px" style="width:50%;">
+					<option selected="selected">No</option>
+					<option>Yes</option>
+				</select>
+			</div>			
+			<div class="col-md-2">			
+				<label>Product Type</label>
+				<s:select id="txtProdType" name="prodType" path="strProdType" items="${typeList}" cssClass="BoxW124px"/>
+			</div>	
+			<div class="col-md-2">		
+				<label>Manufacturer Code</label>
+				<s:input id="txtManufacturerCode" path="strManufacturerCode" type="text"
+						cssClass="searchTextBox" readonly="true" ondblclick="funHelp('manufactureMaster')" />
+			</div>
+			<div class="col-md-4">	</div>
+			<div class="col-md-2">				
+				<s:select path="strExportType" id="cmbExportType"  cssClass="BoxW124px" style="margin-top: 28px;">
+					<option value="Excel">Excel</option>
+				</s:select>
+			</div>		
+			<div class="col-md-2">	
+				<label >Product Class</label>
+				<s:select id="cmbProductClass" name="class" path="strProductClass" items="${classProductlist}" cssClass="BoxW48px" style="width:50%;" />
+			</div>
+			<div class="col-md-2">			
+				<label>Value Calculation On </label>
+				<select id="cmbPriceCalculation" class="BoxW124px" > <!-- onchange="funValueCalculation()" -->
+					<option selected="selected">Weighted AVG</option>
+					<option>Last Supplier Rate</option>
+				</select>
+			</div>	
 		</div>
+		<div class="center" style="text-align:center;">
+		 	<a href="#"><button class="btn btn-primary center-block" id="btnExport" value="Export">Export</button></a>&nbsp
+		 	<a href="#"><button class="btn btn-primary center-block" id="btnExecute" onclick="return funOnClick()" value="EXECUTE">Execute</button></a>
+		 
+		</div>
+			
+			<dl id="Searchresult" style="width: 105%;height:auto; overflow:auto; border:1px solid #000;"></dl>
+			<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
+		
+			</div>
 		
 		<br>
 		<br>
 		
 		
-		<div id="divValueTotal"
-			style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 40px; margin: auto; overflow-x: hidden; overflow-y: hidden; width: 95%;">
-			<table id="tblTotalFlash" class="transTablex"
-				style="width: 100%; font-size: 11px; font-weight: bold;">
-				
+		<div id="divValueTotal" style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 40px; margin: auto; overflow-x: hidden; overflow-y: hidden; width: 95%;">
+			<table id="tblTotalFlash" class="transTablex" style="width: 100%; font-size: 11px; font-weight: bold;">
 				<tr style="margin-left: 28px">
-				
 					<td id="labld26" style="width:20%; text-align:right">Total</td>
-					
 					<td id="tdTotValue" style="width:10%; align:right">
 						<input id="txtTotValue" style="width: 100%; text-align: right;" class="Box"></input>
 					</td>
-
 				</tr>
 			</table>
 		</div>
 		
-		
-		
-		
-		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
+			<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 	</s:form>
-	
+</div>	
 </body>
 </html>

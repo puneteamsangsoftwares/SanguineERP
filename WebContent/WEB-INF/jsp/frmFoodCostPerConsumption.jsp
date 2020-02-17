@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,6 +9,13 @@
   	
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Web Stocks</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+ 
     <script type="text/javascript">
     
     var fieldName;
@@ -156,45 +165,35 @@
   </head>
   
 	<body >
-	<div id="formHeading">
-		<label>Food Cost(As per consumtion)</label>
-	</div>
-	<br />
-	<br />
-		<s:form name="frmFoodCostPerConsumption" id="frmFoodCostPerConsumption" method="GET" action="" >
-			<table class="masterTable">
-			<tr><th colspan="5"></th></tr>
-				<tr>
-				<td><label>From Date</label></td>
-				<td><s:input type="text" id="txtFromDate" path="dteFromDate" required="true" class="calenderTextBox" /></td>							
+	<div class="container masterTable">
+		<label id="formHeading">Food Cost(As per consumtion)</label>
+         <s:form name="frmFoodCostPerConsumption" id="frmFoodCostPerConsumption" method="GET" action="" >
+		
+		<div class="row">
+			 <div class="col-md-2"><label>From Date</label>
+				<s:input type="text" id="txtFromDate" path="dteFromDate" required="true" class="calenderTextBox" style="width:70%"/>
+			</div>							
 				
-				<td><label>To Date</label></td>
-				<td><s:input type="text" id="txtToDate" path="dteToDate" required="true" class="calenderTextBox" /></td>
-			</tr>
+			 <div class="col-md-2"><label>To Date</label>
+				<s:input type="text" id="txtToDate" path="dteToDate" required="true" class="calenderTextBox" style="width:70%"/>
+			</div>
+		</div>
 						
 			<%-- <tr>
 				<td><label>Item Type</label></td>
 				<td><s:select id="cmbItemType" items="${mapItemType}" 	name="cmbItemType" cssClass="BoxW124px" path="strProdType" />											
 			</tr> --%>
-							
-				
-				<tr>
-					<td colspan="5"></td>								
-				</tr>
-			</table>
 			<br>
 			<p align="center">
-				<input type="button" value="Submit"  class="form_button" onclick="funCallFormAction()" />
-				<input type="button" value="Export"  class="form_button" onclick="funCallFormExport()" />
-				<input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+				<input type="button" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="funCallFormAction()" />
+				&nbsp;
+				<input type="button" value="Export" class="btn btn-primary center-block" class="form_button" onclick="funCallFormExport()" />
+				&nbsp;
+				<input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
-			
-			
-			
-			
 			<br>
 			<br>
-			<div style="background-color: #a4d7ff;border: 1px solid #ccc;display: block; height: 400px;	margin: auto;overflow-x: hidden; overflow-y: scroll;width: 99%;">
+			<div style="background-color: #fafbfb;border: 1px solid #ccc;display: block; height: 400px;	margin: auto;overflow-x: hidden; overflow-y: scroll;width: 99%;">
 				<!-- Dynamic Table Generation for tab4 (Opening Balance) -->
 				<table id="tblFoodCostPerConsumption" class="transTablex" style="width: 100%">				
 					<thead>
@@ -205,13 +204,7 @@
 				   	</tbody>			   						   	    				  
 				</table>	
 			</div>		
-			
-			
-			
-			
-			
-			
-			
 		</s:form>
+		</div>
 	</body>
 </html>

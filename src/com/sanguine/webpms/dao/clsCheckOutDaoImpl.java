@@ -7,11 +7,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webpms.model.clsBillHdModel;
 import com.sanguine.webpms.model.clsFolioHdModel;
+import com.sanguine.webpms.model.clsPropertySetupHdModel;
+import com.sanguine.webpms.service.clsPropertySetupService;
 
 @Repository("clsCheckOutDao")
 public class clsCheckOutDaoImpl implements clsCheckOutDao {
@@ -21,7 +24,14 @@ public class clsCheckOutDaoImpl implements clsCheckOutDao {
 
 	@Autowired
 	private clsGlobalFunctionsService objGlobalFunctionsService;
+	
+	@Autowired
+	clsWebPMSDBUtilityDao objWebPMSUtility;
+	
+	@Autowired
+	private clsPropertySetupService objPropertySetupService;
 
+	
 	@Override
 	@Transactional(value = "WebPMSTransactionManager", rollbackFor = { Exception.class })
 	public void funSaveCheckOut(String roomNo, String clientCode, String userCode) {
@@ -79,13 +89,13 @@ public class clsCheckOutDaoImpl implements clsCheckOutDao {
 	}
 
 	@Override
-	@Transactional(value = "WebPMSTransactionManager", rollbackFor = { Exception.class })
+	/*@Transactional(value = "WebPMSTransactionManager", rollbackFor = { Exception.class })*/
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public void funSaveCheckOut(clsFolioHdModel objFolioHdModel, clsBillHdModel objBillHdModel) {
 		webPMSSessionFactory.getCurrentSession().delete(objFolioHdModel);
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objBillHdModel);
-
-		String sql = "update tblroom set strStatus='Dirty' " + " where strRoomCode='" + objBillHdModel.getStrRoomNo() + "' and strClientCode='" + objBillHdModel.getStrClientCode() + "'";
-		webPMSSessionFactory.getCurrentSession().createSQLQuery(sql).executeUpdate();
+		
+		
 	}
 
 	@Override

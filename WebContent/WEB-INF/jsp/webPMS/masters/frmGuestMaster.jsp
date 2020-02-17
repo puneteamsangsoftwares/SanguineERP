@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <script type="text/javascript">
 var fieldName;
 
@@ -142,7 +150,7 @@ function funSetGuestCode(code)
 		        	$("#cmbStateOfc").val(response.strStateOfc);
 		        	$("#cmbCountryOfc").val(response.strCountryOfc);
 		        	$("#txtPinCodeOfc").val(response.intPinCodeOfc);
-		        	
+		        	funloadMemberPhoto(response.strGuestCode);
 	        	}
 			},
 			error: function(jqXHR, exception) {
@@ -350,355 +358,279 @@ function funSetGuestCode(code)
 			
 		}
 	
+	//Image Code
+	
+	function funloadMemberPhoto(code)
+	{
+		var searchUrl1=getContextPath()+"/loadGuestImage.html?guestCode="+code;
+		 $.ajax({
+		        type: "GET",
+		        url: searchurl,
+		        cache: false
+		        
+		 });
+		$("#memImage").attr('src', searchUrl1);
+	}  
 
+
+
+ 	function funShowImagePreview(input)
+	 {
+		 if (input.files && input.files[0])
+		 {
+			 var filerdr = new FileReader();
+			 filerdr.onload = function(e) 
+			 {
+			 $('#memImage').attr('src', e.target.result);
+			 }
+			 filerdr.readAsDataURL(input.files[0]);
+		 }
+		 
+		
+	 }
 
 </script>
 </head>
 <body>
-	<div id="formHeading">
-		<label>Guest Master</label>
-	</div>
-	
-<s:form name="Guest" method="GET" action="saveGuestMaster.html?" >
+	<div class="container">
+		<label class="masterTable" id="formHeading">Guest Master</label>
+	<s:form name="Guest" action="saveGuestMaster.html?saddr=${urlHits}" method="POST" enctype="multipart/form-data">
 	
 	<br>
-	<table class="masterTable">
-		
-		   <tr>
+	   <div class="row">
 				<!-- <th align="right" colspan="6"><a id="baseUrl"
 					href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
 						&nbsp;</th> -->
 						 
- 					<th align="right" colspan="6" ><a onclick="funOpenExportImport()"
-					href="javascript:void(0);">Export/Import</a>&nbsp; &nbsp; &nbsp;
-					&nbsp;<a id="baseUrl" href="#"> Attach Documents</a>&nbsp; &nbsp;
-					&nbsp; &nbsp;</th>
+ 					<div class="col-md-12" align="center"><a onclick="funOpenExportImport()" style="margin-right: -75%;"
+					href="javascript:void(0);"><u>Export/Import</u></a>
+					<!-- <a id="baseUrl" href="#"> Attach Documents</a> -->
+					</div>
 					
-						
-			</tr>
-			
-			
-			   <tr>
-			           <td><label>Guest Code</label></td>
-				       <td><s:input id="txtGuestCode" path="strGuestCode" cssClass="searchTextBox" ondblclick="funHelp('guestCode')" /></td>				
-			           <td colspan="4">
-			           </td>
-			           
-			          
-			      </tr>
-			
-		          <tr>
-						 <td>
-							  <label>GuestPrefix</label>
-						</td>
-						<td>
-							 <s:select id="cmbGuestPrefix" path="strGuestPrefix" cssClass="BoxW124px">
-				    		<s:options items="${prefix}"/>
-				    	    </s:select>
-					   </td>
-						<td>
-							<label>FirstName</label><label style="color: red;"> *</label>
-						</td>
-						<td>
-							 <s:input colspan="3" type="text" id="txtFirstName" path="strFirstName" cssClass="longTextBox" />
-								
-						</td>
-							
-						<td>
-								<label>MiddleName</label>
-						</td>
-						<td>
-							 <s:input colspan="3" type="text" id="txtMiddleName" path="strMiddleName" cssClass="longTextBox" />
-							
-						</td>
-							
-							
-				</tr>
+					<c:if test="${!empty documentList}">
+					<c:forEach items="${documentList}" var="doc" varStatus="i" >
+				<tr>
+					<td width="200px">${doc.strActualFileName}</td>
 				
+					<td><a
+						href="${pageContext.request.contextPath}/download/${doc.strCode},${doc.intId}.html">${doc.strActualFileName}</a>
+
+					</td>
+				</tr>
+			</c:forEach>
+			</c:if>
 				
-				<tr>
-					    <td>
-					       <label>LastName</label>
-						</td>
-						<td>
-					       <s:input colspan="3" type="text" id="txtLastName" path="strLastName" cssClass="longTextBox" />
-						</td>
-					
-						 <td>
-							 <label>Gender</label>
-					     </td>
-						  <td>
-							<s:select id="cmbGender" path="strGender" cssClass="BoxW124px">
-				    		<s:options items="${gender}"/>
-				    	     </s:select>
-						  </td>
-							<td>
-								<label>DOB</label>
-							</td>
-							<td>
-							        <s:input colspan="3" type="text" id="txtDOB" path="dteDOB" cssClass="calenderTextBox" />
-							</td>
-						
-				</tr>
-				<tr>
-					<td>
-						<label>MobileNo</label><label style="color: red;"> *</label>
-					</td>
-					<td>
-					      <s:input colspan="3" type="text" id="txtMobileNo" style="text-align:right;" path="intMobileNo" cssClass="longTextBox" onblur="fun1(this);" />
-					</td>
-					<td colspan="2">
-						<label>EmailId</label>&nbsp; &nbsp; &nbsp;
-					   <s:input type="email" placeholder="Enter a valid email address" id="txtEmailId" path="strEmailId" cssClass="longTextBox" />
-					</td>
-					<td>
-					   <label>PANNo</label>
-					</td>
-					<td>
-					   <s:input colspan="3" type="text" id="txtPANNo" path="strPANNo" cssClass="longTextBox" />
-					</td>
-				</tr>
-				<tr>
-						<td>
-							<label>PassportNo</label>
-						</td>
-						<td>
-						    <s:input colspan="3" type="text" id="txtPassportNo" path="strPassportNo" cssClass="longTextBox" />
-						</td>
-						<td>
-							<label>PassportIssueDate</label>
-						</td>
-						<td>
-							 <s:input colspan="3" type="text" id="txtPassportIssueDate" path="dtePassportIssueDate" cssClass="calenderTextBox" />
-						</td>
-						<td>
-							<label>PassportExpiryDate</label>
-						</td>
-						<td>
-						      <s:input colspan="3" type="text" id="txtPassportExpiryDate" path="dtePassportExpiryDate" cssClass="calenderTextBox" />
-						</td>
-				</tr>
-				<tr>		
-					<td><label>Nationality</label></td>
-					<td>
-					   <s:input colspan="3" type="text" id="txtNationality" path="strNationality" cssClass="longTextBox" />
-					</td>
-					<td><label>ArrivalFrom</label></td>
-					<td>
-					    <s:input colspan="3" type="text" id="txtArrivalFrom" path="strArrivalFrom" cssClass="longTextBox" />
-					</td>
-					<td><label>ProceedingTo</label></td>
-					<td><s:input colspan="3" type="text" id="txtProceedingTo" path="strProceedingTo" cssClass="longTextBox" />
-					</td>
-				</tr>
-				<tr>
-				<td><label>Status</label></td>
-					<td><s:input colspan="3" type="text" id="txtStatus" path="strStatus" cssClass="longTextBox" />
-					</td>
-				<td><label>VisitingType</label></td>
-				<td>
-			      <s:input colspan="3" type="text" id="txtVisitingType" path="strVisitingType" cssClass="longTextBox" />
-				</td>
-				<td colspan="2"></td>
-				</tr>
-					
-				<tr>
-						<td>
-							<label>GST No.</label>
-						</td>
-						<td>
-						      <s:input colspan="3" type="text" id="txtGSTNo" path="strGSTNo" cssClass="longTextBox" />
-						</td>
-						<td>
-							<label>Anniversary Date</label>
-						</td>
-						<td>
-						    <s:input colspan="3" type="text" id="txtAnniversaryDte" path="dteAnniversaryDate" cssClass="calenderTextBox" />
-						</td>
-						<td>
-							<label>UID No.</label><label style="color: red;"> *</label>
-						</td>
-						<td>
-						    <s:input colspan="3" type="text" id="txtUIDNo" style="text-align:right;" path="strUIDNo" cssClass="longTextBox" />
+			   <div class="col-md-2"><label>Guest Code</label>
+				  <s:input id="txtGuestCode" path="strGuestCode" cssClass="searchTextBox" style="height:25px;" ondblclick="funHelp('guestCode')" />				
+			   </div>
+			   <div class="col-md-10"></div>
+			   
+		        <div class="col-md-1"><label>Guest Prefix</label>
+					<s:select id="cmbGuestPrefix" path="strGuestPrefix">
+				    	<s:options items="${prefix}"/>
+				    </s:select>
+				</div>
+				
+				<div class="col-md-2"><label>First Name</label><label style="color: red;"> *</label>
+					<s:input type="text" id="txtFirstName" path="strFirstName" />
+				</div>
 							
-						</td>
-				</tr>					
-				<tr>
-					<td><label>Default Address</label></td>
-					<td>
-						<s:select id="cmbDefaultAddr" path="strDefaultAddr" cssClass="BoxW124px">
+				<div class="col-md-2"><label>Middle Name</label>
+					<s:input type="text" id="txtMiddleName" path="strMiddleName"/>
+				</div>
+							
+				<div class="col-md-2"><label>Last Name</label>
+					<s:input type="text" id="txtLastName" path="strLastName"/>
+				</div>
+				<!-- <div class="col-md-5"></div>	 -->
+				
+				<div class="col-md-1"><label>Gender</label>
+					 <s:select id="cmbGender" path="strGender">
+				    	<s:options items="${gender}"/>
+				      </s:select>
+				</div>
+					
+				<div class="col-md-1"><label>DOB</label>
+					<s:input type="text" id="txtDOB" path="dteDOB" style="width:155%;height: 25px;" cssClass="calenderTextBox" />
+				</div>
+						
+				<div class="col-md-2" style="padding-left:60px"><label>MobileNo</label><label style="color: red;"> *</label>
+					<s:input type="text" id="txtMobileNo" style="text-align:right;" path="intMobileNo" onblur="fun1(this);" />
+				</div>
+				
+				<div class="col-md-3"><label>Email Id</label><br>
+					  <s:input type="email" placeholder="Enter a valid email address" id="txtEmailId" style="width:100%;border:none;" path="strEmailId"/>
+				</div>
+				
+				<div class="col-md-2"><label>PAN No</label>
+					<s:input type="text" id="txtPANNo" path="strPANNo"/>
+				</div>
+				
+				<div class="col-md-2"><label>Passport No</label>
+					<s:input type="text" id="txtPassportNo" path="strPassportNo"/>
+				</div>
+				
+				<div class="col-md-1"><label>Passport Issue Date</label>
+					<s:input type="text" id="txtPassportIssueDate" style="width:155%;" path="dtePassportIssueDate" cssClass="calenderTextBox" />
+				</div>
+				
+				<div class="col-md-1" style="padding-left:45px"><label>PassportExpiryDate</label>
+					 <s:input type="text" id="txtPassportExpiryDate" style="width:280%;" path="dtePassportExpiryDate" cssClass="calenderTextBox" />
+				</div>
+				
+				<div class="col-md-2" style="padding-left:80px"><label>Nationality</label>
+				     <s:input type="text" id="txtNationality" path="strNationality"/>
+			    </div>
+			    
+				<div class="col-md-2"><label>Arrival From</label>
+					<s:input type="text" id="txtArrivalFrom" path="strArrivalFrom"/>
+				</div>
+					
+				<div class="col-md-2"><label>Proceeding To</label>
+					   <s:input type="text" id="txtProceedingTo" path="strProceedingTo"/>
+				</div>
+				
+				<div class="col-md-2"><label>Status</label>
+					<s:input  type="text" id="txtStatus" path="strStatus"/>
+				</div>
+				
+				<div class="col-md-2"><label>Visiting Type</label>
+					<s:input type="text" id="txtVisitingType" path="strVisitingType"/>
+				</div>
+				
+				<div class="col-md-1"><label>GST No.</label>
+					 <s:input type="text" id="txtGSTNo" path="strGSTNo" style="width: 130px;"/>
+				</div>
+						
+				<div class="col-md-2" style="padding-left:85px;"><label style="width:300px;">Anniversary Date</label>
+					<s:input type="text" id="txtAnniversaryDte" path="dteAnniversaryDate" style="width:115%;" cssClass="calenderTextBox" />
+				</div>
+						
+				<div class="col-md-2"><label>UID No.</label><label style="color: red;"> *</label>
+					<s:input type="text" id="txtUIDNo" style="text-align:right;" path="strUIDNo"/>
+				</div>
+									
+				<div class="col-md-1.1" style="padding-left: 15px;"><label>Default Address</label>
+					<s:select id="cmbDefaultAddr" path="strDefaultAddr">
 			    		<s:option value="Local">Local</s:option><s:options/>
 			    		<s:option value="Permanent">Permanent</s:option><s:options/>
 			    		<s:option value="Office">Office</s:option><s:options/>
-			    	     </s:select>
-					  </td>
-					<td colspan="6"></td>
-				</tr>
-				<tr>
-				<td>
-					<div style="background: #6FB9F6;text-align: left;border-bottom-right-radius: 0.5em;
-					width: 100px;PADDING-RIGHT: 5px;PADDING-LEFT: 5px;FONT-WEIGHT: bold;FONT-SIZE: 13px;
+			    	</s:select>
+			    </div>
+					
+					
+				<div class="col-md-2">					
+				 <div><img id="memImage" src="" width="170px" height="150px" alt="Member Image"  ></div>
+			                 <div><input  id="memberImage" name="memberImage"   type="file" accept="image/gif,image/png,image/jpeg" onchange="funShowImagePreview(this);" style="width:170px;background-color: #C0E4FF"/></div>
+       			</div>
+					
+				<div class="col-md-12" style="width: 100px;PADDING-LEFT: 5px;FONT-WEIGHT: bold;FONT-SIZE: 13px;
 					PADDING-BOTTOM: 5px;COLOR: #ffffff;PADDING-TOP: 5px;FONT-FAMILY: trebuchet ms, Helvetica, sans-serif;">
 						<label>Local Address</label>
-					</div>
-				</td>
-				<td colspan="5"></td>
-				</tr>
-				<tr style="height: 25px">
-						<td>
-							<label>Address</label>
-						</td>
-						<td colspan ="2"><s:textarea id="txtAddressLocal" path="strAddressLocal" 
-						 cssStyle="width:75%;height:35px;border:1px solid;
-						 background-color:inherit;padding-left:01px;
-						 text-transform: uppercase;" /></td>
-					     <td>
-						   <label>City</label>
-						<s:select id="cmbCityLocal" path="strCityLocal" cssClass="BoxW124px">
-			    			<s:options items="${listCity}"/>
-			    		</s:select>
-						 	
-						</td>
-						<td>
-						<label>State</label>
-						 <s:select id="cmbStateLocal" path="strStateLocal" cssClass="BoxW124px">
+				</div>
+			
+				<div class="col-md-2"><label>Address</label>
+					<s:textarea id="txtAddressLocal" path="strAddressLocal"  cssStyle="width:101%;height:35px;border:1px solid;
+						 background-color:inherit;padding-left:01px; text-transform: uppercase;" />
+				</div>
+				
+		        <div class="col-md-1"><label>City</label>
+					<s:select id="cmbCityLocal" path="strCityLocal" style="width:auto;">
+			    		<s:options items="${listCity}"/>
+			    	</s:select>
+				</div>
+				
+				<div class="col-md-1" style="padding-left:auto;"><label>State</label>
+						 <s:select id="cmbStateLocal" path="strStateLocal" style="width:auto;">
 			    			<s:options items="${listState}"/>
 			    		</s:select>
-			    		<td>
-							<label>Country</label>
-						 <s:select id="cmbCountryLocal" path="strCountryLocal" cssClass="BoxW124px">
+			    </div>	
+			    	
+			    <div class="col-md-1" style="padding-left:35px;"><label>Country</label>
+						 <s:select id="cmbCountryLocal" path="strCountryLocal" style="width:65px;">
 			    			<s:options items="${listCountry}"/>
 			    		</s:select>
-						
-						</td>
-				</tr>
-				<tr>
-				 	 <td>
-						   <label>PinCode</label>
-					</td>
-					<td>
-					<s:input  type="text" id="txtPinCodeLocal" style="text-align:right;" path="intPinCodeLocal" cssClass="longTextBox" />
-					</td>
-					<td colspan="4" ></td>
-			  </tr>
-				<tr>
-				<td>
-					<div style="background: #6FB9F6;text-align: left;border-bottom-right-radius: 0.5em;
-					width: 100px;PADDING-RIGHT: 5px;PADDING-LEFT: 5px;FONT-WEIGHT: bold;FONT-SIZE: 13px;
+				</div>
+				
+				<div class="col-md-1"><label>Pin Code</label>
+					<s:input  type="text" id="txtPinCodeLocal" style="text-align:right;" path="intPinCodeLocal"/>
+				</div>
+				<div class="col-md-6"></div>
+				
+					<div class="col-md-12" style="width: 100px;PADDING-LEFT: 5px;FONT-WEIGHT: bold;FONT-SIZE: 13px;
 					PADDING-BOTTOM: 5px;COLOR: #ffffff;PADDING-TOP: 5px;FONT-FAMILY: trebuchet ms, Helvetica, sans-serif;">
 						<label>Permanent Address</label>
 					</div>
-				</td>
-				<td colspan="5"></td>
-				</tr>
-				<tr style="height: 25px">
-						<td>
-							<label>Address</label>
-						</td>
-						<td colspan ="2"><s:textarea id="txtAddressPermanent" path="strAddrPermanent" 
-						 cssStyle="width:75%;height:35px;border:1px solid;
-						 background-color:inherit;padding-left:01px;
-						 text-transform: uppercase;" /></td>
-					     <td>
-						   <label>City</label>
-						<s:select id="cmbCityPermanent" path="strCityPermanent" cssClass="BoxW124px">
-			    			<s:options items="${listCity}"/>
-			    		</s:select>
-						 	
-						</td>
-						<td>
-						<label>State</label>
-						 <s:select id="cmbStatePermanent" path="strStatePermanent" cssClass="BoxW124px">
+				
+				<div class="col-md-2"><label>Address</label>
+					<s:textarea id="txtAddressPermanent" path="strAddrPermanent"  cssStyle="width:101%;height:35px;border:1px solid;
+						 background-color:inherit;padding-left:01px; text-transform: uppercase;" />
+				</div>
+						 
+				 <div class="col-md-1"><label>City</label>
+					<s:select id="cmbCityPermanent" path="strCityPermanent" style="width:auto;">
+			    		<s:options items="${listCity}"/>
+			    	</s:select>
+				 </div>
+					
+					<div class="col-md-1" style="padding-left:auto;"><label>State</label>
+						 <s:select id="cmbStatePermanent" path="strStatePermanent"  style="width:auto;">
 			    			<s:options items="${listState}"/>
 			    		</s:select>
-			    		<td>
-							<label>Country</label>
-						 <s:select id="cmbCountryPermanent" path="strCountryPermanent" cssClass="BoxW124px">
+			    	</div>
+			    	
+					<div class="col-md-1" style="padding-left:35px;"><label>Country</label>
+						 <s:select id="cmbCountryPermanent" path="strCountryPermanent" style="width:65px;">
 			    			<s:options items="${listCountry}"/>
 			    		</s:select>
-						
-						</td>
-				</tr>
-				<tr>
-				 	 <td>
-						   <label>PinCode</label>
-					</td>
-					<td>
-					<s:input  type="text" id="txtPinCodePermanent" style="text-align:right;" path="intPinCodePermanent" cssClass="longTextBox" />
-					</td>
-					<td colspan="4" ></td>
-			  </tr>
-				  <tr>
-				<td >
-					<div style="background: #6FB9F6;text-align: left;border-bottom-right-radius: 0.5em;
-					width: 100px;PADDING-RIGHT: 5px;PADDING-LEFT: 5px;FONT-WEIGHT: bold;FONT-SIZE: 13px;
+					</div>
+					
+				    <div class="col-md-1"><label>Pin Code</label>
+						<s:input  type="text" id="txtPinCodePermanent" style="text-align:right;" path="intPinCodePermanent"/>
+					</div>
+				     <div class="col-md-6"></div>
+				     
+					<div  class="col-md-12" style="width: 100px;PADDING-LEFT: 5px;FONT-WEIGHT: bold;FONT-SIZE: 13px;
 					PADDING-BOTTOM: 5px;COLOR: #ffffff;PADDING-TOP: 5px;FONT-FAMILY: trebuchet ms, Helvetica, sans-serif;">
 						<label>Office Address</label>
 					</div>
-				</td>
-				<td colspan="5"></td>
-				</tr>
-				<tr style="height: 25px">
-						<td>
-							<label>Address</label>
-						</td>
-						<td colspan ="2"><s:textarea id="txtAddressOfc" path="strAddressOfc" 
-						 cssStyle="width:75%;height:35px;border:1px solid;
-						 background-color:inherit;padding-left:01px;
-						 text-transform: uppercase;" /></td>
-					     <td>
-						   <label>City</label>
-						<s:select id="cmbCityOfc" path="strCityOfc" cssClass="BoxW124px">
+				
+				    <div class="col-md-2"><label>Address</label>
+					   <s:textarea id="txtAddressOfc" path="strAddressOfc"  cssStyle="width:101%;height:35px;border:1px solid;
+						 background-color:inherit;padding-left:01px; text-transform: uppercase;" />
+					</div>
+					     
+				   <div class="col-md-1"> <label>City</label>
+						<s:select id="cmbCityOfc" path="strCityOfc" style="width:auto;">
 			    			<s:options items="${listCity}"/>
 			    		</s:select>
-						 	
-						</td>
-						<td>
-						<label>State</label>
-						 <s:select id="cmbStateOfc" path="strStateOfc" cssClass="BoxW124px">
+					</div>
+					
+					<div class="col-md-1"><label>State</label>
+						 <s:select id="cmbStateOfc" path="strStateOfc" style="width:auto;">
 			    			<s:options items="${listState}"/>
 			    		</s:select>
-			    		<td>
-							<label>Country</label>
-						 <s:select id="cmbCountryOfc" path="strCountryOfc" cssClass="BoxW124px">
+			    	</div>
+			    		
+					<div class="col-md-1" style="padding-left:35px;"><label>Country</label>
+						 <s:select id="cmbCountryOfc" path="strCountryOfc" style="width:65px;">
 			    			<s:options items="${listCountry}"/>
 			    		</s:select>
-						
-						</td>
-				</tr>
-				  <tr>
-				 	 <td>
-					   <label>PinCode</label>
-					</td>
-					<td>
-					<s:input colspan="3" type="text" id="txtPinCodeOfc" style="text-align:right;" path="intPinCodeOfc" cssClass="longTextBox" />
-					</td>
-					<td colspan="4" ></td>
-				  </tr>
-				  <tr>
-				  <td colspan="5"><label style="color: red;"> * indicates mandatory fields</label></td>
-				  </tr>
-				  
-				
-				
-				
+					</div>
 					
-				
-				
+				   <div class="col-md-1"><label>Pin Code</label>
+					     <s:input type="text" id="txtPinCodeOfc" style="text-align:right;" path="intPinCodeOfc"/>
+					</div>
 					
-			
-		</table>
+				  <div class="col-md-12"><label style="color: red;"> * indicates mandatory fields</label>
+				  </div>
+		</div>
 		
-		
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funCallFormAction('submit',this);" />
-            <input type="reset" value="Reset" class="form_button" />
-           
-            
-		</p>
+		<p align="center" style="margin-right: 155px;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this);" />&nbsp;
+            <input type="reset" value="Reset" class="btn btn-primary center-block"  class="form_button" />
+         </p>
 	</s:form>
-	
+	</div>
 </body>
 </html>

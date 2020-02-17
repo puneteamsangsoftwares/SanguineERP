@@ -21,13 +21,13 @@ public class clsFloorMasterDaoImpl implements clsFloorMasterDao{
 	@Autowired
 	private SessionFactory webPMSSessionFactory;
 	
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public void funAddUpdateFloorMaster(clsFloorMasterModel objFloorMasterModel) {
 
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objFloorMasterModel);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false,value="WebPMSTransactionManager")
 	@Override
 	public List funGetFloorMaster(String floorCode, String clientCode) {
 

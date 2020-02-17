@@ -1,12 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
-
+       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />	
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	<%-- 	<script type="text/javascript" src="<spring:url value="/resources/js/Accordian/jquery-ui-1.8.13.custom.min.js"/>"></script> --%>
+	<script type="text/javascript" src="<spring:url value="/resources/js/Accordian/jquery.multi-accordion-1.5.3.js"/>"></script>	
+	
 <script type="text/javascript">
 
 	var fieldName,listRow=0;
@@ -37,7 +50,8 @@
 		//var arrivalTime=session.getAttribute("PMSCheckInTime");
 		//var departureTime=session.getAttribute("PMSCheckOutTime");
 		
-		 var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';
+		 <%-- var pmsDate='<%=session.getAttribute("PMSDate").toString()%>'; --%>
+		 var tempPMSDate='<%=session.getAttribute("TempPMSDateForReservation").toString()%>';
 		
 		$('#txtArrivalTime').timepicker();
 		$('#txtDepartureTime').timepicker();
@@ -95,7 +109,7 @@
 		
 	
 		$("#txtArrivalDate").datepicker({ dateFormat: 'dd-mm-yy' });
-		$("#txtArrivalDate").datepicker('setDate', pmsDate);
+		$("#txtArrivalDate").datepicker('setDate', tempPMSDate);
 		
 // 		$( "#txtDepartureDate" ).datepicker({
 // 			minDate: 0,
@@ -103,7 +117,7 @@
 // 		});
 		
 		$("#txtDepartureDate").datepicker({ dateFormat: 'dd-mm-yy' });
-		$("#txtDepartureDate").datepicker('setDate', pmsDate);
+		$("#txtDepartureDate").datepicker('setDate', tempPMSDate);
 	
 
 		
@@ -114,10 +128,10 @@
 // 		$("#txtDepartureDate").datepicker('setDate', pmsDate);
 		
 		$("#txtCancelDate").datepicker({ dateFormat: 'dd-mm-yy' });
-		$("#txtCancelDate").datepicker('setDate', pmsDate);
+		$("#txtCancelDate").datepicker('setDate', tempPMSDate);
 		
 		$("#txtConfirmDate").datepicker({ dateFormat: 'dd-mm-yy' });
-		$("#txtConfirmDate").datepicker('setDate', pmsDate);
+		$("#txtConfirmDate").datepicker('setDate', tempPMSDate);
 		
 		
 		$('a#baseUrl').click(function() 
@@ -180,7 +194,6 @@
 		    <%
 		    session.removeAttribute("RoomCode");
 		}%>
-		
 		
 	});
 
@@ -256,13 +269,9 @@
 			case 'roomByRoomType': 
 				funSetRoomNo(code);
 				break;
-			
 		}
 	}
 
-	
-	
-	
 	function funSetReservationNo(code){
 
 		$.ajax({
@@ -302,7 +311,6 @@
 		});
 	}
 
-	
 	function funSetPropertyCode(code){
 
 		$.ajax({
@@ -332,7 +340,6 @@
 		});
 	}
 
-	
 	function funSetGuestCode(code){
 			
 		$.ajax({
@@ -606,7 +613,6 @@
 	        	else
 	        	{					        	    	        		
 	        		$("#lblRoomType").text(response.strRoomTypeDesc);
-	        		alert("Room Rate is "+response.dblRoomTerrif);
 	        	}
 			},
 			error : function(e){
@@ -647,7 +653,6 @@
 	        	{
 	        		$("#txtRoomNo").val(response.strRoomCode);
 	        		$("#lblRoomNo").text(response.strRoomDesc);
-	        		alert("Room Rate is "+response.strRoomDesc);
 	        		funSetRoomType(response.strRoomTypeCode);
 	        	}
 			},
@@ -951,6 +956,15 @@
 		$("#txtPackageName").val(response.strPackageName);
 		      
 		$("#hidIncomeHead").val("");
+		
+		 if(response.strDontApplyTax=='Y')
+	    	{
+	    		document.getElementById("txtDontApplyTax").checked=true;
+	    	}
+	    	else
+	    	{
+	    		document.getElementById("txtDontApplyTax").checked=false;
+	       	}
 		funRemoveProductRowsForIncomeHead();
 		funRemoveTariffRows();
 		funFillDtlGrid(response.listReservationDetailsBean);
@@ -1058,7 +1072,7 @@
 				var roomtypeDesc=$("#lblRoomType").text();
 				$("#lblRoomType").text("");
 				funAddDetailsRow(resListResDtlBean[i].strGuestName,resListResDtlBean[i].strGuestCode,resListResDtlBean[i].lngMobileNo
-					,resListResDtlBean[i].strRoomType,"",resListResDtlBean[i].strRoomNo,roomDesc
+					,resListResDtlBean[i].strRoomType,resListResDtlBean[i].strRemark,resListResDtlBean[i].strRoomNo,roomDesc
 					,resListResDtlBean[i].strExtraBedCode,resListResDtlBean[i].strExtraBedDesc,resListResDtlBean[i].strPayee,"",roomtypeDesc);
 			});
 			listRow=count+1;
@@ -1299,11 +1313,11 @@
 	    var row = table.insertRow(rowCount);
 	    rowCount=listRow;
 
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"45%\" name=\"listReservationDetailsBean["+(rowCount)+"].strGuestName\" id=\"strGuestName."+(rowCount)+"\" value='"+guestName+"' />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listReservationDetailsBean["+(rowCount)+"].strGuestName\" id=\"strGuestName."+(rowCount)+"\" value='"+guestName+"' />";
 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listReservationDetailsBean["+(rowCount)+"].lngMobileNo\" id=\"lngMobileNo."+(rowCount)+"\" value='"+mobileNo+"' />";
 	    
-	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\"  id=\"strRoomType."+(rowCount)+"\" value='"+roomTypeDesc+"' />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listReservationDetailsBean["+(rowCount)+"].strRemark\" id=\"strRemark."+(rowCount)+"\" value='"+remark+"' />";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"7%\"  id=\"strRoomType."+(rowCount)+"\" value='"+roomTypeDesc+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"9%\" name=\"listReservationDetailsBean["+(rowCount)+"].strRemark\" id=\"strRemark."+(rowCount)+"\" value='"+remark+"' />";
 	    
 	    if(payee=='Y')
 	    	{
@@ -1313,7 +1327,7 @@
 	    		row.insertCell(4).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"radio\" class=\"Box payeeSel\" name=\"listReservationDetailsBean.strPayee\" size=\"2%\" value=\"N\" onClick=\"Javacsript:funRadioRow(this)\"  />";
 	    	}
 	    
-	    row.insertCell(5).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"2%\" value = \"Delete\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
+	    row.insertCell(5).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"2%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
 	    
 	    row.insertCell(6).innerHTML= "<input type=\"hidden\"  name=\"listReservationDetailsBean["+(rowCount)+"].strGuestCode\" id=\"strGuestCode."+(rowCount)+"\" value='"+guestCode+"' />";
 	    row.insertCell(7).innerHTML= "<input type=\"hidden\" size=\"0%\" name=\"listReservationDetailsBean["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+(rowCount)+"\" value='"+roomNo+"' />";
@@ -1322,6 +1336,7 @@
 	    row.insertCell(10).innerHTML= "<input type=\"hidden\" size=\"0%\" id=\"strRoomDesc."+(rowCount)+"\" value='' />";
 	    row.insertCell(11).innerHTML= "<input type=\"hidden\"  size=\"0%\" id=\"strExtraBedDesc."+(rowCount)+"\" value='"+extraBedDesc+"' />";
 	    row.insertCell(12).innerHTML= "<input type=\"hidden\" size=\"0%\" name=\"listReservationDetailsBean["+(rowCount)+"].strRoomType\" id=\"strRoomType."+(rowCount)+"\" value='"+roomType+"' />";
+	    $("#txtRemark").val(remark); 
 	    funResetDetailFields();
 	    
 	    if(payee=='Y')
@@ -1394,6 +1409,7 @@
 		{
 			alert("Please Select Booking Type");
 			flg=false;
+			$("#txtBookingTypeCode").focus();
 		}
 		else
 		{
@@ -1673,7 +1689,7 @@
 	 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:50%;\"  name=\"listRoomPackageDtl["+(rowCount)+"].strIncomeHeadCode\"    id=\"strIncomeHeadCode."+(rowCount)+"\" value='"+incomeHeadCode+"' >";
 	 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:50%;\" name=\"listRoomPackageDtl["+(rowCount)+"].strIncomeHeadName\"   id=\"strIncomeHeadDesc."+(rowCount)+"\" value='"+incomeHeadName+"' >";
 	 	    row.insertCell(2).innerHTML= "<input type=\"readonly\"   class=\"Box \"  style=\"text-align:right;\" name=\"listRoomPackageDtl["+(rowCount)+"].dblIncomeHeadAmt\"   id=\"dblIncomeRate."+(rowCount)+"\" value='"+incomeHeadAmt+"' >";
-	 	    row.insertCell(3).innerHTML= "<input type=\"button\" value=\"Delete\" style=\"padding-right: 5px;width:80%;text-align: right;\" class=\"deletebutton\" onclick=\"funRemoveRow(this)\" />";
+	 	    row.insertCell(3).innerHTML= "<input type=\"button\" value=\"\" style=\"padding-right: 5px;width:80%;text-align: right;\" class=\"deletebutton\" onclick=\"funRemoveRow(this)\" />";
 					
 		//calculate totals
 			funCalculateTotals();
@@ -1890,13 +1906,13 @@
 		var arrivalDate=$("#txtArrivalDate").val();
 	    var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';
 
-    	if (arrivalDate < pmsDate) 
+    	/* if (arrivalDate < pmsDate) 
   		 {
 		    	alert("Arrival Date Should not be come before PMS Date");
 		    	$("#txtArrivalDate").datepicker({ dateFormat: 'dd-mm-yy' });
 				$("#txtArrivalDate").datepicker('setDate', pmsDate);
 				return false
-         }
+         } */
     	funFillRoomRate('','');
     	
 	}
@@ -1974,265 +1990,270 @@
 		window.open("frmGuestMaster.html", "myhelp", "scrollbars=1,width=500,height=350");
 <%-- 		var GuestDetails='<%=session.getAttribute("GuestDetails").toString()%>'; --%>
 // 		var guest=GuestDetails.split("#");
-		
+	
 	}
 	
+/* 	function selectGST(){
+		var GST=getElementById("divGST");
+		GST.addEventListener("click" ()=>function{
+				var showGST=getElementById("showGST");
+				showGST.display="show";
+		})
+	}  */
+	
+		$(function () {
+	        $("#divGST").click(function () {
+	            if ($(this).is(":checked")) {
+	                $("#showGST").show();
+	                
+	            } else {
+	                $("#showGST").hide();
+	                ;
+	            }
+	        });
+	    });
 </script>
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Reservation</label>
-	</div>
-
-	<br/>
-	<br/>
-
-	<s:form name="Reservation" method="POST" action="saveReservation.html">
-	
-		<div id="tab_container" style="height: 900px">
-				<ul class="tabs">
-					<li data-state="tab1" style="width: 6%; padding-left: 2%; class="active" >Reservation</li>
-					<li data-state="tab2" style="width: 8%; padding-left: 1%">Tariff</li>
-					<li data-state="tab3" style="width: 8%; padding-left: 1%">Package</li>
-				</ul>
-							
-<!-- Reservation Tab Start -->
-
-				<div id="tab1" class="tab_content" style="height: 800px">
-
-		<table class="transTable">
-		
-
-			<tr>
-			<th colspan="6">
-			</tr>
-		
-			<tr>
-				<td><label>Reservation No</label></td>
-				<td>
-					<s:input type="text" id="txtReservationNo" path="strReservationNo" cssClass="searchTextBox" ondblclick="funHelp('ReservationNo');"/>
-				</td>
+     <label id="formHeading"> Reservation </label>
+	     <s:form name="Reservation" method="POST" action="saveReservation.html">
+	              <br>
+		<div id="multiAccordion">	
+		<h3><a href="#">Change/Edit Reservation</a></h3>
+		  <div>
+			<div class="container transtable"  style="background-color:#f2f2f2;">
+				<div class="row" style="padding-bottom:12px">
+			    	<div class="col-md-2"><label>Reservation No</label>
+						<s:input type="text" id="txtReservationNo" path="strReservationNo" cssClass="searchTextBox" ondblclick="funHelp('ReservationNo');"/>
+			    	</div>
+			    	
+			    	<div class="col-md-2"><label>Property</label>
+				    <s:select id="strPropertyCode" path="strPropertyCode" items="${listOfProperty}" required="true"></s:select>
+				</div>
 				
-				<td><label>Property</label></td>
-				<td><s:select id="strPropertyCode" path="strPropertyCode" items="${listOfProperty}" required="true" cssClass="BoxW200px"></s:select></td>
-				
-				<td><label id="lblPropName"></label></td>
-			</tr>
+				<div class="col-md-2"><label id="lblPropName" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 23px 0px;"></label></div>
 			
-			<tr>
-				<td><label>Corporate</label></td>
-				<td>
-					<s:input type="text" id="txtCorporateCode" path="strCorporateCode" cssClass="searchTextBox" ondblclick="funHelp('CorporateCode');"/>
-					<label id="lblCorporateDesc"></label>
-				</td>
 			
-				<td ><label>Booking Type</label></td>
-				<td>
-					<s:input type="text" id="txtBookingTypeCode" path="strBookingTypeCode" cssClass="searchTextBox" ondblclick="funHelp('BookingTypeCode');"/>
-					<label id="lblBookingTypeDesc"></label>
-				</td>
-				
-				
-			</tr>
+			<div class="col-md-2"><label>Corporate</label>
+				   <s:input type="text" id="txtCorporateCode" path="strCorporateCode" cssClass="searchTextBox" ondblclick="funHelp('CorporateCode');"/>
+			</div>
 			
-			<tr>
-				<td><label>Arrival Date</label></td>
-				<td><s:input type="text" id="txtArrivalDate" path="dteArrivalDate" cssClass="calenderTextBox" onchange="funChangeArrivalDate();" /></td>
+			<div class="col-md-2"><label id="lblCorporateDesc" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 23px 0px;"></label></div>
 			
-				<td><label>Departure Date</label></td>
-				<td><s:input type="text" id="txtDepartureDate" path="dteDepartureDate" cssClass="calenderTextBox" onchange="CalculateDateDiff();" /></td>
-			    <td colspan="2"></td>
-			</tr>
+			<div class="col-md-2"><label>Booking Type</label>
+				<s:input type="text" id="txtBookingTypeCode" path="strBookingTypeCode" cssClass="searchTextBox" ondblclick="funHelp('BookingTypeCode');"/>
+			</div>
 			
-			<tr>
-				<td><label>Arrival Time</label></td>
-				<td><s:input type="text" id="txtArrivalTime" path="tmeArrivalTime" cssClass="calenderTextBox" /></td>
+			<div class="col-md-2"><label id="lblBookingTypeDesc" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 23px 0px;"></label>
+			</div>
 			
-				<td><label>Departure Time</label></td>
-				<td><s:input type="text" id="txtDepartureTime" path="tmeDepartureTime" items="${tmeCheckOutPropertySetupTime}" cssClass="calenderTextBox"  /></td>
-				<td colspan="2"></td>
-			</tr>
+			<div class="col-md-2"><label>Arrival Date</label>
+				<s:input type="text" id="txtArrivalDate" path="dteArrivalDate" cssClass="calenderTextBox" style="width:75%;" onchange="funChangeArrivalDate();" />
+			</div>
 			
-			<tr>
-				<td><label>Pick Up Time</label></td>
-				<td><s:input type="text" id="txtPickUpTime" path="tmePickUpTime" cssClass="calenderTextBox" /></td>
+			<div class="col-md-2"><label>Departure Date</label>
+				<s:input type="text" id="txtDepartureDate" path="dteDepartureDate" cssClass="calenderTextBox" style="width:75%;" onchange="CalculateDateDiff();" />
+			</div>
 			
-				<td><label>Drop Time</label></td>
-				<td><s:input type="text" id="txtDropTime" path="tmeDropTime" cssClass="calenderTextBox"  /></td>
-				<td colspan="2"></td>
-			</tr>
-						
-			<tr>
-				<td><label>#Adult</label></td>
-				<td><s:input id="txtNoOfAdults" name="txtNoOfAdults" path="intNoOfAdults" style="width: 20%;text-align: right;" type="number" min="1" step="1"   class="longTextBox" /></td>
-				<td><label>#Child</label></td>
-				<td><s:input id="txtNoOfChild" path="intNoOfChild" style="text-align: right; width: 20%;" type="number" min="0" step="1" name="txtNoOfChild" class="longTextBox" /></td>				
-				<td colspan="2"></td>
-			</tr>
+			<div class="col-md-2"><label>Arrival Time</label>
+				<s:input type="text" id="txtArrivalTime" path="tmeArrivalTime" style="width: 115px;" cssClass="calenderTextBox" />
+			</div>
 			
-			<tr>
-				<td><label>No Of Nights</label></td>
-				<td>
-					<s:input type="text" class="numeric" id="txtNoOfNights" path="intNoOfNights" cssClass="longTextBox" style="width: 20%;text-align: right;"/>
-				</td>
-				
-				<td><label>Booking Rooms</label></td>
-				<td>
-					<s:input type="number" min="1" step="1" class="longTextBox" id="txtNoOfBookingRoom" path="intNoRoomsBooked" cssClass="longTextBox" style="text-align: right;width: 20%;" />
-				</td>
-				<td colspan="2"></td>
+			<div class="col-md-2"><label>Departure Time</label>
+				<s:input type="text" id="txtDepartureTime" path="tmeDepartureTime" items="${tmeCheckOutPropertySetupTime}" style="width: 115px;" cssClass="calenderTextBox"  />
+			</div>
+			 	
+			<div class="col-md-1"><label>#Adult</label><br>
+				 <s:input id="txtNoOfAdults" name="txtNoOfAdults" path="intNoOfAdults" style="width:70%;text-align: right;" type="number" min="1" step="1"/>
+			</div>
 			
-			</tr>
-			
-			<tr>
-				<td><label>Email Id</label></td>
-				<td><s:input type="text" id="txtEmailId" path="strEmailId" cssClass="longTextBox" /></td>
-				<td><label>Contact Person</label></td>
-				<td><s:input type="text" id="txtContactPerson" path="strContactPerson" cssClass="longTextBox" /></td>
-				<td colspan="2"></td>
-			</tr>
-			
-			<tr>
-				<td><label>Billing Instructions</label></td>
-				<td>
-					<s:input type="text" id="txtBillingInstCode" path="strBillingInstCode" cssClass="searchTextBox" ondblclick="funHelp('BillingInstCode');"/>
-					<label id="lblBillingInstDesc"></label></td>
-			
-				<td><label>Booker</label></td>
-				<td colspan="3">
-					<s:input type="text" id="txtBookerCode" path="strBookerCode" cssClass="searchTextBox" ondblclick="funHelp('BookerCode');"/>
-					<label id="lblBookerName"></label>
-				</td>
-			</tr>
-			
-			<tr>
-				<td><label>Business Source</label></td>
-				<td>
-					<s:input type="text" id="txtBusinessSourceCode" path="strBusinessSourceCode" cssClass="searchTextBox" ondblclick="funHelp('business');"/>
-					<label id="lblBusinessSourceName"></label></td>
-			
-				<td><label>Agent</label></td>
-				<td colspan="3">
-					<s:input type="text" id="txtAgentCode" path="strAgentCode" cssClass="searchTextBox" ondblclick="funHelp('AgentCode');"/>
-					<label id="lblAgentName"></label></td>
-			</tr>
-			
-			<tr>
-				<td><label>Remarks</label></td>
-				<td><s:input colspan="1" type="text" id="txtRemarks" path="strRemarks" cssClass="longTextBox" /></td>
-				<td><label>OTA No</label></td>
-				<td><s:input type="text" id="txtOTANo" path="strOTANo" class="longTextBox" style="width: 34%"/></td>
-				<td colspan="2"></td>
-			</tr>
-			
-			<tr>
-				<td><label>Cancel Date</label></td>
-				<td><s:input type="text" id="txtCancelDate" path="dteCancelDate" cssClass="calenderTextBox" /></td>
-			
-				<td><label>Confirm Date</label></td>
-				<td><s:input type="text" id="txtConfirmDate" path="dteConfirmDate" cssClass="calenderTextBox" /></td>
-				<td colspan="2"></td>
-			</tr>
-			
-			<tr>
-				<td><label>Market Source</label></td>
-				<td>
-					<s:input  type="text" id="txtMarketSourceCode" path="strMarketSourceCode" cssClass="searchTextBox" ondblclick="funHelp('marketsource');"/>
-						&nbsp;&nbsp;&nbsp;<label id="lblMarketSourceName"></label>
-				</td>
-			<td colspan="3"></td>
-				
-			</tr>
-			
-		</table>
-
-			<br>
-			<br>
-		
-			<div >
-			<table class="transTable">
-				
-				<tr>
-					<td><label>Mobile No</label></td>
-					<td><input type="text" id="txtMobileNo" class="longTextBox" /></td>
+			<div class="col-md-1"><label>#Child</label><br>
+				 <s:input id="txtNoOfChild" path="intNoOfChild" style="text-align: right; width:70%;" type="number" min="0" step="1" name="txtNoOfChild"/>			
+			</div>
 					
-					<td><label>Guest Code</label></td>
-					<td><input id="txtGuestCode" ondblclick="funHelp('guestCode');" class="searchTextBox" /></td>
-					<td>
-					<input type="Button" value="New Guest" onclick="return funCreateNewGuest()" class="form_button" />
-					</td>
-					<td colspan="2"></td>
-				</tr>
+			<div class="col-md-1"><label>No Of Nights</label>
+				<s:input type="text" class="numeric" id="txtNoOfNights" path="intNoOfNights" style="width:70%;text-align: right;"/>
+			</div>
 				
-				<tr>
-					<td><label id="lblGFirstName">First Name</label></td>
-					<td><input type="text" id="txtGFirstName" class="longTextBox" /></td>
-					
-					<td><label id="lblGMiddleName">Middle Name</label></td>
-					<td><input type="text" id="txtGMiddleName" class="longTextBox" /></td>
-					
-					<td><label id="lblGLastName">Last Name</label></td>
-					<td><input type="text" id="txtGLastName" class="longTextBox" /></td>
-					<td colspan="1"></td>
-				</tr>
-				<tr>
-				<td><label id="lblRoomType">Room Type</label></td>
-				<td><input type="text" id="txtRoomTypeCode" name="txtRoomTypeCode" Class="searchTextBox" ondblclick="funHelp('roomType')" /></td>
+			<div class="col-md-1"><label>Booking Rooms</label>
+				 <s:input type="number" min="1" step="1" id="txtNoOfBookingRoom" path="intNoRoomsBooked" style="text-align: right;width:70%;" />
+			</div>
+			
+			<div class="col-md-2"><label>Contact Person</label>
+				<s:input type="text" id="txtContactPerson" path="strContactPerson"/>
+			</div>
+			
+			<div class="col-md-2"><label>Billing Instructions</label>
+				<s:input type="text" id="txtBillingInstCode" path="strBillingInstCode" cssClass="searchTextBox" ondblclick="funHelp('BillingInstCode');"/>
+			</div>
+			
+			<div class="col-md-2"><label id="lblBillingInstDesc" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 23px 0px;"></label></div>
+			
+			<div class="col-md-2"><label>Booker</label>
+			      <s:input type="text" id="txtBookerCode" path="strBookerCode" cssClass="searchTextBox" ondblclick="funHelp('BookerCode');"/>
+			</div>
+			
+			<div class="col-md-2"><label id="lblBookerName" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 23px 0px;"></label></div>
+			
+			 <div class="col-md-2"><label>Remarks</label>
+				<s:input type="text" id="txtRemarks" path="strRemarks"/>
+			</div>
+			
+			<div class="col-md-2"><label>Cancel Date</label>
+				 <s:input type="text" id="txtCancelDate" path="dteCancelDate" cssClass="calenderTextBox" style="width: 75%;"/>
+			</div>
+			
+			<div class="col-md-2"><label>Confirm Date</label>
+				<s:input type="text" id="txtConfirmDate" path="dteConfirmDate" cssClass="calenderTextBox" style="width: 75%;"/>
+			</div>
+			
+			<div class="col-md-2"><label>Market Source</label>
+				 <s:input  type="text" id="txtMarketSourceCode" path="strMarketSourceCode" cssClass="searchTextBox" ondblclick="funHelp('marketsource');"/>
+			</div>
+			
+			<div class="col-md-2"><label id="lblMarketSourceName" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 23px 0px;"></label></div>
+  	    
+		    <div class="col-md-1"><label>OTA No</label>
+				<s:input type="text" id="txtOTANo" path="strOTANo"/>
+			</div>
+			
+  	       <div class="col-md-1"><label>Breakfast</label><br>
+		          <input type="checkbox" name="Include Breakfast" value=""/> 
+		    </div>
+		       	 
+		   <div class="col-md-1"><label>Discount %</label>
+			    <s:input id="txtDiscountPer" path=""   class="decimal-places-amt numberField" value="0" placeholder="disc" onkeypress="javascript:return isNumber(event)" />
+		   </div>
+		   
+			<div class="col-md-1"><label style="width:140%">Cost Per Night</label>
+			    <s:input id="txtSubTotal" path=""   class="decimal-places-amt numberField" value="0" placeholder="amt" onkeypress="javascript:return isNumber(event)" />
+			</div>
 				
-			    <td><label id="lblRoomNo">Room</label></td>
-			    <td><input type="text" id="txtRoomNo" name="txtRoomNo" path="strRoomNo" ondblclick="funHelp1('roomByRoomType')" Class="searchTextBox"/></td> 
+			<div class="col-md-1"><label>Total Cost</label>
+			    <s:input id="txtSubTotal" path=""   class="decimal-places-amt numberField" value="0" placeholder="amt" onkeypress="javascript:return isNumber(event)" />
+			</div>
+			
+			 <div class="col-md-2"><label>Dont apply tax</label><br />
+			     <s:checkbox id="txtDontApplyTax" path="strDontApplyTax" value="Y" />
+			</div>
+			
+		  </div>
+         </div>
+	  </div>
+									
+		<h3><a href="#">Traveler/Guest Information</a></h3>
+	     <div>
+	         <div class="container transtable"  style="background-color:#f2f2f2;">
+				<div class="row">
+					
+			         <div class="col-md-2"><label>Guest Code</label>
+						<input id="txtGuestCode" ondblclick="funHelp('guestCode');" class="searchTextBox" />
+					</div>
+					
+					<div class="col-md-1"><input type="Button" value="New Guest" onclick="return funCreateNewGuest()" class="btn btn-primary center-block" style="margin-top: 16px;" class="form_button" />
+					</div>
+					<div class="col-md-9"></div>
+					<br>
+				  <div class="col-md-2"><label id="lblGFirstName">First Name</label>
+					  <input type="text" id="txtGFirstName"/>
+			       </div>
+					
+				<div class="col-md-2"><label id="lblGMiddleName">Middle Name</label>
+				 	<input type="text" id="txtGMiddleName"/>
+				 </div>
+					
+				<div class="col-md-2"><label id="lblGLastName">Last Name</label>
+					<input type="text" id="txtGLastName"/>
+				</div>
+				
+				<div class="col-md-3"><label>Email Id</label>
+				      <s:input type="text" id="txtEmailId" path="strEmailId"/>
+				</div>
+				
+				<div class="col-md-2"><label>Mobile No</label>
+						<input type="text" id="txtMobileNo"/>
+				</div>
+					
+				<div class="col-md-2"><label id="lblRoomType">Room Type</label>
+						<input type="text" id="txtRoomTypeCode" name="txtRoomTypeCode" Class="searchTextBox" ondblclick="funHelp('roomType')" />
+				</div>
+					
+			   <div class="col-md-2"><label id="lblRoomNo">Room</label>
+			    	<input type="text" id="txtRoomNo" name="txtRoomNo" path="strRoomNo" ondblclick="funHelp1('roomByRoomType')" Class="searchTextBox"/>
+			    </div> 
 				 
-				<td><label id="lblExtraBed">Extra Bed</label></td>
-				<td><input type="text" id="txtExtraBed" name="txtExtraBed" Class="searchTextBox" ondblclick="funHelp('extraBed')" /></td>
-				<td colspan="1" ></td>
-				
-				</tr>
-				
-				<tr>
-					<td><label>Address</label></td>
-					<td><input type="text" id="txtAddress" Class="longTextBox" /></td>
-					<td><label>Remarks</label></td>
-					<td><input type="text" id="txtRemark" path="strRemark" Class="longTextBox"  /></td>
-					<td colspan="3"></td>
-     			</tr>
-				
-				<tr>
-					<td></td>
-					<td>
-						<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="smallButton" />
-					</td>
-					<td colspan="5"></td>
-				</tr>
+				<div class="col-md-2"><label id="lblExtraBed">Extra Bed</label>
+					<input type="text" id="txtExtraBed" name="txtExtraBed" Class="searchTextBox" ondblclick="funHelp('extraBed')" />
+				</div>
 			
-			</table>
-		</div>
-
-	
-		<div class="dynamicTableContainer" style="height: 300px;">
+				<div class="col-md-3"><label>Address</label>
+					 <input type="text" id="txtAddress"/>
+				</div>
+				<div class="col-md-2"><label>City</label>
+					 <input type="text" id="txtAddress"/>
+				</div>
+				<div class="col-md-2"><label>State</label>
+					 <input type="text" id="txtAddress"/>
+				</div>
+				
+				<div class="col-md-2"><label>Country</label>
+					 <input type="text" id="txtAddress"/>
+				</div>
+				
+				<div class="col-md-2"><label>Special Information</label>
+					<input type="text" id="txtRemark" path="strRemark"/>
+				</div>
+				
+				 <div class="col-md-1"><label>GST No</label><br>
+		              <input type="checkbox" name="GST No" value="" id="divGST" onclick="selectGST"/> 
+		       	</div>
+		       	<hr />
+		       	
+		  <div class="col-md-8" id="showGST" style="display: none;" >    
+		  	<div class="row"> 	
+		       	<div class="col-md-3"><label>GST Number</label>
+					 <input type="text" id="txtAddress"/>
+				</div>
+				<div class="col-md-3"><label>Company Name</label>
+					 <input type="text" id="txtAddress"/>
+				</div>
+				<div class="col-md-4"><label>Company Address</label>
+					 <input type="text" id="txtAddress"/>
+				</div>
+			</div>
+		 </div>
+				<div class="col-md-1">
+					<input type="Button" value="Add" onclick="return funGetDetailsRow()" class="btn btn-primary center-block" style="margin-top: 16px;margin-left:-90px;" class="smallButton" />
+			    </div>
+			    
+			<!--     <div class="col-md-1" style="padding-left: 0px; padding-top: 16px;">
+			        <a href="#" class="mdi  mdi-paperclip menu-link" id="" title="Attched document" style="font-size: 26px;margin-left:-100px;"></a>
+			    </div> -->
+			    
+			    <div class="dynamicTableContainer" style="height: 300px;">
 			<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-				<tr bgcolor="#72BEFC">				
-					<td style="width:22%;">Name</td>
-					<td style="width:10%;">Mobile No</td>
+				<tr bgcolor="#c0c0c0">				
+					<td style="width:17.5%;">Name</td>
+					<td style="width:6%;">Mobile No</td>
 <!-- 					<td style="width:7%;">Room No</td> -->
 <!-- 					<td style="width:9%;">Extra Bed</td> -->
-					<td style="width:6%;">Room Type</td>
-					<td style="width:04%;">Remarks</td>
-					<td style="width:5%;">Payee</td>
+					<td style="width:5%;">Room Type</td>
+					<td style="width:4%;">Remarks</td>
+					<td style="width:4%;">Payee</td>
 					<td style="width:25%;">Delete</td>
 				</tr>
 			</table>
 		
-			<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblResDetails"
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col8-center">
 					<tbody>
 						<col style="width: 37%;">
 						<col style="width: 16% ;">
-<%-- 						<col style="width: 80px;"> --%>
-<%-- 						<col style="width: 100px;"> --%>
+						<col style="width: 80px;">
+						<col style="width: 100px;">
 						<col style="width: 10%;">
 						<col style="width: 7%;">
 						<col style="width: 8%;">
@@ -2248,19 +2269,93 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
-</div>
+		</div>	
+				</div>							
+		      </div>
+			</div>
+					
+       <h3><a href="#">Special Requests</a></h3>
+		  <div>
+		     <div class="container transtable"  style="background-color:#f2f2f2;">
+				<div class="row" style="padding:15px">
+				<div class="row" >
+				   <div class="col-md-12"><label>Special Requests</label></div>
+				   
+				   <div class="col-md-2"><label>Non Smoking Room</label><br>
+		              <input type="checkbox" name="GST No" value=""/> 
+		       	</div>
+		       	<div class="col-md-2"><label>Late Check-in</label><br>
+		              <input type="checkbox" name="GST No" value=""/> 
+		       	</div>
+		       	<div class="col-md-2"><label>Early Check-in</label><br>
+		              <input type="checkbox" name="GST No" value=""/> 
+		       	</div>
+		       	<div class="col-md-2"><label>Room on a high floor</label><br>
+		              <input type="checkbox" name="GST No" value=""/> 
+		       	</div>
+		       	<div class="col-md-1"><label>Large Bed</label><br>
+		              <input type="checkbox" name="GST No" value=""/> 
+		       	</div>
+		       	<div class="col-md-1"><label>Twin Beds</label><br>
+		              <input type="checkbox" name="GST No" value=""/> 
+		       	</div>
+		       	<div class="col-md-2"><label>Airport Transfer</label><br>
+		              <input type="checkbox" name="GST No" value=""/> 
+		       	</div>
+		       	<div class="col-md-6"><label>ANY OTHER REQUESTS?</label><br>
+		              <input type="text" name="GST No" value="" style="height:50%"/> 
+		       	</div>
+		       	<div class="col-md-6"></div><br>
+		       	</div>
+		       	
+					<div class="col-md-2"><label>Business Source</label>
+						<s:input type="text" id="txtBusinessSourceCode" path="strBusinessSourceCode" cssClass="searchTextBox" ondblclick="funHelp('business');"/>
+					         <label id="lblBusinessSourceName"></label>
+					 </div>
+					 
+					 <div class="col-md-2"><label>Agent</label>
+						   <s:input type="text" id="txtAgentCode" path="strAgentCode" cssClass="searchTextBox" ondblclick="funHelp('AgentCode');"/>
+					           <label id="lblAgentName"></label>
+			          </div>
+			          
+			          <div class="col-md-2"><label>No Post Folio</label>
+				            <s:input type="text" id="txtDropTime" path="tmeDropTime" cssClass="calenderTextBox"  />
+				     </div>
+				     
+			          <div class="col-md-2"><label>Pick Up Time</label>
+				            <s:input type="text" id="txtPickUpTime" path="tmePickUpTime" style="width: 70%;" cssClass="calenderTextBox" />
+				      </div>
+			
+			         <div class="col-md-2"><label>Drop Time</label>
+				            <s:input type="text" id="txtDropTime" path="tmeDropTime" style="width: 70%;" cssClass="calenderTextBox"  />
+				     </div>
+				     
+			         <div class="col-md-3"><label>Arrival Location</label>
+					 		<input type="text" id="txtArrivalLocation"/>
+				     </div>
+				     
+					<div class="col-md-3"><label>Drop Location</label>
+					 		<input type="text" id="txtDropLocation"/>
+					</div>
+					
+					<div class="col-md-3"><label>Room Instructions</label>
+					 		<input type="text" id="txtRoomInstructions"/>
+					</div>
+				</div>							
+		      </div>
+		  </div>
+			
+       <h3><a href="#">Tarif</a></h3>
+		  <div>
+		      <div class="container transtable"  style="background-color:#f2f2f2;">
+				 <div class="row" style="padding:10px;">
+				            <!-- Start of Tarif Tab -->
 
-<!-- End of Reservation Tab -->
-
-<!-- Start of Tarif Tab -->
-
-	<div id="tab2" class="tab_content" style="height: 400px">
-	<!-- Generate Dynamic Table   -->		
-	<br/><br/><br/>
-		<div class="dynamicTableContainer" style="height: 400px; width: 80%">
-			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
-				<tr bgcolor="#72BEFC" style="height: 24px;">
+	              <!-- Generate Dynamic Table   -->		
+	                   <br/><br/><br/>
+		   <div class="dynamicTableContainer" style="height: 400px; width: 80%">
+			   <table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
+				<tr bgcolor="#c0c0c0" style="height: 24px;">
 					<!-- col1   -->
 					<td align="center" style="width: 30.6%">Date</td>
 					<!-- col1   -->
@@ -2275,8 +2370,8 @@
 					
 													
 				</tr>
-			</table>
-			<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			    </table>
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblRommRate" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col3-center">
 					<tbody>
 						<!-- col1   -->
@@ -2297,46 +2392,48 @@
 	
 	
 	</div>
-	<div style="margin:auto;width: 25%; float:right; margin-right:100px; ">
-	<!-- <label>Total</label> -->
-	<%-- <td><s:input id="txtTotalAmt" path="" style="text-align:right;" readonly="true" cssClass="shortTextBox"/></td> --%>
+	<div style="margin:auto;width: 12%; float:right; margin-right:225px; "><label>Total</label>
+        <s:input id="txtTotalAmt" path="" style="text-align:right;" readonly="true" cssClass="shortTextBox"/>
 	</div>
-	</div>
-	
-<!-- End of Tarif Tab -->
 
-<!-- Start of Package Tab -->
-
-	 <div id="tab3" class="tab_content" style="height: 400px">
-	 <br><br>
-	 
-	 	<table class="transTable">
-	 	    <tr>
-			    <td><label>Package Code</label></td>
-			    <td><s:input id="txtPackageCode" path="strPackageCode"  readonly="true"  ondblclick="funHelp('package')" cssClass="searchTextBox"/></td>
-			    <td><label>Package Name</label></td>
-			    <td><s:input id="txtPackageName" path="strPackageName" class="longTextBox" /></td>
-			</tr>
-			<tr>
-			    <td><label>Income Head</label></td>
-			    <td><s:input id="txtIncomeHead" path=""  readonly="true"  ondblclick="funHelp('incomeHead')" cssClass="searchTextBox"/></td>
-			    <td><label>Income Head Name</label></td>
-				<td><input type="text" id="txtIncomeHeadName" path="" Class="longTextBox"  /></td> 
-			</tr>
-			<tr>
-			    <td><label>Amount</label></td>
-			    <td><input type="text" id="txtIncomeHeadAmt" path="" Class="BoxW124px"  /></td>
-			    <td><input type="button" value="Add"  class="smallButton" onclick='return funAddRow()'/></td>
-			    <td></td>
-	
-			</tr>
-		</table>
-		
+				 </div>							
+		      </div>
+	       </div>
+	       
+	    <h3><a href="#">Package</a></h3>
+		<div>
+		<div class="container transtable"  style="background-color:#f2f2f2;">
+			<div class="row">
+				
+	 	     	<div class="col-md-2"><label>Package Code</label>
+			    	<s:input id="txtPackageCode" path="strPackageCode"  readonly="true"  ondblclick="funHelp('package')" cssClass="searchTextBox"/>
+				 </div>
+			 
+			    <div class="col-md-3"><label>Package Name</label>
+			    	<s:input id="txtPackageName" path="strPackageName"/>
+				</div>
+				<div class="col-md-7"></div>
+				
+			    <div class="col-md-2"><label>Income Head</label>
+			    	<s:input id="txtIncomeHead" path=""  readonly="true"  ondblclick="funHelp('incomeHead')" cssClass="searchTextBox"/>
+			    </div>
+			    
+			    <div class="col-md-3"><label>Income Head Name</label>
+				    <input type="text" id="txtIncomeHeadName" path="" />
+				</div> 
+			
+			    <div class="col-md-2"><label>Amount</label>
+			    	<input type="text" id="txtIncomeHeadAmt" path=""/>
+			    </div>
+			    <div class="col-md-1"><br><input type="button" value="Add" class="btn btn-primary center-block" class="smallButton" onclick='return funAddRow()'/>
+			    </div>
+			
+		   </div>
 		<br/>
 		<!-- Generate Dynamic Table   -->		
 		<div class="dynamicTableContainer" style="height: 320px; width: 80%">
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
-				<tr bgcolor="#72BEFC" style="height: 24px;">
+				<tr bgcolor="#c0c0c0" style="height: 24px;">
 					<!-- col1   -->
 					<td align="left" style="width: 30.6%">Income Head Code</td>
 					<!-- col1   -->
@@ -2346,15 +2443,15 @@
 					<!-- col2   -->
 					
 					<!-- col3   -->
-					<td align="right" style="width: 30.6%">Amount</td>
+					<td align="right" style="width: 25.6%">Amount</td>
 					<!-- col3   -->
 					
 					<!-- col4   -->
-					<td align="center">Delete</td>
+					<td align="right">Delete</td>
 					<!-- col4  -->									
 				</tr>
 			</table>
-			<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblIncomeHeadDtl" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col3-center">
 					<tbody>
 						<!-- col1   -->
@@ -2376,7 +2473,7 @@
 				</table>
 			</div>	
 			
-			<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 120px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 120px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblTotalPackageDtl" style="width: 100%; border: #0F0; font-size:15px; font-weight: bold; table-layout: fixed; overflow: scroll" class="display dataTable no-footer">
 					<tbody>
 						<!-- col1   -->
@@ -2396,27 +2493,43 @@
 		</div>		
 	 
 	 </div>
-	 
-<!-- End of Package Tab -->	 
-				
-</div>
-
-		<br />
-		<br />
+	</div>
+			  
+		<br /><br />
 		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateForm();" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetDetailFields()"/>
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateForm();" />
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetDetailFields()"/>
 		</p>
-		<s:input type="hidden" id="hidPayee" path="strPayeeGuestCode"></s:input>
-		<s:input type="hidden" id="hidIncomeHead" path="strIncomeHeadCode"></s:input>
-		<s:input type="hidden" id="txtTotalPackageAmt" path="strTotalPackageAmt"></s:input>
-		
-		
+		     <s:input type="hidden" id="hidPayee" path="strPayeeGuestCode"></s:input>
+		     <s:input type="hidden" id="hidIncomeHead" path="strIncomeHeadCode"></s:input>
+		     <s:input type="hidden" id="txtTotalPackageAmt" path="strTotalPackageAmt"></s:input>
+	     </div>
+	</s:form>                                                                              
+			  
+<script type="text/javascript">
+		$(function(){
+			$('#multiAccordion').multiAccordion({
+// 				active: [1, 2],
+				click: function(event, ui) {
+				},
+				init: function(event, ui) {
+				},
+				tabShown: function(event, ui) {
+				},
+				tabHidden: function(event, ui) {
+				}
+				
+			});
 			
-		<br />
-		<br />
+			$('#multiAccordion').multiAccordion("option", "active", [0]);  // in this line [0,1,2] wirte then these index are open
+		});
+	</script>
+	
 
-	</s:form>
+	
+              
+		
 </body>
 </html>
 							

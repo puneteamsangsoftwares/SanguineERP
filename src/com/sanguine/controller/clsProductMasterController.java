@@ -24,8 +24,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.rowset.serial.SerialBlob;
-import javax.sql.rowset.serial.SerialException;
 import javax.swing.ImageIcon;
 import javax.validation.Valid;
 
@@ -46,7 +44,6 @@ import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -272,17 +269,10 @@ public class clsProductMasterController {
 	}
 
 	@RequestMapping(value = "/saveProductMaster", method = RequestMethod.POST)
-	public ModelAndView funAddUpdate(@ModelAttribute("command") clsProductMasterBean objBean, BindingResult result, HttpServletRequest req, HttpServletResponse resp,@RequestParam("prodImage") MultipartFile file) throws IOException {
+	public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsProductMasterBean objBean, BindingResult result, HttpServletRequest req, HttpServletResponse resp, @RequestParam("prodImage") MultipartFile file) throws IOException {
 		String urlHits = "1";
 		String defaulltSupplier = "", strProductNameMarathi = "";
-		//MultipartFile file =file;
 		try {
-			
-			if(req.getAttribute("prodImage")!=null){
-				file =(MultipartFile) req.getAttribute("prodImage");	
-			}
-			 
-			
 			req.setCharacterEncoding("UTF-8");
 			resp.setCharacterEncoding("UTF-8");
 			urlHits = req.getParameter("saddr").toString();
@@ -556,6 +546,7 @@ public class clsProductMasterController {
 	// }
 
 
+	
 
 	@RequestMapping(value = "/loadProductMasterData", method = RequestMethod.GET)
 	public @ResponseBody clsProductMasterModel funAssignFields(@RequestParam("prodCode") String prodCode, HttpServletRequest req, HttpServletResponse response) {
@@ -614,7 +605,6 @@ public class clsProductMasterController {
 			objModel1.setStrProdCode("Invalid Code");
 			return objModel1;
 		} else {
-			//objModel.setStrProductImage(null); 
 			return objModel;
 		}
 	}
@@ -653,17 +643,26 @@ public class clsProductMasterController {
 		}
 
 		try {
-			//Blob image = null;
+			/*
+			Blob image = null;
 			byte[] imgData = null;
-		//	image = objModel.getStrProductImage();
-			//if (null != image && image.length() > 0) {
+			image = objModel.getStrProductImage();
+			if (null != image && image.length() > 0) {
+				imgData = image.getBytes(1, (int) image.length());
+				response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+				OutputStream o = response.getOutputStream();
+				o.write(imgData);
+				o.flush();
+				o.close();*/
+
+			byte[] imgData = null;
 				imgData =objModel.getStrProductImage();
 				response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
 				OutputStream o = response.getOutputStream();
 				o.write(imgData);
 				o.flush();
 				o.close();
-			//}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -697,7 +696,7 @@ public class clsProductMasterController {
 			objModel.setIntId(lastNo);
 			objModel.setStrUserCreated(userCode);
 			objModel.setDtCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-			if (file !=null && file.getSize() != 0) {
+			if (file.getSize() != 0) {
 				System.out.println(file.getOriginalFilename());
 				File imgFolder = new File(System.getProperty("user.dir") + "\\ProductIcon");
 				if (!imgFolder.exists()) {
@@ -716,25 +715,17 @@ public class clsProductMasterController {
 				BufferedImage bfImg = scaleImage(200, 240, path);
 				ImageIO.write(bfImg, "jpg", byteArrayOutputStream);
 				byte[] imageBytes = byteArrayOutputStream.toByteArray();
-			//	ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
+				ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
 
-				Blob blobProdImage=null;
-				try {
-					blobProdImage = new SerialBlob(imageBytes);
-				} catch (SerialException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				/*Blob blobProdImage = Hibernate.createBlob(byteArrayInputStream);
+				objModel.setStrProductImage(blobProdImage);*/
 				objModel.setStrProductImage(imageBytes);
-
+				
 				if (fileImageIcon.exists()) {
 					fileImageIcon.delete();
 				}
 			} else {
-				objModel.setStrProductImage(funBlankBlob());
+				//objModel.setStrProductImage(funBlankBlob());
 			}
 		} else {
 			clsProductMasterModel objModel1 = objProductMasterService.funGetObject(objBean.getStrProdCode(), clientCode);
@@ -745,10 +736,10 @@ public class clsProductMasterController {
 				objModel.setIntId(lastNo);
 				objModel.setStrUserCreated(userCode);
 				objModel.setDtCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-				objModel.setStrProductImage(funBlankBlob());
+				//objModel.setStrProductImage(funBlankBlob());
 			} else {
 				objModel = new clsProductMasterModel(new clsProductMasterModel_ID(objBean.getStrProdCode(), clientCode));
-				if (file !=null && file.getSize() != 0) {
+				if (file.getSize() != 0) {
 
 					File imgFolder = new File(System.getProperty("user.dir") + "\\ProductIcon");
 					if (!imgFolder.exists()) {
@@ -766,23 +757,15 @@ public class clsProductMasterController {
 					BufferedImage bfImg = scaleImage(200, 240, path);
 					ImageIO.write(bfImg, "jpg", byteArrayOutputStream);
 					byte[] imageBytes = byteArrayOutputStream.toByteArray();
-				//	ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
+					ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
 
-					Blob blobProdImage=null;
-					try {
-						blobProdImage = new SerialBlob(imageBytes);
-					} catch (SerialException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} //Hibernate.createBlob(byteArrayInputStream);
+					/*Blob blobProdImage = Hibernate.createBlob(byteArrayInputStream);
+					objModel.setStrProductImage(blobProdImage);*/
 					objModel.setStrProductImage(imageBytes);
-
 					if (fileImageIcon.exists()) {
 						fileImageIcon.delete();
 					}
+					
 
 				} else {
 					clsProductMasterModel imageModel = objProductMasterService.funGetObject(objModel.getStrProdCode(), clientCode);
@@ -790,7 +773,7 @@ public class clsProductMasterController {
 						objModel.setStrProductImage(imageModel.getStrProductImage());
 						System.out.println(imageModel.getStrProductImage());
 					} else {
-						objModel.setStrProductImage(funBlankBlob());
+						//objModel.setStrProductImage(funBlankBlob());
 					}
 				}
 
@@ -1169,6 +1152,9 @@ public class clsProductMasterController {
 		String[] ExcelHeader = { "Product Code", "Product Name", "SubGroup Name","UOM","Cost","List Price","Location Name","Specification" };
 		listStock.add(ExcelHeader);
 		
+		String dateTime[] = objGlobal.funGetCurrentDateTime("dd-MM-yyyy").split(" ");
+		List footer = new ArrayList<>();
+		
 		String sql = "";
 		if (objSetup.getStrShowProdMaster().equalsIgnoreCase("Y")) {
 			sql = " select p.strProdCode as ProdCode,p.strProdName as ProdName,s.strSGName as SGName," + " p.strUOM as UOM,p.dblCostRM as CostRM,p.dblListPrice as ListPrice," + " ifnull(l.strlocname,'') as Locname,p.strSpecification as Specification ,p.strBinNo as BinNo " + " from tblproductmaster p" + " left outer join tblsubgroupmaster s on p.strSGCode=s.strSGCode and s.strClientcode='" + clientCode
@@ -1205,12 +1191,19 @@ public class clsProductMasterController {
 			DataList.add(arrObj[7].toString());
 			listStockFlashModel.add(DataList);
 		}
+		List blank = new ArrayList<>();
+		blank.add("");
+		listStockFlashModel.add(blank);
+
+		footer.add("Created on :" +dateTime[0]);
+		footer.add("AT :" +dateTime[1]);
+		footer.add("By :" +userCode);
+		listStockFlashModel.add(footer);
+
 		listStock.add(listStockFlashModel);
 		return new ModelAndView("excelView", "stocklist", listStock);
 	}
-	public byte[] funBlankBlob() {
-		
-		
+	public Blob funBlankBlob() {
 		Blob blob = new Blob() {
 
 			@Override
@@ -1279,8 +1272,7 @@ public class clsProductMasterController {
 
 			}
 		};
-		byte an[]=new byte[100];
-		return an;
+		return blob;
 	}
 
 	public BufferedImage scaleImage(int WIDTH, int HEIGHT, String filename) {
@@ -1376,5 +1368,32 @@ public class clsProductMasterController {
 		}
 		return listProd;
 	}
+	
+	@RequestMapping(value = "/loadBatchNo", method = RequestMethod.GET)
+	public @ResponseBody boolean funBatchCheck(@RequestParam("prodCode") String prodCode, HttpServletRequest req, HttpServletResponse response) {
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		clsProductMasterModel objModel = null;
+
+		String propCode = req.getSession().getAttribute("propertyCode").toString();
+		clsPropertySetupModel objSetUp = objSetupMasterService.funGetObjectPropertySetup(propCode, clientCode);
+		objGlobal = new clsGlobalFunctions();
+		List listReturn = new ArrayList<>();
+		boolean returnBool=true;
+		String sqlBatch = "select * from tblbatchhd a where a.strProdCode='"+prodCode+"' and a.strClientCode='"+clientCode+"'";
+		List list = objGlobalFunctionsService.funGetList(sqlBatch);
+		if(list.size()>0)
+		{
+			returnBool=true;
+		}
+		else
+		{
+			returnBool=false;
+		}
+
+		
+		return returnBool;
+	}
+
+	
 
 }

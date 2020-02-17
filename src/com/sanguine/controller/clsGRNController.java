@@ -1,6 +1,5 @@
 package com.sanguine.controller;
 
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -513,6 +512,7 @@ public class clsGRNController {
 				objGRNDtl.setStrIsueLocName("");
 			}
 			objGRNDtl.setStrStkble(prodMaster.getStrNonStockableItem());
+			objGRNDtl.setDblFreeQty(grnDtl.getDblFreeQty());
 			StringBuilder sqlBuilder = new StringBuilder();
 			sqlBuilder.setLength(0);
 			sqlBuilder
@@ -584,7 +584,7 @@ public class clsGRNController {
 				double totalValue = 0.00;
 				boolean flagDtlDataInserted = false;
 				double dblDis=objHdModel.getDblDisAmt();
-				double dblDisPercent=0;
+				double dblDisPercent=0;//objHdModel.getDblDisRate();
 				if(dblDis>0)
 				{
 					dblDisPercent=objHdModel.getDblSubTotal()/dblDis;
@@ -596,41 +596,33 @@ public class clsGRNController {
 					if (null != ob.getStrProdCode()) {
 						String binNo = objGlobalFunctions.funIfNull(objBean.getStrBillNo(), "", ob.getStrBinNo());
 						List listProdSupp = objGRNService.funGetProdSupp(objHdModel.getStrSuppCode(),ob.getStrProdCode(), clientCode);
-						funAddProdSuppMaster(listProdSupp, clientCode,ob.getDblUnitPrice() * currValue,objHdModel.getStrSuppCode(),
-								ob.getStrProdCode(), userCode, binNo, grnCode);
+						funAddProdSuppMaster(listProdSupp, clientCode,ob.getDblUnitPrice() * currValue,objHdModel.getStrSuppCode(),ob.getStrProdCode(), userCode, binNo, grnCode);
 						ob.setStrGRNCode(grnCode);
 						ob.setStrProdChar(" ");
 						if (ob.getStrMISCode() == null) {
 							ob.setStrMISCode("");
 						}
 						ob.setDblTotalPrice(ob.getDblTotalPrice() * currValue);
-						double dblDiscount=0;
-						if(dblDiscount>0)
+						double dblDiscount=ob.getDblDiscount()*currValue;
+						if(dblDisPercent>0)
 						{
 							dblDiscount=ob.getDblTotalPrice()/dblDisPercent;
 						}
-						
-						
-						double taxableAmt = 0.0;
-						double taxAmt = 0.0;
-						
+						double taxableAmt = 0.0,taxAmt = 0.0;
 						
 						String prdDetailForTax = ob.getStrProdCode() + "," + ob.getDblUnitPrice() + ","
 								+ objHdModel.getStrSuppCode() + "," + ob.getDblQty() + "," + dblDiscount;
 						Map<String, String> hmProdTax = objGlobalFunctions.funCalculateTax(prdDetailForTax, "Purchase", objHdModel.getDtGRNDate(), "0","", request);
-                       
-						if (hmProdTax.size() > 0) 
+                        if (hmProdTax.size() > 0) 
 						{
 							for (Map.Entry<String, String> entry : hmProdTax.entrySet()) 
 							    {
-								String taxdetails = entry.getValue();
-								String[] spItem = taxdetails.split("#");
-								taxableAmt = Double.parseDouble(spItem[0].toString());
-								taxAmt =taxAmt + Double.parseDouble(spItem[5].toString());
+									String taxdetails = entry.getValue();
+									String[] spItem = taxdetails.split("#");
+									taxableAmt = Double.parseDouble(spItem[0].toString());
+									taxAmt =taxAmt + Double.parseDouble(spItem[5].toString());
 								}
-							
 						}
-						
 						ob.setStrClientCode(clientCode);
 						ob.setDblDiscount(dblDiscount*currValue);
 						ob.setDblRate(ob.getDblRate() * currValue);
@@ -639,14 +631,16 @@ public class clsGRNController {
 						ob.setDblTaxAmt(taxAmt * currValue);
 						
 						ob.setDblUnitPrice(ob.getDblUnitPrice() * currValue);
+						ob.setDblFreeQty(ob.getDblFreeQty());
+						
+						//save grn dtl
 						objGRNService.funAddUpdateDtl(ob);
+						
 						clsProductMasterModel objModel = objProductMasterService.funGetObject(ob.getStrProdCode(), clientCode);
 
-						if (objSetUp.getStrMultiCurrency()
-								.equalsIgnoreCase("N")) {
-							if (objSetUp.getStrWeightedAvgCal().equals(
-									"Property Wise")) {
-							// property wise rate save
+						if (objSetUp.getStrMultiCurrency().equalsIgnoreCase("N")) {
+							if (objSetUp.getStrWeightedAvgCal().equals("Property Wise")) {
+	// property wise rate save
 								double dblreOrderPrice = 0;
 								clsProductReOrderLevelModel objReOrder = objProductMasterService.funGetProdReOrderLvl(ob.getStrProdCode(),objHdModel.getStrLocCode(),clientCode);
 								if (objReOrder != null) {
@@ -669,7 +663,7 @@ public class clsGRNController {
 										tempval=tempval + ob.getDblTaxAmt();	
 										}
 
-										weightedStk = stock + ob.getDblQty();
+										weightedStk = stock + ob.getDblQty()+ob.getDblFreeQty();
 										if (weightedStk == 0.0) {
 											weightedStk = 1.0;
 										}
@@ -707,30 +701,17 @@ public class clsGRNController {
 								} else {
 									// location wise product entry not found in
 									// reorder table--> insert new with rate
-									List<clsLocationMasterModel> listLocModel = objLocationMasterService
-											.funLoadLocationPropertyWise(
-													objSetUp.getStrPropertyCode(),
-													clientCode);
+									List<clsLocationMasterModel> listLocModel = objLocationMasterService.funLoadLocationPropertyWise(objSetUp.getStrPropertyCode(),clientCode);
 									for (clsLocationMasterModel obj : listLocModel) {
-										clsProductReOrderLevelModel reeorderLevelForPropertyWiseLocation = new clsProductReOrderLevelModel(
-												new clsProductReOrderLevelModel_ID(
-														obj.getStrLocCode(),
-														clientCode,
-														ob.getStrProdCode()));
-										reeorderLevelForPropertyWiseLocation
-												.setDblReOrderLevel(0);
-										reeorderLevelForPropertyWiseLocation
-												.setDblReOrderQty(0);
-										reeorderLevelForPropertyWiseLocation
-												.setDblPrice(ob
-														.getDblUnitPrice());
-										objProductMasterService
-												.funAddUpdateProdReOrderLvl(reeorderLevelForPropertyWiseLocation);
+										clsProductReOrderLevelModel reeorderLevelForPropertyWiseLocation = new clsProductReOrderLevelModel(new clsProductReOrderLevelModel_ID(obj.getStrLocCode(),clientCode,ob.getStrProdCode()));
+										reeorderLevelForPropertyWiseLocation.setDblReOrderLevel(0);
+										reeorderLevelForPropertyWiseLocation.setDblReOrderQty(0);
+										reeorderLevelForPropertyWiseLocation.setDblPrice(ob.getDblUnitPrice());
+										objProductMasterService.funAddUpdateProdReOrderLvl(reeorderLevelForPropertyWiseLocation);
 									}
 								}
 							} else {
-								if (ob.getDblUnitPrice() != objModel
-										.getDblCostRM()) {// Weighted average Calculating Logic and
+								if (ob.getDblUnitPrice() != objModel.getDblCostRM() || ob.getDblFreeQty()>0) {// Weighted average Calculating Logic and
 									// Update In Product Master
 									stock = objGlobalFunctions.funGetCurrentStockForProduct(ob.getStrProdCode(),objHdModel.getStrLocCode(),
 													clientCode,userCode,startDate,objGlobalFunctions.funGetCurrentDate("yyyy-MM-dd"),proprtyWiseStock);
@@ -739,27 +720,23 @@ public class clsGRNController {
 									if (strstock.contains("-")) {
 										stock = 0.0;
 									}
-									weigthedvalue = stock
-											* objModel.getDblCostRM();
-									double tempval = ob.getDblQty()
-											* ob.getDblUnitPrice();
+									weigthedvalue = stock * objModel.getDblCostRM();
+									double tempval = ob.getDblQty() * ob.getDblUnitPrice();
 									
 									if(objSetUp.getStrIncludeTaxInWeightAvgPrice().equalsIgnoreCase("Y"))
 									{
-									tempval=tempval + ob.getDblTaxAmt();	
+										tempval=tempval + ob.getDblTaxAmt();	
 									}
 
-									weightedStk = stock + ob.getDblQty();
+									weightedStk = stock + ob.getDblQty() + ob.getDblFreeQty();
 									if (weightedStk == 0.0) {
 										weightedStk = 1.0;
 									}
 									double temp = weigthedvalue + tempval;
 									weightedAvg = temp / weightedStk;
-									weightedAvg = Double.parseDouble(df.format(
-											temp / weightedStk).toString());
+									weightedAvg = Double.parseDouble(df.format(temp / weightedStk).toString());
 									// weightedAvg=Math.rint(weightedAvg);
-									String strweightedAvg = weightedAvg
-											.toString();
+									String strweightedAvg = weightedAvg.toString();
 
 									if (strweightedAvg.contains("-")) {
 										weightedAvg = weightedAvg * (-1);
@@ -768,66 +745,44 @@ public class clsGRNController {
 									
 								}
 							}
-
 						} else {
 							double dblreOrderPrice = 0;
 							clsProductReOrderLevelModel objReOrder = objProductMasterService.funGetProdReOrderLvl(ob.getStrProdCode(),objHdModel.getStrLocCode(),clientCode);
 							if (objReOrder != null) {
 								if (ob.getDblUnitPrice() != objReOrder.getDblPrice()) {
 									dblreOrderPrice = objReOrder.getDblPrice();
-									stock = objGlobalFunctions.funGetCurrentStockForProduct(ob.getStrProdCode(),
-													objHdModel.getStrLocCode(),clientCode,userCode,startDate,
-													objGlobalFunctions.funGetCurrentDate("yyyy-MM-dd"),proprtyWiseStock);
+									stock = objGlobalFunctions.funGetCurrentStockForProduct(ob.getStrProdCode(),objHdModel.getStrLocCode(),clientCode,userCode,startDate,objGlobalFunctions.funGetCurrentDate("yyyy-MM-dd"),proprtyWiseStock);
 									String strstock = stock.toString();
 									if (strstock.contains("-")) {
 										stock = 0.0;
 									}
 
 									weigthedvalue = stock * dblreOrderPrice;
-									double tempval = ob.getDblQty()
-											* ob.getDblUnitPrice();
+									double tempval = ob.getDblQty() * ob.getDblUnitPrice();
 									
 									if(objSetUp.getStrIncludeTaxInWeightAvgPrice().equalsIgnoreCase("Y"))
 									{
-									tempval=tempval + ob.getDblTaxAmt();	
+										tempval=tempval + ob.getDblTaxAmt();	
 									}
 
-									weightedStk = stock + ob.getDblQty();
+									weightedStk = stock + ob.getDblQty()+ob.getDblFreeQty();
 									if (weightedStk == 0.0) {
 										weightedStk = 1.0;
 									}
 									double temp = weigthedvalue + tempval;
 									weightedAvg = temp / weightedStk;
-									weightedAvg = Double.parseDouble(df.format(
-											temp / weightedStk).toString());
+									weightedAvg = Double.parseDouble(df.format(temp / weightedStk).toString());
 									objReOrder.setDblPrice(weightedAvg);
-									objProductMasterService
-											.funAddUpdateProdReOrderLvl(objReOrder);
-									List<clsLocationMasterModel> list = objLocationMasterService
-											.funLoadLocationPropertyWise(
-													objSetUp.getStrPropertyCode(),
-													clientCode);
+									objProductMasterService.funAddUpdateProdReOrderLvl(objReOrder);
+									List<clsLocationMasterModel> list = objLocationMasterService.funLoadLocationPropertyWise(objSetUp.getStrPropertyCode(),clientCode);
 									for (clsLocationMasterModel obj : list) {
-										if (!(obj.getStrLocCode()
-												.equals(objHdModel
-														.getStrLocCode()))) {
-											System.out.println("prod "
-													+ ob.getStrProdCode()
-													+ "Loc"
-													+ obj.getStrLocCode()
-													+ " HDLOC"
-													+ objHdModel
-															.getStrLocCode());
-											clsProductReOrderLevelModel reeorderLevelForPropertyWiseLocation = objProductMasterService
-													.funGetProdReOrderLvl(
-															ob.getStrProdCode(),
-															obj.getStrLocCode(),
-															clientCode);
+										if (!(obj.getStrLocCode().equals(objHdModel.getStrLocCode()))) {
+											System.out.println("prod " + ob.getStrProdCode()+ "Loc"+ obj.getStrLocCode()+ " HDLOC"+ objHdModel.getStrLocCode());
+											clsProductReOrderLevelModel reeorderLevelForPropertyWiseLocation = objProductMasterService.funGetProdReOrderLvl(ob.getStrProdCode(),
+															obj.getStrLocCode(),clientCode);
 											if (reeorderLevelForPropertyWiseLocation != null) {
-												reeorderLevelForPropertyWiseLocation
-														.setDblPrice(weightedAvg);
-												objProductMasterService
-														.funAddUpdateProdReOrderLvl(reeorderLevelForPropertyWiseLocation);
+												reeorderLevelForPropertyWiseLocation.setDblPrice(weightedAvg);
+												objProductMasterService.funAddUpdateProdReOrderLvl(reeorderLevelForPropertyWiseLocation);
 											}
 										}
 									}
@@ -835,8 +790,7 @@ public class clsGRNController {
 							}
 
 						}
-						if (ob.getStrExpiry().equalsIgnoreCase("y")
-								&& ob.getStrExpiry() != null) {
+						if (ob.getStrExpiry().equalsIgnoreCase("y") && ob.getStrExpiry() != null) {
 							clsGRNDtlModel batchModel = new clsGRNDtlModel();
 							batchModel.setStrGRNCode(grnCode);
 							batchModel.setStrProdCode(ob.getStrProdCode());
@@ -850,19 +804,15 @@ public class clsGRNController {
 					}
 				}
 
-				List<clsGRNTaxDtlModel> listGRNTaxDtlModel = objBean
-						.getListGRNTaxDtl();
+				List<clsGRNTaxDtlModel> listGRNTaxDtlModel = objBean.getListGRNTaxDtl();
 				if (null != listGRNTaxDtlModel) {
-					objGRNService.funDeleteGRNTaxDtl(objBean.getStrGRNCode(),
-							clientCode);
+					objGRNService.funDeleteGRNTaxDtl(objBean.getStrGRNCode(),clientCode);
 					for (clsGRNTaxDtlModel obTaxDtl : listGRNTaxDtlModel) {
 						if (null != obTaxDtl.getStrTaxCode()) {
 							obTaxDtl.setStrGRNCode(grnCode);
 							obTaxDtl.setStrClientCode(clientCode);
-							obTaxDtl.setStrTaxableAmt(obTaxDtl
-									.getStrTaxableAmt() * currValue);
-							obTaxDtl.setStrTaxAmt(obTaxDtl.getStrTaxAmt()
-									* currValue);
+							obTaxDtl.setStrTaxableAmt(obTaxDtl.getStrTaxableAmt() * currValue);
+							obTaxDtl.setStrTaxAmt(obTaxDtl.getStrTaxAmt()* currValue);
 							objGRNService.funAddUpdateGRNTaxDtl(obTaxDtl);
 						}
 					}
@@ -1906,8 +1856,10 @@ public class clsGRNController {
 			}
 			String webStockDB = req.getSession().getAttribute("WebStockDB")
 					.toString();
-			String reportName = servletContext
-					.getRealPath("/WEB-INF/reports/rptGrnDtlSlip.jrxml");
+			String reportName = servletContext.getRealPath("/WEB-INF/reports/rptGrnDtlSlip.jrxml");
+			if(clientCode.equals("117.001")){
+				reportName = servletContext.getRealPath("/WEB-INF/reports/rptGrnDtlSlipShort.jrxml");
+			}
 			String imagePath = servletContext
 					.getRealPath("/resources/images/company_Logo.png");
 			sqlBuilder.setLength(0);
@@ -1945,7 +1897,6 @@ public class clsGRNController {
 							+ "' group by g.strGRNCode ");
 
 			JasperDesign jd = JRXmlLoader.load(reportName);
-			
 			JRDesignQuery newQuery = new JRDesignQuery();
 			newQuery.setText(sqlBuilder.toString());
 			jd.setQuery(newQuery);
@@ -1968,7 +1919,7 @@ public class clsGRNController {
 							+ currValue
 							+ ") as stdRate,p.dblUnitPrice/("
 							+ currValue
-							+ ")*(g.dblQty-g.dblRejected) as stdAmt from "
+							+ ")*(g.dblQty-g.dblRejected) as stdAmt,g.dblFreeQty from "
 							+ webStockDB
 							+ ".tblgrndtl g,"
 							+ webStockDB
@@ -2312,6 +2263,9 @@ public class clsGRNController {
 			}
 			String reportName = servletContext
 					.getRealPath("/WEB-INF/reports/rptGrnDtlSlip.jrxml");
+			if(clientCode.equals("117.001")){
+				reportName = servletContext.getRealPath("/WEB-INF/reports/rptGrnDtlSlipShort.jrxml");
+			}
 			String imagePath = servletContext
 					.getRealPath("/resources/images/company_Logo.png");
 			StringBuilder sqlBuilder = new StringBuilder();
@@ -2460,6 +2414,10 @@ public class clsGRNController {
 		String userCode = req.getSession().getAttribute("usercode").toString();
 		String tempLoc[] = objBean.getStrLocationCode().split(",");
 		String strLocCodes = "";
+		
+		
+		String dateTime[] = objGlobalFunctions.funGetCurrentDateTime("dd-MM-yyyy").split(" ");
+		List footer = new ArrayList<>();
 
 		String locNames = "";
 		for (int i = 0; i < tempLoc.length; i++) {
@@ -2521,8 +2479,8 @@ public class clsGRNController {
 						+ "  f.strSGName as SubGroupName, case c.strClass  WHEN '' THEN 'NA'  else c.strClass  end  as strClass,"
 						+ "  'TaxCode','TaxName','TaxPer',  b.dblRejected as RejQty,"
 						+ "  (b.dblQty-b.dblRejected) as AcceptQty,b.dblUnitPrice as Rate, "
-						+ "  b.dblUnitPrice*(b.dblQty-b.dblRejected) as Amount,b.dblDiscount as DiscountAmt, 'TaxAmt',"
-						+ "  ((b.dblUnitPrice*(b.dblQty-b.dblRejected))-b.dblDiscount)+b.dblTaxAmt  as GrandTotal , IFNULL(a.strBillNo,'')"
+						+ "  b.dblUnitPrice*(b.dblQty-b.dblRejected) as Amount,((b.dblUnitPrice*(b.dblQty-b.dblRejected))*a.dblDisRate)/100 as DiscountAmt, 'TaxAmt',"
+						+ "  ((b.dblUnitPrice*(b.dblQty-b.dblRejected))-((b.dblUnitPrice*(b.dblQty-b.dblRejected))*a.dblDisRate)/100)+b.dblTaxAmt  as GrandTotal , IFNULL(a.strBillNo,'')"
 						+ "  from tblgrnhd a ,tblgrndtl b ,tblproductmaster c,tblpartymaster d,tbllocationmaster e,tblsubgroupmaster f,tblgroupmaster g  "
 						+ "	 where a.strGRNCode=b.strGRNCode and b.strProdCode=c.strProdCode "
 						+ "  and a.strSuppCode=d.strPCode and a.strLocCode=e.strLocCode and c.strSGCode=f.strSGCode "
@@ -2555,6 +2513,7 @@ public class clsGRNController {
 		double subToltal = 0.00;
 		String grnCode = "";
 		double grandToltal = 0.00;
+		double dblDiscAmt=0;
 		HashMap<String, Double> hmTaxTotalGrid = new HashMap<String, Double>();
 		for (int i = 0; i < list.size(); i++) {
 			Object[] ob = (Object[]) list.get(i);
@@ -2638,8 +2597,8 @@ public class clsGRNController {
 			dataList.add(df.format(Double.parseDouble(ob[20].toString())
 					/ currValue)); // Amount
 			
-			
-			dataList.add(df.format(Double.parseDouble(ob[21].toString())));
+			dblDiscAmt=Double.parseDouble(ob[21].toString());
+			dataList.add(df.format(dblDiscAmt));
 			dataList.add(df.format(dblTaxamt / currValue)); // TaxAmt
 			
 			dblRowAmtTotal = Double.parseDouble(ob[23].toString());
@@ -2880,7 +2839,14 @@ public class clsGRNController {
 				openingStklist.add(dataListgrandtotal);
 			}
 		}
+		List blank = new ArrayList<>();
+		blank.add("");
+		openingStklist.add(blank);
 
+		footer.add("Created on :" +dateTime[0]);
+		footer.add("AT :" +dateTime[1]);
+		footer.add("By :" +userCode);
+		openingStklist.add(footer);
 		exportList.add(openingStklist);
 
 		return new ModelAndView("excelViewFromDateTodateWithReportName",
@@ -2930,6 +2896,10 @@ public class clsGRNController {
 		String clientCode = req.getSession().getAttribute("clientCode")
 				.toString();
 		String userCode = req.getSession().getAttribute("usercode").toString();
+		
+		
+		String dateTime[] = objGlobalFunctions.funGetCurrentDateTime("dd-MM-yyyy").split(" ");
+		List footer = new ArrayList<>();
 
 		if (tempSupplierCode[0].length() > 0) {
 			for (int i = 0; i < tempSupplierCode.length; i++) {
@@ -3104,7 +3074,15 @@ public class clsGRNController {
 		totDataList.add(df.format(totAmt));
 
 		grnSummarylist.add(totDataList);
+        
+		List blank = new ArrayList<>();
+		blank.add("");
+		grnSummarylist.add(blank);
 
+		footer.add("Created on :" +dateTime[0]);
+		footer.add("AT :" +dateTime[1]);
+		footer.add("By :" +userCode);
+		grnSummarylist.add(footer);
 		exportList.add(grnSummarylist);
 
 		return new ModelAndView("excelViewFromDateTodateWithReportName",
@@ -3323,5 +3301,26 @@ public class clsGRNController {
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping(value = "/loadLastGRNRate", method = RequestMethod.GET)
+	public @ResponseBody double funGetLastGrnRate(@RequestParam("prodCode")String prodCode,@RequestParam("clientCode") String ClientCode){
+		double rate=0;
+		try{
+			String sql="select ifnull(ifnull(b.dblUnitPrice,c.dblCostRM),0) as rate from tblgrnhd a,tblgrndtl b,tblproductmaster c "
+					+" where a.strGRNCode=b.strGRNCode and b.strProdCode=c.strProdCode and a.strClientCode=b.strClientCode  and b.strClientCode=c.strClientCode "
+					+" and b.strProdCode ='"+prodCode+"' and a.strClientCode='"+ClientCode+"' "
+					+" order by a.dtGRNDate desc limit 1";
+			List list = objGlobalFunctionsService.funGetList(sql);
+			if(list.size()>0)
+			{
+				rate=Double.parseDouble(list.get(0).toString());
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return rate;
 	}
 }

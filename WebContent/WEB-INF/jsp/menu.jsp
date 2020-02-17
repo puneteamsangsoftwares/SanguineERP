@@ -4,10 +4,11 @@
 
 		<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 		<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-		<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+		<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 		<%@ page import="java.util.List,com.sanguine.model.clsTreeMasterModel"%>
-		<%-- <%@ taglib prefix="tab" uri="http://ditchnet.org/jsp-tabs-taglib"%> --%>
+		<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 
+		
 <html>
 <head>
 <style>
@@ -84,7 +85,7 @@
 	        <div class="app-sidebar">
         		<ul class="side-menu" id="tree">
         			<c:forEach items="${treeMap}" var="draw1" varStatus="status1">
-        				<li style="padding:0px">
+        				<li>
         				  <a href="#" class="link">
 			             	<c:set var="menuMaster" value="Master"/>
 			             	<c:set var="menuReport" value="Report"/>
@@ -218,10 +219,10 @@
         		</ul>     
 			 </div>
 			 <script>
-		window.onscroll = function() {myFunction()};
+		/* window.onscroll = function() {myFunction()}; */
 		
 		var sidebar = document.getElementsByClassName("app-sidebar");
-		var sticky = header.offsetTop;
+		/* var sticky = header.offsetTop;
 		
 		function myFunction() {
 		  if (window.pageYOffset > sticky) {
@@ -229,7 +230,7 @@
 		  } else {
 			  sidebar.classList.remove("sticky");
 		  }
-		}
+		} */
 		</script>
 </body>
 </html>

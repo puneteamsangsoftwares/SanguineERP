@@ -1,17 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 </head>
 <script type="text/javascript">
-
- 
-
 
 	/**
 	* Reset The Group Name TextField
@@ -155,48 +160,34 @@
 		
 </script>
 <body>
-	<div id="formHeading">
-		<label>Loss Calculation report </label>
-	</div>
-
-	<br />
-	<br />
-
-	<s:form name="frmLossCalculationReport" method="POST" action="rptLossCalculationReport.html?saddr=${urlHits}">
-		<div>
-			<table class="masterTable">
-
-			
-			<tr>
-				<td width="140px">Recipe Code</td>
-				<td><s:input id="txtRecipeCode" path="strDocCode"
-						cssClass="searchTextBox" ondblclick="funHelp('bomcodeslip')" /></td>
-				<td><label id=lblParentName> All Recipe </label>	</td>	
-						
-			
-			</tr>
-			<tr>
-			
-			<td><label>Report Type</label></td>
-				<td ><s:select id="cmbDocType" path="strDocType"
-						cssClass="BoxW124px">
+	<div class="container masterTable">
+      <label id="formHeading">Loss Calculation report </label>
+	   <s:form name="frmLossCalculationReport" method="POST" action="rptLossCalculationReport.html?saddr=${urlHits}">
+	 
+	   <div class="row">	
+		       <div class="col-md-2"><label>Recipe Code</label>
+				     <s:input id="txtRecipeCode" path="strDocCode" cssClass="searchTextBox" readOnly="true" ondblclick="funHelp('bomcodeslip')" />
+		       </div>
+		      
+			   <div class="col-md-2"><br><label id=lblParentName style="background-color:#dcdada94; width: 100%; heigh:58%;padding:4px;"> All Recipe </label></div>	
+				<div class="col-md-8"></div>		
+			   <div class="col-md-2"><label>Report Type</label>
+				    <s:select id="cmbDocType" path="strDocType">
 						<s:option value="PDF">PDF</s:option>
 						<s:option value="XLS">EXCEL</s:option>
 						<s:option value="HTML">HTML</s:option>
 						<s:option value="CSV">CSV</s:option>
-					</s:select></td>
-			
-			</tr>
-		</table>
-		</div>
-	
-	<p align="center">
-		<br /> <br /> <input type="submit" value="Submit" class="form_button" id="submit" /> 
-	           
-	            <input type="reset" value="Reset" class="form_button" id="btnReset" />
+					</s:select>
+			   </div>
+	    </div>
+	<br>
+	<p align="center" style="margin-right:49%">
+		        <input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" id="submit" /> 
+	             &nbsp;
+	            <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" id="btnReset" />
 
 	</p>
 </s:form>
-
+  </div>
 </body>
 </html>

@@ -2608,7 +2608,7 @@ public List funProductList(HSSFSheet worksheet, HttpServletRequest request, Mult
 			objModel.setStrProdCode(productCode);
 			objModel.setStrUserCreated(userCode);
 			objModel.setDtCreatedDate(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
-			objModel.setStrProductImage(objProductMaster.funBlankBlob());
+			/*objModel.setStrProductImage(objProductMaster.funBlankBlob());*/
 			objModel.setStrProdName(objBean.getStrProdName().toUpperCase());
 			objModel.setStrPartNo(objBean.getStrPartNo());
 			objModel.setStrUOM(objGlobalFunctions.funIfNull(objBean.getStrUOM(), "", objBean.getStrUOM()));
@@ -2689,7 +2689,7 @@ public List funProductList(HSSFSheet worksheet, HttpServletRequest request, Mult
 			objModel.setStrProdCode(productCode);
 			objModel.setStrUserCreated(userCode);
 			objModel.setDtCreatedDate(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
-			objModel.setStrProductImage(objProductMaster.funBlankBlob());
+			/*objModel.setStrProductImage(objProductMaster.funBlankBlob());*/
 			objModel.setStrProdName(objBean.getStrProdName().toUpperCase());
 			objModel.setStrPartNo(objBean.getStrPartNo());
 			objModel.setStrUOM(objGlobalFunctions.funIfNull(objBean.getStrUOM(), "", objBean.getStrUOM()));

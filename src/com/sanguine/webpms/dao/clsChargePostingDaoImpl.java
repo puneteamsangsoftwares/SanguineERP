@@ -20,13 +20,13 @@ public class clsChargePostingDaoImpl implements clsChargePostingDao {
 	private SessionFactory webPMSSessionFactory;
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public void funAddUpdateChargePosting(clsChargePostingHdModel objMaster) {
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objMaster);
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public List funGetChargePosting(String serviceCode, String clientCode) {
 
 		List list = null;

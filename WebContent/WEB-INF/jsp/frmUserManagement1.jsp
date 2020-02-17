@@ -1,12 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <title>User Management</title>	
 <script type="text/javascript">
 $(document).ready(function(){
@@ -414,6 +422,7 @@ $(document).ready(function(){
 			var locCode=$("#cmbLocation").val().trim();
 			var module=$("#cmbModule").val().trim();
 			funAddDetailsRow(propCode,locCode,'','',module);
+			return false;
 		}
 	
 		function funAddDetailsRow(propCode,locCode,propName,locName,module)
@@ -462,9 +471,9 @@ $(document).ready(function(){
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"0%\" style=\"display:none;\"  id=\"strPropNLocCode."+(rowCount)+"\" value='"+proplocMod+"' />";
-			row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"35%\" id=\"strPropName."+(rowCount)+"\" value='"+propName+"' />";
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"35%\" id=\"strLocName."+(rowCount)+"\" value='"+locName+"' />";
-		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listUserLocDtlBean["+(rowCount)+"].strModule\" id=\"strModule."+(rowCount)+"\" value='"+module+"' />";
+			row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"25%\" id=\"strPropName."+(rowCount)+"\" value='"+propName+"' />";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"25%\" id=\"strLocName."+(rowCount)+"\" value='"+locName+"' />";
+		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"25%\" name=\"listUserLocDtlBean["+(rowCount)+"].strModule\" id=\"strModule."+(rowCount)+"\" value='"+module+"' />";
 		    row.insertCell(4).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"2%\" value = \"Delete\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
 		    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"0%\" name=\"listUserLocDtlBean["+(rowCount)+"].strPropertyCode\" id=\"strPropertyCode."+(rowCount)+"\" value='"+propCode+"' />";
 		    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"0%\" name=\"listUserLocDtlBean["+(rowCount)+"].strLocCode\" id=\"strLocCode."+(rowCount)+"\" value='"+locCode+"' />";
@@ -580,125 +589,111 @@ $(document).ready(function(){
 </head>
 
 	<body onload="funOnload();">
-	<div id="formHeading">
-		<label>User Management</label>
-	</div>
+	<div class="container">
+		<label id="formHeading">User Management</label>
 		<s:form action="saveUserMaster.html?saddr=${urlHits}" method="POST" name="userForm">
-			<br />
-			<br />
-				<table class="masterTable" >
-				   <tr>
-		        		<th  align="right" colspan="5"> <a id="baseUrl" href="#"> Attach Documents</a> &nbsp; &nbsp; &nbsp;
+			<div class="row masterTable" >
+					   <!-- <th  align="right" colspan="5"> <a id="baseUrl" href="#"> Attach Documents</a> &nbsp; &nbsp; &nbsp;
 						&nbsp;</th>
-		    		</tr>
-					<tr>
-						<td width="100px"><label>User Code </label></td>
-						<td colspan="4"><s:input path="strUserCode1" id="txtUserCode" ondblclick="funHelp('usermaster')" required="true" cssStyle="text-transform: uppercase;" cssClass="searchTextBox"/></td>
-					</tr>
-			
-					<tr>
-						<td><label>User Name</label></td>
-						<td colspan="4"><s:input path="strUserName1" id="txtUserName" required="true" cssStyle="text-transform: uppercase; width: 117px;"   cssClass="longTextBox" /></td>
-					</tr>
-			
-					<tr>
-						<td><label>Password</label></td>
-						<td colspan="4"><s:input type="password" path="strPassword1" id="txtPassword" required="true" cssStyle="width: 117px;"   cssClass="longTextBox"/></td>
-					</tr>
-			
-					<tr>
-						<td><label>Super User</label></td>
-						<td colspan="2">
-							<s:select path="strSuperUser" id="cmbSuperUser" cssClass="BoxW62px">
+		    			</tr> -->
+					<div class="col-md-2">
+						<label>User Code </label>
+						<s:input path="strUserCode1" id="txtUserCode" ondblclick="funHelp('usermaster')" cssClass="searchTextBox" readOnly="true"/>
+					</div>
+					<div class="col-md-2">
+						<label>User Name</label>
+						<s:input path="strUserName1" id="txtUserName"  />
+					</div>
+					<div class="col-md-2">
+						<label>Password</label>
+						<s:input type="password" path="strPassword1" id="txtPassword" required="true" />
+					</div>
+					<div class="col-md-2">
+						<label>Super User</label>
+							<s:select path="strSuperUser" id="cmbSuperUser" style="width:50%">
 								<s:option value="No">No</s:option>
 								<s:option value="YES">YES</s:option>
 							</s:select>
-						</td>
-					
-						<td><s:checkbox  label="  Show Dashboard" colspan="3" id="chkShowDashBoard" path="strShowDashBoard"  value="" /></td>					
-						<td><s:checkbox  label="  Reorder level Notification" colspan="3" id="chkReorderLevel" path="strReorderLevel"  value="" /></td>
-						
-					</tr>
-			
-					<tr>
-						<td><label>Retire</label></td>
-						<td >
-							<s:select path="strRetire" id="cmbRetire" cssClass="BoxW62px">
+					</div>
+					<div class="col-md-4"></div>
+					<br><br><br>
+					<div class="col-md-2">
+						<label>Show Dashboard</label><br>
+						<s:checkbox  colspan="3" id="chkShowDashBoard" path="strShowDashBoard"  value="" />				
+					</div>	
+					<div class="col-md-2">
+						<label>Reorder level Notification</label><br>
+						<s:checkbox  colspan="3" id="chkReorderLevel" path="strReorderLevel"  value="" />
+					</div>
+					<div class="col-md-2">
+						<label>Retire</label>	
+							<s:select path="strRetire" id="cmbRetire" style="width:50%">
 								<s:option value="No">No</s:option>
 								<s:option value="YES">YES</s:option>
 							</s:select>
-						</td>
-						
-						<td><label>Module</label></td>
-						<td colspan="2"><select id="cmbModule" Class="BoxW62px" Style="width:40%">
-							</select>
-						</td>
-						
-					</tr>
-
-					<tr>
-						<td><label>Properties</label></td>
-						<td>
-							<s:select path="strProperty" items="${propertyList}" id="cmbProperty" cssClass="BoxW62px" cssStyle="width:73%" onchange="funFillLocCombo();">
+					</div>	
+					<div class="col-md-2">
+						<label>Module</label>
+						<select id="cmbModule" Style="width:60%">
+						</select>
+					</div>
+					<div class="col-md-4"></div>
+					<div class="col-md-2">
+						<label>Properties</label>
+							<s:select path="strProperty" items="${propertyList}" id="cmbProperty"  onchange="funFillLocCombo();">
 							</s:select>
-						</td>
-						
-						<td><label>Locations</label></td>
-						<td>
-							<s:select path="strLocation" items="${listLocation}" id="cmbLocation" cssClass="BoxW62px" cssStyle="width:73%">
+					</div>	
+					<div class="col-md-2">	
+						<label>Locations</label>
+						<s:select path="strLocation" items="${listLocation}" id="cmbLocation">
 							</s:select>
-						</td>
-						
-						<td colspan="3"><input type="Button" value="Add" onclick="return funFillPropLocGrid();" class="smallButton" /></td>
-					</tr>					
-			
-					<tr>
-			  			<td><label>Email Id</label></td>
-			  			<td>
-					        <s:input id="txtEmail" name="strEmail" class="longTextBox" placeholder="name@email.com" type="text" value="" path="strEmail"/>
-					     </td>
-					     <td colspan="3"></td>
-			  		</tr>
-				</table>
-				
-				
-				<div class="dynamicTableContainer" style="height: 300px;">
-				<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-					<tr bgcolor="#72BEFC">
-						
-						<td style="width:20%;">Property</td>
-						<td style="width:15%;">Location</td>
-						<td style="width:15%;">Module</td>
-						<td style="width:5%;">Delete</td>
-					</tr>
-				</table>
-			
-				<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
-					<table id="tblUserLoc"
-						style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-						class="transTablex col8-center">
-						<tbody>
-							<col style="width: 0%;">
-							<col style="width: 100px;">
-							<col style="width: 100px;">
-							<col style="width: 70px;">
-							<col style="width: 50px;">
-							<col style="width: 0px;">
-							<col style="width: 0px;">
-							<col style="display:none;">
-						</tbody>
-					</table>
+					</div>
+					<div class="col-md-2">					
+						<label>Email Id</label>
+			  			<s:input id="txtEmail" name="strEmail" placeholder="name@email.com" type="text" value="" path="strEmail"/>
+					 </div>
+					 
 				</div>
-			</div>
+				<div class="center" style="margin-right: 40%;">
+					<a href="#"><button class="btn btn-primary center-block"  value="Add" onclick="return funFillPropLocGrid();" style="width: auto;">Add</button></a>
+				</div>
+				<br /><br />
+				<div class="dynamicTableContainer" style="height: 300px;">
+					<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+						<tr bgcolor="#c0c0c0">
+							<td style="width:15%;">Property</td>
+							<td style="width:15%;">Location</td>
+							<td style="width:16%;">Module</td>
+							<td style="width:5%;">Delete</td>
+						</tr>
+					</table>
+			
+					<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+						<table id="tblUserLoc"
+							style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+							class="transTablex col8-center">
+							<tbody>
+								<col style="width: 0%;">
+								<col style="width: 29%;">
+								<col style="width: 29%;">
+								<col style="width: 35%;">
+								<col style="width: 15;">
+								<col style="width: 0%;">
+								<col style="width: 0%;">
+								<col style="display:none;">
+							</tbody>
+						</table>
+					</div>
+				</div>
 				
-			<br /><br />
-		
-		<p align="center">
-			<input type="submit" value="Submit"  class="form_button"
-				onclick="return funCallFormAction()" /> 
-				<input type="reset"
-				value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
+				<br /><br />
+			<div class="center">
+				<a href="#"><button class="btn btn-primary center-block"  value="Submit" onclick="return funCallFormAction()" 
+				>Submit</button></a>
+				<a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()"
+				>reset</button></a>
+			</div>
 		</s:form>
+	</div>
 	</body>
 </html>

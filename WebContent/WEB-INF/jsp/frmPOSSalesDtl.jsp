@@ -1,10 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title></title>
 <script type="text/javascript">
 	var fieldName,flgSACode,linkedPOSYN='No';
@@ -51,10 +61,11 @@
 	
 	$(function() 
 	{
+		var startDateOfMonth="${startDateOfMonth}";
 		$( "#txtFromDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 		$( "#txtToDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 		$( "#txtPostSADate" ).datepicker({ dateFormat: 'dd-mm-yy' });
-		$("#txtFromDate" ).datepicker('setDate', 'today');
+		$("#txtFromDate" ).datepicker('setDate', 'startDateOfMonth');
 		$("#txtToDate" ).datepicker('setDate', 'today');
 		$("#txtPostSADate" ).datepicker('setDate', 'today');
 		
@@ -368,101 +379,80 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>POS Sales Data Posting</label>
-	</div>
-
-<br/>
-<br/>
-
+	<div CLASS="container">
+		<label id="formHeading">POS Sales Data Posting</label>
+	<br/>
+	<br/>
 	<s:form name="POSSalesDtl" method="POST" action="savePOSSalesDtl.html">
-
-		<table class="transTable">
-			<tr>
-			<th colspan="5"></th>
-				<th align="right"><a onclick="funOpenExportImport()"
-					href="javascript:void(0);">Export/Import</a>&nbsp; &nbsp; &nbsp;
-<!-- 					&nbsp;<a id="baseUrl" href="#">Attatch Documents</a>&nbsp; &nbsp;  -->
-				</th>
-			</tr>
-			
-			
-			<tr>
-				<td width="10%"><label>Location Code</label></td>
-			    <td colspan="5"><s:input type="text" id="txtLocCode" name="locCode" path="strLocCode" class="searchTextBox" ondblclick="funHelp('locationmaster')" required="true"/> 
-			    <label id="lblLocName" class="namelabel"></label></td>
-			</tr>
-			
-			<tr>
-				<td>
-					<label>From Date</label>
-				</td>
-				<td>
-					<input type="text" id="txtFromDate" class="calenderTextBox" />
-				</td>
-				
-				<td width="10%">
-					<label>To Date</label>
-				</td>
-				<td>
-					<input type="text" id="txtToDate" class="calenderTextBox" />
-				</td>
-				
-				<td >
-					<label>Post SA Date</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtPostSADate" class="calenderTextBox" path="dtePostSADate" />
-				</td>
-				
-				
-			</tr>
-			
-		</table>
-		
+		<div class="row transTable">
+			<div class="col-md-12">
+				<a onclick="funOpenExportImport()"
+					href="javascript:void(0);">Export/Import</a>
+			</div>
+				<!-- &nbsp;<a id="baseUrl" href="#">Attatch Documents</a>&nbsp; &nbsp;  -->
+			<div class="col-md-2">
+				<label>Location Code</label>
+			 	<s:input type="text" id="txtLocCode" name="locCode" path="strLocCode" class="searchTextBox" ondblclick="funHelp('locationmaster')" required="true"/> 
+			</div> 
+			<div class="col-md-2">  
+			   <label id="lblLocName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 51%; margin-top: 26px; text-align: center;"></label>
+			</div>
+			<div class="col-md-2">  
+				<label>From Date</label>
+				<input type="text" id="txtFromDate" class="calenderTextBox" style="width:80%;" />
+			</div>
+			<div class="col-md-2">  	
+				<label>To Date</label>
+				<input type="text" id="txtToDate" class="calenderTextBox"  style="width:80%;"  />
+			</div>
+			<div class="col-md-2">
+				<label>Post SA Date</label>
+				<s:input type="text" id="txtPostSADate" class="calenderTextBox" path="dtePostSADate"  style="width:80%;"  />
+			</div>	
+		</div>
+		<br>
 		<div class="dynamicTableContainer" style="height: 300px;">
 			<table
 				style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-				<tr bgcolor="#72BEFC">
-				<td style="width:7%;">POS Item Code</td>
-				<td style="width:25%;">POS Item Name</td>
-				<td style="width:9%;">WS Item Code</td>
-				<td style="width:25%;">WS Item Name</td>
-				<td style="width:10%;">WS Item Type</td>
-				<td style="width:10%;">SA Code</td>	
-				<td style="width:8%;">Qty</td>	
-				<td style="width:6%;">Delete</td>				
-			</tr>
-		</table>
-		<div
-				style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				<tr bgcolor="#c0c0c0">
+					<td style="width:7%;">POS Item Code</td>
+					<td style="width:25%;">POS Item Name</td>
+					<td style="width:9%;">WS Item Code</td>
+					<td style="width:25%;">WS Item Name</td>
+					<td style="width:10%;">WS Item Type</td>
+					<td style="width:10%;">SA Code</td>	
+					<td style="width:8%;">Qty</td>	
+					<td style="width:6%;">Delete</td>				
+				</tr>
+			</table>
+				<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 					<table id="tblPOSLinkUp"
-					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-					class="transTablex col8-center">
-					<tbody>
-					<col style="width:7.5%">					
-					<col style="width:26%">
-					<col style="width:9.5%">
-					<col style="width:26%">
-					<col style="width:11%">
-					<col style="width:10%">
-					<col style="width:8%;text-align:right">
-					<col style="width:5%">
-					<col style="width:0%">
-					<col style="width:0%">
-					<col style="width:0%">
-					</tbody>
-				</table>
-			</div>
+						style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+						class="transTablex col8-center">
+						<tbody>
+						<col style="width:7.5%">					
+						<col style="width:26%">
+						<col style="width:9.5%">
+						<col style="width:26%">
+						<col style="width:11%">
+						<col style="width:10%">
+						<col style="width:8%;text-align:right">
+						<col style="width:5%">
+						<col style="width:0%">
+						<col style="width:0%">
+						<col style="width:0%">
+						</tbody>
+					</table>
+				</div>
 		</div>
 		<br />
-		<p align="center">
-<!-- 			<input type="button" value="Check Linkup" tabindex="3" class="form_button" id="btnCheckLinkup"/> -->
-			<input type="button" value="Load Linkup" tabindex="3" class="form_button" id="btnLoadLinkup"/>
-			<input type="submit" value="submit" tabindex="3" class="form_button" id="btnGenerateSA" />
-			<input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
+		<div class="center" style="text-align:center;">
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" id="btnLoadLinkup" value="Load Linkup" style="width: auto;">Load Linkup</button></a>
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" id="btnGenerateSA" value="Submit">Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()">Reset</button></a>
+		<!-- 	<input type="button" value="Check Linkup" tabindex="3" class="form_button" id="btnCheckLinkup"/> -->
+		</div>
 	</s:form>
+</div>
 </body>
 </html>

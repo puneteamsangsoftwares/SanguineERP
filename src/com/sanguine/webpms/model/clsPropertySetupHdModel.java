@@ -64,6 +64,12 @@ public class clsPropertySetupHdModel implements Serializable {
 	private String strHscCode;
 	
 	
+	@Column(name = "strEnableHousekeeping")
+	private String strEnableHousekeeping;
+	
+	@Column(name = "strEnableWebCam")
+	private String strEnableWebCam;
+	
 	
 
 	public String getStrGSTNo() {
@@ -268,6 +274,22 @@ public class clsPropertySetupHdModel implements Serializable {
 
 	public void setStrCheckInEmailContent(String strCheckInEmailContent) {
 		this.strCheckInEmailContent = strCheckInEmailContent;
+	}
+
+	public String getStrEnableHousekeeping() {
+		return strEnableHousekeeping;
+	}
+
+	public void setStrEnableHousekeeping(String strEnableHousekeeping) {
+		this.strEnableHousekeeping = strEnableHousekeeping;
+	}
+
+	public String getStrEnableWebCam() {
+		return strEnableWebCam;
+	}
+
+	public void setStrEnableWebCam(String strEnableWebCam) {
+		this.strEnableWebCam = strEnableWebCam;
 	}
 
 	

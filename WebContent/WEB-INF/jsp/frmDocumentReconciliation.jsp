@@ -1,11 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
+	<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />	
+	<script type="text/javascript" src="<spring:url value="/resources/js/Accordian/jquery.multi-accordion-1.5.3.js"/>"></script>	
 <title>Insert title here</title>
 
 	<script>
@@ -19,16 +30,7 @@
 			
 			funSetTransCodeHelp($("#cmbFormName").val());
 			
-			$("#btnSubmit").click(function( event )
-			{	
-				if($("#txtTransactionCode").val()=='')
-				{
-					alert("Please Select Transaction Code");
-					return false;
-				}
-				
-				funGenerateDocRecoTree($("#cmbFormName").val(),$("#txtTransactionCode").val(),$("#cmbType").val());
-			});
+			
 			
 			$("#btnReset").click(function( event )
 			{
@@ -67,6 +69,7 @@
 			$.ajax({
 			        type: "GET",
 			        url: searchUrl,
+			        async: false,
 				    dataType: "json",
 				    success: function(respBillPass)
 				    {
@@ -144,6 +147,7 @@
 			            }		            
 			        }
 			      });
+			
 		}
 		
 		
@@ -227,39 +231,39 @@
 			$("#txtTransactionCode").val(code);
 		}
 		
-		
+		function funOnClick()
+		{
+			if($("#txtTransactionCode").val()=='')
+			{
+				alert("Please Select Transaction Code");
+				return false;
+			}
+			
+			funGenerateDocRecoTree($("#cmbFormName").val(),$("#txtTransactionCode").val(),$("#cmbType").val());
+			return false;
+		}
 		
 	</script>
 
 </head>
 	<body>
-	<div id="formHeading">
-		<label>Document Reconciliation Flash</label>
-	</div>
-		<s:form id="frmDocReconciliation" method="POST" action="showDocReconc.html">
-		    <br><br>
-		    <table class="masterTable">
-		    <tr><th colspan="4"></th></tr>
-				<tr>	
-						
-					<td width="90px">Form Name</td>
-					<td>
-						<s:select id="cmbFormName" path="strFormName" cssClass="longTextBox">
+	<div class="container">
+		<label id="formHeading">Document Reconciliation Flash</label>
+		<s:form id="frmDocReconciliation" method="GET" action="">
+		    <div class="row masterTable">
+		   		<div class="col-md-2">
+		   			<label>Form Name</label>
+						<s:select id="cmbFormName" path="strFormName">
 							<s:options items="${listFormName}"/>
 						</s:select>
-					</td>
-					
-					<td >Code</td>
-					
-					<td>
-						<s:input type="text" name="code" id="txtTransactionCode" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 2px;" path="strTransCode" ondblclick="funHelp();"/>						
-					</td>
-					
+				</div>
+				<div class="col-md-2">	
+					<label>Code</label>
+					<s:input type="text" name="code" id="txtTransactionCode"  cssClass="searchTextBox"  path="strTransCode" ondblclick="funHelp();"/>						
+				</div>
 					<!-- <td>
 						<input type="button" id="btnShow" />
 					</td> -->
-				</tr>
-				
 				<!-- 		    			    
 			    <tr>
 			        <td><label id="lblFromDate">From Date</label></td>
@@ -275,39 +279,27 @@
 			        </td>
 			    </tr>
 			     -->
-			    
-			    <tr>
-			    	<td><label>Type</label></td>
-			        <td>
-			        	<s:select id="cmbType" path="strType" cssClass="longTextBox">
-							<s:option value="Forward"/>
-							<s:option value="Backward"/>
-						</s:select>
-					</td>
-					<td></td>
-					<td></td>
-			    </tr>		    
+			    <div class="col-md-2">	
+			    	<label>Type</label>
+			       	<s:select id="cmbType" path="strType">
+						<s:option value="Forward"/>
+						<s:option value="Backward"/>
+					</s:select>
+				</div>
+			</div>
+		<div class="center" style="margin-right: 51%;">
+		   <a href="#"><button class="btn btn-primary center-block"  value="Execute" id="btnSubmit" onclick="return funOnClick()" >Execute</button></a>
+		   <a href="#"><button class="btn btn-primary center-block"  value="Reset" id="btnReset">Reset</button></a>
+		</div>
 			
-				<tr>
-					<td></td>
-					<td></td>
-					<td><input type="button" value="Execute" id="btnSubmit" class="form_button1" /></td>					
-					<td><input type="reset" value="Reset" id="btnReset" class="form_button1" /></td>
-				</tr>
-			    
-			</table>
-			
-		<br />
-		<!-- 
-		<p align="center">
-			<input type="button" value="Execute" id="btnSubmit" class="form_button" />
-			<input type="reset" value="Reset" id="btnReset" class="form_button" />
-		</p>-->
-		
+			<!-- 
+			<p align="center">
+				<input type="button" value="Execute" id="btnSubmit" class="form_button" />
+				<input type="reset" value="Reset" id="btnReset" class="form_button" />
+			</p>-->
 		<div id="divDocReco">				
 		</div>
-		
-<br><br>
-		</s:form>
-	</body>
+</s:form>
+</div>
+</body>
 </html>

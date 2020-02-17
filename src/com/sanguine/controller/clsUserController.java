@@ -139,10 +139,17 @@ public class clsUserController {
 					String[] spDate1 = spDate[2].split(" ");
 					String date = spDate1[0];
 					startDate = date + "/" + month + "/" + year;
+					
+					String currentDate=objGlobalFun.funGetCurrentDateTime("yyyy-MM-dd");
+					String date1 = currentDate.split(" ")[0];
+				    String[] arr=date1.split("-");
+				    String startDateOfMonth=1+"-"+arr[1]+"-"+arr[0];
+					
 					req.getSession().setAttribute("clientCode", objCompanyMasterModel.getStrClientCode());
 					req.getSession().setAttribute("companyCode", objCompanyMasterModel.getStrCompanyCode());
 					req.getSession().setAttribute("companyName", objCompanyMasterModel.getStrCompanyName());
 					req.getSession().setAttribute("startDate", startDate);
+					req.getSession().setAttribute("startDateOfMonth", startDateOfMonth);
 					req.getSession().setAttribute("strIndustryType", strIndustryType);
 					String strCRMModule = objCompanyMasterModel.getStrCRMModule();
 					String strWebBookModule = objCompanyMasterModel.getStrWebBookModule();
@@ -216,7 +223,13 @@ public class clsUserController {
 		ModelAndView objMV = null;
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		String companyName = req.getSession().getAttribute("companyName").toString();
-
+		try{
+			req.getSession().removeAttribute("propertyCode");	
+		}catch(Exception e){
+			
+		}
+		
+		
 		if (result.hasErrors()) {
 			map.put("invalid", "1");
 			return new ModelAndView("frmLogin", "command", new clsUserHdBean());
@@ -366,7 +379,7 @@ public class clsUserController {
 			req.getSession().setAttribute("WebExciseDB", objGlobalFun.funTrimDBNameFromURL(webExciseURL));
 			req.getSession().setAttribute("WebBooksDB", objGlobalFun.funTrimDBNameFromURL(webBooksURL));
 			req.getSession().setAttribute("WebPMSDB", objGlobalFun.funTrimDBNameFromURL(webPMSURL));
-			req.getSession().setAttribute("WebCLUBDB", objGlobalFun.funTrimDBNameFromURL(webClubURL));
+			req.getSession().setAttribute("WebPMSDB", objGlobalFun.funTrimDBNameFromURL(webClubURL));
 			
 		}catch(Exception e)
 		{
@@ -595,12 +608,12 @@ public class clsUserController {
 		switch (selectedModuleName) {
 		case "1-WebStocks":
 			if (strIndustryType.equals("Manufacture") || strIndustryType.equals("Retailing")) {
-				headerImage = "02webstocks-property-header2.gif";
+				headerImage = "02webstocks-property-header.jpg";
 
 			} else {
-				headerImage = "webstocks-property-header2.gif";
+				headerImage = "webstocks-property-header.jpg";
 			}
-			moduleTitleImage = "webstocks_module_icon.png";
+			moduleTitleImage = "Sanguine_WebStocks_1.jpg";
 
 			moduleMap.put("1-WebStocks", "webstocks_module_icon.png");
 			strModule = "1";
@@ -608,8 +621,8 @@ public class clsUserController {
 			break;
 
 		case "2-WebExcise":
-			headerImage = "webstocks-property-header2.gif";
-			moduleTitleImage = "webexcise_module_icon.png";
+			headerImage = "webstocks-property-header.jpg";
+			moduleTitleImage = "Sanguine_WebExcise_1.jpg";
 
 			moduleMap.put("2-WebExcise", "webexcise_module_icon.png");
 			strModule = "2";
@@ -617,8 +630,8 @@ public class clsUserController {
 			break;
 
 		case "3-WebPMS":
-			headerImage = "webstocks-property-header2.gif";
-			moduleTitleImage = "webpms_module_icon.png";
+			headerImage = "webstocks-property-header.jpg";
+			moduleTitleImage = "Sanguine_WebPMS_1.jpg";
 
 			moduleMap.put("3-WebPMS", "webpms_module_icon.png");
 			strModule = "3";
@@ -626,8 +639,8 @@ public class clsUserController {
 			break;
 
 		case "4-WebClub":
-			headerImage = "webstocks-property-header2.gif";
-			moduleTitleImage = "webclub_module_icon.png";
+			headerImage = "webstocks-property-header.jpg";
+			moduleTitleImage = "Sanguine_WebClub_1.jpg";
 
 			moduleMap.put("4-WebClub", "webclub_module_icon.png");
 			strModule = "4";
@@ -635,8 +648,8 @@ public class clsUserController {
 			break;
 
 		case "5-WebBook":
-			headerImage = "webstocks-property-header2.gif";
-			moduleTitleImage = "webbooks_icon.png";
+			headerImage = "webstocks-property-header.jpg";
+			moduleTitleImage = "Sanguine_WebBooks_1.jpg";
 
 			moduleMap.put("5-WebBook", "webbooks_icon.png");
 			strModule = "5";
@@ -645,12 +658,12 @@ public class clsUserController {
 
 		case "6-WebCRM":
 			if (strIndustryType.equals("Manufacture") || strIndustryType.equals("Retailing")) {
-				headerImage = "02webstocks-property-header2.gif";
+				headerImage = "02webstocks-property-header.jpg";
 
 			} else {
-				headerImage = "webstocks-property-header2.gif";
+				headerImage = "webstocks-property-header.jpg";
 			}
-			moduleTitleImage = "webcrm_module_icon.png";
+			moduleTitleImage = "Sanguine_WebCRM_1.jpg";
 
 			moduleMap.put("6-WebCRM", "webcrm_module_icon.png");
 			strModule = "6";
@@ -658,8 +671,8 @@ public class clsUserController {
 			break;
 
 		case "7-WebBanquet":
-			headerImage = "webstocks-property-header2.gif";
-			moduleTitleImage = "webbanquet_module_icon.png";
+			headerImage = "webstocks-property-header.jpg";
+			moduleTitleImage = "Sanguine_WebPOS_1.jpg";
 
 			moduleMap.put("7-WebBanquet", "webbanquet_module_icon.png");
 			strModule = "7";
@@ -668,12 +681,12 @@ public class clsUserController {
 
 		case "5-WebBookAR":
 			if (strIndustryType.equals("Manufacture") || strIndustryType.equals("Retailing")) {
-				headerImage = "02webstocks-property-header2.gif";
+				headerImage = "02webstocks-property-header.jpg";
 
 			} else {
-				headerImage = "webstocks-property-header2.gif";
+				headerImage = "webstocks-property-header.jpg";
 			}
-			moduleTitleImage = "webbooksAR_icon.png";
+			moduleTitleImage = "Sanguine_WebBooks_1.jpg";
 
 			moduleMap.put("5-WebBookAR", "webbooksAR_icon.png");
 			strModule = "5";
@@ -681,8 +694,8 @@ public class clsUserController {
 			break;
 
 		case "8-WebBookAPGL":
-			headerImage = "webstocks-property-header2.gif";
-			moduleTitleImage = "webbooksAPGL_icon.png";
+			headerImage = "webstocks-property-header.jpg";
+			moduleTitleImage = "Sanguine_WebBooks_1.jpg";
 
 			moduleMap.put("8-WebBookAPGL", "webbooksAPGL_icon.png");
 			strModule = "8";

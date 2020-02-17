@@ -358,7 +358,7 @@ public class clsStkPostingController {
 		objHdModel.setStrLocCode(objBean.getStrLocCode());
 		objHdModel.setDblTotalAmt(objBean.getDblTotalAmt());
 		objHdModel.setStrNarration(objBean.getStrNarration());
-		;
+		
 		objHdModel.setStrUserModified(userCode);
 		objHdModel.setDtLastModified(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 		//objHdModel.setStrConversionUOM(objGlobal.funIfNull(objBean.getStrConversionUOM(),"RecipeUOM",objBean.getStrConversionUOM()));
@@ -635,6 +635,26 @@ public class clsStkPostingController {
 				e.printStackTrace();
 			}
 		}
+
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/GetLocationWisProduct", method = RequestMethod.GET)
+	private @ResponseBody List funGetLocationWisProduct( @RequestParam(value = "locCode") String strLocCode,HttpServletResponse resp, HttpServletRequest req) {
+		
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		String companyName = req.getSession().getAttribute("companyName").toString();
+		String userCode = req.getSession().getAttribute("usercode").toString();
+		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
+		String sql="SELECT a.strProdCode FROM tblproductmaster a, tblsubgroupmaster c, tblgroupmaster d"
+				+ " WHERE a.strSGCode=c.strSGCode AND c.strGCode=d.strGCode AND a.strNotInUse='N' "
+				+ " AND a.strClientCode='"+clientCode+"' AND c.strClientCode='"+clientCode+"' AND d.strClientCode='"+clientCode+"' "
+				+ " AND a.strProdType IN('Procured','Semi Finished','Non-Inventory') "
+				+ " AND a.strLocCode='"+strLocCode+"'  ";
+				
+		List list = objGlobalFunctionsService.funGetList(sql, "sql");
+		
+		return list;
 
 	}
 

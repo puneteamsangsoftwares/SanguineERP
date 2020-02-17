@@ -1,14 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 
@@ -858,67 +863,51 @@
 	}
 	
 	
-	
-	
-	
-	
-	
 </script>
 
 </head>
 <body onload="funOnLoad();">
-<div id="formHeading">
-		<label>Work Order</label>
-	</div>
-	<s:form name="WorkOrder" action="saveWorkOrder.html?saddr=${urlHits}" method="POST">
+<div class="container transTable">
+	   <label id="formHeading">Work Order</label>
+	   <s:form name="WorkOrder" action="saveWorkOrder.html?saddr=${urlHits}" method="POST">
 <br/>
-		<table
-			style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
-			<tr>
-				<td>				
-				<div id="tab_container" style="height: 500px">
+	
+	<div id="tab_container" style="height: 450px">
 							<ul class="tabs">
-								 <li class="active" data-state="tab1" style="width: 100px;padding-left: 55px">PO Wise</li>
-								<li class="active" id="tabDirect" data-state="tab2"  style="width: 100px;padding-left: 55px">Direct</li>
+								<li class="active" data-state="tab1" style="width: 100px;padding-left: 22px">PO Wise</li>
+								<li class="active" id="tabDirect" data-state="tab2"  style="width: 100px;padding-left: 30px">Direct</li>
 							</ul>
-							<div id="tab1" class="tab_content" style="height: 370px" >
-							
-                            <table class="transTable">
-                           <tr><th colspan="6"></th></tr>
-                            <tr>
-                                <td width="6%" id="tdAgainst" >Against</td>
-                                <td  width="150px">
-	                                <s:select style="width:100%" id="cmbAgainst" path="strAgainst"  onchange="funAgainstChange()" class="simpleTextBox">
-		                                <option value="Production Order">Production Order</option>
-		                                <option value="Sales Order">Sales Order</option>
-	                                </s:select> 
-	                               
-                                </td>
+		<div id="tab1" class="tab_content" style="height: 370px;margin-top: 45px;" >
+			<div class="row">
+			 <div class="col-md-2" id="tdAgainst"><label>Against</label>
+                  <s:select style="width:auto;height:50%" id="cmbAgainst" path="strAgainst"  onchange="funAgainstChange()" class="simpleTextBox">
+		               <option value="Production Order">Production Order</option>
+		               <option value="Sales Order">Sales Order</option>
+	              </s:select> 
+	         </div>
                                 
-                                <td width="100px"><label>&nbsp; &nbsp; &nbsp; &nbsp;From Location</label></td>
-								<td><s:input id="txtFromLocCode" path="strFromLocCode" required="required"  ondblclick="funHelp('locby')" cssClass="searchTextBox"/></td>
-                                  <td ><label id ="lblFromLocName"></label></td>
+               <div class="col-md-2"><label>From Location</label>
+				     <s:input id="txtFromLocCode" path="strFromLocCode" required="required"  ondblclick="funHelp('locby')" cssClass="searchTextBox"/>
+		       </div>
+		       
+                <div class="col-md-2">
+                    <label id ="lblFromLocName" style="background-color:#dcdada94; width: 100%; height:51%;margin-top: 27px;padding:4px;"></label>
+                </div>
                                 
-                              <td width="5%" id="tdCode" >Code</td>
-                                <td  width="170px">
-                                <s:input id="txtOPCode" path="strSOCode" style="width:100%" ondblclick="funHelp1('OPCodeForWO')"  type="text" class="simpleTextBox"></s:input>
-                                </td>
-                                <td>
-                                    &nbsp; &nbsp;<input id="btnGenerate"  class="smallButton" type="button" value="Generate" onclick='funGetWorkOrderOPData()'  />
-                           		</td>
+                <div class="col-md-2" id="tdCode"><label>Code</label>
+                      <s:input id="txtOPCode" path="strSOCode" style="width:100%" ondblclick="funHelp1('OPCodeForWO')"  type="text" class="simpleTextBox"></s:input>
+                </div>
+                 
+                <div class="col-md-2"><br><br>
+                      <input id="btnGenerate" class="btn btn-primary center-block" class="smallButton" type="button" value="Generate" onclick='funGetWorkOrderOPData()'/>
+                 </div>
                            		<!-- <td>
                                     <input id="btnBack"  class="smallButton" type="button" value="Back" onclick="history.back()"  />
                                 </td>  -->                         
-                            </tr>
-                              <tr><td colspan="8"></td></tr>
-                            </table>
-                           
-                                    
-                   <table style="width: 95%;height:28px;margin-left: auto;margin-right: auto;font-size: 11px; 
-                   font-weight: bold;">
-					<tr bgcolor="#75c0ff">
-                        <tr style="background-color:#75c0ff">
-                        <td width="5%"><input type="checkbox" id="chkGALL"
+            </div>                 
+       <table style="width: 95%;height:28px;margin-left: auto;margin-right: auto;font-size: 11px;font-weight: bold;">
+			<tr style="background-color:#c0c0c0">
+                      <td width="5%"><input type="checkbox" id="chkGALL"
 											checked="checked" onclick="funCheckUncheck()" />Select</td>
                             <td  align="left" style="width: 10%; height: 16px;">
                                 Work Order No.</td>
@@ -937,7 +926,7 @@
                         </table>
                         
                        <div id="divProduct" style="width: 95%;height:200px;margin-left: auto;
-					        margin-right: auto; bgcolor: #d8edff; overflow: scroll;">
+					        margin-right: auto; bgcolor: #fafbfb; overflow: scroll;">
                         <table style="width:100%;border: #0F0;table-layout:fixed;overflow:scroll"
                                class="transTablex col5-center" id="tblWODet">
                         <tbody>
@@ -955,64 +944,53 @@
                    	
                    	<br>
                    	
-                   	<table class="transTable">
-                   	
-                   	<tr>
-                   	
-                   	<td width="100px"><label>&nbsp; &nbsp; &nbsp; &nbsp;To Location</label></td>
-								<td width="20%"><s:input id="txtToLocCode" path="strToLocCode" required="required"  ondblclick="funHelp('locon')" cssClass="searchTextBox"/></td>
-                                  <td ><label id ="lblToLocName"></label></td>
-                   	
-                   	</tr>
-                   	
-                   
-                   	</table>	 
-                   		 
-							
-				</div>
-							
-							
-			<div id="tab2" class="tab_content">
-			<table style="width:100% ;height:100%;text-align:center ;border: 0px solid black;">
-							<tr>
-							<td>
-							<table class="transTable">
-											<tr><th colspan="6"></th></tr>
-											<tr>
-												<td width="50px"><label>WO Code</label></td>
-												<td WIDTH="50PX"><s:input path="strWOCode" id="txtWOCode"
-														value="${command.strWOCode}"
-														ondblclick="funHelp('WorkOrder')" cssClass="searchTextBox"/></td>
-												<td></td>
-												<td width="50px">Date</td>
-												<td width="50px"><s:input path="dtWODate" id="txtWODate"
-														value="${command.dtWODate}" cssClass="calenderTextBox"/></td>
+                   	<div class="row">
+                    <div class="col-md-2"><label>To Location</label>
+							<s:input id="txtToLocCode" path="strToLocCode" required="required"  ondblclick="funHelp('locon')" cssClass="searchTextBox"/>
+					</div>
+					
+                   <div class="col-md-2"><br>
+                          <label id ="lblToLocName" style="background-color:#dcdada94; width: 100%; height:51%;margin-top: 11px;padding:4px;"></label>
+                   </div>
+                 </div>
+              </div>	 
+           	
+						
+			<div id="tab2" class="tab_content" style="margin-top: 45px;">
+			    <div class="row">
+					<div class="col-md-2"><label>WO Code</label>
+						<s:input path="strWOCode" id="txtWOCode" value="${command.strWOCode}"
+								ondblclick="funHelp('WorkOrder')" cssClass="searchTextBox"/>
+					</div>
+					
+					<div class="col-md-2"><label>Date</label>
+						<s:input path="dtWODate" id="txtWODate"
+					    	value="${command.dtWODate}" cssClass="calenderTextBox"/>
+					</div>
+					<div class="col-md-8"></div>
 												
-												<td></td>		
-											</tr>
-											<tr>
-												<td><label>Product</label></td>
-												<td><s:input id="txtProdCode"
-														ondblclick="funHelp('productmaster');"
-														value="${command.strProdCode}" path="strProdCode"  cssClass="searchTextBox"></s:input></td>
-												<td align="left" width="30%"><span id="spProdName"></span></td>
-												<td>Quantity</td>
-												<td><s:input id="txtQty" path="dblQty" value="1.00" cssStyle="width:92%" cssClass="BoxW116px right-Align"></s:input></td>
+				   <div class="col-md-2"><label>Product</label>
+						<s:input id="txtProdCode" ondblclick="funHelp('productmaster');"
+				    value="${command.strProdCode}" path="strProdCode"  cssClass="searchTextBox"></s:input>
+			       </div>
+			       
+					<div class="col-md-2" style="margin-top: 15px;"><br>
+					     <span id="spProdName" style="background-color:#dcdada94; width: 100%; height:51%;margin-top: 27px;padding:4px;"></span>
+					</div>
+					
+				   <div class="col-md-2"><label>Quantity</label>
+						<s:input id="txtQty" path="dblQty" value="1.00" cssStyle="width:92%" cssClass="right-Align"></s:input>
+				   </div>
+					<div class="col-md-6"></div>
 												
-											</tr>
-											<tr>
-												<td><label>Status</label></td>
-												<td colspan="5" align="left"><label id="strStatus" style="float: left;"></label></td>
-											</tr>
-										</table>
-									</td>
-							</tr>
-							</table>
-				
-
-				<table style="width: 95%;height:28px;margin-left: auto;
-	margin-right: auto;font-size: 11px; font-weight: bold;">
-					<tr bgcolor="#75c0ff">
+				  <div class="col-md-2"><label>Status</label>
+					   <label id="strStatus" style="float: left;background-color:#dcdada94; width: 100%; height:51%;padding:4px;"></label>
+			       </div>
+				</div>				
+		   <br>
+		<table style="width: 95%;height:28px;margin-left: auto;
+	                          margin-right: auto;font-size: 11px; font-weight: bold;">
+					<tr bgcolor="#c0c0c0">
 						<td style="width: 20%; height: 16px;" align="left">Process Code</td>
 						<td style="width: 30%; height: 16px;" align="left">Process Name</td>
 						<td style="width: 30%; height: 16px;" align="left">Status</td>
@@ -1022,7 +1000,7 @@
 				</table>
 
 				<div id="divProduct" style="width: 95%;height:200px;margin-left: auto;
-					margin-right: auto; bgcolor: #d8edff; overflow: scroll;">
+					margin-right: auto; bgcolor: #fafbfb; overflow: scroll;">
 					<table  style="width:100%;border: #0F0;table-layout:fixed;overflow:scroll" class="transTablex col5-center" id="tblProdDet"
 						style="overflow: scroll;">
 						<tbody>    
@@ -1044,28 +1022,22 @@
 						</c:forEach>
 					</table>
 				</div>
-					<br>
+			</div>
+				<br>
 <!-- 			<p align="center"> -->
 <!-- 			<input type="submit"  value="Submit" onclick="return funValidate();" class="form_button" /> -->
 <!-- 			&nbsp; &nbsp; &nbsp; <input type="reset" id="reset" name="reset" value="Reset"  onclick="funReset();" -->
 <!-- 				class="form_button"  /> -->
 <!-- 		</p><br><br>		 -->
-				</div>
-			</div>
-			
-			
-			<p align="center">
-			<input type="submit"  value="Submit" onclick="return funValidate();" class="form_button" />
-			&nbsp; &nbsp; &nbsp; <input type="reset" id="reset" name="reset" value="Reset"  onclick="funReset();"
-				class="form_button"  />
-		</p><br><br>
+			</div>	
+		<p align="center">
+			<input type="submit"  value="Submit" onclick="return funValidate();" class="btn btn-primary center-block" class="form_button" />
+			&nbsp;
+			<input type="reset" id="reset" name="reset" value="Reset"  onclick="funReset();"
+				class="btn btn-primary center-block" class="form_button"  />
+		</p>
 				
-				</td>
-			</tr>
-
-		</table>
-	
-
+			
 	<!-- 	<input type="submit"  value="Submit" />
 		<input type="reset" id="reset" name="reset" value="Reset" /> -->
 		
@@ -1073,5 +1045,6 @@
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 	</s:form>
+	</div>
 </body>
 </html>

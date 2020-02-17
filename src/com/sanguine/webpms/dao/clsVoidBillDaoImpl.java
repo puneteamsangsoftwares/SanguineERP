@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sanguine.webpms.model.clsBillHdModel;
@@ -31,13 +32,14 @@ public class clsVoidBillDaoImpl implements clsVoidBillDao {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public void funUpdateVoidBillData(clsBillHdModel objBillModel, clsVoidBillHdModel objVoidHdModel) {
 		webPMSSessionFactory.getCurrentSession().delete(objBillModel);
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objVoidHdModel);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public void funUpdateVoidBillItemData(clsBillHdModel objBillModel, clsVoidBillHdModel objVoidHdModel) {
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objBillModel);
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objVoidHdModel);
@@ -45,6 +47,7 @@ public class clsVoidBillDaoImpl implements clsVoidBillDao {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public void funUpdateBillData(clsBillHdModel objBillModel) 
 	{
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objBillModel);	

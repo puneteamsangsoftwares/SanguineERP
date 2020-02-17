@@ -1,11 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	var fieldName;
 
@@ -174,6 +183,11 @@
 			alert('Please Enter Address ');
 			flg=false;
 		}
+		if($('#txtFaxNo').val()=='')
+		{
+			alert('Please Enter Fax ');
+			flg=false;
+		}
 		
 		return flg;
 	}
@@ -187,154 +201,95 @@
         return true;
     }  
 	
+	$('#baseUrl').click(function() 
+			{  
+				 if($("#txtAgentCode").val().trim()=="")
+				{
+					alert("Please Select Agent Code... ");
+					return false;
+				} 
+					window.open('attachDoc.html?transName=frmAgentMaster.jsp&formName=Member Profile&code='+$('#txtAgentCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+			});
+	
 </script>
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>AgentMaster</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="AgentMaster" method="POST" action="saveAgentMaster.html">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>AgentCode</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtAgentCode" path="strAgentCode" cssClass="searchTextBox" ondblclick="funHelp('AgentCode');"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>FromDate</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtFromDate" path="dteFromDate" cssClass="calenderTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>ToDate</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtToDate" path="dteToDate" cssClass="calenderTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Description</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtDescription" path="strDescription" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>AgentCommCode</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtAgentCommCode" path="strAgentCommCode" cssClass="searchTextBox" ondblclick="funHelp('AgentCommCode');"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>CorporateCode</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtCorporateCode" path="strCorporateCode" cssClass="searchTextBox" ondblclick="funHelp('CorporateCode');"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>AdvToReceive</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="number" step="0.01" id="txtAdvToReceive" path="dblAdvToReceive" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Address</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtAddress" path="strAddress" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>City</label>
-				</td>
-				<td>
-					<s:select id="txtCity" path="strCity" items="${cityArrLsit}" cssClass="BoxW124px"/>
-									
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>State</label>
-				</td>
-				<td>
-					<s:select id="txtState" path="strState"  items="${stateArrLsit}" cssClass="BoxW124px"/>
-				
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Country</label>
-				</td>
-				<td>
-					<s:select id="txtCountry" path="strCountry" items="${countryArrLsit}" cssClass="BoxW124px"/>
-					
-					
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>TelphoneNo</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtTelphoneNo" path="lngTelphoneNo" style="text-align:right;" cssClass="longTextBox" onkeypress="javascript:return isNumber(event)" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>MobileNo</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtMobileNo" style="text-align:right;" path="lngMobileNo" cssClass="longTextBox" onkeypress="javascript:return isNumber(event)" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>FaxNo</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtFaxNo" path="lngFaxNo" cssClass="longTextBox" onkeypress="javascript:return isNumber(event)"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>EmailId</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtEmailId" path="strEmailId" cssClass="longTextBox" />
-				</td>
-			</tr>
-		</table>
+  <div class="masterTable">
+	 <label id="formHeading">Agent Master</label>
+	    <s:form name="AgentMaster" method="POST" action="saveAgentMaster.html">
+	    
+        <div class="row">
+			<div class="col-md-2"><label>Agent Code</label>
+				<s:input type="text" id="txtAgentCode" path="strAgentCode" cssClass="searchTextBox" style="height: 35%;" ondblclick="funHelp('AgentCode');"/>
+			</div>
+			
+			<div class="col-md-1"><label>From Date</label>
+				 <s:input type="text" id="txtFromDate" path="dteFromDate" style="width: 130%;" cssClass="calenderTextBox" />
+			</div>
+			
+			<div class="col-md-1"><label>To Date</label>
+				<s:input type="text" id="txtToDate" path="dteToDate" style="width: 130%;" cssClass="calenderTextBox" />
+			</div>
+			
+			<div class="col-md-2"><label>Description</label>
+				<s:input type="text" id="txtDescription" path="strDescription"/>
+			</div>
+			
+			<div class="col-md-2"><label>Agent Comm Code</label>
+				 <s:input  type="text" id="txtAgentCommCode" path="strAgentCommCode" cssClass="searchTextBox" style="height: 35%;" ondblclick="funHelp('AgentCommCode');"/>
+			</div>
+			
+			<div class="col-md-2"><label>Corporate Code</label>
+				<s:input type="text" id="txtCorporateCode" path="strCorporateCode" cssClass="searchTextBox" style="height: 35%;" ondblclick="funHelp('CorporateCode');"/>
+			</div>
+			
+			<div class="col-md-1"><label>Adv To Receive</label>
+				<s:input type="number" step="0.01" id="txtAdvToReceive" style="width: 55%;" path="dblAdvToReceive"/>
+			</div>
+			
+			<div class="col-md-3"><label>Address</label>
+				<s:input type="text" id="txtAddress" path="strAddress"/>
+			</div>
+		
+			<div class="col-md-1"><label>City</label>
+				<s:select id="txtCity" path="strCity" items="${cityArrLsit}"/>
+			</div>
+			
+			<div class="col-md-2"><label>State</label>
+				<s:select id="txtState" path="strState"  items="${stateArrLsit}" style="width: 55%;"/>
+			</div>
+			
+			<div class="col-md-1"><label>Country</label>
+				<s:select id="txtCountry" path="strCountry" items="${countryArrLsit}"/>
+			</div>
+	
+			<div class="col-md-2"><label>TelphoneNo</label>
+				<s:input type="text" id="txtTelphoneNo" path="lngTelphoneNo" style="text-align:right;" onkeypress="javascript:return isNumber(event)" />
+			</div>
+		
+			<div class="col-md-2"><label>MobileNo</label>
+				<s:input type="text" id="txtMobileNo" style="text-align:right;" path="lngMobileNo" onkeypress="javascript:return isNumber(event)" />
+			</div>
+	
+			<div class="col-md-2"><label>FaxNo</label>
+				<s:input type="text" id="txtFaxNo" path="lngFaxNo" onkeypress="javascript:return isNumber(event)"/>
+			</div>
+			
+			<div class="col-md-3"><label>EmailId</label>
+				<s:input type="text" id="txtEmailId" path="strEmailId" />
+			</div>
+		
+		</div>
 
 		<br />
 		<br />
 		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funCallFormAction('submit',this);" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this);" />&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

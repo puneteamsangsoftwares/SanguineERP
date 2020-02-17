@@ -1,11 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
+	<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />	
+	<script type="text/javascript" src="<spring:url value="/resources/js/Accordian/jquery.multi-accordion-1.5.3.js"/>"></script>	
+		
 <title>Insert title here</title>
 </head>
 
@@ -281,49 +293,33 @@
 		}
  		</script>
 	<body >
-	<div id="formHeading">
-		<label>Link Location</label>
-	</div>
+	<div class="container">
+		<label id="formHeading">Link Location</label>
 		<s:form action="saveLinkLocation.html?saddr=${urlHits}" method="POST" name="userForm">
-			<br />
-			<br />
-				<table class="masterTable" >
-					<tr>
-						<td><label>Properties</label></td>
-						<td colspan="2">
-							<s:select path="strPropertyCode" items="${propertyList}" id="cmbProperty" cssClass="BoxW62px" cssStyle="width:73%" onchange="funChangeLocationCombo();">
-							</s:select>
-						</td>
-						</tr>
-						<tr>
-						<td><label>By Location</label></td>
-						<td>
-							<s:select path="strLocCode" items="${listFromLocc}" id="cmbByLocation" cssClass="BoxW62px" cssStyle="width:73%">
-							</s:select>
-						</td>
-						
-						<td><label>To Location</label></td>
-						<td>
-							<s:select path="strToLoc" items="${listToLocation}" id="cmbToLocation" cssClass="BoxW62px" cssStyle="width:73%">
-							</s:select>
-						</td>
-						
-						<td colspan="3"><input type="Button" value="Add" onclick="return funAddBtnClick();" class="smallButton" /></td>
-					</tr>					
-			
-					<tr>
-			  			<td colspan="5" >
-			  				
-			  			</td>
-			  		</tr>
-				</table>
-				
-				<br/>
-				<br/>
-				<div class="dynamicTableContainer" style="height: 300px;">
+			<div class="row masterTable" >
+				<div class="col-md-2">
+					<label>Properties</label>
+					<s:select path="strPropertyCode" items="${propertyList}" id="cmbProperty"   onchange="funChangeLocationCombo();">
+					</s:select>
+				</div>
+				<div class="col-md-2">
+					<label>By Location</label>
+					<s:select path="strLocCode" items="${listFromLocc}" id="cmbByLocation">
+					</s:select>
+				</div>
+				<div class="col-md-2">
+					<label>To Location</label>
+					<s:select path="strToLoc" items="${listToLocation}" id="cmbToLocation">
+					</s:select>
+				</div>	
+				<div class="col-md-2">	
+					<input type="Button" value="Add" onclick="return funAddBtnClick();"  class="btn btn-primary center-block" style="margin-top:20px;" />
+				</div>
+			</div>
+			<br/>
+			<div class="dynamicTableContainer" style="height: 300px;">
 				<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-					<tr bgcolor="#72BEFC">
-						
+					<tr bgcolor="#c0c0c0">
 						<td style="width:20%;">Property</td>
 						<td style="width:15%;">From Location</td>
 						<td style="width:15%;">To Location</td>
@@ -332,7 +328,7 @@
 					</tr>
 				</table>
 			
-				<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 					<table id="tblLoc"
 						style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 						class="transTablex col8-center">
@@ -351,15 +347,12 @@
 					</table>
 				</div>
 			</div>
-				
-			<br /><br />
-		
-		<p align="center">
-			<input type="submit" value="Submit"  class="form_button"
-				onclick="return funCallFormAction()" /> 
-				<input type="reset"
-				value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-		</s:form>
+			<br />
+		<div class="center" style="text-align:center;">
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit" onclick="return funCallFormAction()">Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Reset" onclick="funResetFields()">Reset</button></a>
+		</div>
+	</s:form>
+	</div>
 	</body>
 </html>

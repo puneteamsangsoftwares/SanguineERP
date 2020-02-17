@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sanguine.model.clsTreeMasterModel;
 import com.sanguine.model.clsUserDtlModel;
@@ -21,6 +22,7 @@ public class clsSecurityShellDaoImpl implements clsSecurityShellDao {
 	}
 
 	@Override
+	@Transactional
 	public List<clsTreeMasterModel> funGetFormList(String userCode, String strModuleNo) {
 		String sql = "SELECT a.strFormName,a.strFormDesc,a.strType,a.intFormKey,a.intFormNo," + "b.strAdd,b.strEdit,b.strDelete,b.strView,b.strPrint,b.strGrant,b.strAuthorise " + "FROM tbltreemast a " + "left outer join tbluserdtl b ON a.strFormName=b.strFormName and b.strUserCode='" + userCode + "' where  a.strModule='" + strModuleNo + "' order by a.strType, a.strFormName ";
 		@SuppressWarnings("unchecked")

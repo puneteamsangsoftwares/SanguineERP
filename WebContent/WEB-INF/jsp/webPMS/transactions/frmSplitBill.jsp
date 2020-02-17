@@ -1,11 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />	
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	var fieldName;
     
@@ -133,46 +142,35 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Split Bill</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="SplitBill" method="POST" action="splitingBill.html?saddr=${urlHits}">
-
-		<table class="masterTable">
-		
-			<tr>
-				<td><label>Bill No.</label></td>
-				<td colspan="3"><s:input id="strBillNo" path="strBillNo"  cssClass="searchTextBox" ondblclick="funHelp('billNo')"/></td>													
-			</tr>
-			
-			<tr>
-				<td><label>Split Type</label></td>
+  <div class="container masterTable">
+	<label id="formHeading">Split Bill</label>
+	  <s:form name="SplitBill" method="POST" action="splitingBill.html?saddr=${urlHits}">
+           
+          <div class="row">
+				<div class="col-md-2"><label>Bill No.</label>
+				      <s:input id="strBillNo" path="strBillNo"  cssClass="searchTextBox" ondblclick="funHelp('billNo')" style="height: 50%;"/>												
+			     </div>
+			     <div class="col-md-10"></div>
+			     
+			     <div class="col-md-6"><label>Split Type</label><br>
 <%-- 				<td colspan="3"><select id="strBillNo"   cssClass="searchTextBox" > --%>
 <!-- 				<option value="Liquor">Liquor</option> -->
 <!-- 				<option value="Food">Food</option> -->
 				
 <%-- 				</select> --%>
-				<td><s:checkbox   name="splitType" path="strSplitType" value="ROOM"/>&nbsp;&nbsp;ROOM&nbsp;&nbsp;
-				<s:checkbox    name="splitType" path="strSplitType" value="FOOD"/>&nbsp;&nbsp;FOOD&nbsp;&nbsp;
-				<s:checkbox    name="splitType" path="strSplitType" value="LIQUOR"/>&nbsp;&nbsp;LIQUOR&nbsp;&nbsp;
-				<s:checkbox    name="splitType" path="strSplitType" value="GUEST WISE"/>&nbsp;&nbsp;GUEST WISE&nbsp;&nbsp;
-				</td>													
-			</tr>
-		
-			
-		</table>
-					
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button"  />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+				      <s:checkbox name="splitType" path="strSplitType" value="ROOM"/>&nbsp;ROOM &nbsp;&nbsp;
+				      <s:checkbox  name="splitType" path="strSplitType" value="FOOD"/>&nbsp;FOOD &nbsp;&nbsp;
+				      <s:checkbox  name="splitType" path="strSplitType" value="LIQUOR"/>&nbsp;LIQUOR &nbsp;&nbsp;
+				      <s:checkbox  name="splitType" path="strSplitType" value="GUEST WISE"/>&nbsp;GUEST WISE 
+				   </div>													
+			</div>
+		<br>
+		<p align="center" style="margin-right:49%">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button"  />
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>						
 	</s:form>
+	</div>
 </body>
 </html>

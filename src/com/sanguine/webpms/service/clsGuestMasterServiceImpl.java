@@ -1,12 +1,32 @@
 package com.sanguine.webpms.service;
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.swing.ImageIcon;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
+import com.sanguine.webclub.model.clsWebClubMemberPhotoModel;
 import com.sanguine.webpms.bean.clsGuestMasterBean;
 import com.sanguine.webpms.dao.clsGuestMasterDao;
 import com.sanguine.webpms.model.clsGuestMasterHdModel;
@@ -19,8 +39,11 @@ public class clsGuestMasterServiceImpl implements clsGuestMasterService {
 	@Autowired
 	private clsGuestMasterDao objGuestMasterDao;
 
+	@Autowired
+	private ServletContext servletContext;
+	
 	@Override
-	public clsGuestMasterHdModel funPrepareGuestModel(clsGuestMasterBean objGuestMasterBean, String clientCode, String userCode) {
+	public clsGuestMasterHdModel funPrepareGuestModel(clsGuestMasterBean objGuestMasterBean, String clientCode, String userCode,MultipartFile file) {
 		clsGuestMasterHdModel objGuestMasterModel = new clsGuestMasterHdModel();
 		long lastNo = 0;
 		clsGlobalFunctions objGlobal = new clsGlobalFunctions();
@@ -54,6 +77,94 @@ public class clsGuestMasterServiceImpl implements clsGuestMasterService {
 			
 		}
 
+		if (file!=null && file.getSize() != 0) {
+			System.out.println(file.getOriginalFilename());
+			File imgFolder = new File(System.getProperty("user.dir") + "\\ProductIcon");
+			if (!imgFolder.exists()) {
+				if (imgFolder.mkdir()) {
+					System.out.println("Directory is created! " + imgFolder.getAbsolutePath());
+				} else {
+					System.out.println("Failed to create directory!");
+				}
+			}
+			
+			try {
+			File fileImageIcon = new File(System.getProperty("user.dir") + "\\ProductIcon\\" + file.getOriginalFilename());
+			String formatName = "jpg";
+			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			BufferedImage bufferedImage = ImageIO.read(funInputStreamToBytearrayInputStrean(file.getInputStream()));
+			String path = fileImageIcon.getPath().toString();			
+			ImageIO.write(bufferedImage, "jpg", new File(path));			
+			BufferedImage bfImg = scaleImage(150, 155, path);
+			ImageIO.write(bfImg, "jpg", byteArrayOutputStream);
+			byte[] imageBytes = byteArrayOutputStream.toByteArray();
+			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
+			
+				if (fileImageIcon.exists()) {
+					fileImageIcon.delete();
+					objGuestMasterModel.setStrGuestImage(imageBytes);
+				}
+				else {
+					//objModel.setStrMemberImage(funBlankBlob());
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			String imagePath = servletContext.getRealPath("/resources/images/NoImageAlternate.png");
+			
+
+			/*System.out.println(file.getOriginalFilename());*/
+			File imgFolder = new File(imagePath);
+			if (!imgFolder.exists()) {
+				if (imgFolder.mkdir()) {
+					System.out.println("Directory is created! " + imgFolder.getAbsolutePath());
+				} else {
+					System.out.println("Failed to create directory!");
+				}
+			}
+			
+			try {
+				if(file!=null){
+			File fileImageIcon = new File(System.getProperty("user.dir") + "\\ProductIcon\\" + file.getOriginalFilename());
+			String formatName = "jpg";
+			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			BufferedImage bufferedImage = ImageIO.read(funInputStreamToBytearrayInputStrean(file.getInputStream()));
+			String path = fileImageIcon.getPath().toString();	
+			
+			if(bufferedImage!=null)
+			{
+				ImageIO.write(bufferedImage, "jpg", new File(imagePath));	
+			}
+				
+			
+					
+			BufferedImage bfImg = scaleImage(150, 155, imagePath);
+			ImageIO.write(bfImg, "jpg", byteArrayOutputStream);
+			byte[] imageBytes = byteArrayOutputStream.toByteArray();
+			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
+			
+				if (fileImageIcon.exists()) {
+					fileImageIcon.delete();
+					objGuestMasterModel.setStrGuestImage(imageBytes);
+				}
+				}
+				else {
+					//objModel.setStrMemberImage(funBlankBlob());
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+			//image code end 
+		
+		
 		// objGuestMasterModel.setDteDOB(objGlobal.funIfNull(objGuestMasterBean.getDteDOB(),"1900-01-01",objGuestMasterBean.getDteDOB()));
 		objGuestMasterModel.setStrAddress(objGlobal.funIfNull(objGuestMasterBean.getStrAddress(), "NA", objGuestMasterBean.getStrAddress()));
 		objGuestMasterModel.setStrCity(objGlobal.funIfNull(objGuestMasterBean.getStrCity(), "NA", objGuestMasterBean.getStrCity()));
@@ -122,6 +233,50 @@ public class clsGuestMasterServiceImpl implements clsGuestMasterService {
 
 		return objGuestMasterModel;
 	}
+
+	
+	
+	@SuppressWarnings("finally")
+	private ByteArrayInputStream funInputStreamToBytearrayInputStrean(InputStream ins) {
+		ByteArrayInputStream byteArrayInputStream = null;
+		try {
+			byte[] buff = new byte[8000];
+
+			int bytesRead = 0;
+
+			ByteArrayOutputStream bao = new ByteArrayOutputStream();
+
+			while ((bytesRead = ins.read(buff)) != -1) {
+				bao.write(buff, 0, bytesRead);
+			}
+
+			byte[] data = bao.toByteArray();
+
+			byteArrayInputStream = new ByteArrayInputStream(data);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+		} finally {
+			return byteArrayInputStream;
+		}
+	}
+	
+	public BufferedImage scaleImage(int WIDTH, int HEIGHT, String filename) {
+		BufferedImage bi = null;
+		try {
+			ImageIcon ii = new ImageIcon(filename);// path to image
+			bi = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+			Graphics2D gra2d = (Graphics2D) bi.createGraphics();
+			gra2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
+			gra2d.drawImage(ii.getImage(), 0, 0, WIDTH, HEIGHT, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return bi;
+	}
+	
 
 	public List funGetGuestMaster(String guestCode, String clientCode) {
 		return objGuestMasterDao.funGetGuestMaster(guestCode, clientCode);

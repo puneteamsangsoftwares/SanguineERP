@@ -28,7 +28,7 @@ public class clsSecurityShellServiceImpl implements clsSecurityShellService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public List<clsTreeMasterModel> funGetFormList(String userCode, String strModuleNo) {
 		return objSecurityShellDao.funGetFormList(userCode, strModuleNo);
 	}

@@ -130,6 +130,13 @@ public class clsAttachDocModel {
 		this.strClientCode = strClientCode;
 	}
 
+	public byte[] getBinContent() {
+		return binContent;
+	}
+
+	public void setBinContent(byte[] binContent) {
+		this.binContent = binContent;
+	}
 
 	public String getStrContentType() {
 		return strContentType;
@@ -147,12 +154,6 @@ public class clsAttachDocModel {
 		this.strModuleName = strModuleName;
 	}
 
-	public byte[] getBinContent() {
-		return binContent;
-	}
 
-	public void setBinContent(byte[] binContent) {
-		this.binContent = binContent;
-	}
 
 }

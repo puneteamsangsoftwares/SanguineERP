@@ -8,9 +8,15 @@
 <html>
 <head>
 
-
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Move Table</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+    
 <style>
 .ui-autocomplete {
     max-height: 200px;
@@ -441,41 +447,35 @@ function funResetFields()
 </head>
 
 <body onload="funLoadData()">
-	<div id="formHeading">
-		<label>Change Room</label>
-	</div>
-	<br />
-	
-	  <s:form name="Change Room" method="POST" action="changeRoom.html" >
-	   <table class="transTable" style="margin-left: 10px;width:94%">
-			<tr>
-				<td><label>Reason Code</label></td>
-				<td>
-					<s:input colspan="1" type="text" id="txtReasonCode" path="strReasonCode" cssClass="searchTextBox" ondblclick="funHelp('reasonPMS');"/>
-				</td>
-				<td><label id="lblReasonDesc"></label></td>
-			
-				<td>
-						<label>Remarks</label>
-				</td>
-				<td>
-				       <s:input type="text" id="txtRemarks" path="strRemarks" cssClass="longTextBox" />
-				</td>
-			</tr>
-		</table>
-		<div style="margin-top: 10px;margin-left: 10px;">
+	 <div class="transTable" style="margin-left: 10px;width:94%">
+		<label id="formHeading">Change Room</label>
+	     <s:form name="Change Room" method="POST" action="changeRoom.html" >
+	      <div class="row">
+                <div class="col-md-4" style="padding-left: 28px;"><label>Reason Code</label>
+				   <div class="row">
+				      <div class="col-md-5"><s:input type="text" id="txtReasonCode" path="strReasonCode" cssClass="searchTextBox" ondblclick="funHelp('reasonPMS');" style="height: 25px;"/></div>
+				      <div class="col-md-7"><label id="lblReasonDesc" style="background-color:#dcdada94; width: 100%; height:100%;"></label></div>
+			       </div>
+			    </div>
+				
+				<div class="col-md-2"><label>Remarks</label>
+				        <s:input type="text" id="txtRemarks" path="strRemarks" style="height: 25px;"/>
+				</div>
+			</div>
+		
+		<div style="margin-top: 30px;margin-left: 12px;">
 			<div
-				style="background-color: #C0E2FE;float:left;margin-left: 10px; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 45%;">
+				style="background-color: #fafbfb;float:left;margin-left: 10px; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 45%;">
 				<label>Occupied Rooms</label>
 				
-				<table id="tblOccupiedTable" class="masterTable" style="margin-left: 0px;width:100%; border: #0F0; table-layout: fixed; overflow: scroll"
+				<table id="tblOccupiedTable" class="masterTable" style="margin-left: 0px;width:100%;height: 56%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col8-center">
 
 				</table>
 			</div>
 
 			<div
-				style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 45%;">
+				style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 45%;">
 
 				<label>Free Rooms</label>
 	    		
@@ -487,21 +487,14 @@ function funResetFields()
 			<s:input type="hidden" id="txtFreeRoomCode" path="strRoomDesc" />
 			<s:input type="hidden" id="txtCheckInNo" path="strRoomType"/>
 		
-		
-		<br />
-		<br />
-		<br />
-		<br />
-		<br />
 		<br />
 		
-     	<p align="center">
-            		<input type="submit" value="Save"  class="form_button" onclick="return funValidateData('submit',this);"/>
-            		<input type="reset" value="Reset"  class="form_button" onclick="funResetFields()"/>
+     	<p align="center" >
+            		<input type="submit" value="Save"  class="btn btn-primary center-block" class="form_button" onclick="return funValidateData('submit',this);"/>
+            		&nbsp;<input type="reset" value="Reset"  class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
        </p>     		
    		
-	     
-
 </s:form>
+</div>
 </body>
 </html>

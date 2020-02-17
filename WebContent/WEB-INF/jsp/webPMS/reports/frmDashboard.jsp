@@ -1,21 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
-
-
 <html>
-    <head>  
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+
         <title>JSP Page</title>
+    	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />    
+        
+        <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+       	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
         <script type="text/javascript" src="<spring:url value="/resources/js/jquery-1.6.3.min.js"/>"></script>
         <script type="text/javascript" src="<spring:url value="/resources/js/highcharts.js"/>"></script>
         <script type="text/javascript" src="<spring:url value="/resources/js/exporting.js"/>"></script>
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-		<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>  
+		<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script> 
+		
+<style>
+.contents{
+	min-height: calc(100vh - -457px);	
+	}
+</style>	
+		
+		 
         <script type="text/javascript">
         
 <%--         $(function() 
@@ -41,7 +53,7 @@
       		
       		funShowRecord();
         	
-        });
+ });
          
          
          function funShowRecord()
@@ -106,7 +118,7 @@
  				}
  			});	 
  		 }
-         
+        
          
          function funDrawRoomStatusChart() 
          {
@@ -232,182 +244,171 @@
                          }
                      },
          			series: [{
-         				type: 'pie',
-                         dataLabels: 
-                         {
-                        	 verticalAlign: 'top',
-                             enabled: true,
-                             color: '#ffffff',
-                             connectorWidth: 1,
-                             distance: -30,
-                             connectorColor: '#000000',
-                             formatter: function () 
-                             {
-                            	 if(Math.round(this.percentage)==0)
-                            	 {
-                            		 
-                            	 }
-                            	 else
-                            	 {
-                            		 return Math.round(this.percentage) + ' %';
-                            	 }	 
-                                
-                             }
-                         },
-         				data: dataList
-         			}]
-                 });
-             }		 
-        	 
-         };
-         
-         
-         
-         function funDrawPieChartForRoomStatus(elementId, dataList,reportType) 
-         {
-        	 if(dataList.length === 0)
+           				type: 'pie',
+                        dataLabels: 
+                        {
+                       	 verticalAlign: 'top',
+                            enabled: true,
+                            color: '#ffffff',
+                            connectorWidth: 1,
+                            distance: -30,
+                            connectorColor: '#000000',
+                            formatter: function () 
+                            {
+                           	 if(Math.round(this.percentage)==0)
+                           	 {
+                           		 
+                           	 }
+                           	 else
+                           	 {
+                           		 return Math.round(this.percentage) + ' %';
+                           	 }	 
+                               
+                            }
+                        },
+        				data: dataList
+        			}]
+                });
+            }		 
+       	 
+        };
+        
+        
+        
+        function funDrawPieChartForRoomStatus(elementId, dataList,reportType) 
+        {
+         	 if(dataList.length === 0)
              {
-        		 
-             }	
-        	 else
-             {
-        		 var fDate = $("#txtFromDate").val();
-            	 var tDate = $("#txtFromDate").val();
-             	 var textToDisplay='';
-             	 textToDisplay=reportType;
-                 new Highcharts.Chart({
-                   chart:
-                	 {
-                		 options3d:
-                           {
-                             enabled: true,
-                             alpha: 45,
-                             beta: 0
-                           },
-                         renderTo: elementId,
-                         plotBackgroundColor: null,
-                         plotBorderWidth: null,
-                         plotShadow: false
-                      },
-                   credits: 
-                      {
-                           enabled: false
-                      },
-                   exporting: 
-                      { 
-                          enabled: false 
-                      },	
-                      title: {
-                          text: textToDisplay,
-                          style: {
-                              fontSize: '17px',
-                              color: 'black',
-                              fontWeight: 'bold',
-                              fontFamily: 'Verdana'
-                          }
-                      },
-                    tooltip: {
-                        formatter: function () {
-                            return '<b>' + this.point.name + '</b>: ' + Math.round(this.percentage) + ' %';
-                        }
-                    
-                    },
-                    colors: ['#4965F9', '#F87272'],
-                    plotOptions: 
+         		 
+              }	
+         	 else
+              {
+         		 var fDate = $("#txtFromDate").val();
+             	 var tDate = $("#txtFromDate").val();
+              	 var textToDisplay='';
+              	 textToDisplay=reportType;
+                  new Highcharts.Chart({
+                    chart:
+                 	 {
+                 		 options3d:
+                            {
+                              enabled: true,
+                              alpha: 45,
+                              beta: 0
+                            },
+                          renderTo: elementId,
+                          plotBackgroundColor: null,
+                          plotBorderWidth: null,
+                          plotShadow: false
+                       },
+                    credits: 
+                       {
+                            enabled: false
+                       },
+                    exporting: 
+                       { 
+                           enabled: false 
+                       },	
+                       title: {
+                           text: textToDisplay,
+                           style: {
+                               fontSize: '17px',
+                               color: 'black',
+                               fontWeight: 'bold',
+                               fontFamily: 'Verdana'
+                           }
+                       },
+                     tooltip: {
+                         formatter: function () {
+                             return '<b>' + this.point.name + '</b>: ' + Math.round(this.percentage) + ' %';
+                         }
+                     
+                     },
+                     colors: ['#4965F9', '#F87272'],
+                     plotOptions: 
          			{
                          pie: {
                              allowPointSelect: true,
                              cursor: 'pointer',
-                             showInLegend: true,
-                             colorByPoint: true,
-                             borderWidth: 0, // This removes the border
-                         }
-                     },
-                     legend: {
-                         enabled: true,
-                         layout: 'vertical',
-                         align: 'right',
-                         width: 200,
-                         verticalAlign: 'middle',
-                         useHTML: true,
-                         labelFormatter: function() 
-                         {
-                        	 return '<div style="text-align: left; width:130px;float:left;">' + this.name + ' : ' + this.y + '</div>';
-                         }
-                     },
-         			series: [{
-         				type: 'pie',
-                         dataLabels: 
-                         {
-                        	 verticalAlign: 'top',
-                             enabled: true,
-                             color: '#ffffff',
-                             connectorWidth: 1,
-                             distance: -30,
-                             connectorColor: '#000000',
-                             formatter: function () 
-                             {
-                            	 if(Math.round(this.percentage)==0)
-                            	 {
-                            		 
-                            	 }
-                            	 else
-                            	 {
-                            		 return Math.round(this.percentage) + ' %';
-                            	 }	 
-                                
-                             }
-                         },
-         				data: dataList
-         			}]
-                 });
-             }		 
-        	 
-         };
-         
-         
-         
-         
-         
-        
-         
-    </script>
-    </head>
-    <body>
-     <s:form name="dashboard" method="POST"
-		action="rptPOSWiseSalesReport.html?saddr=${urlHits}"
-		target="_blank">
-	  <table class="masterTable"  style=" margin: auto; float:left; width:100%;height:50px;">
-               
-               <tr style="background-color: #ffffff;">
-               
-                  <td colspan="4" align="center" style="padding-left: 5px;padding-bottom:3px; font-size: 15px "> <label> DASHBOARD</label>
-				  </td>
-				  <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td>
-		          <td colspan="4" align="left"> <label> Date</label> &nbsp;&nbsp;
-		          <s:input id="txtFromDate" required="required"
-							path="strFromDate"
-							class="calenderTextBox" /> &nbsp;&nbsp;&nbsp;&nbsp;
-				 <s:input type="button" id="btnShow" value="Show" path="strShow"  class="form_button" onclick="funShowRecord()"/>
-				 &emsp;&ensp;&emsp;&ensp;
-				 </td> 
-			   </tr>
-			</table>
+                            showInLegend: true,
+                            colorByPoint: true,
+                            borderWidth: 0, // This removes the border
+                        }
+                    },
+                    legend: {
+                        enabled: true,
+                        layout: 'vertical',
+                        align: 'right',
+                        width: 200,
+                        verticalAlign: 'middle',
+                        useHTML: true,
+                        labelFormatter: function() 
+                        {
+                       	 return '<div style="text-align: left; width:130px;float:left;">' + this.name + ' : ' + this.y + '</div>';
+                        }
+                    },
+        			series: [{
+        				type: 'pie',
+                        dataLabels: 
+                        {
+                       	 verticalAlign: 'top',
+                            enabled: true,
+                            color: '#ffffff',
+                            connectorWidth: 1,
+                            distance: -30,
+                            connectorColor: '#000000',
+                            formatter: function () 
+                            {
+                           	 if(Math.round(this.percentage)==0)
+                           	 {
+                           		 
+                           	 }
+                           	 else
+                           	 {
+                           		 return Math.round(this.percentage) + ' %';
+                           	 }	 
+                               
+                            }
+                        },
+        				data: dataList
+        			}]
+                });
+            }		 
+       	 
+        };
+ </script>
+   </head>
+  <body>
+  <div class="container">
+    <label id="formHeading">DASHBOARD</label>
+     <s:form name="dashboard" method="POST" action="rptPOSWiseSalesReport.html?saddr=${urlHits}" target="_blank">
+	  <div class="masterTable">
+	  <div class="row">
+          <div class="col-md-2">
+		      <label> Date</label>
+		      <s:input id="txtFromDate" required="required" path="strFromDate" class="calenderTextBox" />
+		  </div>
+		  <div class="col-md-2">  
+			  <s:input type="button" id="btnShow" value="Show" path="strShow"  class="btn btn-primary center-block form_button form_button" onclick="funShowRecord()" 
+			  style="margin-top: 23px; padding-bottom: 23px; color: #000;" />
+		  </div>
+		</div>
+		</div>
     
         <br>
         <div style="background-color: #ffffff; border: 1px solid #ccc; display: block; ">
-	     <br />
-	     <div id="container1" style=" width: 50%; height: 350px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate; background-color: #ffffff; ">
-		</div>
-		
-		<div id="container2" style=" width: 50%; height: 350px; margin:auto;float:left;  overflow-x: hidden; border-collapse: separate; background-color: #ffffff; ">
-		</div>
-		
-		<div id="container3" style=" width: 50%; height: 350px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate; background-color: #ffffff; ">
-		</div>
-		
-		<div id="container4" style=" width: 50%; height: 350px; margin:auto;float:left;  overflow-x: hidden; border-collapse: separate; background-color: #ffffff; ">
-		</div>
+		     <br />
+		     <div id="container1" style=" width: 50%; height: 350px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate; background-color: #ffffff; ">
+			</div>
+			
+			<div id="container2" style=" width: 50%; height: 350px; margin:auto;float:left;  overflow-x: hidden; border-collapse: separate; background-color: #ffffff; ">
+			</div>
+			
+			<div id="container3" style=" width: 50%; height: 350px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate; background-color: #ffffff; ">
+			</div>
+			
+			<div id="container4" style=" width: 50%; height: 350px; margin:auto;float:left;  overflow-x: hidden; border-collapse: separate; background-color: #ffffff; ">
+			</div>
 		
 		
 		
@@ -415,8 +416,10 @@
   
        
 	</s:form>	
-    </body>
+</div>
+</body>
 </html> 
+       
 
 
-
+	

@@ -1,11 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Baggage Master</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 
@@ -141,55 +148,43 @@
 				}
 				return flg;
 			}
-		
-		
-		
-		
+	
+			$('#baseUrl').click(function() 
+					{  
+						 if($("#txtBaggageCode").val().trim()=="")
+						{
+							alert("Please Select Baggage... ");
+							return false;
+						} 
+							window.open('attachDoc.html?transName=frmBaggageMaster.jsp&formName=Member Profile&code='+$('#txtBaggageCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+					});
 		
 </script>
-
-
-
 </head>
 <body>
-	<div id="formHeading">
-		<label>Baggage Master</label>
-	</div>
+	<div class="container masterTable">
+	  <label id="formHeading">Baggage Master</label>
+	   <s:form name="Baggage" method="GET" action="saveBaggageMaster.html?" >
 	
-	<s:form name="Baggage" method="GET" action="saveBaggageMaster.html?" >
-	
-		<table class="masterTable">
-
-           <tr>
-				<th align="right" colspan="2"><a id="baseUrl"
+		<div class="row">
+				<!-- <th align="right" colspan="2"><a id="baseUrl"
 					href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
-						&nbsp;</th>
-			</tr>
-         
-			<tr>
-			    <td><label>Baggage</label></td>
-				<td><s:input id="txtBaggageCode" path="strBaggageCode" cssClass="searchTextBox" ondblclick="funHelp('baggage')" /></td>				
-			</tr>
+						&nbsp;</th> -->
 			
-			<tr>
-			    <td><label>Baggage Desc</label></td>
-				<td><s:input id="txtBaggageDesc" path="strBaggageDesc" cssClass="longTextBox" /></td>				
-			</tr>
-			
-			
-			
-		</table>
-		
-		
+		   <div class="col-md-5">
+		   	 <div class="row">
+				<div class="col-md-5"><label>Baggage</label><s:input id="txtBaggageCode" path="strBaggageCode" cssClass="searchTextBox" ondblclick="funHelp('baggage')" style="height:45%"/></div>				
+			    <div class="col-md-7"><label>Baggage Desc</label><s:input id="txtBaggageDesc" path="strBaggageDesc"/></div>				
+			 </div>
+			</div>
+		</div>
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funCallFormAction('submit',this);" />
-            <input type="reset" value="Reset" class="form_button" />
-          
-            
-		</p>
+		
+		<p align="center" style="margin-right: 31%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this);" />&nbsp;
+            <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />
+        </p>
 	</s:form>
-	
+	</div>
 </body>
 </html>

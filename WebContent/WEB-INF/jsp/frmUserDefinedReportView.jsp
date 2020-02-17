@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 	<script>
 	
@@ -328,25 +334,24 @@
 
 </head>
 	<body>
-	<div id="formHeading">
-		<label>User Defined Report View</label>
-	</div>
-		<s:form id="frmUserDefinedReportView" method="POST">
+	<div class="container masterTable" >
+		<label id="formHeading">User Defined Report View</label>
+	    <s:form id="frmUserDefinedReportView" method="POST">
 			
-		    <table class="masterTable" >
-			    <tr>
-			        <td ><label>Report Name</label></td>
-			        <td><input id="txtReportCode" ondblclick="funHelp('udreportname');" class="searchTextBox"/></td>
-			        <td ><label id="lblReportName"></label></td>
+		 <div class="row">
+			   <div class="col-md-2"><label>Report Name</label>
+			           <input id="txtReportCode" ondblclick="funHelp('udreportname');" class="searchTextBox"/>
+			   </div>
+			
+			   <div class="col-md-2"><label id="lblReportName"></label></div>
 			        
-			        <td><label>Export</label></td>						
-					<td><input id="btnExport" type="button" value="EXPORT" class="form_button" onclick="funExportData();"/></td>
-			    </tr>
-			</table>
+			     <div class="col-md-2"><label>Export</label>					
+					   <input id="btnExport" type="button" value="EXPORT" class="btn btn-primary center-block" class="form_button" onclick="funExportData();"/>
+			    </div>
+			</div>
 			
 			<br>
-			
-			<table class="masterTable" id="criteriaTable" border="0">
+		    <table class="masterTable" id="criteriaTable" border="0">
 				<tr>					
 					<td style="width: 165px;">Field</td>
 					<td style="width: 140px;">Search Code</td>
@@ -354,22 +359,25 @@
 					<td style="width: 166px;">Criteria</td>
 					<td>AndOr</td>					
 				</tr>				
-			</table>
-					
-			<table class="masterTable" id="tblCriteria">						
-			</table>
+		    </table>
+		
+	        <table class="masterTable" id="tblCriteria">		
+			   </table>				
+		
 			<br><br>
+			
 			<table class="masterTable">
 				<tr>
-					<td><input id="btnSubmit" type="button" value="SUBMIT" class="form_button" /></td>
+					<td><input id="btnSubmit" type="button" value="SUBMIT" class="btn btn-primary center-block" class="form_button" /></td>
 				</tr>
 			</table>
-			
+		
 			<br>
 			
 			<table class="transTable" id="tblReport">					
 			</table>
-		    
+		 
 		</s:form>
+		</div>
 	</body>
 </html>

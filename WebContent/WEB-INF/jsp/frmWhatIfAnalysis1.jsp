@@ -5,11 +5,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 	<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
 	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
-	<script>
+
+<style type="text/css">
+.contents{
+ min-height: calc(100vh - -100px);
+}
+
+</style>	
+	
+<script>
  	
 	var ExportData;
 	var dblRate=0.0;
@@ -376,114 +393,112 @@
 	</script>
 </head>
 <body>
-<div id="formHeading">
-		<label>What If Analysis</label>
-	</div>
+	<div class="container">
+		<label id="formHeading">What If Analysis</label>
 		<s:form action="saveWhatIfAnanlysis.html" method="POST" name="whatIfAnanlysis">
-		<br>
-	
-		<div id="tab_container" style="height: 550px">
+		<div id="tab_container">
 			<ul class="tabs">
-				<li class="active" id="t1" data-state="tab1" style="width: 100px;padding-left: 55px">General</li>
-				<li data-state="tab2" id="t2" style="width: 150px;padding-left: 55px">What If Analysis</li>
+				<li class="active" id="t1" data-state="tab1">General</li>
+				<li data-state="tab2" id="t2">What If Analysis</li>
 			</ul>
 	
-			<div id="tab1" class="tab_content" style="height: 330px" >
-				<table class="transTable">
-				<tr>
-							<th colspan="5" align="center">Product Details</th>	
-							</tr>
-							<tr>					
-							<td>Product</td>
-							<td colspan="5"><input id="txtProdCode" type="text" ondblclick="funHelp('ProductRecipe');" Class="searchTextBox"/>
-							<label id="lblProdName" ></label>
-							<label id="lblPartNo" ></label></td>
-						</tr>
-						<tr>
-							<td width="10%">Quantity</td>
-							<td width="20%"><input id="txtQuantity" type="text" Class="decimal-places-amt numberField"/></td>
-							<td width="5%">Price</td>
-							<td><input id="txtPrice" type="text" Class="decimal-places-amt numberField"/></td>
-							<td width="50%"><input type="button" value="ADD" onclick="funAddProdDetailsRow();" class="form_button"/></td>
-						</tr>
-						<tr>
-						<td width="10%">Rate PickUp From</td>
-						<td>
+			<div id="tab1" class="tab_content">
+				<div class="row transTable">
+					<div class="col-md-12">
+						<p style="font-size:13px; margin-top:10px;">Product Details</p>	
+					</div>
+						<div class="col-md-2">						
+							<label>Product</label>
+							<input id="txtProdCode" type="text" ondblclick="funHelp('ProductRecipe');" Class="searchTextBox"/>
+						</div>
+						<div class="col-md-2">
+							<label id="lblProdName" style="background-color:#dcdada94;  text-align:center;width: 100%; height: 42%; margin: 27px 0px;" ></label>
+						</div>
+						<div class="col-md-2">
+							<label id="lblPartNo" style="background-color:#dcdada94; text-align:center; width: 100%; height: 42%; margin: 27px 0px;"></label>
+						</div>
+						<div class="col-md-6"></div>
+						<div class="col-md-2">
+							<label>Quantity</label>
+							<input id="txtQuantity" type="text" Class="decimal-places-amt numberField"/>
+						</div>
+						<div class="col-md-2">
+							<label>Price</label>
+							<input id="txtPrice" type="text" Class="decimal-places-amt numberField"/>
+						</div>
+						<div class="col-md-2">		
+							<label>Rate PickUp From</label>
 							<select  id="cmbRatePickUpFrom" class="BoxW48px" style="width:130px" >
-							<option selected="selected" value="Product Master">Product Master</option>
-							<option value="Last Purchase Rate">Last Purchase Rate</option>
-								
+								<option selected="selected" value="Product Master">Product Master</option>
+								<option value="Last Purchase Rate">Last Purchase Rate</option>
 							</select>
-						</td>
-						
-						
-						<td width="10%">Show Semi Product</td>
-						<td>
-							<select  id="cmbSemiProduct" class="BoxW48px" style="width:130px" >
-							<option selected="selected" value="No">No</option>
-							<option value="Yes">Yes</option>
-								
+						</div>
+						<div class="col-md-6"></div>
+						<div class="col-md-2">		
+							<label>Show Semi Product</label>
+							<select  id="cmbSemiProduct" class="BoxW48px" style="width:50%;" >
+								<option selected="selected" value="No">No</option>
+								<option value="Yes">Yes</option>
 							</select>
-						</td>
-						<td colspan="3"></td>
-						</tr>
-				</table>
+						</div>
+						<div class="col-md-2">		
+							<input type="button" value="ADD" onclick="funAddProdDetailsRow();" class="btn btn-primary center-block" style="margin-top:23px;"/>
+						</div>
+				</div>
 						
 				<br>		
-				<table class="transTable">
-					<tr>
-						<td width="10%"><label>Production Order Code</label></td>
-						<td width="50%"><input id="txtOPCode" type="text" ondblclick="funHelp('ProductionOrder');" Class="searchTextBox"/></td>
-					</tr>
-				</table>
+				<div class="row transTable">
+					<div class="col-md-2">	
+						<label>Production Order Code</label>
+						<input id="txtOPCode" type="text" ondblclick="funHelp('ProductionOrder');" Class="searchTextBox"/>
+					</div>
+				</div>
 				
 				<div class="dynamicTableContainer" style="height: 150px;">
-					<table style="height:20px;border:#0F0;width:90%;font-size:11px;font-weight: bold;">
-						<tr bgcolor="#72BEFC">
-							<td width="4%">Product Code</td>
-							<td width="15%">Product Name</td>
+					<table style="height:20px;border:#0F0;width:100%;font-size:11px;font-weight: bold;">
+						<tr bgcolor="#c0c0c0">
+							<td width="6%">Product Code</td>
+							<td width="6%">Product Name</td>
 							<td width="4%">Part No</td>
 							<td width="4%">Quantity</td>
-							<td width="4%">Price</td>
+							<td width="5%">Price</td>
 						</tr>
 					</table>
-					<div style="background-color:#a4d7ff;
-					   border: 1px solid #ccc;
-					   display: block;
-					   height: 250px;
-					   margin: auto;
-					   overflow-x: hidden;
-					   overflow-y: scroll;
-					   width: 100%;">
+						<div style="background-color:#fbfafa;
+						   border: 1px solid #ccc;
+						   display: block;
+						   height: 250px;
+						   margin: auto;
+						   overflow-x: hidden;
+						   overflow-y: scroll;
+						   width: 100%;">
 						   
 						<table id="tblProduct" style="width:100%;border:
 							#0F0;table-layout:fixed;overflow:scroll" class="transTablex ">		
 							
-							<tbody>
-					<col style="width: 3%">
-					<!-- col1   -->
-					
-					<col style="width: 11%">
-					<!-- col3   -->
-					<col style="width: 3%">
-					<!-- col4   -->
-					<col style="width: 3%">
-					<!-- col5   -->
-					<col style="width: 3%">
-					<!-- col6   -->
-					<col style="width: 2%">
-					<!-- col7   -->
-				
-							</tbody>
+						<tbody>
+							<col style="width: 5%">
+							<!-- col1   -->
 							
+							<col style="width: 6%">
+							<!-- col3   -->
+							<col style="width: 4%">
+							<!-- col4   -->
+							<col style="width: 4%">
+							<!-- col5   -->
+							<col style="width: 4%">
+							<!-- col6   -->
+							<col style="width: 2%">
+							<!-- col7   -->
+				
+						</tbody>
 						</table>
 					</div>
 				</div>
-	
 				<br><br>
 			</div>
 			
-			<div id="tab2" class="tab_content"> 
+			<div id="tab2" class="tab_content" style="margin-top:52px;"> 
 <!-- 				<table class="transTable"> -->
 <!-- 					<tr><th colspan="6" align="left">  </th></tr> -->
 <!-- 				</table> -->
@@ -546,10 +561,10 @@
 <!-- 				</p> -->
 <!-- 			</div> -->
 
-		<div class="dynamicTableContainer" id="dvWhatIf" style="height: 330px;">
-			<table style="height: 20px; border: #0F0;width: 100%;font-size:11px;
+		<div class="dynamicTableContainer" id="dvWhatIf" style="height: 330px; overflow-x:hidden;border-style:none;">
+			<table style="height: 20px; border: #0F0;width: 100%;font-size:11px;overflow-x:scroll;
 			font-weight: bold;">
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#c0c0c0">
 <!-- 					<td width="6%">Prod Code</td>					 -->
 <!-- 					<td width="22%">Product Name</td>	 -->
 <!-- 					<td width="3%">UOM</td>	 -->
@@ -580,7 +595,7 @@
 				</tr>
 			</table>
 			<div
-				style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 230px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 230px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 					<table id="tblChildNodes"
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col11-center">
@@ -617,30 +632,19 @@
 					</tbody>
 				</table>
 			</div>
-			
 			<p align="center">
-					<input id="btnExport" type="button" value="EXPORT" id="export" class="form_button" />
-				</p>
-				
-			
+				<input id="btnExport" type="button" value="EXPORT" id="export" class="btn btn-primary center-block" style="margin-top:20px;"/>
+			</p>
 		</div>
-</div>
+	</div>
 
+	<div class="center">
+		 <a href="#"><button class="btn btn-primary center-block" id="btnSubmit" id="formsubmit" value="Submit">Submit</button></a>
+		 <a href="#"><button class="btn btn-primary center-block"  value="Reset" onclick=" return funResetField()">Reset</button></a>
+	</div>
 
-
-				<p align="center">
-			<input id="btnSubmit" type="button" value="Submit" id="formsubmit" class="form_button" /> 
-			<input type="reset" value="Reset" class="form_button" onclick=" return funResetField()" />
-		</p>
-
-
-			<br></br>
-		
-		
-		</div>
-		
-		
+	</div>
 	</s:form>
-	
+</div>	
 </body>
 </html>

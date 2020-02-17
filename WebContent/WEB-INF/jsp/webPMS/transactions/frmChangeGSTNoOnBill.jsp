@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <title>Void Bill</title>
 <script type="text/javascript">
 
@@ -168,107 +174,106 @@
 		}}%>
 
 	});
+	
+	function funResetField()
+	{
+		location.reload(true);
+		return false;
+	}
 </script>
 </head>
 <body>
-
-
-	<div id="formHeading">
-	<label>Change GST No</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="frmChangeGSTNoOnBill" method="POST" action="updateGSTNoOnBill.html?saddr=${urlHits}">
-		
-		<table class="transTable">
-		
-			<tr>
-				<td><label>Bill No.</label></td>
-				<td><s:input id="txtBillNo" path="strBillNo"  cssClass="searchTextBox" ondblclick="funHelp('billNo')"/></td>
-				<td><label>Folio No</label></td>	
-				<td><s:input type="readonly" id="txtFolioNo" path="strFolioNo"  cssClass="longTextBox"/></td>
-				<td><label>Bill Date</label></td>
-		        <td><s:input type="readonly" id="txtBillDate" required="required" path="strBilldate" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox"/></td>
-			</tr>
-			
-			<tr>
-				<td><label>Guest Name</label></td>	
-				<td><s:input type="readonly" id="txtGuestName" path="strGuestName"  cssClass="longTextBox"/></td>
-				<td><label>Room No</label></td>	
-				<td><s:input type="readonly" id="txtRoomName" path="strRoomName"  cssClass="longTextBox"/></td>
-				
-				<td><s:input type="hidden" id="txtRoomNo" path="strRoomNo"/></td>
-				<td><s:input type="hidden" id="txtVoidType" path="strVoidType"/></td>
-
-			</tr>
-			
-			<tr>
-				<td><label>Total Amount</label></td>	
-				<td><s:input type="readonly" id="txtTotalAmt" path="dblTotalAmt" style="text-align:right;" cssClass="longTextBox"/></td>
-				<td><label>GST No</label></td>	
-				<td><s:input id="txtGRNNo" path="strGSTNo" style="text-align:right;" cssClass="longTextBox"/></td>
-				<td><label>Company Name</label></td>	
-				<td><s:input id="txtCompanyName" path="strCompanyName"  cssClass="longTextBox"/></td>
-				<td colspan="4">
-			</tr>
-			<tr>
-			<td colspan="6">
-			<div id="divReason" style="display:none;">
-				<label>Reason</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				 <s:select type="readonly" id="cmbReason" path="strReason" cssClass="BoxW124px">
-    			 <s:options items="${listReason}"/>
-    			</s:select>
-    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    			<label>Remark</label>
-    			<s:input type="readonly" id="txtRemark" path="strRemark"  cssClass="longTextBox"/>
+	<div class="container">
+		<label id="formHeading">Change GST No</label>
+		<s:form name="frmChangeGSTNoOnBill" method="POST" action="updateGSTNoOnBill.html?saddr=${urlHits}">
+			<div class="transTable" style="overflow: hidden;">
+				<div class="row">
+					<div class="col-md-2">
+						<label>Bill No.</label><br>	
+						<s:input id="txtBillNo" path="strBillNo"  cssClass="searchTextBox" ondblclick="funHelp('billNo')"/>
+					</div>
+					<div class="col-md-2">
+						<label>Folio No</label><br>	
+						<s:input type="text" id="txtFolioNo" path="strFolioNo" readonly="true"/>
+					</div>
+					<div class="col-md-2">
+						<label>Bill Date</label><br>	
+				       	<s:input type="readonly" id="txtBillDate" required="required" path="strBilldate" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox"
+				       		style="border: none; width: 70%; padding: 4px;"/>
+					</div>
+					<div class="col-md-2">
+						<label>Guest Name</label><br>		
+						<s:input type="readonly" id="txtGuestName" path="strGuestName" style="border: none; padding: 4px;"/>
+					</div>
+					<div class="col-md-4"></div>
+					<div class="col-md-2">	
+						<label>Room No</label><br>		
+						<s:input type="readonly" id="txtRoomName" path="strRoomName" style="border: none; padding: 4px;width: 100%;"/>
+					</div>
+					<div class="col-md-2">
+						<label>Total Amount</label><br>		
+						<s:input type="readonly" id="txtTotalAmt" path="dblTotalAmt" style="text-align:right;border: none; padding: 4px;width: 100%;"/>
+					</div>
+					<div class="col-md-2">
+						<label>GST No</label><br>		
+						<s:input id="txtGRNNo" path="strGSTNo" style="text-align:right;"/>
+					</div>
+					<div class="col-md-2">
+						<label>Company Name</label><br>	
+						<s:input id="txtCompanyName" path="strCompanyName"/>
+					</div>
+					<div class="col-md-3">	
+						<s:input type="hidden" id="txtRoomNo" path="strRoomNo"/>
+						<s:input type="hidden" id="txtVoidType" path="strVoidType"/>
+					</div>
+				</div>
+				<div id="divReason" style="display:none;">
+					<div class="row">
+						<div class="col-md-2">
+							<label>Reason</label><br>	
+							 <s:select type="readonly" id="cmbReason" path="strReason" cssClass="BoxW124px" style="color:#000;">
+	    			 			<s:options items="${listReason}"/>
+	    					</s:select>
+    					</div>
+    					<div class="col-md-2">
+			    			<label>Remark</label><br>	
+			    			<s:input type="readonly" id="txtRemark" path="strRemark"/>
+			    		</div>
+			    	</div>
+				</div>
 			</div>
-			</td>
-			</tr>
-			<tr>
-			<td colspan="6">
-			
-			</td>
-			</tr>
-		</table>
-		<div class="dynamicTableContainer" style="height: 300px;">
-				<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-					<tr bgcolor="#72BEFC">
-					
-						<td style="width:8%;">Folio</td>
-						<td style="width:7.5%;">Revenue Code</td>
-						<!-- <td style="width:7%;">Doc Code</td> -->
-						<td style="width:14%;">Income Head</td>
-						<td style="width:9%; text-align: center;">Total</td>
-						<td style="width:3%;">Delete</td>
-						
-					</tr>
-				</table>
-		
-			<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
-				<table id="tblChangeBillDetails"
-					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-					class="transTablex col8-center">
-					<tbody>
-						<col style="width: 8.5%;">
-						<col style="width: 8%;">
-					<%-- 	<col style="width: 7%;"> --%>
-						<col style="width: 15%;">
-						<col style="width: 9%;">
-						<col style="width: 3%;">
-					</tbody>
-				</table>
+			<div class="dynamicTableContainer" style="height: 300px;">
+					<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+						<tr bgcolor="#c0c0c0">
+							<td style="width:8%;">Folio</td>
+							<td style="width:7.5%;">Revenue Code</td>
+							<!-- <td style="width:7%;">Doc Code</td> -->
+							<td style="width:14%;">Income Head</td>
+							<td style="width:9%; text-align: center;">Total</td>
+							<td style="width:3%;">Delete</td>
+						</tr>
+					</table>
+				<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+					<table id="tblChangeBillDetails" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col8-center">
+						<tbody>
+							<col style="width: 8.5%;">
+							<col style="width: 8%;">
+						<%-- <col style="width: 7%;"> --%>
+							<col style="width: 15%;">
+							<col style="width: 9%;">
+							<col style="width: 3%;">
+						</tbody>
+					</table>
+				</div>
 			</div>
-		</div>
-				
-		<br/>
-		<br/>
-		<p align="center">
-			<input type="submit" value="Update"  tabindex="3" class="form_button"  onclick="return funSaveBill()"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>		
-		
+			
+			<div class="center">
+				<a href="#"><button class="btn btn-primary center-block" value="Update" onclick="return funSaveBill()" type="submit" tabindex="3"
+					class="form_button">Update</button></a>
+				<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="return funResetField()"
+					class="form_button">Reset</button></a>
+			</div>
 	</s:form>
+</div>
 </body>
 </html>

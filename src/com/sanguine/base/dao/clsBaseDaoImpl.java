@@ -199,14 +199,15 @@ public class clsBaseDaoImpl implements intfBaseDao {
 		}
 	}
 	
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "hibernateTransactionManager")
-	public List funGetListForWebStocks(StringBuilder strQuery, String queryType) throws Exception {
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
+	public List funGetListForWebPMS(StringBuilder strQuery, String queryType) throws Exception {
 		Query query;
 		if (queryType.equals("sql")) {
-			query = sessionFactory.getCurrentSession().createSQLQuery(strQuery.toString());
+			query = webPMSSessionFactory.getCurrentSession().createSQLQuery(strQuery.toString());
 			return query.list();
 		} else {
-			query = sessionFactory.getCurrentSession().createQuery(strQuery.toString());
+			query = webPMSSessionFactory.getCurrentSession().createQuery(strQuery.toString());
 			return query.list();
 		}
 	}
@@ -232,12 +233,23 @@ public class clsBaseDaoImpl implements intfBaseDao {
 			objSessionFactory = webBooksSessionFactory;
 		}
 		if (queryType.equals("sql")) {
-			objSessionFactory.getCurrentSession().createNativeQuery(strQuery.toString()).executeUpdate();
+			objSessionFactory.getCurrentSession().createSQLQuery(strQuery.toString()).executeUpdate();
 		} else {
 			objSessionFactory.getCurrentSession().createQuery(strQuery.toString()).executeUpdate();
 		}
-		
-		//webBooksSessionFactory.getCurrentSession().createSQLQuery("delete from tblChargeGenerationTemp where strMemberCode='" + strMemberCode + "' ");
+	}
+
+	@Override
+	public String funSaveForWebPMS(clsBaseModel objBaseModel) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List funGetListForWebStocks(StringBuilder query, String queryType)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 //	@Override

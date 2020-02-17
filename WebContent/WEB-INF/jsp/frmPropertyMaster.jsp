@@ -1,13 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>PROPERTY MASTER</title>
-
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+  
 <script type="text/javascript">
 	/*On form Load It Reset form :Ritesh 22 Nov 2014*/
 	$(document).ready(function() {
@@ -176,48 +183,33 @@
 		return flg;
 	}
 </script>
-
-
 </head>
+
 <body onload="onLoadFunction();">
-	<div id="formHeading">
-		<label>Property Master</label>
-	</div>
-	<s:form name="propertyForm" method="POST" action="savePropertyMaster.html?saddr=${urlHits}">
-
-		<br />
-		<br />
-		<table class="masterTable">
-			<tr>
-				<th align="right" colspan="4"><a id="baseUrl"
-					href="#"> Attach Documents</a> &nbsp; &nbsp; &nbsp;
-					&nbsp;</th>
-			</tr>
-
-			<tr>
-				<td width="120px"><label>Property Code</label></td>
-				<td colspan="3"><s:input path="propertyCode" id="txtPropCode"
-						ondblclick="funHelp('property');" cssClass="searchTextBox"
-						 /></td>
-			</tr>
-
-			<tr>
-				<td><label>Name </label></td>
-				<td colspan="3"><s:input path="propertyName" id="txtPropName"
-					cssStyle="text-transform: uppercase;" autocomplete="off"	required="true" cssClass="longTextBox" /></td>
-			</tr>
-			<tr><td colspan="4"></td></tr>
-			
-		</table>
-		<br />
+	<div class="container masterTable">
+		<label id="formHeading">Property Master</label>
+	   <s:form name="propertyForm" method="POST" action="savePropertyMaster.html?saddr=${urlHits}">
+   
+		<div class="row">
+				
+			<!-- 	<a id="baseUrl" href="#"> Attach Documents</a>  -->
 		
+			<div class="col-md-2"><label>Property Code</label>
+				  <s:input path="propertyCode" id="txtPropCode" readonly="true" ondblclick="funHelp('property');" cssClass="searchTextBox" />
+			</div>
 
-		<p align="center">
-			<input type="submit" value="Submit" class="form_button"
-				onclick="return funCallFormAction('submit',this);" /> <input type="reset"
-				value="Reset" class="form_button" onclick="funResetFields()" />
+			<div class="col-md-3"><label>Name </label>
+				  <s:input path="propertyName" id="txtPropName" cssStyle="text-transform: uppercase;" autocomplete="off" required="true"/>
+			</div>
+		 </div>
+		<br />
+	
+		<p align="center" style="margin-right: 32%;">
+			<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button"
+				onclick="return funCallFormAction('submit',this);" />&nbsp; 
+			<input type="reset"	value="Reset"  class="btn btn-primary center-block" class="form_button" onclick="funResetFields()" />
 		</p>
 	</s:form>
-
+   	</div>
 </body>
 </html>

@@ -5,10 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
-	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
-	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
-	<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+		<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
+		<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
         <!-- Load data to paginate -->
 	<link rel="stylesheet" href="<spring:url value="/resources/css/pagination.css"/>" />
 
@@ -90,7 +96,7 @@
 		{
 		    // Get number of elements per pagionation page from form
 		    var max_elem = Math.min((page_index+1) * items_per_page, reservFlashData.length);
-		    var newcontent='<table id="tblResevFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labls2">Reservation</td><td id="labls3">Arrive</td><td id="labls13">Departure</td><td id="labls14">Guest</td><td id="labls14">RoomNo</td><td id="labls14">Source</td><td id="labls14">Corporate</td><td id="labls14">Deposit</td><td id="labls14">User</td><td id="labls14">Res.Type</td><td style="width: 10%;">Room Type</td></tr>';
+		    var newcontent='<table id="tblResevFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr style="background-color:#c0c0c0;"><td id="labls2">Reservation</td><td id="labls3">Arrive</td><td id="labls13">Departure</td><td id="labls14">Guest</td><td id="labls14">RoomNo</td><td id="labls14">Source</td><td id="labls14">Corporate</td><td id="labls14">Deposit</td><td id="labls14">User</td><td id="labls14">Res.Type</td><td style="width: 10%;">Room Type</td></tr>';
 				   
 			    // Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
@@ -163,6 +169,7 @@
 			            }		            
 			        }
 			      });
+			return false;
 		}
 		
 		
@@ -181,93 +188,70 @@
 	 		
 				var param1=propCode+","+bookingType+","+roomType+","+fArrDate+","+tArrDate+","+fDepDate+","+tDepDate;
 				window.location.href=getContextPath()+"/funExpoetReverationSheet.html?param1="+param1;
-			
-	}
-		  
-		 
-		 
+			return false;
+	} 
 	</script>
 </head>
 <body onload="funOnLoad();">
-<div id="formHeading">
-		<label>Reservation Flash</label>
-	</div>
-	<s:form action="frmReservationFlashReport.html" method="GET" name="frmRevFlash" target="_blank">
-		<br>
-	
-			<table class="transTable">
-			<tr><th colspan="10"></th></tr>
-				<tr>
-					<td width="10%">Property </td>
-					<td width="20%">
-						<s:select id="cmbPropertyCode" path="strPropertyCode" items="${hmProperty}" cssClass="longTextBox" cssStyle="width:100%" >
-			    			</s:select>
-					</td>
-						
-					<td width="15%"><label>Booking Type</label></td>
-					<td>
-						<s:select id="cmbBookingCode" path="strBookingCode" items="${hmBooking}"  cssClass="longTextBox" cssStyle="width:180px;" >
-			    			</s:select>
-			    	
-					</td>
-					<td><label>Rooms Type</label></td>
-					<td><s:select id="cmbRoomsType" path="strRoomTypeCode"  items="${hmRoomType}"  cssClass="BoxW124px">
-					</s:select></td>
-					
-				</tr>
-				
-				<tr>
-				    <td><label id="lblFromArrDate">From Arrive Date</label></td>
-			        <td>
-			            <s:input id="txtArriveFromDate" name="dteArriveFromDate" path="dteArriveFromDate" cssClass="calenderTextBox"/>
-			        	
-			        </td>
-				       
-			        <td><label id="lblToArrDate">To Arrive Date</label></td>
-			        <td colspan="3">
-			            <s:input id="txtArriveToDate" name="dteArriveToDate" path="dteArriveToDate" cssClass="calenderTextBox"/>
-			        
-			        </td>
-			       
-				</tr>
-				
-				<tr>
-				    <td><label id="lblFromDepDate">From Depature Date</label></td>
-			        <td>
-			            <s:input id="txtDepFromDate" name="dteDepFromDate" path="dteDepFromDate" cssClass="calenderTextBox"/>
-			        	
-			        </td> 
-				       
-			        <td><label id="lblToDepDate">To Depature Date</label></td>
-			        <td  colspan="3">
-			            <s:input id="txtdepToDate" name="dtedepToDate" path="dtedepToDate" cssClass="calenderTextBox"/>
-			        	
-			        </td>
-			       
-				</tr>
-				<tr>
-				</tr>
-				
-				<tr>
-			        <td><input id="btnExecute" type="button" class="form_button" value="EXECUTE" onclick="funGetRevservationFlash()"/></td>
-			        <td><input id="btnExport" type="button" class="form_button" value="EXPORT" onclick="funExportData()"/>
-			        </td>
-			        
-			    </tr>    
-			
-			</table>
-			
-			<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
-			<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
+	<div class="container">
+		<label id="formHeading">Reservation Flash</label>
+		<s:form action="frmReservationFlashReport.html" method="GET" name="frmRevFlash" target="_blank">
 		
-		</div>
+			<div class="row transTable">
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-6">
+							<label>Property</label>
+							<s:select id="cmbPropertyCode" path="strPropertyCode" items="${hmProperty}"></s:select>
+						</div>
+						<div class="col-md-6">		
+							<label>Booking Type</label>
+							<s:select id="cmbBookingCode" path="strBookingCode" items="${hmBooking}"></s:select>
+						   </div>
+			    	</div>
+				</div>	
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-6">	
+							<label>Rooms Type</label>
+							<s:select id="cmbRoomsType" path="strRoomTypeCode"  items="${hmRoomType}"></s:select>
+						</div>
+						<div class="col-md-6">
+						  	<label id="lblFromArrDate">From Arrive Date</label>
+					        <s:input id="txtArriveFromDate" name="dteArriveFromDate" path="dteArriveFromDate" cssClass="calenderTextBox"/>
+					   	</div>
+					</div><br>
+				</div>
+				<div class="col-md-5"></div>   	
+			    <div class="col-md-2">
+			       <label id="lblToArrDate">To Arrive Date</label>
+			       <s:input id="txtArriveToDate" name="dteArriveToDate" path="dteArriveToDate" cssClass="calenderTextBox" style="width:75%;" />
+			    </div> 
+			    <div class="col-md-2">
+				  	<label id="lblFromDepDate">From Depature Date</label>
+			       	<s:input id="txtDepFromDate" name="dteDepFromDate" path="dteDepFromDate" cssClass="calenderTextBox" style="width:75%;" />
+			    </div>
+				<div class="col-md-2">    
+			       	 <label id="lblToDepDate">To Depature Date</label>
+			         <s:input id="txtdepToDate" name="dtedepToDate" path="dtedepToDate" cssClass="calenderTextBox" style="width:75%;" />
+			     </div>	
+			</div>
+				<div class="center" style="margin-right:47%;">
+					<button class="btn btn-primary center-block" id="btnExecute"  value="Execute" onclick="return funGetRevservationFlash()"
+					class="form_button">Execute</button>&nbsp
+					<button class="btn btn-primary center-block" id="btnExport" value="EXPORT" onclick="return funExportData()"
+						class="form_button">EXPORT</button>
+				</div>
+				<dl id="Searchresult" style="width: 95%; margin-top: 20px; overflow:auto;"></dl>
+				<div id="Pagination" class="pagination" style="width: 80%; margin-left: 26px;">
+				</div>
 		<br>
 		<br>
 	
-		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
+			<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 	</s:form>
-	
+</div>
 </body>
 </html>

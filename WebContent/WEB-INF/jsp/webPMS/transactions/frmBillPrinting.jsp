@@ -1,11 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	var fieldName;
     
@@ -309,38 +318,38 @@
 
 </head>
 <body>
+  <div class="container masterTable" style="width:90%;">
+	<label  id="formHeading">Bill Printing</label>
+	    <s:form name="BillPrinting" method="GET" action="">
 
-	<div id="formHeading">
-	<label>Bill Printing</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="BillPrinting" method="GET" action="">
-
-		<table class="masterTable" style="width:90%;">
-			<tr>
-				<td><label>From Date</label></td>
-				<td><s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" /></td>
-				<td><label>To Date</label></td>
-				<td><s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" /></td>				
-			</tr>
+       <div class="row">
+       
+            <div class="col-md-3">
+			   <div class="row">
+			       <div class="col-md-6"><label>From Date</label>
+				       <s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" />
+		           </div>
+		           <div class="col-md-6 "><label>To Date</label>
+				       <s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" />
+			       </div>				
+			</div></div>
 			
-			<tr>
-				<td><label>Bill No.</label></td>
-				<td ><s:input id="strBillNo" path="strBillNo"  cssClass="searchTextBox" ondblclick="funHelp('billNo')"/></td>													
-				<td> Against</td>
-				<td><select id="cmbType" class="BoxW124px">
+			 <div class="col-md-3">
+			     <div class="row">
+			       <div class="col-md-6"><label>Bill No.</label>
+				       <s:input id="strBillNo" path="strBillNo"  cssClass="searchTextBox" ondblclick="funHelp('billNo')" style="height: 45%;"/>												
+			       </div>
+			       <div class="col-md-6"><label>Against</label>
+				       <select id="cmbType">
 				   		<option value="Bill">Bill</option>
-				   		<option value="CheckIn">CheckIn</option></select>
-				</td>
-			</tr>
-		</table>
-		
+				   		<option value="CheckIn">CheckIn</option>
+				       </select>
+			       </div>
+		     </div></div>
+		</div>
 		<div class="dynamicTableContainer" style="width:90%;height: 300px;margin-top:10px;">
 				<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-					<tr bgcolor="#72BEFC">
+					<tr bgcolor="#c0c0c0">
 					
 						<td style="width:8%;">Folio</td>
 						<td style="width:7.5%;">Revenue Code</td>
@@ -350,7 +359,7 @@
 					</tr>
 				</table>
 		
-			<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 				<table id="tblBillDetails"
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col8-center">
@@ -364,14 +373,14 @@
 				</table>
 			</div>
 		</div>
-					
+			
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateFields()" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right:-68%">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateFields()" />&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 		<s:input type="hidden" id="hidData" path="strSelectBill" ></s:input>				
 	</s:form>
+	</div>
 </body>
 </html>

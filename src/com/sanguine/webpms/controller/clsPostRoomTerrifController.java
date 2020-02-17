@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.swing.JOptionPane;
 import javax.validation.Valid;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -26,11 +27,15 @@ import com.sanguine.webpms.bean.clsTaxCalculation;
 import com.sanguine.webpms.bean.clsTaxProductDtl;
 import com.sanguine.webpms.dao.clsExtraBedMasterDao;
 import com.sanguine.webpms.dao.clsWebPMSDBUtilityDao;
+import com.sanguine.webpms.model.clsCheckInHdModel;
 import com.sanguine.webpms.model.clsExtraBedMasterModel;
 import com.sanguine.webpms.model.clsFolioDtlModel;
 import com.sanguine.webpms.model.clsFolioHdModel;
 import com.sanguine.webpms.model.clsFolioTaxDtl;
+import com.sanguine.webpms.model.clsReservationHdModel;
+import com.sanguine.webpms.service.clsCheckInService;
 import com.sanguine.webpms.service.clsFolioService;
+import com.sanguine.webpms.service.clsReservationService;
 
 @Controller
 public class clsPostRoomTerrifController {
@@ -52,6 +57,13 @@ public class clsPostRoomTerrifController {
 	
 	@Autowired
 	private clsWebPMSDBUtilityDao objWebPMSUtility;
+	
+	@Autowired
+	private clsCheckInService objCheckInService;
+	
+
+	@Autowired
+	private clsReservationService objReservationService;
 
 	// Open Post Room Terrif
 	@RequestMapping(value = "/frmPostRoomTerrif", method = RequestMethod.GET)
@@ -369,10 +381,21 @@ public class clsPostRoomTerrifController {
 				}
 			}
 		}
-		
-		
+		clsCheckInHdModel objHdModel = objCheckInService.funGetCheckInData(objFolioHd.getStrCheckInNo().toString(), clientCode);
+
+		clsReservationHdModel objModel = objReservationService.funGetReservationList(objHdModel.getStrReservationNo(), clientCode, propCode);
+
+		Map<String, List<clsTaxCalculation>> hmTaxCalDtl = new HashedMap<String, List<clsTaxCalculation>>();
 		listTaxProdDtl.add(objTaxProductDtl);
-		Map<String, List<clsTaxCalculation>> hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
+		if(objModel!=null)
+		{
+			if(objHdModel.getStrDontApplyTax().equals("N") && objModel.getStrDontApplyTax().equals("N"))
+			{
+				hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
+			}
+		}
+		
+		
 
 		List<clsFolioDtlModel> listFolioDtl = new ArrayList<clsFolioDtlModel>();
 		List<clsFolioTaxDtl> listFolioTaxDtl = new ArrayList<clsFolioTaxDtl>();		
@@ -486,7 +509,12 @@ public class clsPostRoomTerrifController {
 			
 			List<clsTaxProductDtl> listTaxProdDtlForExtraBed = new ArrayList<clsTaxProductDtl>();
 			listTaxProdDtlForExtraBed.add(objTaxProductDtl);
-			Map<String, List<clsTaxCalculation>> hmTaxCalDtlForExtraBed = objPMSUtility.funCalculatePMSTax(listTaxProdDtlForExtraBed, "Extra Bed");
+			Map<String, List<clsTaxCalculation>> hmTaxCalDtlForExtraBed = null;
+			if(objHdModel.getStrDontApplyTax().equals("N"))
+			{
+				hmTaxCalDtlForExtraBed = objPMSUtility.funCalculatePMSTax(listTaxProdDtlForExtraBed, "Extra Bed");
+			}
+			
 			if(hmTaxCalDtlForExtraBed.containsKey(objExtraBedMaster.getStrExtraBedTypeCode())){
 			List<clsTaxCalculation> listTaxCalForExtraBed = hmTaxCalDtlForExtraBed.get(objExtraBedMaster.getStrExtraBedTypeCode());
 			for (clsTaxCalculation objTaxCal : listTaxCalForExtraBed) {
@@ -518,12 +546,30 @@ public class clsPostRoomTerrifController {
 		String propCode = request.getSession().getAttribute("propertyCode").toString();
 		String PMSDate = request.getSession().getAttribute("PMSDate").toString();
 		String urlHits ="1";
-		String strResponse = "Room changes Successfully";
+		String strResponse = "";	
 		
-		String sqlChangeStatus = "update tblroom a set a.strStatus='Free' where a.strRoomDesc='"+checkInNo+"' "
-				+ "and a.strClientCode='"+clientCode+"'";
+		String sqlHosueKeepMaster = "select b.strHouseKeepCode from tblhousekeepmaster b where b.strClientCode='"+clientCode+"'";
+		List listHosueKeepMaster = objGlobalFunctionsService.funGetListModuleWise(sqlHosueKeepMaster, "sql");
+
+		String sqlHouseKeepDtl = "select a.strHouseKeepCode from tblroomhousekeepdtl a where a.strRoomCode='"+checkInNo+"'";
+		List listHouseKeepDtl = objGlobalFunctionsService.funGetListModuleWise(sqlHosueKeepMaster, "sql");
+
+		if(listHosueKeepMaster!=null && listHosueKeepMaster.size()>0 && listHouseKeepDtl!=null && listHouseKeepDtl.size()>0)
+		{
+			int list1 = listHosueKeepMaster.size();
+			int list2 = listHouseKeepDtl.size();
+			
+			if(list1==list2)
+			{
+				strResponse = "Room changes Successfully";
+				
+				String sqlChangeStatus = "update tblroom a set a.strStatus='Free' where a.strRoomDesc='"+checkInNo+"' "
+						+ "and a.strClientCode='"+clientCode+"'";
+				
+				objWebPMSUtility.funExecuteUpdate(sqlChangeStatus, "sql");
+			}
+		}
 		
-		objWebPMSUtility.funExecuteUpdate(sqlChangeStatus, "sql");
 		/*String sqlDirtyRoomCheck = "SELECT b.strStatus ,a.strRoomNo "
 				+ "FROM tblcheckindtl a,tblroom b "
 				+ "WHERE a.strCheckInNo='"+checkInNo+"' AND a.strRoomNo=b.strRoomCode "

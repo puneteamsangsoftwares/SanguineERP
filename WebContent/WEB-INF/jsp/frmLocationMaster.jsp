@@ -1,12 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <title>LOCATION MASTER</title>	
 <style>
 .ui-autocomplete {
@@ -495,11 +504,11 @@ $(document).ready(function(){
 			    var row = table.insertRow(rowCount);
 			    
 			    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"7%\" name=\"listReorderLvl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"'>";
-			    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"80%\"  id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' >";
-			    row.insertCell(2).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listReorderLvl["+(rowCount)+"].dblReOrderLevel\" id=\"txtReOrderLevel."+(rowCount)+"\" value='"+dblReorderLvl+"' >";		    
-			    row.insertCell(3).innerHTML= "<input type=\"text\" required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listReorderLvl["+(rowCount)+"].dblReOrderQty\"  id=\"txtReOrderQty."+(rowCount)+"\" value='"+dblReorderQty+"' >";
-			    row.insertCell(4).innerHTML= "<input type=\"text\" required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listReorderLvl["+(rowCount)+"].dblPrice\"  id=\"txtPrice."+(rowCount)+"\" value='"+dblPrice+"' >";
-			    row.insertCell(5).innerHTML= '<input type="button" value = "Delete"  class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
+			    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"50%\"  id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' >";
+			    row.insertCell(2).innerHTML= "<input type=\"text\"  size=\"10%\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listReorderLvl["+(rowCount)+"].dblReOrderLevel\" id=\"txtReOrderLevel."+(rowCount)+"\" value='"+dblReorderLvl+"' >";		    
+			    row.insertCell(3).innerHTML= "<input type=\"text\" size=\"10%\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listReorderLvl["+(rowCount)+"].dblReOrderQty\"  id=\"txtReOrderQty."+(rowCount)+"\" value='"+dblReorderQty+"' >";
+			    row.insertCell(4).innerHTML= "<input type=\"text\" size=\"10%\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listReorderLvl["+(rowCount)+"].dblPrice\"  id=\"txtPrice."+(rowCount)+"\" value='"+dblPrice+"' >";
+			    row.insertCell(5).innerHTML= '<input type="button" size=\"10%\"  value = "Delete"  class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
 			    return false;
 		}
 		
@@ -592,209 +601,153 @@ $(document).ready(function(){
 
 </head>
 <body>
-<div id="formHeading">
-		<label>Location Master</label>
-	</div>
-	<s:form name="locationForm" method="POST" action="saveLocationMaster.html?saddr=${urlHits}">
-	<br />
-		<input type="hidden" name="saddr" value="${urlHits}">
-		<div id="tab_container" class="masterTable"  style="height: 400px;">
-						<ul class="tabs">
-							<li class="active" data-state="tab1" style="width: 25%; left: 10%">GENERAL</li>
-							<li data-state="tab2" style="width: 10%; padding-left: 55px">ReOrdel Level</li>
-							<li data-state="tab3" style="width: 10%; padding-left: 55px">Linkup</li>
-							</ul>
-						<div id="tab1" class="tab_content" style="height: 300px">
-				<table class="masterTable">
-		
-					<tr>
-				        <th align="right" colspan="2"> <a id="baseUrl" href="#"> Attach Documents</a> &nbsp; &nbsp; &nbsp;
-								&nbsp;</th>
-				    </tr>
-				     
-				    <tr>
-				        <td width="120px"><label>Location Code </label></td>
-				        <td><s:input id="txtLocCode" name="txtLocCode" path="strLocCode" ondblclick="funHelp('locationmaster')"  cssClass="searchTextBox"/></td>
-				    </tr>
-				    	
-				    <tr>
-				        <td>
-				        	<label>Location Name</label>
-				        </td>
-				        <td>
-				        	<s:input type="text" id="txtlocName" name="txtlocName" size="80px"  path="strLocName" cssStyle="text-transform: uppercase;" required="true" cssClass="longTextBox"/>
-				        	<s:errors path="strLocName"></s:errors>
-				        </td>
-				    </tr>
-					    
-				    <tr>
-					    <td>
-					    	<label>Description</label>
-					    </td>
-					    
-					    <td>
-					    	<s:input id="txtLocDesc" size="80px" name="txtLocDesc" path="strLocDesc" autocomplete="off" cssStyle="text-transform: uppercase;" cssClass="longTextBox" />
-					    	<s:errors path="strLocDesc"></s:errors>
-					    </td>
-					 </tr>
-					    
-					  <tr>
-					    <td><label>Property Code</label></td>
-					    
-					    <td>
-					    	<s:input id="txtPropertyCode" name="txtPropertyCode" path="strPropertyCode" readonly="true"  cssClass="searchTextBox" ondblclick="funHelp('property');"/>
-					    	<s:errors path="strPropertyCode"></s:errors>
-					    	<label id="lblPropertyName" class="namelebel"></label>
-					    </td>
-					   <!--  <td><label id="lblPropertyName"></label></td> -->
-					   </tr> 
-					  
-					   <tr>
-					    <td>
-					    	<label>Excise No</label>
-					    </td>
-					    
-					    <td>
-					    	<s:input id="txtExciseNo" name="txtExciseNo" path="strExciseNo" cssClass="BoxW116px" />
-					    	<s:errors path="strExciseNo"></s:errors>
-					    </td>
-					   </tr> 
-					  
-					   
-					   	<tr>
-						    <td>
-						    	<label>External Code</label>
-						    </td>
-						    
-						    <td>
-						    	<s:input id="txtExternalCode" name="txtExternalCode" path="strExternalCode"  autocomplete="off" cssClass="BoxW116px"/>
-						    	<s:errors path="strExternalCode"></s:errors>
-						    </td>
-					   	</tr> 
-					   
-						<tr>
-						    <td>
-						    	<label>Available for Sale</label>
-						    </td>			    
-						    <td>
-						    	<s:checkbox id="chkAvlForSale" name="chkAvlForSale" path="strAvlForSale" value="" />
-						    	<s:errors path="strAvlForSale"></s:errors>
-						    </td>
-					   </tr>
-					  
-					   	<tr>
-						    <td>
-						    	<label>Active</label>
-						    </td>
-						    
-						    <td>
-						    	<s:checkbox id="chkActive" name="chkActive" path="strActive" value="" />
-						    	<s:errors path="strActive"></s:errors>
-						    </td>
-					   </tr>
-					  
-						<tr>
-						    <td>
-						    	<label>Pickable</label>
-						    </td>
-						    
-						    <td>
-						    	<s:checkbox id="chkPickable" name="chkPickable" path="strPickable" value=""  />
-						    	<s:errors path="strPickable"></s:errors>
-						    </td>
-					   </tr>
-					   
-						<tr>
-						    <td>
-						    	<label>Receivable</label>
-						    </td>
-						    
-						    <td>
-						    	<s:checkbox id="chkReceivable" name="chkReceivable" path="strReceivable" value="" />
-						    	<s:errors path="strReceivable"></s:errors>
-						    </td>
-					   </tr>
-					  
-					  	<tr> 
-						    <td><label>Type </label></td>
-					        <td><s:select id="cmbType" name="cmbType" path="strType" items="${listType}" cssClass="BoxW124px"/></td>
-						</tr>
-						
-						<tr>
-						    <td><label>Month End Date</label></td> 
-						    <td><s:input id="txtMonthEnd" path="strMonthEnd" required="true" readonly="true" class="BoxW116px" /></td> 
-						     
-				    	</tr>
-				    	<tr>
-				    	<td width="120px"><label>Under Location </label></td>
-				        	<td><s:input id="txtUnderLocCode" name="txtUnderLocCode" path="strUnderLocCode" ondblclick="funHelp('underlocationmaster')"  cssClass="searchTextBox"/>
-				        	<label id="lblUnderlocName" class="namelebel"></label>
-				        	</td>
-				        	
-				    	</tr>
-				</table>
-		</div>
-					<div id="tab2" class="tab_content" style="height: 400px">
-					<table class="transTable" style="width: 80%">
-						<tr>
-							<th align="left"><a onclick="return funOpenExportImport()"
-								href="javascript:void(0);">Export/Import</a>
-						</tr>
-					</table>
-							<table class="masterTable">
-								<tr>
-									<th style="border: 1px white solid;width: 9%"><label>Product Code</label></th>
-									<th style="border: 1px white solid;width: 46%"><label>Product Name</label></th>
-									<th style="border: 1px white solid;width: 9%"><label>Reorder Level</label></th>
-									<th style="border: 1px white solid;width: 9%"><label>Reorder Qty</label></th>
-									<th style="border: 1px white solid;width: 9%"><label>Price</label></th>
-									<th style="border: 1px white solid;width: 10%"><label>Delete</label></th>									
-								</tr>	
-								</table>
-								<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 80%;">
-								
-								<table id="tblProdDet" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-								class="transTablex col5-center">
-									<tbody>
-									<col style="width: 5%"><!-- col1   -->
-								    <col style="width: 25%"><!-- col2   -->
-									<col style="width: 5%"><!-- col3   -->
-									<col style="width: 5%"><!-- col4   -->
-									<col style="width: 5%"><!-- col5   -->
-									<col style="width: 4%">	<!-- col6   -->
-									
-								</table>
-								</div>
-					</div>
-					
-					<div id="tab3" class="tab_content" style="height: 400px">
-					<table class="transTable" style="width: 80%">
-						<tr>
-							<td><label>Account Code</label> </td>
-							<td><label>Account Name</label> </td>
-							<td><s:input id="txtAcCode"   path="strAcCode" ondblclick="funHelp('SundryDebtorWeb-Service')"  cssClass="searchTextBox"/>  </td>
-							<td><s:input id="txtAcName"   path="strAcName" class="BoxW116px"/>  </td>
-						</tr>
-					</table>
-							
-				</div>
-		</div>
-		
+<div class="container">
+		<label id="formHeading">Location Master</label>
+
+		<s:form name="locationForm" method="POST" action="saveLocationMaster.html?saddr=${urlHits}">
 		<br />
-		<p align="center">
-			<input type="submit" value="Submit"  class="form_button"
-				 onclick="return funCallFormAction('submit',this);"/> 
-				<input type="button"
-				value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
+		<input type="hidden" name="saddr" value="${urlHits}">
+		<div id="tab_container" class="masterTable">
+			<ul class="tabs">
+				<li class="active" data-state="tab1">General</li>
+				<li data-state="tab2">ReOrdel Level</li>
+				<li data-state="tab3">Linkup</li>
+			</ul>
+			<div id="tab1" class="tab_content" style="height: 300px; margin-top: 46px;">
+				<div class="row masterTable">
+					<!--  <a id="baseUrl" href="#"> Attach Documents</a> -->
+					<div class="col-md-2">
+				        <label>Location Code </label>
+				        <s:input id="txtLocCode" name="txtLocCode" path="strLocCode" readOnly="true" ondblclick="funHelp('locationmaster')"  cssClass="searchTextBox"/>
+				    </div>
+				    <div class="col-md-3">
+				     	<label>Location Name</label>
+				        <s:input type="text" id="txtlocName" name="txtlocName" size="80px"  path="strLocName" cssStyle="text-transform: uppercase;" required="true"/>
+				        <s:errors path="strLocName"></s:errors>
+				    </div>  
+				    <div class="col-md-2">
+					 	<label>Description</label>
+					   	<s:input id="txtLocDesc" size="80px" name="txtLocDesc" path="strLocDesc" autocomplete="off" cssStyle="text-transform: uppercase;" />
+					    <s:errors path="strLocDesc"></s:errors>
+					 </div>
+					  <div class="col-md-4"></div>
+					 <div class="col-md-2">
+					    <label>Property Code</label>
+					    <s:input id="txtPropertyCode" readOnly="true" name="txtPropertyCode" path="strPropertyCode" readonly="true"  cssClass="searchTextBox" ondblclick="funHelp('property');"/>
+					    <s:errors path="strPropertyCode"></s:errors>
+					 </div>
+					 <div class="col-md-3">  
+					    <label id="lblPropertyName" class="namelebel" style="background-color:#dcdada94; width: 100%; height: 51%; margin-top: 26px; text-align: center;"></label>
+					 </div>  
+					   <!--  <td><label id="lblPropertyName"></label></td> -->
+					 <div class="col-md-2">  
+					  	<label>Excise No</label>
+					   	<s:input id="txtExciseNo" name="txtExciseNo" path="strExciseNo" cssClass="BoxW116px" />
+					    <s:errors path="strExciseNo"></s:errors>
+					 </div>
+					 <div class="col-md-5"></div>
+					 <div class="col-md-2">  
+					  	 <label>External Code</label>
+						 <s:input id="txtExternalCode" name="txtExternalCode" path="strExternalCode"  autocomplete="off" cssClass="BoxW116px"/>
+						 <s:errors path="strExternalCode"></s:errors>
+					 </div>
+					 <div class="col-md-2">  
+					   	<label>Available for Sale</label><br>
+						<s:checkbox id="chkAvlForSale" name="chkAvlForSale" path="strAvlForSale" value="" />
+						<s:errors path="strAvlForSale"></s:errors>
+					 </div>
+					 <div class="col-md-1">  
+					  	<label>Active</label><br>
+						<s:checkbox id="chkActive" name="chkActive" path="strActive" value="" />
+						<s:errors path="strActive"></s:errors>
+					 </div>
+					 <div class="col-md-1">  
+					  	 <label>Receivable</label><br>
+						 <s:checkbox id="chkReceivable" name="chkReceivable" path="strReceivable" value="" />
+						 <s:errors path="strReceivable"></s:errors>
+					 </div>	 
+					 <div class="col-md-1">  
+					     <label>Pickable</label><br>
+						 <s:checkbox id="chkPickable" name="chkPickable" path="strPickable" value=""  />
+						 <s:errors path="strPickable"></s:errors>
+					 </div>
+					 <div class="col-md-5"></div>
+					 <div class="col-md-2">	     
+				    		<label>Under Location </label>
+				       		<s:input id="txtUnderLocCode" name="txtUnderLocCode" path="strUnderLocCode" ondblclick="funHelp('underlocationmaster')" readOnly="true" cssClass="searchTextBox"/>
+				  	 </div>
+				  	 <div class="col-md-3">	
+				        <label id="lblUnderlocName" class="namelebel" style="background-color:#dcdada94; width: 100%; height: 51%; margin-top: 26px; text-align: center;"></label>
+				     </div>
+				     <div class="col-md-2">
+					  	 <label>Type </label>
+					     <s:select id="cmbType" name="cmbType" path="strType" items="${listType}" cssClass="BoxW124px" />
+					</div> 
+					 <div class="col-md-5"></div>
+				     <div class="col-md-2">	
+						<label>Month End Date</label>
+						<s:input id="txtMonthEnd" path="strMonthEnd" required="true" readonly="true" class="BoxW116px" />
+					</div>  
+					
+				</div>
+			</div>
+			<div id="tab2" class="tab_content" style="height: 400px">
+				<div class="row transTable">
+				 	<div class="col-md-2">	
+						<a onclick="return funOpenExportImport()" href="javascript:void(0);">Export/Import</a>
+					</div>
+				</div>
+				<br>
+					<table class="masterTable" style="width:100%; background:#c0c0c0;">
+						<tr>
+							<th style="width: 11%"><label>Product Code</label></th>
+							<th style="width: 30%"><label>Product Name</label></th>
+							<th style="width: 11%"><label>Reorder Level</label></th>
+							<th style="width: 13%"><label>Reorder Qty</label></th>
+							<th style="width: 11%"><label>Price</label></th>
+							<th style="width: 11%"><label>Delete</label></th>									
+						</tr>	
+					</table>
+					<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 291px; margin: auto; overflow-x: hidden; overflow-y: scroll;">
+						<table id="tblProdDet" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+							class="transTablex col5-center">
+							<tbody>
+								<col style="width: 3%"><!-- col1   -->
+								<col style="width: 12%"><!-- col2   -->
+								<col style="width: 5%"><!-- col3   -->
+								<col style="width: 5%"><!-- col4   -->
+								<col style="width: 5%"><!-- col5   -->
+								<col style="width: 4%">	<!-- col6   -->
+							
+							</table>
+					</div>
+				</div>
+				<div id="tab3" class="tab_content"><br>
+					<div class="row transTable">
+						<div class="col-md-2">	
+							<label>Account Code</label>
+							<s:input id="txtAcCode"   path="strAcCode" ondblclick="funHelp('SundryDebtorWeb-Service')"  cssClass="searchTextBox"/> 
+						</div>
+						<div class="col-md-2">
+							<label>Account Name</label> 
+							<s:input id="txtAcName"   path="strAcName" class="BoxW116px"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		<br />
+		<div class="center">
+		   <a href="#"><button class="btn btn-primary center-block"  value="Submit" onclick="return funCallFormAction('submit',this);">Submit</button></a>
+		   <a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()">Reset</button></a>
+		</div>
+		
 		<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
-			<img
-				src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
+			<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
 				width="60px" height="60px" />
 		</div>
 		<br><br>
 	</s:form>
+	</div>
 </body>
 </html>

@@ -1,13 +1,19 @@
 package com.sanguine.webpms.model;
 
 import java.io.Serializable;
+
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tblguestmaster")
@@ -177,6 +183,11 @@ public class clsGuestMasterHdModel implements Serializable {
 	@Column(name = "intPinCodeOfc")
 	private int intPinCodeOfc;
 	
+	@Column(name = "strGuestImage", length = 1000000000, nullable = false)
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	@JsonIgnore
+	private byte[] strGuestImage;
 	
 	
 	
@@ -599,4 +610,11 @@ public class clsGuestMasterHdModel implements Serializable {
 		this.dteAnniversaryDate = (String) setDefaultValue(dteAnniversaryDate, "");
 	}
 
+	public byte[] getStrGuestImage() {
+		return strGuestImage;
+	}
+
+	public void setStrGuestImage(byte[] imageBytes) {
+		this.strGuestImage = imageBytes;
+	}
 }

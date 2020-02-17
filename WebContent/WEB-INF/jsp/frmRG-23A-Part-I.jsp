@@ -6,20 +6,30 @@
 <!DOCTYPE html.dtd">
 <html>
 <head>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script>
 
 		$(document).ready(function(){
+			var startDateOfMonth="${startDateOfMonth}";
+			var arr1 = startDateOfMonth.split("-");
+			Dat1=arr1[2]+"-"+arr1[1]+"-"+arr1[0];
 			var startDate="${startDate}";
 			var arr = startDate.split("/");
 			Dat=arr[2]+"-"+arr[1]+"-"+arr[0];
 			$("#dtFromDate").datepicker({
-				dateFormat : 'yy-mm-dd'
+				dateFormat : 'dd-mm-yy'
 			});
-			$("#dtFromDate").datepicker('setDate', Dat);	
+			$("#dtFromDate").datepicker('setDate', startDateOfMonth);	
 			
 			
 			$("#dtToDate").datepicker({
-				dateFormat : 'yy-mm-dd'
+				dateFormat : 'dd-mm-yy'
 			});
 			$("#dtToDate").datepicker('setDate', 'today');	
 			
@@ -92,34 +102,33 @@
 
 </script>
 <body>
-<div id="formHeading">
-		<label>FORM R.G.-23-A-Part I</label>
-	</div>
-	<br />
-	<br />
-		<s:form name="frmRG-23A-Part-I" method="GET" action="rptRG-23A-Part-I.html" target="_blank" >
-
-			<table class="transTable">
-		
-			<tr>
-				<td><label>From Date</label></td>
-				<td><input type="text" id="dtFromDate" name="dtFromDate" required="true" class="calenderTextBox" /></td>
-				<td><label>To Date</label></td>
-				<td><input type="text" id="dtToDate" name="dtToDate" required="true" class="calenderTextBox" /></td>				
-			</tr>
+<div class="container transTable">
+	<label id="formHeading">FORM R.G.-23-A-Part I</label>
+	   <s:form name="frmRG-23A-Part-I" method="GET" action="rptRG-23A-Part-I.html" target="_blank" >
+            <div class="row">	
+		         <div class="col-md-2"><label>From Date</label>
+				     <input type="text" id="dtFromDate" name="dtFromDate" required="true" class="calenderTextBox" style="width:70%" />
+				 </div>
+				 
+				<div class="col-md-2"><label>To Date</label>
+				     <input type="text" id="dtToDate" name="dtToDate" required="true" class="calenderTextBox" style="width:70%"/>
+				</div>				
+			    <div class="col-md-8"></div>
+			    
+			    <div class="col-md-2"><label>Location Code</label>
+				  <s:input id="txtLocCode" name="txtLocCode" path="strLocationCode" ondblclick="funHelp('locationmaster')"  cssClass="searchTextBox"/>
+			    </div>
 			
-			<tr>
-			
-				<td><label>Location Code</label></td>
-				<td><s:input id="txtLocCode" name="txtLocCode" path="strLocationCode" ondblclick="funHelp('locationmaster')"  cssClass="searchTextBox"/></td>
-				<td colspan="2"><label id="lblLocName"></label></td>
-			
-			</tr>
-		</table>
-			<p align="center">
-				<input type="submit" value="Export"  class="form_button" onclick="return funCallFormAction('submit',this)" />
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+			    <div class="col-md-2"><label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label>
+			     </div>
+		     </div>
+		    <br>
+			<p align="center" style="margin-right:48%">
+				<input type="submit" value="Export" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this)" />
+				 &nbsp;
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 		</s:form>
+		</div>
 </body>
 </html>

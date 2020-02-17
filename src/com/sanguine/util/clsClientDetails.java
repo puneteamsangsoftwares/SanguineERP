@@ -39,8 +39,9 @@ public class clsClientDetails {
 		this.Client_Name = Client_Name;
 		this.installDate = installDate;
 		this.expiryDate = expiryDate;
-
 	}
+
+	
 
 	private clsClientDetails(String id, String Client_Name, Date installDate, Date expiryDate, int intPropertyMachine, int intUserNo) {
 		this.id = id;
@@ -93,14 +94,13 @@ public class clsClientDetails {
 			hmClientDtl.put("001.027", clsClientDetails.createClientDetails("001.027", "M/S. OM SHIVAM CONSTRUCTIONS (BOMBAY BARBEQUE REST.)", dFormat.parse("2015-08-01"), dFormat.parse("2016-08-30")));
 			hmClientDtl.put("001.028", clsClientDetails.createClientDetails("001.028", "M/S. ROSE GARDEN HOTEL P. LTD. (SHUBHANGEN HOTEL).", dFormat.parse("2015-08-01"), dFormat.parse("2016-08-30")));
 			hmClientDtl.put("001.029", clsClientDetails.createClientDetails("001.029", "M/S. GOURMET INVESTMENT PVT LTD (PIZZA EXPRESS)", dFormat.parse("2015-08-01"), dFormat.parse("2016-08-30")));
-			hmClientDtl.put("001.030", clsClientDetails.createClientDetails("001.030", "M/S.NIDO RESTAURANT & BAR", dFormat.parse("2015-08-01"), dFormat.parse("2016-08-30")));
 			hmClientDtl.put("001.031", clsClientDetails.createClientDetails("001.031", "M/S GOA PORTUGUESA REST. PVT. LTD.", dFormat.parse("2015-08-01"), dFormat.parse("2016-08-30")));
 			hmClientDtl.put("001.032", clsClientDetails.createClientDetails("001.032", "M/S. HOTEL METRO PALACE PVT. LTD.", dFormat.parse("2015-08-01"), dFormat.parse("2016-08-30")));
 			hmClientDtl.put("074.001", clsClientDetails.createClientDetails("074.001", "THE POONACLUB LTD", dFormat.parse("2016-01-21"), dFormat.parse("2099-09-11")));
 			
 			// WebStocks Clients
 			hmClientDtl.put("000.000", clsClientDetails.createClientDetails("000.000", "Demo Company", dFormat.parse("2014-06-19"), dFormat.parse("2017-10-22")));
-			hmClientDtl.put("024.001", clsClientDetails.createClientDetails("024.001", "Eden Cake Shop", dFormat.parse("2014-09-23"), dFormat.parse("2019-12-31")));//"024.001" renewed on 27-10-2018 for 1 year till 31-12-2019 "Mr. Salim Bhai", "9820141743", "salimsheliya@gmail.com", 
+			hmClientDtl.put("024.001", clsClientDetails.createClientDetails("024.001", "Eden Cake Shop", dFormat.parse("2014-09-23"), dFormat.parse("2022-12-31")));//Renewed on 31-01-2020 for 1 week till 07-02-2020 "024.001" renewed on 27-10-2018 for 1 year till 31-12-2019 "Mr. Salim Bhai", "9820141743", "salimsheliya@gmail.com", 
 			hmClientDtl.put("044.001", clsClientDetails.createClientDetails("044.001", "HOTEL KAMAL PVT. LTD.", dFormat.parse("2015-01-20"), dFormat.parse("2095-02-21")));
 			hmClientDtl.put("048.001", clsClientDetails.createClientDetails("048.001", "SHREE SIDDHIVINAYAK FOODS", dFormat.parse("2015-01-20"), dFormat.parse("2095-02-21")));
 			hmClientDtl.put("060.001", clsClientDetails.createClientDetails("060.001", "FLYING SAUCER SKY BAR", dFormat.parse("2015-07-01"), dFormat.parse("2019-06-01")));//Renewd for1 year till 01-06-2019
@@ -128,9 +128,9 @@ public class clsClientDetails {
 			hmClientDtl.put("117.001", clsClientDetails.createClientDetails("117.001", "THE PREM'S HOTEL", dFormat.parse("2016-08-01"), dFormat.parse("2020-06-30")));// HO
 			hmClientDtl.put("124.001", clsClientDetails.createClientDetails("124.001", "ATITHYA DINNING LLP", dFormat.parse("2016-11-04"), dFormat.parse("2019-10-18")));//renewed for 8 days on 22-01-2019 till 28-01-2019 //renewd for 45 days on 29-11-2018 till 15-01-2019// renew for one month on 3-11-2018 //one month extends//one month licence extend  on 10-10-2018 to 31-10-2018 of teddy boy --Nikhil
 			hmClientDtl.put("127.001", clsClientDetails.createClientDetails("127.001", "Cumin Food & Beverage Pvt Ltd", dFormat.parse("2016-10-26"), dFormat.parse("2017-10-26")));
-			hmClientDtl.put("131.001", clsClientDetails.createClientDetails("131.001", "KETTLE AND KEG CAFE", dFormat.parse("2016-11-23"), dFormat.parse("2019-11-23")));// renwed on 24-11-2018 for one year(23-11-2019) //Contact Mr.Kiran 9892232593   kiran.pt79@hotmail.com
+			hmClientDtl.put("131.001", clsClientDetails.createClientDetails("131.001", "KETTLE AND KEG CAFE", dFormat.parse("2016-11-23"), dFormat.parse("2020-11-23")));// renwed on 24-11-2018 for one year(23-11-2019) //Contact Mr.Kiran 9892232593   kiran.pt79@hotmail.com
 			hmClientDtl.put("132.001", clsClientDetails.createClientDetails("132.001", "JBDD Hospitality LLP", dFormat.parse("2016-12-05"), dFormat.parse("2017-08-30")));
-			hmClientDtl.put("136.001", clsClientDetails.createClientDetails("136.001", "KINKI", dFormat.parse("2017-01-05"), dFormat.parse("2020-01-05")));// released on
+			hmClientDtl.put("136.001", clsClientDetails.createClientDetails("136.001", "KINKI", dFormat.parse("2017-01-05"), dFormat.parse("2021-01-20")));// released on
 			hmClientDtl.put("137.001", clsClientDetails.createClientDetails("137.001", "IMAK HOSPITALITY LLP", dFormat.parse("2018-11-05"), dFormat.parse("2019-11-05")));// JPOS Client  renewed on 05-11-2018 for 1 year	// 05-01-2018, 1year
 			hmClientDtl.put("141.001", clsClientDetails.createClientDetails("141.001", "SANGUINE SOFTWARE SOLUTIONS PVT LTD", dFormat.parse("2017-01-30"), dFormat.parse("2099-01-30")));
 			hmClientDtl.put("148.001", clsClientDetails.createClientDetails("148.001", "MURPHIES", dFormat.parse("2017-02-16"), dFormat.parse("2020-02-16"), 4, 3));//Renewed on 19-10-2019 till 2020-02-16// Renewed on 18-02-2019 for 1 week till 25-02-2019 //release on 16-02-2017 for 1 year
@@ -168,13 +168,14 @@ public class clsClientDetails {
 			hmClientDtl.put("240.001", clsClientDetails.createClientDetails("240.001", "THOUSAND OAKS", dFormat.parse("2018-04-12"), dFormat.parse("2020-04-12")));//renewed on 22-05-2019 for 1 year//renewed on 01-12-2018 for one month till 01-01-2019//renewed on 20-08-2018 for 1 week till 27-08-2018 //renewed on 13-06-2018 for 1 month// Mr. Sanjeet Lamba", 2417 East Street (G T Road),Camp, Pune 411001. Tel: (020) 2634 3194 / 2634 5598
 			hmClientDtl.put("241.001", clsClientDetails.createClientDetails("241.001", "LALITHA HOSPITALITY PVT LTD", dFormat.parse("2018-04-06"), dFormat.parse("2019-04-06")));//(MUMBAI)//release on 06-05-2018 for 1 month till 06-06-2018 for 4 SPOS ,6 APOS,1 WebStocks,No SMS Pack.", "Mr.Santosh Shetty", "+919769214553", "Santoshshetty_0173@gmail.com"
 			hmClientDtl.put("244.001", clsClientDetails.createClientDetails("244.001", "VIVIDH HOSPITALITY", dFormat.parse("2018-04-17"), dFormat.parse("2019-04-17")));//release on 17-04-2018 for 1 year till 17-04-22019
-			hmClientDtl.put("245.001", clsClientDetails.createClientDetails("245.001", "LSD NO LIMITS LLP (C/O)", dFormat.parse("2018-04-19"), dFormat.parse("2019-04-19")));//renewed on 30-05-2018 for 1 year till 19-04-2019//release on 19-04-2018 for 1 month till 19-05-2018
+			hmClientDtl.put("245.001", clsClientDetails.createClientDetails("245.001", "MEDUSA", dFormat.parse("2018-04-19"), dFormat.parse("2020-09-14")));//LSD name changed to medusa//renewed on 30-05-2018 for 1 year till 19-04-2019//release on 19-04-2018 for 1 month till 19-05-2018
 			hmClientDtl.put("257.001", clsClientDetails.createClientDetails("257.001", "BLACK SHEEP HOSPITALITY PVT LTD", dFormat.parse("2018-08-16"), dFormat.parse("2020-08-17")));//renewed till 17-08-2020  renwed on 06-12-2018 for one year accordin to from date till 06-08-2019  //Sunny Shriram contact no - 9769545955 email id - arrowhospitalityconsulting@gmail.com
 			hmClientDtl.put("258.001", clsClientDetails.createClientDetails("258.001", "SAI MADHUBAN HOSPITALITY PVT LTD", dFormat.parse("2018-05-27"), dFormat.parse("2019-05-27")));//Sunny Shriram contact no - 9769545955 email id - arrowhospitalityconsulting@gmail.com
 			hmClientDtl.put("259.001", clsClientDetails.createClientDetails("259.001", "PENTAGON INDIA RETAIL PVT LTD", dFormat.parse("2018-08-24"), dFormat.parse("2019-09-02")));//POS Licence //As Per JPOs iYear Licence Renewed
 		   //260.001", "PARAG HOTELS AND RESORT PVT LTD" for POS
+			hmClientDtl.put("260.001", clsClientDetails.createClientDetails("260.001", "PARAG HOTELS AND RESORT PVT LTD", dFormat.parse("2019-12-16"), dFormat.parse("2020-02-16")));//(Mumbai)//released on 16-12-2019 for 1 month  till 16-01-2020 
 			//Africa International
-			hmClientDtl.put("261.001", clsClientDetails.createClientDetails("261.001", "KIN DELICIEUX", dFormat.parse("2018-09-08"), dFormat.parse("2019-12-31")));//(AFRICA)//Renewed on 29-08-2019  till 31-12-2019 //released on 08-09-2018 for 1 year till 08-09-2019 
+			hmClientDtl.put("261.001", clsClientDetails.createClientDetails("261.001", "KIN DELICIEUX", dFormat.parse("2018-09-08"), dFormat.parse("2020-12-31")));//(AFRICA)//Renewed on 26-12-2019  till 31-12-2020//(AFRICA)//Renewed on 29-08-2019  till 31-12-2019 //released on 08-09-2018 for 1 year till 08-09-2019 
 			hmClientDtl.put("262.001", clsClientDetails.createClientDetails("262.001", "COCO JAMBO", dFormat.parse("2018-09-08"), dFormat.parse("2020-09-08")));//(AFRICA)//Renewed on 18-09-2019 foe 1 year till 08-09-2020//Renewed on 07-09-2019  till 18-09-2019 //released on 08-09-2018 for 1 year till 08-09-2019 
 			hmClientDtl.put("263.001", clsClientDetails.createClientDetails("263.001", "FIESTA CLUB", dFormat.parse("2018-09-08"), dFormat.parse("2020-09-08")));//(AFRICA)//Renewed on 18-09-2019 foe 1 year till 08-09-2020//Renewed on 07-09-2019  till 18-09-2019  //released on 08-09-2018 for 1 year till 08-09-2019hmClientDtl.put("263.001", clsClientDetails.createClientDetails("263.001", "FIESTA CLUB", dFormat.parse("2018-09-08"), dFormat.parse("2019-09-08")));//(AFRICA)//released on 08-09-2018 for 1 year till 08-09-2019
 			// 264-266 used for POS
@@ -193,11 +194,14 @@ public class clsClientDetails {
 			hmClientDtl.put("284.001", clsClientDetails.createClientDetails("284.001", "CNP HOSPITALITY PVT LTD", dFormat.parse("2018-11-29"), dFormat.parse("2018-12-29")));//relased on 29-11-2018 for 1 month till 2018-12-29
 			
 			hmClientDtl.put("287.001", clsClientDetails.createClientDetails("287.001", "OVER THE TOP HOSPITALITY", dFormat.parse("2018-12-05"), dFormat.parse("2019-08-31")));//released on 5-12-2018 till 31-08-2019 for 4 SPOS ,5 APOS,WebStocks,No SMS Pack,No Bill Deletion.", "Mr.Ravi", "9136025911", "Ravitejold@oldtimessake.in"
+			
+			hmClientDtl.put("289.001", clsClientDetails.createClientDetails("289.001", "RIVERSIDE BISTRO & BANQUET", dFormat.parse("2020-02-10"), dFormat.parse("2020-03-10")));////Released for 1 month till 03-10-2020
+
 			hmClientDtl.put("290.001", clsClientDetails.createClientDetails("290.001", "CREME HOSPITALITY AND MANAGEMENT", dFormat.parse("2018-12-15"), dFormat.parse("2019-12-15"))); //Renewed on 16-04-2019 till 15-12-2019//Renewed on 12-3-2019 for 1 month till 15-4-2019//Renewed on 12-2-2019 for 1 year till 15-12-2019//renewed  for one month on 17-01-2019 form 15-01-2019 till 15-02-2019
 			
-			hmClientDtl.put("293.001", clsClientDetails.createClientDetails("293.001", "ZELEB", dFormat.parse("2019-01-30"), dFormat.parse("2019-12-27")));//renewed on 2-02-2019 for 1 year till 2019-12-27//relased zaleb license for 8 days POS Client
-			hmClientDtl.put("294.001", clsClientDetails.createClientDetails("294.001", "SEERAN HOSPITALITY", dFormat.parse("2019-01-11"), dFormat.parse("2020-01-11")));//Renewed on 06-02-2019 for 1 year till 11-01-2020 //released for one month on 11-01-2019 to 11-02-2019 "Mr.Santosh ", "9820339701", "santosh.seeran@gmail.com"
-			hmClientDtl.put("296.001", clsClientDetails.createClientDetails("296.001", "ISKCON", dFormat.parse("2019-02-08"), dFormat.parse("2020-02-08")));//(Gujrat)//released on 08-02-2019 for 1 year till 08-02-2020 for 3 SPOS ,10 APOS,No WebStocks,No SMS Pack,No Bill Deletion.", "Mr. Rajesh ", "9619378249", "rajesh.sha19@gmail.com", "No Bill Deletion","santesting"));	    
+			hmClientDtl.put("293.001", clsClientDetails.createClientDetails("293.001", "ZELEB", dFormat.parse("2019-01-30"), dFormat.parse("2020-03-15")));//renewed on 2-02-2019 for 1 year till 2019-12-27//relased zaleb license for 8 days POS Client
+			hmClientDtl.put("294.001", clsClientDetails.createClientDetails("294.001", "SEERAN HOSPITALITY", dFormat.parse("2019-01-11"), dFormat.parse("2021-01-11")));//Renewed on 06-02-2019 for 1 year till 11-01-2020 //released for one month on 11-01-2019 to 11-02-2019 "Mr.Santosh ", "9820339701", "santosh.seeran@gmail.com"
+			hmClientDtl.put("296.001", clsClientDetails.createClientDetails("296.001", "ISKCON", dFormat.parse("2019-02-08"), dFormat.parse("2021-02-08")));//(Gujrat)//released on 08-02-2019 for 1 year till 08-02-2020 for 3 SPOS ,10 APOS,No WebStocks,No SMS Pack,No Bill Deletion.", "Mr. Rajesh ", "9619378249", "rajesh.sha19@gmail.com", "No Bill Deletion","santesting"));	    
 			hmClientDtl.put("302.001", clsClientDetails.createClientDetails("302.001", "MOSHING CUPPA", dFormat.parse("2019-03-07"), dFormat.parse("2019-04-15"))); // released on 07-03-2019 for 1 month till 07-04-2019
 			hmClientDtl.put("304.001", clsClientDetails.createClientDetails("304.001", "PLUM HOSPITALITY LLP", dFormat.parse("2019-06-27"), dFormat.parse("2019-07-27"))); // released on 2019-06-27 for 1 month till 2019-07-27 for behive
 			//hmClientDtl.put("311.002", clsClientDetails.createClientDetails("311.002","LEVIT8",dFormat.parse("2019-07-29"),dFormat.parse("2019-08-29")));//Released on 29-07-2019 for 1 Monthtill 2019-08-29
@@ -207,19 +211,28 @@ public class clsClientDetails {
 			hmClientDtl.put("316.001", clsClientDetails.createClientDetails("316.001", "MRP HOSPITALITY", dFormat.parse("2019-05-25"), dFormat.parse("2019-10-25")));//renewed on 29-06-2019 for 1 month till 25-07-2019 // renewed on 25-05-2019 for 1 month till 25-06-2019
 			hmClientDtl.put("318.001", clsClientDetails.createClientDetails("318.001", "EURISKA", dFormat.parse("2019-06-11"), dFormat.parse("2020-06-11"))); // renewed on 04-06-2019 for 1 month till 04-07-2019
 			hmClientDtl.put("319.001", clsClientDetails.createClientDetails("319.001", "LAXMI FOODS", dFormat.parse("2019-06-04"), dFormat.parse("2020-06-03"))); // Released on 07-08-2019 for 1 year till 03-06-2020
-			hmClientDtl.put("320.001", clsClientDetails.createClientDetails("320.001", "HOTEL SURYA", dFormat.parse("2019-06-13"), dFormat.parse("2019-11-15")));//Renewed on 15-10-2019 for one month till 2019-11-15  //Renewed on 05-10-2019 till 17-10-19//Released on 24-07-2019 for 1 month till 23-08-2019//Released on 16-06-2019 for 1 week till 23-07-2019// Released on 13-06-2019 for 1 month till 15-07-2019
+			hmClientDtl.put("320.001", clsClientDetails.createClientDetails("320.001", "HOTEL SURYA", dFormat.parse("2019-06-13"), dFormat.parse("2020-06-13")));//Renewed on 08-11-2019 for one month till 2019-12-15//Renewed on 15-10-2019 for one month till 2019-11-15  //Renewed on 05-10-2019 till 17-10-19//Released on 24-07-2019 for 1 month till 23-08-2019//Released on 16-06-2019 for 1 week till 23-07-2019// Released on 13-06-2019 for 1 month till 15-07-2019
 			
 			hmClientDtl.put("322.001", clsClientDetails.createClientDetails("322.001", "BREWSMITH HOSPITALITY PVT LTD", dFormat.parse("2019-07-12"), dFormat.parse("2020-07-11"))); //Released for 1 year till 11-07-2020// Released on 12-07-2019 for 1 month till 12-08-2019
 			hmClientDtl.put("326.001", clsClientDetails.createClientDetails("326.001","HOTEL METRO PALACE",dFormat.parse("2019-07-23"),dFormat.parse("2020-07-22")));//Released For One year from 23-07-2019 to 22-007-2020//Released on 23-07-2019 for 1 Monthtill 23-08-2019 for 1 SPOS ,0 APOS,WebStocks,No SMS Pack,No BillDeletion.", "Mr.Akshey", "7730497120", "Akshey93@gmail.com", "No BillDeletion","santesting"))
 			hmClientDtl.put("328.001", clsClientDetails.createClientDetails("328.001", "SEEMAS RESORT", dFormat.parse("2019-08-16"), dFormat.parse("2020-08-16")));//SEEMAS RESORT", "SEEMAS RESORT", "2019-08-16", "2020-08-16", "Enterprise", "2", objNoSMSPackDtl, "0", "(Mumbai)//Released on 16-08-2019 for 1 Year till 16-08-2020 for 2 SPOS ,0 APOS,WebStocks(PMS),No SMS Pack,No Bill Deletion.", "Mr.Prasad", "8669889952", "seemaresort@gmail.com", "No Bill Deletion","santesting
 			hmClientDtl.put("329.001", clsClientDetails.createClientDetails("329.001", "DASMEN FOODS AND BEVERAGES PVT LTD", dFormat.parse("2019-03-11"), dFormat.parse("2020-03-11")));//"(Mumbai)//Released on 17-08-2019 for 1 Year till 11-03-2020 for 3 SPOS ,20 APOS,WebStocks(Stocks,CRM),No SMS Pack,No Bill Deletion.", "Mr.KIRAN", "9916271380", "infofoodpath@gmail.com", "No Bill Deletion","santesting"
-			hmClientDtl.put("331.001", clsClientDetails.createClientDetails("331.001", "DMPRS HOSPITALITY LLP", dFormat.parse("2019-09-09"), dFormat.parse("2019-11-08")));//(Mumbai)//Released on 09-09-2019 for 1 MONTH till 08-10-2019 for 8 SPOS ,4 APOS, WebStocks,No SMS Pack,No Bill Deletion.", "Mr.RAVI", "7738332591", "bythebae.versova@gmail.com", "No Bill Deletion","santesting"));
+			hmClientDtl.put("331.001", clsClientDetails.createClientDetails("331.001", "DMPRS HOSPITALITY LLP", dFormat.parse("2019-09-09"), dFormat.parse("2019-12-08")));//renewed on 09-11-2019 for one month till 2019-12-08//(Mumbai)//Released on 09-09-2019 for 1 MONTH till 08-10-2019 for 8 SPOS ,4 APOS, WebStocks,No SMS Pack,No Bill Deletion.", "Mr.RAVI", "7738332591", "bythebae.versova@gmail.com", "No Bill Deletion","santesting"));
 			
-			hmClientDtl.put("336.001", clsClientDetails.createClientDetails("336.001", "SHAH SPORTS ACADEMY PRIVATE LIMITED", dFormat.parse("2019-10-05"), dFormat.parse("2019-11-05")));//
-			hmClientDtl.put("337.001", clsClientDetails.createClientDetails("337.001", "Symbiosis University", dFormat.parse("2019-10-08"), dFormat.parse("2019-11-08")));//Abhijit Rege  9112299043 headhospitality@symbiosis.ac.in regeabhijit@gmail.com
-			hmClientDtl.put("345.001", clsClientDetails.createClientDetails("345.001", "YOGI RESORTS", dFormat.parse("2019-12-10"), dFormat.parse("2020-02-10")));//Created Licence On 10-12-2019 to 10-02-2020
+			hmClientDtl.put("336.001", clsClientDetails.createClientDetails("336.001", "SHAH SPORTS ACADEMY PRIVATE LIMITED", dFormat.parse("2019-10-05"), dFormat.parse("2020-03-05")));//renewed on 06-02-2020 for 1 momnth //renewed on 05-11-2019 for one month till 05-12-2019//renewed on 06-12-2019 for one month till 05-1-2020
+			hmClientDtl.put("337.001", clsClientDetails.createClientDetails("337.001", "Symbiosis University", dFormat.parse("2019-10-08"), dFormat.parse("2020-03-11")));//Abhijit Rege  9112299043 headhospitality@symbiosis.ac.in regeabhijit@gmail.com
+			
+			hmClientDtl.put("341.001", clsClientDetails.createClientDetails("341.001", "THE FLOUR WORKS", dFormat.parse("2019-12-01"), dFormat.parse("2020-02-11")));//(Mumbai)//Released on 09-12-2019 for 1 year till 09-12-2020
+			
+			hmClientDtl.put("343.001", clsClientDetails.createClientDetails("343.001", "RASHI COMFORTS", dFormat.parse("2020-02-11"), dFormat.parse("2020-03-11")));//(Benglore)
 
-			//
+			hmClientDtl.put("338.001", clsClientDetails.createClientDetails("338.001", "ELEPHANT & CO", dFormat.parse("2019-10-22"), dFormat.parse("2019-12-08")));//(Pune)//Released on 22-10-2019 for 1 month till 22-11-2019 for 2 SPOS ,5 APOS,WebStocks,No SMS Pack,No Bill Deletion.", "ANUJ SOLANKI", "9819657210", "anujsolanki@gmail.com", "No Bill Deletion","santesting","2","PUNE","50K","10K"
+			hmClientDtl.put("344.001", clsClientDetails.createClientDetails("344.001", "THE GLOBAL ADDA", dFormat.parse("2019-12-09"), dFormat.parse("2020-12-09")));//(Mumbai)//Released on 09-12-2019 for 1 year till 09-12-2020
+			hmClientDtl.put("346.001", clsClientDetails.createClientDetails("346.001", "MNV HOSPITALITY LLP", dFormat.parse("2020-02-01"), dFormat.parse("2020-03-10")));//(Mumbai)//Released on 04-02-2020 for 1 month till 10-03-2020
+			hmClientDtl.put("345.001", clsClientDetails.createClientDetails("345.001", "YOGI RESORTS", dFormat.parse("2019-12-10"), dFormat.parse("2020-03-20")));//Renewed on 11-02-2020 for 1 month till 09-03-2020//Created Licence On 10-12-2019 to 10-02-2020
+			//345.001 is given to yogi resort please give license after this number
+			
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

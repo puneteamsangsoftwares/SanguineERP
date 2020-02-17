@@ -1,11 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+ <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	
 	var fieldName;
@@ -112,7 +121,6 @@
 		});
 	}
 	
-	
 //remove income head
 	function funRemoveRow(selectedRow,tableId)
 	{
@@ -124,7 +132,6 @@
 	    		break;
 	    }
 	}
-	
 	
 //calculate totals
 	function funCalculateTotals()
@@ -334,57 +341,51 @@
 
 </head>
 <body>
+  <div class="container masterTable">
+	<label id="formHeading">Folio Posting</label>
+	 <s:form name="Folio Posting" method="POST" action="saveFolioPosting.html">
 
-	<div id="formHeading">
-	<label>Folio Posting</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="Folio Posting" method="POST" action="saveFolioPosting.html">
-
-		<table class="masterTable">
-		
-			<tr>
-			    <td><label>Transaction id.</label></td>  
-			    <td colspan="4"><s:input id="" path=""   readonly="true" ondblclick="funHelp('transactionId')" cssClass="searchTextBox"/></td>
-			</tr>
+	<div class="row">
+	    <div class="col-md-3">
+	      <div class="row">
+              <div class="col-md-6"><label>Transaction id.</label> 
+			       <s:input id="" path=""   readonly="true" ondblclick="funHelp('transactionId')" cssClass="searchTextBox" style="height: 45%;"/>
+			   </div>
+			   <div class="col-md-6"><label>Folio No.</label>
+			        <s:input id="strFolioNo" path="strFolioNo" readonly="true"  ondblclick="funHelp('folioNoForNoPost')" cssClass="searchTextBox" style="height: 45%;"/>
+			   </div>
+		</div></div>
 			
-			<tr>
-			    <td><label>Folio No.</label></td>
-			    <td colspan="4"><s:input id="strFolioNo" path="strFolioNo" readonly="true"  ondblclick="funHelp('folioNoForNoPost')" cssClass="searchTextBox"/></td>
-			</tr>
-			<tr>
-			    <td><label>Income Head</label></td>
-			    <td><s:input id="strIncomeHead" path=""  readonly="true"  ondblclick="funHelp('incomeHead')" cssClass="searchTextBox"/></td>
-			    <td><label id="lblIncomeHeadName"></label></td>
-			    
-			    <td width="20%"><label>Rate</label></td>
-				<td width="20%"><s:input id="dblRate" path="" cssClass="longTextBox" /></td>
-			</tr>
+			<div class="col-md-3"><label>Income Head</label>
+			    <div class="row">
+                     <div class="col-md-6"><s:input id="strIncomeHead" path=""  readonly="true"  ondblclick="funHelp('incomeHead')" cssClass="searchTextBox" style="height:90%;"/></div>
+			         <div class="col-md-6"><label id="lblIncomeHeadName" style="background-color:#dcdada94; width: 100%; height:95%;"></label></div>
+			</div></div>
+			<div class="col-md-6"></div>
+			   
+			 <div class="col-md-3">
+			     <div class="row"> 
+			         <div class="col-md-6"><label>Rate</label>
+				              <s:input id="dblRate" path=""/></div>
+				              
+			         <div class="col-md-6"><label>Quantity</label>
+			                  <s:input id="dblQuantity" path="dblQuantity"   class="decimal-places-amt numberField" value="1" placeholder="Quantity" onkeypress="funUpdateAmt()" />
+			         </div>
+			</div></div>			
 			
+			<div class="col-md-5"><label>Amount</label>
+			   <div class="row">
+			       <div class="col-md-3"><s:input id="dblIncomeHeadAmt" path=""   class="decimal-places-amt numberField" value="0" placeholder="amt"  /></div>
+			       <div class="col-md-9"><input type="button" value="Add" class="btn btn-primary center-block" class="smallButton" onclick='return funAddRow()'/></div>
+			</div></div>
 			
-			<tr>
-			    <td><label>Quantity</label></td>
-			    <td><s:input id="dblQuantity" path="dblQuantity"   class="decimal-places-amt numberField" value="1" placeholder="Quantity" onkeypress="funUpdateAmt()" /></td>
-			    
-			</tr>
-			
-			
-			<tr>
-			    <td><label>Amount</label></td>
-			    <td><s:input id="dblIncomeHeadAmt" path=""   class="decimal-places-amt numberField" value="0" placeholder="amt"  /></td>
-			    <td><input type="button" value="Add"  class="smallButton" onclick='return funAddRow()'/></td>
-			</tr>
-			
-		</table>
+		</div>
 		
 		<br/>
 		<!-- Generate Dynamic Table   -->		
 		<div class="dynamicTableContainer" style="height: 200px; width: 80%">
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
-				<tr bgcolor="#72BEFC" style="height: 24px;">
+				<tr bgcolor="#c0c0c0" style="height: 24px;">
 					<!-- col1   -->
 					<td align="center" style="width: 30.6%">Income Head Code</td>
 					<!-- col1   -->
@@ -402,7 +403,7 @@
 					<!-- col4   -->									
 				</tr>
 			</table>
-			<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblIncomeHeadDtl" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col3-center">
 					<tbody>
 						<!-- col1   -->
@@ -425,22 +426,21 @@
 			</div>			
 		</div>		
 		<div class="dynamicTableContainer" style="height: 25px; width: 80%;overflow-x: hidden;">
-			<table class="transTable" style="margin: 0px;">
-				<tr>
-					<td style="width: 63%;"><label>Totals</label></td>
-					<td><label id ="dblTotalAmt">0.00</label></td>										
-				</tr>				
-			</table>
+			<div class="row">
+				 <div class="col-md-3"> <label>Totals</label>
+					  <label id ="dblTotalAmt">0.00</label>									
+				</div>				
+			</div>
 		</div>
 		<!-- Generate Dynamic Table   -->
 		
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateFields()"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="right" style="margin-right:20%">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateFields()"/>&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

@@ -1,11 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <title></title>
+<style type="text/css">
+	#tab_container .searchTextBox{
+	border:1px solid #a6a7a6;
+	}
+	
+
+</style>
 <script type="text/javascript">
 	var fieldName;
 	var rowNo;
@@ -1153,46 +1170,33 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>WebBooks Link Up</label>
-	</div>
-
-<br/>
-<br/>
-
+<div class="container">
+	<label id="formHeading">WebBooks Link Up</label>
 	<s:form name="ARLinkUp" method="POST" action="saveARLinkUp.html">
-
-		<table style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
-			
-			<tr>
-				<td><s:select path="strProperty" id="cmbProperty" items="${listProperty}" onchange="funOnChange();" cssClass="BoxW124px"> 						
-					</s:select>
-				</td>
-			</tr>
-			<tr style="height: 10px;"></tr>
-			
-			<tr>
-				<td>
-					<div id="tab_container" class="masterTable"  style="height: 535px;">
-						<ul class="tabs">
-							<li class="active" data-state="divSubGroup" style="width: 10%;padding-left: 55px;">Sub Group</li>
-							<li data-state="divTax" style="width: 10%; padding-left: 55px">Tax</li>
-							<li data-state="divSupplier" style="width: 10%; padding-left: 55px">Supplier</li>
-							<li data-state="divDiscount" style="width: 10%; padding-left: 55px">Discount</li>
-							<li data-state="divRoundOff" style="width: 10%; padding-left: 55px">Round OFF</li>
-							<li data-state="divExtraCharge" style="width: 10%; padding-left: 55px">Extra Charges</li>
-							<li data-state="divOtherCharge" style="width: 10%; padding-left: 55px">Other Charges</li>
-							<li data-state="divSettlement" style="width: 10%; padding-left: 55px">Settlement</li>
-							<li data-state="divLocation" style="width: 10%; padding-left: 55px">Location</li>
-						</ul>
-						
-					&nbsp;&nbsp;
-		
-						<div id="divSubGroup" class="tab_content" style="height: 500px;margin-top: 20px;">
+	<div>
+		<div class="row">	
+			<div class="col-md-2">	
+				<s:select path="strProperty" id="cmbProperty" items="${listProperty}" onchange="funOnChange();"> 						
+				</s:select>
+			</div>	
+		</div>
+		<br>
+			<div id="tab_container" class="masterTable">
+					<ul class="tabs">
+						<li class="active" data-state="divSubGroup">Sub Group</li>
+						<li data-state="divTax">Tax</li>
+						<li data-state="divSupplier">Supplier</li>
+						<li data-state="divDiscount">Discount</li>
+						<li data-state="divRoundOff">Round OFF</li>
+						<li data-state="divExtraCharge">Extra Charges</li>
+						<li data-state="divOtherCharge">Other Charges</li>
+						<li data-state="divSettlement">Settlement</li>
+						<li data-state="divLocation">Location</li>
+					</ul><br><br>
+						<div id="divSubGroup" class="tab_content" style="margin-top: 20px;">
 							<table
 								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Subgroup Code</td>
 									<td style="width:20%;">Subgroup Name</td>
 									<td style="width:20%;">Account Code</td>
@@ -1200,7 +1204,7 @@
 								</tr>
 							</table>
 							
-							<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 									<table id="tblSubGroup"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
@@ -1214,9 +1218,9 @@
 							</div>
 						</div>
 						
-						<div id="divTax" class="tab_content" style="height: 500px;margin-top: 20px;">
+						<div id="divTax" class="tab_content" style="margin-top: 20px;">
 							<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Tax Code</td>
 									<td style="width:20%;">Tax Desc</td>
 									<td style="width:20%;">Account Code</td>
@@ -1224,7 +1228,7 @@
 								</tr>
 							</table>
 						
-							<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 								<table id="tblTax" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col8-center">
 								<tbody>
 									<col style="width:10%">
@@ -1236,10 +1240,10 @@
 							</div>
 						</div>
 				
-						<div id="divSupplier" class="tab_content" style="height: 500px;margin-top: 20px;">
+						<div id="divSupplier" class="tab_content" style="margin-top: 20px;">
 							<table
 								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#c0c0c0">
 								<td style="width:16%;">Supplier Code</td>
 								<td style="width:20%;">Supplier Name</td>
 								<td style="width:15%;">Account Code</td>
@@ -1249,7 +1253,7 @@
 							</tr>
 						</table>
 							<div
-								style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 									<table id="tblSupplier"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
@@ -1265,10 +1269,10 @@
 							</div>
 						</div>
 										
-						<div id="divDiscount" class="tab_content" style="height: 500px;margin-top: 20px;">
+						<div id="divDiscount" class="tab_content" style="margin-top: 20px;">
 							<table
 								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Discount Code</td>
 									<td style="width:15%;">Discount Name</td>
 									<td style="width:10%;">Account Code</td>
@@ -1277,7 +1281,7 @@
 							</table>
 							
 							<div
-								style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 									<table id="tblDiscount"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
@@ -1291,16 +1295,16 @@
 							</div>
 						</div>
 						
-						<div id="divRoundOff" class="tab_content" style="height: 500px;margin-top: 20px;">
+						<div id="divRoundOff" class="tab_content" style="margin-top: 20px;">
 							<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">RoundOff</td>
 									<td style="width:15%;">RoundOff Name</td>
 									<td style="width:10%;">Account Code</td>
 									<td style="width:15%;">Account Name</td>
 								</tr>
 							</table>
-							<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 									<table id="tblRoundOff"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
@@ -1314,10 +1318,10 @@
 							</div>
 						</div>
 						
-						<div id="divExtraCharge" class="tab_content" style="height: 500px;margin-top: 20px;">
+						<div id="divExtraCharge" class="tab_content" style="margin-top: 20px;">
 							<table
 								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Extra Charges</td>
 									<td style="width:15%;">ExtraCharges Name</td>
 									<td style="width:10%;">Account Code</td>
@@ -1325,7 +1329,7 @@
 								</tr>
 							</table>
 							<div
-								style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 									<table id="tblExtraCharges"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
@@ -1339,10 +1343,10 @@
 							</div>
 						</div>
 						
-						<div id="divOtherCharge" class="tab_content" style="height: 500px;margin-top: 20px;">
+						<div id="divOtherCharge" class="tab_content" style="margin-top: 20px;">
 							<table
 								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Other Charges</td>
 									<td style="width:15%;">OtherCharges Name</td>
 									<td style="width:10%;">Account Code</td>
@@ -1350,7 +1354,7 @@
 								</tr>
 							</table>
 							<div
-								style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 									<table id="tblOtherCharges"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
@@ -1367,7 +1371,7 @@
 						<div id="divSettlement" class="tab_content" style="height: 550px">
 							<table
 								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Settlement Code</td>
 									<td style="width:15%;">Settlement Name</td>
 									<td style="width:10%;">Account Code</td>
@@ -1375,7 +1379,7 @@
 								</tr>
 							</table>
 							<div
-								style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 									<table id="tblSettlement"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
@@ -1392,7 +1396,7 @@
 						<div id="divLocation" class="tab_content" style="height: 550px">
 							<table id="tblHeadLocation"
 								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Location Code</td>
 									<td style="width:15%;">Location Name</td>
 									<td style="width:10%;">Excess Code</td>
@@ -1402,7 +1406,7 @@
 								</tr>
 							</table>
 							<div
-								style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 									<table id="tblLocation"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
@@ -1417,25 +1421,16 @@
 								</table>
 							</div>
 						</div>
-						
 					</div>
-				</td>
-			</tr>
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-		
-	
-	
-		<br />
-		<br />
-		<br />
-		<br />
+			</div>
+			<br />
+			<br />
+		<div class="center">
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit">Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block"  value="Reset" onclick="funResetFields()">Reset</button></a>
+		</div>
+			
 	</s:form>
+</div>
 </body>
 </html>

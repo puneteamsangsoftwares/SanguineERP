@@ -254,7 +254,8 @@
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
 <!-- 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop> -->
-			</props>
+					<prop key="hibernate.id.new_generator_mappings">false</prop>
+		</props>
 		</property>
 	</bean>
 	
@@ -417,9 +418,9 @@
 			<property name="url" value="${database.urlwebbooks}" />
 			<property name="username" value="${database.user}" />
 			<property name="password" value="${database.password}" />
-		</bean>
+	</bean>
 	
-		<bean id="webBooksSessionFactory"
+	<bean id="webBooksSessionFactory"
 			class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 			<property name="dataSource" ref="webBooksDataSource" />			
 			<property name="annotatedClasses">
@@ -447,6 +448,8 @@
 					<value>com.sanguine.webbooks.model.clsChargeProcessingDtlModel</value>
 					<value>com.sanguine.webbooks.model.clsLetterMasterModel</value>
 					<value>com.sanguine.webbooks.model.clsLetterProcessingModel</value>
+					<value>com.sanguine.webbooks.model.clsUserDefinedReportHdModel</value>
+					
 					
 					<value>com.sanguine.webbooks.model.clsJVHdModel</value>
 <!-- 					<value>com.sanguine.webbooks.model.clsJVDtlModel</value> -->
@@ -563,6 +566,7 @@
 					<value>com.sanguine.webpms.model.clsBlockRoomModel</value>
 					<value>com.sanguine.webpms.model.clsPMSSettlementTaxMasterModel</value>
 					<value>com.sanguine.webpms.model.clsFolioDtlBackupModel</value>
+					<value>com.sanguine.webpms.model.clsHouseKeepingMasterModel</value>
 					<!-- 
 					Web Banquet Start
 					<value>com.sanguine.webbanquets.model.clsEquipmentModel</value>

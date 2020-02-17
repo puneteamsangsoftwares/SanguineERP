@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ibm.icu.text.DecimalFormat;
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.model.clsCompanyMasterModel;
 import com.sanguine.model.clsPropertyMaster;
@@ -294,7 +295,7 @@ public class clsCheckOutController {
 						listBillDtlModel.add(objBillDtlModel);
 						// setBillDtlModel.add(objBillDtlModel);
 					}
-
+					DecimalFormat df = new DecimalFormat("0.00");
 					List<clsBillTaxDtlModel> listBillTaxDtlModel = new ArrayList<clsBillTaxDtlModel>();
 					// Set<clsBillTaxDtlModel> setBillTaxDtlModel=new
 					// TreeSet<clsBillTaxDtlModel>();
@@ -307,12 +308,13 @@ public class clsCheckOutController {
 						objBillTaxDtlModel.setDblTaxableAmt(objFolioTaxDtlModel.getDblTaxableAmt());
 						objBillTaxDtlModel.setDblTaxAmt(objFolioTaxDtlModel.getDblTaxAmt());
 						grandTotal += objBillTaxDtlModel.getDblTaxAmt();
-
+						
+						
 						listBillTaxDtlModel.add(objBillTaxDtlModel);
 						// setBillTaxDtlModel.add(objBillTaxDtlModel);
 					}
 					objBillHdModel.setStrBillSettled("N");
-					objBillHdModel.setDblGrandTotal(grandTotal);
+					objBillHdModel.setDblGrandTotal(Double.parseDouble(df.format(grandTotal)));
 					objBillHdModel.setListBillDtlModels(listBillDtlModel);
 					objBillHdModel.setListBillTaxDtlModels(listBillTaxDtlModel);
 					// objBillHdModel.setSetBillDtlModels(setBillDtlModel);
@@ -336,6 +338,23 @@ public class clsCheckOutController {
 					
 					
 					objCheckOutService.funSaveCheckOut(objFolioHdModel, objBillHdModel);
+					
+					clsPropertySetupHdModel objPropertySetupModel= objPropertySetupService.funGetPropertySetup(propCode, clientCode);
+
+					if(objPropertySetupModel.getStrEnableHousekeeping().equals("Y"))
+					{
+						String sqlRoomUpdate = "update tblroom a set a.strStatus='Dirty' " + " where a.strRoomCode='" + objBillHdModel.getStrRoomNo() + "' and a.strClientCode='" + objBillHdModel.getStrClientCode() + "'";
+						/*webPMSSessionFactory.getCurrentSession().createSQLQuery(sql).executeUpdate();*/
+						objWebPMSUtility.funExecuteUpdate(sqlRoomUpdate, "sql");
+						
+					}
+					else
+					{
+						String sqlRoomUpdate = "update tblroom a set a.strStatus='Free' " + " where a.strRoomCode='" + objBillHdModel.getStrRoomNo() + "' and a.strClientCode='" + objBillHdModel.getStrClientCode() + "'";
+						/*webPMSSessionFactory.getCurrentSession().createSQLQuery(sql).executeUpdate();*/
+						objWebPMSUtility.funExecuteUpdate(sqlRoomUpdate, "sql");
+						
+					}
 					
 					String sqlBillPerticulars = "select a.strPerticulars from tblbilldtl a where a.strBillNo='"+billNo+"' and a.strClientCode='"+clientCode+"'";
 					List listCheckForFullPayment= objGlobalFunctionsService.funGetListModuleWise(sqlBillPerticulars, "sql");

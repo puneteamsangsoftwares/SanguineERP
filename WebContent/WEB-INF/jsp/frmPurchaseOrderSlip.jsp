@@ -1,11 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+	pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Purchase Order Slip</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
+<style> 
+ .masterTable td {
+    padding-left: 40px;
+    font-size:14px;
+ }
+ input{
+ font-size:14px;
+ }
+ </style>
+ 
 <script type="text/javascript">
 /**
  * Ready Function for Initialize textField with default value
@@ -15,10 +34,11 @@
 	$(function() 
 		{		
 			var startDate="${startDate}";
+			var startDateOfMonth="${startDateOfMonth}";
 			var arr = startDate.split("/");
 			Dat=arr[0]+"-"+arr[1]+"-"+arr[2];
 			$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
-			$("#txtFromDate" ).datepicker('setDate', Dat);
+			$("#txtFromDate" ).datepicker('setDate', startDateOfMonth);
 			$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtToDate" ).datepicker('setDate', 'today');
 			
@@ -250,104 +270,93 @@
 </script>
 </head>
 <body>
-<div id="formHeading">
-		<label>Purchase Order Slip</label>
-	</div>
-
-<s:form method="GET" action="rptPurchaseOrderSlip.html" target="_blank">
-<br />
-<br />
-<table class="masterTable">
-	<tr><th colspan="8"></th></tr>
-	<tr>
-				<td width="10%"><label id="lblFromDate">From Date</label></td>
-				<td width="10%"><s:input id="txtFromDate" name="fromDate"
-						path="dtFromDate" cssClass="calenderTextBox" required="true" /> <s:errors
-						path="dtFromDate"></s:errors></td>
-						<td></td>
-				<td width="10%"><label id="lblToDate">To Date</label></td>
-				<td colspan="3"><s:input id="txtToDate" name="toDate"
-						path="dtToDate" cssClass="calenderTextBox" required="true"/> <s:errors
-						path="dtToDate"></s:errors></td>
-						
-			</tr>
-		</table>
-		<br>
-		<table class="masterTable">
-			<tr>
-				<td width="49%">Supplier&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				 <input id="txtSuppCode"  ondblclick="funHelp('suppcode')" Class="searchTextBox" />
+<div class=" container masterTable">
+		<label id="formHeading">Purchase Order Slip</label>
+       <s:form method="GET" action="rptPurchaseOrderSlip.html" target="_blank">
+     
+     <div class="row">	
+		    <div class="col-md-2"><label id="lblFromDate">From Date</label>
+				  <s:input id="txtFromDate" name="fromDate" path="dtFromDate" cssClass="calenderTextBox" style="width:70%;height:50%" required="true" /> 
+				     <s:errors path="dtFromDate"></s:errors>
+			</div>
+			
+			<div class="col-md-2"><label id="lblToDate">To Date</label>
+				  <s:input id="txtToDate" name="toDate" path="dtToDate" cssClass="calenderTextBox" style="width:70%;height:50%" required="true"/> 
+				     <s:errors path="dtToDate"></s:errors>
+			</div>
+		  <div class="col-md-8"></div>
+		  
+		<div class="col-md-2"><label>Supplier</label>
+				 <input id="txtSuppCode"  ondblclick="funHelp('suppcode')" Class="searchTextBox" style="height:40%"/>
 				<label id="txtSuppName"></label>
-				
-				</td>
-			</tr>
-			<tr>
-			<td style="padding: 0 !important;">
-					<div
-						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-
-						<table id="" class="masterTable"
+			</div>
+	  <div class="col-md-10"></div>
+	  
+	 <div class="col-md-12">
+		    <div  style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+                  <table id="" class="masterTable"
 							style="width: 100%; border-collapse: separate;">
 							<tbody>
-								<tr bgcolor="#72BEFC">
-									<td width="15%"><input type="checkbox" id="chkSuppALL"
+								<tr bgcolor="#c0c0c0">
+									<td width="10%"><input type="checkbox" id="chkSuppALL"
 										onclick="funCheckUnchecksupp()" />Select</td>
 									<td width="25%">Supplier Code</td>
 									<td width="65%">Supplier Name</td>
 
 								</tr>
 							</tbody>
-						</table>
-						<table id="tblSupp" class="masterTable"
+				   </table>
+				    <table id="tblSupp" class="masterTable"
 							style="width: 100%; border-collapse: separate;">
 							<tbody>
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#fafbfb">
 									<td width="15%"></td>
 									<td width="25%"></td>
 									<td width="65%"></td>
 
 								</tr>
 							</tbody>
-						</table>
-					</div>
-				</td>
-			</tr>
-			</table>
+					</table>
+		    </div>
+			</div>
+			</div>	
 			<br>
-		<table class="masterTable">
-			<tr>
-				<td width="15%">Purchase Order Code</td>
-			<td width="1%" colspan="2">		
-				<s:input type ="text" path="strFromDocCode" id="txtFromPOCode" name="strFromPOCode" readonly="true" placeholder="From PO Code"  class="searchTextBox" style="width: 150px;background-position: 136px 4px;" ondblclick="funHelp('purchaseorderslip')"/>
-			</td> 
-				<td><input type ="text" id="dtFromPODate" name="dtFromPODate" readonly="readonly" class="BoxW116px" /> </td>
-				<td width="0%" colspan="2">
-				<s:input type ="text" path="strToDocCode" id="txtToPOCode" name="strToPOCode" readonly="true" placeholder="To PO Code"  class="searchTextBox" style="width: 150px;background-position: 136px 4px;" ondblclick="funHelp('Topurchaseorder')"/> 
-				<td><input type ="text" id="dtToPODate" name="dtToPODate" readonly="readonly" class="BoxW116px" /> </td>
-			</tr>
-		<tr>
-		<td><label>Report Type</label></td>
-					<td colspan="8">
-						<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+		<div class="row">	
+			<div class="col-md-2"><label>Purchase Order Code</label>
+			       <s:input type ="text" path="strFromDocCode" id="txtFromPOCode" name="strFromPOCode" readonly="true" placeholder="From PO Code"  class="searchTextBox" style="width: 150px;background-position: 127px 5px;" ondblclick="funHelp('purchaseorderslip')"/>
+			</div> 
+			
+			<div class="col-md-2"><br>
+			       <input type ="text" id="dtFromPODate" name="dtFromPODate" readonly="readonly"/> 
+			</div>
+				
+			<div class="col-md-2"><br>
+			       <s:input type ="text" path="strToDocCode" id="txtToPOCode" name="strToPOCode" readonly="true" placeholder="To PO Code"  class="searchTextBox" style="width: 150px;background-position: 129px 5px;" ondblclick="funHelp('Topurchaseorder')"/> 
+			</div>
+			
+			<div class="col-md-2"><br>
+			       <input type ="text" id="dtToPODate" name="dtToPODate" readonly="readonly"/> 
+			</div>
+		    <div class="col-md-4"></div>
+		
+		    <div class="col-md-2"><label>Report Type</label>
+					<s:select id="cmbDocType" path="strDocType" style="width:auto;">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
 				    		<s:option value="HTML">HTML</s:option>
 				    		<s:option value="CSV">CSV</s:option>
-				    	</s:select>
-			</td>
-	</tr>
-	<tr>
-		<td colspan="8"></td>
-		
-	</tr>
-</table>
-<br>
+				    </s:select>
+			</div>
+      </div>
+
+        <br>
 		<p align="center">
-			<input type="submit" value="Submit" onclick="return funCallFormAction('submit',this)"  class="form_button"/>
-			 <input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>
+			<input type="submit" value="Submit" onclick="return funCallFormAction('submit',this)"  class="btn btn-primary center-block" class="form_button"/>
+			&nbsp; 
+			<input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 		<s:input type="hidden" id="hidSuppCode" path="strSuppCode"></s:input>
 </s:form>
-
+</div>
 </body>
 </html>

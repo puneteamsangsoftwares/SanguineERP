@@ -1,13 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="default.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>SUB GROUP MASTER</title>	
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
+<title>SUB GROUP MASTER</title>
+	
 <script type="text/javascript">
 $(document).ready(function(){
 	 resetForms('subgrpForm');
@@ -292,91 +302,58 @@ $(document).ready(function(){
 
 </head>
 <body onload="funResetFields()">
-<div id="formHeading">
-		<label>SubGroup Master</label>
-	</div>
+	<div class="container">
+	<label id="formHeading">SubGroup Master</label>
+	
 	<s:form name="subgrpForm" method="POST" action="saveSubGroupMaster.html?saddr=${urlHits}">
-		<br />
-		<br />
-		<table class="masterTable">
-		
-			<tr>
-		        <th align="right" colspan="2"> <a id="baseUrl" href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
-						&nbsp; </th>
-		    </tr>
-		   
-		    
-		    <tr>
-		        <td width="120px"><s:label path="strSGCode" >Sub-Group Code</s:label></td>
-		        <td><s:input id="txtSubgroupCode" name="txtSubgroupCode" path="strSGCode" ondblclick="funHelp('subgroup')"  cssClass="searchTextBox" /></td>
-		    </tr>
-		    	
-		    <tr>
-		        <td>
-		        	<s:label path="strSGName">Sub-Group Name</s:label>
-		        </td>
-		        <td>
-		        	<s:input id="txtSubgroupName" name="txtSubgroupName"  cssStyle="text-transform: uppercase;" size="80px" path="strSGName" required="true" cssClass="longTextBox"/>
-		        	<s:errors path="strSGName"></s:errors>
-		        </td>
-		    </tr>
-			    
-		    <tr>
-			    <td>
-			    	<s:label path="strSGDesc">Description</s:label>
-			    </td>
-			    
-			    <td>
-			    	<s:input id="txtSubgroupDesc" name="txtSubgroupDesc" autocomplete="off" cssStyle="text-transform: uppercase;" cssClass="longTextBox" path="strSGDesc" />
-			    </td>
-			    
-			  <tr> 
-			    <td><s:label path="strGCode" >Group Code</s:label></td>
-		        <td><s:input type="text" id="txtGroupCode" name="txtGroupCode" autocomplete="off" path="strGCode"    ondblclick="funHelp('group')" required="true" cssClass="searchTextBox" /><label id="lblgroupname"></label></td>
-				
-			</tr>
-			   
-			<tr>
-			    <td><label  >Exciseable</label></td>
-			    <td><input type="checkbox"  id="chkExciseable"   /></td>
-									
-		    </tr>
-		    <tr>
-			    <td>
-			    	<label>Chapter No.</label>
-			    </td>
-			    
-			    <td>
-			    	<s:input id="txtChapterNo" path="strExciseChapter" name="txtChapterNo" cssStyle="text-transform: uppercase;" cssClass="longTextBox" />
-			    </td>
-			    </tr>
-			    <tr>
-			     <td><label >Sorting No.</label>  </td>
-			    <td>
-			    	<s:input id="txtSortingNo" path="intSortingNo" name="txtSortingNo" value=""  cssClass="longTextBox" style="width: 17%"/>
-			    </td>
-			  </tr> 
-			  
-			    <tr>
-			     <td><label >Sub Group Desc Header.</label>  </td>
-			    <td>
-			    	<s:input id="txtSGDescHeader" path="strSGDescHeader" name="txtSGDescHeader" value=""  cssClass="longTextBox" style="width: 17%"/>
-			    </td>
-			  </tr> 
-		    
-		    
-		    
-		</table>
-		
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit"  class="form_button"
-				onclick="return funCallFormAction('submit',this);" /> 
-				<input type="reset"
-				value="Reset" class="form_button" />
-		</p>
+		<div class="row masterTable">
+			<!--  <th align="right" colspan="2"> <a id="baseUrl" href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
+						&nbsp; </th> -->
+		  	<div class="col-md-2">
+				<s:label path="strSGCode" >Sub-Group Code</s:label>
+		     	<s:input id="txtSubgroupCode" readonly="true" name="txtSubgroupCode" path="strSGCode" ondblclick="funHelp('subgroup')"  cssClass="searchTextBox" />	
+		   	</div>
+		    <div class="col-md-2">
+		        <s:label path="strSGName">Sub-Group Name</s:label>
+		    	<s:input id="txtSubgroupName" name="txtSubgroupName" path="strSGName" required="true"/>
+		        <s:errors path="strSGName"></s:errors>
+		    </div>
+		     <div class="col-md-2">
+			  	<s:label path="strSGDesc">Description</s:label>
+			  	<s:input id="txtSubgroupDesc" name="txtSubgroupDesc" autocomplete="off"  path="strSGDesc" />
+			</div>
+		    <div class="col-md-6"></div>
+			<div class="col-md-2">
+			 	<s:label path="strGCode" >Group Code</s:label>
+		      	<s:input type="text" id="txtGroupCode" readonly="true" name="txtGroupCode" autocomplete="off" path="strGCode" ondblclick="funHelp('group')" required="true" cssClass="searchTextBox" />
+		    </div>
+		    <div class="col-md-2">	
+		      	<label id="lblgroupname" style="background-color:#dcdada94; width: 100%; height: 49%; margin: 23px 0px; text-align: center;"></label>
+			</div>	
+			<div class="col-md-2">	
+			   <label  >Exciseable</label><br>
+			   <input type="checkbox"  id="chkExciseable" />
+			</div>
+			   <div class="col-md-6"></div>						
+		   	<div class="col-md-2">
+		 		<label>Chapter No.</label>
+				<s:input id="txtChapterNo" path="strExciseChapter" name="txtChapterNo"/>
+			</div>
+			<div class="col-md-2">
+			   <label >Sorting No.</label> 
+			   <s:input id="txtSortingNo" path="intSortingNo" name="txtSortingNo" value="" />
+			</div>
+			<div class="col-md-2">
+			    <label >Sub Group Desc Header.</label>
+			  	<s:input id="txtSGDescHeader" path="strSGDescHeader" name="txtSGDescHeader" value=""/>
+			</div>
+		</div>
+		<div class="center" style="margin-right: 51%;">
+			<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funCallFormAction('submit',this);">Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block"  value="Reset" >Reset</button></a>
+		</div>
 		<s:input type="hidden" id="hidExciseable" path="strExciseable"></s:input>
 	</s:form>
+</div>
 </body>
 </html>

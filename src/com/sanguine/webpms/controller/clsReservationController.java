@@ -9,6 +9,7 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -140,6 +141,8 @@ public class clsReservationController {
 //		String noOfRoom = objPropertySetupModel.getStrRoomLimit();
 //		
 //		model.put("noOfRoom", noOfRoom);
+		
+		request.getSession().setAttribute("TempPMSDateForReservation",request.getSession().getAttribute("PMSDate").toString());
 
 		if ("2".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmReservation_1", "command", new clsReservationBean());
@@ -157,13 +160,28 @@ public class clsReservationController {
 		String webStockDB=request.getSession().getAttribute("WebStockDB").toString();
 		String strRoomNo = request.getParameter("roomNo").toString();
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
-
+		int rootIndex = Integer.parseInt(request.getParameter("rootIndex").toString())-1;
+		String strPMSDate=request.getSession().getAttribute("PMSDate").toString();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		String strRoomCode = funGetRoomCode(strRoomNo,clientCode);
+		try
+		{
+			Date date1=new SimpleDateFormat("dd-MM-yyyy").parse(strPMSDate);
+			Calendar c = Calendar.getInstance();
+			c.setTime(date1);
+			c.add(Calendar.DAY_OF_MONTH, rootIndex);
+			String newDate = sdf.format(c.getTime()); 
+			request.getSession().setAttribute("TempPMSDateForReservation", newDate);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		
-		try {
+		try 
+		{
 			urlHits = request.getParameter("saddr").toString();
-
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			urlHits = "1";
 		}
 
@@ -253,6 +271,7 @@ public class clsReservationController {
 		objBean.setStrIncomeHeadCode(objReservationModel.getStrIncomeHeadCode());
 		objBean.setTmePickUpTime(objReservationModel.getTmePickUpTime());
 		objBean.setTmeDropTime(objReservationModel.getTmeDropTime());
+		objBean.setStrDontApplyTax(objReservationModel.getStrDontApplyTax());
 		
 		clsRoomMasterModel objRoomMasterModel = objRoomMasterService.funGetRoomMaster(objReservationModel.getStrRoomNo(), clientCode);
 		objBean.setStrRoomNo(objReservationModel.getStrRoomNo());
@@ -281,6 +300,7 @@ public class clsReservationController {
 			clsReservationDetailsBean objReservationDtlBean = new clsReservationDetailsBean();
 			objReservationDtlBean.setStrGuestCode(objResDtlModel.getStrGuestCode());
 			objReservationDtlBean.setStrPayee(objResDtlModel.getStrPayee());
+			objReservationDtlBean.setStrRemark(objResDtlModel.getStrRemark());
 
 			sql = "select strFirstName,strMiddleName,strLastName,lngMobileNo,strAddress from tblguestmaster " + " where strGuestCode='" + objResDtlModel.getStrGuestCode() + "' and strClientCode='" + clientCode + "' ";
 			List listGuestMaster = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
@@ -389,7 +409,7 @@ public class clsReservationController {
 					objGuestMasterBean.setStrGSTNo(strGSTNo);
 					objGuestMasterBean.setStrEmailId(strEmailAddress);
 					///////
-					clsGuestMasterHdModel objGuestMasterModel = objGuestMasterService.funPrepareGuestModel(objGuestMasterBean, clientCode, userCode);
+					clsGuestMasterHdModel objGuestMasterModel = objGuestMasterService.funPrepareGuestModel(objGuestMasterBean, clientCode, userCode, null);
 					objGuestMasterDao.funAddUpdateGuestMaster(objGuestMasterModel);
 					hmGuestMbWithCode.put(objResDtlBean.getLngMobileNo(), objGuestMasterModel.getStrGuestCode());	
 					
@@ -655,7 +675,7 @@ public class clsReservationController {
 		}
 	}
 		
-		objSendEmail.doSendReservationEmail(strReservationNo,strReservationMessege,strModuleName,req);
+		//objSendEmail.doSendReservationEmail(strReservationNo,strReservationMessege,strModuleName,req);
 		
 		
 		
@@ -719,7 +739,14 @@ public class clsReservationController {
 		objModel.setStrIncomeHeadCode(objBean.getStrIncomeHeadCode());
 		objModel.setTmePickUpTime(objBean.getTmePickUpTime());
 		objModel.setTmeDropTime(objBean.getTmeDropTime());
-		
+		if(objBean.getStrDontApplyTax()==null)
+		{
+			objModel.setStrDontApplyTax("N");
+		}
+		else
+			{
+				objModel.setStrDontApplyTax(objBean.getStrDontApplyTax());
+			}
 
 		List<clsReservationDtlModel> listResDtlModel = new ArrayList<clsReservationDtlModel>();
 

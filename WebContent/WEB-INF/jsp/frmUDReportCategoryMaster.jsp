@@ -1,11 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	var fieldName;
 
@@ -73,57 +82,33 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>UD Report Category Master</label>
-	</div>
-
+   <div class="container masterTable">
+    <label id="formHeading">UD Report Category Master</label>
 	<s:form name="UDReportCategoryMaster" method="POST" action="saveUDReportCategoryMaster.html">
-
-		<br />
-		<br />
+   
+	       <div class="row">
+				<div class="col-md-2"><label>UDC Code</label>
+				       <s:input type="text" id="txtUDCCode" readonly="true" path="strUDCCode" cssClass="searchTextBox" ondblclick="funHelp('UDCCode');"/>
+				</div>
+			
+			<div class="col-md-3"><label>UDC Name</label>
+				      <s:input type="text" id="txtUDCName" path="strUDCName" cssStyle="text-transform: uppercase;"/>
+			</div>
+		    <div class="col-md-7"></div>
+		    
+			<div class="col-md-3"><label>UDC Desc</label>
+				    <s:input type="text" id="txtUDCDesc" path="strUDCDesc" cssStyle="text-transform: uppercase;"/>
+			</div>
+		</div>
 		
-		<table class="masterTable">
-		<tr>
-		        <th align="right" colspan="2"> </th>
-		    </tr>
-			<tr>
-				<td width="120px">
-					<label>UDC Code</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtUDCCode" path="strUDCCode" cssClass="searchTextBox" ondblclick="funHelp('UDCCode');"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>UDC Name</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtUDCName" path="strUDCName" cssStyle="text-transform: uppercase;" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>UDC Desc</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtUDCDesc" path="strUDCDesc" cssStyle="text-transform: uppercase;" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-			    <td ></td>
-			    <td ></td>
-		    </tr>
-		</table>
-
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funCallFormAction('submit',this);"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right: 32%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block"  class="form_button" onclick="return funCallFormAction('submit',this);"/>
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block"  class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

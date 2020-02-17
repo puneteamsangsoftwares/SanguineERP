@@ -1158,7 +1158,6 @@ public class clsCheckInController {
 				}
 			}
 		
-			
 			funPostRoomTarrif(objHdModel.getStrCheckInNo(),clientCode,PMSDate,propCode,userCode);
 			
 			funSendSMSCheckIn(objHdModel.getStrCheckInNo(), clientCode, propCode);
@@ -1700,6 +1699,8 @@ public class clsCheckInController {
 		objModel.setListCheckInDtl(listCheckinDtlModel);
 		objModel.setStrNoPostFolio(objGlobal.funIfNull(objBean.getStrNoPostFolio(), "N", objBean.getStrNoPostFolio()));
 		objModel.setStrComplimentry(objGlobal.funIfNull(objBean.getStrComplimentry(), "N",objBean.getStrComplimentry()));
+		objModel.setStrDontApplyTax(objGlobal.funIfNull(objBean.getStrDontApplyTax(), "N", objBean.getStrDontApplyTax()));
+
 		/*objModel.setStrRemarks("");
 		objModel.setStrReasonCode("");*/
 		

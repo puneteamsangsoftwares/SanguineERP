@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	var fieldName;
 
@@ -183,64 +191,53 @@
 				}
 			   window.open('attachDoc.html?transName=frmChargePosting.jsp&formName=Charge Posting &code='+$('#txtService').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
 			});
-		});	
+		});
+	 
+	 
+		$('#baseUrl').click(function() 
+				{  
+					 if($("#txtService").val().trim()=="")
+					{
+						alert("Please Select Service... ");
+						return false;
+					} 
+						window.open('attachDoc.html?transName=frmChargePosting.jsp&formName=Member Profile&code='+$('#txtService').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+				});
 			
 		
 </script>
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>ChargePosting</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="ChargePosting" method="GET" action="saveChargePosting.html">
-
-		<table class="masterTable">
-		
-		   <tr>
-				<th align="right" colspan="2"><a id="baseUrl"
+   <div class="container masterTable">
+	<label  id="formHeading">Charge Posting</label>
+	   <s:form name="ChargePosting" method="GET" action="saveChargePosting.html">
+	   
+          <div class="row">
+				<!-- <th align="right" colspan="2"><a id="baseUrl"
 					href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
-						&nbsp;</th>
-			</tr>
+						&nbsp;</th> -->
 			
-			<tr>
-				<td>
-					<label>Service</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtService" path="strService" cssClass="searchTextBox" ondblclick="funHelp('service');"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>DeptCode</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtDeptCode" path="strDeptCode" cssClass="searchTextBox" ondblclick="funHelp('deptCode');"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>IncomeHeadCode</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtIncomeHeadCode" path="strIncomeHeadCode" cssClass="searchTextBox" ondblclick="funHelp('incomeHead');"/>
-				</td>
-			</tr>
-		</table>
+			<div class="col-md-2"><label>Service</label>
+				<s:input type="text" id="txtService" path="strService" cssClass="searchTextBox" ondblclick="funHelp('service');" style="height: 45%;"/>
+			</div>
+				
+			<div class="col-md-2"><label>Dept Code</label>
+				<s:input type="text" id="txtDeptCode" path="strDeptCode" cssClass="searchTextBox" ondblclick="funHelp('deptCode');" style="height: 45%;"/>
+			</div>
+			
+			<div class="col-md-2"><label>Income Head Code</label>
+				  <s:input type="text" id="txtIncomeHeadCode" path="strIncomeHeadCode" cssClass="searchTextBox" ondblclick="funHelp('incomeHead');" style="height: 45%;"/>
+			</div>
+			
+		</div>
 
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right: 14%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block"  class="form_button" />&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block"  class="form_button" onclick="funResetFields()"/>
 		</p>
-
-	</s:form>
+      </s:form>
+      </div>
 </body>
 </html>

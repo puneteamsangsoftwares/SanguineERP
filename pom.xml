@@ -137,12 +137,17 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate.validator}</version>
         </dependency>
-		<dependency>
+		<!-- <dependency>
 		    <groupId>javax.transaction</groupId>
 		    <artifactId>jta</artifactId>
 		    <version>1.1</version>
-		</dependency>
+		</dependency> -->
         
+       <!--  <dependency>
+		    <groupId>javax.transaction</groupId>
+		    <artifactId>jta</artifactId>
+		    <version>1.0.1b</version>
+		</dependency> -->
         
         <!-- Others -->
         

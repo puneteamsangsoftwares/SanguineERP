@@ -466,7 +466,7 @@ WHERE DATE(b.dteDocDate) BETWEEN '2016-03-25' AND '2016-03-25' AND a.strFolioNo=
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dblCreditAmt}.doubleValue()]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00#">
+			<textField pattern="0.00">
 				<reportElement key="" x="464" y="0" width="59" height="22" uuid="7872613d-ffe8-4e12-864b-41616db77a91"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="11"/>

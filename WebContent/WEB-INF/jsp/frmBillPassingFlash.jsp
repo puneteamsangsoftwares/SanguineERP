@@ -1,21 +1,34 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html.dtd">
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
+
 <script>
 
 		$(document).ready(function(){
 			var startDate="${startDate}";
 			var arr = startDate.split("/");
 			Date1=arr[2]+"-"+arr[1]+"-"+arr[0];
+			var startDateOfMonth="${startDateOfMonth}";
+ 	    	var arr1= startDateOfMonth.split("-");
+ 			Dat=arr1[2]+"-"+arr1[1]+"-"+arr1[0];
 			$("#dtFromDate").datepicker({
 				dateFormat : 'yy-mm-dd'
 			});
-			$("#dtFromDate").datepicker('setDate', Date1);	
+			$("#dtFromDate").datepicker('setDate', Dat);	
 			
 			
 			$("#dtToDate").datepicker({
@@ -68,10 +81,10 @@
 					var grnDate="GRN Date";
 					var grnNo="GRN No";
 					var settlementType="Settlement Type";
-					row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"33%\" id=\"Headerfield1."+(rowCount)+"\" value= '"+suppName+"'/>";
-        	    	row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" id=\"Headerfield2."+(rowCount)+"\" value='"+billNo+"'/>";
-        		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" id=\"Headerfield2."+(rowCount)+"\" value= '"+grnDate+"' />";
-        		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" id=\"Headerfield3."+(rowCount)+"\" \" value= '"+grnNo+"' />";
+					row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"35%\" id=\"Headerfield1."+(rowCount)+"\" value= '"+suppName+"'/>";
+        	    	row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"13%\" id=\"Headerfield2."+(rowCount)+"\" value='"+billNo+"'/>";
+        		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"Headerfield2."+(rowCount)+"\" value= '"+grnDate+"' />";
+        		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"18%\" id=\"Headerfield3."+(rowCount)+"\" \" value= '"+grnNo+"' />";
         		    if(typeofBill=="Passed Bills")
         		    {
              		    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"14%\" id=\"Headerfield4."+(rowCount)+"\"  value= '"+settlementType+"' />"; //text-align: right;
@@ -91,9 +104,9 @@
 	            		var row = table.insertRow(rowCount);
 	            	
 	            	    	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"35%\" id=\"field1."+(rowCount)+"\" value='"+response[i].strPName+"'/>";
-	            	    	row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" id=\"field2."+(rowCount)+"\" value='"+response[i].strBillNo+"'/>";
-	            		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" id=\"field3."+(rowCount)+"\" value='"+response[i].dtGRNDate+"'/>";
-	            		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"14%\" id=\"field4."+(rowCount)+"\" \" value='"+response[i].strGRNNo+"'/>";
+	            	    	row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"13%\" id=\"field2."+(rowCount)+"\" value='"+response[i].strBillNo+"'/>";
+	            		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"field3."+(rowCount)+"\" value='"+response[i].dtGRNDate+"'/>";
+	            		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"18%\" id=\"field4."+(rowCount)+"\" \" value='"+response[i].strGRNNo+"'/>";
 	            		    if(typeofBill=="Passed Bills")
 	            		    {
 		            		    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"14%\"  id=\"field4."+(rowCount)+"\"  value='"+response[i].strSettlementType +"'/>"; //text-align: right;
@@ -127,6 +140,8 @@
 		            }		            
 		        }
 			});
+			
+			return false;
 		}
 	
 
@@ -200,74 +215,61 @@
 
 </script>
 <body>
-<div id="formHeading">
-		<label>Bill Passing Flash</label>
-	</div>
-	<br />
-	<br />
+	<div class="container">
+		<label id="formHeading">Bill Passing Flash</label>
 		<s:form name="frmBillPassingFlash" method="POST" action="rptBillPassingFlash.html" target="_blank" >
-
-			<table class="transTable">
-		
-			<tr>
-				<td><label>From Date</label></td>
-				<td><s:input type="text" id="dtFromDate" path="dteFromDate" required="true" class="calenderTextBox" /></td>
-				<td><label>To Date</label></td>
-				<td colspan="4"><s:input type="text" id="dtToDate" path="dteToDate" required="true" class="calenderTextBox" /></td>				
-			</tr>
-			
-			<tr>
-				<td width="140px">Supplier Code</td>
-				<td><s:input id="txtSuppCode" path="strDocCode"
-						cssClass="searchTextBox" ondblclick="funHelp('suppcode')" /></td>
-				<td colspan="2"><label style="font-size: 12px;" id="lblSuppName"> All Supplier </label>	</td>	
-				
-				
-				<td><label>Report Type</label></td>
-					<td colspan="4">
-						<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
-				    		<s:option value="EXCEL">EXCEL</s:option>
-<%-- 				    		<s:option value="HTML">HTML</s:option> --%>
-<%-- 				    		<s:option value="CSV">CSV</s:option> --%>
-				    	</s:select>
-			</td>		
-			
-			</tr>
-			<tr>
-				<td><label>Type of Bill</label></td>
-					<td colspan="8">
-						<s:select id="cmbBillType" path="strBillType" cssClass="BoxW124px">
-				    		<s:option value="Pending Bills">Pending Bills</s:option>
-				    		<s:option value="Passed Bills">Passed Bills</s:option>
-<%-- 				    		<s:option value="HTML">HTML</s:option> --%>
-<%-- 				    		<s:option value="CSV">CSV</s:option> --%>
-				    	</s:select>
-			</td>		
-			
-			</tr>
-			
-			
-			
-			
-		</table>
-			<p align="center">
-			    <input type="button" value="Execute" class="form_button"  onclick="funExecuteData()"/>
-				<input type="submit" value="Export"  class="form_button" onclick="return funCallFormAction('submit',this)" />
-				<input type="button" value="Reset" class="form_button"  onclick="funResetField()"/>
-				  
-			</p>
-			
-			<br />
-	<br />
+	
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label>From Date</label>
+				<s:input type="text" id="dtFromDate" path="dteFromDate" required="true" class="calenderTextBox" style="width:80%;"/>
+			</div>	
+			<div class="col-md-2">
+				<label>To Date</label>
+				<s:input type="text" id="dtToDate" path="dteToDate" required="true" class="calenderTextBox" style="width:80%;"/>			
+			</div>	
+			<div class="col-md-2">
+				<label>Supplier Code</label>
+				<s:input id="txtSuppCode" path="strDocCode"
+						cssClass="searchTextBox" ondblclick="funHelp('suppcode')" />
+			</div>
+			<div class="col-md-2">
+				<label style="background-color:#dcdada94; width: 100%; height: 42%; margin: 23px 0px; text-align: center;" id="lblSuppName">All Supplier </label>	
+			</div>
+			<div class="col-md-4"></div>	
+			<div class="col-md-2">	
+				<label>Report Type</label>
+				<s:select id="cmbDocType" path="strDocType" style="width:80%;">
+				    <s:option value="EXCEL">EXCEL</s:option>
+<%-- 				<s:option value="HTML">HTML</s:option> --%>
+<%-- 				<s:option value="CSV">CSV</s:option> --%>
+				 </s:select>
+			</div>	
+			<div class="col-md-2">
+				<label>Type of Bill</label>
+				<s:select id="cmbBillType" path="strBillType" cssClass="BoxW124px">
+					<s:option value="Pending Bills">Pending Bills</s:option>
+					<s:option value="Passed Bills">Passed Bills</s:option>
+	<%-- 			<s:option value="HTML">HTML</s:option> --%>
+	<%-- 			<s:option value="CSV">CSV</s:option> --%>
+				</s:select>
+			</div>
+		</div>
+		<div id="paraSubmit" class="center" style="margin-right: 40%;">
+			<a href="#"><button class="btn btn-primary center-block" value="Execute" onclick="return funExecuteData()"
+				class="form_button">Execute</button></a>
+			<a href="#"><button class="btn btn-primary center-block" value="Export" onclick="return funCallFormAction('submit',this)"
+				class="form_button">Export</button></a>
+			<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetField()"
+				class="form_button">Reset</button></a>
+		</div>
 			
 			<div id="dvSupplierBillFlash" style="width: 100% ;height: 100% ;display:block;">
-	<table id="tblSupplierBillFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"></table>			</div>
+				<table id="tblSupplierBillFlash" class="transTablex" style="border:1px solid #000; background:gainsboro;width: 100%;font-size:11px;font-weight: bold; border:#0F0;table-layout:fixed;"></table>			
+			</div>
 		
 			
-			
-			
-		
-			
-		</s:form>
+</s:form>
+</div>
 </body>
 </html>

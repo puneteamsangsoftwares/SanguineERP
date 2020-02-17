@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <!-- charset=ISO-8859-1" pageEncoding="ISO-8859-1"%> -->
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -8,19 +10,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%-- <script type="text/javascript" src="<spring:url value="/resources/js/hindiTextBox.js"/>"></script> --%>
 <title>GROUP MASTER</title>
-<%-- <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/materialdesignicons.min.css"/>" />
-	  	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.css"/>" /> --%>
-		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<%-- <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" /> --%>
+      <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
 	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-	 	
-	 	
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<%-- <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.js"/>"></script> --%>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <style>
 .ui-autocomplete {
     max-height: 200px;
@@ -267,10 +263,7 @@
 				}
 			return flg;
 			
-			
 		}
-		
-
 		
 </script>
 
@@ -278,36 +271,28 @@
 </head>
 
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>Group Master</label>
-	</div>
-	<s:form name="grpForm" method="POST" action="saveGroupMaster.html?saddr=${urlHits}">
+	<div class=" container masterTable">
+		<label  id="formHeading">Group Master</label>
+	     <s:form name="grpForm" method="POST" action="saveGroupMaster.html?saddr=${urlHits}">
 
-		<br />
-		<br />
-		<table class="masterTable">
-
-			<tr>
-				<th align="right" colspan="2"><a id="baseUrl"
-					href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
-						&nbsp;</th>
-			</tr>
-			<tr>
-				<td width="140px">Group Code</td>
-				<td><s:input id="txtGroupCode" path="strGCode"
-						cssClass="searchTextBox" ondblclick="funHelp('group')" /></td>
-			</tr>
-			<tr>
-				<td><label>Group Name</label></td>
-				<td><s:input colspan="3" type="text" id="txtGroupName" 
-						name="txtGroupName" path="strGName" required="true"
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox"  /> <s:errors path="strGName"></s:errors></td>
-			</tr>
-			<tr>
-				<td><label>Description </label></td>
-				<td><s:input colspan="3" id="txtGroupDesc" name="txtGroupDesc"
-						cssStyle="text-transform: uppercase;" path="strGDesc" cssClass="longTextBox" autocomplete="off" /> </td>
-			</tr>
+		<!-- <a id="baseUrl" href="#"> Attach Documents</a> -->
+		
+		<div class="row">
+				<div class="col-md-2"><label>Group Code</label>
+				    <s:input id="txtGroupCode" path="strGCode"  readonly="true"
+						cssClass="searchTextBox" ondblclick="funHelp('group')" />
+			    </div>
+			    
+			<div class="col-md-3"><label>Group Name</label>
+				  <s:input type="text" id="txtGroupName" name="txtGroupName" path="strGName" required="true"
+						cssStyle="text-transform: uppercase;"/> <s:errors path="strGName"></s:errors>
+			</div>
+			<div class="col-md-7"></div>
+			
+			<div class="col-md-3"><label>Description </label>
+				  <s:input id="txtGroupDesc" name="txtGroupDesc" cssStyle="text-transform: uppercase;" path="strGDesc" autocomplete="off" /> 
+			</div>
+			
 			<%-- <tr>
 				<td><label>Hindi Name</label></td>
 					<td> 
@@ -316,19 +301,17 @@
 	        		</script>
 	       		 </td>
 			</tr> --%>
-			<tr>
+		
 			<%-- <td><s:input type="hidden" id="hidMarathiText" path="strMarathiText"></s:input> --%>
-			</td>
-			</tr>
-		</table>
+		</div>
+
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button"
-				onclick="return funCallFormAction('submit',this);" /> <input type="reset"
-				value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right: 32%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button"
+				onclick="return funCallFormAction('submit',this);" /> &nbsp;
+				<input type="reset"	value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 	</s:form>
-
+    </div>
 </body>
 </html>

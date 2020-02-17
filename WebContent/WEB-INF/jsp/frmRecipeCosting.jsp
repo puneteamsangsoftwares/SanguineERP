@@ -2,12 +2,20 @@
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <html>
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Recipe Costing</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <style>
 .ui-autocomplete {
     max-height: 200px;
@@ -175,47 +183,40 @@
 </head>
 
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>Recipe Costing</label>
-	</div>
+	<div class="container masterTable">
+		<label id="formHeading">Recipe Costing</label>
 	<s:form name="recipeCosting" method="GET" action="rptRecipeCosting.html?saddr=${urlHits}">
-
-		<br />
-		<br />
-		<table class="masterTable">
-
+     
+     <div class="row">	
+		        <div class="col-md-2"><label>Recipe Code</label>
+				     <s:input id="txtRecipeCode" path="strDocCode" cssClass="searchTextBox" ondblclick="funHelp('bomcodeslip')" />
+				</div>
 			
-			<tr>
-				<td width="140px">Recipe Code</td>
-				<td><s:input id="txtRecipeCode" path="strDocCode"
-						cssClass="searchTextBox" ondblclick="funHelp('bomcodeslip')" /></td>
-				<td colspan="2"><label id=lblParentName> All Recipe </label>	</td>	
-						
-			
-			</tr>
-			<tr>
-			<td><label>Considering Yield % </label></td>
-			<td><s:checkbox element="li" id="chkYieldPer"
-											path="strProdType" value="Yes" /></td>
-			
-			<td><label>Report Type</label></td>
-				<td ><s:select id="cmbDocType" path="strDocType"
-						cssClass="BoxW124px">
+		        <div class="col-md-2"><label id=lblParentName  style="background-color:#dcdada94; width: 100%; height: 56%;margin-top:15%"> All Recipe </label>	
+		        </div>	
+				 <div class="col-md-8"></div>
+				 
+		        <div class="col-md-2"><label>Considering Yield % </label><br>
+		                <s:checkbox element="li" id="chkYieldPer" path="strProdType" value="Yes" />
+		        </div>
+				
+		        <div class="col-md-2"><label>Report Type</label>
+				    <s:select id="cmbDocType" path="strDocType" style="width:auto;">
 						<s:option value="PDF">PDF</s:option>
 						<s:option value="XLS">EXCEL</s:option>
 						<s:option value="HTML">HTML</s:option>
 						<s:option value="CSV">CSV</s:option>
-					</s:select></td>
-			
-			</tr>
-		</table>
+					</s:select>
+			    </div>
+		</div>
+
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" /> <input type="reset"
-				value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right:51%">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" /> 
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 	</s:form>
-
+   </div>
 	</body>
 	</html>

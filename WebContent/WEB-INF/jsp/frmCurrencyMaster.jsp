@@ -1,10 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <title></title>
 <script type="text/javascript">
 	var fieldName;
@@ -136,101 +146,62 @@
 
 </head>
 <body>
+	<div class="container">
+		<label id="formHeading">Currency Master</label>
+		<s:form name="CurrencyMaster" method="POST" action="saveCurrencyMaster.html">
 
-	<div id="formHeading">
-	<label>Currency Master</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="CurrencyMaster" method="POST" action="saveCurrencyMaster.html">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>Currency Code</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtCurrencyCode" path="strCurrencyCode" cssClass="searchTextBox" ondblclick="funHelp('CurrencyCode');"/>
-				</td>
-				<td>
-					<label>Currency Name</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtCurrencyName" path="strCurrencyName" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Short Name</label>
-				</td>
-				<td>
-				<s:input type="text" id="txtShortName" path="strShortName" cssClass="longTextBox" />
-				</td>
-			<td>
-					<label>Bank Name</label>
-				</td>
-				<td>
-				<s:input type="text" id="txtBankName" path="strBankName" cssClass="longTextBox" />
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<label>Swift Code</label>
-				</td>
-				<td>
-				<s:input type="text" id="txtSwiftCode" path="strSwiftCode" cssClass="longTextBox" />
-				</td>
-			<td>
-					<label>Iban No</label>
-				</td>
-				<td>
-				<s:input type="text" id="txtIbanNo" path="strIbanNo" cssClass="longTextBox" />
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<label>Routing</label>
-				</td>
-				<td>
-				<s:input type="text" id="txtRouting" path="strRouting" cssClass="longTextBox" />
-				</td>
-			<td>
-					<label>Account No</label>
-				</td>
-				<td>
-				<s:input type="text" id="txtAccountNo" path="strAccountNo" cssClass="longTextBox" />
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<label>Conversion To Base</label>
-				</td>
-				<td>
-				<s:input type="text" id="txtConvToBaseCurr" path="dblConvToBaseCurr" cssClass="longTextBox" />
-				</td>
-			<td>
-					<label>Sub Unit</label>
-				</td>
-				<td>
-				<s:input type="text" id="txtSubUnit" path="strSubUnit" cssClass="longTextBox" />
-				</td>
-			</tr>
-			
-			
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funCallFormAction('submit',this);"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
+		<div class="row masterTable">
+			<div class="col-md-2">
+				<label>Currency Code</label>
+				<s:input type="text" id="txtCurrencyCode" path="strCurrencyCode" cssClass="searchTextBox" ondblclick="funHelp('CurrencyCode');" readOnly="true"/>
+			</div>	
+			<div class="col-md-2">
+				<label>Currency Name</label>
+				<s:input type="text" id="txtCurrencyName" path="strCurrencyName" />
+			</div>
+			<div class="col-md-2">
+				<label>Short Name</label>
+				<s:input type="text" id="txtShortName" path="strShortName" />
+			</div>
+			<div class="col-md-6"></div>
+			<div class="col-md-2">
+				<label>Bank Name</label>
+				<s:input type="text" id="txtBankName" path="strBankName" />
+			</div>
+			<div class="col-md-2">
+				<label>Swift Code</label>
+				<s:input type="text" id="txtSwiftCode" path="strSwiftCode" />
+			</div>
+			<div class="col-md-2">
+				<label>Iban No</label>
+				<s:input type="text" id="txtIbanNo" path="strIbanNo" />
+			</div>
+			<div class="col-md-6"></div>	
+			<div class="col-md-2">
+				<label>Routing</label>
+				<s:input type="text" id="txtRouting" path="strRouting" />
+			</div>	
+			<div class="col-md-2">
+				<label>Account No</label>
+				<s:input type="text" id="txtAccountNo" path="strAccountNo" />
+			</div>
+			<div class="col-md-2">
+				<label>Conversion To Base</label>
+				<s:input type="text" id="txtConvToBaseCurr" path="dblConvToBaseCurr" style="text-align:right;" />
+			</div>
+			<div class="col-md-6"></div>
+			<div class="col-md-2">
+				<label>Sub Unit</label>
+				<s:input type="text" id="txtSubUnit" path="strSubUnit" />
+			</div>
+		</div>
+		<div class="center" style="margin-right: 52%;">
+				<a href="#"><button class="btn btn-primary center-block"  value="Submit" onclick="return funCallFormAction('submit',this);" 
+				>Submit</button></a>
+				<a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()"
+				>Reset</button></a>
+		</div>
 	</s:form>
+</div>
 </body>
 </html>

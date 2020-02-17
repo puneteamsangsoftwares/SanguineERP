@@ -5,8 +5,10 @@ import java.sql.Blob;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Lob;
@@ -15,6 +17,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -116,7 +119,9 @@ public class clsProductMasterModel implements Serializable {
 
 	@Column(name = "strProductImage", length = 1000000000, nullable = false)
 	@Lob
-	private byte[] strProductImage;
+	@Basic(fetch = FetchType.LAZY)
+	@JsonIgnore
+	private byte[]  strProductImage;
 
 	@Column(name = "dblWeight", nullable = false)
 	private double dblWeight;
@@ -469,6 +474,14 @@ public class clsProductMasterModel implements Serializable {
 		this.strSpecification = strSpecification;
 	}
 
+	public byte[] getStrProductImage() {
+		return strProductImage;
+	}
+
+	public void setStrProductImage(byte[] strProductImage) {
+		this.strProductImage = strProductImage;
+	}
+
 	public double getDblWeight() {
 		return dblWeight;
 	}
@@ -594,7 +607,7 @@ public class clsProductMasterModel implements Serializable {
 	}
 
 	public void setStrReceivedUOM(String strReceivedUOM) {
-		this.strReceivedUOM = strReceivedUOM;
+		this.strReceivedUOM = (String) setDefaultValue(strReceivedUOM, "");
 	}
 
 	public String getStrIssueUOM() {
@@ -602,7 +615,7 @@ public class clsProductMasterModel implements Serializable {
 	}
 
 	public void setStrIssueUOM(String strIssueUOM) {
-		this.strIssueUOM = strIssueUOM;
+		this.strIssueUOM = (String) setDefaultValue(strIssueUOM, "");
 	}
 
 	public String getStrRecipeUOM() {
@@ -610,7 +623,7 @@ public class clsProductMasterModel implements Serializable {
 	}
 
 	public void setStrRecipeUOM(String strRecipeUOM) {
-		this.strRecipeUOM = strRecipeUOM;
+		this.strRecipeUOM = (String) setDefaultValue(strRecipeUOM, "");
 	}
 
 	public double getDblReceiveConversion() {
@@ -658,7 +671,7 @@ public class clsProductMasterModel implements Serializable {
 	}
 
 	public void setStrNonStockableItem(String strNonStockableItem) {
-		this.strNonStockableItem = strNonStockableItem;
+		this.strNonStockableItem = (String) setDefaultValue(strNonStockableItem, "");
 	}
 
 	public String getStrPosItemCode() {
@@ -666,7 +679,7 @@ public class clsProductMasterModel implements Serializable {
 	}
 
 	public void setStrPosItemCode(String strPosItemCode) {
-		this.strPosItemCode = strPosItemCode;
+		this.strPosItemCode = (String) setDefaultValue(strPosItemCode, "");;
 	}
 
 	public String getStrSuppPartNo() {
@@ -674,7 +687,7 @@ public class clsProductMasterModel implements Serializable {
 	}
 
 	public void setStrSuppPartNo(String strSuppPartNo) {
-		this.strSuppPartNo = strSuppPartNo;
+		this.strSuppPartNo = (String) setDefaultValue(strSuppPartNo, "");
 	}
 
 	public String getStrSuppPartDesc() {
@@ -682,7 +695,7 @@ public class clsProductMasterModel implements Serializable {
 	}
 
 	public void setStrSuppPartDesc(String strSuppPartDesc) {
-		this.strSuppPartDesc = strSuppPartDesc;
+		this.strSuppPartDesc = (String) setDefaultValue(strSuppPartDesc, "");
 	}
 
 	public String getStrLocName() {
@@ -698,7 +711,7 @@ public class clsProductMasterModel implements Serializable {
 	}
 
 	public void setStrSGName(String strSGName) {
-		this.strSGName = strSGName;
+		this.strSGName = (String) setDefaultValue(strSGName, "");
 	}
 
 	public String getStrPOSItemName() {
@@ -706,7 +719,7 @@ public class clsProductMasterModel implements Serializable {
 	}
 
 	public void setStrPOSItemName(String strPOSItemName) {
-		this.strPOSItemName = strPOSItemName;
+		this.strPOSItemName = (String) setDefaultValue(strPOSItemName, "");
 	}
 
 	private Object setDefaultValue(Object value, Object defaultValue) {
@@ -735,7 +748,7 @@ public class clsProductMasterModel implements Serializable {
 	}
 
 	public void setStrBarCode(String strBarCode) {
-		this.strBarCode = strBarCode;
+		this.strBarCode = (String) setDefaultValue(strBarCode, "");
 	}
 
 	public double getDblMRP() {
@@ -807,7 +820,7 @@ public class clsProductMasterModel implements Serializable {
 	}
 
 	public void setPrevInvCode(String prevInvCode) {
-		this.prevInvCode = prevInvCode;
+		this.prevInvCode =  (String) setDefaultValue(prevInvCode, "");
 	}
 
 	public String getStrManufacturerCode() {
@@ -835,13 +848,7 @@ public class clsProductMasterModel implements Serializable {
 		this.strHSNCode = (String) setDefaultValue(strHSNCode, "");
 	}
 
-	public byte[] getStrProductImage() {
-		return strProductImage;
-	}
-
-	public void setStrProductImage(byte[] strProductImage) {
-		this.strProductImage = strProductImage;
-	}
+	
 
 	
 

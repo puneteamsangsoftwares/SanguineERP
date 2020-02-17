@@ -1,11 +1,25 @@
- <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+    
+ <style> 
+ .transTable td {
+    padding-left: 33px;
+ }
+ </style>
 </head>
 <script type="text/javascript">
 
@@ -183,59 +197,47 @@ function btnSubmit_Onclick()
 
 </script>
 <body>
-	<div id="formHeading">
-		<label>Pending Recipe Report</label>
-	</div>
-		<s:form name="PendingRecipeReport" method="POST" action="rptPendingRecipeList.html" target="_blank">
+	<div class="container transTable">
+		<label id="formHeading">Pending Recipe Report</label>
+	    <s:form name="PendingRecipeReport" method="POST" action="rptPendingRecipeList.html" target="_blank">
             <br />
-	   		<table class="transTable">
-		
-				<tr>
-		
-			 <td width="49%">Sub Group&nbsp;&nbsp;&nbsp;&nbsp;
-		  		 <input type="text" id="searchSGrp" 
-		  		 style="width: 50%;background-position: 240px 2px;" 
-		  		 Class="searchTextBox" placeholder="Type to search">
-		 </td>
-				</tr>
-				<tr>
-						
-			
-						<td  colspan="2">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-
-							<table id="" class="masterTable"
-								style="width: 100%; border-collapse: separate;">
-								<tbody>
-									<tr bgcolor="#72BEFC">
-										<td width="15%"><input type="checkbox" id="chkSGALL"
+	   		
+		 <div class="row">	
+		    <div class="col-md-2"><label>Sub Group</label>
+		  		 <input type="text" id="searchSGrp" style="background-position: 240px 2px;" Class="searchTextBox" placeholder="Type to search">
+		    </div>
+		 </div>
+		<br>
+			<div  style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+                	<table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
+						<tbody>
+							<tr bgcolor="#c0c0c0">
+								<td width="10%"><input type="checkbox" id="chkSGALL"
 											checked="checked" onclick="funCheckUncheckSubGroup()" />Select</td>
-										<td width="25%">Sub Group Code</td>
-										<td width="65%">Sub Group Name</td>
+								<td width="25%">Sub Group Code</td>
+								<td width="65%">Sub Group Name</td>
 
-									</tr>
-								</tbody>
-							</table>
-							<table id="tblSubGroup" class="masterTable"
+							</tr>
+						</tbody>
+					  </table>
+					  <table id="tblSubGroup" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<!-- <tr bgcolor="#fafbfb">
 										<td width="15%"></td>
 										<td width="25%"></td>
 										<td width="65%"></td>
 
-									</tr>
+									</tr> -->
 								</tbody>
-							</table>
-						</div>
-				</td>
-				</tr>
-			</table>
-			<br>
-			<p align="center">
-				 <input type="submit" value="Submit"  class="form_button"  onclick="btnSubmit_Onclick()" id="btnSubmit" />
-				 <input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>			     
+					  </table>
+			</div>
+	
+			<br><br>
+			<p align="center" >
+				 <input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button"  onclick="btnSubmit_Onclick()" id="btnSubmit" />
+				 &nbsp;
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>			     
 			</p>
 		
 			<div id="wait"
@@ -247,5 +249,6 @@ function btnSubmit_Onclick()
 			<s:input type="hidden" id="hidSubCodes" path="strSGCode"></s:input>	
 		</div>
 		</s:form>
+		</div>
 	</body>
 </html>

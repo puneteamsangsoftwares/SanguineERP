@@ -11,6 +11,7 @@ public class clsDelTransDaoImpl implements clsDelTransDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	@Override
 	public void funInsertRecord(clsDeleteTransModel objModel) {
 		sessionFactory.getCurrentSession().saveOrUpdate(objModel);
 	}

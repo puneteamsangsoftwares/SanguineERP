@@ -39,8 +39,8 @@ public class clsUserDefinedReportController {
 	@RequestMapping(value = "/frmUserDefinedReport", method = RequestMethod.GET)
 	public ModelAndView funUserDefinedReport(@ModelAttribute("command") @Valid clsUserDefinedReportBean objBean, BindingResult result, HttpServletRequest req) {
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
-		userDefinedService.funGetTableNames("table");
-		ModelAndView mv = new ModelAndView("frmUserDefinedReport");
+/*		userDefinedService.funGetTableNames("table");
+*/		ModelAndView mv = new ModelAndView("frmUserDefinedReport");
 		String sql = "select strUDCName,strUDCCode from clsUDReportCategoryMasterModel " + "where strClientCode='" + clientCode + "'";
 		List arList = objGlobalFunctionsService.funGetList(sql, "hql");
 

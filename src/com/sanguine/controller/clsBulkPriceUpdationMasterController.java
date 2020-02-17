@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.itextpdf.text.pdf.qrcode.ByteArray;
 import com.sanguine.bean.clsProductMasterBean;
 import com.sanguine.model.clsLocationMasterModel;
 import com.sanguine.model.clsProductMasterModel;
@@ -129,7 +128,10 @@ public class clsBulkPriceUpdationMasterController {
 
 				if (obModel.getStrProdCode() != null) {
 					clsProductMasterModel objModel1 = objProductMasterService.funGetObject(obModel.getStrProdCode(), clientCode);
-
+					if(obModel.getStrProdCode().equals("P000146")){
+						System.out.println(obModel.getStrProdCode());
+					}
+					System.out.println(obModel.getStrProdCode() +" prod code");
 					objModel1.setStrSGCode(obModel.getStrSGCode());
 					clsSubGroupMasterModel objSubGroup = objSubGrpMasterService.funGetObject(obModel.getStrSGCode(), clientCode);
 					objModel1.setStrSGName(objSubGroup.getStrSGName());
@@ -149,7 +151,7 @@ public class clsBulkPriceUpdationMasterController {
 					objModel1.setStrExciseable(objGlobal.funIfNull(obModel.getStrExciseable(), "N", "Y"));
 					objModel1.setStrNotInUse(objGlobal.funIfNull(obModel.getStrNotInUse(), "N", "Y"));
 					objModel1.setStrPickMRPForTaxCal(objGlobal.funIfNull(obModel.getStrPickMRPForTaxCal(), "N", "Y"));
-					objModel1.setStrBarCode(obModel.getStrBarCode());
+					objModel1.setStrBarCode(objGlobal.funIfNull(obModel.getStrBarCode(),"",obModel.getStrBarCode()));
 					objModel1.setDblReceiveConversion(obModel.getDblReceiveConversion());
 					objModel1.setStrReceivedUOM(obModel.getStrReceivedUOM());
 					objModel1.setStrIssueUOM(obModel.getStrIssueUOM());
@@ -161,9 +163,15 @@ public class clsBulkPriceUpdationMasterController {
 					objModel1.setDblListPrice(obModel.getDblListPrice());
 					objModel1.setDblUnitPrice(obModel.getDblUnitPrice());
 					if (objModel1.getStrProductImage() == null) {
-						objModel1.setStrProductImage(null);
+						/*objModel1.setStrProductImage(funBlankBlob());*/
 					}
-					objProductMasterService.funAddUpdateGeneral(objModel1);
+					try{
+						objProductMasterService.funAddUpdateGeneral(objModel1);	
+					}catch(Exception e){
+						System.out.println(obModel.getStrProdCode() +" prod error");
+						e.printStackTrace();
+					}
+					
 				}
 
 			}
@@ -221,7 +229,7 @@ public class clsBulkPriceUpdationMasterController {
 		objModel.setIntId(lastNo);
 		objModel.setStrUserCreated(userCode);
 		objModel.setDtCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-		objModel.setStrProductImage(null);
+		/*objModel.setStrProductImage(funBlankBlob());*/
 		objModel.setStrProdName(objBean.getStrProdName().toUpperCase());
 		objModel.setStrPartNo(objGlobal.funIfNull(objBean.getStrPartNo(), "", objBean.getStrPartNo()));
 		objModel.setStrUOM(objGlobal.funIfNull(objBean.getStrUOM(), "", objBean.getStrUOM()));

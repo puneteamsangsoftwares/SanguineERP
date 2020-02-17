@@ -2,7 +2,7 @@
  
  
  @font-face {
-	 font-family:'Roboto', sans-serif;
+	 font-family:'trebuchet ms';
 	src: url("../images/Calibri.ttf") local(Calibri) format('opentype');
 	margin: 0;
 	padding: 0;
@@ -10,7 +10,7 @@
 body {
 	width: 100%;
     height: 100%;
-    font-family: 'Roboto', sans-serif;
+    font-family:"trebuchet ms";
   }
     new css
 These are the styles for
@@ -69,7 +69,7 @@ the header
   font-size: 20px;
   font-weight: bold;
   display: block;
-  font-family:"roboto"
+  font-family:"trebuchet ms";
 }
 .app-nav .app-header-sub {
   color: #4a4a4a;

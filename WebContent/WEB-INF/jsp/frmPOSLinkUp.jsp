@@ -1,10 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+
+<link rel="stylesheet" type="text/css" media="screen"
+	href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="<spring:url value="/resources/css/design.css"/>" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+<script type="text/javascript"
+	src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+<script type="text/javascript"
+	src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title></title>
 <script type="text/javascript">
 	var fieldName;
@@ -101,82 +117,74 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>POS Link Up</label>
+	<div class="container">
+		<label id="formHeading">POS Link Up</label>
+		<s:form name="POSLinkUp" method="POST" action="savePOSLinkUp.html">
+			<br>
+			<table class="masterTable" style="width: 90%;">
+				<tr bgcolor="#c0c0c0">
+					<td><label>POS Item Code</label></td>
+
+					<td><label>POS Item Name</label></td>
+
+					<td><label>WS Item Code</label></td>
+
+					<td><label>WS Item Name</label></td>
+				</tr>
+			</table>
+
+			<table class="masterTable"
+				style="height: 100%; background: #fbfafa; text-align: center; border: 1px solid black; font-size: 13px; width: 90%;">
+				<tr>
+					<td>
+						<table id="tblTermsAndCond">
+							<c:forEach items="${POSLinkUpList.listPOSLinkUp}" var="tc"
+								varStatus="status">
+								<tr>
+									<td align="left" width="10%"><input readonly="readonly"
+										class="Box" type="text" size="20%"
+										name="listPOSLinkUp[${status.index}].strPOSItemCode"
+										value="${tc.strPOSItemCode}"></input></td>
+
+									<td align="left" width="40%"><input type="text" size="50%"
+										name="listPOSLinkUp[${status.index}].strPOSItemName"
+										value="${tc.strPOSItemName}" class="longTextBox"></input></td>
+
+									<td align="left" width="10%"><input type="text" size="20%"
+										name="listPOSLinkUp[${status.index}].strWSItemCode"
+										value="${tc.strWSItemCode}" class="searchTextBox"
+										name="listPOSLinkUp[${status.index}].strWSItemCode"
+										id="strWSItemCode.${status.index}"
+										onclick="funHelp1(${status.index},'productmaster');"></input></td>
+
+									<td align="left" width="60%"><input type="text" size="40%"
+										name="listPOSLinkUp[${status.index}].strWSItemName"
+										id="strWSItemName.${status.index}" value="${tc.strWSItemName}"
+										class="longTextBox"></input></td>
+
+									<td><input type="button" class="deletebutton"
+										value="Delete" onClick="Javacsript:funDeleteTCRow(this)"></td>
+								</tr>
+							</c:forEach>
+
+						</table>
+					</td>
+				</tr>
+			</table>
+
+			<br />
+			<br />
+			<div class="center" style="margin-right: 10%;">
+				<a href="#"><button class="btn btn-primary center-block"
+						tabindex="3" value="Submit">Submit</button></a> <a href="#"><button
+						class="btn btn-primary center-block" value="reset"
+						onclick="funResetFields()">Reset</button></a>
+			</div>
+
+			<br />
+			<br />
+
+		</s:form>
 	</div>
-
-<br/>
-<br/>
-
-	<s:form name="POSLinkUp" method="POST" action="savePOSLinkUp.html">
-
-		<table class="masterTable">
-			<tr bgcolor="#72BEFC">
-				<td>
-					<label>POS Item Code</label>
-				</td>
-				
-				<td>
-					<label>POS Item Name</label>
-				</td>
-				
-				<td>
-					<label>WS Item Code</label>
-				</td>
-				
-				<td>
-					<label>WS Item Name</label>
-				</td>				
-			</tr>
-		</table>
-
-		<table class="masterTable" style="height: 100%; text-align: center; border: 1px solid black; font-size: 11px; font-weight: bold;">
-			<tr>
-				<td>
-					<table  id="tblTermsAndCond">
-						<c:forEach items="${POSLinkUpList.listPOSLinkUp}" var="tc"
-							varStatus="status">
-							<tr>
-								<td align="left" width="10%"><input
-									readonly="readonly" class="Box" type="text" size="20%"
-									name="listPOSLinkUp[${status.index}].strPOSItemCode"
-									value="${tc.strPOSItemCode}"></input></td>
-
-								<td align="left" width="40%"><input type="text" size="50%"
-									name="listPOSLinkUp[${status.index}].strPOSItemName"
-									value="${tc.strPOSItemName}" class="longTextBox"></input></td>
-								
-								<td align="left" width="10%">
-									<input type="text" size="20%" name="listPOSLinkUp[${status.index}].strWSItemCode"
-									value="${tc.strWSItemCode}" class="searchTextBox" 
-									name="listPOSLinkUp[${status.index}].strWSItemCode"
-									id="strWSItemCode.${status.index}" 
-									onclick="funHelp1(${status.index},'productmaster');" ></input></td>
-
-								<td align="left" width="60%"><input type="text" size="40%"
-									name="listPOSLinkUp[${status.index}].strWSItemName" 
-									id="strWSItemName.${status.index}"  
-									value="${tc.strWSItemName}" class="longTextBox"></input></td>
-									
-								<td><input type="button" class="deletebutton"
-									value="Delete" onClick="Javacsript:funDeleteTCRow(this)"></td>
-							</tr>
-						</c:forEach>
-
-					</table>
-				</td>
-			</tr>
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-		<br />
-		<br />
-
-	</s:form>
 </body>
 </html>

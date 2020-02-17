@@ -5,6 +5,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
 	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
@@ -12,7 +20,7 @@
         <!-- Load data to paginate -->
 	<link rel="stylesheet" href="<spring:url value="/resources/css/pagination.css"/>" />
 
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	
 	<script type="text/javascript">
 	
 	var pmsFlashData;
@@ -60,6 +68,8 @@
 				var toDate=$("#txtToDate").val();
 				
 					funShowPMSFlash();
+					
+					return false;
 				
 			});
 				
@@ -161,7 +171,7 @@
 		    var max_elem = Math.min((page_index+1) * items_per_page, pmsFlashData.length);
 		    var newcontent="";
 		    		    	
-			   	newcontent = '<table id="tblPMSFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">Reservation No</td><td id="labld2"> Guest Name</td><td id="labld3"> Corporate Desc</td>	<td id="labld4"> Arrival Date </td>	<td id="labld5"> Arrival Time</td><td id="labld6"> Departure Date</td><td id="labld7"> Departure Time</td></tr>';
+			   	newcontent = '<table id="tblPMSFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">Reservation No</td><td id="labld2"> Guest Name</td><td id="labld3"> Corporate Desc</td>	<td id="labld4"> Arrival Date </td>	<td id="labld5"> Arrival Time</td><td id="labld6"> Departure Date</td><td id="labld7"> Departure Time</td></tr>';
 			   	// Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
 			    {
@@ -252,44 +262,45 @@
 		
 </script>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>PMS Flash </label>
-	</div>
-	<br>
-	<s:form name="frmPMSFlash" method="GET" action="" >
+	<div class="container">
+		<label id="formHeading">PMS Flash </label>
+		<s:form name="frmPMSFlash" method="GET" action="" >
+			<div class="row masterTable">
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-6">
+							<label>From Date</label>
+							<s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" />
+						</div>
+						<div class="col-md-6">
+							<label>To Date</label>
+							<s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" />	
+						</div>
+					</div>
+				</div>	
+				<div class="col-md-2">
+					<label>Report</label>
+						<s:select id="cmbReport" name="cmbReport" path="strReport" cssClass="BoxW124px" >
+						 	<option value="Corporate">Corporate</option>
+		 				 	<option value="Booker">Booker</option>
+		 				 	<option value="Agent">Agent</option>
+<!-- 		 				 	<option value="Booker">Booker</option> -->
+<!-- 		 				 	<option value="Booker">Booker</option> -->
+						 </s:select>
+				</div>
+			</div>
 		
-	<table class="masterTable">
-		
-			<tr>
-				<td><label>From Date</label></td>
-				<td><s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" /></td>
-				<td><label>To Date</label></td>
-				<td><s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" /></td>				
-			</tr>
-			<tr>
-			<td><label>Report</label></td>
-			<td colspan="3"><s:select id="cmbReport" name="cmbReport" path="strReport" cssClass="BoxW124px" >
-						 <option value="Corporate">Corporate</option>
-		 				 <option value="Booker">Booker</option>
-		 				 <option value="Agent">Agent</option>
-<!-- 		 				 <option value="Booker">Booker</option> -->
-<!-- 		 				 <option value="Booker">Booker</option> -->
-						 </s:select></td>
-			</tr>
-		</table>
-		<br>
-	<p align="center">
-			<input id="btnExecute" type="button" class="form_button1" value="EXECUTE"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
+			<div class="center" style="margin-right:60%;">
+				<button class="btn btn-primary center-block" id="btnExecute"  value="Execute" onclick=""
+					class="form_button">Execute</button>&nbsp
+				<button class="btn btn-primary center-block" value="Reset" onclick="funResetFields()"
+					class="form_button">Reset</button>
+			</div>
 			<br>
 		<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
 		<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
-		
-		</div>	
-		
-			
+		</div>
 	</s:form>
-
+</div>
 </body>
 </html>

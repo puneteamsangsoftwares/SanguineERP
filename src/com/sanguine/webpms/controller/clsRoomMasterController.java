@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webpms.bean.clsRoomMasterBean;
+import com.sanguine.webpms.dao.clsWebPMSDBUtilityDao;
 import com.sanguine.webpms.model.clsRoomMasterModel;
 import com.sanguine.webpms.model.clsRoomMasterModel_ID;
 import com.sanguine.webpms.service.clsRoomMasterService;
@@ -34,6 +35,9 @@ public class clsRoomMasterController {
 
 	@Autowired
 	private clsGlobalFunctions objGlobal;
+
+	@Autowired
+	private clsWebPMSDBUtilityDao objWebPMSUtility;
 
 	// Open RoomMaster
 	@RequestMapping(value = "/frmRoomMaster", method = RequestMethod.GET)
@@ -111,6 +115,16 @@ public class clsRoomMasterController {
 			clsRoomMasterModel objModel = funPrepareModel(objBean, userCode, clientCode, propertyCode);
 			objRoomMasterService.funAddUpdateRoomMaster(objModel);
 
+			if(objBean.getStrRoomCode().equals(""))
+			{
+				
+			}
+			else
+			{
+				String sqlUpdate = "update tblroom a set a.strRoomTypeDesc='"+objBean.getStrRoomTypeDesc()+"' where a.strRoomCode='"+objBean.getStrRoomCode()+"' and a.strClientCode='"+clientCode+"'";
+				objWebPMSUtility.funExecuteUpdate(sqlUpdate, "sql");
+			}
+			
 			req.getSession().setAttribute("success", true);
 			req.getSession().setAttribute("successMessage", "Room Code : ".concat(objModel.getStrRoomCode()));
 

@@ -1,12 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title>Purchase Indent</title>
 
 <script type="text/javascript">
@@ -115,8 +124,8 @@ $(document).ready(function(){
 		    	{
 		    	strAgainst="";
 		    	}
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"55%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
+		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"7%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
 		    row.insertCell(2).innerHTML= "<input type=\"text\" required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblQty\" id=\"txtProdQty."+(rowCount)+"\" value="+dblOrdQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
 		    row.insertCell(3).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto Box\"  name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblRate\" id=\"txtRate."+(rowCount)+"\" value='"+parseFloat(dblUnitPrice).toFixed(maxAmountDecimalPlaceLimit)+"'/>";
 		    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto Box totalValueCell\"  name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblAmount\" id=\"txtAmount."+(rowCount)+"\" value='"+parseFloat(dblTotAmt).toFixed(maxAmountDecimalPlaceLimit)+"'/>";
@@ -462,15 +471,15 @@ $(document).ready(function(){
 		    var row = table.insertRow(rowCount);
 		    rowCount=listRow;
 		   // row.insertCell(1).innerHTML= "<input type=\"hidden\" name=\"listMISDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />"+strProdName+"</label>";
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"55%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
+		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"7%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
 		    row.insertCell(2).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\"  name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblQty\" id=\"txtProdQty."+(rowCount)+"\" value='"+dblProdQty+"' onblur=\"Javacsript:funUpdatePrice(this)\">";
 		    row.insertCell(3).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto Box\"  name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblRate\" id=\"txtRate."+(rowCount)+"\" value='"+parseFloat(dblUnitPrice).toFixed(maxAmountDecimalPlaceLimit)+"'/>";
 		    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto Box totalValueCell\"  name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblAmount\" id=\"txtAmount."+(rowCount)+"\" value='"+parseFloat(dblAmount).toFixed(maxAmountDecimalPlaceLimit)+"'/>";
-		    row.insertCell(5).innerHTML= "<input size=\"18%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strPurpose\" id=\"strPurpose."+(rowCount)+"\" value='"+strPurpose+"' >";
-		    row.insertCell(6).innerHTML= "<input size=\"8%\"  required = \"required\" class=\"datePicker calenderTextBox\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dtReqDate\" id=\"dtReqDate."+(rowCount)+"\" value='"+dtReqDate+"' >";	   
-		    row.insertCell(7).innerHTML= "<input readonly=\"readonly\"  style=\"text-align: right;\" class=\"Box\" size=\"7%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strInStock\" id=\"strInStock."+(rowCount)+"\" value='"+strInStock+"' />";		    
-		    row.insertCell(8).innerHTML= "<input readonly=\"readonly\"  style=\"text-align: right;\" class=\"Box\" size=\"4%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblReOrderQty\" id=\"dblReOrderQty."+(rowCount)+"\"  value='"+Minimumlevel+"'/>";
+		    row.insertCell(5).innerHTML= "<input size=\"18%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strPurpose\" style=\"margin-left:5px;\" id=\"strPurpose."+(rowCount)+"\" value='"+strPurpose+"' >";
+		    row.insertCell(6).innerHTML= "<input size=\"8%\"  required = \"required\" class=\"datePicker calenderTextBox\" style=\"border:1px solid #c0c0c0;\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dtReqDate\" id=\"dtReqDate."+(rowCount)+"\" value='"+dtReqDate+"' >";	   
+		    row.insertCell(7).innerHTML= "<input readonly=\"readonly\"  style=\"text-align: right;\" class=\"Box\" size=\"7%\" style=\"margin-left:5px;\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strInStock\" id=\"strInStock."+(rowCount)+"\" value='"+strInStock+"' />";		    
+		    row.insertCell(8).innerHTML= "<input readonly=\"readonly\"  style=\"text-align: right;\" class=\"Box\" size=\"4%\"  style=\"margin-left:5px;\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblReOrderQty\" id=\"dblReOrderQty."+(rowCount)+"\"  value='"+Minimumlevel+"'/>";
 		    row.insertCell(9).innerHTML= "<input size=\"8%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strAgainst\" id=\"strAgainst."+(rowCount)+"\" value='"+strAgainst+"'/>";		    
 		    row.insertCell(10).innerHTML= '<input size=\"8%\" type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';
 		    listRow++;
@@ -888,66 +897,71 @@ $(document).ready(function(){
 
 </head>
 <body>
-<div id="formHeading">
-		<label>Purchase Indent</label>
-	</div>
-	<s:form method="POST" action="savepurchaseIndent.html?saddr=${urlHits}" name="PIForm" data-ajax="false">
-	<br>
-		<table class="transTable">
-			<tr >
-			 <th align="right" colspan="10"> <a onclick="funHelpAutoGeneratedPI();" href="javascript:void(0);">Auto Generate</a>&nbsp; &nbsp;| &nbsp;  &nbsp;
-			 <a id="baseUrl" href="#">Attach Documents</a>&nbsp; &nbsp; &nbsp;  &nbsp;<a onclick="funOpenExportImport()"
-					href="javascript:void(0);">Export/Import</a>&nbsp; &nbsp; &nbsp;
-					&nbsp;</th>			   
-		    </tr>
-			<tr>
-				<td width="110px"><label>PI Code</label> </td>
-				<td  width="150px">
-					<s:input path="strPIcode" ondblclick="funHelp('PICode')" id="strPICode" cssClass="searchTextBox"/>
-				</td>
-				
-				<td width="100px" align="right"><label>Date</label></td>
-			    <td colspan="8"><s:input path="dtPIDate" id="dtPIDate" required="required" cssClass="calenderTextBox" /></td>
-			</tr>
-
-			<tr>
-				<td>
-					<label>Location</label></td><td> 
-					<s:input id="strLocCode" path="strLocCode" value="${locationCode}"  required="required"  ondblclick="funHelp('locationmaster')" cssClass="searchTextBox" />
-				</td>
-				<td colspan="8"><label id="strLocName"  class="namelabel">${locationName} </label></td>
-			</tr>
-			
-			<tr>
-				<td><label>Product Code</label></td>
-				<td>
-					<input id="txtProdCode" name="txtProdCode" ondblclick="funHelp('productInUse')" class="searchTextBox"/>
-				</td>
+	<div class="container">
+		<label id="formHeading">Purchase Indent</label>
+		<s:form method="POST" action="savepurchaseIndent.html?saddr=${urlHits}" name="PIForm" data-ajax="false">
+		<br>
+		<div class="row transTable">
+			<div class="col-md-12">
+			 	<a onclick="funHelpAutoGeneratedPI();" href="javascript:void(0);">Auto Generate</a>&nbsp&nbsp&nbsp&nbsp
+			 	<!-- <a id="baseUrl" href="#">Attach Documents</a>&nbsp; &nbsp; &nbsp;  &nbsp; -->
+			 	<a onclick="funOpenExportImport()" href="javascript:void(0);">Export/Import</a>
+			</div>				   
+		  	<div class="col-md-2">
+				<label>PI Code</label>
+				<s:input path="strPIcode" ondblclick="funHelp('PICode')" id="strPICode" cssClass="searchTextBox"/>
+			</div>
+			<div class="col-md-2">
+				<label>Date</label>
+			  	<s:input path="dtPIDate" id="dtPIDate" required="required" cssClass="calenderTextBox" style="width:80%;" />
+			</div>
+			<div class="col-md-2">
+				<label>Location</label>
+				<s:input id="strLocCode" path="strLocCode" value="${locationCode}"/>
+			</div>
+			<div class="col-md-2">	
+				<label id="strLocName"  class="namelabel"  required="required"  ondblclick="funHelp('locationmaster')" cssClass="searchTextBox" style="background-color:#dcdada94; width: 100%; height: 52%;margin-top:27px; text-align:center;">${locationName} </label>
+			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-2">	
+				<label>Product Code</label>
+				<input id="txtProdCode" name="txtProdCode" ondblclick="funHelp('productInUse')" class="searchTextBox" />
+			</div>
+			<div class="col-md-2">	
 				<!-- <td><label>Product Name</label></td> -->
-				<td width="30%"><label id="spProdName"  class="namelabel" style="font-size: 12px;"></label></td>
-				<td width="5%">Qty</td>
-				<td width="5%"><input id="txtProdQty" style="width: 90%" name="txtProdQty" value="" type="text"  class="decimal-places numberField"  onkeypress="funGetKeyCode(event,'Qty')"/></td>
-				<td width="5%">Unit Price</td>
-				<td width="10%"><input id="txtUnitPrice" readonly="readonly" style="width: 90%" name="txtUnitPrice" value="" type="text"  class="decimal-places-amt numberField"  /></td>
-				<td width="6%"><label>Min Level</label></td>
-				<td><label id="txtMinlvl" ></label></td>
-			</tr>		
-			
-			<tr>
-				<td><label>Purpose</label></td>
-				<td colspan="2"><input id="txtPurpose" class="longTextBox" >
-				<td><label>Required Date</label></td>
-				<td><input id="txtReqDate" class="calenderTextBox" ></input></td>
-				<td colspan="8"><input type="button" id="addbtn" value="Add" class="smallButton" onclick="return btnAdd_onclick()" />
-				</td>
-			</tr>			
-		</table>
-<div class="dynamicTableContainer" style="height: 330px">
-	<table  style="height:28px;border:#0F0;width:100%;font-size:11px;
-			font-weight: bold;">	
-		<tr bgcolor="#72BEFC" >
+				<label id="spProdName"  class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%;margin-top:27px; text-align:center;"></label>
+			</div>
+			<div class="col-md-2">	
+				<label>Qty</label>
+				<input id="txtProdQty" style="width: 90%" name="txtProdQty" value="" type="text"  class="decimal-places numberField"  onkeypress="funGetKeyCode(event,'Qty')"/>
+			</div>
+			<div class="col-md-2">	
+				<label>Unit Price</label>
+				<input id="txtUnitPrice" readonly="readonly" style="width: 90%" name="txtUnitPrice" value="" type="text"  class="decimal-places-amt numberField" />
+			</div>
+			<div class="col-md-2">	
+				<label>Min Level</label><br>
+				<label id="txtMinlvl" style="background-color:#dcdada94; width: 50%; height: 52%; text-align:center;"></label>
+			</div>
+			<div class="col-md-2"></div>
+			<div class="col-md-2">	
+				<label>Purpose</label>
+				<input id="txtPurpose" type="text">
+			</div>
+			<div class="col-md-2">	
+				<label>Required Date</label>
+				<input id="txtReqDate" type="text" class="calenderTextBox" style="width:80%;"></input>
+			</div>
+			<div class="col-md-2">	
+				<input type="button" id="addbtn" value="Add" class="btn btn-primary center-block" onclick="return btnAdd_onclick()" style="margin-top:20px;" />
+			</div>	
+		</div><br>
+	<div class="dynamicTableContainer" style="height: 330px">
+		<table  style="height:28px;border:#0F0;width:100%;font-size:11px;
+				font-weight: bold;">	
+			<tr bgcolor=#c0c0c0 >
 				<td width="4%">Prod Code</td><!--  COl1   -->
-				<td width="20%">Prod name</td><!--  COl2   -->
+				<td width="22%">Prod name</td><!--  COl2   -->
 				<td width="3%">Qty</td><!--  COl3   -->
 				<td width="3%">Unit Price</td><!--  COl4   -->
 				<td width="3%">Amount</td><!--  COl5   -->
@@ -958,32 +972,26 @@ $(document).ready(function(){
 				<td width="5%">Against</td><!--  COl10   -->		
 				<td width="4%">Delete</td><!--  COl11   -->
 		
-		</tr>
-				</table>
-				<div style="background-color:  	#a4d7ff;
-    border: 1px solid #ccc;
-    display: block;
-    height: 280px;
-    margin: auto;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    width: 100%;">
-		<table id="tblProdDet" style="width:100%;border:
-#0F0;table-layout:fixed;overflow:scroll" class="transTablex  col11-center ">
-	<tbody>    
-	<col style="width:4%"><!--  COl1   -->
-	<col style="width:20%"><!--  COl2   -->
-	<col style="width:3%"><!--  COl3   -->
-	<col style="width:3%"><!--  COl4   -->
-	<col style="width:4%"><!--  COl5   -->
-	<col style="width:10%"><!--  COl6   -->
-	<col style="width:7%"><!--  COl7   -->
-	<col style="width:4%"><!--  COl8   -->
-	<col style="width:3%"><!--  COl9   -->	
-	<col style="width:5%"><!--  COl10   -->	
-	<col style="width:3%"><!--  COl11  -->
+			</tr>
+		</table>
+			<div style="background-color:#fbfafa; border: 1px solid #ccc; display: block; height: 280px; margin: auto;
+			    overflow-x: hidden; overflow-y: scroll; width: 100%;">
+					<table id="tblProdDet" style="width:100%;border:
+						#0F0;table-layout:fixed;overflow:scroll" class="transTablex  col11-center ">
+				<tbody>    
+				<col style="width:4%"><!--  COl1   -->
+				<col style="width:20%"><!--  COl2   -->
+				<col style="width:3%"><!--  COl3   -->
+				<col style="width:3%"><!--  COl4   -->
+				<col style="width:4%"><!--  COl5   -->
+				<col style="width:10%"><!--  COl6   -->
+				<col style="width:7%"><!--  COl7   -->
+				<col style="width:4%"><!--  COl8   -->
+				<col style="width:3%"><!--  COl9   -->	
+				<col style="width:5%"><!--  COl10   -->	
+				<col style="width:3%"><!--  COl11  -->
 	
-	<c:forEach items="${command.listPurchaseIndentDtlModel}" var="pi" varStatus="status">
+		<c:forEach items="${command.listPurchaseIndentDtlModel}" var="pi" varStatus="status">
 					<tr>
 						<td>
 <!-- 						row.insertCell(0).innerHTML= "<input type=\"hidden\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />"+"<label>"+strProdCode+"</label>"; -->
@@ -1025,34 +1033,32 @@ $(document).ready(function(){
 						<td><input type="Button" value="Delete" class="deletebutton" onClick="Javacsript:funDeleteRow(this)"/></td>
 					</tr>
 				</c:forEach>
-				
-	<tbody>
-	</table>
-	</div>
-				
+			<tbody>
+		</table>
+	</div>	
 </div>
 
-		<table class="transTableMiddle">
-			<tr>
-				<td>Close Purchase Indent</td>
-				<td>
-					<s:checkbox id="cbClosePI"  value="Yes" path="strClosePI" />
-				</td>
-				<td width="5%"><label>Narration </label></td>
-				<td width="27%"><s:textarea cssStyle="width:100%" path="strNarration" id="txtNarration"/></td>
-				
-				<td width="6%" align="right">Total</td>
-				<td><s:input type="text" id="txtSubTotal"
-				path="dblTotal" readonly="true"
-				class="decimal-places" /></td>
-			</tr>
-		</table>
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label>Close Purchase Indent</label><br>
+				<s:checkbox id="cbClosePI" value="Yes" path="strClosePI" />
+			</div>
+			<div class="col-md-2">
+				<label>Narration </label>
+				<s:textarea cssStyle="width:100%; height:27px;" path="strNarration" id="txtNarration" type="text"/>
+			</div>
+			<div class="col-md-2">	
+				<label>Total</label>
+				<s:input type="text" id="txtSubTotal" path="dblTotal" readonly="true"
+					class="decimal-places" />
+			</div>
+		</div>	
+		
 		<br>
-		<p align="center">
-			<input type="submit" id="formsubmit" value="Submit" class="form_button" onclick="return funCallFormAction('submit',this)" />
-			&nbsp; &nbsp; &nbsp; <input type="button" value="Reset"
-				class="form_button" onclick="funResetFields();" />
-		</p>
+		<div class="center" style="text-align:center">
+			<a href="#"><button class="btn btn-primary center-block" id="formsubmit"  tabindex="3" value="Submit" onclick="return funCallFormAction('submit',this)">Submit</button></a>&nbsp
+			<a href="#"><button class="btn btn-primary center-block"  value="Reset" onclick="funResetFields();">Reset</button></a>
+		</div>
 		<br><br>
 		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
@@ -1061,6 +1067,7 @@ $(document).ready(function(){
 			<s:input type="hidden" id="hidDocType" path="strDocType"></s:input>
 			
 	</s:form>
+</div>
 	<script type="text/javascript">
 	funApplyNumberValidation();
 	</script>

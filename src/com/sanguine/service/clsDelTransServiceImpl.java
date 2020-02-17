@@ -15,7 +15,7 @@ public class clsDelTransServiceImpl implements clsDelTransService {
 	private clsDelTransDao objDelTransDao;
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(value = "hibernateTransactionManager")
 	public void funInsertRecord(clsDeleteTransModel objModel) {
 		objDelTransDao.funInsertRecord(objModel);
 	}

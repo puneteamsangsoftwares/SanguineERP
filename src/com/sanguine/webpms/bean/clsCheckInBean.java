@@ -66,6 +66,8 @@ public class clsCheckInBean {
 	
 	private String strRemarks;
 	
+	private String strDontApplyTax;
+	
 	private List<clsRoomPackageDtl> listRoomPackageDtl = new ArrayList<clsRoomPackageDtl>();
 	
 	private List<clsReservationRoomRateModelDtl> listReservationRoomRateDtl = new ArrayList<clsReservationRoomRateModelDtl>();
@@ -318,6 +320,14 @@ public class clsCheckInBean {
 
 	public void setStrRemarks(String strRemarks) {
 		this.strRemarks = strRemarks;
+	}
+
+	public String getStrDontApplyTax() {
+		return strDontApplyTax;
+	}
+
+	public void setStrDontApplyTax(String strDontApplyTax) {
+		this.strDontApplyTax = strDontApplyTax;
 	}
 	
 	

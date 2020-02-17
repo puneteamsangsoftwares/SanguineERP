@@ -20,13 +20,13 @@ public class clsBathTypeMasterDaoImpl implements clsBathTypeMasterDao {
 	@Autowired
 	private SessionFactory webPMSSessionFactory;
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public void funAddUpdateBathTypeMaster(clsBathTypeMasterModel objBathTypeeMasterModel) {
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objBathTypeeMasterModel);
 
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false,value="WebPMSTransactionManager")
 	@Override
 	public List funGetBathTypeMaster(String bathTypeCode, String clientCode) {
 

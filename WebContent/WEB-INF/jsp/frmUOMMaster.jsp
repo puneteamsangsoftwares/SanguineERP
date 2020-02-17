@@ -1,11 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="sp"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <script type="text/javascript">
 	
 		/**
@@ -27,31 +36,24 @@
 </script>
 </head>
 <body>
-<div id="somediv"></div>
-	<div id="formHeading">
-		<label>UOM Master</label>
-	</div>
-<s:form id="UOMMaster" name="UOMMaster" action="saveUOMMaster.html" method="POST">
-<br>
-<table class="masterTable">
-<tr>
-		    <th  align="right" colspan="2">  &nbsp; &nbsp; &nbsp;
-						&nbsp;</th>
-		    </tr>
-<tr>
-<td width="10%">UOM Name</td>
-<td><s:input id="txtUOM" name="txtUOM" cssStyle="text-transform: uppercase;"  cssClass="BoxW116px" path="strUOMName" ondblclick="funHelp('UOMmaster')" required = "true"	value="" />
-</td>
-</tr>
-</table>
-<br>
-		<p align="center">
-		<s:input type="hidden" id="txtHidUom" path="strhidUom"></s:input>
-			<input type="submit" value="Submit" id="btnSubmit" class="form_button"
-				 /> 
-				<input type="reset"
-				value="Reset" class="form_button" />
-		</p><br><br>
+<div id="somediv" class="container">
+	<label id="formHeading">UOM Master</label>
+	<s:form id="UOMMaster" name="UOMMaster" action="saveUOMMaster.html" method="POST">
+		<div class="row masterTable">
+			<div class="col-md-2">
+				<label>UOM Name</label>
+				<s:input id="txtUOM" name="txtUOM" path="strUOMName" ondblclick="funHelp('UOMmaster')" required = "true" value="" />
+			</div>
+		</div>
+		<div class="center" style="text-align:left;">
+			<a href="#"><button class="btn btn-primary center-block" id="btnSubmit" value="Submit" 
+				>Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block"  value="Reset" onclick="" >Reset</button></a>
+		</div>
+		
+	<s:input type="hidden" id="txtHidUom" path="strhidUom"></s:input>
 </s:form>
+</div>
+
 </body>
 </html>

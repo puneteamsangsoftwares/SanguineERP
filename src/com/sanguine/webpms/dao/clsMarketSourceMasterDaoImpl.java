@@ -19,13 +19,13 @@ public class clsMarketSourceMasterDaoImpl implements clsMarketSourceMasterDao{
 	@Autowired
 	private SessionFactory webPMSSessionFactory;
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public void funAddUpdateMarketMaster(clsMarketSourceMasterModel objMarketMasterModel) {
 
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objMarketMasterModel);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	@Override
 	public List funGetMarketMaster(String MarketCode, String clientCode) {
 

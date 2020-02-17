@@ -1,10 +1,12 @@
 package com.sanguine.webpms.dao;
 
+import javax.persistence.Query;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.hibernate.Query;
+
 import com.sanguine.webpms.model.clsBookerMasterHdModel;
 import com.sanguine.webpms.model.clsBookerMasterModel_ID;
 

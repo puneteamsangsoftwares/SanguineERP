@@ -1,11 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Business Source Master</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 
@@ -18,9 +25,6 @@
 		    //window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;")
 		}
 		
-		
-		
-
 		/**
 		*   Attached document Link
 		**/
@@ -146,84 +150,66 @@
 						}
 						return flg;
 					}
+		 
+		$('#baseUrl').click(function() 
+				{  
+					 if($("#txtBusinessCode").val().trim()=="")
+					{
+						alert("Please Select Code... ");
+						return false;
+					} 
+						window.open('attachDoc.html?transName=frmBusinessSource.jsp&formName=Member Profile&code='+$('#txtBusinessCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+				});
 				
-		
-		
-		
 	
 </script>
-
-
 </head>
 <body>
-	<div id="formHeading">
-		<label>Business Source Master</label>
-	</div>
-	
-	<s:form name="Business" method="GET" action="saveBusinessSourceMaster.html?" >
-	
-		<table class="masterTable">
-
-           <tr>
-				<th align="right" colspan="2"><a id="baseUrl"
+	<div class="container masterTable">
+		<label id="formHeading">Business Source Master</label>
+	   <s:form name="Business" method="GET" action="saveBusinessSourceMaster.html?" >
+	     <div class="row">
+				<!-- <th align="right" colspan="2"><a id="baseUrl"
 					href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
-						&nbsp;</th>
-			</tr>
-
-			<tr>
-			    <td><label>Code</label></td>
-				<td><s:input id="txtBusinessCode" path="strBusinessSourceCode" cssClass="searchTextBox" ondblclick="funHelp('business')" /></td>				
-			</tr>
-			
-			<tr>
-			    <td><label>Description</label></td>
-				<td><s:input id="txtBusinessDesc" path="strDescription" cssClass="longTextBox" /></td>				
-			</tr>
-			
-			<tr>
-				 <td><label>Involves amount</label></td>
-				 <td  >
-				 <s:select id="cmbInvolvesAmt" path="strInvolvesAmt" cssClass="BoxW124px">
+						&nbsp;</th> -->
+		<div class="col-md-5">
+		   <div class="row">			
+			<div class="col-md-5"><label>Code</label>
+				<s:input id="txtBusinessCode" path="strBusinessSourceCode" cssClass="searchTextBox" ondblclick="funHelp('business')" style="height: 46%"/>			
+			</div>
+			<div class="col-md-7"><label>Description</label>
+				<s:input id="txtBusinessDesc" path="strDescription"/>				
+			</div>
+		</div></div>	
+		<div class="col-md-7"></div>
+		
+			<div class="col-md-1"><label>Involves amount</label>
+				 <s:select id="cmbInvolvesAmt" path="strInvolvesAmt">
 				    <option selected="selected" value="Y">Yes</option>			           
 			        <option value="N">No</option>
 		         </s:select>
-				</td>						
-			</tr>
+			</div>
 			
-			<tr>
-				 <td><label>Instrument accepted</label></td>
-				 <td  >
-				 <s:select id="cmbInstrument" path="strInstAccepted" cssClass="BoxW124px">
+			<div class="col-md-1"><label>Instrument accepted</label>
+				 <s:select id="cmbInstrument" path="strInstAccepted">
 				    <option selected="selected" value="Y">Yes</option>			           
 			        <option value="N">No</option>
 		         </s:select>
-				</td>
-			</tr>
+			</div>
 			
-			<tr>
-				 <td><label>Request Slip Required</label></td>
-				 <td  >
-				 <s:select id="cmbRequestSlip" path="strReqSlipReqd" cssClass="BoxW124px">
+			<div class="col-md-1"><label>Request Slip Required</label>
+			     <s:select id="cmbRequestSlip" path="strReqSlipReqd">
 				    <option selected="selected" value="Y">Yes</option>
 			        <option value="N">No</option>
 		         </s:select>
-				</td>
-			</tr>
-			
-			
-			
-		</table>
-		
-		
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funCallFormAction('submit',this);" />
-            <input type="reset" value="Reset" class="form_button" />
-           
-            
-		</p>
+			</div>
+		</div>
+
+		<p align="center" style="margin-right: 345px">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this);"/>&nbsp;
+            <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />
+        </p>
 	</s:form>
-	
+	</div>
 </body>
 </html>

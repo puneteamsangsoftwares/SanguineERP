@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	var fieldName;
 
@@ -160,110 +168,79 @@
 
 	});
 	
+	 $('#baseUrl').click(function() 
+				{  
+					 if($("#txtBookerCode").val().trim()=="")
+					{
+						alert("Please Select Booker Code... ");
+						return false;
+					} 
+						window.open('attachDoc.html?transName=frmBookerMaster.jsp&formName=Member Profile&code='+$('#txtBookerCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+				});
+	
 </script>
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>BookerMaster</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="BookerMaster" method="POST" action="saveBookerMaster.html">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>BookerCode</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtBookerCode" path="strBookerCode" cssClass="searchTextBox" ondblclick="funHelp('BookerCode');"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>BookerName</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtBookerName" path="strBookerName" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Address</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtAddress" path="strAddress" cssClass="longTextBox" />
-				</td>
-			</tr>
+  <div class="container masterTable">
+	<label id="formHeading">Booker Master</label>
+	 <s:form name="BookerMaster" method="POST" action="saveBookerMaster.html">
+	 
+          <div class="row">
+          
+				<div class="col-md-5">
+				  <div class="row">
+				      <div class="col-md-5"><label>Booker Code</label>
+				             <s:input type="text" id="txtBookerCode" path="strBookerCode" cssClass="searchTextBox" ondblclick="funHelp('BookerCode');"/>
+				       </div>
+		              <div class="col-md-7"><label>Booker Name</label>
+					         <s:input type="text" id="txtBookerName" path="strBookerName"/>
+				        </div>
+			    </div></div>
+		         
+		          <div class="col-md-7"></div>
+		          
+				<div class="col-md-3">	<label>Address</label>
+				    <s:input type="text" id="txtAddress" path="strAddress"/>
+				</div>
 			
-			<tr>
-				<td>
-					<label>City</label>
-				</td>
-				<td>
-					<s:select id="txtCity" path="strCity" items="${cityArrLsit}" cssClass="BoxW124px"/>
-									
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>State</label>
-				</td>
-				<td>
-					<s:select id="txtState" path="strState"  items="${stateArrLsit}" cssClass="BoxW124px"/>
-				
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Country</label>
-				</td>
-				<td>
-					<s:select id="txtCountry" path="strCountry" items="${countryArrLsit}" cssClass="BoxW124px"/>
-					
-					
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>MobileNo</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtMobileNo" path="lngMobileNo" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>TelephoneNo</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtTelephoneNo" path="lngTelephoneNo" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>EmailId</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtEmailId" path="strEmailId" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td><s:checkbox label="Black List this corporate"  id="chkBlackList" path="strBlackList" value="" /></td>
-			</tr>
-		</table>
+			    <div class="col-md-1"><label>City</label>
+				    <s:select id="txtCity" path="strCity" items="${cityArrLsit}" style="width: 120%;"/>
+				</div>
+	
+			    <div class="col-md-2"><label>State</label>
+				    <s:select id="txtState" path="strState"  items="${stateArrLsit}" style="width: 60%;"/>
+				</div>
+			
+			    <div class="col-md-1" style="margin-left: -7%;"><label>Country</label>
+					<s:select id="txtCountry" path="strCountry" items="${countryArrLsit}"/>
+				</div>
+		         <div class="col-md-5"></div>
+		         
+				<div class="col-md-2"><label>Mobile No</label>
+					<s:input colspan="3" type="text" id="txtMobileNo" path="lngMobileNo"/>
+				 </div>
 
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funCallFormAction('submit',this);" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+				 <div class="col-md-2"><label>Telephone No</label>
+				    <s:input type="text" id="txtTelephoneNo" path="lngTelephoneNo"/>
+				</div>
+			
+			  <div class="col-md-2"><label>Email Id</label>
+				  <s:input type="text" id="txtEmailId" path="strEmailId" style="width: 110%;"/>
+			   </div>
+		        <div class="col-md-6"></div> 
+		        
+			 <div class="col-md-2"><label>Black List this corporate</label><br>
+			        <s:checkbox id="chkBlackList" path="strBlackList" value="" />
+			 </div>
+		 </div>
+         
+		<p align="center"  style="margin-right: 110px">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this);" />&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

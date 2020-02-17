@@ -5,7 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <title>Reposting JV</title>
 </head>
 
@@ -14,7 +23,8 @@
  		
  		$(document).ready(function() 
  		{
-
+ 			var startDateOfMonth="${startDateOfMonth}";
+ 	    	
 			$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtFromDate").datepicker('setDate','today');
 			$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
@@ -63,7 +73,7 @@
 	            }		            
 	        }
 		});
-		
+		return false;
 	}
 	//Remove Display Data of Table
 	function funRemoveRows()
@@ -145,7 +155,7 @@
 	            }		            
 	        }
 		});
-		
+		return false;
 	}
 	//Check Which PO is selected
 	function funCheckUncheck()
@@ -189,115 +199,88 @@
 	}
  </script>
 <body>
-<div id="formHeading">
-		<label>Reposting JV</label>
-	</div>
-	<s:form action="" method="GET" 
-	s="frmRepostingJv" target="_blank">
-		<br>
-		<div>
-	
-			<table class="transTable">
-				<tr>
-				    <td><label id="lblFromDate">From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
-			        </td>
-				        
-			        <td><label id="lblToDate">To Date</label></td>
-			        <td>
-			            <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
-			        </td>
-			        
-			   </tr>
-			   <tr>
-			   		<td><label >Transaction Type</label></td>
-			        <td>
-			        	<select id="cmbAgainst" class="BoxW124px" path="strAgainst" >
-			        		<option value="GRN">GRN</option>
-			        		<option value="Purchase Return">Purchase Return</option>
-			        	</select>
-			       </td>
-			       <td></td><td></td>		        
-			   </tr>
-			   <tr>
-					<td><input id="btnExecute" type="button" class="form_button" value="Excute" onclick="funLoadTransactionList()" /></td>
-					<td></td>
-					<td><input id="btnPosting" type="button" class="form_button" value="Post" onclick="funRepostTransaction()" /></td>
-					<td></td> 
-				</tr>
-				</table>
-					
+	<div class="container">
+		<label id="formHeading">Reposting JV</label>
+		<s:form action="" method="GET" s="frmRepostingJv" target="_blank">
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label id="lblFromDate">From Date</label>
+				<s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox" style="width:80%;"/>
+			</div>
+			<div class="col-md-2">
+				<label id="lblToDate">To Date</label>
+			    <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox" style="width:80%;"/>
+			</div>      
+			<div class="col-md-2">
+			   	<label >Transaction Type</label>
+			   	<select id="cmbAgainst" class="BoxW124px" path="strAgainst" >
+			        <option value="GRN">GRN</option>
+			        <option value="Purchase Return">Purchase Return</option>
+			    </select>
+			 </div>
+		</div>	
+		<div class="center" style="margin-right: 55%;">
+			<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return funLoadTransactionList()"
+				class="form_button">Execute</button></a>
+			<a href="#"><button class="btn btn-primary center-block" id="btnPosting" value="Post" onclick="return funRepostTransaction()"
+				class="form_button">Post</button></a>
 		</div>
-		<br/>
-		<br/>
-		<div id="divDocList" class="dynamicTableContainer"
-			style="height: 400px; overflow-x: scroll; overflow-y: scroll;">
+		
+		<div id="divDocList" class="dynamicTableContainer" style="height: 400px; overflow-x: scroll; overflow-y: scroll;">
 			<!-- <div
 				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto;  width: 100%;">
 			</div> -->
 			<table style="width: 120%; border: #0F0;   overflow-x: scroll; overflow-y: scroll;"
 				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#c0c0c0">
 					<td width="2%">Select<input type="checkbox" id="chkALL" onclick="funCheckUncheck()" /></td>
 					<td width="8%">Doc Code</td>
-					
 					<td width="6%">Date</td>
 					<td width="9%">JV No</td>
 					<td width="12%">Supplier Name</td>
-					
 					<td width="8%">SubTotal</td>
 					<td width="8%">Tax Amount</td>
 					<td width="8%">Grand Total</td>
-					
 					<td width="8%">Creditor Code</td>
 					<td width="12%">Creditor Name</td>
 					<td width="8%">Link Acc Code</td>
-					
 					<td width="12%">Link Acc Name</td>
 				</tr>
 			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto;  width: 120%;">
-				<table id="tblTranList"
-					style="width: 100%; border: #0F0;  overflow-x: scroll; overflow-y: scroll;"
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto;  width: 120%;">
+				<table id="tblTranList" style="width: 100%; border: #0F0;  overflow-x: scroll; overflow-y: scroll;"
 					class="transTablex col15-center">
 					<tbody>
-					<col style="width: 3%">
-					<col style="width: 8%">
-					<!--  COl1   -->
-					<col style="width: 6%">
-					<!--  COl2   -->
-					<col style="width: 9%">
-					<!--  COl3   -->
-					<col style="width: 11%">
-					<!--  COl4   -->
-					<col style="width: 8%">
-					<!--  COl4   -->
-					<col style="width: 8%">
-					
-					<!--COl6   -->
-					<col style="width: 8%">
-					<!-- COl7   -->
-					<col style="width: 8%">
-					<!--  COl8   -->
-					<col style="width: 12%">
-					<col style="width: 8%">
-					<col style="width: 12%">
-					<!--  COl9   -->
-					
+						<col style="width: 3%">
+						<col style="width: 8%">
+						<!--  COl1   -->
+						<col style="width: 6%">
+						<!--  COl2   -->
+						<col style="width: 9%">
+						<!--  COl3   -->
+						<col style="width: 11%">
+						<!--  COl4   -->
+						<col style="width: 8%">
+						<!--  COl4   -->
+						<col style="width: 8%">
+						
+						<!--COl6   -->
+						<col style="width: 8%">
+						<!-- COl7   -->
+						<col style="width: 8%">
+						<!--  COl8   -->
+						<col style="width: 12%">
+						<col style="width: 8%">
+						<col style="width: 12%">
+						<!--  COl9   -->
 					</tbody>
-
 				</table>
-
 			</div>
-
 		</div>
 		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
-				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
-			</div>
-		
+			<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+		</div>
 	</s:form>
-	
+</div>
 </body>
 </html>

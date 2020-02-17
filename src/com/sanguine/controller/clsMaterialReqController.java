@@ -398,7 +398,7 @@ public class clsMaterialReqController {
 		objReqHd.setStrUserCreated(userCode);
 		objReqHd.setDtCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 		objReqHd.setDtReqiredDate(objGlobal.funGetDate("yyyy-MM-dd", reqHdBean.getDtReqiredDate()));
-		objReqHd.setStrSessionCode(reqHdBean.getStrSessionCode());
+		objReqHd.setStrSessionCode(objGlobal.funIfNull(reqHdBean.getStrSessionCode(), "", reqHdBean.getStrSessionCode()));
 
 		List<clsRequisitionDtlModel> tempDetailList = reqHdBean.getListReqDtl();
 		List<clsRequisitionDtlModel> tempListNonStockableItems = new ArrayList<clsRequisitionDtlModel>();

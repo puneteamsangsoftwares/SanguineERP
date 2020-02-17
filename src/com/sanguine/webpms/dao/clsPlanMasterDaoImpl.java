@@ -20,12 +20,12 @@ public class clsPlanMasterDaoImpl implements clsPlanMasterDao {
 	@Autowired
 	private SessionFactory webPMSSessionFactory;
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public void funAddUpdatePlanMaster(clsPlanMasterModel objPlanMasterModel) {
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objPlanMasterModel);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	@Override
 	public List funGetPlanMaster(String planCode, String clientCode) {
 

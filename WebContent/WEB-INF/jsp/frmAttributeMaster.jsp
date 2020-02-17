@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -8,6 +9,13 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>ATTRIBUTE VALUE MASTER</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	 resetForms('attributemasterForm');
@@ -192,70 +200,47 @@ $(document).ready(function(){
 
 </head>
 <body onload="funResetFields()">
-<div id="formHeading">
-		<label id="formName">Attribute Master</label>
-	</div>
+   <div class="container masterTable">
+		<label id="formHeading" id="formName">Attribute Master</label>
 	<s:form name="attributemasterForm" method="POST" id="frmAttributeMaster.jsp" action="saveAttributeMaster.html?saddr=${urlHits}">
 	
-		<br />
-		<br />
-		<table class="masterTable">
-		
-			<tr>
-		        <th align="right" colspan="2"> <a id="baseUrl" href="#"> Attach Documents</a>  &nbsp; &nbsp; &nbsp;
-						&nbsp;</th>
-		    </tr>
-		    <tr>
-		        <td width="150px"><label>Attribute Code</label></td>
-		        <td><s:input id="txtAttCode" name="txtAttCode" path="strAttCode" ondblclick="funHelp('attributemaster')"  cssClass="searchTextBox"/></td>
-		    </tr>
+		<!--  <a id="baseUrl" href="#"> Attach Documents</a> -->
+		  <div class="row">
+		    <div class="col-md-2"><label>Attribute Code</label>
+		           <s:input id="txtAttCode" name="txtAttCode"  readonly="true" path="strAttCode" ondblclick="funHelp('attributemaster')" cssClass="searchTextBox"/>
+		    </div>
 		    	
-		    <tr>
-		        <td >
-		        	<label>Name</label>
-		        </td>
-		        <td>
-		        	<s:input type="text" id="txtAttName" name="txtAttName" path="strAttName" required="true"  cssClass="BoxW116px"/>
+		    <div class="col-md-2"><label>Name</label>
+		       <s:input type="text" id="txtAttName" name="txtAttName" path="strAttName" required="true"/>
 		        	<s:errors path="strAttName"></s:errors>
-		        </td>
-		    </tr>
+		    </div>
 			    
-		    <tr>
-			    <td >
-			    	<label>Attribute Type</label>
-			    </td>
-			    
-			    <td>
-			    	<s:select id="cmbAttType" name="cmbAttType" path="strAttType" items="${listAttType}" cssClass="BoxW124px"/>			    	
+		   <div class="col-md-1"><label style="width: 135%;">Attribute Type</label>
+			    <s:select id="cmbAttType" name="cmbAttType" path="strAttType" items="${listAttType}"/>			    	
 			    	<s:errors path="strAttType"></s:errors>
-			    </td>
-			    
-			  <tr > 
-			    <td><label>Description</label></td>
-		        <td><s:input id="txtAttDesc" name="txtAttDesc" path="strAttDesc"  cssClass="longTextBox"  /></td>
-			</tr>
-			
-			<tr> 
-			    <td ><label>Parent Attribute Code</label></td>
-		        <td>
-		        	<s:input id="txtPAttCode" name="txtPAttCode" path="strPAttCode" cssClass="searchTextBox" ondblclick="funHelp('parentattr')"/>
-		        	<label id="lblParentAttName"></label>
-		        </td>
-			</tr>
+			</div>
+			 <div class="col-md-7"></div> 
 			   
-			<tr>
-			    <td ></td>
-			    <td ></td>
-		    </tr>
-		</table>
-		<br /><br />
+		    <div class="col-md-2"><label>Description</label>
+		          <s:input id="txtAttDesc" name="txtAttDesc" path="strAttDesc"/>
+			</div>
+			
+			<div class="col-md-2"><label>Parent Attribute Code</label>
+		          <s:input id="txtPAttCode" name="txtPAttCode" readonly="true" path="strPAttCode" cssClass="searchTextBox" ondblclick="funHelp('parentattr')"/>
+		     </div>   	
+		     <div class="col-md-2">
+		           <label id="lblParentAttName"></label>
+		    </div>
+	      </div>
+		<br />
 		
-		<p align="center">
-			<input type="submit" value="Submit"  class="form_button"onclick="return funCallFormAction('submit',this);" /> 
-				<input type="reset"
-				value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style=" margin-right: 31%;">
+			<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button"onclick="return funCallFormAction('submit',this);" /> 
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 		
 	</s:form>
+	</div>
 </body>
 </html>

@@ -856,7 +856,7 @@ public class clsReportsController {
 		model.put("urlHits", urlHits);
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmReceiptRegister", "command", new clsReportBean());
+			return new ModelAndView("frmReceiptRegister_1", "command", new clsReportBean());
 		} else {
 			return new ModelAndView("frmReceiptRegister", "command", new clsReportBean());
 		}
@@ -1899,6 +1899,9 @@ public class clsReportsController {
 		String toDate = objGlobal.funGetDate("yyyy-MM-dd", tDate);
 		ExpfDate = objGlobal.funGetDate("yyyy-MM-dd", ExpfDate);
 		ExptDate = objGlobal.funGetDate("yyyy-MM-dd", ExptDate);
+		String dateTime[] = objGlobalFunctions.funGetCurrentDateTime("dd-MM-yyyy").split(" ");
+		List footer = new ArrayList<>();
+		String userCode = req.getSession().getAttribute("usercode").toString();
 
 		List ExpStock = new ArrayList();
 		String[] ExcelHeader = { "Product Name", "Batch Code", "Supplier Name", "GRN Date", "GRN Code", "GRN Qty", "Balance Qty", "Expiry Date","ManuBatch Code" };
@@ -1925,6 +1928,14 @@ public class clsReportsController {
 			DataList.add(arrObj[10].toString());
 			listExpFlashModel.add(DataList);
 		}
+		List blank = new ArrayList<>();
+		blank.add("");
+		listExpFlashModel.add(blank);
+
+		footer.add("Created on :" +dateTime[0]);
+		footer.add("AT :" +dateTime[1]);
+		footer.add("By :" +userCode);
+		listExpFlashModel.add(footer);
 		ExpStock.add(listExpFlashModel);
 		return new ModelAndView("excelView", "stocklist", ExpStock);
 	}
@@ -3116,7 +3127,7 @@ public class clsReportsController {
 		}
 
 		if ("2".equalsIgnoreCase(urlHits)) {
-			objModelView = new ModelAndView("frmReceiptIssueConsolidated", "command", new clsReportBean());
+			objModelView = new ModelAndView("frmReceiptIssueConsolidated_1", "command", new clsReportBean());
 		} else {
 			objModelView = new ModelAndView("frmReceiptIssueConsolidated", "command", new clsReportBean());
 		}
@@ -3853,6 +3864,7 @@ public class clsReportsController {
 		String yieldCalculation = objBean.getStrProdType();
 
 		funPrepardRecipeCostingReport(bomCode, type, resp, req, yieldCalculation);
+		//
 	}
 
 
@@ -4812,22 +4824,34 @@ public class clsReportsController {
 			// }
 			//
 			// }
+			if (qtyWithUOM.equals("No")) {
+				sql = "select a.strProdCode,b.strProdName,(a.dblClosingStk),"
+						// + "(a.dblClosingStk*b.dblCostRM) as Value,"
+						+ "((a.dblClosingStk+a.dblFreeQty)*if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice))/" + currValue + " as Value," + "d.strGName,c.strSGName "
+						
+						+ " FROM tblcurrentstock a " + " left outer join tblproductmaster b on a.strProdCode=b.strProdCode " + " left outer join tblsubgroupmaster c on b.strSGCode=c.strSGCode " + " left outer join tblgroupmaster d on c.strGCode=d.strGCode " + " left outer join tbllocationmaster e on a.strLocCode=e.strLocCode "
+						+ " left outer join tblpropertymaster f on e.strPropertyCode=f.strPropertyCode " + " left outer join tblreorderlevel g on a.strProdCode=g.strProdCode and g.strLocationCode='" + locCode + "'  " + " where  a.strUserCode='" + userCode + "' ";
 
-			sql = "select a.strProdCode,b.strProdName,a.dblClosingStk,"
-					// + "(a.dblClosingStk*b.dblCostRM) as Value,"
-					+ "(a.dblClosingStk*if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice))/" + currValue + " as Value," + "d.strGName,c.strSGName "
-					/*
-					 * +
-					 * "from tblcurrentstock a,tblproductmaster b,tblsubgroupmaster c,tblgroupmaster d,tbllocationmaster e "
-					 * + ",tblpropertymaster f " +
-					 * "where a.strProdCode=b.strProdCode and b.strSGCode=c.strSGCode and c.strGCode=d.strGCode "
-					 * +
-					 * "and a.strLocCode=e.strLocCode and e.strPropertyCode=f.strPropertyCode "
-					 * ;
-					 */
-					+ " FROM tblcurrentstock a " + " left outer join tblproductmaster b on a.strProdCode=b.strProdCode " + " left outer join tblsubgroupmaster c on b.strSGCode=c.strSGCode " + " left outer join tblgroupmaster d on c.strGCode=d.strGCode " + " left outer join tbllocationmaster e on a.strLocCode=e.strLocCode "
-					+ " left outer join tblpropertymaster f on e.strPropertyCode=f.strPropertyCode " + " left outer join tblreorderlevel g on a.strProdCode=g.strProdCode and g.strLocationCode='" + locCode + "'  " + " where  a.strUserCode='" + userCode + "' ";
+			}else{
+				
+				sql = "select a.strProdCode,b.strProdName,funGetUOM((a.dblClosingStk),b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM),"
+						// + "(a.dblClosingStk*b.dblCostRM) as Value,"
+						+ "((a.dblClosingStk+a.dblFreeQty)*if(ifnull(g.dblPrice,0)=0,b.dblCostRM,g.dblPrice))/" + currValue + " as Value," + "d.strGName,c.strSGName ,(a.dblClosingStk)"
+						/*
+						 * +
+						 * "from tblcurrentstock a,tblproductmaster b,tblsubgroupmaster c,tblgroupmaster d,tbllocationmaster e "
+						 * + ",tblpropertymaster f " +
+						 * "where a.strProdCode=b.strProdCode and b.strSGCode=c.strSGCode and c.strGCode=d.strGCode "
+						 * +
+						 * "and a.strLocCode=e.strLocCode and e.strPropertyCode=f.strPropertyCode "
+						 * ;
+						 */
+						+ " FROM tblcurrentstock a " + " left outer join tblproductmaster b on a.strProdCode=b.strProdCode " + " left outer join tblsubgroupmaster c on b.strSGCode=c.strSGCode " + " left outer join tblgroupmaster d on c.strGCode=d.strGCode " + " left outer join tbllocationmaster e on a.strLocCode=e.strLocCode "
+						+ " left outer join tblpropertymaster f on e.strPropertyCode=f.strPropertyCode " + " left outer join tblreorderlevel g on a.strProdCode=g.strProdCode and g.strLocationCode='" + locCode + "'  " + " where  a.strUserCode='" + userCode + "' ";
 
+				
+			}
+			
 			if (strNonStkItems.equals("Non Stockable")) {
 				sql += "	and b.strNonStockableItem='Y' ";
 			} else if (strNonStkItems.equals("Stockable")) {
@@ -4872,13 +4896,20 @@ public class clsReportsController {
 			DecimalFormat df = new DecimalFormat("#.##");
 			for (int cnt = 0; cnt < list.size(); cnt++) {
 				Object[] arrObj = (Object[]) list.get(cnt);
-				double closeStk = Double.parseDouble(arrObj[2].toString());
+				double closeStk = Double.parseDouble(arrObj[6].toString());
 				double value = Double.parseDouble(arrObj[3].toString());
 
 				clsStockFlashModel objStkFlashModel = new clsStockFlashModel();
 				objStkFlashModel.setStrProdCode(arrObj[0].toString());
 				objStkFlashModel.setStrProdName(arrObj[1].toString());
-				objStkFlashModel.setDblClosingStock(df.format(closeStk).toString());
+				if (qtyWithUOM.equals("No")) {
+					
+					objStkFlashModel.setDblClosingStock(df.format(closeStk).toString());	
+				}else{
+					
+					objStkFlashModel.setDblClosingStock(arrObj[2].toString());
+				}
+				
 				objStkFlashModel.setDblValue(df.format(value).toString());
 				objStkFlashModel.setStrGroupName(arrObj[4].toString());
 				objStkFlashModel.setStrSubGroupName(arrObj[5].toString());
@@ -5179,7 +5210,8 @@ public class clsReportsController {
 	{
 
 		// funCallCategoryWiseSalesOrderReport(objBean, resp, req);
-
+		objBean.setDteFromDate(objGlobal.funGetDate("yyyy-MM-dd", objBean.getDteFromDate()));
+		objBean.setDteToDate(objGlobal.funGetDate("yyyy-MM-dd", objBean.getDteToDate()));
 		if (objBean.getStrReportView().equalsIgnoreCase("Item Wise"))
 		{
 			funCallPurchaseRegisterReport(objBean, resp, req);
@@ -5605,6 +5637,8 @@ public class clsReportsController {
 		String userCode = req.getSession().getAttribute("usercode").toString();
 		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
 		clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
+		String dateTime[] = objGlobalFunctions.funGetCurrentDateTime("dd-MM-yyyy").split(" ");
+		List footer = new ArrayList<>();
 		if (objSetup == null)
 		{
 			objSetup = new clsPropertySetupModel();
@@ -5980,12 +6014,14 @@ public class clsReportsController {
 			fieldList.add(totList);
 		}
 	}
+		
 
+	/*
 		listLOCWiseData.add(fieldList);//2
 		
 		listLOCWiseData.add(companyName);	
 //		listLOCWiseData.add("MIS Location Wise Category Wise Report");
-		listLOCWiseData.add("Reporting For:"+fromLoc);
+		listLOCWiseData.add("Reporting For:"+fromLoc);*/
 //			
 //		String periodFromDate = fromDate + "  -  " + toDate;
 //
@@ -5999,10 +6035,24 @@ public class clsReportsController {
 
 		if(objBean.getStrDocType().equalsIgnoreCase("PDF"))
 		{
+			listLOCWiseData.add(fieldList);//2
+			
+			listLOCWiseData.add(companyName);	
+//			listLOCWiseData.add("MIS Location Wise Category Wise Report");
+			listLOCWiseData.add("Reporting For:"+fromLoc);
 			return new ModelAndView("pdfViewMISLocationWiseCategoryWiseReport", "listWithReportName", listLOCWiseData);
 		}
 		else
 		{
+			footer.add("Created on :" +dateTime[0]);
+			footer.add("AT :" +dateTime[1]);
+			footer.add("By :" +userCode);
+			fieldList.add(footer);
+			listLOCWiseData.add(fieldList);//2
+			
+			listLOCWiseData.add(companyName);	
+//			listLOCWiseData.add("MIS Location Wise Category Wise Report");
+			listLOCWiseData.add("Reporting For:"+fromLoc);
 			return new ModelAndView("excelViewFromDateTodateWithReportName", "listFromDateTodateWithReportName", listLOCWiseData);
 		}
 
@@ -6507,8 +6557,12 @@ public class clsReportsController {
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		String companyName = req.getSession().getAttribute("companyName").toString();
 		String userCode = req.getSession().getAttribute("usercode").toString();
+		
 		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
 		clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
+		
+		String dateTime[] = objGlobal.funGetCurrentDateTime("dd-MM-yyyy").split(" ");
+		List footer = new ArrayList<>();
 		if (objSetup == null)
 		{
 			objSetup = new clsPropertySetupModel();
@@ -6705,6 +6759,14 @@ public class clsReportsController {
 			}
 			
 			billDataList.add(totalAmount);
+			List blank = new ArrayList<>();
+			blank.add("");
+			billDataList.add(blank);
+
+			footer.add("Created on :" +dateTime[0]);
+			footer.add("AT :" +dateTime[1]);
+			footer.add("By :" +userCode);
+			billDataList.add(footer);
 			
 			allBillDataList.add(billDataList);
 			
@@ -6891,5 +6953,300 @@ public class clsReportsController {
 	}
 	
 
+	@RequestMapping(value = "/frmFreeOfCostReport", method = RequestMethod.GET)
+	public ModelAndView funOpenFOCReport(Map<String, Object> model, HttpServletRequest request)
+	{
+		request.getSession().setAttribute("formName", "frmFreeOfCostReport");
 
+		String urlHits = "1";
+		try
+		{
+			urlHits = request.getParameter("saddr").toString();
+		}
+		catch (NullPointerException e)
+		{
+			urlHits = "1";
+		}
+		model.put("urlHits", urlHits);
+
+		Map mapViewType = new HashMap<String, String>();
+		mapViewType.put("Detail", "Detail");
+		mapViewType.put("Summary", "Summary");
+
+		model.put("mapViewType", mapViewType);
+
+		if ("2".equalsIgnoreCase(urlHits))
+		{
+			return new ModelAndView("frmFreeOfCostReport_1", "command", new clsReportBean());
+		}
+		else
+		{
+			return new ModelAndView("frmFreeOfCostReport", "command", new clsReportBean());
+		}
+
+	}
+	
+	@RequestMapping(value = "/rptFreeOfCostReport", method = RequestMethod.POST)
+	private void funFreeOfCostReport(@ModelAttribute("command") clsReportBean objBean, HttpServletResponse resp, HttpServletRequest req)
+	{
+
+		// funCallCategoryWiseSalesOrderReport(objBean, resp, req);
+
+		if (objBean.getStrReportView().equalsIgnoreCase("Detail"))
+		{
+			funCallFOCDetailsReport(objBean, resp, req);
+		}
+		else
+		{
+			funCallFOCSummaryReport(objBean, resp, req);
+			
+		}
+	}
+
+	private void funCallFOCDetailsReport(clsReportBean objBean,
+			HttpServletResponse resp, HttpServletRequest req) {
+		
+
+
+		Connection con = objGlobalFunctions.funGetConnection(req);
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		String companyName = req.getSession().getAttribute("companyName").toString();
+		String userCode = req.getSession().getAttribute("usercode").toString();
+		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
+		clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
+		if (objSetup == null)
+		{
+			objSetup = new clsPropertySetupModel();
+		}
+
+		String reportName = servletContext.getRealPath("/WEB-INF/reports/rptFOCDetailRReport.jrxml");
+		String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
+
+		String webStockDB = req.getSession().getAttribute("WebStockDB").toString();
+
+		String propNameSql = "select a.strPropertyName  from " + webStockDB + ".tblpropertymaster a where a.strPropertyCode='" + propertyCode + "' and a.strClientCode='" + clientCode + "' ";
+		List listPropName = objGlobalFunctionsService.funGetDataList(propNameSql, "sql");
+		String propName = "";
+		if (listPropName.size() > 0)
+		{
+			propName = listPropName.get(0).toString();
+		}
+		objGlobal = new clsGlobalFunctions();
+		ArrayList fieldList = new ArrayList();
+		String strFrmDate = objGlobal.funGetDate("dd-MM-yyyy", objBean.getDteFromDate());
+		String strTodate = objGlobal.funGetDate("dd-MM-yyyy",  objBean.getDteToDate());
+
+		String sql = "SELECT a.strGRNCode,b.strProdCode,d.strProdName,c.strLocName, SUM(b.dblFreeQty), DATE_FORMAT(a.dtGRNDate,'%d-%m-%y'),e.strPName,b.dblUnitPrice "
+				+ "FROM tblgrnhd a,tblgrndtl b,tbllocationmaster c,tblproductmaster d,tblpartymaster e "
+				+ "WHERE a.strLocCode=c.strLocCode "
+				+ "AND b.strProdCode=d.strProdCode AND DATE(a.dtGRNDate) BETWEEN '"+objBean.getDteFromDate()+"' AND '"+objBean.getDteToDate()+"' AND a.strGRNCode=b.strGRNCode "
+				+ "AND b.dblFreeQty>0 AND a.strSuppCode=e.strPCode "
+				+ "group BY b.strProdCode,b.strGRNCode "
+				+ "ORDER BY e.strPCode";
+		List listProdDtl = objGlobalFunctionsService.funGetDataList(sql, "sql");
+		if(listProdDtl!=null && listProdDtl.size()>0)
+		{
+			for(int i=0;i<listProdDtl.size();i++)
+			{
+				clsReportBean objBean1 = new clsReportBean();
+				Object[] obj= (Object[])listProdDtl.get(i);
+				
+				objBean1.setStrGRNNumber(obj[0].toString());
+				objBean1.setStrProdCode(obj[1].toString());
+				objBean1.setStrProdName(obj[2].toString());
+				objBean1.setStrLocName(obj[3].toString());
+				objBean1.setDblFOCQty(Double.parseDouble(obj[4].toString()));
+				objBean1.setDteGRNDate(obj[5].toString());
+				objBean1.setStrSuppName(obj[6].toString());
+				objBean1.setDblAmt(Double.parseDouble(obj[7].toString()));
+				fieldList.add(objBean1);
+			}
+		}
+		HashMap hm = new HashMap();
+		hm.put("strCompanyName", companyName);
+		hm.put("strUserCode", userCode);
+		hm.put("strImagePath", imagePath);
+		hm.put("strAddr1", objSetup.getStrAdd1());
+		hm.put("strAddr2", objSetup.getStrAdd2());
+		hm.put("strCity", objSetup.getStrCity());
+		hm.put("strState", objSetup.getStrState());
+		hm.put("strCountry", objSetup.getStrCountry());
+		hm.put("strPin", objSetup.getStrPin());
+		hm.put("dteFromDate", strFrmDate);
+		hm.put("dteToDate",strTodate);
+
+		try
+		{
+			JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(fieldList);
+			JasperDesign jd = JRXmlLoader.load(reportName);
+			JasperReport jr = JasperCompileManager.compileReport(jd);
+			JasperPrint jp = JasperFillManager.fillReport(jr, hm, beanCollectionDataSource);
+			List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
+			jprintlist.add(jp);
+			ServletOutputStream servletOutputStream = resp.getOutputStream();
+
+			if (jprintlist.size() > 0)
+			{
+				
+					JRExporter exporter = new JRPdfExporter();
+					resp.setContentType("application/pdf");
+					exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
+					exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, servletOutputStream);
+					exporter.setParameter(JRPdfExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
+					resp.setHeader("Content-Disposition", "inline;filename=rptFOCDetailReport" + objBean.getDteFromDate() + "_To_" + objBean.getDteToDate() + "_" + userCode + ".pdf");
+					exporter.exportReport();
+					servletOutputStream.flush();
+					servletOutputStream.close();
+
+				
+				
+
+			}
+			else
+			{
+				resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				resp.getWriter().append("No Record Found");
+
+			}
+
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+
+	
+		
+	}
+
+	private void funCallFOCSummaryReport(clsReportBean objBean,
+			HttpServletResponse resp, HttpServletRequest req) {
+		
+
+		
+
+
+		Connection con = objGlobalFunctions.funGetConnection(req);
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		String companyName = req.getSession().getAttribute("companyName").toString();
+		String userCode = req.getSession().getAttribute("usercode").toString();
+		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
+		clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
+		if (objSetup == null)
+		{
+			objSetup = new clsPropertySetupModel();
+		}
+
+		String reportName = servletContext.getRealPath("/WEB-INF/reports/rptFOCSummaryRReport.jrxml");
+		String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
+
+		String webStockDB = req.getSession().getAttribute("WebStockDB").toString();
+
+		String propNameSql = "select a.strPropertyName  from " + webStockDB + ".tblpropertymaster a where a.strPropertyCode='" + propertyCode + "' and a.strClientCode='" + clientCode + "' ";
+		List listPropName = objGlobalFunctionsService.funGetDataList(propNameSql, "sql");
+		String propName = "";
+		if (listPropName.size() > 0)
+		{
+			propName = listPropName.get(0).toString();
+		}
+		objGlobal = new clsGlobalFunctions();
+		ArrayList fieldList = new ArrayList();
+		String strFrmDate = objGlobal.funGetDate("dd-MM-yyyy", objBean.getDteFromDate());
+		String strTodate = objGlobal.funGetDate("dd-MM-yyyy",  objBean.getDteToDate());
+
+		/*String sql = "SELECT b.strProdCode,d.strProdName,c.strLocName, SUM(b.dblFreeQty) "
+				+ "FROM tblgrnhd a,tblgrndtl b,tbllocationmaster c,tblproductmaster d "
+				+ "WHERE a.strLocCode=c.strLocCode AND b.strProdCode=d.strProdCode AND DATE(a.dtGRNDate) BETWEEN '"+objBean.getDteFromDate()+"' AND '"+objBean.getDteToDate()+"' AND a.strGRNCode=b.strGRNCode AND b.dblFreeQty>0 "
+				+ "group BY b.strProdCode,b.strProdCode "
+				+ "ORDER BY a.strGRNCode";*/
+		String sql="SELECT a.strGRNCode,b.strProdCode,d.strProdName,c.strLocName, SUM(b.dblFreeQty), DATE_FORMAT(a.dtGRNDate,'%d-%m-%y'),e.strPName,b.dblUnitPrice,SUM(b.dblFreeQty)*b.dblUnitPrice "
+				+ "FROM tblgrnhd a,tblgrndtl b,tbllocationmaster c,tblproductmaster d,tblpartymaster e "
+				+ "WHERE a.strLocCode=c.strLocCode AND b.strProdCode=d.strProdCode AND DATE(a.dtGRNDate) "
+				+ "BETWEEN '"+objBean.getDteFromDate()+"' AND '"+objBean.getDteToDate()+"' AND a.strGRNCode=b.strGRNCode AND b.dblFreeQty>0 AND a.strSuppCode=e.strPCode "
+				+ "GROUP BY b.strProdCode,b.strGRNCode ORDER BY e.strPCode";
+		List listProdDtl = objGlobalFunctionsService.funGetDataList(sql, "sql");
+		if(listProdDtl!=null && listProdDtl.size()>0)
+		{
+			for(int i=0;i<listProdDtl.size();i++)
+			{
+				clsReportBean objBean1 = new clsReportBean();
+				Object[] obj= (Object[])listProdDtl.get(i);
+				
+				/*objBean1.setStrProdCode(obj[0].toString());
+				objBean1.setStrProdName(obj[1].toString());
+				objBean1.setStrLocName(obj[2].toString());
+				objBean1.setDblFOCQty(Double.parseDouble(obj[3].toString()));
+				
+				fieldList.add(objBean1);*/
+				
+				objBean1.setStrGRNNumber(obj[0].toString());
+				objBean1.setStrProdCode(obj[1].toString());
+				objBean1.setStrProdName(obj[2].toString());
+				objBean1.setStrLocName(obj[3].toString());
+				objBean1.setDblFOCQty(Double.parseDouble(obj[4].toString()));
+				objBean1.setDteGRNDate(obj[5].toString());
+				objBean1.setStrSuppName(obj[6].toString());
+				objBean1.setDblAmt(Double.parseDouble(obj[8].toString()));
+				fieldList.add(objBean1);
+			}
+		}
+		HashMap hm = new HashMap();
+		hm.put("strCompanyName", companyName);
+		hm.put("strUserCode", userCode);
+		hm.put("strImagePath", imagePath);
+		hm.put("strAddr1", objSetup.getStrAdd1());
+		hm.put("strAddr2", objSetup.getStrAdd2());
+		hm.put("strCity", objSetup.getStrCity());
+		hm.put("strState", objSetup.getStrState());
+		hm.put("strCountry", objSetup.getStrCountry());
+		hm.put("strPin", objSetup.getStrPin());
+		hm.put("dteFromDate", strFrmDate);
+		hm.put("dteToDate",strTodate);
+
+		try
+		{
+			JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(fieldList);
+			JasperDesign jd = JRXmlLoader.load(reportName);
+			JasperReport jr = JasperCompileManager.compileReport(jd);
+			JasperPrint jp = JasperFillManager.fillReport(jr, hm, beanCollectionDataSource);
+			List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
+			jprintlist.add(jp);
+			ServletOutputStream servletOutputStream = resp.getOutputStream();
+
+			if (jprintlist.size() > 0)
+			{
+				
+					JRExporter exporter = new JRPdfExporter();
+					resp.setContentType("application/pdf");
+					exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
+					exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, servletOutputStream);
+					exporter.setParameter(JRPdfExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
+					resp.setHeader("Content-Disposition", "inline;filename=rptFOCSummaryReport" + objBean.getDteFromDate() + "_To_" + objBean.getDteToDate() + "_" + userCode + ".pdf");
+					exporter.exportReport();
+					servletOutputStream.flush();
+					servletOutputStream.close();
+
+				
+				
+
+			}
+			else
+			{
+				resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				resp.getWriter().append("No Record Found");
+
+			}
+
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+
+	
+		
+	
+	}
+
+	
 }

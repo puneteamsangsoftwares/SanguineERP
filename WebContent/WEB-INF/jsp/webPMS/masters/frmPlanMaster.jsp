@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Plan Master</title>
-
+    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 
@@ -140,55 +146,44 @@
 						}
 						
 						
-						
 						return flg;
 					}
-		
-		
+		 
+					$('#baseUrl').click(function() 
+							{  
+								 if($("#txtPlanCode").val().trim()=="")
+								{
+									alert("Please Select Plan... ");
+									return false;
+								} 
+									window.open('attachDoc.html?transName=frmPlanMaster.jsp&formName=Member Profile&code='+$('#txtPlanCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+							});
 	
 </script>
-
-
 </head>
 <body>
-	<div id="formHeading">
-		<label>Plan Master</label>
-	</div>
-	
-	<s:form name="Plan" method="GET" action="savePlanMaster.html?" >
-	
-		<table class="masterTable">
-          
-          <tr>
-				<th align="right" colspan="2"><a id="baseUrl"
+	<div class="container masterTable">
+		<label id="formHeading">Plan Master</label>
+	  <s:form name="Plan" method="GET" action="savePlanMaster.html?" >
+	    <div class="row">
+				<!-- <th align="right" colspan="2"><a id="baseUrl"
 					href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
-						&nbsp;</th>
-			</tr>
+						&nbsp;</th> -->
 			
-			<tr>
-			    <td><label>Plan </label></td>
-				<td><s:input id="txtPlanCode" path="strPlanCode" cssClass="searchTextBox" ondblclick="funHelp('plan')" /></td>				
-			</tr>
-			
-			<tr>
-			    <td><label>Plan Desc</label></td>
-				<td><s:input id="txtPlanDesc" path="strPlanDesc" cssClass="longTextBox" /></td>				
-			</tr>
-			
-			
-			
-		</table>
-		
-		
+		    <div class="col-md-5">
+		   	 <div class="row">
+				<div class="col-md-5"><label>Plan </label><s:input id="txtPlanCode" path="strPlanCode" cssClass="searchTextBox" ondblclick="funHelp('plan')" style="height: 50%;"/></div>				
+			    <div class="col-md-7"><label>Plan Desc</label><s:input id="txtPlanDesc" path="strPlanDesc"/></div>				
+			  </div>
+		     </div>
+		 </div>
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funCallFormAction('submit',this);" />
-            <input type="reset" value="Reset" class="form_button" />
-          
-            
-		</p>
+		
+		<p align="center" style="margin-right: 31%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this);" />&nbsp;
+            <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />
+         </p>
 	</s:form>
-	
+	</div>
 </body>
 </html>

@@ -1,18 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Income Head Master</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 
 	var fieldName;
-	
-	
-	
 	
 	//Initialize tab Index or which tab is Active
 	$(document).ready(function() 
@@ -156,7 +160,7 @@
 				        	else
 				        	{
 					        	$("#txtIncomeHeadDesc").val(response.strIncomeHeadDesc);
-					        	$("#cmbDeptType").val(response.strDeptCode);
+					        	$("#txtDepartment").val(response.strDeptCode);
 					        	
 								if(response.strAccountCode!="NA")
 								{
@@ -299,82 +303,88 @@
 				
 				return flg;
 			}
+			
+			
+			
+			$('#baseUrl').click(function() 
+		 			{  
+		 				 if($("#txtIncomeHeadCode").val().trim()=="")
+		 				{
+		 					alert("Please select Income Head.. ");
+		 					return false;
+		 				} 
+		 					window.open('attachDoc.html?transName=frmIncomehead.jsp&formName=Member Profile&code='+$('#txtIncomeHeadCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+		 			});
 </script>
 
 
 </head>
 <body>
-	<div id="formHeading">
-		<label>Income Head Master</label>
-	</div>
-	
-	<s:form name="Plan" method="GET" action="saveIncomeHeadMaster.html?" >
-		<br> 
-		<br>
-		<div id="tab_container" style="height: 405px">
+	<div  class="container masterTable" >
+		<label id="formHeading">Income Head Master</label>
+	    <s:form name="Plan" method="GET" action="saveIncomeHeadMaster.html?" >
+		<div id="tab_container" style="height: 200px">
 				<ul class="tabs">
-					<li data-state="tab1" style="width: 6%; padding-left: 2%;margin-left: 10%; " class="active" >General</li>
-					<li data-state="tab2" style="width: 8%; padding-left: 1%">LinkUp</li>
+					<li data-state="tab1" style="width: 7%" class="active" >General</li>
+					<li data-state="tab2" style="width: 7%">LinkUp</li>
 				</ul>
 							
 				<!-- General Tab Start -->
-				<div id="tab1" class="tab_content" style="height: 400px">
+				<div id="tab1" class="tab_content" style="height:200px; margin-top: 5%;">
 							
-		<table class="masterTable">
-         	<tr>
-				<th align="right" colspan="4"><a id="baseUrl" href="#"> Attach Documents </a>&nbsp; &nbsp; &nbsp;&nbsp;</th>
-			</tr>
+		<div class="row">
+         	<div class="col-md-12" align="center" style="margin-left: 2%;display:none">
+				<a id="baseUrl" href="#"> Attach Documents </a>&nbsp; &nbsp; &nbsp;&nbsp;
+			</div>
 			
-			<tr>
-			    <td width="20%"><label>Income Head</label></td>
-				<td width="40%"><s:input id="txtIncomeHeadCode" path="strIncomeHeadCode" cssClass="searchTextBox" ondblclick="funHelp('incomeHead')" /></td>				
-			<td colspan="1"></td>
-			</tr>
+			<div class="col-md-2"><label>Income Head</label>
+				<s:input id="txtIncomeHeadCode" path="strIncomeHeadCode" cssClass="searchTextBox" style="height: 45%" ondblclick="funHelp('incomeHead')" />				
+			</div>
 			
-			<tr>
-			    <td width="20%"><label>Department</label></td>
-			    <td width="40%"><s:input id="txtDepartment" path="strDeptCode" cssClass="searchTextBox" ondblclick="funHelp('deptCode')" /></td>			     
-		        <td width="20%"><label id="lblDepartment"></label></td>
-			</tr>
+			<div class="col-md-2"><label>Income Head Desc</label>
+				<s:input id="txtIncomeHeadDesc" path="strIncomeHeadDesc"/>				
+			</div>
+			<div class="col-md-8"></div>
 			
-			<tr>
-			    <td width="20%"><label>Income Head Desc</label></td>
-				<td width="40%"><s:input id="txtIncomeHeadDesc" path="strIncomeHeadDesc" cssClass="longTextBox" /></td>				
-			    <td colspan="1"></td>
-			</tr>
-			<tr>
-			    <td width="20%"><label>Rate</label></td>
-				<td width="40%"><s:input id="dblRate" path="dblRate" style="text-align:right;" cssClass="longTextBox" /></td>				
-			    <td colspan="1"></td>
-			</tr>
+			<div class="col-md-4">
+				<div class="row">
+			    <div class="col-md-6"><label>Department</label>
+			      <s:input id="txtDepartment" path="strDeptCode" cssClass="searchTextBox" style="height: 45%" ondblclick="funHelp('deptCode')" /></div>			     
+		        <div class="col-md-6"><label id="lblDepartment" style="background-color:#dcdada94; width: 100%; height:50%; margin-top: 16%;"></label></div>
+			</div></div>
 			
-		</table>
+			<div class="col-md-1"><label>Rate</label>
+				<s:input id="dblRate" path="dblRate" style="text-align:right;"/>				
+			</div>
+			
 		</div>
-						<!--General Tab End  -->
+		</div>
+					<!--General Tab End  -->
 						
 						
 			<!-- Linkedup Details Tab Start -->
 			<div id="tab2" class="tab_content" style="height: 400px">
 			<br> 
 			<br>			
-				<table class="masterTable">
-						<tr>
-						    <td><label>Account Code</label></td>
-						    <td><s:input id="txtAccountCode" path="strAccountCode" readonly="true" ondblclick="funHelp('accountCode')" cssClass="searchTextBox"/></td>
-						    <td colspan="2"><s:input id="txtAccountName" path="dblRate" readonly="true" cssClass="longTextBox"  style="width: 316px"/></td>			        			        						    			    		        			  
-						</tr>
-				</table>
+				<div class="row">
+					<div class="col-md-4">
+					   <div class="row">
+							<div class="col-md-6"><label>Account Code</label>
+						       <s:input id="txtAccountCode" path="strAccountCode" readonly="true" ondblclick="funHelp('accountCode')" style="height: 45%" cssClass="searchTextBox"/></div>
+						    <div class="col-md-6"><s:input id="txtAccountName" path="dblRate" readonly="true" style="width: 130px; margin-top: 16%;"/></div>			        			        						    			    		        			  
+						</div>
+					</div>
+				</div>
 			</div>
 			
 		</div>
-		
 		<br />
 		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button"  onclick="return funCallFormAction('submit',this);" />
-            <input type="reset" value="Reset" class="form_button" />
+		<p align="center" style="margin-right:31%">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button"  onclick="return funCallFormAction('submit',this);" />&nbsp;
+            <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />
         </p>
 	</s:form>
-	
+	</div>
 </body>
 </html>

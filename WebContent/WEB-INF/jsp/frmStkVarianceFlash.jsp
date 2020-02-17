@@ -1,9 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-	<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
-	<%@ taglib uri="http://www.springframework.org/tags" prefix="sp"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	/**
 	 * Ready Function for Initialization Text Field with default value 
@@ -11,8 +21,9 @@
 	 */
 	$(function()
 		{
+		    var startDateOfMonth="${startDateOfMonth}";
 			$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
-			$("#txtFromDate").datepicker('setDate','today');
+			$("#txtFromDate").datepicker('setDate',startDateOfMonth);
 			$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtToDate").datepicker('setDate', 'today');
 		});
@@ -85,49 +96,7 @@
 	 /**
 	 * Ready function when execute button clicked or load Stock variance Data
 	 */
-	$(document).ready(function() 
-			{
-				$("#btnExecute").click(function(){
-				var fromDate=$("#txtFromDate").val();
-				var toDate=$("#txtToDate").val();
-				var locCode=$("#txtLocCode").val();
-				var param1=locCode+","+fromDate+","+toDate;
-				var searchUrl=getContextPath()+"/loadStkVarianceFlashData.html?param1="+param1;
-				$.ajax({
-			        type: "GET",
-			        url: searchUrl,
-				    dataType: "json",
-				    success: function(response)
-				    {
-				    	funDeleteTableAllRows()
-						$.each(response, function(i,item)
-						{
-						  funAddRow(response[i][0],response[i][1],response[i][2],response[i][3],response[i][4],response[i][5],response[i][6],response[i][7]);
-						});
-				    		
-				    	funGetTotalVariance();
-				    },
-				    error: function(jqXHR, exception) {
-			            if (jqXHR.status === 0) {
-			                alert('Not connect.n Verify Network.');
-		            } else if (jqXHR.status == 404) {
-		                alert('Requested page not found. [404]');
-		            } else if (jqXHR.status == 500) {
-		                alert('Internal Server Error [500].');
-		            } else if (exception === 'parsererror') {
-		                alert('Requested JSON parse failed.');
-		            } else if (exception === 'timeout') {
-		                alert('Time out error.');
-		            } else if (exception === 'abort') {
-		                alert('Ajax request aborted.');
-		            } else {
-		                alert('Uncaught Error.n' + jqXHR.responseText);
-		            }		            
-		        }
-		      });
-		
-		});
-		});
+	
 		
 	 /**
 	 * filling Records in grid
@@ -199,25 +168,8 @@
 					 
 				 }
 			});
-			 /**
-			 * Export to excel
-			 */
-			 $("#btnExport").click(function (e)
-					{
-						var fromDate=$("#txtFromDate").val();
-						var toDate=$("#txtToDate").val();
-						var locCode=$("#txtLocCode").val();
-						var param1=locCode+","+fromDate+","+toDate;
-						var reportType=$("#cmbExportType").val();
+			 
 						
-						if(reportType=="Excel"){
-						window.location.href=getContextPath()+"/ExportExcelStkVariance.html?param1="+param1;
-						}
-						else{
-							window.location.href=getContextPath()+"/rptStkVarianceFlashReport.html?param1="+param1+"&fDate="+fromDate+"&tDate="+toDate;
-						}
-					}); 
-			
 			
 		});
 	 /**
@@ -258,61 +210,114 @@
 	    });
 		return ProductData;
 	}
+	 
+	 function funOnClick()
+	 {
+				var fromDate=$("#txtFromDate").val();
+				var toDate=$("#txtToDate").val();
+				var locCode=$("#txtLocCode").val();
+				var param1=locCode+","+fromDate+","+toDate;
+				var searchUrl=getContextPath()+"/loadStkVarianceFlashData.html?param1="+param1;
+				$.ajax({
+			        type: "GET",
+			        url: searchUrl,
+				    dataType: "json",
+				    success: function(response)
+				    {
+				    	funDeleteTableAllRows()
+						$.each(response, function(i,item)
+						{
+						  funAddRow(response[i][0],response[i][1],response[i][2],response[i][3],response[i][4],response[i][5],response[i][6],response[i][7]);
+						});
+				    		
+				    	funGetTotalVariance();
+				    },
+				    error: function(jqXHR, exception) {
+			            if (jqXHR.status === 0) {
+			                alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+		                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.n' + jqXHR.responseText);
+		            }		            
+		        }
+		      });
+		
+		
+		 return false;
+	 }
+	 
+	 function funOnExport()
+	 {
+		 	var fromDate=$("#txtFromDate").val();
+			var toDate=$("#txtToDate").val();
+			var locCode=$("#txtLocCode").val();
+			var param1=locCode+","+fromDate+","+toDate;
+			var reportType=$("#cmbExportType").val();
+			
+			if(reportType=="Excel"){
+			window.location.href=getContextPath()+"/ExportExcelStkVariance.html?param1="+param1;
+			}
+			else{
+				window.location.href=getContextPath()+"/rptStkVarianceFlashReport.html?param1="+param1+"&fDate="+fromDate+"&tDate="+toDate;
+			}
+		return false; 
+
+	 }
 </script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Stock Variance Flash</title>
 </head>
 <body>
-<div id="formHeading">
-		<label>Stock Variance Flash</label>
-	</div>
-	<s:form name="stkVarfls" method="POST" action="">	
+<div class="container">
+		<label id="formHeading">Stock Variance Flash</label>
+		<s:form name="stkVarfls" method="POST" action="">	
 		<br>
-		<table class="transTable">
-			<tr>
-				<th colspan="7"></th>
-			<tr>
-				<td width="10%"><label id="lblFromDate">From Date</label></td>
-				<td width="25%"><s:input id="txtFromDate" name="fromDate" path="dtFromDate" title="Select From Date"
-				cssClass="calenderTextBox" /> <s:errors path="dtFromDate"></s:errors>
-				</td>
-
-				<td width="10%"><label id="lblToDate">To Date</label></td>
-				<td><s:input id="txtToDate" name="toDate" path="dtToDate" title="Select To Date"
+		<div class="row transTable">
+		 	<div class="col-md-2">	
+			     <label id="lblFromDate">From Date</label>
+				<s:input id="txtFromDate" name="fromDate" path="dtFromDate" title="Select From Date"
+					cssClass="calenderTextBox" /> <s:errors path="dtFromDate"></s:errors>
+			</div>
+			<div class="col-md-2">
+				<label id="lblToDate">To Date</label>
+				<s:input id="txtToDate" name="toDate" path="dtToDate" title="Select To Date"
 						cssClass="calenderTextBox" /> <s:errors path="dtToDate"></s:errors>
-				</td>
-				
-			</tr>
-			<tr>
-				<td width="5%"><label>Location</label></td>
-				<td colspan="3">
-				 <s:input id="txtLocCode" path="strLocationCode" placeholder="ALL Location" title="Double Click To Select Location"
-				  ondblclick="funHelp('locationmaster')" cssClass="searchTextBox"/>
-				  <label id="lblLocName"></label>
-			   </td>
-			</tr>
-			</table>
-			<table class="transTable">
-			<tr></tr>
-			<tr>
-					<td width="4%"><input id="btnExecute" type="button" class="form_button1" title="Execute" value="EXECUTE"/></td>
-					<td width="10%">
-						<s:select path="strExportType" id="cmbExportType"  cssClass="BoxW124px" title="Select Export Type">
-							<option value="Excel">Excel</option>
-							<option value="PDF">PDF</option>
-						</s:select>
-					</td>
-					<td width="55%" colspan="2">						
-						<input id="btnExport" type="button" value="EXPORT"  title="Export" class="form_button1"/>
-					</td>
-				</tr>
-		</table>
+			</div>
+			<div class="col-md-2">		
+				<s:select path="strExportType" id="cmbExportType"  title="Select Export Type" style="margin-top: 28px; width:80%;">
+					<option value="Excel">Excel</option>
+					<option value="PDF">PDF</option>
+				</s:select>
+			</div>
+			<div class="col-md-6"></div>
+			<div class="col-md-2">	
+				<label>Location</label>
+				<s:input id="txtLocCode" path="strLocationCode" placeholder="ALL Location" title="Double Click To Select Location"
+				 	 ondblclick="funHelp('locationmaster')" cssClass="searchTextBox"/>
+			</div>
+			<div class="col-md-2">
+				 <label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 40%; margin: 27px 0px;text-align:center"></label>
+			</div>
+		</div>
+		<div class="center" style="margin-right:57%;">
+			<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return funOnClick()">Execute</button></a>&nbsp
+			 <a href="#"><button class="btn btn-primary center-block" id="btnExport" value="Export" onclick="return funOnExport()">Export</button></a>
+		</div>
 		
 		<div id="divProdDet" class="dynamicTableContainer" style="height: 280px;">
 			<table class="transTablex" style="height: 25px; border: #0F0;width: 99.9%;font-size:11px;
 			font-weight: bold;overflow: scroll;table-layout: fixed;">
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#c0c0c0">
 					<th style="width:10%;text-align:left">SubGroup Name</th>					
 					<th style="width:49.5%;text-align:left">Product Name</th>	
 					<th style="width:8%;text-align:left" >C Stock</th>				
@@ -322,8 +327,7 @@
                     <th style="width:8%;text-align:left">Value</th> 
 				</tr>
 			</table>
-				<div
-				style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 196px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 196px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 					<table id="tblProdDet"
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col11-center">
@@ -356,6 +360,6 @@
 				width="60px" height="60px" />
 		</div>
 	</s:form>
-	
-</body>
+</div>	
+	</body>
 </html>

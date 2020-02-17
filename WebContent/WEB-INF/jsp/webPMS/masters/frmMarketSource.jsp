@@ -1,11 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Business Source Master</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 
@@ -17,8 +24,6 @@
 			window.open("searchform.html?formname="+transactionName+"&searchText=","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
 		    //window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;")
 		}
-		
-		
 		
 
 // 		/**
@@ -144,66 +149,55 @@
 						}
 						return flg;
 					}
-				
-		
-		
-		
+		 
+					 $('#baseUrl').click(function() 
+								{  
+									 if($("#txtMarketCode").val().trim()=="")
+									{
+										alert("Please Select Market Code... ");
+										return false;
+									} 
+										window.open('attachDoc.html?transName=frmMarketSource.jsp&formName=Member Profile&code='+$('#txtMarketCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+								});
 	
 </script>
 
-
 </head>
 <body>
-	<div id="formHeading">
-		<label>Market Source Master</label>
-	</div>
-	<br/>
-	<br/>
-	<s:form name="Market" method="GET" action="saveMarketSourceMaster.html?" >
+	<div class="container masterTable">
+	  <label id="formHeading">Market Source Master</label>
+	    <s:form name="Market" method="GET" action="saveMarketSourceMaster.html?" >
 	
-		<table class="masterTable">
 
-<!--            <tr> -->
 <!-- 				<th align="right" colspan="2"><a id="baseUrl" -->
 <!-- 					href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp; -->
 <!-- 						&nbsp;</th> -->
 <!-- 			</tr> -->
-
-			<tr>
-			    <td><label>Market Code</label></td>
-				<td><s:input id="txtMarketCode" path="strMarketSourceCode" cssClass="searchTextBox" ondblclick="funHelp('marketsource')" /></td>				
-			</tr>
-			
-			<tr>
-			    <td><label>Description</label></td>
-				<td><s:input id="txtMarketDesc" path="strDescription" cssClass="longTextBox" /></td>				
-			</tr>
-			
-			
-			<tr>
-				 <td><label>Request Slip Required</label></td>
-				 <td  >
-				 <s:select id="cmbRequestSlip" path="strReqSlipReqd" cssClass="BoxW124px">
-				    <option selected="selected" value="Y">Yes</option>
-			        <option value="N">No</option>
-		         </s:select>
-				</td>
-			</tr>
-			
-			
-			
-		</table>
-		
+       <div class="row">
+			<div class="col-md-5">
+		   	 <div class="row">
+				<div class="col-md-5"><label>Market Code</label>
+				    <s:input id="txtMarketCode" path="strMarketSourceCode" cssClass="searchTextBox" ondblclick="funHelp('marketsource')" style="height: 50%;"/>
+				</div>				
+			    <div class="col-md-7"><label>Description</label>
+				    <s:input id="txtMarketDesc" path="strDescription"/>			
+			    </div>
+			 </div></div>
+			 
+			     <div class="col-md-1"><label style="width: 200%">Request Slip Required</label>
+				     <s:select id="cmbRequestSlip" path="strReqSlipReqd">
+				        <option selected="selected" value="Y">Yes</option>
+			             <option value="N">No</option>
+		              </s:select>
+				  </div>
+			</div>
 		
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funCallFormAction('submit',this);" />
-            <input type="reset" value="Reset" class="form_button" />
-           
-            
-		</p>
+		<p align="center" style="margin-right: 14%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this);" />&nbsp;
+            <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />
+         </p>
 	</s:form>
-	
+	</div>
 </body>
 </html>

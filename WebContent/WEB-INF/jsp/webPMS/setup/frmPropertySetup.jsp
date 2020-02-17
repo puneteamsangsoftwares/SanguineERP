@@ -1,16 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <title></title>
 <style type="text/css">
 .ui-timepicker-wrapper
 {
 	width: 95px;
 }
+.timePickerTextBox {
+	font-size:13px;
+}
+#tab_container{
+	overflow:hidden;
+}
+ul.tabs1 li.active {
+	border-bottom: 2px solid #007bff;
+    border-radius: 0 0px;
+    color: #000;
+    transition: all 0.9s ease 0s;
+    margin-bottom: 10px;
+}
+.Box{
+
+}
+.searchTextBox{
+/* background: #ecebeb url(../images/textboxsearchimage.png) no-repeat right;
+ */width: 70%;
+ border: 1px solid #adaaaa;
+} 
 </style>
 
 <script type="text/javascript">
@@ -21,7 +51,8 @@
 	var smsContentForReservation;
 	var emailContentForCheckIn;
 	var emailContentForReservation;
-	
+	var enableHousekeeping;
+	var enableWebCam;
 	$(document).ready(function() {
 
 		funTaxLinkUpData('Tax');
@@ -177,6 +208,27 @@
 		emailContentForReservation=value="${emailContentForReservation}"
 		$('#txtReservationEmailContent').val(emailContentForReservation);
 			
+		enableHousekeeping=value="${enableHousekeeping}"
+		$("#txtHouseKeeping").val(enableHousekeeping);
+		if(enableHousekeeping.includes('Y'))
+			{
+			document.getElementById("txtHouseKeeping").checked = true;
+			}
+		else
+			{
+			
+			}
+		
+		enableWebCam=value="${enableHousekeeping}"
+			$("#txtEnableWebCam").val(enableWebCam);
+			if(enableWebCam.includes('Y'))
+				{
+				document.getElementById("txtEnableWebCam").checked = true;
+				}
+			else
+				{
+				
+				}
 		
 	});
 	/**
@@ -938,242 +990,247 @@
 			});
 		}
 		
+		function funTaxOnTaxableStateChange()
+		{
+			var isSelected=$("#txtHouseKeeping").prop('checked');
+			if(isSelected==true)
+			{
+				$("#txtHouseKeeping").val("Y");				
+			}
+			else
+			{
+				$("#txtHouseKeeping").val("N");				
+			}
+		}
+		
+		function funEnableWebCam()
+		{
+			var isSelected=$("#txtEnableWebCam").prop('checked');
+			if(isSelected==true)
+			{
+				$("#txtEnableWebCam").val("Y");				
+			}
+			else
+			{
+				$("#txtEnableWebCam").val("N");				
+			}
+		}
+
+		
 </script>
 
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Property Setup</label>
-	</div>
-
-<br/>
-<br/>
+	<div class="container">
+		<label id="formHeading">Property Setup</label>
 
 	<s:form name="PropertySetup" method="POST" action="savePropertySetup.html">
-	<table>
-		<tr>
-			<td  style="width: 100px;"><label>Property</label></td>
-			<td colspan="5"><s:select id="strPropertyCode" path="strPropertyCode" items="${listOfProperty}" required="true" cssClass="BoxW200px"></s:select></td>				    						    		        			 
-		</tr>
-	</table>
+		<div class="row">
+			<div class="col-md-2">
+				<label>Property</label>
+				<s:select id="strPropertyCode" path="strPropertyCode" items="${listOfProperty}" required="true"></s:select>				    						    		        			 
+			</div>
+		</div>
 	
-	<br/>
-	
-	<table
-				style="border: 0px solid black; width: 100%;height:100%; background-color: #C0E4FF;">
-				
-				
-				<tr>
-					<td>
-					
-					<div id="tab_container" style="height: 600px">
-								<ul class="tabs">
-								<li data-state="tab1">General</li>
-								
-								<li data-state="tab2">SMS Setup</li>
-								
-								<li data-state="tab3">Linkup</li>
-								
-								<li data-state="tab4">E-mail Setup</li>
-
-							</ul>
-							<div id="tab1" class="tab_content" style="height: 800px">
-							<br><br>
-									<table class="masterTable">
-									
-<!-- 							<tr> -->
-<!-- 							    <td  style="width: 100px;"><label>Property</label></td> -->
-<%-- 								<td colspan="5"><s:select id="strPropertyCode" path="strPropertyCode" items="${listOfProperty}" required="true" cssClass="BoxW200px"></s:select></td>				    						    		        			  --%>
-<!-- 							</tr> -->
-							<tr>
-							    <td><label>Check In Time</label></td>
-							    <td><s:input path="tmeCheckInTime"  id="tmeCheckInTime" value="${checkInTime}"  class="timePickerTextBox" /></td>	
-							    <td><label>Check Out Time</label></td>
-							    <td><s:input path="tmeCheckOutTime"  id="tmeCheckOutTime" value="${checkOutTime}" class="timePickerTextBox" /></td>	
-							    <td><label>GST No</label></td>
-							    <td><s:input path="strGSTNo"  id="txtGSTNo"  value="${GSTNo}" cssClass="longTextBox" style="width: 190px" /></td>								    						    		        			
-							</tr>
+		<div style="border: 0px solid black; width: 100%; height:100%;">
+			<div id="tab_container">
+					<ul class="tabs">
+						<li data-state="tab1">General</li>
+						<li data-state="tab2">SMS Setup</li>
+						<li data-state="tab3">Linkup</li>
+						<li data-state="tab4">E-mail Setup</li>
+					</ul>
+				<div id="tab1" class="tab_content">
+					<br><br>
+					<div class="row masterTable">
+<!-- 					<tr> -->
+<!-- 						<td  style="width: 100px;"><label>Property</label></td> -->
+<%-- 						<td colspan="5"><s:select id="strPropertyCode" path="strPropertyCode" items="${listOfProperty}" required="true" cssClass="BoxW200px"></s:select></td>				    						    		        			  --%>
+<!-- 					</tr> -->
+						<div class="col-md-2">
+							<label>Check In Time</label>
+								<s:input path="tmeCheckInTime"  id="tmeCheckInTime" value="${checkInTime}"  class="timePickerTextBox" style="width: 60%;" />
+						</div>	
+						<div class="col-md-2"> 
+							<label>Check Out Time</label>
+							<s:input path="tmeCheckOutTime"  id="tmeCheckOutTime" value="${checkOutTime}" class="timePickerTextBox" style="width: 60%;" />
+						</div>
+						<div class="col-md-2"> 
+							<label>GST No</label>
+							<s:input path="strGSTNo"  id="txtGSTNo"  value="${GSTNo}"/>							    						    		        			
+						</div>
+						<div class="col-md-2"> 
+							<label>Total Numbers of Room</label>
+							<input type="text" class="numeric" id="txtNoOfRooms" Class="longTextBox" value="${listOfRoom}" style="width:70%;"/>
+						</div>
+						<div class="col-md-4"></div><br><br><br>
+						<div class="col-md-2"> 
+							<label>Room Limit</label>
+							<s:input type="text" class="numeric" id="txtRoomLimit" path="strRoomLimit" value="${RoomLimit}"/>
+						</div>
+						<div class="col-md-2"> 
+							<label>Bank Ac Name</label>
+							<s:input type="text" class="numeric" id="txtbankAcName" value="${bankAcName}" path="strBankAcName"/>
+						</div>			
+						<div class="col-md-2"> 
+							<label>Bank Ac Number</label>
+							<s:input type="text" class="numeric" id="txtbankAcNum" value="${BankACNumber}" path="strBankAcNumber"/>
+						</div>
+						<div class="col-md-2"> 			
+							<label>Bank IFS Code</label>
+							<s:input  type="text" class="numeric" id="txtbankIFSC" value="${BankIFSC}" path="strBankIFSC"/>
+						</div>
 							
-							<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
-							<br /><br />
-							
-									
-									<tr>
-										 <td style="width: 10%;"><label>Total Numbers of Room</label></td>
-									     <td style="width: 5%;"><input type="text" class="numeric" id="txtNoOfRooms" Class="longTextBox" value="${listOfRoom}"/>
-									     </td>	
-									     <td style="width: 10%;"><label>Room Limit</label></td>
-									     <td style="width: 5%;"><s:input colspan="3" type="text" class="numeric" id="txtRoomLimit" path="strRoomLimit" value="${RoomLimit}"  cssClass="longTextBox"/></td>	
-									</tr>
-									
-									<tr>
-									<td style="width: 10%;"><label>Bank Ac Name</label></td>
-									<td style="width: 5%;"><s:input colspan="3" type="text" class="numeric" id="txtbankAcName" value="${bankAcName}" path="strBankAcName" cssClass="longTextBox"/></td>
-									
-									<td style="width: 10%;"><label>Bank Ac Number</label></td>
-									<td style="width: 5%;"><s:input colspan="3" type="text" class="numeric" id="txtbankAcNum" value="${BankACNumber}" path="strBankAcNumber" cssClass="longTextBox"/></td>
-									
-									<td style="width: 10%;"><label>Bank IFS Code</label></td>
-									<td style="width: 5%;"><s:input colspan="3" type="text" class="numeric" id="txtbankIFSC" value="${BankIFSC}" path="strBankIFSC" cssClass="longTextBox"/></td>
-									
-									</tr>
-									
-									<tr>
-									<td style="width: 10%;"><label>Branch Name</label></td>
-									<td style="width: 5%;"><s:input colspan="3" type="text" class="numeric" id="txtBranchName" value="${BranchName}" path="stBranchName" cssClass="longTextBox"/></td>
-									
-									<td style="width: 10%;"><label>Pan Number</label></td>
-									<td style="width: 5%;"><s:input colspan="3" type="text" class="numeric" id="txtPANNo" value="${panNo}" path="strPanNo" cssClass="longTextBox"/></td>
-									
-									
-									<td style="width: 10%;"><label>HSN Code/SAC</label></td>
-									<td style="width: 5%;"><s:input colspan="3" type="text" class="numeric" id="txtHSCCode" value="${HSCCode}" path="strHscCode" cssClass="longTextBox"/></td>
-									
-									</tr>
-									
-									<%-- <tr>
-									
-									<td ><label>Amount Decimal Places</label></td>
-										<td><s:select path="intdec" id="intdec"
-												cssClass="BoxW48px">
-												<s:option value="0">0</s:option>
-												<s:option value="1">1</s:option>
-												<s:option value="2">2</s:option>
-												<s:option value="3">3</s:option>
-												<s:option value="4">4</s:option>
-												<s:option value="5">5</s:option>
-												<s:option value="6">6</s:option>
-												<s:option value="7">7</s:option>
-												<s:option value="8">8</s:option>
-												<s:option value="9">9</s:option>
-												<s:option value="10">10</s:option>
-												
-											</s:select></td>
-									
+						<div class="col-md-4"></div><br><br><br>			
+						<div class="col-md-2">
+							<label>Branch Name</label>
+							<s:input type="text" class="numeric" id="txtBranchName" value="${BranchName}" path="stBranchName"/>
+						</div>	
+						<div class="col-md-2">		
+							<label>Pan Number</label>
+							<s:input type="text" class="numeric" id="txtPANNo" value="${panNo}" path="strPanNo"/>
+						</div>
+						<div class="col-md-2">
+							<label>HSN Code/SAC</label>
+							<s:input type="text" class="numeric" id="txtHSCCode" value="${HSCCode}" path="strHscCode"/>
+						</div>
+						
+						<div class="col-md-2">
+							<label>Enable Housekeeping</label><br>
+							<s:checkbox id="txtHouseKeeping"  value="N" path="strEnableHousekeeping" onclick="funTaxOnTaxableStateChange()" />
+<%-- 							<s:input type="checkbox"  id="txtHouseKeeping" value="N"  path="strEnableHousekeeping"/>
+ --%>						</div>	
+							<%-- <tr>
+								<td ><label>Amount Decimal Places</label></td>
+									<td><s:select path="intdec" id="intdec"
+										cssClass="BoxW48px">
+										<s:option value="0">0</s:option>
+										<s:option value="1">1</s:option>
+										<s:option value="2">2</s:option>
+										<s:option value="3">3</s:option>
+										<s:option value="4">4</s:option>
+										<s:option value="5">5</s:option>
+										<s:option value="6">6</s:option>
+										<s:option value="7">7</s:option>
+										<s:option value="8">8</s:option>
+										<s:option value="9">9</s:option>
+										<s:option value="10">10</s:option>
+								</s:select></td>
 									</tr> --%>
+									<div class="col-md-4"></div><br><br><br>
 									
-									
-								
-							
-							
-						</table>
-							</div>
+									<div class="col-md-2">
+							<label>Enable Web-cam</label><br>
+							<s:checkbox id="txtEnableWebCam"  value="N" path="strEnableWebCam" onclick="funEnableWebCam()" />
+<%-- 							<s:input type="checkbox"  id="txtHouseKeeping" value="N"  path="strEnableHousekeeping"/>
+ --%>						</div>	
+					</div>
+				</div>
+				<div id="tab2" class="tab_content">
+					<div id="tblAudit" class="row transTable">
+						<div class="col-md-3">
+							<label >SMS Provider</label>
+							<s:select  id="cmbSMSProvider" path="strSMSProvider"  style="width:70%;">
+								<option value="SANGUINE">SANGUINE</option>
+							</s:select>
+						</div>			
+						<div class="col-md-3">
+							<label>SMS API</label>
+							<s:textarea  id="txtSMSAPI" text="${SmsApi}" path="strSMSAPI"  cssStyle="width:100%; margin-bottom: 10px;" />
+						</div>	
+						<div class="col-md-6"></div>
 						
-							
-								<div id="tab2" class="tab_content">
-							<br><br><br>
-							<table id="tblAudit" class="transTable">
-							<tr>
-							<td><label >SMS Provider</label></td>
-									<td colspan="3"><s:select  id="cmbSMSProvider" path="strSMSProvider" class="BoxW48px" style="width:130px">
-											<option value="SANGUINE">SANGUINE</option>
-										</s:select>
-									</td>
-							</tr>
-							
-							<tr>
-							<td><label >SMS API</label></td>
-								<td colspan="3"><s:textarea  id="txtSMSAPI" text="${SmsApi}" path="strSMSAPI"  cssStyle="width: 669px;" /></td>
-							</tr>
-						 	<tr>
-							<td style="width: 130px;"><label >SMS Content For Reservation </label></td>
-							<td>	
-									<select  id="cmbReservationSMSField" class="BoxW48px" style="width:130px" >
-										<option value="CompanyName">Company Name</option>
-										<option value="PropertyName">Property Name</option>
-										<option value="RNo">Reservation No</option>
-										<option value="RDate">Reservation Date</option>
-										<option value="GuestName">GuestName</option>
-										<option value="RoomNo">Room No</option>
-									<option value="NoNights">No of Nights</option>
-									</select>
-							 </td>
-							 
-							<td><input type="button" value="Add" class="smallButton" onclick="funCreateSMS1();" id=btnAddSMS1 /></td>
-									<td><s:textarea cssStyle="width: 373px; height: 101px;" id="txtReservationSMSContent" path="strReservationSMSContent"  /></td>
-							</tr> 
-							
-							
-							<tr>
-							<td style="width: 130px;"><label >Email Content For Check IN </label></td>
-							<td>	
-									<select  id="cmbCheckINSMSField" class="BoxW48px" style="width:130px" >
-										<option value="CompanyName">Company Name</option>
-										<option value="PropertyName">Property Name</option>
-										<option value="CheckIn">Check IN</option>
-										<option value="GuestName">GuestName</option>
-										<option value="RoomNo">RoomNo</option>
-										<option value="NoNights">No of Nights</option>
-										<option value="RDate">CheckInDate</option>
-										
-									</select>
-							 </td>
-							 
-									<td><input type="button" value="Add" class="smallButton" onclick="funCreateSMS2();" id=btnAddSMS2 /></td>
-									<td><s:textarea cssStyle="width: 373px; height: 101px;" id="txtCheckINSMSContent" path="strCheckInSMSContent"  /></td>
-							</tr>
-							
-	
-										<tr>
-							<td style="width: 130px;"><label >SMS Content For Advance Amount </label></td>
-							<td>	
-									<select  id="cmbAdvAmtSMSField" class="BoxW48px" style="width:130px" >
-										<option value="CompanyName">Company Name</option>
-										<option value="PropertyName">Property Name</option>
-										<option value="PaymentNo">Payment Recipt No</option>
-										<option value="Amount">Amount</option>
-										<option value="SettlementDesc">Settlement Description</option>
-									</select>
-							 </td>
-							 
-									<td><input type="button" value="Add" class="smallButton" onclick="funCreateSMS3();" id=btnAddSMS3 /></td>
-									<td><s:textarea cssStyle="width: 373px; height: 101px;" id="txtAdvAmtSMSContent" path="strAdvAmtSMSContent"  /></td>
-							</tr>
-							
-							
-											<tr>
-							<td style="width: 130px;"><label >SMS Content For check Out </label></td>
-							<td>	
-									<select  id="cmbCheckOutSMSField" class="BoxW48px" style="width:130px" >
+						 <div class="col-md-3">
+							<label >SMS Content For Reservation </label>
+								<select  id="cmbReservationSMSField" class="BoxW48px" style="width:70%;" >
 									<option value="CompanyName">Company Name</option>
-										<option value="PropertyName">Property Name</option>
-										<option value="CheckOut">Check Out</option>
-										<option value="GuestName">GuestName</option>
-										<option value="RoomNo">RoomNo</option>
-										<option value="checkOutDate">CheckOutDate</option>
-									</select>
-							 </td>
-							 
-									<td><input type="button" value="Add" class="smallButton" onclick="funCreateSMS4();" id=btnAddSMS4 /></td>
-									<td><s:textarea cssStyle="width: 373px; height: 101px;" id="txtCheckOutSMSContent" path="strCheckOutSMSContent"  /></td>
-							</tr>
-							
-							</table>							
-							</div>
-							
-							<div id="tab3" class="tab_content" style="height: 890px">
-					<br/><br/>
-					
-					<div id="tab_container1" class="masterTable"  style="height: 535px">
-							<ul class="tabs1">
-							<li  class="active" data-state="divSubGroup"  style="width: 10%;padding-left: 55px;">Department</li>
-							
-							<li data-state="divTax" style="width: 10%; padding-left: 55px">Tax</li>
-							
-							<li data-state="divSupplier" style="width: 10%; padding-left: 55px">Room Type</li>
-							
-							<li data-state="divDiscount" style="width: 10%; padding-left: 55px">Package</li>
-				
-							<li data-state="divRoundOff" style="width: 10%; padding-left: 55px">Settlement</li>
-						 </ul>
+									<option value="PropertyName">Property Name</option>
+									<option value="RNo">Reservation No</option>
+									<option value="RDate">Reservation Date</option>
+									<option value="GuestName">GuestName</option>
+									<option value="RoomNo">Room No</option>
+									<option value="NoNights">No of Nights</option>
+								</select>
+						</div>
+						 <div class="col-md-1">
+							<input type="button" value="Add" class="btn btn-primary center-block" onclick="funCreateSMS1();" id=btnAddSMS1 style="margin-top:13%;"/>
+						</div>
+						 <div class="col-md-3">
+								<s:textarea cssStyle="height: 50px; width: 100%; margin-bottom: 10px;" id="txtReservationSMSContent" path="strReservationSMSContent"  />
+						</div>
+						<div class="col-md-5"></div>
+						<div class="col-md-3">
+							<label >Email Content For Check IN </label>
+							<select  id="cmbCheckINSMSField"  style="width:70%" >
+								<option value="CompanyName">Company Name</option>
+								<option value="PropertyName">Property Name</option>
+								<option value="CheckIn">Check IN</option>
+								<option value="GuestName">GuestName</option>
+								<option value="RoomNo">RoomNo</option>
+								<option value="NoNights">No of Nights</option>
+								<option value="RDate">CheckInDate</option>
+							</select>
+						</div>
+						<div class="col-md-1">
+							<input type="button" value="Add" class="btn btn-primary center-block" onclick="funCreateSMS2();" id=btnAddSMS2 style="margin-top:13%;"/>
+						</div>
+						<div class="col-md-3">
+							<s:textarea cssStyle="height: 50px; width: 100%; margin-bottom: 10px;" id="txtCheckINSMSContent" path="strCheckInSMSContent"  />
+						</div>
+							<div class="col-md-5"></div>
+						<div class="col-md-3">
+							<label >SMS Content For Advance Amount </label>
+								<select  id="cmbAdvAmtSMSField" style="width:70%" >
+									<option value="CompanyName">Company Name</option>
+									<option value="PropertyName">Property Name</option>
+									<option value="PaymentNo">Payment Recipt No</option>
+									<option value="Amount">Amount</option>
+									<option value="SettlementDesc">Settlement Description</option>
+								</select>
+						</div>
 						
-					&nbsp;&nbsp;
+						<div class="col-md-1">
+							<input type="button" value="Add" class="btn btn-primary center-block" onclick="funCreateSMS3();" id=btnAddSMS3 style="margin-top:13%;"/>
+						</div>
+						<div class="col-md-3">
+							<s:textarea cssStyle="height:50px; width: 100%; margin-bottom: 10px;" id="txtAdvAmtSMSContent" path="strAdvAmtSMSContent"  />
+						</div>
+						<div class="col-md-5"></div>
+						<div class="col-md-3">
+							<label >SMS Content For check Out </label>
+							<select  id="cmbCheckOutSMSField"  style="width:70%" >
+								<option value="CompanyName">Company Name</option>
+									<option value="PropertyName">Property Name</option>
+									<option value="CheckOut">Check Out</option>
+									<option value="GuestName">GuestName</option>
+									<option value="RoomNo">RoomNo</option>
+									<option value="checkOutDate">CheckOutDate</option>
+							</select>
+						</div>
+						<div class="col-md-1">
+							<input type="button" value="Add" class="btn btn-primary center-block" onclick="funCreateSMS4();" id=btnAddSMS4 style="margin-top:13%;"/>
+						</div>
+						<div class="col-md-3">
+							<s:textarea cssStyle="height: 50px; width: 100%; margin-bottom: 10px;" id="txtCheckOutSMSContent" path="strCheckOutSMSContent"  />
+						</div>
 							
-							<div id="divSubGroup" class="tab_content1" style="height: 500px;margin-top: 20px;">
-							<table
-								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-								<tr bgcolor="#72BEFC">
+					</div>							
+				</div>
+							
+				<div id="tab3" class="tab_content">
+				<br/><br/>
+					<div id="tab_container1" class="masterTable">
+						<ul class="tabs1">
+							<li class="active" data-state="divSubGroup">Department</li>
+							<li data-state="divTax">Tax</li>
+							<li data-state="divSupplier">Room Type</li>
+							<li data-state="divDiscount">Package</li>
+							<li data-state="divRoundOff">Settlement</li>
+						 </ul>
+						<div id="divSubGroup" class="tab_content1" style="height: 500px;margin-top: 20px;">
+							<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Department Code</td>
 									<td style="width:10%;">Department Code</td>
 									<td style="width:20%;">Account Code</td>
@@ -1181,23 +1238,21 @@
 								</tr>
 							</table>
 							
-							<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
-									<table id="tblDepartment"
-									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-									class="transTablex col8-center">
+							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								<table id="tblDepartment" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+										class="transTablex col8-center">
 									<tbody>
-									<col style="width:10%">
-									<col style="width:10%">					
-									<col style="width:20%">
-									<col style="width:20%">
+										<col style="width:10%">
+										<col style="width:10%">					
+										<col style="width:20%">
+										<col style="width:20%">
 									</tbody>
 								</table>
 							</div>
-							</div>
-							<div id="divTax" class="tab_content1" style="height: 500px;margin-top: 20px;">
-							<table
-								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-								<tr bgcolor="#72BEFC">
+						</div>
+						<div id="divTax" class="tab_content1" style="height: 500px;margin-top: 20px;">
+							<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+								<tr style="background:#c0c0c0;">
 									<td style="width:10%;">Tax Code</td>
 									<td style="width:10%;">Tax Name</td>
 									<td style="width:20%;">Account Code</td>
@@ -1205,24 +1260,22 @@
 								</tr>
 							</table>
 							
-							<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
-									<table id="tblTax"
-									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-									class="transTablex col8-center">
+							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								<table id="tblTax" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+									     class="transTablex col8-center">
 									<tbody>
-									<col style="width:10%">
-									<col style="width:10%">					
-									<col style="width:20%">
-									<col style="width:20%">
+										<col style="width:10%">
+										<col style="width:10%">					
+										<col style="width:20%">
+										<col style="width:20%">
 									</tbody>
 								</table>
 							</div>
-							</div>
+						</div>
 							
-							<div id="divSupplier" class="tab_content1" style="height: 500px;margin-top: 20px;">
-							<table
-								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-								<tr bgcolor="#72BEFC">
+						<div id="divSupplier" class="tab_content1" style="height: 500px;margin-top: 20px;">
+							<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Room Code</td>
 									<td style="width:10%;">Room Desc</td>
 									<td style="width:20%;">Account Code</td>
@@ -1230,25 +1283,22 @@
 								</tr>
 							</table>
 							
-							<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
-									<table id="tblrmType"
-									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								<table id="tblrmType" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
 									<tbody>
-									<col style="width:10%">
-									<col style="width:10%">					
-									<col style="width:20%">
-									<col style="width:20%">
+										<col style="width:10%">
+										<col style="width:10%">					
+										<col style="width:20%">
+										<col style="width:20%">
 									</tbody>
 								</table>
 							</div>
-							</div>
-							
-
-							<div id="divDiscount" class="tab_content1" style="height: 500px;margin-top: 20px;">
-							<table
-								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-								<tr bgcolor="#72BEFC">
+						</div>
+						
+						<div id="divDiscount" class="tab_content1" style="height: 500px;margin-top: 20px;">
+							<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Package Code</td>
 									<td style="width:10%;">Package Desc</td>
 									<td style="width:20%;">Account Code</td>
@@ -1256,24 +1306,22 @@
 								</tr>
 							</table>
 							
-							<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
-									<table id="tblPackage"
-									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								<table id="tblPackage" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
 									<tbody>
-									<col style="width:10%">
-									<col style="width:10%">					
-									<col style="width:20%">
-									<col style="width:20%">
+										<col style="width:10%">
+										<col style="width:10%">					
+										<col style="width:20%">
+										<col style="width:20%">
 									</tbody>
 								</table>
 							</div>
-							</div>
+						</div>
 							
-							<div id="divRoundOff" class="tab_content1" style="height: 500px;margin-top: 20px;">
-							<table
-								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-								<tr bgcolor="#72BEFC">
+						<div id="divRoundOff" class="tab_content1" style="height: 500px;margin-top: 20px;">
+							<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Settlement Code</td>
 									<td style="width:10%;">Settlement Desc</td>
 									<td style="width:20%;">Account Code</td>
@@ -1281,89 +1329,73 @@
 								</tr>
 							</table>
 							
-							<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
-									<table id="tblSettlement"
-									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+									<table id="tblSettlement" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
 									<tbody>
-									<col style="width:10%">
-									<col style="width:10%">					
-									<col style="width:20%">
-									<col style="width:20%">
+										<col style="width:10%">
+										<col style="width:10%">					
+										<col style="width:20%">
+										<col style="width:20%">
 									</tbody>
 								</table>
 							</div>
-							</div>
-													
-						</div>
-							
-							
-							</div>
-							
-							<div id="tab4" class="tab_content">
-							<br><br><br>
-							<table id="tblAudit" class="transTable">
-							
-						 	<tr>
-							<td style="width: 130px;"><label >Email Content For Reservation </label></td>
-							<td>	
-									<select  id="cmbReservationEmailField" class="BoxW48px" style="width:130px" >
-										<option value="CompanyName">Company Name</option>
-										<option value="PropertyName">Property Name</option>
-										<option value="RNo">Reservation No</option>
-										<option value="RDate">Reservation Date</option>
-										<option value="GuestName">GuestName</option>
-										<option value="RoomNo">Room No</option>
+						</div>						
+					</div>
+				</div>
+				<div id="tab4" class="tab_content">
+					<br><br><br>
+					<div id="tblAudit" class="row transTable">
+						<div class="col-md-3">
+							<label >Email Content For Reservation </label><br>
+								<select  id="cmbReservationEmailField" style="width:70%;">
+									<option value="CompanyName">Company Name</option>
+									<option value="PropertyName">Property Name</option>
+									<option value="RNo">Reservation No</option>
+									<option value="RDate">Reservation Date</option>
+									<option value="GuestName">GuestName</option>
+									<option value="RoomNo">Room No</option>
 									<option value="NoNights">No of Nights</option>
-									</select>
-							 </td>
-							 
-							<td><input type="button" value="Add" class="smallButton" onclick="funCreateEmail1();" id=btnAddEmail1 /></td>
-									<td><s:textarea cssStyle="width: 373px; height: 101px;" id="txtReservationEmailContent" value="${ReservationEmail}" path="strReservationEmailContent"  /></td>
-							</tr> 
-							
-							
-							<tr>
-							<td style="width: 130px;"><label >Email Content For Check IN </label></td>
-							<td>	
-									<select  id="cmbCheckINEmailField" class="BoxW48px" style="width:130px" >
-										<option value="CompanyName">Company Name</option>
-										<option value="PropertyName">Property Name</option>
-										<option value="CheckIn">Check IN</option>
-										<option value="GuestName">GuestName</option>
-										<option value="RoomNo">RoomNo</option>
-										<option value="NoNights">No of Nights</option>
-										<option value="RDate">CheckInDate</option>
-										
-									</select>
-							 </td>
-							 
-									<td><input type="button" value="Add" class="smallButton" onclick="funCreateEmail2();" id=btnAddEmail2 /></td>
-									<td><s:textarea cssStyle="width: 373px; height: 101px;" id="txtCheckINEmailContent" path="strCheckInEmailContent"  /></td>
-									<%-- <td><s:textarea cssStyle="width: 200px; height: 50px;" id="txtSMSContent" path="strInvNote"  /></td> --%>
-									
-							</tr>
-							
-	
-										
-							
-							
-									
-							
-							</table>							
-							</div>
-							
+								</select>
 						</div>
-					</td>
-				</tr>
-		</table>
+						<div class="col-md-2">
+							<input type="button" value="Add" class="btn btn-primary center-block" onclick="funCreateEmail1();" id=btnAddEmail1 style="margin-top:13%;"/>
+						</div>
+						<div class="col-md-3">
+							<s:textarea cssStyle="height: 50px; width: 100%; margin-bottom: 10px;" id="txtReservationEmailContent" value="${ReservationEmail}" path="strReservationEmailContent"  />
+						</div>
+						<div class="col-md-4"></div>
+						<div class="col-md-3">
+							<label >Email Content For Check IN  </label>
+								<select  id="cmbCheckINEmailField"  style="width:70%;">
+									<option value="CompanyName">Company Name</option>
+									<option value="PropertyName">Property Name</option>
+									<option value="CheckIn">Check IN</option>
+									<option value="GuestName">GuestName</option>
+									<option value="RoomNo">RoomNo</option>
+									<option value="NoNights">No of Nights</option>
+									<option value="RDate">CheckInDate</option>
+								</select>
+						</div>
+						<div class="col-md-2">
+							<input type="button" value="Add" class="btn btn-primary center-block" onclick="funCreateEmail2();" id=btnAddEmail2 style="margin-top:13%;"/>
+						</div>	
+						<div class="col-md-3">
+							<s:textarea cssStyle="height: 50px; width: 100%; margin-bottom: 10px;" id="txtCheckINEmailContent" path="strCheckInEmailContent"  />
+						</div>	
+					</div>
+				</div>
+		</div>
 	
 		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateFields()"/><!-- onclick="return funValidateFields()" -->
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
+		<div class="center">
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit" onclick="return funValidateFields()"
+				class="form_button">Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetFields()"
+				class="form_button">Reset</button></a>
+		</div>
+	</div>
 	</s:form>
+</div>
 </body>
 </html>

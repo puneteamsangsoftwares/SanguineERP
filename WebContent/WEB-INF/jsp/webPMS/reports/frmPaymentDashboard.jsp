@@ -1,22 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
-
-
 <html>
-    <head>  
-    
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
         <title>JSP Page</title>
+        
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />    
+        
+        <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+       	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
         <script type="text/javascript" src="<spring:url value="/resources/js/jquery-1.6.3.min.js"/>"></script>
         <script type="text/javascript" src="<spring:url value="/resources/js/highcharts.js"/>"></script>
         <script type="text/javascript" src="<spring:url value="/resources/js/exporting.js"/>"></script>
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>  
+		
+<style>
+.contents{
+	min-height: calc(100vh - -457px);	
+	}
+</style>
         <script type="text/javascript">
         
         $(function() 
@@ -230,35 +239,29 @@
          
         
          
-    </script>
-    </head>
-    <body>
+</script>
+</head>
+<body>
+    <div class="container">
+     <label  id="formHeading">PAYMENT DASHBOARD</label>
+     <s:form name="dashboard" method="POST" action="rptPOSWiseSalesReport.html?saddr=${urlHits}" target="_blank" >
+	  <div class="masterTable">
+	  		<div class="row" style="padding:10px;">
+		  		<div class="col-md-2">
+			       <label> Date</label>
+			       <s:input type="text" id="txtFromDate" required="true" path="strFromDate" class="calenderTextBox" style="width:80%"/>
+			    </div>
+			    <div class="col-md-2">
+					 <label>To Date</label>
+			         <s:input type="text" id="txtToDate" required="true" path="strToDate" class="calenderTextBox" style="width:80%" />
+			     </div>
+			     <div class="col-md-2">
+					 <s:input type="button" id="btnShow" value="Show" path="strShow"  class="btn btn-primary center-block form_button" onclick="funShowRecord()"
+					 style="margin-top: 23px; padding-bottom: 23px; color: #000;"/>
+				</div>
+			</div>
+	  </div>
     
-     <s:form name="dashboard" method="POST"
-		action="rptPOSWiseSalesReport.html?saddr=${urlHits}"
-		target="_blank" >
-	  <table class="masterTable"  style=" margin: auto; float:left; width:100%;height:50px; background-color: #ffffff;">
-               
-               <tr style="background-color: #ffffff;">
-               
-                  <td colspan="4" align="center" style="padding-left: 5px;padding-bottom:3px; font-size: 15px "> <label> PAYMENT DASHBOARD</label>
-				  </td>
-				  <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td>
-		          <td colspan="4" align="left"> <label> Date</label> &nbsp;&nbsp;
-		          <s:input type="text" id="txtFromDate" required="true"
-							path="strFromDate"
-							class="calenderTextBox" /> &nbsp;&nbsp;&nbsp;&nbsp;
-				  <label>To Date</label> &nbsp;&nbsp;
-		          <s:input type="text" id="txtToDate" required="true"
-							path="strToDate" 
-							class="calenderTextBox" /> &nbsp;&nbsp;&nbsp;&nbsp;
-				 <s:input type="button" id="btnShow" value="Show" path="strShow"  class="form_button" onclick="funShowRecord()"/>
-				 &emsp;&ensp;&emsp;&ensp;
-				 </td> 
-			   </tr>
-			</table>
-    
-        <br>
          <div id="container1" style=" width: 50%; height: 350px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate; background-color: #ffffff; ">
 		</div>
 		
@@ -270,11 +273,9 @@
 		
 		<div id="container4" style=" width: 50%; height: 350px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate; background-color: #ffffff; ">
 		</div>
-		
-	    
-  
        
-	</s:form>	
+	</s:form>
+	</div>	
     </body>
 </html> 
 

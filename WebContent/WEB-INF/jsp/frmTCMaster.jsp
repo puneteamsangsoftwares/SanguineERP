@@ -1,11 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <link rel="stylesheet" type="text/css" href="default.css" />
 <title>TC MASTER</title>
 	<script type="text/javascript">
@@ -160,68 +169,46 @@ $(document).ready(function(){
 
 </head>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>T C Master</label>
-	</div>
-	<s:form name="tcmaster" method="POST" action="saveTCMaster.html?saddr=${urlHits}">
-				<br><br>
+	<div class="container">
+		<label id="formHeading">T C Master</label>
+		<s:form name="tcmaster" method="POST" action="saveTCMaster.html?saddr=${urlHits}">
 		
-			<table class="masterTable" >						
-			<tr>
-		        <th  align="right" colspan="2"> <a id="baseUrl" href="#"> Attach Documents</a> &nbsp; &nbsp; &nbsp;
-						&nbsp;</th>
-		    </tr>
-		    
-		    <tr>
-		        <td ><label>TC Code</label></td>
-		        <td><s:input id="txtTCCode" path="strTCCode" ondblclick="funHelp('tc')"  cssClass="searchTextBox"/></td>
-		    </tr>
-		    	
-		    <tr>
-		        <td>
-		        	<label>TC Name</label>
-		        </td>
-		        <td>
-		        	<s:input colspan="3" type="text" id="txtTCName" name="txtTCName" path="strTCName" required="true" cssClass="longTextBox" size="80px"/>		        	
-		        </td>
-		    </tr>
-			    
-		    <tr>
-			    <td> 
-			    	<label>Applicable</label>
-			    </td>
-			    <td>			    	
-			    	<s:checkbox element="li" id="chkApplicable" path="strApplicable" value="true"/>			    	
-			    </td>
-			</tr>
-			
-			<tr>
-			    <td>
-			    	<label>Max Length</label>
-			    </td>
-			    <td>
-			    	<s:input colspan="3" id="txtMaxLength" name="txtMaxLength" path="intMaxLength" class="numeric" size="80px" />			    	
-			    </td>
-			</tr>
-			
-		</table>
+			<div class="row masterTable" >						
+				<!--  <th  align="right" colspan="2"> <a id="baseUrl" href="#"> Attach Documents</a> &nbsp; &nbsp; &nbsp;
+						&nbsp;</th> -->
+			    <div class="col-md-2">
+			    	<label>TC Code</label>
+			        <s:input id="txtTCCode" path="strTCCode" readonly="true" ondblclick="funHelp('tc')"  cssClass="searchTextBox"/>
+			   	</div>
+			    <div class="col-md-2">
+			        <label>TC Name</label>
+			    	<s:input colspan="3" type="text" id="txtTCName" name="txtTCName" path="strTCName" required="true"/>		        	
+			    </div>
+			     <div class="col-md-8"></div>
+			    <div class="col-md-2">
+					<label>Applicable</label><br>
+				 	<s:checkbox element="li" id="chkApplicable" path="strApplicable" value="true"/>			    	
+				</div>
+				<div class="col-md-2">
+					<label>Max Length</label>
+				  	<s:input colspan="3" id="txtMaxLength" name="txtMaxLength" path="intMaxLength" class="numeric"  />			    	
+				</div>
+			</div>
 		
-		<!-- <table  align="center">
-			<tr>
-			    <td><input class="submitButton" type="submit" value="Submit" onclick="return funValidateFields()"/></td>
-			    <td><input class="submitButton" type="reset" value="Reset"  /></td>
-		    </tr>
-		</table> -->
-		<br>
-		<p align="center">
-			<input type="submit" value="Submit" id="btnSubmit" class="form_button"
-				onclick="return funCallFormAction('submit',this);" /> 
-				<input type="reset"
-				value="Reset" class="form_button" />
-		</p><br><br>
+			<!-- <table  align="center">
+				<tr>
+			    	<td><input class="submitButton" type="submit" value="Submit" onclick="return funValidateFields()"/></td>
+			    	<td><input class="submitButton" type="reset" value="Reset"  /></td>
+		    	</tr>
+			</table> -->
 		
-		
+		<div class="center" style="margin-right: 69%;">
+			<a href="#"><button class="btn btn-primary center-block"  value="Submit" onclick="return funCallFormAction('submit',this);"
+				>Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick=""
+				>Reset</button></a>
+		</div>
 	</s:form>
-	
+</div>	
 </body>
 </html>

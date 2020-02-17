@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,6 +9,13 @@
   	<link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Web Stocks</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+ 
     <script type="text/javascript">
     
     var fieldName;
@@ -112,50 +121,46 @@
   </head>
   
 	<body >
-	<div id="formHeading">
-		<label>Average Consumption</label>
-	</div>
-	<br />
-	<br />
-		<s:form name="frmAvgConsumptionReport" method="GET" action="" >
-			<table class="masterTable">
-	<tr><th colspan="5"></th></tr>
-				<tr>
-				<td><label>From Date</label></td>
-				<td><s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" /></td>
-				<td><label>To Date</label></td>
-				<td colspan="2"><s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" /></td>				
-			</tr>
+	<div class="container masterTable">
+		<label id="formHeading">Average Consumption</label>
+	    <s:form name="frmAvgConsumptionReport" method="GET" action="" >
+		
+		<div class="row">
+			 <div class="col-md-2"><label>From Date</label>
+				 <s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" style="width:70%" />
+			 </div>
+			 
+			 <div class="col-md-2"><label>To Date</label>
+				 <s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" style="width:70%"/>				
+			 </div>
+			 
+			 <div class="col-md-8"></div>	
+			 
+				<div class="col-md-2"><label>Location Code</label>
+				       <s:input id="txtLocCode" name="txtLocCode" path="strLocationCode" ondblclick="funHelp('locationmaster')"  cssClass="searchTextBox"/>
+				</div>
 				
-				<tr>
-				<td><label>Location Code</label></td>
-				<td><s:input id="txtLocCode" name="txtLocCode" path="strLocationCode" ondblclick="funHelp('locationmaster')"  cssClass="searchTextBox"/></td>
-				<td><label id="lblLocName"></label></td>
+				<div class="col-md-2"><label id="lblLocName" style="background-color:#dcdada94; width: 70%; height:51%;margin-top: 27px;padding:4px;"></label></div>
 				
-				
-				
-					<td><label>Report Type</label></td>
-					<td>
-						<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+				<div class="col-md-2"><label>Report Type</label>
+					   <s:select id="cmbDocType" path="strDocType" style="width:auto;">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
-				    	
 				    	</s:select>
-					</td>
-				</tr>
+				</div>
+			</div>
 				
-				<tr>
-				<td colspan="5"></td>
-					<!-- <td><input type="submit" value="Submit" /></td>
+				<!-- <td><input type="submit" value="Submit" /></td>
 					<td><input type="reset" value="Reset" onclick="funResetFields()"/></td>	 -->				
-				</tr>
-			</table>
+				
 			<br>
-			<p align="center">
-				<input type="submit" value="Submit"  class="form_button" onclick="return funCallFormAction('submit',this)" />
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+			<p align="center" style="margin-right: 31%;">
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this)" />
+				&nbsp;
+				<input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 			
 		</s:form>
+		</div>
 	</body>
 </html>

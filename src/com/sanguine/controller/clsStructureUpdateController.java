@@ -33,7 +33,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,7 +50,6 @@ import com.sanguine.util.clsClientDetails;
 import com.sanguine.util.clsDatabaseBackup;
 
 @Controller
-@Transactional
 public class clsStructureUpdateController {
 
 	@Autowired
@@ -266,7 +264,6 @@ public class clsStructureUpdateController {
 	 * @return
 	 */
 	@RequestMapping(value = "/updateStructure", method = RequestMethod.GET)
-	@Transactional
 	public @ResponseBody String funUpdateStructure(HttpServletRequest req) {
 		String clientCode = "";
 		if (null != req.getSession().getAttribute("clientCode")) {
@@ -605,7 +602,7 @@ public class clsStructureUpdateController {
 		}
 		model.put("urlHits", urlHits);
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmWebBooksStructureUpdate");
+			return new ModelAndView("frmWebBooksStructureUpdate_1");
 		} else if ("1".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmWebBooksStructureUpdate");
 		} else {
@@ -614,26 +611,6 @@ public class clsStructureUpdateController {
 
 	}
 
-	@RequestMapping(value = "/frmWebClubStructureUpdate", method = RequestMethod.GET)
-	public ModelAndView funOpenWebClubStructureUpdateForm(Map<String, Object> model, HttpServletRequest req) {
-
-		String urlHits = "1";
-		try {
-			urlHits = req.getParameter("saddr").toString();
-		} catch (NullPointerException e) {
-			urlHits = "1";
-		}
-		model.put("urlHits", urlHits);
-		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmWebClubStructureUpdate");
-		} else if ("1".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmWebClubStructureUpdate");
-		} else {
-			return null;
-		}
-
-	}
-	
 	/**
 	 * Update Structure in Data base
 	 * 

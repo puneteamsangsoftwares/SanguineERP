@@ -1,16 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />	
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+  
+<style>
+.transTable td{
+padding-left:1px;
+}
+
+</style>
+    
 <script type="text/javascript">
 	
 	var fieldName,gridHelpRow;
 	
-
+	
 	$(document).ready(function(){
 	    
 		  $(".tab_content").hide();
@@ -28,7 +44,7 @@
 	$(function() 
 	{
 		var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';
-		
+		var strExtraBesCode = "";
 		$("#txtArrivalTime").timepicker();
 		$("#txtDepartureTime").timepicker();
 		
@@ -77,12 +93,8 @@
 		
 		 var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';
 		  var dte=pmsDate.split("-");
-
-		  
-		  
 	});
 
-	
 	function funSetData(code){
 
 		switch(fieldName){
@@ -118,12 +130,9 @@
 			case "package":
 				funSetPackageNo(code);
 			break;
-				
-				
 		}
 	}
 
-	
 	var message='';
 	var retval="";
 	var checkAgainst="";
@@ -216,7 +225,7 @@
 	    
 	    $("#txtPackageCode").val(response.strPackageCode);
 		$("#txtPackageName").val(response.strPackageName);
-	   	    
+	   	strExtraBesCode = response.strExtraBedCode; 
 	    funRemoveProductRowsForIncomeHead();
 		funRemoveTariffRows();
 		funFillDtlGrid(response.listCheckInDetailsBean);
@@ -232,7 +241,6 @@
 		
 	}
 		
-	
 	function funFillDtlGrid(resListDtlBean)
 	{
 		funRemoveProductRows();
@@ -245,9 +253,6 @@
 		});
 	}
 	
-	
-	
-
 	function funSetReservationNo(code){
 
 		$.ajax({
@@ -288,7 +293,6 @@
 		});
 	}
 	
-	
 	function funFillHdDataAgainstRes(response)
 	{
 		$("#txtDocNo").val(response.strReservationNo);
@@ -316,7 +320,6 @@
 		funGetPreviouslyLoadedPkgList(response.listRoomPackageDtl);
 	}
 		
-	
 	function funFillDtlGridAgainstRes(resListResDtlBean)
 	{
 		funRemoveProductRows();
@@ -327,8 +330,6 @@
 				,resListResDtlBean[i].strExtraBedCode,resListResDtlBean[i].strExtraBedDesc,resListResDtlBean[i].strPayee,resListResDtlBean[i].strRoomType);
 		});
 	}
-	
-	
 	
 	function funSetRoomType(code){
 		var retVal="";
@@ -408,7 +409,6 @@
 		});
 	}
 	
-	
 	function funFillHdDataAgainstWalkIn(response)
 	{
 		$("#txtDocNo").val(response.strWalkinNo);		
@@ -419,8 +419,8 @@
 		$("#txtRoomNo").val(response.strRoomNo);
 		$("#lblRoomNo").text(response.strRoomDesc);
 	    $("#txtExtraBed").val(response.strExtraBedCode);
-	    $("#lblExtraBed").text(response.strExtraBedDesc);
-	    $("#txtNoOfAdults").val(response.intNoOfAdults);
+	  /*  $("#lblExtraBed").text(response.strExtraBedDesc);
+ */	    $("#txtNoOfAdults").val(response.intNoOfAdults);
 	    $("#txtNoOfChild").val(response.intNoOfChild);
 	    $("#txtPackageCode").val(response.strPackageCode);
 		$("#txtPackageName").val(response.strPackageName); 
@@ -432,7 +432,6 @@
 		funGetPreviouslyLoadedPkgList(response.listRoomPackageDtl);
 	}
 		
-	
 	function funFillDtlGridAgainstWalkIn(resListWalkInDtlBean)
 	{
 		funRemoveProductRows();
@@ -445,8 +444,6 @@
 		});
 	}
 	
-	
-
 	// Get Detail Info From detail fields and pass them to function to add into detail grid
 		function funGetDetailsRow() 
 		{
@@ -462,7 +459,6 @@
 		    funAddDetailsRow(guestName,guestCode,mobileNo,roomNo,roomDesc,extraBedCode,extraBedDesc,"Y");
 		}
 	
-	
 	//Function to add detail grid rows	
 		function funAddDetailsRow(guestName,guestCode,mobileNo,roomNo,roomDesc,extraBedCode,extraBedDesc,payee,roomTypeCode) 
 		{
@@ -470,21 +466,21 @@
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    var roomtypeDesc=funSetRoomType(roomTypeCode);
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"14.5%\" name=\"listCheckInDetailsBean["+(rowCount)+"].strGuestName\" id=\"strGuestName."+(rowCount)+"\" value='"+guestName+"' />";	    
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10.5%\" name=\"listCheckInDetailsBean["+(rowCount)+"].lngMobileNo\" id=\"lngMobileNo."+(rowCount)+"\" value='"+mobileNo+"' />";	   
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10.5%\" id=\"strRoomTypeDesc."+(rowCount)+"\" value='"+roomtypeDesc+"' />";
-		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"searchTextBox\" size=\"9.5%\" name=\"listCheckInDetailsBean["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+(rowCount)+"\" value='"+roomNo+"'  ondblclick=\"Javacsript:funHelp1('roomByRoomType',"+(rowCount)+",'"+roomTypeCode+"' )\"/>";
-		    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10.5%\" id=\"strRoomDesc."+(rowCount)+"\" value='"+roomDesc+"' />";
-		    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"searchTextBox\" size=\"9.5%\" name=\"listCheckInDetailsBean["+(rowCount)+"].strExtraBedCode\" id=\"strExtraBedCode."+(rowCount)+"\" value='"+extraBedCode+"' ondblclick=\"Javacsript:funHelp1('extraBed',"+(rowCount)+",'')\" />";
+		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" name=\"listCheckInDetailsBean["+(rowCount)+"].strGuestName\" size=\"24%\" id=\"strGuestName."+(rowCount)+"\" value='"+guestName+"' />";	    
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" name=\"listCheckInDetailsBean["+(rowCount)+"].lngMobileNo\" id=\"lngMobileNo."+(rowCount)+"\" value='"+mobileNo+"' />";	   
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" id=\"strRoomTypeDesc."+(rowCount)+"\" value='"+roomtypeDesc+"' />";
+		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"searchTextBox\" style=\"width:83%\" name=\"listCheckInDetailsBean["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+(rowCount)+"\" value='"+roomNo+"'  ondblclick=\"Javacsript:funHelp1('roomByRoomType',"+(rowCount)+",'"+roomTypeCode+"' )\"/>";
+		    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  id=\"strRoomDesc."+(rowCount)+"\" value='"+roomDesc+"' />";
+		    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"searchTextBox\"  name=\"listCheckInDetailsBean["+(rowCount)+"].strExtraBedCode\" id=\"strExtraBedCode."+(rowCount)+"\" value='"+strExtraBesCode+"' ondblclick=\"Javacsript:funHelp1('extraBed',"+(rowCount)+",'')\" />";
 		    
 		     
 		    if(payee=='Y')
 		    {
-		    	row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" class=\"Box payeeSel\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\" size=\"3%\" value=\"Y\" onClick=\"Javacsript:funCheckBoxRow(this)\"  />";
+		    	row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" style=\"margin:0px 8px;\" checked=\"checked\" class=\"Box payeeSel\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\"value=\"Y\" onClick=\"Javacsript:funCheckBoxRow(this)\"  />";
 		    }
 		    else
 		    {
-		    	row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box payeeSel\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\" size=\"3%\" value=\"N\" onClick=\"Javacsript:funCheckBoxRow(this)\" />";	
+		    	row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" style=\"margin:0px 8px;\" class=\"Box payeeSel\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\" value=\"N\" onClick=\"Javacsript:funCheckBoxRow(this)\" />";	
 		    } 
 		    
 		    
@@ -502,8 +498,8 @@
 		    row.insertCell(7).innerHTML= "<input class=\"Box\" size=\"4%\" name=\"listCheckInDetailsBean["+(rowCount)+"].intNoOfFolios\" id=\"intNoOfFolios."+(rowCount)+"\" value='1' />";
 		    row.insertCell(8).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"6%\" value = \"Delete\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
 		    
-		    row.insertCell(9).innerHTML= "<input size=\"1%\" name=\"listCheckInDetailsBean["+(rowCount)+"].strGuestCode\" id=\"strGuestCode."+(rowCount)+"\" value='"+guestCode+"' type='hidden' />";
-		    row.insertCell(10).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" id=\"strExtraBedDesc."+(rowCount)+"\" value='"+extraBedDesc+"' />";
+		    //row.insertCell(9).innerHTML= "<input size=\"1%\" name=\"listCheckInDetailsBean["+(rowCount)+"].strGuestCode\" id=\"strGuestCode."+(rowCount)+"\" value='"+guestCode+"' type='hidden' />";
+		    //row.insertCell(10).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" id=\"strExtraBedDesc."+(rowCount)+"\" value='"+extraBedDesc+"' />";
 		    row.insertCell(11).innerHTML= "<input type=\"hidden\" class=\"Box \" name=\"listCheckInDetailsBean["+(rowCount)+"].strRoomType\" id=\"strRoomType."+(rowCount)+"\" value='"+roomTypeCode+"' >";
 		    funResetDetailFields();
 		    
@@ -513,9 +509,7 @@
 		    }
 		}
 	
-	
-	
-		function funSetIncomeHead(code)
+	function funSetIncomeHead(code)
 		{
 			$("#txtIncomeHeadCode").val(code);
 			var searchurl=getContextPath()+"/loadIncomeHeadMasterData.html?incomeCode="+code;
@@ -556,7 +550,7 @@
 		}
 		
 		
-		function funSetPackageNo(code){
+	function funSetPackageNo(code){
 
 			$.ajax({
 				type : "GET",
@@ -1304,38 +1298,20 @@
 </script>
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Add Extra Bed</label>
-	</div>
-
-	<br/>
-	<br/>
-
-	<s:form name="frmAddExtraBed" method="POST" action="saveExtraBed.html">
-		<div id="tab_container" style="height: 900px">
+   <div class= "container transTable">
+	<label id="formHeading">Add Extra Bed</label>
+	 <s:form name="frmAddExtraBed" method="POST" action="saveExtraBed.html">
+	   <div id="tab_container" style="height: 425px">
 				
-							
 <!-- Check In Tab Start -->
 
-				<div id="tab1" class="tab_content" style="height: 800px">
+	<div id="tab1" class="tab_content" style="height:420px">
 
-		<table class="transTable">
-	
-			
-		
-			<tr>
-				<td>
-					<label>Check In No</label>
-				</td>
-				<td>
-					<s:input  type="text" id="txtCheckInNo" path="strCheckInNo" cssClass="searchTextBox" ondblclick="funHelp('checkIn');"/>
-				</td>
-				
-				<td></td>
-				<td></td>
-							
-				</tr>
+		    <div class="row">
+	           <div class="col-md-2"><label>Check In No</label>
+			           <s:input  type="text" id="txtCheckInNo" path="strCheckInNo" cssClass="searchTextBox" ondblclick="funHelp('checkIn');"/>
+			   </div>
+			</div>
 			
 		 	<%-- <tr>
 				<td><label>Type</label></td>
@@ -1353,49 +1329,46 @@
 					<s:input  type="text" id="txtDocNo" path="strAgainstDocNo" cssClass="searchTextBox" ondblclick="funHelpAgainst();"/>
 				</td>
 			</tr> --%>
-	
-		</table>
-		
 		<br>
 		<br>
 		
 
 		<div class="dynamicTableContainer" style="height: 300px;">
 			<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#c0c0c0">
 				
-					<td style="width:14%;">Name</td>
-					<td style="width:7%;">Mb No</td>
-					<td style="width:10%;">Room Type</td>
-					<td style="width:10%;">Room Code</td>
-					<td style="width:10%;">Room No</td>
+					<td style="width:16%;">Name</td>
+					<td style="width:14%;">Mb No</td>
+					<td style="width:13%;">Room Type</td>
+					<td style="width:8%;">Room Code</td>
+					<td style="width:15%;">Room No</td>
 					<td style="width:10%;">Extra Bed</td>					
-					<td style="width:1%;">Payee</td>
-					<td style="width:3.5%;">No Of Folios</td>
+					<td style="width:4%;">Payee</td>
+					<td style="width:4%;">No Of Folios</td>
 					<td style="width:1%;">Delete</td>
 					
 					
 				</tr>
 			</table>
 		
-			<div style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblCheckInDetails"
-					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+					style="width: 100%; border: #0F0; overflow: scroll"
 					class="transTablex col8-center">
 					<tbody>
 					
-						<col style="width: 16%;">
-						<col style="width: 8.5%;">
-						<col style="width: 12%;">
-						<col style="width: 11.5%;">
-						<col style="width: 12%;">
-						<col style="width: 12%;">
-						<col style="width: 2%;">
+						<col style="width: 10%;">
 						<col style="width: 4%;">
-						<col style="width: 2%;">
+						<col style="width: 5%;">
+						<col style="width: 7%;">
+						<col style="width: 10%;">
+						<col style="width: 10%;">
+						<col style="width: 1%;">
+						<col style="width: 5%;">
+						<col style="width: 1%;">
+						<%-- <col style="width: 0%;">
 						<col style="width: 0%;">
-						<col style="width: 0%;">
-						<col style="width: 0%;">
+						<col style="width: 0%;"> --%>
 					
 					<!-- 
 						<col style="width=40%">
@@ -1425,7 +1398,7 @@
 	<br/><br/><br/>
 		<div class="dynamicTableContainer" style="height: 200px; width: 80%">
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
-				<tr bgcolor="#72BEFC" style="height: 24px;">
+				<tr bgcolor="#c0c0c0" style="height: 24px;">
 					<!-- col1   -->
 					<td align="center" style="width: 30.6%">Date</td>
 					<!-- col1   -->
@@ -1441,7 +1414,7 @@
 													
 				</tr>
 			</table>
-			<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblRommRate" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col3-center">
 					<tbody>
 						<!-- col1   -->
@@ -1470,32 +1443,41 @@
 	 <div id="tab3" class="tab_content" style="height: 400px">
 	 <br><br>
 	 
-	 	<table class="transTable">
-	 	    <tr>
-			    <td><label>Package Code</label></td>
-			    <td><s:input id="txtPackageCode" path="strPackageCode"  readonly="true"  ondblclick="funHelp('package')" cssClass="searchTextBox"/></td>
-			    <td><label>Package Name</label></td>
-			    <td><s:input id="txtPackageName" path="strPackageName" class="longTextBox" /></td>
-			</tr>
-			<tr>
-			    <td><label>Income Head</label></td>
-			    <td><s:input id="txtIncomeHead" path=""  readonly="true"  ondblclick="funHelp('incomeHead')" cssClass="searchTextBox"/></td>
-			    <td><label>Income Head Name</label></td>
-				<td><input type="text" id="txtIncomeHeadName" path="" Class="longTextBox"  /></td> 
-			</tr>
-			<tr>
-			    <td><label>Amount</label></td>
-			    <td><input type="text" id="txtIncomeHeadAmt" path="" Class="BoxW124px"  /></td>
-			    <td><input type="button" value="Add"  class="smallButton" onclick='return funAddRow()'/></td>
+	 	<div class="transTable">
+	 	    <div class="row">
+	 	    
+			    <div class="col-md-2"><label>Package Code</label>
+			           <s:input id="txtPackageCode" path="strPackageCode"  readonly="true"  ondblclick="funHelp('package')" cssClass="searchTextBox"/>
+			    </div>
+			  
+			    <div class="col-md-2"><label>Package Name</label></td>
+			           <s:input id="txtPackageName" path="strPackageName" />
+			    </div>
+			
+			    <div class="col-md-2"><label>Income Head</label>
+			           <s:input id="txtIncomeHead" path=""  readonly="true"  ondblclick="funHelp('incomeHead')" cssClass="searchTextBox"/>
+			    </div>
+			    
+			    <div class="col-md-2"><label>Income Head Name</label>
+				       <input type="text" id="txtIncomeHeadName" path=""/> 
+			    </div>
+		
+			    <div class="col-md-2"><label>Amount</label>
+			          <input type="text" id="txtIncomeHeadAmt" path="" />
+			    </div>
+			   
+			    <div class="col-md-2">
+			           <input type="button" value="Add"  class="smallButton" onclick='return funAddRow()'/>
+			    </div>
 	
-			</tr>
-		</table>
+			</div>
+		</div>
 		
 		<br/>
 		<!-- Generate Dynamic Table   -->		
 		<div class="dynamicTableContainer" style="height: 320px; width: 80%">
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
-				<tr bgcolor="#72BEFC" style="height: 24px;">
+				<tr bgcolor="#c0c0c0" style="height: 24px;">
 					<!-- col1   -->
 					<td align="left" style="width: 30.6%">Income Head Code</td>
 					<!-- col1   -->
@@ -1513,7 +1495,7 @@
 					<!-- col4  -->									
 				</tr>
 			</table>
-			<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblIncomeHeadDtl" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col3-center">
 					<tbody>
 						<!-- col1   -->
@@ -1535,7 +1517,7 @@
 				</table>
 			</div>	
 			
-			<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 120px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 120px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblTotalPackageDtl" style="width: 100%; border: #0F0; font-size:15px; font-weight: bold; table-layout: fixed; overflow: scroll" class="display dataTable no-footer">
 					<tbody>
 						<!-- col1   -->
@@ -1558,15 +1540,14 @@
 	 
 <!-- End of Package Tab -->			
 </div>
-		<br>
-		<br>
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateForm();"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="right">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateForm();"/>&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
  		<s:input type="hidden" id="txtTotalPackageAmt" path="strTotalPackageAmt"></s:input>
 		<br><br>
 
 	</s:form>
+	</div>
 </body>
 </html>

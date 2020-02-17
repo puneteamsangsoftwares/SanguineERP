@@ -64,7 +64,7 @@ public class clsSetupMasterDaoImpl implements clsSetupMasterDao {
 	 * com.sanguine.dao.clsSetupMasterDao#funAddUpdateProcessSetup(com.sanguine
 	 * .model.clsProcessSetupModel) to insert data into tblprocesssetup
 	 */
-
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void funAddUpdateProcessSetup(clsProcessSetupModel ProcessSetupModel) {
 		sessionFactory.getCurrentSession().save(ProcessSetupModel);

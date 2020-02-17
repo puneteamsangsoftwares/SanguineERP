@@ -1,11 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title>Insert title here</title>
 
 	<script>
@@ -287,82 +296,54 @@
 
 </head>
 	<body>
-	<div id="formHeading">
-		<label>Delete Transaction</label>
-	</div>
+	<div class="container">
+		<label id="formHeading">Delete Transaction</label>
 		<s:form id="frmDelTrans" method="POST" action="deleteTransaction.html">
-		    <br><br>
-		    <table class="masterTable">
-		    <tr><th colspan="8"></th></tr>
-				<tr>	
-						
-					<td>Form Name</td>
-					<td>
-						<s:select id="cmbFormName" path="strFormName" cssClass="longTextBox">
-							<s:options items="${listFormName}"/>
-						</s:select>
-					</td>
-					
-					<td>Code</td>
-					
-					<td width="15%">
-						<s:input type="text" name="code" id="txtTransactionCode" cssClass="searchTextBox" path="strTransCode" ondblclick="funHelp();"/>						
-					</td>
-					
-					<td  colspan="4">
-						<a id="baseUrl" href="#"> <label id="lblDocCode"></label></a>
+		   <br><br>
+		    <div class="row masterTable">
+		    	<div class="col-md-2">
+			   		<label>Form Name</label>
+					<s:select id="cmbFormName" path="strFormName">
+						<s:options items="${listFormName}"/>
+					</s:select>
+				</div>
+				<div class="col-md-2">	
+					<label>Code</label>
+					<s:input type="text" name="code" id="txtTransactionCode" cssClass="searchTextBox" path="strTransCode" ondblclick="funHelp();"/>						
+				</div>
+				<div class="col-md-2">	
+					<a id="baseUrl" href="#"><label id="lblDocCode" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"> </label></a>
 						<!-- <input type="button" id="btnShow" value="SHOW" class="form_button"/> -->
-					</td>
-				</tr>
-			
-			    <tr>
-			    	<td><label>Delete</label></td>
-			        <td colspan="7" >
-						<select id="cmbDelete" class="BoxW62px">
-							<option value="Y">Yes</option>
-							<option value="N">No</option>
-						</select>
-					</td>
-			    </tr>
-			    
-			    <tr>
-			        <td><label>Reason</label></td>
-			        <td colspan="7">
-			        	<s:input type="text" id="txtReason" path="strReasonCode" cssClass="searchTextBox" ondblclick="funHelp1('reason');"/>
-			        <label id="lblReasonName"></label>
-			        </td>
-			        
-			    </tr>
-			    
-			    <tr>
-			    	<td><label>Narration</label></td>
-			        <td colspan="7">
-			        	<s:input type="text" id="txtNarration" cssClass="longTextBox" path="strNarration"/>
-			        </td>
-			    </tr>
-			    
-			    <tr>
-			    	<td>
-			    		<!-- <input type="submit" id="btnSubmit" value="SUBMIT"/> -->
-			    	</td>
-			    	<td>
-			    		<!-- <input type="reset" id="btnReset" value="RESET"/> -->
-			    	</td>
-			    	<td></td>
-			    	<td></td>
-			    	<td></td>
-			    	<td></td>
-			    	<td></td>
-			    	<td></td>
-			    </tr>
-			</table>
-				<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" id="btnSubmit" class="form_button" onclick="return funSubmit_onClick();" />
-				 <input type="reset" value="Reset" id="btnReset" class="form_button" />
-		</p>
-<br><br>
-		</s:form>
+				</div>
+				<div class="col-md-2">	
+					<label>Delete</label>
+			     	 <select id="cmbDelete" class="BoxW62px" style="width:70%;">
+						<option value="Y">Yes</option>
+						<option value="N">No</option>
+					</select>
+				</div>
+				<div class="col-md-4">	</div>	
+			   	<div class="col-md-2">
+			    	<label>Reason</label>
+			      	<s:input type="text" id="txtReason" path="strReasonCode" cssClass="searchTextBox" ondblclick="funHelp1('reason');"/>
+			    </div>
+			    <div class="col-md-2">
+				    <label id="lblReasonName" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label>
+			     </div>   
+			   	 <div class="col-md-2">
+			   	 	<label>Narration</label>
+			       	<s:input type="text" id="txtNarration"  path="strNarration"/>
+			      </div>
+			 		<!-- <input type="submit" id="btnSubmit" value="SUBMIT"/> -->
+			    	<!-- <input type="reset" id="btnReset" value="RESET"/> -->
+			    	
+				</div>
+				
+			<div class="center" style="margin-right:40%;">
+				<a href="#"><button class="btn btn-primary center-block"  id="btnSubmit" value="Submit"  onclick="return funSubmit_onClick();">Submit</button></a>&nbsp
+			 	<a href="#"><button class="btn btn-primary center-block" id="btnReset" value="Reset">Reset</button></a>
+			 </div>
+	</s:form>
+</div>
 	</body>
 </html>

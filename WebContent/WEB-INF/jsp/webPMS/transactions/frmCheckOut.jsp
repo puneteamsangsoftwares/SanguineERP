@@ -1,10 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	       
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title></title>
 
 <script type="text/javascript">
@@ -327,43 +337,34 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Check Out</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="frmCheckOut" method="POST" action="saveCheckOut.html" target="_blank">
-
-		<table class="masterTable">
-		
-			
-			<tr>
-			    <td colspan="2">
+	<div class="container">
+		<label id="formHeading">Check Out</label>
+		<s:form name="frmCheckOut" method="POST" action="saveCheckOut.html" target="_blank">
+			<div class="row masterTable" style="padding-top:15px;">
 					<!-- <s:radiobutton id="strSearchTypePAX"   path="strSearchType"      style="margin-right:5px;"/>PAX
 					<s:radiobutton id="strSearchTypeGroup" path="strSearchType"      style="margin-left: 20px;margin-right:5px;" />Group
 					-->
-					
-					<s:radiobutton id="strSearchTypeRoom" path="strSearchType" style="margin-left: 20px;margin-right:5px;" />Room
-					<s:input id="strSearchTextField" path="strSearchTextField" readonly="true" style="margin-left: 20px;width: 312px;background-position: 300px 2px;" cssClass="searchTextBox" ondblclick="funHelp('checkInRooms')"/>
+				<div class="col-md-2">
+					<s:radiobutton id="strSearchTypeRoom" path="strSearchType" style="margin-right:5px;" />Room
+					<s:input id="strSearchTextField" path="strSearchTextField" readonly="true" cssClass="searchTextBox" ondblclick="funHelp('checkInRooms')"/>
+				</div>
+				<div class="col-md-2">
 					<s:input type="hidden" id="strRoomNo" path="strRoomNo" />
 					<%-- <s:input type="hidden" id="strCheckOutStatus" path="strCheckOutStatus" /> --%>
-				</td>
-			</tr>
-			<tr>
-				<td><td>
-			</tr>
-		</table>
-		
-		<table class="masterTable">
-			<tr>
-				<td style="width: 65px;"><label >Check Out</label></td>
-	 <td style="width: 65px;"><s:input type="text" id="dteCheckOutDate" path="dteCheckOutDate" value="${PMSDate}" required="true" disabled="true" class="calenderTextBox" cssStyle="color: black;"/></td>
-				<td><s:input type="text" id="tmeCheckOutTime" path="tmeCheckOutTime" value="${PMSDate}" readonly="true" disabled="true" cssClass="simpleTextBox"  style="width: 75px;border: 0px; color: black; "/></td>
+				</div>
+			</div> 
+			
+		<div class="row masterTable"> 
+			<div class="col-md-2">
+				<label >Check Out</label>
+				<s:input type="text" id="dteCheckOutDate" path="dteCheckOutDate" value="${PMSDate}" required="true" disabled="true" class="calenderTextBox" cssStyle="width: 80%;"/>
+			</div>
+			<div class="col-md-2">
+				<s:input type="text" id="tmeCheckOutTime" path="tmeCheckOutTime" value="${PMSDate}" readonly="true" disabled="true"  style="background-color:#dcdada94; width: 80%; height: 43%; margin: 23px 0px;"/>
+			</div>
 				<%-- <td><s:checkbox label="Extra Time Charges" id="chkExtraTimeCharges" path="" value="N" onclick=' funTaxOnTaxStateChange() '/></td>
 				<td><s:input colspan="3" type="text" id="txtExtraCharge"  path="" cssClass="longTextBox" onblur="fun1(this);" onkeypress="javascript:return isNumber(event)" /></td>
- --%>			</tr>
+ --%>			
 			<!-- 
 			<tr>
 				<td colspan="3">
@@ -371,13 +372,13 @@
 				</td>
 			</tr>
 			 -->
-		</table>
+		</div>
 	
 		<br />
 		<!-- Generate Dynamic Table   -->
 		<div class="dynamicTableContainer" style="height: 200px;">
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
-				<tr bgcolor="#72BEFC" style="height: 24px;">
+				<tr bgcolor="#c0c0c0" style="height: 24px;">
 					<!-- col1   -->
 					<td  style="width: 65px;" align="center">Room No.</td>
 					<!-- col1   -->
@@ -417,7 +418,7 @@
 									
 				</tr>
 			</table>
-			<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblRoomDtl" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col9-center">
 					<tbody>
 						<!-- col1   -->
@@ -483,11 +484,13 @@
 		
 		<br />
 		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateData()"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
+		<div class="center">
+			<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidateData()"
+				class="form_button">Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetField()"
+				class="form_button">Reset</button></a>
+		</div>
 	</s:form>
+</div>
 </body>
 </html>

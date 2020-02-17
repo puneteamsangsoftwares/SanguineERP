@@ -36,6 +36,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -99,7 +100,8 @@ public class clsPurchaseOrderController {
 	private clsGlobalFunctions objGlobalFunctions;
 	@Autowired
 	private clsUOMService objclsUOMService;
-	
+	@Autowired
+	private JavaMailSender mailSender;
 
 	@Autowired
 	clsCurrencyMasterService objCurrencyMasterService;

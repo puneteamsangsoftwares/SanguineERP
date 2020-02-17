@@ -1,14 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-
-	<%-- <%@ taglib prefix="tab" uri="http://ditchnet.org/jsp-tabs-taglib" %> --%>
-	<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
-	<%@ taglib uri="http://www.springframework.org/tags" prefix="sp"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <title>Fund Flow</title>
 <script type="text/javascript">
 	
@@ -29,7 +37,7 @@
 		    $("#wait").css("display","none");
 		});	  
 		
-		
+		var startDateOfMonth="${startDateOfMonth}";
 		$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
 		$("#txtFromDate").datepicker('setDate','today');
 		$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
@@ -130,7 +138,7 @@
 		    var Bal=0;
 		   		    	
 			   	newcontent = '<table id="tblProductPag" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;">'
-			   	+'<tr bgcolor="#75c0ff">'
+			   	+'<tr bgcolor="#c0c0c0">'
 			   	+'<td width="10%">Transection Type</td><td width="8%">Doc Date</td><td width="10%">Ref No</td><td width="10%">Supp/Cust Code</td>'
 			   	+'<td width="22%">Supp/Cust Name</td><td width="8%">Pay Date</td><td width="6%">Amount</td><td width="6%">Balance</td>'
 			   	+'</tr>';
@@ -247,93 +255,71 @@
 </head>
 
 <body>
-<div id="formHeading">
-		<label>Fund Flow</label>
-	</div>
-	<s:form name="fundFlow" method="POST" action="showFundFlow.html?saddr=${urlHits}">
-	
-		<br>
-		
-		<table  class="transTable">
-			<tr>
-			
-			 <td><label id="lblFromDate">From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dteFromDate"></s:errors>
-			        </td>
-				        
-			        <td><label id="lblToDate">To Date</label></td>
-			        <td colspan="2">
-			            <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dteToDate"></s:errors>
-			        </td>
-			 <tr>       
+	<div class="container">
+		<label id="formHeading">Fund Flow</label>
+		<s:form name="fundFlow" method="POST" action="showFundFlow.html?saddr=${urlHits}">
+			<div  class="row transTable">
+				<div class="col-md-2">
+					<label id="lblFromDate">From Date</label>
+			     	<s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
+			       	<s:errors path="dteFromDate"></s:errors>
+			     </div>  
+				 <div class="col-md-2">     
+			         <label id="lblToDate">To Date</label>
+			         <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
+			         <s:errors path="dteToDate"></s:errors>
+			     </div>
+			      
 			  <%--  <td><label id="lblSupplier">Supplier</label></td>
 			        <td>
-			            <s:input id="txtSuppName" name="txtSupp" path="strSuppCode" cssClass="searchTextBox" placeholder="All Suppliers" /> </td>   
-			            <td><label id="lblSuppName"></label></td> --%>
-			        
-			        <td >Transection Type</td>
-					<td colspan="3">
-						<s:select path="strReportType" id="cmbReportType" cssClass="BoxW124px">
+			           <s:input id="txtSuppName" name="txtSupp" path="strSuppCode" cssClass="searchTextBox" placeholder="All Suppliers" /> </td>   
+			         <td><label id="lblSuppName"></label></td> --%>
+			    <div class="col-md-2">  
+			       <label >Transection Type</label>
+					<s:select path="strReportType" id="cmbReportType" cssClass="BoxW124px">
 						<option value="Both">Both</option>
-							<option value="Sales Order">Sales Order</option>
-							<option value="Purchase Order">Purchase Order</option>
-						</s:select>
-					</td>
-			</tr>
-			
-			<tr>
-			<td colspan="4">
-			<input id="btnExcuete" type="button" value="Execute" onclick="funLoadFundFlow();" class="smallButton"  />
-			</td>
-			
-			</tr>
-			<tr>
-			</tr>
-			</table>
-			<table style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
-			
+						<option value="Sales Order">Sales Order</option>
+						<option value="Purchase Order">Purchase Order</option>
+					</s:select>
+				</div>	
+		  </div>
+		 	<div class="center" style="margin-right:55%; margin-top:10px;">
+				<input id="btnExcuete" type="button" value="Execute" onclick="funLoadFundFlow();" class="btn btn-primary center-block" />
+			</div>
+			<br>
+			<table style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #fbfafa;">
 				<tr>
-				
-				<td>
- 				<dl id="Searchresult" style="width: 100%;overflow:auto;"></dl>
- 				<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
-		
-				</div>
-				
-				</td>
-				
+					<td>
+ 						<dl id="Searchresult" style="width: 100%;overflow:auto;"></dl>
+ 						<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
+						</div>
+					</td>
 				</tr>
-				
-				
 			</table>
 	
-		<br><p align="center">
+		<p align="center">
 			
-		</p><br><br>
+		</p>
 		<div id="divValueTotal" style="display: none">
-		<table id="tblTotalFlash" class="transTablex" style="width: 95%;font-size:11px;font-weight: bold;">
-		<tr style="margin-left: 28px">
-			<td id="labld26" width="80%" align="right">Total Value</td>
-			<td id="tdTotValue" width="10%" align="right">
-			<input id="txtTotValue" readonly="readonly" style="width: 100%;text-align: right;" class="Box"></input></td>
-			
-			</tr>
-		</table>
+			<table id="tblTotalFlash" class="transTablex" style="width: 95%;font-size:11px;font-weight: bold;">
+				<tr style="margin-left: 28px">
+					<td id="labld26" width="80%" align="right">Total Value</td>
+					<td id="tdTotValue" width="10%" align="right">
+					<input id="txtTotValue" readonly="readonly" style="width: 100%;text-align: right;" class="Box"></input></td>
+				</tr>
+			</table>
 		</div>
 		
-		
 		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
-				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
-			</div>
+			<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+		</div>
 	</s:form>
-	<script type="text/javascript">
+</div>
+	
+<script type="text/javascript">
 	/* funApplyNumberValidation();
 	funOnChange(); */
 	
-	
-	</script>
+</script>
 </body>
 </html>

@@ -1,10 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title></title>
 <script type="text/javascript">
 	var fieldName,flgSACode;
@@ -439,77 +449,58 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>POS Item Master Import</label>
-	</div>
-
-<br/>
-<br/>
-
+<div class="container">
+	<label id="formHeading">POS Item Master Import</label>
 	<s:form name="POSItemMasterImport" method="POST" action="savePOSItemMasterImport.html?saddr=${urlHits}">
-
-		<table class="transTable">
-				
-				<tr>
-				
-				<td><label>IP Address</label></td>
-				<td><s:input type="text" id="txtIPAddress" 
-						name="txtIPAddress" path="strIPAddress" required="true"
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox"  /> </td>
-						
-				<td><label>Port No</label></td>		
-				<td><s:input type="text" id="txtPortNo" 
-						name="txtPortNo" path="strPortNo" required="true"
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox"  /> </td>
-
-				<td><label>DataBase Name</label></td>			
-				<td><s:input type="text" id="txtDBName" 
-						name="txtDBName" path="strDBName" required="true"
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox"  /> </td>
-				
-				</tr>
-				<tr>
-						<td><label>User Name</label></td>	
-						<td><s:input type="text" id="txtUserName" 
-						name="txtUserName" path="strUserName" required="true"
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox"  /> </td>
-						
-						<td><label>Password</label></td>	
-						<td><s:input type="text" id="txtPass" 
-						name="txtPass" path="strPass" required="true"
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox"  /> </td>
-						
-						<td><label>Subgroup</label></td>
-						<td><s:select id="cmbSGName"  path="strSGName" items="${listType}" cssClass="BoxW124px"/></td>
-						
-				
-				</tr>
-				<tr>
-				<td ><label>Location</label></td>
-					<td colspan="4"><s:select id="cmbLocName"  path="strLocName" items="${listTypeLoc}" cssClass="BoxW124px"/></td>
-						<td>	<p>
-						<input type="button" value="TestCon." tabindex="3" class="form_button" id="btnTest" onclick="funTestDBConnection()"  />
-						<input type="button" value="ShowLinkProduct" tabindex="3" class="form_button" id="btnShow" onclick="funFillLinkData()"  />
-						<input type="button" value="Excute" tabindex="3" class="form_button" id="btnSubmit" onclick="funFillPOSTable()"  />
-						<input type="submit" value="Create/Update" tabindex="3" class="form_button" onclick="return funValidate();" />
-						<input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>
-					</p>  </td>
-						
-				</tr>
-				<tr>
-							
-				
-				</tr>
-				
-			
-			
-		</table>
+		<div class="row transTable">
+			<div class="col-md-2">	
+				<label>IP Address</label>
+				<s:input type="text" id="txtIPAddress" name="txtIPAddress" path="strIPAddress" required="true"
+						cssStyle="text-transform: uppercase;"/>
+			</div>
+			<div class="col-md-2">	
+				<label>Port No</label>
+				<s:input type="text" id="txtPortNo"  name="txtPortNo" path="strPortNo" required="true"
+						cssStyle="text-transform: uppercase;" />
+			</div>
+			<div class="col-md-3">	
+				<label>DataBase Name</label>		
+				<s:input type="text" id="txtDBName" name="txtDBName" path="strDBName" required="true"
+						cssStyle="text-transform: uppercase;" />
+			</div>
+			<div class="col-md-2">
+				<label>User Name</label>
+				<s:input type="text" id="txtUserName" name="txtUserName" path="strUserName" required="true"
+						cssStyle="text-transform: uppercase;"/> 
+			</div>
+			<div class="col-md-3"></div>
+			<div class="col-md-2">
+				<label>Password</label>
+				<s:input type="text" id="txtPass" name="txtPass" path="strPass" required="true"
+					cssStyle="text-transform: uppercase;" /> 
+			</div>
+			<div class="col-md-2">			
+				<label>Subgroup</label>
+				<s:select id="cmbSGName"  path="strSGName" items="${listType}" />
+			</div>			
+			<div class="col-md-2">		
+				<label>Location</label>
+				<s:select id="cmbLocName"  path="strLocName" items="${listTypeLoc}" cssClass="BoxW124px"/>
+			</div>
+		</div>
+			<div class="center" style="text-align:center; margin-top:20px;">
+				<input type="button" value="TestCon." tabindex="3" class="btn btn-primary center-block" id="btnTest" onclick="funTestDBConnection()"  />&nbsp
+				<input type="button" value="ShowLinkProduct" tabindex="3" class="btn btn-primary center-block" id="btnShow" onclick="funFillLinkData()"  />&nbsp
+				<input type="button" value="Excute" tabindex="3" class="btn btn-primary center-block" id="btnSubmit" onclick="funFillPOSTable()"  />&nbsp
+				<input type="submit" value="Create/Update" tabindex="3" class="btn btn-primary center-block" onclick="return funValidate();" />&nbsp
+				<input type="button" value="Reset" class="btn btn-primary center-block" onclick="funResetFields()"/>&nbsp
+			</div>	
+		
 		
 		<div class="dynamicTableContainer" style="height: 300px;">
 			<table
 				style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#c0c0c0">
 				<td width="5%"><input type="checkbox" id="chkLocALL" />Select</td>
 				<td style="width:10%;">POS Item Code</td>
 				<td style="width:20%;">POS Item Name</td>
@@ -521,7 +512,7 @@
 			</tr>
 		</table>
 		<div
-				style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 					<table id="tblPOSLinkUp"
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col8-center">
@@ -545,5 +536,6 @@
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 	</s:form>
+</div>
 </body>
 </html>

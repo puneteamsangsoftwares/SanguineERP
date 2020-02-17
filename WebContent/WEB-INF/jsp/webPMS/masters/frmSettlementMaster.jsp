@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	var fieldName;
 
@@ -227,53 +235,51 @@
 			return flg;
 		}
 		
+		$('#baseUrl').click(function() 
+				{  
+					 if($("#txtSettlementCode").val().trim()=="")
+					{
+						alert("Please Select Settlement Code..  ");
+						return false;
+					} 
+						window.open('attachDoc.html?transName=frmSettlementMaster.jsp&formName=Member Profile&code='+$('#txtSettlementCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+				});
+		
 </script>
 
 </head>
 <body>
+  <div class="container masterTable">
+	<label id="formHeading">Settlement Master</label>
+	  <s:form name="SettlementMaster" method="GET" action="saveSettlementMaster.html">
 
-	<div id="formHeading">
-	<label>Settlement Master</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="SettlementMaster" method="GET" action="saveSettlementMaster.html">
-
-<div id="tab_container" style="height: 405px">
+      <div id="tab_container" >
 				<ul class="tabs">
-					<li data-state="tab1" style="width: 6%; padding-left: 2%;margin-left: 10%; " class="active" >General</li>
-					<li data-state="tab2" style="width: 8%; padding-left: 1%">LinkUp</li>
+					<li data-state="tab1" style="width: 7%" class="active" >General</li>
+					<li data-state="tab2">LinkUp</li>
 				</ul>
 							
 				<!-- General Tab Start -->
-				<div id="tab1" class="tab_content" style="height: 400px">
+				<div id="tab1" class="tab_content" style="height: 160px;">
 					<br> 
 					<br>	
-		<table class="masterTable">
-		
-		  <tr>
-				<th align="right" colspan="2"><a id="baseUrl"
+		  <div class="row">
+				<!-- <th align="right" colspan="2"><a id="baseUrl"
 					href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
-						&nbsp;</th>
-			</tr>
+						&nbsp;</th> -->
 			
-		
-			<tr>
-				<td><label>SettlementCode</label></td>
-                <td><s:input id="txtSettlementCode" path="strSettlementCode" cssClass="searchTextBox" ondblclick="funHelp('settlementCode')" /></td>
-			</tr>
+			<div class="col-md-2"><label>Settlement Code</label>
+                <s:input id="txtSettlementCode" path="strSettlementCode" cssClass="searchTextBox" ondblclick="funHelp('settlementCode')" />
+			</div>
 				
-			<tr>
-				<td><label>SettlementDesc</label></td>
-				<td><s:input id="txtSettlementDesc" path="strSettlementDesc" cssClass="longTextBox" /></td>
-           	</tr>
+			<div class="col-md-2"><label>Settlement Desc</label>
+				<s:input id="txtSettlementDesc" path="strSettlementDesc" />
+           	</div>
 			
-			<tr>
-				<td><label>SettlementType</label></td>
-				<td>
-					<s:select id="cmbSettlementType" path="strSettlementType" cssClass="BoxW124px">
+			<div class="col-md-8"></div>
+			
+			<div class="col-md-2"><label>Settlement Type</label>
+					<s:select id="cmbSettlementType" path="strSettlementType" style="width:80%">
 				    	<option selected="selected" value="Cash">Cash</option>
 				    	<option value="Credit Card">Credit Card</option>
 				    	<option value="Credit">Credit</option>
@@ -285,48 +291,41 @@
 				    	<option value="Oyo">Oyo</option>
 				    	<option value="Cash1">Cash1</option>
 				    	</s:select>					
-				</td>				
-			</tr>
+			</div>				
 			
-			<tr>
-				<td><label>Applicable</label></td>
-				 <td > 
-				 	<s:select id="cmbApplicable" path="strApplicable" cssClass="BoxW124px">
+			<div class="col-md-1"><label>Applicable</label>
+				    <s:select id="cmbApplicable" path="strApplicable" cssClass="BoxW124px">
 				    	<option selected="selected" value="Y">Y</option>			           
 			        	<option value="N">N</option>
 		         	</s:select>
-				</td>	
-				
-			</tr>
-			
-			
-		</table>
+			</div>	
+			</div>	
+		</div>
 		</div>
 		<!--General Tab End  -->
 						
-						
 			<!-- Linkedup Details Tab Start -->
-			<div id="tab2" class="tab_content" style="height: 400px">
+			<div id="tab2" class="tab_content" style="height: 95px;">
 			<br> 
 			<br>			
-				<table class="masterTable">
-						<tr>
-						    <td><label>Account Code</label></td>
-						    <td><s:input id="txtAccountCode" path="strAccountCode" readonly="true" ondblclick="funHelp('accountCode')" cssClass="searchTextBox"/></td>
-						    <td colspan="2"><s:input id="txtAccountName" path="" readonly="true" cssClass="longTextBox"  style="width: 316px"/></td>			        			        						    			    		        			  
-						</tr>
-				</table>
-			</div>
+				 <div class="row">
+					<div class="col-md-5"><label>Account Code</label>
+						<div class="row">
+						    <div class="col-md-5"><s:input id="txtAccountCode" path="strAccountCode" readonly="true" ondblclick="funHelp('accountCode')" cssClass="searchTextBox" style="height: 95%;"/></div>
+						    <div class="col-md-7"><s:input id="txtAccountName" path="" readonly="true"/></div>			        			        						    			    		        			  
+				        </div>
+				    </div>
+			     </div>
 			
 		</div>
 
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funCallFormAction('submit',this);" />
-            <input type="reset" value="Reset" class="form_button" />
+	    <br><br>
+		<p align="center" style="margin-right: 31%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this);" />&nbsp;
+            <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />
           
 		</p>
 	</s:form>
+	</div>
 </body>
 </html>

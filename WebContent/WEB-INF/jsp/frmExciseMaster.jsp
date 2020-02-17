@@ -1,12 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <title>Excise Master</title>
 </head>
 <script type="text/javascript">
@@ -119,70 +127,55 @@ function funSetExciseData(code)
 
 </script>
 <body >
-	<div id="formHeading">
-		<label>Excise Master</label>
-	</div>
-	<s:form name="frmExciseMaster" method="GET" action="saveExciseMaster.html?saddr=${urlHits}">
-
-		<br />
-		<br />
+	<div class="container">
+		<label  id="formHeading">Excise Master</label>
+		<s:form name="frmExciseMaster" method="GET" action="saveExciseMaster.html?saddr=${urlHits}">
 		
-		
-			
-		<table class="masterTable">
-
-			
-			<tr>
-				<td width="140px">ExciseCode Code</td>
-				<td><s:input id="txtExciseCode" path="strExciseCode"
-						cssClass="searchTextBox" ondblclick="funHelp('exciseDuty')" /></td>
-			</tr>
-			
-			<tr>
-				<td><label>Description</label></td>
-				<td><s:input type="text" id="txtDesc" 
-						name="txtDescription" path="strDesc" 
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox"  /></td>
-			</tr>
-			<tr>
-				<td><label>Excise Chapter No.</label></td>
-				<td><s:input  type="text" id="txtGroupName" 
+		<div class="row masterTable">
+			<div class="col-md-2">
+				<label>ExciseCode Code</label>
+				<s:input id="txtExciseCode" path="strExciseCode"
+						cssClass="searchTextBox" ondblclick="funHelp('exciseDuty')" readOnly="true" />
+			</div>
+			<div class="col-md-2">
+				<label>Description</label>
+				<s:input type="text" id="txtDesc" name="txtDescription" path="strDesc" 
+						cssStyle="text-transform: uppercase;" />
+			</div>
+			<div class="col-md-2">
+				<label>Excise Chapter No.</label>
+				<s:input  type="text" id="txtGroupName" 
 						name="txtExciseChapterNo" path="strExciseChapterNo" required="true"
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox"  /> </td>
-			</tr>
-			<tr>
-				<td><label>Sub Group code</label></td>
-				<td><s:input  id="txtsubGroup" cssClass="searchTextBox" path="strSGCode"   ondblclick="funHelp('subgroupExcisable')" /> </td>
-			</tr>
-			
-			<tr>
-				<td><label>Excise Percentage</label></td>
-				<td><s:input colspan="3" id="txtExcisePer" name="txtExcisePer"
-						cssStyle="text-transform: uppercase;" path="dblExcisePercent" cssClass="longTextBox"  /> </td>
-			</tr>
-			<tr>
-			
-			<td><s:checkbox label="Cess Tax"  id="chkCessTax" path="strCessTax" value="" /></td>
-			</tr>
-			
-			<tr>
-				<td><label>Category Sequence</label></td>
-				<td><s:input colspan="3" id="txtRank" name="txtRank"
-						cssStyle="text-transform: uppercase;" path="strRank" cssClass="longTextBox"  /> </td>
-			</tr>
-			<tr>
-			
-				<td></td>
-			</tr>
-		</table>
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button"
-				onclick="return funCallFormAction('submit',this);" /> <input type="reset"
-				value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
+						cssStyle="text-transform: uppercase;" /> 
+			</div>
+			<div class="col-md-6"></div>
+			<div class="col-md-2">
+				<label>Sub Group code</label>
+				<s:input  id="txtsubGroup" cssClass="searchTextBox" path="strSGCode"   ondblclick="funHelp('subgroupExcisable')" readOnly="true" />
+			</div>
+			<div class="col-md-2">
+				<label>Excise Percentage</label>
+				<s:input colspan="3" id="txtExcisePer" name="txtExcisePer"
+						cssStyle="text-transform: uppercase;" path="dblExcisePercent"/> 
+			</div>
+			<div class="col-md-2">
+			<label>Cess Tax</label><br>
+				<s:checkbox  id="chkCessTax" path="strCessTax" value="" />
+			</div>
+			<div class="col-md-6"></div>
+			<div class="col-md-2">
+				<label>Category Sequence</label>
+				<s:input colspan="3" id="txtRank" name="txtRank"
+						cssStyle="text-transform: uppercase;" path="strRank"  />
+			</div>
+		</div>
+		<div class="center" style="margin-right: 52%;">
+				<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit" onclick="return funCallFormAction('submit',this);" 
+				>Submit</button></a>
+				<a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()"
+				>Reset</button></a>
+		</div>
 	</s:form>
-
+</div>
 </body>
 </html>

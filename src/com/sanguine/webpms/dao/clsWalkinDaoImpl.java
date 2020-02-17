@@ -20,7 +20,7 @@ public class clsWalkinDaoImpl implements clsWalkinDao {
 	@Autowired
 	private SessionFactory webPMSSessionFactory;
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public void funAddUpdateWalkinHd(clsWalkinHdModel objHdModel) {
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objHdModel);
 		
@@ -37,7 +37,7 @@ public class clsWalkinDaoImpl implements clsWalkinDao {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public List funGetWalkinDataDtl(String walkinNo, String clientCode) {
 		List list = null;
 		try {

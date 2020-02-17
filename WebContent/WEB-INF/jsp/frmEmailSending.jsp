@@ -1,20 +1,37 @@
- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript"
-	src="<spring:url value="/resources/js/jQuery.js"/>"></script>
-<script type="text/javascript"
-	src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>
-<link rel="stylesheet" type="text/css" media="screen"
-	href="<spring:url value="/resources/css/design.css"/>" />
-
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
+	<script type="text/javascript"
+		src="<spring:url value="/resources/js/jQuery.js"/>"></script>
+	<script type="text/javascript"
+		src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>
+	<link rel="stylesheet" type="text/css" media="screen"
+		href="<spring:url value="/resources/css/design.css"/>" />
+
 <title>Email</title>
+<style type="text/css">
+	.container{
+	margin:auto;
+	}
+	
+
+	
+</style>
+
 <script type="text/javascript">
 //From Close after Pressing ESC Button
 	window.onkeyup = function (event) {
@@ -141,37 +158,35 @@
 </script>
 </head>
 <body onload="funOnLoad();">
-<div id="formHeading">
-		<label>Send E-mail</label>
-	</div>
-	<br>
-        <form method="GET" name="frmEmailSending" id="frmEmailSending" action="sendPOEmail.html" >
-            <table class="transTable">
-                <tr>
-                    <td width="100px"><label>PO Code</label></td>
-					<td width="140px"><input name="strPOCode" id="txtPOCode" ondblclick="funHelp('purchaseorder')"
+	<div class="container">
+		<label id="formHeading">Send E-mail</label>
+		<form method="GET" name="frmEmailSending" id="frmEmailSending" action="sendPOEmail.html" >
+		 <div class="row transTable">
+                <div class="col-md-2">
+                    <label>PO Code</label>
+					<input name="strPOCode" id="txtPOCode" ondblclick="funHelp('purchaseorder')"
 						Class="searchTextBox"></input>
-					</td>
-                </tr>
-                <tr>
-                    <td>Subject:</td>
-                    <td><input type="text" name="subject" id="txtsubject" size="65" class="longTextBox"/></td>
-                </tr>
-                <tr>
-                    <td>Message:</td>
-                    <td><textarea cols="50" rows="10" name="message"></textarea></td>
-                </tr>
+				</div>
+				<div class="col-md-2">	
+               		<label>Subject:</label>
+                   <input type="text" name="subject" id="txtsubject" size="65"/>
+               </div>
+               <div class="col-md-2">
+              		<label>Message:</label>
+                   <textarea cols="50" rows="10" name="message"></textarea>
+               </div>
+             </div>
                <!--  <tr>
                     <td>Attach file:</td>
                     <td><input type="file" name="attachFile" size="60" /></td>
                 </tr>   -->          
-                <tr>
-                    <td colspan="2" align="center">
-                        <input type="button" value="Send" class="form_button"  onclick="return btnSubmit_onClick() " />
-                        <input type="button" value="Close" class="form_button"  onclick="btnClose_onClick() " />
-                    </td>
-                </tr>
-            </table>
+               	
+         <div class="center" style="margin-right:68%;">
+			<a href="#"><button class="btn btn-primary center-block" value="Send" onclick="return btnSubmit_onClick() ">Send</button></a>
+			<a href="#"><button class="btn btn-primary center-block" value="Close" onclick="btnClose_onClick() ">Close</button></a>
+		</div>       
+          
         </form>
+     </div>
 </body>
 </html>

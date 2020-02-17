@@ -19,7 +19,7 @@ public class clsPMSReasonMasterDaoImpl implements clsPMSReasonMasterDao {
 	@Autowired
 	private SessionFactory webPMSSessionFactory;
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false,value="WebPMSTransactionManager")
 	public void funAddUpdateReasonMaster(clsPMSReasonMasterModel objReasonMasterModel)
 
 	{
@@ -27,7 +27,7 @@ public class clsPMSReasonMasterDaoImpl implements clsPMSReasonMasterDao {
 
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false,value="WebPMSTransactionManager")
 	@Override
 	public List funGetPMSReasonMaster(String reasonCode, String clientCode) {
 

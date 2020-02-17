@@ -1,12 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="sp"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 
 <title>Delivery Schedule</title>
 
@@ -448,109 +456,88 @@ $(function()
 <body>
 
 <div id="somediv"></div>
-	<div id="formHeading">
-		<label id="lblFormHeadingName">Delivery Schedule</label>
-	</div>
-	<s:form name="DeliverySchedule" method="POST" action="saveDeliverySchedule.html?saddr=${urlHits}">
-		<br>
-		
+	<div class="container">
+		<label id="formHeading" id="lblFormHeadingName">Delivery Schedule</label>
+		<s:form name="DeliverySchedule" method="POST" action="saveDeliverySchedule.html?saddr=${urlHits}">
 	
-		<table class="transTable">
-			<tr>
-				<td width="120px"><s:label path="strDSCode">DS Code</s:label></td>
-				<td><s:input id="txtDSCode" name="txtDSCode" path="strDSCode"
-					ondblclick="funHelp('dscode')" cssClass="searchTextBox" ></s:input></td>
-			
-				<td width="120px">DS Date</td>
-			        <td colspan="5"><s:input id="txtDSDate" name="txtDSDate" type="text" required="required" path="dteDSDate"  pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" ></s:input></td>
- 			</tr>
-
-			 <tr>
-				    <td><label>Against</label></td>
-				    <td>
-				    	<s:select id="cmbAgainst" path="strAgainst" cssClass="BoxW124px">
+		<div class="row transTable">
+			<div class="col-md-2">
+				<s:label path="strDSCode">DS Code</s:label>
+				<s:input id="txtDSCode" name="txtDSCode" path="strDSCode" ondblclick="funHelp('dscode')" cssClass="searchTextBox" ></s:input>
+			</div>
+			<div class="col-md-2">
+				<label>DS Date</label>
+			    <s:input id="txtDSDate" name="txtDSDate" type="text" required="required" path="dteDSDate"  pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" style="width:80%;"></s:input>
+			 </div> 
+			 <div class="col-md-2">  
+ 					<label>Against</label>
+					<s:select id="cmbAgainst" path="strAgainst" cssClass="BoxW124px" style="width:80%;">
 				    	<s:option value="PO">PO</s:option>
-						</s:select>
-					</td>
-					<td colspan="4"><s:input id="txtDocCode" name="txtDocCode" path="strPOCode" cssClass="searchTextBox" ondblclick="funOpenPOForDS('dsPOData')" ></s:input></td>
-					
-					<td colspan="4"><input type="Button" value="Fill"  class="smallButton" onclick="return funfillbutton();"/></td>
-					
-					
-			</tr>
-			<tr>
-		
-				<td width="120px"><s:label path="strLocCode">Location</s:label></td>
-				<td><s:input id="txtLocCode" name="txtLocCode" path="strLocCode" required = "true" 
-				 ondblclick="funHelp('locationmaster')" cssClass="searchTextBox" ></s:input></td>
-				<td colspan="9"><label id="lblLocName" class="namelabel" path="strLocName"></label></td>
-				
-			</tr>
-			
-		</table>
-			
-			<div class="dynamicTableContainer"  style="height:300px;">
-		
-		<table  style="height:28px;border:#0F0;font-size:11px;
-	font-weight: bold;width: 100%;" >
-		
-		<tr bgcolor="#72BEFC" >
-		<td width="8%">Product Code</td>
-		<td width="40%">Product Name</td>
-		<td width="10%">UOM</td>
-		<td width="10%">Quantity</td>
-		<td width="10%">Price</td>
-		<td width="10%">Amount</td>
-		<td width="10%">Remarks</td>
-		<td width="10%">Delete</td>
-		</tr>
-		</table>
-		<div style="background-color:  	#C0E2FE;
-    border: 1px solid #ccc;
-    display: block;
-    height: 255px;
-    margin: auto;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    width: 100%;">
-		<table id="tblDeliverySchedule"  style="width:100%;border:
-#0F0;table-layout:fixed;overflow:scroll" class="transTablex col6-center">
-	<tbody>    
-	 <col style="width:7%">
-        <col style="width:33%">
-        <col style="width:8%">
-        <col style="width:8%">
-        <col style="width:8%">
-        <col style="width:8%">
-        <col style="width:8%">
-        <col style="width:2%">
-	
-    </tbody>
-</table>
+					</s:select>
+			</div>
+			<div class="col-md-2">  	
+				<s:input id="txtDocCode" name="txtDocCode" path="strPOCode" cssClass="searchTextBox" ondblclick="funOpenPOForDS('dsPOData')" style="margin-top:26px;" ></s:input>
+			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-2">  
+				<s:label path="strLocCode">Location</s:label>
+				<s:input id="txtLocCode" name="txtLocCode" path="strLocCode" required = "true" 
+				 ondblclick="funHelp('locationmaster')" cssClass="searchTextBox" ></s:input>
+			</div>
+			<div class="col-md-2">
+				<label id="lblLocName" class="namelabel" path="strLocName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+				></label>
+			</div>
+			<div class="col-md-2">  
+				<input type="Button" value="Fill" class="btn btn-primary center-block"  onclick="return funfillbutton();" style="margin-top: 20px;"/>
+			</div>
 		</div>
-		</div>
-		
-		<table class="transTableMiddle">
-				<tr>
-				<td><label id="lblCloseDS">Close DS</label></td>
-									<td><s:checkbox element="li" id="chkCloseDS"
-											path="strCloseDS" value="Y" /></td>
-					<td>Narration</td>
-		            <td><s:textarea id="txtNarration" path="strNarration"></s:textarea></td>
-					
-				</tr>	
+		<br>	
+		<div class="dynamicTableContainer"  style="height:300px;">
+			<table  style="height:28px;border:#0F0;font-size:11px; font-weight: bold;width: 100%;" >
+				<tr bgcolor="#c0c0c0" >
+					<td width="8%">Product Code</td>
+					<td width="40%">Product Name</td>
+					<td width="10%">UOM</td>
+					<td width="10%">Quantity</td>
+					<td width="10%">Price</td>
+					<td width="10%">Amount</td>
+					<td width="10%">Remarks</td>
+					<td width="10%">Delete</td>
+				</tr>
 			</table>
-			<br />
-			
-		<br />	
+			<div style="background-color:#fbfafa; border: 1px solid #ccc; display: block;height: 255px;
+					    margin: auto; overflow-x: hidden;  overflow-y: scroll; width: 100%;">
+				<table id="tblDeliverySchedule"  style="width:100%;border: #0F0;table-layout:fixed;overflow:scroll" class="transTablex col6-center">
+					<tbody>    
+					 <col style="width:7%">
+				        <col style="width:33%">
+				        <col style="width:8%">
+				        <col style="width:8%">
+				        <col style="width:8%">
+				        <col style="width:8%">
+				        <col style="width:8%">
+				        <col style="width:2%">
+				    </tbody>
+				</table>
+			</div>
+		</div><br>
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label id="lblCloseDS">Close DS</label><br>
+				<s:checkbox element="li" id="chkCloseDS" path="strCloseDS" value="Y" />
+			</div>
+			<div class="col-md-3">
+				<label>Narration</label><br>
+		        <s:textarea id="txtNarration" path="strNarration" style="height:27px;"></s:textarea>
+		     </div>
+		</div>
 		
-		<p align="center">
-			<input type="submit" value="Submit"  class="form_button" onclick="return funCallFormAction('submit',this)"/>
-				 <input type="button"   value="Reset" class="form_button" onclick="funResetFields()" />
-		</p>
-		<br />
-		<br />					
-
-</s:form>
+		<div class="center" style="text-align:center">
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit" onclick="return funCallFormAction('submit',this)">Submit</button></a>&nbsp;
+			<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetFields();">Reset</button></a>
+		</div>
+	</s:form>
+</div>	
 </body>
 </html>

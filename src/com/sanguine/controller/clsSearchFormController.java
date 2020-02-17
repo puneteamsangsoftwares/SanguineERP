@@ -35,6 +35,7 @@ import com.sanguine.model.clsCompanyMasterModel;
 import com.sanguine.model.clsPropertySetupModel;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.service.clsSetupMasterService;
+import com.sanguine.webclub.model.clsWebClubPreMemberProfileModel;
 
 @Controller
 public class clsSearchFormController {
@@ -757,7 +758,7 @@ public class clsSearchFormController {
 
 			case "childcode": {
 				columnNames = "strProdCode,strPartNo,strProdName,strProdType ";
-				tableName = "clsProductMasterModel where strClientCode='" + clientCode + "' and strNotInUse='N' ";
+				tableName = "clsProductMasterModel where strClientCode='" + clientCode + "' and strNotInUse='N' and strProdType !='Produced' ";
 				listColumnNames = "Product Code,POS Item Code,Product Name,Product Type";
 				idColumnName = "strProdCode";
 				searchFormTitle = "Product Master";
@@ -1650,7 +1651,7 @@ public class clsSearchFormController {
 				} else {
 					tableName = tableName + "  where   ";
 				}
-				tableName = tableName + "  a.strSGCode=c.strSGCode and c.strGCode=d.strGCode and a.strNotInUse='N' " + " and a.strClientCode='" + clientCode + "'  and c.strClientCode='" + clientCode + "' and d.strClientCode='" + clientCode + "'";
+				tableName = tableName + "  a.strSGCode=c.strSGCode and c.strGCode=d.strGCode and a.strNotInUse='N' " + " and a.strProdType='Procured' and a.strClientCode='" + clientCode + "'  and c.strClientCode='" + clientCode + "' and d.strClientCode='" + clientCode + "'";
 				listColumnNames = "Product Code,Product Name,Sub Group,Group,UOM,Product Type,Specification,Cal Amt On" + ",Class,Non Stockable,a.strPartNo";
 				idColumnName = "a.strProdCode";
 				searchFormTitle = "Product Master";
@@ -3213,6 +3214,17 @@ public class clsSearchFormController {
 			searchFormTitle = "Room Master";
 			break;
 		}
+		
+		
+		case "houseKeepCode": {
+			columnNames = " a.strHouseKeepCode,a.strHouseKeepName,a.strUserCreated ";
+			tableName = " from tblhousekeepmaster a where a.strClientCode='"+clientCode+"' ";
+			listColumnNames = " House Keeping Code,House Keeping Name,User ";
+			idColumnName = " strHouseKeepCode,strClientCode ";
+			searchFormTitle = " House Keeping Master ";
+			flgQuerySelection = true;
+			break;
+		}
 	
 
 		}
@@ -3244,6 +3256,8 @@ public class clsSearchFormController {
 		Map<String, Object> mainMap = new HashMap<>();
 
 		String webStockDB=req.getSession().getAttribute("WebStockDB").toString();
+		String webBooksDB=req.getSession().getAttribute("WebBooksDB").toString();
+		
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		String columnNames = "";
 		String tableName = "";
@@ -3280,7 +3294,7 @@ public class clsSearchFormController {
 		case "WCmemProfile": {
 			columnNames = "strCustomerCode,strMemberCode,strFullName,dteCreatedDate,strCategoryCode";
 			tableName = "clsWebClubMemberProfileModel where strClientCode='" + clientCode + "' ";
-			listColumnNames = "Customer Code,Member Code,Member Name,Date,Category";
+			listColumnNames = "Member Code,Member Name,Date,Customer,Category";
 			idColumnName = "strCustomerCode";
 			criteria = getCriteriaQuery(columnNames, search_with, tableName);
 			searchFormTitle = "Member Profile";
@@ -3928,7 +3942,7 @@ public class clsSearchFormController {
 
 		case "custMasterActive": {
 			columnNames = "strPCode,strPName,strMobile,strEmail,strContact,strPNHindi";
-			tableName = "clsPartyMasterModel where  strClientCode='" + clientCode + "' and strPType='cust' and strOperational='Y' ";
+			tableName = "clsPartyMasterModel where  strClientCode='" + clientCode + "' and strPType='cust' and strOperational='Y'  and strPropCode='"+propCode+"' ";
 
 			if (!objSetup.getStrShowAllPartyToAllLoc().equalsIgnoreCase("Y")) {
 				tableName += " and strPropCode='" + propCode + "' ";
@@ -3946,7 +3960,7 @@ public class clsSearchFormController {
 			// columnNames =
 			// "a.strSOCode,a.dteSODate,a.strCustPONo,strCustCode,strLocCode";
 			columnNames = "a.strSOCode,a.dteSODate,a.strCustPONo,b.strPName,c.strLocName,a.strStatus ";
-			tableName = "clsSalesOrderHdModel a,clsPartyMasterModel b,clsLocationMasterModel c " + "where a.strCustCode=b.strPCode and a.strLocCode=c.strLocCode and a.strClientCode='" + clientCode + "' " + "and a.strClientCode=b.strClientCode and a.strClientCode=c.strClientCode  ";
+			tableName = "clsSalesOrderHdModel a,clsPartyMasterModel b,clsLocationMasterModel c " + "where a.strCustCode=b.strPCode and a.strLocCode=c.strLocCode and a.strClientCode='" + clientCode + "' " + "and a.strClientCode=b.strClientCode and a.strClientCode=c.strClientCode and c.strPropertyCode='" + propCode + "'   ";
 			
 			boolean flgAuth = false;
 			if (null != req.getSession().getAttribute("hmAuthorization")) {
@@ -4037,7 +4051,7 @@ public class clsSearchFormController {
 
 		case "locationmaster": {
 			columnNames = "strLocCode,strLocName,strType,strLocDesc";
-			tableName = "clsLocationMasterModel where strClientCode='" + clientCode + "'";
+			tableName = "clsLocationMasterModel where strClientCode='" + clientCode + "' and strPropertyCode='"+propCode+"'";
 			listColumnNames = "Location Code,Location Name,Type,Description";
 			idColumnName = "strLocCode";
 			searchFormTitle = "Location Master";
@@ -4206,7 +4220,7 @@ public class clsSearchFormController {
 		case "invoice": {
 
 			columnNames = "a.strInvCode,a.strSOCode,a.dteInvDate,b.strPName,c.strLocName,a.strAuthorise";
-			tableName = " clsInvoiceHdModel a, clsPartyMasterModel b,clsLocationMasterModel c " + " where a.strCustCode=b.strPCode and a.strLocCode=c.strLocCode and a.strClientCode='" + clientCode + "' " + "and a.strClientCode=b.strClientCode and b.strClientCode=c.strClientCode " + "and a.strInvCode like '%IV%' ";
+			tableName = " clsInvoiceHdModel a, clsPartyMasterModel b,clsLocationMasterModel c " + " where a.strCustCode=b.strPCode and a.strLocCode=c.strLocCode and a.strClientCode='" + clientCode + "' " + "and a.strClientCode=b.strClientCode and b.strClientCode=c.strClientCode " + "and a.strInvCode like '%IV%'  and  c.strPropertyCode='" + propCode + "'    ";
 			if (showPrptyWiseProdDoc.equalsIgnoreCase("Y")) {
 				tableName += " and a.strInvCode like '" + propertyCode + "%' ";
 			}
@@ -4270,7 +4284,7 @@ public class clsSearchFormController {
 		
 		case "salesReturn": {
 			columnNames = "a.strSRCode,a.dteSRDate,b.strPName,c.strLocName ";
-			tableName = "clsSalesReturnHdModel a,clsPartyMasterModel b,clsLocationMasterModel c " + "where a.strCustCode=b.strPCode and a.strLocCode=c.strLocCode and a.strClientCode='" + clientCode + "' " + "and a.strClientCode=b.strClientCode and a.strClientCode=c.strClientCode  ";
+			tableName = "clsSalesReturnHdModel a,clsPartyMasterModel b,clsLocationMasterModel c " + "where a.strCustCode=b.strPCode and a.strLocCode=c.strLocCode and a.strClientCode='" + clientCode + "' " + "and a.strClientCode=b.strClientCode and a.strClientCode=c.strClientCode and  c.strPropertyCode='" + propCode + "'    ";
 			if (showPrptyWiseProdDoc.equalsIgnoreCase("Y")) {
 				tableName += " and a.strSRCode like '" + propertyCode + "%' ";
 			}
@@ -5816,6 +5830,40 @@ public class clsSearchFormController {
 				break;
 			}
 
+			case "BanquetExternalServices": {
+				columnNames = "strServiceCode,strServiceName";
+				tableName = " clsServiceMasterModel where strClientCode='" + clientCode + "' and strServiceType='External' ";
+				listColumnNames = "Service Code,Service Name";
+				criteria = getCriteriaQuery(columnNames, search_with, tableName);
+				idColumnName = "strServiceCode";
+				searchFormTitle = "Service Master";
+							 
+				break;
+			}
+			
+			case "Banquetsuppcode": {
+				columnNames = "strPCode,strPName,strMobile,strEmail,strContact";
+				tableName = "select strPCode,strPName,strMobile,strEmail,strContact from "+webStockDB+".tblpartymaster  "
+						+ "where strClientCode='" + clientCode + "' and strPType ='Supp' or strPType='' ";
+				listColumnNames = "Vendor Code,Vendor Name,Mobile No,Email-id,Contact Person";
+				idColumnName = "strPCode";
+				searchFormTitle = "Vendor Master";
+				flgQuerySelection = true;
+				break;
+			}
+			
+			case "BanquetQuotationNo": {
+				columnNames = "a.strQuotationNo,b.strPName,DATE_FORMAT(a.dteQuotationDate,'%d-%m-%Y')";
+				tableName = "from tblbqquotationhd a ,"+webStockDB+".tblpartymaster b "
+						+ "where a.strCustomerCode=b.strPCode and a.strClientCode='"+clientCode+"'";
+				listColumnNames = "Quotation No,Guest Name,Quatation Date";
+				idColumnName = "strQuotationNo,strClientCode";
+				flgQuerySelection = true;
+				// criteria = getCriteriaQuery(columnNames,search_with,tableName);
+				searchFormTitle = "Payment Receipt";
+				break;
+			}
+			
 		}
 
 		mainMap.put("columnNames", columnNames);
@@ -5980,9 +6028,9 @@ public class clsSearchFormController {
 			JSONArray jArrData = new JSONArray();
 			if(sbSql.length()>0)
 			{
-
-				List list =objBaseService.funGetListForWebBooks(sbSql, "sql");
-				//List list=objBaseService.funGetListModuleWise(sbSql, "sql","WebBooks");
+			
+			
+				List list=objBaseService.funGetListModuleWise(sbSql, "sql","WebBooks");
 				if(list.size()>0)
 				{
 					for(int cn=0;cn<list.size();cn++)

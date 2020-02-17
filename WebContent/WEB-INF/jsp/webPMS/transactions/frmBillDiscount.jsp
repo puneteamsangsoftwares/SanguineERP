@@ -1,11 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+<style>
+input[type=text]{
+font-size:12px;}
+
+</style>
 <script type="text/javascript">
 	var fieldName;
 
@@ -164,9 +177,7 @@
 		});
 	}
 
-
-
-	function funHelp(transactionName)
+  function funHelp(transactionName)
 	{
 		fieldName=transactionName;
 		window.open("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;");
@@ -264,145 +275,97 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Modify Bill</label>
-	</div>
-
-<br/>
-<br/>
-
+  <div class="container masterTable">
+	<label id="formHeading">Modify Bill</label>
 	<s:form name="BillDiscount" method="POST" action="saveBillDiscount.html">
 
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>Bill No</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" path="strBillNo" id="txtBillNo" cssClass="searchTextBox" ondblclick="funHelp('billNo')" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Bill Date</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" readonly="true" path="dteBillDate" id="txtBillDate" cssClass="calenderTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>CheckIn No</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" readonly="true"  path="strCheckInNo" id="txtCheckInNo" cssClass="BoxW124px" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Folio No</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" readonly="true"  path="strFolioNo"  id="txtFolioNo" cssClass="BoxW124px" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Room No</label>
-				</td>
-				<td>
-					<s:input type="text" readonly="true"  path="strRoomNo"  id="txtRoomNo" cssClass="BoxW124px" />
-				&nbsp;&nbsp;&nbsp;<label id="lblRoomDesc"></label>
-				</td>
-			</tr>
+		<div class="row">
+			<div class="col-md-3">
+			    <div class="row">
+			         <div class="col-md-6"><label>Bill No</label>
+				          <s:input type="text" path="strBillNo" id="txtBillNo" cssClass="searchTextBox" ondblclick="funHelp('billNo')" />
+				     </div>
+		             <div class="col-md-6"><label>Bill Date</label>
+				          <s:input type="text" readonly="true" path="dteBillDate" id="txtBillDate" cssClass="calenderTextBox" />
+				      </div>
+	         </div></div>
+	         
+			 <div class="col-md-3">
+			    <div class="row">
+			           <div class="col-md-6"><label>CheckIn No</label>
+				            <s:input type="text" readonly="true"  path="strCheckInNo" id="txtCheckInNo" />
+				        </div>
+		                <div class="col-md-6"><label>Folio No</label>
+				             <s:input type="text" readonly="true"  path="strFolioNo"  id="txtFolioNo"/>
+				        </div>
+			</div></div>
 			
+			<div class="col-md-3">
+			    <div class="row">
+					<div class="col-md-5"><label>Room No</label>
+				        <s:input type="text" readonly="true"  path="strRoomNo"  id="txtRoomNo"/></div>
+				    <div class="col-md-7"><label id="lblRoomDesc" style="margin-top: 15%;"></label></div>
+			  </div></div>
+			<div class="col-md-3"></div>
 			
-			<tr>
-				<td>
-					<label>Disc On</label>
-				</td>
-				<td>
-    				<s:select id="cmbDiscountOn" path="strDiscOn" cssClass="BoxW124px" onchange="funChangeDiscType();"
-    				>
+			 <div class="col-md-3">
+			     <div class="row">
+			       <div class="col-md-6"><label>Disc On</label>
+				    <s:select id="cmbDiscountOn" path="strDiscOn" onchange="funChangeDiscType();">
  					    <s:option value="All">All</s:option>
 				    	<s:option value="Room Tariff">Room Tariff</s:option>
 				    	<s:option value="Income Head">Income Head</s:option>
 				   </s:select>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<label>Disc Type</label>
-				</td>
-				<td>
-    				<s:select id="cmbDiscountType" path="strDiscountType" cssClass="BoxW124px" onchange="funDiscountSelection();"
-    				><!-- onchange="funDiscountSelection();" -->
+				   </div>
+				   <div class="col-md-6"><label>Disc Type</label>
+				     <s:select id="cmbDiscountType" path="strDiscountType" onchange="funDiscountSelection();"><!-- onchange="funDiscountSelection();" -->
  					    <s:option value="Amount">Amount</s:option>
 				    	<s:option value="Per">Per</s:option>
-				   </s:select>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Disc Amt</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="number" step="0.01"  path="dblDiscAmt"  id="txtDiscAmt" style = "text-align:right;" onblur="funCalculateDiscount();" cssClass="BoxW124px" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Disc Per</label>
-				</td>
-				<td>
-					<s:input type="number" step="0.01"  path="dblDiscPer"  id="txtDiscPer" style = "text-align:right;" onblur="funCalculateDiscount();" cssClass="BoxW124px" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Total</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="number" step="0.01" readonly="true"   path="dblTotal" style = "text-align:right;" id="txtTotal" cssClass="BoxW124px" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Grand Total</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="number" step="0.01" readonly="true"   path="dblGrandTotal" style = "text-align:right;" id="txtGrandTotal" cssClass="BoxW124px" />
-				</td>
-			</tr>
-			<tr>
-			<td>
-				<label>Reason</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</td>
-   			<td>
-				 <s:select id="cmbReason" path="strReason" cssClass="BoxW124px">
-    			 <s:options items="${listReason}"/>
+				     </s:select>
+		            </div>
+			  </div></div>
+			
+	       <div class="col-md-3">
+	          <div class="row">
+			     <div class="col-md-6"><label>Disc Amt</label>
+				     <s:input type="number" step="0.01"  path="dblDiscAmt"  id="txtDiscAmt" style = "text-align:right;width: 100%;" onblur="funCalculateDiscount();"/>
+			      </div>
+			      <div class="col-md-6"><label>Disc Per</label>
+				      <s:input type="number" step="0.01"  path="dblDiscPer"  id="txtDiscPer" style = "text-align:right;width: 100%;" onblur="funCalculateDiscount();"/>
+			       </div>
+		    </div></div>
+		 	
+			<div class="col-md-3">
+	          <div class="row">
+	             <div class="col-md-6"><label>Total</label>
+				     <s:input type="number" step="0.01" readonly="true"   path="dblTotal" style = "text-align:right;width: 100%;" id="txtTotal"/>
+			     </div>
+			     <div class="col-md-6"></div>
+		    </div></div>
+		    <div class="col-md-3"></div>
+		    
+		   <div class="col-md-1"><label style="width:110%">Grand Total</label>
+				<s:input type="number" step="0.01" readonly="true" path="dblGrandTotal" style ="text-align:right;width:70%;" id="txtGrandTotal"/>
+			</div> 
+			
+			<div class="col-md-2"><label>Reason</label>
+			    <s:select id="cmbReason" path="strReason">
+    			   <s:options items="${listReason}"/>
     			</s:select>
-   			</td>
-   			</tr>
-   			<tr>
-   			<td>
-    			<label>Remark</label>
-    			</td>
-   			<td>
-    			<s:input id="txtRemark" path="strRemark"  cssClass="longTextBox"/>
-			</td>
-			</tr>
-		</table>
+   			</div>
+   		      
+   			<div class="col-md-2"><label>Remark</label>
+    			<s:input id="txtRemark" path="strRemark"/>
+			</div>
+		</div>
 
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funBtnSubmit()" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-left: 11%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funBtnSubmit()" />&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

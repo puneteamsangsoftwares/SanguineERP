@@ -1,11 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	
 	var fieldName;
@@ -92,7 +101,6 @@
 		});
 	}
 
-
 	/* set date values */
 	function funSetDate(id,responseValue)
 	{
@@ -111,13 +119,13 @@
 //set date
 	$(document).ready(function(){
 		
-		<%-- var pmsDate='<%=session.getAttribute("PMSDate").toString()%>'; --%>
+		var pmsDate='<%=session.getAttribute("PMSDate").toString()%>'; 
 		
 		 $("#txtArrivalFromDate").datepicker({dateFormat : 'dd-mm-yy'}); 
-		 $("#txtArrivalFromDate").datepicker('setDate', '04-10-2019'); 
+		 $("#txtArrivalFromDate").datepicker('setDate', pmsDate); 
 		
 		 $("#txtArrivalToDate").datepicker({dateFormat : 'dd-mm-yy'}); 
-		 $("#txtArrivalToDate").datepicker('setDate', '04-10-2019'); 
+		 $("#txtArrivalToDate").datepicker('setDate', pmsDate); 
 		
 <%-- 		 var pmsDate='<%=session.getAttribute("PMSDate").toString()%>'; --%>
 // 		  var dte=pmsDate.split("-");
@@ -131,10 +139,7 @@
 	   			$('#trDate').hide(); 
 	   			$('#txtCorporate').hide();
 	   			$('#lblCorporate').hide();
-	   			document.title = 'Booking Cancellation';
-
-
-	   			
+	   			document.title = 'Booking Cancellation';	   			
 	   		}
 	   		else
    			{
@@ -142,6 +147,20 @@
 	   			$('#lblNo').text('Reservation No.');
 	   			
    			}
+	   		<%-- var strBookingNO='<%=session.getAttribute("BookingNo").toString()%>';
+	   		if(strBookingNO!='')
+			 {
+				 $("#txtReservationNo").val(strBookingNO);				
+				 funSetReservationData(strBookingNO);
+				 <%session.removeAttribute("BookingNo");%>
+			 }
+			 else
+			 {				
+				 $("#txtReservationNo").val("");
+				 <%session.removeAttribute("BookingNo");%>
+				 
+			 }  --%>
+	   		
 	});
 	
 	/**
@@ -350,41 +369,33 @@
 		});
 	}
 
-	
-	
 </script>
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label id="lblFormName"></label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="RoomCancellation" method="POST" action="saveRoomCancellation.html">
-
-		<table class="masterTable">
-
-			<th colspan="7">
-			</tr>
-			<tr>
-			    <td  style="width: 100px;"><label>Property</label></td>
-				<td><s:select id="strPropertyCode" path="strPropertyCode" items="${listOfProperty}" required="true" cssClass="BoxW200px"></s:select></td>
-				<td style="width: 100px;"><label id="lblNo"></label></td>
-			    <td><s:input id="txtReservationNo" path="strReservationNo" readonly="true"  ondblclick="funHelp('ReservationNo')" cssClass="searchTextBox"/></td>
-				<td colspan="2">
-			</tr>
+  <div class="container masterTable">
+	<label id="formHeading"> Room Cancellation </label>     <!-- <label id="lblFormName"></label> -->
+	   <s:form name="RoomCancellation" method="POST" action="saveRoomCancellation.html">
+ 
+        <div class="row">
+            <div class="col-md-2"><label>Property</label>
+				  <s:select id="strPropertyCode" path="strPropertyCode" items="${listOfProperty}" required="true"></s:select>
+			</div>
 			
-			<tr id="trDate">
-				<td><label >Arrival From Date</label></td>
-				<td><s:input type="text" id="txtArrivalFromDate" path="dteArrivalFromDate" required="true" class="calenderTextBox" /></td>
-				<td><label >Arrival To Date</label></td>
-				<td><s:input type="text" id="txtArrivalToDate" path="dteArrivalToDate" required="true" class="calenderTextBox" /></td>
-				<td colspan="2"></td>
-			</tr>
+			<div class="col-md-2"><label id="lblNo"></label>
+			      <s:input id="txtReservationNo" path="strReservationNo" readonly="true"  ondblclick="funHelp('ReservationNo')" cssClass="searchTextBox"/>
+			</div>
+			
+			 <div class="col-md-8"></div>
+			 
+			 
+			<div class="col-md-2" id="trDate"><label >Arrival From Date</label>
+				  <s:input type="text" id="txtArrivalFromDate" path="dteArrivalFromDate" required="true" class="calenderTextBox" style="width:70%;" />
+		     </div>
+		     
+			<div class="col-md-2"><label >Arrival To Date</label>
+				  <s:input type="text" id="txtArrivalToDate" path="dteArrivalToDate" required="true" class="calenderTextBox" style="width:70%;"/>
+			</div>
 			
 <!-- 			<tr> -->
 <!-- 				<td width="10%"><label>Room Type</label></td> -->
@@ -392,45 +403,43 @@
 <!-- 				<td colspan="2"> -->
 <!-- 			</tr> -->
 			
-			<tr>
-			    <td><label>Guest Name</label></td>
-				<td><s:input id="txtGuestName" path="strGuestName"  readonly="true" cssClass="longTextBox"  placeholder="last"  /></td>
+			<div class="col-md-2"><label>Guest Name</label>
+				<s:input id="txtGuestName" path="strGuestName"  readonly="true" placeholder="last"  />
+			</div>
+			  <div class="col-md-6"></div>
 			     
-				
-				<td><label>Reason Code</label></td>
-				<td>
-					<s:input colspan="1" type="text" id="txtReasonCode" path="strReasonCode" cssClass="searchTextBox" ondblclick="funHelp('reasonPMS');"/>
-				</td>
-				<td><label id="lblReasonDesc"></label></td>
 			
-			</tr>
+            <div class="col-md-2"><label>Reason Code</label>
+			     <s:input type="text" id="txtReasonCode" path="strReasonCode" cssClass="searchTextBox" ondblclick="funHelp('reasonPMS');" style="height:45%"/>
+			 </div>
+			 
+			 <div class="col-md-2"><br><label id="lblReasonDesc" style="background-color:#dcdada94; width: 100%; height: 50%;"></label></div>
 			
-			<tr>
-			    <td id="lblCorporate"><label>Corporate</label></td>
-				<td id="txtCorporate"><s:input id="txtCorporateCode" path="strCorporate" readonly="true" cssClass="longTextBox"  /></td>
+			 
+			<div class="col-md-2"><label id="lblCorporate">Corporate</label>
+				  <span id="txtCorporate"><s:input id="txtCorporateCode" path="strCorporate" readonly="true"/></span>
 				<!-- <td><label id="lblCorporateName"></label></td> -->
-				<td>
-						<label>Remarks</label>
-				</td>
-				<td>
-				       <s:input type="text" id="txtRemarks" path="strRemarks" cssClass="longTextBox" />
-				</td>
-				<td><s:input id="txtGuestCode" path="strGuestCode" type="hidden" readonly="true" cssClass="longTextBox" placeholder="last"  /></td>
-				<td colspan="1"></td>
-				<td colspan="1"></td>
-				<td colspan="1"></td>
-				
-			</tr>
+			</div>
+			<div class="col-md-6"></div>
 			
-		</table>
+			<div class="col-md-2"><label>Remarks</label>
+				  <s:input type="text" id="txtRemarks" path="strRemarks"/>
+			</div>
+			
+			<div class="col-md-2">
+			      <s:input id="txtGuestCode" path="strGuestCode" type="hidden" readonly="true" placeholder="last"  />
+			</div>
+			
+		</div>
 
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateData()"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right:13%">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateData()"/>
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

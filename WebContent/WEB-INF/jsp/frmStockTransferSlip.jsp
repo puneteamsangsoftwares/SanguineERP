@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -7,6 +9,13 @@
   
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Web Stocks</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+ 
     <script type="text/javascript">
     /**
 	 * Ready Function for Initialize textField with default value
@@ -215,70 +224,59 @@
   </head>
   
 	<body>
-	<div id="formHeading">
-		<label>Stock Transfer Slip</label>
-	</div>
-	<br />
-	<br />
-		<s:form name="frmStockTransferSlip" method="POST" action="rpttransferslip.html" target="_blank">
-	   		<table class="masterTable">
-			<tr><th colspan="8"></th></tr>
-	   		<tr>
-				<td width="15%"><label id="lblFromDate">From Date</label></td>
-				<td width="10%"><s:input id="txtFromDate" name="fromDate"
-						path="dtFromDate" cssClass="calenderTextBox" required="true"/> 
-						<s:errors path="dtFromDate"></s:errors></td>
-				<td width="15%"></td>
-				<td width="10%"><label id="lblToDate">To Date</label></td>
-				<td colspan="3"><s:input id="txtToDate" name="toDate"
-						path="dtToDate" cssClass="calenderTextBox" required="true"/>
-						<s:errors path="dtToDate"></s:errors></td>
+	<div class="container masterTable">
+		<label id="formHeading">Stock Transfer Slip</label>
+         <s:form name="frmStockTransferSlip" method="POST" action="rpttransferslip.html" target="_blank">
+	   		
+		<div class="row">
+			 <div class="col-md-2"><label id="lblFromDate">From Date</label>
+				    <s:input id="txtFromDate" name="fromDate" path="dtFromDate" cssClass="calenderTextBox" required="true" style="width: 70%;height:50%"/> 
+					<s:errors path="dtFromDate"></s:errors>
+			  </div>
+			
+			  <div class="col-md-2"><label id="lblToDate">To Date</label>
+				     <s:input id="txtToDate" name="toDate" path="dtToDate" cssClass="calenderTextBox" required="true" style="width: 70%;height:50%"/>
+					 <s:errors path="dtToDate"></s:errors>
+			  </div>
+				<div class="col-md-8"></div>
 						
-			</tr>
-			<tr>
-				<td><label>From Location </label></td>
-				<td colspan="2"><s:input id="txtLocFrom" name="txtLocFrom"
-						path="strFromLocCode" ondblclick="funHelp('FromLocation')"
-						cssClass="searchTextBox" /> <label id="lblLocFrom"
-					Class="namelabel"></label></td>
+			   <div class="col-md-2"><label>From Location </label>
+				    <s:input id="txtLocFrom" name="txtLocFrom" path="strFromLocCode" 
+				       ondblclick="funHelp('FromLocation')"  cssClass="searchTextBox" /> 
+			   </div>
+			   <div class="col-md-2"><label id="lblLocFrom" Class="namelabel" style="background-color:#dcdada94; width: 100%; height:51%;margin-top: 27px;padding:4px;"></label></div>
 
-				<td width="10%"><label>To Location </label></td>
-				<td  colspan="3"><s:input id="txtLocTo" name="txtLocTo" path="strToLocCode"
-						ondblclick="funHelp('ToLocation');" cssClass="searchTextBox" /> <label
-					id="lblLocTo" Class="namelabel"></label></td>
-			</tr>
-			    <tr>
-			        <td  width="15%"><label >From Stock Transfer Code</label></td>
-			        <td>
-			        	<s:input id="txtFromSTCode" path="strFromDocCode" ondblclick="funHelp('stktransfercodeslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
-			        </td>
-			        <td></td>
-			        <td width="15%"><label >To Stock Transfer Code</label></td>
-			        <td colspan="5" >
-			        	<s:input id="txtToSTCode" path="strToDocCode" ondblclick="funHelp('stktransfercode1')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
-			        </td>
-			    </tr>
-			    <tr>
-			      
-			      	<td><label>Report Type</label></td>
-					<td colspan="8">	<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+			   <div class="col-md-2"><label>To Location </label>
+				     <s:input id="txtLocTo" name="txtLocTo" path="strToLocCode"  ondblclick="funHelp('ToLocation');" cssClass="searchTextBox" /> 
+			    </div>
+			    <div class="col-md-2"><label id="lblLocTo" Class="namelabel" style="background-color:#dcdada94; width: 100%; height:51%;margin-top: 27px;padding:4px;"></label></div>
+		        <div class="col-md-4"></div>
+		        
+			     <div class="col-md-2"><label >From Stock Transfer Code</label>
+			            <s:input id="txtFromSTCode" path="strFromDocCode" ondblclick="funHelp('stktransfercodeslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
+			     </div>
+			     
+			     <div class="col-md-2"><label >To Stock Transfer Code</label>
+			             <s:input id="txtToSTCode" path="strToDocCode" ondblclick="funHelp('stktransfercode1')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
+			     </div>
+		          
+			     <div class="col-md-2"><label>Report Type</label>
+					   <s:select id="cmbDocType" path="strDocType" style="width:auto;">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
 				    		<s:option value="HTML">HTML</s:option>
 				    		<s:option value="CSV">CSV</s:option>
 				    	</s:select>
-					</td>
-			    </tr>
-			   	<tr>
-				<td colspan="8"></td>
-								
-				</tr>
-			</table>
+				  </div>
+			  </div>
+	
 			<br>
-			<p align="center">
-				<input type="submit" value="Submit"  class="form_button" onclick="return funCallFormAction('submit',this)"  />
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+			<p align="center" style="margin-left: 19%;">
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this)"  />
+				&nbsp;
+			    <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 		</s:form>
+		</div>
 	</body>
 </html>

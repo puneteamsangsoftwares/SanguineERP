@@ -19,14 +19,14 @@ public class clsPMSSettlementMasterDaoImpl implements clsPMSSettlementMasterDao 
 	@Autowired
 	private SessionFactory webPMSSessionFactory;
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false,value="WebPMSTransactionManager")
 	@Override
 	public void funAddUpdateSettlementMaster(clsPMSSettlementMasterHdModel objSettlementMasterModel) {
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objSettlementMasterModel);
 
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	@Override
 	public List funGetPMSSettlementMaster(String settlementCode, String clientCode) {
 

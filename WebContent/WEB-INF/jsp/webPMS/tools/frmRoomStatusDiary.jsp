@@ -1,48 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/materialdesignicons.min.css"/>" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/jquery-ui.css"/>" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/rsd-design.css"/>" />
+		<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	<title></title>
 
 <style type="text/css">
-body {
-  color: black;
-  background-color: #f1f3f6;
-  font-family: trebuchet ms, Helvetica, sans-serif;
- 
-  
+#tblDays td{
+       width:176px;
 }
-
-
-.table>tbody>tr.active>td,
-.table>tbody>tr.active>th,
-.table>tbody>tr>td.active,
-.table>tbody>tr>th.active,
-.table>tfoot>tr.active>td,
-.table>tfoot>tr.active>th,
-.table>tfoot>tr>td.active,
-.table>tfoot>tr>th.active,
-.table>thead>tr.active>td,
-.table>thead>tr.active>th,
-.table>thead>tr>td.active,
-.table>thead>tr>th.active {
-  background-color: #a3d0f7;
-
+.table-bordered td{
+		border-style:none;
+}
+.Box { background: inherit; border: 0px solid #060006; outline:0; padding-left: 00px;  font-size:11px;
+	font-weight: bold; font-family: trebuchet ms,Helvetica,sans-serif; 
 }
 .table>thead>tr.active {
 	background-color: #a3d0f7;
-	
-},
+}
 .table>thead{
 	background-color: #a3d0f7;
 }
-
-
 .table-bordered > tbody > tr > td,
 .table-bordered > tbody > tr > th,
 .table-bordered > tfoot > tr > td,
@@ -51,17 +35,20 @@ body {
 .table-bordered > thead > tr > td{
   border-color: #e4e5e7;
   border-bottom: 1px solid #dbd9d9;
-},
-.table-bordered > thead {
-  background-color: #a3d0f7;
 }
-
-
+table tbody tr:nth-child(odd) {
+	background:#fff;
+}
+table tbody tr:nth-child(even) {
+	background:#fafafa;
+}
+.mdi-broom::before{
+	height:26px;
+}
 .table tr.header {
   font-weight: bold;
   /* height:20px;
   width:100px; */
-  background-color: #A3D0F7;
   cursor: pointer;
   -webkit-user-select: none;
   /* Chrome all / Safari all */
@@ -71,43 +58,18 @@ body {
   /* IE 10+ */
   user-select: none;
   /* Likely future */
-
+	background:#fff;
 }
 
 .table tr:not(.header) {
-  display: none;
+  display: none; 
     
 }
 
-/* .Box { background: inherit; border: 0px solid #060006; outline:0; padding-left: 00px;  font-size:11px;
-	font-weight: bold; font-family: trebuchet ms,Helvetica,sans-serif; } */
-.table .header td:after {
-  /* content: "\002b"; 
-  position: absolute;
-  font-family: trebuchet ms,Helvetica,sans-serif;
-  background: inherit;
-  top: 0px;
-  width:0px;
-  height:0px;
-  display: inline-block;
-  border: 0px;
-  font-style: Bold;
-  outline:0;
-  font-size:0px;
-  font-weight: Bold;
-  line-height: 20px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  float: right;
-  color: #999;
-  text-align: center;
-  padding: 2px;
-  padding-left: 00px;
-  transition: opacity 0.15s linear 0s;
-  -webkit-transition: -webkit-transform .25s linear; */
-  content: "\002b";
+.table .header td:first-child:after {
+  content:  "\02C7"; /* "\02C7"; */ /* "\002b"; */
   position: relative;
-  top: 1px;
+  top: 14px;
   display: inline-block;
   font-family: 'Glyphicons Halflings';
   font-style: normal;
@@ -116,19 +78,22 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   float: right;
-  color: #999;
+  color: #000;
   text-align: center;
   padding: 3px;
   transition: transform .25s linear;
   -webkit-transition: -webkit-transform .25s linear;
-
+ right:25px;
+ font-size: 23px;
 }
 
-.table .header.active td:after {
-  content: "\2212";
+.table .header.active td:first-child {
+  content:"\02C6";   /* "\02C6"; *//* "\2212"; */
   
 }
-
+#tblDays td{
+       width:176px;
+}
 </style>
 <script type="text/javascript">
 	
@@ -140,7 +105,7 @@ body {
 	var reservedCnt=0;
 	var mapRoomType={};
 	var lightRed = '#ff4f53';
-	
+	var gcode;
 	/* $(document).ready(function(){
 		
 		
@@ -168,7 +133,7 @@ body {
 	
 	$(function() 
 	{
-		$( tblRoomType ).tooltip();
+/* 		$( tblRoomType ).tooltip(); */
 		
 		var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';
 		
@@ -256,10 +221,50 @@ body {
 			}
 		});
 	}
+	//Seven Day View
 	
+	function funShowRoomStatusFlashForOneDay()
+	{
+		var viewDate=$("#txtViewDate").val();
+				
+		$.ajax({
+			type : "GET",
+			url : getContextPath()+ "/getRoomStatusListForOneDay.html?viewDate=" + viewDate,
+			dataType : "json",
+			 beforeSend : function(){
+				 $("#wait").css("display","block");
+		    },
+		    complete: function(){
+		    	 $("#wait").css("display","none");
+		    },
+			
+			success : function(response){ 
+				funRemoveHeaderTableRows();
+				funFillHeaderRowsForOneDay(response);
+			},
+			error : function(e){
+				if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }
+			}
+		});
+	}
 	function funShowRoomStatusDtl1(row)
 	{
-		$(document).ready(function() {
+		/* $(document).ready(function() {
+			alert("meeeeeeeee");
 			  //Fixing jQuery Click Events for the iPad
 			  var ua = navigator.userAgent,
 			    event = (ua.match(/iPad/i)) ? "touchstart" : "click";
@@ -270,8 +275,18 @@ body {
 			      });
 			    });
 			  }
-			})
-		 
+			});
+		  */
+		  
+		  var ua = navigator.userAgent,
+		    event = (ua.match(/iPad/i)) ? "touchstart" : "click";
+		  if ($('.table').length > 0) {
+		    $('.table .header').on(event, function() {
+		      $(this).toggleClass("active", "").nextUntil('.header').css('display', function(i, v) {
+		        return this.style.display === 'table-row' ? 'none' : 'table-row';
+		      });
+		    });
+		  }
 	
 	}
 	
@@ -367,6 +382,96 @@ body {
 			}
 		});
 	}	
+		//For one Day view
+	function funShowRoomStatusDtlForOneDay()
+	{
+		 /* var code=key.value;
+		  //code=code.split(',')[1].trim();
+		  // For Room Number
+		  var index=key.parentNode.parentNode.rowIndex;
+		  var table1=document.getElementById("tblRoomType");
+		  var indexData=table1.rows[index];
+		  var roomType=indexData.cells[0].childNodes[0].defaultValue; */
+		
+		var viewDate=$("#txtViewDate").val();
+			
+		$.ajax({
+			type : "GET",
+			url : getContextPath()+ "/getRoomStatusDtlListForOneDay.html?viewDate=" + viewDate,
+			dataType : "json",
+			async:false,
+			beforeSend : function(){
+				 $("#wait").css("display","block");
+		    },
+		    complete: function(){
+		    	 $("#wait").css("display","none");
+		    },
+			
+			success : function(response){
+				funRemoveDetailTableRows();
+				var itemroomType='';
+				$.each(response, function(i,item)
+				{
+				if(itemroomType!=item.strRoomType){
+						
+						var key=item.strRoomType;
+						/* var value=mapRoomType[key]; */
+						var roomCnt = item.dblRoomCnt;
+						funFillROomTypeHeaderRowsHeaderRowsForOneDay(key,roomCnt);
+					}
+					
+					itemroomType=item.strRoomType;
+					
+					funFillRoomStatusRowsForOneDay(item.strRoomNo,item.strDay1,item.strDay2,item.strDay3,item.strDay4,item.strDay5,item.strDay6,item.strDay7,item.strRoomStatus,item);
+					
+					/* if(item.strRoomStatus.includes('Occupied'))
+						{
+						occupiedCnt=occupiedCnt+1;
+						$("#occupiedRoomCnt").val(occupiedCnt);
+						}
+					if(item.strRoomStatus.includes('Free'))
+					{
+					emptyCnt=emptyCnt+1;
+					$("#freeRoomCnt").val(emptyCnt);
+					}
+					
+					if(item.strRoomStatus.includes('RESERVATION'))
+					{
+					reservedCnt=reservedCnt+1;
+					$("#reservedRoomCnt").val(reservedCnt);
+					}
+					if(item.strRoomStatus.includes('Blocked'))
+					{
+					blockCnt=blockCnt+1;
+					$("#blockedRoomCnt").val(blockCnt);
+					}
+					if(item.strRoomStatus.includes('Dirty'))
+					{
+					dirtyCnt=dirtyCnt+1;
+					$("#dirtyRoomCnt").val(dirtyCnt);
+					}  */
+				
+				});
+			},
+			error : function(e){
+				if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }
+			}
+		});
+	}
 	
 		function funFillHeader(){
 		
@@ -420,14 +525,14 @@ body {
 		var row=table.insertRow();
 		
 		
-		row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='Room No' >";
-		row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj[0]+"' >";
-	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj[1]+"' >";
-		row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj[2]+"' >";
-		row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj[3]+"' >";
-		row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj[4]+"' >";
-		row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj[5]+"' >";
-		row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj[6]+"' >";
+		row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"color:#4a4a4a; font-weight:550; font-size: 13px; \" value='Room No' >";
+		row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='"+obj[0]+"' >";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='"+obj[1]+"' >";
+		row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='"+obj[2]+"' >";
+		row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='"+obj[3]+"' >";
+		row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='"+obj[4]+"' >";
+		row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='"+obj[5]+"' >";
+		row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='"+obj[6]+"' >";
 		
 		/*
 		row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj.strRoomNo+"' >";
@@ -444,6 +549,37 @@ body {
 		funShowRoomStatusDtl();
 	}
 	
+	function funFillHeaderRowsForOneDay(obj)
+	{
+		var table=document.getElementById("tblDays");
+		var rowCount=table.rows.length;
+		var row=table.insertRow();
+		
+		
+		row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"color:#4a4a4a; font-weight:550; font-size: 13px; \" value='Room No' >";
+		row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='Alert' >";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='"+obj[0]+"' >";
+		row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='' >";
+		row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='Source' >";
+		row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='Pax' >";
+		row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='Rate Type' >";
+		row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='Special Instruction' >";
+		
+		/*
+		row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj.strRoomNo+"' >";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj.strRegistrationNo+"' >";
+		row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj.strFolioNo+"' >";
+		row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj.strGuestName+"' >";
+		row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj.dblAmount+"' >";
+		row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj.dteCheckInDate+"' >";
+		row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj.dteCheckOutDate+"' >";
+		row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" value='"+obj.strCorporate+"' >";
+		*/
+		/* funGetRoomTypeAndStatus(); */
+		
+		funShowRoomStatusDtlForOneDay();
+	}
+	
 	
 	
 	function funFillRoomStatusRows(roomNo,day1,day2,day3,day4,day5,day6,day7,roomStatus,response)
@@ -454,31 +590,32 @@ body {
 		row.style.display='none';
 		response.dblRemainingAmt='Balance: '+response.dblRemainingAmt;
 		var color='';
+		
 		var toolTipText1="",toolTipText2="",toolTipText3="",toolTipText4="",toolTipText5="",toolTipText6="",toolTipText7="";
 		if(roomStatus=='Waiting')
 		{
-			color='Yellow';
+			color='linear-gradient(250.46deg, #ff94ed 0.67%, #9242fc 100%);';
 		}
 		else if(roomStatus=='RESERVATION')
 		{
-			color='Green';
+			color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
 		}
 		else if(roomStatus=='Occupied')
 		{
-			color=lightRed;
+			color='linear-gradient(250.46deg, #3ade5e 0%, #2ba56e 100%);';
 		}
 		else if(roomStatus=='Checked Out')
 		{
-			color='Gray';
+			color='linear-gradient(250.46deg, #d5d5d5 0%, #9d9d9d 100%);';
 		}
 		else if(roomStatus=='Blocked')
 		{
-			color='Olive';
+			color='linear-gradient(250.46deg, #94b9ff 0.67%, #4283fc 100%);';
 		}
 		else if(roomStatus=='Dirty')
 		{
-			color='Orange';
-		}
+			color='linear-gradient(70.46deg, #e4a846 0%, #ffd58e 100%);';
+		}  
 	
 		if(day1==null)
 		{
@@ -494,6 +631,9 @@ body {
 					      day1+='                  ,'+response.strReservationNo;
 					  
 					      toolTipText1+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
+					     
+					      
+					      
 					      
 			}
 		}
@@ -600,75 +740,374 @@ body {
 			}
 		}
 				
-		row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"text-align: center;width: 100%;\" value='"+roomNo+"' >";
+		row.insertCell(0).innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \" style=\"text-align: center;width: 100%;\" value='"+roomNo+"' ></div>";
 
-		
+	
 		
 		var x1=row.insertCell(1);
+		
 		if(roomStatus.includes('Dirty'))
 			{
-			day1='DIRTY                            ,'+roomNo;
-			x1.innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"width: 100%;height: 20px;color: white;\" value='"+day1+"' onClick='funOnClick(this)' >";			
-			
+			day1='DIRTY                                      ,'+roomNo;
+			x1.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+"; \"><input readonly=\"readonly\" class=\"Box \"  style=\"width: 100%;height: 20px; color: white; \" value='"+day1+"' onClick='funOnClick(this)' ></div>";
+			//x1.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; text-align:center; margin-left: 29px; background:"+color+"; width:29%;\"><i class=\"mdi mdi-broom\" style=\"font-size:20px; color:#fff;\" ></div>";			
+			 
 			}
 		else
 			{
-				x1.innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"width: 100%;height: 20px;color: white;\" value='"+day1+"' onClick='funOnClick(this)' >";
+			if(day1==''){
+				x1.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\" ><input  readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;color: white;transform:skew(14deg); \" value='"+day1+"' onClick='funOnClick(this)' ></div>";
 			}
+			else{
+				x1.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input  readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;color: white;transform:skew(14deg); \" value='"+day1+"' onClick='funOnClick(this)' ></div>";
+			}
+		}
+		
 		if(day1!='')
-		{
-			x1.bgColor=color;
+		{ 
+			x1.style.transform='skew(-17deg)';
 			x1.title=toolTipText1;
 		}
 		
 		var x2=row.insertCell(2);
-		x2.innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"width: 100%;color: white;\" value='"+day2+"' onClick='funOnClick(this)' >";
-		if(day2!='')
+		x2.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(9deg);\" value='"+day2+"' onClick='funOnClick(this)' ></div>";
+		if(day1!='')
 		{
-			x2.bgColor=color;
+		if(!day1.includes(day2))
+		{
+			x2.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-size:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day2+"' onClick='funOnClick(this)' ></div>";
+			x2.style.transform='skew(-17deg)';
 			x2.title=toolTipText2;
 		}
+		}
+		else
+		{
+			if(day2!='')
+			{
+				//x2.bgColor=color;
+				x2.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day2+"' onClick='funOnClick(this)' ></div>";
+				x2.style.transform='skew(-17deg)';
+				x2.title=toolTipText2;
+			}
+		}
+		
+		
+		
 		
 		var x3=row.insertCell(3);
-		x3.innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"width: 100%;color: white;\" value='"+day3+"' onClick='funOnClick(this)' >";
-		if(day3!='')
+		x3.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px; transform:skew(9deg); \" value='"+day3+"' onClick='funOnClick(this)'></div>";
+		if(day1!='')
 		{
-			x3.bgColor=color;
+		if(!day1.includes(day3))
+		{
+			x3.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-size:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day3+"' onClick='funOnClick(this)'></div>";
+			x3.style.transform='skew(-17deg)';
 			x3.title=toolTipText3;
 		}
+		}
+		else
+		{
+			if(day3!='')
+			{
+				x3.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day3+"' onClick='funOnClick(this)'></div>";
+				x3.style.transform='skew(-17deg)';
+				x3.title=toolTipText3;
+			}
+		}
+		
 		
 		var x4=row.insertCell(4);
-		x4.innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"width: 100%;color: white;\" value='"+day4+"' onClick='funOnClick(this)' >";
-		if(day4!='')
+		x4.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px; transform:skew(9deg);\" value='"+day4+"' onClick='funOnClick(this)' ></div>";
+		if(day1!='')
 		{
-			x4.bgColor=color;
+		if(!day1.includes(day4))
+		{
+			x4.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-size:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day4+"' onClick='funOnClick(this)'></div>";
+			x4.style.transform='skew(-17deg)';
 			x4.title=toolTipText4;
 		}
+		}
+		else
+		{
+			if(day4!='')
+			{
+				x4.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day4+"' onClick='funOnClick(this)'></div>";
+				x4.style.transform='skew(-17deg)';
+				x4.title=toolTipText4;
+			}
+		}
+		
 		
 		var x5=row.insertCell(5);
-		x5.innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"width: 100%;color: white;\" value='"+day5+"' onClick='funOnClick(this)' >";
-		if(day5!='')
+		x5.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px; transform:skew(9deg);\" value='"+day5+"' onClick='funOnClick(this)' ></div>";
+		if(day1!='')
 		{
-			x5.bgColor=color;
+		if(!day1.includes(day5))
+		{
+			x5.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width:font:size:0px; 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day5+"' onClick='funOnClick(this)'></div>";
+			x5.style.transform='skew(-17deg)';
 			x5.title=toolTipText5;
 		}
+		}
+		else
+		{
+			if(day5!='')
+			{
+				x5.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day5+"' onClick='funOnClick(this)'></div>";
+				x5.style.transform='skew(-17deg)';
+				x5.title=toolTipText5;
+			}
+		}
+		
+		
 		
 		var x6=row.insertCell(6);
-		x6.innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"width: 100%;color: white;\" value='"+day6+"' onClick='funOnClick(this)' >";
-		if(day6!='')
+		x6.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px; transform:skew(9deg);\" value='"+day6+"' onClick='funOnClick(this)'></div>";
+		if(day1!='')
 		{
-			x6.bgColor=color;
+		if(!day1.includes(day6))
+		{
+			x6.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-size:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day6+"' onClick='funOnClick(this)'></div>";
+			x6.style.transform='skew(-17deg)';
 			x6.title=toolTipText6;
 		}
-		
-		var x7=row.insertCell(7);
-		x7.innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"width: 100%;color: white;\" value='"+day7+"' onClick='funOnClick(this)' >";
-		if(day7!='')
+		}
+		else
 		{
-			x7.bgColor=color;
-			x7.title=toolTipText7;
+			if(day6!='')
+			{
+				x6.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day6+"' onClick='funOnClick(this)'></div>";
+				x6.style.transform='skew(-17deg)';
+				x6.title=toolTipText6;
+			}
+				
 		}
 		
+		
+		var x7=row.insertCell(7);
+		x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%; color:#fff;height: 20px; transform:skew(9deg); \" value='"+day7+"' onClick='funOnClick(this)' ></div>";
+		if(day1!='')
+		{
+		if(!day1.includes(day7))
+		{
+			x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-style:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day7+"' onClick='funOnClick(this)' ></div>";
+
+			x7.bgColor=color;
+			x7.style.transform='skew(-17deg)';
+			x7.title=toolTipText7;
+		}
+		}
+		else
+		{
+			if(day7!='')
+			{
+				x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day7+"' onClick='funOnClick(this)' ></div>";
+
+				x7.bgColor=color;
+				x7.style.transform='skew(-17deg)';
+				x7.title=toolTipText7;
+			}
+	
+		}
+	}
+	
+	//For One Day View
+	
+	function funFillRoomStatusRowsForOneDay(roomNo,day1,day2,day3,day4,day5,day6,day7,roomStatus,response)
+	{
+		var table=document.getElementById("tblRoomType");
+		var rowCount=table.rows.length;
+		var row=table.insertRow();
+		row.style.display='none';
+		response.dblRemainingAmt='Balance: '+response.dblRemainingAmt;
+		var color='';
+		
+		var toolTipText1="",toolTipText2="",toolTipText3="",toolTipText4="",toolTipText5="",toolTipText6="",toolTipText7="";
+		if(roomStatus=='Waiting')
+		{
+			color='linear-gradient(250.46deg, #ff94ed 0.67%, #9242fc 100%);';
+		}
+		else if(roomStatus=='RESERVATION')
+		{
+			color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
+		}
+		else if(roomStatus=='Occupied')
+		{
+			color='linear-gradient(250.46deg, #3ade5e 0%, #2ba56e 100%);';
+		}
+		else if(roomStatus=='Checked Out')
+		{
+			color='linear-gradient(250.46deg, #d5d5d5 0%, #9d9d9d 100%);';
+		}
+		else if(roomStatus=='Blocked')
+		{
+			color='linear-gradient(250.46deg, #94b9ff 0.67%, #4283fc 100%);';
+		}
+		else if(roomStatus=='Dirty')
+		{
+			color='linear-gradient(70.46deg, #e4a846 0%, #ffd58e 100%);';
+		}  
+	
+		if(day1==null)
+		{
+			day1='';
+		}
+		else
+		{
+			if(response.strReservationNo!=null)
+			{
+				
+				
+				
+					      day1+='                  ,'+response.strReservationNo;
+					  
+					      toolTipText1+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
+					     
+					      
+					      
+					      
+			}
+		}
+		
+	
+				
+		row.insertCell(0).innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \" style=\"text-align: center;width: 100%;\" value='"+roomNo+"' ></div>";
+
+	
+		
+		var x1=row.insertCell(1);
+		
+		
+			
+			if(day1==''){
+				x1.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\" ><input  readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;  \" value='' onClick='funOnClick(this)' ></div>";
+			}
+			else{
+				x1.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; \"><input  readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;  \" value='' onClick='funOnClick(this)' ></div>";
+			}
+		
+		
+		if(day1!='')
+		{ 
+			x1.style.transform='skew(-17deg)';
+			x1.title=toolTipText1;
+		}
+		
+		var x2=row.insertCell(2);
+		if(day1!='')
+		{
+		
+			x2.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px ;\" value='"+day1+"' onClick='funOnClick(this)' ></div>";
+			x2.style.transform='skew(-17deg)';
+			x2.title=toolTipText1;
+		
+		}
+		else
+		{
+			if(day1!='')
+			{
+				//x2.bgColor=color;
+				x2.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px; \" value='"+day1+"' onClick='funOnClick(this)' ></div>";
+				x2.style.transform='skew(-17deg)';
+				x2.title=toolTipText1;
+			}
+		}
+		
+		
+		
+		
+		var x3=row.insertCell(3);
+		if(day1!='')
+		{
+		
+			x3.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px; \" value='"+day1+"' onClick='funOnClick(this)'></div>";
+			x3.style.transform='skew(-17deg)';
+			x3.title=toolTipText1;
+		}
+		
+		else
+		{
+			if(day1!='')
+			{
+				x3.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px; \" value='"+day1+"' onClick='funOnClick(this)'></div>";
+				x3.style.transform='skew(-17deg)';
+				x3.title=toolTipText1;
+			}
+		}
+		
+		
+		var x4=row.insertCell(4);
+		if(day1!='')
+		{
+		x4.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;text-align:center; \" value='"+response.strSource+"' ></div>";
+		
+			x4.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;text-align:center; \" value='"+response.strSource+"'></div>";
+			x4.style.transform='skew(-17deg)';
+		}
+		
+	
+		
+		
+		var x5=row.insertCell(5);
+		if(day1!='')
+		{
+		if(!day1.includes(day5))
+		{
+			x5.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width:font:size:0px; 90%;height: 20px;text-align:center; \" value='"+response.dblPax+"' ></div>";
+			x5.style.transform='skew(-17deg)';
+		}
+		}
+		else
+		{
+			if(day1!='')
+			{
+				x5.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px; text-align:center;\" value='"+response.dblPax+"' ></div>";
+				x5.style.transform='skew(-17deg)';
+			}
+		}
+		
+		
+		
+		var x6=row.insertCell(6);
+		if(day1!='')
+		{
+		if(!day1.includes(day6))
+		{
+			x6.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; \"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;text-align:center; \" value='"+response.dblRoomRate+"'></div>";
+			x6.style.transform='skew(-17deg)';
+		}
+		}
+		else
+		{
+			if(day1!='')
+			{
+				x6.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; \"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;text-align:center; \" value='"+response.dblRoomRate+"' ></div>";
+				x6.style.transform='skew(-17deg)';
+			}
+				
+		}
+		
+		
+		var x7=row.insertCell(7);
+		if(day1!='')
+		{
+		if(!day1.includes(day7))
+		{
+			x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; \"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-style:0px; width: 90%;height: 20px;text-align:center;\" value='"+response.strSpclInstruction+"' ></div>";
+
+			x7.style.transform='skew(-17deg)';
+		}
+		}
+		else
+		{
+			if(day1!='')
+			{
+				x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; \"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;text-align:center; \" value='"+response.strSpclInstruction+"' ></div>";
+
+				x7.style.transform='skew(-17deg)';
+			}
+	
+		}
 	}
 	
 	var message = "";
@@ -678,32 +1117,57 @@ body {
 		resNo=resNo.split(',')[1].trim();
 		*/
 			
-		var color=$(obj).parent().css("backgroundColor");	
+		/* var color=$(obj).parent().css("backgroundColor");	 */
+		var color=$(obj).parent()[0].style.background;
 		var url='';
 		switch(color)
 		{
-			case 'rgb(255, 79, 83)'://RED-->CHECKED-IN-->OCCUPIED
+			case 'linear-gradient(250.46deg, rgb(58, 222, 94) 0%, rgb(43, 165, 110) 100%)'://RED-->CHECKED-IN-->OCCUPIED
 									  //code=obj.value;
-									  code=obj.defaultValue.split(",");
+									  code=obj.defaultValue.split(",");//rgb(255, 79, 83)
 									  var subStr = code[1];
-									  var isCheckOk=confirm("Do You Want to Checkout ?"); 
+									  gcode=code;
+									  showPopup(code);
+									  /* var isCheckOk=confirm("Do You Want to Checkout ?"); 
 										if(isCheckOk)
 										{
 									 	 url=getContextPath()+"/frmCheckOut1.html?docCode="+subStr
-									 	 window.open(url);
+									 	 window.open(url); 
+											showPopup(code);
 										}
+										else
+											{
+											isCheckOk =	confirm("Do you want to clean this room");
+											if(isCheckOk)
+												{
+												funOpenCleanPage(subStr,obj);
+												
+												}
+											} */
+									
 		   						  break;
-			case 'rgb(128, 128, 128)'://GREY-->CHECKED-OUT
+			case 'linear-gradient(250.46deg, rgb(213, 213, 213) 0%, rgb(157, 157, 157) 100%)'://GREY-->CHECKED-OUT
 									  
 			      code=obj.defaultValue.split(",");
 				  var subStr = code[1];
-				  url=getContextPath()+"/frmBillPrinting.html?docCode="+subStr
-				  window.open(url);
-									  
+				  
+				  var isCheckOk=confirm("Do You Want to go on Reopen ?"); 
+					if(isCheckOk){
+						url=getContextPath()+"/frmReOpenFolio.html?folioNo="+obj.defaultValue.split(',')[1];
+						 window.open(url);	
+					}
+					else
+					{
+						var isCheckOk=confirm("Do You Want to go on Print Bill ?"); 
+						if(isCheckOk){
+							url=getContextPath()+"/frmBillPrinting.html?docCode="+obj.defaultValue.split(',')[1];
+							 window.open(url);	
+						}
+					} 
 				  break;
 									  
 									  
-			case 'rgb(255, 255, 0)'://YELLOW-->WAITING
+			case 'linear-gradient(250.46deg, rgb(255, 162, 162) 0%, rgb(255, 91, 91) 100%)'://purple-->WAITING
 				  code=obj.defaultValue.split(",");
 				  var subStr = code[1];
 				  url=getContextPath()+"/frmCheckIn1.html?docCode="+subStr
@@ -712,7 +1176,7 @@ body {
 				  break;
 				  
 				  
-			case 'rgb(0, 128, 0)'://GREEN-->CONFIRM
+			case 'linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%)'://GREEN-->CONFIRM
 				 code=obj.defaultValue.split(",");
 				  var subStr = code[1];
 				  url=getContextPath()+"/frmCheckIn1.html?docCode="+subStr
@@ -720,14 +1184,14 @@ body {
 
 				  break;
 			
-			case 'rgba(0, 0, 0, 0)'://GREEN-->CONFIRM
+			case ''://GREEN-->CONFIRM
 				  code=obj.value;
 				  //code=code.split(',')[1].trim();
 				  // For Room Number
-				  var index=obj.parentNode.parentNode.rowIndex;
+				  var index=obj.parentNode.parentNode.parentNode.rowIndex;
 				  var table1=document.getElementById("tblRoomType");
 				  var indexData=table1.rows[index];
-				  var roomNo=indexData.cells[0].childNodes[0].defaultValue;
+				  var roomNo=indexData.cells[0].childNodes[0].childNodes[0].defaultValue;
 				  var count=indexData.cells[1].cellIndex;
 				  
 				  var table2=document.getElementById("tblDays");
@@ -735,12 +1199,12 @@ body {
 				 // var roomDate=table2.rows[0].cells[index-1].childNodes[0].defaultValue;
 				  
 				  
-				  if(obj.parentNode.cellIndex>1)
+				  if(obj.parentNode.parentNode.cellIndex>1)
 					  {
 					  var isCheckOk=confirm("Do You Want to go on Reservation ?"); 
 						if(isCheckOk)
 						{
-						  url=getContextPath()+"/frmReservation1.html?docCode="+code+"&roomNo="+roomNo;
+						  url=getContextPath()+"/frmReservation1.html?docCode="+code+"&roomNo="+roomNo+"&rootIndex="+obj.parentNode.parentNode.cellIndex;
 						  window.open(url);
 						}
 					  }
@@ -757,13 +1221,14 @@ body {
 
 				  break;
 				  
-			case 'rgb(255, 165, 0)'://Orange-->Dirty
-				  code=obj.defaultValue.split(",");
+			case 'linear-gradient(70.46deg, rgb(228, 168, 70) 0%, rgb(255, 213, 142) 100%)'://Orange-->Dirty
+				 code=obj.defaultValue.split(","); 
 				  var subStr = code[1];
 				  var isDirtyOk=confirm("Do You want to mark this room as Clean ?");
 				  if(isDirtyOk)
 					{		
-					  funCallRoomClean(subStr,obj);
+					  /* funCallRoomClean(subStr,obj); */
+					  funOpenCleanPage(subStr,obj);
 					  
 						//window.open(getContextPath() + "/cleanRoomStatus.html?checkInNo=" +nextFinalTemp);
 					}
@@ -863,14 +1328,14 @@ body {
 
 			var valueArr = value.split('/');
 			var inpKey = key;
-			row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 0px;width: 85%;height: 20px;\" value='"+key+"' onClick=\"funShowRoomStatusDtl1(this)\">";
-			row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 0px;width: 85%;text-align:center;margin-top: 4px;\" value='"+valueArr[1].replace("-", "/")+"' onClick=\"funShowRoomStatusDtl1(this)\">";
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 0px;width: 85%;text-align:center;margin-top: 4px;\" value='"+valueArr[2].replace("-", "/")+"' onClick=\"funShowRoomStatusDtl1(this)\">";
-			row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 0px;width: 85%;text-align:center;margin-top: 4px;\" value='"+valueArr[3].replace("-", "/")+"' onClick=\"funShowRoomStatusDtl1(this)\">";
-			row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 0px;width: 85%;text-align:center;margin-top: 4px;\" value='"+valueArr[4].replace("-", "/")+"' onClick=\"funShowRoomStatusDtl1(this)\">";
-			row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 0px;width: 85%;text-align:center;margin-top: 4px;\" value='"+valueArr[5].replace("-", "/")+"' onClick=\"funShowRoomStatusDtl1(this)\">";
-			row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 0px;width: 85%;text-align:center;margin-top: 4px;\" value='"+valueArr[6].replace("-", "/")+"' onClick=\"funShowRoomStatusDtl1(this)\">";
-			row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 0px;width: 85%;text-align:center;margin-top: 4px;\" value='"+valueArr[7].replace("-", "/")+"' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%; color:#4a4a4a; font-weight:550; font-size: 13px; width: 72%; \" value='"+key+"' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='"+valueArr[1].replace("-", "/")+"' onClick=\"funShowRoomStatusDtl1(this)\">";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='"+valueArr[2].replace("-", "/")+"' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"column-info\"  style=\"width: 88%;\" value='"+valueArr[3].replace("-", "/")+"' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='"+valueArr[4].replace("-", "/")+"' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='"+valueArr[5].replace("-", "/")+"' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='"+valueArr[6].replace("-", "/")+"' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='"+valueArr[7].replace("-", "/")+"' onClick=\"funShowRoomStatusDtl1(this)\">";
 
 		/* 	document.getElementById('btnView').style.visibility = 'hidden';
 			document.getElementById('btnReset').style.visibility = 'hidden'; */
@@ -878,180 +1343,410 @@ body {
 		//	funShowRoomStatusDtl(key);
 			//funShowRoomStatusDtl();
 		}
+		
+		//One Day
+		
+		function funFillROomTypeHeaderRowsHeaderRowsForOneDay(key,roomCnt)
+		{
+		
+			var table=document.getElementById("tblRoomType");
+			table.setAttribute("class", "table table-bordered");
+			var rowCount=table.rows.length;
+			var row=table.insertRow();
+			row.setAttribute("class", "header");
+			key=key+" ("+roomCnt+")";
+			//table.setAttribute("class","table table-bordered");
+
+			
+			var inpKey = key;
+			row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%; color:#4a4a4a; font-weight:550; font-size: 13px; width: 72%; \" value='"+key+"' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='' onClick=\"funShowRoomStatusDtl1(this)\">";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"column-info\"  style=\"width: 88%;\" value='' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='' onClick=\"funShowRoomStatusDtl1(this)\">";
+
+		/* 	document.getElementById('btnView').style.visibility = 'hidden';
+			document.getElementById('btnReset').style.visibility = 'hidden'; */
+			
+		//	funShowRoomStatusDtl(key);
+			//funShowRoomStatusDtl();
+		}
+		
+		function funOpenCleanPage(roomNo,obj)
+		{
+			var transactionName ;
+			  transactionName  = roomNo;
+			    var name = obj.defaultValue.split(",")[0];
+				window.open("frmCheckDirtyRoom.html?formname="+transactionName+"&objData="+name,"","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=200,height=200,left=400");
+				window.close;
+				
+		}
+		
+		
+		function funCheckAllDirty(code)
+		{
+			switch (fieldName)
+			{
+			case 'userDefinedReportCode':
+				if(response.name.includes("mywindow")){
+					funCallRoomClean(roomNo,obj);
+					var index=obj.parentNode.parentNode.rowIndex;
+					  var table1=document.getElementById("tblRoomType");
+					  var indexData=table1.rows[index];
+					  indexData.cells[1].bgColor='';
+					  obj.defaultValue='';
+					  alert('Room cleaned Successfully');
+					}
+			        break;
+				
+			}
+		}
+		 function showPopup(code) {
+		        
+			 $.ajax({
+					type : "GET",
+					  url: getContextPath()+ "/getInformation.html?code=" +code,
+					  dataType : "json",
+					  async:false,
+					  success: function(response) {
+					    
+						  var total = 0;
+						  $("#txtGuestName").text(response[0]);
+						  $("#txtCheckInDate").text(response[1]);
+						 /*  $("#txtCheckOutDate").text(response[0]); */
+						  $("#txtNumber").text(response[2]);
+						  $("#txtFolioNo").text(response[3]);
+						  $("#txtRoomNo").text(response[4]);
+						  $("#txtOneDayTariff").text(response[5]);
+						  $("#txtTaxAmt").text(response[6]);
+						  $("#txtNoOfNights").text(response[7]);
+						  $("#txtExtraBedCharges").text(response[8]);
+						  $("#txtHighSeasonFee").text(0);
+						  $("#txtCleaningFee").text(0); 
+						  $("#txtCheckOutDate").text(response[10]); 
+						  if(response[7]>0){
+							  total = (response[5]*response[7])+response[6]+response[8];
+						  }
+						  else
+							  {
+							 total = (response[5])+response[6]+response[8];
+							  }
+						 
+						  $("#txtTotal").text(total);
+						  funloadMemberPhoto(response[9]);
+					    
+					  },
+					  error: function(jqXHR, exception) {
+				            if (jqXHR.status === 0) {
+				                alert('Not connect.n Verify Network.');
+				            } else if (jqXHR.status == 404) {
+				                alert('Requested page not found. [404]');
+				            } else if (jqXHR.status == 500) {
+				                alert('Internal Server Error [500].');
+				            } else if (exception === 'parsererror') {
+			 	                alert('Requested JSON parse failed.');
+				            } else if (exception === 'timeout') {
+				                alert('Time out error.');
+				            } else if (exception === 'abort') {
+				                alert('Ajax request aborted.');
+				            } else {
+				                alert('Uncaught Error.n' + jqXHR.responseText);
+				            }		            
+				        }
+				
+				
+					});
+			 
+			 document.getElementById('popover').style.cssText = 'display: block';
+		      
+		      }
+		 function hidePopup() {
+		        document.getElementById('popover').style.cssText = 'display: none';
+		       /*  document.getElementsByClassName('accordian-data').style.cssText = 'display: none'; */
+		      }
+		 
+		 function funOpenRoomMaster()
+	      {
+				window.open("frmRoomMaster.html?","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1000,height=1000");
+				window.close;
+	      }
+		 function funUpdateTotal()
+		 {
+			 var rate = parseFloat($("#txtOneDayTariff").text());
+			 var taxes = parseFloat($("#txtTaxAmt").text());
+			 var noOfNights = parseFloat($("#txtNoOfNights").text());
+			 var highSeasonCharges = parseFloat($("#txtHighSeasonFee").val());
+			 var cleaningFee =  parseFloat($("#txtCleaningFee").val());
+			 var total = (rate*noOfNights)+taxes+ highSeasonCharges+cleaningFee;
+			 $("#txtTotal").text(total);
+		 
+		 }
+		 
+		 function funConfirmClicked()
+		 {
+			 var isCheckOk=confirm("Do You Want to Checkout ?"); 
+				if(isCheckOk)
+				{
+			 	 
+					var subStr =  $("#txtFolioNo").text();
+					url=getContextPath()+"/frmCheckOut1.html?docCode="+subStr
+			 	 	window.open(url); 
+					/* showPopup(code); */
+				}
+				else
+					{
+					isCheckOk =	confirm("Do you want to clean this room");
+					if(isCheckOk)
+						{
+						funOpenCleanPage(subStr,obj);
+						
+						}
+					}
+		 }
+		 
+		 
+		 
+		 function funloadMemberPhoto(code)
+			{
+			 	ggcode=code;
+			 	var searchUrl1=getContextPath()+"/loadGuestImage.html?guestCode="+code;
+				$("#memImage").attr('src', searchUrl1);
+				
+			}  
+
+		  
+		 function funShowImagePreview(input)
+		 {
+			 if (input.files && input.files[0])
+			 {
+				 var filerdr = new FileReader();
+				 filerdr.onload = function(e) 
+				 {
+				 	$('#memImage').attr('src', e.target.result);
+				 }
+				 filerdr.readAsDataURL(input.files[0]);
+				 uploadNeWImage();
+			 }
+		 } 
+		 
+		
+		 
+		 
+		  function funChangeImage() {		  
+			  //$("#memberImage").click();
+			  //window.open("frmGuestImageChange.html?guestCode="+ggcode+"&code="+gcode,"","dialogHeight:600px;dialogWidth:800px;top=500,left=500")
+			
+			  window.open("frmGuestImageChange.html?guestCode="+ggcode+"&code="+gcode,"","dialogHeight:600px;dialogWidth:800px;top=500,left=500")
+				//showPopup(gcode);	 
+			  hidePopup();
+			  
+			}
+		 
+		
 </script>
 
 
 </head>
 <body>
-
-	<div id="formHeading">
-		<label>Room Status Diary</label>
-	</div>
-
-	<br />
-	<br />
-<div style="float: right; margin-top: -40px;margin-bottom: 10px; margin-right: 40px;">
-			<table >
-				<tr>
-					<td bgcolor="#ff4f53" style="padding-left: 5px;padding-right: 5px;">Occupied</td>
-					<td></td>
-					<td></td>
-					<td bgcolor="Yellow" style="padding-left: 5px;padding-right: 5px;">Waiting</td>
-					<td></td>
-					<td></td>
-					<td bgcolor="Green" style="padding-left: 5px;padding-right: 5px;">Reservation</td>
-					<!-- <td></td>
-					<td bgcolor="Gray">Checked Out</td> -->
-					<td></td>
-					<td></td>
-					<td bgcolor=Olive style="padding-left: 5px;padding-right: 5px;">Blocked</td>
-					<td></td>
-					<td></td>
-					 <td bgcolor=Gray style="padding-left: 5px;padding-right: 5px;">Checked Out</td>
-					<td></td>
-					<td></td> 
-					<td bgcolor=Orange style="padding-left: 5px;padding-right: 5px;">Dirty</td>
-					<td></td>
-					<td></td>
-				</tr>
-			</table>
-		</div>
-	<s:form name="RoomStatusDiary" method="POST" action="saveRoomMaster.html">
-	
-		
-	
-		<div>
-			<table class="transTable">
-				<tr>
+	<div class="container-fluid">
+		<div class="title-row">
+         	<div class="title"><label id="formHeading">Room Status Diary</label></div>
+          		<div class="status-list ">
+           			 <ul>
+           			  <li>
+			              <div class="thumb waiting"></div>
+			              <div class="thumb-title">Waiting</div>
+			            </li>
+			            <li>
+			              <div class="thumb reservation"></div>
+			              <div class="thumb-title">Reservation</div>
+			            </li>
+			            <li>
+			              <div class="thumb occupied"></div>
+			              <div class="thumb-title">Occupied</div>
+			            </li>
+			            <li>
+			              <div class="thumb checked"></div>
+			              <div class="thumb-title">Checked Out</div>
+			            </li>
+			            <li>
+			              <div class="thumb blocked"></div>
+			              <div class="thumb-title">Blocked</div>
+			           	</li>
+			            <li>
+			              <div class="thumb dirty"></div>
+			              <div class="thumb-title">Dirty</div>
+			            </li>
+			          </ul>
+			       </div>
+			 </div>
+		<s:form name="RoomStatusDiary" method="GET" action="frmRoomStatusDiary.html">
+			<div class="app-calender"><!--  transTable -->
+				<div class="day-wrap transTable"> 
+		           <div class="date">
+		             <span class="date-switch">
+		             	 <s:input id="txtViewDate"  path="dteViewDate"  type="text" cssClass="calenderTextBox"/>
+		              </span>
+		              <%-- <tr>
 					<td><s:input colspan="1" type="text" id="txtViewDate"  path="dteViewDate" cssClass="calenderTextBox" /></td>
-				
-			
-					<%-- <td> <s:select id="cmbGuestPrefix" path="" cssClass="BoxW124px" onchange="funShowRoomStatusFlash();">
-					disabled="true"
-							<s:options items="${prefix}"/>
-				    	    </s:select></td>--%>
-					
-					
-				</tr>
-			</table> 
-
-		
-	
-		
-		
+				</tr> --%>
+		               <div class="icon-action">
+		                 	<span class="mdi mdi-eye" id="btnView" title="Seven Day View" onclick="funShowRoomStatusFlash();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
+		              </div>
+		              
+		              <div class="icon-action">
+		                 	<span class="mdi mdi-eye" id="btnView" title="One Day View" onclick="funShowRoomStatusFlashForOneDay();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
+		              </div>
+		            </div>
+		            <div class="date-actions">
+		              <div class="add-room">
+		                <i class="mdi mdi-plus " onclick="funOpenRoomMaster()"></i><span>Add Room</span>
+		              </div>
+		              <div class="icon-action">
+		                <span class="mdi mdi-magnify" onclick="hidePopup()"></span>
+		              </div>
+		            </div>
+		        </div>
+			</div>
 			<table id="tblDays" class="transTable" >
-				<!-- 
-				<tr>
-					<td width="70px">Room No</td>
-					<td width="100px">Mon  4 Apr 2016</td>
-					<td width="100px">Tue  5 Apr 2016</td>
-					<td width="100px">Wed  6 Apr 2016</td>
-					<td width="100px">Thur 7 Apr 2016</td>
-					<td width="100px">Fri  8 Apr 2016</td>
-					<td width="100px">Sat  9 Apr 2016</td>
-					<td width="100px">Sun  10 Apr 2016</td>
-				</tr>
-				 -->
+				
 			</table>
-			<br/>
-	
-			<table id="tblRoomType" style="margin-left: 25px;margin-right: 25px;" class="transTable" >
+			<table id="tblRoomType" style="width:100%;" class="transTable"  >
 		
-		</table>
-		
+			</table>
 			<br>
+			<table id="tblRoomInfo" class="transTable"> <!-- class="collapse show" --> 
 			
-			<table id="tblRoomInfo" class="transTable" class="collapse show" >
-			
-			<!-- 
-				<tr>
-					<td width="70px">1</td>
-					<td width="100px" bgcolor="red" bordercolor="black"><label id="lblCol2">Prashant R Ingale</label></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-				</tr>
-				
-				<tr>
-					<td width="70px">2</td>
-					<td width="100px"></td>
-					<td width="100px" bgcolor="green"><label id="lblCol3">DDDD WWW RRRR</label></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-				</tr>
-				
-				<tr>
-					<td width="70px">3</td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-				</tr>
-				
-				<tr>
-					<td width="50px">4</td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-				</tr>
-				
-				<tr>
-					<td width="50px">5</td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-					<td width="100px"></td>
-				</tr>
-				
-				 -->
-				
 			</table>
-			
-		</div>
 		
-	
-		<!-- <div style="margin-left: 20px;">
-		<b><label style="font-size: 12px; font-style: Bold;">Free Rooms:</label></b>
-		<input  value="0" type="text" id="freeRoomCnt" readonly="readonly" style="width: 40px;" />
-		<b><label style="font-size: 12px; font-style: Bold;">Occupied Rooms:</label></b>
-		<input value="0" type="text" id="occupiedRoomCnt" readonly="readonly" style="width: 40px;"/>
-		<b><label style="font-size: 12px; font-style: Bold;">Dirty Rooms:</label></b>
-		<input value="0" type="text" id="dirtyRoomCnt" readonly="readonly" style="width: 40px;"/>
-		<b><label style="font-size: 12px; font-style: Bold;">Reservation Rooms:</label></b>
-		<input value="0" type="text" id="reservedRoomCnt" readonly="readonly" style="width: 40px;"/>
-		<b><label style="font-size: 12px; font-style: Bold;">Blocked Rooms:</label></b>
-		<input value="0" type="text" id="blockedRoomCnt" readonly="readonly" style="width: 40px;"/>
-		<b><label style="font-size: 12px; font-style: Bold;">Waiting Rooms:</label></b>
-		<input value="0" type="text" id="waitingRoomCnt" readonly="readonly" style="width: 40px;"/> 
-		
-		
-	
-		
-		</div> -->
 		<br />
 		
-		 <p align="center">
+		 <!-- <p align="center">
 			<input type="button" value="View" id="btnView" tabindex="3" class="form_button" onclick="funShowRoomStatusFlash();"/>
 			<input type="reset" value="Reset" id="btnReset" class="form_button" onclick="funResetFields()"/>
 		</p>
-		<br><br>
+		<br><br> -->
+		
+		<!-- ///////////////////////////////////////////////////////////////////////////////////////// -->
+		 <div class="popup-details" id="popover">
+        <div class="popup-backdrop">
+          <div class="popup-data">
+            <div class="cust-info-wrap">
+              <div class="cust-name-img">
+                <div class="profile-image">
+            <%-- <img src="../${pageContext.request.contextPath}/resources/images/user.jpg" alt="user"> 
+             --%>    
+                
+      	
+            <img id="memImage" src="" width="170px" height="150px" alt="Member Image" onclick="funChangeImage()">
+               
+		
+		
 
+                
+                  <i class="mdi mdi-close close-icon" onclick="hidePopup()"></i>
+                </div>
+                <div class="display-name">
+                  <div class="name" id="txtGuestName"></div>
+                  <div class="room" id = "txtRoomNo"></div>
+                </div>
+                <div style="clear: both"></div>
+              </div>
+              <div class="info-tabs">
+                <ul>
+                  <li class="<!-- active -->"><a href="#">Checkout Details</a></li>
+                  <li><a href="#">Customer Details</a></li>
+                  <li><a href="#">Requests</a></li>
+                </ul>
+                <div class="checkout-tab-data">
+                  <div class="checkout-grid">
+                    <div class="grid-row">
+                        <div class="grid-data">
+                            <span class="mdi mdi-calendar picon"></span>
+                            <div class="data-info">
+                              <div class="attr">Check in Date </div>
+                              <div class="value" id="txtCheckInDate"></div>
+                            </div>
+                        </div>
+                        <div class="grid-data">
+                          <span class="mdi mdi-calendar-outline picon"></span>
+                          <div class="data-info">
+                            <div class="attr">Check out Date </div>
+                            <div class="value" id = "txtCheckOutDate"></div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="grid-row">
+                      <div class="grid-data">
+                        <span class="mdi mdi-file-document-edit-outline picon"></span>
+                        <div class="data-info">
+                          <div class="attr">Registration Number </div>
+                          <div class="value" id="txtNumber"></div>
+                        </div>
+                      </div>
+                      <div class="grid-data">
+                        <span class="mdi mdi-file-document-box-outline picon"></span>
+                        <div class="data-info">
+                          <div class="attr">Folio Number </div>
+                          <div class="value" id = "txtFolioNo"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="billing-wrap">
+                    <div class="heading">
+                      <div class="title">Receipt</div>
+                      <div class="action"><i class="mdi mdi-printer"></i> Receipt</div>
+                    </div>
+                    <div class="billing-details">
+                      <div class="distribution">
+                        <div class="bill-row">
+                          <div class="label">Basic Cost per night</div>
+                          <div class="cost" id="txtOneDayTariff"></div>
+                        </div>
+                        <div class="bill-row">
+                          <div class="label">No.Of Nights</div>
+                          <div class="cost" id="txtNoOfNights"></div>
+                        </div>
+                        <div class="bill-row">
+                          <div class="label">Tax Amt</div>
+                          <div class="cost" id="txtTaxAmt"></div>
+                        </div>
+                        <div class="bill-row">
+                          <div class="label" >Cleaning Fee</div>
+                          <!-- <div class="cost"id="txtCleaningFee"></div> -->
+                           &nbsp;&nbsp;<div class="cost" style="width:20%;"><input type="text" id= "txtCleaningFee" value="0" style="color:#4A4A4A;text-align:right; font-size:16px;" onchange="funUpdateTotal()"/></div>
+                        </div>
+                        <div class="bill-row">
+                          <div class="label">Extra Bed Charges</div>
+                          <!-- <div class="cost">
+                          <input type="text" id="txtHighSeasonFee" value="0" style="color:#4A4A4A;width:20%;text-align:right; font-size:16px;"/>
+                          </div> -->
+                          <!-- <div class="cost" style="width:20%;"><input type="text" id= "txtExtraBedCharges" readonly="readonly" value="0" style="color:#4A4A4A;text-align:right; font-size:16px;"onchange="funUpdateTotal()"/></div> -->
+                          <div class="label" id="txtExtraBedCharges"></div>
+                        </div>
+     <!--                    <div class="cost" style="width:20%;"><input type="text" value="Rs.870" style="color:#4A4A4A; font-size:16px;"/></div> -->
+                        
+                      </div>
+                      <div class="bill-total">
+                        <div class="label">Total</div>
+                        <div class="cost" id = "txtTotal"></div>
+                      </div>
+                      <div class="cnfm-action">
+                        <button id="btnConfirm" onclick="return funConfirmClicked()">Confirm Checkout</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
 		<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
 			<img
@@ -1060,5 +1755,6 @@ body {
 		</div>
 
 	</s:form>
+	</div>
 </body>
 </html>

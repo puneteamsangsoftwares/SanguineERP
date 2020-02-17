@@ -1,13 +1,19 @@
- <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Room Master</title>
-
-
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <script type="text/javascript">
 
 		/**
@@ -154,7 +160,18 @@
 					            return false;
 
 					        return true;
-					    }    
+					    } 
+					 
+					 
+					 $('#baseUrl').click(function() 
+				    			{  
+				    				 if($("#txtRoomTypeCode").val().trim()=="")
+				    				{
+				    					alert("Please Select Room Type..  ");
+				    					return false;
+				    				} 
+				    					window.open('attachDoc.html?transName=frmRoomTypeMaster.jsp&formName=Member Profile&code='+$('#txtRoomTypeCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+				    			});
 		
 	
 </script>
@@ -162,51 +179,35 @@
 
 </head>
 <body>
-	<div id="formHeading">
-		<label>RoomType Master</label>
-	</div>
-	
-	<s:form name="RoomType" method="GET" action="saveRoomTypeMaster.html?" >
-	
-		<table class="masterTable">
-          
-          <tr>
-				<th align="right" colspan="2"><a id="baseUrl"
+	<div class="container masterTable">
+		<label id="formHeading">Room Type Master</label>
+		<s:form name="RoomType" method="GET" action="saveRoomTypeMaster.html?" >
+	    <div class="row">
+				 <div class="col-md-12" align="center"><a id="baseUrl" style="margin-left: -30%; display:none"
 					href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
-						&nbsp;</th>
-			</tr>   
+						&nbsp;
+			     </div>   
              
-             
-             
-			<tr>
-			    <td><label>RoomType</label></td>
-				<td><s:input id="txtRoomTypeCode" path="strRoomTypeCode" cssClass="searchTextBox" ondblclick="funHelp('roomType')" /></td>				
-			</tr>
+            <div class="col-md-2"><label>Room Type</label>
+				 <s:input id="txtRoomTypeCode" path="strRoomTypeCode" style="height: 45%;" cssClass="searchTextBox" ondblclick="funHelp('roomType')" />			
+			</div>
 			
-			<tr>
-			    <td><label>RoomType Desc</label></td>
-				<td><s:input id="txtRoomTypeDesc" path="strRoomTypeDesc" cssClass="longTextBox" /></td>				
-			</tr>
+			<div class="col-md-2"><label>Room Type Desc</label>
+				<s:input id="txtRoomTypeDesc" path="strRoomTypeDesc"/>				
+			</div>
 			
-			<tr>
-			    <td><label>Room Tariff</label></td>
-				<td><s:input id="txtRoomTerrif" path="dblRoomTerrif" cssClass="longTextBox" style="text-align:right;" onkeypress="javascript:return isNumber(event)"/></td>				
-			</tr>
+			<div class="col-md-2"><label>Room Tariff</label>
+				<s:input id="txtRoomTerrif" path="dblRoomTerrif" style="text-align:right; width: 40%;" onkeypress="javascript:return isNumber(event)"/>				
+			</div>
 			
-			
-			
-		</table>
-		
-		
-		<br/>
+		</div>
 		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button"  onclick="return funCallFormAction('submit',this);"/>
-            <input type="reset" value="Reset" class="form_button" />
-             
-            
-		</p>
+		<p align="center" style="margin-right:32%">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button"  onclick="return funCallFormAction('submit',this);"/>
+            &nbsp;
+            <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />
+       </p>
 	</s:form>
-	
+	</div>
 </body>
 </html>

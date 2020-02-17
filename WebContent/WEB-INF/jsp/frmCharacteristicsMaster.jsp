@@ -1,11 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -59,6 +66,9 @@ function funSetData(Code)
 	          // we have the response
 	         document.getElementById("CharacteristicsCode").value=resp.strCharCode;
 	         document.getElementById("CharacteristicsName").value=resp.strCharName;
+	         document.getElementById("CharacteristicsDesc").value=resp.strCharDesc;
+	        // $("#CharacteristicsDesc").val(resp.strCharDesc); 
+	         
 	        },
 	        error: function(e){
 	        	document.getElementById("CharacteristicsCode").value=Code;
@@ -117,55 +127,42 @@ var message='';
 <title>Insert title here</title>
 </head>
 <body onload="onLoadFun();">
-<div id="formHeading">
-		<label>Characteristics Master</label>
-	</div>
-	<s:form name="characteristicsForm" method="POST" action="saveCharMaster.html?saddr=${urlHits}">
+   <div class="container masterTable">
+		<label id="formHeading">Characteristics Master</label>
+	  <s:form name="characteristicsForm" method="POST" action="saveCharMaster.html?saddr=${urlHits}">
 		
-		<br />
-		<br />
-		<table class="masterTable">
-			<tr>
-		        <th align="right" colspan="2"> <a id="baseUrl" href="#">Attach Documents</a>  &nbsp; &nbsp; &nbsp;
-						&nbsp;</th>
-		    </tr>
-			<tr>
-				<td width="150px"><s:label path="">Characteristics Code </s:label></td> 
-				<td><s:input path="strCharCode" id="CharacteristicsCode"  ondblclick="funHelp('characteristics')" cssClass="searchTextBox"/></td>
-			</tr>
-			<tr>
-				<td><s:label path="">Name </s:label></td> 
-				<td><s:input path="strCharName" id="CharacteristicsName" required="true"   cssClass="longTextBox"/></td>
-			</tr>
-			<tr>
-				<td><s:label path="">Type</s:label></td>
-				<td><s:select path="strCharType" cssClass="BoxW124px">
+		<!-- <a id="baseUrl" href="#">Attach Documents</a>  -->
+		<div class="row">
+			<div class="col-md-2"><s:label path="">Characteristics Code </s:label> 
+				<s:input path="strCharCode" id="CharacteristicsCode"  readonly="true" ondblclick="funHelp('characteristics')" cssClass="searchTextBox"/>
+			</div>
+		
+			<div class="col-md-3"><s:label path="">Name </s:label> 
+				 <s:input path="strCharName" id="CharacteristicsName" required="true"/>
+			</div>
+			<div class="col-md-7"></div>
+			
+			<div class="col-md-2"><s:label path="">Type</s:label>
+				   <s:select path="strCharType" style="width:auto;">
 					<s:option value="Text">Text</s:option>
 					<s:option value="Integer">Integer</s:option>
 					<s:option value="Decimal">Decimal</s:option>
 				</s:select>
-				</td>
-			</tr>
+			</div>
 
-			<tr>
-				<td><s:label path="">Description</s:label> </td>
-				<td><s:input path="strCharDesc" cssClass="longTextBox"/></td>
-
-			</tr>
-			<tr>
-				<td colspan="2"></td>
-			</tr>
-
-		</table>
+			<div class="col-md-3"><s:label path="">Description</s:label>
+				   <s:input id="CharacteristicsDesc" path="strCharDesc"/>
+            </div>
+		</div>
+	
+         <br />
 		
-<br /><br />
-		
-		<p align="center">
-			<input type="submit" value="Submit"  class="form_button"
-				onclick="return funCallFormAction()" /> 
-				<input type="reset"
-				value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right: 32%;">
+			<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction()" /> 
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 	</s:form>
+	</div>
 </body>
 </html>

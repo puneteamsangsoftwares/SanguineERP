@@ -5,13 +5,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
-	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
-	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
-	<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
-        <!-- Load data to paginate -->
-	<link rel="stylesheet" href="<spring:url value="/resources/css/pagination.css"/>" />
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
+		<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
+	        <!-- Load data to paginate -->
+		<link rel="stylesheet" href="<spring:url value="/resources/css/pagination.css"/>" />
+		
 	<script type="text/javascript">
 // var ExportData;
     /**
@@ -96,27 +106,15 @@
 	$(document).ready(function() 
 		{
 			var startDate="${startDate}";
+			var startDateOfMonth="${startDateOfMonth}";
 			var arr = startDate.split("/");
 			Dat=arr[0]+"-"+arr[1]+"-"+arr[2];		
 			$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
-			$("#txtFromDate").datepicker('setDate',Dat);			
+			$("#txtFromDate").datepicker('setDate',startDateOfMonth);			
 			$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtToDate").datepicker('setDate', 'today');
 			$("#cmbLocation").val("${locationCode}");
-			$("#btnExecute").click(function( event )
-			{
-				var fromDate=$("#txtFromDate").val();
-				var toDate=$("#txtToDate").val();
-				
-				if($("#cmbReportType").val()=='Detail')
-				{
-					funCalculateStockAdjFlashForDetail();
-				}
-				else
-				{
-					funCalculateStockAdjFlashForSummary();
-				}
-			});
+			
 			
 			/**
 			 * Ready Function for Ajax Waiting and reset form
@@ -138,7 +136,7 @@
 		    if($("#cmbReportType").val()=='Detail')
 		    	{
 		    	
-			    	newcontent = '<table id="tblStockAdjFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">SA No.</td><td id="labld2">Date</td><td id="labld3">Reason Name</td><td>Location Name</td><td id="labld4">Product Name</td><td id="labld5">UOM</td><td id="labld6">Qty</td><td>Rate</td><td>Price</td><td>Remark</td><td id="labld7">User Created</td></tr>';
+			    	newcontent = '<table id="tblStockAdjFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">SA No.</td><td id="labld2">Date</td><td id="labld3">Reason Name</td><td>Location Name</td><td id="labld4">Product Name</td><td id="labld5">UOM</td><td id="labld6">Qty</td><td>Rate</td><td>Price</td><td>Remark</td><td id="labld7">User Created</td></tr>';
 			    	// Iterate through a selection of the content and build an HTML string
 				    for(var i=page_index*items_per_page;i<max_elem;i++)
 				    {
@@ -161,7 +159,7 @@
 		    else
 		    	{
 
-			    	newcontent = '<table id="tblStockAdjFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labls1">SA No.</td><td id="labls2">Date</td><td id="labls3">Reason Name</td><td>Location Name</td><td id="labls4">Value</td><td id="labls5">Narration</td><td id="labls6">User Created</td></tr>';
+			    	newcontent = '<table id="tblStockAdjFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labls1">SA No.</td><td id="labls2">Date</td><td id="labls3">Reason Name</td><td>Location Name</td><td id="labls4">Value</td><td id="labls5">Narration</td><td id="labls6">User Created</td></tr>';
 					   
 				    // Iterate through a selection of the content and build an HTML string
 				    for(var i=page_index*items_per_page;i<max_elem;i++)
@@ -309,93 +307,94 @@
 			  window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#Searchresult').html()));
 			});
 		 }); 
+		 
+		 function funOnClick()
+		 {
+			 var fromDate=$("#txtFromDate").val();
+				var toDate=$("#txtToDate").val();
+				
+				if($("#cmbReportType").val()=='Detail')
+				{
+					funCalculateStockAdjFlashForDetail();
+				}
+				else
+				{
+					funCalculateStockAdjFlashForSummary();
+				}
+			 return false;
+		 }
+		 
 	</script>
 </head>
 <body>
-<div id="formHeading">
-		<label>Stock Adjustment Flash</label>
-	</div>
-	<s:form action="frmStockAdjustmentFlash.html" method="GET" name="frmStkAdjFlash">
-		<br>
-	
-			<table class="transTable">
-			<tr><th colspan="7"></th></tr>
-				<tr>
-					<td width="8%">Property Name</td>
-					<td width="15%">
-						<s:select id="cmbProperty" name="propCode" path="strPropertyCode" cssClass="longTextBox" cssStyle="width:80%" onchange="funChangeLocationCombo();">
-			    			<s:options items="${listProperty}"/>
-			    		</s:select>
-					</td>
-						
-					<td width="5%"><label>Location</label></td>
-					<td width="20%">
-						<s:select id="cmbLocation" name="locCode" path="strLocationCode" cssClass="longTextBox" cssStyle="width:100%;" >
-			    			<s:options items="${listLocation}"/>
-			    		</s:select>
-					</td>
-					<td width="8%"><label>Reason Code</label></td>
-					<td width="20%">
-						<s:select id="cmbReason" name="resCode" path="strReasonCode" cssClass="longTextBox" cssStyle="width:100%;" >
-			    			<s:options items="${listReason}"/>
-			    		</s:select>
-					</td>
-				</tr>
-					
-				<tr>
-				    <td><label id="lblFromDate">From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dteFromDate"></s:errors>
-			        </td>
-				        
-			        <td><label id="lblToDate">To Date</label></td>
-			        <td>
-			            <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dteToDate"></s:errors>
-			        </td>
-			        
-			        <td width="5%"><label>Adjustment Type</label></td>
-			        <td width="20%">
-			        <s:select id="cmbAdjustmentType" name="adjustmentType" path="strAdjustmentType" cssClass="longTextBox" cssStyle="width:100%;" >
+<div class="container">
+		<label id="formHeading">Stock Adjustment Flash</label>
+		<s:form action="frmStockAdjustmentFlash.html" method="GET" name="frmStkAdjFlash">
+		<div class="row transTable">
+			<div class="col-md-2">	
+				<label>Property Name</label>
+					<s:select id="cmbProperty" name="propCode" path="strPropertyCode"  onchange="funChangeLocationCombo();">
+			    		<s:options items="${listProperty}"/>
+			    	</s:select>
+				</div>	
+				<div class="col-md-2">			
+					<label>Location</label>
+					<s:select id="cmbLocation" name="locCode" path="strLocationCode">
+			    		<s:options items="${listLocation}"/>
+			    	</s:select>
+				</div>
+				<div class="col-md-2">	
+					<label>Reason Code</label>
+					<s:select id="cmbReason" name="resCode" path="strReasonCode">
+			    		<s:options items="${listReason}"/>
+			    	</s:select>
+				</div>
+				<div class="col-md-6"></div>
+				<div class="col-md-2">
+					<label id="lblFromDate">From Date</label>
+			     	<s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox" style="width:80%;"/>
+			        <s:errors path="dteFromDate"></s:errors>
+			     </div> 
+			     <div class="col-md-2"> 
+				     <label id="lblToDate">To Date</label>
+			   	 	<s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox" style="width:80%;"/>
+			        <s:errors path="dteToDate"></s:errors>
+			     </div> 
+			     <div class="col-md-2">  
+			        <label>Adjustment Type</label>
+			       	<s:select id="cmbAdjustmentType" name="adjustmentType" path="strAdjustmentType">
 			    		<option value="All">ALL</option>
 						<option value="Physical Stock Posting">Physical Stock Posting</option>
 						<option value="POS Sale Data">POS Sale Data</option>
 			    	</s:select>
-			        </td>
-			        
-			        <td>
-			        </td>
-				</tr>
-						
-				<tr>
-					<td>Report Type</td>
-					<td colspan="6">
-						<s:select path="strReportType" id="cmbReportType" cssClass="BoxW124px">
+			      </div>
+			      	<div class="col-md-6"></div>
+			      <div class="col-md-2"> 
+					<label>Report Type</label>
+					<s:select path="strReportType" id="cmbReportType">
 						<option value="Summary">Summary</option>
 						<option value="Detail">Detail</option>
-							
-						</s:select>	
-						
-						<input id="btnExecute" type="button" class="form_button1" value="EXECUTE"/>
-					<s:select path="strExportType" id="cmbExportType"  cssClass="BoxW124px">
+					</s:select>	
+				  </div>
+				  <div class="col-md-2"> 
+					 <s:select path="strExportType" id="cmbExportType" style="margin-top:26px; width:80%;">
 							<option value="Excel">Excel</option>
-						</s:select>					
-						<input id="btnExport" type="button" value="EXPORT"  class="form_button1"/>
-					</td>
-					
-					
-				</tr>
-			</table>
+						</s:select>	
+				  </div>
+			</div>
+			<div class="center" style="margin-right:55%">
+				<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="EXECUTE" onclick="return funOnClick()">Execute</button></a>
+				<a href="#"><button class="btn btn-primary center-block" id="btnExport"  value="EXPORT">Export</button></a>
+			</div>
 			
-			<br><br>
+			<br>
 			<dl id="Searchresult" style="padding-left: 26px;overflow:auto;width: 95%"></dl>
-		<div id="Pagination" class="pagination" style="padding-left: 26px;"></div>
-		
-		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
-				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+			<div id="Pagination" class="pagination" style="padding-left: 26px;"></div>
+			
+			<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
+					<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 	</s:form>
-	
+</div>	
 </body>
 </html>

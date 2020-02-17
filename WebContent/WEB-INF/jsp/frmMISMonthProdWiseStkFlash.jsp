@@ -5,7 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
@@ -25,9 +34,10 @@
 			//funFillLocationCombo(propCode);
 			
 			var startDate="${startDate}";
+			var startDateOfMonth="${startDateOfMonth}";
 			var arr = startDate.split("/");
 			Dat=arr[0]+"-"+arr[1]+"-"+arr[2];
-			$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
+			$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' }); 
 			$("#txtFromDate").datepicker('setDate','today');
 			$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtToDate").datepicker('setDate', 'today');
@@ -90,7 +100,7 @@
 			            }		            
 			        }
 			      });
- 			
+ 			return false;
  		}
  		
  		function funExport()
@@ -103,7 +113,7 @@
 			var exportType=$("#cmbExportType").val();
  			
 			window.open(getContextPath()+"/showMISFlashExport.html?fDate="+fromDate+"&tDate="+toDate+"&propCode="+propCode+"&locCode="+locCode+"&exportType="+exportType,'_blank');
-	
+			return false;
  		}
  		
 	 	function showTable()
@@ -141,7 +151,7 @@
     				currValue=1;
     			}	
 		  		    	
-			   	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;">';
+			   	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;background: #fbfafa">';
 			   	// Iterate through a selection of the content and build an HTML string
 			  
 			    	 newcontent += '<tr>';
@@ -150,14 +160,14 @@
 			    
 			     if(j==0)
     			 { 
-			    	 newcontent += '<td align="left" size=\"9%\" >'+StkFlashDataHeader[j]+'</td>';
-			    	 newcontent += '<td align="center"></td>';
+			    	 newcontent += '<td align="left" size=\"9%\" style=\"background:#c0c0c0;padding-left:7px;\">'+StkFlashDataHeader[j]+'</td>';
+			    	 newcontent += '<td align="right" style=\"background:#c0c0c0;\"></td>';
     			 }else{
-			     newcontent += '<td align="center">'+StkFlashDataHeader[j]+'</td>';
+			     newcontent += '<td align="right" style=\"background:#c0c0c0;\">'+StkFlashDataHeader[j]+'</td>';
 			 }
 			 }
-			 newcontent += '<td align="center">Total</td>';
-			 newcontent += '<td align="center">Total Amount</td>';
+			 newcontent += '<td align="right" style=\"background:#c0c0c0;\">Total</td>';
+			 newcontent += '<td align="right" style=\"background:#c0c0c0; padding-right:7px;\">Total Amount</td>';
 			    newcontent += '</tr>';
 			   
 			   	
@@ -171,12 +181,12 @@
 			     {
 			    	 if(cnt==1)
 			    	  {
-			    		 newcontent += '<td align="left" size=\"9%\" >'+data[cnt]+'</td>'; 
+			    		 newcontent += '<td align="left" size=\"9%\" style="padding-left:7px;">'+data[cnt]+'</td>'; 
 			    		 }else{
 			    			 if(cnt==2)
 			     		newcontent += '<td align="center">'+data[cnt]+'</td>';
 			     		else{
-			     			newcontent += '<td align="right">'+data[cnt]+'</td>';
+			     			newcontent += '<td align="right" style="padding-right:7px;">'+data[cnt]+'</td>';
 			     			
 			     		}
 			         }
@@ -191,75 +201,63 @@
 
  		</script>
 <body onload="funOnLoad();">
-<div id="formHeading">
-		<label>MIS Flash</label>
-	</div>
+<div class="container">
+	<label id="formHeading">MIS Flash</label>
 	<s:form action="frmStockFlashReport.html" method="GET" name="frmStkFlash" target="_blank">
-		<br>
-	
-			<table class="transTable">
-			<tr><th colspan="10"></th></tr>
-				<tr>
-					<td width="10%">Property Code</td>
-					<td width="20%">
-						<s:select id="cmbProperty" name="propCode" path="strPropertyCode" cssClass="longTextBox" cssStyle="width:100%" onchange="funChangeLocationCombo();">
-			    			<s:options items="${listProperty}"/>
-			    		</s:select>
-					</td>
-						
-					<td width="5%"><label>Location</label></td>
-					<td>
-						<s:select id="cmbLocation" name="locCode" path="strLocationCode" cssClass="longTextBox" cssStyle="width:180px;" >
-			    			<s:options items="${listLocation}"/>
-			    		</s:select>
-					</td>
-					
-				</tr>
-				
-				<tr>
-				    <td><label id="lblFromDate">From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dteFromDate"></s:errors>
-			        </td>
-				        
-			        <td><label id="lblToDate">To Date</label></td>
-			        <td>
-			            <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dteToDate"></s:errors>
-			        </td>
-			   </tr>
-			   <tr>
-			   		<td><label id="lblExportType">Export Type</label></td>
-			        <td colspan="3">
-			        	<select id="cmbExportType" class="longTextBox" style="width:80px;">
-			        		<option>Excel</option>
-			        		<option>Pdf</option>
-			        	</select>
-			        </td>
-			   </tr>
-			   <tr>
-					<td><input id="btnExecute" type="button" class="form_button1" value="EXECUTE" onclick="funShowMISFlash()" /></td>
-					<td><input id="btnExport" type="button" class="form_button1" value="EXPORT" onclick="funExport()" /></td>
-					<td colspan="4"></td> 
-				</tr>
-				</table>
-					<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label>Property Code</label>
+				<s:select id="cmbProperty" name="propCode" path="strPropertyCode"  onchange="funChangeLocationCombo();">
+			    	<s:options items="${listProperty}"/>
+			    </s:select>
+			 </div>
+			 <div class="col-md-2">			
+				<label>Location</label>
+				<s:select id="cmbLocation" name="locCode" path="strLocationCode" >
+			    	<s:options items="${listLocation}"/>
+			    </s:select>
+			 </div>
+			 <div class="col-md-8"></div>
+			 <div class="col-md-2">
+				<label id="lblFromDate">From Date</label>
+			    <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
+			    <s:errors path="dteFromDate"></s:errors>
+			 </div>
+			  <div class="col-md-2">        
+			     <label id="lblToDate">To Date</label>
+			     <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
+			     <s:errors path="dteToDate"></s:errors>
+			  </div>
+			  <div class="col-md-2">   			 
+			   	<label id="lblExportType">Export Type</label>
+			     <select id="cmbExportType"  style="width:80px;">
+			        <option>Excel</option>
+			        <option>Pdf</option>
+			      </select>
+			  </div>
+		</div>
+		<div class="center" style="margin-right: 61%;">
+			<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return funShowMISFlash()"
+				class="form_button">Execute</button></a>
+			<a href="#"><button class="btn btn-primary center-block" id="btnExport" value="Export" onclick="return funExport()"
+				class="form_button">Export</button></a>
+		</div>
+		<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
 		<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
 		
 		</div>
 		<div id="divValueTotal">
-		<table id="tblTotalFlash" class="transTablex" style="width: 95%;font-size:11px;font-weight: bold;">
-		<tr style="margin-left: 28px">
-		
-			<td width="10%" align="right"></td>
-			</tr>
-		</table>
+			<table id="tblTotalFlash" class="transTablex" style="width: 95%;font-size:11px;font-weight: bold;">
+				<tr style="margin-left: 28px">
+					<td width="10%" align="right"></td>
+				</tr>
+			</table>
 		</div>
 		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
-				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
-			</div>
+			<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+		</div>
+				
 	</s:form>
-	
+</div>	
 </body>
 </html>

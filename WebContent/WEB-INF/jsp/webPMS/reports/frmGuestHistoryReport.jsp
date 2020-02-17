@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -13,6 +15,13 @@
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Guest Report</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+    
 </head>
 
 <script type="text/javascript">
@@ -74,7 +83,7 @@ function pageselectCallback(page_index, jq)
     var newcontent="";
 	
     		    	
-	   	newcontent = '<table id="tblGuestHistory" class="transTablex" style="width: 100%;font-width:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" width="12%">Guest Name</td><td id="labld2" width="7%"> Bill No</td><td id="labld3" width="7%"> Type</td>	<td id="labld4" width="8%">Check In Date</td><td id="labld5"  width="8%"> Check Out Date</td><td id="labld6" width="5%"> Room No</td><td id="labld7" width="2%">Extra Bed</td><td id="labld7" width="2%">No of Days Stayed</td><td id="labld7" width="2%">No Of Adults</td><td id="labld7" width="2%">No Of Child</td><td id="labld8" width="7%"> Bill Amt</td><td id="labld9" width="5%">Payment Type</td></tr>';
+	   	newcontent = '<table id="tblGuestHistory" class="transTablex" style="width: 100%;font-width:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" width="12%">Guest Name</td><td id="labld2" width="7%"> Bill No</td><td id="labld3" width="7%"> Type</td>	<td id="labld4" width="8%">Check In Date</td><td id="labld5"  width="8%"> Check Out Date</td><td id="labld6" width="5%"> Room No</td><td id="labld7" width="2%">Extra Bed</td><td id="labld7" width="2%">No of Days Stayed</td><td id="labld7" width="2%">No Of Adults</td><td id="labld7" width="2%">No Of Child</td><td id="labld8" width="7%"> Bill Amt</td><td id="labld9" width="5%">Payment Type</td></tr>';
 	   	// Iterate through a selection of the content and build an HTML string
 	    for(var i=page_index*items_per_page;i<max_elem;i++)
 	    {
@@ -209,44 +218,35 @@ function funExecuteReport()
 </script>
 
 <body>
-	<div id="formHeading">
-		<label>Guest History Report </label>
-	</div>
-			<br/>
-			<br/>
-			<br/>
-	<s:form name="GuestReport" method="GET" action="rptGuestHistoryReport.html" target="_blank"> 
-	
-
-		<table class="transTable">
-			<tr>
-				<td><label> Guest Code</label></td>
-				<td><input id="txtGuestCode" path="strGuestCode" ondblclick="funHelp('guestCode');" class="searchTextBox" />
-				 <td colspan="2"></td>
-			</tr>
-				
-			<tr>
-				<td><label>From Date</label></td>
-				<td><s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" /></td>
-				<td><label>To Date</label></td>
-				<td><s:input type="text" id="dteToDate" path="dteTodate" required="true" class="calenderTextBox" /></td>	
+	<div class="container transTable">
+	<label id="formHeading">Guest History Report </label>
+	   <s:form name="GuestReport" method="GET" action="rptGuestHistoryReport.html" target="_blank"> 
+	    <div class="row">
+            
+				<div class="col-md-2"><label> Guest Code</label>
+				            <input id="txtGuestCode" path="strGuestCode" ondblclick="funHelp('guestCode');" class="searchTextBox" />
+			    </div>
+			    <div class="col-md-10"></div>
+				<div class="col-md-3">
+			    	<div class="row">      
+			    		<div class="col-md-6"><label>From Date</label>
+				             <s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" />
+				        </div>
+				        <div class="col-md-6"><label>To Date</label>
+				             <s:input type="text" id="dteToDate" path="dteTodate" required="true" class="calenderTextBox" />
+				        </div>	
+			        </div>
+			    </div>
+			
+			</div>
+			<br>	
+			<p align="center" style="margin-right:68%">
+			    <input type="button" value="EXECUTE" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick=" funExecuteReport()" />
+				&nbsp;
+				<input type="button" value="EXPORT" class="btn btn-primary center-block" class="form_button" onclick="funExportData();" /> 
+			</p>
 					
-			</tr>
-			<tr>
-			<td colspan="4"></td>
-			</tr>
-			<tr>
-			<td colspan="3">
-				</td>	
-				<td><input type="button" value="EXECUTE" tabindex="3" class="form_button" onclick=" funExecuteReport()" />
-				&nbsp; &nbsp; &nbsp; 
-				 <input type="button" value="EXPORT"
-					class="form_button" onclick="funExportData();" /> 
-				</td>
-			</tr>
-						
-			</table>
-			<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
+			<dl id="Searchresult" style="width: 95%;overflow:auto;"></dl>
 			<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
 			
 			</div>
@@ -257,9 +257,7 @@ function funExecuteReport()
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 			<%-- <s:input type="hidden" id="hidData" path="strSelectBill" ></s:input> --%>
-			</s:form>
-			
-			
-
+	   </s:form>
+    </div>
 </body>
 </html>

@@ -20,12 +20,12 @@ public class clsIncomeHeadMasterDaoImpl implements clsIncomeHeadMasterDao {
 	@Autowired
 	private SessionFactory webPMSSessionFactory;
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false,value="WebPMSTransactionManager")
 	public void funAddUpdateIncomeHeadMaster(clsIncomeHeadMasterModel objIncomeMasterModel) {
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objIncomeMasterModel);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false,value="WebPMSTransactionManager")
 	@Override
 	public List funGetIncomeHeadMaster(String incomeCode, String clientCode) {
 

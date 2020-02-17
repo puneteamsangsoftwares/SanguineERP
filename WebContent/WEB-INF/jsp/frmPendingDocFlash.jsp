@@ -5,6 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 	<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
 	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
@@ -20,67 +30,7 @@
 		 */
 		$(document).ready(function() 
 		{
-			var startDate="${startDate}";
-			var arr = startDate.split("/");
-			Dat=arr[0]+"-"+arr[1]+"-"+arr[2];
-			$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
-			$("#txtFromDate").datepicker('setDate',Dat);
-			$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
-			$("#txtToDate").datepicker('setDate', 'today');
-			$("#cmbLocation").val("${locationCode}");
 			
-			$("#btnExecute").click(function( event )
-			{
-				var fromDate=$("#txtFromDate").val();
-				var toDate=$("#txtToDate").val();
-				var reportType=$("#cmbReportType").val();
-				var formName=$("#cmbFormName").val();
-				
-				if(formName=='frmPurchaseOrder')
-				{
-					if(reportType=='Summary')
-					{
-						funGetPODataForSummary();
-					}
-					else
-					{
-						funGetPODataForDetail();
-					}
-				}
-				else if(formName=='frmPurchaseIndent')
-				{
-					if(reportType=='Summary')
-					{
-						funGetPIDataForSummary();
-					}
-					else
-					{
-						funGetPIDataForDetail();
-					}
-				}
-				else if(formName=="frmMaterialReq")
-				{
-					if(reportType=='Summary')
-					{
-						funGetMatReqDataForSummary();
-					}
-					else
-					{
-						funGetMatReqDataForDetail();
-					}
-				}
-				else if(formName=="frmSalesOrder")
-				{
-					if(reportType=='Summary')
-					{
-						funGetSODataForSummary();
-					}
-					else
-					{
-						funGetSODataForDetail();
-					}
-				}
-			});
 		});
 		
 			/**
@@ -95,8 +45,11 @@
 					$("#lblLocation1").text("Location By");
 					$("#lblLocation2").text("Location On");
 					$('#lblLocation2').css('visibility','visible');
+					$('#lblLocOn').css('visibility','visible');
 					$('#tdLocation2').css('visibility','visible');
+					$('#txtLocOn').css('visibility','visible');
 					$('#lblSuppCode').css('visibility','hidden');
+					$('#txtSuppName').css('visibility','hidden');
 					$('#tdPOStatus').css('visibility','hidden');
 					funLoadLocation1('frmMaterialReq');
 					funLoadLocation2('frmMaterialReq');
@@ -106,17 +59,23 @@
 					$("#lblSupp").text("Supplier");
 					$("#lblLocation1").text("Location");
 					$('#lblSuppCode').css('visibility','visible');
+					$('#txtSuppName').css('visibility','visible');
 					$('#tdPOStatus').css('visibility','visible');
 					$('#tdLocation2').css('visibility','hidden');
 					$('#lblLocation2').css('visibility','hidden');
+					$('#lblLocOn').css('visibility','hidden');
+					$('#txtLocOn').css('visibility','hidden');
 					funLoadLocation1(cmbValue);
 				}
 				else if(cmbValue=="frmPurchaseIndent")
 				{
 					$("#lblLocation1").text("Location");
 					$('#lblLocation2').css('visibility','hidden');
+					$('#lblLocOn').css('visibility','hidden');
+					$('#txtLocOn').css('visibility','hidden');
 					$('#tdLocation2').css('visibility','hidden');
 					$('#lblSuppCode').css('visibility','visible');
+					$('#txtSuppName').css('visibility','visible');
 					$('#tdPOStatus').css('visibility','visible');
 					/* $('#lblSuppCode').css('visibility','hidden');
 					$('#tdPOStatus').css('visibility','hidden'); */
@@ -127,9 +86,12 @@
 					$("#lblSupp").text("Customer");
 					$("#lblLocation1").text("Location");
 					$('#lblSuppCode').css('visibility','visible');
+					$('#txtSuppName').css('visibility','visible');
 					$('#tdPOStatus').css('visibility','visible');
 					$('#tdLocation2').css('visibility','hidden');
+					$('#txtLocOn').css('visibility','hidden');
 					$('#lblLocation2').css('visibility','hidden');
+					$('#lblLocOn').css('visibility','hidden');
 					funLoadLocation1(cmbValue);
 				}
 		}
@@ -789,20 +751,7 @@
 		{
 			$("#btnExport").click(function (e)
 			{
-				var formName=$("#cmbFormName").val();
-				var fromDate=$("#txtFromDate").val();
-				var toDate=$("#txtToDate").val();
-				var locCode=$("#txtLocBy").val();
-				var reportType=$("#cmbReportType").val();
-				locCode=locCode+'!'+$("#txtLocOn").val();
-				var strSuppCode=$("#txtSuppCode").val();
-				if(strSuppCode.trim().length==0)
-				{
-					strSuppCode="ALL";
-				}
-				strPOStatus=$("#cmbPOStatus").val(); 
-				var param1=formName+","+locCode+","+reportType+","+strSuppCode+","+strPOStatus;
-				window.location.href=getContextPath()+"/exportDataForPendingDoc.html?param="+param1+"&fDate="+fromDate+"&tDate="+toDate;
+				
 			});
 		});
 		 
@@ -1283,90 +1232,162 @@
 			row.insertCell(20).innerHTML= "<label>"+authorise+"</label>";
 			row.insertCell(21).innerHTML= "<label>"+authoriseLevel+"</label>";
 		}
+		function funOnExecute()
+		{
+			var startDate="${startDate}";
+			var startDateOfMonth="${startDateOfMonth}";
 
+			var arr = startDate.split("/");
+			Dat=arr[0]+"-"+arr[1]+"-"+arr[2];
+			$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
+			$("#txtFromDate").datepicker('setDate',startDateOfMonth);
+			$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
+			$("#txtToDate").datepicker('setDate', 'today');
+			$("#cmbLocation").val("${locationCode}");
+			
+				var fromDate=$("#txtFromDate").val();
+				var toDate=$("#txtToDate").val();
+				var reportType=$("#cmbReportType").val();
+				var formName=$("#cmbFormName").val();
+				
+				if(formName=='frmPurchaseOrder')
+				{
+					if(reportType=='Summary')
+					{
+						funGetPODataForSummary();
+					}
+					else
+					{
+						funGetPODataForDetail();
+					}
+				}
+				else if(formName=='frmPurchaseIndent')
+				{
+					if(reportType=='Summary')
+					{
+						funGetPIDataForSummary();
+					}
+					else
+					{
+						funGetPIDataForDetail();
+					}
+				}
+				else if(formName=="frmMaterialReq")
+				{
+					if(reportType=='Summary')
+					{
+						funGetMatReqDataForSummary();
+					}
+					else
+					{
+						funGetMatReqDataForDetail();
+					}
+				}
+				else if(formName=="frmSalesOrder")
+				{
+					if(reportType=='Summary')
+					{
+						funGetSODataForSummary();
+					}
+					else
+					{
+						funGetSODataForDetail();
+					}
+				}
+				return false;
+			
+		}
+		
+		function funOnExport()
+		{
+			var formName=$("#cmbFormName").val();
+			var fromDate=$("#txtFromDate").val();
+			var toDate=$("#txtToDate").val();
+			var locCode=$("#txtLocBy").val();
+			var reportType=$("#cmbReportType").val();
+			locCode=locCode+'!'+$("#txtLocOn").val();
+			var strSuppCode=$("#txtSuppCode").val();
+			if(strSuppCode.trim().length==0)
+			{
+				strSuppCode="ALL";
+			}
+			strPOStatus=$("#cmbPOStatus").val(); 
+			var param1=formName+","+locCode+","+reportType+","+strSuppCode+","+strPOStatus;
+			window.location.href=getContextPath()+"/exportDataForPendingDoc.html?param="+param1+"&fDate="+fromDate+"&tDate="+toDate;
+			
+			return false;
+		}
 	</script>
 </head>
 <body>
-<div id="formHeading">
-		<label>Pending Documents Flash</label>
-	</div>
-	<s:form action="frmPendingDocFlash.html" method="GET" name="frmStkFlash">
+<div class="container">
+		<label id="formHeading">Pending Documents Flash</label>
+		<s:form action="frmPendingDocFlash.html" method="GET" name="frmStkFlash">
 		<br>
-			<table class="transTable">
-			<tr><th colspan="7"></th></tr>
-				<tr>
-					<td width="15%">Transaction Type</td>
-					<td>
-						<s:select id="cmbFormName" path="strFormName" cssClass="longTextBox" cssStyle="width:160px;" onchange="funTransTypeOnChange() ;">
+			<div class="row transTable">
+				<div class="col-md-2">
+					<label>Transaction Type</label>
+						<s:select id="cmbFormName" path="strFormName" onchange="funTransTypeOnChange() ;">
 							<s:options items="${listFormName}"/>
 						</s:select>
-					</td>
-					<td id="tdPOStatus">
-						<s:select id="cmbPOStatus" path="strPoStatus" cssClass="longTextBox" cssStyle="width:100px;" >
-							<s:options items="${listPOStatus}"/>
-						</s:select>
-					</td>
-					 <td colspan="2" id="lblSuppCode" style="visibility:hidden;">
-					 <label id="lblSupp" >Supplier</label>
-				    <s:input id="txtSuppCode" path="strSupplierCode"  ondblclick="funHelp('suppcode')" cssClass="searchTextBox"  cssStyle="width:70px;background-position: 60px 2px;"/>
-					
-					<label id="txtSuppName" style="font-size: 12px;"></label></td>
-				
-				</tr>
-				<tr>
-					<td width="10%" id="lblLocation1"><label>Location</label></td>
-			    		<td><s:input id="txtLocBy" name="txtLocBy" path="strLocationCode1" required = "true" ondblclick="funHelp('locby')"
-						cssClass="searchTextBox" cssStyle="width:73px;background-position: 60px 2px;"></s:input>
-						<label id="lblLocBy" class="namelabel"></label>
-						</td>
-					
-					<td id="lblLocation2" style="visibility:hidden;" width="10%"><label>Location On</label></td>
-					<td id="tdLocation2" style="visibility:hidden;" >
-						<s:input id="txtLocOn" name="txtLocOn" path="strLocationCode2" required = "true"
-						 ondblclick="funHelp('locon')"
-						cssClass="searchTextBox"  cssStyle="width:70px;background-position: 60px 2px;" />
-					<label id="lblLocOn" class="namelabel"></label>
-					</td>
-				
-				</tr>
-					
-				<tr>
-				    <td><label id="lblFromDate">From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dteFromDate"></s:errors>
-			        </td>
-				        
-			        <td><label id="lblToDate">To Date</label></td>
-			        <td colspan="5">
-			            <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dteToDate"></s:errors>
-			        </td>
-			    
-				</tr>
-						
-				<tr>
-					<td >Report Type</td>
-					<td colspan="6">
-						<s:select path="strReportType" id="cmbReportType" cssClass="BoxW124px">
-							<option value="Detail">Detail</option>
-							<option value="Summary">Summary</option>
-						</s:select>
-					</td>		
-				</tr>	
-
-				<tr>
-					<td><input id="btnExecute" type="button" class="form_button1" value="EXECUTE"/></td>
-					<td  width="10%">
-						<s:select path="strExportType" id="cmbExportType"  cssClass="BoxW124px">
-							<option value="Excel">Excel</option>
-						</s:select>
-					</td>
-					<td colspan="5">
-						<input id="btnExport" type="button" value="EXPORT"  class="form_button1"/>
-					</td>
-				</tr>
-			</table>
+				</div>
+				<div class="col-md-2" id="tdPOStatus">
+					<s:select id="cmbPOStatus" path="strPoStatus" style="margin-top: 27px; width: 60%;">
+						<s:options items="${listPOStatus}"/>
+					</s:select>
+				</div>
+				<div class="col-md-2" id="lblSuppCode" style="visibility:hidden;">
+					<label id="lblSupp" >Supplier</label>
+				    <s:input id="txtSuppCode" path="strSupplierCode"  ondblclick="funHelp('suppcode')" cssClass="searchTextBox"/>
+				</div>	
+				<div class="col-md-2">
+					<label id="txtSuppName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align: center;"></label>
+				</div>
+				<div class="col-md-4"></div>
+				<div class="col-md-2">
+					<label id="lblLocation1">Location</label>
+			    	<s:input id="txtLocBy" name="txtLocBy" path="strLocationCode1" required = "true" ondblclick="funHelp('locby')"
+						cssClass="searchTextBox"></s:input>
+				</div>
+				<div class="col-md-2" id="lblLocation1">
+					<label id="lblLocBy" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align: center;"></label>
+				</div>
+				<div class="col-md-2">	
+					<label id="lblLocation2" style="visibility:hidden;">Location On</label>
+						<s:input id="txtLocOn"  type="text" path="strLocationCode2" ondblclick="funHelp('locon')"
+						   cssClass="searchTextBox" />
+				</div>
+				<div class="col-md-2">
+					<label id="lblLocOn" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align: center;"></label>
+				</div>
+				<div class="col-md-4"></div>
+				<div class="col-md-2">
+				   <label id="lblFromDate">From Date</label>
+			       <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox" style="width:80%;"/>
+			       <s:errors path="dteFromDate"></s:errors>
+			    </div>   
+				<div class="col-md-2">       
+			        <label id="lblToDate">To Date</label>
+			      	<s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox" style="width:80%;"/>
+			        <s:errors path="dteToDate"></s:errors>
+			     </div>
+			     <div class="col-md-2"> 
+			    	 <label>Report Type</label>
+					 <s:select path="strReportType" id="cmbReportType" cssClass="BoxW124px" style="width:80%;">
+						<option value="Detail">Detail</option>
+						<option value="Summary">Summary</option>
+					</s:select>
+				</div>
+				<div class="col-md-2"> 
+					<s:select path="strExportType" id="cmbExportType" cssClass="BoxW124px" style="margin-top:26px; width:70%;">
+						<option value="Excel">Excel</option>
+					</s:select>
+				</div>
+			</div>
+			<div class="center" style="margin-right: 54%;">
+				<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return funOnExecute()">Execute</button></a>&nbsp
+				<a href="#"><button class="btn btn-primary center-block" id="btnExport" value="EXPORT" onclick="return funOnExport()" >Export</button></a>
+			</div>
 			
 			<br>
 			<div id="dvStock" style="width: 110% ;height: 100% ;padding-left: 26px;">
@@ -1388,6 +1409,7 @@
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 		</div>
 	</s:form>
+</div>
 	<script type="text/javascript">
 	
 	funTransTypeOnChange();

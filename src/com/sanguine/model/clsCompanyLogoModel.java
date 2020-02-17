@@ -25,7 +25,7 @@ public class clsCompanyLogoModel {
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
 	@JsonIgnore
-	private Blob strCompanyLogo;
+	private byte[] strCompanyLogo;
 
 	public String getStrCompanyCode() {
 		return strCompanyCode;
@@ -35,11 +35,11 @@ public class clsCompanyLogoModel {
 		this.strCompanyCode = strCompanyCode;
 	}
 
-	public Blob getStrCompanyLogo() {
+	public byte[] getStrCompanyLogo() {
 		return strCompanyLogo;
 	}
 
-	public void setStrCompanyLogo(Blob strCompanyLogo) {
+	public void setStrCompanyLogo(byte[] strCompanyLogo) {
 		this.strCompanyLogo = strCompanyLogo;
 	}
 

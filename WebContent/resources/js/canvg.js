@@ -2114,7 +2114,7 @@
 		svg.Element.glyph.prototype = new svg.Element.path;
 
 		// text element
-		svg.Element.text = function(node) {
+		total = function(node) {
 			this.captureTextNodes = true;
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);

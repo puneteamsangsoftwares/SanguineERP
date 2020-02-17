@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="sp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +10,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" /> -->
 <title>PRODUCT MASTER</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+  
 <style>
 .ui-autocomplete {
     max-height: 200px;
@@ -306,8 +313,8 @@ $(document).ready(function()
 		    var table = document.getElementById("tblProdProcess");
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listProdProcess["+(rowCount-1)+"].intLevel\" id=\"intLevel."+(rowCount-1)+"\" value=1>";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\"name=\"listProdProcess["+(rowCount-1)+"].strProcessCode\" id=\"txtProcessCode."+(rowCount-1)+"\" value="+processCode+">";
+		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listProdProcess["+(rowCount-1)+"].intLevel\" id=\"intLevel."+(rowCount-1)+"\" value=1>";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\"name=\"listProdProcess["+(rowCount-1)+"].strProcessCode\" id=\"txtProcessCode."+(rowCount-1)+"\" value="+processCode+">";
 		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listProdProcess["+(rowCount-1)+"].strProcessName\" id=\"txtProcessName."+(rowCount-1)+"\" value="+gProcessName+">";
 		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" name=\"listProdProcess["+(rowCount-1)+"].dblWeight\" id=\"txtWeight."+(rowCount-1)+"\" value="+processWt+">";
 		    row.insertCell(4).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" name=\"listProdProcess["+(rowCount-1)+"].dblCycleTime\" id=\"txtCycleTime."+(rowCount-1)+"\" value="+cycleTime+">";
@@ -322,8 +329,8 @@ $(document).ready(function()
 		    var table = document.getElementById("tblProdProcess");
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
-		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listProdProcess["+(rowCount-1)+"].intLevel\" id=\"intLevel."+(rowCount-1)+"\" value='"+intLevel+"'>";
-		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listProdProcess["+(rowCount-1)+"].strProcessCode\" id=\"txtProcessCode."+(rowCount-1)+"\" value="+processCode+">";
+		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listProdProcess["+(rowCount-1)+"].intLevel\" id=\"intLevel."+(rowCount-1)+"\" value='"+intLevel+"'>";
+		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listProdProcess["+(rowCount-1)+"].strProcessCode\" id=\"txtProcessCode."+(rowCount-1)+"\" value="+processCode+">";
 		    row.insertCell(2).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listProdProcess["+(rowCount-1)+"].strProcessName\" id=\"txtProcessName."+(rowCount-1)+"\" value="+processName+">";
 		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" name=\"listProdProcess["+(rowCount-1)+"].dblWeight\" id=\"txtWeight."+(rowCount-1)+"\" value="+processWt+">";
 		    row.insertCell(4).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" name=\"listProdProcess["+(rowCount-1)+"].dblCycleTime\" id=\"txtCycleTime."+(rowCount-1)+"\" value="+cycleTime+">";
@@ -563,8 +570,6 @@ $(document).ready(function()
 			    case 'manufactureMaster' :
 			    	funSetManufacture(code);
 			    	 break;
-			         
-			        
 			}
 		}
 		
@@ -1983,350 +1988,350 @@ $(document).ready(function()
         
 	
 	}
-    
-    
-		 
-	</script>
-	
-<!-- enctype="multipart/form-data" -->
+   </script>
 </head>
+
 <body>
-<div id="formHeading">
-		<label>Product Master</label>
-	</div>
-	<s:form name="productMasterForm" method="POST" action="saveProductMaster.html?saddr=${urlHits}" enctype="multipart/form-data" >	
+<div class="container">
+	<label id="formHeading">Product Master</label>
+	  <s:form name="productMasterForm" method="POST" action="saveProductMaster.html?saddr=${urlHits}" enctype="multipart/form-data">	
 	
 	<br>
-		<table
-			style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
-			<tr>
-				<td>
-				
-				<div id="tab_container" style="height: 465px">
+		<div
+			style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color:#e6e5e594;">
+			<div class="row">
+				<div id="tab_container">
 						<ul class="tabs">
 							<li class="active" data-state="tab1"
-								style="width: 6%; padding-left: 1.2%">General</li>
-							<li data-state="tab2" style="width: 6%; padding-left: 2%">Tracking</li>
-							<li data-state="tab3" style="width: 8%; padding-left: 1%">Specification</li>
-							<li data-state="tab4" style="width: 7%; padding-left: 1.5%">Supplier</li>
-							<li data-state="tab5" style="width: 6%; padding-left: 1.8%">Custom</li>
-							<li data-state="tab6"  style="width: 6%; padding-left: 1.8%">Process</li>
-							<li data-state="tab7"  style="width: 9%; padding-left: 1.5%">Characteristics</li>
-							<li data-state="tab8"  style="width: 8%; padding-left: 1.3%">Conversion</li>
-							<li data-state="tab9" style="width: 9%; padding-left: 1.3%">Re-Order Level</li>
-							<li data-state="tab10" style="width: 4%; padding-left: 1.3%">Batch</li>
-							<li data-state="tab11" style="width: 6%; padding-left: 1.3%">Customer</li>
+								style="width: 6%;">General</li>
+							<li data-state="tab2" style="width: 6%;">Tracking</li>
+							<li data-state="tab3" style="width: 9%;">Specification</li>
+							<li data-state="tab4" style="width: 6%; padding-left: 1%;">Supplier</li>
+							<li data-state="tab5" style="width: 6%; padding-left: 1%;">Custom</li>
+							<li data-state="tab6"  style="width: 6%; padding-left: 1%;">Process</li>
+							<li data-state="tab7"  style="width: 10%; padding-left: 1%;">Characteristics</li>
+							<li data-state="tab8"  style="width: 8%; padding-left: 1%;">Conversion</li>
+							<li data-state="tab9" style="width: 11%; padding-left: 1%;">Re-Order Level</li>
+							<li data-state="tab10" style="width: 5%; padding-left: 1%;">Batch</li>
+							<li data-state="tab11" style="width: 9%; padding-left: 1%;">Customer</li>
 						</ul>
-						<!--General Tab  Start-->
-						<div id="tab1" class="tab_content" style="height: 400px">
-							<br> <br>
-								<table class="masterTable">				
-				<tr>
-			        <th align="right" colspan="5"> <a id="baseUrl" href="#">Attach Documents</a>&nbsp; &nbsp; &nbsp; &nbsp; 
-			        <a onclick="funOpenExportImport()" href="javascript:void(0);">Export/Import</a>&nbsp; &nbsp; &nbsp;	 </th>
-			         
-			    </tr>
+				
+	<!--General Tab  Start-->
+	<div id="tab1" class="tab_content" style="height:620px">
+		<br> <br>
+	<div class=" container masterTable">				
+		<div class="row">
+				   
+			<!--  <div class="col-md-12"  align="right" style="margin-right:270px">
+			    <a onclick="funOpenExportImport()" href="javascript:void(0);" style="margin-right: 100px">Export/Import</a>
+			 </div> -->
+			  
+	         
+			 <div class="col-md-2"><label >Code </label>
+				  <s:input  id="txtProdCode" name="prodCode" path="strProdCode" value="" ondblclick="funHelp('prodmasterPropwise')" cssClass="searchTextBox"/>
+			</div>		
+				    		    
+			 <div class="col-md-3"><label >Name </label>
+				 <s:input type="text" id="txtProdName" cssStyle="width:80%;text-transform: uppercase;"  name="prodName" path="strProdName"/>
+			 </div>
+			
+			<div class="col-md-2"><label >POS Item Code  </label>
+				     <s:input type="text" id="txtPartNo" name="partNo" path="strPartNo"/>
+			</div>
+				    
+			<div class="col-md-2"><label >UOM</label>
+			     <s:select id="txtUOM" name="txtUOM" path="strUOM" items="${uomList}"  onchange="funUOMChange(this)"/><%-- <s:input id="txtUOM" name="uom" path="strUOM" cssClass="BoxW116px" /> --%>
+			 </div>
+			 <div class="col-md-3"></div>
 			    
-			    	<tr>
-				        <td  width="15%"><label >Code </label></td>
-				        <td width="8%"><s:input  id="txtProdCode" name="prodCode" path="strProdCode" value="" ondblclick="funHelp('prodmasterPropwise')" cssClass="searchTextBox"/></td>				    
-				    	<td width="18%"><label >Name </label></td>
-				        <td colspan="2"><s:input type="text" id="txtProdName" cssStyle="width:80%;text-transform: uppercase;"  name="prodName" path="strProdName"   cssClass="BoxW116px" /></td>
-			   		</tr>
+			 <div class="col-md-2"><label >Sub-Group Code</label>
+				      <s:input id="txtSubGroupCode" name="subGroupCode" path="strSGCode" ondblclick="funHelp('subgroup')" autocomplete="off" cssClass="searchTextBox"/>
+			 </div>
+		
+		    <div class="col-md-4"><label id="txtSubGroupName" style="background-color:#dcdada94; width:65%; height: 42%; margin: 27px 0px;"></label></div>
+			<div class="col-md-2"></div>
+		
+		<div class="col-md-7">
+	      <div class="row"> 
+	      	<div class="col-md-3"><label >Purchase Price  </label>
+				    <s:input id="txtCostRM" name="costRM" path="dblCostRM" cssClass="decimal-places-amt numberField" style="text-align:right;width:60%"/>
+			</div>
+			
+		    <div class="col-md-3"><label >Cost of Manf/Unit</label>
+				   <s:input id="txtCostManu" name="costManu" path="dblCostManu" cssClass="decimal-places-amt numberField" style="text-align:right;width:60%" />
+			</div>
+			<div class="col-md-4"></div>
+			
+			<div class="col-md-3"><label >Location Code </label>
+				  <s:input id="txtLocCode" name="locCode" autocomplete="off" path="strLocCode" ondblclick="funHelp('locationmaster')"  cssClass="searchTextBox"/>
+			 </div>
 			    	
-			    	<tr>
-				        <td><label >POS Item Code  </label></td>
-				        <td><s:input type="text" id="txtPartNo" name="partNo" path="strPartNo"  cssClass="BoxW116px"/></td>
-				    	<td><label >UOM</label></td>
-				        <td><s:select id="txtUOM" name="txtUOM"
-							path="strUOM" items="${uomList}"  cssClass="BoxW124px" onchange="funUOMChange(this)"/><%-- <s:input id="txtUOM" name="uom" path="strUOM" cssClass="BoxW116px" /> --%></td>
-				        <td></td>
-				       
-			   		</tr>
-			    
-			    	<tr>
-				        <td><label >Sub-Group Code</label></td>
-				        <td ><s:input id="txtSubGroupCode" name="subGroupCode" path="strSGCode" ondblclick="funHelp('subgroup')" autocomplete="off" cssClass="searchTextBox"/></td>
-				       <td><label id="txtSubGroupName"></label></td>
-				        <td></td>
-				       <td rowspan="9" width="25%" style="background-color: #C0E4FF;border: 1px solid black;"><img id="itemImage" src="" width="196px" height="219px" alt="Item Image"  ></td>
-			   		</tr>
+			 <div class="col-md-4"><label id="txtLocName" style="background-color:#dcdada94; width: 65%; height: 42%; margin: 27px 0px;"></label></div>
 				    
-			    	<tr>
-				        <td><label >Purchase Price  </label></td>
-				        <td><s:input id="txtCostRM" name="costRM" path="dblCostRM" cssClass="decimal-places-amt numberField"/></td>
-				    	<td><label >Cost of Manf/Unit</label></td>
-				        <td><s:input id="txtCostManu" name="costManu" path="dblCostManu" cssClass="decimal-places-amt numberField" /></td>
-				       
-			  		</tr>
-			   
-			   		<tr>
-				        <td><label >Location Code </label></td>
-				        <td><s:input id="txtLocCode" name="locCode" autocomplete="off" path="strLocCode" ondblclick="funHelp('locationmaster')"  cssClass="searchTextBox"/></td>
-			    		<td><label id="txtLocName"></label></td>
-			    	</tr>
+			<div class="col-md-3"><label >Reorder Qty  </label>
+				 <s:input id="txtOrderUptoLvl" name="orduptoLvl" path="dblOrduptoLvl" cssClass="decimal-places numberField" style="text-align:right;"/>
+			 </div>
+			<div class="col-md-2"></div>
 				    
-				 	<tr>
-				        <td><label >Reorder Qty  </label></td>
-				        <td><s:input id="txtOrderUptoLvl" name="orduptoLvl" path="dblOrduptoLvl" cssClass="decimal-places numberField"/></td>
-				    	<td><label >Minimum Level</label></td>
-				        <td><s:input id="txtReorderLvl" name="reorderLvl" path="dblReorderLvl" cssClass="decimal-places-amt numberField"/></td>
-			  		</tr>
+			<div class="col-md-3"><label >Minimum Level</label>
+				   <s:input id="txtReorderLvl" name="reorderLvl" path="dblReorderLvl" cssClass="decimal-places-amt numberField" style="text-align:right;width:60%"/>
+			 </div>
 				  
-				  	<tr>
-				        <td><label >Item Type</label></td>
-				        <td><s:select id="txtProdType" name="prodType" path="strProdType" items="${typeList}" cssClass="BoxW124px"/></td>
-				    	<td><label >Calulation of amount On</label></td>
-				        <td><s:select id="cmbCalAmtOn" name="calAmtOn" path="strCalAmtOn" items="${calAmtOnList}" cssClass="BoxW124px"/></td>
-			   		</tr>
+			<div class="col-md-3"><label >Item Type</label>
+				   <s:select id="txtProdType" name="prodType" path="strProdType" items="${typeList}"/>
+			 </div>
+				    
+			<div class="col-md-3"><label style="width:110%" >Calulation of amount On</label>
+				  <s:select id="cmbCalAmtOn" name="calAmtOn" path="strCalAmtOn" items="${calAmtOnList}"/>
+			</div>
+			 
+			<div class="col-md-3"><label >Weight</label>
+				   <s:input id="txtWeight" name="weight" path="dblWeight" cssClass="decimal-places numberField" style="text-align:right;"/>
+			</div>
 			   
-			  	 	<tr>
-				        <td><label >Weight</label></td>
-				        <td><s:input id="txtWeight" name="weight" path="dblWeight" cssClass="decimal-places numberField"/></td>
-				    	<td><label >Wt UOM</label></td>
-				        <td><s:input id="txtWtUOM" name="wtUOM" path="strWtUOM" cssClass="decimal-places numberField"/></td>
-			  		</tr>
+			<div class="col-md-3"><label >Wt UOM</label>
+				   <s:input id="txtWtUOM" name="wtUOM" path="strWtUOM" cssClass="decimal-places numberField"/>
+	         </div>
 			   
-			  		<tr>
-				        <td><label >Quantity in a Batch</label></td>
-				        <td><s:input id="txtBatchQty" name="batchQty" path="dblBatchQty" cssClass="decimal-places numberField"/></td>
-				    	<td><label >Maximum Level</label></td>
-				    	
-				        <td><s:input id="txtMaxLvl" name="maxLvl" path="dblMaxLvl" cssClass="decimal-places numberField" /></td>
-				       
-			  	 	</tr>
+			 <div class="col-md-3"><label >Quantity in a Batch</label>
+				    <s:input id="txtBatchQty" name="batchQty" path="dblBatchQty" cssClass="decimal-places numberField" style="text-align:right;width:60%"/>
+			 </div>
+			
+			<div class="col-md-3"><label >Maximum Level</label>
+				    <s:input id="txtMaxLvl" name="maxLvl" path="dblMaxLvl" cssClass="decimal-places numberField" style="text-align:right;width:60%"/>
+			 </div>
 			   
-			   		<tr>
-				        <td><label >bin No.</label></td>
-				        <td><s:input id="txtBinNo" name="binNo" path="strBinNo" cssClass="BoxW116px"/></td>
-				    	<td><label >Class</label></td>
-				        <td><s:select id="cmbClass" name="class" path="strClass" items="${classList}" cssClass="BoxW48px" /></td>
-			   		
-			   		</tr>
-			   
-			  		<tr>
-				        <td><label >Tariff No.</label></td>
-				        <td><s:input id="txtTariffNo" name="tariffNo" path="strTariffNo" cssClass="BoxW116px"/></td>
-				    	<td><label >List Price</label></td>
-				        <td><s:input id="txtListPrice" name="listPrice" path="dblListPrice" cssClass="decimal-places-amt numberField"/></td>
-				        
-			  		</tr>
-			  		
-			  		<tr>
-				        <td><label>Product Image</label></td>
-				        <td ><input  id="prodImage" name="prodImage"  type="file" accept="image/gif,image/png,image/jpeg" onchange="funShowImagePreview(this);" /></td>
-				        
-				        <td><label>Product Bar Code</label></td>
-				        <td><s:input id="txtBarCode" name="barCode" path="strBarCode"  cssClass="BoxW116px" style="width: 90%"/></td>
-			    	</tr>
-			    	
-			    	<tr>
-				        <td><label>Product MRP</label></td>
-				        <td><s:input id="txtMRP" name="MRP" path="dblMRP"  cssClass="BoxW116px" style="width: 49%"/></td>
-				        <td><label>Standard/Sale Price</label></td>
-									<td><s:input id="txtUnitPrice" name="unitPrice"
-											path="dblUnitPrice" cssClass="decimal-places-amt numberField"/></td>
-			    	</tr>
-			    	
-			   <tr>
-			      <td><label>Product Name Marathi</label></td>
+			 <div class="col-md-3"><label >bin No.</label>
+				     <s:input id="txtBinNo" name="binNo" path="strBinNo"/>
+			 </div>   
+				 
+			 <div class="col-md-3"><label >Class</label>
+				  <s:select id="cmbClass" name="class" path="strClass" items="${classList}"/>
+			  </div>
+			
+			  <div class="col-md-3"><label >Tariff No.</label>
+				   <s:input id="txtTariffNo" name="tariffNo" path="strTariffNo"/>
+			   </div>
+				    
+			  <div class="col-md-3"><label >List Price</label>
+				   <s:input id="txtListPrice" name="listPrice" path="dblListPrice" cssClass="decimal-places-amt numberField" style="text-align:right;width:60%"/>
+			   </div>
+		   </div>
+		</div>
+		 <div class="col-md-1"></div> 
+		<div class="col-md-2">
+	     <div class="row">
+	      <img id="itemImage" src="" width="196px" style="border:1px solid #c0c0c0;" height="219px" alt="Item Image">
+	     </div>
+	   </div>
+		<div class="col-md-2"></div>
+		        
+			  <div class="col-md-2"><label>Product Bar Code</label>
+				    <s:input id="txtBarCode" name="barCode" path="strBarCode" style="width: 90%"/>
+			  </div>
+			  
+			  <div class="col-md-2" style="margin-left: -24px;"><label>Standard/Sale Price</label>
+					<s:input id="txtUnitPrice" name="unitPrice"  path="dblUnitPrice" cssClass="decimal-places-amt numberField" style="width:60%"/>
+			   </div>
+			     	
+			  <div class="col-md-2" style="margin-left: -2%;"><label>Product MRP</label>
+				    <s:input id="txtMRP" name="MRP" path="dblMRP" style="text-align:right;width:60%"/>
+			   </div>
+				   
+			   <div class="col-md-3"><label>Product Image</label>
+				     <input  id="prodImage" name="prodImage"  type="file" accept="image/gif,image/png,image/jpeg" onchange="funShowImagePreview(this);" />
+			  </div>	
+			  
+			  <div class="col-md-3"></div>
+			  
+			  <div class="col-md-2"><label>Product Name Marathi</label>
 				     <%--   <td>
 				        <script type="text/javascript">
             				CreateHindiTextBox("txtProdNameMarathi",25);
         				</script> --%> 
-        				<td><s:input id="txtProdNameMarathi" name="txtProdNameMarathi" path="strProdNameMarathi"  cssClass="BoxW116px" style="width: 90%;font-size: 16px;font-family: shivaji01;"/></td>
+                    <s:input id="txtProdNameMarathi" name="txtProdNameMarathi" path="strProdNameMarathi" style="width: 90%;font-size: 16px;font-family: shivaji01;"/>
+        	  </div>
 <!-- 				        </td> -->
 			   
-				<td width="150px">Manufacturer Code</td>
-				<td><s:input id="txtManufacturerCode" path="strManufacturerCode"
-						cssClass="searchTextBox jQKeyboard form-control" readonly="true" ondblclick="funHelp('manufactureMaster')" /></td>
-			   <td width="18px"><label id="lblManufacturerName" > </label></td>
-			
-			</tr>
-			<tr>
-			<td><label>HSN Code</label></td>
-			<td><s:input id="txtHSNCode" name="hsnCode" path="strHSNCode"  cssClass="BoxW116px" style="width: 90%"/></td>
-			
-			</tr>
-			    	
-			</table>
-							
-						</div>						
-						<!--General Tab  End-->
-						
-						
-						
-						<!--Tracking tab Start  -->						
-						<div id="tab2" class="tab_content" style="height: 400px">
-							<br> <br>
-							<table class="masterTable">
-								<tr>
-								<th colspan="5"></th>
-								</tr>
-								<tr>
-									
-									<td width="18%"><label>Item Not In Use</label></td>
-									<td  width="18%"><s:checkbox id="chkNotInUse" name="notInUse"
-											path="strNotInUse" value="" /></td>
-									
-									<td  width="18%"><label>Expiry Date</label></td>
-									<td><s:checkbox id="chkExpDate" name="expDate"
-											path="strExpDate" value="" /></td>
-									</tr>
-									<tr>
-									<td><label>Batch No</label></td>
-									<td><s:checkbox id="chkLotNo" name="lotNo" path="strLotNo"
-											value="" /></td>
-									
-									<td><label>Revision Level</label></td>
-									<td><s:checkbox id="chkRevLevel" name="revLevel"
-											path="strRevLevel" value="" /></td>
-									</tr>
-								<tr>
-									
-									<td><label>Serial No.</label></td>
-									<td><s:checkbox id="chkSlNo" name="slno" path="strSlNo"
-											value="" /></td>
-									
-									<td><label>Don't Allowed Exceed PO</label></td>
-									<td><s:checkbox id="chkExceedPO" name="exceedPO"
-											path="strExceedPO" value="" /></td>
-									
-								</tr>
-								<tr>
-								<td><label>Item For Sale</label></td>
-								<td><s:checkbox id="chkForSale" name="forSale"
-											path="strForSale" value="" /></td>
-									<td><label>Stagger Delivery Not Allowed</label></td>
-									<td><s:checkbox id="chkStagDel" name="stagDel"
-											path="strStagDel" value="" /></td>
-								</tr>
-								<tr>
-									<td><label>Tax Indicator</label></td>
-									<td><s:select id="cmbTaxIndicator" name="taxIndicator"
-											path="strTaxIndicator" items="${taxIndicatorList}"  cssClass="BoxW48px"/></td>
-									<td><label>Delivery Period</label></td>
-									<td><s:input id="txtDelPeriod" name="delPeriod"
-											path="intDelPeriod" cssClass="decimal-places numberField"/></td>
-								</tr>
-
-								<tr>
-									
-									<td><label>BOM Calculation Up to</label></td>
-									<td><s:select id="txtBomCal" name="bomCal"
-											path="strBomCal" items="${bomCalList}"  cssClass="BoxW124px"/></td>
-											
-									<td><label>Customer Item Code</label></td>
-									<td><s:input id="txtCustItemCode" name="" path="" cssClass="BoxW116px"/></td>
-								</tr>
-
-								<tr>
-									<td><label>Non Stockable Item</label></td>		
-									<td><s:checkbox id="strNonStockableItem" path="strNonStockableItem" value="Y"></s:checkbox></td>		
-									<td><label>Yield Percent</label></td>
-									<td>
-										<s:input id="txtYieldPer" name="yieldPer" path="dblYieldPer" type="text" step="any" class="decimal-places numberField"/>
-									</td>
-								</tr>
-								<tr>
-								<td><label>Pick MRP Price For Tax Calculation</label></td>
-									<td><s:checkbox id="chkPickMRPForTaxCal" path="strPickMRPForTaxCal" value="Y"></s:checkbox></td>
-								<td><label>Exciseable</label></td>
-									<td><s:checkbox id="chkExciseable" path="strExciseable" value="Y"></s:checkbox></td>
-								
-								</tr>
-								
-								<tr>
-									<td><label>Description</label></td>
-									<td><s:textarea id="txtDesc" name="Desc" path="strDesc"/></td>
-									<td colspan="3"></td>
-								</tr>
-								
-								<tr>
-									<td><label>Comesa Region Product</label></td>
-									<td><s:checkbox id="chkComesaRegionItem" path="strComesaItem" value="Y"></s:checkbox></td>
-								</tr>
-								
-							</table>
-
-						</div>
-						<!--Tracking tab End  -->
-						
-						
-						
-						<!-- Specification Tab Start -->
-						<div id="tab3" class="tab_content" style="height: 400px">
-							<br> <br>
-							<table class="masterTable">
-								<tr>
-									<th align="left" style="font-weight: normal;"> Product Specification</th>
-								</tr>
-								
-								<tr>
-									<td style="padding-left: 0px"><s:textarea id="txtSpecification" name="Specification"
-											path="strSpecification" cssStyle="width:100%;height:200px;border:1px solid;background-color:inherit;padding-left:01px;text-transform: uppercase;" /></td>
-								</tr>
-							</table>
-
-						</div>
-						<!--Specification Tab End  -->
-						
-						
-						
-						<!-- Supplier Tab Start -->
-						<div id="tab4" class="tab_content" style="height: 400px">
-							<br> <br>
-							<input type="hidden" name="defaultSupplier" id="defaultSupplier" value="">
-							<table class="transTable">
-							<tr>
-							<th colspan="6"></th>
-							</tr>
-								<tr>
-									<td width="13%"><label>Supplier ID</label></td>
-									<td width="13%"><input type="text" id="txtSupplierId" name="supplierId"
-										ondblclick="funHelp('suppcode')"  class="searchTextBox"/></td>
-									<td width="13%"><label>Supplier Name</label></td>
-									<td colspan="2"><input type="text" id="txtSupplierName" name="supplierName" readonly="readonly"   class="longTextBox"/></td>
-								</tr>
-
-								<tr>
-									<td><label>Last Cost</label></td>
-									<td><input type="text" id="txtLastCost" name="lastCost" value="0.00"
-										class="decimal-places-amt numberField" /></td>
-									<td><label>UOM</label></td>
-									<td colspan="2"><input type="text" id="txtSuppUOM" name="suppUOM" class="BoxW116px"/></td>
-								</tr>
-
-								<tr>
-									<td><label>Last Date</label></td>
-									<td><input type="text" id="txtLastDate" class="calenderTextBox"/></td>
-									<td><label>Lead Time in Days</label></td>
-									<td colspan="2"><input type="text" id="txtLeadTimeDays" name="LeadTimeInDays"  class="BoxW116px"/></td>
-								</tr>
-
-								<tr>
-									<td><label>Supplier Item Code </label></td>
-									<td><input type="text" id="txtSuppItemCode" name="supplierItemCode" class="BoxW116px"></td>
-									<td><label>Description</label></td>
-									<td colspan="2"><input type="text" id="txtDesc" name="description"  class="longTextBox"/></td>
-								</tr>
-
-								<tr>
-									<td><label>Maximum Quantity </label></td>
-									<td><input type="text" id="txtMaxQty" value="0" class="decimal-places-amt numberField" /></td>
-									<td><label>Default</label></td>
-									<td><input type="checkbox" id="chkDefault" value="true"
-										name="default" /></td>
-										<td><input id="btnAddSupp" type="button" value="Add"
-										onclick="return btnSupplierAdd_onclick()"  class="smallButton" /></td>
-								</tr>
-							</table>
-							
-							<div class="dynamicTableContainer" >
-						<table  style="height:20px;border:#0F0;width:100%;font-size:11px;
-			font-weight: bold;">	
+			  <div class="col-md-2" style="margin-left: -22px;"><label>Manufacturer Code</label>
+				    <s:input id="txtManufacturerCode" path="strManufacturerCode"
+						cssClass="searchTextBox jQKeyboard form-control" readonly="true" ondblclick="funHelp('manufactureMaster')" />
+			   </div>
+			   
+			  <div class="col-md-3"><label id="lblManufacturerName" style="background-color:#dcdada94; width:100%; height: 42%; margin: 27px 0px;" ></label></div>
+		      
+			 <div class="col-md-2"><label>HSN Code</label>
+			        <s:input id="txtHSNCode" name="hsnCode" path="strHSNCode" style="width: 90%"/>
+			   </div>
 		
-							<tr bgcolor="#72BEFC" >
+			</div>
+			</div>
+		</div>			
+								
+		<!--General Tab  End-->
+						
+		<!--Tracking tab Start  -->						
+		<div id="tab2" class="tab_content" style="height: 400px">
+		<br> <br>
+		<div class="container masterTable">
+			<div class="row">				 
+			   <div class="col-md-2"><label>Item Not In Use</label><br>
+					<s:checkbox id="chkNotInUse" name="notInUse" path="strNotInUse" value="" />
+				</div>
+									
+			   <div class="col-md-2"><label>Expiry Date</label><br>
+					 <s:checkbox id="chkExpDate" name="expDate" path="strExpDate" value="" />
+			   </div>
+									
+			    <div class="col-md-2"><label>Batch No</label><br>
+					 <s:checkbox id="chkLotNo" name="lotNo" path="strLotNo" value="" />
+			    </div>
+				<div class="col-md-6"></div>
+									
+				<div class="col-md-2"><label>Revision Level</label><br>
+					 <s:checkbox id="chkRevLevel" name="revLevel" path="strRevLevel" value="" />
+				</div>
+							
+				<div class="col-md-2"><label>Serial No.</label><br>
+					  <s:checkbox id="chkSlNo" name="slno" path="strSlNo" value="" />
+			    </div>
+									
+				<div class="col-md-2"><label>Don't Allowed Exceed PO</label><br>
+					   <s:checkbox id="chkExceedPO" name="exceedPO" path="strExceedPO" value="" />
+			    </div>
+				<div class="col-md-6"></div>
+							
+				<div class="col-md-2"><label>Item For Sale</label><br>
+					<s:checkbox id="chkForSale" name="forSale" path="strForSale" value="" />
+				</div>
+				
+				<div class="col-md-2"><label style="width:110%">Stagger Delivery Not Allowed</label><br>
+					 <s:checkbox id="chkStagDel" name="stagDel"	path="strStagDel" value="" />
+				</div>
+				
+				<div class="col-md-2"><label>Tax Indicator</label>
+					 <s:select id="cmbTaxIndicator" name="taxIndicator" style="width:50%"
+						path="strTaxIndicator" items="${taxIndicatorList}"/>
+				</div>
+				<div class="col-md-6"></div>
+				
+				<div class="col-md-2"><label>Delivery Period</label>
+					<s:input id="txtDelPeriod" name="delPeriod" path="intDelPeriod" cssClass="decimal-places numberField" style="text-align:right;width:50%;"/>
+				</div>
+
+				<div class="col-md-2"><label>BOM Calculation Up to</label>
+					<s:select id="txtBomCal" name="bomCal" path="strBomCal" items="${bomCalList}" style="width:70%"/>
+			    </div>
+											
+				<div class="col-md-2"><label>Customer Item Code</label>
+					 <s:input id="txtCustItemCode" name="" path=""/>
+				</div>
+                <div class="col-md-6"></div>
+                
+				<div class="col-md-2"><label>Non Stockable Item</label>	<br>	
+					  <s:checkbox id="strNonStockableItem" path="strNonStockableItem" value="Y"></s:checkbox>
+			    </div>		
+			    
+				<div class="col-md-2"><label>Yield Percent</label>
+					   <s:input id="txtYieldPer" name="yieldPer" path="dblYieldPer" type="text" step="any" style="width:50%;text-align:right;" class="decimal-places numberField"/>
+				</div>
+						
+			    <div class="col-md-3"><label>Pick MRP Price For Tax Calculation</label><br>
+					 <s:checkbox id="chkPickMRPForTaxCal" path="strPickMRPForTaxCal" value="Y"></s:checkbox>
+			    </div>
+			    <div class="col-md-5"></div>
+			    				
+				<div class="col-md-3"><label>Description</label><br>
+					 <s:textarea id="txtDesc" name="Desc" path="strDesc" style="width:90%"/>
+				</div>
+				
+				<div class="col-md-1"><label>Exciseable</label><br>
+					 <s:checkbox id="chkExciseable" path="strExciseable" value="Y"></s:checkbox>
+				</div>
+								
+				 <div class="col-md-2"><label>Comesa Region Product</label><br>
+					  <s:checkbox id="chkComesaRegionItem" path="strComesaItem" value="Y"></s:checkbox>
+				 </div>
+			</div>
+          </div>
+        </div>  
+        
+	<!--Tracking tab End  -->
+	<!-- Specification Tab Start -->
+	
+		 <div id="tab3" class="tab_content" style="height:310px">
+			<br> <br>
+		 <div class="container masterTable">
+				<div class="row">
+					<div class="col-md-12" align="left" style="font-weight: normal;"> Product Specification
+						<s:textarea id="txtSpecification" name="Specification"
+											path="strSpecification" cssStyle="width:100%;height:200px;border:1px solid;background-color:inherit;padding-left:01px;text-transform: uppercase;" />
+				    </div>
+				</div>
+		 </div>
+        </div>
+        
+	<!--Specification Tab End  -->
+	<!-- Supplier Tab Start -->
+	
+	<div id="tab4" class="tab_content" style="height:500px">
+		<br> <br>
+			<input type="hidden" name="defaultSupplier" id="defaultSupplier" value="">
+			
+		<div class="container masterTable">
+		    <div class="row">
+				<div class="col-md-2"><label>Supplier ID</label>
+					<input type="text" id="txtSupplierId" name="supplierId" ondblclick="funHelp('suppcode')"  class="searchTextBox"/>
+			    </div>
+			    
+				<div class="col-md-3"><label>Supplier Name</label>
+					<input type="text" id="txtSupplierName" name="supplierName" readonly="readonly"/>
+				</div>
+                 <div class="col-md-7"></div>
+                 
+				<div class="col-md-2"><label>Last Cost</label>
+					<input type="text" id="txtLastCost" name="lastCost" value="0.00" class="decimal-places-amt numberField" style="width:70%;text-align:right;"/>
+				</div>
+									
+				<div class="col-md-2"><label>UOM</label>
+					 <input type="text" id="txtSuppUOM" name="suppUOM"/>
+				</div>
+
+				<div class="col-md-2"><label>Last Date</label>
+					  <input type="text" id="txtLastDate" class="calenderTextBox" style="width:70%"/>
+				</div>
+				<div class="col-md-6"></div>
+				
+				<div class="col-md-2"><label>Lead Time in Days</label>
+					<input type="text" id="txtLeadTimeDays" name="LeadTimeInDays"/>
+				</div>
+
+				<div class="col-md-2"><label>Supplier Item Code </label>
+					<input type="text" id="txtSuppItemCode" name="supplierItemCode">
+				</div>	
+				
+				<div class="col-md-2"><label>Maximum Quantity </label>
+					<input type="text" id="txtMaxQty" value="0" class="decimal-places-amt numberField" style="width:70%;text-align:right;"/>
+				</div>	
+				
+                <div class="col-md-6"></div>
+                
+                <div class="col-md-3"><label>Description</label>
+					<input type="text" id="txtDesc" name="description"/>
+				</div>
+								
+				<div class="col-md-2"><label>Default</label><br>
+					<input type="checkbox" id="chkDefault" value="true" name="default" />
+				</div>
+										
+				<div class="col-md-2"><br><input id="btnAddSupp" type="button" class="btn btn-primary center-block" value="Add" onclick="return btnSupplierAdd_onclick()" class="smallButton"/>
+				</div>
+		  </div>
+	     				
+				<div class="dynamicTableContainer" >
+					<table  style="height:20px;border:#0F0;width:100%;font-size:11px;font-weight: bold;">	
+		
+							<tr bgcolor="#c0c0c0" >
 							<td width="4%">Suppler Code</td><!--  COl1   -->
 							<td width="15%">Suppler Name</td><!--  COl2   -->
 							<td width="4%">Last Cost</td><!--  COl3   -->
@@ -2342,15 +2347,9 @@ $(document).ready(function()
 							</tr>
 						</table>
 						
-						<div style="background-color:  	#a4d7ff;
-					    border: 1px solid #ccc;
-					    display: block;
-					    height: 150px;
-					    margin: auto;
-					    overflow-x: hidden;
-					    overflow-y: scroll;
-					    width: 100%;">
-					   <table id="tblProdSupp" style="width:100%;border:
+				  <div style="background-color:#fafbfb;border: 1px solid #ccc;display: block;height: 150px;
+					    margin: auto;overflow-x: hidden;overflow-y: scroll;width: 100%;">
+					 <table id="tblProdSupp" style="width:100%;border:
 						#0F0;table-layout:fixed;overflow:scroll" class="transTablex ">
 							<tbody>    
 							<col style="width:4.5%"><!--  COl1   -->
@@ -2405,117 +2404,104 @@ $(document).ready(function()
 							</div>
 						
 						</div>
-							
+					</div>
+				</div>
 
-						</div>
-						<!--Supplier Tab End  -->
-						
-						
-						
-						<!--Custom Tab Start  -->
-						<div id="tab5" class="tab_content" style="height: 400px">
-							<br> <br>
-							<table class="masterTable">
-							<tr><th colspan="3"></th></tr>
-								<tr>
-									<td width="12%"><label>Attribute </label></td>
-									<td width="15%"><input type="text" id="txtAttrCode"
-										ondblclick="funHelp('attributemaster')"  class="searchTextBox"/></td>
-									<td><input type="text" id="txtAttrName" readonly="readonly" class="longTextBox"/></td>
+ <!--Supplier Tab End  -->
+ <!--Custom Tab Start  -->
+<div id="tab5" class="tab_content" style="height: 490px">
+			<br> <br>
+		<div class="container masterTable">
+		   <div class="row">
+			<div class="col-md-2"><label>Attribute </label>
+				<input type="text" id="txtAttrCode" ondblclick="funHelp('attributemaster')"  class="searchTextBox"/>
+			</div>
+			
+			<div class="col-md-3"><br>
+				<input type="text" id="txtAttrName" readonly="readonly"/>
+			</div>
+			<div class="col-md-7"></div>
 									
-								</tr>
-								<tr>
-								<td><label>Value</label></td>
-									<td><input type="text" id="txtAttrValue" name="value" value="0.00" class="decimal-places-amt numberField"/></td>
-									<td><input id="btnAddAtt" type="button" value="Add"
-										onclick="return funAddAttRow();" class="smallButton"></input></td>
-								</tr>
-							</table>
-							
-							<table class="masterTable"  id="tblProdAtt" style="width:80%" >
-								<tr >
-									<td style="border: 1px white solid;width:10%"><label>Attribute Code</label></td>
-									<td style="border: 1px  white solid;width:50%"><label>Attribute Name</label></td>
-									<td style="border: 1px white solid;width:10%"><label>Value</label></td>
-									<td style="border: 1px  white solid;width:10%"><label>Delete</label></td>
-								</tr>
+			<div class="col-md-2"><label>Value</label>
+				<input type="text" id="txtAttrValue" name="value" value="0.00" class="decimal-places-amt numberField" style="width:70%;text-align:right;"/>
+			</div>
+			
+			<div class="col-md-2"><br><input id="btnAddAtt" type="button" value="Add" class="btn btn-primary center-block"  onclick="return funAddAttRow();" class="smallButton"></input>
+			</div>
+		 </div>
+		<br>				
+		<table class="masterTable"  id="tblProdAtt" style="width:80%" >
+		   <tr style="background-color:#c0c0c0;">
+			  <td style="width:10%"><label>Attribute Code</label></td>
+			  <td style="width:50%"><label>Attribute Name</label></td>
+			  <td style="width:10%"><label>Value</label></td>
+			  <td style="width:10%"><label>Delete</label></td>
+		  </tr>
 
-								<c:forEach items="${command.listProdAtt}" var="prodAtt"
-									varStatus="status">
-									<tr>
-										<td><input name="listProdAtt[${status.index}].strAttCode"
-											value="${prodAtt.strAttCode}" readonly="readonly" /></td>
-										<td><input name="listProdAtt[${status.index}].strAttName"
-											value="${prodAtt.strAttName}" readonly="readonly" /></td>
-										<td><input
-											name="listProdAtt[${status.index}].dblAttValue"
-											value="${prodAtt.dblAttValue}" /></td>
-										<td><input type="hidden"
-											name="listProdAtt[${status.index}].strAVCode"
-											value="${prodAtt.strAVCode}" readonly="readonly" /></td>
-										<td><input type="button" value="Delete"
-											onClick="funDeleteRowForAttribute(this)" class="deletebutton"></td>
-									</tr>
-								</c:forEach>
-							</table>
+		  <c:forEach items="${command.listProdAtt}" var="prodAtt" varStatus="status">
+			<tr>
+			    <td><input name="listProdAtt[${status.index}].strAttCode"
+					value="${prodAtt.strAttCode}" readonly="readonly" /></td>
+				<td><input name="listProdAtt[${status.index}].strAttName"
+					value="${prodAtt.strAttName}" readonly="readonly" /></td>
+				<td><input name="listProdAtt[${status.index}].dblAttValue"
+					value="${prodAtt.dblAttValue}" /></td>
+				<td><input type="hidden"
+					name="listProdAtt[${status.index}].strAVCode"
+					value="${prodAtt.strAVCode}" readonly="readonly" /></td>
+				<td><input type="button" value="Delete"
+					onClick="funDeleteRowForAttribute(this)" class="deletebutton"></td>
+			 </tr>
+		</c:forEach>
+		</table>
+		
+          </div>
+       </div>
+<!--Custom Tab End  -->
+<!--Process Tab Start  -->
 
-						</div>
-						<!--Custom Tab End  -->
-						
-
-
-						<!--Process Tab Start  -->
-						<div id="tab6" class="tab_content" style="height: 400px">
-							<br> <br>
-							<table class="masterTable">
-							<tr><th colspan="4"></th></tr>
-								<tr>
-									<td width="13%"><label>Process </label></td>
-									<td width="15%"><input type="text" id="txtProcessCode"
-										ondblclick="funHelp('processCodeOnProcessTab')"
-										readonly="readonly" class="searchTextBox"/></td>
+		<div id="tab6" class="tab_content" style="height: 490px">
+		   <br> <br>
+		<div class="container masterTable">
+		 <div class="row">
+			    <div class="col-md-2"><label>Process </label>
+				  <input type="text" id="txtProcessCode" ondblclick="funHelp('processCodeOnProcessTab')"
+					readonly="readonly" class="searchTextBox"/>
+				</div>
 									
-									<td width="12%"><label>Weight</label></td>
-									<td><input  id="txtProcessWt" class="decimal-places numberField" value="0" /></td>
-									
-								</tr>
-								<tr>
-								<td><label>Cycle Time</label></td>
-									<td><input type="text" id="txtCycleTime" class="BoxW116px"/></td>
-									<td colspan="2"><input id="btnAddProcess" type="button" value="Add"
-										onclick="return funAddProcessRow()" class="smallButton"></input></td>
-								</tr>
-							</table>
-
-							<table class="masterTable" id="tblProdProcess" style="width:80%">
-								<tr>
-									<td style="border: 1px white solid;width: 5%"><label>Level</label></td>
-									<td style="border: 1px white solid;width: 10%"><label>Process Code</label></td>
-									<td style="border: 1px white solid;width: 20%"><label>Process Name</label></td>
-									<td style="border: 1px white solid;width: 5%"><label>Weight</label></td>
-									<td style="border: 1px white solid;width: 5%"><label>Cycle Time</label></td>
-									<td style="border: 1px white solid;width: 4%"><label>Delete</label></td>
-								</tr>
-								 <tr>
-										<td><input
-											name="listProdProcess[0].intLevel"
-											value="1" readonly="readonly" class="Box" size="5%" /></td>
-										<td><input
-											name="listProdProcess[0].strProcessCode"
-											value="PR000001" readonly="readonly" class="Box" width="10%" /></td>
-										<td><input
-											name="listProdProcess[0].strProcessName"
-											value="Production" readonly="readonly" class="Box" width="80%"/></td>
-										<td><input
-											name="tblProdProcess[0].dblWeight"
-											value="0" readonly="readonly" type="number" step="any"
+			    <div class="col-md-2"><label>Weight</label><br>
+					<input  id="txtProcessWt" class="decimal-places numberField" value="0" style="width:50%;text-align:right;border:none;"/>
+			    </div>
+			    <div class="col-md-8"></div>
+			    
+			 	<div class="col-md-2"><label>Cycle Time</label>
+					<input type="text" id="txtCycleTime"/>
+				</div>
+					
+				<div class="col-md-2"><br><input id="btnAddProcess" type="button" value="Add" class="btn btn-primary center-block"
+						onclick="return funAddProcessRow()" class="smallButton"></input>
+				</div>
+			  </div>
+			
+		    <br>
+			<table class="masterTable" id="tblProdProcess" style="width:80%">
+			<tr style="background-color:#c0c0c0;">
+				<td style="width: 5%"><label>Level</label></td>
+				<td style="width: 6%"><label>Process Code</label></td>
+				<td style="width: 20%"><label>Process Name</label></td>
+				<td style="width: 3%"><label>Weight</label></td>
+				<td style="width: 3%"><label>Cycle Time</label></td>
+				<td style="width: 4%"><label>Delete</label></td>
+			</tr>
+			<tr>
+				<td><input name="listProdProcess[0].intLevel" value="1" readonly="readonly" class="Box" size="5%" /></td>
+				<td><input name="listProdProcess[0].strProcessCode" value="PR000001" readonly="readonly" class="Box" width="6%" /></td>
+				<td><input name="listProdProcess[0].strProcessName" value="Production" readonly="readonly" class="Box" width="80%"/></td>
+				<td><input name="tblProdProcess[0].dblWeight" value="0" readonly="readonly" type="number" step="any"
 											required="required" style="text-align: right;" width="2%"/></td>
-										<td><input
-											name="tblProdProcess[0].dblCycleTime"
-											value="0" type="number" step="any" required="required" width="2%"/></td>
-										<td><input type="button" value="Delete"
-											onClick="funDeleteRowForProcess(this)" class="deletebutton" width="4%"></td>
-									</tr>
+				<td><input name="tblProdProcess[0].dblCycleTime" value="0" type="number" step="any" required="required" style="text-align: right;" width="2%"/></td>
+				<td><input type="button" value="Delete"	onClick="funDeleteRowForProcess(this)" class="deletebutton" width="4%"></td>
+			</tr>
 							<%-- 	<c:forEach items="${command.listProdProcess}" var="prodProcess"
 									varStatus="status">
 									<tr>
@@ -2539,57 +2525,59 @@ $(document).ready(function()
 									</tr>
 								</c:forEach> --%>
 							</table>
-
+                            </div>
 						</div>
-						<!-- Process Tab End -->
 						
-						
-						
-						<!-- Characteristics Tab Start  -->
-						<div id="tab7" class="tab_content" style="height: 400px">
-						<br> <br>
-							<table class="transTable">
-							<tr><th colspan="7"></th></tr>
-								<tr>
-									<td width="13%"><label>Process </label></td>
-									<td width="15%"><input type="text" id="txtCharProcessCode"
-										ondblclick="funHelp('processCodeOnCharTab')"
-										readonly="readonly" class="searchTextBox"/></td>
-									<td style="width: 20%"><label id="lblCharProcesName"></label></td>	
+	<!-- Process Tab End -->
+	<!-- Characteristics Tab Start  -->
+	
+	  <div id="tab7" class="tab_content" style="height:565px">
+		<br> <br>
+	  <div class="container masterTable">
+		  <div class="row">
+			<div class="col-md-2"><label>Process </label>
+				<input type="text" id="txtCharProcessCode" ondblclick="funHelp('processCodeOnCharTab')"
+						readonly="readonly" class="searchTextBox"/>
+			</div>
 									
+			<div class="col-md-3"><label id="lblCharProcesName" style="background-color:#dcdada94; width:65%; height: 42%; margin: 27px 0px;"></label></div>	
+			<div class="col-md-7"></div>
 									
-									<td style="width: 11%" ><label>Characteristics</label></td>
-									<td style="width: 12%"><input  id="txtCharacteristics"  class="BoxW116px" ondblclick="funHelp('charCode')" /></td>	
-									<td colspan="2"><label id ="lblCharName"></label></td>
+			<div class="col-md-2"><label>Characteristics</label>
+				<input  id="txtCharacteristics" ondblclick="funHelp('charCode')" style="border:none;"/>
+			</div>	
+			
+			<div class="col-md-3"><label id ="lblCharName" style="background-color:#dcdada94; width:65%; height: 42%; margin: 27px 0px;"></label></div>
 															
 <!-- 									<td><label>Tollerance/Method of Inspection</label></td> -->
 <!-- 									<td><input  id="txtTollerance"  class="BoxW116px" /></td> -->
 <!-- 									<td colspan="2"><input id="btnAddProcess" type="button" value="Add" -->
 <!-- 										onclick="return funAddCharRow()" class="smallButton"></input></td> -->
-								</tr>
-								<tr>
-								<td><label>Specification</label></td>
-									<td colspan="2"><input type="text" id="txtCharSpecification" class="BoxW116px"/></td>
+			<div class="col-md-7"></div>
+								
+			<div class="col-md-2"><label>Specification</label>
+				<input type="text" id="txtCharSpecification"/>
+			</div>
 									
-									<td><label>Gauge No</label></td>
-									<td  colspan="2"><input type="text" id="txtGaugeNo" class="BoxW116px"/></td>
+			<div class="col-md-2"><label>Gauge No</label>
+				<input type="text" id="txtGaugeNo"/>
+			</div>
+			<div class="col-md-8"></div>
 									
-								</tr>
-								
-								<tr>
-								<td><label>Tollerance/Method of Inspection</label></td>
-									<td><input  id="txtTollerance"  class="BoxW116px" /></td>
-									<td colspan="2"><input id="btnAddProcess" type="button" value="Add"
-										onclick="return funAddCharRow()" class="smallButton"></input></td>
-								</tr>
-								
-								
-							</table>
-						<br>
-						<div class="dynamicTableContainer" >
-						<table  style="height:20px;border:#0F0;width:100%;font-size:11px;font-weight: bold;">	
+			<div class="col-md-2"><label>Tollerance/Method of Inspection</label>
+				<input  id="txtTollerance" style="border:none;"/>
+			</div>
+			
+			<div class="col-md-2"><br><br><input id="btnAddProcess" type="button" value="Add" class="btn btn-primary center-block"
+					onclick="return funAddCharRow()" class="smallButton"></input>
+		    </div>
+		   </div>
+	    
+			<br>
+				<div class="dynamicTableContainer" >
+					<table  style="height:20px;border:#0F0;width:100%;font-size:11px;font-weight: bold;">	
 		
-							<tr bgcolor="#72BEFC" >
+						<tr bgcolor="#c0c0c0" >
 							<td width="4%">Process Code</td><!--  COl1   -->
 							<td width="10%">Process Name</td><!--  COl2   -->
 							<td width="4%">Char Code</td><!--  COl3   -->
@@ -2599,10 +2587,10 @@ $(document).ready(function()
 							<td width="2%">Gauge No</td><!--  COl7   -->	
 							<td width="1%">Delete</td><!--  COl8   -->
 		
-							</tr>
-						</table>
+						</tr>
+					 </table>
 						
-						<div style="background-color:  	#a4d7ff; border: 1px solid #ccc; display: block; height: 150px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+					<div style="background-color:  	#fafbfb; border: 1px solid #ccc; display: block; height: 150px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 					   <table id="tblProdChar" style="width:100%;border: #0F0;table-layout:fixed;overflow:scroll" class="transTablex ">
 							<tbody>    
 							<col style="width:3%"><!--  COl1   -->
@@ -2614,54 +2602,44 @@ $(document).ready(function()
 							<col style="width:2%"><!--  COl7   -->	
 							<col style="width:1%"><!--  COl8   -->	
 							</tbody>
-							</table>
-							</div>
+						</table>
+					</div>
+					</div>
+					 </div>
+				</div>
+				
+	<!-- Characteristics Tab End -->
+	<!-- Conversion Tab Start -->
+	
+	<div id="tab8" class="tab_content" style="height:225px">
+		<br> <br>
+	<div class="container masterTable">
+		<div class="row">
+			<div class="col-md-2"><label>Recieved UOM </label>
+				<s:select id="txtRecievedUOM" name="recievedUOM" path="strReceivedUOM" items="${uomList}" style="width:60%" onchange="funRecivedUOMChange(this)"/>
+			</div>
+			
+			<div class="col-md-2"><label>Received Conversion Ratio</label>
+				<s:input name="recievedConversionRatio" path="dblReceiveConversion" style="width:50%;text-align:right;" value="1.0" readonly="true" cssClass="decimal-places-amt numberField"/>
+			</div>
+			<div class="col-md-8"></div>
+								
+			<div class="col-md-2"><label>Issue UOM </label>
+				<s:select id="txtIssueUOM"  name="issueUOM" style="width:60%" path="strIssueUOM" items="${uomList}"/>
+			</div>
+									
+			<div class="col-md-2"><label>Issue Conversion Ratio</label>
+				<s:input id="txtIssueConversionRatio" name="issueConversionRatio" style="width:50%;text-align:right;" path="dblIssueConversion" value="1.0" cssClass="decimal-places-amt numberField"/>
+			</div>
+			<div class="col-md-8"></div>
+								
+			<div class="col-md-2"><label>Recipe UOM </label>
+				<s:select id="txtRecipeUOM"  name="recipeUOM" style="width:60%" path="strRecipeUOM" items="${uomList}"/>
+			</div>				
 						
-						</div>
-						
-						
-						</div>
-						<!-- Characteristics Tab End -->
-						
-						
-
-						
-						<!-- Conversion Tab Start -->
-						<div id="tab8" class="tab_content" style="height: 400px">
-							<br> <br>
-							<table class="masterTable">
-								<tr><th colspan="4"></th></tr>
-								<tr>
-									<td width="12%"><label>Recieved UOM </label></td>
-									<td width="15%">
-									<s:select id="txtRecievedUOM" name="recievedUOM"
-										path="strReceivedUOM" items="${uomList}" onchange="funRecivedUOMChange(this)"  cssClass="BoxW124px"/>
-								</td>
-									<td width="20%"><label>Received Conversion Ratio</label></td>
-									<td>
-									<s:input name="recievedConversionRatio" path="dblReceiveConversion" value="1.0" readonly="true" cssClass="decimal-places-amt numberField"/>
-									</td>
-								</tr>
-								<tr>
-									<td><label>Issue UOM </label></td>
-									<td>
-									<s:select id="txtIssueUOM"  name="issueUOM"
-										path="strIssueUOM" items="${uomList}"  cssClass="BoxW124px"/>
-									<td><label>Issue Conversion Ratio</label></td>
-									<td><s:input id="txtIssueConversionRatio"
-											name="issueConversionRatio" path="dblIssueConversion" value="1.0" cssClass="decimal-places-amt numberField"/></td>
-								</tr>
-								<tr>
-									<td><label>Recipe UOM </label></td>
-									<td>
-										<s:select id="txtRecipeUOM"  name="recipeUOM"
-										path="strRecipeUOM" items="${uomList}"  cssClass="BoxW124px"/>
-										
-									</td>
-									<td><label>Recipe Conversion Ratio</label></td>
-									<td><s:input id="txtRecipeConversionRatio"
-											name="recipeConversionRatio" path="dblRecipeConversion" value="1.0" cssClass="decimal-places-amt numberField" /></td>
-								</tr>
+			<div class="col-md-2"><label>Recipe Conversion Ratio</label>
+				<s:input id="txtRecipeConversionRatio" name="recipeConversionRatio" style="width:50%;text-align:right;" path="dblRecipeConversion" value="1.0" cssClass="decimal-places-amt numberField" />
+			</div>
 								<%-- <tr>
 									<td><label>Physical Stock UOM </label></td>
 									<td>
@@ -2672,150 +2650,162 @@ $(document).ready(function()
 									<td><s:input id="txtPhyStkConversionRatio"
 											name="PhyStkConversionRatio" path="dblPhyStkConversion" cssClass="decimal-places-amt numberField"  value="1.0"/></td>
 								</tr> --%>
-							</table>
-
-						</div>
-						<!--Conversion Tab End  -->
-						
-
-
-						<!--ReOrder Level Tab Start  -->
-						<div id="tab9" class="tab_content" style="height: 400px">
-							<br> <br>
-							<table class="masterTable">
-							<tr><th colspan="5"></th></tr>
-								<tr>
-									<td width="12%"><label>Location</label></td>
-									<td width="15%"><input type="text" id="txtROLocationCode"
-										ondblclick="funHelp('locationForReOrder')" class="searchTextBox"/></td>
-									<td><label id="txtROLocationName"></label></td>
-									<td ><input type="button" value="Select All Location" style="background-color :#a6d1f6;height:30px;width :42%" id="btnShowAllLocation"   onclick="return funGetAllLocation();"></input></td>
-								</tr>
-								<tr>
-									<td><label>Reorder Level</label></td>
-									<td><input  id="txtReOrderLvl" class="decimal-places-amt numberField" value="0" /></td>
-									<td><label>Reorder Qty</label></td>
-									<td><input id="txtReOrderQty" class="decimal-places-amt numberField" value="0" /></td>
-									<td><input id="txtPrice" class="decimal-places-amt numberField" value="0" /></td>
+		</div>
+        </div>
+	</div>				
+	
+	<!--Conversion Tab End  -->
+	<!--ReOrder Level Tab Start  -->
+	
+	<div id="tab9" class="tab_content" style="height: 505px">
+		<br> <br>
+	 <div class="container masterTable">
+		<div class="row">
+			<div class="col-md-2"><label>Location</label>
+				<input type="text" id="txtROLocationCode" ondblclick="funHelp('locationForReOrder')" style="height:40%" class="searchTextBox"/>
+		    </div>
+		    
+			<div class="col-md-2"><label id="txtROLocationName" style="background-color:#dcdada94;width:100%; height: 42%; margin: 27px 0px;"></label></div>
+			
+			<div class="col-md-2"><input type="button" value="Select All Location" class="btn btn-primary center-block" id="btnShowAllLocation" style="margin-top: 26px;
+    height: 42%;" onclick="return funGetAllLocation();"></input>
+			</div>
+			
+			<div class="col-md-6"></div>
+			
+			<div class="col-md-1"><label style="width: 125%">Reorder Level</label>
+				<input  id="txtReOrderLvl" class="decimal-places-amt numberField" value="0" style="border: none;width: 110%;text-align:right"/>
+			</div>
+			
+			<div class="col-md-1"><label style="width: 125%">Reorder Qty</label><br>
+				<input id="txtReOrderQty" class="decimal-places-amt numberField" value="0" style="border: none;width: 110%;text-align:right"/>
+			</div>
+			
+			<div class="col-md-1">
+			    <input id="txtPrice" class="decimal-places-amt numberField" value="0" style="margin-top:40%;border: none;width: 110%;text-align:right"/>
+			</div>
 									
-								</tr>
-								<tr>
-								<td align="left" colspan="5"><input id="btnAddReorder" type="button" value="Add"
-										onclick="return btnReOrderLvl_Click()" class="smallButton"></input></td>
-								</tr>
-								
-							</table>
-							<table class="masterTable">
-								<tr>
-									<th style="border: 1px white solid;width: 10%"><label>Location</label></th>
-									<th style="border: 1px white solid;width: 30%"><label>Location Name</label></th>
-									<th style="border: 1px white solid;width: 10%"><label>Reorder Level</label></th>
-									<th style="border: 1px white solid;width: 10%"><label>Reorder Qty</label></th>
-									<th style="border: 1px white solid;width: 10%"><label>Price</label></th>
-									<th style="border: 1px white solid;width: 5%"><label>Delete</label></th>									
-								</tr>	
-								</table>
-							<div class="dynamicTableContainer" style="height: 246px;width: 80%; overflow-y:scroll;border: 1px solid #c0e2fe ">
-							<table id="tblReOrderLevel" class="masterTable" style="width: 100%">
-																			
-								<c:forEach items="${command.listReorderLvl}" var="reorderLvl"
-									varStatus="status">
- 									<tr>
-										<td><input readonly="readonly" class="Box"  size="10%"
-											name="listReorderLvl[${status.index}].strLocationCode"
-											value="${reorderLvl.strLocationCode}" /></td>
-										<td style="width: 40%;"><input readonly="readonly" class="Box" size="77%"
-											name="listReorderLvl[${status.index}].strLocationName"
-											value="${reorderLvl.strLocationName}"  /></td>
-										<td width="10%"><input type="number" step="any" required = "required" style="text-align: right;width:80%" size="100%"
-											name="listReorderLvl[${status.index}].dblReOrderLevel"
-											value="${reorderLvl.dblReOrderLevel}" /></td>
-										<td width="10%"><input type="number" step="any" required ="required" style="text-align: right;width:60%" size="100%"
-											name="listReorderLvl[${status.index}].dblReOrderQty"
-											value="${reorderLvl.dblReOrderQty}" /></td>
-										<td width="10%"><input type="number" step="any" required ="required" style="text-align: right;width:60%" size="100%"
-											name="listReorderLvl[${status.index}].dblPrice"
-											value="${reorderLvl.dblPrice}" /></td>	
-										<td width="5%"><input type="button" value="Delete" class="deletebutton"
-											onClick="funDeleteRowForReorderLvl(this)"  class="deletebutton"></td>
-									</tr>
-								</c:forEach>	
-								</table>	
-								</div>					
-						</div>
-						<!--Reorder Level Tab End  -->
+			<div class="col-md-2" align="left">
+	             <input id="btnAddReorder" type="button" value="Add" class="btn btn-primary center-block" 
+					onclick="return btnReOrderLvl_Click()" style="margin-top:15%;width:50%" class="smallButton"></input>
+			</div>
+		</div>
+	
+	  <br>
+	  <table class="masterTable">
+		<tr style="background-color:#c0c0c0;">
+		   <th style="width: 10%"><label>Location</label></th>
+			<th style="width: 30%"><label>Location Name</label></th>
+			<th style="width: 10%"><label>Reorder Level</label></th>
+			<th style="width: 10%"><label>Reorder Qty</label></th>
+			<th style="width: 10%"><label>Price</label></th>
+			<th style="width: 5%"><label>Delete</label></th>									
+		</tr>	
+	  </table>
+	<div class="dynamicTableContainer" style="height: 246px;width: 80%; overflow-y:scroll;border: 1px solid #c0c0c0 ">
+	<table id="tblReOrderLevel" class="masterTable" style="width: 100%">
+		<c:forEach items="${command.listReorderLvl}" var="reorderLvl"  varStatus="status">
+ 		<tr>
+			<td><input readonly="readonly" class="Box"  size="10%"
+					name="listReorderLvl[${status.index}].strLocationCode"
+					value="${reorderLvl.strLocationCode}" /></td>
+			<td style="width: 40%;"><input readonly="readonly" class="Box" size="77%"
+					name="listReorderLvl[${status.index}].strLocationName"
+					value="${reorderLvl.strLocationName}"  /></td>
+			<td width="10%"><input type="number" step="any" required = "required" style="text-align: right;width:80%" size="100%"
+					name="listReorderLvl[${status.index}].dblReOrderLevel"
+					value="${reorderLvl.dblReOrderLevel}" /></td>
+			<td width="10%"><input type="number" step="any" required ="required" style="text-align: right;width:60%" size="100%"
+					name="listReorderLvl[${status.index}].dblReOrderQty"
+					value="${reorderLvl.dblReOrderQty}" /></td>
+			<td width="10%"><input type="number" step="any" required ="required" style="text-align: right;width:60%" size="100%"
+					name="listReorderLvl[${status.index}].dblPrice"
+					value="${reorderLvl.dblPrice}" /></td>	
+			<td width="5%"><input type="button" value="Delete" class="deletebutton"
+				onClick="funDeleteRowForReorderLvl(this)"  class="deletebutton"></td>
+			</tr>
+			</c:forEach>	
+		</table>	
+			</div>		
+		  </div>			
+	</div>
 						
-						<!--Batch Tab Start  -->
-						<div id="tab10" class="tab_content" style="height: 400px">
+    <!--Reorder Level Tab End  -->
+	<!--Batch Tab Start  -->
+	
+	<div id="tab10" class="tab_content" style="height:365px">
+		<br> <br>
+	   <div class="container masterTable">
+		<table style="width:80%">
+		<tr style="background-color:#c0c0c0;">
+			<th style="width: 10%"><label>Batch Code</label></th>
+			<th style="width: 50%"><label>Manufacture Batch Code</label></th>
+			<th style="width: 13%"><label>GRN Code</label></th>
+			<th style="width: 10%"><label>Pending Qty</label></th>
+   			<th style="width: 10%"><label>Expiry Date</label></th>								
+		</tr>	
+	   </table>
+	   
+	  <div class="dynamicTableContainer" style="height: 246px;width: 80%; overflow-y:scroll;border: 1px solid #c0c0c0 ">
+		 <table id="tblBatch" class="masterTable" style="width: 100%">
+ 			<tr>
+				<td width="10%"></td>
+				<td width="50%"></td>
+				<td width="10%"></td>
+				<td width="10%"></td>
+				<td width="10%"></td>
+			</tr>
+		 </table>	
+		 </div>					
+		</div>
+	  </div>
+						
+	  <!--Reorder Level Tab End  -->
+	
+	<div id="tab11" class="tab_content" style="height: 430px">
 							<br> <br>
-							
-							<table class="masterTable">
-								<tr>
-									<th style="border: 1px white solid;width: 10%"><label>Batch Code</label></th>
-									<th style="border: 1px white solid;width: 50%"><label>Manufacture Batch Code</label></th>
-									<th style="border: 1px white solid;width: 13%"><label>GRN Code</label></th>
-									<th style="border: 1px white solid;width: 10%"><label>Pending Qty</label></th>
-   									<th style="border: 1px white solid;width: 10%"><label>Expiry Date</label></th>								
-								</tr>	
-								</table>
-							<div class="dynamicTableContainer" style="height: 246px;width: 80%; overflow-y:scroll;border: 1px solid #c0e2fe ">
-							<table id="tblBatch" class="masterTable" style="width: 100%">
- 									<tr>
-										<td width="10%"></td>
-										<td width="50%"></td>
-										<td width="10%"></td>
-										<td width="10%"></td>
-										<td width="10%"></td>
-									</tr>
-								
-								</table>	
-								</div>					
-						</div>
-						<!--Reorder Level Tab End  -->
-						
-						
-						<div id="tab11" class="tab_content" style="height: 400px">
-							<br> <br>
-							
-							<table class="masterTable" >
-								<tr> 
-									<td ><label>Customer Code</label></td>
- 									<td> <s:input id="txtCustCode" name="txtPartyCode"  path="strPCode" ondblclick="funHelp('custMaster')"   cssClass="searchTextBox"/></td> 
-			        				<td ><label id="lblCustName"></label></td>
+	<div class="container masterTable">
+		<div class="row">	
+		   <div class="col-md-2"><label>Customer Code</label>
+ 			    <s:input id="txtCustCode" name="txtPartyCode" path="strPCode" ondblclick="funHelp('custMaster')" cssClass="searchTextBox" style="height:40%"/>
+ 		   </div> 
+ 		   
+		   <div class="col-md-2"><label id="lblCustName" style="background-color:#dcdada94;width:100%; height: 40%; margin: 27px 0px;"></label></div>
 			        				
-			        				<td ><label>Standing Order</label></td>
-			        				<td><input  id="txtStandingOrder" class="decimal-places-amt numberField" value="1" /></td>
-			        				</tr>
+		   <div class="col-md-1"><label style="width:140%">Standing Order</label>
+			    <input  id="txtStandingOrder" class="decimal-places-amt numberField" value="1" style="width: 115%;text-align:right;"/>
+		   </div>
+	       <div class="col-md-7"></div>
+			    
+		    <div class="col-md-1"><label>Margin %</label>
+			     <input  id="txtMargin" class="decimal-places-amt numberField" value="0" style="width: 115%;text-align:right;"/>
+			</div>
 			        				
-			        				<tr>
-			        				<td ><label>Margin %</label></td>
-			        				<td><input  id="txtMargin" class="decimal-places-amt numberField" value="0" /></td>
-			        				
-			        				 <td align="left" ><input id="btnAddCust" type="button" value="Add"
-										onclick="funAddCust()" class="smallButton" ></input></td>
-				        			
-				        			
-				        			
-				        			<td ></td>	
-				        				 <td colspan="1"><input id="btnAddAllCust" type="button" value="Add All Customer"
-										onclick="return btnCust_Click()" style="background-color :#a6d1f6;height:30px;width :100%" ></input></td>
-								</tr>
-								</table>
-								
-					<div class="dynamicTableContainer" >
-						<table  style="height:20px;border:#0F0;width:100%;font-size:11px;font-weight: bold;">	
+			<div class="col-md-2" align="left" ><br>
+			     <input id="btnAddCust" type="button" value="Add" style="width :60%" onclick="funAddCust()" class="btn btn-primary center-block" class="smallButton" ></input>
+		    </div>
+			
+			 <div class="col-md-2">	      <br>  			
+				 <input id="btnAddAllCust" type="button" value="Add All Customer" onclick="return btnCust_Click()" class="btn btn-primary center-block"
+				   style="height:30px;width :100%" ></input>
+			</div>
+		</div>
 		
-							<tr bgcolor="#72BEFC" >
+		<br>						
+		<div class="dynamicTableContainer" >
+			<table  style="height:20px;border:#0F0;width:100%;font-size:11px;font-weight: bold;">	
+		
+				    <tr bgcolor="#c0c0c0" >
 							<td width="10%">Customer Code</td><!--  COl1   -->
 							<td width="20%">Customer Name</td><!--  COl2   -->
 							<td width="10%">Standing Order</td><!--  COl3   -->
 							<td width="10%">Product Margin%</td><!--  COl4   -->								
 							<td width="1%">Delete</td><!--  COl5   -->
 		
-							</tr>
-						</table>
+					</tr>
+			</table>
 						
-						<div style="background-color:  	#a4d7ff; border: 1px solid #ccc; display: block; height: 150px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<div style="background-color:  	#fafbfb; border: 1px solid #ccc; display: block; height: 150px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 					   <table id="tblCust" style="width:100%;border: #0F0;table-layout:fixed;overflow:scroll" class="transTablex ">
 							<tbody>    
 							<col style="width:10%"><!--  COl1   -->
@@ -2825,31 +2815,25 @@ $(document).ready(function()
 							<col style="width:1%"><!--  COl5   -->	
 							</tbody>
 							</table>
-							</div>
-						
-						</div>
-								
-							
-							
-						</div>	
-						
-					</div>
+				</div>
+		</div>
+		</div>
+	 </div>	
 					
-				</td>
-			</tr>
-		</table>
-		
-		<p align="center">
-			<input type="submit" value="Submit" id="formsubmit" onclick="return funCallFormAction('submit',this);" class="form_button" /> 
-			<input type="reset" value="Reset" class="form_button" onclick=" return funResetFields()" />
-		</p>
-		
-		
+				</div>
+			</div>
+		</div>
+			
+				<p align="right" style="margin-right:515px">
+			<input type="submit" value="Submit" id="formsubmit" onclick="return funCallFormAction('submit',this);" class="btn btn-primary center-block" class="form_button" /> 
+			&nbsp;<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick=" return funResetFields()" />
+		</p>		
 		
 	<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
-				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
-			</div>
+		<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+	</div>
 </s:form>
+</div>
 <script type="text/javascript">funApplyNumberValidation();</script>
 
 </body>

@@ -1,11 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	var fieldName;
 	//Initialize tab Index or which tab is Active
@@ -592,147 +601,155 @@
     	
 		}
 	}
+	
+	$('#baseUrl').click(function() 
+			{  
+				 if($("#strTaxCode").val().trim()=="")
+				{
+					alert("Please Select Tax Code..  ");
+					return false;
+				} 
+					window.open('attachDoc.html?transName=frmPMSTaxMaster.jsp&formName=Member Profile&code='+$('#strTaxCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+			});
 	 
 </script>
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Tax Master</label>
-	</div>
-
-<br/>
-<br/>
-
+ <div class="container masterTable">
+	<label id="formHeading">Tax Master</label>
 	<s:form name="PMSTaxMaster" method="POST" action="savePMSTaxMaster.html">
 
-	<div id="tab_container" style="height: 405px">
+	<div id="tab_container" style="height: 309px">
 				<ul class="tabs">
-					<li data-state="tab1" style="width: 6%; padding-left: 2%;margin-left: 10%; " class="active" >General</li>
-					<li data-state="tab2" style="width: 8%; padding-left: 1%">LinkUp</li>
-					<li data-state="tab3" style="width: 8%; padding-left: 1%">Settlemet</li>
+					<li data-state="tab1" class="active" >General</li>
+					<li data-state="tab2">LinkUp</li>
+					<li data-state="tab3">Settlemet</li>
 				</ul>
 							
 				<!-- General Tab Start -->
-				<div id="tab1" class="tab_content" style="height: 400px">
+				<div id="tab1" class="tab_content" style="height: 309px">
 					<br> 
 					<br>	
-		<table class="masterTable">
-			<tr>
-			    <td><label>Tax Code</label></td>
-			    <td><s:input id="strTaxCode" path="strTaxCode"  ondblclick=" funHelp('taxCode') " cssClass="searchTextBox"/></td>			        			        
-			    <td colspan="3"><s:input id="strTaxDesc" path="strTaxDesc" required="true" cssClass="longTextBox"  style="width: 316px"/></td>			    		        			   
-			</tr>
-			<tr>
-				<td><label>Tax On</label></td>
-				<td>
-					<s:select id="cmbTaxOnType" path="strTaxOnType"  onclick = "funOnChange(this)" cssClass="BoxW124px" ><!-- onchange="funOnChange();" -->
+		
+	   <div class="row">
+			    <div class="col-md-4"><label>Tax Code</label>
+			       <div class="row">
+			           <div class="col-md-5"><s:input id="strTaxCode" path="strTaxCode"  ondblclick=" funHelp('taxCode') " cssClass="searchTextBox" style="height: 92%"/></div>			        			        
+			           <div class="col-md-7"><s:input id="strTaxDesc" path="strTaxDesc" required="true" style="width: 190px"/></div>			    		        			   
+			     </div></div>
+			     
+			     <div class="col-md-1"><label>Tax On</label>
+				    <s:select id="cmbTaxOnType" path="strTaxOnType"  onclick = "funOnChange(this)" style="width: 110px"><!-- onchange="funOnChange();" -->
 						<option value="Room Night" selected>Room Night</option>
 						<option value="Income Head">Income Head</option>
 						<option value="Department">Department</option>
 						<option value="Extra Bed">Extra Bed</option>
-						
 					</s:select>
-				<td colspan="1" >
-					<s:input id="txtDeptCode"  path="strDeptCode" style="display:none;" ondblclick=" funHelp('deptCode') " cssClass="searchTextBox" />
-				</td>
-				<td colspan="2"><label id="lblDeptDesc"></label></td>
-			</tr>
-			
-			<tr>
-				<td></td>
-				<td colspan="2" >
-					<s:input id="txtIncomeHeadCode" style = "display:none;" path="strIncomeHeadCode"  ondblclick=" funHelp('incomeHead') " cssClass="searchTextBox"/>
-				</td>
-				<td><label id="lblIncomeHead"></label></td>
-			</tr>
-			
-			<tr>
-				<td><label>Value Slab</label></td>
-				<td >
-					<s:input  cssClass="longTextBox" style="text-align:right; width: 64%;" id="fromRate" path="dblFromRate" placeholder="fromRate" required="true"/>
-				</td>
+			      </div>
+			       <div class="col-md-7"></div>
+			     
+			  <div class="col-md-4">
+			    <div class="row">
+			       <div class="col-md-5"><s:input id="txtDeptCode"  path="strDeptCode" style= "display:none; margin-top: 17%; height: 50%" ondblclick=" funHelp('deptCode')"  placeholder="Dept Code" cssClass="searchTextBox"/></div>
+				    <div class="col-md-7"><label id="lblDeptDesc" style="background-color:#dcdada94; width: 190px; height: 55%;margin-top: 11%;"></label></div>
+			  </div></div>
+			  
+			  <div class="col-md-4">
+			    <div class="row">
+			   		<div class="col-md-5"><s:input id="txtIncomeHeadCode" style = "display:none; margin-top:17%;height:50%" path="strIncomeHeadCode"  ondblclick=" funHelp('incomeHead') " placeholder="Income Head Code" cssClass="searchTextBox"/></div>
+			   		<div class="col-md-7"><label id="lblIncomeHead" style="background-color:#dcdada94; width: 190px; height: 55%;margin-top: 11%; "></label></div>
+			   </div></div>
 				
-				<td >
-					<s:input  cssClass="longTextBox" style="text-align:right; width: 64%;" id="toRate" path="dblToRate"  placeholder="toRate" required="true"/>
-				</td>
-				<td></td>
-			</tr>
+				<div class="col-md-4"></div>
+				
+			    <div class="col-md-2"><label>Value Slab</label>
+			    	<div class="row">
+						<div class="col-md-6"><s:input style="text-align:right" id="fromRate" path="dblFromRate" placeholder="fromRate" required="true"/>
+						</div>
+						<div class="col-md-6"><s:input style="text-align:right" id="toRate" path="dblToRate"  placeholder="toRate" required="true"/>
+						</div>
+				</div></div>
+				
+		<div class="col-md-3"><label>Calculate On</label>
+			<div class="row">
+				<div class="col-md-6"><s:select id="strTaxType" path="strTaxType" items="${listTaxType}" required="true" onclick =' funPercentOrRs() '></s:select></div>
+				<div class="col-md-6"><s:input  id="dblTaxValue" path="dblTaxValue" required="true" cssClass="decimal-places numberField" /></div>
+		</div></div>
+		<div class="col-md-1"><s:input  style="width: 60%;margin-top: 40%;" id="sign" readonly="true" path=""/></div>
+		
+		<div class="col-md-6"></div>
+	
+		<div class="col-md-1"><label>Diplomat</label>
+				<s:select id="strDeplomat" path="strDeplomat" items="${listDiplomat}"></s:select>			
+		</div>
+		
+		<div class="col-md-1"><label>Local/Foreigner</label>
+				<s:select id="strLocalOrForeigner" path="strLocalOrForeigner" items="${listLocalForeigner}" style="width: 135%"></s:select>				
+		</div>
+		
+		<div class="col-md-1" style="margin-left: 3%;"><label>Tax Type</label>
+				<s:select id="" path="" items="${listTaxType2}" style="width:120%"></s:select>
+		</div>
+		
+       <div class="col-md-2" style="margin-left: 1%;"><label>Tax On</label>
+				<s:select id="strTaxOn" path="strTaxOn" items="${listTaxOn}" required="true" style="width: 80%;"></s:select>				
+		</div>
+		
+		<div class="col-md-1" style="margin-left: -4%;"><label>Valid From</label>	
+			   <s:input type="text" id="dteValidFrom" path="dteValidFrom" required="true" style="width:150%;" class="calenderTextBox" />
+	    </div>
+	   
+		<div class="col-md-1" style="margin-left: 2%;"><label>Valid To</label>	
+			   <s:input type="text" id="dteValidTo" path="dteValidTo" style="width: 150%;" class="calenderTextBox" />		    		  
+		</div>	
+		 <div class="col-md-4"></div>
+		
+		
+		<div class="col-md-1"><label style="width: 101%">Tax On Tax</label><br>
+				<s:checkbox id="chkTaxOnTax" path="" value="N" onclick=' funTaxOnTaxStateChange() '/>	    		    		 
+		</div>	
+		
+		<div class="col-md-2"><s:select id="strTaxOnTaxCode" path="strTaxOnTaxCode" items="${listTaxOnTax}" style="margin-top: 15%;" disabled="true"></s:select></div>
+		
+		<div class="col-md-1"><label style="width: 140%">Tax On Taxable</label><br>
+				<s:checkbox id="chkTaxOnTaxable" path="" value="N" onclick="funTaxOnTaxableStateChange()" />		    		    		 
+		</div>
+		
+		<div class="col-md-2"><s:select id="strTaxOnTaxable" path="strTaxOnTaxable" items="${listTaxOnTaxable}" style="margin-top: 15%;" disabled="true"></s:select>
+		</div>
 			
-			   
-			
-			
-			<tr>
-				<td><label>Calculate On</label></td>
-				<td><s:select id="strTaxType" path="strTaxType" items="${listTaxType}" required="true" cssClass="BoxW124px" onclick =' funPercentOrRs() '></s:select></td>
-				<td><s:input  id="dblTaxValue" path="dblTaxValue" required="true" cssClass="decimal-places numberField" /></td>
-				<td><s:input  cssClass="longTextBox" style="width: 10%;" id="sign" readonly="true" path=""/></td>
-				</tr>
-				<tr>
-				<td><label>Tax Type</label></td>
-				<td colspan="3"><s:select id="" path="" items="${listTaxType2}"  cssClass="BoxW124px"></s:select></td>
-			
-			</tr>
-			<tr>
-			</tr>
-			<tr>
-				<td><label>Tax On</label></td>
-				<td colspan="3" ><s:select id="strTaxOn" path="strTaxOn" items="${listTaxOn}" required="true" cssClass="BoxW200px"></s:select></td>				
-			</tr>
-			<tr>
-				<td><label>Diplomat</label></td>
-				<td colspan="3" ><s:select id="strDeplomat" path="strDeplomat" items="${listDiplomat}" cssClass="BoxW124px"></s:select></td>				
-			</tr>
-			<tr>
-				<td><label>Local/Foreigner</label></td>
-				<td colspan="3" ><s:select id="strLocalOrForeigner" path="strLocalOrForeigner" items="${listLocalForeigner}" cssClass="BoxW124px"></s:select></td>				
-			</tr>
-			<tr>
-			    <td><label>Valid From</label></td>	
-			    <td><s:input type="text" id="dteValidFrom" path="dteValidFrom" required="true" class="calenderTextBox" /></td>
-			    <td><label>Valid To</label></td>	
-			    <td><s:input type="text" id="dteValidTo" path="dteValidTo" class="calenderTextBox" /></td>		    		  
-			</tr>	
-			<tr>			    
-			    <td><s:checkbox label="Tax On Tax" id="chkTaxOnTax" path="" value="N" onclick=' funTaxOnTaxStateChange() '/></td>			    		    		 
-			    <td colspan="3" ><s:select id="strTaxOnTaxCode" path="strTaxOnTaxCode" items="${listTaxOnTax}"  disabled="true" cssClass="BoxW200px"></s:select></td>
-			</tr>	
-			<tr>			    
-			    <td><s:checkbox label="Tax On Taxable" id="chkTaxOnTaxable" path="" value="N" onclick="funTaxOnTaxableStateChange()" /></td>			    		    		 
-			    <td colspan="3" ><s:select id="strTaxOnTaxable" path="strTaxOnTaxable" items="${listTaxOnTaxable}"  disabled="true" cssClass="BoxW200px"></s:select></td>
-			</tr>	
-			<tr>
-				<td><label>Tax Group</label></td>
-				<td colspan="3" ><s:select id="strTaxGroupCode" path="strTaxGroupCode" items="${listTaxGroup}" cssClass="BoxW200px"></s:select></td>				
-			</tr>		
-		</table>
+		<div class="col-md-2"><label>Tax Group</label>
+			<s:select id="strTaxGroupCode" path="strTaxGroupCode" items="${listTaxGroup}" style="width: 65%;"></s:select>				
+		</div>		
+		</div>
 		</div>
 		<!--General Tab End  -->
 			<!-- Linkedup Details Tab Start -->
-			<div id="tab2" class="tab_content" style="height: 400px">
+			<div id="tab2" class="tab_content" style="height: 309px">
 			<br> 
 			<br>			
-				<table class="masterTable">
-						<tr>
-						    <td><label>Account Code</label></td>
-						    <td><s:input id="txtAccountCode" path="strAccountCode" readonly="true" ondblclick="funHelp('accountCode')" cssClass="searchTextBox"/></td>
-						    <td colspan="3"><s:input id="txtAccountName" path="" readonly="true" cssClass="longTextBox"  style="width: 316px"/></td>			        			        						    			    		        			  
-						</tr>
-				</table>
+				<div class="row">
+						<div class="col-md-4">
+						    <div class="row">
+						 		<div class="col-md-5"><label>Account Code</label><s:input id="txtAccountCode" path="strAccountCode" readonly="true" placeholder="Account Code" ondblclick="funHelp('accountCode')" style="width: 135px;height: 50%;" cssClass="searchTextBox"/></div>
+						 		<div class="col-md-7"><s:input id="txtAccountName" path="" readonly="true" placeholder="Account Name" style="width: 210px;margin-top: 14%;"/></div>			        			        						    			    		        			  
+						</div>
+						</div>
+					</div>
 			</div>
 			
-			<div id="tab3" class="tab_content" style="height: 400px">
+			<div id="tab3" class="tab_content" style="height: 309px;margin-top: 60px;">
 			
 			<table class="masterTable">
-					<tr>
-						<th style="border: 1px white solid;width: 10%"><label>Settlement Code</label></th>
-						<th style="border: 1px white solid;width: 50%"><label>Settlement Desc</label></th>
-						<th style="border: 1px white solid;width: 10%"><label>Select</label></th>
+					<tr style="background-color: #c0c0c0">
+						<th style="border: 1px white solid;width: 6%"><label>Settlement Code</label></th>
+						<th style="border: 1px white solid;width: 35%;padding-left: 90px;"><label>Settlement Desc</label></th>
+						<th style="border: 1px white solid;width: 8%"><label>Select</label></th>
 					</tr>
 				</table>
 				
-				<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 80%;">
+				<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 210px; overflow-x: hidden; overflow-y: scroll;">
 					<table id="tblSettlement" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col5-center">
 						<tbody>
 							<col style="width: 5%"><!-- col1   -->
@@ -741,17 +758,15 @@
 						</tbody>
 					</table>
 				</div>
-			
 			</div>
-			
 		</div>
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+	    <br>
+	    
+		<p align="center" style="margin-right: -20%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" />&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
-
-	</s:form>
+     </s:form>
+     </div>
 </body>
 </html>

@@ -1,15 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Purchase Order</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
 
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
+<title>Purchase Order</title>
+<style type="text/css">
+
+.contents{
+    min-height: calc(100vh - -462px);
+}
+
+	</style>
 <script type="text/javascript">
 		
 	/**
@@ -305,8 +318,8 @@
 		    
 		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount)+"\" value='"+taxCode+"' >";
 		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
-		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" size=\"15.5%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
-		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" size=\"15.5%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
+		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" size=\"15%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
+		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" size=\"15%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
 		    row.insertCell(4).innerHTML= '<input type="button" size=\"6%\" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteTaxRow(this)" >';
 		    
 		    funCalTaxTotal();
@@ -325,8 +338,8 @@
 		 
 		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount)+"\" value='"+taxCode+"' >";
 		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
-		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" size=\"15.5%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
-		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" size=\"15.5%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
+		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" size=\"15.5%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
+		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;  border:1px solid #c0c0c0;\" size=\"15.5%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
 		    row.insertCell(4).innerHTML= '<input type="button" size=\"6%\" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteTaxRow(this)" >';
 		    
 		    funCalTaxTotal();
@@ -722,7 +735,7 @@
 			    var rowCount = table.rows.length;
 			    var row = table.insertRow(rowCount);		    
 			    row.insertCell(0).innerHTML= "<input name=\"listPODtlModel["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box txtProdCode\" size=\"8%\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
-			    row.insertCell(1).innerHTML= "<input name=\"listPODtlModel["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"27%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
+			    row.insertCell(1).innerHTML= "<input name=\"listPODtlModel["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"21%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
 			    row.insertCell(2).innerHTML= "<input name=\"listPODtlModel["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" size=\"2%\" id=\"txtUOM."+(rowCount)+"\" value='"+strUOM+"'/>";		   
 			    row.insertCell(3).innerHTML= "<input name=\"listPODtlModel["+(rowCount)+"].strSuppCode\"  required =\"required\" class=\"Box SCode\" size=\"5%\" id=\"txtSuppCode."+(rowCount)+"\" value='"+strSuppCode+"' onblur=\"funCheckSupplier(this)\"/>";
 			    row.insertCell(4).innerHTML= "<input id=btnSup"+rowCount+" type=button   onclick=funHelp1("+(rowCount)+",'suppcode1') value=...>";        
@@ -1196,7 +1209,7 @@
 		    var tcDesc=$("#txtTCDesc").val();
 		    
 		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" name=\"listTCMaster["+(rowCount)+"].strTCName\" id=\"txtTCName."+(rowCount)+"\" value='"+tcName+"' />";
-		    row.insertCell(1).innerHTML= "<input class=\"longTextBox\" size=\"20%\" name=\"listTCMaster["+(rowCount)+"].strTCDesc\" id=\"txtTCDesc."+(rowCount)+"\" value='"+tcDesc+"' />";
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"20%\" name=\"listTCMaster["+(rowCount)+"].strTCDesc\" id=\"txtTCDesc."+(rowCount)+"\" value='"+tcDesc+"' />";
 		    row.insertCell(2).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" class=\"Box\" name=\"listTCMaster["+(rowCount)+"].strTCCode\" id=\"txtTCCode."+(rowCount)+"\" value='"+tcCode+"' />";
 		    row.insertCell(3).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteTCRow(this)">';
 		    funResetTCFields();
@@ -1212,7 +1225,7 @@
 		    var row = table.insertRow(rowCount);
 		    
 		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" name=\"listTCMaster["+(rowCount)+"].strTCName\" id=\"txtTCName."+(rowCount)+"\" value='"+tcName+"' />";
-		    row.insertCell(1).innerHTML= "<input class=\"longTextBox\" size=\"20%\" name=\"listTCMaster["+(rowCount)+"].strTCDesc\" id=\"txtTCDesc."+(rowCount)+"\" value='"+tcDesc+"' />";
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"20%\" name=\"listTCMaster["+(rowCount)+"].strTCDesc\" id=\"txtTCDesc."+(rowCount)+"\" value='"+tcDesc+"' />";
 		    row.insertCell(2).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" class=\"Box\" name=\"listTCMaster["+(rowCount)+"].strTCCode\" id=\"txtTCCode."+(rowCount)+"\" value='"+tcCode+"' />";
 		    row.insertCell(3).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteTCRow(this)">';		    
 		}
@@ -1374,7 +1387,7 @@
 		    var strSNameTag="";    
 		    
 		    row.insertCell(0).innerHTML= "<input name=\"listPODtlModel["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box txtProdCode\" size=\"8%\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
-		    row.insertCell(1).innerHTML= "<input name=\"listPODtlModel["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"27%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
+		    row.insertCell(1).innerHTML= "<input name=\"listPODtlModel["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"21%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
 		    row.insertCell(2).innerHTML= "<input name=\"listPODtlModel["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" size=\"2%\" id=\"txtUOM."+(rowCount)+"\" value='"+strUOM+"'/>";
 		    if($("#txtSuppCode").val()=="")
 			{
@@ -1706,12 +1719,12 @@
 		{
 			if ($("#cmbAgainst").val() == 'Purchase Indent') 
 			{
-				$("#txtPICode").css('visibility','visible');
+				$("#txtPICode").css('display','block');
 				$('#txtProdCode').attr('readonly', true);
 			}
 			else
 			{
-				$("#txtPICode").css('visibility','hidden');
+				$("#	").css('display','none');
 				$('#txtProdCode').attr('readonly', false);
 			}
 		}
@@ -1840,11 +1853,11 @@
 			{				
 				if ($(this).val() == 'Purchase Indent') 
 				{
-					$("#txtPICode").css('visibility','visible');
+					$("#txtPICode").css('display','block');
 				}
 				else
 				{
-					$("#txtPICode").css('visibility','hidden');
+					$("#txtPICode").css('display','none');
 				}
 			});
 			
@@ -1960,7 +1973,7 @@
 				window.open(getContextPath() + "/sendPOEmail.html?strPOCode=" + code);
 		    }
            <%}%>
-		$("#txtPICode").css('visibility', 'hidden');
+		$("#txtPICode").css('display', 'none');
 		$("#txtProdCode").focus();
 		
 		var flagOpenFromAuthorization="${flagOpenFromAuthorization}";
@@ -2297,7 +2310,7 @@
 	    PICode = "";
 	    strUpdate = "N";
 	    row.insertCell(0).innerHTML= "<input name=\"listPODtlModel["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box txtProdCode\" size=\"8%\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
-	    row.insertCell(1).innerHTML= "<input name=\"listPODtlModel["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"27%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
+	    row.insertCell(1).innerHTML= "<input name=\"listPODtlModel["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"21%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
 	    row.insertCell(2).innerHTML= "<input name=\"listPODtlModel["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" size=\"2%\" id=\"txtUOM."+(rowCount)+"\" value='"+strUOM+"'/>";		   
 	    row.insertCell(3).innerHTML= "<input name=\"listPODtlModel["+(rowCount)+"].strSuppCode\"  required =\"required\" class=\"Box SCode\" size=\"5%\" id=\"txtSuppCode."+(rowCount)+"\" value='"+strSuppCode+"' onblur=\"funCheckSupplier(this)\"/>";
 	    row.insertCell(4).innerHTML= "<input id=btnSup"+rowCount+" type=button   onclick=funHelp1("+(rowCount)+",'suppcode1') value=...>";        
@@ -2321,167 +2334,158 @@
 
 </head>
 <body>
-	<div id="formHeading">
-		<label>Purchase Order</label>
-	</div>
-	<s:form name="POForm" method="POST"
-		action="savePOData.html?saddr=${urlHits}">
+	<div class="container">
+		<label id="formHeading">Purchase Order</label>
+
+	<s:form name="POForm" method="POST" action="savePOData.html?saddr=${urlHits}">
 		<input type="hidden" value="${urlHits}" name="saddr">
-		<br>
-		<table
-			style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
-			<tr>
-				<td>
-					<div id="tab_container" style="height: 750px">
-						<ul class="tabs">
-							<li class="active" data-state="tab1"
-								style="width: 100px; padding-left: 55px">GENERAL</li>
-							<li data-state="tab2" style="width: 100px; padding-left: 55px">Address</li>
-							<li data-state="tab3" style="width: 150px; padding-left: 55px">Term
-								&amp; Conditions</li>
-							<li data-state="tab4" style="width: 100px; padding-left: 55px">Taxes</li>
-							<li data-state="tab5" style="width: 100px; padding-left: 55px">Other Charges</li>
-						</ul>
-						<div id="tab1" class="tab_content" style="height: 550px">
-
-							<table class="transTable">
-								<tr>
-								
-								<th align="right" colspan="5" ><a id="AutoUrl" href="#">
-											Auto Generate </a></th>
-									<th align="right" ><a id="baseUrl" href="#">
-											Attach Documents </a></th>
-											 <th  ><a id="EmailUrl" href="#">
-											Send Mail</a>
-											<a onclick="funOpenExportImport()"
-											href="javascript:void(0);">Export/Import</a>&nbsp; &nbsp; &nbsp;
-											&nbsp;
-											</th> 
-								</tr>
-
-								<tr>
-									<td width="100px"><label>PO Code</label></td>
-									<td width="140px"><s:input path="strPOCode" id="txtPOCode"
-											ondblclick="funHelp('purchaseorder')"
-											cssClass="searchTextBox" /></td>
-									<td width="140px" align="right"><label>Our's Ref
-											No.</label></td>
-									<td width="140px"><s:input id="txtOurRef" class="BoxW116px" path="strCode"/></td>
-									<td width="100px"><label>PO Date</label>
-									<td><s:input path="dtPODate" id="txtPODate"
-											pattern="\d{1,2}-\d{1,2}-\d{4}" required="required"
-											cssClass="calenderTextBox" /></td>
-								</tr>
-
-								<tr>
-									<td><label>Supplier</label></td>
-									<td><s:input path="strSuppCode" id="txtSuppCode"
-											ondblclick="funHelp('suppcodeActive')" cssClass="searchTextBox" /></td>
-									<td colspan="2"><label id="lblSupplierName"
-										class="namelabel"></label></td>
-									<td><label>Delivery Date</label></td>
-									<td colspan="2" align="left"><s:input path="dtDelDate"
-											pattern="\d{1,2}-\d{1,2}-\d{4}" id="txtDelDate"
-											required="required" cssClass="calenderTextBox" /></td>
-								</tr>
-
-								<tr>
-									<td><label>Against</label></td>
-									<td><s:select path="strAgainst" id="cmbAgainst"
-									items="${strProcessList}" onchange="funOnChange();" cssClass="BoxW124px">						
-										</s:select></td>
-									<td><s:input id="txtPICode" path="strSOCode" ondblclick="funOpenPIforPO('PICode')" class="searchTextBox"></s:input></td>
-									<td><input type="button" value="Fill" class="smallButton"
-										onclick="funSetPurchaseIndent();" id=btnFill /></td>
-									<td><label>Payment Due Date </label></td>
-									<td colspan="2" align="left"><s:input path="dtPayDate"
-											required="required" pattern="\d{1,2}-\d{1,2}-\d{4}"
-											id="txtPayDate" cssClass="calenderTextBox" /></td>
-								</tr>
-								<tr>
-									<td><label>Pay Mode</label></td>
-									<td><s:select path="strPayMode" id="cmbPayMode"
-											cssClass="BoxW124px">
-											<s:option value="CASH">CASH</s:option>
-											<s:option value="CREDIT" >CREDIT</s:option>
-										</s:select></td>
-									<td align="right"><label>Currency </label></td>
-									
-									<td><s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px" onchange="funOnChangeCurrency()">
-										</s:select></td>
-										<td><s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField"></s:input>
-									</td>
-									
-								</tr>
-							</table>
-							<table class="transTableMiddle">
-							<tr>
-								<td><label>PI Code</label></td>
-								<td colspan="8">
-									<select id="cmbPIDoc"  Class="BoxW124px">
-									</select>
-								</td>
-								</tr>
-								<tr>
-									<td width="100px"><label>Product</label></td>
-									<td width="150px"><input id="txtProdCode"
-										ondblclick="funOpenHelp();" class="searchTextBox" /></td>
-									<td align="left" colspan="5"><label id="lblProdName"
-										class="namelabel"></label></td>
-
-								</tr>
-								<tr>
-									<td><label>Unit Price</label></td>
-									<td><input id="txtPrice" type="text"
-										class="decimal-places-amt numberField" /></td>
-									<td><label>Wt/Unit</label></td>
-									<td width="150px"><input type="text" id="txtWeight"
-										class="decimal-places numberField" /></td>
-									<td width="100px"><label>Quantity</label></td>
-									<td width="150px"><input id="txtOrderQty"
-										type="text" class="decimal-places numberField" style="width:60%" onkeypress="funGetKeyCode(event,'QtyRecv')"/></td>
-									<td width="5%">UOM</td>
-									<td> <s:select id="cmbUOM" name="cmbUOM"
-									path="" items="${uomList}" cssStyle="width: 60%" cssClass="BoxW124px"/></td>
-								</tr>
-
-								<tr>
-									<td><label>Highlight</label></td>
-									<td><select id="txtUpdate" class="BoxW62px">
-											<option value="N">No</option>
-											<option value="Y">Yes</option>
-									</select></td>
-									<!-- <td><label>Stock </label></td> -->
-									<td><label>Discount</label></td>
-									
-<!-- 									<td><input id="txtDiscount" type="text" class="decimal-places-amt numberField" value="0" class="BoxW116px" /></td> -->
-									<td><input id="txtDiscount" value="0" type="text" class="BoxW124px" ></input></td>
-									<td><label>Remarks</label></td>
-									<td><input id="txtRemarks" class="longTextBox" style="width:100%" /></td>
-									<td><input type="button" value="Add" class="smallButton"
-										onclick="return btnAdd_onclick()" /></td>
-								</tr>
-							</table>
-
-							<div class="dynamicTableContainer" style="height: 300px;">
+		<div id="tab_container">
+				<ul class="tabs">
+					<li class="active" data-state="tab1">General</li>
+					<li data-state="tab2">Address</li>
+					<li data-state="tab3">Term Conditions</li>
+					<li data-state="tab4">Taxes</li>
+					<li data-state="tab5">Other Charges</li>
+				</ul><br><br>
+				<div id="tab1" class="tab_content">
+					<div class="row transTable">
+						<div class="col-md-12">
+								<a id="AutoUrl" href="#">Auto Generate </a>&nbsp; &nbsp;
+							<!-- 	<a id="baseUrl" href="#">Attach Documents </a> -->
+								<a id="EmailUrl" href="#">Send Mail</a>&nbsp; &nbsp;
+								<a onclick="funOpenExportImport()" href="javascript:void(0);">Export/Import</a>
+						</div>				
+						<div class="col-md-2">
+							<label>PO Code</label>
+							<s:input path="strPOCode" id="txtPOCode" ondblclick="funHelp('purchaseorder')" cssClass="searchTextBox" />
+						</div>
+						<div class="col-md-2">
+							<label>Our's Ref No.</label>
+							<s:input id="txtOurRef" class="BoxW116px" path="strCode"/>
+						</div>
+						<div class="col-md-2">
+							<label>PO Date</label>
+							<s:input path="dtPODate" id="txtPODate" pattern="\d{1,2}-\d{1,2}-\d{4}" required="required"
+									cssClass="calenderTextBox" style="width:80%;"/>
+						</div>
+						<div class="col-md-2">
+							<label>Supplier</label>
+							<s:input path="strSuppCode" id="txtSuppCode" ondblclick="funHelp('suppcodeActive')" cssClass="searchTextBox" />
+						</div>
+						<div class="col-md-2">
+							<label id="lblSupplierName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+							></label>
+						</div>
+							<div class="col-md-2"></div>
+						<div class="col-md-2">
+							<label>Delivery Date</label>
+							<s:input path="dtDelDate" pattern="\d{1,2}-\d{1,2}-\d{4}" id="txtDelDate"
+									required="required" cssClass="calenderTextBox" style="width:80%;"/>
+						</div>
+						<div class="col-md-2">
+							<label>Against</label>
+							<s:select path="strAgainst" id="cmbAgainst" items="${strProcessList}" onchange="funOnChange();" cssClass="BoxW124px">						
+							</s:select>
+						</div>
+						<div class="col-md-2">			
+							<s:input id="txtPICode" path="strSOCode" ondblclick="funOpenPIforPO('PICode')" class="searchTextBox" style="margin-top:26px;"></s:input>
+						</div>
+						<div class="col-md-2">
+							<label>Payment Due Date </label>
+							<s:input path="dtPayDate" required="required" pattern="\d{1,2}-\d{1,2}-\d{4}"
+											id="txtPayDate" cssClass="calenderTextBox" style="width:80%;"/>
+						</div>
+						<div class="col-md-2">
+							<label>Pay Mode</label>
+							<s:select path="strPayMode" id="cmbPayMode" cssClass="BoxW124px">
+								<s:option value="CASH">CASH</s:option>
+								<s:option value="CREDIT" >CREDIT</s:option>
+							</s:select>
+						</div>
+						<div class="col-md-2"></div>
+						<div class="col-md-2">
+							<label>Currency </label>
+							<s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px" onchange="funOnChangeCurrency()"></s:select>
+						</div>
+						<div class="col-md-2">	
+							<s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField" style="margin-top:26px; width:70%;"></s:input>
+						</div>
+						<div class="col-md-2">
+							<input type="button" value="Fill" class="btn btn-primary center-block" onclick="funSetPurchaseIndent();" id="btnFill" style="margin-top:20px;" />
+						</div>
+					</div>
+					<div class="row transTable">
+						<div class="col-md-2">		
+							<label>PI Code</label>
+							<select id="cmbPIDoc"  Class="BoxW124px"></select>
+						</div>	
+						<div class="col-md-2">		
+							<label>Product</label>
+							<input id="txtProdCode" ondblclick="funOpenHelp();" class="searchTextBox" />
+						</div>
+						<div class="col-md-2">	
+							<label id="lblProdName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+							></label>
+						</div>
+						<div class="col-md-2">
+							<label>Unit Price</label>
+							<input id="txtPrice" type="text" class="decimal-places-amt numberField" />
+						</div>
+						<div class="col-md-2">
+							<label>Wt/Unit</label>
+							<input type="text" id="txtWeight" class="decimal-places numberField" />
+						</div>
+						<div class="col-md-2"></div>
+						<div class="col-md-2">
+							<label>Quantity</label>
+							<input id="txtOrderQty" type="text" class="decimal-places numberField" style="width:60%" onkeypress="funGetKeyCode(event,'QtyRecv')"/>
+						</div>
+						<div class="col-md-2">
+							<label>UOM</label>
+							<s:select id="cmbUOM" name="cmbUOM" path="" items="${uomList}" cssClass="BoxW124px"/>
+						</div>
+						<div class="col-md-2">
+							<label>Highlight</label>
+							<select id="txtUpdate" class="BoxW62px" style="width:80%;">
+									<option value="N">No</option>
+									<option value="Y">Yes</option>
+							</select>
+						</div>
+						<div class="col-md-2">
+								<!-- <td><label>Stock </label></td> -->
+							<label>Discount</label>
+<!-- 							<td><input id="txtDiscount" type="text" class="decimal-places-amt numberField" value="0" class="BoxW116px" /></td> -->
+							<input id="txtDiscount" value="0" type="text" class="BoxW124px" ></input>
+						</div>
+						<div class="col-md-2">
+							<label>Remarks</label>
+							<input id="txtRemarks" type="text" />
+						</div>
+							<div class="col-md-2"></div>
+						<div class="col-md-2">
+							<input type="button" value="Add" class="btn btn-primary center-block" onclick="return btnAdd_onclick()" style="margin-top:20px;" />
+						</div>	
+					</div>
+					<br>
+						<div class="dynamicTableContainer" style="height: 300px;">
 								<table
 									style="height: 20px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-									<tr bgcolor="#72BEFC">
-										<td width="5%">Product Code</td>
+									<tr bgcolor="#c0c0c0">
+										<td width="7%">Product Code</td>
 										<!--  COl1   -->
-										<td width="18%">Product Name</td>
+										<td width="16%">Product Name</td>
 										<!--  COl2   -->
-										<td width="3%">UOM</td>
+										<td width="4%">UOM</td>
 										<!--  COl3   -->
 										<td width="6%">Supplier Code</td>
 										<!--  COl4   -->
-										<td width="6%">S Code</td>
+										<td width="5%">S Code</td>
 										<!--  COl4   -->
-										<td width="8%">Supplier Name</td>
+										<td width="9%">Supplier Name</td>
 										<!--  COl5   -->
-										<td width="5%">Order Qty</td>
+										<td width="6%">Order Qty</td>
 										<!--  COl6   -->
-										<td width="4%">Wt/Unit</td>
+										<td width="5%">Wt/Unit</td>
 										<!--  COl7   -->
 										<td width="4%">Total Wt</td>
 										<!--  COl8   -->
@@ -2502,14 +2506,14 @@
 									</tr>
 								</table>
 								<div
-									style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+									style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 									<table id="tblProdDet"
 										style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 										class="transTablex col15-center">
 										<tbody>
-										<col style="width: 5%">
+										<col style="width: 7%">
 										<!--  COl1   -->
-										<col style="width: 18%">
+										<col style="width: 15%">
 										<!--  COl2   -->
 										<col style="width: 3%">
 										<!--  COl3   -->
@@ -2521,7 +2525,7 @@
 										<!--  COl5   -->
 										<col style="width: 5%">
 										<!--  COl6   -->
-										<col style="width: 4%">
+										<col style="width: 5%">
 										<!--  COl7   -->
 										<col style="width: 4%">
 										<!--  COl8   -->
@@ -2539,166 +2543,167 @@
 										<!--  COl14  -->
 										<col style="width: 2.5%">
 										<!--  COl15   -->
-										
 										</tbody>
-
 									</table>
 								</div>
-
 							</div>
-							<table id="tbl2" class="transTable">
-								<tr>
-									<td><label id="lblGroup"></label></td>
-									<td colspan="4"><label id="lblBudAmt"></label></td>
-		                        </tr>
-		                        
-		                        <tr>
-									<td><label id="lblYourRef">Your Ref</label></td>
-									<td><s:input type="text" id="txtYourRef" path="strYourRef" cssClass="simpleTextBox" /></td>
-									<td><label id="lblSubTotal">SubTotal</label></td>
-									<td colspan="3"><s:input type="text" id="txtSubTotal" path="dblTotal" readonly="true" class="decimal-places-amt numberField" /></td>
-								</tr>
-
-								<tr>
-									<td><label id="lblPermRef">Permission Ref. in LUT</label></td>
-									<td><s:input type="text" id="txtPermRef"
-											path="strPerRef" cssClass="simpleTextBox" /></td>
-									<td><label id="lblDiscPer">Discount %</label></td>
-				    				<td><input id="txtDiscPer"  type="text" value="0" onblur="funCalDiscountAmt();" 
-				    				class="decimal-places-amt numberField"/></td>
-								</tr>
-
-								<tr>
-									<td><label id="lblPOItems">PO Items Title:</label></td>
-									<td><input type="text" id="txtPOItems"
-										class="simpleTextBox" /></td>
-									<td><label id="lblDiscount">Discount</label></td>
-									<td colspan="3"><s:input type="text" id="txtDisc"
-											path="dblDiscount" onblur="funCalculateTotal();"
+							<div id="tbl2" class="row transTable">
+								<div class="col-md-12">
+									<label id="lblGroup"></label>
+									<label id="lblBudAmt"></label>
+								</div>
+								<div class="col-md-2">
+		                     		<label id="lblYourRef">Your Ref</label>
+									<s:input type="text" id="txtYourRef" path="strYourRef"  />
+								</div>
+								<div class="col-md-2">
+									<label id="lblSubTotal">SubTotal</label>
+									<s:input type="text" id="txtSubTotal" path="dblTotal" readonly="true" class="decimal-places-amt numberField" />
+								</div>
+								<div class="col-md-2">
+									<label id="lblPermRef">Permission Ref. in LUT</label>
+									<s:input type="text" id="txtPermRef" path="strPerRef"  />
+								</div>
+								<div class="col-md-2">
+									<label id="lblDiscPer">Discount %</label>
+				    				<input id="txtDiscPer"  type="text" value="0" onblur="funCalDiscountAmt();" class="decimal-places-amt numberField"/>
+				    			</div>
+								<div class="col-md-2">
+									<label id="lblPOItems">PO Items Title:</label>
+									<input type="text" id="txtPOItems" />
+								</div>
+								<div class="col-md-2">
+									<label id="lblDiscount">Discount</label>
+									<s:input type="text" id="txtDisc" path="dblDiscount" onblur="funCalculateTotal();"
 											cssClass="decimal-places-amt numberField" />
-								   </td>
-								</tr>
-
-								<tr>
-									<td><label id="lblPOFooter">PO Footer</label></td>
-									<td><input type="button" id="btnPOFooter" /></td>
-									<td><label id="lblExtraCharges">Extra Charges:</label></td>
-									<td colspan="3"><s:input type="text" value="0" id="txtExtraCharges"
-											path="dblExtra" onblur="funCalculateTotal();"
+								</div>
+								<div class="col-md-2">
+									<label id="lblPOFooter">PO Footer</label><br>
+									<input type="button" id="btnPOFooter" />
+								</div>
+								<div class="col-md-2">
+									<label id="lblExtraCharges">Extra Charges:</label>
+									<s:input type="text" value="0" id="txtExtraCharges" path="dblExtra" onblur="funCalculateTotal();"
 											cssClass="decimal-places-amt numberField" />
-									</td>
-								</tr>
-
-								<tr>
-									<td><label id="lblShortClosePO">Short Close PO</label></td>
-									<td><s:checkbox element="li" id="chkShortClosePO"
-											path="strClosePO" value="Yes" /></td>
-
-
-									<td><label id="lblFinalAmt">Final Amount:</label></td>
-									<td><s:input type="text" id="txtFinalAmt"
-											path="dblFinalAmt" readonly="true"
-											cssClass="decimal-places-amt numberField" /></td>
-								</tr>
-
-								<tr>
-									<td><label id="lblDelSchedule">Delivery Schedule</label></td>
-									<td colspan="5"><input type="button" id="btnDelSchedule" /></td>
-								</tr>
-
-							</table>
+								</div>
+								<div class="col-md-2">
+									<label id="lblShortClosePO">Short Close PO</label><br>
+									<s:checkbox element="li" id="chkShortClosePO" path="strClosePO" value="Yes" />
+								</div>
+								<div class="col-md-2">
+									<label id="lblFinalAmt">Final Amount:</label>
+									<s:input type="text" id="txtFinalAmt" path="dblFinalAmt" readonly="true"
+											cssClass="decimal-places-amt numberField" />
+								</div>
+								<div class="col-md-2">
+									<label id="lblDelSchedule">Delivery Schedule</label><br>
+									<input type="button" id="btnDelSchedule" />
+								</div>
+							</div>
 						</div>
 						<div id="tab2" class="tab_content">
-							<table class="transTable">
-								<tr>
-									<th colspan="2" align="left"><label>Bill To</label></th>
-									<th colspan="2" align="left"><label>Ship To </label></th>
-								</tr>
-
-								<tr>
-									<td width="120px"><label>Address Line 1</label></td>
-									<td><s:input path="strVAddress1" id="txtBAddress1"
-											cssClass="longTextBox" /></td>
-									<td width="120px"><label>Address Line 1</label></td>
-									<td><s:input path="strSAddress1" id="txtSAddress1"
-											cssClass="longTextBox" /></td>
-								</tr>
-
-								<tr>
-									<td><label>Address Line 2</label></td>
-									<td><s:input path="strVAddress2" id="txtBAddress2"
-											cssClass="longTextBox" /></td>
-									<td><label>Address Line 2</label></td>
-									<td><s:input path="strSAddress2" id="txtSAddress2"
-											cssClass="longTextBox" /></td>
-								</tr>
-
-								<tr>
-									<td><label>City</label></td>
-									<td><s:input path="strVCity" id="txtBCity"
-											cssClass="BoxW116px" /></td>
-									<td><label>City</label></td>
-									<td><s:input path="strSCity" id="txtSCity"
-											cssClass="BoxW116px" /></td>
-								</tr>
-
-								<tr>
-									<td><label>State</label></td>
-									<td><s:input path="strVState" id="txtBState"
-											cssClass="BoxW116px" /></td>
-									<td><label>State</label></td>
-									<td><s:input path="strSState" id="txtSState"
-											cssClass="BoxW116px" /></td>
-								</tr>
-
-								<tr>
-									<td><label>Country</label></td>
-									<td><s:input path="strVCountry" id="txtBCountry"
-											cssClass="BoxW116px" /></td>
-									<td><label>Country</label></td>
-									<td><s:input path="strSCountry" id="txtSCountry"
-											cssClass="BoxW116px" /></td>
-								</tr>
-
-								<tr>
-									<td><label>Pin Code</label></td>
-									<td><s:input path="strVPin" id="txtBPin"
-											class="positive-integer BoxW116px" /></td>
-									<td><label>Pin Code</label></td>
-									<td><s:input path="strSPin" id="txtSPin"
-											class="positive-integer BoxW116px" /></td>
-								</tr>
-							</table>
-						</div>
+							<div class="row transTable">
+								<div class="col-md-6">
+									<div class="row">
+										<div class="col-md-12">
+										<h6>Bill To</h6>
+										</div>
+										<div class="col-md-4">
+											<label>Address Line 1</label>
+											<s:input path="strVAddress1" id="txtBAddress1"/>
+										</div>
+										<div class="col-md-4">
+											<label>Address Line 2</label>
+											<s:input path="strVAddress2" id="txtBAddress2"/>
+										</div>
+										<div class="col-md-4"></div>
+										<div class="col-md-4">	
+											<label>City</label>	
+											<s:input path="strVCity" id="txtBCity"	cssClass="BoxW116px" />	
+										</div>
+										<div class="col-md-4">
+											<label>State</label>
+											<s:input path="strVState" id="txtBState" cssClass="BoxW116px" />
+										</div>
+											<div class="col-md-4"></div>
+										<div class="col-md-4">
+											<label>Country</label>	
+										    <s:input path="strVCountry" id="txtBCountry"
+											     cssClass="BoxW116px" />
+										</div>
+										<div class="col-md-4">
+											<label>Pin Code</label>	
+											<s:input path="strVPin" id="txtBPin" class="positive-integer BoxW116px" />	
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="row">
+										<div class="col-md-12">
+											<h6>Ship To </h6>
+										</div>
+										<div class="col-md-4">
+											<label>Address Line 1</label>
+											<s:input path="strSAddress1" id="txtSAddress1"/>
+										</div>
+										<div class="col-md-4">
+											<label>Address Line 2</label>
+											<s:input path="strSAddress2" id="txtSAddress2"/>
+										</div>
+											<div class="col-md-4"></div>
+										<div class="col-md-4">	
+											<label>City</label>
+											<s:input path="strSCity" id="txtSCity" cssClass="BoxW116px" />
+										</div>
+										<div class="col-md-4">
+											<label>State</label>
+											<s:input path="strSState" id="txtSState" cssClass="BoxW116px" />
+										</div>
+											<div class="col-md-4"></div>
+										<div class="col-md-4">
+											<label>Country</label>
+											<s:input path="strSCountry" id="txtSCountry" cssClass="BoxW116px" />
+										</div>
+										<div class="col-md-4">
+											<label>Pin Code</label>
+											<s:input path="strSPin" id="txtSPin" class="positive-integer BoxW116px" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>		
 						<div id="tab3" class="tab_content">
+							<div class="row transTable">
+								<div class="col-md-2">
+									<label class="namelabel">TC Code</label>
+									<input id="txtTCCode" ondblclick="funHelp('tcForSetup')" class="searchTextBox" />
+								</div>
+								<div class="col-md-2">
+									<label id="lblTCName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:center;"></label>
+								</div>
+								<div class="col-md-2">
+									<label class="namelabel">TC Description</label>
+									<input id="txtTCDesc" type="text" />
+								</div>
+								<div class="col-md-2">
+									<input type="Button" value="Add" id="btnAddTC" class="btn btn-primary center-block" style="margin-top:20px;"/>
+								</div>
+							</div>
 							<br>
-							<table class="transTableMiddle">
-							
-								<tr>
-									<td><label class="namelabel">TC Code</label></td>
-									<td><input id="txtTCCode"
-										ondblclick="funHelp('tcForSetup')" class="searchTextBox" /></td>
-									<td><label id="lblTCName" class="namelabel"></label></td>
-									<td><label class="namelabel">TC Description</label></td>
-									<td><input id="txtTCDesc" class="longTextBox" /></td>
-									<td colspan="3"><input type="Button" value="Add"
-										id="btnAddTC" class="smallButton" /></td>
-								</tr>
-							</table>
-
-							<table class="transTable" id="tblTermsAndCondColumns">
-								<tr>
-									<td width="40%">TC Name</td>
-									<td width="80%">TC Description</td>
+							<table class="transTable" id="tblTermsAndCondColumns" style="width: 70%; margin:0px;">
+								<tr style="background:#c0c0c0;">
+									<td width="25%">TC Name</td>
+									<td width="20%">TC Description</td>
+									<!-- <td width="20%"> Delete<td> -->
 								</tr>
 							</table>
 
 							<table
-								style="width: 100%; height: 100%; text-align: center; border: 1px solid black; font-size: 11px; font-weight: bold;">
+								style="width: 70%; height: 100%; text-align: center; border: 1px solid black; font-size: 11px; font-weight: bold;">
 								<tr>
 									<td>
 										<table class="myTable" id="tblTermsAndCond">
-
+										
 										</table>
 									</td>
 								</tr>
@@ -2706,147 +2711,130 @@
 						</div>
 						
 						<div id="tab4" class="tab_content">
+						 	<div class="row masterTable">
+								<div class="col-md-10">
+									<input type="button" id="btnGenTax" value="Calculate Tax"  class="btn btn-primary center-block">
+								</div>
+								<div class="col-md-2">
+									<label id="tx"></label>
+								</div>
+								<div class="col-md-2">
+									<label>Tax Code</label>
+									<input type="text" id="txtTaxCode" ondblclick="funHelp('OpenTaxesForPurchase');" class="searchTextBox"/>
+								</div>
+								<div class="col-md-2">	
+									<label>Tax Description</label>
+									<label id="lblTaxDesc" style="background-color:#dcdada94; width: 100%; height: 52%;text-align:center;"
+									></label>
+								</div>
+								<div class="col-md-2">	
+									<label>Taxable Amount</label>
+									<input type="number" style="text-align: right;" step="any" id="txtTaxableAmt" />
+								</div>
+								<div class="col-md-2">		
+									<label>Tax Amount</label>
+									<input type="number" style="text-align: right;" step="any" id="txtTaxAmt" />
+								</div>	
+								<div class="col-md-2">								
+									<input type="button" id="btnAddTax" value="Add" class="btn btn-primary center-block" style="margin-top:25px;"/>
+								</div>
+							</div>
 							<br>
-							<br>
-							<table class="masterTable">
-								<tr><th colspan="5"></th></tr>
-								<tr>
-									<td><input type="button" id="btnGenTax" value="Calculate Tax" class="form_button"></td>
-									<td><label id="tx"></label></td>
-								</tr>
-								
-								<tr>									
-									<td><label>Tax Code</label></td>
-									<td>
-										<input type="text" id="txtTaxCode" ondblclick="funHelp('OpenTaxesForPurchase');" class="searchTextBox"/>
-									</td>
-									
-									<td><label>Tax Description</label></td>
-									<td colspan="2">
-										<label id="lblTaxDesc"></label>
-									</td>
-									</tr><tr>
-									<td><label>Taxable Amount</label></td>
-									<td>
-										<input type="number" style="text-align: right;" step="any" id="txtTaxableAmt" class="BoxW116px"/>
-									</td>
-									
-									<td><label>Tax Amount</label></td>
-									<td>
-										<input type="number" style="text-align: right;" step="any" id="txtTaxAmt" class="BoxW116px"/>
-									</td>
-															
-									<td>
-										<input type="button" id="btnAddTax" value="Add" class="smallButton"/>
-									</td>
-								</tr>
-							</table>
-							<br>
-							<table style="width: 80%;" class="transTablex col5-center">
-								<tr>
+							<table style="width: 100%;" class="transTablex col5-center">
+								<tr style="background:#c0c0c0;">
 									<td style="width:10%">Tax Code</td>
-									<td style="width:10%">Description</td>
-									<td style="width:10%">Taxable Amount</td>
-									<td style="width:10%">Tax Amount</td>
-									<td style="width:5%">Delete</td>
+									<td style="width:7%">Description</td>
+									<td style="width:8%">Taxable Amount</td>
+									<td style="width:6%">Tax Amount</td>
+									<td style="width:6%">Delete</td>
 								</tr>							
 							</table>
-							<div style="background-color: #a4d7ff;border: 1px solid #ccc;display: block; height: 150px;
-			    				margin: auto;overflow-x: hidden; overflow-y: scroll;width: 80%;">
+							<div style="background-color: #fbfafa;border: 1px solid #ccc;display: block; height: 150px;
+			    				margin: auto;overflow-x: hidden; overflow-y: scroll;width: 100%;">
 									<table id="tblTax" class="transTablex col5-center" style="width: 100%;">
 									<tbody>    
-											<col style="width:10%"><!--  COl1   -->
-											<col style="width:10%"><!--  COl2   -->
-											<col style="width:10%"><!--  COl3   -->
+											<col style="width:5%"><!--  COl1   -->
+											<col style="width:3%"><!--  COl2   -->
+											<col style="width:5%"><!--  COl3   -->
 											<col style="width:10%"><!--  COl4   -->
 											<col style="width:6%"><!--  COl5   -->									
 									</tbody>							
 									</table>
 							</div>			
 						<br>
-						<table id="tblTaxTotal" class="masterTable">
-							<tr>
-								<td width="130px"><label>Taxable Amt Total</label></td>
-								<td><label id="lblTaxableAmt"></label></td>
-								
-								<td  width="130px"><label>Tax</label></td>
-								<td><label id="lblTaxTotal"></label></td>
-								<td><s:input type="hidden" id="txtPOTaxAmt" path="dblTaxAmt"/></td>
-							</tr>
-							
-							<tr>
-								<td><label>Grand Total</label></td>
-								<td colspan="3"><label id="lblPOGrandTotal"></label></td>
-							</tr>
-						</table>
-							
-						</div>
-						
-						<div id="tab5" class="tab_content">
-							<br>
-							<br>
-							<table class="masterTable" id="tblOtherCharges">
-								<tr>
-									<td><label id="lblFOB">FOB</label></td>
-									<td colspan="2"><s:input type="text" id="txtFOB" path="dblFOB" 
-										onblur="funCalculateOtherChargesTotal();" class="decimal-places-amt numberField" /></td>
-									
-									<td><label id="lblFreight">Freight</label></td>
-									<td colspan="2"><s:input type="text" id="txtFreight" path="dblFreight" 
-									 	onblur="funCalculateOtherChargesTotal();" class="decimal-places-amt numberField" /></td>
-								</tr>
-								
-								<tr>	
-									<td><label id="lblInsurance">Insurance</label></td>
-									<td colspan="2"><s:input type="text" id="txtInsurance" path="dblInsurance" 
-										onblur="funCalculateOtherChargesTotal();" class="decimal-places-amt numberField" /></td>
-									
-									<td><label id="lblOtherCharges">Other Charges</label></td>
-									<td colspan="2"><s:input type="text" id="txtOtherCharges" path="dblOtherCharges" 
-										onblur="funCalculateOtherChargesTotal();" class="decimal-places-amt numberField" /></td>
-								</tr>
-								
-								<tr>
-									<td><label id="lblCIF">CIF</label></td>
-									<td colspan="1"><s:input type="text" id="txtCIF" path="dblCIF" readonly="true" 
-										onblur="funCalculateOtherChargesTotal();" class="decimal-places-amt numberField" /></td>
-								</tr>
-								
-								<tr>
-									<td><label id="lblClearingAgentCharges">Clearing Agent Charges</label></td>
-									<td colspan="2"><s:input type="text" id="txtClearingAgentCharges" path="dblClearingAgentCharges"  
-										class="decimal-places-amt numberField" /></td>
-								
-									<td><label id="lblVATClaim">VAT Claim</label></td>
-									<td colspan="2"><s:input type="text" id="txtVATClaim" path="dblVATClaim" 
-										class="decimal-places-amt numberField" /></td>
-								</tr>
-							</table>
+						<div id="tblTaxTotal" class="row masterTable">
+							<div class="col-md-2">
+								<label>Taxable Amt Total</label><br>
+								<label id="lblTaxableAmt" style="background-color:#dcdada94; width: 100%; height: 52%;text-align:center;"></label>
+							</div>
+							<div class="col-md-2">	
+								<label>Tax</label><br>
+								<label id="lblTaxTotal" style="background-color:#dcdada94; width: 100%; height: 52%;text-align:center;"></label>
+								<s:input type="hidden" id="txtPOTaxAmt" path="dblTaxAmt"/>
+							</div>
+							<div class="col-md-2">	
+								<label>Grand Total</label><br>
+								<label id="lblPOGrandTotal" style="background-color:#dcdada94; width: 100%; height: 52%;text-align:center;"></label>
+							</div>
 						</div>
 					</div>
-				</td>
-			</tr>
-		</table>
+					<div id="tab5" class="tab_content">
+						<div class="row masterTable" id="tblOtherCharges">
+							<div class="col-md-2">
+								<label id="lblFOB">FOB</label>
+								<s:input type="text" id="txtFOB" path="dblFOB" 
+									onblur="funCalculateOtherChargesTotal();" class="decimal-places-amt numberField" />
+							</div>
+							<div class="col-md-2">		
+								<label id="lblFreight">Freight</label>
+								<s:input type="text" id="txtFreight" path="dblFreight" 
+									 	onblur="funCalculateOtherChargesTotal();" class="decimal-places-amt numberField" />
+							</div>
+							<div class="col-md-2">
+								<label id="lblInsurance">Insurance</label>
+								<s:input type="text" id="txtInsurance" path="dblInsurance" 
+										onblur="funCalculateOtherChargesTotal();" class="decimal-places-amt numberField" />
+							</div>
+							<div class="col-md-2">
+								<label id="lblOtherCharges">Other Charges</label>
+								<s:input type="text" id="txtOtherCharges" path="dblOtherCharges" 
+										onblur="funCalculateOtherChargesTotal();" class="decimal-places-amt numberField" />
+							</div>
+							<div class="col-md-4"></div>
+							<div class="col-md-2">
+								<label id="lblCIF">CIF</label>
+								<s:input type="text" id="txtCIF" path="dblCIF" readonly="true" 
+										onblur="funCalculateOtherChargesTotal();" class="decimal-places-amt numberField" />
+							</div>
+							<div class="col-md-2">
+								<label id="lblClearingAgentCharges">Clearing Agent Charges</label>
+								<s:input type="text" id="txtClearingAgentCharges" path="dblClearingAgentCharges"  
+										class="decimal-places-amt numberField" />
+							</div>
+							<div class="col-md-2">
+								<label id="lblVATClaim">VAT Claim</label>
+								<s:input type="text" id="txtVATClaim" path="dblVATClaim" 
+										class="decimal-places-amt numberField" />
+							</div>
+						</div>
+					</div>
+				</div>
+				
+	
 		<br>
-		<p align="center">
-			<input type="submit" value="Submit"
-				onclick="return funCallFormAction('submit',this)"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <a
-				STYLE="text-decoration: none"
-				href="frmPurchaseOrder.html?saddr=${urlHits}"><input
-				type="button" id="reset" name="reset" value="Reset"
-				class="form_button" /></a>
-		</p>
+		<div class="center" style="text-align:center">
+			<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funCallFormAction('submit',this)">Submit</button></a> &nbsp;
+			<a href="frmPurchaseOrder.html?saddr=${urlHits}"><button class="btn btn-primary center-block"  id="reset" value="Reset" onclick="funResetFields();">Reset</button></a>
+		</div>
 		<br>
 		
-		<div id="wait"
-			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
-			<img
-				src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
+		<div id="wait" style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
+			<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
 				width="60px" height="60px" />
 		</div>
 		<s:input id="hidstrPORateEditableYN"  value="" path="StrPORateEditableYN" type="hidden"  ></s:input>
 	</s:form>
+</div>
 	<script type="text/javascript">
 		funApplyNumberValidation();
 		funOnChange();

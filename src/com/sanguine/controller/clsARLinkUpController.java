@@ -179,17 +179,17 @@ public class clsARLinkUpController {
 		} 
 		else if (strDoc.equals("Discount")) 
 		{
-			sql = " SELECT '','', IFNULL(b.strMasterDesc,''), IFNULL(b.strAccountCode,''), IFNULL(b.strExSuppCode,''), IFNULL(b.strExSuppName,'') " + " FROM tbllinkup b where b.strPropertyCode='" + propertyCode + "' and b.strMasterCode='PURDISC' " + " and b.strOperationType='Discount' and b.strModuleType='Purchase' order by IFNULL(b.strMasterDesc,'')";
+			sql = " SELECT IFNULL(b.strMasterDesc,''), IFNULL(b.strAccountCode,''), IFNULL(b.strExSuppCode,''), IFNULL(b.strExSuppName,'') " + " FROM tbllinkup b where b.strPropertyCode='" + propertyCode + "' and b.strMasterCode='PURDISC' " + " and b.strOperationType='Discount' and b.strModuleType='Purchase' order by IFNULL(b.strMasterDesc,'')";
 			
 		} 
 		else if (strDoc.equals("RoundOff")) 
 		{
-			sql = " SELECT '','', IFNULL(b.strMasterDesc,''), IFNULL(b.strAccountCode,''), IFNULL(b.strExSuppCode,''), IFNULL(b.strExSuppName,'') " + " FROM tbllinkup b where  b.strPropertyCode='" + propertyCode + "' and b.strMasterCode='PURROUNDOFF' " + " and b.strOperationType='RoundOff' and b.strModuleType='Purchase' order by IFNULL(b.strMasterDesc,'')";
+			sql = " SELECT IFNULL(b.strMasterDesc,''), IFNULL(b.strAccountCode,''), IFNULL(b.strExSuppCode,''), IFNULL(b.strExSuppName,'') " + " FROM tbllinkup b where  b.strPropertyCode='" + propertyCode + "' and b.strMasterCode='PURROUNDOFF' " + " and b.strOperationType='RoundOff' and b.strModuleType='Purchase' order by IFNULL(b.strMasterDesc,'')";
 			
 		} 
 		else if (strDoc.equals("ExtraCharge")) 
 		{
-			sql = " SELECT '','', IFNULL(b.strMasterDesc,''), IFNULL(b.strAccountCode,''), IFNULL(b.strExSuppCode,''), IFNULL(b.strExSuppName,'') " + " FROM tbllinkup b where  b.strPropertyCode='" + propertyCode + "' and b.strMasterCode='PUREXTARACHARGES' " + " and b.strOperationType='ExtraCharge' and b.strModuleType='Purchase' order by IFNULL(b.strMasterDesc,'')";
+			sql = " SELECT IFNULL(b.strMasterDesc,''), IFNULL(b.strAccountCode,''), IFNULL(b.strExSuppCode,''), IFNULL(b.strExSuppName,'') " + " FROM tbllinkup b where  b.strPropertyCode='" + propertyCode + "' and b.strMasterCode='PUREXTARACHARGES' " + " and b.strOperationType='ExtraCharge' and b.strModuleType='Purchase' order by IFNULL(b.strMasterDesc,'')";
 			
 		}
 		else if (strDoc.equals("OtherCharge")) 
@@ -222,7 +222,8 @@ public class clsARLinkUpController {
 		}
 		
 
-		ArrayList list = (ArrayList) objGlobalFunctionsService.funGetDataList(sql, "sql");
+		/*ArrayList list = (ArrayList) objGlobalFunctionsService.funGetDataList(sql, "sql");*/
+		List list = objGlobalFunctionsService.funGetList(sql, "sql");
 		List listARLinkUp = new ArrayList<clsLinkUpHdModel>();
 
 		if (strDoc.equals("SubGroup")) {
@@ -286,10 +287,10 @@ public class clsARLinkUpController {
 					Object[] arrObj = (Object[]) list.get(cnt);
 					objModel.setStrMasterCode("PURDISC");
 					objModel.setStrMasterName("Purchase Discount");
-					objModel.setStrMasterDesc(arrObj[2].toString());
-					objModel.setStrAccountCode(arrObj[3].toString());
-					objModel.setStrExSuppCode(arrObj[4].toString());
-					objModel.setStrExSuppName(arrObj[5].toString());
+					objModel.setStrMasterDesc(arrObj[0].toString());
+					objModel.setStrAccountCode(arrObj[1].toString());
+					objModel.setStrExSuppCode(arrObj[2].toString());
+					objModel.setStrExSuppName(arrObj[3].toString());
 					listARLinkUp.add(objModel);
 				}
 			} else {
@@ -309,10 +310,10 @@ public class clsARLinkUpController {
 					Object[] arrObj = (Object[]) list.get(cnt);
 					objModel.setStrMasterCode("PURROUNDOFF");
 					objModel.setStrMasterName("Purchase RoundOff");
-					objModel.setStrMasterDesc(arrObj[2].toString());
-					objModel.setStrAccountCode(arrObj[3].toString());
-					objModel.setStrExSuppCode(arrObj[4].toString());
-					objModel.setStrExSuppName(arrObj[5].toString());
+					objModel.setStrMasterDesc(arrObj[0].toString());
+					objModel.setStrAccountCode(arrObj[1].toString());
+					objModel.setStrExSuppCode(arrObj[2].toString());
+					objModel.setStrExSuppName(arrObj[3].toString());
 					listARLinkUp.add(objModel);
 				}
 			} else {
@@ -332,10 +333,10 @@ public class clsARLinkUpController {
 					Object[] arrObj = (Object[]) list.get(cnt);
 					objModel.setStrMasterCode("PUREXTARACHARGES");
 					objModel.setStrMasterName("Purchase Extra Charges");
-					objModel.setStrMasterDesc(arrObj[2].toString());
-					objModel.setStrAccountCode(arrObj[3].toString());
-					objModel.setStrExSuppCode(arrObj[4].toString());
-					objModel.setStrExSuppName(arrObj[5].toString());
+					objModel.setStrMasterDesc(arrObj[0].toString());
+					objModel.setStrAccountCode(arrObj[1].toString());
+					objModel.setStrExSuppCode(arrObj[2].toString());
+					objModel.setStrExSuppName(arrObj[3].toString());
 					listARLinkUp.add(objModel);
 				}
 			} else {

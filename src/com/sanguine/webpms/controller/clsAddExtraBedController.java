@@ -304,6 +304,10 @@ public class clsAddExtraBedController {
 					String sqlAddExtraBed = "update tblfoliohd a set a.strExtraBedCode='"+strExtraBed+"'  where a.strFolioNo='"+folioNo+"' ";
 					
 					objWebPMSUtility.funExecuteUpdate(sqlAddExtraBed, "sql");
+					
+					String strAddExtraBedInCheckInHd = "update tblcheckinhd a set a.strExtraBedCode='"+strExtraBed+"' where a.strCheckInNo='"+objBean.getStrCheckInNo()+"'";
+					
+					objWebPMSUtility.funExecuteUpdate(strAddExtraBedInCheckInHd, "sql");
 				}
 				
 			

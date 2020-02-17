@@ -1,12 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Reason Master</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -200,79 +207,78 @@ $(document).ready(function(){
 </head>
 
 <body>
-	<div id="formHeading">
-		<label>Reason Master</label>
-	</div>
-	<s:form method="POST" name="reasonForm" action="savereasonmaster.html?saddr=${urlHits}">
-		<br />
-		<br />
-		<table class="masterTable">
-			<tr>
-				<th align="right" colspan="4"><a id="baseUrl"
-					href="#"> Attach Documents</a>&nbsp;  &nbsp;  &nbsp;  &nbsp;</th>
-			</tr>
+	<div class="container masterTable">
+		<label id="formHeading">Reason Master</label>
+	   <s:form method="POST" name="reasonForm" action="savereasonmaster.html?saddr=${urlHits}">
+			<!-- <a id="baseUrl"
+					href="#"> Attach Documents</a> -->
+					
+		<div class="row">
+				<div class="col-md-2"><label>Reason Code </label>
+				    <s:input path="strReasonCode" readonly="true" ondblclick="funHelp('reason')" id="txtReasonCode" cssClass="searchTextBox" />
+			    </div>
 			
+			<div class="col-md-3"><label>Reason Name</label>
+				 <s:input path="strReasonName" cssStyle="text-transform: uppercase;" id="txtReasonName" required="true" />
+			</div>
+			<div class="col-md-7"></div>
 			
-			<tr>
-				<td colspan="2" width="15%"><label>Reason Code </label></td>
-				<td colspan="2"><s:input path="strReasonCode" 
-						ondblclick="funHelp('reason')" id="txtReasonCode" 
-						cssClass="searchTextBox" /></td>
-			</tr>
-			<tr>
-				<td colspan="2"><label>Reason Name</label></td>
-				<td colspan="2"><s:input path="strReasonName"
-					cssStyle="text-transform: uppercase;"	id="txtReasonName" cssClass="longTextBox" required="true" /></td>
-			</tr>
-			<tr>
-				<td colspan="2"><label>Description</label></td>
-				<td colspan="2"><s:input path="strReasonDesc"
-					cssStyle="text-transform: uppercase;"	id="txtReasonDesc" cssClass="longTextBox" /></td>
-			</tr>
-			<tr>
-				<td colspan="2"><label>Expiry Date</label></td>
-				<td colspan="2">
-					<s:input id="txtExpiryDate" name="txtExpiryDate" path="dtExpiryDate"  cssClass="calenderTextBox" />
-				</td>
-			</tr>
-		</table>
+			<div class="col-md-3"><label>Description</label>
+				<s:input path="strReasonDesc" cssStyle="text-transform: uppercase;"	id="txtReasonDesc"/>
+			</div>
+			
+			<div class="col-md-2"><label>Expiry Date</label>
+				<s:input id="txtExpiryDate" name="txtExpiryDate" path="dtExpiryDate" style="width: 70%" cssClass="calenderTextBox" />
+			</div>
+		</div>
 		
-		<table id="bottomTable" class="masterTable" >
-			<tr>
-				<th colspan="6" align="center"><s:label path="">APPLICABLE FOR</s:label></th>
-			</tr>
-
-			<tr>
-				<td width="130px"><label id="stockAdjust">Stock Adjustment</label></td>
-				<td><s:checkbox element="li" id="chkStockAdj" path="strStockAdj" value="true" /></td>
-				<td width="130px"><label id="stockTransfer">Stock Transfer</label></td>
-				<td><s:checkbox element="li" id="chkStocktra" path="strStocktra" value="true" /></td>
-				<td width="130px"><label id="nonConference">Non Conference</label></td>
-				<td><s:checkbox element="li" id="chkNonConf" path="strNonConf" value="true" /></td>
-			</tr>
-			<tr id="secondRow">
-				<td><label>Follow ups</label></td>
-				<td><s:checkbox element="li" id="chkFollowUps" path="strFollowUps" value="true" /></td>
-				<td><label>Corrective Active</label></td>
-				<td><s:checkbox element="li" id="chkCorract" path="strCorract" value="true" /></td>
-				<td><label>Preventive Action</label></td>
-				<td><s:checkbox element="li" id="chkPrevAct" path="strPrevAct" value="true" /></td>
-			</tr>
-			<tr id="thirdRow">
-				<td><label>Resource Blocking</label></td>
-				<td><s:checkbox element="li" id="chkResAlloc" path="strResAlloc" value="true" /></td>
-				<td><label>Delivery Challan</label></td>
-				<td><s:checkbox element="li" id="tchkDelcha" path="strDelcha" value="true" /></td>
-				<td><label>Lead Master</label></td>
-				<td><s:checkbox element="li" id="chkLeadMaster" path="strLeadMaster" value="true" /></td>
-			</tr>
-		</table>
+		<div id="bottomTable" class="masterTable" >
+		  <div class="row">
+			<div class="col-md-12"><s:label path="">APPLICABLE FOR</s:label></div>
+			
+			<div class="col-md-2"><label id="stockAdjust">Stock Adjustment</label><br>
+				<s:checkbox element="li" id="chkStockAdj" path="strStockAdj" value="true" />
+			</div>
+			<div class="col-md-2"><label id="stockTransfer">Stock Transfer</label><br>
+				<s:checkbox element="li" id="chkStocktra" path="strStocktra" value="true" />
+			</div>
+			<div class="col-md-2"><label id="nonConference">Non Conference</label><br>
+				<s:checkbox element="li" id="chkNonConf" path="strNonConf" value="true" />
+			</div>
+		  </div>
+		
+		 <div class="row" id="secondRow">
+			<div class="col-md-2"><label>Follow ups</label><br>
+				 <s:checkbox element="li" id="chkFollowUps" path="strFollowUps" value="true" />
+			</div>
+			<div class="col-md-2"><label>Corrective Active</label><br>
+				 <s:checkbox element="li" id="chkCorract" path="strCorract" value="true" />
+			</div>
+			<div class="col-md-2"><label>Preventive Action</label><br>
+				 <s:checkbox element="li" id="chkPrevAct" path="strPrevAct" value="true" />
+			</div>
+		</div>
+			
+		<div class="row" id="thirdRow">
+			<div class="col-md-2"><label>Resource Blocking</label><br>
+				<s:checkbox element="li" id="chkResAlloc" path="strResAlloc" value="true" />
+			</div>
+			<div class="col-md-2"><label>Delivery Challan</label><br>
+				<s:checkbox element="li" id="tchkDelcha" path="strDelcha" value="true" />
+			</div>
+			<div class="col-md-2"><label>Lead Master</label><br>
+				<s:checkbox element="li" id="chkLeadMaster" path="strLeadMaster" value="true" />
+			</div>
+		</div>
+		</div>
+	
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funvalidate();" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()" />
+		<p align="center"  style="margin-right: 32%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funvalidate();" />
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()" />
 		</p>
 	</s:form>
+  </div>
 </body>
 </html>

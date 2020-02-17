@@ -29,6 +29,11 @@
 		<script type="text/javascript" src="<spring:url value="/resources/js/hindiTyping.js"/>"></script>
 		<script type="text/javascript" src="<spring:url value="/resources/js/checkNetworkConnection.js"/>"></script>
 	
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	 	
 	<%-- End Default Script For Page  --%>
 	
 	<%-- Started Default CSS For Page  --%>
@@ -47,6 +52,19 @@
 	 	<link rel="stylesheet"  href="<spring:url value="/resources/css/pagination.css"/>" />
 	 	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 	 
+	 
+	 
+	 
+	 <%-- 
+	 	 <link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon" sizes="16x16">
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.grid.css"/>" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.grid.min.css"/>" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.css"/>" /> 
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/styles/materialdesignicons.min.css"/>" />
+		<script type="text/javascript" src="<spring:url value="/resources/js/bootstrap.min.js"/>"></script>
+		<link rel="stylesheet"  href="<spring:url value="/resources/css/bootstrap.min.css"/>" />
+		 --%>
 	 	
  	
  	<%-- End Default CSS For Page  --%>
@@ -451,19 +469,18 @@ function funGetFormName(){
         }
   });
 }
-
 /* $(function()
-		{			
-			$('#baseUrl').click(function() 
-			{  
-				 if($("#txtMemberCode").val().trim()=="")
-				{
-					alert("Please Enter Member Code");
-					return false;
-				} 
-				window.open('attachDoc.html?transName=frmMemberProfile.jsp&formName=Member Profile&code='+$('#txtMemberCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
-			});
-		}); */
+{			
+	$('#baseUrl').click(function() 
+	{  
+		 if($("#txtMemberCode").val().trim()=="")
+		{
+			alert("Please Enter Member Code");
+			return false;
+		} 
+		window.open('attachDoc.html?transName=frmMemberProfile.jsp&formName=Member Profile&code='+$('#txtMemberCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+	});
+}); */
 
  <%--   $(document).ready(function()
 {
@@ -496,13 +513,13 @@ function funGetFormName(){
          			 		</div>
           					<div class="navaction app-header-sub">
            			 			<p class="para"><img src="../${pageContext.request.contextPath}/resources/images/DSS_logo.png" alt="img" style="max-width:20%; height: auto; padding-left:5px"><span style=" padding-left:16px; font-size:16px; font-weight: 600; color: #4a4a4a;">
-           			 			${companyName}</span> &nbsp; &nbsp;- &nbsp; ${propertyName} &nbsp;- ${locationName} &nbsp;- ${financialYear}</p>
+           			 			${companyName}</span> &nbsp; &nbsp;- &nbsp; ${propertyName} &nbsp;- ${financialYear}</p>
          		 			</div> 
         				</div>
         				<div class="right-menu" id="page_top_banner">
           					<ul>
           					 	<li><a href="frmHome.html" class="mdi mdi-home-outline menu-link"  title="HOME"></a></li>
-					           	<li><a href="#" class="mdi  mdi-paperclip menu-link" id="baseUrl" title="Attched document"></a></li>
+          						<li><a href="#" class="mdi  mdi-paperclip menu-link" id="baseUrl" title="Attched document"></a></li>
 					            <li><a href="#" class="mdi mdi-information-outline menu-link" id="notification" title="Notification"></a></li>
 					            <li><a href="#" class="mdi mdi-crosshairs-question menu-link"onclick="funGetFormName()" title="HELP"></a></li>
 					            <li><a href="frmPropertySelection.html" class="mdi mdi-tumblr-reblog menu-link" title="Change Property"></a></li>
@@ -533,7 +550,7 @@ function funGetFormName(){
 			</nav>  
 	</header>
 	</div>
-	<script>
+	<%-- <script>
 		window.onscroll = function() {myFunction()};
 		
 		var header = document.getElementById("pageTop");
@@ -546,6 +563,6 @@ function funGetFormName(){
 		    header.classList.remove("sticky");
 		  }
 		}
-		</script>
+		</script> --%>
 		</body>
 </html>

@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,6 +9,13 @@
   	<link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Web Stocks</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+    
     <script type="text/javascript">
 	  
     	var fieldName;
@@ -118,69 +127,61 @@
   </head>
   
 	<body >
-	<div id="formHeading">
-		<label>Stock Adjustment Report</label>
-	</div>
-	<br />
-	<br />
-		<s:form name="stkAdjSlip" method="GET" action="rptStockAdjustmentMonthly.html" target="_blank">
-			<table class="masterTable">
-	<tr><th colspan="4"></th></tr>
-				<tr>
-					<td width="150px"><label>From Date</label></td>
-					<td><s:input  id="txtFromDate" path="dtFromDate"  cssClass="calenderTextBox" /></td>
-					<td width="150px"><label>To Date</label></td>
-					<td><s:input  id="txtToDate" path="dtToDate" cssClass="calenderTextBox"  /></td>
+	<div class="container masterTable">
+		<label id="formHeading">Stock Adjustment Report</label>
+	  <s:form name="stkAdjSlip" method="GET" action="rptStockAdjustmentMonthly.html" target="_blank">
+	 
+	 <div class="row">
+			 <div class="col-md-2"><label>From Date</label>
+					<s:input  id="txtFromDate" path="dtFromDate"  cssClass="calenderTextBox" style="width: 70%;height:50%"/>
+			 </div>
+			 
+			 <div class="col-md-2"><label>To Date</label>
+					<s:input  id="txtToDate" path="dtToDate" cssClass="calenderTextBox" style="width: 70%;height:50%"/>
+			 </div>
+			<div class="col-md-8"></div>	
 				
-				</tr>
-				<tr>
-					<td><label>Location</label></td>
-					<td>
-						<s:input id="txtLocCode" path="strLocationCode" cssClass="searchTextBox" ondblclick="funHelp('locationmaster')" ></s:input>
-					</td>
-					<td colspan="2">
-					<label id="lblLocName"></label>
-					</td>
-				</tr>
-				<tr>
-				<td><label>Stock Adjustment From</label></td>
-					<td>
-					<s:select id="cmbReportType" path="strReportType" cssClass="BoxW124px">
+			 <div class="col-md-2"><label>Location</label>
+					<s:input id="txtLocCode" path="strLocationCode" cssClass="searchTextBox" ondblclick="funHelp('locationmaster')" ></s:input>
+			 </div>
+				
+			 <div class="col-md-2"><label id="lblLocName" style="background-color:#dcdada94; width: 100%; height:53%;padding:4px;margin-top:26px;"></label>
+			 </div>
+			<div class="col-md-8"></div>	
+			
+			<div class="col-md-2"><label>Stock Adjustment From</label>
+					<s:select id="cmbReportType" path="strReportType" style="width:auto;">
 				    		<s:option value="POS">POS</s:option>
 				    		<s:option value="Physical Stock">Physical Stock</s:option>
 				    		<s:option value="Manually">Manually</s:option>
-				    	</s:select>
-					</td>
+				    </s:select>
+			</div>
 					
-				<td><label>Report view</label></td>
-					<td>
-					<s:select id="cmbReportView" path="strReportView" cssClass="BoxW124px">
+			 <div class="col-md-2"><label>Report view</label>
+					<s:select id="cmbReportView" path="strReportView" style="width:auto;">
 				    		<s:option value="Recipe">Recipe Wise</s:option>
 				    		<s:option value="List">List Wise</s:option>
 				    		
 				    		
 				    	</s:select>
-					</td>	
+			 </div>	
+			<div class="col-md-8"></div>	
 				
-				
-				</tr>
-				
-				<tr>
-					<td><label>Report Type</label></td>
-					<td colspan="3">
-						<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+			<div class="col-md-2"><label>Report Type</label>
+					<s:select id="cmbDocType" path="strDocType" style="width:auto;">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
-				    	</s:select>
-					</td>
-				</tr>
-			</table>
-			<br>
-			<p align="center">
-				<input type="submit" value="Submit"   class="form_button"/>
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+				    </s:select>
+			 </div>
+		</div>
+	
+			<p align="center" style="margin-right: 48%;">
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button"/>
+				 &nbsp;
+				<input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 			
 		</s:form>
+		</div>
 	</body>
 </html>

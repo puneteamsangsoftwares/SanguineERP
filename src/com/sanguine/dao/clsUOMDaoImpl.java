@@ -41,6 +41,7 @@ public class clsUOMDaoImpl implements clsUOMDao {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
+	@Transactional
 	public void funDeleteUOM(String clientCode, String UOM) {
 
 		String hql = "Delete from clsUOMModel WHERE strClientCode=:strClientCode and strUOMName=:UOM";

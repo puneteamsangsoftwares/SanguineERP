@@ -1,12 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-	<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
-	<%@ taglib uri="http://www.springframework.org/tags" prefix="sp"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+		
+		    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+		 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+		 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	
+			<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+			<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title></title>
 
 <script type="text/javascript">
@@ -934,93 +942,97 @@ $(document).ready(function(){
 </head>
 
 <body onload="funOnload();">
-	<div id="formHeading">
-		<label>Stock Adjustment</label>
-	</div>
-
-	<s:form name="stkAdjustment" method="POST" action="saveStkAdjustment.html?saddr=${urlHits}">
+	<div class="container">
+		<label id="formHeading">Stock Adjustment</label>
+		<s:form name="stkAdjustment" method="POST" action="saveStkAdjustment.html?saddr=${urlHits}">
 		<input type="hidden" value="${urlHits}" name="saddr">
-			<br>
-				<table class="transTable">
-			<tr>
-				<th align="right"><a id="baseUrl" href="#"> Attach
-						Documents</a>&nbsp; &nbsp; &nbsp; &nbsp;</th>
-			</tr>
-		</table>
-		<table class="transTable">
-			<tr>
-				<td width="100px"><label id="lblSACode">SA Code</label></td>
-				<td width="120px"><s:input id="txtSACode" path="strSACode"
-						ondblclick="funHelp('stkadjcode')" cssClass="searchTextBox" /></td>
-				<td width="300px"></td>
-				<td width="50px">SA Date</td>
-				<td colspan="2"><s:input id="txtSADate" path="dtSADate"
-						required="required" pattern="\d{1,2}-\d{1,2}-\d{4}"
-						cssClass="calenderTextBox" /> <s:errors path="dtSADate"></s:errors></td>
-			</tr>
-			<tr>
-				<td><label id="lblLocation">Location</label></td>
-				<td><s:input id="txtLocCode" path="strLocCode"
-						ondblclick="funHelp1('locationmaster','loc')" value="${locationCode}"
-						required="required" cssClass="searchTextBox" /></td>
-				<td><s:label id="txtLocName" path="strLocName">${locationName}</s:label></td>
-
-				<td>Reason</td>
-				<td width="50px"><s:input id="txtReasonCode"
-						path="strReasonCode" ondblclick="funHelp('reason')"
-						required="required" cssClass="searchTextBox" /></td>
-				<td id="txtReasonName"></td>
-
-			</tr>
-			<tr>
-				<td>Conversion UOM</td>
-				<td colspan="5"><select id="cmbConversionUOM"
-						Class="BoxW124px" >
-						<option value="RecUOM">Recieved UOM</option>
-						<option value="IssueUOM">Issue UOM</option>
-						<option value="RecipeUOM">Recipe UOM</option>
-					</select></td>
-			</tr>
-		</table>
-
-		<table class="transTableMiddle1">
-				<tr>
-					<td width="100px">Product Code</td>
-					<td width="120px"><input id="txtProdCode" ondblclick="funHelp('productInUse')" class="searchTextBox"></input></td>
-					<td width="90px">Product Name </td>
-					<td width="200px"><label id="lblProdName" class="namelabel" style="font-size: 12px;"></label></td>
-					<td width="50px">Stock </td>
-					<td width="50px" colspan="3"><input id="txtStock" readonly="readonly" class="BoxW116px right-Align" style="width: 15%;padding-right: 4px;" ></input></td>
-				</tr>
-				<tr>
-					<td>Quantity </td>
-					<td><input id="txtQuantity" type="text"  class="decimal-places numberField"></input></td>
-					<td>Unit Price</td>
-					<td><input id="txtUnitPrice"
-						name="txtUnitPrice" disabled="disabled" type="number" step="any"
-						class="BoxW116px right-Align decimal-2-places" /></td>
-					<td>Wt/Unit </td>
-					<td width="10%"><input id="txtWtUnit" type="text" style="width: 80%"  class="decimal-places numberField" ></input></td>
-					<td width="25px">Type</td>
-					<td>
-						<select id="cmbType" class="BoxW48px" style="width:20%">
-						   <option value="IN">IN</option>
-						   <option value="OUT">OUT</option>
-						 </select>
-					</td>
-				</tr>
-				<tr>
-				<td>Remark </td>
-				<td colspan="3"><input id="txtRemark"  class="longTextBox" /> </td>
-				<td colspan="5"><input id="btnAdd" type="button" value="Add" class="smallButton" onclick="return btnAdd_onclick();"></input></td>
-				
-				</tr>
-				</table>
-
+		<div class="row transTable">
+			<!-- <a id="baseUrl" href="#">Attach Documents</a> -->
+			<div class="col-md-2">
+				<label id="lblSACode">SA Code</label>
+				<s:input id="txtSACode" path="strSACode" ondblclick="funHelp('stkadjcode')" cssClass="searchTextBox" />
+			</div>
+			<div class="col-md-2">
+				<label>SA Date</label>
+				<s:input id="txtSADate" path="dtSADate" required="required" pattern="\d{1,2}-\d{1,2}-\d{4}"
+						cssClass="calenderTextBox" style="width:80%;" /> 
+				<s:errors path="dtSADate"></s:errors>
+			</div>
+			<div class="col-md-2">
+				<label id="lblLocation">Location</label>
+				<s:input id="txtLocCode" path="strLocCode" ondblclick="funHelp1('locationmaster','loc')" value="${locationCode}"
+						required="required" cssClass="searchTextBox" />
+			</div>
+			<div class="col-md-2">
+				<s:label id="txtLocName" path="strLocName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:center;"
+				>${locationName}</s:label>
+			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-2">		
+				<label>Reason</label>
+				<s:input id="txtReasonCode" path="strReasonCode" ondblclick="funHelp('reason')"
+					required="required" cssClass="searchTextBox" />
+			</div>
+			<div class="col-md-2">	
+				<label  id="txtReasonName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+				></label>		
+			</div>
+			<div class="col-md-2">	
+				<label>Conversion UOM</label>
+				<select id="cmbConversionUOM" Class="BoxW124px" >
+					<option value="RecUOM">Recieved UOM</option>
+					<option value="IssueUOM">Issue UOM</option>
+					<option value="RecipeUOM">Recipe UOM</option>
+				</select>
+			</div>
+			<div class="col-md-2">	
+				<label>Stock</label>
+				<input id="txtStock" readonly="readonly" type="text" ></input>
+			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-2">	
+				<label>Product Code</label>
+				<input id="txtProdCode" ondblclick="funHelp('productInUse')" class="searchTextBox"></input>
+			</div>
+			<div class="col-md-2">	
+				<label>Product Name</label>
+				<label id="lblProdName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; text-align:   center;"
+				></label>
+			</div>
+			
+			<div class="col-md-2">		
+				<label>Quantity</label>
+				<input id="txtQuantity" type="text"  class="decimal-places numberField"></input>
+			</div>
+			<div class="col-md-2">	
+				<label>Unit Price</label>
+				<input id="txtUnitPrice" name="txtUnitPrice" disabled="disabled" type="number" step="any"
+					class="BoxW116px right-Align decimal-2-places" />
+			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-2">
+				<label>Wt/Unit</label>
+				<input id="txtWtUnit" type="text" style="width: 80%"  class="decimal-places numberField" ></input>
+			</div>
+			<div class="col-md-2">
+				<label>Type</label>	
+				<select id="cmbType" class="BoxW48px" style="width:50%;">
+					 <option value="IN">IN</option>
+					 <option value="OUT">OUT</option>
+				</select>
+			</div>	
+			<div class="col-md-2">
+				<label>Remark</label>
+				<input id="txtRemark" type="text"/> 
+			</div>
+			<div class="col-md-2">
+				<input id="btnAdd" type="button" value="Add" class="btn btn-primary center-block" onclick="return btnAdd_onclick();" style="margin-top:20px;"></input>
+			</div>
+		</div><br>	
 		<div class="dynamicTableContainer" style="height: 300px;">
 			<table
-				style="height: 28px; border: #0F0; width: 110%; font-size: 11px; font-weight: bold;">
-				<tr bgcolor="#72BEFC">
+				style="height:28px; border: #0F0; width: 110%; font-size: 11px; font-weight: bold;">
+				<tr bgcolor="#c0c0c0">
 					<td width="5%">Product Code</td>
 					<!--  COl1   -->
 					<td width="18%">Product Name</td>
@@ -1050,7 +1062,7 @@ $(document).ready(function(){
 				</tr>
 			</table>
 			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 255px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 110%;">
+				style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 255px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 110%;">
 				<table id="tblProduct"
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col12-center ">
@@ -1109,49 +1121,30 @@ $(document).ready(function(){
 				</table>
 			</div>
 		</div>
-		<table class="transTable">
-			<tr>
-				<td></td>
-				<td style="width: 31%"></td>
-				<td width="10%">Total Amount</td>
-				<td><s:input id="txtTotalAmount" type="text" value=""
-						path="dblTotalAmt" readonly="true" class="numberField" style="width: 25%"/></td>
-				<td></td>
-				<td style="height: 4px;"></td>
-			</tr>
-			<tr>
-				<td><label id="lblAreaNarration">Narration:</label></td>
-				<td><s:textarea id="txtAreaNarration" path="strNarration" /></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>&nbsp; &nbsp; &nbsp;</td>
-				<td>&nbsp; &nbsp; &nbsp;</td>
-
-			</tr>
-		</table>
-		<br>
-		<p align="center">
-		<input type="submit" value="Submit"
-				onclick="return funValidateFields()"
-				class="form_button" id="btnStkPost"/>&nbsp; &nbsp; &nbsp;
-				 <a STYLE="text-decoration:none"  href="frmStockAdjustment.html?saddr=${urlHits}"> <input id="btnReset" type="button" value="Reset"
-				class="form_button"  /></a>
-		</p>
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label>Total Amount</label>
+				<s:input id="txtTotalAmount" type="text" value=""
+						path="dblTotalAmt" readonly="true" class="numberField"/>
+			</div>
+			<div class="col-md-2">
+				<label id="lblAreaNarration">Narration:</label>
+				<s:textarea id="txtAreaNarration" path="strNarration" type="text" style="height:27px;" />
+			</div>
+		</div>
+		<div class="center" style="text-align:center">
+			<a href="#"><button class="btn btn-primary center-block" id="btnStkPost" value="Submit" onclick="return funValidateFields()">Submit</button></a>&nbsp
+			<a href="frmStockAdjustment.html?saddr=${urlHits}"><button id="btnReset" class="btn btn-primary center-block"  value="Reset" onclick="funResetFields();">Reset</button></a>
+		</div>
+		
 		<br><br>
 		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
-			</div>
-				<s:input type="hidden" id="hidConversionUOM" path="strConversionUOM"></s:input>
+		</div>
+			<s:input type="hidden" id="hidConversionUOM" path="strConversionUOM"></s:input>
 			
 	</s:form>
+</div>
 	<script type="text/javascript">
 	funApplyNumberValidation();
 	</script>

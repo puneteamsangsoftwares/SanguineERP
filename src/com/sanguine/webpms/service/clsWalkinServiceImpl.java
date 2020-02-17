@@ -228,7 +228,7 @@ public class clsWalkinServiceImpl implements clsWalkinService {
 					objGuestMasterBean.setDteDOB("01-01-1900");
 					objGuestMasterBean.setIntMobileNo(objWalkinDetails.getLngMobileNo());
 					objGuestMasterBean.setStrAddress(objWalkinDetails.getStrAddress());
-					objGuestMasterModel = objGuestMasterService.funPrepareGuestModel(objGuestMasterBean, clientCode, userCode);
+					objGuestMasterModel = objGuestMasterService.funPrepareGuestModel(objGuestMasterBean, clientCode, userCode, null);
 					
 					objGuestMasterDao.funAddUpdateGuestMaster(objGuestMasterModel);
 

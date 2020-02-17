@@ -54,6 +54,8 @@ public class clsRoomMasterBean {
 	
 	private String strRemarks;
 	
+	private String strRoomTypeDesc;
+	
 	
 	
 	// Setter-Getter Methods
@@ -265,6 +267,14 @@ public class clsRoomMasterBean {
 
 	public void setStrRemarks(String strRemarks) {
 		this.strRemarks = strRemarks;
+	}
+
+	public String getStrRoomTypeDesc() {
+		return strRoomTypeDesc;
+	}
+
+	public void setStrRoomTypeDesc(String strRoomTypeDesc) {
+		this.strRoomTypeDesc = strRoomTypeDesc;
 	}
 
 

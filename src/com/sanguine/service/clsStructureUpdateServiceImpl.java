@@ -17,6 +17,7 @@ public class clsStructureUpdateServiceImpl implements clsStructureUpdateService 
 
 	@Override
 	@Transactional(value = "hibernateTransactionManager")
+	//@Transactional
 	public void funUpdateStructure(String clientCode, HttpServletRequest req) {
 		objStructureUpdateDao.funUpdateStructure(clientCode,req);
 	}
@@ -49,10 +50,8 @@ public class clsStructureUpdateServiceImpl implements clsStructureUpdateService 
 	}
 
 	@Override
-	public void funClearWebBooksTransactionByProperty(String clientCode,
-			String[] str, String propName) {
-		objStructureUpdateDao.funClearWebBooksTransactionByProperty(clientCode,
-				str, propName);
+	public void funClearWebBooksTransactionByProperty(String clientCode,String[] str, String propName) {
+		objStructureUpdateDao.funClearWebBooksTransactionByProperty(clientCode,	str, propName);
 	}
 	
 	@Override

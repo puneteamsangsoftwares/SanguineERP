@@ -1,11 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <!-- charset=ISO-8859-1" pageEncoding="ISO-8859-1"%> -->
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <%-- <script type="text/javascript" src="<spring:url value="/resources/js/hindiTextBox.js"/>"></script> --%>
 <title>GROUP MASTER</title>
 <style>
@@ -150,31 +159,28 @@
 </head>
 
 <body >
-	<div id="formHeading">
-		<label>Session Master</label>
-	</div>
-	<s:form name="sessionForm" method="POST" action="saveSessionMaster.html?saddr=${urlHits}">
-
-		<br />
-		<br />
-		<table class="masterTable">
-
-			<tr>
-				<td width="140px">Session Code</td>
-				<td><s:input id="txtSessionCode" path="strSessionCode"
-						cssClass="searchTextBox" ondblclick="funHelp('session')" /></td>
-			</tr>
-			<tr>
-				<td><label>Session Name</label></td>
-				<td><s:input colspan="3" type="text" id="txtSessionName" 
+	<div class="container">
+		<label id="formHeading">Session Master</label>
+		<s:form name="sessionForm" method="POST" action="saveSessionMaster.html?saddr=${urlHits}">
+		
+		<div class="row masterTable">
+			<div class="col-md-2">
+				<label>Session Code</label>
+				<s:input id="txtSessionCode" path="strSessionCode"
+						cssClass="searchTextBox" ondblclick="funHelp('session')" readOnly="true" />
+			</div>
+			<div class="col-md-2">
+				<label>Session Name</label>
+				<s:input colspan="3" type="text" id="txtSessionName" 
 						name="txtSessionName" path="strSessionName" required="true"
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox"  /> <s:errors path="strSessionName"></s:errors></td>
-			</tr>
-			<tr>
-				<td><label>Description </label></td>
-				<td><s:input colspan="3" id="txSessionDesc" name="txSessionDesc"
-						cssStyle="text-transform: uppercase;" path="strSDesc" cssClass="longTextBox" autocomplete="off" /> </td>
-			</tr>
+						cssStyle="text-transform: uppercase;" /> 
+				<s:errors path="strSessionName"></s:errors>
+			</div>
+			<div class="col-md-2">
+				<label>Description </label>
+				<s:input colspan="3" id="txSessionDesc" name="txSessionDesc"
+					cssStyle="text-transform: uppercase;" path="strSDesc" autocomplete="off" />
+			</div>
 			<%-- <tr>
 				<td><label>Hindi Name</label></td>
 					<td> 
@@ -183,21 +189,15 @@
 	        		</script>
 	       		 </td>
 			</tr> --%>
-			<tr>
 			<%-- <td><s:input type="hidden" id="hidMarathiText" path="strMarathiText"></s:input> --%>
-			
-			
-			</tr>
-		</table>
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button"
-				onclick="return funCallFormAction('submit',this);" /> 
-				<input type="reset"
-				value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
+		</div>
+		<div class="center" style="margin-right: 52%;">
+				<a href="#"><button class="btn btn-primary center-block"  value="Submit" onclick="return funCallFormAction('submit',this);" 
+				>Submit</button></a>
+				<a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()"
+				>Reset</button></a>
+		</div>
 	</s:form>
-
+</div>
 </body>
 </html>

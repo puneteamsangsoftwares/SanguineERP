@@ -8,6 +8,7 @@ public interface clsBookerMasterDao {
 	public void funAddUpdateBookerMaster(clsBookerMasterHdModel objMaster);
 
 	public clsBookerMasterHdModel funGetBookerMaster(String docCode, String clientCode);
-
+	
 	public int funExecutePMSQuery(String sql);
+
 }

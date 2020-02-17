@@ -1,12 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	    <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 	var fieldName;
@@ -208,8 +215,6 @@
 		});		
 	}
 	
-	
-	
 	/**
 	* Get and Set data from help file and load data Based on Selection Passing Value(Extra Bed Code)
 	**/
@@ -254,9 +259,6 @@
 		});
 	}
 	
-	
-	
-
 	/**
 	* Success Message After Saving Record
 	**/
@@ -479,80 +481,68 @@
 				        }
 			      });
 		}
-
-	
 </script>
 
 </head>
 <body>
-
-	<div id="formHeading">
-		<label>Block Room </label>
-	</div>
-
-	<br />
-	<br />
-
-	<s:form name="BlockRoomMaster" method="POST"
+    <div class="container masterTable">
+	 <label id="formHeading">Block Room </label>
+	   <s:form name="BlockRoomMaster" method="POST"
 		action="saveBlockRoom.html">
 
-
-		<div id="tab_container" style="height: 405px">
+      <!--  <div id="tab_container" style="height:405px"> -->
 			
-
-			<!-- General Tab Start -->
-			<div id="tab1" class="tab_content" style="height: 400px">
-				<br> <br>
-				<table class="masterTable">
+           <!-- General Tab Start -->
+			<!-- <div id="tab1" class="tab_content" style="height:400px"> -->
 				
-				<tr>
-						<td><label>Room Type</label></td>
-						<td><s:input id="txtRoomType" path="strRoomType"
-								ondblclick="funHelp('roomType')" cssClass="searchTextBox" /></td>
-						<td><label id="lblRoomType"></label></td>
-						<td colspan="1"></td>
-					</tr>
-					<tr>
-						<td><label>Room Code</label></td>
-						<td><s:input id="txtRoomCode" path="strRoomCode"
-								ondblclick="funHelp1('roomByRoomType')" cssClass="searchTextBox" /></td>
-						<td colspan="2"><s:input id="txtRoomDesc" path=""
-								required="true" cssClass="longTextBox" style="width: 316px" /></td>
-					</tr>
-
-			<tr>
-			    <td><label>Valid From</label></td>	
-			    <td><s:input type="text" id="dteValidFrom" path="dteValidFrom" required="true" class="calenderTextBox" /></td>
-			    <td><label>Valid To</label></td>	
-			    <td><s:input type="text" id="dteValidTo" path="dteValidTo" class="calenderTextBox" /></td>		    		  
-			</tr>
-
-					
-					<tr>
-						<td><label>Reason</label></td>
+	    <div class="row">
+		   <div class="col-md-5"><label>Room Type</label>
+		        <div class="row">
+				    <div class="col-md-5">
+						<s:input id="txtRoomType" path="strRoomType" ondblclick="funHelp('roomType')" cssClass="searchTextBox" style="height: 95%;"/>
+					</div>
+					<div class="col-md-7"><label id="lblRoomType" style="background-color:#dcdada94; width:80%; height:95%;"></label>
+					</div>
+				</div></div>
+		    <div class="col-md-7"></div>
+		    
+			<div class="col-md-5">
+		        <div class="row">	
+				<div class="col-md-5"><label>Room Code</label>
+					 <s:input id="txtRoomCode" path="strRoomCode" ondblclick="funHelp1('roomByRoomType')" cssClass="searchTextBox" style="height:45%;"/>
+				</div>
+				<div class="col-md-7"><s:input id="txtRoomDesc" path=""
+								required="true" style="width:197px; margin-top:25px" />
+				</div>
+		     </div></div>
+             <div class="col-md-7"></div>
+             
+              <div class="col-md-5">
+			      <div class="row">
+					<div class="col-md-5"><label>Reason</label>
+					      <s:input type="text" id="txtReason" path="strReason" cssClass="searchTextBox" style="height: 45%;" ondblclick="funHelp('reasonPMS');"/>
+			        </div>
 						<%-- <td><s:input id="txtReason" path="strReason"
 								cssClass="longTextBox" style="width: 190px" /></td> --%>
-								
-								
-								<td>
-					<s:input colspan="1" type="text" id="txtReason" path="strReason" cssClass="searchTextBox" ondblclick="funHelp('reasonPMS');"/>
-				</td>
-				<td><label id="lblReasonDesc" ></label></td>
-						</td>
-						<td></td>
-						<td></td>
-					</tr>
-					
-					<tr>
-						<td><label>Remarks</label></td>
-						<td><s:textarea id="txtRemarks" path="strRemarks"
-								cssClass="longTextBox"  /></td>
-						</td>
-						<td></td>
-						<td></td>
-					</tr>
-
-					
+				    <div class="col-md-7"><label id="lblReasonDesc" style="background-color:#dcdada94; width:80%;margin-top: 27px; height:45%;"></label>
+				    </div>
+			       </div></div>				
+				<div class="col-md-7"></div>
+				
+			 <div class="col-md-3">
+		        <div class="row">
+		            <div class="col-md-6"><label>Valid From</label>
+			                <s:input type="text" id="dteValidFrom" path="dteValidFrom" required="true" class="calenderTextBox" />
+			        </div>
+			        <div class="col-md-6"><label>Valid To</label>
+			                <s:input type="text" id="dteValidTo" path="dteValidTo" class="calenderTextBox" />		    		  
+			        </div>
+            </div></div>
+            
+            <div class="col-md-2"><label>Remarks</label>
+						<s:textarea id="txtRemarks" path="strRemarks" style="height: 30px;"/>
+				    </div>
+			   
 					<%-- 	<tr>
 						
 						 <td><label>Room Status</label></td>
@@ -564,22 +554,19 @@
 				        </td>
 			         </s:select>
 						</tr> --%>
-				</table>
-			</div>
+				<!-- </div>
+			</div> -->
 			<!--General Tab End  -->
 
-
-			
-
-		</div>
+       </div>
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funBtnSubmit()"/>
-			<input type="reset" value="Reset" class="form_button"
-				onclick="funResetFields()" />
+	
+		<p align="center" style="margin-right:27%">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funBtnSubmit()"/>&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()" />
 		</p>
-
-	</s:form>
+		
+     </s:form>
+	</div>
 </body>
 </html>

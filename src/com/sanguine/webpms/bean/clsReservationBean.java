@@ -109,6 +109,8 @@ public class clsReservationBean {
 	
 	private String strTotalPackageAmt;
 	
+	private String strDontApplyTax;
+	
 	public String getStrTotalPackageAmt() {
 		return strTotalPackageAmt;
 	}
@@ -544,6 +546,14 @@ public class clsReservationBean {
 
 	public void setStrRoomNo(String strRoomNo) {
 		this.strRoomNo = strRoomNo;
+	}
+
+	public String getStrDontApplyTax() {
+		return strDontApplyTax;
+	}
+
+	public void setStrDontApplyTax(String strDontApplyTax) {
+		this.strDontApplyTax = strDontApplyTax;
 	}
 
 	

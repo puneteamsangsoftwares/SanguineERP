@@ -19,13 +19,13 @@ public class clsPMSPaymentDaoImpl implements clsPMSPaymentDao {
 	private SessionFactory webPMSSessionFactory;
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public void funAddUpdatePaymentHd(clsPMSPaymentHdModel objHdModel) {
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objHdModel);
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public clsPMSPaymentHdModel funGetPaymentModel(String receiptNo, String clientCode) {
 		Criteria cr = webPMSSessionFactory.getCurrentSession().createCriteria(clsPMSPaymentHdModel.class);
 		cr.add(Restrictions.eq("strReceiptNo", receiptNo));

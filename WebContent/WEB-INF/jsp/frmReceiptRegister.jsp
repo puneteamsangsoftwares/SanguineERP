@@ -8,6 +8,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
+ <style>
+ #lblFormHeader {
+	font-family: 'trebuchet ms';
+	font-size: 20px;
+	color: #646777;
+	font-weight: bold;
+	padding:0px;
+}
+ .transTable td {
+ padding-left:25px;
+ }
+ </style>
+ 
 <script type="text/javascript">
 var fieldName="";
 	/**
@@ -37,10 +57,11 @@ var fieldName="";
 		$(function() 
 		{
 	    	var startDate="${startDate}";
+	    	var startDateOfMonth="${startDateOfMonth}";
 			var arr = startDate.split("/");
 			Date1=arr[0]+"-"+arr[1]+"-"+arr[2];	
 	    	$( "#txtFromDate" ).datepicker({ dateFormat: 'dd-mm-yy' });		
-			$("#txtFromDate" ).datepicker('setDate', Date1);
+			$("#txtFromDate" ).datepicker('setDate', 'startDateOfMonth');
 			$( "#txtToDate" ).datepicker({ dateFormat: 'dd-mm-yy' });		
 			$("#txtToDate" ).datepicker('setDate', 'today');
 			funRemRows("tblloc");
@@ -593,53 +614,41 @@ var fieldName="";
 		</script>
 	</head>
 <body>
-	<div id="formHeading">
-		<label id=lblFormHeader>Receipt Register Report</label>
-	</div>
-	<br />
-	<br />
-	<s:form id="formTag" name="frmReceiptRegister" method="POST"
-		action="rptReceiptRegister.html" target="_blank">
-		<table class="transTable">
-			<tr>
-				<th colspan="4"></th>
-			</tr>
-
-			<tr>
-				<td width="10%"><label>From Date</label></td>
-				<td colspan="1" width="10%"><s:input id="txtFromDate" path="dtFromDate"
-						value="" readonly="readonly" cssClass="calenderTextBox" required="true"/></td>
-				<td width="10%"><label>To Date</label></td>
-				<td colspan="1"><s:input id="txtToDate" path="dtToDate"
-						value="" readonly="readonly" cssClass="calenderTextBox " required="true"/></td>
-			</tr>
-		</table>
-
-		<br>
-		<table class="transTable">
-			<tr>
-				<td width="49%">Location&nbsp;&nbsp;&nbsp;
+	<div class="container transTable">
+	  <label id=lblFormHeader>Receipt Register Report</label>
+	   <s:form id="formTag" name="frmReceiptRegister" method="POST" action="rptReceiptRegister.html" target="_blank">
+		 
+	     <div class="row">
+			 <div class="col-md-2"><label>From Date</label>
+				   <s:input id="txtFromDate" path="dtFromDate"
+						value="" readonly="readonly" cssClass="calenderTextBox" required="true" style="width: 70%;"/>
+			 </div>
+			 
+			 <div class="col-md-2"><label>To Date</label>
+				   <s:input id="txtToDate" path="dtToDate"
+						value="" readonly="readonly" cssClass="calenderTextBox " required="true" style="width: 70%;"/>
+			 </div>
+			 <div class="col-md-8"></div>
+			
+	     	 <div class="col-md-6"><label>Location</label>
 					<input type="text" id="txtLocCode" 
-					ondblclick="funHelp('locationmaster')" Class="searchTextBox"></input>
+					ondblclick="funHelp('locationmaster')" Class="searchTextBox" style="width: 35%;"></input>
 					<label id="lblToLocName"></label>
-			    </td>
-				<td width="49%">Supplier&nbsp;&nbsp;&nbsp;
-				 <input id="txtSuppCode"  ondblclick="funHelp('suppcode')" Class="searchTextBox" />
-				<label id="txtSuppName"></label>
-				
-				</td>
-			</tr>
-			<tr>
-				<td style="padding: 0 !important;">
-					<div class="transTablex">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-
-							<table id="" class="masterTable"
+		     </div>
+			    
+			 <div class="col-md-6"><label>Supplier</label><br>
+				 <input id="txtSuppCode"  ondblclick="funHelp('suppcode')" Class="searchTextBox" style="width: 35%;"/>
+				  <label id="txtSuppName"></label>
+			 </div>
+			
+			 <div class="col-md-6">
+				<div class="transTablex">
+				   <div  style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+                           <table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
-										<td width="15%"><input type="checkbox" id="chkLocALL"/>Select</td>
+									<tr bgcolor="#c0c0c0">
+										<td width="10%"><input type="checkbox" id="chkLocALL"/>Select</td>
 										<td width="25%">Location Code</td>
 										<td width="65%">Location Name</td>
 
@@ -649,7 +658,7 @@ var fieldName="";
 							<table id="tblloc" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#fafbfb">
 									<td width="15%"></td>
 									<td width="25%"></td>
 									<td width="65%"></td>
@@ -658,27 +667,24 @@ var fieldName="";
 							</table>
 						</div>
 					</div>
-				</td>
-				<td style="padding: 0 !important;">
-					<div
-						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-
-						<table id="" class="masterTable"
-							style="width: 100%; border-collapse: separate;">
-							<tbody>
-								<tr bgcolor="#72BEFC">
-									<td width="15%"><input type="checkbox" id="chkSuppALL"
+				</div>
+				
+				<div class="col-md-6">
+					<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+                       <table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
+						<tbody>
+							<tr bgcolor="#c0c0c0">
+								<td width="10%"><input type="checkbox" id="chkSuppALL"
 										onclick="funCheckUnchecksupp()" />Select</td>
 									<td width="25%">Supplier Code</td>
 									<td width="65%">Supplier Name</td>
-
-								</tr>
+                             </tr>
 							</tbody>
 						</table>
 						<table id="tblSupp" class="masterTable"
 							style="width: 100%; border-collapse: separate;">
 							<tbody>
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#fafbfb">
 									<td width="15%"></td>
 									<td width="25%"></td>
 									<td width="65%"></td>
@@ -687,33 +693,34 @@ var fieldName="";
 							</tbody>
 						</table>
 					</div>
-				</td>
-			</tr>
+				</div>
 			
-			<tr><td></td><br><td></td></tr>
-			<tr id="trGrpSubGroup">
-				<td width="49%">Group&nbsp;&nbsp;&nbsp;
-					<input type="text" id="txtGroupCode" 
-					 Class="searchTextBox"></input>
-					<label id="lblToGroupName"></label>
-			    </td>
-				<td width="49%">SubGroup&nbsp;&nbsp;&nbsp;
-				 <input id="txtSubGroupCode"  Class="searchTextBox" />
-				<label id="txtSubGroupName"></label>
-				
-				</td>
-			</tr>
-			<tr id="trGrpSubGroupData">
-				<td style="padding: 0 !important;">
+			<div class="col-md-12" id="trGrpSubGroup">
+			<div class="row">
+				<div class="col-md-6"><label>Group</label>
+					<input type="text" id="txtGroupCode" Class="searchTextBox"  style="width:35%;"></input>
+					 <label id="lblToGroupName"></label>
+			    </div>
+			    
+				<div class="col-md-6"><label>SubGroup</label><br>
+				   <input id="txtSubGroupCode"  Class="searchTextBox"  style="width: 35%;"/>
+				      <label id="txtSubGroupName"></label>
+				</div>
+			  </div>
+			</div>
+			
+			<div class="col-md-12" id="trGrpSubGroupData">
+				<div class="row">
+				  <div class="col-md-6">
 					<div class="transTablex">
 						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+							style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
 
 							<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
-										<td width="15%"><input type="checkbox" id="chkGrpALL"
+									<tr bgcolor="#c0c0c0">
+										<td width="10%"><input type="checkbox" id="chkGrpALL"
 										 onclick="funCheckUncheckGroup()"/>Select</td>
 										<td width="25%">Group Code</td>
 										<td width="65%">Group Name</td>
@@ -724,7 +731,7 @@ var fieldName="";
 							<table id="tblGroup" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#fafbfb">
 									<td width="15%"></td>
 									<td width="25%"></td>
 									<td width="65%"></td>
@@ -733,16 +740,16 @@ var fieldName="";
 							</table>
 						</div>
 					</div>
-				</td>
-				<td style="padding: 0 !important;">
-					<div
-						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+				</div>
+			  
+			    <div class="col-md-6">
+				 <div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
 
 						<table id="" class="masterTable"
 							style="width: 100%; border-collapse: separate;">
 							<tbody>
-								<tr bgcolor="#72BEFC">
-									<td width="15%"><input type="checkbox" id="chkSGALL"
+								<tr bgcolor="#c0c0c0">
+									<td width="10%"><input type="checkbox" id="chkSGALL"
 										onclick="funCheckUncheckSubgroup()" />Select</td>
 									<td width="25%">SubGroup Code</td>
 									<td width="65%">SubGroup Name</td>
@@ -753,7 +760,7 @@ var fieldName="";
 						<table id="tblSubGroup" class="masterTable"
 							style="width: 100%; border-collapse: separate;">
 							<tbody>
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#fafbfb">
 									<td width="15%"></td>
 									<td width="25%"></td>
 									<td width="65%"></td>
@@ -762,42 +769,37 @@ var fieldName="";
 							</tbody>
 						</table>
 					</div>
-				</td>
-			</tr>
-		</table>
+				</div>
+			</div>
+          </div>
 		<br>
-		<table class="transTable">
-			<tr>
-				<td width="10%"><label>Report Type</label></td>
-				<td colspan="3"><s:select id="cmbDocType" path="strDocType"
-						cssClass="BoxW124px">
+		
+		<div class="col-md-2"><label>Report Type</label>
+			        <s:select id="cmbDocType" path="strDocType" style="width:auto;">
 						<s:option value="PDF">PDF</s:option>
 						<s:option value="XLS">EXCEL</s:option>
 						<s:option value="HTML">HTML</s:option>
 						<s:option value="CSV">CSV</s:option>
-					</s:select></td>
-			</tr>
-			<tr>
-				<td colspan="5"></td>
-
-			</tr>
-		</table>
+					</s:select>
+			</div>
+	 </div>
+			
 		<br>
 		<p align="center">
-			<input type="submit" value="Submit" class="form_button"
-				onclick="return btnSubmit_Onclick()" /> <input type="button"
-				value="Reset" class="form_button" onclick="funResetFields()" />
+			<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="return btnSubmit_Onclick()" /> 
+			&nbsp;
+			<input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()" />
 		</p>
+		
 		<s:input type="hidden" id="hidLocCodes" path="strDocCode"></s:input>
 		<s:input type="hidden" id="hidSuppCode" path="strSuppCode"></s:input>
 		<s:input type="hidden" id="hidGroupCode" path="strGCode"></s:input>
 		<s:input type="hidden" id="hidSubGroupCode" path="strSGCode"></s:input>
-		<div id="wait"
-			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
-			<img
-				src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
+		<div id="wait" style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
+		<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
 				width="60px" height="60px" />
 		</div>
 	</s:form>
+	</div>
 </body>
 </html>

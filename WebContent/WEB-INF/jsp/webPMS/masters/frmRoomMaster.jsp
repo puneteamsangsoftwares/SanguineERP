@@ -1,12 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+       <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 	var fieldName;
@@ -128,7 +134,7 @@
 	        	else
 	        	{
 	        		$("#txtRoomType").val(response.strRoomTypeCode);
-	        		$("#lblRoomType").text(response.strRoomTypeDesc);
+	        		$("#lblRoomType").val(response.strRoomTypeDesc);
 	        	}
 			},
 			error : function(e){
@@ -401,117 +407,123 @@
 		
 	}
 	
-	
+			
+ 			$('#baseUrl').click(function() 
+ 			{  
+ 				 if($("#txtRoomCode").val().trim()=="")
+ 				{
+ 					alert("Please select Room Code.. ");
+ 					return false;
+ 				} 
+ 					window.open('attachDoc.html?transName=frmRoomMaster.jsp&formName=Member Profile&code='+$('#txtRoomCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+ 			});
 
-	
 </script>
 
 </head>
 <body>
-
-	<div id="formHeading">
-		<label>Room Master</label>
-	</div>
-
-	<br />
-	<br />
-
+   <div class="container masterTable">
+		<label id="formHeading">Room Master</label>
 	<s:form name="RoomMaster" method="POST" action="saveRoomMaster.html">
-
-
-		<div id="tab_container" style="height: 405px">
+     <div id="tab_container" style="height:360px; overflow: hidden;">
 				<ul class="tabs">
-					<li data-state="tab1" style="width: 6%; padding-left: 2%;margin-left: 10%; " class="active" >General</li>
-					<li data-state="tab2" style="width: 8%; padding-left: 1%">LinkUp</li>
+					<li data-state="tab1" style="width:7%" class="active" >General</li>
+					<li data-state="tab2" style="width:7%">LinkUp</li>
 				</ul>
 							
 				<!-- General Tab Start -->
-				<div id="tab1" class="tab_content" style="height: 400px">
+				<div id="tab1" class="tab_content" style="height: 360px">
 					<br> 
 					<br>					
-					<table class="masterTable">
 					
-					<tr>
+					
+				
 				<!-- <th align="right" colspan="6"><a id="baseUrl"
 					href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
 						&nbsp;</th> -->
-						 
- 					<th align="right" colspan="6" ><a onclick="funOpenExportImport()"
+			<div class="row">
+			      <div class="col-md-12"  align="center" style="margin-left: 12%"><a onclick="funOpenExportImport()"
 					href="javascript:void(0);">Export/Import</a>&nbsp; &nbsp; &nbsp;
 					&nbsp;
-					</th>
+					</div>
+				
+				     <div class="col-md-4"><label>Room Code</label>
+					    <div class="row">
+						   <div class="col-md-5"> <s:input id="txtRoomCode" path="strRoomCode"  ondblclick="funHelp('roomForMaster')" style="height:95%" cssClass="searchTextBox"/></div>			        			        
+						   <div class="col-md-7"> <s:input id="txtRoomDesc" path="strRoomDesc" required="true"/></div>			    		        			   
+				    </div></div>
+						
+						<div class="col-md-4"><label>Room Type</label>
+						 <div class="row">
+						    <div class="col-md-5"><s:input id="txtRoomType" path="strRoomType"  ondblclick="funHelp('roomType')" style="height:95%" cssClass="searchTextBox"/></div>
+						    <div class="col-md-7"><s:input id="lblRoomType" path="strRoomTypeDesc" readonly="readonly" style="background-color:#dcdada94; width: 100%; height:90%"/></div>
+						 </div></div>
 					
+					<div class="col-md-4"></div>
+					
+						<div class="col-md-4"><label>Floor Code</label>
+						 <div class="row">
+							<div class="col-md-5"><s:input id="txtFloorCode" type="text" path="strFloorCode" style="height:95%" cssClass="searchTextBox" ondblclick="funHelp('floormaster')" /></div>
+						     <div class="col-md-7"><label id="lblFloorName" style="background-color:#dcdada94; width: 100%; height:90%"></label></div>
+						</div></div>
 						
-			</tr>
-						<tr>
-						    <td><label>Room Code</label></td>
-						    <td><s:input id="txtRoomCode" path="strRoomCode"  ondblclick="funHelp('roomForMaster')" cssClass="searchTextBox"/></td>			        			        
-						    <td colspan="2"><s:input id="txtRoomDesc" path="strRoomDesc" required="true" cssClass="longTextBox"  style="width: 316px"/></td>			    		        			   
-						</tr>
+						<div class="col-md-4"><label>Extra Bed</label>
+						 <div class="row">
+						      <div class="col-md-5"><s:input id="txtExtraBed" path="strExtraBed"  ondblclick="funHelp('extraBed')" style="height:95%" cssClass="searchTextBox"/></div>
+						     <div class="col-md-7"><label id="lblExtraBed" style="background-color:#dcdada94; width: 100%; height:90%"></label></div>
+						 </div></div>
+						 <div class="col-md-4"></div>
+						 
+						 <div class="col-md-2"><label>Bed Type</label>		    
+							<s:input id="txtBedType" path="strBedType"/>
+						 </div>
 						
-						<tr>
-						    <td><label>Room Type</label></td>
-						    <td><s:input id="txtRoomType" path="strRoomType"  ondblclick="funHelp('roomType')" cssClass="searchTextBox"/></td>
-						    <td><label id="lblRoomType"></label></td>
-						    <td colspan="1"></td>
-						</tr>
+						<div class="col-md-2"><label>Furniture</label>
+							  <s:input id="txtFurniture" path="strFurniture"/>
+					     </div>
 						
-						<tr>
-							<td><label>Floor Code</label></td>
-							<td><s:input id="txtFloorCode" type="text" path="strFloorCode" cssClass="searchTextBox" ondblclick="funHelp('floormaster')" />
-								<label id="lblFloorName"></label>
-							</td>
-						    <td><label>Bed Type</label></td>			    
-							<td><s:input id="txtBedType" path="strBedType"  cssClass="longTextBox" style="width: 190px"/></td>
+						<div class="col-md-2"><label>Upholstery</label>
+							  <s:input id="txtUpholstery" path="strUpholstery" style="width: 130px"/>
+						</div>
 						
-						</tr>
+						 <div class="col-md-2"><label>Location</label>
+							   <s:input id="txtLocation" path="strLocation" style="width: 160px"/>
+					     </div>
+						<div class="col-md-4"></div>
 						
-						<tr>				
-							<td><label>Furniture</label></td>
-							<td><s:input id="txtFurniture" path="strFurniture"  cssClass="longTextBox" style="width: 190px"/></td>
-							<td><label>Upholstery</label></td>
-							<td><s:input id="txtUpholstery" path="strUpholstery"  cssClass="longTextBox" style="width: 190px"/></td>
-						</tr>
-						<tr>
-						    <td><label>Extra Bed</label></td>
-						    <td><s:input id="txtExtraBed" path="strExtraBed"  ondblclick="funHelp('extraBed')" cssClass="searchTextBox"/></td>
-							<td><label id="lblExtraBed"></label></td>
-						     <td colspan="1"></td>
-						</tr>
-						<tr>
-						    <td><label>Location</label></td>
-							<td><s:input id="txtLocation" path="strLocation"  cssClass="longTextBox" style="width: 190px"/></td>
-							
-							<td><label>Bath Type</label></td>
-							<td><s:input id="txtBathTypeCode" type="text" path="strBathTypeCode" cssClass="searchTextBox" ondblclick="funHelp('bathType')" />
-								<label id="lblBathTypeDesc"></label>
-							</td>
-						</tr>
+						<div class="col-md-4"><label>Bath Type</label>
+						 <div class="row">
+							  <div class="col-md-5"><s:input id="txtBathTypeCode" type="text" path="strBathTypeCode" style="height:95%" cssClass="searchTextBox" ondblclick="funHelp('bathType')" /></div>
+						      <div class="col-md-7"><label id="lblBathTypeDesc" style="background-color:#dcdada94; width: 100%; height:90%"></label></div>
+						</div></div>
 						
-						<tr>
-						    <td><label>Colour Scheme</label></td>
-							<td><s:input id="txtColourScheme" path="strColourScheme"  cssClass="longTextBox" style="width: 190px"/></td>
-							<td><label>Polish Type</label></td>
-							<td><s:input id="txtPolishType" path="strPolishType"  cssClass="longTextBox" style="width: 190px"/></td>
-						</tr>
-						<tr>
-						    <td><label>Guest Amenities</label></td>
-							<td><s:input id="txtGuestAmenities" path="strGuestAmenities"  cssClass="longTextBox" style="width: 190px"/></td>
-							<td><label>Interconnect Rooms</label></td>
-							<td><s:input id="txtInterConnectRooms" path="strInterConnectRooms"  cssClass="longTextBox" style="width: 190px"/></td>
-						</tr>
-						<tr>
-						    <td><label>Provision For Smoking</label></td>
-							<td>
-								<s:radiobutton id="rdbProvisionForSmokingYN" path="strProvisionForSmokingYN" value="Y"  />Yes 
+						<div class="col-md-2"><label>Colour Scheme</label>
+							<s:input id="txtColourScheme" path="strColourScheme" style="width: 130px"/>
+						</div>
+						
+						<div class="col-md-2"><label>Polish Type</label>
+							<s:input id="txtPolishType" path="strPolishType" style="width: 160px"/>
+						</div>
+						<div class="col-md-4"></div>
+						
+						<div class="col-md-2"><label>Guest Amenities</label>
+							<s:input id="txtGuestAmenities" path="strGuestAmenities" style="width: 160px"/>
+						</div>
+						
+						<div class="col-md-2"><label>Interconnect Rooms</label>
+							<s:input id="txtInterConnectRooms" path="strInterConnectRooms" style="width: 160px"/>
+						</div>
+						
+						<div class="col-md-2"><label>Provision For Smoking</label><br>
+							    <s:radiobutton id="rdbProvisionForSmokingYN" path="strProvisionForSmokingYN" value="Y"  />Yes 
 								<s:radiobutton id="rdbProvisionForSmokingYN" path="strProvisionForSmokingYN" value="N" checked="checked" style="margin-left: 20px;" />No
-							</td>
-							<td><label>Deactive</label></td>
-							<td>
-								<s:radiobutton id="rdbDeactiveYN" path="strDeactiveYN" value="Y" />Yes 
+						</div>
+						
+						<div class="col-md-2"><label>Deactive</label><br>
+							     <s:radiobutton id="rdbDeactiveYN" path="strDeactiveYN" value="Y" />Yes 
 								<s:radiobutton id="rdbDeactiveYN" path="strDeactiveYN" value="N" checked="checked" style="margin-left: 20px;" />No
-							</td>
-						</tr>
+					    </div>
+						
 					<%-- 	<tr>
 						
 						 <td><label>Room Status</label></td>
@@ -523,32 +535,32 @@
 				        </td>
 			         </s:select>
 						</tr> --%>
-					</table>
-		</div>
+					</div>		
+		         </div>
 						<!--General Tab End  -->
-						
+			
 						
 			<!-- Linkedup Details Tab Start -->
-			<div id="tab2" class="tab_content" style="height: 400px">
+			<div id="tab2" class="tab_content" style="height: 360px">
 			<br> 
 			<br>			
-				<table class="masterTable">
-						<tr>
-						    <td><label>Account Code</label></td>
-						    <td><s:input id="txtAccountCode" path="strAccountCode" readonly="true" ondblclick="funHelp('accountCode')" cssClass="searchTextBox"/></td>
-						    <td colspan="2"><s:input id="txtAccountName" path="" readonly="true" cssClass="longTextBox"  style="width: 316px"/></td>			        			        						    			    		        			  
-						</tr>
-				</table>
+				<div class="row">
+				    <div class="col-md-4">
+				        <div class="row">
+							<div class="col-md-5"><label>Account Code</label>
+						    	<s:input id="txtAccountCode" path="strAccountCode" readonly="true" ondblclick="funHelp('accountCode')" style="height:50%" cssClass="searchTextBox"/></div>
+						   <div class="col-md-7"><s:input id="txtAccountName" path="" style="margin-top: 14%" readonly="true"/></div>			        			        						    			    		        			  
+					</div></div>
+				</div>
 			</div>
 			
 		</div>
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()" />
+		
+		<p align="center" style="margin-right: -20%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" />&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()" />
 		</p>
-
-	</s:form>
+      </s:form>
+     </div>
 </body>
 </html>

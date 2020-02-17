@@ -163,6 +163,9 @@ public class clsReservationHdModel implements Serializable {
 	@Column(name = "tmePickUpTime")
 	private String tmePickUpTime;
 	
+	@Column(name = "strDontApplyTax")
+	private String strDontApplyTax;
+	
 
 	public List<clsReservationDtlModel> getListReservationDtlModel() {
 		return listReservationDtlModel;
@@ -483,6 +486,14 @@ public class clsReservationHdModel implements Serializable {
 
 	public void setTmePickUpTime(String tmePickUpTime) {
 		this.tmePickUpTime = tmePickUpTime;
+	}
+
+	public String getStrDontApplyTax() {
+		return strDontApplyTax;
+	}
+
+	public void setStrDontApplyTax(String strDontApplyTax) {
+		this.strDontApplyTax = strDontApplyTax;
 	}
 
 	

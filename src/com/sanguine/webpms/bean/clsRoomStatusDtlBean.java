@@ -53,6 +53,15 @@ public class clsRoomStatusDtlBean {
 	
 	double dblRoomCnt = 0;
 	
+	private String strSource = "";
+	
+	double dblPax = 0;
+	
+	double dblRoomRate = 0;
+	
+	private String strSpclInstruction = "";
+	
+	
 	private String strDay;
 	private TreeMap<Integer, List<clsGuestListReportBean>> mapGuestListPerDay;
 
@@ -319,6 +328,62 @@ public class clsRoomStatusDtlBean {
 
 	public void setDblRoomCnt(double dblRoomCnt) {
 		this.dblRoomCnt = dblRoomCnt;
+	}
+
+
+
+
+	public String getStrSource() {
+		return strSource;
+	}
+
+
+
+
+	public void setStrSource(String strSource) {
+		this.strSource = strSource;
+	}
+
+
+
+
+	public double getDblPax() {
+		return dblPax;
+	}
+
+
+
+
+	public void setDblPax(double dblPax) {
+		this.dblPax = dblPax;
+	}
+
+
+
+
+	public double getDblRoomRate() {
+		return dblRoomRate;
+	}
+
+
+
+
+	public void setDblRoomRate(double dblRoomRate) {
+		this.dblRoomRate = dblRoomRate;
+	}
+
+
+
+
+	public String getStrSpclInstruction() {
+		return strSpclInstruction;
+	}
+
+
+
+
+	public void setStrSpclInstruction(String strSpclInstruction) {
+		this.strSpclInstruction = strSpclInstruction;
 	}
 
 }

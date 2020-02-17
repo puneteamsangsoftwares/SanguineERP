@@ -5,17 +5,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 	<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
-	<script>
+<style type="text/css">
+.transTable{
+ width:100%;
 
+}
+
+</style>	
+	
+<script>
+	var dblLastSuppRate=0;
 		$(function ()
 		{
+			/* var startDate="${startDate}";
+			var arr = startDate.split("/");
+			Dat=arr[0]+"-"+arr[1]+"-"+arr[2]; */
+			
 			var startDate="${startDate}";
 			var arr = startDate.split("/");
-			Dat=arr[0]+"-"+arr[1]+"-"+arr[2];
+			
+			
+			<%-- strLastSuppRateShowInStockFlash= '<%= request.getAttribute("strLastSuppRateShowInStockFlash") %>';
+			if(strLastSuppRateShowInStockFlash==null){
+				strLastSuppRateShowInStockFlash='N';
+			} --%>
+			 
+			 
+			var date = new Date(); 
+			var month=date.getMonth()+1;
+            Dat= 1 +"-"+month+"-"+date.getFullYear();
 			$( "#txtFromDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtFromDate" ).datepicker('setDate', Dat);
 			$( "#txtToDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
@@ -29,36 +60,7 @@
 			
 			$("#btnExecute").click(function( event )
 			{
-				if($("#txtProdCode").val()=='')
-				{
-					alert("Enter Product Code!");
-					return false;
-				}
 				
-				var fromDate=$("#txtFromDate").val();
-				var toDate=$("#txtToDate").val();
-				var table = document.getElementById("tblStockLedger");
-				var rowCount = table.rows.length;
-				while(rowCount>0)
-				{
-					table.deleteRow(0);
-					rowCount--;
-				}
-				
-				var table1 = document.getElementById("tblStockLedgerSummary");
-				var rowCount1 = table1.rows.length;
-				while(rowCount1>0)
-				{
-					table1.deleteRow(0);
-					rowCount1--;
-				}
-				
-				var fromDate=$("#txtFromDate").val();
-				var toDate=$("#txtToDate").val();
-				var locCode=$("#cmbLocation").val();
-				var propCode=$("#cmbProperty").val();
-				var prodCode=$("#txtProdCode").val();
-				funGetStockLedger(fromDate,toDate,locCode,propCode,prodCode);
 			});
 			
 			$('a#urlDocCode').click(function() 
@@ -72,14 +74,19 @@
 					funSetProduct(code);
 				}
 			})
+			
+			$("#tdBAtchLabel").hide();
+			$("#tdBatchTxt").hide();
 		});
+		
 		
 		
 		function funGetStockLedger(fromDate,toDate,locCode,propCode,prodCode)
 		{
+			var batchNo = $("#txtBatch").val();
 			var qtyWithUOM=$("#cmbQtyWithUOM").val();
 			var param1=locCode+","+propCode+","+prodCode+",detail,"+qtyWithUOM;
-			var searchUrl=getContextPath()+"/frmStockLedgerReport.html?param1="+param1+"&fDate="+fromDate+"&tDate="+toDate;
+			var searchUrl=getContextPath()+"/frmStockLedgerReport.html?param1="+param1+"&fDate="+fromDate+"&tDate="+toDate+"&batchCode="+batchNo;
 			
 			$.ajax({
 			        type: "GET",
@@ -103,6 +110,8 @@
 			$("#lblFromDate1").text("From");
 			var fd=$("#txtFromDate").val();
 			var td=$("#txtToDate").val();
+			var openingstockwithUOM=0;
+			var closingstockwithUOM=0;
 			
 			var fromDate=funGetDate(fd,"dd/MM/yyyy");
 			var toDate=funGetDate(td,"dd/MM/yyyy");
@@ -110,6 +119,10 @@
 			var table = document.getElementById("tblStockLedger");
 			var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
+		    
+		    var freeQty=0;
+		    
+		    var issueConversion = 0.0;
 		    
 			row.insertCell(0).innerHTML= "<label>Transaction Date</label>";
 			row.insertCell(1).innerHTML= "<label>CostCenter/Supplier Name</label>";
@@ -130,9 +143,15 @@
 		    			}
 			$.each(response, function(i,item)
 			{
+				if(qtyWithUOM.includes("Yes")){
+					
+					issueConversion = parseFloat(item[7].split("!")[0]);	
+				}
+				
 				var row1 = table.insertRow(rowCount);
 				if(item[2]!='')
 				{
+					
 					row1.insertCell(0).innerHTML= "<label>"+item[0]+"</label>";
 					row1.insertCell(1).innerHTML= "<label>"+item[5]+"</label>";
 					row1.insertCell(2).innerHTML= "<label>"+item[1]+"</label>";
@@ -142,7 +161,14 @@
 				   		if(qtyWithUOM=='Yes')
 			   		{
 				   		row1.insertCell(4).innerHTML= "<label>"+item[3]+"</label>";
+					   	/* row1.insertCell(5).innerHTML= "<label>"+parseFloat(item[4]).toFixed(maxQuantityDecimalPlaceLimit)+"</label>"; */
 					   	row1.insertCell(5).innerHTML= "<label>"+item[4]+"</label>";
+					   /* 	if(item[4].includes(".")){
+					   		row1.insertCell(5).innerHTML= "<label>"+item[4]+"</label>";	
+					   	}else {
+					   		if(item[4].includes())
+					   	}
+				   		 */
 			   		}else
 			   			{
 			   			row1.insertCell(4).innerHTML= "<label>"+item[3].toFixed(maxQuantityDecimalPlaceLimit)+"</label>";
@@ -160,6 +186,15 @@
 				   	 
 				   		//row1.insertCell(8).innerHTML= "<label type=\"hidden\">"+item[7]+"</label>";
 			   		}
+				   	if(item[7].toString().includes("!"))
+				   		{
+				   		freeQty += parseFloat(item[8]);
+				   		}
+				   	else
+				   		{
+				   			freeQty += parseFloat(item[7]);
+				   		}
+				 
 				}
 			});
 			
@@ -170,10 +205,10 @@
 			var rowCount1 = table.rows.length;
 		    var tableRows=table.rows;
 		    var rateForValue=0;
-		    
+		
 		for (var cnt = 1; cnt < rowCount1; cnt++) {
 				var cells1 = tableRows[cnt].cells;
-
+            
 				var rec = cells1[4].innerHTML;
 				rec = rec.substring(7, rec.lastIndexOf("<"));
 				var issue = cells1[5].innerHTML;
@@ -183,6 +218,7 @@
 				
 				var rate1 = cells1[7].innerHTML;
 				var rate = parseFloat(rate1.substring(7, rate1.lastIndexOf("<")));
+				var value =0;
 				if (qtyWithUOM == 'No') 
 				{
 					var negtveSign="";
@@ -204,7 +240,7 @@
 					//alert(uom);
 
 // 					uom = uom.substring(14, uom.lastIndexOf("type") - 2);
-					uom = uom.substring(uom.lastIndexOf("value")+7, uom.length-16);
+					//uom = uom.substring(uom.lastIndexOf("value")+7, uom.length-16);
 					//alert(uom);
 					var spUOM = funCheckNull(uom.split('!'));
 					var recipeConv = funCheckNull(spUOM[0]);
@@ -212,8 +248,11 @@
 					var recipeConv = funCheckNull(spUOM[0]);
 					var issueConv = funCheckNull(spUOM[1]);
 					var receivedUOM =funCheckNull( spUOM[2]);
-					var recipeUOM = funCheckNull(spUOM[3]);
-
+					var recipeUOM = funCheckNull(spUOM[3].substring(0, spUOM[3].length - 2));
+					
+					var convRecipe=funCheckNull(spUOM[0].split('value="')[1]);
+					
+					
 					if (rec == '0') {
 						tempRecipts += parseFloat(rec);
 					} else {
@@ -223,7 +262,7 @@
 						if (rec.indexOf(receivedUOM) > -1) {
 							var highNLowData = rec.split(".");
 							var highNo = highNLowData[0].split(" ");
-							dblReptHigh = parseFloat(highNo[0])	* parseFloat(recipeConv);
+							dblReptHigh = parseFloat(highNo[0])	* parseFloat(recipeConv.substr(28));
 
 							var lowNo = highNLowData[1].split(" ");
 							if(lowNo !="")
@@ -237,9 +276,17 @@
 								}
 							
 						} else {
-							dblRectlow = rec.split(" ");
-							dblRectlow = parseFloat(dblRectlow[0]);
-							tempRecipts = parseFloat(tempRecipts) + dblRectlow;
+							if(rec=="")
+								{
+								
+								}
+							else
+								{
+								dblRectlow = rec.split(" ");
+								dblRectlow = parseFloat(dblRectlow[0]);
+								tempRecipts = parseFloat(tempRecipts) + dblRectlow;
+								}
+							
 						}
 
 					}
@@ -253,7 +300,7 @@
 						if (issue.indexOf(receivedUOM) > -1) {
 							var highNLowData = issue.split(".");
 							var highNo = highNLowData[0].split(" ");
-							dblIssHigh = parseFloat(highNo[0])* parseFloat(recipeConv);
+							dblIssHigh = parseFloat(highNo[0])* parseFloat(recipeConv.substr(28));
 
 							var lowNo = highNLowData[1].split(" ");
 							if(lowNo !="")
@@ -273,9 +320,30 @@
 						}
 
 					}
-					totRowBal = tempRecipts - tempIssue;
+					
+					if(tempIssue.toString().includes("-"))
+						{
+						totRowBal = tempRecipts + tempIssue;
+							if(tempRecipts>0 ){
+								value = parseFloat((rate * tempRecipts /( convRecipe /issueConv) ) + (rate * tempIssue / (convRecipe  /issueConv))).toFixed(maxAmountDecimalPlaceLimit);
+							}else{
+								value = parseFloat((rate * tempIssue / convRecipe)).toFixed(maxAmountDecimalPlaceLimit);
+							}
+						}
+					else
+						{
+							totRowBal = tempRecipts - tempIssue;
+							if(tempRecipts>0 ){
+								value = parseFloat((rate * tempRecipts / convRecipe) - (rate * tempIssue / convRecipe)).toFixed(maxAmountDecimalPlaceLimit);
+							}else{
+								value = parseFloat((rate * tempIssue / convRecipe)).toFixed(maxAmountDecimalPlaceLimit);
+							}
+								
+							
+						}
+					
 
-					totRowBal = parseFloat(totRowBal) / parseFloat(recipeConv);
+					totRowBal = parseFloat(totRowBal) / parseFloat(recipeConv.substr(28));
 
 					bal = bal +parseFloat(totRowBal.toFixed(maxAmountDecimalPlaceLimit));
 					
@@ -292,26 +360,58 @@
 						finalBal = spBalance[0] + ' ' + receivedUOM;
 					}
 					if (spBalance[1] != "undefined") {
-						var balWithUOM = parseFloat(restQty.toFixed(maxAmountDecimalPlaceLimit))* parseFloat(recipeConv);
-						finalBal = finalBal + '.' + balWithUOM + ' '+ recipeUOM;
+						var balWithUOM = parseFloat(parseFloat(restQty.toFixed(maxAmountDecimalPlaceLimit))* parseFloat(recipeConv.substr(28))).toFixed(0);//mahesh 
+						if(qtyWithUOM.includes("Yes"))
+							{
+							finalBal = finalBal + '.' + balWithUOM + ' '+ recipeUOM;
+							}
+						else
+							{
+							finalBal = finalBal + '.' + balWithUOM.toFixed(maxAmountDecimalPlaceLimit) + ' '+ recipeUOM;
+							}
+						
 					}
 
-					// 		        	}
+					// 	
+					if(cnt== rowCount1-1 )
+					{
+						closingstockwithUOM=finalBal;
+					}
+					
+					
 					cells1[6].innerHTML = "<label>" + finalBal + "</label>";
 				}
 
 				cells1[7].innerHTML = "<label>"	+ rate.toFixed(maxAmountDecimalPlaceLimit) + "</label>";
-
-				var issueOrReceipt = parseFloat(rec) + parseFloat(issue);
-				var value = parseFloat(rate * issueOrReceipt).toFixed(maxAmountDecimalPlaceLimit);
-				cells1[8].innerHTML = "<label>" + value + "</label>";
-
+//convRecipe  issueConv
+				var issueOrReceipt = parseFloat(rec)  + parseFloat(issue);
+				
+				if(qtyWithUOM == 'No'){
+					value = parseFloat(rate * issueOrReceipt).toFixed(maxAmountDecimalPlaceLimit);
+				}
+				cells1[8].innerHTML = "<label>" + value + "</label>";				
 				var transName = cells1[2].innerHTML;
 				if (transName == '<label>Opening Stk</label>') {
 					openingStk = bal;
+					openingstockwithUOM=rec;
 				} else {
-					totalRec = totalRec + parseFloat(rec);
-					totalIssue = totalIssue + parseFloat(issue);
+					if(rec==""){
+						
+					}
+					else
+						{
+						totalRec = totalRec + parseFloat(rec);
+						}
+					
+					if(parseFloat(issue)>0)
+						{
+						totalIssue = totalIssue + parseFloat(issue);
+						}
+					else
+						{
+						totalIssue = totalIssue +0;
+						}
+					
 				}
 
 				rateForValue = rate;
@@ -319,9 +419,33 @@
 			//get weighted avg price from product master 
 			if(weightedRate>0){
 				rateForValue=weightedRate;
-			}		    
-			var closingBalance = parseFloat(openingStk) + parseFloat(totalRec);
-			closingBalance = closingBalance - parseFloat(totalIssue);
+			}
+			if($("#cmbPriceCalculation").val()=="Last Supplier Rate"){
+				if(dblLastSuppRate>0){
+					rateForValue=dblLastSuppRate;
+				}
+			}
+			/* if(qtyWithUOM.includes("Yes"))
+				{
+				totalIssue = totalIssue/issueConversion;
+				} */
+				if(qtyWithUOM.includes("Yes")){
+				
+					var fromDate=$("#txtFromDate").val();
+					var toDate=$("#txtToDate").val();
+					var locCode=$("#cmbLocation").val();
+					var propCode=$("#cmbProperty").val();
+					var prodCode=$("#txtProdCode").val();
+					funGetStockLedgerWithUom(fromDate,toDate,locCode,propCode,prodCode);
+					totalIssue = totalIssueWithUom;
+					totalIssueWithUom=0;
+				}
+							
+/* 			var closingBalance = parseFloat(openingStk) + parseFloat(totalRec)+parseFloat(freeQty);
+ */			var qtyWithUOM=$("#cmbQtyWithUOM").val();
+            
+ 			var closingBalance = parseFloat(openingStk) + parseFloat(totalRec);
+ 			closingBalance = closingBalance - parseFloat(totalIssue);
 
 			var table = document.getElementById("tblStockLedgerSummary");
 			var rowCount = table.rows.length;
@@ -333,7 +457,14 @@
 
 			var row1 = table.insertRow(rowCount);
 			row1.insertCell(0).innerHTML = "<label>Opening Stock</label>";
-			row1.insertCell(1).innerHTML = "<label>"+ parseFloat(openingStk).toFixed(maxQuantityDecimalPlaceLimit) + "</label>";
+			if(qtyWithUOM == 'No')
+			{
+				row1.insertCell(1).innerHTML = "<label>"+ parseFloat(openingStk).toFixed(maxQuantityDecimalPlaceLimit) + "</label>";
+			}
+			else
+			{
+				row1.insertCell(1).innerHTML = "<label>"+ openingstockwithUOM + "</label>";
+			}
 			row1.insertCell(2).innerHTML = "<label>"+ (parseFloat(openingStk) * parseFloat(rateForValue)).toFixed(maxAmountDecimalPlaceLimit) + "</label>";
 
 			rowCount = rowCount + 1;
@@ -342,6 +473,13 @@
 			row1.insertCell(1).innerHTML = "<label>"+ parseFloat(totalRec).toFixed(maxQuantityDecimalPlaceLimit)+ "</label>";
 			row1.insertCell(2).innerHTML = "<label>"+ (parseFloat(totalRec) * parseFloat(rateForValue)).toFixed(maxAmountDecimalPlaceLimit) + "</label>";
 
+			
+			rowCount = rowCount + 1;
+			row1 = table.insertRow(rowCount);
+ 			row1.insertCell(0).innerHTML = "<label>Free Quantity</label>";
+			row1.insertCell(1).innerHTML = "<label>"+ parseFloat(freeQty).toFixed(maxQuantityDecimalPlaceLimit) + "</label>";
+			row1.insertCell(2).innerHTML = "<label>"+parseFloat(0).toFixed(maxQuantityDecimalPlaceLimit) + "</label>";
+ 		
 			rowCount = rowCount + 1;
 			row1 = table.insertRow(rowCount);
 			row1.insertCell(0).innerHTML = "<label>Total Issues</label>";
@@ -351,8 +489,20 @@
 			rowCount = rowCount + 1;
 			row1 = table.insertRow(rowCount);
 			row1.insertCell(0).innerHTML = "<label>Closing Balance</label>";
-			row1.insertCell(1).innerHTML = "<label>"+ parseFloat(closingBalance).toFixed(maxQuantityDecimalPlaceLimit) + "</label>";
+			 if(qtyWithUOM == 'No')
+			{ 
+				row1.insertCell(1).innerHTML = "<label>"+ parseFloat(closingBalance).toFixed(maxQuantityDecimalPlaceLimit) + "</label>";
+				
+		    }
+			else
+			{
+				row1.insertCell(1).innerHTML = "<label>"+ closingstockwithUOM + "</label>";
+				
+			} 
 			row1.insertCell(2).innerHTML = "<label>"+ (parseFloat(closingBalance) * parseFloat(rateForValue)).toFixed(maxAmountDecimalPlaceLimit) + "</label>";
+			
+			
+			
 		}
 		function funCheckNull(chkValue){
 			
@@ -372,6 +522,26 @@
 			var parts = obj.tran_date.split('-');
 			return new Date(parts[2], parts[1] - 1, parts[0]);
 		}
+		
+		function funLoadLastGRNRate(productCode){
+		
+			var searchUrl = "";
+			var clientCode="${clientCode}";
+			searchUrl = getContextPath()
+					+ "/loadLastGRNRate.html?prodCode=" + productCode+"&clientCode="+clientCode;
+			$.ajax({
+				type : "GET",
+				url : searchUrl,
+				dataType : "json",
+				async :false,
+				success : function(response) {
+					dblLastSuppRate=response;
+				},
+				error : function(e) {
+					alert('Error:=' + e);
+				}
+			});
+		}
 
 		function funGetDate(date, format) {
 			var retDate = '';
@@ -386,6 +556,10 @@
 		}
 
 		function funHelp(transactionName) {
+			$("#tdBAtchLabel").hide();
+			$("#tdBatchTxt").hide();
+			$("#txtBatch").val('');
+
 			fieldName = transactionName;
 			//window.open("searchform.html?formname="+transactionName+"&searchText=", 'window', 'width=600,height=600');
 			//	window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;dialogLeft:200px;")
@@ -399,7 +573,15 @@
 			case 'productmaster':
 				funSetProduct(code);
 				break;
+				
+				
+			case 'Batch':
+				funSetBatch(code);
+				break;
+				
+				
 			}
+			
 		}
 
 		function funSetProduct(code) {
@@ -411,16 +593,24 @@
 				type : "GET",
 				url : searchUrl,
 				dataType : "json",
+				async :false,
 				success : function(response) {
 					$("#txtProdCode").val(response.strProdCode);
 					$("#lblProdName").text(response.strProdName);
 					weightedRate = response.dblCostRM;
+					dblLastSuppRate=0;
+					funBatchCheck(response.strProdCode);
 					
 				},
 				error : function(e) {
 					alert('Error:=' + e);
 				}
 			});
+			
+			if($("#cmbPriceCalculation").val()=="Last Supplier Rate"){
+				funLoadLastGRNRate(code);	
+			}
+			
 		}
 		$(document).ready(
 				function() {
@@ -438,18 +628,22 @@
 								var param1=reportType+","+locName+","+strProdName+","+dtFromDate+","+dtToDate;
 								window.location.href=getContextPath()+"/frmExportStockLedger.html?param1="+param1;
 								 */
+								 var batchNo = $("#txtBatch").val();
 								var fromDate = $("#txtFromDate").val();
 								var toDate = $("#txtToDate").val();
 								var locCode = $("#cmbLocation").val();
 								var propCode = $("#cmbProperty").val();
 								var prodCode = $("#txtProdCode").val();
 								var qtyWithUOM = $("#cmbQtyWithUOM").val();
+								var ratePickUpFrom = $("#cmbPriceCalculation").val();
+								
+								//+"&ratePickUpFrom="+ratePickUpFrom
 								var param1 = locCode + "," + propCode + ","
-										+ prodCode + ",detail," + qtyWithUOM;
+										+ prodCode + ",detail," + qtyWithUOM+ ","+ratePickUpFrom;
 								window.location.href = getContextPath()
 										+ "/frmExportStockLedger.html?param1="
 										+ param1 + "&fDate=" + fromDate
-										+ "&tDate=" + toDate;
+										+ "&tDate=" + toDate+"&batchCode="+batchNo;
 							});
 				});
 
@@ -512,80 +706,191 @@
 				}
 			});
 		}
+		
+		function funBatchCheck(code)
+		{
+			var all = 'ALL';
+			var boolBatchCheck;
+			var searchUrl = "";
+
+			searchUrl = getContextPath()
+					+ "/loadBatchNo.html?prodCode=" + code;
+			$.ajax({
+				type : "GET",
+				url : searchUrl,
+				dataType : "json",
+				async :false,
+				success : function(response) {
+					boolBatchCheck = response;
+					if(boolBatchCheck==true)
+						{
+						$("#tdBAtchLabel").show();
+						$("#tdBatchTxt").show();
+						$("#txtBatch").val(all); 
+						
+						}
+					
+				},
+				error : function(e) {
+					alert('Error:=' + e);
+				}
+			});
+		}
+		
+		function funSetBatch(code)
+		{
+			$("#txtBatch").val(code);
+			
+		
+		}
+		
+		function funGetStockLedgerWithUom(fromDate,toDate,locCode,propCode,prodCode)
+		{
+			var batchNo = $("#txtBatch").val();
+			var qtyWithUOM="No";
+			var param1=locCode+","+propCode+","+prodCode+",detail,"+qtyWithUOM;
+			var searchUrl=getContextPath()+"/frmStockLedgerReport.html?param1="+param1+"&fDate="+fromDate+"&tDate="+toDate+"&batchCode="+batchNo;
+			
+			$.ajax({
+			        type: "GET",
+			        url: searchUrl,
+				    dataType: "json",
+				    async :false,
+				    success: function(response)
+				    {
+				    	funSumOfIssueQty(response);
+				    },
+					error: function(e)
+				    {
+				       	alert('Error:=' + e);
+				    }
+			      });
+		}
+		var totalIssueWithUom = 0.0;
+		function funSumOfIssueQty(response)
+		{
+			
+			$.each(response, function(i,response){
+				totalIssueWithUom = totalIssueWithUom + response[4];
+				
+			})
+				
+		}
+	
+		function funValueCalculation(){
+			
+			if($("#cmbPriceCalculation").val()=="Last Supplier Rate"){
+				funLoadLastGRNRate($("#txtProdCode").val());	
+			}
+		}
+		
+		function funOnClick()
+		{
+			if($("#txtProdCode").val()=='')
+			{
+				alert("Enter Product Code!");
+				return false;
+			}
+			
+			var fromDate=$("#txtFromDate").val();
+			var toDate=$("#txtToDate").val();
+			var table = document.getElementById("tblStockLedger");
+			var rowCount = table.rows.length;
+			while(rowCount>0)
+			{
+				table.deleteRow(0);
+				rowCount--;
+			}
+			
+			var table1 = document.getElementById("tblStockLedgerSummary");
+			var rowCount1 = table1.rows.length;
+			while(rowCount1>0)
+			{
+				table1.deleteRow(0);
+				rowCount1--;
+			}
+			
+			var fromDate=$("#txtFromDate").val();
+			var toDate=$("#txtToDate").val();
+			var locCode=$("#cmbLocation").val();
+			var propCode=$("#cmbProperty").val();
+			var prodCode=$("#txtProdCode").val();
+			funGetStockLedger(fromDate,toDate,locCode,propCode,prodCode);
+			
+			return false;
+		}
+		
 	</script>
 </head>
 <body onload="funOnLoad();">
-<div id="formHeading">
-		<label>Stock Ledger</label>
-	</div>
-	<s:form action="frmStockLedgerReport.html" method="GET" name="frmStkFlash" id="frmStkFlash">
-		
-		<br>
-			<table class="transTable">
-			<tr><th colspan="7"></th></tr>
-				<tr>
-					<td  width="10%">Property Code</td>
-					<td width="20%">
-						<s:select id="cmbProperty" name="propCode" path="strPropertyCode" onchange="funChangeLocationCombo();" cssClass="longTextBox" cssStyle="width:100%">
-			    			<s:options items="${listProperty}"/>
-			    		</s:select>
-					</td>
-						
-					<td width="5%"><label>Location</label></td>
-					<td width="10%">
-						<s:select id="cmbLocation" name="locCode" path="strLocationCode" cssClass="longTextBox" cssStyle="width:180px;">
-			    			<s:options items="${listLocation}" />
-			    		</s:select>
-					</td>
-					
-					<td width="10%"><label>Product</label></td>
-					<td width="10%">
-			            <input id="txtProdCode" ondblclick="funHelp('productmaster');" class="searchTextBox"/>
-			        </td>
-			        <td>
-			            <label  id="lblProdName"></label>
-			        </td>
-				</tr>
-					
-				<tr>
-				    <td><label id="lblFromDate">From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dteFromDate"></s:errors>
-			        </td>
-				        
-			        <td><label id="lblToDate">To Date</label></td>
-			        <td>
-			            <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
+	<div class="container">
+		<label id="formHeading">Stock Ledger</label>
+		<s:form action="frmStockLedgerReport.html" method="GET" name="frmStkFlash" id="frmStkFlash">
+			<div class="row transTable">
+				<div class="col-md-2">
+					<label>Property Code</label>
+					<s:select id="cmbProperty" name="propCode" path="strPropertyCode" onchange="funChangeLocationCombo();">
+			    		<s:options items="${listProperty}"/>
+			    	</s:select>
+				</div>
+				<div class="col-md-2">	
+					<label>Location</label>
+					<s:select id="cmbLocation" name="locCode" path="strLocationCode">
+			    		<s:options items="${listLocation}" />
+			    	</s:select>
+				</div>	
+				<div class="col-md-2">	
+					<label>Product</label>
+					<input id="txtProdCode" ondblclick="funHelp('productmaster');" class="searchTextBox"/>
+			    </div>
+			    <div class="col-md-2">	  
+			        <label id="lblProdName" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;text-align:center"></label>
+			     </div>
+			     <div class="col-md-4"></div>
+			     <div class="col-md-2">	  
+				      <label id="lblFromDate">From Date</label>
+			          <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox" style="width:80%;"/>
+			          <s:errors path="dteFromDate"></s:errors>
+			     </div>
+			     <div class="col-md-2">	
+				      <label id="lblToDate">To Date</label>
+			       		<s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox" style="width:80%;"/>
 			        	<s:errors path="dteToDate"></s:errors>
-			        </td>
-			        			        
-			        <td width="10%"><label>Quantity With UOM</label></td>
-					<td width="10%">
-						<select id="cmbQtyWithUOM" class="BoxW124px">
+			      </div>
+			      <div class="col-md-2">
+			        	<label>Quantity With UOM</label>
+						<select id="cmbQtyWithUOM" class="BoxW124px" style="width:70%;">
 							<option selected="selected">No</option>
 							<option>Yes</option>
 						</select>
-					</td>
-			        
-				</tr>
-						
-				<tr>
-					<td><input id="btnExecute" type="button" value="EXECUTE" class="form_button1"/></td>
-					
-					<td colspan="6">
-					
-						<s:select path="strExportType" id="cmbExportType" cssClass="BoxW124px">
-<!-- 							<option value="pdf">PDF</option> -->
+					</div>
+			        <div class="col-md-2">
+						<label>Value Calculation On </label>
+						<select id="cmbPriceCalculation" class="BoxW124px" onchange="funValueCalculation()">
+							<option selected="selected">Weighted AVG</option>
+							<option>Last Supplier Rate</option>
+						</select>
+					</div>
+					  <div class="col-md-4"></div>
+					<div class="col-md-2">
+						<s:select path="strExportType" id="cmbExportType" cssClass="BoxW124px" style="margin-top:25px; width:80%;">
+<!-- 						<option value="pdf">PDF</option> -->
 							<option value="xls">Excel</option>
 						</s:select>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<input id="btnExport" type="button" value="EXPORT" class="form_button1"/>
-					</td>
-					
-				</tr>
-			</table>
-			
+					</div>
+					<div class="col-md-2">
+						<label id="tdBAtchLabel">Batch</label>
+					</div>
+					<div class="col-md-2">
+						<label  id="tdBatchTxt">
+			            	<input id="txtBatch" ondblclick="funHelp('Batch');" class="searchTextBox"/>
+						</label >
+					</div>
+				</div>
+				<div class="center" style="margin-right:40%;">
+					 <a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return funOnClick()" >Execute</button></a>
+					 <a href="#"><button class="btn btn-primary center-block" id="btnExport"  value="Export" >Export</button></a>
+				</div>
 			<br><br>
 			
 			<!-- 
@@ -618,13 +923,13 @@
 			</table> -->
 			<br>
 			
-			<div id="dvStockLedger" style="width: 100% ;height: 100% ;">
+			<div id="dvStockLedger" style="width: 100% ;height: 100%; border: 1px solid #000">
 				<table id="tblStockLedger" class="transTable col5-right col6-right col7-right col8-right col9-right"></table>
 			</div>
 			
 			<br><br>
 			
-			<div id="dvStockLedgerSummary" style="width: 30% ;height: 100% ;">
+			<div id="dvStockLedgerSummary" style="width: 50% ;height: 100% ; border: 1px solid #000;margin-left: 15px;">
 				<table id="tblStockLedgerSummary"  class="transTable col2-right col3-right">					
 				</table>
 			</div>
@@ -632,5 +937,6 @@
 	
 		<br><br>
 	</s:form>
+</div>
 </body>
 </html>

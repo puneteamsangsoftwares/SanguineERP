@@ -1,14 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-	
-	<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
-	<%@ taglib uri="http://www.springframework.org/tags" prefix="sp"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-	
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title>STOCK TRANSFER</title>
+<style type="text/css">
+.transTable{
+	overflow:hidden;
+}
+
+</style>
 
 	<script type="text/javascript">
 	/**
@@ -129,8 +142,8 @@
 		    var row = table.insertRow(rowCount);		   
 		    rowCount=listRow;
 		  	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listStkTransDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"' />";		      
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"55%\" name=\"listStkTransDtl["+(rowCount)+"].strProdName\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"' />";		   
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"16%\" name=\"listStkTransDtl["+(rowCount)+"].strProdType\" id=\"lblProdType."+(rowCount)+"\" value='"+gProdType+"' />";		   
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listStkTransDtl["+(rowCount)+"].strProdName\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"' />";		   
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"12%\" name=\"listStkTransDtl["+(rowCount)+"].strProdType\" id=\"lblProdType."+(rowCount)+"\" value='"+gProdType+"' />";		   
 		    row.insertCell(3).innerHTML= "<input class=\"Box\" size=\"4%\" name=\"listStkTransDtl["+(rowCount)+"].strUOM\" id=\"lblUMO."+(rowCount)+"\" value='"+gUOM+"' >";		   		   
 		    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblQty\" id=\"txtQuantity."+(rowCount)+"\" value="+quantity+" class=\"decimal-places inputText-Auto QtyCell\" onblur=\"funUpdatePrice(this);\">";
 		    row.insertCell(5).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblPrice\" id=\"txtUnitPrice."+(rowCount)+"\" value="+unitPrice+" class=\"decimal-places inputText-Auto Box\">";
@@ -305,8 +318,8 @@
 			    unitPrice=parseFloat(unitPrice).toFixed(maxAmountDecimalPlaceLimit);
 			    totalPrice=parseFloat(totalPrice).toFixed(maxAmountDecimalPlaceLimit);
 			  	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listStkTransDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"' />";		      
-			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"55%\" name=\"listStkTransDtl["+(rowCount)+"].strProdName\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"' />";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"16%\" name=\"listStkTransDtl["+(rowCount)+"].strProdType\" id=\"lblProdType."+(rowCount)+"\" value='"+ProdType+"' />";		   
+			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listStkTransDtl["+(rowCount)+"].strProdName\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"' />";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"12%\" name=\"listStkTransDtl["+(rowCount)+"].strProdType\" id=\"lblProdType."+(rowCount)+"\" value='"+ProdType+"' />";		   
 			    row.insertCell(3).innerHTML= "<input class=\"Box\" size=\"4%\" name=\"listStkTransDtl["+(rowCount)+"].strUOM\" id=\"lblUMO."+(rowCount)+"\" value='"+UOM+"' >";		   		   
 			    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblQty\" id=\"txtQuantity."+(rowCount)+"\" value="+quantity+" class=\"decimal-places inputText-Auto QtyCell\" onblur=\"funUpdatePrice(this);\">";
 			    row.insertCell(5).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblPrice\" id=\"txtUnitPrice."+(rowCount)+"\" value="+unitPrice+" class=\"decimal-places inputText-Auto Box\">";
@@ -896,123 +909,123 @@
 </head>
 
 <body>
-<div id="formHeading">
-		<label>Stock Transfer</label>
-	</div>
-	<s:form name="stkTransfer" method="POST" action="saveStkTransfer.html?saddr=${urlHits}">				
-	<br/>
+<div class="container">
+		<label id="formHeading">Stock Transfer</label>
+		<s:form name="stkTransfer" method="POST" action="saveStkTransfer.html?saddr=${urlHits}">				
 		<input type="hidden" value="${urlHits}" name="saddr">
-			<table class="transTable">
+			<%--<table class="transTable">
 		    	<tr>
 				    <th align="right"> <a id="baseUrl" href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
 						&nbsp; </th>
 				</tr>
-			</table>
-			<table class="transTable">																			    
-				    <tr>
-				        <td width="100px"><label id="lblSTCode" >ST Code</label></td>
-				        <td><s:input id="txtSTCode" path="strSTCode"  ondblclick="funHelp('stktransfercode')" cssClass="searchTextBox"/></td>
-				        
-				        <td><label id="lblNo" >No</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <s:input id="txtNo" path="strNo" cssClass="BoxW116px"/></td>
-				       <%--  <td><s:input id="txtNo" path="strNo" /></td> --%>
-				        <td><label id="lblSTDate">Date       </label>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <s:input id="txtSTDate" pattern="\d{1,2}-\d{1,2}-\d{4}" path="dtSTDate" cssClass="calenderTextBox"/></td>
-				        <td></td>
-				       <td></td>
-				        <td></td>
-				        <td></td>
-				    </tr>
-				    
-				    <tr>
-					    <td><label id="lblFromLoc" >From</label></td>
-				        <td width="10%"><s:input id="txtFromLocCode" path="strFromLocCode" value="${locationCode}"  ondblclick="funHelp('locby')" cssClass="searchTextBox"/></td>
-					    <td><s:label id="lblFromLocName" path="strFromLocName" cssClass="namelabel">${locationName}</s:label></td>					    
-					    <td><label id="lblToLoc" >To</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;  <s:input id="txtToLocCode" path="strToLocCode" ondblclick="funHelp('locon')"   cssClass="searchTextBox"/></td>
-				        <%-- <td><s:input id="txtToLocCode" path="strToLocCode" ondblclick="funHelp('locon')"   cssClass="searchTextBox"/></td> --%>
-					    <td><s:label id="lblToLocName" path="strToLocName" cssClass="namelabel"/></td>
-					    <td></td>  
-				      <td></td>
-				      <td></td>
-				      
-				     
-				      
-					</tr>
-					
-					 <tr >
-						<%-- <td><label id="lblMI" >Material Issue</label></td>
+			</table> --%>
+			<div class="row transTable">
+				<div class="col-md-2">																			    
+					<label id="lblSTCode" >ST Code</label>
+					<s:input id="txtSTCode" path="strSTCode"  ondblclick="funHelp('stktransfercode')" cssClass="searchTextBox"/>
+				</div>
+				<div class="col-md-2">	    
+				    <label id="lblNo" >No</label> 
+				    <s:input id="txtNo" path="strNo" cssClass="BoxW116px"/>
+				</div>
+				<%--  <td><s:input id="txtNo" path="strNo" /></td> --%>
+				<div class="col-md-2">
+				    <label id="lblSTDate">Date</label>
+				    <s:input id="txtSTDate" pattern="\d{1,2}-\d{1,2}-\d{4}" path="dtSTDate" cssClass="calenderTextBox" style="width:80%;"/>
+				</div>
+				<div class="col-md-6"> </div>
+				<div class="col-md-2">       
+				    <label id="lblFromLoc" >From</label>
+				    <s:input id="txtFromLocCode" path="strFromLocCode" value="${locationCode}"  ondblclick="funHelp('locby')" cssClass="searchTextBox"/>
+				</div>
+				<div class="col-md-2">
+					 <s:label id="lblFromLocName" path="strFromLocName" cssClass="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align: center;"
+					 >${locationName}</s:label>
+				</div>
+				<div class="col-md-2">				    
+					 <label id="lblToLoc" >To</label>
+					 <s:input id="txtToLocCode" path="strToLocCode" ondblclick="funHelp('locon')"   cssClass="searchTextBox"/>
+				</div>
+				<div class="col-md-2">	
+				     <%-- <td><s:input id="txtToLocCode" path="strToLocCode" ondblclick="funHelp('locon')"cssClass="searchTextBox"/></td> --%>
+					 <s:label id="lblToLocName" path="strToLocName" cssClass="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align: center;"
+					 />
+				</div>
+				<%-- <td><label id="lblMI" >Material Issue</label></td>
 						<td>
 						   	<s:select id="cmbMaterialIssue" path="strMaterialIssue" cssClass="BoxW62px">
 						   		<option value="No">No</option>
 						   		<option value="Yes">Yes</option>
 						   	</s:select>
 						</td> --%>
-						
-						<td ><label id="lblMI" >Type</label>
-						</td>
-						<td colspan="4">
-						   	<select id="cmbType" class="BoxW124px">
-						   		<option value="Product">Product</option>
-						   		<option value="Assembly">Assembly</option>
-						   	</select>
-						</td>
+				<div class="col-md-4"></div>
+				<div class="col-md-2">		
+					<label id="lblMI" >Type</label>
+					<select id="cmbType" class="BoxW124px">
+						<option value="Product">Product</option>
+						<option value="Assembly">Assembly</option>
+					</select>
+				</div>		
 						<%-- <td><label>Against</label></td>
 					<td><s:select id="cmbAgainst" items="${strProcessList}"  onchange="funOnChange();"	name="cmbAgainst" cssClass="BoxW124px" path="strAgainst">
 					</s:select>
 					</td>  
 					<td ><s:input id="txtReqCode" name="txtReqCode" path="strReqCode" ondblclick="return funOpenAgainst();"   cssClass="searchTextBox " cssStyle="width:90%;background-position: 165px 2px;"/></td>
 					<td></td> --%>
-				     
-					</tr>				
-				</table>
-				<table  class="transTableMiddle">
-				<tr>
-				<td width="100px"><label>Product Code</label></td>
-				<td width="205px"><input id="txtProdCode" ondblclick="funHelp('productInUse')" class="searchTextBox"></input></td>
-				<td width="85px"><label>Product Name</label></td>
-				<td><label id="lblProdName" class="namelabel" style="font-size: 12px;"></label></td>
-				<td width="85px"><label>Unit Price</label></td>
-				<td><input readonly="readonly" id="txtUnitPrice" type="text"  class="decimal-places numberField" style="width: 100px"></input></td>
-				</tr>
-				
-				<tr>
-				<td><label>Stock</label></td>
-				<td><label id="txtStock"></label></td>
-				<td><span id="spQty" style="display:none"> Quantity </span></td>
-				<td align="left"><input id="txtQuantity" type="text" class="decimal-places numberField" style="width: 100px;"></input></td>
-				<td><label>Wt/Unit</label></td>
-				<td><input id="txtWtUnit" readonly="readonly" class="decimal-places numberField" type="text"  style="width: 100px"></input></td>
-				
-				</tr>
-				<tr>
-				<td><label>Remarks</label></td>
-				<td><input id="txtRemarks" class="remarkTextBox"></input></td>
-				<td><input id="btnAdd" type="button" value="Add" onclick="return btnAdd_onclick();"  class="smallButton"></input></td>
-				
-				<td></td>
-				<td></td> 
-				<td></td>
-				</tr>
-				</table>
+				<div class="col-md-2">
+					<label>Product Code</label>
+					<input id="txtProdCode" ondblclick="funHelp('productInUse')" class="searchTextBox"></input>
+				</div>
+				<div class="col-md-2">
+					<label>Product Name</label>
+					<label id="lblProdName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%;text-align: center;"
+					></label>
+				</div>
+				<div class="col-md-2">
+					<label>Unit Price</label>
+					<input readonly="readonly" id="txtUnitPrice" type="text"  class="decimal-places numberField" style="width: 100px"></input>
+				</div>
+				<div class="col-md-4"></div>	
+				<div class="col-md-2">
+					<label>Stock</label>
+					<label id="txtStock" style="background-color:#dcdada94; width: 100%; height: 52%;text-align: center;"></label>
+				</div>
+				<div class="col-md-2">
+					<label id="spQty"> Quantity </label>
+					<input id="txtQuantity" type="text" class="decimal-places numberField" style="width: 100px;"></input>
+				</div>
+				<div class="col-md-2">
+					<label>Wt/Unit</label>
+					<input id="txtWtUnit" readonly="readonly" class="decimal-places numberField" type="text"  style="width: 100px"></input>
+				</div>
+				<div class="col-md-2">
+					<label>Remarks</label>
+					<input id="txtRemarks" type="text"></input>
+				</div>
+				<div class="col-md-2">
+					<input id="btnAdd" type="button" value="Add" onclick="return btnAdd_onclick();" class="btn btn-primary center-block" style="margin-top:21px;"></input>
+				</div>
+			</div>
+		<br>
 		<div class="dynamicTableContainer" style="height: 300px;">
-			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px;
-	                      font-weight: bold;">
-				<tr bgcolor="#72BEFC">
+			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
+				<tr bgcolor="#c0c0c0">
 					<td width="8%">Product Code</td><!-- col1   -->
 					<td width="20%">Product Name</td><!-- col2   -->
 					<td width="10%">Product Type</td><!-- col3   -->
 					<td width="4%">UOM</td><!-- col4   -->
 					<td width="5%">Quantity</td><!-- col5   -->
 					<td width="6%">Unit Price</td><!-- col6   -->
-					<td width="8%">Total Price</td><!-- col7   -->
-					<td width="5%">Wt/Unit</td><!-- col8  -->
-					<td width="6%">Total Wt</td><!-- col9   -->
-					<td width="15%">Remarks</td><!-- col10   -->
+					<td width="6%">Total Price</td><!-- col7   -->
+					<td width="3%">Wt/Unit</td><!-- col8  -->
+					<td width="9%">Total Wt</td><!-- col9   -->
+					<td width="11%">Remarks</td><!-- col10   -->
 					<td width="5%">Delete</td><!-- col11   -->
 				</tr>
 			</table>
-
-			<div style="background-color: #a4d7ff; border: 1px solid #ccc;
-			 display: block; height: 250px; margin: auto; overflow-x: hidden; 
-			 overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc;
+			        display: block; height: 250px; margin: auto; overflow-x: hidden; 
+			        overflow-y: scroll; width: 100%;">
 
 				<table id="tblProduct"
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
@@ -1043,48 +1056,37 @@
 <!-- 							<td><input type="button" value = "Delete" class="deletebutton" onClick="Javacsript:funDeleteRow(this)"></td> -->
 <!-- 						</tr> -->
 <%-- 					</c:forEach> --%>
-					
 					</tbody>
 				</table>
 				<script type="text/javascript">
 					funApplyNumberValidation();
 				</script>
 			</div>
-
 		</div>
-			<table class="transTableMiddle">
-			<tr>
-			<td></td>
-			<td width="34%"></td>
-				<td width="10%">Total Amount</td>
-				<td><s:input id="txtTotalAmount" type="text"
-						value="${command.dblTotalAmt}" path="dblTotalAmt" readonly="true" class="numberField"/>
-				</td>
-				<td style="height: 4px;"></td>
-			</tr>
-				<tr>
-					<td style="width: 10%">Narration</td>
-		            <td colspan="4"><s:textarea id="txtNarration" path="strNarration" style="width: 50%"></s:textarea></td>					
-				</tr>	
-				<tr>
-				<td></td>
-				<td colspan="4"></td>
-				</tr>
-				
-			</table>
+			<div class="transTableMiddle">
+				<div class="row">
+					<div class="col-md-2">
+						<label>Total Amount</label><br>
+						<s:input id="txtTotalAmount" type="text"
+							value="${command.dblTotalAmt}" path="dblTotalAmt" readonly="true" class="numberField"/>
+					</div>
+					<div class="col-md-2">
+						<label>Narration</label><br>
+			           	<s:textarea id="txtNarration" path="strNarration" style="height: 29px;"></s:textarea>
+			        </div> 
+			     </div> 
+			</div>
+		<br />
+		<div class="center" style="text-align:center">
+			<a href="#"><button class="btn btn-primary center-block" id="btnStkTransfer" tabindex="3" value="Submit" onclick="return funCallFormAction()">Submit</button></a>&nbsp
+			<a href="frmStockTransfer.html?saddr=${urlHits}"><button class="btn btn-primary center-block"  value="Reset" onclick="funResetFields();">Reset</button></a>
+		</div>
 		
-				
-		<br />
-		<br />
-		<p align="center">
-			<input id="btnStkTransfer" type="submit" value="Submit" onclick="return funCallFormAction()" class="form_button"/>
-				 <a STYLE="text-decoration:none"  href="frmStockTransfer.html?saddr=${urlHits}">  <input type="button"
-				value="Reset" class="form_button" /></a>
-		</p>		<br><br>
 		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 	</s:form>
+</div>
 	<script type="text/javascript">
 	funApplyNumberValidation();
 	</script>

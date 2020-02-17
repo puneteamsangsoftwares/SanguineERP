@@ -844,7 +844,7 @@ public class clsPMSPaymentController {
 						+ "DATE_FORMAT(c.dteDepartureDate,'%d-%m-%Y'),   IFNULL(f.strFirstName,''), "
 						+ "IFNULL(f.strMiddleName,''), IFNULL(f.strLastName,''),   "
 						+ "IFNULL(d.strSettlementDesc,''),a.dblPaidAmt, b.strRemarks, "
-						+ "DATE_FORMAT(a.dteReceiptDate,'%d-%m-%Y'),h.strRoomDesc "
+						+ "DATE_FORMAT(a.dteReceiptDate,'%d-%m-%Y'),ifnull(h.strRoomDesc,'') "
 						+ "FROM tblreceipthd a "
 						+ "LEFT OUTER JOIN tblreceiptdtl b ON a.strReceiptNo=b.strReceiptNo AND a.strClientCode='"+clientCode+"'"
 						+ "LEFT OUTER JOIN tblcheckinhd c ON a.strRegistrationNo=c.strRegistrationNo AND b.strClientCode='"+clientCode+"'"
@@ -950,7 +950,7 @@ public class clsPMSPaymentController {
 			}
 			else
 			{
-				sqlReservation="select ifnull(sum(a.dblRoomRate),0)-ifnull(b.dblReceiptAmt,0) from tblreservationroomratedtl a left outer join  tblreceipthd b   on  a.strReservationNo=b.strReservationNo "
+				sqlReservation="select ifnull(a.dblRoomRate,0)-ifnull(b.dblReceiptAmt,0) from tblreservationroomratedtl a left outer join  tblreceipthd b   on  a.strReservationNo=b.strReservationNo "
 						 +" where a.strReservationNo='"+AdvAmount+"'  group by a.strReservationNo " ;
 				listResevation = objGlobalFunctionsService.funGetDataList(sqlReservation, "sql");
 
@@ -964,7 +964,7 @@ public class clsPMSPaymentController {
 			
 			/*String sqlCheckIn = "SELECT a.dblRoomTerrif FROM tblroomtypemaster a,tblcheckindtl  b "
 			 		+ "WHERE b.strCheckInNo = '"+AdvAmount+"' and a.strRoomTypeCode=b.strRoomType";*/
-			String sqlCheckIn="SELECT ROUND(dblRoomRate-(temp2.dblRoomRate*temp2.dblDiscount)/100+ SUM(d.dblTaxAmt)) FROM "
+			String sqlCheckIn="SELECT ifnull(ROUND(dblRoomRate-(temp2.dblRoomRate*temp2.dblDiscount)/100+ SUM(d.dblTaxAmt)),0) FROM "
 					+ "( SELECT temp.dblRoomRate,temp.dblDiscount,c.strFolioNo FROM ( SELECT b.dblRoomRate,b.dblDiscount,a.strCheckInNo FROM tblcheckinhd a "
 					+ "LEFT OUTER JOIN tblwalkinroomratedtl b ON b.strWalkinNo=a.strWalkInNo WHERE a.strCheckInNo='"+AdvAmount+"') temp "
 					+ ",tblfoliohd c WHERE temp.strCheckInNo=c.strCheckInNo) temp2,tblfoliotaxdtl d "

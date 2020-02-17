@@ -1,27 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-
-	<%-- <%@ taglib prefix="tab" uri="http://ditchnet.org/jsp-tabs-taglib" %> --%>
-	<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
-	<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 	<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />	
 	<script type="text/javascript" src="<spring:url value="/resources/js/Accordian/jquery.multi-accordion-1.5.3.js"/>"></script>	
 		
-	<style type="text/css">
-		/*demo page css*/
-		body{ font: 62.5% "Trebuchet MS", sans-serif; margin: 0px;}
-	</style>
+<style type="text/css">
+		
+	</style> 
 	
 <title>BulkPriceUpdation</title>
 <script type="text/javascript">
 	
-	var productMasterData="",gridHelpRow ="",fieldName="";
+	var productMasterData="",gridHelpRow ="",fieldName="",listUMO;
    //Set tab which have Active on form loding
 	$(document).ready(function()
 	{
@@ -181,8 +186,10 @@
 			}
 		}
 		
+		
 		function funLoadSGProduct()
 		{
+			funLoadAllUMO();
 			var sgCode = $("#cmbSubGroup").val();
 			var itemType= $("#txtProdType").val();
 			$.ajax({
@@ -231,12 +238,12 @@
 		    
 		}
 		
-		var items_per_page = 20;
+		var items_per_page = 500;
 		function getOptionsFromForm()
 		{
 		    var opt = {callback: pageselectCallback};
 			opt['items_per_page'] = items_per_page;
-			opt['num_display_entries'] = 20;
+			opt['num_display_entries'] = 500;
 			opt['num_edge_entries'] = 3;
 			opt['prev_text'] = "Prev";
 			opt['next_text'] = "Next";
@@ -251,7 +258,7 @@
 		    var rowCount=0;
 		   		    	
 			   	newcontent = '<table id="tblProductPag" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;">'
-			   	+'<tr bgcolor="#75c0ff">'
+			   	+'<tr bgcolor="#c0c0c0">'
 			   	+'<td width="10px">Product Code</td><td width="22px">Product Name</td><td width="30px">SGCode</td><td width="6px">SGName       </td>'
 			   	+'<td width="2px">Pur.Price</td><td width="23px">LocCode</td><td width="20px">LocName</td><td width="8px">Weight</td>'
 			   	+'<td width="4px">Product MRP</td><td width="5px">Item Type</td><td width="4px">Tax Indi</td>'
@@ -271,19 +278,19 @@
 			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"22px\" id=\"lblProdName."+(i)+"\" value='"+productMasterData[i].strProdName+"' /></td>";
 				    
 // 			        newcontent += '<td>'+ "<input name=\"listProdModel["+(rowCount)+"].strSGCode\"    required = \"required\" size=\"10%\" style=\"background-position: 70px 2px;;width:100%\" readonly=\"readonly\" class=\"searchTextBox\" id=\"strSGCode."+(rowCount)+"\" value='"+productMasterData[rowCount].strSGCode+"' /></td>"; 
-			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].strSGCode\"    required = \"required\"  style=\"background-position: 70px 2px;;width:80px\" size=\"10px\" readonly=\"readonly\"  class=\"searchTextBox\" id=\"strSGCode."+(i)+"\" value='"+productMasterData[i].strSGCode+"' ondblclick=\"Javacsript:funHelp1('subgroup',"+(i)+")\"/></td>";
+			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].strSGCode\"    required = \"required\"  style=\"background-position: 70px 2px;;width:85px\" size=\"10px\" readonly=\"readonly\"  class=\"searchTextBox\" id=\"strSGCode."+(i)+"\" value='"+productMasterData[i].strSGCode+"' ondblclick=\"Javacsript:funHelp1('subgroup',"+(i)+")\"/></td>";
 			                          
 			        newcontent += '<td>'+ "<input type=\"text\"  required = \"required\" size=\"8px\" style=\"width:100px\" size=\"10px\" class=\"Box\" id=\"strSGName."+(i)+"\" value='&nbsp;&nbsp;"+productMasterData[i].strSGName+"'></td>";
 			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].dblCostRM\" type=\"text\"  required = \"required\" style=\"text-align: right;width:40px\"class=\"decimal-places inputText-Auto\" id=\"dblCostRM."+(i)+"\" value='"+productMasterData[i].dblCostRM+"' /></td>";
 			      
 			        
 // 			        newcontent += '<td>'+ "<input name=\"listProdModel["+(rowCount)+"].strLocCode\" type=\"text\"  required = \"required\" style=\"background-position: 70px 2px;;width:100%\" size=\"10%\" class=\"searchTextBox\" id=\"strLocCode."+(rowCount)+"\" value='"+productMasterData[rowCount].strLocCode+"'  /></td>";
-			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].strLocCode\" type=\"text\"  style=\"background-position: 70px 2px;;width:80px\" size=\"10px\" class=\"searchTextBox\" id=\"strLocCode."+(i)+"\" value='"+productMasterData[i].strLocCode+"'   ondblclick=\"Javacsript:funHelp1('locationmaster',"+(i)+")\"/></td>";
+			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].strLocCode\" type=\"text\"  style=\"background-position: 70px 2px;;width:85px\" size=\"10px\" class=\"searchTextBox\" id=\"strLocCode."+(i)+"\" value='"+productMasterData[i].strLocCode+"'   ondblclick=\"Javacsript:funHelp1('locationmaster',"+(i)+")\"/></td>";
 			        
 			        
 			        newcontent += '<td>'+ "<input type=\"text\"  required = \"required\" style=\"width:90px\" size=\"20px\" class=\"Box\" id=\"strLocName."+(i)+"\" value='&nbsp;&nbsp;"+productMasterData[i].strLocName+"'></td>";
 				   
-			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].dblWeight\" style=\"width:40px;text-align: right;\"  size=\"4px\" id=\"dblWeight."+(i)+"\" value="+productMasterData[i].dblWeight+" /></td>";
+			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].dblWeight\" style=\"width:55px;text-align: right;\"  size=\"4px\" id=\"dblWeight."+(i)+"\" value="+productMasterData[i].dblWeight+" /></td>";
 			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].dblMRP\" type=\"text\"  required = \"required\" style=\"text-align: right;width:50px\" size=\"4px\" class=\"decimal-places inputText-Auto \"id=\"dblMRP."+(i)+"\" value='"+productMasterData[i].dblMRP+"' /></td>";
 			        newcontent += '<td>'+ "<select name=\"listProdModel["+(i)+"].strProdType\" class=\"BoxW48px\" style=\"width: 100px;\" readonly=\"readonly\" id=\"cmbProdType."+(i)+"\"  >'"+funGetProdType(productMasterData[i].strProdType)+"'</td>"; 
 // 			        <option value='"+productMasterData[rowCount].strProdType+"'>"+productMasterData[rowCount].strProdType+"</option> ></td>";
@@ -320,13 +327,13 @@
 			        
 			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].strBarCode\" type=\"text\" class=\"Box \" size=\"4px\"  id=\"txtIssueLocation."+(i)+"\" value='"+productMasterData[i].strBarCode+"' ></td>";
 			        newcontent += '<td>'+ "<select name=\"listProdModel["+(i)+"].strReceivedUOM\" class=\"Box\" style=\"width:50px\"  id=\"strReceivedUOM."+(i)+"\"  "+getProductTypeUOM(productMasterData[i].strReceivedUOM)+"  ";
-			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].dblReceiveConversion\"   size=\"4px\"  style=\"width:30px;text-align: right;\" id=\"dblReceiveConversion."+(i)+"\" value="+productMasterData[i].dblReceiveConversion+"></td>";
+			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].dblReceiveConversion\"   size=\"4px\"  style=\"width:50px;text-align: right;\" id=\"dblReceiveConversion."+(i)+"\" value="+productMasterData[i].dblReceiveConversion+"></td>";
 			        newcontent += '<td>'+ "<select name=\"listProdModel["+(i)+"].strIssueUOM\" style=\"width:40px\"  class=\"Box inputText-Auto\" id=\"strIssueUOM."+(i)+"\" "+getProductTypeUOM(productMasterData[i].strIssueUOM)+" ";
-			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].dblIssueConversion\" type=\"text\" style=\"width:30px;text-align: right;\" size=\"4px\"  id=\"txtIssueConversion."+(i)+"\"  value = '"+productMasterData[i].dblIssueConversion+"' ></td>";
+			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].dblIssueConversion\" type=\"text\" style=\"width:50px;text-align: right;\" size=\"4px\"  id=\"txtIssueConversion."+(i)+"\"  value = '"+productMasterData[i].dblIssueConversion+"' ></td>";
 			        newcontent += '<td>'+ "<select name=\"listProdModel["+(i)+"].strRecipeUOM\" style=\"width:50px\" class=\"Box\"  id=\"txtRecipeUOM."+(i)+"\"  "+getProductTypeUOM(productMasterData[i].strRecipeUOM)+"  ";
-			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].dblRecipeConversion\" type=\"text\" size=\"4px\" style=\"width:30px;text-align: right;\" id=\"txtRecipeConverstion."+(i)+"\"  value = '"+productMasterData[i].dblRecipeConversion+"' ></td>";
-			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].dblListPrice\" type=\"text\" size=\"4px\" style=\"width:30px;text-align: right;\" id=\"txtListPrice."+(i)+"\"  value = '"+productMasterData[i].dblListPrice+"' ></td>";
-			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].dblUnitPrice\" type=\"text\" size=\"4px\" style=\"width:30px;text-align: right;\" id=\"txtUnitPrice."+(i)+"\"  value = '"+productMasterData[i].dblUnitPrice+"' ></td></tr>";
+			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].dblRecipeConversion\" type=\"text\" size=\"4px\" style=\"width:40px;text-align: right;\" id=\"txtRecipeConverstion."+(i)+"\"  value = '"+productMasterData[i].dblRecipeConversion+"' ></td>";
+			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].dblListPrice\" type=\"text\" size=\"4px\" style=\"width:40px;text-align: right;\" id=\"txtListPrice."+(i)+"\"  value = '"+productMasterData[i].dblListPrice+"' ></td>";
+			        newcontent += '<td>'+ "<input name=\"listProdModel["+(i)+"].dblUnitPrice\" type=\"text\" size=\"4px\" style=\"width:50px;text-align: right;\" id=\"txtUnitPrice."+(i)+"\"  value = '"+productMasterData[i].dblUnitPrice+"' ></td></tr>";
 			       
 			        rowCount++;
 			    }
@@ -337,10 +344,8 @@
 
 
 
-
-		    
-		function getProductTypeUOM(strUOM)
-		{
+		function funLoadAllUMO(){
+			
 			var retOption="";
 			$.ajax({
 				type : "GET",
@@ -349,18 +354,7 @@
 				dataType : "json",
 				async : false,
 				success : function(response) {
-				
-					$.each(response, function(i,item)
-		               {		
-							if(response[i]==strUOM)
-								{
-								retOption+= "<option value='"+response[i]+"' selected>"+response[i]+"</option> ";
-								}
-							else
-								{
-								retOption+= "<option value='"+response[i]+"' >"+response[i]+"</option> ";
-								}
-		               });
+					listUMO=response;
 				},
 				error: function(jqXHR, exception) {
 		            if (jqXHR.status === 0) {
@@ -380,6 +374,26 @@
 		            }		            
 		        }
 			});
+			retOption+="  > </td>";
+			return retOption;
+		}
+		    
+		function getProductTypeUOM(strUOM)
+		{
+			var retOption="";
+			
+			$.each(listUMO, function(i,item)
+		               {		
+							if(listUMO[i]==strUOM)
+								{
+								retOption+= "<option value='"+listUMO[i]+"' selected>"+listUMO[i]+"</option> ";
+								}
+							else
+								{
+								retOption+= "<option value='"+listUMO[i]+"' >"+listUMO[i]+"</option> ";
+								}
+		               });
+			
 			retOption+="  > </td>";
 			return retOption;
 		}
@@ -577,200 +591,183 @@
 </head>
 
 <body>
-<div id="formHeading">
-		<label>Bulk Products Update</label>
-	</div>
-	<div>
-	<s:form name="bulkProduct" method="POST" action="updateBulkProduct.html?saddr=${urlHits}">
-		<br>
-	<div id="multiAccordion">		
-	<h3><a href="#">Create Product</a></h3>	
-	<div style="background: #D8EDFF">
-		<table  class="transTable">
-			  <tr>
-			  <td><label>Product Name</label></td>
-			 <td><s:input type="text" id="txtProductName" 
-						path="strProdName" 
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox jQKeyboard form-control"  /> 
-			</td>
-			  <td>
-				<label>Sub Group</label>
-				</td>
-				<td>
-				<s:select id="cmbSubGrp" path="strSGCode" items="${mpsubGroup}" cssClass="BoxW124px" />
-				</td>
-				<td>
-				<label>Manufacturer</label>
-				</td>
-			<td><s:select id="cmbManufacture" path="strDesc" items="${manufacturerList}" cssClass="BoxW124px" />
-				</td>
-				</tr>
-				
-				<tr>
-			  <td><label>Purchase Price</label></td>
-			    <td><s:input id="txtCostRM" name="costRM" path="dblCostRM" cssClass="decimal-places-amt numberField"/></td>
-			  <td><label>MRP</label></td>
-			  <td><s:input id="txtMRP" name="MRP" path="dblMRP"  cssClass="decimal-places-amt numberField"/></td>
-			  
-			   <td><label>Unit Price</label></td>
-			<td><s:input id="txtUnitPrice" name="unitPrice" path="dblUnitPrice" cssClass="decimal-places-amt numberField"/></td>
-				</tr>
-			<tr>
-			  <td><label>Weight/Unit</label></td>
-			  <td><s:input id="txtWeight" name="weight" path="dblWeight" cssClass="decimal-places numberField"/></td>
-			  <td><label >UOM</label></td>
-			  <td><s:select id="txtUOM" name="txtUOM" path="strUOM" items="${uomList}"  cssClass="BoxW124px" onchange="funUOMChange(this)"/><%-- <s:input id="txtUOM" name="uom" path="strUOM" cssClass="BoxW116px" /> --%></td>
-			  <td><label>Tax Indicator</label></td>
-			  <td><s:select id="cmbTaxIndicator" name="taxIndicator" path="strTaxIndicator" items="${taxIndicatorList}"  cssClass="BoxW48px"/></td>
-			</tr>
-				<tr>	
-				<td><label>Item For Sale</label></td>
-				<td colspan="3"><s:checkbox id="chkForSale" name="forSale" path="strForSale" value="" /></td>
-										       
-				        <td colspan="2"><input id="btnAdd" type="submit" value="Create Product"   class="form_button" ></input></td>
-			  </tr>			  
-			  </table>
-			  <br>
-			  <br>
-		</div>
-		<h3><a href="#">Update Products</a></h3>	
-		<div style="background: #D8EDFF">	  
-		<table  class="transTable">
-			<tr>
-			<td>
-				<label>Sub Group</label>
-			
-				 <select  id="cmbSubGroup" class="BoxW48px"  style="width: 150px;" >
-									<c:forEach var="sub" items="${mpsubGroup}">
-										<option value=${sub.key} >${sub.value}</option>
-									</c:forEach>
-				</select>
-			
-			</td>
-			<td><label >Item Type</label></td>
-				        <td><s:select id="txtProdType" name="prodType" path="strProdType" items="${typeList}" cssClass="BoxW124px"/></td>
-			<td>
-			<input id="btnExcuete" type="button" value="Execute" onclick="funLoadSGProduct()" class="form_button"  ></input>
-			<td>
-			
-			
-			</td>
-			
-			</tr>
-			<tr>
-			</tr>
-			</table>
-			<table style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
-			<%-- <tr>
-			
-				<td>
-					<div class="dynamicTableContainer" style="height:450px ">
-							<table  style="height:20px;border:#0F0;width:160%;font-size:11px;
-								font-weight: bold;">	
-							
-							<tr bgcolor="#72BEFC" >
-								<td width="5%">Product Code</td><!--  COl1   -->
-								<td width="12%">Product Name</td><!--  COl2   -->
-								<td width="7%">SGCode</td><!--  COl3  -->
-								<td width="6%">SGName</td><!--  COl4   -->
-								<td width="3%">Pur.Price</td><!--  COl5   -->
-								<td width="6%">LocCode</td><!--  COl6   -->
-								<td width="6%">LocName</td><!--  COl7   -->
-								<td width="4%">Weight</td><!--  COl8 --> 
-								<td width="4%">Product MRP</td><!--  COl9  -->
-								<td width="5%">Item Type</td><!--  COl10  -->			
-								<td width="4%">Tax Indi</td><!--  COl11   -->
-								<td width="4%">Non Skkable Item</td><!--  COl12   -->
- 								<td width="4%">Yield Percent</td><!--  COl13   -->
-								<td width="4%">Exciseable</td><!--  COl14   -->
- 								<td width="4%">Item Not In Use</td><!--  COl15   -->
-							
-								<td width="4%">Pick MRP Tax Cal.</td><!--  COl16   -->
-								<td width="4%">Bar Code</td><!-- COl17   -->
-								<td width="4%">Recv.UOM </td><!--  COl18   -->
-								<td width="4%">Recv.Conv</td><!--  COl19   -->
-								<td width="4%">Iss.UOM</td><!--  COl20   -->
-								<td width="4%">Iss.Conv</td><!--  COl121   -->
-								<td width="4%">Recipe UOM </td><!-- COl22   -->
-								<td width="4%">Recip.Conv</td><!--  COl23   -->
-								
-							</tr>
-							</table>
-							<div style="background-color:  	#a4d7ff; border: 1px solid #ccc;display: block;height: 384px;
-							margin: auto;overflow-x: hidden;overflow-y: scroll;width: 160%;">
-					    
-					    
-					    <table id="tblProduct" style="width:100%;border:#0F0;table-layout:fixed;overflow:scroll; 
-					    height:430px;" class="transTablex col20-center">
-						<tbody>    
-						<col style="width:5%"><!--  COl1   -->
-						<col style="width:12%"><!--  COl2   -->
-						<col style="width:6.5%"><!--  COl3   -->
-						<col style="width:6.1%"><!--  COl4   -->
-						<col style="width:3%"><!--  COl5   -->
-						<col style="width:6%"><!--  COl6   -->
-						<col style="width:6%"><!--  COl7   -->
-						<col style="width:4%"><!--  COl8   -->
-						<col style="width:4%"><!--  COl9 -->
-						<col style="width:5%"><!--  COl10   -->
-						<col style="width:4%"><!--  COl11   -->
-						<col style="width:4%"><!--  COl12   -->
-						<col style="width:4%"><!--  COl13   -->
-						<col style="width:4%"><!--  COl14   -->
-						<col style="width:4%"><!--  COl15   -->
-						
-						<col style="width:4%"><!--  COl16   -->	
-						<col style="width:4%"><!--  COl7   -->
-						<col style="width:4%"><!--  COl8   -->
-						<col style="width:4%"><!--  COl19   -->	
-						<col style="width:4%"><!--  COl20   -->	
-						<col style="width:4%"><!--  COl21   -->		
-						<col style="width:4%"><!--  COl22   -->
-						<col style="width:4%;"><!--  COl23  -->						
-						
-						
-					
-						</tbody>
-						</table>
-					    </div>
-							
-						</div>								
-						
-						
-					</td>
-				</tr> --%>
-				
-				<tr>
-				
-				<td>
-				<dl id="Searchresult" style="width: 100%; margin-left: 26px; overflow:auto;"></dl>
-				<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
+	<div class="container">
+		<label id="formHeading">Bulk Products Update</label>
 		
-				</div>
-				
-				</td>
-				
-				</tr>
-				
-				
-			</table>
-		
-		<br><p align="center">
-			<input type="submit" value="Update"
-				onclick="return funValidateFields();"
-				class="form_button" id="btnSaveGRN"/>&nbsp; &nbsp; &nbsp;
-				 <input id="btnReset" type="reset" value="Reset"
-				class="form_button" onclick="funResetFields()" />
-		</p><br><br>
-		</div>
-		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
-				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+		<div>
+			<s:form name="bulkProduct" method="POST" action="updateBulkProduct.html?saddr=${urlHits}">
+	
+		<div id="multiAccordion">		
+			<h3><a href="#">Create Product</a></h3>	
+				<div>
+					<div class="container transTable active" style="background-color:#f2f2f2; padding-bottom:20px;">
+				  		<div class="row">
+				  			<div class="col-md-2">
+								 <label>Product Name</label>
+								 <s:input type="text" id="txtProductName" path="strProdName" 
+									cssStyle="text-transform: uppercase;" cssClass="longTextBox jQKeyboard form-control"  /> 
+							</div>
+							<div class="col-md-2">
+								<label>Sub Group</label>
+								<s:select id="cmbSubGrp" path="strSGCode" items="${mpsubGroup}" cssClass="BoxW124px" />
+							</div>
+							<div class="col-md-2">
+								<label>Manufacturer</label>
+								<s:select id="cmbManufacture" path="strDesc" items="${manufacturerList}" cssClass="BoxW124px" />
+							</div>
+							<div class="col-md-2">
+								<label>Purchase Price</label>
+							   	<s:input id="txtCostRM" name="costRM" path="dblCostRM" cssClass="decimal-places-amt numberField" style="text-align:right;"/>
+							</div>
+								<div class="col-md-4"></div>
+							<div class="col-md-2">
+							  	<label>MRP</label>	
+							  	<s:input id="txtMRP" name="MRP" path="dblMRP"  cssClass="decimal-places-amt numberField" style="text-align:right;"/>
+							</div>
+							<div class="col-md-2">  
+							   <label>Unit Price</label>
+								<s:input id="txtUnitPrice" name="unitPrice" path="dblUnitPrice" cssClass="decimal-places-amt numberField" style="text-align:right;"/>
+							</div>
+							<div class="col-md-2">  
+							  	<label>Weight/Unit</label>	
+							 	<s:input id="txtWeight" name="weight" path="dblWeight" cssClass="decimal-places numberField" style="text-align:right;"/>	
+							</div> 
+							<div class="col-md-2">   	
+							 	 <label >UOM</label>	
+							  	 <s:select id="txtUOM" name="txtUOM" path="strUOM" items="${uomList}"  cssClass="BoxW124px" onchange="funUOMChange(this)" style="width:80%;"/><%-- <s:input id="txtUOM" name="uom" path="strUOM" cssClass="BoxW116px" /> --%>	
+							 </div> 
+							 <div class="col-md-4"> </div>
+							 <div class="col-md-2">   		
+							  	<label>Tax Indicator</label>	
+							  	<s:select id="cmbTaxIndicator" name="taxIndicator" path="strTaxIndicator" items="${taxIndicatorList}"  cssClass="BoxW48px"/>	
+							 </div>
+							 <div class="col-md-2">	
+								<label>Item For Sale</label><br>	
+								<s:checkbox id="chkForSale" name="forSale" path="strForSale" value="" />
+							</div>
+							<div class="col-md-2">	
+								<input id="btnAdd" type="submit" value="Create Product" class="btn btn-primary center-block" style="margin-top:20px;" ></input>
+							</div>  
+			  		</div>
+			  	</div>
 			</div>
-		</div> 
-	</s:form>
+			<h3><a href="#">Update Products</a></h3>	
+				<div>	  
+					<div class="container transTable" style="background-color:#f2f2f2; padding-bottom:20px;">
+				  		<div class="row">
+				  			<div class="col-md-2">
+								<label>Sub Group</label>
+									<select  id="cmbSubGroup" class="BoxW48px">
+										<c:forEach var="sub" items="${mpsubGroup}">
+											<option value=${sub.key}>${sub.value}</option>
+										</c:forEach>
+									</select>
+							</div>
+							<div class="col-md-2">
+								<label >Item Type</label>
+							    <s:select id="txtProdType" name="prodType" path="strProdType" items="${typeList}" />
+							</div>
+							<div class="col-md-2">	
+								<input id="btnExcuete" type="button" value="Execute" onclick="funLoadSGProduct()" class="btn btn-primary center-block" style="margin-top:20px;"  ></input>
+							</div>
+						
+						</div>
+						<br>
+
+							<table style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #fbfafa;">
+									<%-- <tr>
+									<td>
+								<div class="dynamicTableContainer" style="height:450px ">
+										<table  style="height:20px;border:#0F0;width:160%;font-size:11px;
+											font-weight: bold;">	
+										<tr bgcolor="#72BEFC" >
+											<td width="5%">Product Code</td><!--  COl1   -->
+											<td width="12%">Product Name</td><!--  COl2   -->
+											<td width="7%">SGCode</td><!--  COl3  -->
+											<td width="6%">SGName</td><!--  COl4   -->
+											<td width="3%">Pur.Price</td><!--  COl5   -->
+											<td width="6%">LocCode</td><!--  COl6   -->
+											<td width="6%">LocName</td><!--  COl7   -->
+											<td width="4%">Weight</td><!--  COl8 --> 
+											<td width="4%">Product MRP</td><!--  COl9  -->
+											<td width="5%">Item Type</td><!--  COl10  -->			
+											<td width="4%">Tax Indi</td><!--  COl11   -->
+											<td width="4%">Non Skkable Item</td><!--  COl12   -->
+			 								<td width="4%">Yield Percent</td><!--  COl13   -->
+											<td width="4%">Exciseable</td><!--  COl14   -->
+			 								<td width="4%">Item Not In Use</td><!--  COl15   -->
+										<td width="4%">Pick MRP Tax Cal.</td><!--  COl16   -->
+											<td width="4%">Bar Code</td><!-- COl17   -->
+											<td width="4%">Recv.UOM </td><!--  COl18   -->
+											<td width="4%">Recv.Conv</td><!--  COl19   -->
+											<td width="4%">Iss.UOM</td><!--  COl20   -->
+											<td width="4%">Iss.Conv</td><!--  COl121   -->
+											<td width="4%">Recipe UOM </td><!-- COl22   -->
+											<td width="4%">Recip.Conv</td><!--  COl23   -->
+										x</tr>
+										</table>
+										<div style="background-color:  	#a4d7ff; border: 1px solid #ccc;display: block;height: 384px;
+										margin: auto;overflow-x: hidden;overflow-y: scroll;width: 160%;">
+								    x<table id="tblProduct" style="width:100%;border:#0F0;table-layout:fixed;overflow:scroll; 
+								    height:430px;" class="transTablex col20-center">
+									<tbody>    
+									<col style="width:5%"><!--  COl1   -->
+									<col style="width:12%"><!--  COl2   -->
+									<col style="width:6.5%"><!--  COl3   -->
+									<col style="width:6.1%"><!--  COl4   -->
+									<col style="width:3%"><!--  COl5   -->
+									<col style="width:6%"><!--  COl6   -->
+									<col style="width:6%"><!--  COl7   -->
+									<col style="width:4%"><!--  COl8   -->
+									<col style="width:4%"><!--  COl9 -->
+									<col style="width:5%"><!--  COl10   -->
+									<col style="width:4%"><!--  COl11   -->
+									<col style="width:4%"><!--  COl12   -->
+									<col style="width:4%"><!--  COl13   -->
+									<col style="width:4%"><!--  COl14   -->
+									<col style="width:4%"><!--  COl15   -->
+									<col style="width:4%"><!--  COl16   -->	
+									<col style="width:4%"><!--  COl7   -->
+									<col style="width:4%"><!--  COl8   -->
+									<col style="width:4%"><!--  COl19   -->	
+									<col style="width:4%"><!--  COl20   -->	
+									<col style="width:4%"><!--  COl21   -->		
+									<col style="width:4%"><!--  COl22   -->
+									<col style="width:4%;"><!--  COl23  -->						
+									</tbody>
+									</table>
+								    </div>
+									</div>
+								</td>
+							</tr> --%>
+				
+							<tr>
+				
+							<td>
+								<dl id="Searchresult" style="width: 100%;margin-left: 26px; overflow:auto; overflow-y: scroll;"></dl>
+								<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
+						
+								</div>
+				
+							</td>
+						</tr>
+				</table>
+			
+		
+	<p align="center">
+		<input type="submit" value="Update" onclick="return funValidateFields();"
+				class="btn btn-primary center-block" style="margin-top:20px;" id="btnSaveGRN"/>&nbsp; &nbsp; &nbsp;
+		<input id="btnReset" type="reset" value="Reset" class="btn btn-primary center-block" style="margin-top:20px;" onclick="funResetFields()" />
+	</p><br><br>
 	</div>
-	
-	
+		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
+			<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+		</div>
+	</div>
+</div> 
+</s:form>
+</div>
+</div>	
 	<script type="text/javascript">
 		$(function(){
 			$('#multiAccordion').multiAccordion({
@@ -786,7 +783,7 @@
 				
 			});
 			
-			$('#multiAccordion').multiAccordion("option", "active", [1]);  // in this line [0,1,2] wirte then these index are open
+			$('#multiAccordion').multiAccordion("option", "active", [0]);  // in this line [0,1,2] wirte then these index are open
 		});
 	</script>
 </body>

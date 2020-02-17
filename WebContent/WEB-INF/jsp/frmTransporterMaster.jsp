@@ -1,12 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <title></title>
 
 <script>
@@ -203,7 +211,7 @@ function funHelp(transactionName)
 	        }
 		});
     	
-    	
+    return false;
     }
     
     function btnAdd_onclick()
@@ -223,6 +231,7 @@ function funHelp(transactionName)
     	//}
      	
 	    funResetDetailFields();
+	   return false;
     }
 
     
@@ -267,112 +276,70 @@ function funHelp(transactionName)
 </script>
 </head>
 <body>
-<s:form name="TransPorter Master" method="GET" action="saveTransporterVehicle.html?saddr=${urlHits}">
-<div id="formHeading">
-<input type="hidden" value="${urlHits}" name="saddr">
-		
-	<label>TransPorter Master</label>
-	
-	</div>
-	<br>
-	<br>
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>Transporter Code</label>
-				</td>
-				
-						<td><s:input  type="text" id="txtTransCode" path="strTransCode" cssClass="searchTextBox" ondblclick="funHelp('transCode');"/>	</td>
-				<td colspan="2"></td>
-			</tr>
-				<tr>
-				<td>
-					<label>Transporter Name</label>
-				</td>
-				<td>
-					<s:input  type="text" id="txtTransName" path="strTransName" cssClass="BoxW124px" />
-				</td>
-				<td colspan="2"></td>
-			</tr>
-		
-			<tr>
-				<td>
-					<label>Description</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtDesc" path="strDesc" cssClass="BoxW124px" />
-				</td>
-				<td colspan="2"></td>
-			
-		
-			
-			
-			<tr><td><input type="button" value="Create" class="form_button" onclick="return funSaveTrasnporter()"/></td>
-			<td colspan="3"></td>
-			
-			</tr>
-				
-				<tr>
-				<td>
-					<label>Vehicle Code</label>
-				</td>
-				
-				<td><s:input  type="text" id="txtVehCode" path="strVehCode" cssClass="searchTextBox" ondblclick="funHelp('VehCode');"/>	</td>
-				<td ><label id ="lblVehNo"></label>	</td>
-				<td><input type="button" value="Add" class="smallButton"
-										onclick="return btnAdd_onclick()" /></td>
-				</tr>
-			
-			
-		
-		</table>
-		
-		
-			
-			
-			<div class="dynamicTableContainer"  style="width: 80%;">
-			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px;
-	font-weight: bold;">
-					<tr bgcolor="#75c0ff">
-                        <tr style="background-color:#75c0ff">
-                        
-                           
-                            <td align="left" style="width: 10%; height: 30px;">
-                                Vehicle Code</td>
-                             <td align="left" style="width: 16%; height: 30px;">
-                                Vehicle No.</td>    
-                                     <td align="left" style="width: 16%; height: 30px;">
-                                Delete</td>
-                           
-                        
-                        </tr>
-                        </table>
-                        
-                 <div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+<div class="container">
+	<label id="formHeading">TransPorter Master</label>
+	<s:form name="TransPorter Master" method="GET" action="saveTransporterVehicle.html?saddr=${urlHits}">
 
-                        <table id="tblVehicleDtl"
-					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-					class="transTablex col8-center">
+	<input type="hidden" value="${urlHits}" name="saddr">
+		<div class="row masterTable">
+		 	<div class="col-md-2">
+			 	<label>Transporter Code</label>
+				<s:input  type="text" id="txtTransCode" path="strTransCode" cssClass="searchTextBox" ondblclick="funHelp('transCode');" readOnly="true"/>	
+			</div>	
+			<div class="col-md-2">
+				<label>Transporter Name</label>
+				<s:input  type="text" id="txtTransName" path="strTransName" />
+			</div>
+			<div class="col-md-2">
+				<label>Description</label>
+				<s:input type="text" id="txtDesc" path="strDesc"/>
+			</div>
+			<div class="col-md-6"></div>
+			<div class="col-md-2">	
+				<label>Vehicle Code</label>
+				<s:input  type="text" id="txtVehCode" path="strVehCode" cssClass="searchTextBox" ondblclick="funHelp('VehCode');" readOnly="true"/>
+			</div>
+			<div class="col-md-2">	
+				<label id ="lblVehNo" style="background-color:#dcdada94; width: 100%; height: 51%; margin-top: 26px; text-align: center;"></label>
+			</div>
+			</div>
+			<div class="center" style="margin-right: 52%;">
+				<a href="#"><button class="btn btn-primary center-block"  value="Create" onclick="return funSaveTrasnporter()"
+				>Create</button></a>
+				<a href="#"><button class="btn btn-primary center-block"  value="Add" onclick="return btnAdd_onclick()"
+				>Add</button></a>
+			</div>
+				
+		<div class="dynamicTableContainer" style="width: 80%;">
+			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
+					 <tr style="background-color:#c0c0c0;">
+                        <td align="left" style="width: 10%; height: 30px;"> Vehicle Code</td>
+                        <td align="left" style="width: 16%; height: 30px;"> Vehicle No.</td>    
+                        <td align="left" style="width: 16%; height: 30px;"> Delete</td>
+                      </tr>
+             </table>
+                 <div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+					<table id="tblVehicleDtl" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+					        class="transTablex col8-center">
                         <tbody>
                         	<col align="left" style="width: 10%">   
+                            <col align="left" style="width: 18%">                            
                             <col align="left" style="width: 16%">                            
-                            <col align="left" style="width: 16%">                            
-                           
-                            
                         </tbody>
-                        </table>
-                   		 </div>
+                    </table>
+                </div>
+		 </div>
+
+		<br/>
+		<br/>
+		<div class="center" style="margin-right: 20%;">
+				<a href="#"><button class="btn btn-primary center-block"  value="Submit" onclick="return funCallFormAction('submit',this);"
+				>Submit</button></a>
+				<a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()"
+				>reset</button></a>
 		</div>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit"  class="form_button" onclick="return funCallFormAction('submit',this);"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
+		
 	</s:form>
-
+</div>
 </body>
 </html>

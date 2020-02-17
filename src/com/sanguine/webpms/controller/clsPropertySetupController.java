@@ -75,6 +75,8 @@ public class clsPropertySetupController {
 			model.put("smsContentForReservatiojn", "");
 			model.put("emailContentForCheckIn", "");
 			model.put("emailContentForReservation", "");
+			model.put("enableWebCam", "");
+			
 		} else {
 			model.put("checkInTime", objModel.getTmeCheckInTime());
 			model.put("checkOutTime", objModel.getTmeCheckOutTime());
@@ -91,6 +93,8 @@ public class clsPropertySetupController {
 			model.put("smsContentForReservatiojn", objModel.getStrReservationSMSContent());
 			model.put("emailContentForCheckIn", objModel.getStrCheckInEmailContent());
 			model.put("emailContentForReservation", objModel.getStrReservationEmailContent());
+			model.put("enableHousekeeping", objModel.getStrEnableHousekeeping());
+			model.put("enableWebCam", objModel.getStrEnableWebCam());
 		}
 		
 		String sql = "select count(1) from tblroom a where a.strClientCode='" + clientCode + "' ";
@@ -126,6 +130,14 @@ public class clsPropertySetupController {
 			urlHits = req.getParameter("saddr").toString();
 		} catch (NullPointerException e) {
 			urlHits = "1";
+		}
+		if(objBean.getStrEnableHousekeeping()==null)
+		{
+			objBean.setStrEnableHousekeeping("N");
+		}
+		if(objBean.getStrEnableWebCam()==null)
+		{
+			objBean.setStrEnableWebCam("N");
 		}
 		if (!result.hasErrors()) {
 			String clientCode = req.getSession().getAttribute("clientCode").toString();
@@ -460,7 +472,8 @@ public class clsPropertySetupController {
 		objPropertySetupModel.setStrHscCode(objBean.getStrHscCode().toString());
 		objPropertySetupModel.setStrReservationEmailContent(objBean.getStrReservationEmailContent());
 		objPropertySetupModel.setStrCheckInEmailContent(objBean.getStrCheckInEmailContent());
-		
+		objPropertySetupModel.setStrEnableHousekeeping(objBean.getStrEnableHousekeeping());
+		objPropertySetupModel.setStrEnableWebCam(objBean.getStrEnableWebCam());
 		
 		return objPropertySetupModel;
 	}

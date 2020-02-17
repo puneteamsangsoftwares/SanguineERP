@@ -1,12 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 		
@@ -207,21 +214,18 @@
 
 </head>
 <body>
-<div id="formHeading">
-		<label>Structure Update</label>
-	</div>
-	<s:form>
-	<br>
-	<br>
-	<br>
-	<p align="center">
-	<input type="button" value="" class="structureUpdate_button"  onclick="funUpdateStructure();">
-	<input type="button" class="clearMaster_button" style="width: 20%;height: 200px" value="" onclick="funList('Master');">
-	<input type="button" class="clearTransaction_button" style="width: 20%;height: 200px" value="" onclick="funList('Transaction');">
+<div class="container">
+   <label id="formHeading">Structure Update</label>
+      <s:form>
+	  <p align="center">
+	      <input type="button" value="" class="structureUpdate_button" style="width: 17%;height: 144px" onclick="funUpdateStructure();">
+	      <input type="button" class="clearMaster_button" style="width: 17%;height: 144px" value="" onclick="funList('Master');">
+	      <input type="button" class="clearTransaction_button" style="width: 17%;height: 144px" value="" onclick="funList('Transaction');">
 	
-	</p>
+	  </p>
 	
 	</s:form>
+	</div>
 	<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>

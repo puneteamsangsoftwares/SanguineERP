@@ -5,18 +5,40 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
-
-
 <html>
     <head>  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+        
+        
         <script type="text/javascript" src="<spring:url value="/resources/js/jquery-1.6.3.min.js"/>"></script>
         <script type="text/javascript" src="<spring:url value="/resources/js/highcharts.js"/>"></script>
         <script type="text/javascript" src="<spring:url value="/resources/js/exporting.js"/>"></script>
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>  
-        <script type="text/javascript">
+       <style>
+        .btn-primary {
+	border-radius: 0px;
+	font-size: 13px;
+	font-family:'trebuchet ms';
+	background-color: #fff;
+	color:#000;
+	border:none;
+}
+
+.btn-primary:hover {
+	background-color: #007bff;
+	color: #fff;
+	font-family:'trebuchet ms';
+}
+       </style>
+       <script type="text/javascript">
         
         $(function() 
                 {	
@@ -245,31 +267,29 @@
          
     </script>
     </head>
-    <body>
-     <s:form name="SaleVSPurchase" method="POST"
-		action="rptPOSWiseSalesReport.html?saddr=${urlHits}"
-		target="_blank">
-	  <table class="masterTable"  style=" margin: auto; float:left; width:100%;height:50px">
-               
-               <tr style="background-color: #ffffff;">
-               
-                  <td colspan="4" align="center" style="padding-left: 5px;padding-bottom:3px; font-size: 15px "> <label>SALE VS PURCHASE</label>
-				  </td>
-				  <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td>
-		          <td colspan="4" align="left"> <label>From Dater</label> &nbsp;&nbsp;
-		          <s:input id="txtFromDate" required="required"
-							path="strFromDate" pattern="\d{1,2}-\d{1,2}-\d{4}"
-							cssClass="calenderTextBox" /> &nbsp;&nbsp;&nbsp;&nbsp;
-				 <label>To Date</label> &nbsp;&nbsp;
-		          <s:input id="txtToDate" required="required"
-							path="strToDate" pattern="\d{1,2}-\d{1,2}-\d{4}"
-							cssClass="calenderTextBox" /> &nbsp;&nbsp;&nbsp;&nbsp;
-				 <s:input type="button" id="btnShow" value="Show" path="strShow"  class="form_button" onclick="funShowRecord()"/>
-				  </td> 
-			   </tr>
-			</table>
     
-        <br>
+    <body>
+    <div class="container masterTable">
+      <label id="formHeading">Sale Vs Purchase</label>
+      <s:form name="SaleVSPurchase" method="POST" action="rptPOSWiseSalesReport.html?saddr=${urlHits}" target="_blank">
+	
+	       <div class="row">	
+		       <div class="col-md-2"><label>From Dater</label> 
+		             <s:input id="txtFromDate" required="required" path="strFromDate" pattern="\d{1,2}-\d{1,2}-\d{4}"
+							cssClass="calenderTextBox" style="width:70%;height:50%"/>
+				</div>
+				 
+			    <div class="col-md-2"><label>To Date</label> 
+		             <s:input id="txtToDate" required="required" path="strToDate" pattern="\d{1,2}-\d{1,2}-\d{4}"
+							cssClass="calenderTextBox" style="width:70%;height:50%"/>
+				</div>			
+							
+				<div class="col-md-2"><br>
+				     <s:input type="button" id="btnShow" value="Show" path="strShow" class="btn btn-primary   form_button" onclick="funShowRecord()" style="height:28px;"/>
+				</div> 
+	         </div>
+		
+		 <br>
           <div style="background-color: #ffffff; border: 1px solid #ccc; display: block; ">
 	     <br />
 	     <div id="container1" style=" width: 100%; height: 800px; margin: auto;float:center;  overflow-x: hidden; border-collapse: separate; background-color: #ffffff; ">
@@ -277,8 +297,8 @@
 		
 		</div>	
   
-       
-	</s:form>	
+   </s:form>	
+	</div>
     </body>
 </html> 
 

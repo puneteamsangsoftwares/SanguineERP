@@ -1,10 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
+	<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />	
+	<script type="text/javascript" src="<spring:url value="/resources/js/Accordian/jquery.multi-accordion-1.5.3.js"/>"></script>	
+		
 <title></title>
 <script type="text/javascript">
 	
@@ -121,55 +134,39 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Database Data Import</label>
-	</div>
-
-<br/>
-<br/>
-
+<div class="container">
+	<label id="formHeading">Database Data Import</label>
 	<s:form name="POSItemMasterImport" method="POST" action="saveImportData.html?saddr=${urlHits}">
-
-		<table class="transTable">
+		<div class="row transTable">
+			<div class="col-md-2">	
+				<label>IP Address</label>
+				<s:input type="text" id="txtIPAddress" 
+					name="txtIPAddress" path="strIPAddress" required="true"/>
+			</div>
+			<div class="col-md-2">		
+				<label>Port No</label>
+				<s:input type="text" id="txtPortNo" 
+						name="txtPortNo" path="strPortNo" required="true" cssStyle="text-transform: uppercase;"/>
+			</div>
+			<div class="col-md-2">
+				<label>DataBase Name</label>		
+				<s:input type="text" id="txtDBName" name="txtDBName" path="strDBName" required="true" />
+			</div>
+			<div class="col-md-6"></div>
+			<div class="col-md-2">	
+				<label>User Name</label>
+				<s:input type="text" id="txtUserName"  name="txtUserName" path="strUserName" required="true"/>
+			</div>
+			<div class="col-md-2">				
+				<label>Password</label>
+				<s:input type="text" id="txtPass" name="txtPass" path="strPass" required="true"/>
+			</div>
+			<div class="col-md-2">			
+				<label id="lblTable" style="display:none">Tables</label>
+				<select id="cmbTableName" style="display:none" onchange="funSetComboData()"></select>
+			</div>			
 				
-				<tr>
-				
-				<td><label>IP Address</label></td>
-				<td><s:input type="text" id="txtIPAddress" 
-						name="txtIPAddress" path="strIPAddress" required="true"
-						 cssClass="longTextBox"  /> </td>
-						
-				<td><label>Port No</label></td>		
-				<td><s:input type="text" id="txtPortNo" 
-						name="txtPortNo" path="strPortNo" required="true"
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox"  /> </td>
-
-				<td><label>DataBase Name</label></td>			
-				<td><s:input type="text" id="txtDBName" 
-						name="txtDBName" path="strDBName" required="true"
-						 cssClass="longTextBox"  /> </td>
-				
-				</tr>
-				<tr>
-						<td><label>User Name</label></td>	
-						<td><s:input type="text" id="txtUserName" 
-						name="txtUserName" path="strUserName" required="true"
-						 cssClass="longTextBox"  /> </td>
-						
-						<td><label>Password</label></td>	
-						<td><s:input type="text" id="txtPass" 
-						name="txtPass" path="strPass" required="true"
-						 cssClass="longTextBox"  /> </td>
-						
-						<td><label id="lblTable" style="display:none">Tables</label></td>
-						<td><select id="cmbTableName"  Class="BoxW124px" style="display:none" onchange="funSetComboData()"></select></td>
-						
-						
-				</tr>
-			
-					
-		</table>
+		</div>
 <!-- 	<div>	 -->
 <!-- 			<div> -->
 <!-- 			<table class="transTable"> -->
@@ -308,7 +305,7 @@
 <!-- 										<td width="15%"></td> -->
 <!-- 										<td width="25%"></td> -->
 										
-
+	
 <!-- 									</tr> -->
 <!-- 								</tbody> -->
 <!-- 							</table> -->
@@ -316,21 +313,14 @@
 <!-- 				</td> -->
 <!-- 			</tr> -->
 <!-- 		</table> -->
-
-				
 		<br />
-		<table class="transTable">
-		<tr>
-					<td>	<p>
-						<input type="button" value="Connect" tabindex="3" class="form_button" id="btnSubmit" onclick="funFillTableName()"  />
-						<input type="submit" value="Excute" tabindex="3" class="form_button"  />
-						<input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>
-						<s:input type="hidden" id="hidTableName" path="strSGName"></s:input>
-					</p>  </td>
-								
-		</tr>
-		</table>
-		
+		<div class="center" style="text-align:center; margin-right: 37%;">
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" id="btnSubmit" value="Connect" onclick="funFillTableName()">Connect</button></a>&nbsp
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Excute" >Excute</button></a>&nbsp
+			<a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()">Reset</button></a>
+			<s:input type="hidden" id="hidTableName" path="strSGName"></s:input>
+		</div>
 	</s:form>
+</div>
 </body>
 </html>

@@ -120,7 +120,7 @@
 				<textElement>
 					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Folio Number]]></text>
+				<text><![CDATA[Folio ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="491" y="0" width="120" height="20" uuid="9fc994ef-45c6-459b-854b-3265d2dd7415"/>

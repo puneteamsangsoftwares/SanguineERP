@@ -6,18 +6,41 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 	<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
+<style type="text/css">
+	#tblTransFlash tbody tr:first-child{
+		background:#c0c0c0;
+	}
+	#tblTransFlash tbody{
+		background:#fbfafa;
+	}
+	#tblTransFlash tbody td{
+	border:1px solid #000;
+	}
+</style>	
+	
+	
 	<script>
 
 		$(function ()
 		{
 			var startDate="${startDate}";
+			var startDateOfMonth="${startDateOfMonth}";
 			var arr = startDate.split("/");
 			Dat=arr[0]+"-"+arr[1]+"-"+arr[2];
 			$( "#txtFromDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
-			$("#txtFromDate" ).datepicker('setDate', Dat);
+			$("#txtFromDate" ).datepicker('setDate', startDateOfMonth);
 			$( "#txtToDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtToDate" ).datepicker('setDate', 'today');
 			 var strPropCode='<%=session.getAttribute("propertyCode").toString()%>';
@@ -69,6 +92,8 @@
 					var propCode=$("#cmbProperty").val();
 					var userCode=$("#txtUserCode").val();
 					funGetTransFlash(fromDate,toDate,locCode,userCode);
+					
+					return false;
 				}
 				
 		
@@ -378,89 +403,67 @@
 	</script>
 </head>
 <body onload="funOnLoad();">
-<div id="formHeading">
-		<label>Transaction Summary Flash</label>
-	</div>
-	<s:form action="frmTransectionFlash.html" method="GET" name="frmTransectionFlash" id="frmTransectionFlash">
+	<div class="container">
+		<label id="formHeading">Transaction Summary Flash</label>
+		<s:form action="frmTransectionFlash.html" method="GET" name="frmTransectionFlash" id="frmTransectionFlash">
 		
-		<br>
-			<table class="transTable">
-			<tr><th colspan="7"></th></tr>
-				<tr>
-					<td>Property Code</td>
-					<td>
-						<s:select id="cmbProperty" name="propCode" path="strPropertyCode" onchange="funChangeLocationCombo();" cssClass="longTextBox" cssStyle="width:100%">
-			    			<s:options items="${listProperty}"/>
-			    		</s:select>
-					</td>
-						
-					<td><label>Location</label></td>
-					<td colspan="3">
-						<s:select id="cmbLocation" name="locCode" path="strLocationCode" cssClass="longTextBox" cssStyle="width:180px;">
-			    			<s:options items="${listLocation}" />
-			    		</s:select>
-					</td>
-					
-				</tr>
-					
-				<tr>
-				    <td><label id="lblFromDate">From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dteFromDate"></s:errors>
-			        </td>
-				        
-			        <td><label id="lblToDate">To Date</label></td>
-			        <td colspan="3">
-			            <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dteToDate"></s:errors>
-			        </td>
-			        
-			        
-				</tr>
-				<tr>
-				    <td><label id="lblUser">User</label></td>
-			        <td>
-			            <s:input id="txtUserCode" path="strUserCode" cssClass="searchTextBox" name="UserCode" ondblclick="funHelp('usermaster')" />
-			        	<s:errors path="strUserCode"></s:errors>
-			        </td>
-			        <td><label id="lblUserName">All</label></td>
-			     </tr>
-						
-				<tr>
-					<td><input id="btnExecute" type="button" value="EXECUTE" class="form_button1" onclick="funOnClickExcecute()"/></td>
-					
-					<td colspan="6">
-					
-						<s:select path="strExportType" id="cmbExportType" cssClass="BoxW124px">
-<!-- 							<option value="pdf">PDF</option> -->
-							<option value="xls">Excel</option>
-						</s:select>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<input id="btnExport" type="button" value="EXPORT" class="form_button1"/>
-					</td>
-					
-				</tr>
-			</table>
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label>Property Code</label>
+				<s:select id="cmbProperty" name="propCode" path="strPropertyCode" onchange="funChangeLocationCombo();">
+			    	<s:options items="${listProperty}"/>
+			 	</s:select>
+			 </div>
+			<div class="col-md-2">
+				<label>Location</label>
+				<s:select id="cmbLocation" name="locCode" path="strLocationCode">
+			    	<s:options items="${listLocation}" />
+			    </s:select>
+			</div>	
+			<div class="col-md-2">		
+				<label id="lblFromDate">From Date</label>
+			    <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox" style="width:80%;"/>
+			    <s:errors path="dteFromDate"></s:errors>
+			</div>      
+			<div class="col-md-2">		        
+			    <label id="lblToDate">To Date</label>
+			   	<s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox" style="width:80%;"/>
+			     <s:errors path="dteToDate"></s:errors>
+			</div> 
+			<div class="col-md-4"></div>
+			<div class="col-md-2">	    
+				<label id="lblUser">User</label>
+			    <s:input id="txtUserCode" path="strUserCode" cssClass="searchTextBox" name="UserCode" ondblclick="funHelp('usermaster')" />
+			    <s:errors path="strUserCode"></s:errors>
+			</div>
+			<div class="col-md-2">    
+			     <label id="lblUserName" style="background-color:#dcdada94; width: 100%; height: 37%; margin: 27px 0px; text-align:center;">All</label>
+			</div>
+			<div class="col-md-2">   	
+				<s:select path="strExportType" id="cmbExportType" style="margin-top:28px;">
+<!-- 				<option value="pdf">PDF</option> -->
+					<option value="xls">Excel</option>
+				</s:select>
+			</div>
+		</div>
+		<div class="center" style="margin-right: 42%;">
+			<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return funOnClickExcecute()"
+				>Execute</button></a>
+			<a href="#"><button class="btn btn-primary center-block" id="btnExport" value="Export" onclick=""
+				>Export</button></a>
+		</div>
+		<div id="dvTransFlash" style="width: 100% ;height: 100% ;display: none;">
+			<table id="tblTransFlash" class="transTable col5-right col6-right col7-right col8-right col9-right"></table>
+		</div>
+			
+		<div id="dvTranswise" style="width: 100% ;height: 100% ; display: none;" >
+			<table id="tblTranswise" class="transTable col5-right col6-right col7-right col8-right col9-right"></table>
+		</div>
 			
 			<br><br>
-		
-			<br>
-			
-			<div id="dvTransFlash" style="width: 100% ;height: 100% ;display: none;">
-				<table id="tblTransFlash" class="transTable col5-right col6-right col7-right col8-right col9-right"></table>
-			</div>
-			
-			<div id="dvTranswise" style="width: 100% ;height: 100% ; display: none;" >
-				<table id="tblTranswise" class="transTable col5-right col6-right col7-right col8-right col9-right"></table>
-			</div>
-			
-			<br><br>
-			
-			
-			
 	
 		<br><br>
 	</s:form>
+</div>
 </body>
 </html>

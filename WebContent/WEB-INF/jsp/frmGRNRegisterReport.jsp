@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -8,17 +8,30 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>GRNRegisterReport</title>
-
+      <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+  
+  <style> 
+ .transTable td {
+    padding-left: 27px;
+ }
+ </style>
+   
 <script type="text/javascript">
 
 $(document).ready(function() 
 		{		
 		
 			var startDate="${startDate}";
+			var startDateOfMonth="${startDateOfMonth}";
 			var arr = startDate.split("/");
 			Date1=arr[0]+"-"+arr[1]+"-"+arr[2];
 			$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
-			$("#txtFromDate" ).datepicker('setDate', Date1);
+			$("#txtFromDate" ).datepicker('setDate', startDateOfMonth);
 			$("#txtFromDate").datepicker();	
 			
 			 $("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
@@ -180,12 +193,7 @@ $(document).ready(function()
 					});
 				}
 			
-			
-			
-			
-			
-		      
-			    //Fill To Location Data
+	     //Fill To Location Data
 			    function funfillToLocationGrid(strLocCode,strLocationName)
 				{
 					
@@ -198,7 +206,7 @@ $(document).ready(function()
 					    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strToLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
 				}
 			    
-			    //Fill To Location Data
+		 //Fill To Location Data
 			    function funfillSuppGrid(strSuppCode,strSuppName)
 				{
 					
@@ -212,7 +220,7 @@ $(document).ready(function()
 				}
 					
 					
-			    //Remove All Row from Grid Passing Table Id as a parameter
+		  //Remove All Row from Grid Passing Table Id as a parameter
 			    function funRemRows(tablename) 
 				{
 					var table = document.getElementById(tablename);
@@ -224,9 +232,7 @@ $(document).ready(function()
 					}
 				}
 			
-			
-			
-
+		
 function funHelp(transactionName)
 {
 	fieldName = transactionName;
@@ -328,20 +334,20 @@ function funHelp(transactionName)
 
 </head>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-	GRN Register Report
-	</div>
-	<s:form name="GRNRegisterReport" method="POST"
-		action="rptGRNRegisterReport.html" >
+  <div class="container transTable">
+	<label id="formHeading">GRN Register Report</label>
+	<s:form name="GRNRegisterReport" method="POST" action="rptGRNRegisterReport.html" >
 		<input type="hidden" value="${urlHits}" name="saddr">
 		<br>
-		<table class="transTable">
-			<tr>
-				<td><label>From Date</label>
-				<td><s:input path="dtFromDate" id="txtFromDate" required="required" cssClass="calenderTextBox" /></td>
-				<td ><label>To Date</label>
-				<td><s:input path="dtToDate" id="txtToDate" required="required" cssClass="calenderTextBox" /></td>
-			</tr>
+		
+		<div class="row">	
+		    <div class="col-md-2"><label>From Date</label>
+				   <s:input path="dtFromDate" id="txtFromDate" required="required" cssClass="calenderTextBox" style="width: 70%;height:50%"/>
+		     </div>
+		     
+			 <div class="col-md-2"><label>To Date</label>
+				   <s:input path="dtToDate" id="txtToDate" required="required" cssClass="calenderTextBox" style="width: 70%;height:50%"/>
+			 </div>
 			
 <!-- 			<tr> -->
 <!-- 				<td width="5%"><label>Location</label></td> -->
@@ -358,43 +364,36 @@ function funHelp(transactionName)
 <%-- 			    	</s:select> --%>
 <!-- 				</td>				 -->
 <!-- 			</tr> -->
+			<div class="col-md-8"></div>
 			
-			
-			<tr>
-				<td><label>Report Type</label></td>
-				<td colspan="4">
-					<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+			<div class="col-md-2"><label>Report Type</label>
+				  <s:select id="cmbDocType" path="strDocType" style="width:auto;">
 <%-- 					<s:option value="PDF">PDF</s:option> --%>
 						<s:option value="XLS">EXCEL</s:option>
 <%-- 					<s:option value="HTML">HTML</s:option> --%>
 <%-- 					<s:option value="CSV">CSV</s:option> --%>
-					</s:select>
-				</td>
-			</tr>
+				  </s:select>
+			</div>
+			<div class="col-md-10"></div>
 			
-			<tr>
-			<td colspan="2">Location&nbsp;&nbsp;&nbsp;
-			<input type="text" id="txtLocCode" 
-			 style="width: 35%;background-position: 150px 2px;"  Class="searchTextBox" placeholder="Type to search"  ></input>
-			<label id="lblLocName"></label></td>
+			<div class="col-md-6"><label>Location</label>
+			     <input type="text" id="txtLocCode" style="width: 35%;background-position: 170px 5px;"  Class="searchTextBox" placeholder="Type to search"></input>
+			     <label id="lblLocName"></label>
+			</div>
 			
-			<td colspan="2">Supplier&nbsp;&nbsp;&nbsp;<input style="width: 35%; background-position: 150px 2px;" type="text" id="txtSuppCode" 
-			 Class="searchTextBox" placeholder="Type to search"></input>
-			<label id="lblSuppName"></label></td>
-			
-			</tr>
-			
-			<tr>
-			
-			<td colspan="2">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+			<div class="col-md-6"><label>Supplier</label>
+			          <input style="width: 35%; background-position: 170px 5px;" type="text" id="txtSuppCode" Class="searchTextBox" placeholder="Type to search"></input>
+			          <label id="lblSuppName"></label>
+			</div>
+	
+		<div class="col-md-6">
+		 <div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
 
 							<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
-										<td width="15%"><input type="checkbox" checked="checked" 
+									<tr bgcolor="#c0c0c0">
+										<td width="10%"><input type="checkbox" checked="checked" 
 										id="chkToLocALL"/>Select</td>
 										<td width="25%">To Location Code</td>
 										<td width="65%">To Location Name</td>
@@ -405,24 +404,22 @@ function funHelp(transactionName)
 							<table id="tblToloc" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+							 	<!-- <tr bgcolor="#fafbfb"> 
 									
 
-								</tr>
+								</tr> -->
 							</table>
-						</div>
-				</td>
-				
-				
-				<td colspan="2">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+			</div>
+			</div>
+			
+			<div class="col-md-6">	
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
 
 							<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
-										<td width="15%"><input type="checkbox" checked="checked" 
+									<tr bgcolor="#c0c0c0">
+										<td width="10%"><input type="checkbox" checked="checked" 
 										id="chkSuppALL"/>Select</td>
 										<td width="25%">To Supplier Code</td>
 										<td width="65%">To Supplier Name</td>
@@ -433,33 +430,23 @@ function funHelp(transactionName)
 							<table id="tblSupp" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+								 <!-- <tr bgcolor="#fafbfb"> 
 									
 
-								</tr>
+								</tr> -->
 							</table>
-						</div>
-				</td>
-				
-				
-				
-			
-			</tr>
-			
-			
-
-		</table>
-		
+		</div>
+      </div>
+    </div>
+    <br>
 		<p align="center">
-			<input type="submit" value="Submit"
-				onclick="return btnSubmit_Onclick()"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <a
-				STYLE="text-decoration: none"
-				href="frmGRNRegisterReport.html?saddr=${urlHits}"><input
-				type="button" id="reset" name="reset" value="Reset"
-				class="form_button" /></a>
+			<input type="submit" value="Submit" onclick="return btnSubmit_Onclick()" class="btn btn-primary center-block" class="form_button" /> 
+			<a STYLE="text-decoration: none" href="frmGRNRegisterReport.html?saddr=${urlHits}">
+			&nbsp;
+			<input type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block" class="form_button" /></a>
 		</p>
 		<br>
+		
 		<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
 			<img
@@ -470,6 +457,7 @@ function funHelp(transactionName)
 			<s:input type="hidden" id="hidSuppCodes" path="strSuppCode"></s:input>	
 		</div>
 	</s:form>
+	</div>
 	<script type="text/javascript">
 	
 	</script>

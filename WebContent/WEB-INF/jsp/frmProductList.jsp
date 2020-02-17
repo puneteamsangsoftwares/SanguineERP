@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -7,6 +9,13 @@
   	<link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Web Stocks</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+    
     <script type="text/javascript">
     /**
 	 * fill subgroup combox when user select Group
@@ -82,56 +91,49 @@
   </head>
   
 	<body >
-	<div id="formHeading">
-		<label>Product List</label>
-	</div>
-	<br />
-	<br />
-		<s:form name="prodList" method="GET" action="rptProductList.html" target="_blank">
-			<table class="masterTable">
-	<tr><th colspan="4"></th></tr>
-				<tr>
-					<td><label>Product Type</label></td>
-					<td colspan="4">
-						<s:select id="cmbProdType" path="strProdType" cssClass="BoxW124px" items="${typeList}">
+	<div class="container masterTable">
+		<label id="formHeading">Product List</label>
+	    <s:form name="prodList" method="GET" action="rptProductList.html" target="_blank">
+			
+	     <div class="row">	
+		         <div class="col-md-2"><label>Product Type</label>
+					   <s:select id="cmbProdType" path="strProdType" items="${typeList}" cssStyle="width:auto">
 <%-- 				    		<s:option value="ALL">ALL</s:option> --%>
 				    	</s:select>
-					</td>
+				  </div>
+				<div class="col-md-10"></div>
 					
-				</tr>
-				<tr>
-					<td><label>Group</label></td>
-				<td><s:select path="strGCode" items="${listgroup}"
-						id="strGCode" onchange="funFillCombo(this.value);" cssClass="BoxW124px" cssStyle="width:auto"> </s:select></td>
-				<td><label>SubGroup</label></td>
-				<td colspan="4"> <s:select path="strSGCode" items="${listsubGroup}" cssStyle="width:auto"
-						id="strSGCode" cssClass="BoxW124px">
-					</s:select></td>
-				</tr>	
-				<tr>
-					<td><label>Report Type</label></td>
-					<td colspan="4">
-						<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+				<div class="col-md-3"><label>Group</label>
+				     <s:select path="strGCode" items="${listgroup}" id="strGCode" onchange="funFillCombo(this.value);" cssStyle="width:auto"> </s:select>
+				</div>
+				
+				<div class="col-md-2"><label>SubGroup</label>
+			         <s:select path="strSGCode" items="${listsubGroup}" cssStyle="width:auto" id="strSGCode">
+					</s:select>
+				</div>
+				<div class="col-md-7"></div>
+					
+				<div class="col-md-2"><label>Report Type</label>
+					     <s:select id="cmbDocType" path="strDocType" cssStyle="width:auto">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
 				    		<s:option value="HTML">HTML</s:option>
 				    		<s:option value="CSV">CSV</s:option>
 				    	</s:select>
-					</td>
-				</tr>
+				</div>
 				
-				<tr>
-				<td colspan="4"></td>
-					<!-- <td><input type="submit" value="Submit" /></td>
+				<!-- <td><input type="submit" value="Submit" /></td>
 					<td><input type="reset" value="Reset" onclick="funResetFields()"/></td>	 -->				
-				</tr>
-			</table>
+				
+			</div>
 			<br>
-			<p align="center">
-				<input type="submit" value="Submit"  class="form_button" onclick="return funCallFormAction('submit',this)" />
-				 <input type="button" value="Reset" class="form_button " />
+			<p align="center" style="margin-right:51%">
+				<input type="submit" value="Submit" class="btn btn-primary center-block"  class="form_button" onclick="return funCallFormAction('submit',this)" />
+				&nbsp;
+			   <input type="button" value="Reset" class="btn btn-primary center-block"  class="form_button " />
 			</p>
 			
 		</s:form>
+	  </div>
 	</body>
 </html>

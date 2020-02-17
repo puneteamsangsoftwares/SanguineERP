@@ -6,20 +6,31 @@
 <!DOCTYPE html.dtd">
 <html>
 <head>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script>
 
 		$(document).ready(function(){
 			var startDate="${startDate}";
 			var arr = startDate.split("/");
 			Date1=arr[2]+"-"+arr[1]+"-"+arr[0];
+			var startDateOfMonth="${startDateOfMonth}";
+			var arr1 = startDateOfMonth.split("-");
+			Date1=arr1[2]+"-"+arr1[1]+"-"+arr1[0];
+			
 			$("#dtFromDate").datepicker({
-				dateFormat : 'yy-mm-dd'
+				dateFormat : 'dd-mm-yy'
 			});
-			$("#dtFromDate").datepicker('setDate', Date1);	
+			$("#dtFromDate").datepicker('setDate', startDateOfMonth);	
 			
 			
 			$("#dtToDate").datepicker({
-				dateFormat : 'yy-mm-dd'
+				dateFormat : 'dd-mm-yy'
 			});
 			$("#dtToDate").datepicker('setDate', 'today');	
 		});
@@ -92,66 +103,57 @@
 
 </script>
 <body>
-<div id="formHeading">
-		<label>Purchase Register Report</label>
-	</div>
-	<br />
-	<br />
-		<s:form name="frmPurchaseRegisterReport" method="POST" action="rptPurchaseRegisterReport.html" target="_blank" >
+<div class="container transTable">
+	  <label  id="formHeading">Purchase Register Report</label>
+	  <s:form name="frmPurchaseRegisterReport" method="POST" action="rptPurchaseRegisterReport.html" target="_blank" >
 
-			<table class="transTable">
-		
-			<tr>
-				<td><label>From Date</label></td>
-				<td><s:input type="text" id="dtFromDate" path="dteFromDate" required="true" class="calenderTextBox" /></td>
-				<td><label>To Date</label></td>
-				<td colspan="4"><s:input type="text" id="dtToDate" path="dteToDate" required="true" class="calenderTextBox" /></td>				
-			</tr>
+	   <div class="row">
+			 <div class="col-md-2"><label>From Date</label>
+				   <s:input type="text" id="dtFromDate" path="dteFromDate" required="true" class="calenderTextBox" style="width: 70%;"/>
+		     </div>
+		     
+			 <div class="col-md-2"><label>To Date</label>
+				  <s:input type="text" id="dtToDate" path="dteToDate" required="true" class="calenderTextBox" style="width: 70%;"/>				
+			</div>
+			<div class="col-md-8"></div>
 			
-			<tr>
-				<td width="140px">Supplier Code</td>
-				<td><s:input id="txtSuppCode" path="strDocCode"
-						cssClass="searchTextBox" ondblclick="funHelp('suppcode')" /></td>
-				<td colspan="2"><label style="font-size: 12px;" id="lblSuppName"> All Supplier </label>	</td>	
+			 <div class="col-md-2"><label>Supplier Code</label>
+				      <s:input id="txtSuppCode" path="strDocCode" style="height: 51%;"
+						cssClass="searchTextBox" ondblclick="funHelp('suppcode')" />
+			 </div>
+			 
+				<div class="col-md-2"><br><label id="lblSuppName" style="font-size: 12px;background-color:#dcdada94; width: 100%; height: 55%;margin-top:7px"> All Supplier </label></div>	
 				
-				
-				<td><label>Report Type</label></td>
-					<td colspan="4">
-						<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+				 <div class="col-md-2"><label>Report Type</label>
+					     <s:select id="cmbDocType" path="strDocType" style="width:auto;">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
-<%-- 				    		<s:option value="HTML">HTML</s:option> --%>
-<%-- 				    		<s:option value="CSV">CSV</s:option> --%>
-				    	</s:select>
-			</td>		
-			
-			</tr>
-			
-			<tr>				
-				<td><label>View Type</label>
-				</td>
-				<td><s:select id="cmbViewType" path="strReportView" items="${mapViewType}" cssClass="BoxW124px"/>				    	
-				</td>	
+<%-- 				    		           <s:option value="HTML">HTML</s:option> --%>
+<%-- 				    		           <s:option value="CSV">CSV</s:option> --%>
+				    	 </s:select>
+			     </div>	
+			     <div class="col-md-6"></div>
+			     	
+			     <div class="col-md-2"><label>View Type</label>
+				        <s:select id="cmbViewType" path="strReportView" items="${mapViewType}" style="width:auto;"/>				    	
+				 </div>	
 				
-				
-				<td><label>Settlement </label></td>
-					<td colspan="4">
-						<s:select id="cmbDocType" path="strSettlementName" cssClass="BoxW124px">
+				  <div class="col-md-2"><label>Settlement </label>
+					   <s:select id="cmbDocType" path="strSettlementName" style="width:auto;">
 				    		<s:option value="ALL">ALL</s:option>
 				    		<s:option value="CASH">CASH</s:option>
 				    		<s:option value="CREDIT">CREDIT</s:option>
                         </s:select>
-                       
-                       </td>						
-			</tr>
+                  </div>						
+			</div>
 			
-			
-			
-		</table>
-			<p align="center">
-				<input type="submit" value="Export"  class="form_button" onclick="return funCallFormAction('submit',this)" />
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+			<br>
+			<p align="center" style="margin-right: 31%;">
+				<input type="submit" value="Export"  class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this)" />
+				&nbsp;
+			    <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 		</s:form>
+	</div>
 </body>
 </html>

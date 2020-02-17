@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.activation.DataSource;
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.mail.util.ByteArrayDataSource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -28,10 +27,8 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,8 +48,6 @@ public class clsSendEmailController
 
 	@Autowired
 	private JavaMailSender mailSender;
-	
-	
 	@Autowired
 	private ServletContext servletContext;
 	@Autowired
@@ -219,18 +214,13 @@ public class clsSendEmailController
         				ByteArrayOutputStream baos = new ByteArrayOutputStream();
         				JasperExportManager.exportReportToPdfStream(p, baos);
         				DataSource aAttachment = new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
-        			
-        				MimeMessagePreparator preparator = getMimeMessagePreparator(subject,receipientsArr[i].toString(),message,aAttachment);
-        				//http://websystique.com/spring/spring-4-email-with-attachment-tutorial/
-        				try {
-        		            mailSender.send(preparator);
-        		            System.out.println("Message With Attachement has been sent.............................");
-        		           // preparator = getContentAsInlineResourceMessagePreparator(order);
-        		            //mailSender.send(preparator);
-        		            /*System.out.println("Message With Inline Resource has been sent.........................");*/
-        		        } catch (MailException ex) {
-        		            System.err.println(ex.getMessage());
-        		        }
+        				MimeMessageHelper helper = new MimeMessageHelper(mailSender.createMimeMessage(), true);
+
+        				helper.setTo(receipientsArr[i].toString());
+        				helper.setSubject(subject);
+        				helper.addAttachment("PO Slip.pdf", aAttachment);
+        				helper.setText(message);
+        				mailSender.send(helper.getMimeMessage());
                 	}                	
                 }
 				
@@ -243,7 +233,7 @@ public class clsSendEmailController
 
 			return strReturnValue;
 		}
-		catch (Exception e)
+		catch (javax.mail.MessagingException e)
 		{
 			e.printStackTrace();
 			logger.info(e);
@@ -251,28 +241,6 @@ public class clsSendEmailController
 		}
 
 	}
-	
-	 private MimeMessagePreparator getMimeMessagePreparator(final String subject,final String receipt,final String message,final DataSource aAttachment) {
-		 
-	        MimeMessagePreparator preparator = new MimeMessagePreparator() {
-	 
-	        	@Override
-	            public void prepare(MimeMessage mimeMessage) throws Exception {
-	                MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-	 
-	                helper.setSubject(subject);
-	               // helper.setFrom("customerserivces@yourshop.com");
-	                helper.setTo(receipt);
-	                helper.setText(message);
-	 
-	                // Add a resource as an attachment
-	                helper.addAttachment("PO Slip.pdf", aAttachment);
-	 
-	            }
-	        };
-	        return preparator;
-	    }
-	 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public JasperPrint funCallReport(String POcode, HttpServletRequest req) throws MessagingException
 	{
@@ -594,6 +562,10 @@ public class clsSendEmailController
 		// takes input from e-mail form.
 		try
 		{
+			if(strMessege==null)
+			{
+				strMessege="Email Content is not saved in property setup";
+			}
 			String subject = "";
 			if(strModuleName.equalsIgnoreCase("dayEnd"))
 			{
@@ -656,9 +628,10 @@ public class clsSendEmailController
 			{
 				strReturnValue = "Supplier has No Email Id";
 			}
-
+			
 			return strReturnValue;
 		}
+	
 		catch (javax.mail.MessagingException e)
 		{
 			e.printStackTrace();

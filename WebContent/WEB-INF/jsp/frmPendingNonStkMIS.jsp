@@ -5,13 +5,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 	<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
 	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
         <!-- Load data to paginate -->
 	<link rel="stylesheet" href="<spring:url value="/resources/css/pagination.css"/>" />
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	
 <script type="text/javascript">
 var PndNonStkData;
 var GRNCode="";
@@ -69,7 +79,7 @@ $(function()
 	    // Get number of elements per pagionation page from form
 	    var max_elem = Math.min((page_index+1) * items_per_page, PndNonStkData.length);
 	    var newcontent="";
-	    newcontent = '<table id="tblPndNonStkable" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">GRN Code</td><td id="labld2">Date</td><td id="labld3">Supplier Name</td><td id="labld4">Location Name</td><td id="labld5">Bill No.</td><td id="labld6">Narration</td><td id="labld7">Tax Amt</td><td id="labld8">Total Amt</td></tr>';
+	    newcontent = '<table id="tblPndNonStkable" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">GRN Code</td><td id="labld2">Date</td><td id="labld3">Supplier Name</td><td id="labld4">Location Name</td><td id="labld5">Bill No.</td><td id="labld6">Narration</td><td id="labld7">Tax Amt</td><td id="labld8">Total Amt</td></tr>';
 		    	// Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
 			    {
@@ -231,22 +241,21 @@ $(function()
 </script>
 </head>
 <body>
-<div id="formHeading">
-		<label>Pending Non Stockable MIS</label>
-	</div>
-	<br>
+<div class="container">
+	<label id="formHeading">Pending Non Stockable MIS</label>
 	<s:form>
-			<table class="transTable">			
-			    <tr>
-					<td width="10%"><label >Location Code</label></td>
-					<td width="9%">
-					<s:input id="txtLocCode" path="strDocCode" value="${locationCode}" ondblclick="funHelp('locationmaster')" cssClass="searchTextBox" cssStyle="width:70px;background-position: 60px 4px;"/>
-					</td >
-					<td width="25%"><label id="lblLocName" ></label>
-					</td>
-					<td><input id="btnExecute" type="button" class="form_button1" value="EXECUTE"/></td>
-				</tr>
-			</table>
+			<div class="row transTable">			
+			   <div class="col-md-2">
+					<label >Location Code</label>
+					<s:input id="txtLocCode" path="strDocCode" value="${locationCode}" ondblclick="funHelp('locationmaster')" cssClass="searchTextBox"/>
+			   </div>
+			   <div class="col-md-2">	
+					<label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 37%; margin: 27px 0px;text-align:center"></label>
+			   </div>	
+			   <div class="col-md-2">	
+					<input id="btnExecute" type="button" class="btn btn-primary center-block" value="EXECUTE" style="margin-top:27px;"/>
+				</div>
+			</div>
 		<br>
 			<dl id="Searchresult" style="padding-left: 26px;overflow:auto;width: 95%"></dl>
 		<div id="Pagination" class="pagination" style="padding-left: 26px;"></div>
@@ -255,6 +264,6 @@ $(function()
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 	</s:form>
-	
+</div>	
 </body>
 </html>

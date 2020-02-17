@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -8,6 +9,25 @@
 <link rel="stylesheet" type="text/css" href="default.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Material Issue Slip</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
+<style>
+#lblFormHeadingName{
+	font-family: 'trebuchet ms';
+	font-size: 20px;
+	color: #646777;
+	font-weight: bold;
+	padding:0px;
+}
+.transTable td {
+     padding-left: 29px;
+}
+</style>
 <script type="text/javascript">
 
 	/**
@@ -353,50 +373,39 @@ window.open("searchform.html?formname=" + transactionName
 </script>
 </head>
 <body>
-	<div id="formHeading">
+	<div class="container transTable">
 		<label id="lblFormHeadingName" >Material Issue Slip</label>
-	</div>
-	<s:form name="MISSlip" method="POST" action="rptMISSlip.html"
-		target="_blank">
-
-		<br />
-		<table class="transTable">
-		<tr><th colspan="8"></th></tr>
-			<tr>
-				<td width="10%"><label id="lblFromDate">From Date</label></td>
-				<td width="20%"><s:input id="txtFromDate" name="fromDate"
-						path="dtFromDate" cssClass="calenderTextBox" required="true"/> <s:errors
-						path="dtFromDate"></s:errors></td>
-						<td width="15%"></td>
-				<td width="10%"><label id="lblToDate">To Date</label></td>
-				<td width="10%"><s:input id="txtToDate" name="toDate"
-						path="dtToDate" cssClass="calenderTextBox" required="true"/> <s:errors
-						path="dtToDate"></s:errors></td>
-						<td></td>
-						<td></td>
+	 <s:form name="MISSlip" method="POST" action="rptMISSlip.html" target="_blank">
+ 
+       <div class="row">	
+		    <div class="col-md-2"><label id="lblFromDate">From Date</label>
+				  <s:input id="txtFromDate" name="fromDate" path="dtFromDate" cssClass="calenderTextBox" required="true" style="width:70%;height:50%" /> <s:errors
+						path="dtFromDate"></s:errors>
+			</div>
 						
-			</tr>
-			</table>
-			<br>
-		<table class="transTable">
-			<tr><td width="49%">From Location&nbsp;&nbsp;&nbsp;<input type="text" id="txtFromLocCode" 
-			ondblclick="funHelp('StoreLocationTo')" Class="searchTextBox"></input>
-			<label id="lblFromLocName"></label></td>
-			<td width="49%">To Location&nbsp;&nbsp;&nbsp;
-			<input type="text" id="txtToLocCode" 
-			 style="width: 50%;background-position: 225px 2px;"  class="searchTextBox" placeholder="Type to search"></input>
-			<label id="lblToLocName"></label></td></tr>
-			<tr>
+			<div class="col-md-2"><label id="lblToDate">To Date</label>
+				  <s:input id="txtToDate" name="toDate" path="dtToDate" cssClass="calenderTextBox" required="true" style="width:70%;height:50%" /> <s:errors
+						path="dtToDate"></s:errors>
+			</div>
+			<div class="col-md-8"></div>
+					
+			<div class="col-md-6"><label>From Location</label>
+			       <input type="text" id="txtFromLocCode" ondblclick="funHelp('StoreLocationTo')" Class="searchTextBox" style="width:30%;" placeholder="Type to search" ></input>
+			      <label id="lblFromLocName"></label>
+			</div>
 			
-				<td style="padding: 0 !important;">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-
-							<table id="" class="masterTable"
+			<div class="col-md-6"><label>To Location</label>
+			       <input type="text" id="txtToLocCode" style="width: 30%;" class="searchTextBox" placeholder="Type to search" ></input>
+			        <label id="lblToLocName"></label>
+			</div>
+			
+			<div class="col-md-6">
+					<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+                        <table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
-										<td width="15%"><input type="checkbox" id="chkFromLocALL"
+									<tr bgcolor="#c0c0c0">
+										<td width="10%"><input type="checkbox" id="chkFromLocALL"
 											checked="checked" />Select</td>
 										<td width="25%">From Location Code</td>
 										<td width="65%">From Location Name</td>
@@ -407,7 +416,7 @@ window.open("searchform.html?formname=" + transactionName
 							<table id="tblFromloc" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#fafbfb">
 									<td width="15%"></td>
 									<td width="25%"></td>
 									<td width="65%"></td>
@@ -415,16 +424,15 @@ window.open("searchform.html?formname=" + transactionName
 								</tr>
 							</table>
 						</div>
-						</td>
-						<td style="padding: 0 !important;">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-
-							<table id="" class="masterTable"
+				</div>
+						
+				<div class="col-md-6">
+					<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+                         <table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
-										<td width="15%"><input type="checkbox" checked="checked" 
+									<tr bgcolor="#c0c0c0">
+										<td width="10%"><input type="checkbox" checked="checked" 
 										id="chkToLocALL"/>Select</td>
 										<td width="25%">To Location Code</td>
 										<td width="65%">To Location Name</td>
@@ -435,19 +443,16 @@ window.open("searchform.html?formname=" + transactionName
 							<table id="tblToloc" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#fafbfb">
 									<td width="15%"></td>
 									<td width="25%"></td>
 									<td width="65%"></td>
 
 								</tr>
-							</table>
-						</div>
-				</td>
-			</tr>
-		</table>
-		<br>
-			<table class="transTable">
+						</table>
+					</div>
+				</div>
+			
 			<%-- <tr>
 				<td><label>From Location </label></td>
 				<td colspan="2"><s:input id="txtLocFrom" name="txtLocFrom"
@@ -460,45 +465,38 @@ window.open("searchform.html?formname=" + transactionName
 						ondblclick="funHelp('locon');" cssClass="searchTextBox" /> <label
 					id="lblLocTo" Class="namelabel"></label></td>
 			</tr> --%>
-			<tr>
-				<td width="10%">From MIS Code</td>
-				<td width="1%" colspan="2"><s:input type="text"
-						path="strFromDocCode" id="txtFromMISCode" name="strMISCode"
+			
+			<div class="col-md-2"><label>From MIS Code</label>
+				    <s:input type="text" path="strFromDocCode" id="txtFromMISCode" name="strMISCode"
 						readonly="true" placeholder="From MIS Code" class="searchTextBox"
-						style="width: 118px;background-position: 104px 2px;"
-						ondblclick="funHelp('MISslip')" /></td>
-				<td width="10%">To MIS Code</td>
-				<td width="0%" colspan="4"><s:input type="text"
-						path="strToDocCode" id="txtTOMISCode" name="strMISCode"
+						style="width: 118px;background-position: 104px 2px;" ondblclick="funHelp('MISslip')" />
+			</div>
+		   
+		   <div class="col-md-2"><label>To MIS Code</label>
+				   <s:input type="text" path="strToDocCode" id="txtTOMISCode" name="strMISCode"
 						readonly="true" placeholder="To MIS Code" class="searchTextBox"
-						style="width: 118px;background-position: 104px 2px;"
-						ondblclick="funHelp('ToMIS')" /></td>
-
-			</tr>
-			<tr>
-				<td><label>Report Type</label></td>
-				<td colspan="8"><s:select id="cmbDocType" path="strDocType"
-						cssClass="BoxW124px">
+						style="width: 118px;background-position: 104px 2px;" ondblclick="funHelp('ToMIS')" />
+		   </div>
+            <div class="col-md-8"></div>
+            
+			<div class="col-md-2"><label>Report Type</label>
+				   <s:select id="cmbDocType" path="strDocType" style="width:auto;">
 						<s:option value="PDF">PDF</s:option>
 						<s:option value="XLS">EXCEL</s:option>
 						<s:option value="HTML">HTML</s:option>
 						<s:option value="CSV">CSV</s:option>
-					</s:select></td>
-			</tr>
-			<tr>
-				<td colspan="8"></td>
-
-			</tr>
-		</table>
-		<br>
+					</s:select>
+			</div>
+	    </div>
+	
 		<p align="center">
-			<input type="submit" value="Submit"	onclick="return funCallFormAction('submit',this)" 
-			class="form_button" />
-			 <input type="button" value="Reset"
-			class="form_button" onclick="funResetFields()" />
+			<input type="submit" value="Submit"	onclick="return funCallFormAction('submit',this)" class="btn btn-primary center-block" class="form_button" />
+			&nbsp;
+		    <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()" />
 		</p>
 			<s:input type="hidden" id="hidFromLocCodes" path="strFromLocCode"></s:input>
 			<s:input type="hidden" id="hidToLocCodes" path="strToLocCode"></s:input>
 	</s:form>
+	</div>
 </body>
 </html>

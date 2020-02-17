@@ -1,12 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="sp"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 
 <title>MATERIAL REQUISITION</title>
 
@@ -337,7 +345,7 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 			    var row = table.insertRow(rowCount);
 
 	 			row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"10%\" name=\"listReqDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+StandReqData[0]+"' />";
-				row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"60%\" name=\"listReqDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+StandReqData[1]+"' />";
+				row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"40%\" name=\"listReqDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+StandReqData[1]+"' />";
 				row.insertCell(2).innerHTML= "<input class=\"Box\" readonly=\"readonly\" size=\"5%\" name=\"listReqDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value='"+StandReqData[2]+"' />";
 			    row.insertCell(3).innerHTML= "<input type=\"text\"  required = \"required\" required = \"required\" name=\"listReqDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\" value="+StandReqData[3]+" onblur=\"funUpdatePrice(this);\"  class=\"decimal-places inputText-Auto QtyCell\">";	    
 			    row.insertCell(4).innerHTML= "<input type= type=\"text\" readonly=\"readonly\" required = \"required\" name=\"listReqDtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\" value="+parseFloat(StandReqData[4]).toFixed(parseInt(maxAmountDecimalPlaceLimit))+"  class=\"decimal-places inputText-Auto\">";		    
@@ -693,7 +701,7 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 				var row = table.insertRow(rowCount1);
 				var rowCount=rowCount1;
 				row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"10%\" name=\"listReqDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
-				row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"60%\" name=\"listReqDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
+				row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"40%\" name=\"listReqDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
 				row.insertCell(2).innerHTML= "<input class=\"Box\" readonly=\"readonly\" size=\"5%\" name=\"listReqDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value='"+strUOM+"' />";
 				row.insertCell(3).innerHTML= "<input type=\"text\" required = \"required\" name=\"listReqDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\"  value="+dblProdQty1+" onblur=\"funUpdatePrice(this);\"  class=\"decimal-places inputText-Auto QtyCell\" >";	    
 				if(showReqVal=="N")
@@ -1195,94 +1203,92 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 
 </head>
 <body>
-<div id="somediv"></div>
-	<div id="formHeading">
-		<label id="lblFormHeadingName">Standard Requisition</label>
-	</div>
+<div  class="container" id="somediv">
+	<label  id="formHeading" id="lblFormHeadingName">Standard Requisition</label>
 	<s:form name="StandardRequisition" method="POST" action="saveStandardRequisition.html?saddr=${urlHits}">
-		<br>
-		<s:input path="strAuthorise" type="hidden" id="hidAuthorise"  name="strAuthorise" value=""></s:input>
+	<s:input path="strAuthorise" type="hidden" id="hidAuthorise"  name="strAuthorise" value=""></s:input>
+		
 		<table class="transTable">
 		</table>
-		<table class="transTable">
-			<tr>
-				<td width="120px"><s:label path="strReqCode">Requisition Code</s:label></td>
-				<td><s:input id="txtreqCode" name="txtreqCode"
-						path="strReqCode" value="${matreq.strReqCode}"
-						ondblclick="funHelp('MaterialReq')" cssClass="searchTextBox" /></td>
-				<td></td>
-
- 			</tr>
-
-			<tr>
-				<td><label>Location By</label></td>
-				<td><s:input id="txtLocBy" name="txtLocBy" path="strLocBy" required = "true"
-						value="${matreq.strLocBy}" ondblclick="funHelp('locby')"
-						cssClass="searchTextBox" /></td>
-				<td><label id="lblLocBy" class="namelabel"></label></td>
-
-		</table>
-		<table class="transTableMiddle">
-			<tr>
-				<td  width="120px"><label>Product Code</label></td>
-				<td width="130px"><input id="txtProdCode" name="txtProdCode"
-					ondblclick="funHelp('productInUse')" class="searchTextBox" /></td>
-				<!-- 		        <td><label>Pos Item Code:</label> -->
-				<!-- 		        <label id="spPartNo" class="namelabel"></label></td> -->
-				
-				<td colspan="9" id="spProdName" style="font-size: 12px;"></td>
-
-			</tr>
-
-			<tr>
-				<td>Qty</td>
-				<td ><input id="txtProdQty" type="text" class="decimal-places numberField"  /></td>
-				<td width="5%">UOM</td>
-				        <td width="5%"><s:select id="cmbUOM" name="cmbUOM"
-						path="strUOM" items="${uomList}"   cssClass="BoxW124px"/></td>
-				<td><label>Unit Price</label> </td>
-				<td width="120px"><input id="txtUnitPrice"
-					name="txtUnitPrice" disabled="disabled" type="number" step="any"
-					class="BoxW116px right-Align decimal-2-places" /></td>
-				<td><input id="txthidUnitPrice" type="hidden" class="decimal-places numberField"  /></td>
-				<td>Remarks &nbsp;&nbsp;<input id="txtRemarks"
-					name="txtRemarks" class="remarkTextBox" /></td>
-
-				<td><input type="Button" value="Add"
-					onclick="return btnAdd_onclick()" class="smallButton" /></td>
-<td></td>
-			</tr>
-
-		</table>
-
+		<div class="row transTable">
+			<div class="col-md-2">
+				<s:label path="strReqCode">Requisition Code xxc</s:label>
+				<s:input id="txtreqCode" name="txtreqCode" path="strReqCode" value="${matreq.strReqCode}"
+						ondblclick="funHelp('MaterialReq')" cssClass="searchTextBox" />
+			</div>	
+			<div class="col-md-2">
+ 				<label>Location By</label>
+				<s:input id="txtLocBy" name="txtLocBy" path="strLocBy" required = "true" value="${matreq.strLocBy}" ondblclick="funHelp('locby')"
+						cssClass="searchTextBox" />
+			</div>
+			<div class="col-md-2">
+			   <label id="lblLocBy" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align: center;"></label>
+			</div>
+			<div class="col-md-6"></div>
+			<div class="col-md-2">			
+				<label>Product Code</label>
+				<input id="txtProdCode" name="txtProdCode" ondblclick="funHelp('productInUse')" class="searchTextBox" />
+					<!--  <td><label>Pos Item Code:</label> -->
+					<!--  <label id="spPartNo" class="namelabel"></label></td> -->
+			</div>
+			<div class="col-md-2">		
+				<label id="spProdName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align: center;"></label>
+			</div>
+			<div class="col-md-2">	
+				<label>Qty</label>
+				<input id="txtProdQty" type="text" class="decimal-places numberField"  />
+			</div>
+			<div class="col-md-6">	</div>
+			<div class="col-md-2">	
+				<label>UOM</label>
+				<s:select id="cmbUOM" name="cmbUOM"
+						path="strUOM" items="${uomList}" cssClass="BoxW124px"/>
+			</div>
+			<div class="col-md-2">	
+				<label>Unit Price</label> 
+				<input id="txtUnitPrice" name="txtUnitPrice" disabled="disabled" type="number" step="any"
+					class="BoxW116px right-Align decimal-2-places" />
+			</div>
+			<div class="col-md-2">
+				<label>Remarks</label>
+				<input id="txtRemarks" name="txtRemarks" type="text" />
+			</div>
+			<div class="col-md-2">
+				<input type="Button" value="Add"
+					onclick="return btnAdd_onclick()" class="btn btn-primary center-block" style="margin-top:26px;" />
+			</div>
+			<div class="col-md-2">	
+				<input id="txthidUnitPrice" type="hidden" class="decimal-places numberField" />
+			</div>
+		</div>
 		<div class="dynamicTableContainer" style="height: 300px;">
 
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px;
-	font-weight: bold;">
-				<tr bgcolor="#72BEFC" style="height: 24px;">
+					font-weight: bold;">
+				<tr bgcolor="#c0c0c0" style="height: 24px;">
 					<td width="4%"  style="padding-left: 4px">Prod Code</td>
 					<!-- col1   -->
 					<!-- 					<th width="12%">Pos Item Code</th>col2   -->
-					<td width="18%" style="padding-left: 4px">Prod name</td>
+					<td width="8%">Prod name</td>
 					<!-- col3   -->
-					<td width="3%" style="padding-left: 4px">UOM</td>
+					<td width="2%">UOM</td>
 					<!-- col4   -->
-					<td width="4%" align="right"style="padding-right: 4px">Qty</td>
+					<td width="1%">Qty</td>
 					<!-- col5   -->
-					<td width="4%"  align="right" style="padding-right: 4px">Unit Price</td>
+					<td width="2%">Unit Price</td>
 					<!-- col6   -->
-					<td width="4%"  align="right" style="padding-right: 4px">Total Price</td>
+					<td width="3%">Total Price</td>
 					<!-- col7  -->
-					<td width="10%" align="left"  style="padding-left: 4px">Remarks</td>
+					<td width="4%">Remarks</td>
 					<!-- col8   -->
-					<td width="5%" align="center">Delete</td>
-					<td width="1%" align="center" style="display: none"></td>
+					<td width="3%">Delete</td>
+					<td width="4%" align="center" style="display: none"></td>
 					<!-- col9   -->
 				</tr>
 			</table>
 
 			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 
 				<table id="tblProdDet"
 					style="width: 104%; border: #0F0; table-layout: fixed; overflow: scroll"
@@ -1316,25 +1322,18 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 
 			</div>
 		</div>
-
-
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit"
-							onclick="return funCallFormAction('submit',this)"
-				class="form_button" /> 
-				<input type="button" value="Reset"
-				onclick="funResetFields();" class="form_button" />
-		</p>
-<br><br>
+		
+		<div class="center" style="text-align:center">
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit" onclick="return funCallFormAction('submit',this)">Submit</button></a>&nbsp
+			<a href="#"><button class="btn btn-primary center-block"  value="Reset" onclick="funResetFields();">Reset</button></a>
+		</div>
+		<br><br>
 	<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 			 <s:input type="hidden" id="hidReqFrom"   path="strReqFrom"   /> 
 	</s:form>
-	
+</div>
 	<script type="text/javascript">
     funApplyNumberValidation();
     funOnChange();

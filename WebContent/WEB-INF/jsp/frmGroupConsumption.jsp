@@ -1,5 +1,7 @@
- <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -7,6 +9,18 @@
     <link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Group Consumption Consolidated</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+   
+   <style> 
+     .transTable td {
+   padding-left:26px;
+	}
+	</style>
     <script type="text/javascript">
      
     //Ajax Waiting
@@ -355,44 +369,40 @@
   </head>
   	
 	<body onload="funOnload();">
-	<div id="formHeading">
-		<label>Group Consumption Consolidated</label>
-	</div>
-		<s:form name="frmGroupConsumption" method="GET" action="rptGroupConsumption.html" target="_blank">
-	   		<br />
-	   		<table class="transTable">
-			    <tr>
-					<td width="10%"><label>From Date :</label></td>
-					<td colspan="1" width="10%"><s:input id="txtFromDate" path="dtFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
-					<td width="10%"><label>To Date :</label></td>
-					<td colspan="1"><s:input id="txtToDate" path="dtToDate"  readonly="readonly" required="true" cssClass="calenderTextBox"/>
-					</td>	
-				</tr>
-				</table>
+	<div class="container transTable">
+		<label id="formHeading">Group Consumption Consolidated</label>
+	      <s:form name="frmGroupConsumption" method="GET" action="rptGroupConsumption.html" target="_blank">
+	   	
+	   	<div class="row">
+			    <div class="col-md-2"><label>From Date :</label>
+					   <s:input id="txtFromDate" path="dtFromDate" required="true" readonly="readonly" style="width:70%" cssClass="calenderTextBox"/>
+			    </div>
+					 
+				<div class="col-md-2"><label>To Date :</label>
+					   <s:input id="txtToDate" path="dtToDate"  readonly="readonly" required="true" style="width:70%" cssClass="calenderTextBox"/>
+				</div>	
+				<div class="col-md-8"></div>
 				
-				<br>
-				<table class="transTable">
-				<tr><td width="49%">Location&nbsp;&nbsp;&nbsp;
-				<input type="text" id="txtLocCode" 
-					ondblclick="funHelp('locationmaster')"
-						style="width: 50%;background-position: 225px 2px;"  class="searchTextBox" placeholder="Type to search"> 
-					<label id="lblToLocName"></label>
-				</td>
+				<div class="col-md-6"><label>Location</label>
+				      <input type="text" id="txtLocCode" ondblclick="funHelp('locationmaster')"
+						style="width: 35%;background-position: 160px 2px;"  class="searchTextBox" placeholder="Type to search"> 
+			          <label id="lblToLocName"></label>
+				</div>
 				
-				<td width="49%">Group&nbsp;&nbsp;&nbsp;
-			<input type="text"  style="width: 50%;background-position: 225px 2px;" 
-			id="searchGrp" placeholder="Type to search" Class="searchTextBox">
-		 </td></tr>
-			<tr>
-				<td style="padding: 0 !important;">
+				<div class="col-md-6"><label>Group</label>
+			           <input type="text"  style="width: 35%;background-position: 160px 2px;" 
+			               id="searchGrp" placeholder="Type to search" Class="searchTextBox">
+		        </div>
+		        
+			    <div class="col-md-6">
 					<div
-						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+						style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
 
 						<table id="" class="masterTable"
 							style="width: 100%; border-collapse: separate;">
 							<tbody>
-								<tr bgcolor="#72BEFC">
-									<td width="15%"><input type="checkbox" id="chkLocALL" checked="checked"
+								<tr bgcolor="#c0c0c0">
+									<td width="10%"><input type="checkbox" id="chkLocALL" checked="checked"
 										/>Select</td>
 									<td width="25%">Location Code</td>
 									<td width="65%">Location Name</td>
@@ -403,7 +413,7 @@
 						<table id="tblloc" class="masterTable"
 							style="width: 100%; border-collapse: separate;">
 
-							<tr bgcolor="#72BEFC">
+							<tr bgcolor="#fafbfb">
 								<td width="15%"></td>
 								<td width="25%"></td>
 								<td width="65%"></td>
@@ -411,14 +421,15 @@
 							</tr>
 						</table>
 					</div>
-				</td>
-				<td style="padding: 0 !important;">
-					<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+				</div>
+				
+				<div class="col-md-6">
+					<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
 						<table id="" class="masterTable"
 							style="width: 100%; border-collapse: separate;">
 							<tbody>
-								<tr bgcolor="#72BEFC">
-									<td width="15%"><input type="checkbox" id="chkGALL"
+								<tr bgcolor="#c0c0c0">
+									<td width="10%"><input type="checkbox" id="chkGALL"
 										checked="checked" onclick="funCheckUncheck()" />Select</td>
 									<td width="20%">Group Code</td>
 									<td width="65%">Group Name</td>
@@ -429,7 +440,7 @@
 						<table id="tblGroup" class="masterTable"
 							style="width: 100%; border-collapse: separate;">
 							<tbody>
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#fafbfb">
 									<td width="15%"></td>
 									<td width="20%"></td>
 									<td width="65%"></td>
@@ -438,27 +449,23 @@
 							</tbody>
 						</table>
 					</div>
-				</td>
-			</tr>
-		</table>
-		<br>
-		<table class="transTable">
-			<tr>
-				<td width="10%"><label>Report Type</label></td>
-				<td colspan="3"><s:select id="cmbDocType" path="strDocType"
-						cssClass="BoxW124px">
+				</div>
+			
+	         <div class="col-md-2"><label>Report Type</label>
+				   <s:select id="cmbDocType" path="strDocType"  style="width:auto;">
 						<s:option value="PDF">PDF</s:option>
 						<s:option value="XLS">EXCEL</s:option>
 						<s:option value="HTML">HTML</s:option>
 						<s:option value="CSV">CSV</s:option>
-					</s:select></td>
-			</tr>
+					</s:select>
+			 </div>
 			
-		</table>
-			<br>
+		</div>
+			
 			<p align="center">
-				 <input type="button" value="Submit" onclick="return formSubmit();" class="form_button" />
-				 <input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>			     
+				 <input type="button" value="Submit" onclick="return formSubmit();" class="btn btn-primary center-block" class="form_button" />
+				 &nbsp;
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>			     
 			</p>
 			<s:input type="hidden" id="hidLocCodes" path="strFromLocCode"></s:input>
 		<s:input type="hidden" id="hidGCode" path="strGCode"></s:input>
@@ -469,5 +476,6 @@
 				width="60px" height="60px" />
 		</div>
 		</s:form>
+		</div>
 	</body>
 </html>

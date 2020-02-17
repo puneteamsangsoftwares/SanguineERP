@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ibm.icu.math.BigDecimal;
+import com.sanguine.base.service.intfBaseService;
 import com.sanguine.model.clsLocationMasterModel;
 import com.sanguine.model.clsPropertySetupModel;
 import com.sanguine.service.clsGlobalFunctionsService;
@@ -36,6 +37,9 @@ public class clsGuestHistoryReportController {
 	
 	@Autowired
 	private clsGlobalFunctionsService objGlobalFunctionsService;
+	
+	@Autowired
+	private intfBaseService objBaseService;
 
 	@RequestMapping(value = "/frmGuestHistoryReport", method = RequestMethod.GET)
 	public ModelAndView funOpenForm(Map<String, Object> model, HttpServletRequest request) {
@@ -61,7 +65,7 @@ public class clsGuestHistoryReportController {
 	
 	@RequestMapping(value = "/loadGuestHistoryReport", method = RequestMethod.GET)
 	public @ResponseBody List<clsGuestHistoryReportBean> funGuestHistoryReport1(@RequestParam("guestCode")String strGuestCode,@RequestParam("dteFromDate")String dteFromDate,
-			@RequestParam("dteToDate")String dteToDate, HttpServletRequest req) {
+			@RequestParam("dteToDate")String dteToDate, HttpServletRequest req) throws Exception {
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		String userCode = req.getSession().getAttribute("usercode").toString();
 		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
@@ -77,7 +81,7 @@ public class clsGuestHistoryReportController {
 		dteToDate = todte[2] + "-" + todte[1] + "-" + todte[0];
 		List<clsGuestHistoryReportBean> listGuestData=new ArrayList<clsGuestHistoryReportBean>();
 		
-		StringBuilder sql1=new StringBuilder("select a.strCheckInNo,ifnull(f.strBillNo,''),a.dteCheckInDate,a.strRegistrationNo,a.strType,"//4
+		StringBuilder sql1=new StringBuilder("select a.strCheckInNo,ifnull(f.strBillNo,''),a.dteCheckInDate,a.strRegistrationNo,"//4
 				+ " b.strGuestCode,c.strGuestPrefix,c.strFirstName,c.strMiddleName,c.strLastName,"//9
 				+ " a.strType,b.strRoomNo,d.strRoomDesc,ifnull(e.strExtraBedTypeDesc,''),"//13
 				+ " DATE_FORMAT(a.dteArrivalDate,\"%d-%m-%Y\") ,DATE_FORMAT(a.dteDepartureDate,\"%d-%m-%Y\"),"//15
@@ -96,7 +100,7 @@ public class clsGuestHistoryReportController {
 				sql1.append(" order by b.strGuestCode ;");
 		
 		String sqlInner="";
-		List list = objGlobalFunctionsService.funGetDataList(sql1.toString(), "sql");
+		List list = objBaseService.funGetListForWebPMS(sql1, "sql");
 		if(list!=null)
 		{
 			List listRec;
@@ -107,18 +111,18 @@ public class clsGuestHistoryReportController {
 					objBean=new clsGuestHistoryReportBean();
 					objBean.setStrCheckInNo(ob[0].toString());
 					objBean.setStrBillNo(ob[1].toString());
-					objBean.setStrGuestName(ob[6].toString()+" "+ob[7].toString()+" "+ob[8].toString()+" "+ob[9].toString());
-					objBean.setStrEntryType(ob[10].toString());
-					objBean.setDteCheckIn(ob[14].toString());
-					objBean.setDteCheckOut(ob[15].toString());
-					objBean.setStrRoomNo(ob[12].toString());
-					objBean.setStrExtraBed(ob[13].toString());
+					objBean.setStrGuestName(ob[5].toString()+" "+ob[6].toString()+" "+ob[7].toString()+" "+ob[8].toString());
+					objBean.setStrEntryType(ob[9].toString());
+					objBean.setDteCheckIn(ob[13].toString());
+					objBean.setDteCheckOut(ob[14].toString());
+					objBean.setStrRoomNo(ob[11].toString());
+					objBean.setStrExtraBed(ob[12].toString());
 					//objBean.setStrWalkin_ReservationNo(ob[4].toString());
-					objBean.setDblbillAmt(Double.parseDouble(ob[19].toString()));
+					objBean.setDblbillAmt(Double.parseDouble(ob[18].toString()));
 					
-					objBean.setDblNoOfdaysStayed(Double.parseDouble(ob[16].toString()));
-					objBean.setIntNoOfAdults(Double.parseDouble(ob[17].toString()));
-					objBean.setIntNoOfChild(Double.parseDouble(ob[18].toString()));
+					objBean.setDblNoOfdaysStayed(Double.parseDouble(ob[15].toString()));
+					objBean.setIntNoOfAdults(Double.parseDouble(ob[16].toString()));
+					objBean.setIntNoOfChild(Double.parseDouble(ob[17].toString()));
 					
 					sqlInner="select a.strReceiptNo,b.strSettlementCode,ifnull(c.strSettlementDesc,'') from tblreceipthd a "
 							+ " left outer join tblreceiptdtl b on a.strReceiptNo=b.strReceiptNo AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'"
@@ -147,7 +151,7 @@ public class clsGuestHistoryReportController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/exportGuestHistoryExcel", method = RequestMethod.GET)
 	public ModelAndView funExportGuestHistoryExcel(@RequestParam("guestCode")String strGuestCode,@RequestParam("dteFromDate")String dteFromDate,
-			@RequestParam("dteToDate")String dteToDate, HttpServletRequest req) {
+			@RequestParam("dteToDate")String dteToDate, HttpServletRequest req) throws Exception {
 		
 		
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
@@ -165,7 +169,7 @@ public class clsGuestHistoryReportController {
 		dteToDate = todte[2] + "-" + todte[1] + "-" + todte[0];
 		List<clsGuestHistoryReportBean> listGuestData=new ArrayList<clsGuestHistoryReportBean>();
 		
-		StringBuilder sql1=new StringBuilder("select a.strCheckInNo,ifnull(f.strBillNo,''),a.dteCheckInDate,a.strRegistrationNo,a.strType,"//4
+		StringBuilder sql1=new StringBuilder("select a.strCheckInNo,ifnull(f.strBillNo,''),a.dteCheckInDate,a.strRegistrationNo,"//4
 				+ " b.strGuestCode,c.strGuestPrefix,c.strFirstName,c.strMiddleName,c.strLastName,"//9
 				+ " a.strType,b.strRoomNo,d.strRoomDesc,ifnull(e.strExtraBedTypeDesc,''),"//13
 				+ " DATE_FORMAT(a.dteArrivalDate,\"%d-%m-%Y\") ,DATE_FORMAT(a.dteDepartureDate,\"%d-%m-%Y\"),"//15
@@ -203,7 +207,7 @@ public class clsGuestHistoryReportController {
 
 		List listofGuestFlash = new ArrayList();
 
-		List list = objGlobalFunctionsService.funGetDataList(sql1.toString(), "sql");
+		List list = objBaseService.funGetListForWebPMS(sql1, "sql");
 		if(list!=null)
 		{
 			List listRec;
@@ -212,19 +216,19 @@ public class clsGuestHistoryReportController {
 				for(int i=0;i<list.size();i++){
 					Object ob[]=(Object[]) list.get(i);
 					List DataList = new ArrayList<>();
-					DataList.add(ob[6].toString()+" "+ob[7].toString()+" "+ob[8].toString()+" "+ob[9].toString());
+					DataList.add(ob[5].toString()+" "+ob[6].toString()+" "+ob[7].toString()+" "+ob[8].toString());
 					//DataList.add(ob[0].toString());
 					DataList.add(ob[1].toString());
-					DataList.add(ob[10].toString());
-					DataList.add(ob[14].toString());
-					DataList.add(ob[15].toString());
-					DataList.add(ob[12].toString());
+					DataList.add(ob[9].toString());
 					DataList.add(ob[13].toString());
+					DataList.add(ob[14].toString());
+					DataList.add(ob[13].toString());
+					DataList.add(ob[12].toString());
+					DataList.add(ob[15].toString());
 					DataList.add(ob[16].toString());
 					DataList.add(ob[17].toString());
-					DataList.add(ob[18].toString());
 					
-					DataList.add(ob[19].toString());
+					DataList.add(ob[18].toString());
 					sqlInner="select a.strReceiptNo,b.strSettlementCode,ifnull(c.strSettlementDesc,'') from tblreceipthd a "
 							+ " left outer join tblreceiptdtl b on a.strReceiptNo=b.strReceiptNo AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'"
 							+ " left outer join tblsettlementmaster c on b.strSettlementCode=c.strSettlementCode AND c.strClientCode='"+clientCode+"'"

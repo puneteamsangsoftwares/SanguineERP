@@ -1,23 +1,39 @@
- <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
+<style> 
+ .transTable td {
+    padding-left: 25px;
+ }
+ </style>
+ 
 </head>
 <script type="text/javascript">
 
 $(function() 
 		{
 			var startDate="${startDate}";
+			var startDateOfMonth="${startDateOfMonth}";
 			var arr = startDate.split("/");
 			Date1=arr[0]+"-"+arr[1]+"-"+arr[2];
 			$( "#txtFromDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 			$( "#txtToDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 			
-			$("#txtFromDate" ).datepicker('setDate', Date1);
+			$("#txtFromDate" ).datepicker('setDate', startDateOfMonth);
 			$("#txtToDate" ).datepicker('setDate', 'today');
 			
 			
@@ -302,69 +318,56 @@ function btnSubmit_Onclick()
  }
 </script>
 <body>
-	<div id="formHeading">
-		<label> Supplier wise Category wise GRN Report</label>
-	</div>
-		<s:form name="SupplierwiseGRNReport" method="GET" action="rptSupplierWiseProducttGRNReport.html" target="_blank">
-            <br />
-	   		<table class="transTable">
-			    <tr>
-					<td width="10%"><label>From Date :</label></td>
-					<td width="10%" colspan="1"><s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
-					<td width="10%"><label>To Date :</label></td>
-					<td><s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</td>	
-					<td></td>
-				</tr>
-				
-				<br>
-				
-				<tr>
+	<div  class="container transTable">
+		<label id="formHeading"> Supplier wise Category wise GRN Report</label>
+	    <s:form name="SupplierwiseGRNReport" method="GET" action="rptSupplierWiseProducttGRNReport.html" target="_blank">
+          
+          <div class="row">
+			 <div class="col-md-2"><label>From Date :</label>
+					<s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox" style="width: 70%;"/>
+			 </div>
+			 
+			 <div class="col-md-2"><label>To Date :</label>
+					<s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox" style="width: 70%;"/>
+			 </div>	
+			
 <!-- 				<td width="140px"> -->
 <!-- 				        		<label>Supplier Code </label> -->
 <!-- 				        	</td> -->
 <!-- 				        	<td  width="15%"> -->
 <%-- 				        		<s:input id="txtPartyCode" name="txtPartyCode"  path="strPCode" ondblclick="funHelp('suppcode')"   cssClass="searchTextBox"/> --%>
 <!-- 				       	</td><td><label id=lblSuppName>ALL Supplier</label> </td> -->
-				
+			<div class="col-md-8"></div>
 		
-			   
-					<td width="10%"><label>Report Type :</label></td>
-					<td>
-						<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+			   <div class="col-md-2"><label>Report Type :</label>
+					    <s:select id="cmbDocType" path="strDocType" style="width:auto;">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
 				    		<s:option value="HTML">HTML</s:option>
 				    		<s:option value="CSV">CSV</s:option>
 				    	</s:select>
-					</td>
-				</tr>
-					<tr>
-		
+				</div>
+				<div class="col-md-10"></div>
+				
+			   <div class="col-md-6"><label>Supplier</label>
+			          <input style="width: 35%; background-position: 150px 2px;" type="text" id="txtSuppCode" 
+			            Class="searchTextBox" placeholder="Type to search" style="width: 35%;"></input>
+			              <label id="lblSuppName"></label>
+			   </div>
 			
-			<td colspan="2">Supplier&nbsp;&nbsp;&nbsp;<input style="width: 35%; background-position: 150px 2px;" type="text" id="txtSuppCode" 
-			 Class="searchTextBox" placeholder="Type to search"></input>
-			<label id="lblSuppName"></label></td>
+			  <div class="col-md-6"><label>Category</label>
+			          <input style="width: 35%; background-position: 150px 2px;" type="text" id="txtSuppCode" 
+			            Class="searchTextBox" placeholder="Type to search" style="width: 35%;"></input>
+			           <label id="lblCategory"></label>
+			  </div>
 			
-			<td colspan="2">Category&nbsp;&nbsp;&nbsp;<input style="width: 35%; background-position: 150px 2px;" type="text" id="txtSuppCode" 
-			 Class="searchTextBox" placeholder="Type to search"></input>
-			<label id="lblCategory"></label></td>
-			
-			</tr>
-			
-			
-			<tr>
-			
-			
-					<td colspan="2">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-
-							<table id="" class="masterTable"
+			    <div class="col-md-6">
+					<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+                         <table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
-										<td width="15%"><input type="checkbox" checked="checked" 
+									<tr bgcolor="#c0c0c0">
+										<td width="10%"><input type="checkbox" checked="checked" 
 										id="chkSuppALL"/>Select</td>
 										<td width="25%">Supplier Code</td>
 										<td width="65%"> Supplier Name</td>
@@ -375,23 +378,21 @@ function btnSubmit_Onclick()
 							<table id="tblSupp" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+							<!-- 	<tr bgcolor="#fafbfb">
 									
 
-								</tr>
+								</tr> -->
 							</table>
 						</div>
-				</td>
+				   </div>
 				
-					<td  colspan="2">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-
-							<table id="" class="masterTable"
+				<div class="col-md-6">
+					<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+                         <table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
-										<td width="15%"><input type="checkbox" id="chkSGALL"
+									<tr bgcolor="#c0c0c0">
+										<td width="10%"><input type="checkbox" id="chkSGALL"
 											checked="checked" onclick="funCheckUncheckSubGroup()" />Select</td>
 										<td width="25%">Sub Group Code</td>
 										<td width="65%">Sub Group Name</td>
@@ -402,34 +403,33 @@ function btnSubmit_Onclick()
 							<table id="tblSubGroup" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<!-- <tr bgcolor="#fafbfb">
 										<td width="15%"></td>
 										<td width="25%"></td>
 										<td width="65%"></td>
 
-									</tr>
+									</tr> -->
 								</tbody>
 							</table>
-							
-						</div>
-				</td>
-			</tr>
-			</table>
+					</div>
+				</div>
+			</div>
+			
 			<br>
 			<p align="center">
-				 <input type="submit" value="Submit"  class="form_button"  onclick="btnSubmit_Onclick()"  id="btnSubmit" />
-				 <input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>			     
+				 <input type="submit" value="Submit"  class="btn btn-primary center-block"  class="form_button"  onclick="btnSubmit_Onclick()"  id="btnSubmit" />
+				 &nbsp;
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>			     
 			</p>
 		
-			<div id="wait"
-			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
-			<img
-				src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
+			<div id="wait" style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
+			<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
 				width="60px" height="60px" />
 				
 			<s:input type="hidden" id="hidSuppCodes" path="strPCode"></s:input>		
 			<s:input type="hidden" id="hidSubCodes" path="strCatCode"></s:input>	
 		</div>
 		</s:form>
+		</div>
 	</body>
 </html>

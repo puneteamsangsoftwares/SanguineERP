@@ -1,12 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title>Opening Stock</title>
 <script type="text/javascript">
 	/**
@@ -758,8 +766,8 @@
 		    qty=parseFloat(qty).toFixed(maxQuantityDecimalPlaceLimit);
 		    costPUnit=parseFloat(costPUnit).toFixed(maxAmountDecimalPlaceLimit);
 		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"8%\" name=\"listOpStkDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"'>";
-		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"70%\" name=\"listOpStkDtl["+(rowCount)+"].strProdName\" value='"+prodName+"' id=\"txtProdName."+(rowCount)+"\" >";
-		    row.insertCell(2).innerHTML= "<input class=\"Box\" type=\"text\" name=\"listOpStkDtl["+(rowCount)+"].strDisplyQty\" size=\"9%\" style=\"text-align: right;\" id=\"txtDisplayQty."+(rowCount)+"\" value='"+Displyqty+"'/>";	
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"30%\" name=\"listOpStkDtl["+(rowCount)+"].strProdName\" value='"+prodName+"' id=\"txtProdName."+(rowCount)+"\" >";
+		    row.insertCell(2).innerHTML= "<input class=\"Box\" type=\"text\" name=\"listOpStkDtl["+(rowCount)+"].strDisplyQty\" size=\"13%\" style=\"text-align: right;\" id=\"txtDisplayQty."+(rowCount)+"\" value='"+Displyqty+"'/>";	
 		    row.insertCell(3).innerHTML= "<input class=\"decimal-places inputText-Auto\" type=\"text\" style=\"text-align: right;\" name=\"listOpStkDtl["+(rowCount)+"].dblLooseQty\"  id=\"txtLooseQty."+(rowCount)+"\" value='"+LooseQty+"' onblur=\"funConvertQty(this);\"/>";	
 		    row.insertCell(4).innerHTML= "<input class=\"Box\" name=\"listOpStkDtl["+(rowCount)+"].strUOM\"  id=\"txtUOM."+(rowCount)+"\" value='"+uom+"'>";
 		    row.insertCell(5).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places-amt inputText-Auto\" size=\"4%\" name=\"listOpStkDtl["+(rowCount)+"].dblCostPUnit\" id=\"txtCostPUnit."+(rowCount)+"\" value='"+costPUnit+"' >";
@@ -916,91 +924,96 @@
 </head>
 
 <body onload="funOnLoad()">
-<div id="formHeading">
-		<label>Opening Stock</label>
-	</div>
+<div class="container">
+	<label id="formHeading">Opening Stock</label>
 	<s:form id="frmOpeningStock" name="frmOpeningStock" method="POST" action="saveOpeningStk.html?saddr=${urlHits}">
 		<br>
-		<table class="transTable">
-			<tr>
-				<th align="right"><a onclick="funOpenExportImport()"
-					href="javascript:void(0);">Export/Import</a>&nbsp; &nbsp; &nbsp;
-					&nbsp;<a id="baseUrl" href="#">Attach Documents</a>&nbsp; &nbsp; 
-				</th>
-			</tr>
-		</table>
-			<table class="transTable">
-			    <tr>
-			    	<td width="110px"><label>OpStk Code</label></td>
-			        <td width="150px"><s:input type="text" id="txtOpStkCode" path="strOpStkCode" ondblclick="funHelp('opstock')" cssClass="searchTextBox"/></td>
-			        <td width="90px"><label>Expiry Date</label></td>
-				    <td colspan="2"><s:input path="dtExpDate" type="text" id="txtExpDate" required="required" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox"/></td>				    				            
-			    </tr>
-			  <tr>
-			  <td>Conversion UOM </td>
-			  <td  colspan="3">
-			        	 <s:select id="cmbConversionUOM" Class="BoxW124px" path="strConversionUOM">
-						  <option value="RecUOM">Recieved UOM</option>
-						  <option value="IssueUOM">Issue UOM </option>
-						  <option value="RecipeUOM">Recipe UOM</option>
-						</s:select> 		
-					</td>	    
-			  </tr>
-			    <tr>
-			    	<td><label>Location Code</label></td>
-			        <td><s:input type="text" id="txtLocCode" name="locCode" path="strLocCode" cssClass="searchTextBox" ondblclick="funHelp('locationmaster')" required="true"/> </td>
-			        <td colspan="5"><label id="lblLocName" class="namelabel"></label></td>	
-			    </tr>
-			    <tr></tr>
-			</table>
+		<div class="row transTable">
+			<div class="col-md-12">
+				<a onclick="funOpenExportImport()" href="javascript:void(0);">Export/Import</a>
+			</div>
+			<div class="col-md-2">			    	
+				<label>OpStk Code</label>
+			    <s:input type="text" id="txtOpStkCode" path="strOpStkCode" ondblclick="funHelp('opstock')" cssClass="searchTextBox"/>
+			</div>
+			<div class="col-md-2">	
+			     <label>Expiry Date</label>
+				 <s:input path="dtExpDate" type="text" id="txtExpDate" required="required" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" style="width:80%;"/>			    				            
+			</div>
+			<div class="col-md-2">	   
+				<label>Conversion UOM </label>
+			 	<s:select id="cmbConversionUOM" Class="BoxW124px" path="strConversionUOM">
+					<option value="RecUOM">Recieved UOM</option>
+					<option value="IssueUOM">Issue UOM </option>
+					<option value="RecipeUOM">Recipe UOM</option>
+				</s:select> 		
+			</div>
+			<div class="col-md-2">			    
+			 	<label>Location Code</label>
+			    <s:input type="text" id="txtLocCode" name="locCode" path="strLocCode" cssClass="searchTextBox" ondblclick="funHelp('locationmaster')" required="true"/> 
+			</div>
+			<div class="col-md-2">	       
+			    <label id="lblLocName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align: center;"
+			    ></label>
+		   </div>   
+		</div>	
 			
-			<table class="transTableMiddle">
-				
-				<tr>
-					<td  width="110px"><label>Product Code</label></td>
-		        	<td width="150px"><input type="text" id="txtProdCode" ondblclick="funHelp('productInUse')" class="searchTextBox"/></td>
-		    		<td width="110px"><label>Product Name</label></td>
-		    		<td  width="150px"><label id="lblProdName"  class="namelabel" style="font-size: 12px;"></label><!-- <input id="txtProdName" name="prodName" /> --></td>
-		    		<td  width="110px"><label>UOM</label></td>		    		
-				    <td><label id="lblUOM"  class="namelabel"></label></td>
-				</tr>
-				
-				<tr>
-					<td><label>Qty</label></td>
-				    <td><input type="text"  id="txtQuantity" class="decimal-places numberField"/></td>				    
-				    <td><label>Cost Per Unit</label></td>
-				    <td><input id="txtCostPUnit" type="text"   class="decimal-places-amt numberField"/></td>
-				    <td><label>Revision Level</label></td>
-				    <td><input id="txtRevLevel" type="text"  value="0" class="numeric numberField"/></td>
-				</tr>
-				
-				<tr>
-			    	<td><label>Lot No</label></td>
-				    <td><input id="txtLotNo" name="lotNo"  value="0" class="numeric numberField"/></td>	
-				    <td colspan="4"><input id="btnAdd" type="button" class="smallButton" value="Add" onclick="return btnAdd_onclick();"></input></td>			    
-				</tr>
-
-			</table>
+		<div class="row transTable">
+			<div class="col-md-2">	
+				<label>Product Code</label>
+		        <input type="text" id="txtProdCode" ondblclick="funHelp('productInUse')" class="searchTextBox"/>
+		    </div>
+		    <div class="col-md-2">	
+		    	<label>Product Name</label>
+		    	<label id="lblProdName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%;text-align: center;"
+		    	></label><!-- <input id="txtProdName" name="prodName" /> -->
+		    </div>
+		    <div class="col-md-2">	
+		    	<label>UOM</label>    		
+				<label id="lblUOM"  class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%;text-align: center;"
+				></label>
+			</div>
+			<div class="col-md-2">	
+				<label>Qty</label>
+				<input type="text"  id="txtQuantity" class="decimal-places numberField"/>
+			</div>
+			<div class="col-md-2">				    
+				<label>Cost Per Unit</label>
+				<input id="txtCostPUnit" type="text"   class="decimal-places-amt numberField"/>
+			</div>
+				<div class="col-md-2">	</div>
+			<div class="col-md-2">	
+				 <label>Revision Level</label>
+				 <input id="txtRevLevel" type="text"  value="0" class="numeric numberField"/>
+			</div>
+			<div class="col-md-2">		
+				<label>Lot No</label>
+				<input id="txtLotNo" name="lotNo" value="0" type="text" />
+			</div>
+			<div class="col-md-2">
+				   <input id="btnAdd" type="button" class="btn btn-primary center-block" value="Add" onclick="return btnAdd_onclick();" style="margin-top:27px;"></input>			    
+			</div>	
+		</div><br>
 		<div class="dynamicTableContainer" style="height: 325px">
 				<table  style="height:25px;border:#0F0;width:100%;font-size:11px;
 			font-weight: bold;">
 
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#c0c0c0">
 					<td width="5%">Prod Code</td>
 					<!--  COl1   -->
-					<td width="27%">Product Name</td>
+					<td width="33%">Product Name</td>
 					<!--  COl2   -->
-					<td width="7%">Qty</td>
+					<td width="4%">Qty</td>
 					<!--  COl3   -->
 					<td width="6%">Loose Qty</td>
 					<!--  COl4   -->
 					<td width="4%">UOM</td>
 					<!--  COl5   -->
-					<td width="5%">Cost Per Unit</td>
+					<td width="4%">Cost Per Unit</td>
 					<!--  COl6   -->
-					<td width="5%">Total cost</td>
+					<td width="4%">Total cost</td>
 					<!--  COl7   -->
-					<td width="5%">Revision Level</td>
+					<td width="6%">Revision Level</td>
 					<!--  COl8   -->
 					<td width="5%">Lot No</td>
 					<!--  COl9   -->
@@ -1008,8 +1021,7 @@
 					<!--  COl10   -->
 				</tr>
 			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 275px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 275px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblProduct"
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col9-center">
@@ -1041,16 +1053,16 @@
 			</div>
 		</div>
 		<br>
-		<p align="center">
-			<input id="btnSubmit" type="submit" value="Submit" onclick="return btnSubmit_onclick()"class="form_button" />
-			&nbsp; &nbsp; &nbsp;
-			 <input id="btnReset" type="button" value="Reset" class="form_button" onclick="funResetField()" />
-		</p>
+		<div class="center" style="text-align:center">
+			<a href="#"><button class="btn btn-primary center-block" id="btnSubmit" tabindex="3" value="Submit" onclick="return btnSubmit_onclick()">Submit</button></a>&nbsp
+			<a href="#"><button class="btn btn-primary center-block" id="btnReset"  value="Reset" onclick="funResetFields();">Reset</button></a>
+		</div>
 		<br><br>
 		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 	</s:form>
+</div>
 	<script type="text/javascript">
 	funApplyNumberValidation();
 	</script>

@@ -1,12 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="sp"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title>Material Return</title>
 <script type="text/javascript">
 
@@ -771,134 +779,129 @@ var mreditable;
 
 	
 </head>
-		<body>
-	<div id="formHeading">
-		<label>Material Return</label>
-	</div>
+<body>
+	<div class="container">
+		<label id="formHeading">Material Return</label>
 		<s:form name="MaterialReturn" action="saveMaterialReturn.html?saddr=${urlHits}" method="POST">
-		<br/>
-	
-			<table class="transTable">
+			<!-- <table class="transTable">
 		    	<tr>
 				    <th align="right"> <a id="baseUrl" href="#">Attach Documents</a>&nbsp; &nbsp; &nbsp;
 						&nbsp; </th>
 				</tr>
-			</table>
-		
-			<table class="transTable"> 
-			
-		 		<tr>
-		 		    <td width="10%">MR Code</td>
-			        <td width="10%"><s:input id="txtMRCode" name="txtMRCode" cssClass="searchTextBox" path="strMRetCode" ondblclick="funHelp('MaterialReturn')"/></td>
-			      	 <td width="20%"></td>			      
-			        <td width="8%">MR Date</td>
-			        <td colspan="5"><s:input id="txtMRDate" name="txtMRDate" type="text" required="required" path="dtMRetDate"  pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox"/></td>
-			        
-			    </tr>
-				    	
-			    <tr>
-			        <td><label id="lblLocFrom" >Location By</label></td>
-			        <td><s:input id="txtLocFromCode" name="txtLocFrom" path="strLocFrom" type="text" required="required"  ondblclick="funHelp('locby')" cssClass="searchTextBox"/></td>
-			        <td><label id="txtLocFromName"></label>
-			        <td><label id="lblLocTo" >Location To</label></td>
-			        <td width="10%"><s:input id="txtLocToCode" name="txtLocTo" type="text" required="required" path="strLocTo" ondblclick="funHelp('locon')" cssClass="searchTextBox"/></td>
-			        <td><label id="txtLocToName"></label></td>
-				</tr>                   
-				  
-			    <tr>
-				    <td><label>Against</label></td>
-				    <td>
-				    	<s:select id="cmbAgainst" path="strAgainst" items="${strProcessList}" 
-				    	 onchange="funOnChange();" cssClass="BoxW124px">
-						</s:select>
-					</td>
-					<td colspan="4"><s:input id="txtMISCode" name="txtMISCode" path="strMISCode" cssClass="searchTextBox" ondblclick="funOpenAgainst();"/></td>
-					
-				</tr>
-				    </table>
-				    <table class="transTableMiddle">
-				<tr>
-					<td width="10%"><label>Product Code</label></td>
-				    <td width="10%"><input id="txtProdCode" name="txtProdCode" ondblclick="funHelp('productInUse')" class="searchTextBox"/></td>
-				    <td width="10%"><label>Product Name</label></td>
-				    <td width="20%"><label id="txtProdName" style="font-size: 12px;"></label></td>
-				    <td width="10%"><label>POS Item Code</label></td>
-				    <td width="10%"><label id="txtPOSItemCode"></label></td>
-				    <td width="5%"><label>Stock</label></td>
-				    <td colspan="2"><label id="txtStock"></label></td>				    
-				</tr>
-								    
-				<tr>
-				    <td><label>Qty</label></td>
-				    <td><input id="txtQty" name="txtQty" class="decimal-places numberField" style="width: 100px" /></td>
-				    
-				    <td ><label >Remarks</label></td>
-				    <td width="10%"><input id="txtRemarks" name="txtRemarks" class="remarkTextBox"/></td>
-				    <td colspan="4"><input type="Button" value="Add"  class="smallButton" onclick="return btnAdd_onclick();"/></td>
-				    <td></td>
-				</tr>
-				<tr></tr> 
-				<tr></tr>				
-			</table>
+			</table> -->
+			<div class="row transTable"> 
+				<div class="col-md-2">
+		 			<label>MR Code</label>
+			        <s:input id="txtMRCode" name="txtMRCode" cssClass="searchTextBox" path="strMRetCode" ondblclick="funHelp('MaterialReturn')"/>
+			     </div>
+			     <div class="col-md-2">   
+			       	<label>MR Date</label>
+			        <s:input id="txtMRDate" name="txtMRDate" type="text" required="required" path="dtMRetDate"  pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" style="width:80%;"/>
+			     </div>   
+			     <div class="col-md-2"> 
+			         <label id="lblLocFrom" >Location By</label>
+			         <s:input id="txtLocFromCode" name="txtLocFrom" path="strLocFrom" type="text" required="required"  ondblclick="funHelp('locby')" cssClass="searchTextBox"/>
+			     </div> 
+			     <div class="col-md-2"> 
+			         <label id="txtLocFromName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align: center;"></label>
+			     </div>
+			     <div class="col-md-4"></div>
+			     <div class="col-md-2"> 
+			       	<label id="lblLocTo" >Location To</label>
+			        <s:input id="txtLocToCode" name="txtLocTo" type="text" required="required" path="strLocTo" ondblclick="funHelp('locon')" cssClass="searchTextBox"/>
+			     </div>
+			     <div class="col-md-2">   
+			        <label id="txtLocToName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align: center;"></label>
+				 </div>           
+				 <div class="col-md-2"> 
+			    	<label>Against</label>
+				    <s:select id="cmbAgainst" path="strAgainst" items="${strProcessList}" 
+				    	onchange="funOnChange();" cssClass="BoxW124px">
+					</s:select>
+				</div>
+				<div class="col-md-2">	
+				   <s:input id="txtMISCode" name="txtMISCode" path="strMISCode" cssClass="searchTextBox" ondblclick="funOpenAgainst();" style="margin-top: 25px;"/>
+			  </div>
+				
+			</div>
+			<div class="row transTable">
+				<div class="col-md-2">	
+					<label>Product Code</label>
+				    <input id="txtProdCode" name="txtProdCode" ondblclick="funHelp('productInUse')" class="searchTextBox"/>
+				 </div>
+				 <div class="col-md-2">	   
+				 	<label>Product Name</label>
+				    <label id="txtProdName" style="background-color:#dcdada94; width: 100%; height: 52%;text-align: center;"></label>
+				 </div>
+				 <div class="col-md-2">	
+				   	<label>POS Item Code</label>
+				    <label id="txtPOSItemCode" style="background-color:#dcdada94; width: 100%; height: 52%; text-align: center;"></label>
+				 </div>
+				 <div class="col-md-2">	
+				    <label>Stock</label>
+					<label id="txtStock" style="background-color:#dcdada94; width: 100%; height: 52%;text-align: center;"></label>			    
+				</div>
+				 <div class="col-md-4">	</div>	    
+				<div class="col-md-2">	
+				    <label>Qty</label>
+				    <input id="txtQty" name="txtQty" type="text" class="decimal-places numberField" />
+				</div>
+				<div class="col-md-2">	   
+				    <label >Remarks</label>
+				    <input id="txtRemarks" type="text" name="txtRemarks"/>
+				</div>
+				<div class="col-md-2">	 
+				    <input type="Button" value="Add"  class="btn btn-primary center-block" style="margin-top: 22px;" onclick="return btnAdd_onclick();"/>
+				</div> 	
+			</div>
 			<!--<br/>
 		 <div class="codebox_bar">
 			<p class="tab">Products</p>
 		</div> -->
-		<div class="dynamicTableContainer"  style="height:300px;">
-		
-		<table  style="height:28px;border:#0F0;font-size:11px;
-	font-weight: bold;width: 100%;" >
-		
-		<tr bgcolor="#72BEFC" >
-		<td width="6%">Product Code</td>
-		<td width="30%">Product Name</td>
-		<td width="6%">POS Item Code</td>
-		<td width="5%">Quantity</td>
-		<td width="20%">Remarks</td>
-		<td width="5%">Delete</td>
-		</tr>
-		</table>
-		<div style="background-color:  	#C0E2FE;
-    border: 1px solid #ccc;
-    display: block;
-    height: 255px;
-    margin: auto;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    width: 100%;">
-		<table id="tblProduct"  style="width:100%;border:
-#0F0;table-layout:fixed;overflow:scroll" class="transTablex col6-center">
-	<tbody>    
-	 <col style="width:6%">
-        <col style="width:30%">
-        <col style="width:6%">
-        <col style="width:5%">
-        <col style="width:20%">
-        <col style="width:4%">
-	
-    </tbody>
-</table>
-		</div>
-		</div>												
-			<table class="transTableMiddle">
-				<tr>
-					<td>Narration</td>
-		            <td><s:textarea id="txtNarration" path="strNarration"></s:textarea></td>
-					
-				</tr>	
+		<br>
+			<div class="dynamicTableContainer"  style="height:300px;">
+				<table  style="height:28px;border:#0F0;font-size:11px; font-weight: bold;width: 100%;" >
+					<tr bgcolor="#c0c0c0" >
+					<td width="6%">Product Code</td>
+					<td width="30%">Product Name</td>
+					<td width="6%">POS Item Code</td>
+					<td width="5%">Quantity</td>
+					<td width="20%">Remarks</td>
+					<td width="5%">Delete</td>
+					</tr>
 			</table>
-			<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit"  class="form_button" onclick="return funCallFormAction('submit',this)"/>
-				 <input type="button"   value="Reset" class="form_button" onclick="funResetFields()" />
-		</p>	
+			<div style="background-color:#fbfafa;border: 1px solid #ccc;display: block;height: 255px;margin: auto;overflow-x: hidden;overflow-y: scroll; width: 100%;">
+				 <table id="tblProduct"  style="width:100%;border:#0F0;table-layout:fixed;overflow:scroll" class="transTablex col6-center">
+					<tbody>    
+					 <col style="width:6%">
+				        <col style="width:30%">
+				        <col style="width:6%">
+				        <col style="width:5%">
+				        <col style="width:20%">
+				        <col style="width:4%">
+					
+				    </tbody>
+				</table>
+			</div>
+		</div>	
+		<br>											
+			<div class="row transTableMiddle">
+				<div class="col-md-4">	
+					<label>Narration</label><br>
+		            <s:textarea id="txtNarration" path="strNarration"></s:textarea>
+		         </div>
+			</div>
+			<div class="center" style="text-align:center">
+				<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit" onclick="return funCallFormAction('submit',this)">Submit</button></a>
+				<a href="#"><button class="btn btn-primary center-block"  value="Reset" onclick="funResetFields();">Reset</button></a>
+			</div>
 		<br><br>	
 		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
-				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
-			</div>
+			<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+		</div>
 			
-		</s:form>
+	</s:form>
+</div>
 		
 		<script type="text/javascript">
     		funApplyNumberValidation();

@@ -38,7 +38,9 @@ public class clsPropertySetupBean {
 	private String strHscCode;
 	private String strCheckInEmailContent;
 	private String strReservationEmailContent;
+	private String strEnableHousekeeping;
 	
+	private String strEnableWebCam;
 
 	public String getStrGSTNo() {
 		return strGSTNo;
@@ -215,6 +217,22 @@ public class clsPropertySetupBean {
 
 	public void setStrReservationEmailContent(String strReservationEmailContent) {
 		this.strReservationEmailContent = strReservationEmailContent;
+	}
+
+	public String getStrEnableHousekeeping() {
+		return strEnableHousekeeping;
+	}
+
+	public void setStrEnableHousekeeping(String strEnableHousekeeping) {
+		this.strEnableHousekeeping = strEnableHousekeeping;
+	}
+
+	public String getStrEnableWebCam() {
+		return strEnableWebCam;
+	}
+
+	public void setStrEnableWebCam(String strEnableWebCam) {
+		this.strEnableWebCam = strEnableWebCam;
 	}
 
 	
