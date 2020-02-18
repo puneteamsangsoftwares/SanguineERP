@@ -306,6 +306,10 @@
 			case "checkInRooms":
 			 	funSetRoomMasterData(code);
 			 	break;
+			 	
+			case "billno":
+			 	funSetRoomMasterData(code);
+			 	break;
 		}
 	}
 		
@@ -350,6 +354,11 @@
 				<div class="col-md-2">
 					<s:radiobutton id="strSearchTypeRoom" path="strSearchType" style="margin-right:5px;" />Room
 					<s:input id="strSearchTextField" path="strSearchTextField" readonly="true" cssClass="searchTextBox" ondblclick="funHelp('checkInRooms')"/>
+				</div>
+				
+				<div class="col-md-2">
+					<s:radiobutton id="strSearchTypeCheckIn" path="strSearchType" style="margin-right:5px;" />Group CheckIn
+					<s:input id="strSearchTextField" path="strSearchTextField" readonly="true" cssClass="searchTextBox" ondblclick="funHelp('billNo')"/>
 				</div>
 				<div class="col-md-2">
 					<s:input type="hidden" id="strRoomNo" path="strRoomNo" />

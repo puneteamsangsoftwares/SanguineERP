@@ -4202,7 +4202,10 @@ public class clsGlobalFunctions {
 		clsCompanyMasterModel objCompModel = objSetupMasterService.funGetObject(clientCode);
 		clsWebBooksAccountMasterBean objACMaster = new clsWebBooksAccountMasterBean();
 		if (objCompModel.getStrWebBookModule().equals("Yes")) {
-
+			if(!accountCode.equals(""))
+			{
+				
+			
 			List list = objGlobalFunctionsService.funGetWebBooksAccountDtl(accountCode, clientCode);
 			if (list.size() > 0) {
 				Object[] obj = (Object[]) list.get(0);
@@ -4212,7 +4215,8 @@ public class clsGlobalFunctions {
 				//objACMaster.setStrAccountCode("Invalid Code");
 				//objACMaster.setStrAccountName("Invalid ");
 			}
-	
+			
+			}
 		}
 				return objACMaster;
 	}

@@ -43,7 +43,7 @@ padding-left:1px;
  	$(function() 
  	{
  		var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';
- 		
+ 		var rTypeCode= "";
  		$("#txtArrivalTime").timepicker();
  		$("#txtDepartureTime").timepicker();
  		
@@ -139,6 +139,10 @@ padding-left:1px;
 			case 'reasonPMS' : 
 				funSetReasonData(code);
 			break;
+			
+			case 'guestCode' : 
+				funSetGuestCode(code);
+				break;
 				
 		}
 	}
@@ -529,6 +533,7 @@ padding-left:1px;
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    var roomtypeDesc=funSetRoomType(roomTypeCode);
+		    rTypeCode=roomTypeCode
 		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].strGuestName\" id=\"strGuestName."+(rowCount)+"\" value='"+guestName+"'/>";	    
 		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" style=\"width:70%;margin-left: -6%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].lngMobileNo\" id=\"lngMobileNo."+(rowCount)+"\" value='"+mobileNo+"' />";	   
 		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" style=\"width:75%;margin-left: -22%;\" id=\"strRoomTypeDesc."+(rowCount)+"\" value='"+roomtypeDesc+"' />";
@@ -1447,6 +1452,43 @@ padding-left:1px;
 						 
 					 }
 					 
+					 function funSetGuestCode(code){
+							
+							$.ajax({
+								type : "GET",
+								url : getContextPath()+ "/loadGuestCode.html?guestCode=" + code,
+								dataType : "json",
+								success : function(response){ 
+									 $("#txtGuestCode").val(response.strGuestCode);
+									 var guestName = response.strFirstName+" "+response.strMiddleName+" "+response.strLastName;
+									 var guestCode = response.strGuestCode;
+									 var mobileNo = response.lngMobileNo;
+									 var roomNo = "";
+									 var roomDesc = "";
+									 var extraBedCode = "";
+									 var extraBedDesc = "";
+									funAddDetailsRow(guestName,guestCode,mobileNo,roomNo,roomDesc,extraBedCode,extraBedDesc,"N",rTypeCode);
+								},
+								error : function(e){
+									if (jqXHR.status === 0) {
+						                alert('Not connect.n Verify Network.');
+						            } else if (jqXHR.status == 404) {
+						                alert('Requested page not found. [404]');
+						            } else if (jqXHR.status == 500) {
+						                alert('Internal Server Error [500].');
+						            } else if (exception === 'parsererror') {
+						                alert('Requested JSON parse failed.');
+						            } else if (exception === 'timeout') {
+						                alert('Time out error.');
+						            } else if (exception === 'abort') {
+						                alert('Ajax request aborted.');
+						            } else {
+						                alert('Uncaught Error.n' + jqXHR.responseText);
+						            }
+								}
+							});
+						}
+					 
 			</script>
 			</head>
 <body>
@@ -1525,11 +1567,15 @@ padding-left:1px;
 			<div class="col-md-2"><input type="button" value="Proceed to Payment" class="btn btn-primary center-block" class="smallButton" onclick='return funAddRow()' style="margin-top:16%"/>
 	        </div>
 	        
+	        <div class="col-md-2"><label>Guest Code</label>
+						<input id="txtGuestCode" ondblclick="funHelp('guestCode');" class="searchTextBox" />
+			</div>
+	        
 	        <div class="col-md-2"><label>Dont apply tax</label>
 			     <s:checkbox id="txtDontApplyTax" path="strDontApplyTax" value="Y" />
 			</div>
 	        
-	        <div class="col-md-2"><input type="button" value="Skip" class="btn btn-primary center-block" class="smallButton" onclick='return funAddRow()' style="margin-top:16%"/>
+	        <div class="col-md-2"><input type="button" value="Add" class="btn btn-primary center-block" class="smallButton" onclick='return funAddRow()' style="margin-top:16%"/>
 	        </div>
 		
 			<div class="dynamicTableContainer" style="height: 300px; width:100%;">

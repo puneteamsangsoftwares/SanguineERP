@@ -301,7 +301,7 @@ table tbody tr:nth-child(even) {
 		  var roomType=indexData.cells[0].childNodes[0].defaultValue; */
 		
 		var viewDate=$("#txtViewDate").val();
-			
+		var strPreviousNumber = "";	
 		$.ajax({
 			type : "GET",
 			url : getContextPath()+ "/getRoomStatusDtlList.html?viewDate=" + viewDate,
@@ -332,6 +332,21 @@ table tbody tr:nth-child(even) {
 						funFillROomTypeHeaderRowsHeaderRows(key,value,roomCnt);
 					}
 					itemroomType=item.strRoomType;
+					
+					/* if(strPreviousNumber=="")
+					{
+						strPreviousNumber = "temp";
+					}
+					if(item.strReservationNo==strPreviousNumber)
+					{
+						strPreviousNumber = "temp";
+					}
+					else
+					{
+						strPreviousNumber = item.strReservationNo;
+						funFillRoomStatusRows(item.strRoomNo,item.strDay1,item.strDay2,item.strDay3,item.strDay4,item.strDay5,item.strDay6,item.strDay7,item.strRoomStatus,item);	
+					} */
+					
 					funFillRoomStatusRows(item.strRoomNo,item.strDay1,item.strDay2,item.strDay3,item.strDay4,item.strDay5,item.strDay6,item.strDay7,item.strRoomStatus,item);
 					
 					/* if(item.strRoomStatus.includes('Occupied'))
@@ -628,6 +643,10 @@ table tbody tr:nth-child(even) {
 		{
 			color='linear-gradient(70.46deg, #e4a846 0%, #ffd58e 100%);';
 		}  
+		else if(roomStatus=='VIRTUAL RESERVATION')
+		{
+			color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
+		}  
 	
 		if(day1==null)
 		{
@@ -752,7 +771,15 @@ table tbody tr:nth-child(even) {
 			}
 		}
 				
-		row.insertCell(0).innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \" style=\"text-align: center;width: 100%;\" value='"+roomNo+"' ></div>";
+		if(roomNo.includes(""))
+		{
+			row.insertCell(0).innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \" style=\"text-align: center;width: 100%;\" value='"+roomNo+"' ></div>";
+		}
+		else
+		{
+			row.insertCell(0).innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \" style=\"text-align: center;width: 100%;\" value='"+roomNo+"' ></div>";
+		}
+		
 
 	
 		

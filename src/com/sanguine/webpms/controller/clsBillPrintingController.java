@@ -984,7 +984,7 @@ public class clsBillPrintingController {
 					+ " IFNULL(d.strCityPermanent,''), IFNULL(d.strStatePermanent,''), IFNULL(d.strCountryPermanent,''),d.intPinCodePermanent, "
 					+ " IFNULL(d.strAddressOfc,''), IFNULL(d.strCityOfc,''), IFNULL(d.strStateOfc,''), "
 					+ " IFNULL(d.strCountryOfc,''),d.intPinCodeOfc,a.strGSTNo,a.strCompanyName, "
-					+ "d.lngMobileNo,IFNULL(d.strAddressOfc,''),IFNULL(d.strCityOfc,''),IFNULL(d.strStateOfc,''),IFNULL(d.strCountryOfc,''),"
+					+ "d.lngMobileNo,"
 					+ "IFNULL(d.intPinCodeOfc,'')"
 					+ " FROM tblbillhd a LEFT OUTER JOIN tblcheckinhd b ON a.strCheckInNo=b.strCheckInNo"
 					+ " LEFT OUTER JOIN tblcheckindtl c ON b.strCheckInNo=c.strCheckInNo AND a.strRoomNo=c.strRoomNo"
@@ -1171,7 +1171,7 @@ public class clsBillPrintingController {
 						billPrintingBean.setDblCreditAmt(Double.parseDouble(creditAmount));
 						billPrintingBean.setDblBalanceAmt(Double.parseDouble(balance));
 						dataList.add(billPrintingBean);
-						sqlBillDtl = " SELECT date(a.dteDocDate),a.strDocNo,b.strTaxDesc,b.dblTaxAmt,0,0 "
+						sqlBillDtl = " SELECT date(a.dteDocDate),a.strDocNo,b.strTaxDesc,b.dblTaxAmt,0 "
 								+ " FROM tblbilldtl a, tblbilltaxdtl b where a.strDocNo=b.strDocNo  "
 								+ " AND a.strBillNo='"
 								+ folioArr[6].toString()
@@ -1193,7 +1193,7 @@ public class clsBillPrintingController {
 							billPrintingBean.setStrPerticulars(arrObjBillTaxDtl[2].toString());
 							billPrintingBean.setDblDebitAmt(Double.parseDouble(arrObjBillTaxDtl[3].toString()));
 							billPrintingBean.setDblCreditAmt(Double.parseDouble(arrObjBillTaxDtl[4].toString()));
-							billPrintingBean.setDblBalanceAmt(Double.parseDouble(arrObjBillTaxDtl[5].toString()));
+							billPrintingBean.setDblBalanceAmt(Double.parseDouble(arrObjBillTaxDtl[4].toString()));
 							dataList.add(billPrintingBean);
 						}
 						}
@@ -1327,7 +1327,7 @@ public class clsBillPrintingController {
 						}
 					}
 
-					String sqlDisc = " select date(a.dteBillDate),'','Discount','0.00',a.dblDiscAmt,'0.00' from  tblbilldiscount a "
+					String sqlDisc = " select date(a.dteBillDate),'','Discount','0.00',a.dblDiscAmt from  tblbilldiscount a "
 							+ " WHERE a.strBillNo='"
 							+ billNo.get(cnt)
 							+ "' and strClientCode='" + clientCode + "' ";
@@ -1342,7 +1342,7 @@ public class clsBillPrintingController {
 						String particulars = billDicArr[2].toString();
 						String debitAmount = billDicArr[3].toString();
 						String creditAmount = billDicArr[4].toString();
-						String balance = billDicArr[5].toString();
+						String balance = billDicArr[4].toString();
 
 						folioPrintingBean.setDteDocDate(objGlobal.funGetDate("dd-MM-yyyy", (docDate)));
 						folioPrintingBean.setStrDocNo(docNo);

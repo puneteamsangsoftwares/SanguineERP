@@ -1189,83 +1189,103 @@
 			return;
 		}*/
 		
-		
-		if($("#txtRoomTypeCode").val()=='')
+		var labCorporate = $("#lblCorporateDesc").text();
+		if(labCorporate=='')
 		{
-			alert('Select RoomType!!');
-		}
-		else
-		{
-			var gCodeval=$("#txtGuestCode").val().trim();
-			
-			if(gCodeval==''){
-				
-				var gCode = funGetGuestCode(gCodeval);
-				$("#txtGuestCode").val(gCode.strGuestCode);
-				
-			}
-		
-			var guestCode=$("#txtGuestCode").val().trim();
-			var mobileNo=$("#txtMobileNo").val().trim();
-			var guestName=$("#txtGFirstName").val().trim()+" "+$("#txtGMiddleName").val().trim()+" "+$("#txtGLastName").val().trim();
-			var roomType =$("#txtRoomTypeCode").val();
-			var roomNo =$("#txtRoomNo").val();
-			var roomDesc =$("#lblRoomNo").text().trim();
-			var extraBedCode=$("#txtExtraBed").val();
-			var extraBedDesc=$("#lblExtraBed").text();
-			var remark=$("#txtRemark").val();
-			var address=$("#txtAddress").val();
-			var roomTypeDesc=$("#lblRoomType").text();
-			if(roomTypeDesc=='')
+			if($("#txtRoomTypeCode").val()=='')
 			{
-				funSetRoomType($("#txtRoomTypeCode").val().trim());
-				roomTypeDesc=$("#lblRoomType").text();
-			}
-			
-			if(mobileNo=='')
-			{
-				alert('Enter Mobile No!!!');
-				$("#txtMobileNo").focus();
-				return;
+				alert('Select RoomType!!');
 			}
 			else
 			{
-				/*var phoneno = /^\d{10}$/;
-				if((mobileNo.match(phoneno)))
-				{
-				}
-				else
-				{
-					alert("Invalid Mobile No");
-				    return;
-				}
-				*/
+				var gCodeval=$("#txtGuestCode").val().trim();
 				
-				var pattern = /^[\s()+-]*([0-9][\s()+-]*){6,20}$/;
-				if (pattern.test(mobileNo)) 
+				if(gCodeval==''){
+					
+					var gCode = funGetGuestCode(gCodeval);
+					$("#txtGuestCode").val(gCode.strGuestCode);
+					
+				}
+			
+				var guestCode=$("#txtGuestCode").val().trim();
+				var mobileNo=$("#txtMobileNo").val().trim();
+				var guestName=$("#txtGFirstName").val().trim()+" "+$("#txtGMiddleName").val().trim()+" "+$("#txtGLastName").val().trim();
+				var roomType =$("#txtRoomTypeCode").val();
+				var roomNo =$("#txtRoomNo").val();
+				var roomDesc =$("#lblRoomNo").text().trim();
+				var extraBedCode=$("#txtExtraBed").val();
+				var extraBedDesc=$("#lblExtraBed").text();
+				var remark=$("#txtRemark").val();
+				var address=$("#txtAddress").val();
+				var roomTypeDesc=$("#lblRoomType").text();
+				if(roomTypeDesc=='')
 				{
+					funSetRoomType($("#txtRoomTypeCode").val().trim());
+					roomTypeDesc=$("#lblRoomType").text();
+				}
+				
+				if(mobileNo=='')
+				{
+					alert('Enter Mobile No!!!');
+					$("#txtMobileNo").focus();
+					return;
 				}
 				else
 				{
-					alert("Invalid Mobile No");
-				    return;
-				}	
-			}
-			
-			
-			
-			
-			if($("#txtGFirstName").val().trim()=='')
-			{
-				alert('Enter Guest First Name!!!');
-				$("#txtGFirstName").focus();
-				return;
-			}
-			
-			funAddDetailsRow(guestName,guestCode,mobileNo,roomType,remark,roomNo,roomDesc,extraBedCode,extraBedDesc,"N",address,roomTypeDesc);
+					/*var phoneno = /^\d{10}$/;
+					if((mobileNo.match(phoneno)))
+					{
+					}
+					else
+					{
+						alert("Invalid Mobile No");
+					    return;
+					}
+					*/
+					
+					var pattern = /^[\s()+-]*([0-9][\s()+-]*){6,20}$/;
+					if (pattern.test(mobileNo)) 
+					{
+					}
+					else
+					{
+						alert("Invalid Mobile No");
+					    return;
+					}	
+				}
+				
+				
+				
+				
+				if($("#txtGFirstName").val().trim()=='')
+				{
+					alert('Enter Guest First Name!!!');
+					$("#txtGFirstName").focus();
+					return;
+				}
+				
+				funAddDetailsRow(guestName,guestCode,mobileNo,roomType,remark,roomNo,roomDesc,extraBedCode,extraBedDesc,"N",address,roomTypeDesc);
 
+				funFillRoomRate(roomType,roomDesc);
+			}
+		}
+		else
+		{
+			if($("#txtRoomTypeCode").val()=='')
+			{
+				alert('Select RoomType!!');
+			}
+			var roomType =$("#txtRoomTypeCode").val();
+			var roomTypeDesc =$("#lblRoomType").text();
+			var guestName = $("#lblCorporateDesc").text();
+			var guestCode = $("#txtCorporateCode").val();
+			var extraBedCode=$("#txtExtraBed").val();
+			var extraBedDesc=$("#lblExtraBed").text();
+			funAddDetailsRow(guestName,guestCode,'0',roomType,'','',roomDesc,extraBedCode,extraBedDesc,"N",address,roomTypeDesc);
+		  /*funAddDetailsRow(guestName,guestCode,mobileNo,roomType,remark,roomNo,roomDesc,extraBedCode,extraBedDesc,"N",address,roomTypeDesc);  */
 			funFillRoomRate(roomType,roomDesc);
-		}	
+		}
+		
 	}
 	
 	
