@@ -172,40 +172,40 @@
 				<!-- <th align="right" colspan="2"><a id="baseUrl"
 					href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
 						&nbsp;</th> -->
-		<div class="col-md-5">
-		   <div class="row">			
-			<div class="col-md-5"><label>Code</label>
+					
+			<div class="col-md-2"><label>Code</label>
 				<s:input id="txtBusinessCode" path="strBusinessSourceCode" cssClass="searchTextBox" ondblclick="funHelp('business')" style="height: 46%"/>			
 			</div>
-			<div class="col-md-7"><label>Description</label>
+			
+			<div class="col-md-3"><label>Description</label>
 				<s:input id="txtBusinessDesc" path="strDescription"/>				
 			</div>
-		</div></div>	
+			
 		<div class="col-md-7"></div>
 		
-			<div class="col-md-1"><label>Involves amount</label>
-				 <s:select id="cmbInvolvesAmt" path="strInvolvesAmt">
+			<div class="col-md-2"><label>Involves amount</label>
+				 <s:select id="cmbInvolvesAmt" path="strInvolvesAmt" style="width:auto;">
 				    <option selected="selected" value="Y">Yes</option>			           
 			        <option value="N">No</option>
 		         </s:select>
 			</div>
 			
-			<div class="col-md-1"><label>Instrument accepted</label>
-				 <s:select id="cmbInstrument" path="strInstAccepted">
+			<div class="col-md-2"><label>Instrument accepted</label>
+				 <s:select id="cmbInstrument" path="strInstAccepted" style="width:auto;">
 				    <option selected="selected" value="Y">Yes</option>			           
 			        <option value="N">No</option>
 		         </s:select>
 			</div>
 			
-			<div class="col-md-1"><label>Request Slip Required</label>
-			     <s:select id="cmbRequestSlip" path="strReqSlipReqd">
+			<div class="col-md-2"><label>Request Slip Required</label>
+			     <s:select id="cmbRequestSlip" path="strReqSlipReqd" style="width:auto;">
 				    <option selected="selected" value="Y">Yes</option>
 			        <option value="N">No</option>
 		         </s:select>
 			</div>
 		</div>
-
-		<p align="center" style="margin-right: 345px">
+        <br>
+		<p align="center" style="margin-right: 32%">
 			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this);"/>&nbsp;
             <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />
         </p>

@@ -520,7 +520,7 @@ function funSetGuestCode(code)
 					
 					
 				<div class="col-md-2">					
-				 <div><img id="memImage" src="" width="170px" height="150px" alt="Member Image"  ></div>
+				 <div><img id="memImage" src="" width="170px" height="150px" style="margin:12%;" alt="Member Image"  ></div>
 			                 <div><input  id="memberImage" name="memberImage"   type="file" accept="image/gif,image/png,image/jpeg" onchange="funShowImagePreview(this);" style="width:170px;background-color: #C0E4FF"/></div>
        			</div>
 					

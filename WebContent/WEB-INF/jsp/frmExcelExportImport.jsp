@@ -924,9 +924,9 @@
 	</div>
 	<br>
     <p align="center">
-			<input id="btnSubmit" type="button" class="form_button" value="Submit" onclick="return funSubmit();"/>
+			<input id="btnSubmit" type="button" class="btn btn-primary center-block" class="form_button" value="Submit" onclick="return funSubmit();"/>
 			&nbsp; &nbsp; &nbsp;
-			 <input id="btnReset" type="reset" value="Reset" class="form_button" onclick="funResetField()" />
+			 <input id="btnReset" type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetField()" />
 	</p>
 	
 </s:form>

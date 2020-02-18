@@ -164,26 +164,26 @@
 				  <s:input type="text" id="txtFromDate" path="dteFromDate" style="width: 70%;" cssClass="calenderTextBox"/>
 			</div>
 			
-			<div class="col-md-2" style="margin-left: -5%;"><label>To Date</label>
+			<div class="col-md-2" style="margin-left: -4%;"><label>To Date</label>
 				  <s:input  type="text" id="txtToDate" path="dteToDate" style="width: 70%;" cssClass="calenderTextBox"/>
 			</div>
 			<div class="col-md-6"></div>
-			<div class="col-md-1"><label>Calculated On</label>
-				<s:select id="txtCalculatedOn" path="strCalculatedOn">
+			<div class="col-md-2"><label>Calculated On</label>
+				<s:select id="txtCalculatedOn" path="strCalculatedOn" style="width: auto;">
 				    <s:option value="Revenue">Revenue</s:option>
 				    <s:option value="Revenue">Revenue</s:option>
 				    <s:option value="Revenue">Revenue</s:option>
 				</s:select>
 			 </div>
 		
-			<div class="col-md-1"><label>Commision Paid</label>
-				<s:select id="txtCommisionPaid" path="strCommisionPaid">
+			<div class="col-md-2"><label>Commision Paid</label>
+				<s:select id="txtCommisionPaid" path="strCommisionPaid" style="width: auto;">
 				    <s:option value="Daily">Daily</s:option>
 				 </s:select>
 			</div>
 			
-			<div class="col-md-1"><label>Commision On</label>
-				<s:select id="txtCommisionOn" path="strCommisionOn">
+			<div class="col-md-2" style="margin-left: -4%;"><label>Commision On</label>
+				<s:select id="txtCommisionOn" path="strCommisionOn" style="width: auto;">
 				     <s:option value="Daily">Room</s:option>
 				</s:select>
 			  </div>

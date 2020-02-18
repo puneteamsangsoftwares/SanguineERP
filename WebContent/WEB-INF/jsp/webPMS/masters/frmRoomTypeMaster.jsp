@@ -184,10 +184,10 @@
 		<label id="formHeading">Room Type Master</label>
 		<s:form name="RoomType" method="GET" action="saveRoomTypeMaster.html?" >
 	    <div class="row">
-				 <div class="col-md-12" align="center"><a id="baseUrl" style="margin-left: -30%; display:none"
+				<!--  <div class="col-md-12" align="center"><a id="baseUrl" style="margin-left: -30%; display:none"
 					href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
 						&nbsp;
-			     </div>   
+			     </div>    -->
              
             <div class="col-md-2"><label>Room Type</label>
 				 <s:input id="txtRoomTypeCode" path="strRoomTypeCode" style="height: 45%;" cssClass="searchTextBox" ondblclick="funHelp('roomType')" />			
@@ -200,6 +200,7 @@
 			<div class="col-md-2"><label>Room Tariff</label>
 				<s:input id="txtRoomTerrif" path="dblRoomTerrif" style="text-align:right; width: 40%;" onkeypress="javascript:return isNumber(event)"/>				
 			</div>
+			<div class="col-md-6"></div>
 			
 			<div class="col-md-2"><label>Double Tariff</label>
 				<s:input id="txtDoubleTarrif" path="dblDoubleTariff" style="text-align:right; width: 40%;" onkeypress="javascript:return isNumber(event)"/>				

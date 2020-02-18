@@ -323,20 +323,20 @@
 	<div  class="container masterTable" >
 		<label id="formHeading">Income Head Master</label>
 	    <s:form name="Plan" method="GET" action="saveIncomeHeadMaster.html?" >
-		<div id="tab_container" style="height: 200px">
+		<div id="tab_container">
 				<ul class="tabs">
 					<li data-state="tab1" style="width: 7%" class="active" >General</li>
 					<li data-state="tab2" style="width: 7%">LinkUp</li>
 				</ul>
 							
 				<!-- General Tab Start -->
-				<div id="tab1" class="tab_content" style="height:200px; margin-top: 5%;">
+				<div id="tab1" class="tab_content" style="height:135px; margin-top: 5%;">
 							
 		<div class="row">
-         	<div class="col-md-12" align="center" style="margin-left: 2%;display:none">
+         	<!-- <div class="col-md-12" align="center" style="margin-left: 2%;display:none">
 				<a id="baseUrl" href="#"> Attach Documents </a>&nbsp; &nbsp; &nbsp;&nbsp;
 			</div>
-			
+			 -->
 			<div class="col-md-2"><label>Income Head</label>
 				<s:input id="txtIncomeHeadCode" path="strIncomeHeadCode" cssClass="searchTextBox" style="height: 45%" ondblclick="funHelp('incomeHead')" />				
 			</div>
@@ -348,12 +348,12 @@
 			
 			<div class="col-md-4">
 				<div class="row">
-			    <div class="col-md-6"><label>Department</label>
+			    <div class="col-md-6"><label> Department </label>
 			      <s:input id="txtDepartment" path="strDeptCode" cssClass="searchTextBox" style="height: 45%" ondblclick="funHelp('deptCode')" /></div>			     
 		        <div class="col-md-6"><label id="lblDepartment" style="background-color:#dcdada94; width: 100%; height:50%; margin-top: 16%;"></label></div>
 			</div></div>
 			
-			<div class="col-md-1"><label>Rate</label>
+			<div class="col-md-1"><label> Rate </label>
 				<s:input id="dblRate" path="dblRate" style="text-align:right;"/>				
 			</div>
 			
@@ -363,7 +363,7 @@
 						
 						
 			<!-- Linkedup Details Tab Start -->
-			<div id="tab2" class="tab_content" style="height: 400px">
+			<div id="tab2" class="tab_content" style="height: 130px">
 			<br> 
 			<br>			
 				<div class="row">

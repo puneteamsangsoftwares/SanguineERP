@@ -286,14 +286,14 @@ function funSetAccountCode(code){
 	<div class="container masterTable"> 
 		<label id="formHeading">Extra Bed Master</label>
 	    <s:form name="ExtraBed" method="GET" action="saveExtraBedMaster.html?" >
-	     <div id="tab_container" style="height: 205px">
+	     <div id="tab_container">
 				<ul class="tabs">
 					<li data-state="tab1" style="width: 7%" class="active" >General</li>
 					<li data-state="tab2" style="width: 7%">LinkUp</li>
 				</ul>
 							
 				<!-- General Tab Start -->
-		<div id="tab1" class="tab_content" style="height: 200px">
+		<div id="tab1" class="tab_content" style="height: 150px">
 	 		<div class="row" style="margin-top: 4%">
 				<div class="col-md-12" align="center"><a id="baseUrl" style="margin-left:-48%;display:none"
 					href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
@@ -322,7 +322,7 @@ function funSetAccountCode(code){
 						
 						
 			<!-- Linkedup Details Tab Start -->
-			<div id="tab2" class="tab_content" style="height:200px">
+			<div id="tab2" class="tab_content" style="height:130px">
 			<br> 
 			<br>			
 				<div class="row">
@@ -335,7 +335,7 @@ function funSetAccountCode(code){
 			</div>
 		</div>
 		
-		<p align="center" style="margin-right:48%">
+		<p align="center" style="margin-right:49%">
 			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button"  onclick="return funCallFormAction('submit',this);"  />
             &nbsp;
             <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />

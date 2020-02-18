@@ -209,7 +209,7 @@ $(document).ready(function(){
 			
 		</div>
 		
-		<div class="center" style="margin-right:52%;">
+		<div class="center" style="margin-right:51%;">
 			<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidateFields()"
 				class="form_button">Submit</button></a>&nbsp;
 			<a href="#"><button class="btn btn-primary center-block" id="reset" value="Reset" onclick="funResetFields()"

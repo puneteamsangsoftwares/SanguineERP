@@ -218,9 +218,9 @@
    <label id="formHeading">Structure Update</label>
       <s:form>
 	  <p align="center">
-	      <input type="button" value="" class="structureUpdate_button" style="width: 17%;height: 144px" onclick="funUpdateStructure();">
-	      <input type="button" class="clearMaster_button" style="width: 17%;height: 144px" value="" onclick="funList('Master');">
-	      <input type="button" class="clearTransaction_button" style="width: 17%;height: 144px" value="" onclick="funList('Transaction');">
+	      <input type="button" value="" class="structureUpdate_button" style="width: 22%;" onclick="funUpdateStructure();">
+	      <input type="button" class="clearMaster_button" style="width: 22%;" value="" onclick="funList('Master');">
+	      <input type="button" class="clearTransaction_button" style="width: 22%;" value="" onclick="funList('Transaction');">
 	
 	  </p>
 	

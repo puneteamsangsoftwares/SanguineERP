@@ -235,7 +235,7 @@
 			 </div>
 		 </div>
          
-		<p align="center"  style="margin-right: 110px">
+		<p align="center"  style="margin-right: 12%;">
 			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this);" />&nbsp;
 			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>

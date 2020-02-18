@@ -202,6 +202,7 @@
 			      <label>Mobile No</label>
 				  <s:input id="txtMobileNo" path="strMobileNo"/>				
 			</div>
+			<div class="col-md-7"></div>
 			
 		    <div class="col-md-1"><label>Operational</label>
 			     <s:select id="cmbOperational" path="strOperational">

@@ -215,13 +215,13 @@
 
 </head>
 <body>
-  <div class="masterTable">
+  <div class="container masterTable">
 	 <label id="formHeading">Agent Master</label>
 	    <s:form name="AgentMaster" method="POST" action="saveAgentMaster.html">
 	    
         <div class="row">
 			<div class="col-md-2"><label>Agent Code</label>
-				<s:input type="text" id="txtAgentCode" path="strAgentCode" cssClass="searchTextBox" style="height: 35%;" ondblclick="funHelp('AgentCode');"/>
+				<s:input type="text" id="txtAgentCode" path="strAgentCode" cssClass="searchTextBox" style="height: 45%;" ondblclick="funHelp('AgentCode');"/>
 			</div>
 			
 			<div class="col-md-1"><label>From Date</label>
@@ -235,35 +235,39 @@
 			<div class="col-md-2"><label>Description</label>
 				<s:input type="text" id="txtDescription" path="strDescription"/>
 			</div>
+			<div class="col-md-6"></div>
 			
 			<div class="col-md-2"><label>Agent Comm Code</label>
-				 <s:input  type="text" id="txtAgentCommCode" path="strAgentCommCode" cssClass="searchTextBox" style="height: 35%;" ondblclick="funHelp('AgentCommCode');"/>
+				 <s:input  type="text" id="txtAgentCommCode" path="strAgentCommCode" cssClass="searchTextBox" style="height: 45%;" ondblclick="funHelp('AgentCommCode');"/>
 			</div>
 			
 			<div class="col-md-2"><label>Corporate Code</label>
-				<s:input type="text" id="txtCorporateCode" path="strCorporateCode" cssClass="searchTextBox" style="height: 35%;" ondblclick="funHelp('CorporateCode');"/>
+				<s:input type="text" id="txtCorporateCode" path="strCorporateCode" cssClass="searchTextBox" style="height: 45%;" ondblclick="funHelp('CorporateCode');"/>
 			</div>
 			
-			<div class="col-md-1"><label>Adv To Receive</label>
-				<s:input type="number" step="0.01" id="txtAdvToReceive" style="width: 55%;" path="dblAdvToReceive"/>
+			<div class="col-md-2"><label>Adv To Receive</label>
+				<s:input type="number" step="0.01" id="txtAdvToReceive" style="width: 55%;height:45%;" path="dblAdvToReceive"/>
 			</div>
+			<div class="col-md-6"></div>
 			
 			<div class="col-md-3"><label>Address</label>
 				<s:input type="text" id="txtAddress" path="strAddress"/>
 			</div>
 		
 			<div class="col-md-1"><label>City</label>
-				<s:select id="txtCity" path="strCity" items="${cityArrLsit}"/>
+				<s:select id="txtCity" path="strCity" items="${cityArrLsit}" style="width: 110%;"/>
 			</div>
 			
 			<div class="col-md-2"><label>State</label>
-				<s:select id="txtState" path="strState"  items="${stateArrLsit}" style="width: 55%;"/>
+				<s:select id="txtState" path="strState"  items="${stateArrLsit}" style="width: 59%;"/>
 			</div>
 			
-			<div class="col-md-1"><label>Country</label>
+			<div class="col-md-1" style="margin-left: -8%;"><label>Country</label>
 				<s:select id="txtCountry" path="strCountry" items="${countryArrLsit}"/>
 			</div>
-	
+			
+	        <div class="col-md-5"></div>
+	        
 			<div class="col-md-2"><label>TelphoneNo</label>
 				<s:input type="text" id="txtTelphoneNo" path="lngTelphoneNo" style="text-align:right;" onkeypress="javascript:return isNumber(event)" />
 			</div>
@@ -275,7 +279,8 @@
 			<div class="col-md-2"><label>FaxNo</label>
 				<s:input type="text" id="txtFaxNo" path="lngFaxNo" onkeypress="javascript:return isNumber(event)"/>
 			</div>
-			
+			 <div class="col-md-6"></div>
+			 
 			<div class="col-md-3"><label>EmailId</label>
 				<s:input type="text" id="txtEmailId" path="strEmailId" />
 			</div>
@@ -283,8 +288,7 @@
 		</div>
 
 		<br />
-		<br />
-		<p align="center">
+		<p align="center" style="margin-right: 13%;">
 			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this);" />&nbsp;
 			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
