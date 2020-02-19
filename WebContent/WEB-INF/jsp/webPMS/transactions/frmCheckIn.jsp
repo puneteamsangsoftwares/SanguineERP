@@ -314,7 +314,7 @@ padding-left:1px;
 		}
 		
 		function funSetReservationNo(code){
-
+			 funRemoveProductRows();
 			$.ajax({
 				type : "GET",
 				url : getContextPath()+ "/loadReservation.html?docCode=" + code,
@@ -373,10 +373,14 @@ padding-left:1px;
 		    
 		    $("#txtPackageCode").val(response.strPackageCode);
 			$("#txtPackageName").val(response.strPackageName);
-
+			rTypeCode = response.listReservationDetailsBean[0].strRoomType;
 		    funRemoveProductRowsForIncomeHead();
 			funRemoveTariffRows();
-			funFillDtlGridAgainstRes(response.listReservationDetailsBean);
+			if(response.listReservationDetailsBean[0].strGuestName!=null)
+			{
+				funFillDtlGridAgainstRes(response.listReservationDetailsBean);
+			}
+			
 			funAddRommRateDtlOnReservationSelect(response.listReservationRoomRateDtl);
 			funGetPreviouslyLoadedPkgList(response.listRoomPackageDtl);
 		}
@@ -529,6 +533,7 @@ padding-left:1px;
 		//Function to add detail grid rows	
 		function funAddDetailsRow(guestName,guestCode,mobileNo,roomNo,roomDesc,extraBedCode,extraBedDesc,payee,roomTypeCode) 
 		{
+			
 		    var table = document.getElementById("tblCheckInDetails");
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
@@ -1454,6 +1459,7 @@ padding-left:1px;
 					 
 					 function funSetGuestCode(code){
 							
+						
 							$.ajax({
 								type : "GET",
 								url : getContextPath()+ "/loadGuestCode.html?guestCode=" + code,
@@ -1467,7 +1473,8 @@ padding-left:1px;
 									 var roomDesc = "";
 									 var extraBedCode = "";
 									 var extraBedDesc = "";
-									funAddDetailsRow(guestName,guestCode,mobileNo,roomNo,roomDesc,extraBedCode,extraBedDesc,"N",rTypeCode);
+									 var strPayee = "N";
+									funAddDetailsRow(guestName,guestCode,mobileNo,roomNo,roomDesc,extraBedCode,extraBedDesc,strPayee,rTypeCode);
 								},
 								error : function(e){
 									if (jqXHR.status === 0) {

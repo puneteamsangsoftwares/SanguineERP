@@ -927,6 +927,15 @@
 			funSetAgentCode(response.strAgentCode);
 		}
 		
+		if(response.strBillToCorporate=='Y')
+    	{
+    		document.getElementById("txtBillToCorporate").checked=true;
+    	}
+    	else
+    	{
+    		document.getElementById("txtBillToCorporate").checked=false;
+       	}
+		
 		$("#txtRoomNo").val(response.strRoomNo);
 		$("#lblRoomNo").text(response.strRoomDesc);
 	    $("#txtExtraBed").val(response.strExtraBedCode);
@@ -1427,109 +1436,145 @@
 	function funValidateForm()
 	{
 		var flg=false;
-		if($("#txtBookingTypeCode").val()=='')
+		if($("#txtCorporateCode").val()=='')
 		{
-			alert("Please Select Booking Type");
-			flg=false;
-			$("#txtBookingTypeCode").focus();
-		}
-		else
-		{
-			if($('#txtEmailId').val()=='')
+			if($("#txtBookingTypeCode").val()=='')
 			{
-				flg=true;
+				alert("Please Select Booking Type");
+				flg=false;
+				$("#txtBookingTypeCode").focus();
 			}
 			else
 			{
-				var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-
-		        if (reg.test($('#txtEmailId').val()) == false) 
-		        {
-		            alert('Invalid Email Address');
-		            flg=false;
-		        }	
-			}
-			
-			
-			if($("#txtArrivalTime").val()=='')
-			{
-				alert("Please Enter Arrival Time");
-				flg=false;
-			}
-			
-			if($("#txtDepartureTime").val()=='')
-			{
-				alert("Please Enter Departure Time");
-				flg=false;
-			}
-			
-//	 		if($("#hidPayee").val()=='')
-//	 		{
-//	 			alert("Please Select One Payee");
-//	 			return false;
-//	 		}
-		/* 	if($("#txtRoomNo").val()=='')
-			{
-				alert('Select Room No!!!');
-				$("#txtRoomNo").focus();
-				return false;
-			}
-			 */
-			if($("#txtNoOfAdults").val()=='')
-			{
-				alert('Enter No of Adults!!!');
-				$("#txtNoOfAdults").focus();
-				flg=false;
-			}
-			
-			if($("#txtNoOfChild").val()=='')
-			{
-				alert('Enter No of Child!!!');
-				$("#txtNoOfChild").focus();
-				flg=false;
-			}
-			
-			var table = document.getElementById("tblResDetails");
-		    var rowCount = table.rows.length;
-			if(rowCount==0)
-			{
-				alert("Please Enter Guest For Reservation");
-				flg=false;
-			}
-			
-			var ArrivalDate = $("#txtArrivalDate").val();
-			var DepartureDate = $("#txtDepartureDate").val();
-			var roomLimitCount = funGetDetailsRowinGrid(ArrivalDate, DepartureDate)
-
-			if(roomLimitCount == "0"){
-				alert("Room Limit exceed for today");
-				flg=false;
-			}
-
-			var ArrivalDate = new Date($("#txtArrivalDate").val()); //Year, Month, Date
-	        var DepartureDate = new Date($("#txtDepartureDate").val()); //Year, Month, Date
-	        if (ArrivalDate > DepartureDate) {
-			    	alert("Departure Date Should not be come before Arrival Date");
-			    	flg=false;
-	        }
-	        
-	        if(document.getElementById("tblIncomeHeadDtl").rows.length>0)
-	        {
-	        	var table = document.getElementById("tblTotalPackageDtl");
-			    var rowCount = table.rows.length;
-				if(rowCount>0)
+				if($('#txtEmailId').val()=='')
 				{
-					if($("#txtPackageName").val()=='')
-					 {
-						alert("Please Enter Package Name");
-						flg=false;
-					 }
+					flg=true;
 				}
-	        }
-	        
-	        
+				else
+				{
+					var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+			        if (reg.test($('#txtEmailId').val()) == false) 
+			        {
+			            alert('Invalid Email Address');
+			            flg=false;
+			        }	
+				}
+				
+				
+				if($("#txtArrivalTime").val()=='')
+				{
+					alert("Please Enter Arrival Time");
+					flg=false;
+				}
+				
+				if($("#txtDepartureTime").val()=='')
+				{
+					alert("Please Enter Departure Time");
+					flg=false;
+				}
+				
+//		 		if($("#hidPayee").val()=='')
+//		 		{
+//		 			alert("Please Select One Payee");
+//		 			return false;
+//		 		}
+			/* 	if($("#txtRoomNo").val()=='')
+				{
+					alert('Select Room No!!!');
+					$("#txtRoomNo").focus();
+					return false;
+				}
+				 */
+				if($("#txtNoOfAdults").val()=='')
+				{
+					alert('Enter No of Adults!!!');
+					$("#txtNoOfAdults").focus();
+					flg=false;
+				}
+				
+				if($("#txtNoOfChild").val()=='')
+				{
+					alert('Enter No of Child!!!');
+					$("#txtNoOfChild").focus();
+					flg=false;
+				}
+				
+				var table = document.getElementById("tblResDetails");
+			    var rowCount = table.rows.length;
+				if(rowCount==0)
+				{
+					alert("Please Enter Guest For Reservation");
+					flg=false;
+				}
+				
+				var ArrivalDate = $("#txtArrivalDate").val();
+				var DepartureDate = $("#txtDepartureDate").val();
+				var roomLimitCount = funGetDetailsRowinGrid(ArrivalDate, DepartureDate)
+
+				if(roomLimitCount == "0"){
+					alert("Room Limit exceed for today");
+					flg=false;
+				}
+
+				var ArrivalDate = new Date($("#txtArrivalDate").val()); //Year, Month, Date
+		        var DepartureDate = new Date($("#txtDepartureDate").val()); //Year, Month, Date
+		        if (ArrivalDate > DepartureDate) {
+				    	alert("Departure Date Should not be come before Arrival Date");
+				    	flg=false;
+		        }
+		        
+		        if(document.getElementById("tblIncomeHeadDtl").rows.length>0)
+		        {
+		        	var table = document.getElementById("tblTotalPackageDtl");
+				    var rowCount = table.rows.length;
+					if(rowCount>0)
+					{
+						if($("#txtPackageName").val()=='')
+						 {
+							alert("Please Enter Package Name");
+							flg=false;
+						 }
+					}
+		        }
+		        
+		        
+				
+			}
+		}
+		
+		else
+		{
+			flg = true;
 			
-		}	
+			if($("#txtRoomTypeCode").val()=='')
+			{
+				alert("Please Select Room Type");
+				flg=false;
+				$("#txtRoomTypeCode").focus();
+			}
+			
+			if($("#txtBookingTypeCode").val()=='')
+			{
+				alert("Please Select Booking Type");
+				flg=false;
+				$("#txtBookingTypeCode").focus();
+			}
+			var guestCode='';
+			var mobileNo='0';
+			var guestName='';
+			var roomType =$("#txtRoomTypeCode").val();
+			var roomNo =$("#txtRoomNo").val();
+			var roomDesc =$("#lblRoomNo").text().trim();
+			var extraBedCode=$("#txtExtraBed").val();
+			var extraBedDesc=$("#lblExtraBed").text();
+			var remark=$("#txtRemark").val();
+			var address=$("#txtAddress").val();
+			var roomTypeDesc=$("#lblRoomType").text();
+			
+			funAddDetailsRow(guestName,guestCode,mobileNo,roomType,remark,roomNo,roomDesc,extraBedCode,extraBedDesc,"N",address,roomTypeDesc);
+			funFillRoomRate(roomType,roomDesc);
+		}
 		
 		dblPaxCnt = 0;
 				
@@ -1831,6 +1876,7 @@
 				type : "GET",
 				url : getContextPath()+ "/loadRoomRate.html?arrivalDate="+arrivalDate+"&departureDate="+departureDate+"&roomDescList="+roomDescList+"&noOfNights="+$("#txtNoOfNights").val(),
 				dataType : "json",
+				 async:false,
 				success : function(response){ 
 				funAddRommRateDtl(response,roomNo,roomDesc);
 				},
@@ -2165,6 +2211,11 @@
 			 <div class="col-md-2"><label>Dont apply tax</label><br />
 			     <s:checkbox id="txtDontApplyTax" path="strDontApplyTax" value="Y" />
 			</div>
+			
+			<div class="col-md-2"><label>Bill To Corporate</label><br />
+			     <s:checkbox id="txtBillToCorporate" path="strBillToCorporate" value="Y" />
+			</div>
+			
 			
 		  </div>
          </div>

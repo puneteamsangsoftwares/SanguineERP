@@ -272,7 +272,7 @@ public class clsReservationController {
 		objBean.setTmePickUpTime(objReservationModel.getTmePickUpTime());
 		objBean.setTmeDropTime(objReservationModel.getTmeDropTime());
 		objBean.setStrDontApplyTax(objReservationModel.getStrDontApplyTax());
-		
+		objBean.setStrBillToCorporate(objReservationModel.getStrBillToCorporate());
 		clsRoomMasterModel objRoomMasterModel = objRoomMasterService.funGetRoomMaster(objReservationModel.getStrRoomNo(), clientCode);
 		objBean.setStrRoomNo(objReservationModel.getStrRoomNo());
 		if (objRoomMasterModel != null) {
@@ -366,7 +366,8 @@ public class clsReservationController {
 			String strEmailAddress = "";
 			for (clsReservationDetailsBean objResDtlBean : listResDtlBean) 
 			{
-				if (null != objResDtlBean.getStrGuestCode())
+				if (null != objResDtlBean.getStrGuestCode() && !objResDtlBean.getStrGuestCode().equals(""))
+					
 				{
 					clsGuestMasterBean objGuestMasterBean = new clsGuestMasterBean();
 					objGuestMasterBean.setStrGuestCode(objResDtlBean.getStrGuestCode());
@@ -739,14 +740,8 @@ public class clsReservationController {
 		objModel.setStrIncomeHeadCode(objBean.getStrIncomeHeadCode());
 		objModel.setTmePickUpTime(objBean.getTmePickUpTime());
 		objModel.setTmeDropTime(objBean.getTmeDropTime());
-		if(objBean.getStrDontApplyTax()==null)
-		{
-			objModel.setStrDontApplyTax("N");
-		}
-		else
-			{
-				objModel.setStrDontApplyTax(objBean.getStrDontApplyTax());
-			}
+		objModel.setStrDontApplyTax(objGlobal.funIfNull(objBean.getStrDontApplyTax(), "N", "Y"));
+		objModel.setStrBillToCorporate(objGlobal.funIfNull(objBean.getStrBillToCorporate(), "N", "Y"));
 
 		List<clsReservationDtlModel> listResDtlModel = new ArrayList<clsReservationDtlModel>();
 

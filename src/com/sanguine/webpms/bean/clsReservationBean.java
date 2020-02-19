@@ -111,6 +111,8 @@ public class clsReservationBean {
 	
 	private String strDontApplyTax;
 	
+	private String strBillToCorporate;
+	
 	public String getStrTotalPackageAmt() {
 		return strTotalPackageAmt;
 	}
@@ -554,6 +556,14 @@ public class clsReservationBean {
 
 	public void setStrDontApplyTax(String strDontApplyTax) {
 		this.strDontApplyTax = strDontApplyTax;
+	}
+
+	public String getStrBillToCorporate() {
+		return strBillToCorporate;
+	}
+
+	public void setStrBillToCorporate(String strBillToCorporate) {
+		this.strBillToCorporate = strBillToCorporate;
 	}
 
 	

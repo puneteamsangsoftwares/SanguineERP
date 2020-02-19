@@ -166,6 +166,8 @@ public class clsReservationHdModel implements Serializable {
 	@Column(name = "strDontApplyTax")
 	private String strDontApplyTax;
 	
+	@Column(name = "strBillToCorporate")
+	private String strBillToCorporate;
 
 	public List<clsReservationDtlModel> getListReservationDtlModel() {
 		return listReservationDtlModel;
@@ -494,6 +496,14 @@ public class clsReservationHdModel implements Serializable {
 
 	public void setStrDontApplyTax(String strDontApplyTax) {
 		this.strDontApplyTax = strDontApplyTax;
+	}
+
+	public String getStrBillToCorporate() {
+		return strBillToCorporate;
+	}
+
+	public void setStrBillToCorporate(String strBillToCorporate) {
+		this.strBillToCorporate = strBillToCorporate;
 	}
 
 	
