@@ -471,6 +471,10 @@
 						            $("#txtdtDateofBirth").datepicker({dateFormat: 'dd-mm-yyyy'}).datepicker('setDate', dob);						        	
 						        	$("#txtdtDateofBirth").val(response[0].dteDateofBirth);
 						        	$("#cmbMaritalStatus").val(response[0].strMaritalStatus);
+						        	if(response[0].strBillingAreaCode=='married')
+									{
+						        		$("#cmbMaritalStatus").val("Married");							        	
+									}
 						        	$("#txtProfessionCode").val(response[0].strProfessionCode);
 						        	if(response[0].strProfessionCode!='')
 					        		{
@@ -507,6 +511,10 @@
 						        	$("#cmbResident").val(response[0].strResident);
 						        	
 						        	$("#txtSeniorCitizen").val(response[0].strSeniorCitizen);
+						        	if(response[0].strSeniorCitizen=="N")
+					        		{
+						        		$("#txtSeniorCitizen").val("No");
+					        		}
 						        	$("#txtdblEntranceFee").val(response[0].dblEntranceFee);
 						        	$("#txtdblSubscriptionFee").val(response[0].dblSubscriptionFee);
 						        	

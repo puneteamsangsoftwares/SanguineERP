@@ -11,9 +11,8 @@ public class clsIncomeHeadMasterBean {
 	private String strClientCode;
 	private double dblAmount;
 	private String strAccountCode;
-
-	private double dblRate;
-	
+	private String strHsnSac;
+	private double dblRate;	
 	
 	
 	public String getStrIncomeHeadCode() {
@@ -102,6 +101,14 @@ public class clsIncomeHeadMasterBean {
 
 	public void setDblRate(double dblRate) {
 		this.dblRate = dblRate;
+	}
+
+	public String getStrHsnSac() {
+		return strHsnSac;
+	}
+
+	public void setStrHsnSac(String strHsnSac) {
+		this.strHsnSac = strHsnSac;
 	}
 
 }

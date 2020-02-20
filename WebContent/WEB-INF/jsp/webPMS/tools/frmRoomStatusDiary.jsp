@@ -261,6 +261,48 @@ table tbody tr:nth-child(even) {
 			}
 		});
 	}
+	
+	//House Keeping View	
+	function funShowRoomStatusFlashHouseKeeping()
+	{
+		var viewDate=$("#txtViewDate").val();
+				
+		$.ajax({
+			type : "GET",
+			url : getContextPath()+ "/getRoomStatusListForHouseKeeping.html?viewDate=" + viewDate,
+			dataType : "json",
+			 beforeSend : function(){
+				 $("#wait").css("display","block");
+		    },
+		    complete: function(){
+		    	 $("#wait").css("display","none");
+		    },
+			
+			success : function(response){ 
+				funRemoveHeaderTableRows();
+				funFillHeaderRowsForHouseKeeping(response);
+			},
+			error : function(e){
+				if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }
+			}
+		});
+	}
+	
+	
 	function funShowRoomStatusDtl1(row)
 	{
 		/* $(document).ready(function() {
@@ -500,6 +542,73 @@ table tbody tr:nth-child(even) {
 		});
 	}
 	
+	
+	//For House Keeping view
+	function funShowRoomStatusDtlForHouseKeeping()
+	{
+		var viewDate=$("#txtViewDate").val();
+		var strPreviousNumber = '';
+		$.ajax({
+			type : "GET",
+			url : getContextPath()+ "/getRoomStatusDtlListForHouseKeeping.html?viewDate=" + viewDate,
+			dataType : "json",
+			async:false,
+			beforeSend : function(){
+				 $("#wait").css("display","block");
+		    },
+		    complete: function(){
+		    	 $("#wait").css("display","none");
+		    },
+			
+			success : function(response){
+				funRemoveDetailTableRows();
+				var itemroomType='';
+				$.each(response, function(i,item)
+				{
+				if(itemroomType!=item.strRoomType){
+						
+						var key=item.strRoomType;
+						var roomCnt = item.dblRoomCnt;
+						funFillROomTypeHeaderRowsHeaderRowsForHouseKepping(key,roomCnt);
+					}
+					
+					itemroomType=item.strRoomType;
+					if(strPreviousNumber=="")
+					{
+						strPreviousNumber = "temp";
+					}
+					if(item.strReservationNo==strPreviousNumber)
+					{
+						strPreviousNumber = "temp";
+					}
+					else
+					{
+						strPreviousNumber = item.strReservationNo;
+						funFillRoomStatusRowsForHouseKeeping(item.strRoomNo,item.strDay1,item.strDay2,item.strDay3,item.strDay4,item.strDay5,item.strDay6,item.strDay7,item.strRoomStatus,item);	
+					}
+				
+				});
+			},
+			error : function(e){
+				if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }
+			}
+		});
+	}
+	
 		function funFillHeader(){
 		
 			
@@ -605,6 +714,24 @@ table tbody tr:nth-child(even) {
 		/* funGetRoomTypeAndStatus(); */
 		
 		funShowRoomStatusDtlForOneDay();
+	}
+
+	function funFillHeaderRowsForHouseKeeping(obj)
+	{
+		var table=document.getElementById("tblDays");
+		var rowCount=table.rows.length;
+		var row=table.insertRow();	
+		
+		row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"color:#4a4a4a; font-weight:550; font-size: 13px; \" value='Room No' >";
+		row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='STATUS' >";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='AVAILABILITY' >";
+		row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='PAX' >";
+		row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='STAFF ALLOCATION' >";
+		row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='REMARKS' >";
+		row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='DISCREPANCY' >";
+		row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" value='' >";
+	
+		funShowRoomStatusDtlForHouseKeeping();
 	}
 	
 	
@@ -996,39 +1123,24 @@ table tbody tr:nth-child(even) {
 			if(response.strReservationNo!=null)
 			{
 				
-				
-				
 					      day1+='                  ,'+response.strReservationNo;
 					  
 					      toolTipText1+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
-					     
-					      
-					      
-					      
 			}
 		}
 		
-	
-				
 		row.insertCell(0).innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \" style=\"text-align: center;width: 100%;\" value='"+roomNo+"' ></div>";
-
-	
-		
-		var x1=row.insertCell(1);
-		
-		
+		var x1=row.insertCell(1);		
 			
 			if(day1==''){
 				x1.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\" ><input  readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;  \" value='' onClick='funOnClick(this)' ></div>";
 			}
 			else{
 				x1.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; \"><input  readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;  \" value='' onClick='funOnClick(this)' ></div>";
-			}
-		
+			}		
 		
 		if(day1!='')
-		{ 
-			x1.style.transform='skew(-17deg)';
+		{ 		
 			x1.title=toolTipText1;
 		}
 		
@@ -1037,7 +1149,6 @@ table tbody tr:nth-child(even) {
 		{
 		
 			x2.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px ;\" value='"+day1+"' onClick='funOnClick(this)' ></div>";
-			x2.style.transform='skew(-17deg)';
 			x2.title=toolTipText1;
 		
 		}
@@ -1047,20 +1158,15 @@ table tbody tr:nth-child(even) {
 			{
 				//x2.bgColor=color;
 				x2.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px; \" value='"+day1+"' onClick='funOnClick(this)' ></div>";
-				x2.style.transform='skew(-17deg)';
 				x2.title=toolTipText1;
 			}
 		}
-		
-		
-		
 		
 		var x3=row.insertCell(3);
 		if(day1!='')
 		{
 		
 			x3.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px; \" value='"+day1+"' onClick='funOnClick(this)'></div>";
-			x3.style.transform='skew(-17deg)';
 			x3.title=toolTipText1;
 		}
 		
@@ -1069,11 +1175,9 @@ table tbody tr:nth-child(even) {
 			if(day1!='')
 			{
 				x3.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px; \" value='"+day1+"' onClick='funOnClick(this)'></div>";
-				x3.style.transform='skew(-17deg)';
 				x3.title=toolTipText1;
 			}
-		}
-		
+		}		
 		
 		var x4=row.insertCell(4);
 		if(day1!='')
@@ -1081,11 +1185,8 @@ table tbody tr:nth-child(even) {
 		x4.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;text-align:center; \" value='"+response.strSource+"' ></div>";
 		
 			x4.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;text-align:center; \" value='"+response.strSource+"'></div>";
-			x4.style.transform='skew(-17deg)';
+			
 		}
-		
-	
-		
 		
 		var x5=row.insertCell(5);
 		if(day1!='')
@@ -1093,7 +1194,7 @@ table tbody tr:nth-child(even) {
 		if(!day1.includes(day5))
 		{
 			x5.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width:font:size:0px; 90%;height: 20px;text-align:center; \" value='"+response.dblPax+"' ></div>";
-			x5.style.transform='skew(-17deg)';
+			
 		}
 		}
 		else
@@ -1101,11 +1202,9 @@ table tbody tr:nth-child(even) {
 			if(day1!='')
 			{
 				x5.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px; text-align:center;\" value='"+response.dblPax+"' ></div>";
-				x5.style.transform='skew(-17deg)';
+				
 			}
 		}
-		
-		
 		
 		var x6=row.insertCell(6);
 		if(day1!='')
@@ -1113,7 +1212,7 @@ table tbody tr:nth-child(even) {
 		if(!day1.includes(day6))
 		{
 			x6.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; \"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;text-align:center; \" value='"+response.dblRoomRate+"'></div>";
-			x6.style.transform='skew(-17deg)';
+			
 		}
 		}
 		else
@@ -1121,9 +1220,8 @@ table tbody tr:nth-child(even) {
 			if(day1!='')
 			{
 				x6.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; \"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;text-align:center; \" value='"+response.dblRoomRate+"' ></div>";
-				x6.style.transform='skew(-17deg)';
-			}
 				
+			}				
 		}
 		
 		
@@ -1134,7 +1232,7 @@ table tbody tr:nth-child(even) {
 		{
 			x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; \"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-style:0px; width: 90%;height: 20px;text-align:center;\" value='"+response.strSpclInstruction+"' ></div>";
 
-			x7.style.transform='skew(-17deg)';
+			
 		}
 		}
 		else
@@ -1142,11 +1240,115 @@ table tbody tr:nth-child(even) {
 			if(day1!='')
 			{
 				x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; \"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;text-align:center; \" value='"+response.strSpclInstruction+"' ></div>";
-
-				x7.style.transform='skew(-17deg)';
-			}
-	
+				
+			}	
 		}
+	}
+	
+	
+	//For House Keeping View	
+	function funFillRoomStatusRowsForHouseKeeping(roomNo,day1,day2,day3,day4,day5,day6,day7,roomStatus,response)
+	{
+		var table=document.getElementById("tblRoomType");
+		var rowCount=table.rows.length;
+		var row=table.insertRow();
+		row.style.display='none';
+		response.dblRemainingAmt='Balance: '+response.dblRemainingAmt;
+		var color='';
+		
+		day1,day2,day3,day4,day5,day6,day7
+		if(day1==null)
+		{
+			day1="";
+		}
+		if(day2==null)
+		{
+			day2="";
+		}
+		if(day3==null)
+		{
+			day3="";
+		}
+		if(day4==null)
+		{
+			day4="";
+		}
+		if(day5==null)
+		{
+			day5="";
+		}
+		if(day6==null)
+		{
+			day6="";
+		}
+		if(day7==null)
+		{
+			day7="";
+		}
+		var toolTipText1="",toolTipText2="",toolTipText3="",toolTipText4="",toolTipText5="",toolTipText6="",toolTipText7="";
+		if(roomStatus=='Waiting')
+		{
+			color='linear-gradient(250.46deg, #ff94ed 0.67%, #9242fc 100%);';
+		}
+		else if(roomStatus=='RESERVATION')
+		{
+			color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
+		}
+		else if(roomStatus=='Occupied')
+		{
+			color='linear-gradient(250.46deg, #3ade5e 0%, #2ba56e 100%);';
+		}
+		else if(roomStatus=='Checked Out')
+		{
+			color='linear-gradient(250.46deg, #d5d5d5 0%, #9d9d9d 100%);';
+		}
+		else if(roomStatus=='Blocked')
+		{
+			color='linear-gradient(250.46deg, #94b9ff 0.67%, #4283fc 100%);';
+		}
+		else if(roomStatus=='Dirty')
+		{
+			color='linear-gradient(70.46deg, #e4a846 0%, #ffd58e 100%);';
+		}  	
+		if(day1==null)
+		{
+			day1='';
+		}
+		else
+		{
+			if(response.strReservationNo!=null)
+			{
+					      day1+='                  ,'+response.strReservationNo;
+					  
+					      toolTipText1+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
+			}
+		}
+		row.insertCell(0).innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \" style=\"text-align: center;width: 100%;\" value='"+roomNo+"' ></div>";
+		
+		var x1=row.insertCell(1);
+				x1.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; \"><input  readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;  \" value='"+roomStatus+"' onClick='funOnClick(this)' ></div>";
+	
+		var x2=row.insertCell(2);
+			x2.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px ;\" value='"+roomStatus+"' onClick='funOnClick(this)' ></div>";
+			x2.title=toolTipText1;		
+				
+		var x3=row.insertCell(3);
+			x3.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px; text-align:center; \" value='"+response.dblPax+"' onClick='funOnClick(this)'></div>";
+			x3.title=toolTipText1;
+				
+		var x4=row.insertCell(4);
+			x4.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;text-align:center; \" value='"+day4+"'></div>";
+				
+		
+		var x5=row.insertCell(5);
+			x5.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width:font:size:0px; 90%;height: 20px;text-align:center; \" value='"+day5+"' ></div>";
+			
+		var x6=row.insertCell(6);
+			x6.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; \"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;text-align:center; \" value='"+day6+"'></div>";
+		
+		var x7=row.insertCell(7);		
+			x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; \"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-style:0px; width: 90%;height: 20px;text-align:center;\" value='"+day7+"' ></div>";
+			
 	}
 	
 	var message = "";
@@ -1414,6 +1616,28 @@ table tbody tr:nth-child(even) {
 			//funShowRoomStatusDtl();
 		}
 		
+		
+		//House Keeping		
+		function funFillROomTypeHeaderRowsHeaderRowsForHouseKepping(key,roomCnt)
+		{		
+			var table=document.getElementById("tblRoomType");
+			table.setAttribute("class", "table table-bordered");
+			var rowCount=table.rows.length;
+			var row=table.insertRow();
+			row.setAttribute("class", "header");
+			key=key+" ("+roomCnt+")";
+			
+			var inpKey = key;
+			row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%; color:#4a4a4a; font-weight:550; font-size: 13px; width: 72%; \" value='"+key+"' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='' onClick=\"funShowRoomStatusDtl1(this)\">";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"column-info\"  style=\"width: 88%;\" value='' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='' onClick=\"funShowRoomStatusDtl1(this)\">";
+			row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"column-info \" style=\"width: 88%;\" value='' onClick=\"funShowRoomStatusDtl1(this)\">";
+		}
+		
 		function funOpenCleanPage(roomNo,obj)
 		{
 			var transactionName ;
@@ -1638,6 +1862,10 @@ table tbody tr:nth-child(even) {
 		              
 		              <div class="icon-action">
 		                 	<span class="mdi mdi-eye" id="btnView" title="One Day View" onclick="funShowRoomStatusFlashForOneDay();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
+		              </div> 
+		              
+		               <div class="icon-action">
+		                 	<span class="mdi mdi-eye" id="btnView" title="House Keeping Viev" onclick="funShowRoomStatusFlashHouseKeeping();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
 		              </div> 
 		            </div>
 		            <div class="date-actions">

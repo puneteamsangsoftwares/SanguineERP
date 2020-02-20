@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sanguine.webpms.model.clsBathTypeMasterModel;
 import com.sanguine.webpms.model.clsRoomTypeMasterModel;
 
 @Repository("clsRoomTypeMasterDao")

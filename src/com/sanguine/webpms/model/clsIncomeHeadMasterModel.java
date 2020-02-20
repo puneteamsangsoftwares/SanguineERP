@@ -36,9 +36,13 @@ public class clsIncomeHeadMasterModel {
 	@Column(name = "strAccountCode", columnDefinition = "VARCHAR(20) NOT NULL default ''")
 	private String strAccountCode;
 
+	@Column(name = "strHsnSac")
+	private String strHsnSac;
 
+	
 //ALTER TABLE `tblincomehead`
 	//ADD COLUMN `dblRateAmt` DECIMAL(18,4) NOT NULL AFTER `strAccountCode`;
+
 
 
 	@Column(name = "dblRateAmt" , columnDefinition = " DECIMAL(18,4) NOT NULL")
@@ -122,6 +126,14 @@ public class clsIncomeHeadMasterModel {
 
 	public double getDblRate() {
 		return dblRate;
+	}
+
+	public String getStrHsnSac() {
+		return strHsnSac;
+	}
+
+	public void setStrHsnSac(String strHsnSac) {
+		this.strHsnSac = strHsnSac;
 	}
 	
 

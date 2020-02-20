@@ -18,15 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
-import com.sanguine.webpms.bean.clsBathTypeMasterBean;
 import com.sanguine.webpms.bean.clsExtraBedMasterBean;
-import com.sanguine.webpms.bean.clsPlanMasterBean;
-import com.sanguine.webpms.dao.clsBathTypeMasterDao;
 import com.sanguine.webpms.dao.clsExtraBedMasterDao;
 import com.sanguine.webpms.model.clsExtraBedMasterModel;
-import com.sanguine.webpms.model.clsIncomeHeadMasterModel;
-import com.sanguine.webpms.model.clsPlanMasterModel;
-import com.sanguine.webpms.service.clsBathTypeMasterService;
 import com.sanguine.webpms.service.clsExtraBedMasterService;
 
 @Controller

@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webpms.bean.clsPMSReasonMasterBean;
-import com.sanguine.webpms.bean.clsRoomTypeMasterBean;
 import com.sanguine.webpms.model.clsPMSReasonMasterModel;
-import com.sanguine.webpms.model.clsRoomTypeMasterModel;
 
 @Service("objPMSReasonMasterService")
 public class clsPMSReasonMasterServiceImpl implements clsPMSReasonMasterService {

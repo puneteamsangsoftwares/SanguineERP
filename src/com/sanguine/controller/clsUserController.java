@@ -379,7 +379,7 @@ public class clsUserController {
 			req.getSession().setAttribute("WebExciseDB", objGlobalFun.funTrimDBNameFromURL(webExciseURL));
 			req.getSession().setAttribute("WebBooksDB", objGlobalFun.funTrimDBNameFromURL(webBooksURL));
 			req.getSession().setAttribute("WebPMSDB", objGlobalFun.funTrimDBNameFromURL(webPMSURL));
-			req.getSession().setAttribute("WebPMSDB", objGlobalFun.funTrimDBNameFromURL(webClubURL));
+			req.getSession().setAttribute("WebCLUBDB", objGlobalFun.funTrimDBNameFromURL(webClubURL));
 			
 		}catch(Exception e)
 		{

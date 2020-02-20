@@ -3,7 +3,6 @@ package com.sanguine.webpms.dao;
 import java.util.List;
 
 import com.sanguine.webpms.model.clsGuestMasterHdModel;
-import com.sanguine.webpms.model.clsRoomTypeMasterModel;
 
 public interface clsGuestMasterDao {
 

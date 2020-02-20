@@ -14,6 +14,14 @@
 	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
+
+<style type="text/css">
+#tab_container {
+
+overflow: hidden;
+
+}
+</style>
 <script type="text/javascript">
 
 	var fieldName;
@@ -161,7 +169,7 @@
 				        	{
 					        	$("#txtIncomeHeadDesc").val(response.strIncomeHeadDesc);
 					        	$("#txtDepartment").val(response.strDeptCode);
-					        	
+					        	$("#txtHsnSac").val(response.strHsnSac);
 								if(response.strAccountCode!="NA")
 								{
 				        		funSetAccountCode(response.strAccountCode)
@@ -355,6 +363,10 @@
 			
 			<div class="col-md-1"><label> Rate </label>
 				<s:input id="dblRate" path="dblRate" style="text-align:right;"/>				
+			</div>
+			
+			<div class="col-md-2"><label>HSN/SAC</label>
+				<s:input id="txtHsnSac" path="strHsnSac"/>				
 			</div>
 			
 		</div>

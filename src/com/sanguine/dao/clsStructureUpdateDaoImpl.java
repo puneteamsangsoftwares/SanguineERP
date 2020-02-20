@@ -4624,6 +4624,27 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ "ADD COLUMN `strBillToCorporate` VARCHAR(5) NOT NULL DEFAULT 'N' AFTER `strDontApplyTax`";
 		funExecutePMSQuery(sql);
 		
+		sql = "ALTER TABLE `tblincomehead` ADD COLUMN `strHsnSac` VARCHAR(30) NOT NULL AFTER `dblRateAmt`;";
+		funExecutePMSQuery(sql);
+		
+		sql = "ALTER TABLE `tblroomtypemaster` ADD COLUMN `strHsnSac` VARCHAR(30) NULL AFTER `dblDoubleTariff`;";
+		funExecutePMSQuery(sql);
+		
+		sql = "CREATE TABLE `tblpmsstaffmaster` ( "
+				+ "`strStaffCode` VARCHAR(255) NOT NULL,"
+				+ "`strStaffName` VARCHAR(50) NOT NULL,"
+				+ "`IntSTId` BIGINT(20) NOT NULL,"
+				+ "`dtCreated` DATETIME NOT NULL,"
+				+ "`dtEdited` DATETIME NOT NULL,"
+				+ "`strUserCreated` VARCHAR(20) NOT NULL DEFAULT '',"
+				+ "`strUserEdited` VARCHAR(20) NOT NULL DEFAULT '',"
+				+ "`strClientCode` VARCHAR(255) NOT NULL,"
+				+ "PRIMARY KEY (`strClientCode`, `strStaffCode`)"
+				+ ")"
+				+ "COLLATE='utf8_general_ci' "
+				+ "ENGINE=InnoDB";
+		funExecutePMSQuery(sql);
+		
 				// For PMS Form Of Tree master Start///
 		sql = " INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`) VALUES "
 

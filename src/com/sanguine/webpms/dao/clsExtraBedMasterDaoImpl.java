@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sanguine.webpms.model.clsExtraBedMasterModel;
-import com.sanguine.webpms.model.clsIncomeHeadMasterModel;
 
 @Repository("clsExtraBedMasterDao")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

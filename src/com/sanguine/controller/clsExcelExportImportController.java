@@ -1197,7 +1197,7 @@ public class clsExcelExportImportController {
 			objRoomTypeMasterModel.setDteDateCreated(arrObj[5].toString());
 			objRoomTypeMasterModel.setDteDateEdited(arrObj[6].toString());
 			objRoomTypeMasterModel.setStrClientCode(clientCode);
-			
+			objRoomTypeMasterModel.setStrHsnSac(arrObj[10].toString());
 			}
 			objRoomTypeMasterDao.funAddUpdateRoomMaster(objRoomTypeMasterModel);
 		}
@@ -1222,7 +1222,7 @@ public class clsExcelExportImportController {
 					objRoomTypeMasterModel.setDteDateCreated(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
 					objRoomTypeMasterModel.setDteDateEdited(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
 					objRoomTypeMasterModel.setStrClientCode(clientCode);
-					
+					objRoomTypeMasterModel.setStrHsnSac("");
 					objRoomTypeMasterDao.funAddUpdateRoomMaster(objRoomTypeMasterModel);
 				
 		}

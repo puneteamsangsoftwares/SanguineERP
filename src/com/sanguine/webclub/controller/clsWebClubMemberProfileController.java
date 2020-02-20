@@ -600,6 +600,7 @@ public class clsWebClubMemberProfileController {
 		// Personal Information
 		mpModel.setStrGender(memProfileBean.getStrGender());
 		mpModel.setDteDateofBirth(objGlobal.funGetDate("yyyy-MM-dd",memProfileBean.getDteDateofBirth()));
+		mpModel.setStrMaritalStatus(memProfileBean.getStrMaritalStatus());
 		//mpModel.setDteDateofBirth(memProfileBean.getDteDateofBirth());
 
 		//Bank Information
@@ -607,7 +608,6 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrIfscCOde(memProfileBean.getStrIfscCOde());
 		mpModel.setStrBranchName(memProfileBean.getStrBranchName());
 		mpModel.setStrAccNo(memProfileBean.getStrAccNo());		
-		mpModel.setStrMaritalStatus(memProfileBean.getStrMaritalStatus());
 		mpModel.setStrProfessionCode(memProfileBean.getStrProfessionCode());
 		mpModel.setDteMembershipStartDate(objGlobal.funGetDate("yyyy-MM-dd", memProfileBean.getDteMembershipStartDate()));
 		mpModel.setDteMembershipEndDate(objGlobal.funGetDate("yyyy-MM-dd", memProfileBean.getDteMembershipEndDate()));
@@ -695,7 +695,10 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrMemberYesNo("");
 		mpModel.setStrSeconderCode("");
 		mpModel.setStrFatherMemberCode("");
-		mpModel.setStrProposerCode("");
+		mpModel.setStrProposerCode("");		
+		mpModel.setStrSendInvThrough("");
+		mpModel.setStrResident("");
+		mpModel.setStrSendCircularNoticeThrough("");
 		return mpModel;
 	}
 
@@ -1075,7 +1078,7 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrGender("F");
 		mpModel.setDteDateofBirth(objGlobal.funGetDate("yyyy-mm-dd", memProfileBean.getDteSpouseDateofBirth()));
 		//mpModel.setDteDateofBirth(memProfileBean.getDteSpouseDateofBirth());
-		mpModel.setStrMaritalStatus("married");
+		mpModel.setStrMaritalStatus("Married");
 		mpModel.setStrProfessionCode(memProfileBean.getStrSpouseProfessionCode());
 		mpModel.setDteAnniversary(objGlobal.funGetDate("yyyy-mm-dd", memProfileBean.getDteAnniversary()));
 		//mpModel.setDteAnniversary(memProfileBean.getDteAnniversary());		
@@ -1153,6 +1156,7 @@ public class clsWebClubMemberProfileController {
 		mpModel.setStrBillingFlag("N");
 		mpModel.setStrMemberYesNo("");
 		mpModel.setStrBankCode("");
+		mpModel.setStrResident("");
 		return mpModel;	
 	}
 	

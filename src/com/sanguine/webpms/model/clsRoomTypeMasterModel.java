@@ -36,7 +36,16 @@ public class clsRoomTypeMasterModel {
 	@Column(name = "dblDoubleTariff")
 	private double dblDoubleTariff;
 	
-	
+	@Column(name = "strHsnSac")
+	private String strHsnSac;
+
+	public String getStrHsnSac() {
+		return strHsnSac;
+	}
+
+	public void setStrHsnSac(String strHsnSac) {
+		this.strHsnSac = strHsnSac;
+	}
 
 	public String getStrRoomTypeCode() {
 		return strRoomTypeCode;

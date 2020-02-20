@@ -3,12 +3,10 @@ package com.sanguine.webpms.bean;
 public class clsRoomTypeMasterBean {
 	private String strRoomTypeCode;
 	private String strRoomTypeDesc;
-	private double dblRoomTerrif;
-	
-	
+	private double dblRoomTerrif;	
 	private String strRoomDesc;
-
 	private double dblDoubleTariff;
+	private String strHsnSac;
 	
 	public String getStrRoomTypeCode() {
 		return strRoomTypeCode;
@@ -48,6 +46,14 @@ public class clsRoomTypeMasterBean {
 
 	public void setDblDoubleTariff(double dblDoubleTariff) {
 		this.dblDoubleTariff = dblDoubleTariff;
+	}
+	
+	public String getStrHsnSac() {
+		return strHsnSac;
+	}
+
+	public void setStrHsnSac(String strHsnSac) {
+		this.strHsnSac = strHsnSac;
 	}
 
 }

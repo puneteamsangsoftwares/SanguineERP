@@ -5234,6 +5234,17 @@
 			<put-attribute name="title" value="Capture Image"></put-attribute>
 			<put-attribute name="body" 	value="/WEB-INF/jsp/webPMS/tools/frmCaptureImage.jsp"></put-attribute>
 		</definition>
+		
+		
+		<definition name="frmPMSStaffMaster" extends="base.definition">
+			<put-attribute name="title" value="Staff Master"></put-attribute>
+			<put-attribute name="body" 	value="/WEB-INF/jsp/webPMS/masters/frmPMSStaffMaster.jsp"></put-attribute>
+		</definition>
+		
+		<definition name="frmPMSStaffMaster_1" extends="base.definition4">
+			<put-attribute name="title" value="Staff Master"></put-attribute>
+			<put-attribute name="body"	value="/WEB-INF/jsp/webPMS/masters/frmPMSStaffMaster.jsp"></put-attribute>
+		</definition>
   	
 <!-- 	End Of WebPMS Tiles Entry -->
 

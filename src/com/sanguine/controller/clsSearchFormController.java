@@ -3237,6 +3237,16 @@ public class clsSearchFormController {
 			break;
 		}
 		
+		case "PmsStaffCode": {
+			columnNames = "strStaffCode,strStaffName";
+			tableName = "clsPMSStaffMasterModel where strClientCode='" + clientCode + "'";
+			listColumnNames = "Staff Code,Staff Name";
+			idColumnName = "strStaffCode,strClientCode";
+			// criteria = getCriteriaQuery(columnNames,search_with,tableName);
+			searchFormTitle = "Staff Master";
+			break;
+		}
+		
 		}
 		
 

@@ -21,7 +21,6 @@ import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webpms.bean.clsPMSReasonMasterBean;
 import com.sanguine.webpms.dao.clsPMSReasonMasterDao;
 import com.sanguine.webpms.model.clsPMSReasonMasterModel;
-import com.sanguine.webpms.model.clsRoomTypeMasterModel;
 import com.sanguine.webpms.service.clsPMSReasonMasterService;
 
 @Controller

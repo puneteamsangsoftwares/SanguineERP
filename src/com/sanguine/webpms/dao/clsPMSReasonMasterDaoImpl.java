@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sanguine.webpms.model.clsPMSReasonMasterModel;
-import com.sanguine.webpms.model.clsRoomTypeMasterModel;
 
 @Repository("clsPMSReasonMasterDao")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

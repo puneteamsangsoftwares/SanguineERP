@@ -76,7 +76,6 @@ public class clsBaseServiceImpl implements intfBaseService {
 	}
 	
 	@Override
-	@Transactional(value = "hibernateTransactionManager")
 	public List funGetListModuleWise(StringBuilder strQuery, String queryType, String moduleType) throws Exception{
 		return objBaseDao.funGetListModuleWise(strQuery, queryType, moduleType);
 	}

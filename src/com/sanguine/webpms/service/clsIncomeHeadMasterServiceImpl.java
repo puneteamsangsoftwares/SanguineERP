@@ -71,6 +71,7 @@ public class clsIncomeHeadMasterServiceImpl implements clsIncomeHeadMasterServic
 		objIncomeHeadMasterModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 		objIncomeHeadMasterModel.setStrClientCode(clientCode);
 		objIncomeHeadMasterModel.setDblRate(objIncomeMasterBean.getDblRate());
+		objIncomeHeadMasterModel.setStrHsnSac(objIncomeMasterBean.getStrHsnSac());
 		return objIncomeHeadMasterModel;
 	}
 }
