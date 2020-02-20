@@ -224,19 +224,6 @@
 				<s:input type="text" id="txtAgentCode" path="strAgentCode" cssClass="searchTextBox" style="height: 45%;" ondblclick="funHelp('AgentCode');"/>
 			</div>
 			
-			<div class="col-md-1"><label>From Date</label>
-				 <s:input type="text" id="txtFromDate" path="dteFromDate" style="width: 130%;" cssClass="calenderTextBox" />
-			</div>
-			
-			<div class="col-md-1"><label>To Date</label>
-				<s:input type="text" id="txtToDate" path="dteToDate" style="width: 130%;" cssClass="calenderTextBox" />
-			</div>
-			
-			<div class="col-md-2"><label>Description</label>
-				<s:input type="text" id="txtDescription" path="strDescription"/>
-			</div>
-			<div class="col-md-6"></div>
-			
 			<div class="col-md-2"><label>Agent Comm Code</label>
 				 <s:input  type="text" id="txtAgentCommCode" path="strAgentCommCode" cssClass="searchTextBox" style="height: 45%;" ondblclick="funHelp('AgentCommCode');"/>
 			</div>
@@ -245,50 +232,61 @@
 				<s:input type="text" id="txtCorporateCode" path="strCorporateCode" cssClass="searchTextBox" style="height: 45%;" ondblclick="funHelp('CorporateCode');"/>
 			</div>
 			
+			<div class="col-md-2"><label>Description</label>
+				<s:input type="text" id="txtDescription" path="strDescription"/>
+			</div>
+			<div class="col-md-4"></div>
+			
+			<div class="col-md-2"><label>Address</label>
+				<s:input type="text" id="txtAddress" path="strAddress"/>
+			</div>
+			
+			<div class="col-md-2"><label>From Date</label>
+				 <s:input type="text" id="txtFromDate" path="dteFromDate" style="width: 70%;" cssClass="calenderTextBox" />
+			</div>
+			
+			<div class="col-md-2"><label>To Date</label>
+				<s:input type="text" id="txtToDate" path="dteToDate" style="width: 70%;" cssClass="calenderTextBox" />
+			</div>
+			
 			<div class="col-md-2"><label>Adv To Receive</label>
 				<s:input type="number" step="0.01" id="txtAdvToReceive" style="width: 55%;height:45%;" path="dblAdvToReceive"/>
 			</div>
-			<div class="col-md-6"></div>
+		     <div class="col-md-4"></div>
 			
-			<div class="col-md-3"><label>Address</label>
-				<s:input type="text" id="txtAddress" path="strAddress"/>
-			</div>
-		
-			<div class="col-md-1"><label>City</label>
-				<s:select id="txtCity" path="strCity" items="${cityArrLsit}" style="width: 110%;"/>
+			<div class="col-md-2"><label>City</label>
+				<s:select id="txtCity" path="strCity" items="${cityArrLsit}" style="width:auto;"/>
 			</div>
 			
 			<div class="col-md-2"><label>State</label>
-				<s:select id="txtState" path="strState"  items="${stateArrLsit}" style="width: 59%;"/>
+				<s:select id="txtState" path="strState"  items="${stateArrLsit}" style="width:auto;"/>
 			</div>
 			
-			<div class="col-md-1" style="margin-left: -8%;"><label>Country</label>
-				<s:select id="txtCountry" path="strCountry" items="${countryArrLsit}"/>
+			<div class="col-md-2"><label>Country</label>
+				<s:select id="txtCountry" path="strCountry" items="${countryArrLsit}" style="width:auto;"/>
 			</div>
 			
-	        <div class="col-md-5"></div>
-	        
 			<div class="col-md-2"><label>TelphoneNo</label>
 				<s:input type="text" id="txtTelphoneNo" path="lngTelphoneNo" style="text-align:right;" onkeypress="javascript:return isNumber(event)" />
 			</div>
-		
+		    <div class="col-md-4"></div>
+		    
 			<div class="col-md-2"><label>MobileNo</label>
 				<s:input type="text" id="txtMobileNo" style="text-align:right;" path="lngMobileNo" onkeypress="javascript:return isNumber(event)" />
 			</div>
-	
+	         
 			<div class="col-md-2"><label>FaxNo</label>
 				<s:input type="text" id="txtFaxNo" path="lngFaxNo" onkeypress="javascript:return isNumber(event)"/>
 			</div>
-			 <div class="col-md-6"></div>
 			 
-			<div class="col-md-3"><label>EmailId</label>
+			<div class="col-md-2"><label>EmailId</label>
 				<s:input type="text" id="txtEmailId" path="strEmailId" />
 			</div>
 		
 		</div>
 
 		<br />
-		<p align="center" style="margin-right: 13%;">
+		<p align="center" style="margin-right:-20%;">
 			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this);" />&nbsp;
 			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>

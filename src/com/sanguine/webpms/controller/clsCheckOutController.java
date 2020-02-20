@@ -105,7 +105,7 @@ public class clsCheckOutController {
 
 	// get room detail for checkout
 	@RequestMapping(value = "/getRoomDtlList", method = RequestMethod.GET)
-	public @ResponseBody List funLoadMasterData(@RequestParam("roomCode") String roomCode, HttpServletRequest request) {
+	public @ResponseBody List funLoadMasterData(@RequestParam("roomCode") String roomCode,HttpServletRequest request) {
 		/*
 		 * String sql=
 		 * "select a.strCheckInNo,a.strRegistrationNo,ifnull(a.strReservationNo,'NA'),ifnull(a.strWalkinNo,'NA') "
@@ -127,91 +127,186 @@ public class clsCheckOutController {
 		 * List list = objGlobalFunctionsService.funGetListModuleWise(sql,
 		 * "sql");
 		 */
-
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
-
-		String sql = "select a.strCheckInNo,a.strRegistrationNo,ifnull(a.strReservationNo,'NA'),ifnull(a.strWalkinNo,'NA') " + " ,c.strCorporateCode,d.strRoomNo,d.strFolioNo,concat(IFNULL(f.strFirstName,''),' ',IFNULL(f.strMiddleName,''),' ',IFNULL(f.strLastName,'')) as GuestName " + " ,date(a.dteArrivalDate),date(a.dteDepartureDate),ifnull(g.strCorporateCode,'NA') "
-				+ " from tblcheckinhd a left outer join tblcheckindtl b on a.strCheckInNo=b.strCheckInNo AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'"
-				+ " left outer join tblreservationhd c on a.strReservationNo=c.strReservationNo AND c.strClientCode='"+clientCode+"'"
-				+ " left outer join tblfoliohd d on a.strCheckInNo=d.strCheckInNo AND d.strClientCode='"+clientCode+"'" 
-				+ " left outer join tblguestmaster f on b.strGuestCode=f.strGuestCode AND f.strClientCode='"+clientCode+"'" 
-				+ " left outer join tblwalkinhd g on a.strWalkInNo=g.strWalkinNo AND g.strClientCode='"+clientCode+"'"
-				+ " where d.strRoomNo='" + roomCode + "' " + " group by d.strFolioNo ";
-		List list = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
-
+		String sql="";
 		List<clsCheckOutRoomDtlBean> listCheckOutRoomDtl = new ArrayList<clsCheckOutRoomDtlBean>();
-		for (int i = 0; i < list.size(); i++) {
-			Object obj[] = (Object[]) list.get(i);
-			clsCheckOutRoomDtlBean objCheckOutRoomDtlBean = new clsCheckOutRoomDtlBean();
-			objCheckOutRoomDtlBean.setStrRoomNo(obj[5].toString());
-			objCheckOutRoomDtlBean.setStrRegistrationNo(obj[1].toString());
-			objCheckOutRoomDtlBean.setStrFolioNo(obj[6].toString());
-			objCheckOutRoomDtlBean.setStrReservationNo(obj[2].toString());
-			objCheckOutRoomDtlBean.setStrGuestName(obj[7].toString());
-			objCheckOutRoomDtlBean.setDteCheckInDate(obj[8].toString());
-			objCheckOutRoomDtlBean.setDteCheckOutDate(obj[9].toString());
-			objCheckOutRoomDtlBean.setStrCorporate(obj[10].toString());
-			objCheckOutRoomDtlBean.setDblAmount(0);
-
-			sql = "select a.strFolioNo,sum(b.dblDebitAmt) " + " from tblfoliohd a,tblfoliodtl b " + " where a.strFolioNo=b.strFolioNo and a.strRoomNo='" + roomCode + "' " + " AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' group by a.strFolioNo";
-			List listFolioAmt = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
-			for (int cnt = 0; cnt < listFolioAmt.size(); cnt++) {
-				Object[] arrObjFolio = (Object[]) listFolioAmt.get(cnt);
-				objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() + Double.parseDouble(arrObjFolio[1].toString()));
-			}
-
-			sql = "select sum(b.dblDebitAmt),sum(c.dblTaxAmt) " + " from tblfoliohd a,tblfoliodtl b,tblfoliotaxdtl c " + " where a.strFolioNo=b.strFolioNo and b.strFolioNo=c.strFolioNo and b.strDocNo=c.strDocNo " + " and a.strRoomNo='" + roomCode + "' " + " AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' group by b.strFolioNo";
-			List listFolioTaxAmt = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
-			for (int cnt = 0; cnt < listFolioTaxAmt.size(); cnt++) {
-				Object[] arrObjFolio = (Object[]) listFolioTaxAmt.get(cnt);
-				objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() + Double.parseDouble(arrObjFolio[1].toString()));
-			}
-
-			sql = "select a.strReceiptNo,sum(b.dblSettlementAmt) " + " from tblreceipthd a,tblreceiptdtl b " + " where a.strReceiptNo=b.strReceiptNo and a.strRegistrationNo='" + objCheckOutRoomDtlBean.getStrRegistrationNo() + "' and a.strAgainst='Check-In' " + " AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' group by a.strReceiptNo";
-			List listReceiptAmtAtCheckIN = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
-			for (int cnt = 0; cnt < listReceiptAmtAtCheckIN.size(); cnt++) {
-				Object[] arrObjFolio = (Object[]) listReceiptAmtAtCheckIN.get(cnt);
-				objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() - Double.parseDouble(arrObjFolio[1].toString()));
-			}
+		if(request.getParameter("groupCheckIn")!=null)
+		{
+			sql = "select a.strCheckInNo,a.strRegistrationNo,ifnull(a.strReservationNo,'NA'),ifnull(a.strWalkinNo,'NA') " + " ,c.strCorporateCode,d.strRoomNo,d.strFolioNo,concat(IFNULL(f.strFirstName,''),' ',IFNULL(f.strMiddleName,''),' ',IFNULL(f.strLastName,'')) as GuestName " + " ,date(a.dteArrivalDate),date(a.dteDepartureDate),ifnull(g.strCorporateCode,'NA') "
+					+ " from tblcheckinhd a left outer join tblcheckindtl b on a.strCheckInNo=b.strCheckInNo AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'"
+					+ " left outer join tblreservationhd c on a.strReservationNo=c.strReservationNo AND c.strClientCode='"+clientCode+"'"
+					+ " left outer join tblfoliohd d on a.strCheckInNo=d.strCheckInNo AND d.strClientCode='"+clientCode+"'" 
+					+ " left outer join tblguestmaster f on b.strGuestCode=f.strGuestCode AND f.strClientCode='"+clientCode+"'" 
+					+ " left outer join tblwalkinhd g on a.strWalkInNo=g.strWalkinNo AND g.strClientCode='"+clientCode+"'"
+					+ " where d.strCheckInNo='" + roomCode + "' " + " and d.strGuestCode=f.strGuestCode group by d.strFolioNo ";	
 			
-			sql = "SELECT Sum(a.dblCreditAmt) from tblfoliodtl a where a.strFolioNo='"+obj[6].toString()+"' AND a.strClientCode='"+clientCode+"'";
-			List listFolioDisc = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
-			for (int cnt = 0; cnt < listFolioDisc.size(); cnt++) {
-				objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() - Double.parseDouble(listFolioDisc.get(cnt).toString()));
-			}
-            
-			boolean flgIsFullPayment=false;
-			if(!objCheckOutRoomDtlBean.getStrReservationNo().toString().isEmpty())
-			{
-				sql="SELECT ifnull(SUM(c.dblSettlementAmt),0),ifnull(sum(b.dblGrandTotal),0)"
-						+ " FROM tblreceipthd a left outer join tblbillhd b on a.strBillNo=b.strBillNo and a.strReservationNo and b.strReservationNo,tblreceiptdtl c"
-						+ " WHERE a.strReceiptNo=c.strReceiptNo AND a.strReservationNo='"+objCheckOutRoomDtlBean.getStrReservationNo()+"'"; 
-					List listCheckForFullPayment= objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
-					for (int cnt = 0; cnt < listCheckForFullPayment.size(); cnt++) 
-					{
-						Object arrObjFolio[] = (Object[]) listCheckForFullPayment.get(cnt);
-						if(Double.parseDouble(arrObjFolio[0].toString())>0)
+			
+			List list = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+
+			for (int i = 0; i < list.size(); i++) {
+				Object obj[] = (Object[]) list.get(i);
+				clsCheckOutRoomDtlBean objCheckOutRoomDtlBean = new clsCheckOutRoomDtlBean();
+				objCheckOutRoomDtlBean.setStrRoomNo(obj[5].toString());
+				objCheckOutRoomDtlBean.setStrRegistrationNo(obj[1].toString());
+				objCheckOutRoomDtlBean.setStrFolioNo(obj[6].toString());
+				objCheckOutRoomDtlBean.setStrReservationNo(obj[2].toString());
+				objCheckOutRoomDtlBean.setStrGuestName(obj[7].toString());
+				objCheckOutRoomDtlBean.setDteCheckInDate(obj[8].toString());
+				objCheckOutRoomDtlBean.setDteCheckOutDate(obj[9].toString());
+				objCheckOutRoomDtlBean.setStrCorporate(obj[10].toString());
+				objCheckOutRoomDtlBean.setDblAmount(0);
+
+				sql = "select a.strFolioNo,sum(b.dblDebitAmt) " + " from tblfoliohd a,tblfoliodtl b " + " where a.strFolioNo=b.strFolioNo and a.strRoomNo='" + obj[5].toString() + "' " + " AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' group by a.strFolioNo";
+				List listFolioAmt = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+				for (int cnt = 0; cnt < listFolioAmt.size(); cnt++) {
+					Object[] arrObjFolio = (Object[]) listFolioAmt.get(cnt);
+					objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() + Double.parseDouble(arrObjFolio[1].toString()));
+				}
+
+				sql = "select sum(b.dblDebitAmt),sum(c.dblTaxAmt) " + " from tblfoliohd a,tblfoliodtl b,tblfoliotaxdtl c " + " where a.strFolioNo=b.strFolioNo and b.strFolioNo=c.strFolioNo and b.strDocNo=c.strDocNo " + " and a.strRoomNo='" + obj[5].toString() + "' " + " AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' group by b.strFolioNo";
+				List listFolioTaxAmt = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+				for (int cnt = 0; cnt < listFolioTaxAmt.size(); cnt++) {
+					Object[] arrObjFolio = (Object[]) listFolioTaxAmt.get(cnt);
+					objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() + Double.parseDouble(arrObjFolio[1].toString()));
+				}
+
+				sql = "select a.strReceiptNo,sum(b.dblSettlementAmt) " + " from tblreceipthd a,tblreceiptdtl b " + " where a.strReceiptNo=b.strReceiptNo and a.strRegistrationNo='" + objCheckOutRoomDtlBean.getStrRegistrationNo() + "' and a.strAgainst='Check-In' " + " AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' group by a.strReceiptNo";
+				List listReceiptAmtAtCheckIN = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+				for (int cnt = 0; cnt < listReceiptAmtAtCheckIN.size(); cnt++) {
+					Object[] arrObjFolio = (Object[]) listReceiptAmtAtCheckIN.get(cnt);
+					objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() - Double.parseDouble(arrObjFolio[1].toString()));
+				}
+				
+				sql = "SELECT Sum(a.dblCreditAmt) from tblfoliodtl a where a.strFolioNo='"+obj[6].toString()+"' AND a.strClientCode='"+clientCode+"'";
+				List listFolioDisc = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+				for (int cnt = 0; cnt < listFolioDisc.size(); cnt++) {
+					objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() - Double.parseDouble(listFolioDisc.get(cnt).toString()));
+				}
+	            
+				boolean flgIsFullPayment=false;
+				if(!objCheckOutRoomDtlBean.getStrReservationNo().toString().isEmpty())
+				{
+					sql="SELECT ifnull(SUM(c.dblSettlementAmt),0),ifnull(sum(b.dblGrandTotal),0)"
+							+ " FROM tblreceipthd a left outer join tblbillhd b on a.strBillNo=b.strBillNo and a.strReservationNo and b.strReservationNo,tblreceiptdtl c"
+							+ " WHERE a.strReceiptNo=c.strReceiptNo AND a.strReservationNo='"+objCheckOutRoomDtlBean.getStrReservationNo()+"'"; 
+						List listCheckForFullPayment= objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+						for (int cnt = 0; cnt < listCheckForFullPayment.size(); cnt++) 
 						{
-							if(Double.parseDouble(arrObjFolio[0].toString())==Double.parseDouble(arrObjFolio[1].toString()))
+							Object arrObjFolio[] = (Object[]) listCheckForFullPayment.get(cnt);
+							if(Double.parseDouble(arrObjFolio[0].toString())>0)
 							{
-								flgIsFullPayment=true;
-								break;
+								if(Double.parseDouble(arrObjFolio[0].toString())==Double.parseDouble(arrObjFolio[1].toString()))
+								{
+									flgIsFullPayment=true;
+									break;
+								}
 							}
 						}
-					}
-					if(!flgIsFullPayment)
-					{
-						sql = "select sum(b.dblSettlementAmt) " + " from tblreceipthd a,tblreceiptdtl b " + " where a.strReceiptNo=b.strReceiptNo and a.strReservationNo='" + objCheckOutRoomDtlBean.getStrReservationNo() + "' " + " and a.strAgainst='Reservation' " + " group by a.strReceiptNo";
-						List listReceiptAmtAtReservation = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
-						for (int cnt = 0; cnt < listReceiptAmtAtReservation.size(); cnt++) {
-							Object arrObjFolio = (Object) listReceiptAmtAtReservation.get(cnt);
-							objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() - Double.parseDouble(arrObjFolio.toString()));
-						}	
-					}
+						if(!flgIsFullPayment)
+						{
+							sql = "select sum(b.dblSettlementAmt) " + " from tblreceipthd a,tblreceiptdtl b " + " where a.strReceiptNo=b.strReceiptNo and a.strReservationNo='" + objCheckOutRoomDtlBean.getStrReservationNo() + "' " + " and a.strAgainst='Reservation' " + " group by a.strReceiptNo";
+							List listReceiptAmtAtReservation = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+							for (int cnt = 0; cnt < listReceiptAmtAtReservation.size(); cnt++) {
+								Object arrObjFolio = (Object) listReceiptAmtAtReservation.get(cnt);
+								objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() - Double.parseDouble(arrObjFolio.toString()));
+							}	
+						}
+				}
+				
+				listCheckOutRoomDtl.add(objCheckOutRoomDtlBean);
 			}
-			
-			listCheckOutRoomDtl.add(objCheckOutRoomDtlBean);
 		}
+		
+		
+		else
+		{
+			sql = "select a.strCheckInNo,a.strRegistrationNo,ifnull(a.strReservationNo,'NA'),ifnull(a.strWalkinNo,'NA') " + " ,c.strCorporateCode,d.strRoomNo,d.strFolioNo,concat(IFNULL(f.strFirstName,''),' ',IFNULL(f.strMiddleName,''),' ',IFNULL(f.strLastName,'')) as GuestName " + " ,date(a.dteArrivalDate),date(a.dteDepartureDate),ifnull(g.strCorporateCode,'NA') "
+					+ " from tblcheckinhd a left outer join tblcheckindtl b on a.strCheckInNo=b.strCheckInNo AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'"
+					+ " left outer join tblreservationhd c on a.strReservationNo=c.strReservationNo AND c.strClientCode='"+clientCode+"'"
+					+ " left outer join tblfoliohd d on a.strCheckInNo=d.strCheckInNo AND d.strClientCode='"+clientCode+"'" 
+					+ " left outer join tblguestmaster f on b.strGuestCode=f.strGuestCode AND f.strClientCode='"+clientCode+"'" 
+					+ " left outer join tblwalkinhd g on a.strWalkInNo=g.strWalkinNo AND g.strClientCode='"+clientCode+"'"
+					+ " where d.strRoomNo='" + roomCode + "' " + " group by d.strFolioNo ";		
+			
+			List list = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+
+			
+			for (int i = 0; i < list.size(); i++) {
+				Object obj[] = (Object[]) list.get(i);
+				clsCheckOutRoomDtlBean objCheckOutRoomDtlBean = new clsCheckOutRoomDtlBean();
+				objCheckOutRoomDtlBean.setStrRoomNo(obj[5].toString());
+				objCheckOutRoomDtlBean.setStrRegistrationNo(obj[1].toString());
+				objCheckOutRoomDtlBean.setStrFolioNo(obj[6].toString());
+				objCheckOutRoomDtlBean.setStrReservationNo(obj[2].toString());
+				objCheckOutRoomDtlBean.setStrGuestName(obj[7].toString());
+				objCheckOutRoomDtlBean.setDteCheckInDate(obj[8].toString());
+				objCheckOutRoomDtlBean.setDteCheckOutDate(obj[9].toString());
+				objCheckOutRoomDtlBean.setStrCorporate(obj[10].toString());
+				objCheckOutRoomDtlBean.setDblAmount(0);
+
+				sql = "select a.strFolioNo,sum(b.dblDebitAmt) " + " from tblfoliohd a,tblfoliodtl b " + " where a.strFolioNo=b.strFolioNo and a.strRoomNo='" + roomCode + "' " + " AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' group by a.strFolioNo";
+				List listFolioAmt = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+				for (int cnt = 0; cnt < listFolioAmt.size(); cnt++) {
+					Object[] arrObjFolio = (Object[]) listFolioAmt.get(cnt);
+					objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() + Double.parseDouble(arrObjFolio[1].toString()));
+				}
+
+				sql = "select sum(b.dblDebitAmt),sum(c.dblTaxAmt) " + " from tblfoliohd a,tblfoliodtl b,tblfoliotaxdtl c " + " where a.strFolioNo=b.strFolioNo and b.strFolioNo=c.strFolioNo and b.strDocNo=c.strDocNo " + " and a.strRoomNo='" + roomCode + "' " + " AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' group by b.strFolioNo";
+				List listFolioTaxAmt = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+				for (int cnt = 0; cnt < listFolioTaxAmt.size(); cnt++) {
+					Object[] arrObjFolio = (Object[]) listFolioTaxAmt.get(cnt);
+					objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() + Double.parseDouble(arrObjFolio[1].toString()));
+				}
+
+				sql = "select a.strReceiptNo,sum(b.dblSettlementAmt) " + " from tblreceipthd a,tblreceiptdtl b " + " where a.strReceiptNo=b.strReceiptNo and a.strRegistrationNo='" + objCheckOutRoomDtlBean.getStrRegistrationNo() + "' and a.strAgainst='Check-In' " + " AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' group by a.strReceiptNo";
+				List listReceiptAmtAtCheckIN = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+				for (int cnt = 0; cnt < listReceiptAmtAtCheckIN.size(); cnt++) {
+					Object[] arrObjFolio = (Object[]) listReceiptAmtAtCheckIN.get(cnt);
+					objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() - Double.parseDouble(arrObjFolio[1].toString()));
+				}
+				
+				sql = "SELECT Sum(a.dblCreditAmt) from tblfoliodtl a where a.strFolioNo='"+obj[6].toString()+"' AND a.strClientCode='"+clientCode+"'";
+				List listFolioDisc = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+				for (int cnt = 0; cnt < listFolioDisc.size(); cnt++) {
+					objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() - Double.parseDouble(listFolioDisc.get(cnt).toString()));
+				}
+	            
+				boolean flgIsFullPayment=false;
+				if(!objCheckOutRoomDtlBean.getStrReservationNo().toString().isEmpty())
+				{
+					sql="SELECT ifnull(SUM(c.dblSettlementAmt),0),ifnull(sum(b.dblGrandTotal),0)"
+							+ " FROM tblreceipthd a left outer join tblbillhd b on a.strBillNo=b.strBillNo and a.strReservationNo and b.strReservationNo,tblreceiptdtl c"
+							+ " WHERE a.strReceiptNo=c.strReceiptNo AND a.strReservationNo='"+objCheckOutRoomDtlBean.getStrReservationNo()+"'"; 
+						List listCheckForFullPayment= objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+						for (int cnt = 0; cnt < listCheckForFullPayment.size(); cnt++) 
+						{
+							Object arrObjFolio[] = (Object[]) listCheckForFullPayment.get(cnt);
+							if(Double.parseDouble(arrObjFolio[0].toString())>0)
+							{
+								if(Double.parseDouble(arrObjFolio[0].toString())==Double.parseDouble(arrObjFolio[1].toString()))
+								{
+									flgIsFullPayment=true;
+									break;
+								}
+							}
+						}
+						if(!flgIsFullPayment)
+						{
+							sql = "select sum(b.dblSettlementAmt) " + " from tblreceipthd a,tblreceiptdtl b " + " where a.strReceiptNo=b.strReceiptNo and a.strReservationNo='" + objCheckOutRoomDtlBean.getStrReservationNo() + "' " + " and a.strAgainst='Reservation' " + " group by a.strReceiptNo";
+							List listReceiptAmtAtReservation = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+							for (int cnt = 0; cnt < listReceiptAmtAtReservation.size(); cnt++) {
+								Object arrObjFolio = (Object) listReceiptAmtAtReservation.get(cnt);
+								objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() - Double.parseDouble(arrObjFolio.toString()));
+							}	
+						}
+				}
+				
+				listCheckOutRoomDtl.add(objCheckOutRoomDtlBean);
+			}
+		}
+		
+		
+		 
 
 		return listCheckOutRoomDtl;
 	}

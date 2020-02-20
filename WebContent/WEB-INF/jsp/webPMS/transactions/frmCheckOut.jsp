@@ -201,6 +201,45 @@
 	        }
 		});		
 	}
+	
+	
+	function funSetGroupCheckOutData(roomCode)
+	{
+		$('#tblRoomDtl tbody > tr').remove();
+		
+		var searchUrl=getContextPath()+"/getRoomDtlList.html?roomCode="+roomCode+"&groupCheckIn=Y";
+		$.ajax({
+			
+			url:searchUrl,
+			type :"GET",
+			dataType: "json",
+	        success: function(response)
+	        {
+	 		   $.each(response, function(index,obj)
+	 		   {
+	 			   fillTableRow(index,obj);
+	 		   });
+			},
+			error: function(jqXHR, exception) 
+			{
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }
+	        }
+		});	
+	}
 
 	
 	/* set date values */
@@ -310,6 +349,11 @@
 			case "billno":
 			 	funSetRoomMasterData(code);
 			 	break;
+			 	
+			case "groupcheckOut":
+				funSetGroupCheckOutData(code);
+			 	break;
+			 	
 		}
 	}
 		
@@ -358,7 +402,7 @@
 				
 				<div class="col-md-2">
 					<s:radiobutton id="strSearchTypeCheckIn" path="strSearchType" style="margin-right:5px;" />Group CheckIn
-					<s:input id="strSearchTextField" path="strSearchTextField" readonly="true" cssClass="searchTextBox" ondblclick="funHelp('billNo')"/>
+					<s:input id="strSearchTextField" path="strSearchTextField" readonly="true" cssClass="searchTextBox" ondblclick="funHelp('groupcheckOut')"/>
 				</div>
 				<div class="col-md-2">
 					<s:input type="hidden" id="strRoomNo" path="strRoomNo" />

@@ -389,10 +389,12 @@ public class clsPostRoomTerrifController {
 		listTaxProdDtl.add(objTaxProductDtl);
 		if(objModel!=null)
 		{
-			if(objHdModel.getStrDontApplyTax().equals("N") && objModel.getStrDontApplyTax().equals("N"))
-			{
-				hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
-			}
+			hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
+		}
+		
+		if(objHdModel.getStrDontApplyTax().equals("N") && objModel.getStrDontApplyTax().equals("N"))
+		{
+			hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
 		}
 		
 		

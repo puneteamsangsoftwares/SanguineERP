@@ -3225,8 +3225,20 @@ public class clsSearchFormController {
 			break;
 		}
 	
-
+		case "groupcheckOut": {
+			columnNames = " a.strCheckInNo,a.strFolioNo,concat(b.strFirstName,' ',b.strMiddleName,' ',b.strLastName),c.strRoomCode,c.strRoomDesc ";
+			tableName = " from tblfoliohd a,tblguestmaster b,tblroom c"
+					+ " where a.strCheckInNo IN"
+					+ "(select strCheckInNo from tblfoliohd group by  strCheckInNo having count(*)>1) and a.strGuestCode=b.strGuestCode and a.strRoomNo=c.strRoomCode ";
+			listColumnNames = " Room Code,Follio No,Guest Name,CheckInNo,RoomNo ";
+			idColumnName = " strFolioNo,strClientCode";
+			flgQuerySelection = true;
+			searchFormTitle = "All Check-In Rooms";
+			break;
 		}
+		
+		}
+		
 
 		mainMap.put("columnNames", columnNames);
 		mainMap.put("tableName", tableName);
