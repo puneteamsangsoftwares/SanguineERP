@@ -1636,9 +1636,9 @@ table tbody tr:nth-child(even) {
 		                 	<span class="mdi mdi-eye" id="btnView" title="Seven Day View" onclick="funShowRoomStatusFlash();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
 		              </div>
 		              
-		              <%-- <div class="icon-action">
+		              <div class="icon-action">
 		                 	<span class="mdi mdi-eye" id="btnView" title="One Day View" onclick="funShowRoomStatusFlashForOneDay();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
-		              </div> --%>
+		              </div> 
 		            </div>
 		            <div class="date-actions">
 		              <div class="add-room">
