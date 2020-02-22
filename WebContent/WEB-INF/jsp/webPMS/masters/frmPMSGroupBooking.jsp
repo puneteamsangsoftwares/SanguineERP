@@ -889,11 +889,11 @@ $(document).ready(function(){
 				<div class="row" style="padding-bottom:12px">
 					<div class="col-md-2">
 						<label>Payment by Group Leader</label>
-						<input type="checkbox" name="" id="txtPaymentBtGroupLeader" path="strPaymentBtGroupLeader" value="Y"/>
+						<input type="radio" name="" id="txtPaymentBtGroupLeader" path="strPaymentBtGroupLeader" value="Y"/>
 					</div>
 					<div class="col-md-2">
 						<label>Guest</label>
-						<input type="checkbox" name="" id="txtGuest" path="strGuest" value="Y"/>
+						<input type="radio" name="" id="txtGuest" path="strGuest" value="Y"/>
 					</div> 
 					<div class="col-md-2">
 						<label>Room </label>

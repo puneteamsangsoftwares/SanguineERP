@@ -113,6 +113,8 @@ public class clsReservationBean {
 	
 	private String strBillToCorporate;
 	
+	private String strGroupCode = "";
+	
 	public String getStrTotalPackageAmt() {
 		return strTotalPackageAmt;
 	}
@@ -564,6 +566,14 @@ public class clsReservationBean {
 
 	public void setStrBillToCorporate(String strBillToCorporate) {
 		this.strBillToCorporate = strBillToCorporate;
+	}
+
+	public String getStrGroupCode() {
+		return strGroupCode;
+	}
+
+	public void setStrGroupCode(String strGroupCode) {
+		this.strGroupCode = strGroupCode;
 	}
 
 	

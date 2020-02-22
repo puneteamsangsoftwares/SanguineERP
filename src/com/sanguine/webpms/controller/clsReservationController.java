@@ -742,6 +742,7 @@ public class clsReservationController {
 		objModel.setTmeDropTime(objBean.getTmeDropTime());
 		objModel.setStrDontApplyTax(objGlobal.funIfNull(objBean.getStrDontApplyTax(), "N", "Y"));
 		objModel.setStrBillToCorporate(objGlobal.funIfNull(objBean.getStrBillToCorporate(), "N", "Y"));
+		objModel.setStrGroupCode(objBean.getStrGroupCode());
 
 		List<clsReservationDtlModel> listResDtlModel = new ArrayList<clsReservationDtlModel>();
 

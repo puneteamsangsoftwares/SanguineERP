@@ -4709,6 +4709,9 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ "ADD PRIMARY KEY (`strGroupCode`, `strClientCode`);";
 		funExecutePMSQuery(sql);
 		
+		sql = "ALTER TABLE `tblreservationhd` ADD COLUMN `strGroupCode` "
+				+ "VARCHAR(20) NOT NULL DEFAULT 'N' AFTER `strBillToCorporate`;";
+		funExecutePMSQuery(sql);
 				// For PMS Form Of Tree master Start///
 		sql = " INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`) VALUES "
 

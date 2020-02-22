@@ -41,6 +41,7 @@ import com.sanguine.webpms.model.clsExtraBedMasterModel;
 import com.sanguine.webpms.model.clsFolioDtlModel;
 import com.sanguine.webpms.model.clsFolioHdModel;
 import com.sanguine.webpms.model.clsGuestMasterHdModel;
+import com.sanguine.webpms.model.clsPMSGroupBookingModel;
 import com.sanguine.webpms.model.clsPackageMasterDtl;
 import com.sanguine.webpms.model.clsPackageMasterHdModel;
 import com.sanguine.webpms.model.clsPropertySetupHdModel;
@@ -54,6 +55,7 @@ import com.sanguine.webpms.model.clsWalkinRoomRateDtlModel;
 import com.sanguine.webpms.service.clsCheckInService;
 import com.sanguine.webpms.service.clsFolioService;
 import com.sanguine.webpms.service.clsGuestMasterService;
+import com.sanguine.webpms.service.clsPMSGroupBookingService;
 import com.sanguine.webpms.service.clsPropertySetupService;
 import com.sanguine.webpms.service.clsReservationService;
 import com.sanguine.webpms.service.clsRoomMasterService;
@@ -95,6 +97,10 @@ public class clsCheckInController {
 	@Autowired
 	private clsCheckInService objCheckInService;
 
+	@Autowired
+	private clsPMSGroupBookingService objGroupBookingService;
+
+	
 	@Autowired
 	private clsGlobalFunctionsService objGlobalFunctionsService;
 
@@ -871,63 +877,73 @@ public class clsCheckInController {
 				 folioN = (String) listCheckIn.get(0);
 			}
 
-			
-			List<String> listCheckRomm = new ArrayList<String>();
-			List<clsFolioDtlModel> listFolioDtl = new ArrayList<clsFolioDtlModel>();
-			for (clsCheckInDtl objCheckInDtlModel : listCheckInDtlModel) {
-				clsFolioHdBean objFolioBean = new clsFolioHdBean();
-				int cntFolios = 0;
-				if (!listCheckRomm.contains(objCheckInDtlModel.getStrRoomNo())) {
-					objFolioBean.setStrRoomNo(objCheckInDtlModel.getStrRoomNo());
-					objFolioBean.setStrCheckInNo(objHdModel.getStrCheckInNo());
-					objFolioBean.setStrRegistrationNo(objHdModel.getStrRegistrationNo());
-					objFolioBean.setStrReservationNo(objHdModel.getStrReservationNo());
-					objFolioBean.setStrWalkInNo(objHdModel.getStrWalkInNo());
-					objFolioBean.setDteArrivalDate(objHdModel.getDteArrivalDate());
-					objFolioBean.setDteDepartureDate(objHdModel.getDteDepartureDate());
-					objFolioBean.setTmeArrivalTime(objHdModel.getTmeArrivalTime());
-					objFolioBean.setTmeDepartureTime(objHdModel.getTmeDepartureTime());
-					objFolioBean.setStrExtraBedCode(objCheckInDtlModel.getStrExtraBedCode());
-					objFolioBean.setStrGuestCode(objCheckInDtlModel.getStrGuestCode());
-					objFolioBean.setStrFolioNo(folioN);
-					
-					
-					clsFolioHdModel objFolioHdModel = objFolioController.funPrepareFolioModel(objFolioBean, clientCode, req);
-					
-					
-//		@@@@			if(!(objHdModel.getStrReservationNo().equalsIgnoreCase("")))
-//					{
+			clsReservationHdModel objResModel = objReservationService.funGetReservationList(objBean.getStrAgainstDocNo(), clientCode, propCode);
+			if(objResModel.getStrGroupCode().equals(""))
+			{
+				List<String> listCheckRomm = new ArrayList<String>();
+				List<clsFolioDtlModel> listFolioDtl = new ArrayList<clsFolioDtlModel>();
+				for (clsCheckInDtl objCheckInDtlModel : listCheckInDtlModel) {
+					clsFolioHdBean objFolioBean = new clsFolioHdBean();
+					int cntFolios = 0;
+					if (!listCheckRomm.contains(objCheckInDtlModel.getStrRoomNo())) {
+						objFolioBean.setStrRoomNo(objCheckInDtlModel.getStrRoomNo());
+						objFolioBean.setStrCheckInNo(objHdModel.getStrCheckInNo());
+						objFolioBean.setStrRegistrationNo(objHdModel.getStrRegistrationNo());
+						objFolioBean.setStrReservationNo(objHdModel.getStrReservationNo());
+						objFolioBean.setStrWalkInNo(objHdModel.getStrWalkInNo());
+						objFolioBean.setDteArrivalDate(objHdModel.getDteArrivalDate());
+						objFolioBean.setDteDepartureDate(objHdModel.getDteDepartureDate());
+						objFolioBean.setTmeArrivalTime(objHdModel.getTmeArrivalTime());
+						objFolioBean.setTmeDepartureTime(objHdModel.getTmeDepartureTime());
+						objFolioBean.setStrExtraBedCode(objCheckInDtlModel.getStrExtraBedCode());
+						objFolioBean.setStrGuestCode(objCheckInDtlModel.getStrGuestCode());
+						objFolioBean.setStrFolioNo(folioN);
+						
+						
+						clsFolioHdModel objFolioHdModel = objFolioController.funPrepareFolioModel(objFolioBean, clientCode, req);
+						
+						
+//			@@@@			if(!(objHdModel.getStrReservationNo().equalsIgnoreCase("")))
+//						{
+//							
+//							
+//						}
+//						
+//						long doc = objPMSUtility.funGenerateFolioDocForRoom("RoomFolio");
+//						String docNo = "RM" + String.format("%06d", doc);
+//						double roomTerrif = 0.0;
+//						clsFolioDtlModel objFolioDtl = new clsFolioDtlModel();
+//						objFolioDtl.setStrDocNo(docNo);
+//						objFolioDtl.setDteDocDate(PMSDate);
+//						objFolioDtl.setDblDebitAmt(roomTerrif);
+//						objFolioDtl.setDblBalanceAmt(0);
+//						objFolioDtl.setDblCreditAmt(0);
+//						objFolioDtl.setStrPerticulars("Room Revenue");
+//						objFolioDtl.setStrRevenueType("Room");
+//						objFolioDtl.setStrRevenueCode(objCheckInDtlModel.getStrRoomNo());
+//						listFolioDtl.add(objFolioDtl);
+//						if(objHdModel.getStrReservationNo().equalsIgnoreCase(""))
+//						{
+//							List<clsReservationRoomRateModelDtl>listReservationRoomRate= objReservationService.funGetReservationRoomRateList( objHdModel.getStrReservationNo(),  clientCode,  objCheckInDtlModel.getStrRoomNo()) ;
+//						    	
 //						
 //						
-//					}
-//					
-//					long doc = objPMSUtility.funGenerateFolioDocForRoom("RoomFolio");
-//					String docNo = "RM" + String.format("%06d", doc);
-//					double roomTerrif = 0.0;
-//					clsFolioDtlModel objFolioDtl = new clsFolioDtlModel();
-//					objFolioDtl.setStrDocNo(docNo);
-//					objFolioDtl.setDteDocDate(PMSDate);
-//					objFolioDtl.setDblDebitAmt(roomTerrif);
-//					objFolioDtl.setDblBalanceAmt(0);
-//					objFolioDtl.setDblCreditAmt(0);
-//					objFolioDtl.setStrPerticulars("Room Revenue");
-//					objFolioDtl.setStrRevenueType("Room");
-//					objFolioDtl.setStrRevenueCode(objCheckInDtlModel.getStrRoomNo());
-//					listFolioDtl.add(objFolioDtl);
-//					if(objHdModel.getStrReservationNo().equalsIgnoreCase(""))
-//					{
-//						List<clsReservationRoomRateModelDtl>listReservationRoomRate= objReservationService.funGetReservationRoomRateList( objHdModel.getStrReservationNo(),  clientCode,  objCheckInDtlModel.getStrRoomNo()) ;
-//					    	
-//					
-//					
-//	@@				}
-					objFolioService.funAddUpdateFolioHd(objFolioHdModel);
-					
-					cntFolios++;
+//		@@				}
+						objFolioService.funAddUpdateFolioHd(objFolioHdModel);
+						
+						cntFolios++;
 
+					}
+					listCheckRomm.add(objCheckInDtlModel.getStrRoomNo());
 				}
-				listCheckRomm.add(objCheckInDtlModel.getStrRoomNo());
 			}
+			else
+			{
+				clsPMSGroupBookingModel objGroupBookingModel = objGroupBookingService.funGetPMSGroupBooking(objResModel.getStrGroupCode(), clientCode);
+				
+				String strCorpCode = objGroupBookingModel.getStrCompCode();
+			}
+			
 
 			objCheckInService.funAddUpdateCheckInHd(objHdModel);
 			

@@ -168,6 +168,9 @@ public class clsReservationHdModel implements Serializable {
 	
 	@Column(name = "strBillToCorporate")
 	private String strBillToCorporate;
+	
+	@Column(name = "strGroupCode")
+	private String strGroupCode;
 
 	public List<clsReservationDtlModel> getListReservationDtlModel() {
 		return listReservationDtlModel;
@@ -504,6 +507,14 @@ public class clsReservationHdModel implements Serializable {
 
 	public void setStrBillToCorporate(String strBillToCorporate) {
 		this.strBillToCorporate = strBillToCorporate;
+	}
+
+	public String getStrGroupCode() {
+		return strGroupCode;
+	}
+
+	public void setStrGroupCode(String strGroupCode) {
+		this.strGroupCode = strGroupCode;
 	}
 
 	
