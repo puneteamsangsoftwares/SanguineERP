@@ -1,5 +1,6 @@
 package com.sanguine.webpms.controller;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,10 @@ public class clsPMSGroupBookingController{
 	private clsGlobalFunctionsService objGlobalFunctionsService;
 	private clsGlobalFunctions objGlobal=null;
 
+	
+	
+	
+	
 //Open PMSGroupBooking
 	@RequestMapping(value = "/frmPMSGroupBooking", method = RequestMethod.GET)
 	public ModelAndView funOpenForm(){
@@ -59,7 +64,9 @@ public class clsPMSGroupBookingController{
 			@RequestParam("strArrivalTime") String strArrivalTime,
 			@RequestParam("strDepartureDate") String strDepartureDate,
 			@RequestParam("strCorporateCode") String strCorporateCode,
-			@RequestParam("strArrDate") String strArrDate){
+			@RequestParam("strArrDate") String strArrDate,
+			@RequestParam("gRoomTypeCode") String gRoomTypeCode,
+			@RequestParam("gRoomTypeDesc") String gRoomTypeDesc){
 		String urlHits = "1";
 		try {
 			urlHits = request.getParameter("saddr").toString();
@@ -71,7 +78,9 @@ public class clsPMSGroupBookingController{
 		objBean.setStrPax(strPaxCnt);
 		objBean.setDteCheckoutDate(strDepartureDate);
 		objBean.setStrCompCode(strCorporateCode);
-		objBean.setDteCheckInDate(strArrDate);
+		objBean.setDteCheckInDate(strArrDate);        
+		objBean.setStrRoomType(gRoomTypeCode);
+		objBean.setStrRoomTypeDesc(gRoomTypeDesc);
 		
 		model.put("urlHits", urlHits);
 		if ("2".equalsIgnoreCase(urlHits)) {
@@ -93,6 +102,8 @@ public class clsPMSGroupBookingController{
 			String userCode=req.getSession().getAttribute("usercode").toString();
 			clsPMSGroupBookingModel objModel = funPrepareModel(objBean,userCode,clientCode);
 			objPMSGroupBookingService.funAddUpdatePMSGroupBooking(objModel);
+			req.getSession().setAttribute("success", true);
+			req.getSession().setAttribute("successMessage", objModel.getStrGroupCode());
 			return new ModelAndView("redirect:/frmPMSGroupBooking.html");
 		}
 		else{
@@ -100,6 +111,17 @@ public class clsPMSGroupBookingController{
 		}
 	}
 
+	
+	// Load data from database to form
+		@RequestMapping(value = "/loadGroupCode", method = RequestMethod.GET)
+		public @ResponseBody clsPMSGroupBookingModel funFetchGuestMasterData(@RequestParam("groupCode") String groupCode, HttpServletRequest req) {
+			clsGlobalFunctions objGlobal = new clsGlobalFunctions();
+			String clientCode = req.getSession().getAttribute("clientCode").toString();
+			clsPMSGroupBookingModel objPMSGroupBookingModel = objPMSGroupBookingService.funGetPMSGroupBooking(groupCode, clientCode);
+			return objPMSGroupBookingModel;
+		}
+	
+	
 //Convert bean to model function
 	private clsPMSGroupBookingModel funPrepareModel(clsPMSGroupBookingBean objBean,String userCode,String clientCode){
 		objGlobal=new clsGlobalFunctions();
@@ -109,7 +131,7 @@ public class clsPMSGroupBookingController{
 
 		if (objBean.getStrGroupCode().trim().length() == 0) {
 			lastNo = objGlobalFunctionsService.funGetPMSMasterLastNo("tblgroupbookinghd", "GroupMaster", "strGroupCode", clientCode);
-			String groupCode = "AG" + String.format("%06d", lastNo);
+			String groupCode = "GR" + String.format("%06d", lastNo);
 			objModel.setStrGroupCode(groupCode);
 			objModel.setStrUserCreated(userCode);
 			objModel.setDteDateCreated(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
@@ -162,8 +184,8 @@ public class clsPMSGroupBookingController{
 		
 		//34
 		
-		objModel.setStrRoomTariff(objBean.getStrRoomTariff());
-		objModel.setStrBoard(objBean.getStrBoard());
+		objModel.setStrRoomType(objBean.getStrRoomType());
+		objModel.setStrRoomTypeDesc(objBean.getStrRoomTypeDesc());
 		objModel.setStrRoomTaxes(objBean.getStrRoomTaxes());
 		objModel.setStrOtherTaxes(objBean.getStrOtherTaxes());
 		objModel.setStrServiceCharges(objBean.getStrServiceCharges());

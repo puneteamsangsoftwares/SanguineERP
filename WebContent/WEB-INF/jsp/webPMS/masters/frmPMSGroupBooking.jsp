@@ -73,13 +73,15 @@ $(document).ready(function(){
 		
 		$('#txtTravelTime').timepicker();
 		
-		$('#txtDepartureTime').timepicker({
+		$('#txtTravelTime').timepicker({
 	        'timeFormat':'H:i:s'
-	});
-		
-		$('#txtDepartureTime').timepicker({
-	        'timeFormat':'H:i:s'
-});
+		});
+			
+			$('#txtTravelTime').timepicker({
+		        'timeFormat':'H:i:s'
+		});
+			
+		$('#txtTravelTime').timepicker('setTime', new Date());
 		
 	});
 	
@@ -130,6 +132,14 @@ $(document).ready(function(){
 				funSetGuestCode(code);
 				break;
 				
+			case 'groupcode' : 
+				funSetGroupCode(code);
+				break;
+				
+			case 'CorporateCode' : 
+				funSetCorporateCode(code);
+				break;
+				
 		}
 	}
 	function funSetGuestCode(code){
@@ -173,6 +183,109 @@ $(document).ready(function(){
 	}
 
 
+function funSetGroupCode(code){
+		
+		$.ajax({
+			type : "GET",
+			url : getContextPath()+ "/loadGroupCode.html?groupCode=" + code,
+			dataType : "json",
+			success : function(response){ 
+				$("#txtGroupCode").val(code);
+				$("#txtGroupName").val(response.strGroupName);
+				
+			},
+			error : function(e){
+				if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }
+			}
+		});
+	}
+	
+function funSetCorporateCode(code){
+
+	$.ajax({
+		type : "GET",
+		url : getContextPath()+ "/loadCorporateCode.html?corpcode=" + code,
+		dataType : "json",
+		success: function(response)
+        {
+			
+        	if(response.strCorporateCode=='Invalid Code')
+        	{
+        		alert("Invalid Agent Code");
+        		$("#txtCorporateCode").val('');
+        	}
+        	else
+        	{					        	    	        		
+        		$("#txtCompCode").val(response.strCorporateCode);
+        		$("#txtCompName").val(response.strCorporateDesc);
+        		$("#txtGICity").val(response.strCity);
+        		$("#txtGIMobile").val(response.lngMobileNo);
+        		$("#txtGIPhone").val(response.lngTelephoneNo);
+        		$("#txtGIFax").val(response.lngFax);
+        		/* $("#txtArea").val(response.strArea);
+        		$("#txtPinCode").val(response.intPinCode);
+        		$("#txtSegmentCode").val(response.strSegmentCode);
+        		$("#txtPlanCode").val(response.strPlanCode);
+        		$("#txtRemarks").val(response.strRemarks);
+        		$("#txtAgentType").val(response.strAgentType);
+        		$("#txtCreditLimit").val(response.dblCreditLimit);
+        		$("#txtDiscountPer").val(response.dblDiscountPer); */
+        		
+        		if(response.strBlackList=='Y')
+		    	{
+		    		document.getElementById("chkBlackList").checked=true;
+		    	}
+		    	else
+		    	{
+		    		document.getElementById("chkBlackList").checked=false;
+		    	}
+		    	
+		    	if(response.strCreditAllowed=='Y')
+		    	{
+		    		document.getElementById("chkCreditAllowed").checked=true;
+		    	}
+		    	else
+		    	{
+		    		document.getElementById("chkCreditAllowed").checked=false;
+		    	}
+		    	
+        	}
+		},
+		error: function(jqXHR, exception) 
+		{
+            if (jqXHR.status === 0) {
+                alert('Not connect.n Verify Network.');
+            } else if (jqXHR.status == 404) {
+                alert('Requested page not found. [404]');
+            } else if (jqXHR.status == 500) {
+                alert('Internal Server Error [500].');
+            } else if (exception === 'parsererror') {
+                alert('Requested JSON parse failed.');
+            } else if (exception === 'timeout') {
+                alert('Time out error.');
+            } else if (exception === 'abort') {
+                alert('Ajax request aborted.');
+            } else {
+                alert('Uncaught Error.n' + jqXHR.responseText);
+            }		            
+        }			
+	});
+}
+	
 	function funSetCompanyCode(code){
 
 		$.ajax({
@@ -665,16 +778,15 @@ $(document).ready(function(){
 							<s:input id="txtReservationID" ondblclick="" cssClass="searchTextBox"
 								readonly="true"  type="text" path="strReservationID"></s:input>
 						</div>
-						<div class="col-md-2"><s:input id="" required="true" path="" 
+						<div class="col-md-2"><s:input id="" path="" 
 							placeholder="" type="text" style="margin-top:23px;"></s:input>
 						</div>
 						<div class="col-md-2">
 							<label>Group Code</label>
-							<s:input id="txtGroupCode" ondblclick="" cssClass="searchTextBox"
-								readonly="true"  type="text" path="strGroupCode"></s:input>
+							<s:input id="txtGroupCode" ondblclick="funHelp('groupcode');"  cssClass="searchTextBox" readonly="true"  type="text" path="strGroupCode"></s:input>
 						</div>
 						<label>Group Name</label>
-						<div class="col-md-2"><s:input id="strGroupName" required="true" path="" 
+						<div class="col-md-2"><s:input id="txtGroupName" required="true" path="" 
 							placeholder="Group Name" type="text" style="margin-top:23px;"></s:input>
 						</div>
 						<div class="col-md-2">
@@ -736,7 +848,7 @@ $(document).ready(function(){
 					<div class="row" style="padding-bottom:12px">
 						<div class="col-md-2">
 							<label>Company</label>
-							<s:input id="txtCompCode" ondblclick="" cssClass="searchTextBox"
+							<s:input id="txtCompCode" ondblclick="funHelp('CorporateCode');" cssClass="searchTextBox"
 								readonly="true"  type="text" path="strCompCode"></s:input>
 						</div>
 						<div class="col-md-2"><s:input id="txtCompName" required="true" path="strCompName" 
@@ -841,12 +953,12 @@ $(document).ready(function(){
 					<div class="container transtable" style="background-color:#f2f2f2;">
 						<div class="row" style="padding-bottom:12px">
 							<div class="col-md-2">
-								<label>Room tariff</label>
-								<s:input id="txtRoomTariff" ondblclick="" type="text" path="strRoomTariff"></s:input>
+								<label>Room Type</label>
+								<s:input id="txtRoomType" ondblclick="" type="text" path="strRoomType"></s:input>
 							</div>
 							<div class="col-md-2">
-								<label>Board</label>
-								<s:input id="txtBoard" ondblclick=""   type="text" path="strBoard"></s:input>
+								<label>Room Type Desc</label>
+								<s:input id="txtRoomTypeDesc" ondblclick=""   type="text" path="strRoomTypeDesc"></s:input>
 							</div>
 							<div class="col-md-2">
 								<label>Room taxes</label>
@@ -914,7 +1026,6 @@ $(document).ready(function(){
 				</div>
 			
 		
-		<%-- 
 	  
 	    <div class="dynamicTableContainer" style="">
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
@@ -956,18 +1067,11 @@ $(document).ready(function(){
 					</tbody>
 				</table>
 			</div>	
-	    </div> --%>
+	    </div> 
 	
 	
 </div></div></div>
-	<!-- <p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="" />
-			<input type="reset" value="Reset" class="form_button" onclick=""/>
-		</p> -->
 	<div class="center" style="text-align:center">
-		<button class="btn btn-primary center-block" id="" onclick="">WAITLIST</button> &nbsp;
-		<button class="btn btn-primary center-block" id="" onclick="">CONFIRM</button> &nbsp;
-		<button class="btn btn-primary center-block" id="" onclick="">PAYMENT</button> &nbsp;
 		<button class="btn btn-primary center-block" id="" onclick="">SAVE</button> &nbsp;
 		<button class="btn btn-primary center-block" id="" onclick="">CANCEL</button> &nbsp;
 	</div>

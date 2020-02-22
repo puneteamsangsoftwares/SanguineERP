@@ -137,11 +137,11 @@ public class clsPMSGroupBookingModel implements Serializable{
 	
 	
 
-	@Column(name="strRoomTariff")
-	private String strRoomTariff;
+	@Column(name="strRoomType")
+	private String strRoomType;
 
-	@Column(name="strBoard")
-	private String strBoard;
+	@Column(name="strRoomTypeDesc ")
+	private String strRoomTypeDesc ;
 
 	@Column(name="strRoomTaxes")
 	private String strRoomTaxes;
@@ -429,25 +429,25 @@ public class clsPMSGroupBookingModel implements Serializable{
 		this. strSalesChannel = (String) setDefaultValue( strSalesChannel, "NA");
 	}
 
-	public String getStrRoomTariff(){
-		return strRoomTariff;
+	public String getStrRoomType(){
+		return strRoomType;
 	}
-	public void setStrRoomTariff(String strRoomTariff){
-		this. strRoomTariff = (String) setDefaultValue( strRoomTariff, "NA");
+	public void setStrRoomType(String strRoomType){
+		this. strRoomType = (String) setDefaultValue( strRoomType, "NA");
 	}
 
-	public String getStrBoard(){
-		return strBoard;
+	public String getStrRoomTypeDesc(){
+		return strRoomTypeDesc ;
 	}
-	public void setStrBoard(String strBoard){
-		this. strBoard = (String) setDefaultValue( strBoard, "NA");
+	public void setStrRoomTypeDesc(String strRoomTypeDesc ){
+		this. strRoomTypeDesc  = (String) setDefaultValue( strRoomTypeDesc , "");
 	}
 
 	public String getStrRoomTaxes(){
 		return strRoomTaxes;
 	}
 	public void setStrRoomTaxes(String strRoomTaxes){
-		this. strRoomTaxes = (String) setDefaultValue( strRoomTaxes, "NA");
+		this. strRoomTaxes = (String) setDefaultValue( strRoomTaxes, "");
 	}
 
 	public String getStrOtherTaxes(){

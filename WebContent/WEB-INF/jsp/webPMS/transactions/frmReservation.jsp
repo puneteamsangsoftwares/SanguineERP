@@ -25,6 +25,8 @@
 	var fieldName,listRow=0;
 	var totalTerrAmt = 0.0;
 	var dblPaxCnt = 0;
+	var gRoomTypeCode="";
+	var gRoomTypeDesc="";
 	  $(document).ready(function(){
 		    
 		  $(".tab_content").hide();
@@ -1146,6 +1148,7 @@
 	    var index = obj.parentNode.parentNode.rowIndex;
 	    var table = document.getElementById("tblResDetails");
 	    table.deleteRow(index);
+	    dblPaxCnt--;
 	}
 	
 	
@@ -1214,8 +1217,8 @@
 					var gCode = funGetGuestCode(gCodeval);
 					$("#txtGuestCode").val(gCode.strGuestCode);
 					
-				}
-			
+				}				
+				
 				var guestCode=$("#txtGuestCode").val().trim();
 				var mobileNo=$("#txtMobileNo").val().trim();
 				var guestName=$("#txtGFirstName").val().trim()+" "+$("#txtGMiddleName").val().trim()+" "+$("#txtGLastName").val().trim();
@@ -1227,6 +1230,26 @@
 				var remark=$("#txtRemark").val();
 				var address=$("#txtAddress").val();
 				var roomTypeDesc=$("#lblRoomType").text();
+				
+				
+				if(gRoomTypeCode.trim().length>0)
+				{
+					gRoomTypeCode=gRoomTypeCode+","+roomType;					
+				}
+				else
+				{
+					gRoomTypeCode=roomType;
+				}
+				
+				if(gRoomTypeDesc.trim().length>0)
+				{
+					gRoomTypeDesc=gRoomTypeDesc+","+roomTypeDesc;					
+				}
+				else
+				{
+					gRoomTypeDesc=roomTypeDesc;
+				}
+				
 				if(roomTypeDesc=='')
 				{
 					funSetRoomType($("#txtRoomTypeCode").val().trim());
@@ -1281,7 +1304,7 @@
 		else
 		{
 			var flg=true;
-			if(dblPaxCnt>2)
+			if(dblPaxCnt>1)
 			{
 				isCheckOk =	confirm("Do you want to do group reservation");
 				if(isCheckOk)
@@ -1303,13 +1326,16 @@
 
 			var extraBedCode=$("#txtExtraBed").val();
 			var extraBedDesc=$("#lblExtraBed").text();
-			
+				
+			gRoomTypeCoderoomType;	
+			gRoomTypeDesc=roomTypeDesc;
+					
 		  /*funAddDetailsRow(guestName,guestCode,mobileNo,roomType,remark,roomNo,roomDesc,extraBedCode,extraBedDesc,"N",address,roomTypeDesc);  */
 			if(flg==true)
 			{
 				funAddDetailsRow(guestName,guestCode,'0',roomType,'','',roomDesc,extraBedCode,extraBedDesc,"N",address,roomTypeDesc);
 				funFillRoomRate(roomType,roomDesc);
-				dblPaxCnt++;	
+				//dblPaxCnt++;	
 			}	
 		  	
 		}
@@ -2120,7 +2146,7 @@
 		var strDepartureTime = $("#txtDepartureTime").val();
 		var strPaxCnt = $("#txtNoOfAdults").val()+$("#txtNoOfChild").val();
 		var lblCorporateDesc = $("#lblCorporateDesc").text();
-	    window.open("frmPMSGroupBookingForReservation.html?lblCorporateDesc="+lblCorporateDesc+"&strPaxCnt="+strPaxCnt+"&strDepartureTime="+strDepartureTime+"&strArrivalTime="+strArrivalTime+"&strDepartureDate="+strDepartureDate+"&strCorporateCode="+strCorporateCode+"&strArrDate="+strArrDate,"","dialogHeight:600px;dialogWidth:800px;top=500,left=500")
+	    window.open("frmPMSGroupBookingForReservation.html?lblCorporateDesc="+lblCorporateDesc+"&strPaxCnt="+strPaxCnt+"&strDepartureTime="+strDepartureTime+"&strArrivalTime="+strArrivalTime+"&strDepartureDate="+strDepartureDate+"&strCorporateCode="+strCorporateCode+"&strArrDate="+strArrDate+"&gRoomTypeCode="+gRoomTypeCode+"&gRoomTypeDesc="+gRoomTypeDesc,"","dialogHeight:600px;dialogWidth:800px;top=500,left=500")
 	    
 
 	}

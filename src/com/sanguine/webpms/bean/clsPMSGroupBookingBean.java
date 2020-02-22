@@ -68,9 +68,9 @@ public class clsPMSGroupBookingBean{
 
 	private String strSalesChannel;
 
-	private String strRoomTariff;
+	private String strRoomTypeDesc;
 
-	private String strBoard;
+	private String strRoomType;
 
 	private String strRoomTaxes;
 
@@ -341,20 +341,20 @@ public class clsPMSGroupBookingBean{
 	}
 	public void setStrSalesChannel(String strSalesChannel){
 		this.strSalesChannel=strSalesChannel;
-	}
+	}	
 
-	public String getStrRoomTariff(){
-		return strRoomTariff;
+	public String getStrRoomType(){
+		return strRoomType;
 	}
-	public void setStrRoomTariff(String strRoomTariff){
-		this.strRoomTariff=strRoomTariff;
+	public void setStrRoomType(String strRoomType){
+		this.strRoomType=strRoomType;
 	}
-
-	public String getStrBoard(){
-		return strBoard;
+	
+	public String getStrRoomTypeDesc(){
+		return strRoomTypeDesc;
 	}
-	public void setStrBoard(String strBoard){
-		this.strBoard=strBoard;
+	public void setStrRoomTypeDesc(String strRoomTypeDesc){
+		this.strRoomTypeDesc=strRoomTypeDesc;
 	}
 
 	public String getStrRoomTaxes(){

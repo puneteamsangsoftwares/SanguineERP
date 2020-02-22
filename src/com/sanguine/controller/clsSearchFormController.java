@@ -3255,9 +3255,21 @@ public class clsSearchFormController {
 			searchFormTitle = "Staff Master";
 			break;
 		}		
+				
+		case "groupcode": {
+			columnNames = "strGroupCode,strGroupName";
+			tableName = "clsPMSGroupBookingModel where strClientCode='" + clientCode + "'";
+			listColumnNames = "Group Code,Group Name";
+			idColumnName = "strGroupCode,strClientCode";
+			// criteria = getCriteriaQuery(columnNames,search_with,tableName);
+			searchFormTitle = "Group Master";
+			break;
 		}
 		
-
+		
+		
+		
+		}
 		mainMap.put("columnNames", columnNames);
 		mainMap.put("tableName", tableName);
 		mainMap.put("criteria", criteria);

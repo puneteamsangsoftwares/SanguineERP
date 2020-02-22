@@ -5259,18 +5259,9 @@
 			<put-attribute name="title" value="Group Booking"></put-attribute>
 			<put-attribute name="body" 	value="/WEB-INF/jsp/webPMS/masters/frmPMSGroupBooking.jsp"></put-attribute>
 		</definition>
-			<definition name="frmPMSGroupBooking_1" extends="base.definition4">
-			<put-attribute name="title" value="Group Booking"></put-attribute>
-			<put-attribute name="body"	value="/WEB-INF/jsp/webPMS/masters/frmPMSGroupBooking.jsp"></put-attribute>
-		</definition>
-		
-		<definition name="frmPMSGroupBooking" extends="base.definition">
-			<put-attribute name="title" value="Staff Master"></put-attribute>
-			<put-attribute name="body" 	value="/WEB-INF/jsp/webPMS/masters/frmPMSGroupBooking.jsp"></put-attribute>
-		</definition>
 		
 		<definition name="frmPMSGroupBooking_1" extends="base.definition4">
-			<put-attribute name="title" value="Staff Master"></put-attribute>
+			<put-attribute name="title" value="Group Booking"></put-attribute>
 			<put-attribute name="body"	value="/WEB-INF/jsp/webPMS/masters/frmPMSGroupBooking.jsp"></put-attribute>
 		</definition>
   	
@@ -5455,6 +5446,40 @@
 	 	 <put-attribute name="title" value="Banquet Type Master"  ></put-attribute>
 	  	<put-attribute name="body" value="/WEB-INF/jsp/webBanquets/frmBanquetTypeMaster.jsp" ></put-attribute>
 	  </definition>  
+	  
+	  
+	   <definition name="frmAdvanceStatusReport" extends="base.definition">
+		   <put-attribute name="title" value="Banquet Type Master" ></put-attribute>
+		   <put-attribute name="body" value="/WEB-INF/jsp/webBanquets/frmAdvanceStatusReport.jsp" ></put-attribute>
+	  </definition>
+	
+	 <definition name="frmAdvanceStatusReport_1" extends="base.definition4">
+	 	 <put-attribute name="title" value="Banquet Type Master"  ></put-attribute>
+	  	<put-attribute name="body" value="/WEB-INF/jsp/webBanquets/frmAdvanceStatusReport.jsp" ></put-attribute>
+	  </definition> 
+	  
+	  
+	   <definition name="frmAdvanceStatusReport" extends="base.definition">
+		   <put-attribute name="title" value="Banquet Type Master" ></put-attribute>
+		   <put-attribute name="body" value="/WEB-INF/jsp/webBanquets/frmAdvanceStatusReport.jsp" ></put-attribute>
+	  </definition>
+	
+	 <definition name="frmAdvanceStatusReport_1" extends="base.definition4">
+	 	 <put-attribute name="title" value="Banquet Type Master"  ></put-attribute>
+	  	<put-attribute name="body" value="/WEB-INF/jsp/webBanquets/frmAdvanceStatusReport.jsp" ></put-attribute>
+	  </definition> 
+	  
+	  
+	   <definition name="frmBanquetSetup" extends="base.definition">
+		   <put-attribute name="title" value="Banquet Type Master" ></put-attribute>
+		   <put-attribute name="body" value="/WEB-INF/jsp/webBanquets/frmBanquetSetup.jsp" ></put-attribute>
+	  </definition>
+	
+	 <definition name="frmBanquetSetup_1" extends="base.definition4">
+	 	 <put-attribute name="title" value="Banquet Type Master"  ></put-attribute>
+	  	<put-attribute name="body" value="/WEB-INF/jsp/webBanquets/frmBanquetSetup.jsp" ></put-attribute>
+	  </definition> 
+	  
 	  
 	  
 <!-- 	End Of WebBanquet Tiles Entry -->
