@@ -569,7 +569,7 @@
 					<value>com.sanguine.webpms.model.clsHouseKeepingMasterModel</value>
 					<value>com.sanguine.webpms.model.clsPMSStaffMasterModel</value>
 					<value>com.sanguine.webpms.model.clsfrmGroupBlockMasterModel</value>
-					<value>com.sanguine.webpms.model.clsPMSGroupBookingModel</value>
+					<value>com.sanguine.webpms.model.clsPMSGroupBookingHDModel</value>
 				
 				
 					<!-- Web Banquet Start -->

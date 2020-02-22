@@ -82,7 +82,7 @@ $(document).ready(function(){
 		});
 			
 		$('#txtTravelTime').timepicker('setTime', new Date());
-		
+		funPayeeData();
 	});
 	
 	
@@ -761,6 +761,36 @@ function funSetCorporateCode(code){
 				location.reload(true); 
 			}
 	
+			function funPayeeData()
+			{
+				
+				 var table=document.getElementById("tblIncomeHeadDtl");
+				 var rowCount=table.rows.length;
+				 var service1="Room";
+				 var service2="F&B";
+				 var service3="Telephone";
+				 var service4="Extras";
+				 
+				 var arr = ["Room", "F&B", "Telephone","Extras"];
+				 for(var i=0;i<4;i++)
+				{
+					 
+					 var row=table.insertRow();
+					 var value="service"+(i+1);
+					 
+					 
+					 row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:34%;\" name=\"listWalkinRoomRateDtl["+(rowCount)+"].dtDate\"  id=\"dtDate."+(rowCount)+"\" value='"+arr[i]+"' >";
+			 	     row.insertCell(1).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\"  name=\"name"+(i)+"\" id=\"dblRoomRate."+(rowCount)+"\"\" value='Y' checked >";
+			 	     row.insertCell(2).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\"  name=\"name"+(i)+"\" id=\"dblr."+(rowCount)+"\" \" value='Y' >";
+
+			 	     
+				}
+					 
+					
+					 
+			 	    
+			}
+			
 	
 </script>
 
@@ -1032,11 +1062,9 @@ function funSetCorporateCode(code){
 	    <div class="dynamicTableContainer" style="">
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
 				<tr bgcolor="#c0c0c0" style="height: 24px;">
-					<td align="left" style="width:">Payee</td>
-					<td align="left" style="width:">Room</td>
-					<td align="left" style="width:">F&B</td>
-					<td align="left">Telephones</td>
-					<td align="left" style="width:">Extras</td>												
+					<td align="left" style="width:">Services</td>
+					<td align="left" style="width:500px">Payment By Group Leader</td>
+					<td align="left" style="width:">Guest</td>									
 				</tr>
 			</table>
 			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">

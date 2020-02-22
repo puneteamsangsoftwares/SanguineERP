@@ -11,168 +11,48 @@ public class clsPMSGroupBookingDtlModel implements Serializable {
 	}
 
 	// Variable Declaration
-	private String strGroupCode;
-	
 	private String strPayee;
 
-	private String strRoomPayee;
+	private String strRoom;
 
-	private String strFandBPayee;
+	private String strFandB;
 
-	private String strTelephonePayee;
+	private String strTelephone;
 
-	private String strExtraPayee;
-	
-	private String strUserCreated;
-		
-	private String strUserEdited;
-
-	private String dteDateCreated;
-	
-	private String dteDateEdited;
-	
-	private String strClientCode;
+	private String strExtra;
 	
 	// Setter-Getter Methods
-	
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-
-
-	public String getStrGroupCode() {
-		return strGroupCode;
-	}
-
-
-
-	public void setStrGroupCode(String strGroupCode) {
-		this.strGroupCode = strGroupCode;
-	}
-
-
-
 	public String getStrPayee() {
 		return strPayee;
 	}
-
-
-
 	public void setStrPayee(String strPayee) {
 		this.strPayee = strPayee;
 	}
-
-
-
-	public String getStrRoomPayee() {
-		return strRoomPayee;
+	public String getStrRoom() {
+		return strRoom;
 	}
-
-
-
-	public void setStrRoomPayee(String strRoomPayee) {
-		this.strRoomPayee = strRoomPayee;
+	public void setStrRoom(String strRoom) {
+		this.strRoom = strRoom;
 	}
-
-
-
-	public String getStrFandBPayee() {
-		return strFandBPayee;
+	public String getStrFandB() {
+		return strFandB;
 	}
-
-
-
-	public void setStrFandBPayee(String strFandBPayee) {
-		this.strFandBPayee = strFandBPayee;
+	public void setStrFandB(String strFandB) {
+		this.strFandB = strFandB;
 	}
-
-
-
-	public String getStrTelephonePayee() {
-		return strTelephonePayee;
+	public String getStrTelephone() {
+		return strTelephone;
 	}
-
-
-
-	public void setStrTelephonePayee(String strTelephonePayee) {
-		this.strTelephonePayee = strTelephonePayee;
+	public void setStrTelephone(String strTelephone) {
+		this.strTelephone = strTelephone;
 	}
-
-
-
-	public String getStrExtraPayee() {
-		return strExtraPayee;
+	public String getStrExtra() {
+		return strExtra;
 	}
-
-
-
-	public void setStrExtraPayee(String strExtraPayee) {
-		this.strExtraPayee = strExtraPayee;
+	public void setStrExtra(String strExtra) {
+		this.strExtra = strExtra;
 	}
-
-
-
-	public String getStrUserCreated() {
-		return strUserCreated;
-	}
-
-
-
-	public void setStrUserCreated(String strUserCreated) {
-		this.strUserCreated = strUserCreated;
-	}
-
-
-
-	public String getStrUserEdited() {
-		return strUserEdited;
-	}
-
-
-
-	public void setStrUserEdited(String strUserEdited) {
-		this.strUserEdited = strUserEdited;
-	}
-
-
-
-	public String getDteDateCreated() {
-		return dteDateCreated;
-	}
-
-
-
-	public void setDteDateCreated(String dteDateCreated) {
-		this.dteDateCreated = dteDateCreated;
-	}
-
-
-
-	public String getDteDateEdited() {
-		return dteDateEdited;
-	}
-
-
-
-	public void setDteDateEdited(String dteDateEdited) {
-		this.dteDateEdited = dteDateEdited;
-	}
-
-
-
-	public String getStrClientCode() {
-		return strClientCode;
-	}
-
-
-
-	public void setStrClientCode(String strClientCode) {
-		this.strClientCode = strClientCode;
-	}
-
-
-
+	
 	// Function to Set Default Values
 	private Object setDefaultValue(Object value, Object defaultValue) {
 		if (value != null && (value instanceof String && value.toString().length() > 0)) {

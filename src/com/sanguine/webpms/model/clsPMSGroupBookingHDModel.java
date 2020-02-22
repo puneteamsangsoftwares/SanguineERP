@@ -43,10 +43,9 @@ public class clsPMSGroupBookingHDModel implements Serializable{
 	@AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
 	private List<clsPMSGroupBookingDtlModel> listPMSGroupBookingDtlModel = new ArrayList<clsPMSGroupBookingDtlModel>();
 
-	
-	
 
-//Variable Declaration
+
+	//Variable Declaration
 	@Column(name="strReservationID")
 	private String strReservationID;
 
@@ -592,8 +591,6 @@ public class clsPMSGroupBookingHDModel implements Serializable{
 		this. strClientCode = (String) setDefaultValue( strClientCode, "NA");
 	}
 
-
-
 	public String getTmeTravelTime() {
 		return tmeTravelTime;
 	}
@@ -602,6 +599,17 @@ public class clsPMSGroupBookingHDModel implements Serializable{
 		this.tmeTravelTime = tmeTravelTime;
 	}
 
+
+	public List<clsPMSGroupBookingDtlModel> getListPMSGroupBookingDtlModel() {
+		return listPMSGroupBookingDtlModel;
+	}
+
+	public void setListPMSGroupBookingDtlModel(
+			List<clsPMSGroupBookingDtlModel> listPMSGroupBookingDtlModel) {
+		this.listPMSGroupBookingDtlModel = listPMSGroupBookingDtlModel;
+	}
+	
+	
 //Function to Set Default Values
 	private Object setDefaultValue(Object value, Object defaultValue){
 		if(value !=null && (value instanceof String && value.toString().length()>0)){
