@@ -7,7 +7,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 @SuppressWarnings("serial")
 
-public class clsPMSGroupBookingModel_ID implements Serializable{
+public class clsPMSGroupBookingHDModel_ID implements Serializable{
 
 //Variable Declaration
 	@Column(name="strGroupCode")
@@ -16,8 +16,8 @@ public class clsPMSGroupBookingModel_ID implements Serializable{
 	@Column(name="strClientCode")
 	private String strClientCode;
 
-	public clsPMSGroupBookingModel_ID(){}
-	public clsPMSGroupBookingModel_ID(String strGroupCode,String strClientCode){
+	public clsPMSGroupBookingHDModel_ID(){}
+	public clsPMSGroupBookingHDModel_ID(String strGroupCode,String strClientCode){
 		this.strGroupCode=strGroupCode;
 		this.strClientCode=strClientCode;
 	}
@@ -41,7 +41,7 @@ public class clsPMSGroupBookingModel_ID implements Serializable{
 //HashCode and Equals Funtions
 	@Override
 	public boolean equals(Object obj) {
-		clsPMSGroupBookingModel_ID objModelId = (clsPMSGroupBookingModel_ID)obj;
+		clsPMSGroupBookingHDModel_ID objModelId = (clsPMSGroupBookingHDModel_ID)obj;
 		if(this.strGroupCode.equals(objModelId.getStrGroupCode())&& this.strClientCode.equals(objModelId.getStrClientCode())){
 			return true;
 		}

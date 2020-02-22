@@ -1,6 +1,5 @@
 package com.sanguine.webpms.controller;
 
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webpms.bean.clsPMSGroupBookingBean;
-import com.sanguine.webpms.model.clsPMSGroupBookingModel;
+import com.sanguine.webpms.model.clsPMSGroupBookingHDModel;
 import com.sanguine.webpms.service.clsPMSGroupBookingService;
 
 @Controller
@@ -43,7 +42,7 @@ public class clsPMSGroupBookingController{
 	}
 //Load Master Data On Form
 	@RequestMapping(value = "/frmPMSGroupBooking1", method = RequestMethod.POST)
-	public @ResponseBody clsPMSGroupBookingModel funLoadMasterData(HttpServletRequest request){
+	public @ResponseBody clsPMSGroupBookingHDModel funLoadMasterData(HttpServletRequest request){
 		objGlobal=new clsGlobalFunctions();
 		String sql="";
 		String clientCode=request.getSession().getAttribute("clientCode").toString();
@@ -51,7 +50,7 @@ public class clsPMSGroupBookingController{
 		clsPMSGroupBookingBean objBean=new clsPMSGroupBookingBean();
 		String docCode=request.getParameter("docCode").toString();
 		List listModel=objGlobalFunctionsService.funGetList(sql);
-		clsPMSGroupBookingModel objPMSGroupBooking = new clsPMSGroupBookingModel();
+		clsPMSGroupBookingHDModel objPMSGroupBooking = new clsPMSGroupBookingHDModel();
 		return objPMSGroupBooking;
 	}
 	
@@ -100,7 +99,7 @@ public class clsPMSGroupBookingController{
 		if(!result.hasErrors()){
 			String clientCode=req.getSession().getAttribute("clientCode").toString();
 			String userCode=req.getSession().getAttribute("usercode").toString();
-			clsPMSGroupBookingModel objModel = funPrepareModel(objBean,userCode,clientCode);
+			clsPMSGroupBookingHDModel objModel = funPrepareModel(objBean,userCode,clientCode);
 			objPMSGroupBookingService.funAddUpdatePMSGroupBooking(objModel);
 			req.getSession().setAttribute("success", true);
 			req.getSession().setAttribute("successMessage", objModel.getStrGroupCode());
@@ -114,20 +113,20 @@ public class clsPMSGroupBookingController{
 	
 	// Load data from database to form
 		@RequestMapping(value = "/loadGroupCode", method = RequestMethod.GET)
-		public @ResponseBody clsPMSGroupBookingModel funFetchGuestMasterData(@RequestParam("groupCode") String groupCode, HttpServletRequest req) {
+		public @ResponseBody clsPMSGroupBookingHDModel funFetchGuestMasterData(@RequestParam("groupCode") String groupCode, HttpServletRequest req) {
 			clsGlobalFunctions objGlobal = new clsGlobalFunctions();
 			String clientCode = req.getSession().getAttribute("clientCode").toString();
-			clsPMSGroupBookingModel objPMSGroupBookingModel = objPMSGroupBookingService.funGetPMSGroupBooking(groupCode, clientCode);
+			clsPMSGroupBookingHDModel objPMSGroupBookingModel = objPMSGroupBookingService.funGetPMSGroupBooking(groupCode, clientCode);
 			return objPMSGroupBookingModel;
 		}
 	
 	
 //Convert bean to model function
-	private clsPMSGroupBookingModel funPrepareModel(clsPMSGroupBookingBean objBean,String userCode,String clientCode){
+	private clsPMSGroupBookingHDModel funPrepareModel(clsPMSGroupBookingBean objBean,String userCode,String clientCode){
 		objGlobal=new clsGlobalFunctions();
 		long lastNo=0;	
 		objGlobal = new clsGlobalFunctions();
-		clsPMSGroupBookingModel objModel = new clsPMSGroupBookingModel();
+		clsPMSGroupBookingHDModel objModel = new clsPMSGroupBookingHDModel();
 
 		if (objBean.getStrGroupCode().trim().length() == 0) {
 			lastNo = objGlobalFunctionsService.funGetPMSMasterLastNo("tblgroupbookinghd", "GroupMaster", "strGroupCode", clientCode);

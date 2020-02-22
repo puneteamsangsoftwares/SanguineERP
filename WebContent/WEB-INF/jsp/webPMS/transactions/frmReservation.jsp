@@ -1304,7 +1304,7 @@
 		else
 		{
 			var flg=true;
-			if(dblPaxCnt>1)
+			if(dblPaxCnt>0)
 			{
 				isCheckOk =	confirm("Do you want to do group reservation");
 				if(isCheckOk)
@@ -1327,7 +1327,7 @@
 			var extraBedCode=$("#txtExtraBed").val();
 			var extraBedDesc=$("#lblExtraBed").text();
 				
-			gRoomTypeCoderoomType;	
+			gRoomTypeCode=roomType;	
 			gRoomTypeDesc=roomTypeDesc;
 					
 		  /*funAddDetailsRow(guestName,guestCode,mobileNo,roomType,remark,roomNo,roomDesc,extraBedCode,extraBedDesc,"N",address,roomTypeDesc);  */

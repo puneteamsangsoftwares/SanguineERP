@@ -1,11 +1,11 @@
 package com.sanguine.webpms.service;
 
-import com.sanguine.webpms.model.clsPMSGroupBookingModel;
+import com.sanguine.webpms.model.clsPMSGroupBookingHDModel;
 
 public interface clsPMSGroupBookingService{
 
-	public void funAddUpdatePMSGroupBooking(clsPMSGroupBookingModel objMaster);
+	public void funAddUpdatePMSGroupBooking(clsPMSGroupBookingHDModel objMaster);
 
-	public clsPMSGroupBookingModel funGetPMSGroupBooking(String docCode,String clientCode);
+	public clsPMSGroupBookingHDModel funGetPMSGroupBooking(String docCode,String clientCode);
 
 }

@@ -1,11 +1,11 @@
 package com.sanguine.webpms.dao;
 
-import com.sanguine.webpms.model.clsPMSGroupBookingModel;
+import com.sanguine.webpms.model.clsPMSGroupBookingHDModel;
 
 public interface clsPMSGroupBookingDao{
 
-	public void funAddUpdatePMSGroupBooking(clsPMSGroupBookingModel objMaster);
+	public void funAddUpdatePMSGroupBooking(clsPMSGroupBookingHDModel objMaster);
 
-	public clsPMSGroupBookingModel funGetPMSGroupBooking(String docCode,String clientCode);
+	public clsPMSGroupBookingHDModel funGetPMSGroupBooking(String docCode,String clientCode);
 
 }

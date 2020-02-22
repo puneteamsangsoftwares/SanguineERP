@@ -192,6 +192,8 @@ function funSetGroupCode(code){
 			success : function(response){ 
 				$("#txtGroupCode").val(code);
 				$("#txtGroupName").val(response.strGroupName);
+				funSetGuestCode(response.strGroupLeaderCode);
+				funSetCorporateCode(response.strCompCode);
 				
 			},
 			error : function(e){
@@ -786,7 +788,7 @@ function funSetCorporateCode(code){
 							<s:input id="txtGroupCode" ondblclick="funHelp('groupcode');"  cssClass="searchTextBox" readonly="true"  type="text" path="strGroupCode"></s:input>
 						</div>
 						<label>Group Name</label>
-						<div class="col-md-2"><s:input id="txtGroupName" required="true" path="" 
+						<div class="col-md-2"><s:input id="txtGroupName" required="true" path="strGroupName" 
 							placeholder="Group Name" type="text" style="margin-top:23px;"></s:input>
 						</div>
 						<div class="col-md-2">
@@ -849,15 +851,15 @@ function funSetCorporateCode(code){
 						<div class="col-md-2">
 							<label>Company</label>
 							<s:input id="txtCompCode" ondblclick="funHelp('CorporateCode');" cssClass="searchTextBox"
-								readonly="true"  type="text" path="strCompCode"></s:input>
+								 type="text" path="strCompCode"></s:input>
 						</div>
-						<div class="col-md-2"><s:input id="txtCompName" required="true" path="strCompName" 
+						<div class="col-md-2"><s:input id="txtCompName" path="strCompName" 
 							placeholder="" type="text" style="margin-top:23px;"></s:input>
 						</div>
 						<div class="col-md-2">
 							<label>Designation</label>
 							<s:input id="txtDesignation" ondblclick="" cssClass="searchTextBox"
-								readonly="true"  type="text" path="strDesignation"></s:input>
+								  type="text" path="strDesignation"></s:input>
 						</div>
 						<div class="col-md-2">
 							<label>City</label>
@@ -1030,20 +1032,11 @@ function funSetCorporateCode(code){
 	    <div class="dynamicTableContainer" style="">
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
 				<tr bgcolor="#c0c0c0" style="height: 24px;">
-					<td align="left" style="width:">Select</td>
-					<td align="left" style="width:">Reservation </td>
-					<td align="right" style="width:">Room Type</td>
-					<td align="right">Room No</td>
-					<td align="right" style="width:">Pax</td>
-					<td align="right">child</td>
-					<td align="right" style="width:">Infant</td>
-					<td align="right">Arrival</td>
-					<td align="right" style="width:">Departure</td>
-					<td align="right">Rate Code</td>
-					<td align="right" style="width:">Discount</td>
-					<td align="right" style="width:">R.Status</td>
-					<td align="right" style="width:">Tax Exempt</td>
-												
+					<td align="left" style="width:">Payee</td>
+					<td align="left" style="width:">Room</td>
+					<td align="left" style="width:">F&B</td>
+					<td align="left">Telephones</td>
+					<td align="left" style="width:">Extras</td>												
 				</tr>
 			</table>
 			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">

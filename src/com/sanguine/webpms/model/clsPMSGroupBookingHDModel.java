@@ -1,33 +1,50 @@
 package com.sanguine.webpms.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="tblgroupbookinghd")
-@IdClass(clsPMSGroupBookingModel_ID.class)
+@IdClass(clsPMSGroupBookingHDModel_ID.class)
 
-public class clsPMSGroupBookingModel implements Serializable{
+public class clsPMSGroupBookingHDModel implements Serializable{
 	private static final long serialVersionUID = 1L;
-	public clsPMSGroupBookingModel(){}
+	public clsPMSGroupBookingHDModel(){}
 
-	public clsPMSGroupBookingModel(clsPMSGroupBookingModel_ID objModelID){
+	public clsPMSGroupBookingHDModel(clsPMSGroupBookingHDModel_ID objModelID){
 		strGroupCode = objModelID.getStrGroupCode();
 		strClientCode = objModelID.getStrClientCode();
 	}
-
+/*
 	@Id
 	@AttributeOverrides({
 		@AttributeOverride(name="strGroupCode",column=@Column(name="strGroupCode")),
-@AttributeOverride(name="strClientCode",column=@Column(name="strClientCode"))
-	})
+		@AttributeOverride(name="strClientCode",column=@Column(name="strClientCode"))
+	})*/
+	
+	
+	@ElementCollection(fetch = FetchType.LAZY)
+	@JoinTable(name = "tblgroupbookingdtl", joinColumns = { @JoinColumn(name = "strClientCode"), @JoinColumn(name = "strGroupCode") })
+	@Id
+	@AttributeOverrides({ @AttributeOverride(name = "strGroupCode", column = @Column(name = "strGroupCode")), 
+	@AttributeOverride(name = "strClientCode", column = @Column(name = "strClientCode")) })
+	private List<clsPMSGroupBookingDtlModel> listPMSGroupBookingDtlModel = new ArrayList<clsPMSGroupBookingDtlModel>();
+
+	
+	
 
 //Variable Declaration
 	@Column(name="strReservationID")
@@ -183,7 +200,6 @@ public class clsPMSGroupBookingModel implements Serializable{
 
 	@Column(name="strExtras")
 	private String strExtras;
-	
 	
 
 	@Column(name="intGid")
