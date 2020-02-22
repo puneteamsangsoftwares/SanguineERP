@@ -4645,6 +4645,70 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ "ENGINE=InnoDB";
 		funExecutePMSQuery(sql);
 		
+			sql = "CREATE TABLE `tblgroupbookinghd` ("
+				+ "`strReservationID` VARCHAR(30) NOT NULL,"
+				+ "`strGroupCode` VARCHAR(30) NOT NULL,"
+				+ "`strGroupName` VARCHAR(50) NOT NULL,"
+				+ "`strGroupLeaderCode` VARCHAR(30) NOT NULL,"
+				+ "`strAddress` VARCHAR(100) NOT NULL,"
+				+ "`strCity` VARCHAR(20) NOT NULL,"
+				+ "`strCountry` VARCHAR(20) NOT NULL,"
+				+ "`strPin` VARCHAR(20) NOT NULL,"
+				+ "`strPhone` VARCHAR(30) NOT NULL,"
+				+ "`strMobile` VARCHAR(20) NOT NULL,"
+				+ "`strFax` VARCHAR(30) NOT NULL,"
+				+ "`strEmail` VARCHAR(30) NOT NULL,"
+				+ "`dteDob` DATE NOT NULL,"
+				+ "`strNationality` VARCHAR(30) NOT NULL,"
+				+ "`strCompCode` VARCHAR(30) NOT NULL,"
+				+ "`strCompName` VARCHAR(50) NOT NULL,"
+				+ "`strDesignation` VARCHAR(30) NOT NULL,"
+				+ "`strGICity` VARCHAR(30) NOT NULL,"
+				+ "`strGIPhone` VARCHAR(30) NOT NULL,"
+				+ "`strGIFax` VARCHAR(30) NOT NULL,"
+				+ "`strGIMobile` VARCHAR(30) NOT NULL,"
+				+ "`dteTravelDate` DATE NOT NULL,"
+				+ "`tmeTravelTime` VARCHAR(50) NOT NULL,"
+				+ "`strPickupRequired` VARCHAR(50) NOT NULL,"
+				+ "`dteCheckInDate` DATE NOT NULL,"
+				+ "	`dteCheckoutDate` DATE NOT NULL,"
+				+ "	`strPax` VARCHAR(10) NOT NULL,"
+				+ "	`strSource` VARCHAR(30) NOT NULL,"
+				+ "	`strGuestType` VARCHAR(30) NOT NULL,"
+				+ "	`strExtraBed` VARCHAR(30) NOT NULL,"
+				+ "	`strChild` VARCHAR(30) NOT NULL,"
+				+ "	`strInfant` VARCHAR(30) NOT NULL,"
+				+ "	`strSalesChannel` VARCHAR(30) NOT NULL,"
+				+ "	`strRoomTariff` VARCHAR(30) NOT NULL,"
+				+ "	`strBoard` VARCHAR(30) NOT NULL,"
+				+ "	`strRoomTaxes` VARCHAR(30) NOT NULL,"
+				+ "	`strOtherTaxes` VARCHAR(30) NOT NULL,"
+				+ "	`strServiceCharges` VARCHAR(30) NOT NULL,"
+				+ "	`strPayments` VARCHAR(30) NOT NULL,"
+				+ "	`strDiscounts` VARCHAR(30) NOT NULL,"
+				+ "	`strCard` VARCHAR(30) NOT NULL,"
+				+ "	`strCash` VARCHAR(30) NOT NULL,"
+				+ "	`strPaymentBtGroupLeader` VARCHAR(30) NOT NULL,"
+				+ "	`strGuest` VARCHAR(30) NOT NULL,"
+				+ "`strRoom` VARCHAR(30) NOT NULL,"
+				+ "	`strFandB` VARCHAR(30) NOT NULL,"
+				+ "	`strTelephones` VARCHAR(30) NOT NULL,"
+				+ "	`strExtras` VARCHAR(30) NOT NULL,"
+				+ "	`intGid` INT(11) NOT NULL,"
+				+ "	`dteDateCreated` DATETIME NOT NULL,"
+				+ "	`dteDateEdited` DATETIME NOT NULL,"
+				+ "	`strUserCreated` VARCHAR(50) NOT NULL,"
+				+ "	`strUserEdited` VARCHAR(50) NOT NULL,"
+				+ "	`strClientCode` VARCHAR(20) NOT NULL "
+				+ ") "
+				+ "COLLATE='utf8_general_ci'"
+				+ " ENGINE=InnoDB ;";
+		funExecutePMSQuery(sql);
+		
+		sql = "ALTER TABLE `tblgroupbookinghd` "
+				+ "ADD PRIMARY KEY (`strGroupCode`, `strClientCode`);";
+		funExecutePMSQuery(sql);
+		
 				// For PMS Form Of Tree master Start///
 		sql = " INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`) VALUES "
 
@@ -4724,13 +4788,15 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 
 		
 		sql = "INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`,`strInvoice`,`strDeliverySchedule`,`strFormAccessYN`) VALUES "
-				+ " ('frmBlockRoomMaster', 'Block Room', 'Transaction', '2', 'T', '16', '16', '1', 'imgBlockRoom.png', '3', '2', '2', '2', 'NO', 'NO', 'frmBlockRoomMaster.html',NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+/*				+ " ('frmBlockRoomMaster', 'Block Room', 'Transaction', '2', 'T', '16', '16', '1', 'imgBlockRoom.png', '3', '2', '2', '2', 'NO', 'NO', 'frmBlockRoomMaster.html',NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ " ('frmPMSStructureUpdate', 'Structure Update', 'Tools', 1, 'L', 111, 111, '1', 'imgStructureUpdate.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSStructureUpdate.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
 				+ " ('frmComplimentryReport', 'Complimentry Report', 'Reports', '3', 'R', '20', '20', '5', 'imgComplimentaryReport.png', '3', '5', '5', '5', 'NO', 'NO', 'frmComplimentryReport.html',  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
 				+ " ('frmAddExtraBed', 'Add Extra Bed','Transaction', '2', 'T', '17', '17', '1', 'imgAddExtraBed.png', '3', '2', '2', '2', 'NO', 'NO', 'frmAddExtraBed.html',  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
 				+ " ('frmBlockRoomReport', 'Block Room Report', 'Reports', '3', 'R', '20', '20', '5', 'imgBlockRoomReport.png', '3', '5', '5', '5', 'NO', 'NO', 'frmBlockRoomReport.html' , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
 				+ " ('frmPMSSalesFlash', 'Sales Flash', 'Tools', 1, 'T', 5, 46, '1', 'imgSalesFlash.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSSalesFlash.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
-				+ " ('frmCheckInCheckOutList', 'CheckIn CheckOut List', 'Reports', '3', 'R', '4', '4', '6', 'imgCheckInCheckOutList.png', '3', '1', '1', '1', 'NO', 'NO', 'frmCheckInCheckOutList.html',NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
+				+ " ('frmCheckInCheckOutList', 'CheckIn CheckOut List', 'Reports', '3', 'R', '4', '4', '6', 'imgCheckInCheckOutList.png', '3', '1', '1', '1', 'NO', 'NO', 'frmCheckInCheckOutList.html',NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+*/				+ "	('frmGroupBlockMaster', 'Group Block Master', 'Master', '1', 'M', '12', '12', '1', 'imgAgentMaster.png', '3', '1', '1', '1', 'NO', 'NO', 'frmGroupBlockMaster.html',NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+				+ "	('frmPMSGroupBooking', 'Group Booking', 'Master', 1, 'M', 1, 1, '1', 'imgCheckOutDiscount.png', '3', 3, '3', '3', 'NO', 'NO', 'frmPMSGroupBooking.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
 				
 		
 		funExecuteQuery(sql);

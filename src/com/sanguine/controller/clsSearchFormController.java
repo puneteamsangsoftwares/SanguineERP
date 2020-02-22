@@ -3237,6 +3237,15 @@ public class clsSearchFormController {
 			break;
 		}
 		
+	case "groupblockmaster": {
+			columnNames = " a.strGroupBlockCode,a.strGroupBlockName,a.strUserCreated ";
+			tableName = " from tblgroupblockmaster a where a.strClientCode='"+clientCode+"'";
+			listColumnNames = " Group block ode,Group Name,User Created";
+			idColumnName = " strGroupBlockCode,strClientCode";
+			flgQuerySelection = true;
+			searchFormTitle = "Group Block Master";
+			break;
+		}
 		case "PmsStaffCode": {
 			columnNames = "strStaffCode,strStaffName";
 			tableName = "clsPMSStaffMasterModel where strClientCode='" + clientCode + "'";
@@ -3245,8 +3254,7 @@ public class clsSearchFormController {
 			// criteria = getCriteriaQuery(columnNames,search_with,tableName);
 			searchFormTitle = "Staff Master";
 			break;
-		}
-		
+		}		
 		}
 		
 

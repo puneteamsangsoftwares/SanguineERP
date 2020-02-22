@@ -1280,19 +1280,38 @@
 		}
 		else
 		{
+			var flg=true;
+			if(dblPaxCnt>2)
+			{
+				isCheckOk =	confirm("Do you want to do group reservation");
+				if(isCheckOk)
+				{
+					funOpenGroupBooking();
+					flg=false;
+				}
+			}
 			if($("#txtRoomTypeCode").val()=='')
 			{
 				alert('Select RoomType!!');
+				flg=false;
 			}
 			var roomType =$("#txtRoomTypeCode").val();
 			var roomTypeDesc =$("#lblRoomType").text();
-			var guestName = $("#lblCorporateDesc").text();
-			var guestCode = $("#txtCorporateCode").val();
+			var guestCode=$("#txtGuestCode").val().trim();
+			var mobileNo=$("#txtMobileNo").val().trim();
+			var guestName=$("#txtGFirstName").val().trim()+" "+$("#txtGMiddleName").val().trim()+" "+$("#txtGLastName").val().trim();
+
 			var extraBedCode=$("#txtExtraBed").val();
 			var extraBedDesc=$("#lblExtraBed").text();
-			funAddDetailsRow(guestName,guestCode,'0',roomType,'','',roomDesc,extraBedCode,extraBedDesc,"N",address,roomTypeDesc);
+			
 		  /*funAddDetailsRow(guestName,guestCode,mobileNo,roomType,remark,roomNo,roomDesc,extraBedCode,extraBedDesc,"N",address,roomTypeDesc);  */
-			funFillRoomRate(roomType,roomDesc);
+			if(flg==true)
+			{
+				funAddDetailsRow(guestName,guestCode,'0',roomType,'','',roomDesc,extraBedCode,extraBedDesc,"N",address,roomTypeDesc);
+				funFillRoomRate(roomType,roomDesc);
+				dblPaxCnt++;	
+			}	
+		  	
 		}
 		
 	}
@@ -1571,9 +1590,12 @@
 			var remark=$("#txtRemark").val();
 			var address=$("#txtAddress").val();
 			var roomTypeDesc=$("#lblRoomType").text();
+			if(flg==true)
+			{
+				funAddDetailsRow(guestName,guestCode,mobileNo,roomType,remark,roomNo,roomDesc,extraBedCode,extraBedDesc,"N",address,roomTypeDesc);
+				funFillRoomRate(roomType,roomDesc);	
+			}
 			
-			funAddDetailsRow(guestName,guestCode,mobileNo,roomType,remark,roomNo,roomDesc,extraBedCode,extraBedDesc,"N",address,roomTypeDesc);
-			funFillRoomRate(roomType,roomDesc);
 		}
 		
 		dblPaxCnt = 0;
@@ -2086,6 +2108,22 @@
 	            }
 	        });
 	    });
+	
+	function funOpenGroupBooking()
+	{
+	    
+		
+		var strCorporateCode = $("#txtCorporateCode").val();
+		var strArrDate = $("#txtArrivalDate").val();
+		var strDepartureDate = $("#txtDepartureDate").val();
+		var strArrivalTime = $("#txtArrivalTime").val();
+		var strDepartureTime = $("#txtDepartureTime").val();
+		var strPaxCnt = $("#txtNoOfAdults").val()+$("#txtNoOfChild").val();
+		var lblCorporateDesc = $("#lblCorporateDesc").text();
+	    window.open("frmPMSGroupBookingForReservation.html?lblCorporateDesc="+lblCorporateDesc+"&strPaxCnt="+strPaxCnt+"&strDepartureTime="+strDepartureTime+"&strArrivalTime="+strArrivalTime+"&strDepartureDate="+strDepartureDate+"&strCorporateCode="+strCorporateCode+"&strArrDate="+strArrDate,"","dialogHeight:600px;dialogWidth:800px;top=500,left=500")
+	    
+
+	}
 </script>
 
 </head>
