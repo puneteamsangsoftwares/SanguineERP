@@ -570,8 +570,9 @@
 					<value>com.sanguine.webpms.model.clsPMSStaffMasterModel</value>
 					<value>com.sanguine.webpms.model.clsfrmGroupBlockMasterModel</value>
 					<value>com.sanguine.webpms.model.clsPMSGroupBookingModel</value>
-					<!-- 
-					Web Banquet Start
+				
+				
+					<!-- Web Banquet Start -->
 					<value>com.sanguine.webbanquets.model.clsEquipmentModel</value>
 					<value>com.sanguine.webbanquets.model.clsCostCenterMasterModel</value>
 					<value>com.sanguine.webbanquets.model.clsFunctionMasterModel</value> 
@@ -583,7 +584,7 @@
 					<value>com.sanguine.webbanquets.model.clsBanquetBookingModelHd</value>
 					<value>com.sanguine.webbanquets.model.clsBanquetWeekendMasterModel</value>
 					<value>com.sanguine.webbanquets.model.clsBanquetMasterModel</value>
-					<value>com.sanguine.webbanquets.model.clsBanquetTypeMasterModel</value> -->
+					<value>com.sanguine.webbanquets.model.clsBanquetTypeMasterModel</value>
 					
 						
 				</list>
