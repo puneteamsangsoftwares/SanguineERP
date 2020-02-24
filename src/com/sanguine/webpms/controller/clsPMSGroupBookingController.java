@@ -1,5 +1,8 @@
 package com.sanguine.webpms.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +22,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webpms.bean.clsPMSGroupBookingBean;
+import com.sanguine.webpms.bean.clsPMSGroupBookingDetailBean;
+import com.sanguine.webpms.bean.clsReservationDetailsBean;
+import com.sanguine.webpms.dao.clsWebPMSDBUtilityDao;
+import com.sanguine.webpms.model.clsPMSGroupBookingDtlModel;
 import com.sanguine.webpms.model.clsPMSGroupBookingHDModel;
+import com.sanguine.webpms.model.clsReservationDtlModel;
 import com.sanguine.webpms.service.clsPMSGroupBookingService;
 
 @Controller
@@ -31,9 +39,8 @@ public class clsPMSGroupBookingController{
 	private clsGlobalFunctionsService objGlobalFunctionsService;
 	private clsGlobalFunctions objGlobal=null;
 
-	
-	
-	
+	@Autowired
+	private clsWebPMSDBUtilityDao objWebPMSUtility;
 	
 //Open PMSGroupBooking
 	@RequestMapping(value = "/frmPMSGroupBooking", method = RequestMethod.GET)
@@ -99,7 +106,7 @@ public class clsPMSGroupBookingController{
 		if(!result.hasErrors()){
 			String clientCode=req.getSession().getAttribute("clientCode").toString();
 			String userCode=req.getSession().getAttribute("usercode").toString();
-			clsPMSGroupBookingHDModel objModel = funPrepareModel(objBean,userCode,clientCode);
+			clsPMSGroupBookingHDModel objModel = funPrepareModel(objBean,userCode,clientCode,req);
 			objPMSGroupBookingService.funAddUpdatePMSGroupBooking(objModel);
 			req.getSession().setAttribute("success", true);
 			req.getSession().setAttribute("successMessage", objModel.getStrGroupCode());
@@ -122,7 +129,7 @@ public class clsPMSGroupBookingController{
 	
 	
 //Convert bean to model function
-	private clsPMSGroupBookingHDModel funPrepareModel(clsPMSGroupBookingBean objBean,String userCode,String clientCode){
+	private clsPMSGroupBookingHDModel funPrepareModel(clsPMSGroupBookingBean objBean,String userCode,String clientCode,HttpServletRequest req){
 		objGlobal=new clsGlobalFunctions();
 		long lastNo=0;	
 		objGlobal = new clsGlobalFunctions();
@@ -207,8 +214,64 @@ public class clsPMSGroupBookingController{
 		objModel.setStrUserEdited(userCode);
 		objModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 		objModel.setStrClientCode(clientCode);
+
+		//add list data in to tblgroupbookingdtl table		
+		List<clsPMSGroupBookingDtlModel> listPMSGroupBookingDtlModel = new ArrayList<clsPMSGroupBookingDtlModel>();
+		HashMap<String,clsPMSGroupBookingDtlModel> hmap = new LinkedHashMap<String,clsPMSGroupBookingDtlModel>();
+		for (clsPMSGroupBookingDetailBean objPMSGroupBookingDetailBean: objBean.getListPMSGroupBookingDetailBean()) {
+			//clsPMSGroupBookingDtlModel obj = new clsPMSGroupBookingDtlModel();
+			clsPMSGroupBookingDtlModel objDtlBean = new clsPMSGroupBookingDtlModel();
+			if(hmap.containsKey(objPMSGroupBookingDetailBean.getStrPayee()))
+			{
+				objDtlBean=hmap.get(objPMSGroupBookingDetailBean.getStrPayee().toString());
+				//objDtlBean.setStrGroupCode(objModel.getStrGroupCode());
+				objDtlBean.setStrRoom(funEquals(objPMSGroupBookingDetailBean.getStrRoom(),objDtlBean.getStrRoom()));
+				objDtlBean.setStrPayee(objPMSGroupBookingDetailBean.getStrPayee());
+				objDtlBean.setStrFandB(funEquals(objPMSGroupBookingDetailBean.getStrFandB(),objDtlBean.getStrFandB()));
+				objDtlBean.setStrTelephone(funEquals(objPMSGroupBookingDetailBean.getStrTelephone(),objDtlBean.getStrTelephone()));
+				objDtlBean.setStrExtra(funEquals(objPMSGroupBookingDetailBean.getStrExtra(),objDtlBean.getStrExtra()));
+				hmap.put(objPMSGroupBookingDetailBean.getStrPayee(), objDtlBean);
+			}
+			else
+			{
+				//objDtlBean.setStrGroupCode(objModel.getStrGroupCode());
+				objDtlBean.setStrRoom(objGlobal.funIfNull(objPMSGroupBookingDetailBean.getStrRoom(), null, "Y"));
+				objDtlBean.setStrPayee(objPMSGroupBookingDetailBean.getStrPayee());
+				objDtlBean.setStrFandB(objGlobal.funIfNull(objPMSGroupBookingDetailBean.getStrFandB(), null, "Y"));
+				objDtlBean.setStrTelephone(objGlobal.funIfNull(objPMSGroupBookingDetailBean.getStrTelephone(), null, "Y"));
+				objDtlBean.setStrExtra(objGlobal.funIfNull(objPMSGroupBookingDetailBean.getStrExtra(), null, "Y"));
+				hmap.put(objPMSGroupBookingDetailBean.getStrPayee(), objDtlBean);
+			}
+		}
+		 for (Map.Entry<String,clsPMSGroupBookingDtlModel> entry : hmap.entrySet())
+		 {/*
+			 System.out.println("Key = " + entry.getKey() + 
+                     ", Value = " + entry.getValue()); */
+			 listPMSGroupBookingDtlModel.add(entry.getValue());
+		 }
+		objModel.setListPMSGroupBookingDtlModel(listPMSGroupBookingDtlModel);		
 		return objModel;
 
+	}
+	
+	public String funEquals(String input, String defaultValue) {
+		String op = "N";
+		if(null!=defaultValue)
+		{			
+			op=defaultValue;
+		}
+		else
+		{
+			if(null==input&&null==defaultValue)
+			{
+				op="N";
+			}
+			else
+			{
+				op="Y";				
+			}
+		}
+		return op;
 	}
 
 }

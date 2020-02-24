@@ -3258,7 +3258,7 @@ public class clsSearchFormController {
 				
 		case "groupcode": {
 			columnNames = "strGroupCode,strGroupName";
-			tableName = "clsPMSGroupBookingModel where strClientCode='" + clientCode + "'";
+			tableName = "clsPMSGroupBookingHDModel where strClientCode='" + clientCode + "'";
 			listColumnNames = "Group Code,Group Name";
 			idColumnName = "strGroupCode,strClientCode";
 			// criteria = getCriteriaQuery(columnNames,search_with,tableName);

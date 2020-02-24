@@ -11,6 +11,7 @@ public class clsPMSGroupBookingDtlModel implements Serializable {
 	}
 
 	// Variable Declaration
+	
 	private String strPayee;
 
 	private String strRoom;
@@ -51,7 +52,8 @@ public class clsPMSGroupBookingDtlModel implements Serializable {
 	}
 	public void setStrExtra(String strExtra) {
 		this.strExtra = strExtra;
-	}
+	}	
+
 	
 	// Function to Set Default Values
 	private Object setDefaultValue(Object value, Object defaultValue) {

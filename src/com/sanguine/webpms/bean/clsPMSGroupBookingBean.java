@@ -1,5 +1,7 @@
 package com.sanguine.webpms.bean;
 
+import java.util.List;
+
 import com.sanguine.webpms.model.clsPMSGroupBookingDtlModel;
 
 public class clsPMSGroupBookingBean{
@@ -112,8 +114,7 @@ public class clsPMSGroupBookingBean{
 
 	private String strClientCode;
 
-	private clsPMSGroupBookingDtlModel listPMSGroupBookingDtlModel  = new clsPMSGroupBookingDtlModel ();
-	
+	private List<clsPMSGroupBookingDetailBean> listPMSGroupBookingDetailBean;
 	
 	//Setter-Getter Methods
 	public String getStrReservationID(){
@@ -494,13 +495,15 @@ public class clsPMSGroupBookingBean{
 	public void setStrClientCode(String strClientCode){
 		this.strClientCode=strClientCode;
 	}
+	public List<clsPMSGroupBookingDetailBean> getListPMSGroupBookingDetailBean() {
+		return listPMSGroupBookingDetailBean;
+	}
+	public void setListPMSGroupBookingDetailBean(
+			List<clsPMSGroupBookingDetailBean> listPMSGroupBookingDetailBean) {
+		this.listPMSGroupBookingDetailBean = listPMSGroupBookingDetailBean;
+	}
+	
+	
 
-	public clsPMSGroupBookingDtlModel getListPMSGroupBookingDtlModel() {
-		return listPMSGroupBookingDtlModel;
-	}
-	public void setListPMSGroupBookingDtlModel(
-			clsPMSGroupBookingDtlModel listPMSGroupBookingDtlModel) {
-		this.listPMSGroupBookingDtlModel = listPMSGroupBookingDtlModel;
-	}
 
 }

@@ -4707,6 +4707,23 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 
 		funExecutePMSQuery(sql);
 		
+		sql ="CREATE TABLE `tblgroupbookingdtl` ( "
+				+ "`strGroupCode` VARCHAR(20) NOT NULL, "
+				+ "`strPayee` VARCHAR(50) NOT NULL, "
+				+ "`strRoom` VARCHAR(5) NOT NULL, "
+				+ "`strFandB` VARCHAR(5) NOT NULL, "
+				+ "`strTelephone` VARCHAR(5) NOT NULL, "
+				+ "`strExtra` VARCHAR(5) NOT NULL, "
+				+ "`strClientCode` VARCHAR(20) NOT NULL, "
+				+ "INDEX `strGroupCode` (`strGroupCode`), "
+				+ "INDEX `strClientCode` (`strClientCode`) "
+			+ ") "
+			+ "COLLATE='utf8_general_ci' "
+			+ "ENGINE=InnoDB "
+			+ "; ";
+
+		funExecutePMSQuery(sql);
+		
 		
 		sql = "ALTER TABLE `tblreservationhd` ADD COLUMN `strGroupCode` "
 				+ "VARCHAR(20) NOT NULL DEFAULT 'N' AFTER `strBillToCorporate`;";

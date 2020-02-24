@@ -778,11 +778,33 @@ function funSetCorporateCode(code){
 					 var row=table.insertRow();
 					 var value="service"+(i+1);
 					 
+					 if(i==0)
+					 {
+						 row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strRoom\"  id=\"dtDate."+(i)+"\" value='"+arr[i]+"' >";
+				 	     row.insertCell(1).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\"\" value='Group Leader' checked >";
+				 	     row.insertCell(2).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\" \" value='Guest' >";				 
+					 }
+					 else if(i==1)
+					 {
+						 row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strFandB\"  id=\"dtDate."+(i)+"\" value='"+arr[i]+"' >";
+				 	     row.insertCell(1).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\"\" value='Group Leader' checked >";
+				 	     row.insertCell(2).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\" \" value='Guest' >";				 
+					 }
+					 else if(i==2)
+					 {
+						 row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strTelephone\"  id=\"dtDate."+(i)+"\" value='"+arr[i]+"' >";
+				 	     row.insertCell(1).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\"\" value='Group Leader' checked >";
+				 	     row.insertCell(2).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\" \" value='Guest' >";				 
+					 }
+					 else if(i==3)
+					 {
+						 row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strExtra\"  id=\"dtDate."+(i)+"\" value='"+arr[i]+"' >";
+				 	     row.insertCell(1).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\"\" value='Group Leader' checked >";
+				 	     row.insertCell(2).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\" \" value='Guest' >";				 
+					 }
 					 
-					 row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:34%;\" name=\"listWalkinRoomRateDtl["+(rowCount)+"].dtDate\"  id=\"dtDate."+(rowCount)+"\" value='"+arr[i]+"' >";
-			 	     row.insertCell(1).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\"  name=\"name"+(i)+"\" id=\"dblRoomRate."+(rowCount)+"\"\" value='Y' checked >";
-			 	     row.insertCell(2).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\"  name=\"name"+(i)+"\" id=\"dblr."+(rowCount)+"\" \" value='Y' >";
-
+					 
+					 
 			 	     
 				}
 					 
