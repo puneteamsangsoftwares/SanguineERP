@@ -1053,7 +1053,7 @@ function funSetCorporateCode(code){
 	    <div>
 	    	<div class="container transtable" style="background-color:#f2f2f2;">
 				<div class="row" style="padding-bottom:12px">
-					<div class="col-md-2">
+					<!-- <div class="col-md-2">
 						<label>Payment by Group Leader</label>
 						<input type="radio" name="" id="txtPaymentBtGroupLeader" path="strPaymentBtGroupLeader" value="Y"/>
 					</div>
@@ -1076,7 +1076,7 @@ function funSetCorporateCode(code){
 					<div class="col-md-2">
 						<label>Extras</label>
 						<input type="checkbox" name="" id="txtExtras" path="strExtras" value="Y"/>
-					</div>
+					</div> -->
 				</div>
 			
 		

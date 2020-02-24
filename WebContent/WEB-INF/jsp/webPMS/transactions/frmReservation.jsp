@@ -1304,7 +1304,7 @@
 		else
 		{
 			var flg=true;
-			if(dblPaxCnt>0)
+			/* if(dblPaxCnt>0)
 			{
 				isCheckOk =	confirm("Do you want to do group reservation");
 				if(isCheckOk)
@@ -1312,7 +1312,7 @@
 					funOpenGroupBooking();
 					flg=false;
 				}
-			}
+			} */
 			if($("#txtRoomTypeCode").val()=='')
 			{
 				alert('Select RoomType!!');
@@ -2150,6 +2150,20 @@
 	    
 
 	}
+	
+	function funCallGroupBooking()
+	{
+		var noOfRooms = $("#txtNoOfBookingRoom").val();
+		if(noOfRooms>1)
+			{
+			isCheckOk =	confirm("Do you want to do group reservation");
+			if(isCheckOk)
+			{
+				funOpenGroupBooking();
+				
+			}
+			}
+	}
 </script>
 
 </head>
@@ -2215,7 +2229,7 @@
 			</div>
 				
 			<div class="col-md-1"><label>Booking Rooms</label>
-				 <s:input type="number" min="1" step="1" id="txtNoOfBookingRoom" path="intNoRoomsBooked" style="text-align: right;width:70%;" />
+				 <s:input type="number" min="1" step="1" id="txtNoOfBookingRoom" path="intNoRoomsBooked" onchange="funCallGroupBooking()" style="text-align: right;width:70%;" />
 			</div>
 			
 			<div class="col-md-2"><label>Contact Person</label>

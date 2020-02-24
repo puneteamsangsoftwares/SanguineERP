@@ -32,9 +32,12 @@ import com.sanguine.webpms.model.clsExtraBedMasterModel;
 import com.sanguine.webpms.model.clsFolioDtlModel;
 import com.sanguine.webpms.model.clsFolioHdModel;
 import com.sanguine.webpms.model.clsFolioTaxDtl;
+import com.sanguine.webpms.model.clsPMSGroupBookingDtlModel;
+import com.sanguine.webpms.model.clsPMSGroupBookingHDModel;
 import com.sanguine.webpms.model.clsReservationHdModel;
 import com.sanguine.webpms.service.clsCheckInService;
 import com.sanguine.webpms.service.clsFolioService;
+import com.sanguine.webpms.service.clsPMSGroupBookingService;
 import com.sanguine.webpms.service.clsReservationService;
 
 @Controller
@@ -61,7 +64,9 @@ public class clsPostRoomTerrifController {
 	@Autowired
 	private clsCheckInService objCheckInService;
 	
-
+	@Autowired
+	private clsPMSGroupBookingService objGroupBookingService;
+	
 	@Autowired
 	private clsReservationService objReservationService;
 
@@ -428,29 +433,144 @@ public class clsPostRoomTerrifController {
 	    clsFolioDtlModel objFolioDtl = null; 	    	
 	    if(!flgDupRoomTerrif)
 	    {
-		    objFolioDtl = new clsFolioDtlModel();
-			objFolioDtl.setStrDocNo(docNo);
-			objFolioDtl.setDteDocDate(PMSDate);
-			objFolioDtl.setDblDebitAmt(roomTerrif);
-			objFolioDtl.setDblBalanceAmt(objBean.getDblOriginalPostingAmt()-roomTerrif);
-			objFolioDtl.setDblCreditAmt(0);
-			objFolioDtl.setStrTransactionType(strTransType);
-			objFolioDtl.setStrUserEdited(strUserCode);
-			objFolioDtl.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-			if(objBean.getStrFolioType().equals("Room"))
-			{
-				objFolioDtl.setStrPerticulars("Room Tariff");
-			}
-			else
-			{
-				objFolioDtl.setStrPerticulars("Package");
-			}
-			objFolioDtl.setStrRevenueType(objBean.getStrFolioType());
-			objFolioDtl.setStrTransactionType(strTransType);
-			objFolioDtl.setStrRevenueCode(objBean.getStrRoomNo());
-			objFolioDtl.setStrUserEdited(strUserCode);
-			objFolioDtl.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-			listFolioDtl.add(objFolioDtl);
+	    	if(objModel.getStrGroupCode().equals(""))
+	    	{
+	    		objFolioDtl = new clsFolioDtlModel();
+				objFolioDtl.setStrDocNo(docNo);
+				objFolioDtl.setDteDocDate(PMSDate);
+				objFolioDtl.setDblDebitAmt(roomTerrif);
+				objFolioDtl.setDblBalanceAmt(objBean.getDblOriginalPostingAmt()-roomTerrif);
+				objFolioDtl.setDblCreditAmt(0);
+				objFolioDtl.setStrTransactionType(strTransType);
+				objFolioDtl.setStrUserEdited(strUserCode);
+				objFolioDtl.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+				if(objBean.getStrFolioType().equals("Room"))
+				{
+					objFolioDtl.setStrPerticulars("Room Tariff");
+				}
+				else
+				{
+					objFolioDtl.setStrPerticulars("Package");
+				}
+				objFolioDtl.setStrRevenueType(objBean.getStrFolioType());
+				objFolioDtl.setStrTransactionType(strTransType);
+				objFolioDtl.setStrRevenueCode(objBean.getStrRoomNo());
+				objFolioDtl.setStrUserEdited(strUserCode);
+				objFolioDtl.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+				listFolioDtl.add(objFolioDtl);
+	    	}
+	    	else
+	    	{
+	    		
+	    		clsPMSGroupBookingHDModel objGroupBookingModel = objGroupBookingService.funGetPMSGroupBooking(objModel.getStrGroupCode(), clientCode);
+	    		
+	    		
+	    		List<clsPMSGroupBookingDtlModel> listGroupDtl = objGroupBookingModel.getListPMSGroupBookingDtlModel();
+	    		String strPayee = "";
+	    		for(int i=0;i<listGroupDtl.size();i++)
+	    		{
+	    			clsPMSGroupBookingDtlModel objDtlModel =  listGroupDtl.get(i);
+	    			
+	    			if(objDtlModel.getStrRoom().equals("Y"))
+	    			{
+	    				strPayee = objDtlModel.getStrPayee();
+	    			}
+	    		}
+	    		if(strPayee.equals("Guest"))
+	    		{
+
+		    		objFolioDtl = new clsFolioDtlModel();
+					objFolioDtl.setStrDocNo(docNo);
+					objFolioDtl.setDteDocDate(PMSDate);
+					objFolioDtl.setDblDebitAmt(roomTerrif);
+					objFolioDtl.setDblBalanceAmt(objBean.getDblOriginalPostingAmt()-roomTerrif);
+					objFolioDtl.setDblCreditAmt(0);
+					objFolioDtl.setStrTransactionType(strTransType);
+					objFolioDtl.setStrUserEdited(strUserCode);
+					objFolioDtl.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+					if(objBean.getStrFolioType().equals("Room"))
+					{
+						objFolioDtl.setStrPerticulars("Room Tariff");
+					}
+					else
+					{
+						objFolioDtl.setStrPerticulars("Package");
+					}
+					objFolioDtl.setStrRevenueType(objBean.getStrFolioType());
+					objFolioDtl.setStrTransactionType(strTransType);
+					objFolioDtl.setStrRevenueCode(objBean.getStrRoomNo());
+					objFolioDtl.setStrUserEdited(strUserCode);
+					objFolioDtl.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+					listFolioDtl.add(objFolioDtl);
+		    	
+	    		}
+	    		else
+	    		{
+	    			String strFolioCheckInDtl = "select * from tblfoliodtl a where a.strFolioNo='"+objFolioHd.getStrFolioNo()+"' and a.strClientCode='"+clientCode+"'";
+		    		List listFolioEntryInDtl = objGlobalFunctionsService.funGetListModuleWise(strFolioCheckInDtl, "sql");
+
+		    		if(listFolioEntryInDtl!=null && listFolioEntryInDtl.size()>0)
+		    		{
+		    			
+		    		}
+		    		else
+		    		{
+		    			String strCheckInNo = objHdModel.getStrCheckInNo();
+			    		
+			    		String strFolioCnt = "select COUNT(*) from tblfoliohd a where a.strCheckInNo='"+strCheckInNo+"'";
+			    		
+			    		List listFolioCnt = objGlobalFunctionsService.funGetListModuleWise(strFolioCnt, "sql");
+			    		
+			    		double dblCnt = 1;
+			    		
+			    		if(listFolioCnt!=null && listFolioCnt.size()>0)
+			    		{
+			    			dblCnt = Double.parseDouble(listFolioCnt.get(0).toString());
+			    		}
+			    		
+			    		if(objGroupBookingModel.getStrGroupLeaderCode().equals(objFolioHd.getStrGuestCode())){
+			    			
+			    			String strRoomRate = "select sum(c.dblRoomTerrif) from tblfoliohd a left outer join tblroom b on a.strRoomNo=b.strRoomCode "
+			    					+ "left outer join tblroomtypemaster c on b.strRoomTypeCode=c.strRoomTypeCode "
+			    					+ "where a.strCheckInNo='"+strCheckInNo+"' and a.strClientCode='"+clientCode+"'";
+			    					
+				    		List listRoomTariff = objGlobalFunctionsService.funGetListModuleWise(strRoomRate, "sql");
+				    		if(listRoomTariff!=null && listRoomTariff.size()>0)
+				    		{
+				    			roomTerrif = Double.parseDouble(listRoomTariff.get(0).toString());
+				    		}
+
+			    		}
+
+			    		objFolioDtl = new clsFolioDtlModel();
+						objFolioDtl.setStrDocNo(docNo);
+						objFolioDtl.setDteDocDate(PMSDate);
+						objFolioDtl.setDblDebitAmt(roomTerrif);
+						objFolioDtl.setDblBalanceAmt(objBean.getDblOriginalPostingAmt()-roomTerrif);
+						objFolioDtl.setDblCreditAmt(0);
+						objFolioDtl.setStrTransactionType(strTransType);
+						objFolioDtl.setStrUserEdited(strUserCode);
+						objFolioDtl.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+						if(objBean.getStrFolioType().equals("Room"))
+						{
+							objFolioDtl.setStrPerticulars("Room Tariff");
+						}
+						else
+						{
+							objFolioDtl.setStrPerticulars("Package");
+						}
+						objFolioDtl.setStrRevenueType(objBean.getStrFolioType());
+						objFolioDtl.setStrTransactionType(strTransType);
+						objFolioDtl.setStrRevenueCode(objBean.getStrRoomNo());
+						objFolioDtl.setStrUserEdited(strUserCode);
+						objFolioDtl.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+						listFolioDtl.add(objFolioDtl);
+		    		}
+	    			
+	    		}
+	    		
+	    	}
+		    
 	    }
 
 		if(!hmTaxCalDtl.isEmpty())

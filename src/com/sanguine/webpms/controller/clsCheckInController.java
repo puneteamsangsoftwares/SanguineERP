@@ -1,24 +1,5 @@
 package com.sanguine.webpms.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -33,13 +14,6 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.sanguine.base.service.intfBaseService;
 import com.sanguine.controller.clsGlobalFunctions;
@@ -52,7 +26,11 @@ import com.sanguine.service.clsSetupMasterService;
 import com.sanguine.webpms.bean.clsCheckInBean;
 import com.sanguine.webpms.bean.clsCheckInDetailsBean;
 import com.sanguine.webpms.bean.clsFolioHdBean;
+import com.sanguine.webpms.bean.clsGuestMasterBean;
 import com.sanguine.webpms.bean.clsPostRoomTerrifBean;
+import com.sanguine.webpms.bean.clsReservationDetailsBean;
+import com.sanguine.webpms.bean.clsTaxCalculation;
+import com.sanguine.webpms.bean.clsTaxProductDtl;
 import com.sanguine.webpms.dao.clsExtraBedMasterDao;
 import com.sanguine.webpms.dao.clsGuestMasterDao;
 import com.sanguine.webpms.dao.clsWalkinDao;
@@ -63,10 +41,10 @@ import com.sanguine.webpms.model.clsExtraBedMasterModel;
 import com.sanguine.webpms.model.clsFolioDtlModel;
 import com.sanguine.webpms.model.clsFolioHdModel;
 import com.sanguine.webpms.model.clsGuestMasterHdModel;
-import com.sanguine.webpms.model.clsPMSGroupBookingHDModel;
 import com.sanguine.webpms.model.clsPackageMasterDtl;
 import com.sanguine.webpms.model.clsPackageMasterHdModel;
 import com.sanguine.webpms.model.clsPropertySetupHdModel;
+import com.sanguine.webpms.model.clsReservationDtlModel;
 import com.sanguine.webpms.model.clsReservationHdModel;
 import com.sanguine.webpms.model.clsReservationRoomRateModelDtl;
 import com.sanguine.webpms.model.clsRoomMasterModel;
@@ -76,10 +54,40 @@ import com.sanguine.webpms.model.clsWalkinRoomRateDtlModel;
 import com.sanguine.webpms.service.clsCheckInService;
 import com.sanguine.webpms.service.clsFolioService;
 import com.sanguine.webpms.service.clsGuestMasterService;
-import com.sanguine.webpms.service.clsPMSGroupBookingService;
 import com.sanguine.webpms.service.clsPropertySetupService;
 import com.sanguine.webpms.service.clsReservationService;
 import com.sanguine.webpms.service.clsRoomMasterService;
+import com.sanguine.webpms.service.clsWalkinService;
+
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import org.springframework.validation.BindingResult;
+
+import javax.validation.Valid;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class clsCheckInController {
@@ -87,10 +95,6 @@ public class clsCheckInController {
 	@Autowired
 	private clsCheckInService objCheckInService;
 
-	@Autowired
-	private clsPMSGroupBookingService objGroupBookingService;
-
-	
 	@Autowired
 	private clsGlobalFunctionsService objGlobalFunctionsService;
 
@@ -867,73 +871,63 @@ public class clsCheckInController {
 				 folioN = (String) listCheckIn.get(0);
 			}
 
-			clsReservationHdModel objResModel = objReservationService.funGetReservationList(objBean.getStrAgainstDocNo(), clientCode, propCode);
-			if(objResModel.getStrGroupCode().equals(""))
-			{
-				List<String> listCheckRomm = new ArrayList<String>();
-				List<clsFolioDtlModel> listFolioDtl = new ArrayList<clsFolioDtlModel>();
-				for (clsCheckInDtl objCheckInDtlModel : listCheckInDtlModel) {
-					clsFolioHdBean objFolioBean = new clsFolioHdBean();
-					int cntFolios = 0;
-					if (!listCheckRomm.contains(objCheckInDtlModel.getStrRoomNo())) {
-						objFolioBean.setStrRoomNo(objCheckInDtlModel.getStrRoomNo());
-						objFolioBean.setStrCheckInNo(objHdModel.getStrCheckInNo());
-						objFolioBean.setStrRegistrationNo(objHdModel.getStrRegistrationNo());
-						objFolioBean.setStrReservationNo(objHdModel.getStrReservationNo());
-						objFolioBean.setStrWalkInNo(objHdModel.getStrWalkInNo());
-						objFolioBean.setDteArrivalDate(objHdModel.getDteArrivalDate());
-						objFolioBean.setDteDepartureDate(objHdModel.getDteDepartureDate());
-						objFolioBean.setTmeArrivalTime(objHdModel.getTmeArrivalTime());
-						objFolioBean.setTmeDepartureTime(objHdModel.getTmeDepartureTime());
-						objFolioBean.setStrExtraBedCode(objCheckInDtlModel.getStrExtraBedCode());
-						objFolioBean.setStrGuestCode(objCheckInDtlModel.getStrGuestCode());
-						objFolioBean.setStrFolioNo(folioN);
-						
-						
-						clsFolioHdModel objFolioHdModel = objFolioController.funPrepareFolioModel(objFolioBean, clientCode, req);
-						
-						
-//			@@@@			if(!(objHdModel.getStrReservationNo().equalsIgnoreCase("")))
-//						{
-//							
-//							
-//						}
-//						
-//						long doc = objPMSUtility.funGenerateFolioDocForRoom("RoomFolio");
-//						String docNo = "RM" + String.format("%06d", doc);
-//						double roomTerrif = 0.0;
-//						clsFolioDtlModel objFolioDtl = new clsFolioDtlModel();
-//						objFolioDtl.setStrDocNo(docNo);
-//						objFolioDtl.setDteDocDate(PMSDate);
-//						objFolioDtl.setDblDebitAmt(roomTerrif);
-//						objFolioDtl.setDblBalanceAmt(0);
-//						objFolioDtl.setDblCreditAmt(0);
-//						objFolioDtl.setStrPerticulars("Room Revenue");
-//						objFolioDtl.setStrRevenueType("Room");
-//						objFolioDtl.setStrRevenueCode(objCheckInDtlModel.getStrRoomNo());
-//						listFolioDtl.add(objFolioDtl);
-//						if(objHdModel.getStrReservationNo().equalsIgnoreCase(""))
-//						{
-//							List<clsReservationRoomRateModelDtl>listReservationRoomRate= objReservationService.funGetReservationRoomRateList( objHdModel.getStrReservationNo(),  clientCode,  objCheckInDtlModel.getStrRoomNo()) ;
-//						    	
-//						
-//						
-//		@@				}
-						objFolioService.funAddUpdateFolioHd(objFolioHdModel);
-						
-						cntFolios++;
-
-					}
-					listCheckRomm.add(objCheckInDtlModel.getStrRoomNo());
-				}
-			}
-			else
-			{
-				clsPMSGroupBookingHDModel objGroupBookingModel = objGroupBookingService.funGetPMSGroupBooking(objResModel.getStrGroupCode(), clientCode);
-				
-				String strCorpCode = objGroupBookingModel.getStrCompCode();
-			}
 			
+			List<String> listCheckRomm = new ArrayList<String>();
+			List<clsFolioDtlModel> listFolioDtl = new ArrayList<clsFolioDtlModel>();
+			for (clsCheckInDtl objCheckInDtlModel : listCheckInDtlModel) {
+				clsFolioHdBean objFolioBean = new clsFolioHdBean();
+				int cntFolios = 0;
+				if (!listCheckRomm.contains(objCheckInDtlModel.getStrRoomNo())) {
+					objFolioBean.setStrRoomNo(objCheckInDtlModel.getStrRoomNo());
+					objFolioBean.setStrCheckInNo(objHdModel.getStrCheckInNo());
+					objFolioBean.setStrRegistrationNo(objHdModel.getStrRegistrationNo());
+					objFolioBean.setStrReservationNo(objHdModel.getStrReservationNo());
+					objFolioBean.setStrWalkInNo(objHdModel.getStrWalkInNo());
+					objFolioBean.setDteArrivalDate(objHdModel.getDteArrivalDate());
+					objFolioBean.setDteDepartureDate(objHdModel.getDteDepartureDate());
+					objFolioBean.setTmeArrivalTime(objHdModel.getTmeArrivalTime());
+					objFolioBean.setTmeDepartureTime(objHdModel.getTmeDepartureTime());
+					objFolioBean.setStrExtraBedCode(objCheckInDtlModel.getStrExtraBedCode());
+					objFolioBean.setStrGuestCode(objCheckInDtlModel.getStrGuestCode());
+					objFolioBean.setStrFolioNo(folioN);
+					
+					
+					clsFolioHdModel objFolioHdModel = objFolioController.funPrepareFolioModel(objFolioBean, clientCode, req);
+					
+					
+//		@@@@			if(!(objHdModel.getStrReservationNo().equalsIgnoreCase("")))
+//					{
+//						
+//						
+//					}
+//					
+//					long doc = objPMSUtility.funGenerateFolioDocForRoom("RoomFolio");
+//					String docNo = "RM" + String.format("%06d", doc);
+//					double roomTerrif = 0.0;
+//					clsFolioDtlModel objFolioDtl = new clsFolioDtlModel();
+//					objFolioDtl.setStrDocNo(docNo);
+//					objFolioDtl.setDteDocDate(PMSDate);
+//					objFolioDtl.setDblDebitAmt(roomTerrif);
+//					objFolioDtl.setDblBalanceAmt(0);
+//					objFolioDtl.setDblCreditAmt(0);
+//					objFolioDtl.setStrPerticulars("Room Revenue");
+//					objFolioDtl.setStrRevenueType("Room");
+//					objFolioDtl.setStrRevenueCode(objCheckInDtlModel.getStrRoomNo());
+//					listFolioDtl.add(objFolioDtl);
+//					if(objHdModel.getStrReservationNo().equalsIgnoreCase(""))
+//					{
+//						List<clsReservationRoomRateModelDtl>listReservationRoomRate= objReservationService.funGetReservationRoomRateList( objHdModel.getStrReservationNo(),  clientCode,  objCheckInDtlModel.getStrRoomNo()) ;
+//					    	
+//					
+//					
+//	@@				}
+					objFolioService.funAddUpdateFolioHd(objFolioHdModel);
+					
+					cntFolios++;
+
+				}
+				listCheckRomm.add(objCheckInDtlModel.getStrRoomNo());
+			}
 
 			objCheckInService.funAddUpdateCheckInHd(objHdModel);
 			
