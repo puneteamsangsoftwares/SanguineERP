@@ -539,7 +539,12 @@ public class clsPostRoomTerrifController {
 				    		{
 				    			roomTerrif = Double.parseDouble(listRoomTariff.get(0).toString());
 				    		}
+				    		
 
+			    		}
+			    		else
+			    		{
+			    			roomTerrif = 0.0;
 			    		}
 
 			    		objFolioDtl = new clsFolioDtlModel();
