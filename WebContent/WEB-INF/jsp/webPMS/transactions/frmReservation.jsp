@@ -379,6 +379,7 @@
 			type : "GET",
 			url : getContextPath()+ "/loadCorporateCode.html?corpcode=" + code,
 			dataType : "json",
+			async:false,
 			success : function(response){ 
 				if(response.strCorporateCode=='Invalid Code')
 	        	{
@@ -2151,6 +2152,68 @@
 
 	}
 	
+	async function funSetGroupCode(code){
+		var gCode=code.split("#")[0];		
+		$("#txtGroupCode").val(code.split("#")[0]);
+		funSetCorporateCode(code.split("#")[2]);
+		funSetRoomType(code.split("#")[1]);
+		
+		var guestCode='';
+		var mobileNo='0';
+		var guestName='';
+		var roomType =$("#txtRoomTypeCode").val();
+		var roomNo =$("#txtRoomNo").val();
+		var roomDesc =$("#lblRoomNo").text().trim();
+		var extraBedCode=$("#txtExtraBed").val();
+		var extraBedDesc=$("#lblExtraBed").text();
+		var remark=$("#txtRemark").val();
+		var address=$("#txtAddress").val();
+		var roomTypeDesc=$("#lblRoomType").text();
+		
+		
+		funAddDetailsRow(guestName,guestCode,'0',roomType,'','',roomDesc,extraBedCode,extraBedDesc,"N",address,roomTypeDesc);
+		funFillRoomRate(roomType,roomDesc);
+		
+		//$("form").submit();
+		var flag=true;
+		
+		if ($("#txtBookingTypeCode").val() == '') {
+			alert("Please Enter Booking Type Code");
+			flag=false;
+			//return false;
+		}
+		
+		var table = document.getElementById("tblResDetails");
+		var rowCount = table.rows.length;
+		if (rowCount == 0) {
+			alert("Please Add Brand in Grid");
+			flag=false;
+			//return false;
+		}
+		
+		if(flag==true)
+			{
+				document.getElementById('txtsubmit').submit();
+			}
+		
+		/* $("txtsubmit").submit(function() {
+
+			if ($("#txtBookingTypeCode").val() == '') {
+				alert("Please Enter Booking Type Code");
+				return false;
+			}
+			
+			var table = document.getElementById("tblResDetails");
+			var rowCount = table.rows.length;
+			if (rowCount == 0) {
+				alert("Please Add Brand in Grid");
+				return false;
+			}
+			
+		});  */
+		
+		//alert(code);
+	}
 	function funCallGroupBooking()
 	{
 		var noOfRooms = $("#txtNoOfBookingRoom").val();
@@ -2159,7 +2222,15 @@
 			isCheckOk =	confirm("Do you want to do group reservation");
 			if(isCheckOk)
 			{
-				funOpenGroupBooking();
+				if ($("#txtBookingTypeCode").val() == '') {
+					alert("Please Enter Booking Type Code");
+					//return false;
+				}
+				else
+				{
+					funOpenGroupBooking();
+				}
+				
 				
 			}
 			}
@@ -2169,7 +2240,7 @@
 </head>
 <body>
      <label id="formHeading"> Reservation </label>
-	     <s:form name="Reservation" method="POST" action="saveReservation.html">
+	     <s:form  id ="txtsubmit" name="Reservation" method="POST" action="saveReservation.html">
 	              <br>
 		<div id="multiAccordion">	
 		<h3><a href="#">Change/Edit Reservation</a></h3>
@@ -2584,6 +2655,9 @@
 			    </div>
 			    <div class="col-md-1"><br><input type="button" value="Add" class="btn btn-primary center-block" class="smallButton" onclick='return funAddRow()'/>
 			    </div>
+			
+				<s:input type="hidden" id="txtGroupCode" path="strGroupCode" cssClass="searchTextBox" />
+			    
 			
 		   </div>
 		<br/>

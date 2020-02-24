@@ -113,7 +113,7 @@ public class clsReservationBean {
 	
 	private String strBillToCorporate;
 	
-	private String strGroupCode = "";
+	private String strGroupCode;
 	
 	public String getStrTotalPackageAmt() {
 		return strTotalPackageAmt;

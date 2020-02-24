@@ -110,7 +110,9 @@ public class clsPMSGroupBookingController{
 			objPMSGroupBookingService.funAddUpdatePMSGroupBooking(objModel);
 			req.getSession().setAttribute("success", true);
 			req.getSession().setAttribute("successMessage", objModel.getStrGroupCode());
+			req.getSession().setAttribute("GroupCodeAndRoomCode", objModel.getStrGroupCode()+"#"+objBean.getStrRoomType()+"#"+objBean.getStrCompCode());
 			return new ModelAndView("redirect:/frmPMSGroupBooking.html");
+			//return new ModelAndView("frmPMSGroupBooking");
 		}
 		else{
 			return new ModelAndView("frmPMSGroupBooking");
@@ -218,59 +220,94 @@ public class clsPMSGroupBookingController{
 		//add list data in to tblgroupbookingdtl table		
 		List<clsPMSGroupBookingDtlModel> listPMSGroupBookingDtlModel = new ArrayList<clsPMSGroupBookingDtlModel>();
 		HashMap<String,clsPMSGroupBookingDtlModel> hmap = new LinkedHashMap<String,clsPMSGroupBookingDtlModel>();
+		clsPMSGroupBookingDtlModel objGroupLeader = new clsPMSGroupBookingDtlModel();
+		clsPMSGroupBookingDtlModel objGuest = new clsPMSGroupBookingDtlModel();
 		for (clsPMSGroupBookingDetailBean objPMSGroupBookingDetailBean: objBean.getListPMSGroupBookingDetailBean()) {
 			//clsPMSGroupBookingDtlModel obj = new clsPMSGroupBookingDtlModel();
-			clsPMSGroupBookingDtlModel objDtlBean = new clsPMSGroupBookingDtlModel();
-			if(hmap.containsKey(objPMSGroupBookingDetailBean.getStrPayee()))
+			if(objPMSGroupBookingDetailBean.getStrPayee().equalsIgnoreCase("Group Leader"))
 			{
-				objDtlBean=hmap.get(objPMSGroupBookingDetailBean.getStrPayee().toString());
-				//objDtlBean.setStrGroupCode(objModel.getStrGroupCode());
-				objDtlBean.setStrRoom(funEquals(objPMSGroupBookingDetailBean.getStrRoom(),objDtlBean.getStrRoom()));
-				objDtlBean.setStrPayee(objPMSGroupBookingDetailBean.getStrPayee());
-				objDtlBean.setStrFandB(funEquals(objPMSGroupBookingDetailBean.getStrFandB(),objDtlBean.getStrFandB()));
-				objDtlBean.setStrTelephone(funEquals(objPMSGroupBookingDetailBean.getStrTelephone(),objDtlBean.getStrTelephone()));
-				objDtlBean.setStrExtra(funEquals(objPMSGroupBookingDetailBean.getStrExtra(),objDtlBean.getStrExtra()));
-				hmap.put(objPMSGroupBookingDetailBean.getStrPayee(), objDtlBean);
+				if(hmap.containsKey(objPMSGroupBookingDetailBean.getStrPayee()))
+				{
+					objGroupLeader=hmap.get(objPMSGroupBookingDetailBean.getStrPayee());
+					objGroupLeader.setStrRoom(funEquals(objPMSGroupBookingDetailBean.getStrRoom(),objGroupLeader.getStrRoom()));
+					objGroupLeader.setStrPayee(objPMSGroupBookingDetailBean.getStrPayee());
+					objGroupLeader.setStrFandB(funEquals(objPMSGroupBookingDetailBean.getStrFandB(),objGroupLeader.getStrFandB()));
+					objGroupLeader.setStrTelephone(funEquals(objPMSGroupBookingDetailBean.getStrTelephone(),objGroupLeader.getStrTelephone()));
+					objGroupLeader.setStrExtra(funEquals(objPMSGroupBookingDetailBean.getStrExtra(),objGroupLeader.getStrExtra()));
+					hmap.put(objPMSGroupBookingDetailBean.getStrPayee(), objGroupLeader);
+				}
+				else
+				{
+					objGroupLeader.setStrRoom(funEquals(objPMSGroupBookingDetailBean.getStrRoom(),objGroupLeader.getStrRoom()));
+					objGroupLeader.setStrPayee(objPMSGroupBookingDetailBean.getStrPayee());
+					objGroupLeader.setStrFandB(funEquals(objPMSGroupBookingDetailBean.getStrFandB(),objGroupLeader.getStrFandB()));
+					objGroupLeader.setStrTelephone(funEquals(objPMSGroupBookingDetailBean.getStrTelephone(),objGroupLeader.getStrTelephone()));
+					objGroupLeader.setStrExtra(funEquals(objPMSGroupBookingDetailBean.getStrExtra(),objGroupLeader.getStrExtra()));
+					hmap.put(objPMSGroupBookingDetailBean.getStrPayee(), objGroupLeader);		
+				}				
 			}
 			else
 			{
-				//objDtlBean.setStrGroupCode(objModel.getStrGroupCode());
-				objDtlBean.setStrRoom(objGlobal.funIfNull(objPMSGroupBookingDetailBean.getStrRoom(), null, "Y"));
-				objDtlBean.setStrPayee(objPMSGroupBookingDetailBean.getStrPayee());
-				objDtlBean.setStrFandB(objGlobal.funIfNull(objPMSGroupBookingDetailBean.getStrFandB(), null, "Y"));
-				objDtlBean.setStrTelephone(objGlobal.funIfNull(objPMSGroupBookingDetailBean.getStrTelephone(), null, "Y"));
-				objDtlBean.setStrExtra(objGlobal.funIfNull(objPMSGroupBookingDetailBean.getStrExtra(), null, "Y"));
-				hmap.put(objPMSGroupBookingDetailBean.getStrPayee(), objDtlBean);
+				if(hmap.containsKey(objPMSGroupBookingDetailBean.getStrPayee()))
+				{
+					objGuest=hmap.get(objPMSGroupBookingDetailBean.getStrPayee());
+					objGuest.setStrRoom(funEquals(objPMSGroupBookingDetailBean.getStrRoom(),objGuest.getStrRoom()));
+					objGuest.setStrPayee(objPMSGroupBookingDetailBean.getStrPayee());
+					objGuest.setStrFandB(funEquals(objPMSGroupBookingDetailBean.getStrFandB(),objGuest.getStrFandB()));
+					objGuest.setStrTelephone(funEquals(objPMSGroupBookingDetailBean.getStrTelephone(),objGuest.getStrTelephone()));
+					objGuest.setStrExtra(funEquals(objPMSGroupBookingDetailBean.getStrExtra(),objGuest.getStrExtra()));
+					hmap.put(objPMSGroupBookingDetailBean.getStrPayee(), objGuest);
+				}
+				else
+				{
+					objGuest.setStrRoom(funEquals(objPMSGroupBookingDetailBean.getStrRoom(),objGuest.getStrRoom()));
+					objGuest.setStrPayee(objPMSGroupBookingDetailBean.getStrPayee());
+					objGuest.setStrFandB(funEquals(objPMSGroupBookingDetailBean.getStrFandB(),objGuest.getStrFandB()));
+					objGuest.setStrTelephone(funEquals(objPMSGroupBookingDetailBean.getStrTelephone(),objGuest.getStrTelephone()));
+					objGuest.setStrExtra(funEquals(objPMSGroupBookingDetailBean.getStrExtra(),objGuest.getStrExtra()));
+					hmap.put(objPMSGroupBookingDetailBean.getStrPayee(), objGuest);	
+				}				
 			}
 		}
-		 for (Map.Entry<String,clsPMSGroupBookingDtlModel> entry : hmap.entrySet())
-		 {/*
-			 System.out.println("Key = " + entry.getKey() + 
-                     ", Value = " + entry.getValue()); */
-			 listPMSGroupBookingDtlModel.add(entry.getValue());
-		 }
+			if(!hmap.containsKey("Group Leader"))
+			{
+				objGroupLeader.setStrRoom("N");
+				objGroupLeader.setStrPayee("Group Leader");
+				objGroupLeader.setStrFandB("N");
+				objGroupLeader.setStrTelephone("N");
+				objGroupLeader.setStrExtra("N");
+				
+			}
+			else if(!hmap.containsKey("Guest"))
+			{
+				objGuest.setStrRoom("N");
+				objGuest.setStrPayee("Guest");
+				objGuest.setStrFandB("N");
+				objGuest.setStrTelephone("N");
+				objGuest.setStrExtra("N");
+			}			
+		
+		listPMSGroupBookingDtlModel.add(objGroupLeader);
+		listPMSGroupBookingDtlModel.add(objGuest);
 		objModel.setListPMSGroupBookingDtlModel(listPMSGroupBookingDtlModel);		
 		return objModel;
+		
 
 	}
 	
 	public String funEquals(String input, String defaultValue) {
 		String op = "N";
-		if(null!=defaultValue)
-		{			
-			op=defaultValue;
-		}
-		else
+		
+		if(input!=null)
 		{
-			if(null==input&&null==defaultValue)
-			{
-				op="N";
-			}
-			else
-			{
-				op="Y";				
-			}
+			op="Y";
+			
+		}	
+		else if(defaultValue=="Y")
+		{
+			op="Y";
 		}
+			
 		return op;
 	}
 

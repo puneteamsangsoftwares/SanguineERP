@@ -25,22 +25,17 @@
 	$(document).ready(function()
 			{
 	var message='';
-	var groupCode='';
 	<%if (session.getAttribute("success") != null) {
 		            if(session.getAttribute("successMessage") != null){%>
 		            message='<%=session.getAttribute("successMessage").toString()%>';
-		            groupCode='<%=session.getAttribute("GroupCodeAndRoomCode").toString()%>';
-		            
 		            <%
 		            session.removeAttribute("successMessage");
-		            session.removeAttribute("GroupCodeAndRoomCode");
 		            }
 					boolean test = ((Boolean) session.getAttribute("success")).booleanValue();
 					session.removeAttribute("success");
 					if (test) {
 					%>	
 		alert("Data Save successfully\n\n"+message);
-		funOpenGroupBooking(groupCode);
 	<%
 	}}%>
 	
@@ -88,13 +83,9 @@ $(document).ready(function(){
 			
 		$('#txtTravelTime').timepicker('setTime', new Date());
 		funPayeeData();
-		
 	});
 	
-function funOpenGroupBooking(value) {
-	window.opener.funSetGroupCode(value);
-	window.close();
-}
+	
 	
 	function funHelp(transactionName)
 	{
@@ -149,9 +140,6 @@ function funOpenGroupBooking(value) {
 				funSetCorporateCode(code);
 				break;
 				
-			case "roomType":
-				funSetRoomType(code);
-				break;
 		}
 	}
 	function funSetGuestCode(code){
@@ -297,44 +285,6 @@ function funSetCorporateCode(code){
                 alert('Uncaught Error.n' + jqXHR.responseText);
             }		            
         }			
-	});
-}
-	
-function funSetRoomType(code){
-	$("#txtRoomType").val(code);
-	$.ajax({
-		type : "GET",
-		url : getContextPath()+ "/loadRoomTypeMasterData.html?roomCode=" + code,
-		dataType : "json",
-	    async:false,
-		success : function(response){ 
-			if(response.strAgentCode=='Invalid Code')
-        	{
-        		alert("Invalid Room Type");
-        		$("#lblRoomType").text('');
-        	}
-        	else
-        	{					        	    	        		
-        		$("#txtRoomTypeDesc").val(response.strRoomTypeDesc);
-        	}
-		},
-		error : function(e){
-			if (jqXHR.status === 0) {
-                alert('Not connect.n Verify Network.');
-            } else if (jqXHR.status == 404) {
-                alert('Requested page not found. [404]');
-            } else if (jqXHR.status == 500) {
-                alert('Internal Server Error [500].');
-            } else if (exception === 'parsererror') {
-                alert('Requested JSON parse failed.');
-            } else if (exception === 'timeout') {
-                alert('Time out error.');
-            } else if (exception === 'abort') {
-                alert('Ajax request aborted.');
-            } else {
-                alert('Uncaught Error.n' + jqXHR.responseText);
-            }
-		}
 	});
 }
 	
@@ -1058,11 +1008,11 @@ function funSetRoomType(code){
 						<div class="row" style="padding-bottom:12px">
 							<div class="col-md-2">
 								<label>Room Type</label>
-								<s:input id="txtRoomType" ondblclick="funHelp('roomType')" type="text"  cssClass="searchTextBox" path="strRoomType"></s:input>
+								<s:input id="txtRoomType" ondblclick="" type="text" path="strRoomType"></s:input>
 							</div>
 							<div class="col-md-2">
 								<label>Room Type Desc</label>
-								<s:input id="txtRoomTypeDesc" ondblclick=""  readonly="true"  type="text" path="strRoomTypeDesc"></s:input>
+								<s:input id="txtRoomTypeDesc" ondblclick=""   type="text" path="strRoomTypeDesc"></s:input>
 							</div>
 							<div class="col-md-2">
 								<label>Room taxes</label>
@@ -1102,7 +1052,32 @@ function funSetRoomType(code){
 	   <h3><a href="#">Billing Instructions</a></h3>
 	    <div>
 	    	<div class="container transtable" style="background-color:#f2f2f2;">
-				
+				<div class="row" style="padding-bottom:12px">
+					<!-- <div class="col-md-2">
+						<label>Payment by Group Leader</label>
+						<input type="radio" name="" id="txtPaymentBtGroupLeader" path="strPaymentBtGroupLeader" value="Y"/>
+					</div>
+					<div class="col-md-2">
+						<label>Guest</label>
+						<input type="radio" name="" id="txtGuest" path="strGuest" value="Y"/>
+					</div> 
+					<div class="col-md-2">
+						<label>Room </label>
+						 <input type="checkbox" name="" id="txtRoom" path="strRoom" value="Y"/>
+					</div>
+					<div class="col-md-2">
+						<label>F&B</label>
+						<input type="checkbox" name="" id="txtFandB" path="strFandB" value="Y"/>
+					</div>
+					<div class="col-md-2">
+						<label>Telphones</label>
+						<input type="checkbox" name="" id="txtTelephones" path="strTelephones" value="Y"/>
+					</div>
+					<div class="col-md-2">
+						<label>Extras</label>
+						<input type="checkbox" name="" id="txtExtras" path="strExtras" value="Y"/>
+					</div> -->
+				</div>
 			
 		
 	  
