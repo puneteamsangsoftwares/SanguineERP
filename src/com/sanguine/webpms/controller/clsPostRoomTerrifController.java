@@ -397,11 +397,19 @@ public class clsPostRoomTerrifController {
 			hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
 		}
 		
-		if(objHdModel.getStrDontApplyTax().equals("N") && objModel.getStrDontApplyTax().equals("N"))
+		if(objHdModel.getStrDontApplyTax().equals("N"))
+		{
+			if(objModel!=null && objModel.getStrDontApplyTax().equals("N"))
+			{
+				hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
+			}
+		}
+		
+	/*	if(objHdModel.getStrDontApplyTax().equals("N") && objModel.getStrDontApplyTax().equals("N"))
 		{
 			hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
 		}
-		
+		*/
 		
 
 		List<clsFolioDtlModel> listFolioDtl = new ArrayList<clsFolioDtlModel>();
@@ -432,7 +440,9 @@ public class clsPostRoomTerrifController {
 	    }
 	    clsFolioDtlModel objFolioDtl = null; 	    	
 	    if(!flgDupRoomTerrif)
-	    {
+	    {	    
+	    	if(objModel!=null)
+			{
 	    	if(objModel.getStrGroupCode().equals(""))
 	    	{
 	    		objFolioDtl = new clsFolioDtlModel();
@@ -575,6 +585,7 @@ public class clsPostRoomTerrifController {
 	    		}
 	    		
 	    	}
+			}
 		    
 	    }
 

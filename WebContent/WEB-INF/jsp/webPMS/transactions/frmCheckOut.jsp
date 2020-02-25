@@ -114,7 +114,7 @@
 		row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].dteCheckInDate\" id=\"dteCheckInDate."+(rowCount)+"\"  value='"+obj.dteCheckInDate+"' >";
 		row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].dteCheckOutDate\" id=\"dteCheckOutDate."+(rowCount)+"\"  value='"+obj.dteCheckOutDate+"' >";
 		row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].strCorporate\" id=\"strCorporate."+(rowCount)+"\" value='"+obj.strCorporate+"' >";
-		row.insertCell(8).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\" checked=\"checked\" class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].strRemoveTax\" id=\"strRemoveTax."+(rowCount)+"\" value='Y' >";
+		row.insertCell(8).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].strRemoveTax\" id=\"strRemoveTax."+(rowCount)+"\" value='Y' >";
 
 	}
 	

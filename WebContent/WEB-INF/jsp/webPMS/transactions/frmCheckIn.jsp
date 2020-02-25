@@ -133,8 +133,7 @@ padding-left:1px;
 			
 			case "package":
 				funSetPackageNo(code);
-			break;
-				
+			break;				
 			
 			case 'reasonPMS' : 
 				funSetReasonData(code);
@@ -142,12 +141,14 @@ padding-left:1px;
 			
 			case 'guestCode' : 
 				funSetGuestCode(code);
-				break;
+				break;			
 				
-		}
+			case 'roomType' : 
+				funSetRoomType2(code,gridHelpRow);
+				break;
 	}
 
-	
+	}
 	var message='';
 	var retval="";
 	var checkAgainst="";
@@ -411,7 +412,10 @@ padding-left:1px;
 //	 	        		$("#lblRoomType").text('');
 		        	}
 		        	else
-		        	{					        	    	        		
+		        	{			
+		        	 	/* document.getElementById("strRoomType."+gridHelpRow).value=strRoomTypeCode;						
+		    			document.getElementById("strRoomTypeDesc."+gridHelpRow).value=response.strRoomTypeDesc;  */
+				   
 		        		retVal= response.strRoomTypeDesc;
 		        	}
 				},
@@ -541,7 +545,7 @@ padding-left:1px;
 		    rTypeCode=roomTypeCode
 		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].strGuestName\" id=\"strGuestName."+(rowCount)+"\" value='"+guestName+"'/>";	    
 		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" style=\"width:70%;margin-left: -6%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].lngMobileNo\" id=\"lngMobileNo."+(rowCount)+"\" value='"+mobileNo+"' />";	   
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" style=\"width:75%;margin-left: -22%;\" id=\"strRoomTypeDesc."+(rowCount)+"\" value='"+roomtypeDesc+"' />";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" style=\"width:75%;margin-left: -22%;\" id=\"strRoomTypeDesc."+(rowCount)+"\" value='"+roomtypeDesc+"' class=\"searchTextBox\"   ondblclick=\"Javacsript:funHelp1('roomType',"+(rowCount)+",'"+roomTypeCode+"' )\"/>";
 		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;margin-left: -44%;background-color: #dcdada94;\" class=\"searchTextBox\"  name=\"listCheckInDetailsBean["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+(rowCount)+"\" value='"+roomNo+"'  ondblclick=\"Javacsript:funHelp1('roomByRoomType',"+(rowCount)+",'"+roomTypeCode+"' )\"/>";
 		    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" style=\"width:73%;margin-left: -44%\"  id=\"strRoomDesc."+(rowCount)+"\" value='"+roomDesc+"' />";
 		    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;margin-left: -55%;background-color: #dcdada94;\" class=\"searchTextBox\"  name=\"listCheckInDetailsBean["+(rowCount)+"].strExtraBedCode\" id=\"strExtraBedCode."+(rowCount)+"\" value='"+extraBedCode+"' ondblclick=\"Javacsript:funHelp1('extraBed',"+(rowCount)+",'')\" />";
@@ -1184,6 +1188,12 @@ padding-left:1px;
 					fieldName=transactionName;
 					if(transactionName=="roomByRoomType")
 					{
+						condition= document.getElementById("strRoomType."+row).value;
+						window.open("searchform.html?formname="+fieldName+"&strRoomTypeCode="+condition+"&searchText=","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+					
+					}
+					else if(transactionName=="roomType")
+					{
 						window.open("searchform.html?formname="+fieldName+"&strRoomTypeCode="+condition+"&searchText=","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
 					
 					}
@@ -1335,8 +1345,7 @@ padding-left:1px;
 					 }
 					 
 					 
-					 function funSetRoomNo(code,gridHelpRow){
-
+					 function funSetRoomNo(code,gridHelpRow){						 
 							$.ajax({
 								type : "GET",
 								url : getContextPath()+ "/loadRoomMasterData.html?roomCode=" + code,
@@ -1425,6 +1434,48 @@ padding-left:1px;
 								}
 							});
 						}	 
+					 
+					 
+					 function funSetRoomType2(code,indiex){
+							$("#txtRoomType").val(code);
+							$.ajax({
+								type : "GET",
+								url : getContextPath()+ "/loadRoomTypeMasterData.html?roomCode=" + code,
+								dataType : "json",
+							    async:false,
+								success : function(response){ 
+									if(response.strAgentCode=='Invalid Code')
+						        	{
+						        		alert("Invalid Room Type");
+						        		$("#lblRoomType").text('');
+						        	}
+						        	else
+						        	{	
+						        		document.getElementById("strRoomType."+gridHelpRow).value=code;						
+						    			document.getElementById("strRoomTypeDesc."+gridHelpRow).value=response.strRoomTypeDesc; 
+								     
+						        		$("#txtRoomTypeDesc").val(response.strRoomTypeDesc);
+						        	}
+								},
+								error : function(e){
+									if (jqXHR.status === 0) {
+						                alert('Not connect.n Verify Network.');
+						            } else if (jqXHR.status == 404) {
+						                alert('Requested page not found. [404]');
+						            } else if (jqXHR.status == 500) {
+						                alert('Internal Server Error [500].');
+						            } else if (exception === 'parsererror') {
+						                alert('Requested JSON parse failed.');
+						            } else if (exception === 'timeout') {
+						                alert('Time out error.');
+						            } else if (exception === 'abort') {
+						                alert('Ajax request aborted.');
+						            } else {
+						                alert('Uncaught Error.n' + jqXHR.responseText);
+						            }
+								}
+							});
+						}
 					 
 					 function funComplimentryChange(select)
 					 {
