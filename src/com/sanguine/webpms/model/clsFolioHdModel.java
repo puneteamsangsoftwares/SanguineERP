@@ -83,7 +83,23 @@ public class clsFolioHdModel implements Serializable {
 
 	@Column(name = "strWalkInNo")
 	private String strWalkInNo;
+	
+	//For Group booking
+	
+	@Column(name = "strRoom")
+	private String strRoom;
+	
+	@Column(name = "strFandB")
+	private String strFandB;
+	
+	@Column(name = "strTelephone")
+	private String strTelephone;
+	
+	@Column(name = "strExtra")
+	private String strExtra;
 
+	
+	
 	@Transient
 	private String strBillNo;
 
@@ -229,6 +245,38 @@ public class clsFolioHdModel implements Serializable {
 
 	public void setStrBillNo(String strBillNo) {
 		this.strBillNo = strBillNo;
+	}
+
+	public String getStrRoom() {
+		return strRoom;
+	}
+
+	public void setStrRoom(String strRoom) {
+		this.strRoom = strRoom;
+	}
+
+	public String getStrFandB() {
+		return strFandB;
+	}
+
+	public void setStrFandB(String strFandB) {
+		this.strFandB = strFandB;
+	}
+
+	public String getStrTelephone() {
+		return strTelephone;
+	}
+
+	public void setStrTelephone(String strTelephone) {
+		this.strTelephone = strTelephone;
+	}
+
+	public String getStrExtra() {
+		return strExtra;
+	}
+
+	public void setStrExtra(String strExtra) {
+		this.strExtra = strExtra;
 	}
 
 }

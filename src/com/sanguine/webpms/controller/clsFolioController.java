@@ -105,6 +105,11 @@ public class clsFolioController {
 		objFolioModel.setStrExtraBedCode(objFolioBean.getStrExtraBedCode());
 		objFolioModel.setStrGuestCode(objFolioBean.getStrGuestCode());
 		objFolioModel.setStrClientCode(clientCode);
+		
+		objFolioModel.setStrRoom("Y");
+		objFolioModel.setStrFandB("Y");
+		objFolioModel.setStrTelephone("Y");
+		objFolioModel.setStrExtra("Y");
 
 		/*
 		 * List<clsFolioDtlModel> listFolioDtlModel=new

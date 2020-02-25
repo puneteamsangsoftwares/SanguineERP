@@ -482,7 +482,7 @@ function funGetFormName(){
 	});
 }); */
 
- <%--   $(document).ready(function()
+<%--    $(document).ready(function()
 {
 	var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';
 	  if(null!=pmsDate)
@@ -490,8 +490,8 @@ function funGetFormName(){
 	 	  var dte=pmsDate.split("-");
 		  $("#txtPMSDate").text(dte[0]+"-"+dte[1]+"-"+dte[2]); 	
 	  }
- });  
- --%>
+ });   
+  --%>
 
 </script>
 
@@ -514,6 +514,8 @@ function funGetFormName(){
           					<div class="navaction app-header-sub">
            			 			<p class="para"><img src="../${pageContext.request.contextPath}/resources/images/DSS_logo.png" alt="img" style="max-width:20%; height: auto; padding-left:5px"><span style=" padding-left:16px; font-size:16px; font-weight: 600; color: #4a4a4a;">
            			 			${companyName}</span> &nbsp; &nbsp;- &nbsp; ${propertyName} &nbsp;- ${financialYear}</p>
+           			 			<!-- <label>PMS Date</label>&nbsp; &nbsp;<input id="txtPMSDate" style="width: 90px;font-weight: bold;" readonly="readonly" class="longTextBox"/> -->
+           			 			<!-- <th style="width: 34%;"></th> --> 
          		 			</div> 
         				</div>
         				<div class="right-menu" id="page_top_banner">

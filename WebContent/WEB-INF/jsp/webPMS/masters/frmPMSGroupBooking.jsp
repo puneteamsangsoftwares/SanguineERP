@@ -65,16 +65,16 @@ $(document).ready(function(){
 		$("#txtTravelDate").datepicker('setDate', pmsDate);
 		
 		
-		$("#txtCheckInDate").datepicker({
+		 $("#txtCheckInDate").datepicker({
 			dateFormat : 'dd-mm-yy'
 		});
-		$("#txtCheckInDate").datepicker('setDate', pmsDate);
+		/* $("#txtCheckInDate").datepicker('setDate', pmsDate); */
 		
 		
 		$("#txtCheckoutDate").datepicker({
 			dateFormat : 'dd-mm-yy'
 		});
-		$("#txtCheckoutDate").datepicker('setDate', pmsDate);
+		/* $("#txtCheckoutDate").datepicker('setDate', pmsDate);  */
 		
 		$('#txtTravelTime').timepicker();
 		

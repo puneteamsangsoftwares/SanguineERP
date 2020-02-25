@@ -181,11 +181,11 @@
 	   			 }
 	   		 
 	   		});
-	   	 if(strGCode=="")
+	   	 /* if(strGCode=="")
 	   	 {
 	   	 	alert("Please Select Group Code");
 	   	 	return false;
-	   	 }
+	   	 } */
 	   	 $("#txtGroupCode").val(strGCode);
 	   	
 	   	 
@@ -202,11 +202,11 @@
 	   			 }
 	   		 
 	   		});
-	   	 if(strSGCode=="")
+	   	 /* if(strSGCode=="")
 	   	 {
 	   	 	alert("Please Select SubGroup");
 	   	 	return false;
-	   	 }
+	   	 } */
 	   	 $("#txtSubGroupCode").val(strSGCode);
    		
     }

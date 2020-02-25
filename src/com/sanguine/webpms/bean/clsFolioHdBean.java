@@ -31,6 +31,14 @@ public class clsFolioHdBean
 	private String strGuestCode;
 
 	private String strWalkInNo;
+	
+	private String strRoom;
+	
+	private String strFandB;
+	
+	private String strTelephone;
+	
+	private String strExtra;
 
 	private List<clsFolioDtlBean> listFolioDtlBean;
 
@@ -137,6 +145,38 @@ public class clsFolioHdBean
 
 	public void setStrWalkInNo(String strWalkInNo) {
 		this.strWalkInNo = strWalkInNo;
+	}
+
+	public String getStrRoom() {
+		return strRoom;
+	}
+
+	public void setStrRoom(String strRoom) {
+		this.strRoom = strRoom;
+	}
+
+	public String getStrFandB() {
+		return strFandB;
+	}
+
+	public void setStrFandB(String strFandB) {
+		this.strFandB = strFandB;
+	}
+
+	public String getStrTelephone() {
+		return strTelephone;
+	}
+
+	public void setStrTelephone(String strTelephone) {
+		this.strTelephone = strTelephone;
+	}
+
+	public String getStrExtra() {
+		return strExtra;
+	}
+
+	public void setStrExtra(String strExtra) {
+		this.strExtra = strExtra;
 	}
 
 }
