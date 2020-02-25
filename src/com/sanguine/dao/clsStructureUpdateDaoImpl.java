@@ -4736,7 +4736,7 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		
 		sql = "ALTER TABLE `tblfoliohd`"
 				+ "	ADD COLUMN `strRoom` VARCHAR(30) NOT NULL DEFAULT 'Y' AFTER `strWalkInNo`,"
-				+ "ADD COLUMN `strFandB` VARCHAR(30) NOT NULL DEFAULT 'Y' AFTER `strPayee`,"
+				+ "ADD COLUMN `strFandB` VARCHAR(30) NOT NULL DEFAULT 'Y' AFTER `strRoom`,"
 				+ "ADD COLUMN `strTelephone` VARCHAR(30) NOT NULL DEFAULT 'Y' AFTER `strFandB`,"
 				+ "ADD COLUMN `strExtra` VARCHAR(30) NOT NULL DEFAULT 'Y' AFTER `strTelephone`;";
 		funExecutePMSQuery(sql);
