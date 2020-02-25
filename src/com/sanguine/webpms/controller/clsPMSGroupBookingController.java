@@ -126,6 +126,10 @@ public class clsPMSGroupBookingController{
 			clsGlobalFunctions objGlobal = new clsGlobalFunctions();
 			String clientCode = req.getSession().getAttribute("clientCode").toString();
 			clsPMSGroupBookingHDModel objPMSGroupBookingModel = objPMSGroupBookingService.funGetPMSGroupBooking(groupCode, clientCode);
+			objPMSGroupBookingModel.setDteTravelDate(objGlobal.funGetDate("dd-MM-yyyy",objPMSGroupBookingModel.getDteTravelDate()));
+			objPMSGroupBookingModel.setDteCheckInDate(objGlobal.funGetDate("dd-MM-yyyy",objPMSGroupBookingModel.getDteCheckInDate()));
+			objPMSGroupBookingModel.setDteCheckoutDate(objGlobal.funGetDate("dd-MM-yyyy",objPMSGroupBookingModel.getDteCheckoutDate()));
+			objPMSGroupBookingModel.setDteDob(objGlobal.funGetDate("dd-MM-yyyy",objPMSGroupBookingModel.getDteDob()));
 			return objPMSGroupBookingModel;
 		}
 	

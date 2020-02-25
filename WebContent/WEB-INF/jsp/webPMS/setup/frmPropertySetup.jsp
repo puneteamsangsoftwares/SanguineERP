@@ -53,6 +53,7 @@ ul.tabs1 li.active {
 	var emailContentForReservation;
 	var enableHousekeeping;
 	var enableWebCam;
+	var billFormat; 
 	$(document).ready(function() {
 
 		funTaxLinkUpData('Tax');
@@ -229,6 +230,9 @@ ul.tabs1 li.active {
 				{
 				
 				}
+			
+			billFormat=value="${BillFormat}"
+				$("#cmbBillFormat").val(billFormat);
 		
 	});
 	/**
@@ -1125,6 +1129,17 @@ ul.tabs1 li.active {
 							<s:checkbox id="txtEnableWebCam"  value="N" path="strEnableWebCam" onclick="funEnableWebCam()" />
 <%-- 							<s:input type="checkbox"  id="txtHouseKeeping" value="N"  path="strEnableHousekeeping"/>
  --%>						</div>	
+ 
+ 						<div class="col-md-2">
+							<label >Bill Format </label>
+							
+							<s:select  id="cmbBillFormat" path="strBillFormat"  style="width:70%;">
+								<option value="Format 1">Format 1</option>
+								<option value="Format 2">Format 2</option>
+							</s:select>
+						</div>
+ 				
+ 			
 					</div>
 				</div>
 				<div id="tab2" class="tab_content">

@@ -31,16 +31,26 @@ public class clsPropertySetupBean {
 	private String strGSTNo;
 	
 	private String strBankAcName;
+	
 	private String strBankAcNumber;
+	
 	private String strBankIFSC;
+	
 	private String stBranchName;
+	
 	private String strPanNo;
+	
 	private String strHscCode;
+	
 	private String strCheckInEmailContent;
+	
 	private String strReservationEmailContent;
+	
 	private String strEnableHousekeeping;
 	
 	private String strEnableWebCam;
+	
+	private String strBillFormat;
 
 	public String getStrGSTNo() {
 		return strGSTNo;
@@ -233,6 +243,14 @@ public class clsPropertySetupBean {
 
 	public void setStrEnableWebCam(String strEnableWebCam) {
 		this.strEnableWebCam = strEnableWebCam;
+	}
+
+	public String getStrBillFormat() {
+		return strBillFormat;
+	}
+
+	public void setStrBillFormat(String strBillFormat) {
+		this.strBillFormat = strBillFormat;
 	}
 
 	

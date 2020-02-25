@@ -107,36 +107,7 @@ function funOpenGroupBooking(value) {
 	function funSetData(code){
 
 		switch(fieldName){
-
-			case 'WCCompanyCode' : 
-				funSetCompanyCode(code);
-				break;
-			case 'WCComAreaMaster' : 
-				funSetComAreaCode(code);
-				break;
-			case 'WCComCityMaster' : 
-				funSetComCityCode(code);
-				break;
-			case 'WCComStateMaster' : 
-				funSetComStateCode(code);
-				break;
-			case 'WCComRegionMaster' : 
-				funSetComRegionCode(code);
-				break;
-			case 'WCComCountryMaster' : 
-				funSetComCountryCode(code);
-				break;
-			case 'WCCategoryMaster' : 
-				funSetComRegionCode(code);
-				break;
-				
-			case 'WCmemProfileCustomer' :
-				funloadMemberData(code);
-				break;
-
-			case 'WCCatMaster' :
-				funSetCategoryData(code);
-				
+		
 			case 'guestCode' : 
 				funSetGuestCode(code);
 				break;
@@ -203,10 +174,38 @@ function funSetGroupCode(code){
 			dataType : "json",
 			success : function(response){ 
 				$("#txtGroupCode").val(code);
-				$("#txtGroupName").val(response.strGroupName);
+				$("#txtGroupName").val(response.strGroupName);	
+				$("#txtDesignation").val(response.strDesignation);	
+				
+				
+				$("#txtTravelDate").val(response.dteTravelDate);	
+				$("#txtTravelTime").val(response.tmeTravelTime);	
+				$("#txtPickupRequired").val(response.strPickupRequired);	
+				
+				
+				$("#txtCheckInDate").val(response.dteCheckInDate);	
+				$("#txtCheckoutDate").val(response.dteCheckoutDate);					
+				$("#txtPax").val(response.strPax);	
+				$("#txtSource").val(response.strSource);	
+				$("#txtGuestType").val(response.strGuestType);	
+				$("#txtExtraBed").val(response.strExtraBed);	
+				$("#txtChild").val(response.strChild);	
+				$("#txtInfant").val(response.strInfant);	
+				$("#txtSalesChannel").val(response.strSalesChannel);	
+				
+				
+				$("#txtRoomTaxes").val(response.strRoomTaxes);	
+				$("#txtOtherTaxes").val(response.strOtherTaxes);	
+				$("#txtServiceCharges").val(response.strServiceCharges);	
+				$("#txtPayments").val(response.strPayments);	
+				$("#txtDiscounts").val(response.strDiscounts);	
+				
+				$("#txtCard").val(response.strCard);	
+				$("#txtCash").val(response.strCash);					
+				funSetRoomType(response.strRoomType);
 				funSetGuestCode(response.strGroupLeaderCode);
 				funSetCorporateCode(response.strCompCode);
-				
+				funFillPayeeData(response.listPMSGroupBookingDtlModel);
 			},
 			error : function(e){
 				if (jqXHR.status === 0) {
@@ -250,14 +249,6 @@ function funSetCorporateCode(code){
         		$("#txtGIMobile").val(response.lngMobileNo);
         		$("#txtGIPhone").val(response.lngTelephoneNo);
         		$("#txtGIFax").val(response.lngFax);
-        		/* $("#txtArea").val(response.strArea);
-        		$("#txtPinCode").val(response.intPinCode);
-        		$("#txtSegmentCode").val(response.strSegmentCode);
-        		$("#txtPlanCode").val(response.strPlanCode);
-        		$("#txtRemarks").val(response.strRemarks);
-        		$("#txtAgentType").val(response.strAgentType);
-        		$("#txtCreditLimit").val(response.dblCreditLimit);
-        		$("#txtDiscountPer").val(response.dblDiscountPer); */
         		
         		if(response.strBlackList=='Y')
 		    	{
@@ -338,474 +329,6 @@ function funSetRoomType(code){
 	});
 }
 	
-	function funSetCompanyCode(code){
-
-		$.ajax({
-			type : "GET",
-			url : getContextPath()+ "/loadWebClubCompanyData.html?docCode=" + code,
-			dataType : "json",
-			success : function(response){ 
-
-				if(response.strCompanyCode=='Invalid Code')
-	        	{
-	        		alert("Invalid Company Code");
-	        		$("#txtCompanyCode").val('');
-	        	}
-	        	else
-	        	{      
-		        	$("#txtCompanyCode").val(code);
-		        	$("#txtCompanyName").val(response.strCompanyName);
-		        	$("#txtAnnualTrunover").val(response.dblAnnualTrunover);
-		        	$("#txtCapital").val(response.dblCapital);
-		        	$("#txtMemberCode").val(response.strMemberCode);
-		        	$("#txtCategoryCode").val(response.strCategoryCode);
-		        	$("#txtActiveNominee").val(response.strActiveNominee);
-		        	$("#txtAddress1").val(response.strAddress1);
-		        	$("#txtAddress2").val(response.strAddress2);
-		        	$("#txtAddress3").val(response.strAddress3);
-		        	$("#txtLandMark").val(response.strLandmark);
-		        	$("#txtAreaCode").val(response.strAreaCode);
-		        	$("#txtCtCode").val(response.strCityCode);
-		        	$("#txtStateCode").val(response.strStateCode);
-		        	$("#txtRegionCode").val(response.strRegionCode);
-		        	$("#txtCountryCode").val(response.strCountryCode);
-		        	
-		        	$("#txtPinCode").val(response.strPin);
-		        	$("#txtTelePhone1").val(response.strTelephone1);
-		        	$("#txtTelePhone2").val(response.strTelephone2);
-		        	$("#txtFax1").val(response.strFax1);
-		        	$("#txtFax2").val(response.strFax2);
-// 		        	$("#").val(response.);	        	
-					funSetComAreaCode(response.strAreaCode);				
-					funSetComCityCode(response.strCityCode);					
-					funSetComStateCode(response.strStateCode);					
-					funSetComRegionCode(response.strRegionCode);			
-					funSetComCountryCode(response.strCountryCode);								
-					funloadMemberData(response.strMemberCode);					
-					funSetCategoryData(response.strCategoryCode);		
-	        	}
-			},
-			error: function(jqXHR, exception) {
-	            if (jqXHR.status === 0) {
-	                alert('Not connect.n Verify Network.');
-	            } else if (jqXHR.status == 404) {
-	                alert('Requested page not found. [404]');
-	            } else if (jqXHR.status == 500) {
-	                alert('Internal Server Error [500].');
-	            } else if (exception === 'parsererror') {
-	                alert('Requested JSON parse failed.');
-	            } else if (exception === 'timeout') {
-	                alert('Time out error.');
-	            } else if (exception === 'abort') {
-	                alert('Ajax request aborted.');
-	            } else {
-	                alert('Uncaught Error.n' + jqXHR.responseText);
-	            }		            
-	        }
-      });
-}
-
-	function funSetComAreaCode(code){
-
-		$("#txtAreaCode").val(code);
-		var searchurl=getContextPath()+"/loadAreaCode.html?docCode="+code;
-		//alert(searchurl);
-		
-			$.ajax({
-		        type: "GET",
-		        url: searchurl,
-		        dataType: "json",
-		        success: function(response)
-		        {
-		        	if(response.strAreaCode=='Invalid Code')
-		        	{
-		        		alert("Invalid Group Code");
-		        		$("#txtGroupCode").val('');
-		        	}
-		        	else
-		        	{ 
-		        		funSetComCityCode(response.strCityCode);
-			        	$("#txtAreaName").val(response.strAreaName);
-		        	}
-				},
-				error: function(jqXHR, exception) {
-		            if (jqXHR.status === 0) {
-		                alert('Not connect.n Verify Network.');
-		            } else if (jqXHR.status == 404) {
-		                alert('Requested page not found. [404]');
-		            } else if (jqXHR.status == 500) {
-		                alert('Internal Server Error [500].');
-		            } else if (exception === 'parsererror') {
-		                alert('Requested JSON parse failed.');
-		            } else if (exception === 'timeout') {
-		                alert('Time out error.');
-		            } else if (exception === 'abort') {
-		                alert('Ajax request aborted.');
-		            } else {
-		                alert('Uncaught Error.n' + jqXHR.responseText);
-		            }		            
-		        }
-			});
-	}
-	
-	
-	function funSetComCityCode(code){
-		//alert("Hii");
-		$("#txtCtCode").val(code);
-		var searchurl=getContextPath()+"/loadCityCode.html?docCode="+code;
-		//alert(searchurl);
-		
-			$.ajax({
-		        type: "GET",
-		        url: searchurl,
-		        dataType: "json",
-		        success: function(response)
-		        {
-		        	if(response.strCityCode=='Invalid Code')
-		        	{
-		        		alert("Invalid City Code In");
-		        		$("#txtResidentCtCode").val('');
-		        	}
-		        	else
-		        	{		        		
-						funSetComCountryCode(response.strCountryCode);
-		        		funSetComStateCode(response.strStateCode);								
-						$("#txtPinCode").val(response.strSTDCode);
-						$("#txtCityName").val(response.strCityName);
-		        	}
-		        	
-		        },
-		
-			error: function(jqXHR, exception) {
-	            if (jqXHR.status === 0) {
-	                alert('Not connect.n Verify Network.');
-	            } else if (jqXHR.status == 404) {
-	                alert('Requested page not found. [404]');
-	            } else if (jqXHR.status == 500) {
-	                alert('Internal Server Error [500].');
-	            } else if (exception === 'parsererror') {
-	                alert('Requested JSON parse failed.');
-	            } else if (exception === 'timeout') {
-	                alert('Time out error.');
-	            } else if (exception === 'abort') {
-	                alert('Ajax request aborted.');
-	            } else {
-	                alert('Uncaught Error.n' + jqXHR.responseText);
-	            }		            
-	        }
-		});
-	}
-	
-	
-	function funSetComCountryCode(code){
-		  
-		$("#txtCountryCode").val(code);
-		var searchurl=getContextPath()+"/loadCountryCode.html?docCode="+code;
-		//alert(searchurl);
-		
-			$.ajax({
-		        type: "GET",
-		        url: searchurl,
-		        dataType: "json",
-		        success: function(response)
-		        {
-		        	if(response.strCountryCode=='Invalid Code')
-		        	{
-		        		alert("Invalid Country Code In");
-		        		$("#txtCountryCode").val('');
-		        	}
-		        	else
-		        	{
-		        		$("#txtCountryName").val(response.strCountryName);
-		        	}
-		        	
-		        },
-			error: function(jqXHR, exception) {
-	            if (jqXHR.status === 0) {
-	                alert('Not connect.n Verify Network.');
-	            } else if (jqXHR.status == 404) {
-	                alert('Requested page not found. [404]');
-	            } else if (jqXHR.status == 500) {
-	                alert('Internal Server Error [500].');
-	            } else if (exception === 'parsererror') {
-	                alert('Requested JSON parse failed.');
-	            } else if (exception === 'timeout') {
-	                alert('Time out error.');
-	            } else if (exception === 'abort') {
-	                alert('Ajax request aborted.');
-	            } else {
-	                alert('Uncaught Error.n' + jqXHR.responseText);
-	            }		            
-	        }
-		});
-	}
-
-	function funSetComStateCode(code){
-		  
-		$("#txtStateCode").val(code);
-		var searchurl=getContextPath()+"/loadStateCode.html?docCode="+code;
-		//alert(searchurl);
-		
-			$.ajax({
-		        type: "GET",
-		        url: searchurl,
-		        dataType: "json",
-		        success: function(response)
-		        {
-		        	if(response.strStateCode=='Invalid Code')
-		        	{
-		        		alert("Invalid State Code In");
-		        		$("#txtStateCode").val('');
-		        	}
-		        	else
-		        	{
-
-		        		funSetComRegionCode(response.strRegionCode);
-		        		$("#txtStateName").val(response.strStateName);
-		        		 
-		        	}
-		        	
-		        },
-			error: function(jqXHR, exception) {
-	            if (jqXHR.status === 0) {
-	                alert('Not connect.n Verify Network.');
-	            } else if (jqXHR.status == 404) {
-	                alert('Requested page not found. [404]');
-	            } else if (jqXHR.status == 500) {
-	                alert('Internal Server Error [500].');
-	            } else if (exception === 'parsererror') {
-	                alert('Requested JSON parse failed.');
-	            } else if (exception === 'timeout') {
-	                alert('Time out error.');
-	            } else if (exception === 'abort') {
-	                alert('Ajax request aborted.');
-	            } else {
-	                alert('Uncaught Error.n' + jqXHR.responseText);
-	            }		            
-	        }
-		});
-	
-	}		
-			function funSetComRegionCode(code){
-				
-				$("#txtRegionCode").val(code);
-				var searchurl=getContextPath()+"/loadRegionCode.html?docCode="+code;
-				//alert(searchurl);
-				    
-					$.ajax({
-				        type: "GET",
-				        url: searchurl,
-				        dataType: "json",
-				        success: function(response)
-				        {
-				        	if(response.strRegionCode=='Invalid Code')
-				        	{
-				        		alert("Invalid Region Code In");
-				        		$("#txtRegionCode").val('');
-				        	}
-				        	else
-				        	{
-				        		$("#txtRegionName").val(response.strRegionName);
-				        	}
-				        	
-				        },
-
-					error: function(jqXHR, exception) {
-			            if (jqXHR.status === 0) {
-			                alert('Not connect.n Verify Network.');
-			            } else if (jqXHR.status == 404) {
-			                alert('Requested page not found. [404]');
-			            } else if (jqXHR.status == 500) {
-			                alert('Internal Server Error [500].');
-			            } else if (exception === 'parsererror') {
-			                alert('Requested JSON parse failed.');
-			            } else if (exception === 'timeout') {
-			                alert('Time out error.');
-			            } else if (exception === 'abort') {
-			                alert('Ajax request aborted.');
-			            } else {
-			                alert('Uncaught Error.n' + jqXHR.responseText);
-			            }		            
-			        }
-				});
-			}
-	
-			
-			function funSetCategoryData(code)
-			{
-				$("#txtCategoryCode").val(code);
-				var searchurl=getContextPath()+"/loadWebClubMemberCategoryMaster.html?catCode="+code;
-				//alert(searchurl);
-				 $.ajax({
-					        type: "GET",
-					        url: searchurl,
-					        dataType: "json",
-					        success: function(response)
-					        {
-					        	if(response.strGCode=='Invalid Code')
-					        	{
-					        		alert("Invalid Category Code");
-					        		$("#txtCatCode").val('');
-					        	}
-					        	else
-					        	{
-						        	//$("#txtCategoryCode").val(code);
-						        	$("#strCategoryName").val(response.strCategoryName);
-						        	
-					        	}
-							},
-							error: function(jqXHR, exception) {
-					            if (jqXHR.status === 0) {
-					                alert('Not connect.n Verify Network.');
-					            } else if (jqXHR.status == 404) {
-					                alert('Requested page not found. [404]');
-					            } else if (jqXHR.status == 500) {
-					                alert('Internal Server Error [500].');
-					            } else if (exception === 'parsererror') {
-					                alert('Requested JSON parse failed.');
-					            } else if (exception === 'timeout') {
-					                alert('Time out error.');
-					            } else if (exception === 'abort') {
-					                alert('Ajax request aborted.');
-					            } else {
-					                alert('Uncaught Error.n' + jqXHR.responseText);
-					            }		            
-					        }
-				      });
-			}
-			
-			
-			function funloadMemberData(code)
-			{
-				$("#txtMemberCode").val(code);
-				var searchurl=getContextPath()+"/loadWebClubMemberProfileData.html?primaryCode="+code;
-				//alert(searchurl);
-				 $.ajax({
-					        type: "GET",
-					        url: searchurl,
-					        success: function(response)
-					        {
-					        	if(response.strMemberCode=='Invalid Code')
-					        	{
-					        		alert("Invalid Member Code");
-					        		$("#txtMemberCode").val('');
-					           	}
-					        	else
-					        	{  
-					        		$("#txtMemberName").val(response[0].strFullName);
-						        	
-					        	}
-							},
-							error: function(jqXHR, exception) {
-					            if (jqXHR.status === 0) {
-					                alert('Not connect.n Verify Network.');
-					            } else if (jqXHR.status == 404) {
-					                alert('Requested page not found. [404]');
-					            } else if (jqXHR.status == 500) {
-					                alert('Internal Server Error [500].');
-					            } else if (exception === 'parsererror') {
-					                alert('Requested JSON parse failed.');
-					            } else if (exception === 'timeout') {
-					                alert('Time out error.');
-					            } else if (exception === 'abort') {
-					                alert('Ajax request aborted.');
-					            } else {
-					                alert('Uncaught Error.n' + jqXHR.responseText);
-					            }		            
-					        }
-				      });
-			}
-			
-			
-			function funSetCategoryData(code)
-			{
-				$("#txtCategoryCode").val(code);
-				var searchurl=getContextPath()+"/loadWebClubMemberCategoryMaster.html?catCode="+code;
-				//alert(searchurl);
-				 $.ajax({
-					        type: "GET",
-					        url: searchurl,
-					        dataType: "json",
-					        success: function(response)
-					        {
-					        	if(response.strCatCode=='Invalid Code')
-					        	{
-					        		alert("Invalid Category Code");
-					        		$("#txtCategoryCode").val('');
-					        	}
-					        	else
-					        	{
-					        		
-						        	$("#txtCategoryName").val(response.strCatName);
-						        	
-					        	}
-							},
-							error: function(jqXHR, exception) {
-					            if (jqXHR.status === 0) {
-					                alert('Not connect.n Verify Network.');
-					            } else if (jqXHR.status == 404) {
-					                alert('Requested page not found. [404]');
-					            } else if (jqXHR.status == 500) {
-					                alert('Internal Server Error [500].');
-					            } else if (exception === 'parsererror') {
-					                alert('Requested JSON parse failed.');
-					            } else if (exception === 'timeout') {
-					                alert('Time out error.');
-					            } else if (exception === 'abort') {
-					                alert('Ajax request aborted.');
-					            } else {
-					                alert('Uncaught Error.n' + jqXHR.responseText);
-					            }		            
-					        }
-				      });
-			}
-			function funValidateFields()
-			{
-				var flag=true;				
-				if($("#txtCompanyName").val().trim().length==0)
-				{
-					alert("Please Enter Company Name.");
-					flag=false;
-				}
-				else if($("#txtMemberCode").val().trim().length==0)
-				{
-					alert("Please Enter Member Code.");
-					flag=false;
-				}
-				else if($("#txtCategoryCode").val().trim().length==0)
-				{
-					alert("Please Enter Category Code.");
-					flag=false;
-				}				
-				else if($("#txtAreaCode").val().trim().length==0)
-				{
-					alert("Please Enter Area Code.");
-					flag=false;
-				}				
-				else if($("#txtCtCode").val().trim().length==0)
-				{
-					alert("Please Enter City Code.");
-					flag=false;
-				}				
-				else if($("#txtStateCode").val().trim().length==0)
-				{
-					alert("Please Enter State Code.");
-					flag=false;
-				}				
-				else if($("#txtRegionCode").val().trim().length==0)
-				{
-					alert("Please Enter Region Code.");
-					flag=false;
-				}				
-				else if($("#txtCountryCode").val().trim().length==0)
-				{
-					alert("Please Enter Country Code.");
-					flag=false;
-				}				
-				return flag;
-			}
-			
-	
 			function funResetFields()
 			{
 				location.reload(true); 
@@ -813,6 +336,7 @@ function funSetRoomType(code){
 	
 			function funPayeeData()
 			{
+								
 				
 				 var table=document.getElementById("tblIncomeHeadDtl");
 				 var rowCount=table.rows.length;
@@ -852,15 +376,103 @@ function funSetRoomType(code){
 				 	     row.insertCell(1).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\"\" value='Group Leader' checked >";
 				 	     row.insertCell(2).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\" \" value='Guest' >";				 
 					 }
-					 
-					 
-					 
-			 	     
 				}
+			}
+			
+			
+			function funFillPayeeData(list)
+			{
+				
+
+				var table = document.getElementById("tblIncomeHeadDtl");
+				var rowCount = table.rows.length;
+				while(rowCount>0)
+				{
+					table.deleteRow(0);
+					rowCount--;
+				}
+				
+				
+				 var table=document.getElementById("tblIncomeHeadDtl");
+				 var rowCount=table.rows.length;
+				 var service1="Room";
+				 var service2="F&B";
+				 var service3="Telephone";
+				 var service4="Extras";
+				 
+				 var arr = ["Room", "F&B", "Telephone","Extras"];
+				 for(var i=0;i<4;i++)
+				{
 					 
-					
+					 var row=table.insertRow();
+					 var value="service"+(i+1);
 					 
-			 	    
+					 if(i==0)
+					 {
+						 var valGL="";
+						 var valG="";
+						 if(list[0].strRoom=="Y")
+							 {
+							 	valGL="checked";	
+							 }
+						 else
+							 {
+							 	valG="checked";	
+							 }
+						
+						 row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strRoom\"  id=\"dtDate."+(i)+"\" value='"+arr[i]+"' >";
+				 	     row.insertCell(1).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\"\" value='Group Leader' "+valGL+" >";
+				 	     row.insertCell(2).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\" \" value='Guest'  "+valG+" >";				 
+					 }
+					 else if(i==1)
+					 {
+						 var valGL="";
+						 var valG="";
+						 if(list[0].strFandB=="Y")
+							 {
+							 	valGL="checked";	
+							 }
+						 else
+							 {
+							 	valG="checked";	
+							 }
+						 row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strFandB\"  id=\"dtDate."+(i)+"\" value='"+arr[i]+"' >";
+				 	     row.insertCell(1).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\"\" value='Group Leader' "+valGL+" >";
+				 	     row.insertCell(2).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\" \" value='Guest' "+valG+" >";				 
+					 }
+					 else if(i==2)
+					 {
+						 var valGL="";
+						 var valG="";
+						 if(list[0].strTelephone=="Y")
+							 {
+							 	valGL="checked";	
+							 }
+						 else
+							 {
+							 	valG="checked";	
+							 }
+						 row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strTelephone\"  id=\"dtDate."+(i)+"\" value='"+arr[i]+"' >";
+				 	     row.insertCell(1).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\"\" value='Group Leader' "+valGL+" >";
+				 	     row.insertCell(2).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\" \" value='Guest' "+valG+" >";				 
+					 }
+					 else if(i==3)
+					 {
+						 var valGL="";
+						 var valG="";
+						 if(list[0].strExtra=="Y")
+							 {
+							 	valGL="checked";	
+							 }
+						 else
+							 {
+							 	valG="checked";	
+							 }
+						 row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strExtra\"  id=\"dtDate."+(i)+"\" value='"+arr[i]+"' >";
+				 	     row.insertCell(1).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\"\" value='Group Leader' "+valGL+"  >";
+				 	     row.insertCell(2).innerHTML= "<input type=\"radio\" style=\"text-align:right;width:34%;\" name=\"listPMSGroupBookingDetailBean["+(i)+"].strPayee\"  id=\"strPayee."+(i)+"\" \" value='Guest' "+valG+" >";				 
+					 }
+				}
 			}
 			
 	
@@ -1058,7 +670,7 @@ function funSetRoomType(code){
 						<div class="row" style="padding-bottom:12px">
 							<div class="col-md-2">
 								<label>Room Type</label>
-								<s:input id="txtRoomType" ondblclick="funHelp('roomType')" type="text"  cssClass="searchTextBox" path="strRoomType"></s:input>
+								<s:input id="txtRoomType" ondblclick="funHelp('roomType')" type="text" readonly="true" cssClass="searchTextBox" path="strRoomType"></s:input>
 							</div>
 							<div class="col-md-2">
 								<label>Room Type Desc</label>

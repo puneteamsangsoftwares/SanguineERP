@@ -2138,8 +2138,6 @@
 	
 	function funOpenGroupBooking()
 	{
-	    
-		
 		var strCorporateCode = $("#txtCorporateCode").val();
 		var strArrDate = $("#txtArrivalDate").val();
 		var strDepartureDate = $("#txtDepartureDate").val();
@@ -2220,6 +2218,7 @@
 	function funCallGroupBooking()
 	{
 		var noOfRooms = $("#txtNoOfBookingRoom").val();
+		var noOfRoo = $("#txtNoOfBookingRoom").val();
 		if(noOfRooms>1)
 			{
 			isCheckOk =	confirm("Do you want to do group reservation");
@@ -2227,7 +2226,8 @@
 			{
 				if ($("#txtBookingTypeCode").val() == '') {
 					alert("Please Enter Booking Type Code");
-					//return false;
+					noOfRoo=noOfRoo-1;
+					$("#txtNoOfBookingRoom").val(noOfRoo);
 				}
 				else
 				{
@@ -2251,7 +2251,7 @@
 			<div class="container transtable"  style="background-color:#f2f2f2;">
 				<div class="row" style="padding-bottom:12px">
 			    	<div class="col-md-2"><label>Reservation No</label>
-						<s:input type="text" id="txtReservationNo" path="strReservationNo" cssClass="searchTextBox" ondblclick="funHelp('ReservationNo');"/>
+						<s:input type="text" id="txtReservationNo" path="strReservationNo" readonly="true" cssClass="searchTextBox" ondblclick="funHelp('ReservationNo');"/>
 			    	</div>
 			    	
 			    	<div class="col-md-2"><label>Property</label>

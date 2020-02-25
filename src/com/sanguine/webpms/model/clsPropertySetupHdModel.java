@@ -70,16 +70,9 @@ public class clsPropertySetupHdModel implements Serializable {
 	@Column(name = "strEnableWebCam")
 	private String strEnableWebCam;
 	
+	@Column(name = "strBillFormat")
+	private String strBillFormat;
 	
-
-	public String getStrGSTNo() {
-		return strGSTNo;
-	}
-
-	public void setStrGSTNo(String strGSTNo) {
-		this.strGSTNo = strGSTNo;
-	}
-
 	// SMS setUp Tab Start
 	@Column(name = "strSMSProvider", columnDefinition = "VARCHAR(50) default ''")
 	private String strSMSProvider;
@@ -88,10 +81,13 @@ public class clsPropertySetupHdModel implements Serializable {
 
 	@Column(name = "strReservationSMSContent")
 	private String strReservationSMSContent;
+	
 	@Column(name = "strCheckInSMSContent")
 	private String strCheckInSMSContent;
+	
 	@Column(name = "strAdvAmtSMSContent")
 	private String strAdvAmtSMSContent;
+	
 	@Column(name = "strCheckOutSMSContent")
 	private String strCheckOutSMSContent;
 	
@@ -268,6 +264,14 @@ public class clsPropertySetupHdModel implements Serializable {
 		this.strReservationEmailContent = strReservationEmailContent;
 	}
 
+	public String getStrGSTNo() {
+		return strGSTNo;
+	}
+
+	public void setStrGSTNo(String strGSTNo) {
+		this.strGSTNo = strGSTNo;
+	}
+	
 	public String getStrCheckInEmailContent() {
 		return strCheckInEmailContent;
 	}
@@ -290,6 +294,14 @@ public class clsPropertySetupHdModel implements Serializable {
 
 	public void setStrEnableWebCam(String strEnableWebCam) {
 		this.strEnableWebCam = strEnableWebCam;
+	}
+
+	public String getStrBillFormat() {
+		return strBillFormat;
+	}
+
+	public void setStrBillFormat(String strBillFormat) {
+		this.strBillFormat = strBillFormat;
 	}
 
 	
