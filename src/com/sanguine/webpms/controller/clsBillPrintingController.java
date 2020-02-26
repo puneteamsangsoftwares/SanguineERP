@@ -1122,7 +1122,11 @@ public class clsBillPrintingController {
 							billPrintingBean.setDblDebitAmt(Double.parseDouble(debitAmount));
 							billPrintingBean.setDblCreditAmt(Double.parseDouble(creditAmount));
 							billPrintingBean.setDblBalanceAmt(Double.parseDouble(balance));
-							dataList.add(billPrintingBean);
+							if(billPrintingBean.getDblDebitAmt()>0)
+							{
+								dataList.add(billPrintingBean);	
+							}
+							
 							sqlBillDtl = " SELECT date(a.dteDocDate),a.strDocNo,b.strTaxDesc,b.dblTaxAmt,0 "
 									+ " FROM tblbilldtl a, tblbilltaxdtl b where a.strDocNo=b.strDocNo  "
 									+ " AND a.strBillNo='"
@@ -1146,7 +1150,11 @@ public class clsBillPrintingController {
 								billPrintingBean.setDblDebitAmt(Double.parseDouble(arrObjBillTaxDtl[3].toString()));
 								billPrintingBean.setDblCreditAmt(Double.parseDouble(arrObjBillTaxDtl[4].toString()));
 								billPrintingBean.setDblBalanceAmt(Double.parseDouble(arrObjBillTaxDtl[4].toString()));
-								dataList.add(billPrintingBean);
+								
+								if(billPrintingBean.getDblDebitAmt()>0)
+								{
+									dataList.add(billPrintingBean);	
+								}
 							}
 							}
 						}
@@ -1185,7 +1193,11 @@ public class clsBillPrintingController {
 							folioPrintingBean.setDblDebitAmt(Double.parseDouble(debitAmount));
 							folioPrintingBean.setDblCreditAmt(Double.parseDouble(creditAmount));
 							folioPrintingBean.setDblBalanceAmt(Double.parseDouble(balance));
-							dataList.add(folioPrintingBean);
+							if(folioPrintingBean.getDblDebitAmt()>0)
+							{
+								dataList.add(folioPrintingBean);	
+							}
+							
 						}
 					}
 	
@@ -1221,7 +1233,11 @@ public class clsBillPrintingController {
 								folioPrintingBean.setDblCreditAmt(Double.parseDouble(creditAmount));
 								folioPrintingBean.setDblBalanceAmt(Double.parseDouble(balance));
 	
-								dataList.add(folioPrintingBean);
+								if(folioPrintingBean.getDblDebitAmt()>0)
+								{
+									dataList.add(folioPrintingBean);	
+								}
+								
 							}
 						}
 					}
@@ -1257,7 +1273,11 @@ public class clsBillPrintingController {
 								folioPrintingBean.setDblDebitAmt(Double.parseDouble(debitAmount));
 								folioPrintingBean.setDblCreditAmt(Double.parseDouble(creditAmount));
 								folioPrintingBean.setDblBalanceAmt(Double.parseDouble(balance));
-								dataList.add(folioPrintingBean);
+								if(folioPrintingBean.getDblDebitAmt()>0)
+								{
+									dataList.add(folioPrintingBean);	
+								}
+								
 							}
 						}
 	
@@ -1284,7 +1304,11 @@ public class clsBillPrintingController {
 							folioPrintingBean.setDblDebitAmt(Double.parseDouble(debitAmount));
 							folioPrintingBean.setDblCreditAmt(Double.parseDouble(creditAmount));
 							folioPrintingBean.setDblBalanceAmt(Double.parseDouble(balance));
-							dataList.add(folioPrintingBean);
+							if(folioPrintingBean.getDblDebitAmt()>0)
+							{
+								dataList.add(folioPrintingBean);	
+							}
+							
 						}
 					}
 				}
@@ -1328,7 +1352,11 @@ public class clsBillPrintingController {
 						folioPrintingBean.setDblCreditAmt(creditAmount);
 						folioPrintingBean.setDblBalanceAmt(0.0);
 							
-						dataList.add(folioPrintingBean);
+						if(folioPrintingBean.getDblDebitAmt()>0)
+						{
+							dataList.add(folioPrintingBean);	
+						}
+						
 					}
 				}
 				

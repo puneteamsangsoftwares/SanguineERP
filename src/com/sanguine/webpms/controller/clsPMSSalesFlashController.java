@@ -601,14 +601,13 @@ public class clsPMSSalesFlashController {
 		String toDte = arr1[2] + "-" + arr1[1] + "-" + arr1[0];
 
 		List<clsPMSSalesFlashBean> listPayment = new ArrayList<clsPMSSalesFlashBean>();
-		String sql = "select a.strBillNo,Date(a.dteBillDate),c.strRoomDesc,"
-				+ "Concat(e.strFirstName,' ',e.strMiddleName,' ',e.strLastName),a.dblGrandTotal,g.dblDiscount,f.strCheckInNo "
-				+ "from tblbillhd a ,tblbilldtl b,tblroom c,tblcheckindtl d,tblguestmaster e,tblcheckinhd f,tblwalkinroomratedtl g "
-				+ "where a.strBillNo=b.strBillNo "
-				+ "and a.strRoomNo=c.strRoomCode and a.strCheckInNo=d.strCheckInNo and d.strGuestCode=e.strGuestCode "
-				+ "and d.strCheckInNo=f.strCheckInNo "
-				+ "and f.strWalkInNo=g.strWalkinNo "
-				+ "and Date(a.dteBillDate) between '"+fromDte+"' and '"+toDte+"' and a.strClientCode='"+strClientCode+"' group by a.strBillNo";
+		String sql = "SELECT a.strBillNo, DATE(a.dteBillDate),c.strRoomDesc, CONCAT(e.strFirstName,' ',e.strMiddleName,' ',e.strLastName),"
+				+ "a.dblGrandTotal,f.strCheckInNo "
+				+ "FROM tblbillhd a,tblbilldtl b,tblroom c,tblcheckindtl d,tblguestmaster e,tblcheckinhd f "
+				+ "WHERE a.strBillNo=b.strBillNo AND a.strRoomNo=c.strRoomCode AND a.strCheckInNo=d.strCheckInNo AND d.strGuestCode=e.strGuestCode  "
+				+ "AND d.strCheckInNo=f.strCheckInNo AND DATE(a.dteBillDate) BETWEEN '"+fromDte+"' AND '"+toDte+"' "
+				+ "AND a.strClientCode='"+strClientCode+"' AND a.dblGrandTotal>0 GROUP BY a.strBillNo";
+		
 		
 		List listVoidBill = objGlobalService.funGetListModuleWise(sql, "sql");
 		if (!listVoidBill.isEmpty()) {
@@ -623,14 +622,14 @@ public class clsPMSSalesFlashController {
 				objBean.setStrGuestName(arr2[3].toString());
 				objBean.setDblGrndTotal(Double.parseDouble(arr2[4].toString()));
 				//objBean.setDblDiscount(Double.parseDouble(arr2[5].toString()));
-				objBean.setStrCheckInNo(arr2[6].toString());
+				objBean.setStrCheckInNo(arr2[5].toString());
 				
 				String sqlDisc = "select sum(a.dblDebitAmt) from tblbilldtl a where a.strBillNo='"+arr2[0].toString()+"' and a.strPerticulars='Room Tariff' and a.strClientCode='"+strClientCode+"'";
 				List listDisc = objGlobalService.funGetListModuleWise(sqlDisc, "sql");
 				if(listDisc!=null && listDisc.size()>0)
 				{
 					double dblDiscAmt = Double.parseDouble(listDisc.get(0).toString());
-					dblDiscAmt = (dblDiscAmt*Double.parseDouble(arr2[5].toString())/100);
+					dblDiscAmt = (dblDiscAmt*Double.parseDouble(arr2[4].toString())/100);
 					objBean.setDblDiscount(dblDiscAmt);
 				}
 				
@@ -641,7 +640,7 @@ public class clsPMSSalesFlashController {
 					objBean.setDblTaxAmount(Double.parseDouble(listTaxAmt.get(0).toString()));
 				}
 
-				String sqlAdvanceAmt = "select a.dblReceiptAmt from tblreceipthd a where a.strCheckInNo='"+arr2[6].toString()+"' "
+				String sqlAdvanceAmt = "select a.dblReceiptAmt from tblreceipthd a where a.strCheckInNo='"+arr2[5].toString()+"' "
 						+ "and a.strAgainst='Check-In' and a.strClientCode='"+strClientCode+"';";
 				List listAdvAmt = objGlobalService.funGetListModuleWise(sqlAdvanceAmt, "sql");
 				if(listAdvAmt!=null && listAdvAmt.size()>0)

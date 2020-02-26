@@ -882,11 +882,13 @@ public class clsCheckInController {
 			
 			// load reservation then check is group reservation or not
 			clsReservationHdModel objReservationModel1 = objReservationService.funGetReservationList(objBean.getStrAgainstDocNo(), clientCode, propCode);
-
+			boolean isGroupReservation=false;
+			if(objReservationModel1!=null)
+			{
 			String strGroupCode = objReservationModel1.getStrGroupCode();
 			
 			clsPMSGroupBookingHDModel objPMSGroupBookingModel = objPMSGroupBookingService.funGetPMSGroupBooking(strGroupCode, clientCode);
-			boolean isGroupReservation=false;
+			
 			if(objPMSGroupBookingModel!=null)
 			{
 				listGroupBookingDtlModel = objPMSGroupBookingModel.getListPMSGroupBookingDtlModel();
@@ -894,7 +896,7 @@ public class clsCheckInController {
 				
 				
 			}
-			
+			}
 			
 			
 			//listGroupBookingDtlModel 

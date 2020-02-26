@@ -392,14 +392,18 @@ public class clsPostRoomTerrifController {
 
 		Map<String, List<clsTaxCalculation>> hmTaxCalDtl = new HashedMap<String, List<clsTaxCalculation>>();
 		listTaxProdDtl.add(objTaxProductDtl);
-		if(objModel!=null)
+		if(objFolioHd.getStrRoom().equalsIgnoreCase("Y"))
 		{
-			hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
-		}
-		
-		if(objHdModel.getStrDontApplyTax().equals("N") && objModel.getStrDontApplyTax().equals("N"))
-		{
-			hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
+			if(objModel!=null && objModel.getStrDontApplyTax().equals("N"))
+			{
+				hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
+			}
+			
+			if(objHdModel.getStrDontApplyTax().equals("N") )
+			{
+				hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
+			}
+			
 		}
 		
 		
@@ -433,7 +437,7 @@ public class clsPostRoomTerrifController {
 	    clsFolioDtlModel objFolioDtl = null; 	    	
 	    if(!flgDupRoomTerrif)
 	    {
-	    	if(objModel.getStrGroupCode().equals(""))
+	    	if( objModel==null  || objModel.getStrGroupCode().equals(""))
 	    	{
 	    		objFolioDtl = new clsFolioDtlModel();
 				objFolioDtl.setStrDocNo(docNo);
@@ -585,6 +589,9 @@ public class clsPostRoomTerrifController {
 	    	}
 		    
 	    }
+	    
+	    
+	    
 
 		if(!hmTaxCalDtl.isEmpty())
 		{

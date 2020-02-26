@@ -802,9 +802,9 @@ function funSetBillPrintingDetail(ProdDtl)
 	    row.insertCell(2).innerHTML= "<input name=\"strRoomDesc["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strRoomDesc."+(rowCount)+"\" value='"+strRoomDesc+"'>";
 	    row.insertCell(3).innerHTML= "<input name=\"strGuestName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strGuestName."+(rowCount)+"\" value='"+strGuestName+"'>";
 	    row.insertCell(4).innerHTML= "<input name=\"dblGrndTotal["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"15%\" id=\"dblGrndTotal."+(rowCount)+"\" value='"+dblGrndTotal+"'>";
-	    row.insertCell(5).innerHTML= "<input name=\"dblDiscount["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"15%\" id=\"dblDiscount."+(rowCount)+"\" value='"+dblDiscount+"' >";
-	    row.insertCell(6).innerHTML= "<input name=\"dblTaxAmount["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"15%\" id=\"dblTaxAmount."+(rowCount)+"\" value='"+dblTaxAmount+"'>";
-	    row.insertCell(7).innerHTML= "<input name=\"dblAdvanceAmount["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"15%\" id=\"dblAdvanceAmount."+(rowCount)+"\" value='"+dblAdvanceAmount+"'>";
+/* 	    row.insertCell(5).innerHTML= "<input name=\"dblDiscount["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"15%\" id=\"dblDiscount."+(rowCount)+"\" value='"+dblDiscount+"' >";
+ */	    row.insertCell(5).innerHTML= "<input name=\"dblTaxAmount["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"15%\" id=\"dblTaxAmount."+(rowCount)+"\" value='"+dblTaxAmount+"'>";
+	    row.insertCell(6).innerHTML= "<input name=\"dblAdvanceAmount["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"15%\" id=\"dblAdvanceAmount."+(rowCount)+"\" value='"+dblAdvanceAmount+"'>";
 	   
 	    
 	    
@@ -1524,8 +1524,8 @@ function funClick(obj)
 					<td width="2%">Room No</td>
 					<td width="3%">Guest Name</td>
 					<td width="2%">Bill Amount</td>
-					<td width="2%">Discount</td>
-					<td width="2%">Tax Amount</td>
+<!-- 					<td width="2%">Discount</td>
+ -->					<td width="2%">Tax Amount</td>
 					<td width="2%">Advance Amount</td>
 				</tr>
 			</table>
@@ -1537,8 +1537,8 @@ function funClick(obj)
 						<col style="width: 2%">
 						<col style="width: 3%">
 						<col style="width: 2%">
-						<col style="width: 2%">
-						<col style="width: 2%">
+<%-- 						<col style="width: 2%">
+ --%>						<col style="width: 2%">
 						<col style="width: 2%">
 					</tbody>
 				</table>
