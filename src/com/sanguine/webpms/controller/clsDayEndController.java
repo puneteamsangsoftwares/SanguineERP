@@ -222,10 +222,10 @@ public class clsDayEndController {
 					+ "IFNULL(a.strReservationNo,''), IFNULL(a.strWalkInNo,''),c.strRoomTypeCode,"
 					+ "IFNULL(e.strComplimentry,'N') "
 					+ "FROM tblfoliohd a ,tblroom b,tblroomtypemaster c,tblcheckinhd e "
-					+ "WHERE a.strRoomNo=b.strRoomCode AND b.strRoomTypeCode=c.strRoomTypeCode AND a.strCheckInNo=e.strCheckInNo AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' AND c.strClientCode='"+clientCode+"' AND e.strClientCode='"+clientCode+"'  and a.strRoom='Y' "
+					+ "WHERE a.strRoomNo=b.strRoomCode AND b.strRoomTypeCode=c.strRoomTypeCode AND a.strCheckInNo=e.strCheckInNo AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' AND c.strClientCode='"+clientCode+"' AND e.strClientCode='"+clientCode+"'"
 					+ "GROUP BY a.strFolioNo";
 			List listRoomInfo = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
-            
+             
 			for (int cnt = 0; cnt < listRoomInfo.size(); cnt++) 
 			{
 				clsPostRoomTerrifBean objPostRoomTerrifBean = new clsPostRoomTerrifBean();

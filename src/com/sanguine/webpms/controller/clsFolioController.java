@@ -106,10 +106,12 @@ public class clsFolioController {
 		objFolioModel.setStrGuestCode(objFolioBean.getStrGuestCode());
 		objFolioModel.setStrClientCode(clientCode);
 		
-		objFolioModel.setStrRoom("Y");
-		objFolioModel.setStrFandB("Y");
-		objFolioModel.setStrTelephone("Y");
-		objFolioModel.setStrExtra("Y");
+		
+		// getter settert
+		objFolioModel.setStrRoom(objFolioBean.getStrRoom());
+		objFolioModel.setStrFandB(objFolioBean.getStrFandB());
+		objFolioModel.setStrTelephone(objFolioBean.getStrTelephone());
+		objFolioModel.setStrExtra(objFolioBean.getStrExtra());
 
 		/*
 		 * List<clsFolioDtlModel> listFolioDtlModel=new

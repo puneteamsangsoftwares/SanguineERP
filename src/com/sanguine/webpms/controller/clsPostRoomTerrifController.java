@@ -397,19 +397,11 @@ public class clsPostRoomTerrifController {
 			hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
 		}
 		
-		if(objHdModel.getStrDontApplyTax().equals("N"))
-		{
-			if(objModel!=null && objModel.getStrDontApplyTax().equals("N"))
-			{
-				hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
-			}
-		}
-		
-	/*	if(objHdModel.getStrDontApplyTax().equals("N") && objModel.getStrDontApplyTax().equals("N"))
+		if(objHdModel.getStrDontApplyTax().equals("N") && objModel.getStrDontApplyTax().equals("N"))
 		{
 			hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
 		}
-		*/
+		
 		
 
 		List<clsFolioDtlModel> listFolioDtl = new ArrayList<clsFolioDtlModel>();
@@ -440,9 +432,7 @@ public class clsPostRoomTerrifController {
 	    }
 	    clsFolioDtlModel objFolioDtl = null; 	    	
 	    if(!flgDupRoomTerrif)
-	    {	    
-	    	if(objModel!=null)
-			{
+	    {
 	    	if(objModel.getStrGroupCode().equals(""))
 	    	{
 	    		objFolioDtl = new clsFolioDtlModel();
@@ -516,7 +506,7 @@ public class clsPostRoomTerrifController {
 	    		}
 	    		else
 	    		{
-	    			String strFolioCheckInDtl = "select * from tblfoliodtl a where a.strFolioNo='"+objFolioHd.getStrFolioNo()+"' and a.strClientCode='"+clientCode+"'";
+	    			/*String strFolioCheckInDtl = "select * from tblfoliodtl a where a.strFolioNo='"+objFolioHd.getStrFolioNo()+"' and a.strClientCode='"+clientCode+"'";
 		    		List listFolioEntryInDtl = objGlobalFunctionsService.funGetListModuleWise(strFolioCheckInDtl, "sql");
 
 		    		if(listFolioEntryInDtl!=null && listFolioEntryInDtl.size()>0)
@@ -524,7 +514,7 @@ public class clsPostRoomTerrifController {
 		    			
 		    		}
 		    		else
-		    		{
+		    		{*/
 		    			String strCheckInNo = objHdModel.getStrCheckInNo();
 			    		
 			    		String strFolioCnt = "select COUNT(*) from tblfoliohd a where a.strCheckInNo='"+strCheckInNo+"'";
@@ -537,12 +527,19 @@ public class clsPostRoomTerrifController {
 			    		{
 			    			dblCnt = Double.parseDouble(listFolioCnt.get(0).toString());
 			    		}
-			    		
-			    		if(objGroupBookingModel.getStrGroupLeaderCode().equals(objFolioHd.getStrGuestCode())){
+			    		if(objFolioHd.getStrRoom().equalsIgnoreCase("Y"))
+			    		{
+			    		if(objGroupBookingModel.getStrGroupLeaderCode().equals(objFolioHd.getStrGuestCode()))
+			    		{
 			    			
-			    			String strRoomRate = "select sum(c.dblRoomTerrif) from tblfoliohd a left outer join tblroom b on a.strRoomNo=b.strRoomCode "
-			    					+ "left outer join tblroomtypemaster c on b.strRoomTypeCode=c.strRoomTypeCode "
-			    					+ "where a.strCheckInNo='"+strCheckInNo+"' and a.strClientCode='"+clientCode+"'";
+			    			String strRoomRate = "SELECT SUM(roomterrif) from "
+			    					+ "(SELECT c.dblRoomTerrif as roomterrif "
+			    					+ "FROM tblfoliohd a "
+			    					+ "LEFT OUTER "
+			    					+ "JOIN tblroom b ON a.strRoomNo=b.strRoomCode "
+			    					+ "LEFT OUTER "
+			    					+ "JOIN tblroomtypemaster c ON b.strRoomTypeCode=c.strRoomTypeCode "
+			    					+ "WHERE a.strCheckInNo='"+strCheckInNo+"' AND a.strClientCode='"+clientCode+"' GROUP BY a.strRoomNo) a";
 			    					
 				    		List listRoomTariff = objGlobalFunctionsService.funGetListModuleWise(strRoomRate, "sql");
 				    		if(listRoomTariff!=null && listRoomTariff.size()>0)
@@ -551,6 +548,7 @@ public class clsPostRoomTerrifController {
 				    		}
 				    		
 
+			    		}
 			    		}
 			    		else
 			    		{
@@ -561,7 +559,7 @@ public class clsPostRoomTerrifController {
 						objFolioDtl.setStrDocNo(docNo);
 						objFolioDtl.setDteDocDate(PMSDate);
 						objFolioDtl.setDblDebitAmt(roomTerrif);
-						objFolioDtl.setDblBalanceAmt(objBean.getDblOriginalPostingAmt()-roomTerrif);
+						objFolioDtl.setDblBalanceAmt(0.0);
 						objFolioDtl.setDblCreditAmt(0);
 						objFolioDtl.setStrTransactionType(strTransType);
 						objFolioDtl.setStrUserEdited(strUserCode);
@@ -580,12 +578,11 @@ public class clsPostRoomTerrifController {
 						objFolioDtl.setStrUserEdited(strUserCode);
 						objFolioDtl.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 						listFolioDtl.add(objFolioDtl);
-		    		}
+		    		
 	    			
 	    		}
 	    		
 	    	}
-			}
 		    
 	    }
 
