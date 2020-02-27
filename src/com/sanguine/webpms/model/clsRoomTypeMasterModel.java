@@ -36,6 +36,9 @@ public class clsRoomTypeMasterModel {
 	@Column(name = "dblDoubleTariff")
 	private double dblDoubleTariff;
 	
+	@Column(name = "dblTrippleTariff")
+	private double dblTrippleTariff;
+	
 	@Column(name = "strHsnSac")
 	private String strHsnSac;
 
@@ -117,6 +120,15 @@ public class clsRoomTypeMasterModel {
 
 	public void setDblDoubleTariff(double dblDoubleTariff) {
 		this.dblDoubleTariff = dblDoubleTariff;
+	}
+	
+	
+	public double getDblTrippleTariff() {
+		return dblTrippleTariff;
+	}
+
+	public void setDblTrippleTariff(double dblTrippleTariff) {
+		this.dblTrippleTariff = dblTrippleTariff;
 	}
 
 }

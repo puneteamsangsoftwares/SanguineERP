@@ -90,6 +90,7 @@
 					        	$("#txtRoomTypeDesc").val(response.strRoomTypeDesc);
 					        	$("#txtRoomTerrif").val(response.dblRoomTerrif);
 					        	$("#txtDoubleTarrif").val(response.dblDoubleTariff);
+					        	$("#txtTrippleTarrif").val(response.dblTrippleTariff);
 					        	$("#txtHsnSac").val(response.strHsnSac);
 					        	
 				        	}
@@ -206,6 +207,9 @@
 				<s:input id="txtDoubleTarrif" path="dblDoubleTariff" style="text-align:right; width: 40%;" onkeypress="javascript:return isNumber(event)"/>				
 			</div>
 			
+			<div class="col-md-2"><label>Tripple Tariff</label>
+				<s:input id="txtTrippleTarrif" path="dblTrippleTariff" style="text-align:right; width: 40%;" onkeypress="javascript:return isNumber(event)"/>				
+			</div>
 			<div class="col-md-2"><label>HSN/SAC</label>
 				<s:input id="txtHsnSac" path="strHsnSac"/>				
 			</div>

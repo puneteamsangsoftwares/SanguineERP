@@ -240,6 +240,7 @@ public class clsReservationController {
 		objBean.setStrPropertyCode(objReservationModel.getStrPropertyCode());
 
 		objBean.setStrPayeeGuestCode(objReservationModel.getStrGuestcode());
+		objBean.setStrNoRoomsBooked(objReservationModel.getStrNoRoomsBooked());
 		/*
 		 * objBean.setStrGuestCode(objReservationModel.getStrGuestCode()); String
 		 * sql=

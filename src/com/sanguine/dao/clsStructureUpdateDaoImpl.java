@@ -4634,6 +4634,10 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		sql = "ALTER TABLE `tblroomtypemaster` ADD COLUMN `strHsnSac` VARCHAR(30) NULL AFTER `dblDoubleTariff`;";
 		funExecutePMSQuery(sql);
 		
+		sql = "ALTER TABLE `tblroomtypemaster`"
+				+ " ADD COLUMN `dblTrippleTariff` DECIMAL(18,2) NOT NULL AFTER `dblDoubleTariff`;";
+		funExecutePMSQuery(sql);
+		
 		sql = "CREATE TABLE `tblpmsstaffmaster` ( "
 				+ "`strStaffCode` VARCHAR(255) NOT NULL,"
 				+ "`strStaffName` VARCHAR(50) NOT NULL,"

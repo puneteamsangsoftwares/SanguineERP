@@ -5,7 +5,8 @@ public class clsRoomTypeMasterBean {
 	private String strRoomTypeDesc;
 	private double dblRoomTerrif;	
 	private String strRoomDesc;
-	private double dblDoubleTariff;
+	private double dblDoubleTariff;	
+	private double dblTrippleTariff;
 	private String strHsnSac;
 	
 	public String getStrRoomTypeCode() {
@@ -46,6 +47,14 @@ public class clsRoomTypeMasterBean {
 
 	public void setDblDoubleTariff(double dblDoubleTariff) {
 		this.dblDoubleTariff = dblDoubleTariff;
+	}
+	
+	public double getDblTrippleTariff() {
+		return dblTrippleTariff;
+	}
+
+	public void setDblTrippleTariff(double dblTrippleTariff) {
+		this.dblTrippleTariff = dblTrippleTariff;
 	}
 	
 	public String getStrHsnSac() {

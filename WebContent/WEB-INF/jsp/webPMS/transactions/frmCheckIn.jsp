@@ -24,7 +24,7 @@ padding-left:1px;
 </style>
 <script type="text/javascript">
 	
-	var fieldName,gridHelpRow;
+	var fieldName,gridHelpRow,gNoOfRoom;
 	
      $(document).ready(function(){
 	    
@@ -374,6 +374,7 @@ padding-left:1px;
 		    
 		    $("#txtPackageCode").val(response.strPackageCode);
 			$("#txtPackageName").val(response.strPackageName);
+			gNoOfRoom=response.strNoRoomsBooked;
 			rTypeCode = response.listReservationDetailsBean[0].strRoomType;
 		    funRemoveProductRowsForIncomeHead();
 			funRemoveTariffRows();
