@@ -54,6 +54,8 @@ public class clsInvoiceFormatBean implements Serializable {
 	private String strCentralTaxRate;
 
 	private String strStateTaxRate;
+	
+	private double dblTotalAmtTotal;
 
 	
 	
@@ -234,6 +236,14 @@ public class clsInvoiceFormatBean implements Serializable {
 
 	
 	
+	public double getDblTotalAmtTotal() {
+		return dblTotalAmtTotal;
+	}
+
+	public void setDblTotalAmtTotal(double dblTotalAmtTotal) {
+		this.dblTotalAmtTotal = dblTotalAmtTotal;
+	}
+
 	// Function to Set Default Values
 	private Object setDefaultValue(Object value, Object defaultValue) {
 		if (value != null && (value instanceof String && value.toString().length() > 0)) {

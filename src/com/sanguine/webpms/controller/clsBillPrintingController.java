@@ -33,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sanguine.base.service.intfBaseService;
 import com.sanguine.controller.clsGlobalFunctions;
+import com.sanguine.crm.bean.clsInvoiceDtlBean;
 import com.sanguine.model.clsPropertySetupModel;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.service.clsSetupMasterService;
@@ -1394,9 +1395,12 @@ public class clsBillPrintingController {
 			else
 			{
 				//Format 2 Report
-				
+				List listInvoice=new ArrayList();
 				String reportName = servletContext.getRealPath("/WEB-INF/reports/webpms/rptInvoiceFormat.jrxml");
 				List<clsInvoiceFormatBean> dataList = new ArrayList<clsInvoiceFormatBean>();
+				
+				List listInvoiceSummary=new ArrayList();
+				
 				@SuppressWarnings("rawtypes")
 				HashMap reportParams = new HashMap();
 				double total=0.0;
@@ -1516,6 +1520,7 @@ public class clsBillPrintingController {
 				
 					int countt=1;
 					List billDtlList = objFolioService.funGetParametersList(sqlBillDtl);
+					
 					for (int i = 0; i < billDtlList.size(); i++) {
 						Object[] folioArr = (Object[]) billDtlList.get(i);
 	
@@ -1524,7 +1529,7 @@ public class clsBillPrintingController {
 							continue;
 						} else {
 							clsInvoiceFormatBean billPrintingBean = new clsInvoiceFormatBean();
-	
+	                        
 							String docNo = folioArr[1].toString();
 							String strPerticulars = folioArr[2].toString();
 							String debitAmount = folioArr[3].toString();
@@ -1568,12 +1573,13 @@ public class clsBillPrintingController {
 							//datalistForHsn.add(objInvoiceFormatHsnBean);
 						}
 					}
+					
 					sqlBillDtl = "SELECT DATE(a.dteBillDate),b.strTaxDesc,sum(b.dblTaxAmt),0,c.dblTaxValue,f.strHsnSac,b.strTaxCode,"
 							+ " sum(b.dblTaxableAmt),CONCAT(f.strHsnSac,' - ',b.strTaxDesc)"
 							+ " FROM tblbillhd a, tblbilltaxdtl b,tbltaxmaster c,tblroom  e,tblroomtypemaster f"
 							+ " WHERE a.strBillNo=b.strBillNo and b.strTaxCode=c.strTaxCode"
 							+ " AND a.strRoomNo=e.strRoomCode AND e.strRoomTypeCode=f.strRoomTypeCode"
-							+ " AND a.strBillNo='01BAB000009' "
+							+ " AND a.strCheckInNo='"+checkInNo+"'  "
 							+ " AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'"
 							+ " group by b.strTaxCode,f.strHsnSac;";
 					List listBillTaxDtl = objWebPMSUtility.funExecuteQuery(
@@ -1591,18 +1597,18 @@ public class clsBillPrintingController {
 						//billPrintingBean.setStrDocNo(arrObjBillTaxDtl[1].toString());
 						//billPrintingBean.setStrPerticulars(arrObjBillTaxDtl[2].toString());
 						billPrintingBean.setStrDescGoods("");
-						billPrintingBean.setStrDescGoodsOutput(hsnCode);
-						billPrintingBean.setStrAmount(Double.parseDouble(arrObjBillTaxDtl[3].toString()));
-						String converted=arrObjBillTaxDtl[5].toString();
+						billPrintingBean.setStrDescGoodsOutput(arrObjBillTaxDtl[8].toString());
+						billPrintingBean.setStrAmount(Double.parseDouble(arrObjBillTaxDtl[2].toString()));
+						String converted=arrObjBillTaxDtl[4].toString();
 						billPrintingBean.setStrRate(converted.split("\\.")[0]+"%");
 						//billPrintingBean.setDblDebitAmt(Double.parseDouble(arrObjBillTaxDtl[3].toString()));
 						//billPrintingBean.setDblCreditAmt(Double.parseDouble(arrObjBillTaxDtl[4].toString()));
 						//billPrintingBean.setDblBalanceAmt(Double.parseDouble(arrObjBillTaxDtl[4].toString()));
 						total=total+Double.parseDouble(arrObjBillTaxDtl[3].toString());
-						if(billPrintingBean.getStrAmount()>0)
-						{
+//						if(billPrintingBean.getStrAmount()>0)
+//						{
 							dataList.add(billPrintingBean);
-						}		
+						//}		
 						/*if(hmapHsn.containsKey(hsnCode))
 						{
 							objInvoiceFormatHsnBean=hmapHsn.get(hsnCode);
@@ -1619,9 +1625,68 @@ public class clsBillPrintingController {
 							hmapHsn.put(hsnCode,objInvoiceFormatHsnBean);
 						}*/
 						
-						//hmapHsn.put(hsnCode,objInvoiceFormatHsnBean);
-					
+				//hmapHsn.put(hsnCode,objInvoiceFormatHsnBean);
+					   
+					     
 					}
+					
+				    Map<String,clsInvoiceFormatBean> mapInvoice=new HashMap<>();
+					String sqlTaxRTDtl="SELECT (a.dteBillDate),b.strTaxDesc,sum(b.dblTaxAmt),0,c.dblTaxValue,f.strHsnSac,b.strTaxCode, "
+                                       + " sum(b.dblTaxableAmt),CONCAT(f.strHsnSac,' - ',b.strTaxDesc)  "
+                                       + " FROM tblbillhd a,tblbilldtl g ,tblbilltaxdtl b,tbltaxmaster c,tblroom  e,tblroomtypemaster f  "
+                                       + " WHERE a.strBillNo=b.strBillNo  "
+                                       + " and a.strBillNo=g.strBillNo and g.strBillNo=b.strBillNo and g.strDocNo=b.strDocNo  "
+                                       + " and b.strTaxCode=c.strTaxCode  "
+                                       + " AND a.strRoomNo=e.strRoomCode  "
+                                       + " AND e.strRoomTypeCode=f.strRoomTypeCode AND a.strCheckInNo='"+checkInNo+"' and g.strPerticulars='Room Tariff'  "
+                                       + " AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'  "
+                                       + " group by b.strTaxCode,f.strHsnSac; ";
+					List listTaxDetail = objWebPMSUtility.funExecuteQuery(sqlBillDtl, "sql");
+					if(listTaxDetail.size()>0)
+					{
+						for (int cnt = 0; cnt < listTaxDetail.size(); cnt++) 
+						{
+							clsInvoiceFormatBean billPrintingBean = new clsInvoiceFormatBean();
+							Object[] arrObjRTTaxDtl = (Object[]) listTaxDetail.get(cnt);
+							
+							if(mapInvoice.containsKey(arrObjRTTaxDtl[8].toString()))
+						    {
+								
+								
+								 
+							}
+							else
+							{
+								billPrintingBean = new clsInvoiceFormatBean();
+								billPrintingBean.setStrHsn(arrObjRTTaxDtl[5].toString());
+								if(arrObjRTTaxDtl[1].toString().contains("CGST"))
+								{
+									String converted=arrObjRTTaxDtl[4].toString();
+									billPrintingBean.setStrCentralTaxRate(converted.split("\\.")[0]+"%");
+									billPrintingBean.setDblCentralTaxAmountTotal(Double.parseDouble(arrObjRTTaxDtl[2].toString()));
+								}
+								if(arrObjRTTaxDtl[1].toString().contains("SGST"))
+								{
+									String converted=arrObjRTTaxDtl[4].toString();
+									billPrintingBean.setStrStateTaxRate(converted.split("\\.")[0]+"%");
+									billPrintingBean.setDblStateTaxAmount(Double.parseDouble(arrObjRTTaxDtl[2].toString()));
+								}
+								mapInvoice.put(arrObjRTTaxDtl[8].toString(), billPrintingBean);
+								
+							}
+							
+							
+						}
+					}
+					for(Map.Entry<String,clsInvoiceFormatBean> entry : mapInvoice.entrySet()){
+						clsInvoiceFormatBean objDtlBean =entry.getValue();
+						
+						listInvoice.add(entry.getValue());
+						
+					}
+					
+					
+				    
 					flgBillRecord = true;
 				}	
 				if (flgBillRecord) {
@@ -1835,6 +1900,7 @@ public class clsBillPrintingController {
 				//DecimalFormat decFormat = new DecimalFormat("#");
 				String totalInvoiceValueInWords = obj1.getNumberInWorld(total, "");
 				//reportParams.put("datalistForHsn",datalistForHsn);
+				reportParams.put("listTaxDtl", listInvoice);
 				reportParams.put("pAmtInWords",totalInvoiceValueInWords);
 				
 				JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(dataList);

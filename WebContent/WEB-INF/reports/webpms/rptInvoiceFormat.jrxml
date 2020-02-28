@@ -85,6 +85,7 @@
 	<parameter name="pTotalTaxAmountTotal" class="java.lang.String"/>
 	<parameter name="pGuestName" class="java.lang.String"/>
 	<parameter name="datalistForHsn" class="java.util.List"/>
+	<parameter name="listTaxDtl" class="java.util.List"/>
 	<queryString language="SQL">
 		<![CDATA[]]>
 	</queryString>
@@ -431,7 +432,8 @@
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<detail>
-		<band height="21">
+		<band height="22">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<line>
 				<reportElement x="66" y="-2" width="1" height="23" uuid="38ec02a8-6cc8-4285-9d3f-c74532ffbc5c"/>
 			</line>
@@ -474,14 +476,14 @@
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="605" y="0" width="58" height="20" uuid="2def68d8-c7aa-4344-be0c-1b87e968b554"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{strRate}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="664" y="0" width="60" height="20" uuid="b21e7fa0-b1b8-456c-9d33-3ea0275ec69f"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{strPer}]]></textFieldExpression>
@@ -494,7 +496,7 @@
 			</line>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="727" y="0" width="74" height="20" uuid="276daf98-33c2-4cc5-b762-3be1a2d02867"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{strAmount}]]></textFieldExpression>
@@ -505,9 +507,6 @@
 			<line>
 				<reportElement x="801" y="-3" width="1" height="23" uuid="9ec09b14-48fe-4a28-a606-58593407f3f5"/>
 			</line>
-			<line>
-				<reportElement x="0" y="20" width="801" height="1" uuid="31d66fad-39d8-48ae-8609-e93ca1b86640"/>
-			</line>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="2" y="1" width="46" height="19" uuid="408e98b0-4342-4aad-b87f-a01e13601c73"/>
 				<textElement>
@@ -517,15 +516,32 @@
 			</textField>
 		</band>
 	</detail>
-	<pageFooter>
-		<band height="24">
-			<textField>
-				<reportElement x="751" y="5" width="38" height="19" uuid="fb1e0795-72c6-4747-9ed6-1139655a7685"/>
+	<columnFooter>
+		<band height="46">
+			<line>
+				<reportElement x="0" y="0" width="802" height="1" uuid="fb1b5e46-db13-45de-91a7-bbed0aff8bfc">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="729" y="5" width="71" height="14" uuid="0371887e-b0e1-4922-90da-611d76e7a155"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page No : "+$V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{pTotal}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="0" y="24" width="801" height="1" uuid="66b3564d-8a11-4da0-b64f-399a02f5a2ac">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="381" y="5" width="95" height="16" uuid="7d22aa10-cf25-4b0d-9631-01329c31f27c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
 		</band>
-	</pageFooter>
+	</columnFooter>
 	<summary>
 		<band height="327">
 			<staticText>
@@ -536,10 +552,6 @@
 				<reportElement x="749" y="21" width="45" height="15" uuid="ca0d8168-2668-454e-8d05-331c9871fe62"/>
 				<text><![CDATA[E. & O.E]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="729" y="1" width="71" height="14" uuid="20cffcfe-37eb-441c-9726-701ace4ce19e"/>
-				<textFieldExpression><![CDATA[$V{pTotal}]]></textFieldExpression>
-			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="9" y="39" width="319" height="15" uuid="cbd339ed-c1e2-4638-8cde-7c71d643503b"/>
 				<textElement>
@@ -605,10 +617,6 @@
 				<reportElement x="388" y="193" width="1" height="98" uuid="eab0bd97-fa33-45bf-b404-2d6ca0c326a9"/>
 			</line>
 			<staticText>
-				<reportElement x="379" y="0" width="40" height="16" uuid="046359d3-e5a0-4f41-b9ff-082508fdc8ec"/>
-				<text><![CDATA[Total]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="5" y="194" width="150" height="18" uuid="ee3f996f-3434-4326-b733-9630afb709e5"/>
 				<text><![CDATA[Tax Amount (in words) : ]]></text>
 			</staticText>
@@ -641,15 +649,15 @@
 				<reportElement x="801" y="-96" width="1" height="401" uuid="22e1db7b-34b9-4285-9c9a-4cc26ed65c4c"/>
 			</line>
 			<componentElement>
-				<reportElement x="5" y="68" width="750" height="101" uuid="3e26114b-1bd3-400c-8e96-26174614a9ac">
+				<reportElement positionType="Float" x="5" y="61" width="750" height="95" uuid="3e26114b-1bd3-400c-8e96-26174614a9ac">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Dataset1" uuid="e85acd43-75f2-4ada-a44a-1dd31ec525df">
-						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{datalistForHsn})]]></dataSourceExpression>
+					<datasetRun subDataset="Dataset1" uuid="f4b1472a-6b29-427f-8bcc-f33b72f8710e">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{listTaxDtl})]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="120" uuid="c0c85a59-aa49-4563-86ed-f9f4be0c6be8">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
