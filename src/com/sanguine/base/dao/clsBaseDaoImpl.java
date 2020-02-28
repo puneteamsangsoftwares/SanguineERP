@@ -170,6 +170,7 @@ public class clsBaseDaoImpl implements intfBaseDao {
 	}
 	
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public String funSaveForPMS(clsBaseModel objBaseModel) {
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objBaseModel);
 		return objBaseModel.getDocCode();

@@ -26,8 +26,11 @@ padding-left:1px;
 	
 	var fieldName,gridHelpRow;
 	var gset1 = new Set();
+	var gTempAdultcount=0,gTotalNoRoom=0,gTotalNoGuest=0;
+	var gAdultCount,cheGuestCode,gcount;
+	var gAdult=Array();
 	var gcount;
-	
+	var gRoomMap = new Map();
 	
      $(document).ready(function(){
 	    
@@ -361,6 +364,8 @@ padding-left:1px;
 		function funFillHdDataAgainstRes(response)
 		{
 			gcount=response.intNoRoomsBooked;
+			gAdultCount=response.intNoOfAdults;
+			cheGuestCode=response.strGuestCode;
 			$("#txtDocNo").val(response.strReservationNo);
 			
 			$("#txtArrivalDate").val(response.dteArrivalDate);
@@ -541,49 +546,54 @@ padding-left:1px;
 		//Function to add detail grid rows	
 		function funAddDetailsRow(guestName,guestCode,mobileNo,roomNo,roomDesc,extraBedCode,extraBedDesc,payee,roomTypeCode) 
 		{
-		    var table = document.getElementById("tblCheckInDetails");
-		    var rowCount = table.rows.length;
-		    var row = table.insertRow(rowCount);
-		    var roomtypeDesc=funSetRoomType(roomTypeCode);
-		    rTypeCode=roomTypeCode
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].strGuestName\" id=\"strGuestName."+(rowCount)+"\" value='"+guestName+"'/>";	    
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" style=\"width:70%;margin-left: -6%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].lngMobileNo\" id=\"lngMobileNo."+(rowCount)+"\" value='"+mobileNo+"' />";	   
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" style=\"width:75%;margin-left: -22%;\" id=\"strRoomTypeDesc."+(rowCount)+"\" value='"+roomtypeDesc+"' class=\"searchTextBox\"   ondblclick=\"Javacsript:funHelp1('roomType',"+(rowCount)+",'"+roomTypeCode+"' )\"/>";
-		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;margin-left: -44%;background-color: #dcdada94;\" class=\"searchTextBox\"  name=\"listCheckInDetailsBean["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+(rowCount)+"\" value='"+roomNo+"'  ondblclick=\"Javacsript:funHelp1('roomByRoomType',"+(rowCount)+",'"+roomTypeCode+"' )\"/>";
-		    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" style=\"width:73%;margin-left: -44%\"  id=\"strRoomDesc."+(rowCount)+"\" value='"+roomDesc+"' />";
-		    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;margin-left: -55%;background-color: #dcdada94;\" class=\"searchTextBox\"  name=\"listCheckInDetailsBean["+(rowCount)+"].strExtraBedCode\" id=\"strExtraBedCode."+(rowCount)+"\" value='"+extraBedCode+"' ondblclick=\"Javacsript:funHelp1('extraBed',"+(rowCount)+",'')\" />";
-		   
-		    if(payee=='Y')
-		    {
-		    	row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" style=\"margin-left: -605%;\" class=\"Box payeeSel\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\"  value=\"Y\" onClick=\"Javacsript:funCheckBoxRow(this)\"  />";
-		    }
-		    else
-		    {
-		    	row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box payeeSel\" style=\"margin-left: -605%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\" value=\"N\" onClick=\"Javacsript:funCheckBoxRow(this)\" />";	
-		    } 
-		    
-		    
-		  /*   if(payee=='Y')
-		    {
-		    	row.insertCell(4).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"radio\" checked=\"checked\" class=\"Box payeeSel\" name=\"strPayeeRoomNo."+roomNo+"\" size=\"2%\" value='"+roomNo+"'  onClick=\"Javacsript:funRadioRow(this)\" />";
-		    	row.insertCell(5).innerHTML= "<input readonly=\"readonly\"  style=\"display:none\" class=\"searchTextBox\" size=\"1%\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\" id=\"strPayee."+(rowCount)+"\" value=\"Y\" />";
-		    }
-		    else
-		    {
-	    	row.insertCell(4).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"radio\" class=\"Box payeeSel\" name=\"strPayeeRoomNo."+roomNo+"\" size=\"2%\" value='"+roomNo+"'  />";	
-	    	row.insertCell(5).innerHTML= "<input readonly=\"readonly\"  style=\"display:none\" class=\"searchTextBox\" size=\"1%\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\" id=\"strPayee."+(rowCount)+"\" value=\"N\" />";	
-	    } */
-	    
-	    row.insertCell(7).innerHTML= "<input class=\"Box\" size=\"2%\" style=\"margin-left: -150%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].intNoOfFolios\" id=\"intNoOfFolios."+(rowCount)+"\" value='1' />";
-	    row.insertCell(8).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"6%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
-	    
-	     row.insertCell(9).innerHTML= "<input size=\"1%\" name=\"listCheckInDetailsBean["+(rowCount)+"].strGuestCode\" id=\"strGuestCode."+(rowCount)+"\" value='"+guestCode+"' type='hidden' />";
-	    row.insertCell(10).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" id=\"strExtraBedDesc."+(rowCount)+"\" value='"+extraBedDesc+"' />";
-	    row.insertCell(11).innerHTML= "<input type=\"hidden\" class=\"Box \" name=\"listCheckInDetailsBean["+(rowCount)+"].strRoomType\" id=\"strRoomType."+(rowCount)+"\" value='"+roomTypeCode+"' >"; 
-	    funResetDetailFields(); 
-	    if(payee=='Y')
-	    {
-	    	$("#hidPayee").val(guestCode);
+			
+			if(gTempAdultcount>=gAdultCount){
+				
+				alert("Room Booking Full");
+			}
+			else if(gAdult.hasObject(guestName)){
+							
+				alert("Guest already Added");
+				gAdult.pop();
+			}
+			else
+			{
+					gTempAdultcount++;
+					gAdult.push(guestName);
+				    var table = document.getElementById("tblCheckInDetails");
+				    var rowCount = table.rows.length;
+				    var row = table.insertRow(rowCount);
+				    var roomtypeDesc=funSetRoomType(roomTypeCode);
+				    rTypeCode=roomTypeCode
+				    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].strGuestName\" id=\"strGuestName."+(rowCount)+"\" value='"+guestName+"'/>";	    
+				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" style=\"width:70%;margin-left: -6%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].lngMobileNo\" id=\"lngMobileNo."+(rowCount)+"\" value='"+mobileNo+"' />";	   
+				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" style=\"width:75%;margin-left: -22%;\" id=\"strRoomTypeDesc."+(rowCount)+"\" value='"+roomtypeDesc+"' class=\"searchTextBox\"   ondblclick=\"Javacsript:funHelp1('roomType',"+(rowCount)+",'"+roomTypeCode+"' )\"/>";
+				    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;margin-left: -44%;background-color: #dcdada94;\" class=\"searchTextBox\"  name=\"listCheckInDetailsBean["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+(rowCount)+"\" value='"+roomNo+"'  ondblclick=\"Javacsript:funHelp1('roomByRoomType',"+(rowCount)+",'"+roomTypeCode+"' )\"/>";
+				    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" style=\"width:73%;margin-left: -44%\"  id=\"strRoomDesc."+(rowCount)+"\" value='"+roomDesc+"' />";
+				    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;margin-left: -55%;background-color: #dcdada94;\" class=\"searchTextBox\"  name=\"listCheckInDetailsBean["+(rowCount)+"].strExtraBedCode\" id=\"strExtraBedCode."+(rowCount)+"\" value='"+extraBedCode+"' ondblclick=\"Javacsript:funHelp1('extraBed',"+(rowCount)+",'')\" />";
+				    
+				    if(guestCode==cheGuestCode)
+				    {
+				    	row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" style=\"margin-left: -605%;\" class=\"Box payeeSel\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\"  value=\"Y\" onClick=\"Javacsript:funCheckBoxRow(this)\"  />";
+				    }
+				    else
+				    {
+				    	row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box payeeSel\" style=\"margin-left: -605%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\" value=\"N\" onClick=\"Javacsript:funCheckBoxRow(this)\" />";	
+				    } 			    
+			    row.insertCell(7).innerHTML= "<input class=\"Box\" size=\"2%\" style=\"margin-left: -150%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].intNoOfFolios\" id=\"intNoOfFolios."+(rowCount)+"\" value='1' />";
+			    row.insertCell(8).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"6%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
+			    row.insertCell(9).innerHTML= "<input size=\"1%\" name=\"listCheckInDetailsBean["+(rowCount)+"].strGuestCode\" id=\"strGuestCode."+(rowCount)+"\" value='"+guestCode+"' type='hidden' />";
+			    row.insertCell(10).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" id=\"strExtraBedDesc."+(rowCount)+"\" value='"+extraBedDesc+"' />";
+			    row.insertCell(11).innerHTML= "<input type=\"hidden\" class=\"Box \" name=\"listCheckInDetailsBean["+(rowCount)+"].strRoomType\" id=\"strRoomType."+(rowCount)+"\" value='"+roomTypeCode+"' >"; 
+			    funResetDetailFields(); 
+			    if(payee=='Y')
+			    {
+			    	$("#hidPayee").val(guestCode);
+			    }
+			   // gTotalNoRoom++;
+			    gTotalNoGuest++;
+			    $("#txttotrooms").val(gTotalNoRoom);
+			    $("#txttotguest").val(gTotalNoGuest);
 	    }
 		}
 
@@ -856,7 +866,7 @@ padding-left:1px;
 		 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:50%;\"  name=\"listRoomPackageDtl["+(rowCount)+"].strIncomeHeadCode\"    id=\"strIncomeHeadCode."+(rowCount)+"\" value='"+incomeHeadCode+"' >";
 		 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:50%;\" name=\"listRoomPackageDtl["+(rowCount)+"].strIncomeHeadName\"   id=\"strIncomeHeadDesc."+(rowCount)+"\" value='"+incomeHeadName+"' >";
 		 	    row.insertCell(2).innerHTML= "<input type=\"readonly\"   class=\"Box \"  style=\"text-align:right;\" name=\"listRoomPackageDtl["+(rowCount)+"].dblIncomeHeadAmt\"   id=\"dblIncomeRate."+(rowCount)+"\" value='"+incomeHeadAmt+"' >";
-		 	    row.insertCell(3).innerHTML= "<input type=\"button\" value=\"Delete\" style=\"padding-right: 5px;width:80%;text-align: right;\" class=\"deletebutton\" onclick=\"funRemoveRow(this)\" />";
+		 	    row.insertCell(3).innerHTML= "<input type=\"button\" value=\"\" style=\"padding-right: 5px;width:80%;text-align: right;\" class=\"deletebutton\" onclick=\"funRemoveRow(this)\" />";
 						
 			//calculate totals
 				funCalculateTotals();
@@ -1173,14 +1183,32 @@ padding-left:1px;
 				    var index = obj.parentNode.parentNode.rowIndex;
 				    var table = document.getElementById("tblCheckInDetails");
 				    var roomNo=obj.parentNode.parentNode.cells[3].firstElementChild.value;
+				    var Name=obj.parentNode.parentNode.cells[0].firstElementChild.value;
 				    var id="strRoomNo."+index;
 				    var roomNo1=document.getElementById(id);
 				    table.deleteRow(index);
+				    gTempAdultcount--;
 				    if(gset1.has(roomNo)){
 				    	gset1.delete(roomNo);
 				    	 
 				    }
+				    if(gAdult.hasObject(Name)){
+				    	if (gAdult.indexOf(Name) > -1) {
+				    		gAdult.splice(gAdult.indexOf(gAdult), 1);
+				    		}
+				    }
 				    
+				    if(gRoomMap.has(roomNo)){
+				    	gRoomMap.delete(roomNo);
+				    	 
+				    }
+				    
+				    gTotalNoRoom--;
+				    gTotalNoGuest--;
+				    $("#txttotrooms").val(gRoomMap.size);
+				    $("#txttotguest").val(gTotalNoGuest);
+				    
+				    	
 				}
 			
 
@@ -1385,6 +1413,11 @@ padding-left:1px;
 											}
 											else{
 												gset1.add(response.strRoomCode);
+												if(!gRoomMap.has(response.strRoomCode))
+												{
+													gRoomMap.set(response.strRoomCode,response.strRoomCode);
+												}	
+												  $("#txttotrooms").val(gRoomMap.size);
 												document.getElementById("strRoomNo."+gridHelpRow).value=response.strRoomCode;						
 								    			document.getElementById("strRoomDesc."+gridHelpRow).value=response.strRoomDesc;
 								    			document.getElementById("strRoomTypeDesc."+gridHelpRow).value=response.strRoomTypeDesc;						
@@ -1674,8 +1707,6 @@ padding-left:1px;
 					<td style="width:10px;">Delete</td>
 					
 				</tr>
-				
-				
 			</table> 
 		
 			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 100%;">
@@ -1713,8 +1744,26 @@ padding-left:1px;
 					</tr>
 					</tbody>
 				</table>
-			</div>
-		</div>		
+			</div>	
+		</div>
+		
+		
+	<!-- 	
+		<label >Email Content For Check IN </label>
+		
+		<div class="col-md-2"><label>Total Rooms</label><label id="txttotrooms" style="background-color:#dcdada94; width: 25px; height: 25px; margin: 27px 0px;"></label>
+			
+		<div class="col-md-2"><label>Total Guests</label><label id="txttotguest" style="background-color:#dcdada94; width: 25px; height: 25px; margin: 27px 0px;"></label>
+			 -->
+		
+		<div class="col-md-2"><label>Total Rooms</label>
+				  <input  type="text" id="txttotrooms" readonly="true"/>
+		</div>
+		
+		<div class="col-md-2"><label>Total Guests</label>
+			  <input  type="text" id="txttotguest" readonly="true"/>
+		</div>	 
+					
 		</div>
 	 </div></div>
 									
@@ -1796,19 +1845,19 @@ padding-left:1px;
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
 				<tr bgcolor="#c0c0c0" style="height: 24px;">
 					<!-- col1   -->
-					<td align="left" style="width: 30.6%">Income Head Code</td>
+					<td align="left" style="width: 32.6%">Income Head Code</td>
 					<!-- col1   -->
 					
 					<!-- col2   -->
-					<td align="left" style="width: 30.6%">Income Head Name</td>
+					<td align="left" style="width: 39.6%">Income Head Name</td>
 					<!-- col2   -->
 					
 					<!-- col3   -->
-					<td align="right" style="width: 30.6%">Amount</td>
+					<td align="left" style="width: 21.6%">Amount</td>
 					<!-- col3   -->
 					
 					<!-- col4   -->
-					<td align="center">Delete</td>
+					<td align="left" style="width: 10.6%">Delete</td>
 					<!-- col4  -->									
 				</tr>
 			</table>

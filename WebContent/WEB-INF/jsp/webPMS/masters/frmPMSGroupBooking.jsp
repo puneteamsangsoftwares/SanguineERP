@@ -21,7 +21,8 @@
 	 
 	 <script type="text/javascript">
 	var fieldName;
-
+	//var garray=[];
+	var gmap = new Map(); 
 	$(document).ready(function()
 			{
 	var message='';
@@ -88,11 +89,11 @@ $(document).ready(function(){
 			
 		$('#txtTravelTime').timepicker('setTime', new Date());
 		funPayeeData();
-		
+		funRemoveProductRowsForIncomeHead();
 	});
 	
 function funOpenGroupBooking(value) {
-	window.opener.funSetGroupCode(value);
+	window.opener.funSetGroupCode(value,gmap);
 	window.close();
 }
 	
@@ -342,7 +343,7 @@ function funSetRoomType(code){
 			{
 								
 				
-				 var table=document.getElementById("tblIncomeHeadDtl");
+				 var table=document.getElementById("tblPayeeDtl");
 				 var rowCount=table.rows.length;
 				 var service1="Room";
 				 var service2="F&B";
@@ -388,7 +389,7 @@ function funSetRoomType(code){
 			{
 				
 
-				var table = document.getElementById("tblIncomeHeadDtl");
+				var table = document.getElementById("tblPayeeDtl");
 				var rowCount = table.rows.length;
 				while(rowCount>0)
 				{
@@ -397,7 +398,7 @@ function funSetRoomType(code){
 				}
 				
 				
-				 var table=document.getElementById("tblIncomeHeadDtl");
+				 var table=document.getElementById("tblPayeeDtl");
 				 var rowCount=table.rows.length;
 				 var service1="Room";
 				 var service2="F&B";
@@ -488,7 +489,7 @@ function funSetRoomType(code){
 		var incomeHeadName=$("#txtIncomeHeadName").val();
 		var incomeHeadAmt=$("#txtIncomeHeadAmt").val(); 
 		*/var amount="0.0";
-		
+		var larray=[];
 		var flag=false;
 		flag=funChechDuplicate(incomeHeadCode);
 		if(flag)
@@ -511,14 +512,14 @@ function funSetRoomType(code){
 				$("#hidIncomeHead").val(incomeHeadCode);
 				
 			}
-			
-			
 			 
-	 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:50%;\"  name=\"listRoomPackageDtl["+(rowCount)+"].strIncomeHeadCode\"    id=\"strIncomeHeadCode."+(rowCount)+"\" value='"+incomeHeadCode+"' >";
-	 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:50%;\" name=\"listRoomPackageDtl["+(rowCount)+"].strIncomeHeadName\"   id=\"strIncomeHeadDesc."+(rowCount)+"\" value='"+incomeHeadName+"' >";
-	 	    row.insertCell(2).innerHTML= "<input type=\"readonly\"   class=\"Box \"  style=\"text-align:right;\" name=\"listRoomPackageDtl["+(rowCount)+"].dblIncomeHeadAmt\"   id=\"dblIncomeRate."+(rowCount)+"\" value='"+incomeHeadAmt+"' >";
-	 	    row.insertCell(3).innerHTML= "<input type=\"button\" value=\"\" style=\"padding-right: 5px;width:80%;text-align: right;\" class=\"deletebutton\" onclick=\"funRemoveRow(this)\" />";
-					
+	 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:50%;\"    id=\"strIncomeHeadCode."+(rowCount)+"\" value='"+incomeHeadCode+"' >";
+	 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:50%;\"  id=\"strIncomeHeadDesc."+(rowCount)+"\" value='"+incomeHeadName+"' >";
+	 	    row.insertCell(2).innerHTML= "<input type=\"readonly\"   class=\"Box \"  style=\"text-align:right;\"    id=\"dblIncomeRate."+(rowCount)+"\" value='"+incomeHeadAmt+"' >";
+	 	    row.insertCell(3).innerHTML= "<input type=\"button\" value=\"\" style=\"padding-right: 5px;width:80%;text-align: right;\" class=\"deletebutton\" onclick=\"funRemoveRow(this)\" />";	
+	 	 
+	 	   larray.push(incomeHeadCode, incomeHeadName, incomeHeadAmt);
+			 gmap.set(incomeHeadCode,larray);
 		//calculate totals
 			funCalculateTotals();
 		
@@ -532,14 +533,7 @@ function funSetRoomType(code){
 
 	function funAddRow()
 		{
-			var flag=false;
-			
-			/* 
-			if($("#txtIncomeHead").val().trim().length==0)
-			{
-				alert("Please Select Income Head.");
-			} */
-			
+			var flag=false;			
 			if($("#txtIncomeHead").val().trim().length==0)
 			{
 				alert("Please Select Income Head.");
@@ -608,12 +602,6 @@ function funSetRoomType(code){
 				
 				$("#txtIncomeHead").val(data.strIncomeHeadCode);
 				$("#txtIncomeHeadName").val(data.strIncomeHeadDesc);
-			 
-				//funAddIncomeHeadRow();
-				
-				//$("#txtIncomeHead").val('');
-				//$("#txtIncomeHeadName").text('');
-			
 			}
 		
 		function funChechDuplicate(incomeHeadCode)
@@ -654,22 +642,6 @@ function funSetRoomType(code){
 			    }
 			   	totalAmt=parseFloat(totalAmt).toFixed(maxAmountDecimalPlaceLimit);
 			}
-			//$("#dblTotalAmt").text(totalAmt);
-			
-			//For tarrif
-			
-		/* 	
-			totalTarriff=0;
-			if(document.getElementById("tblRommRate").rows.length>0)
-			{
-				for(var i=0;i<document.getElementById("tblRommRate").rows.length;i++)
-			    {
-					var objName =document.getElementById("dblRoomRate."+i);
-			        totalTarriff=totalTarriff+parseFloat(objName.value);
-			    }
-				totalTarriff=parseFloat(totalTarriff).toFixed(maxAmountDecimalPlaceLimit);
-			}
-			$("#txtTotalAmt").val(totalTarriff);  */
 			
 			var table=document.getElementById("tblTotalPackageDtl");
 			var rowCount=table.rows.length;
@@ -682,9 +654,9 @@ function funSetRoomType(code){
 	 	    row.insertCell(1).innerHTML= "<input type=\"text\" class=\"Box \"  style=\"text-align:right; font-size:13px; font-weight: bold;width:95%;\"  id=\"dblIncomeRate."+(rowCount)+"\" value='"+totalAmt+"' >";
 	 	    
 	 	    row=table.insertRow();
-			row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 67%;width:100%; font-size:13px; font-weight: bold;text-align:right; \"  id=\"strPackageDesc."+(rowCount)+"\" value='Room Tarrif' >";
+			/* row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 67%;width:100%; font-size:13px; font-weight: bold;text-align:right; \"  id=\"strPackageDesc."+(rowCount)+"\" value='Room Tarrif' >";
 		    row.insertCell(1).innerHTML= "<input type=\"readonly\"   class=\"Box \" style=\"text-align:right; font-size:13px; font-weight: bold;width:95%;\"  id=\"dblIncomeRate."+(rowCount)+"\" value='"+totalTarriff+"' >";
-		    var totalPkgAmt=0;
+		    */ var totalPkgAmt=0;
 		    var rowCount=table.rows.length;
 		    if(rowCount>0)
 			{
@@ -719,12 +691,37 @@ function funSetRoomType(code){
 			
 			
 			
+			        function funRemoveProductRowsForIncomeHead()
+			    	{
+			    		var table = document.getElementById("tblIncomeHeadDtl");
+			    		var rowCount = table.rows.length;
+			    		while(rowCount>0)
+			    		{
+			    			table.deleteRow(0);
+			    			rowCount--;
+			    		}
+			    	}
+			
+			        function funRemoveRow(obj)
+			    	{
+			    	    var index = obj.parentNode.parentNode.rowIndex;
+			    	    var table = document.getElementById("tblIncomeHeadDtl");			    	   
+			    	    var id="strIncomeHeadCode."+index;
+			    	    document.getElementById(id).value;
+			    	    	    	
+			    	    if(gmap.has(document.getElementById(id).value))
+			    	    	{
+			    	    		gmap.delete(document.getElementById(id).value);
+			    	    	}
+			    	    table.deleteRow(index);		
+			    	    funCalculateTotals();
+			    	}
 			
 			
-			
-			
-			
-			
+			function funSubmit()
+			{
+				window.opener.funGetMap(gmap);
+			}
 			
 			
 			
@@ -981,7 +978,7 @@ function funSetRoomType(code){
 				</tr>
 			</table>
 			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-				<table id="tblIncomeHeadDtl" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col3-center">
+				<table id="tblPayeeDtl" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col3-center">
 					<tbody>
 						<!-- col1   -->
 						<col width="100%">
@@ -1035,12 +1032,17 @@ function funSetRoomType(code){
 			    <div class="col-md-1"><br><input type="button" value="Add" class="btn btn-primary center-block" class="smallButton" onclick='return funAddRow()'/>
 			    </div>
 			
-				<s:input type="hidden" id="txtGroupCode" path="strGroupCode" cssClass="searchTextBox" />
+				<s:input type="hidden" id="txtGroupCode" path="" cssClass="searchTextBox" />
 			    
 			
 		   </div>
 		<br/>
+		
 		<!-- Generate Dynamic Table   -->		
+		
+		
+		
+		
 		<div class="dynamicTableContainer" style="height: 320px; width: 80%">
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
 				<tr bgcolor="#c0c0c0" style="height: 24px;">
@@ -1100,14 +1102,17 @@ function funSetRoomType(code){
 					</tbody>
 				</table>
 			</div>		
-		</div>		
+		</div>	
+	
+	<!-- table package ends -->
+		
+		
+			
 	 
 	 </div>
 	</div>
 	
 	
-	
-	<!-- table package ends -->
 
 
 
@@ -1116,7 +1121,7 @@ function funSetRoomType(code){
 
 </div>
 	<div class="center" style="text-align:center">
-		<button class="btn btn-primary center-block" id="" onclick="">SAVE</button> &nbsp;
+		<button class="btn btn-primary center-block" id="" onclick="funSubmit()">SAVE</button> &nbsp;
 		<button class="btn btn-primary center-block" id="" onclick="">CANCEL</button> &nbsp;
 	</div>
 </s:form>                                                                              

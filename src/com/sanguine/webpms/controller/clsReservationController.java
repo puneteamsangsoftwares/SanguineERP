@@ -260,6 +260,7 @@ public class clsReservationController {
 		objBean.setStrRemarks(objReservationModel.getStrRemarks());
 		objBean.setIntNoOfNights(objReservationModel.getIntNoOfNights());
 		objBean.setIntNoRoomsBooked(Integer.parseInt(objReservationModel.getStrNoRoomsBooked()));
+		objBean.setIntNoOfAdults(objReservationModel.getIntNoOfAdults());
 		objBean.setDteArrivalDate(objGlobal.funGetDate("yyyy/MM/dd", objReservationModel.getDteArrivalDate()));
 
 		objBean.setDteDepartureDate(objGlobal.funGetDate("yyyy/MM/dd", objReservationModel.getDteDepartureDate()));
@@ -348,7 +349,10 @@ public class clsReservationController {
 			objBean.setStrPackageName(objPkgDtlModel.getStrPackageName());
 			break;
 		}
-			
+		
+		String sql2 = "select b.strGroupLeaderCode from tblreservationhd a,tblgroupbookinghd b " + " where a.strReservationNo='" + objReservationModel.getStrReservationNo() + "' and a.strGroupCode=b.strGroupCode and a.strClientCode=b.strClientCode and a.strClientCode='" + clientCode + "' ";
+		List ListgroupCode = objGlobalFunctionsService.funGetListModuleWise(sql2, "sql");
+		objBean.setStrGuestCode(ListgroupCode.get(0).toString());
 		return objBean;
 	}
 

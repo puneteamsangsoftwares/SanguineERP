@@ -27,6 +27,7 @@
 	var dblPaxCnt = 0;
 	var gRoomTypeCode="";
 	var gRoomTypeDesc="";
+	var gmap = new Map();
 	  $(document).ready(function(){
 		    
 		  $(".tab_content").hide();
@@ -2179,6 +2180,19 @@
 
 	}
 	
+	
+	function funGetMap(gmap)
+	{
+		/* var lmap=new map();
+		lmap=gmap; */
+		gmap.forEach(logMapElements);		
+	}
+	function logMapElements(value, key, map) {
+		funAddIncomeHeadRow(value[0],value[1],value[2]);		
+		}
+	
+	
+	
 	async function funSetGroupCode(code){
 		var gCode=code.split("#")[0];		
 		$("#txtGroupCode").val(code.split("#")[0]);
@@ -2292,7 +2306,7 @@
 			<div class="col-md-2"><label id="lblCorporateDesc" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 23px 0px;"></label></div>
 			
 			<div class="col-md-2"><label>Booking Type</label>
-				<s:input type="text" id="txtBookingTypeCode" path="strBookingTypeCode" cssClass="searchTextBox" ondblclick="funHelp('BookingTypeCode');"/>
+				<s:input type="text" id="txtBookingTypeCode" readonly="true" path="strBookingTypeCode" cssClass="searchTextBox" ondblclick="funHelp('BookingTypeCode');"/>
 			</div>
 			
 			<div class="col-md-2"><label id="lblBookingTypeDesc" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 23px 0px;"></label>

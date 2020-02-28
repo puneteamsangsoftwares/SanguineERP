@@ -349,14 +349,17 @@ public class clsVoidBillController {
 											
 											if (hmTaxCalDtl.size() > 0) {
 												List<clsTaxCalculation> listTaxCal = hmTaxCalDtl.get(objBillDtlModel.getStrRevenueCode());
-												for (clsTaxCalculation objTaxCal : listTaxCal) {
-													clsBillTaxDtlModel objBillTaxDtl = new clsBillTaxDtlModel();
-													objBillTaxDtl.setStrDocNo(objBillDtlModel.getStrDocNo());
-													objBillTaxDtl.setStrTaxCode(objTaxCal.getStrTaxCode());
-													objBillTaxDtl.setStrTaxDesc(objTaxCal.getStrTaxDesc());
-													objBillTaxDtl.setDblTaxableAmt(objTaxCal.getDblTaxableAmt());
-													objBillTaxDtl.setDblTaxAmt(objTaxCal.getDblTaxAmt());
-													listBillTaxModels.add(objBillTaxDtl);
+												if(listTaxCal!=null)
+												{
+													for (clsTaxCalculation objTaxCal : listTaxCal) {
+														clsBillTaxDtlModel objBillTaxDtl = new clsBillTaxDtlModel();
+														objBillTaxDtl.setStrDocNo(objBillDtlModel.getStrDocNo());
+														objBillTaxDtl.setStrTaxCode(objTaxCal.getStrTaxCode());
+														objBillTaxDtl.setStrTaxDesc(objTaxCal.getStrTaxDesc());
+														objBillTaxDtl.setDblTaxableAmt(objTaxCal.getDblTaxableAmt());
+														objBillTaxDtl.setDblTaxAmt(objTaxCal.getDblTaxAmt());
+														listBillTaxModels.add(objBillTaxDtl);
+													}
 												}
 											}
 										}
@@ -394,15 +397,18 @@ public class clsVoidBillController {
 										
 										if (hmTaxCalDtl.size() > 0) {
 											List<clsTaxCalculation> listTaxCal = hmTaxCalDtl.get(objBillDtlModel.getStrRevenueCode());
-											for (clsTaxCalculation objTaxCal : listTaxCal) {
-												clsVoidBillTaxDtlModel objVoidBillTaxDtl = new clsVoidBillTaxDtlModel();
-												objVoidBillTaxDtl.setStrDocNo(objBillDtlModel.getStrDocNo());
-												objVoidBillTaxDtl.setStrTaxCode(objTaxCal.getStrTaxCode());
-												objVoidBillTaxDtl.setStrTaxDesc(objTaxCal.getStrTaxDesc());
-												objVoidBillTaxDtl.setDblTaxableAmt(objTaxCal.getDblTaxableAmt());
-												objVoidBillTaxDtl.setDblTaxAmt(objTaxCal.getDblTaxAmt());
-												listVoidBillTaxDtlModels.add(objVoidBillTaxDtl);
-											}
+											if(listTaxCal!=null)
+											{
+												for (clsTaxCalculation objTaxCal : listTaxCal) {
+													clsVoidBillTaxDtlModel objVoidBillTaxDtl = new clsVoidBillTaxDtlModel();
+													objVoidBillTaxDtl.setStrDocNo(objBillDtlModel.getStrDocNo());
+													objVoidBillTaxDtl.setStrTaxCode(objTaxCal.getStrTaxCode());
+													objVoidBillTaxDtl.setStrTaxDesc(objTaxCal.getStrTaxDesc());
+													objVoidBillTaxDtl.setDblTaxableAmt(objTaxCal.getDblTaxableAmt());
+													objVoidBillTaxDtl.setDblTaxAmt(objTaxCal.getDblTaxAmt());
+													listVoidBillTaxDtlModels.add(objVoidBillTaxDtl);
+												}
+												}
 										}
 									}
 								}

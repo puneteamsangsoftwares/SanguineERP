@@ -389,7 +389,13 @@ public class clsPostRoomTerrifController {
 		clsCheckInHdModel objHdModel = objCheckInService.funGetCheckInData(objFolioHd.getStrCheckInNo().toString(), clientCode);
 
 		clsReservationHdModel objModel = objReservationService.funGetReservationList(objHdModel.getStrReservationNo(), clientCode, propCode);
-
+		if(objModel==null)
+		{
+			objModel=new clsReservationHdModel();
+			objModel.setStrGroupCode("");
+			objModel.setStrDontApplyTax("");
+		}
+		
 		Map<String, List<clsTaxCalculation>> hmTaxCalDtl = new HashedMap<String, List<clsTaxCalculation>>();
 		listTaxProdDtl.add(objTaxProductDtl);
 		if(objFolioHd.getStrRoom().equalsIgnoreCase("Y"))
