@@ -2604,7 +2604,7 @@
 		  <div>
 		      <div class="container transtable"  style="background-color:#f2f2f2;">
 				 <div class="row" style="padding:10px;">
-				            <!-- Start of Tarif Tab -->
+				  <!-- Start of Tarif Tab -->
 
 	              <!-- Generate Dynamic Table   -->		
 	                   <br/><br/><br/>

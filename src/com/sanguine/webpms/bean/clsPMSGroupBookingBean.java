@@ -1,8 +1,9 @@
 package com.sanguine.webpms.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.sanguine.webpms.model.clsPMSGroupBookingDtlModel;
+import com.sanguine.webpms.model.clsRoomPackageDtl;
 
 public class clsPMSGroupBookingBean{
 //Variable Declaration
@@ -113,8 +114,12 @@ public class clsPMSGroupBookingBean{
 	private String strUserEdited;
 
 	private String strClientCode;
+	
+	private String strPackageCode;
 
 	private List<clsPMSGroupBookingDetailBean> listPMSGroupBookingDetailBean;
+	
+	private List<clsRoomPackageDtl> listRoomPackageDtl = new ArrayList<clsRoomPackageDtl>();
 	
 	//Setter-Getter Methods
 	public String getStrReservationID(){
@@ -217,6 +222,12 @@ public class clsPMSGroupBookingBean{
 
 	public String getStrCompCode(){
 		return strCompCode;
+	}
+	public List<clsRoomPackageDtl> getListRoomPackageDtl() {
+		return listRoomPackageDtl;
+	}
+	public void setListRoomPackageDtl(List<clsRoomPackageDtl> listRoomPackageDtl) {
+		this.listRoomPackageDtl = listRoomPackageDtl;
 	}
 	public void setStrCompCode(String strCompCode){
 		this.strCompCode=strCompCode;

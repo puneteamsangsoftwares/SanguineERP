@@ -24,7 +24,10 @@ padding-left:1px;
 </style>
 <script type="text/javascript">
 	
-	var fieldName,gridHelpRow,gNoOfRoom;
+	var fieldName,gridHelpRow;
+	var gset1 = new Set();
+	var gcount;
+	
 	
      $(document).ready(function(){
 	    
@@ -357,6 +360,7 @@ padding-left:1px;
 		
 		function funFillHdDataAgainstRes(response)
 		{
+			gcount=response.intNoRoomsBooked;
 			$("#txtDocNo").val(response.strReservationNo);
 			
 			$("#txtArrivalDate").val(response.dteArrivalDate);
@@ -374,7 +378,6 @@ padding-left:1px;
 		    
 		    $("#txtPackageCode").val(response.strPackageCode);
 			$("#txtPackageName").val(response.strPackageName);
-			gNoOfRoom=response.strNoRoomsBooked;
 			rTypeCode = response.listReservationDetailsBean[0].strRoomType;
 		    funRemoveProductRowsForIncomeHead();
 			funRemoveTariffRows();
@@ -538,7 +541,6 @@ padding-left:1px;
 		//Function to add detail grid rows	
 		function funAddDetailsRow(guestName,guestCode,mobileNo,roomNo,roomDesc,extraBedCode,extraBedDesc,payee,roomTypeCode) 
 		{
-			
 		    var table = document.getElementById("tblCheckInDetails");
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
@@ -550,8 +552,7 @@ padding-left:1px;
 		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;margin-left: -44%;background-color: #dcdada94;\" class=\"searchTextBox\"  name=\"listCheckInDetailsBean["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+(rowCount)+"\" value='"+roomNo+"'  ondblclick=\"Javacsript:funHelp1('roomByRoomType',"+(rowCount)+",'"+roomTypeCode+"' )\"/>";
 		    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" style=\"width:73%;margin-left: -44%\"  id=\"strRoomDesc."+(rowCount)+"\" value='"+roomDesc+"' />";
 		    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;margin-left: -55%;background-color: #dcdada94;\" class=\"searchTextBox\"  name=\"listCheckInDetailsBean["+(rowCount)+"].strExtraBedCode\" id=\"strExtraBedCode."+(rowCount)+"\" value='"+extraBedCode+"' ondblclick=\"Javacsript:funHelp1('extraBed',"+(rowCount)+",'')\" />";
-		    
-		     
+		   
 		    if(payee=='Y')
 		    {
 		    	row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" style=\"margin-left: -605%;\" class=\"Box payeeSel\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\"  value=\"Y\" onClick=\"Javacsript:funCheckBoxRow(this)\"  />";
@@ -579,8 +580,7 @@ padding-left:1px;
 	     row.insertCell(9).innerHTML= "<input size=\"1%\" name=\"listCheckInDetailsBean["+(rowCount)+"].strGuestCode\" id=\"strGuestCode."+(rowCount)+"\" value='"+guestCode+"' type='hidden' />";
 	    row.insertCell(10).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" id=\"strExtraBedDesc."+(rowCount)+"\" value='"+extraBedDesc+"' />";
 	    row.insertCell(11).innerHTML= "<input type=\"hidden\" class=\"Box \" name=\"listCheckInDetailsBean["+(rowCount)+"].strRoomType\" id=\"strRoomType."+(rowCount)+"\" value='"+roomTypeCode+"' >"; 
-	    funResetDetailFields();
-	    
+	    funResetDetailFields(); 
 	    if(payee=='Y')
 	    {
 	    	$("#hidPayee").val(guestCode);
@@ -1164,16 +1164,25 @@ padding-left:1px;
 						table.deleteRow(0);
 						rowCount--;
 					}
+					
 				}
 				
-				
-			//Function to Delete Selected Row From Grid
+				//Function to Delete Selected Row From Grid
 				function funDeleteRow(obj)
 				{
 				    var index = obj.parentNode.parentNode.rowIndex;
 				    var table = document.getElementById("tblCheckInDetails");
+				    var roomNo=obj.parentNode.parentNode.cells[3].firstElementChild.value;
+				    var id="strRoomNo."+index;
+				    var roomNo1=document.getElementById(id);
 				    table.deleteRow(index);
+				    if(gset1.has(roomNo)){
+				    	gset1.delete(roomNo);
+				    	 
+				    }
+				    
 				}
+			
 
 
 				function funHelp(transactionName)
@@ -1186,12 +1195,15 @@ padding-left:1px;
 				function funHelp1(transactionName,row,condition)
 				{
 					gridHelpRow=row;
-					fieldName=transactionName;
+					fieldName=transactionName;	
 					if(transactionName=="roomByRoomType")
 					{
-						condition= document.getElementById("strRoomType."+row).value;
-						window.open("searchform.html?formname="+fieldName+"&strRoomTypeCode="+condition+"&searchText=","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
-					
+						
+						
+							condition= document.getElementById("strRoomType."+row).value;
+							window.open("searchform.html?formname="+fieldName+"&strRoomTypeCode="+condition+"&searchText=","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
+							
+						
 					}
 					else if(transactionName=="roomType")
 					{
@@ -1202,6 +1214,7 @@ padding-left:1px;
 					{
 						window.open("searchform.html?formname="+transactionName+"&searchText=","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
 					}
+					
 				}
 				
 				
@@ -1365,11 +1378,20 @@ padding-left:1px;
 						        			}
 						        		else
 					        			{
-							        		document.getElementById("strRoomNo."+gridHelpRow).value=response.strRoomCode;						
-							    			document.getElementById("strRoomDesc."+gridHelpRow).value=response.strRoomDesc;
-							    			document.getElementById("strRoomTypeDesc."+gridHelpRow).value=response.strRoomTypeDesc;						
-							    			document.getElementById("strRoomType."+gridHelpRow).value=response.strRoomTypeCode;
-							    			 $( "#tblCheckInDetails" ).load( "your-current-page.html #tblCheckInDetails" );
+						        			
+											
+											if(gset1.size>=gcount){
+												alert("Room Not available");
+											}
+											else{
+												gset1.add(response.strRoomCode);
+												document.getElementById("strRoomNo."+gridHelpRow).value=response.strRoomCode;						
+								    			document.getElementById("strRoomDesc."+gridHelpRow).value=response.strRoomDesc;
+								    			document.getElementById("strRoomTypeDesc."+gridHelpRow).value=response.strRoomTypeDesc;						
+								    			document.getElementById("strRoomType."+gridHelpRow).value=response.strRoomTypeCode;
+								    			 $( "#tblCheckInDetails" ).load( "your-current-page.html #tblCheckInDetails" );
+											}
+							        		
 							    		//	document.getElementById("strPayee."+gridHelpRow).value=response.strRoomDesc; 
 							        	}
 						        	}

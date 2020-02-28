@@ -123,6 +123,10 @@ function funOpenGroupBooking(value) {
 			case "roomType":
 				funSetRoomType(code);
 				break;
+				
+			case "incomeHead":
+				funSetIncomeHead(code);
+				break;
 		}
 	}
 	function funSetGuestCode(code){
@@ -475,17 +479,267 @@ function funSetRoomType(code){
 				}
 			}
 			
+			//package tab code
+			
+			//add income head
+	function funAddIncomeHeadRow(incomeHeadCode,incomeHeadName,incomeHeadAmt)
+	{
+		/*var incomeHeadCode=$("#txtIncomeHead").val();
+		var incomeHeadName=$("#txtIncomeHeadName").val();
+		var incomeHeadAmt=$("#txtIncomeHeadAmt").val(); 
+		*/var amount="0.0";
+		
+		var flag=false;
+		flag=funChechDuplicate(incomeHeadCode);
+		if(flag)
+		{
+			alert("Already Added.");
+		}
+		else
+		{
+			var table=document.getElementById("tblIncomeHeadDtl");
+			var rowCount=table.rows.length;
+			var row=table.insertRow();
+			
+			var incomehead = $("#hidIncomeHead").val();
+			
+			if(!incomehead==''){
+				incomehead=incomehead+","+incomeHeadCode;
+				 $("#hidIncomeHead").val(incomehead);
+			}
+			else{
+				$("#hidIncomeHead").val(incomeHeadCode);
+				
+			}
+			
+			
+			 
+	 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:50%;\"  name=\"listRoomPackageDtl["+(rowCount)+"].strIncomeHeadCode\"    id=\"strIncomeHeadCode."+(rowCount)+"\" value='"+incomeHeadCode+"' >";
+	 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:50%;\" name=\"listRoomPackageDtl["+(rowCount)+"].strIncomeHeadName\"   id=\"strIncomeHeadDesc."+(rowCount)+"\" value='"+incomeHeadName+"' >";
+	 	    row.insertCell(2).innerHTML= "<input type=\"readonly\"   class=\"Box \"  style=\"text-align:right;\" name=\"listRoomPackageDtl["+(rowCount)+"].dblIncomeHeadAmt\"   id=\"dblIncomeRate."+(rowCount)+"\" value='"+incomeHeadAmt+"' >";
+	 	    row.insertCell(3).innerHTML= "<input type=\"button\" value=\"\" style=\"padding-right: 5px;width:80%;text-align: right;\" class=\"deletebutton\" onclick=\"funRemoveRow(this)\" />";
+					
+		//calculate totals
+			funCalculateTotals();
+		
+			//$("#txtIncomeHead").val('');
+			//$("#dblIncomeHeadAmt").val('');
+		}
+	}
+			
+			
+
+
+	function funAddRow()
+		{
+			var flag=false;
+			
+			/* 
+			if($("#txtIncomeHead").val().trim().length==0)
+			{
+				alert("Please Select Income Head.");
+			} */
+			
+			if($("#txtIncomeHead").val().trim().length==0)
+			{
+				alert("Please Select Income Head.");
+			}
+			else
+			{
+				if($("#txtIncomeHeadAmt").val().trim().length==0)
+				{
+					alert("Please Enter Amount For Income Head.");
+				}
+				else
+				{
+					flag=true;
+					funAddIncomeHeadRow($("#txtIncomeHead").val(),$("#txtIncomeHeadName").val(),$("#txtIncomeHeadAmt").val());
+					$("#txtIncomeHead").val("");
+					$("#txtIncomeHeadName").val("");
+					$("#txtIncomeHeadAmt").val("");
+					
+					
+				}
+			}		
+			return flag;
+		}
+
+	
+	function funSetIncomeHead(code)
+	{
+		$("#txtIncomeHeadCode").val(code);
+		var searchurl=getContextPath()+"/loadIncomeHeadMasterData.html?incomeCode="+code;
+		 $.ajax({
+			        type: "GET",
+			        url: searchurl,
+			        dataType: "json",
+			        success: function(response)
+			        {
+			        	if(response.strIncomeHeadCode=='Invalid Code')
+			        	{
+			        		alert("Invalid Income Head Code");
+			        		$("#txtIncomeHeadCode").val('');
+			        	}
+			        	else
+			        	{
+			        		funfillIncomHeadGrid(response);
+			        	}
+					},
+					error: function(jqXHR, exception) {
+			            if (jqXHR.status === 0) {
+			                alert('Not connect.n Verify Network.');
+			            } else if (jqXHR.status == 404) {
+			                alert('Requested page not found. [404]');
+			            } else if (jqXHR.status == 500) {
+			                alert('Internal Server Error [500].');
+			            } else if (exception === 'parsererror') {
+			                alert('Requested JSON parse failed.');
+			            } else if (exception === 'timeout') {
+			                alert('Time out error.');
+			            } else if (exception === 'abort') {
+			                alert('Ajax request aborted.');
+			            } else {
+			                alert('Uncaught Error.n' + jqXHR.responseText);
+			            }		            
+			        }
+		      });
+		}
+		function funfillIncomHeadGrid(data){
+				
+				$("#txtIncomeHead").val(data.strIncomeHeadCode);
+				$("#txtIncomeHeadName").val(data.strIncomeHeadDesc);
+			 
+				//funAddIncomeHeadRow();
+				
+				//$("#txtIncomeHead").val('');
+				//$("#txtIncomeHeadName").text('');
+			
+			}
+		
+		function funChechDuplicate(incomeHeadCode)
+		{
+			var flag=false;
+			var table=document.getElementById("tblIncomeHeadDtl");
+			var rowCount=table.rows.length;
+			if(rowCount>0)
+			{
+			    for(var i=0;i<rowCount;i++)
+			    {
+			       var containsAccountCode=table.rows[i].cells[0].innerHTML;
+			       var addedIHCode=$(containsAccountCode).val();
+			       if(addedIHCode==incomeHeadCode)
+			       {
+			    	   flag=true;
+			    	   break;
+			       }
+			    }
+			}
+			return flag;
+		}
+		
+		
+		//calculate totals
+		function funCalculateTotals()
+		{			
+			
+			var totalAmt=0.00;
+			var table=document.getElementById("tblIncomeHeadDtl");
+			var rowCount=table.rows.length;
+			if(rowCount>0)
+			{
+			    for(var i=0;i<rowCount;i++)
+			    {
+			    	var containsAccountCode=table.rows[i].cells[2].innerHTML;
+			       	totalAmt=totalAmt+parseFloat($(containsAccountCode).val());
+			    }
+			   	totalAmt=parseFloat(totalAmt).toFixed(maxAmountDecimalPlaceLimit);
+			}
+			//$("#dblTotalAmt").text(totalAmt);
+			
+			//For tarrif
+			
+		/* 	
+			totalTarriff=0;
+			if(document.getElementById("tblRommRate").rows.length>0)
+			{
+				for(var i=0;i<document.getElementById("tblRommRate").rows.length;i++)
+			    {
+					var objName =document.getElementById("dblRoomRate."+i);
+			        totalTarriff=totalTarriff+parseFloat(objName.value);
+			    }
+				totalTarriff=parseFloat(totalTarriff).toFixed(maxAmountDecimalPlaceLimit);
+			}
+			$("#txtTotalAmt").val(totalTarriff);  */
+			
+			var table=document.getElementById("tblTotalPackageDtl");
+			var rowCount=table.rows.length;
+			while(rowCount>0)
+			{table.deleteRow(0);
+			   rowCount--;
+			}
+			var row=table.insertRow();
+			row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 56%;width:100%; font-size:13px; font-weight: bold;text-align:right; \"  id=\"strPackageDesc."+(rowCount)+"\" value='Total' >";
+	 	    row.insertCell(1).innerHTML= "<input type=\"text\" class=\"Box \"  style=\"text-align:right; font-size:13px; font-weight: bold;width:95%;\"  id=\"dblIncomeRate."+(rowCount)+"\" value='"+totalAmt+"' >";
+	 	    
+	 	    row=table.insertRow();
+			row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 67%;width:100%; font-size:13px; font-weight: bold;text-align:right; \"  id=\"strPackageDesc."+(rowCount)+"\" value='Room Tarrif' >";
+		    row.insertCell(1).innerHTML= "<input type=\"readonly\"   class=\"Box \" style=\"text-align:right; font-size:13px; font-weight: bold;width:95%;\"  id=\"dblIncomeRate."+(rowCount)+"\" value='"+totalTarriff+"' >";
+		    var totalPkgAmt=0;
+		    var rowCount=table.rows.length;
+		    if(rowCount>0)
+			{
+			    for(var i=0;i<rowCount;i++)
+			    {
+			    	var containsAccountCode=table.rows[i].cells[1].innerHTML;
+			    	totalPkgAmt=totalPkgAmt+parseFloat($(containsAccountCode).val());
+			    }
+			    totalPkgAmt=parseFloat(totalPkgAmt).toFixed(maxAmountDecimalPlaceLimit);
+			}
+		    row=table.insertRow();
+			row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 70%;width:100%; font-size:13px; font-weight: bold;text-align:right; \"  id=\"strPackageDesc."+(rowCount)+"\" value='Total Package' >";
+		    row.insertCell(1).innerHTML= "<input type=\"text\" class=\"Box \"  style=\"text-align:right; font-size:13px; font-weight: bold;width:95%;\"  id=\"dblIncomeRate."+(rowCount)+"\" value='"+totalPkgAmt+"' >";
+		    $("#txtTotalPackageAmt").val(totalPkgAmt);
+		}
+		
+
+/* funValidation code
+	 if(document.getElementById("tblIncomeHeadDtl").rows.length>0)
+			        {
+			        	var table = document.getElementById("tblTotalPackageDtl");
+					    var rowCount = table.rows.length;
+						if(rowCount>0)
+						{
+							if($("#txtPackageName").val()=='')
+							 {
+								alert("Please Enter Package Name");
+								flg=false;
+							 }
+						}
+			        } */
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 	
 </script>
 
 </head>
 <body>	
 	 <div class="container">
-		<label id="formHeading">Group Booking</label>
+		<label id="formHeading">Group Reservation</label>
 		<s:form name="CompanyMaster" method="POST" action="savePMSGroupBooking.html">
 	 <br>
 	<div id="multiAccordion">	
-		<h3><a href="#">Group Booking Details</a></h3>
+		<h3><a href="#">Group Reservation Details</a></h3>
 			<div>
 				<div class="container transtable" style="background-color:#f2f2f2;">
 					<div class="row" style="padding-bottom:12px">
@@ -747,10 +1001,120 @@ function funSetRoomType(code){
 					</tbody>
 				</table>
 			</div>	
-	    </div> 
+	    </div>	
+</div></div>
+
+<!-- table package stars -->
+
+
+  <h3><a href="#">Package</a></h3>
+		<div>
+		<div class="container transtable"  style="background-color:#f2f2f2;">
+			<div class="row">
+				
+	 	     	<div class="col-md-2"><label>Package Code</label>
+			    	<s:input id="txtPackageCode" path=""  readonly="true"  ondblclick="funHelp('package')" cssClass="searchTextBox"/>
+				 </div>
+			 
+			    <div class="col-md-3"><label>Package Name</label>
+			    	<s:input id="txtPackageName" path=""/>
+				</div>
+				<div class="col-md-7"></div>
+				
+			    <div class="col-md-2"><label>Income Head</label>
+			    	<s:input id="txtIncomeHead" path=""  readonly="true"  ondblclick="funHelp('incomeHead')" cssClass="searchTextBox"/>
+			    </div>
+			    
+			    <div class="col-md-3"><label>Income Head Name</label>
+				    <input type="text" id="txtIncomeHeadName" path="" />
+				</div> 
+			
+			    <div class="col-md-2"><label>Amount</label>
+			    	<input type="text" id="txtIncomeHeadAmt" path=""/>
+			    </div>
+			    <div class="col-md-1"><br><input type="button" value="Add" class="btn btn-primary center-block" class="smallButton" onclick='return funAddRow()'/>
+			    </div>
+			
+				<s:input type="hidden" id="txtGroupCode" path="strGroupCode" cssClass="searchTextBox" />
+			    
+			
+		   </div>
+		<br/>
+		<!-- Generate Dynamic Table   -->		
+		<div class="dynamicTableContainer" style="height: 320px; width: 80%">
+			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
+				<tr bgcolor="#c0c0c0" style="height: 24px;">
+					<!-- col1   -->
+					<td align="left" style="width: 30.6%">Income Head Code</td>
+					<!-- col1   -->
+					
+					<!-- col2   -->
+					<td align="left" style="width: 30.6%">Income Head Name</td>
+					<!-- col2   -->
+					
+					<!-- col3   -->
+					<td align="right" style="width: 25.6%">Amount</td>
+					<!-- col3   -->
+					
+					<!-- col4   -->
+					<td align="right">Delete</td>
+					<!-- col4  -->									
+				</tr>
+			</table>
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblIncomeHeadDtl" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col3-center">
+					<tbody>
+						<!-- col1   -->
+						<col width="100%">
+						<!-- col1   -->
+						
+						<!-- col2   -->
+						<col width="100%" >
+						<!-- col2   -->
+						
+						<!-- col3   -->
+						<col width="100%" >
+						<!-- col3   -->
+						
+						<!-- col4   -->
+						<col  width="10%">
+						<!-- col4   -->
+					</tbody>
+				</table>
+			</div>	
+			
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 120px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblTotalPackageDtl" style="width: 100%; border: #0F0; font-size:15px; font-weight: bold; table-layout: fixed; overflow: scroll" class="display dataTable no-footer">
+					<tbody>
+						<!-- col1   -->
+						<col width="100%" >
+						<!-- col1   -->
+						
+						<!-- col2   -->
+						<col width="100%" >
+						<!-- col2   -->
+						
+						<!-- col3   -->
+						<col  width="10%">
+						<!-- col3   -->
+					</tbody>
+				</table>
+			</div>		
+		</div>		
+	 
+	 </div>
+	</div>
 	
 	
-</div></div></div>
+	
+	<!-- table package ends -->
+
+
+
+
+
+
+</div>
 	<div class="center" style="text-align:center">
 		<button class="btn btn-primary center-block" id="" onclick="">SAVE</button> &nbsp;
 		<button class="btn btn-primary center-block" id="" onclick="">CANCEL</button> &nbsp;
