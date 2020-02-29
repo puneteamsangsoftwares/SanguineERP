@@ -487,8 +487,10 @@ public class clsReservationController {
 				objPkgHdModel=new clsPackageMasterHdModel();
 				objPkgHdModel.setStrPackageCode(packageCode);
 				objPkgHdModel.setStrPackageName(objBean.getStrPackageName());
+				int noOfPax=objBean.getIntNoOfAdults()+objBean.getIntNoOfChild();
+				
 				objPkgHdModel.setDblPackageAmt(Double.valueOf(objBean.getStrTotalPackageAmt()));
-				objPkgHdModel.setStrUserCreated(userCode);
+			    objPkgHdModel.setStrUserCreated(userCode);
 				objPkgHdModel.setStrUserEdited(userCode);
 				objPkgHdModel.setDteDateCreated(PMSDate);
 				objPkgHdModel.setDteDateEdited(PMSDate);
@@ -501,7 +503,7 @@ public class clsReservationController {
 				for (clsRoomPackageDtl objPkgDtlBean : objBean.getListRoomPackageDtl()) 
 				{
 					insertSql+=",('','"+objHdModel.getStrReservationNo()+"','' "
-							+ ",'"+packageCode+"','"+objPkgDtlBean.getStrIncomeHeadCode()+"','"+Double.valueOf(objPkgDtlBean.getDblIncomeHeadAmt())+"'"
+							+ ",'"+packageCode+"','"+objPkgDtlBean.getStrIncomeHeadCode()+"','"+Double.valueOf(objPkgDtlBean.getDblIncomeHeadAmt())*noOfPax+"'"
 							+ ",'IncomeHead','','"+clientCode+"')";
 						flgData=true;
 						

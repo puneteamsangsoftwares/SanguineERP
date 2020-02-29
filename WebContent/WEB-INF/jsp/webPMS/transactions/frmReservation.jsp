@@ -2723,7 +2723,7 @@
 					<!-- col4  -->									
 				</tr>
 			</table>
-			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 148px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblIncomeHeadDtl" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col3-center">
 					<tbody>
 						<!-- col1   -->
