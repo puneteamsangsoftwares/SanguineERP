@@ -177,12 +177,12 @@
 		<div class="row transTable">
 			<div class="col-md-2">
 				<label id="lblFromDate">From Date</label>
-			     <s:input id="txtFromDate" name="fromDate" path="dtFromDate" cssClass="calenderTextBox"/>
+			     <s:input id="txtFromDate" name="fromDate" path="dtFromDate" cssClass="calenderTextBox" style="width:70%;"/>
 			      <s:errors path="dtFromDate"></s:errors>
 			 </div> 
 			 <div class="col-md-2">   
 				<label id="lblToDate">To Date</label>
-			  	<s:input id="txtToDate" name="toDate" path="dtToDate" cssClass="calenderTextBox"/>
+			  	<s:input id="txtToDate" name="toDate" path="dtToDate" cssClass="calenderTextBox" style="width:70%;"/>
 			    <s:errors path="dtToDate"></s:errors>
 			 </div> 
 			 <div class="col-md-2">   
@@ -197,7 +197,7 @@
 					<label>Supplier</label>
 				    <s:input id="txtSuppCode"  ondblclick="funHelp('suppcode')" Class="searchTextBox" path="strSuppCode" placeholder="All Supplier" />
 			  </div>
-			  <div class="col-md-2">   
+			  <div class="col-md-4">   
 					<label id="txtSuppName" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px; text-align:center;"></label>
 			</div>
 			<div class="col-md-2"> 	

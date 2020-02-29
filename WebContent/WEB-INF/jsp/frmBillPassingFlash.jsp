@@ -8,14 +8,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
 	
-	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	  <%--   <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
 	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
 	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+        <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-	
-
+	 --%>
 <script>
 
 		$(document).ready(function(){
@@ -26,13 +24,13 @@
  	    	var arr1= startDateOfMonth.split("-");
  			Dat=arr1[2]+"-"+arr1[1]+"-"+arr1[0];
 			$("#dtFromDate").datepicker({
-				dateFormat : 'yy-mm-dd'
+				dateFormat : 'dd-mm-yy'
 			});
 			$("#dtFromDate").datepicker('setDate', Dat);	
 			
 			
 			$("#dtToDate").datepicker({
-				dateFormat : 'yy-mm-dd'
+				dateFormat : 'dd-mm-yy'
 			});
 			$("#dtToDate").datepicker('setDate', 'today');	
 		});
@@ -234,7 +232,7 @@
 						cssClass="searchTextBox" ondblclick="funHelp('suppcode')" />
 			</div>
 			<div class="col-md-2">
-				<label style="background-color:#dcdada94; width: 100%; height: 42%; margin: 23px 0px; text-align: center;" id="lblSuppName">All Supplier </label>	
+				<label style="background-color:#dcdada94; width: 190%; height: 42%; margin: 23px 0px; text-align: center;" id="lblSuppName">All Supplier </label>	
 			</div>
 			<div class="col-md-4"></div>	
 			<div class="col-md-2">	

@@ -345,8 +345,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 			    var row = table.insertRow(rowCount);
 
 	 			row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"10%\" name=\"listReqDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+StandReqData[0]+"' />";
-				row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"40%\" name=\"listReqDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+StandReqData[1]+"' />";
-				row.insertCell(2).innerHTML= "<input class=\"Box\" readonly=\"readonly\" size=\"5%\" name=\"listReqDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value='"+StandReqData[2]+"' />";
+				row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"53%\" name=\"listReqDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+StandReqData[1]+"' />";
+				row.insertCell(2).innerHTML= "<input class=\"Box\" readonly=\"readonly\" size=\"8%\" name=\"listReqDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value='"+StandReqData[2]+"' />";
 			    row.insertCell(3).innerHTML= "<input type=\"text\"  required = \"required\" required = \"required\" name=\"listReqDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\" value="+StandReqData[3]+" onblur=\"funUpdatePrice(this);\"  class=\"decimal-places inputText-Auto QtyCell\">";	    
 			    row.insertCell(4).innerHTML= "<input type= type=\"text\" readonly=\"readonly\" required = \"required\" name=\"listReqDtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\" value="+parseFloat(StandReqData[4]).toFixed(parseInt(maxAmountDecimalPlaceLimit))+"  class=\"decimal-places inputText-Auto\">";		    
 			    row.insertCell(5).innerHTML= "<input type= readonly=\"true\" class=\"Box totalValueCell\" style=\"text-align: right;\" size=\"10%\" name=\"listReqDtl["+(rowCount)+"].dblTotalPrice\" id=\"dblTotalPrice."+(rowCount)+"\" value="+parseFloat(StandReqData[5]).toFixed(parseInt(maxAmountDecimalPlaceLimit))+">";
@@ -598,20 +598,20 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 		    dblTotalPrice = parseFloat(dblTotalPrice).toFixed(parseInt(maxAmountDecimalPlaceLimit));
 		    //alert(dblTotalPrice);
  			row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"10%\" name=\"listReqDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
-			row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"60%\" name=\"listReqDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
-			row.insertCell(2).innerHTML= "<input class=\"Box\" readonly=\"readonly\" size=\"5%\" name=\"listReqDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value='"+strUOM+"' />";
-		    row.insertCell(3).innerHTML= "<input type=\"text\"  required = \"required\" required = \"required\" name=\"listReqDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\" value="+parseFloat(dblQty).toFixed(parseInt(maxAmountDecimalPlaceLimit))+" onblur=\"funUpdatePrice(this);\"  class=\"decimal-places inputText-Auto QtyCell\">";	    
+			row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"53%\" name=\"listReqDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
+			row.insertCell(2).innerHTML= "<input class=\"Box\" readonly=\"readonly\" size=\"8%\" name=\"listReqDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value='"+strUOM+"' />";
+		    row.insertCell(3).innerHTML= "<input type=\"text\" size=\"8%\" style=\"border: 1px solid #b7adad; padding: 2px;text-align: right;\" required = \"required\" required = \"required\" name=\"listReqDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\" value="+parseFloat(dblQty).toFixed(parseInt(maxAmountDecimalPlaceLimit))+" onblur=\"funUpdatePrice(this);\"  class=\"decimal-places inputText-Auto QtyCell\">";	    
 		    if(showReqVal=="N")
 	    	{
-		    	 row.insertCell(4).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" required = \"required\" name=\"listReqDtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\" value="+parseFloat(dblUnitPrice).toFixed(parseInt(maxAmountDecimalPlaceLimit))+"  class=\"decimal-places inputText-Auto\">";		    
-				 row.insertCell(5).innerHTML= "<input type=\"hidden\" readonly=\"true\" class=\"Box totalValueCell\" style=\"text-align: right;\" size=\"10%\" name=\"listReqDtl["+(rowCount)+"].dblTotalPrice\" id=\"dblTotalPrice."+(rowCount)+"\" value="+parseFloat(dblTotalPrice).toFixed(parseInt(maxAmountDecimalPlaceLimit))+">";
+		    	 row.insertCell(4).innerHTML= "<input type=\"hidden\" style=\"border: 1px solid #b7adad; padding: 2px;text-align:right;\" readonly=\"readonly\" required = \"required\" name=\"listReqDtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\" value="+parseFloat(dblUnitPrice).toFixed(parseInt(maxAmountDecimalPlaceLimit))+"  class=\"decimal-places inputText-Auto\">";		    
+				 row.insertCell(5).innerHTML= "<input type=\"hidden\" readonly=\"true\" class=\"Box totalValueCell\" style=\"text-align: right;\" size=\"11%\" name=\"listReqDtl["+(rowCount)+"].dblTotalPrice\" id=\"dblTotalPrice."+(rowCount)+"\" value="+parseFloat(dblTotalPrice).toFixed(parseInt(maxAmountDecimalPlaceLimit))+">";
 	    	}
 		    else
 		    {
-		    	 row.insertCell(4).innerHTML= "<input type=\"text\" readonly=\"readonly\" required = \"required\" name=\"listReqDtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\" value="+parseFloat(dblUnitPrice).toFixed(parseInt(maxAmountDecimalPlaceLimit))+"  class=\"decimal-places inputText-Auto\">";		    
-				 row.insertCell(5).innerHTML= "<input readonly=\"true\" class=\"Box totalValueCell\" style=\"text-align: right;\" size=\"10%\" name=\"listReqDtl["+(rowCount)+"].dblTotalPrice\" id=\"dblTotalPrice."+(rowCount)+"\" value="+parseFloat(dblTotalPrice).toFixed(parseInt(maxAmountDecimalPlaceLimit))+">";
+		    	 row.insertCell(4).innerHTML= "<input type=\"text\" style=\"border: 1px solid #b7adad; padding: 2px;text-align:right;\" readonly=\"readonly\" required = \"required\" name=\"listReqDtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\" value="+parseFloat(dblUnitPrice).toFixed(parseInt(maxAmountDecimalPlaceLimit))+"  class=\"decimal-places inputText-Auto\">";		    
+				 row.insertCell(5).innerHTML= "<input readonly=\"true\" class=\"Box totalValueCell\" style=\"text-align: right;\" size=\"11%\" name=\"listReqDtl["+(rowCount)+"].dblTotalPrice\" id=\"dblTotalPrice."+(rowCount)+"\" value="+parseFloat(dblTotalPrice).toFixed(parseInt(maxAmountDecimalPlaceLimit))+">";
 		    }
-		    row.insertCell(6).innerHTML= "<input size=\"17%\" name=\"listReqDtl["+(rowCount)+"].strRemarks\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'>";		    
+		    row.insertCell(6).innerHTML= "<input size=\"20%\" name=\"listReqDtl["+(rowCount)+"].strRemarks\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'>";		    
 		    row.insertCell(7).innerHTML= '<input type="button" value = "Delete"  class="deletebutton" onClick="Javacsript:funDeleteRow(this)">'; 
 		   
 		}
@@ -703,19 +703,19 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 				row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"10%\" name=\"listReqDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
 				row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"40%\" name=\"listReqDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
 				row.insertCell(2).innerHTML= "<input class=\"Box\" readonly=\"readonly\" size=\"5%\" name=\"listReqDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value='"+strUOM+"' />";
-				row.insertCell(3).innerHTML= "<input type=\"text\" required = \"required\" name=\"listReqDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\"  value="+dblProdQty1+" onblur=\"funUpdatePrice(this);\"  class=\"decimal-places inputText-Auto QtyCell\" >";	    
+				row.insertCell(3).innerHTML= "<input type=\"text\" required = \"required\" size=\"8%\" style=\"border: 1px solid #b7adad; padding: 2px;text-align: right;\" name=\"listReqDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\"  value="+dblProdQty1+" onblur=\"funUpdatePrice(this);\"  class=\"decimal-places inputText-Auto QtyCell\" >";	    
 				if(showReqVal=="N")
 				{
-				   	row.insertCell(4).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" required = \"required\" name=\"listReqDtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\"  value="+dblUnitPrice+"  class=\"decimal-places inputText-Auto\">";		    
-				    row.insertCell(5).innerHTML= "<input type=\"hidden\" readonly=\"true\"  class=\"Box totalValueCell\" style=\"text-align: right;\" size=\"10%\" name=\"listReqDtl["+(rowCount)+"].dblTotalPrice\" id=\"dblTotalPrice."+(rowCount)+"\"  value="+dblTotalPrice+">";
+				   	row.insertCell(4).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" required = \"required\" style=\"border: 1px solid #b7adad; padding: 2px;text-align: right;\" name=\"listReqDtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\"  value="+dblUnitPrice+"  class=\"decimal-places inputText-Auto\">";		    
+				    row.insertCell(5).innerHTML= "<input type=\"hidden\" readonly=\"true\"  class=\"Box totalValueCell\" style=\"text-align: right;\" size=\"11%\" name=\"listReqDtl["+(rowCount)+"].dblTotalPrice\" id=\"dblTotalPrice."+(rowCount)+"\"  value="+dblTotalPrice+">";
 				}
 				else
 				{
-				    row.insertCell(4).innerHTML= "<input type=\"text\" readonly=\"readonly\" required = \"required\" name=\"listReqDtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\"  value="+dblUnitPrice+"  class=\"decimal-places inputText-Auto\">";		    
-					row.insertCell(5).innerHTML= "<input class=\"Box totalValueCell\" style=\"text-align: right;\" size=\"10%\" name=\"listReqDtl["+(rowCount)+"].dblTotalPrice\" id=\"dblTotalPrice."+(rowCount)+"\" readonly=\"true\"  value="+dblTotalPrice+">";
+				    row.insertCell(4).innerHTML= "<input type=\"text\" readonly=\"readonly\" required = \"required\" style=\"border: 1px solid #b7adad; padding: 2px;text-align:right;\" name=\"listReqDtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\"  value="+dblUnitPrice+"  class=\"decimal-places inputText-Auto\">";		    
+					row.insertCell(5).innerHTML= "<input class=\"Box totalValueCell\" style=\"text-align: right;\" size=\"11%\" name=\"listReqDtl["+(rowCount)+"].dblTotalPrice\" id=\"dblTotalPrice."+(rowCount)+"\" readonly=\"true\"  value="+dblTotalPrice+">";
 				}
 					
-				row.insertCell(6).innerHTML= "<input size=\"17%\" name=\"listReqDtl["+(rowCount)+"].strRemarks\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'>";		    
+				row.insertCell(6).innerHTML= "<input size=\"20%\" name=\"listReqDtl["+(rowCount)+"].strRemarks\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'>";		    
 				row.insertCell(7).innerHTML= '<input type="button" value = "Delete"  class="deletebutton" onClick="Javacsript:funDeleteRow(this)">'; 
 	 			row.insertCell(8).innerHTML= "<input type=\"hidden\" size=\"0%\" name=\"listReqDtl["+(rowCount)+"].strNonStockableItem\"  value='"+strNonStkableItem+"' />";
 	 			listRow++;
@@ -1242,7 +1242,7 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 			<div class="col-md-2">	
 				<label>UOM</label>
 				<s:select id="cmbUOM" name="cmbUOM"
-						path="strUOM" items="${uomList}" cssClass="BoxW124px"/>
+						path="strUOM" items="${uomList}"/>
 			</div>
 			<div class="col-md-2">	
 				<label>Unit Price</label> 
@@ -1266,16 +1266,16 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px;
 					font-weight: bold;">
 				<tr bgcolor="#c0c0c0" style="height: 24px;">
-					<td width="4%"  style="padding-left: 4px">Prod Code</td>
+					<td width="4%"  style="padding-left: 15px">Prod Code</td>
 					<!-- col1   -->
 					<!-- 					<th width="12%">Pos Item Code</th>col2   -->
 					<td width="8%">Prod name</td>
 					<!-- col3   -->
-					<td width="2%">UOM</td>
+					<td width="2%" style="padding-left: 30px;">UOM</td>
 					<!-- col4   -->
-					<td width="1%">Qty</td>
+					<td width="1%" style="padding-left: 8px;">Qty</td>
 					<!-- col5   -->
-					<td width="2%">Unit Price</td>
+					<td width="2%" style="padding-left: 8px;">Unit Price</td>
 					<!-- col6   -->
 					<td width="3%">Total Price</td>
 					<!-- col7  -->

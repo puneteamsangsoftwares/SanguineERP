@@ -140,7 +140,7 @@ function funSetData(code)
 			<div class="col-md-8"></div>
 			
 			<div class="col-md-2"><label >Supplier</label>
-				   <s:input id="txtSuppCode"  path="strSuppCode"  readonly="true" ondblclick="funHelp('suppcodeActive')" cssClass="searchTextBox jQKeyboard form-control"/>
+				   <s:input id="txtSuppCode"  path="strSuppCode" style="background-color: #fff;" readonly="true" ondblclick="funHelp('suppcodeActive')" cssClass="searchTextBox jQKeyboard form-control"/>
 			</div>
 			
 			<div class="col-md-2">

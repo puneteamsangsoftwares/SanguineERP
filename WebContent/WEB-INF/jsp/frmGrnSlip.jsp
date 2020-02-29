@@ -18,7 +18,7 @@
  
  <style> 
  .masterTable td {
-    padding-left: 39px;
+    padding-left: 30px;
  }
  </style>
     
@@ -140,8 +140,8 @@
 				    var row = table.insertRow(rowCount);
 				    
 				    row.insertCell(0).innerHTML= "<input id=\"cbSuppSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" name=\"suppthemes\" value='"+strSuppCode+"' class=\"suppCheckBoxClass\" />";
-				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strSuppCode."+(rowCount)+"\" value='"+strSuppCode+"' >";
-				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strSuppName."+(rowCount)+"\" value='"+strSuppName+"' >";
+				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" style=\"font-size: 13px;\" id=\"strSuppCode."+(rowCount)+"\" value='"+strSuppCode+"' >";
+				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"40%\" style=\"font-size: 13px;\" id=\"strSuppName."+(rowCount)+"\" value='"+strSuppName+"' >";
 				}
 			   
     	     //Remove Table data when pass a table ID as parameter
@@ -239,15 +239,15 @@
 			
 		 </div>
 	
-		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width:50%; overflow-x: hidden; overflow-y: scroll;">
 
 						<table id="" class="masterTable"
 							style="width: 100%; border-collapse: separate;">
 							<tbody>
 								<tr bgcolor="#c0c0c0">
-									<td width="10%"><input type="checkbox" id="chkSuppALL"
+									<td width="12%"><input type="checkbox" id="chkSuppALL"
 										onclick="funCheckUnchecksupp()" />Select</td>
-									<td width="25%">Supplier Code</td>
+									<td width="28%">Supplier Code</td>
 									<td width="65%">Supplier Name</td>
 
 								</tr>
@@ -289,7 +289,7 @@
 
 	  </div>
 
-		<p align="center" style="margin-right: 5%;">
+		<p align="center" style="margin-right:12%;">
 			<input type="submit" value="Submit" onclick="return funCallFormAction('submit',this)" class="btn btn-primary center-block" class="form_button"/>
 			&nbsp;
 		    <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" />

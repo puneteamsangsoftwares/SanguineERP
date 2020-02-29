@@ -189,29 +189,29 @@
 			//var cmbCurrency=$("#cmbCurrency").val();
 			//var currValue=funGetCurrencyCode(cmbCurrency);
 			
-		    row.insertCell(0).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box prodCode\" size=\"8%\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"'>";
-		    row.insertCell(1).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"20%\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"' >";
+		    row.insertCell(0).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box prodCode\" size=\"9%\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"'>";
+		    row.insertCell(1).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"17%\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"' >";
 		    unitPrice=unitPrice/currValue;
 		    dblDiscount=dblDiscount/currValue;
 		    totalPrice=totalPrice/currValue;
-		    row.insertCell(2).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblQtyRbl\"    required = \"required\" size=\"7%\" style=\"text-align: right;width:100%\" readonly=\"readonly\" class=\"decimal-places inputText-Auto\" id=\"txtQtyRec."+(rowCount)+"\" value='"+qtyrecb+" '>"; 
-		    row.insertCell(3).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDCQty\" type=\"text\"  required = \"required\" size=\"6%\" style=\"text-align: right;width:100%\" class=\"decimal-places inputText-Auto\" id=\"txtDCQty."+(rowCount)+"\" value="+dcQty+">";
-		    row.insertCell(4).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDCWt\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtDCWt."+(rowCount)+"\" value=0>";
-		    row.insertCell(5).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"6%\" class=\"decimal-places inputText-Auto QtyCell\" id=\"txtQuantity1."+(rowCount)+"\" value='"+qtyrecevd+"' onblur=\"funUpdatePrice(this);\" >";
-		    row.insertCell(6).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblFreeQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"6%\" class=\"decimal-places inputText-Auto QtyCell\" id=\"txtFreeQty1."+(rowCount)+"\" value='"+freeQuantity+"' onblur=\"funUpdatePrice(this);\" >";
+		    row.insertCell(2).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblQtyRbl\"    required = \"required\" size=\"7%\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" readonly=\"readonly\" class=\"decimal-places inputText-Auto\" id=\"txtQtyRec."+(rowCount)+"\" value='"+qtyrecb+" '>"; 
+		    row.insertCell(3).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDCQty\" type=\"text\"  required = \"required\" size=\"6%\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto\" id=\"txtDCQty."+(rowCount)+"\" value="+dcQty+">";
+		    row.insertCell(4).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDCWt\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtDCWt."+(rowCount)+"\" value=0>";
+		    row.insertCell(5).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"6%\" class=\"decimal-places inputText-Auto QtyCell\" id=\"txtQuantity1."+(rowCount)+"\" value='"+qtyrecevd+"' onblur=\"funUpdatePrice(this);\" >";
+		    row.insertCell(6).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblFreeQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"6%\" class=\"decimal-places inputText-Auto QtyCell\" id=\"txtFreeQty1."+(rowCount)+"\" value='"+freeQuantity+"' onblur=\"funUpdatePrice(this);\" >";
 
 		    
-		    row.insertCell(7).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"5%\" class=\"decimal-places inputText-Auto\" id=\"txtWtUnit."+(rowCount)+"\" value='"+unitWeight+"'>";
+		    row.insertCell(7).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"5%\" class=\"decimal-places inputText-Auto\" id=\"txtWtUnit."+(rowCount)+"\" value='"+unitWeight+"'>";
 		    row.insertCell(8).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblTotalWt\" class=\"Box totalWeightCell\" readonly=\"readonly\" size=\"3%\" style=\"text-align: right;\"  id=\"txtTotalWeight."+(rowCount)+"\" value="+totalweight+">";
-		    row.insertCell(9).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblRejected\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"7%\" class=\"decimal-places inputText-Auto RejCell\"id=\"txtRejected."+(rowCount)+"\" value=0 onblur=\"funUpdatePrice(this);\">";
+		    row.insertCell(9).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblRejected\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"7%\" class=\"decimal-places inputText-Auto RejCell\"id=\"txtRejected."+(rowCount)+"\" value=0 onblur=\"funUpdatePrice(this);\">";
 		    row.insertCell(8).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" size=\"5%\" id=\"txtUOM."+(rowCount)+"\" value="+uom+">";
 		    if($("#hidstrRateEditableYN").val()=="No")
 		    {
-		    row.insertCell(11).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\"  type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"6%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtCostRM."+(rowCount)+"\" value='"+unitPrice+"'>";
+		    row.insertCell(11).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\"  type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"6%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtCostRM."+(rowCount)+"\" value='"+unitPrice+"'>";
 			}else{
-				row.insertCell(11).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblUnitPrice\"  type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"6%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtCostRM."+(rowCount)+"\" value='"+unitPrice+"'>";	
-			}row.insertCell(12).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDiscount\" type=\"text\" required = \"required\" style=\"text-align: right;width:100%\"  size=\"6%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtDiscount."+(rowCount)+"\" value='"+dblDiscount+"' onblur=\"funUpdatePrice(this);\" >";
-		    row.insertCell(13).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblPackForw\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\"  size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtPack."+(rowCount)+"\" value=0 onblur=\"funUpdatePrice(this);\" >";
+				row.insertCell(11).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblUnitPrice\"  type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"6%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtCostRM."+(rowCount)+"\" value='"+unitPrice+"'>";	
+			}row.insertCell(12).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDiscount\" type=\"text\" required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\"  size=\"6%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtDiscount."+(rowCount)+"\" value='"+dblDiscount+"' onblur=\"funUpdatePrice(this);\" >";
+		    row.insertCell(13).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblPackForw\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\"  size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtPack."+(rowCount)+"\" value=0 onblur=\"funUpdatePrice(this);\" >";
 		    row.insertCell(14).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblTotalPrice\" class=\"Box totalPriceCell\" readonly=\"readonly\" style=\"text-align: right;\" size=\"7%\" id=\"txtTotalPrice."+(rowCount)+"\" value='"+totalPrice+"' >";
 		    row.insertCell(15).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strRemarks\" style=\"text-align: right;\" size=\"17%\"  id=\"txtRemark."+(rowCount)+"\" value='"+""+"'>";
 		    row.insertCell(16).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblPOWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\"  size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtPOWt."+(rowCount)+"\" value=0>";
@@ -543,27 +543,27 @@
 		    var row = table.insertRow(rowCount);		   
 		    rowCount=listRow;
 		   
-		    row.insertCell(0).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box prodCode\" size=\"8%\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"'>";
-		    row.insertCell(1).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"20%\"  id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"' >";
+		    row.insertCell(0).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box prodCode\" size=\"9%\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"'>";
+		    row.insertCell(1).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"17%\"  id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"' >";
 		   
 		    
-		    row.insertCell(2).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblQtyRbl\" readonly=\"readonly\" type=\"text\"  required = \"required\" size=\"7%\" style=\"text-align: right;width:100%\" class=\"decimal-places inputText-Auto QtyRecable\" id=\"txtQtyRec."+(rowCount)+"\" value='"+qtyrecb+"'>";
-		    row.insertCell(3).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDCQty\" type=\"text\"  required = \"required\" size=\"6%\" style=\"text-align: right;width:100%\" class=\"decimal-places inputText-Auto\" id=\"txtDCQty."+(rowCount)+"\" value='"+dcQty+"'>";
-		    row.insertCell(4).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDCWt\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtDCWt."+(rowCount)+"\" value='"+dcWt+"'>";
-		    row.insertCell(5).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"6%\" class=\"decimal-places inputText-Auto QtyCell\" id=\"txtQuantity1."+(rowCount)+"\" value='"+qtyrecevd+"' onblur=\"funUpdatePrice(this);\">";
-		    row.insertCell(6).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblFreeQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"6%\" class=\"decimal-places inputText-Auto QtyCell\" id=\"txtFreeQty1."+(rowCount)+"\" value='"+freeQuantity+"' onblur=\"funUpdatePrice(this);\">";
-		    row.insertCell(7).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"5%\" class=\"decimal-places inputText-Auto\" id=\"txtWtUnit."+(rowCount)+"\" value="+wtunit+">";
+		    row.insertCell(2).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblQtyRbl\" readonly=\"readonly\" type=\"text\"  required = \"required\" size=\"7%\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto QtyRecable\" id=\"txtQtyRec."+(rowCount)+"\" value='"+qtyrecb+"'>";
+		    row.insertCell(3).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDCQty\" type=\"text\"  required = \"required\" size=\"6%\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto\" id=\"txtDCQty."+(rowCount)+"\" value='"+dcQty+"'>";
+		    row.insertCell(4).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDCWt\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtDCWt."+(rowCount)+"\" value='"+dcWt+"'>";
+		    row.insertCell(5).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"6%\" class=\"decimal-places inputText-Auto QtyCell\" id=\"txtQuantity1."+(rowCount)+"\" value='"+qtyrecevd+"' onblur=\"funUpdatePrice(this);\">";
+		    row.insertCell(6).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblFreeQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"6%\" class=\"decimal-places inputText-Auto QtyCell\" id=\"txtFreeQty1."+(rowCount)+"\" value='"+freeQuantity+"' onblur=\"funUpdatePrice(this);\">";
+		    row.insertCell(7).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"5%\" class=\"decimal-places inputText-Auto\" id=\"txtWtUnit."+(rowCount)+"\" value="+wtunit+">";
 		    row.insertCell(8).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblTotalWt\" class=\"Box totalWeightCell\" readonly=\"readonly\" size=\"6%\" style=\"text-align: right;\" id=\"txtTotalWeight."+(rowCount)+"\" value="+totalWt+">";
-		    row.insertCell(9).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblRejected\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" class=\"decimal-places inputText-Auto RejCell\" size=\"7%\" id=\"txtRejected."+(rowCount)+"\" value='"+rejected+"' onblur=\"funUpdatePrice(this);\">";
+		    row.insertCell(9).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblRejected\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto RejCell\" size=\"7%\" id=\"txtRejected."+(rowCount)+"\" value='"+rejected+"' onblur=\"funUpdatePrice(this);\">";
 		    row.insertCell(10).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" size=\"5%\" id=\"txtUOM."+(rowCount)+"\" value="+strUOM+">";
 		    if($("#hidstrRateEditableYN").val()=="No")
 		    {
-		    	row.insertCell(11).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" class=\"decimal-places-amt inputText-Auto price\" size=\"6%\" id=\"txtCostRM."+(rowCount)+"\" value='"+unitPrice+"' onblur=\"funUpdatePrice(this);\">";
+		    	row.insertCell(11).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places-amt inputText-Auto price\" size=\"6%\" id=\"txtCostRM."+(rowCount)+"\" value='"+unitPrice+"' onblur=\"funUpdatePrice(this);\">";
 		    }else{
-		    	row.insertCell(11).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblUnitPrice\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" class=\"decimal-places-amt inputText-Auto price\" size=\"6%\" id=\"txtCostRM."+(rowCount)+"\" value='"+unitPrice+"' onblur=\"funUpdatePrice(this);\">";
+		    	row.insertCell(11).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblUnitPrice\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places-amt inputText-Auto price\" size=\"6%\" id=\"txtCostRM."+(rowCount)+"\" value='"+unitPrice+"' onblur=\"funUpdatePrice(this);\">";
 		    }
-		    row.insertCell(12).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDiscount\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" class=\"decimal-places-amt inputText-Auto txtDisc\" size=\"6%\" id=\"txtDiscount."+(rowCount)+"\" value='"+disc+"' onblur=\"funUpdatePrice(this);\">";
-		    row.insertCell(13).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblPackForw\"type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" class=\"decimal-places inputText-Auto\" size=\"6%\" id=\"txtPack."+(rowCount)+"\" value="+packforward+" onblur=\"funUpdatePrice(this);\">";
+		    row.insertCell(12).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDiscount\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places-amt inputText-Auto txtDisc\" size=\"6%\" id=\"txtDiscount."+(rowCount)+"\" value='"+disc+"' onblur=\"funUpdatePrice(this);\">";
+		    row.insertCell(13).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblPackForw\"type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto\" size=\"6%\" id=\"txtPack."+(rowCount)+"\" value="+packforward+" onblur=\"funUpdatePrice(this);\">";
 		    row.insertCell(14).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblTotalPrice\" class=\"Box totalPriceCell\" readonly=\"readonly\" style=\"text-align: right;\" size=\"7%\" id=\"txtTotalPrice."+(rowCount)+"\" value="+totalPrice+">";
 		    row.insertCell(15).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strRemarks\"  size=\"17%\"  id=\"txtRemark."+(rowCount)+"\" value='"+remarks+"'>";
 		    row.insertCell(16).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblPOWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" class=\"decimal-places inputText-Auto\"  size=\"6%\" id=\"txtPOWt."+(rowCount)+"\" value="+poWt+">";
@@ -1446,10 +1446,10 @@
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount)+"\" value='"+taxCode+"' >";
-		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
-		    row.insertCell(2).innerHTML= "<input type=\"number\" class=\"Box\" step=\"any\" required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" size=\"15.5%\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
-		    row.insertCell(3).innerHTML= "<input type=\"number\" class=\"Box\" step=\"any\" required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" size=\"15.5%\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount)+"\" value='"+taxCode+"' >";
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"22%\" style=\"margin-left: -17%;\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
+		    row.insertCell(2).innerHTML= "<input type=\"number\" class=\"Box\" step=\"any\" required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;margin-left: -70%;width: 164%;\" size=\"20.5%\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
+		    row.insertCell(3).innerHTML= "<input type=\"number\" class=\"Box\" step=\"any\" required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;\" size=\"15.5%\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
 		    row.insertCell(4).innerHTML= '<input type="button" size=\"6%\" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteTaxRow(this)" >';
 		    
 		    funCalTaxTotal();
@@ -1495,10 +1495,10 @@
 		    taxableAmt=taxableAmt.toFixed(2);
 		    taxAmt=taxAmt.toFixed(2);
     	
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount)+"\" value='"+taxCode+"' >";
-		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
-		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" size=\"15.5%\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
-		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" size=\"15.5%\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount)+"\" value='"+taxCode+"' >";
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"22%\" style=\"margin-left: -17%;\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
+		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;margin-left: -70%;width: 164%;\" size=\"20.5%\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
+		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;/* margin-left: 0%; */;\" size=\"15.5%\" name=\"listGRNTaxDtl["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
 		    row.insertCell(4).innerHTML= '<input type="button" size=\"6%\" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteTaxRow(this)" >';
 		    
 		    funGetTaxForCheckTaxOnTax(taxCode);
@@ -1896,44 +1896,44 @@
 
 			row.insertCell(0).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
-					+ "].strProdCode\" readonly=\"readonly\" class=\"Box\" size=\"7%\" id=\"txtProdCode."
+					+ "].strProdCode\" readonly=\"readonly\" class=\"Box\" size=\"9%\" id=\"txtProdCode."
 					+ (rowCount) + "\" value=" + prodCode + ">";
 			row.insertCell(1).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
-					+ "].strProdName\" readonly=\"readonly\" size=\"20%\" class=\"Box\"  id=\"lblProdName."
+					+ "].strProdName\" readonly=\"readonly\" size=\"17%\" class=\"Box\"  id=\"lblProdName."
 					+ (rowCount) + "\" value='" + prodName + "' >";
 			
 			
 					
 			row.insertCell(2).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
-					+ "].dblQtyRbl\" type=\"text\" required = \"required\" readonly=\"readonly\" size=\"7%\" style=\"text-align: right;width:100%\" class=\"decimal-places inputText-Auto\" id=\"txtQtyRec."
+					+ "].dblQtyRbl\" type=\"text\" required = \"required\" readonly=\"readonly\" size=\"7%\" style=\"text-align:right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto\" id=\"txtQtyRec."
 					+ (rowCount) + "\" value=" + qtyrecb + ">";
 			row.insertCell(3).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
-					+ "].dblDCQty\" type=\"text\" required = \"required\" size=\"6%\" style=\"text-align: right;width:100%\" class=\"decimal-places inputText-Auto\" id=\"txtDCQty."
+					+ "].dblDCQty\" type=\"text\" required = \"required\" size=\"6%\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto\" id=\"txtDCQty."
 					+ (rowCount) + "\" value=" + dcQty + ">";
 			row.insertCell(4).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
-					+ "].dblDCWt\" type=\"text\" required = \"required\" style=\"text-align: right;width:100%\" size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtDCWt."
+					+ "].dblDCWt\" type=\"text\" required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtDCWt."
 					+ (rowCount) + "\" value=" + dcWt + ">";
 			row.insertCell(5).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
-					+ "].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"6%\" class=\"decimal-places inputText-Auto QtyCell\" id=\"txtQuantity1."
+					+ "].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"6%\" class=\"decimal-places inputText-Auto QtyCell\" id=\"txtQuantity1."
 					+ (rowCount) + "\" value=" + qtyrecevd
 					+ " onblur=\"funUpdatePrice(this);\" >";
 					
 					
 					row.insertCell(6).innerHTML = "<input name=\"listGRNDtl["
 						+ (rowCount)
-						+ "].dblFreeQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"6%\" class=\"decimal-places inputText-Auto QtyCell\" id=\"txtFreeQty1."
+						+ "].dblFreeQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"6%\" class=\"decimal-places inputText-Auto QtyCell\" id=\"txtFreeQty1."
 						+ (rowCount) + "\" value=" + freeQuantity
 						+ " onblur=\"funUpdatePrice(this);\" >";
 					
 					
 		   row.insertCell(7).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
-					+ "].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"5%\" class=\"decimal-places inputText-Auto\" id=\"txtWtUnit."
+					+ "].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"5%\" class=\"decimal-places inputText-Auto\" id=\"txtWtUnit."
 					+ (rowCount) + "\" value=" + wtunit + ">";
 			row.insertCell(8).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
@@ -1941,7 +1941,7 @@
 					+ (rowCount) + "\" value=" + totalWt + ">";
 			row.insertCell(9).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
-					+ "].dblRejected\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"7%\" class=\"decimal-places inputText-Auto RejCell\" id=\"txtRejected."
+					+ "].dblRejected\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"7%\" class=\"decimal-places inputText-Auto RejCell\" id=\"txtRejected."
 					+ (rowCount) + "\" value=" + rejected + " onblur=\"funUpdatePrice(this);\">";
 			row.insertCell(10).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
@@ -1949,15 +1949,15 @@
 					+ (rowCount) + "\" value=" + uom + ">";
 			row.insertCell(11).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
-					+ "].dblUnitPrice\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"6%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtCostRM."
+					+ "].dblUnitPrice\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"6%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtCostRM."
 					+ (rowCount) + "\" value='" + unitPrice + "' onblur=\"funUpdatePrice(this);\">";
 			row.insertCell(12).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
-					+ "].dblDiscount\" type=\"text\" required = \"required\" style=\"text-align: right;width:100%\"  size=\"6%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtDiscount."
+					+ "].dblDiscount\" type=\"text\" required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\"  size=\"6%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtDiscount."
 					+ (rowCount) + "\" value=" + disc + " onblur=\"funUpdatePrice(this);\">";
 			row.insertCell(13).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
-					+ "].dblPackForw\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\"  size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtPack."
+					+ "].dblPackForw\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\"  size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtPack."
 					+ (rowCount) + "\" value=" + packforward + " onblur=\"funUpdatePrice(this);\">";
 			row.insertCell(14).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
@@ -1970,7 +1970,7 @@
 					+ (rowCount) + "\" value='" + remarks + "'>";
 			row.insertCell(16).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
-					+ "].dblPOWeight\"type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\"  size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtPOWt."
+					+ "].dblPOWeight\"type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\"  size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtPOWt."
 					+ (rowCount) + "\" value=" + poWt + ">";
 					
 					if(strReqCode!="" || strNONStkble=="No" )
@@ -1994,7 +1994,7 @@
 
 			row.insertCell(20).innerHTML = "<input name=\"listGRNDtl["
 					+ (rowCount)
-					+ "].dblRework\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"5%\" class=\"decimal-places inputText-Auto\" id=\"txtRework."
+					+ "].dblRework\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"5%\" class=\"decimal-places inputText-Auto\" id=\"txtRework."
 					+ (rowCount) + "\" value=" + rework + ">";
 			row.insertCell(21).innerHTML = "<input type=\"hidden\" id=\"txtTempTax."
 					+ (rowCount) + "\" size=\"0%\" value=" + gTaxAmount + ">";
@@ -3217,22 +3217,22 @@
 		    var row = table.insertRow(rowCount);		   
 		    rowCount=listRow;
 		   
-		    row.insertCell(0).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box prodCode\" size=\"8%\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"'>";
-		    row.insertCell(1).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"20%\"  id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"' >";
+		    row.insertCell(0).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box prodCode\" size=\"9%\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"'>";
+		    row.insertCell(1).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"17%\"  id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"' >";
 		   
 		    
-		    row.insertCell(2).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblQtyRbl\" readonly=\"readonly\" type=\"text\"  required = \"required\" size=\"7%\" style=\"text-align: right;width:100%\" class=\"decimal-places inputText-Auto QtyRecable\" id=\"txtQtyRec."+(rowCount)+"\" value='"+qtyrecb+"'>";
-		    row.insertCell(3).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDCQty\" type=\"text\"  required = \"required\" size=\"6%\" style=\"text-align: right;width:100%\" class=\"decimal-places inputText-Auto\" id=\"txtDCQty."+(rowCount)+"\" value='"+dcQty+"'>";
-		    row.insertCell(4).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDCWt\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtDCWt."+(rowCount)+"\" value='"+dcWt+"'>";
-		    row.insertCell(5).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"6%\" class=\"decimal-places inputText-Auto QtyCell\" id=\"txtQuantity1."+(rowCount)+"\" value='"+qtyrecevd+"' onblur=\"funUpdatePrice(this);\">";
-		    row.insertCell(6).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"5%\" class=\"decimal-places inputText-Auto\" id=\"txtWtUnit."+(rowCount)+"\" value="+wtunit+">";
-		    row.insertCell(7).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblTotalWt\" class=\"Box totalWeightCell\" readonly=\"readonly\" size=\"6%\" style=\"text-align: right;\" id=\"txtTotalWeight."+(rowCount)+"\" value="+totalWt+">";
-		    row.insertCell(8).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblRejected\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" class=\"decimal-places inputText-Auto RejCell\" size=\"7%\" id=\"txtRejected."+(rowCount)+"\" value='"+rejected+"' onblur=\"funUpdatePrice(this);\">";
-		    row.insertCell(9).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" size=\"5%\" id=\"txtUOM."+(rowCount)+"\" value="+strUOM+">";
+		    row.insertCell(2).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblQtyRbl\" readonly=\"readonly\" type=\"text\"  required = \"required\" size=\"7%\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto QtyRecable\" id=\"txtQtyRec."+(rowCount)+"\" value='"+qtyrecb+"'>";
+		    row.insertCell(3).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDCQty\" type=\"text\"  required = \"required\" size=\"6%\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto\" id=\"txtDCQty."+(rowCount)+"\" value='"+dcQty+"'>";
+		    row.insertCell(4).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDCWt\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtDCWt."+(rowCount)+"\" value='"+dcWt+"'>";
+		    row.insertCell(5).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"6%\" class=\"decimal-places inputText-Auto QtyCell\" id=\"txtQuantity1."+(rowCount)+"\" value='"+qtyrecevd+"' onblur=\"funUpdatePrice(this);\">";
+		    row.insertCell(6).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"5%\" class=\"decimal-places inputText-Auto\" id=\"txtWtUnit."+(rowCount)+"\" value="+wtunit+">";
+		    row.insertCell(7).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblTotalWt\" class=\"Box totalWeightCell\" readonly=\"readonly\" size=\"6%\" style=\"text-align: right;;border:1px solid #a2a2a2;padding:1px;\" id=\"txtTotalWeight."+(rowCount)+"\" value="+totalWt+">";
+		    row.insertCell(8).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblRejected\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;\" class=\"decimal-places inputText-Auto RejCell\" size=\"7%\" id=\"txtRejected."+(rowCount)+"\" value='"+rejected+"' onblur=\"funUpdatePrice(this);\">";
+		    row.insertCell(9).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" size=\"5%\" style=\"border:1px solid #a2a2a2;padding:1px;\"id=\"txtUOM."+(rowCount)+"\" value="+strUOM+">";
 		    row.insertCell(10).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblUnitPrice\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" class=\"decimal-places-amt inputText-Auto price\" size=\"6%\" id=\"txtCostRM."+(rowCount)+"\" value='"+unitPrice+"' onblur=\"funUpdatePrice(this);\">";
-		    row.insertCell(11).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDiscount\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" class=\"decimal-places-amt inputText-Auto txtDisc\" size=\"6%\" id=\"txtDiscount."+(rowCount)+"\" value='"+disc+"' onblur=\"funUpdatePrice(this);\">";
-		    row.insertCell(12).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblPackForw\"type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" class=\"decimal-places inputText-Auto\" size=\"6%\" id=\"txtPack."+(rowCount)+"\" value="+packforward+" onblur=\"funUpdatePrice(this);\">";
-		    row.insertCell(13).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblTotalPrice\" class=\"Box totalPriceCell\" readonly=\"readonly\" style=\"text-align: right;\" size=\"7%\" id=\"txtTotalPrice."+(rowCount)+"\" value="+totalPrice+">";
+		    row.insertCell(11).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDiscount\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places-amt inputText-Auto txtDisc\" size=\"6%\" id=\"txtDiscount."+(rowCount)+"\" value='"+disc+"' onblur=\"funUpdatePrice(this);\">";
+		    row.insertCell(12).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblPackForw\"type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto\" size=\"6%\" id=\"txtPack."+(rowCount)+"\" value="+packforward+" onblur=\"funUpdatePrice(this);\">";
+		    row.insertCell(13).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblTotalPrice\" class=\"Box totalPriceCell\" readonly=\"readonly\" style=\"text-align: right;;border:1px solid #a2a2a2;padding:1px;\" size=\"7%\" id=\"txtTotalPrice."+(rowCount)+"\" value="+totalPrice+">";
 		    row.insertCell(14).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strRemarks\"  size=\"17%\"  id=\"txtRemark."+(rowCount)+"\" value='"+remarks+"'>";
 		    row.insertCell(15).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblPOWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" class=\"decimal-places inputText-Auto\"  size=\"6%\" id=\"txtPOWt."+(rowCount)+"\" value="+poWt+">";
 		    
@@ -3688,11 +3688,11 @@ function funCalculateOtherChargesTotal()
 				</div><br>							
 				<div class="row transTable">
 					<div class="col-md-2"><label id="lblTotalWt">Total Weight</label>
-						 <input type="text" id="txtTotalWt" value="0.0" disabled="disabled"  class="decimal-places-amt numberField"/>
+						 <input type="text" id="txtTotalWt" value="0.0" style="background-color:#fff;" disabled="disabled"  class="decimal-places-amt numberField"/>
 					</div>
 									    
 					<div class="col-md-2"><label id="lblTotalQty">Total Quantity</label>
-						 <input id="txtTotalQty" type="text" value="0.0" disabled="disabled" class="decimal-places-amt numberField"/>
+						 <input id="txtTotalQty" type="text" value="0.0" style="background-color:#fff;" disabled="disabled" class="decimal-places-amt numberField"/>
 					</div>
 					<div class="col-md-2"><label id="lblSubTotal">Sub Total</label>
 							<s:input id="txtSubTotal" type="text"  path="dblSubTotal" readonly="true" cssClass="decimal-places-amt numberField"/>
@@ -3763,7 +3763,7 @@ function funCalculateOtherChargesTotal()
 					</div>
 				</div>
 					<br>
-						<table style="width: 100%;" class="transTablex col5-center">
+						<table style="width: 60%;margin:0px;" class="transTablex col5-center">
 							<tr style="background-color:#c0c0c0;">
 								<td style="width:10%">Tax Code</td>
 								<td style="width:7%">Description</td>
@@ -3773,7 +3773,7 @@ function funCalculateOtherChargesTotal()
 							</tr>							
 						</table>
 						<div style="background-color: #fbfafa;border: 1px solid #ccc;display: block; height: 150px;
-				    				margin: auto;overflow-x: hidden; overflow-y: scroll;width: 100%;">
+				    				overflow-x: hidden; overflow-y: scroll;width: 60%;">
 							<table id="tblTax" class="transTablex col5-center" style="width: 100%;">
 								<tbody>    
 									<col style="width:5%;"><!--  COl1   -->
@@ -3800,7 +3800,7 @@ function funCalculateOtherChargesTotal()
 								<label id="lblGRNGrandTotal" style="background-color:#dcdada94; width: 100%; height:55%;text-align:center;"></label>
 							</div>
 						</div>								
-					</div><br><br>
+					</div>
 							
 					<div id="tab3" class="tab_content"><br><br>
 						<div class="row masterTable" id="tblOtherCharges">

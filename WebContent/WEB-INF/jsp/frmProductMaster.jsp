@@ -32,6 +32,9 @@
 * html .ui-autocomplete {
     height: 200px;
 }
+.masterTable td{
+ padding-left:0px;
+}
 </style>
 
 <script type="text/javascript">
@@ -165,15 +168,15 @@ $(document).ready(function()
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    
-		    row.insertCell(0).innerHTML= "<input type=\"text\" readonly=\"readonly\" class=\"Box\" name=\"listProdSupp["+(rowCount)+"].strSuppCode\" id=\"txtSuppCode."+(rowCount)+"\" value="+supplierId+">";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" name=\"listProdSupp["+(rowCount)+"].strSuppName\" id=\"txtSuppName."+(rowCount)+"\" value='"+supplierName+"'>";
-		    row.insertCell(2).innerHTML= "<input class=\"inputText-Auto\" style=\"text-align: right;\" type=\"number\" step=\"any\" required = \"required\" name=\"listProdSupp["+(rowCount)+"].dblLastCost\" id=\"txtLastCost."+(rowCount)+"\" value="+lastCost+">";
-		    row.insertCell(3).innerHTML= "<input size=\"8%\" type=\"text\" name=\"listProdSupp["+(rowCount)+"].strUOM\" id=\"txtSuppUOM."+(rowCount)+"\" value="+UOM+">";
-		    row.insertCell(4).innerHTML= "<input size=\"9%\" type=\"text\" name=\"listProdSupp["+(rowCount)+"].dtLastDate\" id=\"txtLastDate."+(rowCount)+"\" value="+lastDate+">";
-		    row.insertCell(5).innerHTML= "<input size=\"6%\" type=\"text\" name=\"listProdSupp["+(rowCount)+"].strLeadTime\" id=\"txtLeadTime."+(rowCount)+"\" value="+leadTimeDays+">";
-		    row.insertCell(6).innerHTML= "<input class=\"inputText-Auto\" style=\"text-align: right;\" type=\"number\" step=\"any\" required = \"required\" name=\"listProdSupp["+(rowCount)+"].dblMaxQty\" id=\"txtMaxQty."+(rowCount)+"\" value="+maxQty+">";
-		    row.insertCell(7).innerHTML= "<input size=\"6%\" type=\"text\" name=\"listProdSupp["+(rowCount)+"].strSuppPartNo\" id=\"txtSuppItemCode."+(rowCount)+"\" value="+suppItemCode+">";
-		    row.insertCell(8).innerHTML= "<input size=\"8%\" type=\"text\" name=\"listProdSupp["+(rowCount)+"].strSuppPartDesc\" id=\"txtDesc."+(rowCount)+"\" value="+desc+" >";
+		    row.insertCell(0).innerHTML= "<input type=\"text\" readonly=\"readonly\" style=\"border:1px solid #a2a2a2;padding:1px;\" class=\"Box\" name=\"listProdSupp["+(rowCount)+"].strSuppCode\" id=\"txtSuppCode."+(rowCount)+"\" value="+supplierId+">";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"38%\" name=\"listProdSupp["+(rowCount)+"].strSuppName\" id=\"txtSuppName."+(rowCount)+"\" value='"+supplierName+"'>";
+		    row.insertCell(2).innerHTML= "<input class=\"inputText-Auto\" style=\"text-align: right;border:1px solid #a2a2a2;padding:1px;\" type=\"number\" step=\"any\" required = \"required\" name=\"listProdSupp["+(rowCount)+"].dblLastCost\" id=\"txtLastCost."+(rowCount)+"\" value="+lastCost+">";
+		    row.insertCell(3).innerHTML= "<input size=\"8%\" type=\"text\" style=\"border:1px solid #a2a2a2;padding:1px;\" name=\"listProdSupp["+(rowCount)+"].strUOM\" id=\"txtSuppUOM."+(rowCount)+"\" value="+UOM+">";
+		    row.insertCell(4).innerHTML= "<input size=\"9%\" type=\"text\" style=\"border:1px solid #a2a2a2;padding:1px;\" name=\"listProdSupp["+(rowCount)+"].dtLastDate\" id=\"txtLastDate."+(rowCount)+"\" value="+lastDate+">";
+		    row.insertCell(5).innerHTML= "<input size=\"6%\" type=\"text\" style=\"border:1px solid #a2a2a2;padding:1px;\" name=\"listProdSupp["+(rowCount)+"].strLeadTime\" id=\"txtLeadTime."+(rowCount)+"\" value="+leadTimeDays+">";
+		    row.insertCell(6).innerHTML= "<input class=\"inputText-Auto\" style=\"text-align: right;border:1px solid #a2a2a2;padding:1px;\" type=\"number\" step=\"any\" required = \"required\" name=\"listProdSupp["+(rowCount)+"].dblMaxQty\" id=\"txtMaxQty."+(rowCount)+"\" value="+maxQty+">";
+		    row.insertCell(7).innerHTML= "<input size=\"6%\" type=\"text\" style=\"border:1px solid #a2a2a2;padding:1px;\" name=\"listProdSupp["+(rowCount)+"].strSuppPartNo\" id=\"txtSuppItemCode."+(rowCount)+"\" value="+suppItemCode+">";
+		    row.insertCell(8).innerHTML= "<input size=\"8%\" type=\"text\" style=\"border:1px solid #a2a2a2;padding:1px;\" name=\"listProdSupp["+(rowCount)+"].strSuppPartDesc\" id=\"txtDesc."+(rowCount)+"\" value="+desc+" >";
 		    if(def == 'Y'){
 		    	row.insertCell(9).innerHTML= "<input size=\"2%\" type=\"radio\" name=\"listProdSupp.strDefault\" onClick=\"Javacsript:funSetDefaultSupp(this)\" id=\"txtDefault."+(rowCount)+"\" value="+def+" checked=\"checked\">";
 		    }else{
@@ -198,15 +201,15 @@ $(document).ready(function()
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    
-		    row.insertCell(0).innerHTML= "<input type=\"text\" readonly=\"readonly\" class=\"Box\" name=\"listProdSupp["+(rowCount)+"].strSuppCode\" id=\"txtSuppCode."+(rowCount)+"\" value="+supplierId+">";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" name=\"listProdSupp["+(rowCount)+"].strSuppName\" id=\"txtSuppName."+(rowCount)+"\" value='"+supplierName+"'>";
-		    row.insertCell(2).innerHTML= "<input class=\"inputText-Auto\" style=\"text-align: right;\" type=\"number\" step=\"any\" required = \"required\" name=\"listProdSupp["+(rowCount)+"].dblLastCost\" id=\"txtLastCost."+(rowCount)+"\" value="+lastCost+">";
-		    row.insertCell(3).innerHTML= "<input size=\"8%\" type=\"text\" name=\"listProdSupp["+(rowCount)+"].strUOM\" id=\"txtSuppUOM."+(rowCount)+"\" value="+UOM+">";
-		    row.insertCell(4).innerHTML= "<input size=\"9%\" type=\"text\" name=\"listProdSupp["+(rowCount)+"].dtLastDate\" id=\"txtLastDate."+(rowCount)+"\" value="+lastDate+">";
-		    row.insertCell(5).innerHTML= "<input size=\"8%\" type=\"text\" name=\"listProdSupp["+(rowCount)+"].strLeadTime\" id=\"txtLeadTime."+(rowCount)+"\" value="+leadTimeDays+">";
-		    row.insertCell(6).innerHTML= "<input class=\"inputText-Auto\" style=\"text-align: right;\" type=\"number\" step=\"any\" required = \"required\" name=\"listProdSupp["+(rowCount)+"].dblMaxQty\" id=\"txtMaxQty."+(rowCount)+"\" value="+maxQty+">";
-		    row.insertCell(7).innerHTML= "<input size=\"6%\" type=\"text\" name=\"listProdSupp["+(rowCount)+"].strSuppPartNo\" id=\"txtSuppItemCode."+(rowCount)+"\" value="+suppItemCode+">";
-		    row.insertCell(8).innerHTML= "<input size=\"6%\" type=\"text\" name=\"listProdSupp["+(rowCount)+"].strSuppPartDesc\" id=\"txtDesc."+(rowCount)+"\" value="+desc+">";
+		    row.insertCell(0).innerHTML= "<input type=\"text\" readonly=\"readonly\" style=\"border:1px solid #a2a2a2;padding:1px;\"class=\"Box\" name=\"listProdSupp["+(rowCount)+"].strSuppCode\" id=\"txtSuppCode."+(rowCount)+"\" value="+supplierId+">";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"38%\" name=\"listProdSupp["+(rowCount)+"].strSuppName\" id=\"txtSuppName."+(rowCount)+"\" value='"+supplierName+"'>";
+		    row.insertCell(2).innerHTML= "<input class=\"inputText-Auto\" style=\"text-align: right;border:1px solid #a2a2a2;padding:1px;\" type=\"number\" step=\"any\" required = \"required\" name=\"listProdSupp["+(rowCount)+"].dblLastCost\" id=\"txtLastCost."+(rowCount)+"\" value="+lastCost+">";
+		    row.insertCell(3).innerHTML= "<input size=\"8%\" type=\"text\" style=\"border:1px solid #a2a2a2;padding:1px;\" name=\"listProdSupp["+(rowCount)+"].strUOM\" id=\"txtSuppUOM."+(rowCount)+"\" value="+UOM+">";
+		    row.insertCell(4).innerHTML= "<input size=\"9%\" type=\"text\" style=\"border:1px solid #a2a2a2;padding:1px;\" name=\"listProdSupp["+(rowCount)+"].dtLastDate\" id=\"txtLastDate."+(rowCount)+"\" value="+lastDate+">";
+		    row.insertCell(5).innerHTML= "<input size=\"8%\" type=\"text\" style=\"border:1px solid #a2a2a2;padding:1px;\" name=\"listProdSupp["+(rowCount)+"].strLeadTime\" id=\"txtLeadTime."+(rowCount)+"\" value="+leadTimeDays+">";
+		    row.insertCell(6).innerHTML= "<input class=\"inputText-Auto\" style=\"text-align: right;border:1px solid #a2a2a2;padding:1px;\" type=\"number\" step=\"any\" required = \"required\" name=\"listProdSupp["+(rowCount)+"].dblMaxQty\" id=\"txtMaxQty."+(rowCount)+"\" value="+maxQty+">";
+		    row.insertCell(7).innerHTML= "<input size=\"6%\" type=\"text\" style=\"border:1px solid #a2a2a2;padding:1px;\" name=\"listProdSupp["+(rowCount)+"].strSuppPartNo\" id=\"txtSuppItemCode."+(rowCount)+"\" value="+suppItemCode+">";
+		    row.insertCell(8).innerHTML= "<input size=\"6%\" type=\"text\" style=\"border:1px solid #a2a2a2;padding:1px;\" name=\"listProdSupp["+(rowCount)+"].strSuppPartDesc\" id=\"txtDesc."+(rowCount)+"\" value="+desc+">";
 		    if(def == 'Y'){
 		    	$("#defaultSupplier").val(supplierId);
 		    	row.insertCell(9).innerHTML= "<input size=\"2%\" type=\"radio\" onClick=\"Javacsript:funSetDefaultSupp(this)\" name=\"listProdSupp.strDefault\" id=\"txtDefault."+(rowCount)+"\" value="+def+" checked=\"checked\">";		    	
@@ -377,13 +380,13 @@ $(document).ready(function()
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    
-		    row.insertCell(0).innerHTML= "<input name=\"listProdChar["+(rowCount)+"].strProcessCode\" class=\"Box\" id=\"txtProcessCode."+(rowCount)+"\" value="+processCode+">";
-		    row.insertCell(1).innerHTML= "<input name=\"listProdChar["+(rowCount)+"].strProcessName\" class=\"Box\" id=\"txtProcessName."+(rowCount)+"\" value="+processName+">";
-		    row.insertCell(2).innerHTML= "<input name=\"listProdChar["+(rowCount)+"].strCharCode\" class=\"Box\" id=\"txtCharCode."+(rowCount)+"\" value="+charCode+">";
-		    row.insertCell(3).innerHTML= "<input name=\"listProdChar["+(rowCount)+"].strCharName\" class=\"Box\" id=\"txtCharName."+(rowCount)+"\" value="+charName+">";
-		    row.insertCell(4).innerHTML= "<input name=\"listProdChar["+(rowCount)+"].strTollerance\" class=\"Box\" id=\"txtTolerance."+(rowCount)+"\" value="+tolerance+">";
-		    row.insertCell(5).innerHTML= "<input name=\"listProdChar["+(rowCount)+"].strSpecf\" class=\"Box\" id=\"txtSpec."+(rowCount)+"\" value="+spec+">";
-		    row.insertCell(6).innerHTML= "<input name=\"listProdChar["+(rowCount)+"].strGaugeNo\" class=\"Box\" id=\"strGaugeNo."+(rowCount)+"\" value="+guageNo+" >";
+		    row.insertCell(0).innerHTML= "<input name=\"listProdChar["+(rowCount)+"].strProcessCode\" class=\"Box\" style=\"width:98%;\" id=\"txtProcessCode."+(rowCount)+"\" value="+processCode+">";
+		    row.insertCell(1).innerHTML= "<input name=\"listProdChar["+(rowCount)+"].strProcessName\" class=\"Box\" style=\"width:98%;\" id=\"txtProcessName."+(rowCount)+"\" value="+processName+">";
+		    row.insertCell(2).innerHTML= "<input name=\"listProdChar["+(rowCount)+"].strCharCode\" class=\"Box\" style=\"width:98%;\" id=\"txtCharCode."+(rowCount)+"\" value="+charCode+">";
+		    row.insertCell(3).innerHTML= "<input name=\"listProdChar["+(rowCount)+"].strCharName\" class=\"Box\" style=\"width:98%;\" id=\"txtCharName."+(rowCount)+"\" value="+charName+">";
+		    row.insertCell(4).innerHTML= "<input name=\"listProdChar["+(rowCount)+"].strTollerance\" class=\"Box\"style=\"width:98%;\" id=\"txtTolerance."+(rowCount)+"\" value="+tolerance+">";
+		    row.insertCell(5).innerHTML= "<input name=\"listProdChar["+(rowCount)+"].strSpecf\" class=\"Box\" style=\"width:98%;\" id=\"txtSpec."+(rowCount)+"\" value="+spec+">";
+		    row.insertCell(6).innerHTML= "<input name=\"listProdChar["+(rowCount)+"].strGaugeNo\" class=\"Box\" style=\"width:98%;\" id=\"strGaugeNo."+(rowCount)+"\" value="+guageNo+" >";
 		    row.insertCell(7).innerHTML= '<input type="button" value = "Delete" class="deletebutton" onClick="Javacsript:funDeleteRowForCharacter(this)">';
 		    funResetCharFields();
 		    return false;
@@ -458,9 +461,9 @@ $(document).ready(function()
 		    
 		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  size=\"10%\" name=\"listReorderLvl["+(rowCount)+"].strLocationCode\" id=\"txtLocationCode."+(rowCount)+"\" value="+locCode+">";
 		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"45%\" name=\"listReorderLvl["+(rowCount)+"].strLocationName\" id=\"txtLocationName."+(rowCount)+"\" value='"+locName+"'>";
-		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%\" size=\"100%\" name=\"listReorderLvl["+(rowCount)+"].dblReOrderLevel\" id=\"txtReOrderLvl."+(rowCount)+"\" value="+reOrderLvl+">";
-		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%\" size=\"100%\" name=\"listReorderLvl["+(rowCount)+"].dblReOrderQty\" id=\"txtReOrderLvl."+(rowCount)+"\" value="+reOrderQty+">";
-		    row.insertCell(4).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%\" size=\"100%\" name=\"listReorderLvl["+(rowCount)+"].dblPrice\" id=\"txtPrice."+(rowCount)+"\" value="+price+">";
+		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%;border: 1px solid #a2a2a2;padding: 1px;\" size=\"100%\" name=\"listReorderLvl["+(rowCount)+"].dblReOrderLevel\" id=\"txtReOrderLvl."+(rowCount)+"\" value="+reOrderLvl+">";
+		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%;border: 1px solid #a2a2a2;padding: 1px;\" size=\"100%\" name=\"listReorderLvl["+(rowCount)+"].dblReOrderQty\" id=\"txtReOrderLvl."+(rowCount)+"\" value="+reOrderQty+">";
+		    row.insertCell(4).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%;border: 1px solid #a2a2a2;padding: 1px;\" size=\"100%\" name=\"listReorderLvl["+(rowCount)+"].dblPrice\" id=\"txtPrice."+(rowCount)+"\" value="+price+">";
 		    row.insertCell(5).innerHTML= '<input type="button" value = "Delete"  class="deletebutton" onClick="funDeleteRowForReOrderLvl(this)">';
 		    funResetReOrderFields();
 		    return false;
@@ -476,9 +479,9 @@ $(document).ready(function()
 		    
 		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  size=\"10%\" name=\"listReorderLvl["+(rowCount)+"].strLocationCode\" id=\"txtLocationCode."+(rowCount)+"\" value='"+locCode+"'>";
 		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  size=\"45%\" name=\"listReorderLvl["+(rowCount)+"].strLocationName\" id=\"txtLocationName."+(rowCount)+"\" value='"+locName+"'>";
-		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%\" size=\"100%\" name=\"listReorderLvl["+(rowCount)+"].dblReOrderLevel\" id=\"txtReOrderLvl."+(rowCount)+"\" value="+reOrderLvl+">";
-		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%\" size=\"100%\"  name=\"listReorderLvl["+(rowCount)+"].dblReOrderQty\" id=\"txtReOrderLvl."+(rowCount)+"\" value="+reOrderQty+">";
-		    row.insertCell(4).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%\" size=\"100%\"  name=\"listReorderLvl["+(rowCount)+"].dblPrice\" id=\"txtPrice."+(rowCount)+"\" value="+price+">";
+		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%;border: 1px solid #a2a2a2;padding: 1px;\" size=\"100%\" name=\"listReorderLvl["+(rowCount)+"].dblReOrderLevel\" id=\"txtReOrderLvl."+(rowCount)+"\" value="+reOrderLvl+">";
+		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%;border: 1px solid #a2a2a2;padding: 1px;\" size=\"100%\"  name=\"listReorderLvl["+(rowCount)+"].dblReOrderQty\" id=\"txtReOrderLvl."+(rowCount)+"\" value="+reOrderQty+">";
+		    row.insertCell(4).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:100%;border: 1px solid #a2a2a2;padding: 1px;\" size=\"100%\"  name=\"listReorderLvl["+(rowCount)+"].dblPrice\" id=\"txtPrice."+(rowCount)+"\" value="+price+">";
 		    row.insertCell(5).innerHTML= '<input type="button" class="deletebutton"  value = "Delete" onClick="funDeleteRowForReOrderLvl(this)">';
 		    
 		    return false;
@@ -1812,9 +1815,9 @@ $(document).ready(function()
 		    // onClick=Javacsript:funLoadAllProduct('"+strCustCode+"')
 		   
 		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" name=\"listProdCustMargin["+(rowCount)+"].strSuppCode\" id=\"strCustCode."+(rowCount)+"\" value='"+strCustCode+"' >";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\"  id=\"strCName."+(rowCount)+"\" value='"+strCustName+"' >";
-		    row.insertCell(2).innerHTML= "<input type=\"text\"  size=\"20%\" required = \"required\" style=\"text-align: right;width:50%\"  name=\"listProdCustMargin["+(rowCount)+"].dblStandingOrder\" id=\"dblMargin."+(rowCount)+"\" value='1' >";
-		    row.insertCell(3).innerHTML= "<input type=\"text\"  size=\"20%\" required = \"required\" style=\"text-align: right;width:50%\" name=\"listProdCustMargin["+(rowCount)+"].dblMargin\" id=\"dblMargin."+(rowCount)+"\" value='0' >";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"28%\"  id=\"strCName."+(rowCount)+"\" value='"+strCustName+"' >";
+		    row.insertCell(2).innerHTML= "<input type=\"text\"  size=\"20%\" required = \"required\" style=\"text-align: right;border:1px solid #a2a2a2;width:97%;\"  name=\"listProdCustMargin["+(rowCount)+"].dblStandingOrder\" id=\"dblMargin."+(rowCount)+"\" value='1' >";
+		    row.insertCell(3).innerHTML= "<input type=\"text\"  size=\"20%\" required = \"required\" style=\"text-align: right;width:75%;border:1px solid #a2a2a2;\" name=\"listProdCustMargin["+(rowCount)+"].dblMargin\" id=\"dblMargin."+(rowCount)+"\" value='0' >";
 		    row.insertCell(4).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="funDeleteRowForCust(this)">';
 	
 		    listRowCustTabGrid++;
@@ -1843,9 +1846,9 @@ $(document).ready(function()
 	    var dblMargin=$('#txtMargin').val();
 	    
 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" name=\"listProdCustMargin["+(rowCount)+"].strSuppCode\" id=\"strCustCode."+(rowCount)+"\" value='"+strCustCode+"' >";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\"  id=\"strCName."+(rowCount)+"\" value='"+strCustName+"' >";
-	    row.insertCell(2).innerHTML= "<input type=\"text\"  size=\"20%\" required = \"required\" style=\"text-align: right;width:50%\"  name=\"listProdCustMargin["+(rowCount)+"].dblStandingOrder\" id=\"dblStandingOrder."+(rowCount)+"\" value='"+dblStandingOrder+"' >";
-	    row.insertCell(3).innerHTML= "<input type=\"text\"  size=\"20%\" required = \"required\" style=\"text-align: right;width:50%\" name=\"listProdCustMargin["+(rowCount)+"].dblMargin\" id=\"dblMargin."+(rowCount)+"\" value='"+dblMargin+"' >";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"28%\"  id=\"strCName."+(rowCount)+"\" value='"+strCustName+"' >";
+	    row.insertCell(2).innerHTML= "<input type=\"text\"  size=\"20%\" required = \"required\" style=\"text-align: right;width:97%;border:1px solid #a2a2a2;padding: 2px;\"  name=\"listProdCustMargin["+(rowCount)+"].dblStandingOrder\" id=\"dblStandingOrder."+(rowCount)+"\" value='"+dblStandingOrder+"' >";
+	    row.insertCell(3).innerHTML= "<input type=\"text\"  size=\"20%\" required = \"required\" style=\"text-align: right;width:75%;border:1px solid #a2a2a2;\" name=\"listProdCustMargin["+(rowCount)+"].dblMargin\" id=\"dblMargin."+(rowCount)+"\" value='"+dblMargin+"' >";
 	    row.insertCell(4).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="funDeleteRowForCust(this)">';
 	    
 	    listRowCustTabGrid++;
@@ -1971,9 +1974,9 @@ $(document).ready(function()
 	   	rowCount =listRowCustTabGrid;
 	       
 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" name=\"listProdCustMargin["+(rowCount)+"].strSuppCode\" id=\"strCustCode."+(rowCount)+"\" value='"+strCustCode+"' >";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\"  id=\"strCName."+(rowCount)+"\" value='"+strCustName+"' >";
-	    row.insertCell(2).innerHTML= "<input type=\"text\"  size=\"20%\" required = \"required\" style=\"text-align: right;width:50%\"  name=\"listProdCustMargin["+(rowCount)+"].dblStandingOrder\" id=\"dblStandingOrder."+(rowCount)+"\" value='"+dblStandingOrder+"' >";
-	    row.insertCell(3).innerHTML= "<input type=\"text\"  size=\"20%\" required = \"required\" style=\"text-align: right;width:50%\" name=\"listProdCustMargin["+(rowCount)+"].dblMargin\" id=\"dblMargin."+(rowCount)+"\" value='"+dblMargin+"' >";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"28%\"  id=\"strCName."+(rowCount)+"\" value='"+strCustName+"' >";
+	    row.insertCell(2).innerHTML= "<input type=\"text\"  size=\"20%\" required = \"required\" style=\"text-align: right;width:97%;border:1px solid #a2a2a2;padding: 2px;\"  name=\"listProdCustMargin["+(rowCount)+"].dblStandingOrder\" id=\"dblStandingOrder."+(rowCount)+"\" value='"+dblStandingOrder+"' >";
+	    row.insertCell(3).innerHTML= "<input type=\"text\"  size=\"20%\" required = \"required\" style=\"text-align: right;width:50%;border:1px solid #a2a2a2;\" name=\"listProdCustMargin["+(rowCount)+"].dblMargin\" id=\"dblMargin."+(rowCount)+"\" value='"+dblMargin+"' >";
 	    row.insertCell(4).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="funDeleteRowForCust(this)">';
 	    
 	    listRowCustTabGrid++;
@@ -2265,7 +2268,7 @@ $(document).ready(function()
 				<div class="row">
 					<div class="col-md-12" align="left" style="font-weight: normal;"> Product Specification
 						<s:textarea id="txtSpecification" name="Specification"
-											path="strSpecification" cssStyle="width:100%;height:200px;border:1px solid;background-color:inherit;padding-left:01px;text-transform: uppercase;" />
+											path="strSpecification" cssStyle="width:100%;height:200px;border:1px solid #c0c0c0;background-color:#fafbfb;padding-left:01px;text-transform: uppercase;" />
 				    </div>
 				</div>
 		 </div>
@@ -2285,7 +2288,7 @@ $(document).ready(function()
 			    </div>
 			    
 				<div class="col-md-3"><label>Supplier Name</label>
-					<input type="text" id="txtSupplierName" name="supplierName" readonly="readonly"/>
+					<input type="text" id="txtSupplierName" name="supplierName" style="width: 110%;" readonly="readonly"/>
 				</div>
                  <div class="col-md-7"></div>
                  
@@ -2430,8 +2433,8 @@ $(document).ready(function()
 			</div>
 		 </div>
 		<br>				
-		<table class="masterTable"  id="tblProdAtt" style="width:80%" >
-		   <tr style="background-color:#c0c0c0;">
+		<table class="masterTable"  id="tblProdAtt" style="width:80%;">
+		   <tr style="background-color:#c0c0c0;width:80%;">
 			  <td style="width:10%"><label>Attribute Code</label></td>
 			  <td style="width:50%"><label>Attribute Name</label></td>
 			  <td style="width:10%"><label>Value</label></td>
@@ -2461,7 +2464,7 @@ $(document).ready(function()
 <!--Process Tab Start  -->
 
 		<div id="tab6" class="tab_content" style="height: 490px">
-		   <br> <br>
+		   <br><br>
 		<div class="container masterTable">
 		 <div class="row">
 			    <div class="col-md-2"><label>Process </label>
@@ -2470,7 +2473,7 @@ $(document).ready(function()
 				</div>
 									
 			    <div class="col-md-2"><label>Weight</label><br>
-					<input  id="txtProcessWt" class="decimal-places numberField" value="0" style="width:50%;text-align:right;border:none;"/>
+					<input id="txtProcessWt" class="decimal-places numberField" value="0" style="width:50%;text-align:right;border:none;"/>
 			    </div>
 			    <div class="col-md-8"></div>
 			    
@@ -2484,22 +2487,22 @@ $(document).ready(function()
 			  </div>
 			
 		    <br>
-			<table class="masterTable" id="tblProdProcess" style="width:80%">
+			<table class="masterTable" id="tblProdProcess" style="width:60%;background: #fbfafa;">
 			<tr style="background-color:#c0c0c0;">
-				<td style="width: 5%"><label>Level</label></td>
-				<td style="width: 6%"><label>Process Code</label></td>
-				<td style="width: 20%"><label>Process Name</label></td>
-				<td style="width: 3%"><label>Weight</label></td>
-				<td style="width: 3%"><label>Cycle Time</label></td>
+				<td style="width: 2%"><label>Level</label></td>
+				<td style="width: 2%"><label>Process Code</label></td>
+				<td style="width: 2%"><label>Process Name</label></td>
+				<td style="width: 6%"><label>Weight</label></td>
+				<td style="width: 5%"><label>Cycle Time</label></td>
 				<td style="width: 4%"><label>Delete</label></td>
 			</tr>
 			<tr>
-				<td><input name="listProdProcess[0].intLevel" value="1" readonly="readonly" class="Box" size="5%" /></td>
-				<td><input name="listProdProcess[0].strProcessCode" value="PR000001" readonly="readonly" class="Box" width="6%" /></td>
+				<td><input name="listProdProcess[0].intLevel" value="1" readonly="readonly" class="Box" size="2%" /></td>
+				<td><input name="listProdProcess[0].strProcessCode" value="PR000001" readonly="readonly" class="Box" width="5%" /></td>
 				<td><input name="listProdProcess[0].strProcessName" value="Production" readonly="readonly" class="Box" width="80%"/></td>
 				<td><input name="tblProdProcess[0].dblWeight" value="0" readonly="readonly" type="number" step="any"
-											required="required" style="text-align: right;" width="2%"/></td>
-				<td><input name="tblProdProcess[0].dblCycleTime" value="0" type="number" step="any" required="required" style="text-align: right;" width="2%"/></td>
+											required="required" style="text-align: right;border:1px solid #a2a2a2;padding:1px;" width="2%"/></td>
+				<td><input name="tblProdProcess[0].dblCycleTime" value="0" type="number" step="any" required="required" style="text-align: right;border:1px solid #a2a2a2;padding:1px;" width="2%"/></td>
 				<td><input type="button" value="Delete"	onClick="funDeleteRowForProcess(this)" class="deletebutton" width="4%"></td>
 			</tr>
 							<%-- 	<c:forEach items="${command.listProdProcess}" var="prodProcess"
@@ -2527,7 +2530,7 @@ $(document).ready(function()
 							</table>
                             </div>
 						</div>
-						
+					
 	<!-- Process Tab End -->
 	<!-- Characteristics Tab Start  -->
 	
@@ -2575,31 +2578,31 @@ $(document).ready(function()
 	    
 			<br>
 				<div class="dynamicTableContainer" >
-					<table  style="height:20px;border:#0F0;width:100%;font-size:11px;font-weight: bold;">	
+					<table style="height:20px;border:#0F0;width:90%;font-size:11px;font-weight: bold;">	
 		
 						<tr bgcolor="#c0c0c0" >
-							<td width="4%">Process Code</td><!--  COl1   -->
-							<td width="10%">Process Name</td><!--  COl2   -->
-							<td width="4%">Char Code</td><!--  COl3   -->
-							<td width="9%">Char Name</td><!--  COl4   -->
-							<td width="3%">Tollerance/Method of Inspection</td><!--  COl5   -->
-							<td width="1%">Specification</td><!--  COl6   -->
-							<td width="2%">Gauge No</td><!--  COl7   -->	
+							<td width="5%">Process Code</td><!--  COl1   -->
+							<td width="6%">Process Name</td><!--  COl2   -->
+							<td width="5%">Char Code</td><!--  COl3   -->
+							<td width="5%">Char Name</td><!--  COl4   -->
+							<td width="6%">Tollerance/Method of Inspection</td><!--  COl5   -->
+							<td width="3%">Specification</td><!--  COl6   -->
+							<td width="3%">Gauge No</td><!--  COl7   -->	
 							<td width="1%">Delete</td><!--  COl8   -->
 		
 						</tr>
 					 </table>
 						
-					<div style="background-color:  	#fafbfb; border: 1px solid #ccc; display: block; height: 150px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+					<div style="background-color:  	#fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll; width: 90%;">
 					   <table id="tblProdChar" style="width:100%;border: #0F0;table-layout:fixed;overflow:scroll" class="transTablex ">
 							<tbody>    
-							<col style="width:3%"><!--  COl1   -->
-							<col style="width:7.3%"><!--  COl2   -->
+							<col style="width:3.5%"><!--  COl1   -->
+							<col style="width:5%"><!--  COl2   -->
 							<col style="width:3%"><!--  COl3   -->
-							<col style="width:6.5%"><!--  COl4   -->
-							<col style="width:4%"><!--  COl5   -->
-							<col style="width:2%"><!--  COl6   -->
-							<col style="width:2%"><!--  COl7   -->	
+							<col style="width:4%"><!--  COl4   -->
+							<col style="width:6%"><!--  COl5   -->
+							<col style="width:4%"><!--  COl6   -->
+							<col style="width:3%"><!--  COl7   -->	
 							<col style="width:1%"><!--  COl8   -->	
 							</tbody>
 						</table>
@@ -2668,7 +2671,7 @@ $(document).ready(function()
 			<div class="col-md-2"><label id="txtROLocationName" style="background-color:#dcdada94;width:100%; height: 42%; margin: 27px 0px;"></label></div>
 			
 			<div class="col-md-2"><input type="button" value="Select All Location" class="btn btn-primary center-block" id="btnShowAllLocation" style="margin-top: 26px;
-    height: 42%;" onclick="return funGetAllLocation();"></input>
+    			height: 42%;" onclick="return funGetAllLocation();"></input>
 			</div>
 			
 			<div class="col-md-6"></div>
@@ -2792,37 +2795,36 @@ $(document).ready(function()
 		</div>
 		
 		<br>						
-		<div class="dynamicTableContainer" >
-			<table  style="height:20px;border:#0F0;width:100%;font-size:11px;font-weight: bold;">	
+	<!-- 	<div class="dynamicTableContainer" > -->
+			<table  style="height:20px;border:#0F0;width:60%;font-size:11px;font-weight: bold;">	
 		
 				    <tr bgcolor="#c0c0c0" >
-							<td width="10%">Customer Code</td><!--  COl1   -->
-							<td width="20%">Customer Name</td><!--  COl2   -->
-							<td width="10%">Standing Order</td><!--  COl3   -->
+							<td width="7%">Customer Code</td><!--  COl1   -->
+							<td width="12%">Customer Name</td><!--  COl2   -->
+							<td width="7%">Standing Order</td><!--  COl3   -->
 							<td width="10%">Product Margin%</td><!--  COl4   -->								
 							<td width="1%">Delete</td><!--  COl5   -->
 		
 					</tr>
 			</table>
 						
-				<div style="background-color:  	#fafbfb; border: 1px solid #ccc; display: block; height: 150px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<div style="background-color:#fafbfb; border: 1px solid #ccc; display: block; height: 150px;overflow-x: hidden; overflow-y: scroll; width:60%;">
 					   <table id="tblCust" style="width:100%;border: #0F0;table-layout:fixed;overflow:scroll" class="transTablex ">
 							<tbody>    
-							<col style="width:10%"><!--  COl1   -->
-							<col style="width:20%"><!--  COl2   -->
-							<col style="width:10%"><!--  COl3   -->
+							<col style="width:7%"><!--  COl1   -->
+							<col style="width:12%"><!--  COl2   -->
+							<col style="width:7%"><!--  COl3   -->
 							<col style="width:10%"><!--  COl4   -->
 							<col style="width:1%"><!--  COl5   -->	
 							</tbody>
-							</table>
+						</table>
 				</div>
-		</div>
+		<!-- </div> -->
 		</div>
 	 </div>	
-					
-				</div>
-			</div>
-		</div>
+	</div>
+</div>
+</div>
 			
 				<p align="right" style="margin-right:515px">
 			<input type="submit" value="Submit" id="formsubmit" onclick="return funCallFormAction('submit',this);" class="btn btn-primary center-block" class="form_button" /> 

@@ -299,8 +299,8 @@
 	<div class="container">
 		<label id="formHeading">Delete Transaction</label>
 		<s:form id="frmDelTrans" method="POST" action="deleteTransaction.html">
-		   <br><br>
-		    <div class="row masterTable">
+		  
+		   <div class="row masterTable">
 		    	<div class="col-md-2">
 			   		<label>Form Name</label>
 					<s:select id="cmbFormName" path="strFormName">

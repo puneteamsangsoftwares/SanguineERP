@@ -141,15 +141,15 @@
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);		   
 		    rowCount=listRow;
-		  	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listStkTransDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"' />";		      
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listStkTransDtl["+(rowCount)+"].strProdName\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"' />";		   
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"12%\" name=\"listStkTransDtl["+(rowCount)+"].strProdType\" id=\"lblProdType."+(rowCount)+"\" value='"+gProdType+"' />";		   
-		    row.insertCell(3).innerHTML= "<input class=\"Box\" size=\"4%\" name=\"listStkTransDtl["+(rowCount)+"].strUOM\" id=\"lblUMO."+(rowCount)+"\" value='"+gUOM+"' >";		   		   
-		    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblQty\" id=\"txtQuantity."+(rowCount)+"\" value="+quantity+" class=\"decimal-places inputText-Auto QtyCell\" onblur=\"funUpdatePrice(this);\">";
-		    row.insertCell(5).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblPrice\" id=\"txtUnitPrice."+(rowCount)+"\" value="+unitPrice+" class=\"decimal-places inputText-Auto Box\">";
-		    row.insertCell(6).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblTotalPrice\" id=\"txtTotalPrice."+(rowCount)+"\" value="+totalPrice+" class=\"decimal-places inputText-Auto Box totalValueCell\">";
-		    row.insertCell(7).innerHTML= "<input type=\"number\" readonly=\"readonly\" step=\"any\" required = \"required\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblWeight\" id=\"txtWtUnit."+(rowCount)+"\" value='"+wtUnit+"' class=\"inputText-Auto\" >";		   
-		    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"6%\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblTotalWt\" id=\"txtTotalWt."+(rowCount)+"\" value='"+totalWt+"' />";		   		    
+		  	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listStkTransDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"' />";		      
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"32%\" name=\"listStkTransDtl["+(rowCount)+"].strProdName\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"' />";		   
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"14%\" name=\"listStkTransDtl["+(rowCount)+"].strProdType\" id=\"lblProdType."+(rowCount)+"\" value='"+gProdType+"' />";		   
+		    row.insertCell(3).innerHTML= "<input class=\"Box\" size=\"5%\" name=\"listStkTransDtl["+(rowCount)+"].strUOM\" id=\"lblUMO."+(rowCount)+"\" value='"+gUOM+"' >";		   		   
+		    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"border:1px solid #a5a5a9;padding:2px;text-align:right;\" name=\"listStkTransDtl["+(rowCount)+"].dblQty\" id=\"txtQuantity."+(rowCount)+"\" value="+quantity+" class=\"decimal-places inputText-Auto QtyCell\" onblur=\"funUpdatePrice(this);\">";
+		    row.insertCell(5).innerHTML= "<input type=\"text\"  required = \"required\" style=\"border:1px solid #a5a5a9;padding:2px;text-align:right;\" name=\"listStkTransDtl["+(rowCount)+"].dblPrice\" id=\"txtUnitPrice."+(rowCount)+"\" value="+unitPrice+" class=\"decimal-places inputText-Auto Box\">";
+		    row.insertCell(6).innerHTML= "<input type=\"text\"  required = \"required\" style=\"border:1px solid #a5a5a9;padding:2px;text-align:right;\" name=\"listStkTransDtl["+(rowCount)+"].dblTotalPrice\" id=\"txtTotalPrice."+(rowCount)+"\" value="+totalPrice+" class=\"decimal-places inputText-Auto Box totalValueCell\">";
+		    row.insertCell(7).innerHTML= "<input type=\"number\" readonly=\"readonly\" step=\"any\" required = \"required\" style=\"border: 1px solid #a5a5a9;padding: 2px;text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblWeight\" id=\"txtWtUnit."+(rowCount)+"\" value='"+wtUnit+"' class=\"inputText-Auto\" >";		   
+		    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblTotalWt\" id=\"txtTotalWt."+(rowCount)+"\" value='"+totalWt+"' />";		   		    
 		    row.insertCell(9).innerHTML= "<input size=\"18%\" name=\"listStkTransDtl["+(rowCount)+"].strRemark\" id=\"txtRemarks."+(rowCount)+"\" value='"+remarks+"'/>";
 		    //row.insertCell(10).innerHTML= "<input type=\"hidden\" size=\"0%\" name=\"listStkTransDtl["+(rowCount)+"].dblPrice\" id=\"txtUnitPrice."+(rowCount)+"\" value='"+unitPrice+"' />";
 		    row.insertCell(10).innerHTML= '<input type="button" value = "Delete" class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
@@ -317,15 +317,15 @@
 			    quantity=parseFloat(quantity).toFixed(maxQuantityDecimalPlaceLimit);
 			    unitPrice=parseFloat(unitPrice).toFixed(maxAmountDecimalPlaceLimit);
 			    totalPrice=parseFloat(totalPrice).toFixed(maxAmountDecimalPlaceLimit);
-			  	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listStkTransDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"' />";		      
-			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listStkTransDtl["+(rowCount)+"].strProdName\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"' />";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"12%\" name=\"listStkTransDtl["+(rowCount)+"].strProdType\" id=\"lblProdType."+(rowCount)+"\" value='"+ProdType+"' />";		   
-			    row.insertCell(3).innerHTML= "<input class=\"Box\" size=\"4%\" name=\"listStkTransDtl["+(rowCount)+"].strUOM\" id=\"lblUMO."+(rowCount)+"\" value='"+UOM+"' >";		   		   
-			    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblQty\" id=\"txtQuantity."+(rowCount)+"\" value="+quantity+" class=\"decimal-places inputText-Auto QtyCell\" onblur=\"funUpdatePrice(this);\">";
-			    row.insertCell(5).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblPrice\" id=\"txtUnitPrice."+(rowCount)+"\" value="+unitPrice+" class=\"decimal-places inputText-Auto Box\">";
-			    row.insertCell(6).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblTotalPrice\" id=\"txtTotalPrice."+(rowCount)+"\" value="+totalPrice+" class=\"decimal-places inputText-Auto Box totalValueCell\">";
-			    row.insertCell(7).innerHTML= "<input type=\"number\" readonly=\"readonly\" step=\"any\" required = \"required\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblWeight\" id=\"txtWtUnit."+(rowCount)+"\" value='"+wtUnit+"' class=\"inputText-Auto\" >";		   
-			    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"6%\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblTotalWt\" id=\"txtTotalWt."+(rowCount)+"\" value='"+totalWt+"' />";		   		    
+			  	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listStkTransDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"' />";		      
+			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"32%\" name=\"listStkTransDtl["+(rowCount)+"].strProdName\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"' />";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"14%\" name=\"listStkTransDtl["+(rowCount)+"].strProdType\" id=\"lblProdType."+(rowCount)+"\" value='"+ProdType+"' />";		   
+			    row.insertCell(3).innerHTML= "<input class=\"Box\" size=\"5%\" name=\"listStkTransDtl["+(rowCount)+"].strUOM\" id=\"lblUMO."+(rowCount)+"\" value='"+UOM+"' >";		   		   
+			    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"border:1px solid #a5a5a9;padding:2px;text-align:right;\" name=\"listStkTransDtl["+(rowCount)+"].dblQty\" id=\"txtQuantity."+(rowCount)+"\" value="+quantity+" class=\"decimal-places inputText-Auto QtyCell\" onblur=\"funUpdatePrice(this);\">";
+			    row.insertCell(5).innerHTML= "<input type=\"text\"  required = \"required\" style=\"border:1px solid #a5a5a9;padding:2px;text-align:right;\" name=\"listStkTransDtl["+(rowCount)+"].dblPrice\" id=\"txtUnitPrice."+(rowCount)+"\" value="+unitPrice+" class=\"decimal-places inputText-Auto Box\">";
+			    row.insertCell(6).innerHTML= "<input type=\"text\"  required = \"required\" style=\"border:1px solid #a5a5a9;padding:2px;text-align:right;\" name=\"listStkTransDtl["+(rowCount)+"].dblTotalPrice\" id=\"txtTotalPrice."+(rowCount)+"\" value="+totalPrice+" class=\"decimal-places inputText-Auto Box totalValueCell\">";
+			    row.insertCell(7).innerHTML= "<input type=\"number\" readonly=\"readonly\" step=\"any\" required = \"required\" style=\"border:1px solid #a5a5a9;padding:2px;text-align:right;\" name=\"listStkTransDtl["+(rowCount)+"].dblWeight\" id=\"txtWtUnit."+(rowCount)+"\" value='"+wtUnit+"' class=\"inputText-Auto\" >";		   
+			    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: right;\" name=\"listStkTransDtl["+(rowCount)+"].dblTotalWt\" id=\"txtTotalWt."+(rowCount)+"\" value='"+totalWt+"' />";		   		    
 			    row.insertCell(9).innerHTML= "<input size=\"18%\" name=\"listStkTransDtl["+(rowCount)+"].strRemark\" id=\"txtRemarks."+(rowCount)+"\" value='"+remarks+"'/>";
 			    row.insertCell(10).innerHTML= '<input type="button" value = "Delete" class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
 				
@@ -961,7 +961,7 @@
 				<div class="col-md-4"></div>
 				<div class="col-md-2">		
 					<label id="lblMI" >Type</label>
-					<select id="cmbType" class="BoxW124px">
+					<select id="cmbType">
 						<option value="Product">Product</option>
 						<option value="Assembly">Assembly</option>
 					</select>
@@ -1018,7 +1018,7 @@
 					<td width="6%">Unit Price</td><!-- col6   -->
 					<td width="6%">Total Price</td><!-- col7   -->
 					<td width="3%">Wt/Unit</td><!-- col8  -->
-					<td width="9%">Total Wt</td><!-- col9   -->
+					<td width="9%" style="padding-left: 20px;">Total Wt</td><!-- col9   -->
 					<td width="11%">Remarks</td><!-- col10   -->
 					<td width="5%">Delete</td><!-- col11   -->
 				</tr>

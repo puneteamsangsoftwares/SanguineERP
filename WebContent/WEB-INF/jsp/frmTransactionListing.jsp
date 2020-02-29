@@ -334,10 +334,11 @@
 			</div>
 			<div class="col-md-2">
 				<label>Location</label>
-				<s:select id="cmbLocation" name="locCode" path="strLocationCode">
+				<s:select id="cmbLocation" name="locCode" path="strLocationCode" style="width:120%;">
 			    	<s:options items="${listLocation}" />
 			   	</s:select>
-			</div>	
+			</div>	&nbsp;&nbsp;
+			
 			<div class="col-md-2">	
 				<label id="lblFromDate">From Date</label>
 			    <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox" style="width:80%;"/>
@@ -348,7 +349,7 @@
 			    <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox" style="width:80%;"/>
 			    <s:errors path="dteToDate"></s:errors>
 			 </div>
-			  <div class="col-md-4"></div>
+			  <div class="col-md-3"></div>
 			 <div class="col-md-2">	
 			 	<label id="lblUser">User</label>
 			     <s:input id="txtUserCode" path="strUserCode" cssClass="searchTextBox" name="UserCode" ondblclick="funHelp('usermaster')" />
@@ -359,7 +360,8 @@
 			     <s:select id="cmbTransaction" name="locCode" path="strTransaction">
 			    		<s:options items="${listTransaction}" />
 			   	 </s:select>
-			  </div>
+			  </div>&nbsp;&nbsp;
+			  
 			  <div class="col-md-2">
 				  <s:select path="strExportType" id="cmbExportType" style="width:80%; margin-top:26px;" >
 	<!-- 			<option value="pdf">PDF</option> -->

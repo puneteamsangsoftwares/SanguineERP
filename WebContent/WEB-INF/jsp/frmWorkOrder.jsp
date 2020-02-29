@@ -895,7 +895,7 @@
                 </div>
                                 
                 <div class="col-md-2" id="tdCode"><label>Code</label>
-                      <s:input id="txtOPCode" path="strSOCode" style="width:100%" ondblclick="funHelp1('OPCodeForWO')"  type="text" class="simpleTextBox"></s:input>
+                      <s:input id="txtOPCode" path="strSOCode" style="width:100%;background-color:white;" ondblclick="funHelp1('OPCodeForWO')"  type="text" class="simpleTextBox"></s:input>
                 </div>
                  
                 <div class="col-md-2"><br><br>
@@ -904,8 +904,9 @@
                            		<!-- <td>
                                     <input id="btnBack"  class="smallButton" type="button" value="Back" onclick="history.back()"  />
                                 </td>  -->                         
-            </div>                 
-       <table style="width: 95%;height:28px;margin-left: auto;margin-right: auto;font-size: 11px;font-weight: bold;">
+            </div>
+          <br>                 
+       <table style="width: 95%;height:28px;margin-left: auto;font-size: 11px;font-weight: bold;">
 			<tr style="background-color:#c0c0c0">
                       <td width="5%"><input type="checkbox" id="chkGALL"
 											checked="checked" onclick="funCheckUncheck()" />Select</td>
@@ -926,7 +927,7 @@
                         </table>
                         
                        <div id="divProduct" style="width: 95%;height:200px;margin-left: auto;
-					        margin-right: auto; bgcolor: #fafbfb; overflow: scroll;">
+					                  background-color: #fafbfb;overflow: scroll;">
                         <table style="width:100%;border: #0F0;table-layout:fixed;overflow:scroll"
                                class="transTablex col5-center" id="tblWODet">
                         <tbody>
@@ -975,7 +976,7 @@
 			       </div>
 			       
 					<div class="col-md-2" style="margin-top: 15px;"><br>
-					     <span id="spProdName" style="background-color:#dcdada94; width: 100%; height:51%;margin-top: 27px;padding:4px;"></span>
+					     <span id="spProdName" style="background-color:#dcdada94; width: 100%; height:51%;margin-top: 27px;padding:8px;"></span>
 					</div>
 					
 				   <div class="col-md-2"><label>Quantity</label>

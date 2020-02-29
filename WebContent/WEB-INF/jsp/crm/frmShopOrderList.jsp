@@ -1,15 +1,24 @@
  <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Cost Of Issue</title>
+    
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+    
     <style>
   #tblGroup tr:hover , #tblSubGroup tr:hover, #tblloc tr:hover{
-	background-color: #72BEFC;
+	background-color: #c0c0c0;
 	
 }
 </style>
@@ -340,33 +349,29 @@
   </head>
   	
 	<body id="frmShopOrderList">
-	<div id="formHeading">
-		<label>Shop Order List</label>
-	</div>
-		<s:form name="frmShopOrdersList" method="POST" action="rptShopOrderList.html" target="_blank">
+       <div class="container transTable">
+		<label id="formHeading">Shop Order List</label>
+	     <s:form name="frmShopOrdersList" method="POST" action="rptShopOrderList.html" target="_blank">
 	   		<br />
-	   		<table class="transTable">
-			    <tr>
-					<td width="10%"><label>From SO Date :</label></td>
-					<td colspan="1" width="10%"><s:input id="txtFromDate" path="dtFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
-					<td width="10%"><label>To SO Date :</label></td>
-					<td colspan="1"><s:input id="txtToDate" path="dtToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</td>
-				</tr>
-				<tr>
-				<td colspan="4"></td>
+	   		
+			    <div class="row">
+					<div class ="col-md-2"><label>From SO Date :</label>
+							<s:input id="txtFromDate" path="dtFromDate" required="true" readonly="readonly" cssClass="calenderTextBox" style="width:70%"/>
+					</div>
+					
+					<div class ="col-md-2"><label>To SO Date :</label>
+							<s:input id="txtToDate" path="dtToDate" required="true" readonly="readonly" cssClass="calenderTextBox" style="width:70%"/>
+					</div>
 				
-				</tr>
-				 <tr>
-					<td width="10%"><label>From Fulfillment Date :</label></td>
-					<td colspan="1" width="10%"><s:input id="txtFromFulfillment" path="dteFromFulfillment" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
-					<td width="10%"><label>To Fulfillment Date :</label></td>
-					<td colspan="1"><s:input id="txtToFulfillment" path="dteToFulfillment" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</td>
-				</tr>
+				     <div class ="col-md-2"><label>From Fulfillment Date :</label>
+							<s:input id="txtFromFulfillment" path="dteFromFulfillment" required="true" readonly="readonly" cssClass="calenderTextBox" style="width:70%"/>
+					 </div>
+					 
+					<div class ="col-md-2"><label>To Fulfillment Date :</label>
+							<s:input id="txtToFulfillment" path="dteToFulfillment" required="true" readonly="readonly" cssClass="calenderTextBox" style="width:70%"/>
+					</div>
+				</div>
 				
-			    </table>
-				<br>
 			<table class="transTable">
 			
 			<tr>
@@ -374,23 +379,23 @@
 					
 			</tr>
 		</table>
-		<br>
+	
 		<table class="transTable">
 				
 		<tr>
-				<td colspan="2">Customer&nbsp;&nbsp;&nbsp;<input style="width: 35%; background-position: 150px 2px;" type="text" id="txtCustCode" 
+				<td colspan="2">Customer&nbsp;&nbsp;&nbsp;<input style="width: 17%;" type="text" id="txtCustCode" 
 			 Class="searchTextBox" placeholder="Type to search"></input>
 			<label id="lblCustName"></label></td>
 		
 			</tr><tr>
 						<td colspan="2">
 						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px;width: 480px; overflow-x: hidden; overflow-y: scroll;">
+							style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 380px; overflow-x: hidden; overflow-y: scroll;">
 
 							<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#c0c0c0">
 										<td width="15%"><input type="checkbox" checked="checked" 
 										id="chkCustALL"/>Select</td>
 										<td width="25%">To Customer Code</td>
@@ -402,10 +407,10 @@
 							<table id="tblCust" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+								<!-- <tr bgcolor="#c0c0c0">
 									
 
-								</tr>
+								</tr> -->
 							</table>
 						</div>
 				</td>
@@ -443,23 +448,19 @@
 		</table>
 		
 		<br>
-		<table class="transTable">
-			<tr>
-				<td width="10%"><label>Report Type :</label></td>
-				<td colspan="3"><s:select id="cmbDocType" path="strDocType"
-						cssClass="BoxW124px">
+			<div class="row">
+				<div class ="col-md-3"><label>Report Type :</label>
+					<s:select id="cmbDocType" path="strDocType" style="width:auto">
  						<s:option value="PDF">PDF</s:option> 
 						<s:option value="XLS">EXCEL</s:option>
-					</s:select></td>
-			</tr>
+					</s:select>
+			    </div>
+			</div>
 
-		</table>
-		
-
-		<br>
 			<p align="center">
-				 <input type="button" value="Submit" onclick="return btnSubmit_Onclick();" class="form_button" />
-				 <input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>			     
+				 <input type="button" value="Submit" onclick="return btnSubmit_Onclick();" class="btn btn-primary center-block" class="form_button" />
+				 &nbsp;
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>			     
 			</p>  
 			
 			
@@ -474,5 +475,6 @@
 				width="60px" height="60px" />
 		</div>
 		</s:form>
+		</div>
 	</body>
 </html>

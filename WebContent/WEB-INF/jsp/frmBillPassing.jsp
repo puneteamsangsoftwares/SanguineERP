@@ -287,11 +287,11 @@
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		  
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"18%\" name=\"listBillPassDtl["+(rowCount)+"].strGRNCode\" id=\"txtGRNCode."+(rowCount)+"\" value="+strGRNCode+" >";
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"19%\" name=\"listBillPassDtl["+(rowCount)+"].strGRNCode\" id=\"txtGRNCode."+(rowCount)+"\" value="+strGRNCode+" >";
 		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"18%\" name=\"listBillPassDtl["+(rowCount)+"].dtGRNDate\" id=\"txtGRNDate."+(rowCount)+"\" value="+dtGRNDate+">";		    	    
 		    row.insertCell(2).innerHTML= "<input size=\"18%\" name=\"listBillPassDtl["+(rowCount)+"].strChallanNo\" id=\"txtChallanNo."+(rowCount)+"\" value="+strChallanNo+">";
-		    row.insertCell(3).innerHTML= "<input class=\"Box\" step=\"any\" required=\"required\" style=\"text-align: right;width:85%\" size=\"17%\" name=\"listBillPassDtl["+(rowCount)+"].dblAdjustAmt\" id=\"txtAdjustAmt."+(rowCount)+"\" value="+dblAdjustAmt+">";
-		    row.insertCell(4).innerHTML= "<input class=\"Box\" size=\"18%\" style=\"text-align:right;\" name=\"listBillPassDtl["+(rowCount)+"].dblGRNAmt\" id=\"txtGRNAmt."+(rowCount)+"\" value="+value+">";
+		    row.insertCell(3).innerHTML= "<input class=\"Box\" step=\"any\" required=\"required\" style=\"text-align: right;width:95%\" size=\"16%\" name=\"listBillPassDtl["+(rowCount)+"].dblAdjustAmt\" id=\"txtAdjustAmt."+(rowCount)+"\" value="+dblAdjustAmt+">";
+		    row.insertCell(4).innerHTML= "<input class=\"Box\" size=\"12%\" style=\"text-align:right;\" name=\"listBillPassDtl["+(rowCount)+"].dblGRNAmt\" id=\"txtGRNAmt."+(rowCount)+"\" value="+value+">";
 		    row.insertCell(5).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteGRNRow(this)">';
 		    
 		    funCalGRNTotal();
@@ -564,11 +564,11 @@
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"18%\" name=\"listBillPassDtl["+(rowCount)+"].strGRNCode\" id=\"txtGRNCode."+(rowCount)+"\" value="+strGRNCode+" >";
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"19%\" name=\"listBillPassDtl["+(rowCount)+"].strGRNCode\" id=\"txtGRNCode."+(rowCount)+"\" value="+strGRNCode+" >";
 		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"18%\" name=\"listBillPassDtl["+(rowCount)+"].dtGRNDate\" id=\"txtGRNDate."+(rowCount)+"\" value="+dtGRNDate+">";		    	    
 		    row.insertCell(2).innerHTML= "<input size=\"18%\" name=\"listBillPassDtl["+(rowCount)+"].strChallanNo\" id=\"txtChallanNo."+(rowCount)+"\" value="+strChallanNo+">";
-		    row.insertCell(3).innerHTML= "<input class=\"Box\" step=\"any\" required=\"required\" style=\"text-align: right;width:85%\" size=\"17%\"  name=\"listBillPassDtl["+(rowCount)+"].dblAdjustAmt\" id=\"txtAdjustAmt."+(rowCount)+"\" value="+dblAdjustAmt+">";
-		    row.insertCell(4).innerHTML= "<input class=\"Box\" size=\"18%\" style=\"text-align: right;\" name=\"listBillPassDtl["+(rowCount)+"].dblGRNAmt\" id=\"txtGRNAmt."+(rowCount)+"\" value="+value+">";
+		    row.insertCell(3).innerHTML= "<input class=\"Box\" step=\"any\" required=\"required\" style=\"text-align: right;width:95%\" size=\"16%\"  name=\"listBillPassDtl["+(rowCount)+"].dblAdjustAmt\" id=\"txtAdjustAmt."+(rowCount)+"\" value="+dblAdjustAmt+">";
+		    row.insertCell(4).innerHTML= "<input class=\"Box\" size=\"12%\" style=\"text-align: right;\" name=\"listBillPassDtl["+(rowCount)+"].dblGRNAmt\" id=\"txtGRNAmt."+(rowCount)+"\" value="+value+">";
 		    row.insertCell(5).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteGRNRow(this)">';
 		    
 		    funCalGRNTotal();
@@ -807,16 +807,16 @@
 									ondblclick="funHelp('suppcodeActive')" cssClass="searchTextBox" />
 						</div>
 						<div class="col-md-2">	
-							<label id="lblSupplierName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:center;"></label>
+							<label id="lblSupplierName" style="background-color:#dcdada94; width: 185%; height: 52%; margin-top: 26px; text-align:center;"></label>
 						</div>
 						<div class="col-md-2"></div>	
 						<div class="col-md-2">	
 							<label>Supplier Vouch No</label>
-							<s:input id="txtSupplierVoucherNo" path="strPVno" cssClass="BoxW116px"/>
+							<s:input id="txtSupplierVoucherNo" path="strPVno"/>
 						</div>
 						<div class="col-md-2">	
 							<label>Bill Amount</label>
-							<s:input id="txtBillAmt" path="dblBillAmt" cssClass="BoxW116px" />
+							<s:input id="txtBillAmt" path="dblBillAmt"/>
 						</div>
 						<div class="col-md-2">	
 							<label>Passing Date</label>
@@ -854,7 +854,7 @@
 						</div>
 						<div class="col-md-2">
 								<label>Adjustment</label>
-								<input type="number" id="txtAdjustAmt" value="0" style="text-align: right;" class="BoxW116px">
+								<input type="number" id="txtAdjustAmt" value="0" style="text-align: right;">
 						</div>
 						<div class="col-md-2"></div>
 						<div class="col-md-2">
@@ -866,18 +866,18 @@
 						</div>
 					</div>
 					<br>	
-					<table style="height:20px;border:#0F0;font-size:11px;font-weight: bold;width:100%">
+					<table style="height:20px;border:#0F0;font-size:11px;font-weight: bold;width:70%">
 							<tr bgcolor="#c0c0c0">
-								<td style="width: 17%; height: 16px;" align="left">Code</td>
-								<td style="width: 16%; height: 16px;" align="left">Date</td>
-								<td style="width: 16%; height: 16px;" align="left">Challan No</td>
+								<td style="width: 20%; height: 16px;" align="left">Code</td>
+								<td style="width: 18%; height: 16px;" align="left">Date</td>
+								<td style="width: 18%; height: 16px;" align="left">Challan No</td>
 								<td style="width: 16%; height: 16px;" align="left">Adjustment</td>
 								<td style="width: 16%; height: 16px;" align="left">Value</td>
 								<td style="width: 16%; height: 16px;" align="center">Delete</td>
 							</tr>
 					</table>
 					<div style="background-color: #fbfafa;border: 1px solid #ccc;display: block; height: 150px;
-    					overflow-x: hidden; overflow-y: scroll;width: 100%;">
+    					overflow-x: hidden; overflow-y: scroll;width: 70%;">
 						<table id="tblGRN" class="transTablex col6-center" style="width: 100%;">
 							<tbody>    
 								<col style="width:17%"><!--  COl1   -->

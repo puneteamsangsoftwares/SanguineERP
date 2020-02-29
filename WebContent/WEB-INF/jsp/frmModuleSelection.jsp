@@ -40,7 +40,7 @@
 	<div style="float: left;padding-left: 40px;">
 		<img alt=""
 				src="../${pageContext.request.contextPath}/resources/images/company_Logo.png"
-				style="display: block; padding-left: 1px;width : 339px;high : 250px;">
+				style="display: block; padding-left: 1px;width: 150px;height: 150px;">
 				
 	</div>
 	</div> 

@@ -360,12 +360,12 @@
 			    var row = table.insertRow(rowCount);
 			   
 			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\"  name=\"listRateContDtl["+(rowCount)+"].strProductCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"'/>";
-			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" name=\"listRateContDtl["+(rowCount)+"].strProductName\" id=\"lblProdName."+(rowCount)+"\" value='"+strProdName+"'  />";
+			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"47%\" name=\"listRateContDtl["+(rowCount)+"].strProductName\" id=\"lblProdName."+(rowCount)+"\" value='"+strProdName+"'  />";
 			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listRateContDtl["+(rowCount)+"].strPartNo\" id=\"lblPOSItemCode."+(rowCount)+"\" value='"+strPOSCode+"' />";
 			    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listRateContDtl["+(rowCount)+"].strUnit\" id=\"txtUOM."+(rowCount)+"\" value='"+strUOM+"' />";
-			    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"4%\" class=\"decimal-places-amt\" name=\"listRateContDtl["+(rowCount)+"].dblRate\" id=\"txtRate."+(rowCount)+"\" value='"+strRate.toFixed(maxAmountDecimalPlaceLimit)	+"' >";
-			    row.insertCell(5).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"4%\"class=\"decimal-places-amt\"  name=\"listRateContDtl["+(rowCount)+"].dblDiscount\" id=\"txtDiscount."+(rowCount)+"\" value='"+dblDiscount.toFixed(maxAmountDecimalPlaceLimit)	+"' >";
-			    row.insertCell(6).innerHTML= "<input size=\"32%\" type=\"text\" name=\"listRateContDtl["+(rowCount)+"].strNarration\" id=\"txtNarrtion."+(rowCount)+"\" value='"+strNarration+"' >";
+			    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;\" size=\"4%\" class=\"decimal-places-amt\" name=\"listRateContDtl["+(rowCount)+"].dblRate\" id=\"txtRate."+(rowCount)+"\" value='"+strRate.toFixed(maxAmountDecimalPlaceLimit)	+"' >";
+			    row.insertCell(5).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;\" size=\"4%\"class=\"decimal-places-amt\"  name=\"listRateContDtl["+(rowCount)+"].dblDiscount\" id=\"txtDiscount."+(rowCount)+"\" value='"+dblDiscount.toFixed(maxAmountDecimalPlaceLimit)	+"' >";
+			    row.insertCell(6).innerHTML= "<input size=\"32%\" type=\"text\" style=\"border:1px solid #a2a2a2;\" name=\"listRateContDtl["+(rowCount)+"].strNarration\" id=\"txtNarrtion."+(rowCount)+"\" value='"+strNarration+"' >";
 			    row.insertCell(7).innerHTML= '<input type="button" value = "Delete"  class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
 		}
 		function funfillTC(strTCName,strTCDesc,strTCCode)
@@ -601,12 +601,12 @@
 		    var row = table.insertRow(rowCount);
 		    rowCount=listRow;
 		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\"  name=\"listRateContDtl["+(rowCount)+"].strProductCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"'/>";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" name=\"listRateContDtl["+(rowCount)+"].strProductName\" value='"+prodName+"' id=\"lblProdName."+(rowCount)+"\" />";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"47%\" name=\"listRateContDtl["+(rowCount)+"].strProductName\" value='"+prodName+"' id=\"lblProdName."+(rowCount)+"\" />";
 		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listRateContDtl["+(rowCount)+"].strPartNo\" value='"+posItemCode+"' id=\"lblPOSItemCode."+(rowCount)+"\" />";
 		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listRateContDtl["+(rowCount)+"].strUnit\" id=\"txtUOM."+(rowCount)+"\" value='"+uom+"' />";
-		    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"4%\" class=\"decimal-places-amt\" name=\"listRateContDtl["+(rowCount)+"].dblRate\" id=\"txtRate."+(rowCount)+"\" value='"+rate+"' >";
-		    row.insertCell(5).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" size=\"4%\"class=\"decimal-places-amt\"  name=\"listRateContDtl["+(rowCount)+"].dblDiscount\" id=\"txtDiscount."+(rowCount)+"\" value='"+discount+"' >";
-		    row.insertCell(6).innerHTML= "<input size=\"32%\" type=\"text\" name=\"listRateContDtl["+(rowCount)+"].strNarration\" id=\"txtNarrtion."+(rowCount)+"\" value='"+narration+"' >";
+		    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid a2a2a2;\" size=\"4%\" class=\"decimal-places-amt\" name=\"listRateContDtl["+(rowCount)+"].dblRate\" id=\"txtRate."+(rowCount)+"\" value='"+rate+"' >";
+		    row.insertCell(5).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid a2a2a2;\" size=\"4%\"class=\"decimal-places-amt\"  name=\"listRateContDtl["+(rowCount)+"].dblDiscount\" id=\"txtDiscount."+(rowCount)+"\" value='"+discount+"' >";
+		    row.insertCell(6).innerHTML= "<input size=\"32%\" type=\"text\" style=\"border:1px solid a2a2a2;\" name=\"listRateContDtl["+(rowCount)+"].strNarration\" id=\"txtNarrtion."+(rowCount)+"\" value='"+narration+"' >";
 		    row.insertCell(7).innerHTML= '<input type="button" value = "Delete"  class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
 		    listRow++;
 		    funResetProductFields();

@@ -720,15 +720,15 @@
 	    		dblStock=parseFloat(dblStock)+parseFloat(dblQty);
 	    	}
 	    dblStock=parseFloat(dblStock).toFixed(maxQuantityDecimalPlaceLimit);
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listMISDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";	    
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"9%\" name=\"listMISDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";	    
 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"35%\" name=\"listMISDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
-	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"3%\"  name=\"listMISDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value='"+strUOM+"' />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listMISDtl["+(rowCount)+"].dblStock\" id=\"dblStock."+(rowCount)+"\" value='"+dblStock+"'/>";
-	    row.insertCell(4).innerHTML= "<input type=\"text\" required = \"required\" size=\"7%\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listMISDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\" >";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"6%\" style=\"margin-left: -38px;\" name=\"listMISDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value='"+strUOM+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"6%\" style=\"margin-left: -18px;\" name=\"listMISDtl["+(rowCount)+"].dblStock\" id=\"dblStock."+(rowCount)+"\" value='"+dblStock+"'/>";
+	    row.insertCell(4).innerHTML= "<input type=\"text\" required = \"required\" size=\"4%\" style=\"border: 1px solid #a29c9c;padding: 1px;text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listMISDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\" >";
 	    row.insertCell(5).innerHTML= "<input class=\"inputText-Auto Box\" size=\"7%\" disabled=\"disabled\" id=\"dblPendingQty."+(rowCount)+"\" value="+dblIssueQty+" >";
 	    row.insertCell(6).innerHTML= "<input readonly=\"true\"  required = \"required\" size=\"7%\" style=\"text-align: right;\" class=\"inputText-Auto\" name=\"listMISDtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\" value="+dblUnitPrice+" >";
 	    row.insertCell(7).innerHTML= "<input class=\"Box\" size=\"7%\" style=\"text-align: right;\" readonly=\"readonly\" size=\"7%\" name=\"listMISDtl["+(rowCount)+"].dblTotalPrice\" id=\"dblTotalPrice."+(rowCount)+"\" value="+dblTotalPrice+" >";
-	    row.insertCell(8).innerHTML= "<input readonly=\"true\" size=\"12%\" class=\"Box\" name=\"listMISDtl["+(rowCount)+"].strReqCode\" id=\"strReqCode."+(rowCount)+"\" value="+strReqcode+" >";
+	    row.insertCell(8).innerHTML= "<input readonly=\"true\" size=\"13%\" class=\"Box\" name=\"listMISDtl["+(rowCount)+"].strReqCode\" id=\"strReqCode."+(rowCount)+"\" value="+strReqcode+" >";
 	    row.insertCell(9).innerHTML= "<input size=\"20%\" name=\"listMISDtl["+(rowCount)+"].strRemarks\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"' />";		    
 	    row.insertCell(10).innerHTML='<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';
 	    row.insertCell(11).innerHTML= "<input name=\"listMISDtl["+(rowCount)+"].strExpiry\" type=\"hidden\" value = '"+strExpiry+"' >";
@@ -862,11 +862,11 @@
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 // 		    rowCount=listRow;
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listMISDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"42%\" name=\"listMISDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listMISDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value='"+strUOM+"' />";		    
-		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listMISDtl["+(rowCount)+"].dblStock\" id=\"dblStock."+(rowCount)+"\" value='"+stock+"'/>";
-		    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listMISDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\" value="+dblProdQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";		    
+		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"9%\" name=\"listMISDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"35%\" name=\"listMISDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"6%\" style=\"margin-left: -38px;\" name=\"listMISDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value='"+strUOM+"' />";		    
+		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"6%\" style=\"margin-left: -18px;\" name=\"listMISDtl["+(rowCount)+"].dblStock\" id=\"dblStock."+(rowCount)+"\" value='"+stock+"'/>";
+		    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"border: 1px solid #a29c9c;padding: 1px;text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listMISDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\" value="+dblProdQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";		    
 		    row.insertCell(5).innerHTML= "<input disabled=\"disabled\" class=\"inputText-Auto Box\"></input>";
 		    row.insertCell(6).innerHTML= "<input readonly=\"true\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"inputText-Auto\" name=\"listMISDtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\" value='"+dblUnitPrice+"'/>";
 		    row.insertCell(7).innerHTML= "<input class=\"Box\" style=\"text-align: right;\" readonly=\"readonly\" size=\"7%\" name=\"listMISDtl["+(rowCount)+"].dblTotalPrice\" id=\"dblTotalPrice."+(rowCount)+"\" value='"+dblTotalPrice+"' />";
@@ -1852,15 +1852,15 @@
 			<table style="height: 20px; border: #0F0;width: 100%;font-size:11px;
 				font-weight: bold;">
 				<tr bgcolor="#c0c0c0">
-					<td width="7%">Prod Code</td>					
-					<td width="28%">Product Name</td>	
-					<td width="5%">UOM</td>	
-					<td width="4%">Stock</td>				
-					<td width="5%">Issue Qty</td>
-                    <td width="7%">Pending Qty</td> 
+					<td width="7%" style="padding-left: 10px;">Prod Code</td>					
+					<td width="25%" style="padding-left: 10px;">Product Name</td>	
+					<td width="6%">UOM</td>	
+					<td width="5%">Stock</td>				
+					<td width="6%">Issue Qty</td>
+                    <td width="6%">Pending Qty</td> 
                     <td width="6%">Unit Price</td>
                     <td width="7%">Total Price</td> 
-                    <td width="9%">MR Code</td>        
+                    <td width="10%">MR Code</td>        
 					<td width="0%">Remarks</td>
 					<td width="5%">Delete</td>
 				</tr>

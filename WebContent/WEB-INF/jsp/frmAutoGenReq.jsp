@@ -1,11 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+       <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+        <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript"
 	src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 <script type="text/javascript"
@@ -407,44 +410,42 @@ var flagSelectAll=false;
 </script>
 </head>
 <body>
-<div style="width: 100%; height: 40px; background-color: #458CCA">
-		<p align="center"  style="padding-top: 5px;color: white">Auto Generate Requisition</p>
+<div class="container masterTable">
+<div style="width: 100%; height: 40px; background-color: #c0c0c0">
+		<p align="center"  style="padding-top: 10px;color: white">Auto Generate Requisition</p>
 	</div>
 	<s:form id="autoReq" name="autoReq" action="fillAutoReqData.html" >
-	<div
-		style="width: 100%; min-height:450px; height:100%;  overflow-y: auto; padding-bottom: auto;">
-		<table  class="masterTable" style="width: 100%">
-			<tr>
-				<td><label>Group</label></td>
-				<td><s:select path="strGCode" items="${command.group}"
-						id="strGCode" onchange="funFillCombo(this.value);" cssClass="BoxW124px"></s:select></td>
-				<td><label>SubGroup</label></td>
-				<td><s:select path="strSGCode" items="${command.subGroup}"
-						id="strSGCode" cssClass="BoxW124px">
-					</s:select></td>
-			</tr>
-			<tr>
-
-				<td><label>Location By:</label></td>
-				<td><input id="txtLocCode" name="txtLocCode"
-					ondblclick="funHelp('locationmaster')"  class="searchTextBox" />
-					<label id="lblLocName"></label>
-				</td>
-				<td><input id="btnShow" type="Button" value="Show"
-					onclick="return btnShow_onclick()"  class="smallButton"/>
-				</td>
-				<td style="text-align: center;"><input id="btnClose" onclick="btnClose_onclick();"
-					type="button" value="Close"  class="smallButton" />
-				</td>
-			</tr>
+	
+		<div class="row">
+			<div class="col-md-2"><label>Group</label>
+				  <s:select path="strGCode" items="${command.group}"
+						id="strGCode" onchange="funFillCombo(this.value);"></s:select>
+			</div>
 			
-		</table>
+			<div class="col-md-2"><label>SubGroup</label>
+				  <s:select path="strSGCode" items="${command.subGroup}" id="strSGCode"></s:select>
+			</div>
+			
+			<div class="col-md-2"><label>Location By:</label>
+				<input id="txtLocCode" name="txtLocCode" ondblclick="funHelp('locationmaster')"  class="searchTextBox" />
+					<label id="lblLocName"></label>
+			</div>
+		</div>
+		<br>	
+	   <p align="center" style="margin-right:30%">
+		    <input id="btnShow" type="Button" value="Show"
+				onclick="return btnShow_onclick()" class="btn btn-primary center-block" class="smallButton"/>
+		    &nbsp;
+		    <input id="btnClose" onclick="btnClose_onclick();"
+				type="button" value="Close" class="btn btn-primary center-block" class="smallButton" />
+		</p>
 
 	<dl id="Searchresult"></dl>
 		<div id="Pagination" class="pagination"></div>
 		<div id="wait" style="display:none;width:80px;height:80px;border:0px solid black;position:absolute;top:45%;left:45%;padding:2px;">
 		<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="80px" height="80px" /></div>
-		</div>
+	
 	</s:form>
+	</div>
 </body>
 </html>

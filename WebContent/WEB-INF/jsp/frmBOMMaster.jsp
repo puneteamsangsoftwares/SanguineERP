@@ -18,7 +18,17 @@
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 	
 <title>RECIPE MASTER</title>
-	<script type="text/javascript">
+<style>
+#lblFormName  {
+	font-family: 'trebuchet ms';
+	font-size: 20px;
+	color: #646777;
+	font-weight: bold;
+	padding:0px;
+}
+</style>
+
+<script type="text/javascript">
 				
 		var fieldName,listRow=0; 
 	
@@ -321,9 +331,9 @@
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    
-		    row.insertCell(0).innerHTML= "<input type=\"text\" class=\"Box id\" size=\"10%\" name=\"listBomDtlModel["+(rowCount)+"].strChildCode\" id=\"txtChildCode."+(rowCount)+"\" value="+strChildCode+" >";		    
-		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"30%\" name=\"listBomDtlModel["+(rowCount)+"].strProdName\"  id=\"lblItemName."+(rowCount)+"\" value='"+strProdName+"' >";
-		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listBomDtlModel["+(rowCount)+"].dblQty\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+">";
+		    row.insertCell(0).innerHTML= "<input type=\"text\" class=\"Box id\" size=\"10%\" style=\"border:1px solid #a2a2a2;padding:1px;\" name=\"listBomDtlModel["+(rowCount)+"].strChildCode\" id=\"txtChildCode."+(rowCount)+"\" value="+strChildCode+" >";		    
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"50%\" name=\"listBomDtlModel["+(rowCount)+"].strProdName\"  id=\"lblItemName."+(rowCount)+"\" value='"+strProdName+"' >";
+		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto\" name=\"listBomDtlModel["+(rowCount)+"].dblQty\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+">";
 		    row.insertCell(3).innerHTML= "<input class=\"Box\" size=\"7%\" name=\"listBomDtlModel["+(rowCount)+"].strUOM\" id=\"lblUOM."+(rowCount)+"\" value="+strUOM+">";
 		    row.insertCell(4).innerHTML= '<input type="button" value = "Delete" class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
 		    fillChildImage(strChildCode);
@@ -378,9 +388,9 @@
 			    var rowCount = table.rows.length;
 			    var row = table.insertRow(rowCount);
 			    rowCount=listRow;
-			    row.insertCell(0).innerHTML= "<input type=\"text\" class=\"Box id\" size=\"10%\" name=\"listBomDtlModel["+(rowCount)+"].strChildCode\" id=\"txtChildCode."+(rowCount)+"\" value="+childCode+" >";		    
-			    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"30%\" name=\"listBomDtlModel["+(rowCount)+"].strProdName\"  id=\"lblItemName."+(rowCount)+"\" value='"+itemName+"' >";
-			    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" class=\"inputText-Auto\" name=\"listBomDtlModel["+(rowCount)+"].dblQty\" id=\"txtQty."+(rowCount)+"\" value="+qty+">";
+			    row.insertCell(0).innerHTML= "<input type=\"text\" class=\"Box id\" size=\"10%\" style=\"border:1px solid #a2a2a2;padding:1px;\" name=\"listBomDtlModel["+(rowCount)+"].strChildCode\" id=\"txtChildCode."+(rowCount)+"\" value="+childCode+" >";		    
+			    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"50%\" name=\"listBomDtlModel["+(rowCount)+"].strProdName\"  id=\"lblItemName."+(rowCount)+"\" value='"+itemName+"' >";
+			    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;border:1px solid #a2a2a2;padding:1px;\" class=\"inputText-Auto\" name=\"listBomDtlModel["+(rowCount)+"].dblQty\" id=\"txtQty."+(rowCount)+"\" value="+qty+">";
 			    row.insertCell(3).innerHTML= "<input class=\"Box\" size=\"7%\" name=\"listBomDtlModel["+(rowCount)+"].strUOM\" id=\"lblUOM."+(rowCount)+"\" value="+uom+">";
 			    row.insertCell(4).innerHTML= '<input type="button" value = "Delete" class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
 			    fillChildImage(childCode);
@@ -584,7 +594,7 @@
 <body>
 	<div class="container">
 		<!-- <label>Recipe Master</label> -->
-		<label id=lblFormName id="formHeading"></label>
+		<label id="lblFormName"></label>
 	
 		<s:form name="recipeForm" method="POST" action="saveRecipeMaster.html?saddr=${urlHits}">
 		<input type="hidden" value="${urlHits}" name="saddr">
@@ -684,7 +694,7 @@
 					<div class="dynamicTableContainer"  style="width:100%;height: 235px">
 						<table style="height:28px;border:#0F0;width:100%;font-size:11px;">
 							<tr bgcolor="#c0c0c0" >
-								<td width="8%">Child Code</td><!--  COl1   -->				
+								<td width="9%">Child Code</td><!--  COl1   -->				
 								<td width="35%">Name</td><!--  COl2   -->
 								<td width="6%">Qty</td><!--  COl3   -->
 								<td width="6%">UOM</td><!--  COl5   -->

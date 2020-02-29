@@ -48,11 +48,11 @@
 
 </head>
 
-<body bgcolor="#D8EDFF">
-	<div class="row" style=" height: 28px;">
-		<tiles:insertAttribute name="banner"></tiles:insertAttribute>
+<body bgcolor="#d8d8d894">
+	<div class="row" style="height: 28px;">
+		<tiles:insertAttribute name="header"></tiles:insertAttribute>
 	</div>
-	<div style="background-color: inherit; top: 28px; bottom: 0;">
+	<div style="background-color: #d8d8d894;margin-top: 32px;">
 		<tiles:insertAttribute name="body"></tiles:insertAttribute>
 	</div>
 

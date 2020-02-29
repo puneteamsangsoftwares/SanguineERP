@@ -197,7 +197,7 @@
 			    
 			    row.insertCell(0).innerHTML= "<input id=\"cbToLocSel."+(rowCount)+"\" name=\"Locthemes\" type=\"checkbox\" class=\"LocCheckBoxClass\"  checked=\"checked\" value='"+strLocCode+"' />";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strToLocCode."+(rowCount)+"\" value='"+strLocCode+"' >";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strToLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"40%\" id=\"strToLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
 		}
 	  
 	  
@@ -259,7 +259,7 @@
 				    
 				    row.insertCell(0).innerHTML= "<input id=\"cbSuppSel."+(rowCount)+"\" name=\"Suppthemes\" type=\"checkbox\" class=\"SuppCheckBoxClass\"  checked=\"checked\" value='"+strSuppCode+"' />";
 				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strSuppCode."+(rowCount)+"\" value='"+strSuppCode+"' >";
-				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strSName."+(rowCount)+"\" value='"+strSuppName+"' >";
+				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"40%\" id=\"strSName."+(rowCount)+"\" value='"+strSuppName+"' >";
 			}
 		 
 	  //Remove All Row from Grid Passing Table Id as a parameter
@@ -320,7 +320,7 @@
 				    
 				    row.insertCell(0).innerHTML= "<input id=\"cbGSel."+(rowCount)+"\" type=\"checkbox\"  name=\"GCodethemes\" class=\"GCheckBoxClass selected \" checked=\"checked\" value='"+strGroupCode+"' onclick=\"funGroupChkOnClick()\"/>";
 				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box selected\" size=\"15%\" id=\"strGCode."+(rowCount)+"\" value='"+strGroupCode+"' >";
-				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box selected\" size=\"50%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
+				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box selected\" size=\"40%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
 			}
 				
 			//Select All Group
@@ -403,7 +403,7 @@
 			    
 			    row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" name=\"SubGroupthemes\" value='"+strSGCode+"' class=\"SGCheckBoxClass\" />";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"40%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
 			}
 			
 			//Select All Group,SubGroup,From Location, To Location When Clicking Select All Check Box
@@ -556,15 +556,16 @@
 		     <div class="col-md-8"></div>
 		     
 		     <div class="col-md-6"><label>Group</label>
-			        <input type="text"   style="width: 35%;background-position: 150px 2px;"  Class="searchTextBox" placeholder="Type to search"  
+			        <input type="text"   style="width: 35%;"  Class="searchTextBox" placeholder="Type to search"  
 			          id="searchGrp" >
 		     </div>
 		 
 		     <div class="col-md-6"><label>Sub Group</label>
 		  		 <input type="text" id="searchSGrp" 
-		  		  style="width: 35%;background-position: 150px 2px;"  Class="searchTextBox" placeholder="Type to search" >
+		  		  style="width: 35%;"  Class="searchTextBox" placeholder="Type to search" >
 		    </div>
-	       <br>
+	        <div class="col-md-12"></div><br>
+	        
 			<div class="col-md-6">
 			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
 				  <table id="" class="display"
@@ -624,13 +625,13 @@
 		     <div class="col-md-12"></div>
 		     
 			 <div class="col-md-6"><label>Supplier</label>
-				      <input style="width: 35%; background-position: 150px 2px;" type="text" id="txtSuppCode" 
+				      <input style="width: 35%;" type="text" id="txtSuppCode" 
 			             Class="searchTextBox" placeholder="Type to search"></input>
 			          <label id="lblSuppName"></label>
 			   </div>
 			
 			   <div class="col-md-6"><label>Location</label>
-			        <input type="text" id="txtLocCode" style="width: 35%;background-position: 150px 2px;"  Class="searchTextBox" placeholder="Type to search"  ></input>
+			        <input type="text" id="txtLocCode" style="width: 35%;"  Class="searchTextBox" placeholder="Type to search"  ></input>
 			        <label id="lblLocName"></label>
 			   </div>
 			

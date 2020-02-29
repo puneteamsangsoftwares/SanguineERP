@@ -121,14 +121,14 @@
 	    var table = document.getElementById("tblProdDet");
 	    var rowCount = table.rows.length;
 	    var row = table.insertRow(rowCount);
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\"  id=\"txtSGCode."+(rowCount)+"\" value='"+strSGName+"' />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"22%\"  id=\"txtSGCode."+(rowCount)+"\" value='"+strSGName+"' />";
 // 	    row.insertCell(1).innerHTML= "<input type=\"hidden\" id=\"txtPOSItemCode."+(rowCount)+"\" value='"+strProdCode+"' />";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\"  id=\"txtPOSItemName."+(rowCount)+"\" value='"+strProdName+"' />";
-	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" style=\"text-align:right\" class=\"Box\" size=\"8%\"  id=\"txtWSItemCode."+(rowCount)+"\" value='"+DiscurrentStkQty+"' />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" style=\"text-align:right\" class=\"Box\" size=\"8%\"  id=\"txtWSItemCode."+(rowCount)+"\" value='"+Displyqty+"' />";
-	    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" style=\"text-align:right\" class=\"Box\" size=\"8%\"  id=\"txtWSItemName."+(rowCount)+"\" value='"+DisplayVariance+"' />";
-	    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" style=\"text-align:right\" class=\"Box\" size=\"8%\"  id=\"strWSItemType."+(rowCount)+"\" value='"+parseFloat(UnitPrice).toFixed(maxAmountDecimalPlaceLimit)+"' />";
-	    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" style=\"text-align:right\" class=\"Box totalVarCell\" size=\"8%\"  id=\"txtValue."+(rowCount)+"\" value='"+parseFloat(value).toFixed(maxAmountDecimalPlaceLimit)+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"40%\"  id=\"txtPOSItemName."+(rowCount)+"\" value='"+strProdName+"' />";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" style=\"text-align:right\" class=\"Box\" size=\"14%\"  id=\"txtWSItemCode."+(rowCount)+"\" value='"+DiscurrentStkQty+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" style=\"text-align:right\" class=\"Box\" size=\"13%\"  id=\"txtWSItemCode."+(rowCount)+"\" value='"+Displyqty+"' />";
+	    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" style=\"text-align:right\" class=\"Box\" size=\"12%\"  id=\"txtWSItemName."+(rowCount)+"\" value='"+DisplayVariance+"' />";
+	    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" style=\"text-align:right\" class=\"Box\" size=\"12%\"  id=\"strWSItemType."+(rowCount)+"\" value='"+parseFloat(UnitPrice).toFixed(maxAmountDecimalPlaceLimit)+"' />";
+	    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" style=\"text-align:right\" class=\"Box totalVarCell\" size=\"10%\"  id=\"txtValue."+(rowCount)+"\" value='"+parseFloat(value).toFixed(maxAmountDecimalPlaceLimit)+"' />";
 	}
 	 /**
 	 * Remove all rcords from grid
@@ -286,12 +286,12 @@
 		 	<div class="col-md-2">	
 			     <label id="lblFromDate">From Date</label>
 				<s:input id="txtFromDate" name="fromDate" path="dtFromDate" title="Select From Date"
-					cssClass="calenderTextBox" /> <s:errors path="dtFromDate"></s:errors>
+					cssClass="calenderTextBox" style="width:70%;"/> <s:errors path="dtFromDate"></s:errors>
 			</div>
 			<div class="col-md-2">
 				<label id="lblToDate">To Date</label>
 				<s:input id="txtToDate" name="toDate" path="dtToDate" title="Select To Date"
-						cssClass="calenderTextBox" /> <s:errors path="dtToDate"></s:errors>
+						cssClass="calenderTextBox" style="width:70%;"/> <s:errors path="dtToDate"></s:errors>
 			</div>
 			<div class="col-md-2">		
 				<s:select path="strExportType" id="cmbExportType"  title="Select Export Type" style="margin-top: 28px; width:80%;">
@@ -308,18 +308,19 @@
 			<div class="col-md-2">
 				 <label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 40%; margin: 27px 0px;text-align:center"></label>
 			</div>
-		</div>
-		<div class="center" style="margin-right:57%;">
-			<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return funOnClick()">Execute</button></a>&nbsp
+		
+		<div  class="col-md-3">
+			<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return funOnClick()">Execute</button></a>
+			&nbsp;
 			 <a href="#"><button class="btn btn-primary center-block" id="btnExport" value="Export" onclick="return funOnExport()">Export</button></a>
 		</div>
-		
-		<div id="divProdDet" class="dynamicTableContainer" style="height: 280px;">
-			<table class="transTablex" style="height: 25px; border: #0F0;width: 99.9%;font-size:11px;
+	</div>
+		<div id="divProdDet" style="height: 280px;">
+			<table style="height: 25px; border: #0F0;width: 90%;font-size:11px;
 			font-weight: bold;overflow: scroll;table-layout: fixed;">
 				<tr bgcolor="#c0c0c0">
-					<th style="width:10%;text-align:left">SubGroup Name</th>					
-					<th style="width:49.5%;text-align:left">Product Name</th>	
+					<th style="width:13%;text-align:left">SubGroup Name</th>					
+					<th style="width:35%;text-align:left">Product Name</th>	
 					<th style="width:8%;text-align:left" >C Stock</th>				
 					<th style="width:8%;text-align:left">Phy Stk Qty</th>
                     <th style="width:8%;text-align:left">Variance</th> 
@@ -327,14 +328,14 @@
                     <th style="width:8%;text-align:left">Value</th> 
 				</tr>
 			</table>
-				<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 196px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 290px; overflow-x: hidden; overflow-y: scroll; width:90%;">
 					<table id="tblProdDet"
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col11-center">
 					<tbody>
-					<col style="width:10%">	
+					<col style="width:13%">	
 								
-					<col style="width:50%">
+					<col style="width:23%">
 					<col style="width:8.5%">
 					<col style="width:8%">
 					<col style="width:8%">
@@ -344,12 +345,12 @@
 				</table>
 			</div>
 			
-			<table class="transTable">
-				<tr>
-				<td style="width:87%;text-align: right;">Total Variance Value</td>
-				<td width="13%"><input type="text" id="txtTotVar" readonly="readonly" style="margin-right:14px" value=0.00 Class="decimal-places-amt numberField"></td>
-				</tr>
-			</table>
+			<div class=" row transTable">
+				<div class="col-md-2">
+				  <label>Total Variance Value</label>
+				  <input type="text" id="txtTotVar" readonly="readonly" style="margin-right:14px" value=0.00 Class="decimal-places-amt numberField">
+				</div>
+			</div>
 		</div>
 		
 		<br>

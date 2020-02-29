@@ -163,6 +163,16 @@ public class clsInvoiceBean {
 
 	private String strInvoiceDate;
 	
+	public String getStrDiscType() {
+		return strDiscType;
+	}
+
+	public void setStrDiscType(String strDiscType) {
+		this.strDiscType = strDiscType;
+	}
+
+	private String strDiscType;
+	
     private List<clsInvoiceBean> listMultipleSOCodes =new ArrayList<>();
     
  // Getter And Setter

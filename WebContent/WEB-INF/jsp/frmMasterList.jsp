@@ -104,15 +104,14 @@
 					  <s:input type="text" id="txtFromDate"
 							class="calenderTextBox" path="dtFromDate" required="required" style="width:70%"/>
 				</div>
-				<div class="col-md-10"></div>
 				
 				<div class="col-md-2"><label>To Date</label>
 					  <s:input type="text" id="txtToDate" class="calenderTextBox" path="dtToDate" required="required" style="width:70%"/>
 				</div>
-				<div class="col-md-10"></div>
+				<div class="col-md-8"></div>
 				
 				<div class="col-md-3"><label>Module</label>
-				  <s:select id="cmbModule" cssClass="combo1" cssStyle="width:auto;height:20px;overflow:scroll" path="strAgainst">
+				  <s:select id="cmbModule" cssClass="combo1" cssStyle="width:auto;height:25px;overflow:scroll" path="strAgainst">
 					<option value="tblattributemaster">Attribute Master</option>
 					<option value="tbludcategory">UD Report Category Master</option>
 					<option value="tblcharacteristics">Characteristics Master</option>
@@ -131,10 +130,9 @@
 				</s:select>			
 			   </div>
 		</div>
+	   <br />
 	
-		<br />
-	
-		<p align="center" style="margin-right:51%">
+		<p align="center" style="margin-right:57%">
 			 <input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" id="btnSubmit" /> 
 			  &nbsp;
 		  	 <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />

@@ -8,14 +8,6 @@
 <link rel="stylesheet" type="text/css" href="default.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=8"/>
-	
-	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-	
 <title>SUB GROUP MASTER</title>
 	
 <script type="text/javascript">
@@ -350,6 +342,7 @@ $(document).ready(function(){
 		</div>
 		<div class="center" style="margin-right: 51%;">
 			<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funCallFormAction('submit',this);">Submit</button></a>
+			&nbsp;
 			<a href="#"><button class="btn btn-primary center-block"  value="Reset" >Reset</button></a>
 		</div>
 		<s:input type="hidden" id="hidExciseable" path="strExciseable"></s:input>

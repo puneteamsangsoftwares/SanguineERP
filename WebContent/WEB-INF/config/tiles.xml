@@ -44,24 +44,27 @@
 
 	<definition name="base.definition4" template="/WEB-INF/jsp/newTabTemplate.jsp">
 		<put-attribute name="title" value=""></put-attribute>
-		<put-attribute name="banner" value="/WEB-INF/jsp/banner2.jsp"></put-attribute>
-		<put-attribute name="body" value=""></put-attribute>
-	</definition>
-
-	<definition name="base.definition5" template="/WEB-INF/jsp/blankTemplate.jsp">
-		<put-attribute name="body" value=""></put-attribute>
-	</definition>
-	
-	<definition name="base.definition6" template="/WEB-INF/jsp/newTabTemplate.jsp">
-		<put-attribute name="title" value=""></put-attribute>
-		<put-attribute name="banner" value="/WEB-INF/jsp/webPOS/posBanner.jsp"></put-attribute>
-		<put-attribute name="body" value=""></put-attribute>
-	</definition>
-	<definition name="base.definition7" template="/WEB-INF/jsp/headerBodyTemplet.jsp">
-		<put-attribute name="title" value=""></put-attribute>
+	    <put-attribute name="banner" value="/WEB-INF/jsp/banner2.jsp"></put-attribute> 
 		<put-attribute name="header" value="/WEB-INF/jsp/header.jsp"></put-attribute>
 		<put-attribute name="body" value=""></put-attribute>
-	</definition>
+	 </definition>
+
+	 <definition name="base.definition5" template="/WEB-INF/jsp/blankTemplate.jsp">
+		<put-attribute name="body" value=""></put-attribute>
+	 </definition>
+	
+	 <definition name="base.definition6" template="/WEB-INF/jsp/newTabTemplate.jsp">
+		 <put-attribute name="title" value=""></put-attribute>
+	     <put-attribute name="banner" value="/WEB-INF/jsp/webPOS/posBanner.jsp"></put-attribute>  
+	     <put-attribute name="header" value="/WEB-INF/jsp/header.jsp"></put-attribute> 
+	     <put-attribute name="body" value=""></put-attribute>
+	 </definition>
+	
+	 <definition name="base.definition7" template="/WEB-INF/jsp/headerBodyTemplet.jsp">
+		 <put-attribute name="title" value=""></put-attribute>
+		 <put-attribute name="header" value="/WEB-INF/jsp/header.jsp"></put-attribute>
+		 <put-attribute name="body" value=""></put-attribute>
+	  </definition>
 
 	
 
@@ -230,7 +233,7 @@
 			value="/WEB-INF/jsp/frmAttributeMaster.jsp"></put-attribute>
 	</definition>
 	
-	<definition name="frmAttributeMaster_1" extends="base.definition">
+	<definition name="frmAttributeMaster_1" extends="base.definition4">
 		<put-attribute name="title" value="Attribute Master"></put-attribute>
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/frmAttributeMaster.jsp"></put-attribute>
@@ -318,7 +321,7 @@
 	<definition name="frmUserMaster" extends="base.definition">
 		<put-attribute name="title" value="User Master"></put-attribute>
 		<put-attribute name="body"
-			value="/WEB-INF/jsp/frmUserManagement1.jsp"></put-attribute>
+			value="/WEB-INF/jsp/f.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="frmUserMaster_1" extends="base.definition4">
@@ -5448,6 +5451,18 @@
 	  </definition>  
 	  
 	  
+
+	   <definition name="frmBanquetSetup" extends="base.definition">
+		   <put-attribute name="title" value="Banquet Type Master" ></put-attribute>
+		   <put-attribute name="body" value="/WEB-INF/jsp/webBanquets/frmBanquetSetup.jsp" ></put-attribute>
+	  </definition>
+	
+	 <definition name="frmBanquetSetup_1" extends="base.definition4">
+	 	 <put-attribute name="title" value="Banquet Type Master"  ></put-attribute>
+	  	<put-attribute name="body" value="/WEB-INF/jsp/webBanquets/frmBanquetSetup.jsp" ></put-attribute>
+	  </definition> 
+	  
+	 
 	   <definition name="frmAdvanceStatusReport" extends="base.definition">
 		   <put-attribute name="title" value="Banquet Type Master" ></put-attribute>
 		   <put-attribute name="body" value="/WEB-INF/jsp/webBanquets/frmAdvanceStatusReport.jsp" ></put-attribute>

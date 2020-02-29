@@ -9,13 +9,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=8"/>
 	
-	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-
 <style>
 input[type=number]{
 padding:0px;
@@ -448,8 +441,8 @@ padding:0px;
 		    var row = table.insertRow(rowCount);
 		    var cnt=0;
 		    var insertRowflg='Y';
-		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"8%\" id=\"txtTaxCode."+(rowCount)+"\" value='"+TaxCode+"' />";
-		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"27%\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+TaxDes+"'/>";
+		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"18%\" id=\"txtTaxCode."+(rowCount)+"\" value='"+TaxCode+"' />";
+		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" style=\"margin-left:20%;\" size=\"35%\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+TaxDes+"'/>";
 		    for(cnt=0;cnt<taxesCode.length;cnt++)
 			{
 				if(TaxCode==taxesCode[cnt])
@@ -552,8 +545,8 @@ padding:0px;
 		    var row = table.insertRow(rowCount);
 		    var cnt=0;
 		    var insertRowflg='Y';
-		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"8%\" id=\"txtTaxCode."+(rowCount)+"\" value='"+TaxCode+"' />";
-		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"27%\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+TaxDes+"'/>";
+		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"18%\" id=\"txtTaxCode."+(rowCount)+"\" value='"+TaxCode+"' />";
+		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" style=\"margin-left:20%;\" size=\"35%\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+TaxDes+"'/>";
 		    for(cnt=0;cnt<taxesCode.length;cnt++)
 			{
 				if(TaxCode==taxesCode[cnt])
@@ -636,9 +629,9 @@ padding:0px;
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strTaxCode."+(rowCount)+"\" value='"+taxCode+"' />";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strSGName."+(rowCount)+"\" value='"+subGroupName+"' />";
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" name=\"listTaxSGDtl["+(rowCount)+"].strSGCode\" id=\"strSGCode."+(rowCount)+"\" value='"+subGroupCode+"' />";
+		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"23%\" id=\"strTaxCode."+(rowCount)+"\" value='"+taxCode+"' />";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"25%\" style=\"margin-left: -46%;\" id=\"strSGName."+(rowCount)+"\" value='"+subGroupName+"' />";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"25%\" style=\"margin-left: -30%;\" name=\"listTaxSGDtl["+(rowCount)+"].strSGCode\" id=\"strSGCode."+(rowCount)+"\" value='"+subGroupCode+"' />";
 		    
 		    funResetSubGroupFields();
 		}
@@ -754,8 +747,8 @@ padding:0px;
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 	
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" name=\"listTaxSettlement["+(rowCount)+"].strSettlementCode\"  id=\"strSettlementCode."+(rowCount)+"\" value='"+settlementCode+"' />";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"SettlementDesc."+(rowCount)+"\" value='"+SettlementDesc+"' />";
+		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"23%\" name=\"listTaxSettlement["+(rowCount)+"].strSettlementCode\"  id=\"strSettlementCode."+(rowCount)+"\" value='"+settlementCode+"' />";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"35%\" id=\"SettlementDesc."+(rowCount)+"\" value='"+SettlementDesc+"' />";
 		    row.insertCell(2).innerHTML= "<input id=\"cbApplicable."+(rowCount)+"\" name=\"listTaxSettlement["+(rowCount)+"].strApplicable\" type=\"checkbox\" class=\"ApplicableCheckBoxClass\"  checked=\"checked\"  value='"+settlementCode+"' />";
 		    
 		}
@@ -826,8 +819,8 @@ padding:0px;
 			    var rowCount = table.rows.length;
 			    var row = table.insertRow(rowCount);
 		
-			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" name=\"listTaxSettlement["+(rowCount)+"].strSettlementCode\"  id=\"strSettlementCode."+(rowCount)+"\" value='"+settlementCode+"' />";
-			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"SettlementDesc."+(rowCount)+"\" value='"+SettlementDesc+"' />";
+			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"23%\" name=\"listTaxSettlement["+(rowCount)+"].strSettlementCode\"  id=\"strSettlementCode."+(rowCount)+"\" value='"+settlementCode+"' />";
+			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"35%\" id=\"SettlementDesc."+(rowCount)+"\" value='"+SettlementDesc+"' />";
 			    if(strApplicable=='Yes')
 			    {
 			    row.insertCell(2).innerHTML= "<input id=\"cbApplicable."+(rowCount)+"\" name=\"listTaxSettlement["+(rowCount)+"].strApplicable\" type=\"checkbox\" class=\"ApplicableCheckBoxClass\"  checked=\"checked\"  value='"+settlementCode+"' />";
@@ -997,17 +990,17 @@ padding:0px;
 				</div>
 			</div> 
 		
-		<div id="tab2" class="tab_content" style="margin-top: 45px;">
+		<div id="tab2" class="tab_content" style="margin-top: 45px;width:70%;">
 		<br>
-			<table class="masterTable" style="width:80%; background-color: #c0c0c0; ">
+			<table class="masterTable" style="width:70%; background-color: #c0c0c0; ">
 				<tr>
-					<th><label>Tax Code</label></th>
-					<th><label>Tax Desc</label></th>
+					<th style="width:35%;"><label>Tax Code</label></th>
+					<th style="width:48%;"><label >Tax Desc</label></th>
 					<th><label>Select</label></th>
 				</tr>
 			</table>
 				
-			<div style="background-color: #fbfafa; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 80%;">
+			<div style="background-color: #fbfafa; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 70%;">
 				<table id="tblTaxes" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col5-center">
 					<tbody>
 						<col style="width: 5%"><!-- col1   -->
@@ -1032,17 +1025,17 @@ padding:0px;
 				</div>
 			</div>
 				
-			<div class="dynamicTableContainer" style="height: 300px;">
+			<div class="dynamicTableContainer" style="height: 300px;width:600px;">
 				<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
 					<tr bgcolor="#c0c0c0">
-						<td style="width:20%;">Tax</td>
-						<td style="width:20%;">Sub Group Name</td>
-						<td style="width:20%;">Sub Group Code</td>
+						<td style="width:20%;padding-left: 40px;">Tax</td>
+						<td style="width:20%;padding-left: 40px;">Sub Group Name</td>
+						<td style="width:20%;padding-left: 40px;">Sub Group Code</td>
 						<td style="width:5%;"></td>
 					</tr>
 				</table>
 			
-				<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width:100%;">
 					<table id="tblTaxSGDtl"
 						style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 						class="transTablex col8-center">
@@ -1058,13 +1051,13 @@ padding:0px;
 		</div>
 			<div id="tab4" class="tab_content">
 			<br><br><br>
-				<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; width:60%; overflow-x: hidden; overflow-y: scroll; width: 60%;">
 					<table id="tblSettlement" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 						class="transTablex col8-center">
 						<tbody>
 							<col style="width:10%"/>
 							<col style="width:16%">					
-							<col style="width:10%">
+							<col style="width:5%">
 						</tbody>
 					</table>
 				</div>
@@ -1095,12 +1088,11 @@ padding:0px;
 <!-- 							</table> -->
 <!-- 				</div> -->
 			
-		<br />
-		<br />
+	
 		</div>
-		<div class="center">
+		<div class="center" style="margin-right:45%;">
 				<a href="#"><button class="btn btn-primary center-block" id="btnSubmit" value="Submit" onclick="return funCallFormAction('submit',this);" 
-				>Submit</button></a>
+				>Submit</button></a>&nbsp;
 				<a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()"
 				>Reset</button></a>
 		</div>

@@ -171,6 +171,7 @@
                		<label>Subject:</label>
                    <input type="text" name="subject" id="txtsubject" size="65"/>
                </div>
+               <div class="col-md-8"></div>
                <div class="col-md-2">
               		<label>Message:</label>
                    <textarea cols="50" rows="10" name="message"></textarea>
@@ -183,6 +184,7 @@
                	
          <div class="center" style="margin-right:68%;">
 			<a href="#"><button class="btn btn-primary center-block" value="Send" onclick="return btnSubmit_onClick() ">Send</button></a>
+			&nbsp;
 			<a href="#"><button class="btn btn-primary center-block" value="Close" onclick="btnClose_onClick() ">Close</button></a>
 		</div>       
           

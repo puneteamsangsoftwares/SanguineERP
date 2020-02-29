@@ -124,16 +124,16 @@ $(document).ready(function(){
 		    	{
 		    	strAgainst="";
 		    	}
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"7%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
-		    row.insertCell(2).innerHTML= "<input type=\"text\" required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblQty\" id=\"txtProdQty."+(rowCount)+"\" value="+dblOrdQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
-		    row.insertCell(3).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto Box\"  name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblRate\" id=\"txtRate."+(rowCount)+"\" value='"+parseFloat(dblUnitPrice).toFixed(maxAmountDecimalPlaceLimit)+"'/>";
-		    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto Box totalValueCell\"  name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblAmount\" id=\"txtAmount."+(rowCount)+"\" value='"+parseFloat(dblTotAmt).toFixed(maxAmountDecimalPlaceLimit)+"'/>";
-		    row.insertCell(5).innerHTML= "<input size=\"15%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strPurpose\" id=\"strPurpose."+(rowCount)+"\" value="+strPurpose+" >";
-		    row.insertCell(6).innerHTML= "<input type=\"text\" size=\"8%\"  required = \"required\"  class=\"datePicker calenderTextBox\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dtReqDate\" id=\"dtReqDate."+(rowCount)+"\" value='"+dtReqDate+"' />";		   		    
+		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"42%\" style=\"margin-left: 20px;\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
+		    row.insertCell(2).innerHTML= "<input type=\"text\" required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;\" class=\"decimal-places inputText-Auto\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblQty\" id=\"txtProdQty."+(rowCount)+"\" value="+dblOrdQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+		    row.insertCell(3).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;\" class=\"decimal-places inputText-Auto Box\"  name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblRate\" id=\"txtRate."+(rowCount)+"\" value='"+parseFloat(dblUnitPrice).toFixed(maxAmountDecimalPlaceLimit)+"'/>";
+		    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;\" class=\"decimal-places inputText-Auto Box totalValueCell\"  name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblAmount\" id=\"txtAmount."+(rowCount)+"\" value='"+parseFloat(dblTotAmt).toFixed(maxAmountDecimalPlaceLimit)+"'/>";
+		    row.insertCell(5).innerHTML= "<input size=\"21%\" style=\"margin-left: 2px;\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strPurpose\" id=\"strPurpose."+(rowCount)+"\" value="+strPurpose+" >";
+		    row.insertCell(6).innerHTML= "<input type=\"text\" size=\"6%\"  required = \"required\"  style=\"border:1px solid #a2a2a2;\" class=\"datePicker calenderTextBox\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dtReqDate\" id=\"dtReqDate."+(rowCount)+"\" value='"+dtReqDate+"' />";		   		    
 		    row.insertCell(7).innerHTML= "<input readonly=\"readonly\"  style=\"text-align: right;\" class=\"Box\" size=\"7%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strInStock\" id=\"strInStock."+(rowCount)+"\" value='"+strInStock+"'/>";		    
 		    row.insertCell(8).innerHTML= "<input readonly=\"readonly\"  style=\"text-align: right;\" class=\"Box\" size=\"4%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblMinLevel\" id=\"dblReOrderQty."+(rowCount)+"\" value='"+Minimumlevel+"' />";
-		    row.insertCell(9).innerHTML= "<input size=\"6%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strAgainst\" id=\"strAgainst."+(rowCount)+"\" value='"+strAgainst+"' />";		    
+		    row.insertCell(9).innerHTML= "<input size=\"8%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strAgainst\" id=\"strAgainst."+(rowCount)+"\" value='"+strAgainst+"' />";		    
 		    row.insertCell(10).innerHTML= '<input size=\"8%\" type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';
 		    
 		    funApplyDatePicker();
@@ -471,13 +471,13 @@ $(document).ready(function(){
 		    var row = table.insertRow(rowCount);
 		    rowCount=listRow;
 		   // row.insertCell(1).innerHTML= "<input type=\"hidden\" name=\"listMISDtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />"+strProdName+"</label>";
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"7%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
-		    row.insertCell(2).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\"  name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblQty\" id=\"txtProdQty."+(rowCount)+"\" value='"+dblProdQty+"' onblur=\"Javacsript:funUpdatePrice(this)\">";
-		    row.insertCell(3).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto Box\"  name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblRate\" id=\"txtRate."+(rowCount)+"\" value='"+parseFloat(dblUnitPrice).toFixed(maxAmountDecimalPlaceLimit)+"'/>";
-		    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto Box totalValueCell\"  name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblAmount\" id=\"txtAmount."+(rowCount)+"\" value='"+parseFloat(dblAmount).toFixed(maxAmountDecimalPlaceLimit)+"'/>";
-		    row.insertCell(5).innerHTML= "<input size=\"18%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strPurpose\" style=\"margin-left:5px;\" id=\"strPurpose."+(rowCount)+"\" value='"+strPurpose+"' >";
-		    row.insertCell(6).innerHTML= "<input size=\"8%\"  required = \"required\" class=\"datePicker calenderTextBox\" style=\"border:1px solid #c0c0c0;\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dtReqDate\" id=\"dtReqDate."+(rowCount)+"\" value='"+dtReqDate+"' >";	   
+		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"42%\" style=\"margin-left: 20px;\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
+		    row.insertCell(2).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;\" class=\"decimal-places inputText-Auto\"  name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblQty\" id=\"txtProdQty."+(rowCount)+"\" value='"+dblProdQty+"' onblur=\"Javacsript:funUpdatePrice(this)\">";
+		    row.insertCell(3).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;\" class=\"decimal-places inputText-Auto Box\"  name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblRate\" id=\"txtRate."+(rowCount)+"\" value='"+parseFloat(dblUnitPrice).toFixed(maxAmountDecimalPlaceLimit)+"'/>";
+		    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2; padding: 1px;\" class=\"decimal-places inputText-Auto Box totalValueCell\"  name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblAmount\" id=\"txtAmount."+(rowCount)+"\" value='"+parseFloat(dblAmount).toFixed(maxAmountDecimalPlaceLimit)+"'/>";
+		    row.insertCell(5).innerHTML= "<input size=\"21%\" style=\"margin-left: 2px;\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strPurpose\" style=\"margin-left:5px;\" id=\"strPurpose."+(rowCount)+"\" value='"+strPurpose+"' >";
+		    row.insertCell(6).innerHTML= "<input size=\"6%\"  required = \"required\" class=\"datePicker calenderTextBox\" style=\"border:1px solid #a2a2a2;\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dtReqDate\" id=\"dtReqDate."+(rowCount)+"\" value='"+dtReqDate+"' >";	   
 		    row.insertCell(7).innerHTML= "<input readonly=\"readonly\"  style=\"text-align: right;\" class=\"Box\" size=\"7%\" style=\"margin-left:5px;\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strInStock\" id=\"strInStock."+(rowCount)+"\" value='"+strInStock+"' />";		    
 		    row.insertCell(8).innerHTML= "<input readonly=\"readonly\"  style=\"text-align: right;\" class=\"Box\" size=\"4%\"  style=\"margin-left:5px;\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].dblReOrderQty\" id=\"dblReOrderQty."+(rowCount)+"\"  value='"+Minimumlevel+"'/>";
 		    row.insertCell(9).innerHTML= "<input size=\"8%\" name=\"listPurchaseIndentDtlModel["+(rowCount)+"].strAgainst\" id=\"strAgainst."+(rowCount)+"\" value='"+strAgainst+"'/>";		    
@@ -960,11 +960,11 @@ $(document).ready(function(){
 		<table  style="height:28px;border:#0F0;width:100%;font-size:11px;
 				font-weight: bold;">	
 			<tr bgcolor=#c0c0c0 >
-				<td width="4%">Prod Code</td><!--  COl1   -->
-				<td width="22%">Prod name</td><!--  COl2   -->
+				<td width="7%">Prod Code</td><!--  COl1   -->
+				<td width="19%">Prod name</td><!--  COl2   -->
 				<td width="3%">Qty</td><!--  COl3   -->
 				<td width="3%">Unit Price</td><!--  COl4   -->
-				<td width="3%">Amount</td><!--  COl5   -->
+				<td width="4%">Amount</td><!--  COl5   -->
 				<td width="10%">Purpose</td><!--  COl6   -->
 				<td width="7%">Required Date</td><!--  COl7   -->
 				<td width="4%">Avail Stock </td><!--  COl8   -->

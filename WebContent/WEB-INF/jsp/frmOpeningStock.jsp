@@ -277,15 +277,15 @@
 		    LooseQty=parseFloat(LooseQty).toFixed(maxQuantityDecimalPlaceLimit);
 		    rowCount=listRow;
 		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"8%\" name=\"listOpStkDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value="+prodCode+">";
-		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"55%\" name=\"listOpStkDtl["+(rowCount)+"].strProdName\" value='"+prodName+"' id=\"txtProdName."+(rowCount)+"\" >";
-		    row.insertCell(2).innerHTML= "<input class=\"Box\" type=\"text\" name=\"listOpStkDtl["+(rowCount)+"].strDisplyQty\" size=\"9%\" style=\"text-align: right;\" id=\"txtDisplayQty."+(rowCount)+"\" value='"+Displyqty+"'/>";	
-		    row.insertCell(3).innerHTML= "<input class=\"decimal-places inputText-Auto\" type=\"text\" style=\"text-align: right;\" name=\"listOpStkDtl["+(rowCount)+"].dblLooseQty\" id=\"txtLooseQty."+(rowCount)+"\"  value='"+LooseQty+"' onblur=\"funConvertQty(this);\"/>";	
-		    row.insertCell(4).innerHTML= "<input class=\"Box\" size=\"4%\" name=\"listOpStkDtl["+(rowCount)+"].strUOM\" id=\"txtUOM."+(rowCount)+"\"  value='"+uom+"'>";
-		    row.insertCell(5).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places-amt inputText-Auto\" name=\"listOpStkDtl["+(rowCount)+"].dblCostPUnit\" id=\"txtCostPUnit."+(rowCount)+"\" value='"+costPUnit+"' />";
-		    row.insertCell(6).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places-amt inputText-Auto\"  id=\"txtTotalCost."+(rowCount)+"\" value='"+totalPrice+"' />";
-		    row.insertCell(7).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" class=\"inputText-Auto\" name=\"listOpStkDtl["+(rowCount)+"].dblRevLvl\" id=\"txtRevLevel."+(rowCount)+"\" value='"+revLvl+"' />";
-		    row.insertCell(8).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" class=\"inputText-Auto\" name=\"listOpStkDtl["+(rowCount)+"].strLotNo\" id=\"txtLotNo."+(rowCount)+"\" value='"+lotNo+"' >";		    
-		    row.insertCell(9).innerHTML= '<input type="button" value = "Delete"  class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"59%\" name=\"listOpStkDtl["+(rowCount)+"].strProdName\" value='"+prodName+"' id=\"txtProdName."+(rowCount)+"\" >";
+		    row.insertCell(2).innerHTML= "<input class=\"Box\" type=\"text\" name=\"listOpStkDtl["+(rowCount)+"].strDisplyQty\" size=\"9%\" style=\"border: 1px solid #ada2a2;padding: 1px;text-align: right;\" id=\"txtDisplayQty."+(rowCount)+"\" value='"+Displyqty+"'/>";	
+		    row.insertCell(3).innerHTML= "<input class=\"decimal-places inputText-Auto\" type=\"text\" style=\"border: 1px solid #ada2a2;padding: 1px;text-align: right;\" name=\"listOpStkDtl["+(rowCount)+"].dblLooseQty\" id=\"txtLooseQty."+(rowCount)+"\"  value='"+LooseQty+"' onblur=\"funConvertQty(this);\"/>";	
+		    row.insertCell(4).innerHTML= "<input class=\"Box\" size=\"6%\" name=\"listOpStkDtl["+(rowCount)+"].strUOM\" id=\"txtUOM."+(rowCount)+"\"  value='"+uom+"'>";
+		    row.insertCell(5).innerHTML= "<input type=\"text\"  required = \"required\" style=\"border:1px solid #ada2a2;padding:1px;text-align: right;\" class=\"decimal-places-amt inputText-Auto\" name=\"listOpStkDtl["+(rowCount)+"].dblCostPUnit\" id=\"txtCostPUnit."+(rowCount)+"\" value='"+costPUnit+"' />";
+		    row.insertCell(6).innerHTML= "<input type=\"text\"  required = \"required\" style=\"border:1px solid #ada2a2;padding:1px;text-align: right;\" class=\"decimal-places-amt inputText-Auto\"  id=\"txtTotalCost."+(rowCount)+"\" value='"+totalPrice+"' />";
+		    row.insertCell(7).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"border: 1px solid #ada2a2;padding: 1px;text-align: right;\" class=\"inputText-Auto\" name=\"listOpStkDtl["+(rowCount)+"].dblRevLvl\" id=\"txtRevLevel."+(rowCount)+"\" value='"+revLvl+"' />";
+		    row.insertCell(8).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"border: 1px solid #ada2a2;padding: 1px;text-align: right;\" class=\"inputText-Auto\" name=\"listOpStkDtl["+(rowCount)+"].strLotNo\" id=\"txtLotNo."+(rowCount)+"\" value='"+lotNo+"' >";		    
+		    row.insertCell(9).innerHTML= '<input type="button" value = "Delete"  style=\"margin-left: 20px;\" class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
 		    row.insertCell(10).innerHTML= "<input type=\"hidden\"  name=\"listOpStkDtl["+(rowCount)+"].dblQty\" id=\"txtQuantity."+(rowCount)+"\" value='"+qty+"' >";	
 		   	listRow++;
 		    funApplyNumberValidation();
@@ -1046,7 +1046,7 @@
 					<!--  COl9   -->
 					<col style="width:5%">
 					<!--  COl10   -->
-					<col style="width:1%;display:none">
+					<col style="width:1%;display:none;">
 					<!--  COl11   -->
 					</tbody>
 				</table>

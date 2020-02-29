@@ -20,7 +20,7 @@
 <style type="text/css">
 .transTable td{
 	border-left:none;
-	padding-left:0px;
+	padding-left:7px;
 }
 </style>
     <script type="text/javascript">
@@ -250,9 +250,9 @@
 				    var rowCount = table.rows.length;
 				    var row = table.insertRow(rowCount);
 				    
-				    row.insertCell(0).innerHTML= "<input id=\"cbFromLocSel."+(rowCount)+"\" name=\"FromLocthemes\" type=\"checkbox\" class=\"FromLocCheckBoxClass\"  checked=\"checked\" value='"+strLocCode+"' />";
+				    row.insertCell(0).innerHTML= "<input id=\"cbFromLocSel."+(rowCount)+"\" name=\"FromLocthemes\" type=\"checkbox\" style=\"margin-right: 55px;\" class=\"FromLocCheckBoxClass\"  checked=\"checked\" value='"+strLocCode+"' />";
 				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strFromLocCode."+(rowCount)+"\" value='"+strLocCode+"' >";
-				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strFromLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
+				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"40%\" id=\"strFromLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
 			}
 			
 		    /**
@@ -265,9 +265,9 @@
 				    var rowCount = table.rows.length;
 				    var row = table.insertRow(rowCount);
 				    
-				    row.insertCell(0).innerHTML= "<input id=\"cbToLocSel."+(rowCount)+"\" name=\"ToLocthemes\" type=\"checkbox\" class=\"ToLocCheckBoxClass\"  checked=\"checked\" value='"+strLocCode+"' />";
+				    row.insertCell(0).innerHTML= "<input id=\"cbToLocSel."+(rowCount)+"\" name=\"ToLocthemes\" type=\"checkbox\" style=\"margin-right: 55px;\" class=\"ToLocCheckBoxClass\"  checked=\"checked\" value='"+strLocCode+"' />";
 				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strToLocCode."+(rowCount)+"\" value='"+strLocCode+"' >";
-				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strToLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
+				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"40%\" id=\"strToLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
 			}
 		    /**
 			*  Remove All Row From Grid 
@@ -386,32 +386,32 @@
 			</div>
 			</div>
 	
-		<table class="transTable" style="width:100%;">
-			<tr>
-				<td width="49%"><label>From Location</label>
+		<div class=" row transTable" style="width:100%;">
+			<div class="col-md-6"><label>From Location</label>
 				<input type="text" id="txtFromLocCode" 
 					ondblclick="funHelp('locby')" Class="searchTextBox" style="width:30%;"></input>
-				<label id="lblFromLocName"></label></td>
+				<label id="lblFromLocName"></label>
+			</div>
 				
-				<td width="49%"><label>To Location</label>
+			<div class="col-md-6"><label>To Location</label>
 				<input type="text" id="txtToLocCode"  
 			        style="width: 30%;" class="searchTextBox" placeholder="Type to search"></input>
-				<label id="lblToLocName"></label></td>
-			</tr>
-			<tr>
-				<td style="padding: 0 !important;">
-						<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-							<table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
+				<label id="lblToLocName"></label>
+			</div>
+			
+			<div class="col-md-6">
+			  <div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 150px;width: 100%; overflow-x: hidden; overflow-y: scroll;">
+					<table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
 								<tbody>
 									<tr bgcolor="#c0c0c0">
 										<td width="15%"><input type="checkbox" id="chkFromLocALL"
 											checked="checked" />Select</td>
-										<td width="25%">From Location Code</td>
-										<td width="65%">From Location Name</td>
+										<td width="26%">From Location Code</td>
+										<td width="58%">From Location Name</td>
 									</tr>
 								</tbody>
-							</table>
-							<table id="tblFromloc" class="masterTable"
+						</table>
+						<table id="tblFromloc" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 	
 								<tr bgcolor="#c0c0c0">
@@ -420,26 +420,24 @@
 									<td width="65%"></td>
 	
 								</tr>
-							</table>
-						</div>
-						</td>
-						<td style="padding: 0 !important;">
-						<div
-							style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-
-							<table id="" class="masterTable"
+						</table>
+			</div></div>
+				
+			<div class="col-md-6">
+				    <div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 150px;width: 100%; overflow-x: hidden; overflow-y: scroll;">
+                        <table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
 									<tr bgcolor="#c0c0c0">
 										<td width="15%"><input type="checkbox" checked="checked" 
 										id="chkToLocALL"/>Select</td>
-										<td width="25%">To Location Code</td>
-										<td width="65%">To Location Name</td>
+										<td width="26%">To Location Code</td>
+										<td width="58%">To Location Name</td>
 
 									</tr>
 								</tbody>
-							</table>
-							<table id="tblToloc" class="masterTable"
+						</table>
+						<table id="tblToloc" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
 								<tr bgcolor="#c0c0c0">
@@ -447,11 +445,11 @@
 									<td width="25%"></td>
 									<td width="65%"></td>
 								</tr>
-							</table>
-						</div>
-				</td>
-			</tr>
-		</table>
+					    </table>
+				</div>
+		  </div>
+		   </div>
+		
 		<div class="row transTable">
 			<div class="col-md-2">
 				<label>Requisition Code</label>

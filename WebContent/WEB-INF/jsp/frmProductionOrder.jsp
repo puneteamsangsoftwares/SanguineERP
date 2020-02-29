@@ -338,7 +338,7 @@
 		
 		
 		
-		row.insertCell(0).innerHTML = "<input  readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listclsProductionOrderDtlModel["
+		row.insertCell(0).innerHTML = "<input  readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listclsProductionOrderDtlModel["
 				+ (rowCount)
 				+ "].strProdCode\" id=\"txtProdCode."
 				+ (rowCount)
@@ -352,20 +352,20 @@
 // 				+ dblQty
 // 				+ " onblur=\"funUpdatePrice(this);\" class=\"decimal-places inputText-Auto dblQty\">";
 
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"    id=\"dblOrdQty."	+ (rowCount)+ "\" value="+ dblOrdQty+ " >";
+		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"width: 100%;\" id=\"dblOrdQty."	+ (rowCount)+ "\" value="+ dblOrdQty+ " >";
 				
-		row.insertCell(3).innerHTML = "<input readonly=\"readonly\" class=\"Box\"    id=\"dblStock."	+ (rowCount)+ "\" value="+ dblStock+ " >";
+		row.insertCell(3).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"width: 100%;\"   id=\"dblStock."	+ (rowCount)+ "\" value="+ dblStock+ " >";
 				
-		row.insertCell(4).innerHTML = "<input type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" name=\"listclsProductionOrderDtlModel["+ (rowCount)+ "].dblQty\" id=\"dblQty."	+ (rowCount)+ "\" value="+ dblAcceptQty+ " onblur=\"funUpdatePrice(this);\" class=\"decimal-places inputText-Auto\">";		
+		row.insertCell(4).innerHTML = "<input type=\"text\"  required = \"required\" style=\"text-align: right;width: 100%;border: 1px solid #a2a2a2;padding: 1px;\" name=\"listclsProductionOrderDtlModel["+ (rowCount)+ "].dblQty\" id=\"dblQty."	+ (rowCount)+ "\" value="+ dblAcceptQty+ " onblur=\"funUpdatePrice(this);\" class=\"decimal-places inputText-Auto\">";		
 			
 
 		
-		row.insertCell(5).innerHTML = "<input type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" name=\"listclsProductionOrderDtlModel["
+		row.insertCell(5).innerHTML = "<input type=\"text\"  required = \"required\" style=\"text-align: right;width: 100%;border: 1px solid #a2a2a2;padding: 1px;\" name=\"listclsProductionOrderDtlModel["
 				+ (rowCount)
 				+ "].dblWeight\" class=\"decimal-places inputText-Auto\" id=\"dblWeight."
 				+ (rowCount)
 				+ "\" value=" + dblWeight + " >";
-		row.insertCell(6).innerHTML = "<input type=\"text\"  readonly=\"readonly\" style=\"text-align: right;width:100%\" name=\"listclsProductionOrderDtlModel[" + (rowCount) + "].dblUnitPrice\" id=\"dblUnitPrice."	+ (rowCount)+ "\" value="+ dblUnitPrice+ " class=\"decimal-places-amt inputText-Auto\">";
+		row.insertCell(6).innerHTML = "<input type=\"text\"  readonly=\"readonly\" style=\"text-align: right;width: 100%;border: 1px solid #a2a2a2;padding: 1px\" name=\"listclsProductionOrderDtlModel[" + (rowCount) + "].dblUnitPrice\" id=\"dblUnitPrice."	+ (rowCount)+ "\" value="+ dblUnitPrice+ " class=\"decimal-places-amt inputText-Auto\">";
 		//row.insertCell(5).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:100%\" name=\"listclsProductionOrderDtlModel["+ (rowCount) + "].dblTotalPrice\" id=\"dblTotalPrice."	+ (rowCount)+ "\" class=\"dblTotalPrice\ value="+ dblTotalPrice+ ">";
 		row.insertCell(7).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:100%\"  id=\"dblTotalPrice."	+ (rowCount)+ "\" value="+ dblTotalPrice+ " class=\"decimal-places-amt inputText-Auto\" >";
 		
@@ -454,20 +454,20 @@
 		var rowCount = table.rows.length;
 		var row = table.insertRow(rowCount);
 		rowCount=listRow;
-		row.insertCell(0).innerHTML = "<input  readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listclsProductionOrderDtlModel["	+ (rowCount) + "].strProdCode\" id=\"strProdCode."	+ (rowCount) + "\" value=" + strProdCode + " >";
-		row.insertCell(1).innerHTML = strProdName;
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\"    id=\"dblOrdQty."	+ (rowCount)+ "\" value="+ dblOrdQty+ " >";
+		row.insertCell(0).innerHTML = "<input  readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listclsProductionOrderDtlModel["	+ (rowCount) + "].strProdCode\" id=\"strProdCode."	+ (rowCount) + "\" value=" + strProdCode + " >";
+		row.insertCell(1).innerHTML= strProdName;
+		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"width:100%;\" id=\"dblOrdQty."  + (rowCount)+ "\" value="+ dblOrdQty+ " >";
 				
-		row.insertCell(3).innerHTML = "<input readonly=\"readonly\" class=\"Box\"    id=\"dblStock."	+ (rowCount)+ "\" value="+ dblStock+ " >";
+		row.insertCell(3).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"width:100%;\"  id=\"dblStock."	+ (rowCount)+ "\" value="+ dblStock+ " >";
 				
-		row.insertCell(4).innerHTML = "<input type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" name=\"listclsProductionOrderDtlModel["+ (rowCount)+ "].dblQty\" id=\"dblQty."	+ (rowCount)+ "\" value="+ dblAcceptQty+ " onblur=\"funUpdatePrice(this);\" class=\"decimal-places inputText-Auto\">";		
+		row.insertCell(4).innerHTML = "<input type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border: 1px solid #a2a2a2;padding: 1px;\" name=\"listclsProductionOrderDtlModel["+ (rowCount)+ "].dblQty\" id=\"dblQty."	+ (rowCount)+ "\" value="+ dblAcceptQty+ " onblur=\"funUpdatePrice(this);\" class=\"decimal-places inputText-Auto\">";		
 				
-		row.insertCell(5).innerHTML = "<input type=\"text\"  required = \"required\" style=\"text-align: right;width:100%\" name=\"listclsProductionOrderDtlModel["
+		row.insertCell(5).innerHTML = "<input type=\"text\"  required = \"required\" style=\"text-align: right;width: 100%;border: 1px solid #a2a2a2;padding: 1px;\" name=\"listclsProductionOrderDtlModel["
 				+ (rowCount)
 				+ "].dblWeight\" class=\"decimal-places inputText-Auto\" id=\"dblWeight."
 				+ (rowCount)
 				+ "\" value=" + dblWeight + ">";
-		row.insertCell(6).innerHTML = "<input type=\"text\"  readonly=\"readonly\" style=\"text-align: right;width:100%\" name=\"listclsProductionOrderDtlModel["
+		row.insertCell(6).innerHTML = "<input type=\"text\"  readonly=\"readonly\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" name=\"listclsProductionOrderDtlModel["
 				+ (rowCount)
 				+ "].dblUnitPrice\" id=\"dblUnitPrice."
 				+ (rowCount)
@@ -475,7 +475,7 @@
 				+ dblUnitPrice
 				+ " class=\"decimal-places-amt inputText-Auto\">";
 		row.insertCell(7).innerHTML = amount;
-		row.insertCell(8).innerHTML = "<input readonly=\"readonly\" class=\"Box\" name=\"listclsProductionOrderDtlModel["
+		row.insertCell(8).innerHTML = "<input readonly=\"readonly\" style=\"width:70%;\" class=\"Box\" name=\"listclsProductionOrderDtlModel["
 				+ (rowCount)
 				+ "].strSpCode\" id=\"strSpCode."
 				+ (rowCount)
@@ -917,7 +917,7 @@
 	<s:form method="POST" action="saveProductionOrderData.html?saddr=${urlHits}" name="productonorderform">
 	
 		 <div class="row">
-			 <div class="col-md-12"><a onclick="funOpenAutoGeneratedProductionOrder();" href="javascript:void(0);" style="float:right;margin-right: 17%;" ><u>Auto Generate</u></a></div>
+			 <div class="col-md-12"><a onclick="funOpenAutoGeneratedProductionOrder();" href="javascript:void(0);" style="float:right;margin-right: 40%;" ><u>Auto Generate</u></a></div>
 					
 				<%-- <td align="right"><span> <a id="baseUrl" href="attachDoc.html?ReqCode="> Attatch Documents </a> </span></td> --%>
 			
@@ -1054,7 +1054,7 @@
 	    <br>
 		<div class="transTableMiddle1">
 			 <div class="col-md-12"><label>Narration</label><br>
-			      <s:textarea path="strNarration" id="strNarration" />
+			      <s:textarea path="strNarration" id="strNarration" style="width: 135%;"/>
 			 </div>
 
 		</div>

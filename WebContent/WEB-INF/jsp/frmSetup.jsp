@@ -51,7 +51,7 @@
 		$("#strUser3_SB").css('visibility','hidden');
 		$("#strUser4_SB").css('visibility','hidden');
 		$("#strUser5_SB").css('visibility','hidden');
-		$('#itemImage').attr('src', getContextPath()+"/resources/images/company_Logo.png");
+		$('#item').attr('src', getContextPath1()+"/resources/images/company_Logo.png");
 		 var property='<%=session.getAttribute("userProperty").toString()%>';
 		 funGetImage();
 //  		 funGetProperty(property);
@@ -670,7 +670,7 @@
 		{
 	
 				searchUrl=getContextPath()+"/getCompanyLogo.html";
-				$("#itemImage").attr('src', searchUrl);
+				$("#item").attr('src', searchUrl);
 				funChk();
 			
 		}
@@ -682,7 +682,7 @@
 				 var filerdr = new FileReader();
 				 filerdr.onload = function(e) 
 				 {
-				 $('#itemImage').attr('src', e.target.result);
+				 $('#item').attr('src', e.target.result);
 				 }
 				 filerdr.readAsDataURL(input.files[0]);
 				
@@ -908,7 +908,7 @@
 									</div>
 									<div class="col-md-3">
 										<label>End Date</label>
-										<s:input path="dtEnd" id="dtEnd" cssClass="BoxW116px" readonly="true"/>
+										<s:input path="dtEnd" id="dtEnd" readonly="true"/>
 									</div>
 									<div class="col-md-3">
 										<label>Last Transaction Date</label>
@@ -1006,101 +1006,101 @@
 									</div>
 									<div class="col-md-3">
 										<label>Phone No</label>
-										<s:input path="strPhone" cssClass="BoxW116px"/>
+										<s:input path="strPhone"/>
 									</div>
 									<div class="col-md-3">
 										<label>Fax</label>
-										<s:input path="strFax" cssClass="BoxW116px"/>
+										<s:input path="strFax"/>
 									</div>
 									<div class="col-md-3">
 										<label>Email id</label>
-										<s:input path="strEmail" type="text" placeholder="Enter a valid email address"  cssClass="BoxW200px"	/>
+										<s:input path="strEmail" type="text" placeholder="Enter a valid email address"/>
 									</div>
 									<div class="col-md-3">
 										<label>Website</label>
-										<s:input type="text" placeholder="Enter a valid Website"  path="strWebsite" cssClass="BoxW200px"/>Starting with http or https
+										<s:input type="text" placeholder="Enter a valid Website"  path="strWebsite"/>Starting with http or https
 									</div>
 									<div class="col-md-3">
 										<label>Due Days</label>
-										<s:input path="intDueDays" cssClass="BoxW116px"/>
+										<s:input path="intDueDays"/>
 									</div>
 									<div class="col-md-3">
 										<label>P.L.A. No.</label>
-										<s:input path="strMask" cssClass="BoxW116px"/>
+										<s:input path="strMask"/>
 									</div>
 									<div class="col-md-3">
 										<label>CST No/GST No</label>
-										<s:input path="strCST" cssClass="BoxW116px"/>
+										<s:input path="strCST"/>
 									</div>
 									<div class="col-md-3">
 										<label>VAT No</label>
-										<s:input path="strVAT" cssClass="BoxW116px"/>
+										<s:input path="strVAT"/>
 									</div>
 									<div class="col-md-3">
 										<label>Service Tax No</label>
-										<s:input path="strSerTax" cssClass="BoxW200px"/>
+										<s:input path="strSerTax"/>
 									</div>
 									<div class="col-md-3">
 										<label>Pan No </label>
-										<s:input path="strPanNo" cssClass="BoxW116px"/>
+										<s:input path="strPanNo"/>
 									</div>
 									<div class="col-md-3">
 										<label>Location Code No </label>
-										<s:input path="strLocCode" cssClass="BoxW116px"/>
+										<s:input path="strLocCode"/>
 									</div>
 									<div class="col-md-3">
 										<label>Asseese Code No </label>
-										<s:input path="strAsseeCode" cssClass="BoxW116px"/>
+										<s:input path="strAsseeCode"/>
 									</div>
 									<div class="col-md-3">
 										<label>Purchase Email </label>
-										<s:input path="strPurEmail" type="text" placeholder="Enter a valid email address" cssClass="BoxW200px"/>
+										<s:input path="strPurEmail" type="text" placeholder="Enter a valid email address"/>
 									</div>
 									<div class="col-md-3">
 										<label>Sales Email</label>
-										<s:input type="text" placeholder="Enter a valid email address" path="strSaleEmail" cssClass="BoxW200px"/>
+										<s:input type="text" placeholder="Enter a valid email address" path="strSaleEmail"/>
 									</div>
 									<div class="col-md-3">
 										<label>Range Address</label>
-										<s:input path="strRangeAdd" cssClass="longTextBox"/>
+										<s:input path="strRangeAdd" />
 									</div>
 									<div class="col-md-3">
 										<label>Range</label>
-										<s:input path="strRangeDiv" cssClass="BoxW116px"/>
+										<s:input path="strRangeDiv"/>
 									</div>
 									<div class="col-md-3">
 										<label>Commisionerate </label>
-										<s:input path="strCommi" cssClass="BoxW116px"/>
+										<s:input path="strCommi" />
 									</div>
 									<div class="col-md-3">
 										<label>C.Ex Reg No</label>
-										<s:input path="strRegNo" cssClass="BoxW200px"/>
+										<s:input path="strRegNo" />
 									</div>
 									<div class="col-md-3">
 										<label>Division </label>
-										<s:input path="strDivision" cssClass="BoxW116px"/>
+										<s:input path="strDivision"/>
 									</div>
 									<div class="col-md-3">
 										<label>Division Address</label>
-										<s:input path="strDivisionAdd" cssClass="longTextBox"/>
+										<s:input path="strDivisionAdd" />
 									</div>
 									<div class="col-md-3">
 										<label>Bond Amount</label>
-										<s:input path="dblBondAmt" cssClass="BoxW116px"/>
+										<s:input path="dblBondAmt" />
 									</div>
 									<div class="col-md-3">
 										<label>Acceptance No.</label>
-										<s:input path="strAcceptanceNo" cssClass="BoxW116px"/>
+										<s:input path="strAcceptanceNo" />
 									</div>
 									<div class="col-md-3">
 										<label>E.C.C.No.</label>
-										<s:input path="strECCNo" cssClass="BoxW116px"/>
+										<s:input path="strECCNo" />
 									</div>	
 								</div>
 							</div>	
 							<div class="col-md-2">
-								 <div  style="background-color: #fbfafa;border: 1px solid black;">
-					       			<img id="itemImage" src=""  width="200px" height="200px" alt="Item Image" />
+								 <div  style="background-color: #fbfafa;">
+					       			<img id="item" src=""  style="width:150px;height:150px;" alt="img" />
 					       		</div>
 								
 							</div>					
@@ -1112,45 +1112,45 @@
 								<div class="row transTable">
 									<div class="col-md-2">
 										<label>Allow Negative Stock</label>
-										<s:select path="strNegStock" cssClass="BoxW62px" style="width:60%;">
+										<s:select path="strNegStock" style="width:60%;">
 											<s:option value="Y">YES</s:option>
 											<s:option value="N">NO</s:option>
 										</s:select>
 									</div>
 									<div class="col-md-2">
 										<label>Rate PickUp From</label>
-										<s:select path="strRatePickUpFrom" cssStyle="width:auto" cssClass="BoxW62px">
+										<s:select path="strRatePickUpFrom" cssStyle="width:auto">
 											<s:option value="SupplierRate">Last Supplier Rate</s:option>
 											<s:option value="PurchaseRate">Purchase Rate</s:option>
 										</s:select>
 									</div>
 									<div class="col-md-2">
 										<label>Production Order BOM</label>
-										<s:select path="strPOBOM" cssClass="BoxW124px">
+										<s:select path="strPOBOM">
 												<s:option value="FIRST">FIRST LEVEL</s:option>
 												<s:option value="LAST">LAST LEVEL</s:option>
 											</s:select>
 									</div>
 									<div class="col-md-2">
 										<label>Sales Order BOM</label>
-										<s:select path="strSOBOM" cssClass="BoxW124px">
+										<s:select path="strSOBOM">
 											<s:option value="FIRST">FIRST LEVEL</s:option>
 											<s:option value="LAST">LAST LEVEL</s:option>
 										</s:select>
 									</div>
 									<div class="col-md-2">
 										<label>Total Working Time(min)</label>
-										<s:input path="strTotalWorkhour" cssClass="BoxW116px" />
+										<s:input path="strTotalWorkhour"/>
 									</div>
 									<div class="col-md-2"></div>
 									
 									<div class="col-md-2">	
 										<label>From Time </label>
-										<s:input path="dtFromTime" id="dtFromTime" cssClass="BoxW116px" />
+										<s:input path="dtFromTime" id="dtFromTime"/>
 									</div>
 									<div class="col-md-2">	
 										<label>To Time</label>
-										<s:input path="dtToTime" id="dtToTime" cssClass="BoxW116px" />
+										<s:input path="dtToTime" id="dtToTime"/>
 									</div>
 									<div class="col-md-2">	
 										<label>Show All Product To All Location</label><br>
@@ -1158,7 +1158,7 @@
 									</div>
 									<div class="col-md-2">	
 										<label>Workflowbased Authorisation </label>
-										<s:select path="strWorkFlowbasedAuth" cssClass="BoxW124px" style="width:60%;">
+										<s:select path="strWorkFlowbasedAuth" style="width:60%;">
 											<s:option value="Y">YES</s:option>
 											<s:option value="N">NO</s:option>
 											<%-- <s:option value="S">SLAB BASED</s:option> --%>
@@ -1171,7 +1171,7 @@
 									<div class="col-md-2"></div>
 									<div class="col-md-2">
 										<label>Amount Decimal Places</label>
-										<s:select path="intdec" id="intdec" cssClass="BoxW48px" style="width:60%;">
+										<s:select path="intdec" id="intdec" style="width:60%;">
 												<s:option value="-1">-1</s:option>
 												<s:option value="0">0</s:option>
 												<s:option value="1">1</s:option>
@@ -1189,8 +1189,7 @@
 									</div>
 									<div class="col-md-2">
 										<label>Quantity Decimal Places</label>
-										<s:select path="intqtydec" id="intqtydec"
-												cssClass="BoxW48px" style="width:60%;">
+										<s:select path="intqtydec" id="intqtydec" style="width:60%;">
 												<s:option value="0">0</s:option>
 												<s:option value="1">1</s:option>
 												<s:option value="2">2</s:option>
@@ -1200,7 +1199,7 @@
 									</div>
 									<div class="col-md-2">
 										<label>List Price in PO</label>
-										<s:select path="strListPriceInPO" id="strListPriceInPO" cssClass="BoxW124px">
+										<s:select path="strListPriceInPO" id="strListPriceInPO">
 											<s:option value="L">List Price</s:option>
 											<s:option value="S">Supplier Price</s:option>
 										</s:select>
@@ -1212,7 +1211,7 @@
 
 									<div class="col-md-2">
 										<label>Batch Method</label>
-										<s:select path="strBatchMethod" id="strBatchMethod" cssClass="BoxW124px" style="width:70%;">
+										<s:select path="strBatchMethod" id="strBatchMethod" style="width:70%;">
 											<s:option value="Manual">Manual</s:option>
 											<s:option value="FIFO">FIFO</s:option>
 										</s:select>
@@ -1314,8 +1313,7 @@
 									<div class="col-md-2"></div>
 									<div class="col-md-2">
 										<label>Invoice Print Formate</label>
-										<s:select path="strInvFormat" id="strInvFormat"
-												cssClass="BoxW48px">
+										<s:select path="strInvFormat" id="strInvFormat">
 												<s:option value="Format 1">Invoice Format 1</s:option>
 												<s:option value="Format 2">Invoice Format 2</s:option>
 												<s:option value="RetailNonGSTA4">Format 3 Retail A4</s:option>
@@ -1351,15 +1349,14 @@
 									<div class="col-md-2"></div>
 									<div class="col-md-2">
 										<label>Effect of GRN in WebBooks</label>
-										<s:select path="strEffectOfGRNWebBook" id="txtEffectOfGRNWebBook"
-												cssClass="BoxW48px" >
+										<s:select path="strEffectOfGRNWebBook" id="txtEffectOfGRNWebBook" >
 											<s:option value="SCBill" >Sundry Creditor Bill</s:option>
 											<s:option value="Payment">Payment</s:option>
 											</s:select>
 									</div>
 									<div class="col-md-2">
 										<label>Multiple Currency</label>
-										<s:select path="strMultiCurrency" id="strMultiCurrency" cssClass="BoxW124px" style="width:70%;">
+										<s:select path="strMultiCurrency" id="strMultiCurrency" style="width:70%;">
 											<s:option value="N">NO</s:option>
 											<s:option value="Y">YES</s:option>
 										</s:select>
@@ -1379,16 +1376,14 @@
 									<div class="col-md-2"></div>
 									<div class="col-md-2">
 										<label>Rate History Format</label>
-										<s:select path="strRateHistoryFormat" id="strRateHistoryFormat"
-												cssClass="BoxW48px">
+										<s:select path="strRateHistoryFormat" id="strRateHistoryFormat">
 												<s:option value="Format 1">Format 1</s:option>
 												<s:option value="Format 2">Format 2</s:option>
 										</s:select>
 									</div>	
 									<div class="col-md-2">
 										<label>PO Slip Format</label>
-										<s:select path="strPOSlipFormat" id="strPOSlipFormat"
-												cssClass="BoxW48px">
+										<s:select path="strPOSlipFormat" id="strPOSlipFormat">
 												<s:option value="Format 1">Format 1</s:option>
 												<s:option value="Format 2">Format 2</s:option>
 												<s:option value="Format 3">Format 3 (Global)</s:option>
@@ -1397,24 +1392,21 @@
 									</div>
 									<div class="col-md-2">
 										<label>Sales Return Slip Format</label>
-										<s:select path="strSRSlipFormat" id="strSRSlipFormat"
-											cssClass="BoxW48px">
+										<s:select path="strSRSlipFormat" id="strSRSlipFormat">
 											<s:option value="Format 1">Format 1</s:option>
 											<s:option value="Format 2">Format 2</s:option>
 										</s:select>
 									</div>
 									<div class="col-md-2">
 										<label>Calculation for Weighted Avg Price</label>
-										<s:select path="strWeightedAvgCal" id="strWeightedAvgCal"
-												cssClass="BoxW48px">
+										<s:select path="strWeightedAvgCal" id="strWeightedAvgCal">
 											<s:option selected="selected" value="Company Wise">Company Wise</s:option>
 											<s:option value="Property Wise">Property Wise</s:option>
 										</s:select>
 									</div>
 									<div class="col-md-2">
 										<label>GRN Rate Editable</label>
-										<s:select path="strGRNRateEditable" id="strGRNRateEditable"
-												cssClass="BoxW48px" cssStyle="width:50%">
+										<s:select path="strGRNRateEditable" id="strGRNRateEditable" cssStyle="width:50%">
 											<s:option selected="selected" value="Yes">Yes</s:option>
 											<s:option value="No">No</s:option>
 										</s:select>
@@ -1422,40 +1414,35 @@
 									<div class="col-md-2"></div>
 									<div class="col-md-2">
 										<label>Sales Order Rate Editable</label>
-										<s:select path="strSORateEditable" id="strSORateEditable"
-												cssClass="BoxW48px" cssStyle="width:50%">
+										<s:select path="strSORateEditable" id="strSORateEditable" cssStyle="width:50%">
 											<s:option selected="selected" value="Yes">Yes</s:option>
 											<s:option value="No">No</s:option>
 										</s:select>
 									</div>
 									<div class="col-md-2">
 										<label>Invoice Rate Editable</label>
-										<s:select path="strInvoiceRateEditable" id="strInvoiceRateEditable"
-												cssClass="BoxW48px" cssStyle="width:50%">
+										<s:select path="strInvoiceRateEditable" id="strInvoiceRateEditable" cssStyle="width:50%">
 											<s:option selected="selected" value="Yes">Yes</s:option>
 											<s:option value="No">No</s:option>
 										</s:select>
 									</div>
 									<div class="col-md-2">
 										<label>Settlement Wise Invoice Series</label>
-										<s:select path="strSettlementWiseInvSer" id="strSettlementWiseInvSer"
-												cssClass="BoxW48px" cssStyle="width:50%">
+										<s:select path="strSettlementWiseInvSer" id="strSettlementWiseInvSer" cssStyle="width:50%">
 											<s:option selected="selected" value="No">No</s:option>
 											<s:option  value="Yes">Yes</s:option>
 										</s:select>
 									</div>
 									<div class="col-md-2">
 										<label>Show GRN Product PO Wise</label>
-										<s:select path="strGRNProdPOWise" id="GRNProdPOWise"
-												cssClass="BoxW48px" cssStyle="width:50%">
+										<s:select path="strGRNProdPOWise" id="GRNProdPOWise" cssStyle="width:50%">
 											<s:option selected="selected" value="No">No</s:option>
 											<s:option  value="Yes">Yes</s:option>
 										</s:select>
 									</div>
 									<div class="col-md-2">
 										<label>PO Rate Editable</label>
-										<s:select path="strPORateEditable" id="strPORavteEdit"
-												cssClass="BoxW48px" cssStyle="width:50%">
+										<s:select path="strPORateEditable" id="strPORavteEdit" cssStyle="width:50%">
 											<s:option selected="selected" value="Yes">Yes</s:option>
 											<s:option  value="No">No</s:option>
 										</s:select>
@@ -1463,8 +1450,7 @@
 									<div class="col-md-2"></div>
 									<div class="col-md-2">	
 										<label>Use Current Date For Transaction</label>
-										<s:select path="strCurrentDateForTransaction" id="cmbAllowBackDateTransaction"
-												cssClass="BoxW48px" cssStyle="width:50%">
+										<s:select path="strCurrentDateForTransaction" id="cmbAllowBackDateTransaction" cssStyle="width:50%">
 											<s:option selected="selected" value="No">No</s:option>
 											<s:option  value="Yes">Yes</s:option>
 										</s:select>
@@ -1479,8 +1465,7 @@
 									</div>
 									<div class="col-md-2">
 										<label>Recipe List Price By</label>
-										<s:select path="strRecipeListPrice" id="strReceipeListPrice"
-												cssClass="BoxW48px" >
+										<s:select path="strRecipeListPrice" id="strReceipeListPrice">
 											<s:option value="Received">Received</s:option>
 											<s:option value="Recipe">Recipe</s:option>
 										</s:select>
@@ -1895,12 +1880,12 @@
 								</div>
 								<div class="col-md-3">
 									<label>Account Number </label>
-									<s:input path="strBankAccountNo" cssClass="BoxW200px"/>
+									<s:input path="strBankAccountNo" />
 								</div>
 								<div class="col-md-3"></div>
 								<div class="col-md-3">
 									<label>SwiftCode </label>
-									<s:input path="strSwiftCode" cssClass="BoxW116px"/>
+									<s:input path="strSwiftCode"/>
 								</div>
 							</div>
 						</div>
@@ -1947,7 +1932,7 @@
 								</div>
 								<div class="col-md-2">
 									<label >Criteria</label>
-									<select  id="strCriteria"  onchange="funOnChangeCriteria()" class="BoxW48px" style="width:70%">
+									<select  id="strCriteria"  onchange="funOnChangeCriteria()" style="width:70%">
 										<option value="<">&lt;</option>
 										<option value=">">&gt;</option>
 										<option value="between">between</option>
@@ -1962,8 +1947,8 @@
 								<div class="col-md-4"></div>
 								<div class="col-md-2">
 									<label>Levels</label>
-									<select id="intLevel_SB" onchange="funOnChange(this.id)" class="BoxW48px">
-											<option value=""></option>
+									<select id="intLevel_SB" onchange="funOnChange(this.id)" >
+											<!-- <option value=""></option> -->
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
@@ -1973,27 +1958,27 @@
 								</div>
 								<div class="col-md-2">
 									<s:select path="strUserCode1" items="${users}"
-											id="strUser1_SB" cssClass="BoxW124px" style="margin-top:24px;">
+											id="strUser1_SB" style="margin-top:24px;">
 									</s:select>
 								</div>
 								<div class="col-md-2">	
 									<s:select path="strUserCode2" items="${users}"
-										id="strUser2_SB" cssClass="BoxW124px" style="margin-top:24px;">
+										id="strUser2_SB" style="margin-top:24px;">
 									</s:select>
 								</div>
 								<div class="col-md-2">
 									<s:select path="strUserCode3" items="${users}"
-											id="strUser3_SB" cssClass="BoxW124px" style="margin-top:24px;">
+											id="strUser3_SB" style="margin-top:24px;">
 									</s:select>
 								</div>
 								<div class="col-md-2">
 									<s:select path="strUserCode4" items="${users}"
-											id="strUser4_SB" cssClass="BoxW124px" style="margin-top:24px;">
+											id="strUser4_SB" style="margin-top:24px;">
 										</s:select>
 								</div>
 								<div class="col-md-2">
 									<s:select path="strUserCode5" items="${users}"
-											id="strUser5_SB" cssClass="BoxW124px" style="margin-top:24px;">
+											id="strUser5_SB" style="margin-top:24px;">
 									</s:select>
 								</div>
 								<div class="col-md-2">
@@ -2103,7 +2088,7 @@
 						
 						<div id="tab9" class="tab_content">
 							<br><br>
-							<table id="tblAudit" class="transTable" style="background:#fbfafa;">
+							<table id="tblAudit" class="transTable" style="background:#fbfafa;width:60%;">
 
 								<tr>
 									<th colspan="7" align="left">Audit</th>
@@ -2139,7 +2124,7 @@
 							<div id="tblAudit" class="row transTable">
 								<div class="col-md-2">
 									<label >SMS Provider</label>
-									<s:select  id="cmbSMSProvider" path="strSMSProvider" class="BoxW48px">
+									<s:select  id="cmbSMSProvider" path="strSMSProvider">
 										<option value="SANGUINE">SANGUINE</option>
 									</s:select>
 								</div>	
@@ -2216,7 +2201,7 @@
 						</div>
 			</div>
 		<div class="center" style="text-align:center;">
-			<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidateFields()">Submit</button></a>&nbsp
+			<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidateFields()">Submit</button></a>&nbsp;
 			<a href="#"><button class="btn btn-primary center-block" value="Reset">Reset</button></a>
 		</div> 
 		</s:form>

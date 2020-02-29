@@ -20,9 +20,10 @@
    <style>
        #tblloc tr:hover{
 	   background-color: #c0c0c0;
+	   padding-left: 27px;
        }
        .transTable td {
-    padding-left: 25px;
+    padding-left: 27px;
      }
    </style>
     <script type="text/javascript">
@@ -221,7 +222,7 @@
 			    
 			    row.insertCell(0).innerHTML= "<input id=\"cbLocSel."+(rowCount)+"\" name=\"Locthemes\" type=\"checkbox\" class=\"LocCheckBoxClass\"  checked=\"checked\" value='"+strLocCode+"' />";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strLocCode."+(rowCount)+"\" value='"+strLocCode+"' >";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"42%\" id=\"strLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
 		}
 			
 	    //Remove all Row from Location Grid
@@ -314,13 +315,12 @@
 	
 		<br>
 		<div class="col-md-2"><label>Location</label>
-			<input type="text" id="txtToLocCode" ondblclick="funHelp('locationmaster')" Class="searchTextBox" placeholder="Type to search"
-					style="width:105%;background-position: 240px 2px;"  ></input>
+			<input type="text" id="txtToLocCode" ondblclick="funHelp('locationmaster')" Class="searchTextBox" placeholder="Type to search" style="width:105%;"  ></input>
 			<label id="lblToLocName"></label>
 		</div>
 		<br>
 		<div
-			style="background-color: #fafbfb; width: 95%; margin-left: 28px; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll;">
+			style="background-color: #fafbfb; width: 50%; margin-left: 28px; border: 1px solid #ccc; display: block; height: 230px; overflow-x: hidden; overflow-y: scroll;">
 			
 			<table id="" class="masterTable"
 				style="width: 100%; border-collapse: separate;">
@@ -360,7 +360,7 @@
 	
 			<br>
 			<s:input type="hidden" id="hidLocCodes" path="strFromLocCode"></s:input>
-			<p align="center">
+			<p align="center" style="margin-right: 6%;">
 				 <input type="button" value="Submit" onclick="return formSubmit();" class="btn btn-primary center-block" class="form_button" />
 				 &nbsp;
 				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>			     

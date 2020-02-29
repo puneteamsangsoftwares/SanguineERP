@@ -148,7 +148,7 @@ function funfillSubGroup(strSGCode,strSGName)
     
     row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" name=\"SubGroupthemes\" value='"+strSGCode+"' class=\"SGCheckBoxClass\" />";
     row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
-    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
+    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"48%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
 }
 
 //Submit Data after clicking Submit Button with validation 
@@ -204,11 +204,11 @@ function btnSubmit_Onclick()
 	   		
 		 <div class="row">	
 		    <div class="col-md-2"><label>Sub Group</label>
-		  		 <input type="text" id="searchSGrp" style="background-position: 240px 2px;" Class="searchTextBox" placeholder="Type to search">
+		  		 <input type="text" id="searchSGrp" Class="searchTextBox" placeholder="Type to search">
 		    </div>
 		 </div>
 		<br>
-			<div  style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+			<div  style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 55%; overflow-x: hidden; overflow-y: scroll;">
                 	<table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
 						<tbody>
 							<tr bgcolor="#c0c0c0">

@@ -148,7 +148,7 @@ $(document).ready(function()
 			    
 			    row.insertCell(0).innerHTML= "<input id=\"cbGSel."+(rowCount)+"\" type=\"checkbox\" class=\"GCheckBoxClass\" checked=\"checked\" name=\"Groupthemes\" value='"+strGroupCode+"' onclick=\"funGroupChkOnClick()\"/>";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strGCode."+(rowCount)+"\" value='"+strGroupCode+"' >";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"40%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
 		}
 		/**
 		 * After Selected Group Data get the SubGroup Data
@@ -235,7 +235,7 @@ $(document).ready(function()
 		    
 		    row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" name=\"SubGroupthemes\" value='"+strSGCode+"' class=\"SGCheckBoxClass\" />";
 		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"40%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
 		}
 		/**
 		* Remove All rows form grid
@@ -440,12 +440,12 @@ $(document).ready(function()
 			</tr> --%>
 			
 		 <div class="col-md-6"><label>Group</label>
-			  <input type="text"  style="width: 35%;background-position: 165px 3px;" 
+			  <input type="text"  style="width: 35%;" 
 			      id="searchGrp" placeholder="Type to search" Class="searchTextBox">
 		 </div>
 		 
 		 <div class="col-md-6"><label>Sub Group</label>
-		  	  <input type="text" id="searchSGrp" style="width: 35%;background-position: 165px 3px;" 
+		  	  <input type="text" id="searchSGrp" style="width: 35%;" 
 		  		 Class="searchTextBox" placeholder="Type to search">
 		 </div>
 		 

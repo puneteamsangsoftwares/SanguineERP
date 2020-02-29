@@ -198,10 +198,10 @@
 		var table = document.getElementById("tblRouteDtl");
 	    var rowCount = table.rows.length;
 	    var row = table.insertRow(rowCount);
-	    row.insertCell(0).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].strVehNo\" readonly=\"readonly\" class=\"Box\" size=\"20%\" id=\"txtVehNo."+(rowCount)+"\" value='"+vehNo+"'>";		    
-	    row.insertCell(1).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].dtFromDate\" readonly=\"readonly\" class=\"Box\" size=\"10%\" id=\"txtFromDate."+(rowCount)+"\" value='"+fromDate+"'/>";
-	    row.insertCell(2).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].dtToDate\" id=\"txtToDate."+(rowCount)+"\" class=\"Box\" required = \"required\" size=\"11%\"  value='"+toDate+"'>";
-	    row.insertCell(3).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].strRouteName\" id=\"txtRouteName."+(rowCount)+"\" required = \"required\" size=\"25%\" class=\"Box\" value='"+routeName+"'>";
+	    row.insertCell(0).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].strVehNo\" readonly=\"readonly\" class=\"Box\" size=\"21%\" id=\"txtVehNo."+(rowCount)+"\" value='"+vehNo+"'>";		    
+	    row.insertCell(1).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].dtFromDate\" readonly=\"readonly\" class=\"Box\" size=\"14%\" id=\"txtFromDate."+(rowCount)+"\" value='"+fromDate+"'/>";
+	    row.insertCell(2).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].dtToDate\" id=\"txtToDate."+(rowCount)+"\" class=\"Box\" required = \"required\" size=\"14%\"  value='"+toDate+"'>";
+	    row.insertCell(3).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].strRouteName\" id=\"txtRouteName."+(rowCount)+"\" required = \"required\" size=\"33%\" class=\"Box\" value='"+routeName+"'>";
 	    row.insertCell(4).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].strUserModified\" id=\"txtUserModified."+(rowCount)+"\" required = \"required\"  size=\"20%\" class=\"Box\" value='"+editedUser+"'>";
 	    row.insertCell(5).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowForVeh(this)">';
 	   // funApplyNumberValidation();
@@ -279,10 +279,10 @@
 		var table = document.getElementById("tblRouteDtl");
 	    var rowCount = table.rows.length;
 	    var row = table.insertRow(rowCount);
-	    row.insertCell(0).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].strVehNo\" readonly=\"readonly\" class=\"Box\" size=\"20%\" id=\"txtVehNo."+(rowCount)+"\" value='"+vehNo+"'>";		    
-	    row.insertCell(1).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].dtFromDate\" readonly=\"readonly\" class=\"Box\" size=\"10%\" id=\"txtFromDate."+(rowCount)+"\" value='"+fromDate+"'/>";
-	    row.insertCell(2).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].dtToDate\" id=\"txtToDate."+(rowCount)+"\" class=\"Box\" required = \"required\" size=\"10%\"  value='"+toDate+"'>";
-	    row.insertCell(3).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].strRouteName\" id=\"txtRouteName."+(rowCount)+"\" required = \"required\" size=\"30%\" class=\"Box\" value='"+routeName+"'>";
+	    row.insertCell(0).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].strVehNo\" readonly=\"readonly\" class=\"Box\" size=\"21%\" id=\"txtVehNo."+(rowCount)+"\" value='"+vehNo+"'>";		    
+	    row.insertCell(1).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].dtFromDate\" readonly=\"readonly\" class=\"Box\" size=\"14%\" id=\"txtFromDate."+(rowCount)+"\" value='"+fromDate+"'/>";
+	    row.insertCell(2).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].dtToDate\" id=\"txtToDate."+(rowCount)+"\" class=\"Box\" required = \"required\" size=\"14%\"  value='"+toDate+"'>";
+	    row.insertCell(3).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].strRouteName\" id=\"txtRouteName."+(rowCount)+"\" required = \"required\" size=\"33%\" class=\"Box\" value='"+routeName+"'>";
 	    row.insertCell(4).innerHTML= "<input name=\"listclsVehicleRouteModel["+(rowCount)+"].strUserModified\" id=\"txtUserModified."+(rowCount)+"\" required = \"required\"  size=\"20%\" class=\"Box\" value='"+editedUser+"'>";
 	    row.insertCell(5).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowForVeh(this)">';
 // 	    funApplyNumberValidation();
@@ -325,13 +325,12 @@
 				<label>To Date</label>
 				<input  type="text" id="txtTodate"  Class="calenderTextBox" style="width:80%;"/>
 			</div>
+			<div class="col-md-2">
+			     <a href="#"><button class="btn btn-primary center-block" id="btnAdd" value="Add" onclick="return btnAdd_onclick()">Add</button></a>
+			</div>
 		</div>				
-		<div class="center" style="text-align:left; margin-left: 23%;">
-			<a href="#"><button class="btn btn-primary center-block" id="btnAdd" value="Add" onclick="return btnAdd_onclick()">Add</button></a>
-		</div>		
 		
-		
-		<div class="dynamicTableContainer"  style="width: 80%;">
+	  <div class="dynamicTableContainer"  style="width: 80%;">
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
 				<tr style="background-color:#c0c0c0">
                     <td  align="left" style="width: 11%; height: 30px;">Vehicle No.</td>
@@ -358,10 +357,9 @@
             </div>
 		</div>
 		
-		<br />
-		<br />
 		<div class="center" style="margin-right: 20%;">
 			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit">Submit</button></a>
+			&nbsp;
 			<a href="#"><button class="btn btn-primary center-block"  value="Reset" onclick="funResetFields()">Reset</button></a>
 		</div>
 		

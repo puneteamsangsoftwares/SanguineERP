@@ -504,10 +504,10 @@ $(document).ready(function(){
 			    var row = table.insertRow(rowCount);
 			    
 			    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"7%\" name=\"listReorderLvl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"'>";
-			    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"50%\"  id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' >";
-			    row.insertCell(2).innerHTML= "<input type=\"text\"  size=\"10%\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listReorderLvl["+(rowCount)+"].dblReOrderLevel\" id=\"txtReOrderLevel."+(rowCount)+"\" value='"+dblReorderLvl+"' >";		    
-			    row.insertCell(3).innerHTML= "<input type=\"text\" size=\"10%\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listReorderLvl["+(rowCount)+"].dblReOrderQty\"  id=\"txtReOrderQty."+(rowCount)+"\" value='"+dblReorderQty+"' >";
-			    row.insertCell(4).innerHTML= "<input type=\"text\" size=\"10%\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" name=\"listReorderLvl["+(rowCount)+"].dblPrice\"  id=\"txtPrice."+(rowCount)+"\" value='"+dblPrice+"' >";
+			    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"35%\"  id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' >";
+			    row.insertCell(2).innerHTML= "<input type=\"text\"  size=\"10%\"  required = \"required\" style=\"text-align: right;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto\" name=\"listReorderLvl["+(rowCount)+"].dblReOrderLevel\" id=\"txtReOrderLevel."+(rowCount)+"\" value='"+dblReorderLvl+"' >";		    
+			    row.insertCell(3).innerHTML= "<input type=\"text\" size=\"10%\"  required = \"required\" style=\"text-align: right;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto\" name=\"listReorderLvl["+(rowCount)+"].dblReOrderQty\"  id=\"txtReOrderQty."+(rowCount)+"\" value='"+dblReorderQty+"' >";
+			    row.insertCell(4).innerHTML= "<input type=\"text\" size=\"10%\"  required = \"required\" style=\"text-align: right;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto\" name=\"listReorderLvl["+(rowCount)+"].dblPrice\"  id=\"txtPrice."+(rowCount)+"\" value='"+dblPrice+"' >";
 			    row.insertCell(5).innerHTML= '<input type="button" size=\"10%\"  value = "Delete"  class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
 			    return false;
 		}
@@ -698,7 +698,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 				<br>
-					<table class="masterTable" style="width:100%; background:#c0c0c0;">
+					<table class="masterTable" style="width:70%; background:#c0c0c0;">
 						<tr>
 							<th style="width: 11%"><label>Product Code</label></th>
 							<th style="width: 30%"><label>Product Name</label></th>
@@ -708,7 +708,7 @@ $(document).ready(function(){
 							<th style="width: 11%"><label>Delete</label></th>									
 						</tr>	
 					</table>
-					<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 291px; margin: auto; overflow-x: hidden; overflow-y: scroll;">
+					<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 291px;width:70%; overflow-x: hidden; overflow-y: scroll;">
 						<table id="tblProdDet" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 							class="transTablex col5-center">
 							<tbody>
@@ -736,8 +736,9 @@ $(document).ready(function(){
 				</div>
 			</div>
 		<br />
-		<div class="center">
+		<div class="center" style="text-align:center;">
 		   <a href="#"><button class="btn btn-primary center-block"  value="Submit" onclick="return funCallFormAction('submit',this);">Submit</button></a>
+		   &nbsp;
 		   <a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()">Reset</button></a>
 		</div>
 		

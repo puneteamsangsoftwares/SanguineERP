@@ -447,9 +447,9 @@ var strcheckboxStatus="N";
 		    var table = document.getElementById("tblProdDet");
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
-		    row.insertCell(0).innerHTML= "<input name=\"listBomDtlModel["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"txtProdCode."+(rowCount)+"\" value="+prodCode+">";		    
-		    row.insertCell(1).innerHTML= "<input name=\"listBomDtlModel["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"30%\" id=\"txtProdName."+(rowCount)+"\" value='"+itemName+"'/>";
-		    row.insertCell(2).innerHTML= "<input name=\"listBomDtlModel["+(rowCount)+"].dblAmount\" id=\"txtAmount."+(rowCount)+"\" required = \"required\" style=\"text-align: right;\" size=\"14%\" class=\"decimal-places-amt\" value="+amount+">";
+		    row.insertCell(0).innerHTML= "<input name=\"listBomDtlModel["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" size=\"20%\" id=\"txtProdCode."+(rowCount)+"\" value="+prodCode+">";		    
+		    row.insertCell(1).innerHTML= "<input name=\"listBomDtlModel["+(rowCount)+"].strProdName\" readonly=\"readonly\" style=\"margin-left: -10%;\" class=\"Box\" size=\"35%\" id=\"txtProdName."+(rowCount)+"\" value='"+itemName+"'/>";
+		    row.insertCell(2).innerHTML= "<input name=\"listBomDtlModel["+(rowCount)+"].dblAmount\" id=\"txtAmount."+(rowCount)+"\" required = \"required\" style=\"text-align: right;margin-left: 40%;\" size=\"14%\" class=\"decimal-places-amt\" value="+amount+">";
 		    row.insertCell(3).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';
 		    funApplyNumberValidation();
 		    return false;
@@ -494,8 +494,8 @@ var strcheckboxStatus="N";
 		    var table = document.getElementById("tblPartyTax");
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount-1)+"\" value='"+taxCode+"'>";
-		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount-1)+"\" value='"+taxDesc+"'>";
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"31%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount-1)+"\" value='"+taxCode+"'>";
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"38%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount-1)+"\" value='"+taxDesc+"'>";
 		    //row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxCode\" id=\"taxcode."+(rowCount-1)+"\" value="+taxCode+">";
 		    //row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\"  id=\"taxDesc."+(rowCount-1)+"\" value="+taxDesc+">";		    
 		    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowForTax(this)">';		    
@@ -509,8 +509,8 @@ var strcheckboxStatus="N";
 		    var table = document.getElementById("tblPartyTax");
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount-1)+"\" value='"+taxCode+"'>";
-		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount-1)+"\" value='"+taxDesc+"'>";
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"31%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount-1)+"\" value='"+taxCode+"'>";
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"38%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount-1)+"\" value='"+taxDesc+"'>";
 		    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowForTax(this)">';
 		    return false;
 		}
@@ -1046,13 +1046,13 @@ var strcheckboxStatus="N";
 							</div>				
 						</div>
 						<br>
-						<div style="background-color: #fbfafa; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll;">
+						<div style="background-color: #fbfafa; display: block; height: 250px; width:66%; overflow-x: hidden; overflow-y: scroll;">
 							<table id="tblProdDet" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col4-center">
 								<tr style="background-color: #c0c0c0; ">
-									<td><label>Product Code</label></td>
+									<td><label style="width:50%">Product Code</label></td>
 									<td><label>Product Name</label></td>
-									<td><label>Amount</label></td>
+									<td><label style="margin-left: 60%;">Amount</label></td>
 									<td><label>Delete</label></td>
 								</tr>
 							</table>
@@ -1074,7 +1074,7 @@ var strcheckboxStatus="N";
 							</div>
 						</div>
 						<br>
-						<div style="background-color: #fbfafa; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll;">
+						<div style="background-color: #fbfafa; display: block; height: 250px; width: 66%; overflow-x: hidden; overflow-y: scroll;">
 							<table id="tblPartyTax" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 										class="transTablex col3-center">
 								<!-- <table class="masterTable"  id="tblPartyTax" style="width:80%" > -->
@@ -1107,10 +1107,10 @@ var strcheckboxStatus="N";
 			</div>
 		</div>
 		<br>
-		<div class="center">
-				<a href="#"><button class="btn btn-primary center-block" id="formsubmit" value="Submit" onclick="return funValidateFields()" 
-				>Submit</button></a>
-				<a href="#"><button class="btn btn-primary center-block"  value="reset" onclick=" funResetFields()"
+		<div class="center" style="margin-right:34%;">
+			<a href="#"><button class="btn btn-primary center-block" id="formsubmit" value="Submit" onclick="return funValidateFields()" 
+				>Submit</button></a>&nbsp;
+			<a href="#"><button class="btn btn-primary center-block"  value="reset" onclick=" funResetFields()"
 				>Reset</button></a>
 		</div>
 		<br>

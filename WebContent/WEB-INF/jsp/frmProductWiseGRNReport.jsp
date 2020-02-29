@@ -201,7 +201,7 @@ function funfillToLocationGrid(strLocCode,strLocationName)
 	    
 	    row.insertCell(0).innerHTML= "<input id=\"cbToLocSel."+(rowCount)+"\" name=\"ToLocthemes\" type=\"checkbox\" class=\"ToLocCheckBoxClass\"  checked=\"checked\" value='"+strLocCode+"' />";
 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strToLocCode."+(rowCount)+"\" value='"+strLocCode+"' >";
-	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strToLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"40%\" id=\"strToLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
 }
 
 
@@ -261,7 +261,7 @@ function funfillSubGroup(strSGCode,strSGName)
     
     row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" name=\"SubGroupthemes\" value='"+strSGCode+"' class=\"SGCheckBoxClass\" />";
     row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
-    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
+    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"40%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
 }
 
 //Submit Data after clicking Submit Button with validation 
@@ -350,12 +350,12 @@ function btnSubmit_Onclick()
 				<div class="col-md-10"></div>
 				
 			<div class="col-md-6"><label>Location</label>
-			       <input type="text" id="txtLocCode"  style="width:35%;background-position: 150px 2px;"  Class="searchTextBox" placeholder="Type to search"  ></input>
+			       <input type="text" id="txtLocCode"  style="width:35%;"  Class="searchTextBox" placeholder="Type to search"  ></input>
 			        <label id="lblLocName"></label>
 			</div>
 				
 			<div class="col-md-6"><label>Category</label>
-			     <input style="width: 35%; background-position: 150px 2px;" type="text" id="txtSuppCode"  Class="searchTextBox" placeholder="Type to search"></input>
+			     <input style="width: 35%;" type="text" id="txtSuppCode"  Class="searchTextBox" placeholder="Type to search"></input>
 			     <label id="lblCategory"></label>
 			</div>
 		

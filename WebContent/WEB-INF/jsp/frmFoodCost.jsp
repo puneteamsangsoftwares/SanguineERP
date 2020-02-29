@@ -248,7 +248,7 @@
 			    
 			    row.insertCell(0).innerHTML= "<input id=\"cbPropSel."+(rowCount)+"\" name=\"Propthemes\" type=\"checkbox\" class=\"PropCheckBoxClass\"  checked=\"checked\" value='"+strPropertyCode+"' onclick=\"funPropertyChkOnClick()\" />";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strPropCode."+(rowCount)+"\" value='"+strPropertyCode+"' >";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strPropName."+(rowCount)+"\" value='"+strPropertyName+"' >";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"40%\" id=\"strPropName."+(rowCount)+"\" value='"+strPropertyName+"' >";
 		}
       
 		    function funfillLocationGrid(strLocCode,strLocationName)
@@ -259,7 +259,7 @@
 				    
 				    row.insertCell(0).innerHTML= "<input id=\"cbLocSel."+(rowCount)+"\" name=\"Locthemes\" type=\"checkbox\" class=\"LocCheckBoxClass\"  checked=\"checked\" value='"+strLocCode+"' />";
 				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strLocCode."+(rowCount)+"\" value='"+strLocCode+"' >";
-				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
+				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"40%\" id=\"strLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
 			}
 		   
 		    function funRemRows(tablename) 
@@ -316,7 +316,7 @@
 				    
 				    row.insertCell(0).innerHTML= "<input id=\"cbGSel."+(rowCount)+"\" type=\"checkbox\" class=\"GCheckBoxClass selected \" checked=\"checked\" onclick=\"funGroupChkOnClick()\"/>";
 				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box selected\" size=\"15%\" id=\"strGCode."+(rowCount)+"\" value='"+strGroupCode+"' >";
-				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box selected\" size=\"50%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
+				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box selected\" size=\"40%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
 			}
 				
 			function funGroupChkOnClick()
@@ -396,7 +396,7 @@
 			    
 			    row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" name=\"SubGroupthemes\" value='"+strSGCode+"' class=\"SGCheckBoxClass\" />";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"40%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
 			}
 			
 			
@@ -550,11 +550,11 @@
 			<div class="col-md-8"></div>
 			
 			<div class="col-md-6"><label>Property</label>
-			        <input type="text" id="txtPropertyCode" style="width: 35%;background-position: 160px 2px;" Class="searchTextBox"></input>
+			        <input type="text" id="txtPropertyCode" style="width: 35%;" Class="searchTextBox"></input>
 			</div>
 			
 			<div class="col-md-6"><label>Location</label>
-			       <input type="text" id="txtLocCode" style="width: 35%;background-position: 160px 2px;"  Class="searchTextBox" placeholder="Type to search"></input>
+			       <input type="text" id="txtLocCode" style="width: 35%;"  Class="searchTextBox" placeholder="Type to search"></input>
 			         <label id="lblLocName"></label>
 		    </div>
 			
@@ -615,12 +615,12 @@
 				   </div>
 			
 		<div class="col-md-6"><label>Group</label>
-			 <input type="text"  style="width: 35%;background-position: 160px 2px;" 
+			 <input type="text"  style="width: 35%;" 
 			     id="searchGrp" placeholder="Type to search" Class="searchTextBox">
 		 </div>
 		 
 		 <div class="col-md-6"><label>Sub Group</label>
-		  	 <input type="text" id="searchSGrp" style="width: 35%;background-position: 160px 2px;" 
+		  	 <input type="text" id="searchSGrp" style="width: 35%;" 
 		  		 Class="searchTextBox" placeholder="Type to search">
 		 </div>
 		  

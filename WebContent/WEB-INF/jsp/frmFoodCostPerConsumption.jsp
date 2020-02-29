@@ -183,7 +183,7 @@
 				<td><label>Item Type</label></td>
 				<td><s:select id="cmbItemType" items="${mapItemType}" 	name="cmbItemType" cssClass="BoxW124px" path="strProdType" />											
 			</tr> --%>
-			<br>
+		
 			<p align="center">
 				<input type="button" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="funCallFormAction()" />
 				&nbsp;
@@ -191,8 +191,7 @@
 				&nbsp;
 				<input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
-			<br>
-			<br>
+			
 			<div style="background-color: #fafbfb;border: 1px solid #ccc;display: block; height: 400px;	margin: auto;overflow-x: hidden; overflow-y: scroll;width: 99%;">
 				<!-- Dynamic Table Generation for tab4 (Opening Balance) -->
 				<table id="tblFoodCostPerConsumption" class="transTablex" style="width: 100%">				

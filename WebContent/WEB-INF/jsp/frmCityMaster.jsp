@@ -1,10 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
 <title></title>
 <script type="text/javascript">
 	var fieldName;
@@ -216,62 +226,42 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>City Master</label>
-	</div>
-
-<br/>
-<br/>
-
+<div class="container">
+	<label id="formHeading">City Master</label>
 	<s:form name="frmWSCityMaster" method="POST" action="saveWSCityMaster.html">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>City Code</label>
-				</td>
-				<td>
-					<s:input colspan="4" type="text" id="txtCityCode" path="strCityCode" cssClass="searchTextBox" ondblclick="funHelp('CityCode');"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>City Name</label>
-				</td>
-				<td>
-					<s:input colspan="4" type="text" id="txtCityName" path="strCityName" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>State Code</label>
-				</td>
-				<td>
-					<s:input  type="text" id="txtStateCode" path="strStateCode" cssClass="searchTextBox" ondblclick="funHelp('StateCode');"/>
-				</td>
-				<td colspan="3"><label id="lblStateName"></label></td>
-				
-			</tr>
-			
-			<tr>
-				<td>
-					<label>Country Code</label>
-				</td>
-				<td>
-					<s:input  type="text" id="txtCountryCode" path="strCountryCode" cssClass="searchTextBox" ondblclick="funHelp('CountryCode');"/>
-				</td>
-				<td colspan="3"><label id="lblCountryName"></label></td>
-			</tr>
-			
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funCallFormAction('submit',this);"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
+		<div class="row masterTable">
+			<div class="col-md-2">
+				<label>City Code</label>
+				<s:input colspan="4" type="text" id="txtCityCode" path="strCityCode" cssClass="searchTextBox" ondblclick="funHelp('CityCode');" readOnly="true;"/>
+			</div>
+			<div class="col-md-2">
+				<label>City Name</label>
+				<s:input colspan="4" type="text" id="txtCityName" path="strCityName" />
+			</div>
+			<div class="col-md-8"></div>
+			<div class="col-md-2">
+				<label>State Code</label>
+				<s:input  type="text" id="txtStateCode" path="strStateCode" cssClass="searchTextBox" ondblclick="funHelp('StateCode');" readOnly="true;"/>
+			</div>
+			<div class="col-md-2">
+				<label id="lblStateName" style="background-color:#dcdada94; width: 100%; height:51%; margin-top: 28px; text-align: center;"></label>
+			</div>
+			<div class="col-md-8"></div>
+			<div class="col-md-2">
+				<label>Country Code</label>
+				<s:input  type="text" id="txtCountryCode" path="strCountryCode" cssClass="searchTextBox" ondblclick="funHelp('CountryCode');" readOnly="true;"/>
+			</div>
+			<div class="col-md-2">
+				<label id="lblCountryName" style="background-color:#dcdada94; width: 100%; height:51%; margin-top: 28px; text-align: center;"></label>
+			</div>
+		</div>
+		<div class="center" style="text-align:left; margin-left:15%;">
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3"  value="Submit" onclick="return funCallFormAction('submit',this);"
+				>Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block"  value="Reset" onclick="funResetFields()" >Reset</button></a>
+		</div>
+		
 	</s:form>
+</div>
 </body>
 </html>

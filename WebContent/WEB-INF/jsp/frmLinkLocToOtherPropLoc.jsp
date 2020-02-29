@@ -7,15 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=8"/>
-	
-	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
 
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-
-	<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />	
 	<script type="text/javascript" src="<spring:url value="/resources/js/Accordian/jquery.multi-accordion-1.5.3.js"/>"></script>	
 		
 <title>Insert title here</title>
@@ -138,9 +130,9 @@
  			    var row = table.insertRow(rowCount);
  			    var proplocMod=prop[0]+prop[1]+prop[2];
  			    row.insertCell(0).innerHTML= "<input type=\"hidden\" class=\"Box\" size=\"0%\" id=\"proplocMod."+(rowCount)+"\" value='"+proplocMod+"' />";
- 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" id=\"strPropertyName."+(rowCount)+"\" value='"+prop[3]+"' />";
+ 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"25%\" id=\"strPropertyName."+(rowCount)+"\" value='"+prop[3]+"' />";
  			   
- 			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\"  id=\"strByLocName."+(rowCount)+"\" value='"+prop[4]+"' />";
+ 			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"19%\"  id=\"strByLocName."+(rowCount)+"\" value='"+prop[4]+"' />";
  			    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\"  id=\"strToLoc."+(rowCount)+"\" value='"+prop[5]+"' />";
  			    row.insertCell(4).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"5%\" value = \"Delete\" onClick=\"Javacsript:funDeleteRow(this)\"/>"; 
  		     	row.insertCell(5).innerHTML= "<input type=\"hidden\" class=\"Box\" size=\"0%\" name=\"listLinkLocationModel["+(rowCount)+"].strPropertyCode\" id=\"strPropertyCode."+(rowCount)+"\" value='"+prop[0]+"' />";
@@ -280,9 +272,9 @@
 
 		    var proplocMod=propCode+byLoc+toLoc;
 		    row.insertCell(0).innerHTML= "<input type=\"hidden\" class=\"Box\" size=\"0%\" id=\"proplocMod."+(rowCount)+"\" value='"+proplocMod+"' />";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" id=\"strPropertyName."+(rowCount)+"\" value='"+propName+"' />";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"25%\" id=\"strPropertyName."+(rowCount)+"\" value='"+propName+"' />";
 		   
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\"  id=\"strByLocName."+(rowCount)+"\" value='"+byLocName+"' />";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"19%\"  id=\"strByLocName."+(rowCount)+"\" value='"+byLocName+"' />";
 		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\"  id=\"strToLoc."+(rowCount)+"\" value='"+toLocName+"' />";
 		    row.insertCell(4).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"5%\" value = \"Delete\" onClick=\"Javacsript:funDeleteRow(this)\"/>"; 
 		    row.insertCell(5).innerHTML= "<input type=\"hidden\" class=\"Box\" size=\"0%\" name=\"listLinkLocationModel["+(rowCount)+"].strPropertyCode\" id=\"strPropertyCode."+(rowCount)+"\" value='"+propCode+"' />";
@@ -304,7 +296,7 @@
 				</div>
 				<div class="col-md-2">
 					<label>By Location</label>
-					<s:select path="strLocCode" items="${listFromLocc}" id="cmbByLocation">
+					<s:select path="strLocCode" items="${listFromLocc}" id="cmbByLocation" style="width:auto;">
 					</s:select>
 				</div>
 				<div class="col-md-2">
@@ -312,13 +304,14 @@
 					<s:select path="strToLoc" items="${listToLocation}" id="cmbToLocation">
 					</s:select>
 				</div>	
+				<div class="col-md-6"></div>
 				<div class="col-md-2">	
 					<input type="Button" value="Add" onclick="return funAddBtnClick();"  class="btn btn-primary center-block" style="margin-top:20px;" />
 				</div>
 			</div>
 			<br/>
-			<div class="dynamicTableContainer" style="height: 300px;">
-				<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+			<!-- <div class="dynamicTableContainer" style="height: 300px;"> -->
+				<table style="height: 28px; border: #0F0; width: 50%; font-size: 11px; font-weight: bold;">
 					<tr bgcolor="#c0c0c0">
 						<td style="width:20%;">Property</td>
 						<td style="width:15%;">From Location</td>
@@ -328,7 +321,7 @@
 					</tr>
 				</table>
 			
-				<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px;overflow-x: hidden; overflow-y: scroll; width:50%;">
 					<table id="tblLoc"
 						style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 						class="transTablex col8-center">
@@ -346,10 +339,11 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
+		<!-- 	</div> -->
 			<br />
-		<div class="center" style="text-align:center;">
+		<div class="center" style="margin-right: 50%;">
 			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit" onclick="return funCallFormAction()">Submit</button></a>
+			&nbsp;
 			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Reset" onclick="funResetFields()">Reset</button></a>
 		</div>
 	</s:form>

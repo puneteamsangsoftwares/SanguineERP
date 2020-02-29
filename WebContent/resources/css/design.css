@@ -214,6 +214,7 @@ input[type=text] {
 	display: block;
 	width: 100%;
 	font-size: 13px;
+	height: auto;
 }
 
 input[type=date] {
@@ -493,9 +494,9 @@ body {
 	
 }
 
-.row {
+/* .row {
 	
-display:block;}
+display:block;} */
 
 .row12 {
 	/* width: 100%;
@@ -560,7 +561,7 @@ footer {
 	background: #d8d8d894;
 	padding: 20px 14px;
 	min-height: calc(100vh - 57px);
-    margin-top: 59px; 
+    margin-top: 60px; 
 }
 
 .clearfix {
@@ -772,16 +773,17 @@ select {
 }
 
 .calenderTextBox {
-	background: #FFF url(../images/Calendar_edit.png) no-repeat right;
+   background: #FFF url(../images/Calendar_edit.png) no-repeat right;
 	width: 100%;
 	font-size:12px;
+}
 	/*  background-color:inherit;
     border: 1px solid #060006; 
     outline:0; 
     padding-left: 4px;
     height:18px; 
-   */
-}
+  */
+
 
 .calenderTextBox:focus {
 	background-color: inherit;
@@ -978,10 +980,12 @@ ul.tabs li.active {
 }
 
 .container{
-	padding-left:0px;
+	/* padding-left:0px;
 	padding-right:0px;
 	margin-left:0px;
-	margin-right:0px;
+	margin-right:0px; */
+	margin:auto;
+	padding:auto;
 }
 
 .tab_content {
@@ -1072,12 +1076,9 @@ h3 .gray {
 	float: right;
 }
 
-/***************************
-****************************
-These are the styles for
-Table
-****************************
-***************************/
+/*******************************************************
+These are the styles for Table
+*******************************************************/
 .myTable {
 	width: 100%;
 	border-collapse: collapse;
@@ -1203,7 +1204,7 @@ Table
 .transTable {
 	width: 95%;
 	border-collapse: collapse;
-	overflow: auto;
+	/* overflow: auto; */
 	margin-left: auto;
 	margin-right: auto;
 	font-size: 11px;
@@ -1960,7 +1961,7 @@ large buttons
 	height: 24px;
 	
 } */
-/* .app-header #MainDiv{
+.app-header #MainDiv{
 	background-color: #FFFFFF; 
 	border: 1px solid #ccc; 
 	height: 238px; 
@@ -1978,8 +1979,8 @@ large buttons
 	 border: #0F0; 
 	 table-layout: fixed;
 	  overflow: scroll;"
-} */
-/* .transFormTable th {
+} 
+ .transFormTable th {
 	padding: 1px;
 	height: 24px;
 	border: #ffffff 0px solid;
@@ -1997,7 +1998,7 @@ large buttons
    width: 245px;
    background:url(../images/imgDatabaseBackup.png) no-repeat;
    background-size: 245px 203px;
-} */
+} 
 .sticky {
 	position: fixed;
 	top: 0;

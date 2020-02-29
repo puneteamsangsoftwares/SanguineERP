@@ -316,10 +316,10 @@
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount)+"\" value='"+taxCode+"' >";
-		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
-		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" size=\"15%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
-		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" size=\"15%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"15%\" style=\"width:100%;\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount)+"\" value='"+taxCode+"' >";
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"25%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
+		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;margin-left: -28px;\" size=\"15%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
+		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;margin-left: -26px;\" size=\"10%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
 		    row.insertCell(4).innerHTML= '<input type="button" size=\"6%\" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteTaxRow(this)" >';
 		    
 		    funCalTaxTotal();
@@ -336,10 +336,10 @@
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		 
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount)+"\" value='"+taxCode+"' >";
-		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
-		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" size=\"15.5%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
-		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;  border:1px solid #c0c0c0;\" size=\"15.5%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"15%\" style=\"width:100%;\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount)+"\" value='"+taxCode+"' >";
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"25%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
+		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;margin-left: -28px;\" size=\"15%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
+		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;margin-left: -26px;\" size=\"10%\" name=\"listPOTaxDtl["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
 		    row.insertCell(4).innerHTML= '<input type="button" size=\"6%\" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteTaxRow(this)" >';
 		    
 		    funCalTaxTotal();
@@ -2361,7 +2361,7 @@
 						</div>
 						<div class="col-md-2">
 							<label>Our's Ref No.</label>
-							<s:input id="txtOurRef" class="BoxW116px" path="strCode"/>
+							<s:input id="txtOurRef"  path="strCode"/>
 						</div>
 						<div class="col-md-2">
 							<label>PO Date</label>
@@ -2373,7 +2373,7 @@
 							<s:input path="strSuppCode" id="txtSuppCode" ondblclick="funHelp('suppcodeActive')" cssClass="searchTextBox" />
 						</div>
 						<div class="col-md-2">
-							<label id="lblSupplierName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+							<label id="lblSupplierName" class="namelabel" style="background-color:#dcdada94; width: 185%; height: 52%; margin-top: 26px; text-align:center;"
 							></label>
 						</div>
 							<div class="col-md-2"></div>
@@ -2397,7 +2397,7 @@
 						</div>
 						<div class="col-md-2">
 							<label>Pay Mode</label>
-							<s:select path="strPayMode" id="cmbPayMode" cssClass="BoxW124px">
+							<s:select path="strPayMode" id="cmbPayMode">
 								<s:option value="CASH">CASH</s:option>
 								<s:option value="CREDIT" >CREDIT</s:option>
 							</s:select>
@@ -2405,7 +2405,7 @@
 						<div class="col-md-2"></div>
 						<div class="col-md-2">
 							<label>Currency </label>
-							<s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px" onchange="funOnChangeCurrency()"></s:select>
+							<s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" onchange="funOnChangeCurrency()"></s:select>
 						</div>
 						<div class="col-md-2">	
 							<s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField" style="margin-top:26px; width:70%;"></s:input>
@@ -2417,15 +2417,14 @@
 					<div class="row transTable">
 						<div class="col-md-2">		
 							<label>PI Code</label>
-							<select id="cmbPIDoc"  Class="BoxW124px"></select>
+							<select id="cmbPIDoc"></select>
 						</div>	
 						<div class="col-md-2">		
 							<label>Product</label>
 							<input id="txtProdCode" ondblclick="funOpenHelp();" class="searchTextBox" />
 						</div>
 						<div class="col-md-2">	
-							<label id="lblProdName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
-							></label>
+							<label id="lblProdName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:center;"></label>
 						</div>
 						<div class="col-md-2">
 							<label>Unit Price</label>
@@ -2442,11 +2441,11 @@
 						</div>
 						<div class="col-md-2">
 							<label>UOM</label>
-							<s:select id="cmbUOM" name="cmbUOM" path="" items="${uomList}" cssClass="BoxW124px"/>
+							<s:select id="cmbUOM" name="cmbUOM" path="" items="${uomList}"/>
 						</div>
 						<div class="col-md-2">
 							<label>Highlight</label>
-							<select id="txtUpdate" class="BoxW62px" style="width:80%;">
+							<select id="txtUpdate" style="width:80%;">
 									<option value="N">No</option>
 									<option value="Y">Yes</option>
 							</select>
@@ -2454,8 +2453,8 @@
 						<div class="col-md-2">
 								<!-- <td><label>Stock </label></td> -->
 							<label>Discount</label>
-<!-- 							<td><input id="txtDiscount" type="text" class="decimal-places-amt numberField" value="0" class="BoxW116px" /></td> -->
-							<input id="txtDiscount" value="0" type="text" class="BoxW124px" ></input>
+<!-- 							<td><input id="txtDiscount" type="text" class="decimal-places-amt numberField" value="0"/></td> -->
+							<input id="txtDiscount" value="0" type="text"></input>
 						</div>
 						<div class="col-md-2">
 							<label>Remarks</label>
@@ -2628,12 +2627,11 @@
 											<div class="col-md-4"></div>
 										<div class="col-md-4">
 											<label>Country</label>	
-										    <s:input path="strVCountry" id="txtBCountry"
-											     cssClass="BoxW116px" />
+										    <s:input path="strVCountry" id="txtBCountry" />
 										</div>
 										<div class="col-md-4">
 											<label>Pin Code</label>	
-											<s:input path="strVPin" id="txtBPin" class="positive-integer BoxW116px" />	
+											<s:input path="strVPin" id="txtBPin" class="positive-integer" />	
 										</div>
 									</div>
 								</div>
@@ -2653,20 +2651,20 @@
 											<div class="col-md-4"></div>
 										<div class="col-md-4">	
 											<label>City</label>
-											<s:input path="strSCity" id="txtSCity" cssClass="BoxW116px" />
+											<s:input path="strSCity" id="txtSCity"/>
 										</div>
 										<div class="col-md-4">
 											<label>State</label>
-											<s:input path="strSState" id="txtSState" cssClass="BoxW116px" />
+											<s:input path="strSState" id="txtSState"/>
 										</div>
 											<div class="col-md-4"></div>
 										<div class="col-md-4">
 											<label>Country</label>
-											<s:input path="strSCountry" id="txtSCountry" cssClass="BoxW116px" />
+											<s:input path="strSCountry" id="txtSCountry" />
 										</div>
 										<div class="col-md-4">
 											<label>Pin Code</label>
-											<s:input path="strSPin" id="txtSPin" class="positive-integer BoxW116px" />
+											<s:input path="strSPin" id="txtSPin" class="positive-integer" />
 										</div>
 									</div>
 								</div>
@@ -2692,18 +2690,25 @@
 							<br>
 							<table class="transTable" id="tblTermsAndCondColumns" style="width: 70%; margin:0px;">
 								<tr style="background:#c0c0c0;">
-									<td width="25%">TC Name</td>
-									<td width="20%">TC Description</td>
+									<td width="42%">TC Name</td>
+									<td width="35%">TC Description</td>
+									<td width="20%">Delete</td>
 									<!-- <td width="20%"> Delete<td> -->
 								</tr>
 							</table>
 
 							<table
-								style="width: 70%; height: 100%; text-align: center; border: 1px solid black; font-size: 11px; font-weight: bold;">
+								style="width: 70%; height: 100%; text-align: center; border: 1px solid #c0c0c0; font-size: 11px; font-weight: bold;">
 								<tr>
 									<td>
 										<table class="myTable" id="tblTermsAndCond">
-										
+										<tbody>    
+											<col style="width:2%"><!--  COl1   -->
+											<col style="width:3%"><!--  COl2   -->
+											<col style="width:5%"><!--  COl3   -->
+											<col style="width:10%"><!--  COl4   -->
+											<col style="width:6%"><!--  COl5   -->									
+									</tbody>
 										</table>
 									</td>
 								</tr>
@@ -2740,9 +2745,9 @@
 								</div>
 							</div>
 							<br>
-							<table style="width: 100%;" class="transTablex col5-center">
+							<table style="width: 60%;margin:0px;" class="transTablex col5-center">
 								<tr style="background:#c0c0c0;">
-									<td style="width:10%">Tax Code</td>
+									<td style="width:5%">Tax Code</td>
 									<td style="width:7%">Description</td>
 									<td style="width:8%">Taxable Amount</td>
 									<td style="width:6%">Tax Amount</td>
@@ -2750,7 +2755,7 @@
 								</tr>							
 							</table>
 							<div style="background-color: #fbfafa;border: 1px solid #ccc;display: block; height: 150px;
-			    				margin: auto;overflow-x: hidden; overflow-y: scroll;width: 100%;">
+			    				overflow-x: hidden; overflow-y: scroll;width: 60%;">
 									<table id="tblTax" class="transTablex col5-center" style="width: 100%;">
 									<tbody>    
 											<col style="width:5%"><!--  COl1   -->

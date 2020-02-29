@@ -125,42 +125,28 @@
 
 </head>
 <body>
+ <div class="container">
+	<label id="formHeading">Country Master</label>
+    <s:form name="frmWSCountryMaster" method="POST" action="saveWSCountryMaster.html">
 
-	<div id="formHeading">
-	<label>Country Master</label>
-	</div>
+		<div class="row masterTable">
+			<div class="col-md-2"><label>Country Code</label>
+				<s:input type="text" id="txtCountryCode" path="strCountryCode" cssClass="searchTextBox" ondblclick="funHelp('CountryCode');"/>
+			</div>
+			
+			<div class="col-md-2"><label>Country Name</label>
+				<s:input type="text" id="txtCountryName" path="strCountryName"/>
+			</div>
+		</div>
 
-<br/>
-<br/>
-
-	<s:form name="frmWSCountryMaster" method="POST" action="saveWSCountryMaster.html">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>Country Code</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtCountryCode" path="strCountryCode" cssClass="searchTextBox" ondblclick="funHelp('CountryCode');"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Country Name</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtCountryName" path="strCountryName" cssClass="longTextBox" />
-				</td>
-			</tr>
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funCallFormAction('submit',this);"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+	<br>
+		<p align="center" style="margin-right: 49%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this);"/>
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

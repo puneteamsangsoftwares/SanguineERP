@@ -218,12 +218,12 @@ $(document).ready(function(){
 				    <s:input path="strReasonCode" readonly="true" ondblclick="funHelp('reason')" id="txtReasonCode" cssClass="searchTextBox" />
 			    </div>
 			
-			<div class="col-md-3"><label>Reason Name</label>
+			<div class="col-md-2"><label>Reason Name</label>
 				 <s:input path="strReasonName" cssStyle="text-transform: uppercase;" id="txtReasonName" required="true" />
 			</div>
-			<div class="col-md-7"></div>
+			<div class="col-md-8"></div>
 			
-			<div class="col-md-3"><label>Description</label>
+			<div class="col-md-2"><label>Description</label>
 				<s:input path="strReasonDesc" cssStyle="text-transform: uppercase;"	id="txtReasonDesc"/>
 			</div>
 			
@@ -272,8 +272,7 @@ $(document).ready(function(){
 		</div>
 		</div>
 	
-		<br />
-		<p align="center"  style="margin-right: 32%;">
+		<p align="center"  style="margin-right: 49%;">
 			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funvalidate();" />
 			&nbsp;
 			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()" />

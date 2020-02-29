@@ -242,7 +242,7 @@
 				    
 				    row.insertCell(0).innerHTML= "<input id=\"cbGSel."+(rowCount)+"\" type=\"checkbox\" class=\"GCheckBoxClass\" checked=\"checked\" onclick=\"funGroupChkOnClick()\"/>";
 				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strGCode."+(rowCount)+"\" value='"+strGroupCode+"' >";
-				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
+				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"40%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
 			}
 			
 			/**
@@ -322,7 +322,7 @@
 			    
 			    row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" name=\"SubGroupthemes\" value='"+strSGCode+"' class=\"SGCheckBoxClass\" />";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"40%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
 			}
 		
 			/**
@@ -446,14 +446,15 @@
 			  <div class="col-md-6"></div>
 			  
 			  <div class="col-md-6"><label>Group</label>
-		             <input type="text"  style="width:30%;background-position: 140px 2px;" 
+		             <input type="text"  style="width:35%;" 
 		               id="searchGrp" placeholder="Type to search" Class="searchTextBox">
 		 	  </div>
 		 	  
 		 	  <div class="col-md-6"><label>Sub Group</label>
-		  		 <input type="text" id="searchSGrp" style="width: 30%;background-position: 140px 2px;" Class="searchTextBox" placeholder="Type to search">
+		  		 <input type="text" id="searchSGrp" style="width: 35%;" Class="searchTextBox" placeholder="Type to search">
 		      </div>
-		
+		      <div class="col-md-12"></div><br>
+		      
 			  <div class="col-md-6">
 				<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
 						<table id="" class="display"

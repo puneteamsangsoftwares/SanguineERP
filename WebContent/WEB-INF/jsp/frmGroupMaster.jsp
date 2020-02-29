@@ -10,13 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%-- <script type="text/javascript" src="<spring:url value="/resources/js/hindiTextBox.js"/>"></script> --%>
 <title>GROUP MASTER</title>
-      <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
-	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
-	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-
+     
 <style>
 .ui-autocomplete {
     max-height: 200px;
@@ -283,11 +277,11 @@
 						cssClass="searchTextBox" ondblclick="funHelp('group')" />
 			    </div>
 			    
-			<div class="col-md-3"><label>Group Name</label>
+			<div class="col-md-2"><label>Group Name</label>
 				  <s:input type="text" id="txtGroupName" name="txtGroupName" path="strGName" required="true"
 						cssStyle="text-transform: uppercase;"/> <s:errors path="strGName"></s:errors>
 			</div>
-			<div class="col-md-7"></div>
+			<div class="col-md-8"></div>
 			
 			<div class="col-md-3"><label>Description </label>
 				  <s:input id="txtGroupDesc" name="txtGroupDesc" cssStyle="text-transform: uppercase;" path="strGDesc" autocomplete="off" /> 
@@ -306,10 +300,11 @@
 		</div>
 
 		<br />
-		<p align="center" style="margin-right: 32%;">
+		<p align="center" style="margin-right: 49%;">
 			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button"
-				onclick="return funCallFormAction('submit',this);" /> &nbsp;
-				<input type="reset"	value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
+				   onclick="return funCallFormAction('submit',this);" /> 
+			&nbsp;
+			<input type="reset"	value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 	</s:form>
     </div>

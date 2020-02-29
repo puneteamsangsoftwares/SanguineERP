@@ -339,11 +339,11 @@
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    
-		    row.insertCell(0).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" id=\"txtProdCode."+(rowCount)+"\" value="+prodCode+ ">";
-		    row.insertCell(1).innerHTML= "<input width=\"15%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" id=\"txtProdName."+(rowCount)+"\" value='"+prodName+"'>";
-		    row.insertCell(2).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" id=\"txtPartNo."+(rowCount)+"\" value="+partNo+">";
-		    row.insertCell(3).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" id=\"txtQuantity."+(rowCount)+"\" value="+qty+">";
-		    row.insertCell(4).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" id=\"txtPrice."+(rowCount)+"\" value="+price+">";
+		    row.insertCell(0).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" style=\"width:100%;\" id=\"txtProdCode."+(rowCount)+"\" value="+prodCode+ ">";
+		    row.insertCell(1).innerHTML= "<input width=\"15%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" style=\"width:100%;\" id=\"txtProdName."+(rowCount)+"\" value='"+prodName+"'>";
+		    row.insertCell(2).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" style=\"width:100%;\" id=\"txtPartNo."+(rowCount)+"\" value="+partNo+">";
+		    row.insertCell(3).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" style=\"width:100%;\" id=\"txtQuantity."+(rowCount)+"\" value="+qty+">";
+		    row.insertCell(4).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" style=\"width:100%;\" id=\"txtPrice."+(rowCount)+"\" value="+price+">";
 		    row.insertCell(5).innerHTML= '<input type="button" value = "Delete" class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
 		    funResetFields();
 		    return false;
@@ -356,11 +356,11 @@
 		    var row = table.insertRow(rowCount);
 		    //arrParentProd=arrParentProd+","+prodCode;
 		    
-		    row.insertCell(0).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" id=\"txtProdCode."+(rowCount)+"\" value="+prodCode+">";
-		    row.insertCell(1).innerHTML= "<input width=\"15%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" id=\"txtProdName."+(rowCount)+"\" value='"+prodName+"' \> ";
-		    row.insertCell(2).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" id=\"txtPartNo."+(rowCount)+"\" value="+partNo+">";
-		    row.insertCell(3).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" id=\"txtQuantity."+(rowCount)+"\" value="+qty+">";
-		    row.insertCell(4).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" id=\"txtPrice."+(rowCount)+"\" value="+price+">";
+		    row.insertCell(0).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" style=\"width:100%;\" id=\"txtProdCode."+(rowCount)+"\" value="+prodCode+">";
+		    row.insertCell(1).innerHTML= "<input width=\"15%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" style=\"width:100%;\" id=\"txtProdName."+(rowCount)+"\" value='"+prodName+"' \> ";
+		    row.insertCell(2).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" style=\"width:100%;\" id=\"txtPartNo."+(rowCount)+"\" value="+partNo+">";
+		    row.insertCell(3).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" style=\"width:100%;\" id=\"txtQuantity."+(rowCount)+"\" value="+qty+">";
+		    row.insertCell(4).innerHTML= "<input width=\"4%\" readonly=\"readonly\" class=\"Box\" name=\"listProduct["+(rowCount)+"]\" style=\"width:100%;\" id=\"txtPrice."+(rowCount)+"\" value="+price+">";
 		    row.insertCell(5).innerHTML= '<input type="button" value = "Delete" class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
 		    
 		    return false;
@@ -402,7 +402,7 @@
 				<li data-state="tab2" id="t2">What If Analysis</li>
 			</ul>
 	
-			<div id="tab1" class="tab_content">
+			<div id="tab1" class="tab_content" style="height: 500px;">
 				<div class="row transTable">
 					<div class="col-md-12">
 						<p style="font-size:13px; margin-top:10px;">Product Details</p>	
@@ -454,7 +454,7 @@
 					</div>
 				</div>
 				
-				<div class="dynamicTableContainer" style="height: 150px;">
+				<div class="dynamicTableContainer" style="height: 150px;width:70%;">
 					<table style="height:20px;border:#0F0;width:100%;font-size:11px;font-weight: bold;">
 						<tr bgcolor="#c0c0c0">
 							<td width="6%">Product Code</td>
@@ -462,6 +462,7 @@
 							<td width="4%">Part No</td>
 							<td width="4%">Quantity</td>
 							<td width="5%">Price</td>
+							<td width="1%">Delete</td>
 						</tr>
 					</table>
 						<div style="background-color:#fbfafa;
@@ -498,7 +499,7 @@
 				<br><br>
 			</div>
 			
-			<div id="tab2" class="tab_content" style="margin-top:52px;"> 
+			<div id="tab2" class="tab_content" style="margin-top:52px;height: 305px;"> 
 <!-- 				<table class="transTable"> -->
 <!-- 					<tr><th colspan="6" align="left">  </th></tr> -->
 <!-- 				</table> -->
@@ -638,8 +639,9 @@
 		</div>
 	</div>
 
-	<div class="center">
+	<div class="center" style="text-align:center">
 		 <a href="#"><button class="btn btn-primary center-block" id="btnSubmit" id="formsubmit" value="Submit">Submit</button></a>
+		 &nbsp;
 		 <a href="#"><button class="btn btn-primary center-block"  value="Reset" onclick=" return funResetField()">Reset</button></a>
 	</div>
 

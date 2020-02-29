@@ -16,7 +16,12 @@
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 	
 <title></title>
-
+<style>
+   .dynamicTableContainer {
+      border:none;
+      overflow-x:hidden;
+   }
+</style>
 <script>
 
 $(document).ready(function()
@@ -173,9 +178,9 @@ function funHelp(transactionName)
 	    var rowCount = table.rows.length;
 	    var row = table.insertRow(rowCount);
 
-	    row.insertCell(0).innerHTML= "<input name=\"listclsTransporterModelDtl["+(rowCount)+"].strVehCode\" readonly=\"readonly\" class=\"Box\" size=\"9%\" id=\"txtVehCode."+(rowCount)+"\" value='"+strVehCode+"'/>";
-	    row.insertCell(1).innerHTML= "<input name=\"listclsTransporterModelDtl["+(rowCount)+"].strVehNo\" readonly=\"readonly\" class=\"Box\" size=\"9%\" id=\"lblVehNo."+(rowCount)+"\" value='"+vehNo+"'/>";
-	    row.insertCell(2).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';
+	    row.insertCell(0).innerHTML= "<input name=\"listclsTransporterModelDtl["+(rowCount)+"].strVehCode\" readonly=\"readonly\" class=\"Box\" size=\"22%\" id=\"txtVehCode."+(rowCount)+"\" value='"+strVehCode+"'/>";
+	    row.insertCell(1).innerHTML= "<input name=\"listclsTransporterModelDtl["+(rowCount)+"].strVehNo\" readonly=\"readonly\" class=\"Box\" style=\"margin-left: 40px;\" size=\"40%\" id=\"lblVehNo."+(rowCount)+"\" value='"+vehNo+"'/>";
+	    row.insertCell(2).innerHTML= '<input  class="deletebutton" value = "Delete" style=\"margin-left: 145px;\" onClick="Javacsript:funDeleteRow(this)">';
 	
 	}
 	
@@ -225,9 +230,9 @@ function funHelp(transactionName)
 
      	//if(funDuplicateVehicle(strVehCode))
    		// {
-	    row.insertCell(0).innerHTML= "<input name=\"listclsTransporterModelDtl["+(rowCount)+"].strVehCode\" readonly=\"readonly\" class=\"Box\" size=\"9%\" id=\"txtVehCode."+(rowCount)+"\" value='"+strVehCode+"'/>";
-	    row.insertCell(1).innerHTML= "<input name=\"listclsTransporterModelDtl["+(rowCount)+"].strVehNo\" readonly=\"readonly\" class=\"Box\" size=\"9%\" id=\"lblVehNo."+(rowCount)+"\" value='"+vehNo+"'/>";
-	    row.insertCell(2).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';
+	    row.insertCell(0).innerHTML= "<input name=\"listclsTransporterModelDtl["+(rowCount)+"].strVehCode\" readonly=\"readonly\" class=\"Box\" size=\"22%\" id=\"txtVehCode."+(rowCount)+"\" value='"+strVehCode+"'/>";
+	    row.insertCell(1).innerHTML= "<input name=\"listclsTransporterModelDtl["+(rowCount)+"].strVehNo\" readonly=\"readonly\" class=\"Box\" style=\"margin-left: 40px;\" size=\"40%\" id=\"lblVehNo."+(rowCount)+"\" value='"+vehNo+"'/>";
+	    row.insertCell(2).innerHTML= '<input  class="deletebutton" value = "Delete" style=\"margin-left: 145px;\" onClick="Javacsript:funDeleteRow(this)">';
     	//}
      	
 	    funResetDetailFields();
@@ -276,7 +281,7 @@ function funHelp(transactionName)
 </script>
 </head>
 <body>
-<div class="container">
+  <div class="container">
 	<label id="formHeading">TransPorter Master</label>
 	<s:form name="TransPorter Master" method="GET" action="saveTransporterVehicle.html?saddr=${urlHits}">
 
@@ -300,25 +305,25 @@ function funHelp(transactionName)
 				<s:input  type="text" id="txtVehCode" path="strVehCode" cssClass="searchTextBox" ondblclick="funHelp('VehCode');" readOnly="true"/>
 			</div>
 			<div class="col-md-2">	
-				<label id ="lblVehNo" style="background-color:#dcdada94; width: 100%; height: 51%; margin-top: 26px; text-align: center;"></label>
+				<label id ="lblVehNo" style="background-color:#dcdada94; width: 100%; height: 30px; margin-top: 26px; text-align: center;"></label>
 			</div>
-			</div>
-			<div class="center" style="margin-right: 52%;">
+			
+			<div class="col-md-3">
 				<a href="#"><button class="btn btn-primary center-block"  value="Create" onclick="return funSaveTrasnporter()"
-				>Create</button></a>
+				>Create</button></a>&nbsp;
 				<a href="#"><button class="btn btn-primary center-block"  value="Add" onclick="return btnAdd_onclick()"
 				>Add</button></a>
 			</div>
-				
+		</div>		
 		<div class="dynamicTableContainer" style="width: 80%;">
-			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
+			<table style="height: 28px; border: #0F0; width: 70%;font-size:11px; font-weight: bold;">
 					 <tr style="background-color:#c0c0c0;">
-                        <td align="left" style="width: 10%; height: 30px;"> Vehicle Code</td>
-                        <td align="left" style="width: 16%; height: 30px;"> Vehicle No.</td>    
+                        <td align="left" style="width: 30%; height: 30px;"> Vehicle Code</td>
+                        <td align="left" style="width: 40%; height: 30px;"> Vehicle No.</td>    
                         <td align="left" style="width: 16%; height: 30px;"> Delete</td>
                       </tr>
              </table>
-                 <div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+                 <div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px;overflow-x: hidden; overflow-y: scroll; width: 70%;">
 					<table id="tblVehicleDtl" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					        class="transTablex col8-center">
                         <tbody>
@@ -330,16 +335,14 @@ function funHelp(transactionName)
                 </div>
 		 </div>
 
-		<br/>
-		<br/>
-		<div class="center" style="margin-right: 20%;">
+		<div class="center" style="margin-right: 44%;">
 				<a href="#"><button class="btn btn-primary center-block"  value="Submit" onclick="return funCallFormAction('submit',this);"
-				>Submit</button></a>
+				>Submit</button></a>&nbsp;
 				<a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()"
 				>reset</button></a>
 		</div>
 		
 	</s:form>
-</div>
+   </div>
 </body>
 </html>

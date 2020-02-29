@@ -1,17 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+ 
  <script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" /> 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Excel Import Export</title>
+<style>
+  .masterTable td {
+       padding-left: 0px;
+   } 
+</style>
+
 <script type="text/javascript">
 //Press ESC button to Close Form
 	window.onkeyup = function (event) {
@@ -623,9 +632,9 @@
 				    var rowCount = table.rows.length;
 				    var row = table.insertRow(rowCount);
 				    
-				    row.insertCell(0).innerHTML= "<input id=\"cbSuppSel."+(rowCount)+"\" name=\"Suppthemes\" type=\"checkbox\" class=\"SuppCheckBoxClass\"  checked=\"checked\" value='"+strSuppCode+"' />";
+				    row.insertCell(0).innerHTML= "<input id=\"cbSuppSel."+(rowCount)+"\" size=\"15%\" name=\"Suppthemes\" type=\"checkbox\" class=\"SuppCheckBoxClass\"  checked=\"checked\" value='"+strSuppCode+"' />";
 				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strSuppCode."+(rowCount)+"\" value='"+strSuppCode+"' >";
-				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strSName."+(rowCount)+"\" value='"+strSuppName+"' >";
+				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"31%\" id=\"strSName."+(rowCount)+"\" value='"+strSuppName+"' >";
 			}
 		    //Remove All Row from Grid Passing Table Id as a parameter
 		    function funRemRows(tablename) 
@@ -683,9 +692,9 @@
 				    var rowCount = table.rows.length;
 				    var row = table.insertRow(rowCount);
 				    
-				    row.insertCell(0).innerHTML= "<input id=\"cbGSel."+(rowCount)+"\" type=\"checkbox\"  name=\"GCodethemes\" class=\"GCheckBoxClass selected \" checked=\"checked\" value='"+strGroupCode+"' onclick=\"funGroupChkOnClick()\"/>";
+				    row.insertCell(0).innerHTML= "<input id=\"cbGSel."+(rowCount)+"\" type=\"checkbox\" size=\"15%\" style=\"margin-right: 50px;\" name=\"GCodethemes\" class=\"GCheckBoxClass selected \" checked=\"checked\" value='"+strGroupCode+"' onclick=\"funGroupChkOnClick()\"/>";
 				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box selected\" size=\"15%\" id=\"strGCode."+(rowCount)+"\" value='"+strGroupCode+"' >";
-				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box selected\" size=\"50%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
+				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box selected\" size=\"27%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
 			}
 				
 			//Select All Group
@@ -766,9 +775,9 @@
 			    var rowCount = table.rows.length;
 			    var row = table.insertRow(rowCount);
 			    
-			    row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" name=\"SubGroupthemes\" value='"+strSGCode+"' class=\"SGCheckBoxClass\" />";
+			    row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" type=\"checkbox\" size=\"15%\" style=\"margin-right: 50px;\" checked=\"checked\" name=\"SubGroupthemes\" value='"+strSGCode+"' class=\"SGCheckBoxClass\" />";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"27%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
 			}
 			
 			//Select All Group,SubGroup,From Location, To Location When Clicking Select All Check Box
@@ -794,32 +803,25 @@
 </script>
 </head>
 <body onload="funOnLoad();">
-
+<div class="container">
 <s:form name="uploadExcel" id="uploadExcel" method="POST" action="ExcelExportImport.html" enctype="multipart/form-data" >
 <br>
 <br>
-	<table>
-	   <tbody>
-		    <tr>
-			    <td class="content" bgcolor="#a6d1f6">Export Excel File</td>
-			    <td><input type="button" id="btnExport" value="Export" class="form_button1" onclick="funExport();"/></td>
-		    </tr>
-		    <tr>
-		    	<td><input type="file" id="File"  Width="50%" accept="application/vnd.ms-excel"  ></input></td>    
-		    </tr>
-		       </tbody>
-	</table>
-  <div id="divFilter" style="display:none;">
-  <table>
-	   <tbody>
-	   
-	   <tr>
-	   <td colspan="1">Show Stock Wise Product</td>
-				<td colspan="1"><select id="cmbProdStock" Class="BoxW124px" >
+	<div class="row" style="background-color:#c0c0c0;padding: 7px;">
+			    <div class="col-md-2" class="content" >Export Excel File</div>
+			    <div class="col-md-2"><input type="button" id="btnExport" value="Export" class="btn btn-primary center-block" class="form_button1" onclick="funExport();"/></div>
+	 </div><br>
+		        <div class="col-md-2"><input type="file" id="File"  Width="50%" accept="application/vnd.ms-excel"  ></input></div>  
+  
+  <div id="divFilter" style="display:block;">
+  
+  <div class="row">
+			    <div class="col-md-3"><label>Show Stock Wise Product</label>
+				   <select id="cmbProdStock" style="width:auto;">
 						<option value="Yes">Yes</option>
 						<option selected="selected" value="No">No</option>
-						
-				</select></td>
+				    </select>
+				 </div>
 <!-- 	   </tr> -->
 <!-- 		    <tr> -->
 <!-- 			   <td width="120px"><label>Location Code </label></td> -->
@@ -842,30 +844,24 @@
 				       
 			   		</tr> -->
 			   	
-		<tr>
-		<td colspan="2">Group&nbsp;&nbsp;&nbsp;
-			<input type="text"   style="width: 35%;background-position: 150px 2px;"  Class="searchTextBox" placeholder="Type to search"  
-			id="searchGrp" >
-		 </td>
-		 <td colspan="2">Sub Group&nbsp;&nbsp;&nbsp;&nbsp;
-		  		 <input type="text" id="searchSGrp" 
-		  		  style="width: 35%;background-position: 150px 2px;"  Class="searchTextBox" placeholder="Type to search" >
-		 </td>
-		 	
-		  </tr>
-			
-			<tr>
-				<td colspan="2">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-							<table id="" class="display"
-								style="width: 100%; border-collapse: separate;">
+		  <div class="col-md-2"><label>Group</label>
+			   <input type="text" Class="searchTextBox" placeholder="Type to search" id="searchGrp" >
+		  </div>
+		  
+		 <div class="col-md-2"><label>Sub Group</label>
+		  	   <input type="text" id="searchSGrp" Class="searchTextBox" placeholder="Type to search" >
+		 </div>
+	  </div>
+		<br>	
+		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 55%;overflow-x: hidden; overflow-y: scroll;">
+				<table id="" class="display"
+							style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
-										<td width="15%"><input type="checkbox" id="chkGALL"
+									<tr bgcolor="#c0c0c0">
+										<td width="13%"><input type="checkbox" id="chkGALL"
 											checked="checked" onclick="funCheckUncheck()" />Select</td>
-										<td width="20%">Group Code</td>
-										<td width="65%">Group Name</td>
+										<td width="33%" style="padding-left: 25px;">Group Code</td>
+										<td width="65%" style="padding-left: 30px;">Group Name</td>
 
 									</tr>
 								</tbody>
@@ -873,62 +869,52 @@
 							<table id="tblGroup" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#fafbfb">
 										<td width="15%"></td>
-										<td width="20%"></td>
+										<td width="12%"></td>
 										<td width="65%"></td>
 
 									</tr>
 								</tbody>
 							</table>
-						</div>
-						</td>
-						<td  colspan="2">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+				</div>
+				<br>
+				<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 55%;overflow-x: hidden; overflow-y: scroll;">
 
 							<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
-										<td width="15%"><input type="checkbox" id="chkSGALL"
+									<tr bgcolor="#c0c0c0">
+										<td width="13%"><input type="checkbox" id="chkSGALL"
 											checked="checked" onclick="funCheckUncheckSubGroup()" />Select</td>
-										<td width="25%">Sub Group Code</td>
-										<td width="65%">Sub Group Name</td>
+										<td width="33%" style="padding-left: 25px;">Sub Group Code</td>
+										<td width="65%" style="padding-left: 30px;">Sub Group Name</td>
 
 									</tr>
 								</tbody>
 							</table>
 							<table id="tblSubGroup" class="masterTable"
-								style="width: 100%; border-collapse: separate;">
+								style="width: 60%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#fafbfb">
 										<td width="15%"></td>
-										<td width="25%"></td>
+										<td width="12%"></td>
 										<td width="65%"></td>
 
 									</tr>
 								</tbody>
 							</table>
-							
-						</div>
-				</td></tr><tr>
+					</div>
 				
-		
-		
-			   		
-			   	  	
-		  
-	    </tbody>
-	</table>
 	</div>
 	<br>
     <p align="center">
-			<input id="btnSubmit" type="button" class="btn btn-primary center-block" class="form_button" value="Submit" onclick="return funSubmit();"/>
-			&nbsp; &nbsp; &nbsp;
-			 <input id="btnReset" type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetField()" />
+			<input id="btnSubmit" type="button" class="btn btn-primary center-block" class="btn btn-primary center-block" class="form_button" value="Submit" onclick="return funSubmit();"/>
+			&nbsp; 
+			<input id="btnReset" type="reset" value="Reset" class="btn btn-primary center-block" vclass="btn btn-primary center-block" class="form_button" onclick="funResetField()" />
 	</p>
 	
 </s:form>
+</div>
 </body>
 </html>

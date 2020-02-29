@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -7,6 +9,11 @@
   	<link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Web Stocks</title>
+    <style>
+    .transTable td {
+         padding-left: 27px;
+         }
+    </style>
     <script type="text/javascript">
     	var fieldName;
     	/**
@@ -85,7 +92,7 @@
 			    
 			    row.insertCell(0).innerHTML= "<input id=\"cbGSel."+(rowCount)+"\" type=\"checkbox\" class=\"GCheckBoxClass\" checked=\"checked\" onclick=\"funGroupChkOnClick()\"/>";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strGCode."+(rowCount)+"\" value='"+strGroupCode+"' >";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"35%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
 		}
 		
 		/**
@@ -173,7 +180,7 @@
 		    
 		    row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" name=\"SubGroupthemes\" value='"+strSGCode+"' class=\"SGCheckBoxClass\" />";
 		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"35%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
 		}
 		
 		    /**
@@ -284,69 +291,53 @@
     </script>
   </head>
   
-	<body >
-	<div id="formHeading">
-		<label>Recipes List</label>
-	</div>
-	<br />
-	<br />
-		<s:form name="frmRecipesList" method="GET" action="rptRecipesList.html" target="_blank">
-			<table class="masterTable">
-	<tr><th colspan="2"></th></tr>
-				<tr>
-					<td width="150px"><label>Product Code</label></td>
-					<td><s:input  id="txtProdCode" path="strDocCode" ondblclick="funHelp('productProducedslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/></td>
-				</tr>
+	<body>
+	<div class="container masterTable">
+		<label id="formHeading">Recipes List</label>
+	      <s:form name="frmRecipesList" method="GET" action="rptRecipesList.html" target="_blank">
+	
+	   <div class="row">	
+		         <div class="col-md-2"><label>Product Code</label>
+					   <s:input  id="txtProdCode" path="strDocCode" ondblclick="funHelp('productProducedslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
+				  </div>
 				
-				<tr>
-					<td><label>Report Type</label></td>
-					<td>
-						<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+				<div class="col-md-2"><label>Report Type</label>
+					<s:select id="cmbDocType" path="strDocType" style="width:auto;">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
 				    		<s:option value="HTML">HTML</s:option>
 				    		<s:option value="CSV">CSV</s:option>
 				    	</s:select>
-					</td>
-				</tr>
-				<tr>
-						<td width="10%">Rate PickUp From</td>
-						<td>
-							<s:select  id="cmbRatePickUpFrom" path="strShowBOM" class="BoxW48px" style="width:130px" >
+				</div>
+				
+				<div class="col-md-2"><label>Rate PickUp From</label>
+					   <s:select  id="cmbRatePickUpFrom" path="strShowBOM" style="width:auto;" >
 							<option selected="selected" value="Product Master">Product Master</option>
 							<option value="Last Purchase Rate">Last Purchase Rate</option>
-								
-							</s:select>
-						</td>
-						</tr>
-				<tr>
-				<td colspan="2"></td>
+						</s:select>
+				</div>
+		</div>
 				
-				<table class="transTable">
-		<tr>
-		<td width="49%">Group&nbsp;&nbsp;&nbsp;
-			<input type="text"  style="width: 50%;background-position: 240px 2px;" 
-			id="searchGrp" placeholder="Type to search" Class="searchTextBox">
-		 </td>
-		 <td width="49%">Sub Group&nbsp;&nbsp;&nbsp;&nbsp;
-		  		 <input type="text" id="searchSGrp" 
-		  		 style="width: 50%;background-position: 240px 2px;" 
-		  		 Class="searchTextBox" placeholder="Type to search">
-		 </td>
-		  </tr>
-			<tr></tr>
-			<tr>
-				<td style="padding: 0 !important;">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+		<div class="row transTable">
+		   <div class="col-md-6"><label>Group</label>
+			      <input type="text"  style="width:35%;" id="searchGrp" placeholder="Type to search" Class="searchTextBox">
+		   </div>
+		   <div class="col-md-6"><label>Sub Group</label>
+		  		   <input type="text" id="searchSGrp" style="width:35%;" Class="searchTextBox" placeholder="Type to search">
+		   </div>
+		   
+		  <div class="col-md-12"></div><br>
+		  
+			 <div  class="col-md-6"
+							style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
 							<table id="" class="display"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#c0c0c0">
 										<td width="15%"><input type="checkbox" id="chkGALL"
 											checked="checked" onclick="funCheckUncheck()" />Select</td>
-										<td width="20%">Group Code</td>
-										<td width="65%">Group Name</td>
+										<td width="25%">Group Code</td>
+										<td width="70%">Group Name</td>
 
 									</tr>
 								</tbody>
@@ -354,7 +345,7 @@
 							<table id="tblGroup" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#fafbfb">
 										<td width="15%"></td>
 										<td width="20%"></td>
 										<td width="65%"></td>
@@ -362,20 +353,19 @@
 									</tr>
 								</tbody>
 							</table>
-						</div>
-						</td>
-						<td style="padding: 0 !important;">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+				</div>
+						
+				<div  class="col-md-6"
+						style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
 
-							<table id="" class="masterTable"
+						<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#c0c0c0">
 										<td width="15%"><input type="checkbox" id="chkSGALL"
 											checked="checked" onclick="funCheckUncheckSubGroup()" />Select</td>
 										<td width="25%">Sub Group Code</td>
-										<td width="65%">Sub Group Name</td>
+										<td width="70%">Sub Group Name</td>
 
 									</tr>
 								</tbody>
@@ -383,7 +373,7 @@
 							<table id="tblSubGroup" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#fafbfb">
 										<td width="15%"></td>
 										<td width="25%"></td>
 										<td width="65%"></td>
@@ -391,22 +381,20 @@
 									</tr>
 								</tbody>
 							</table>
-						</div>
-				</td>
-			</tr>
-		</table>
-				
-				
-					<!-- <td><input type="submit" value="Submit" /></td>
-					<td><input type="reset" value="Reset" onclick="funResetFields()"/></td>	 -->				
-				</tr>
-			</table>
+				  </div>
+				</div>
+			
+				<!-- <td><input type="submit" value="Submit" /></td>
+				<td><input type="reset" value="Reset" onclick="funResetFields()"/></td>	 -->				
+			
 			<br>
 			<p align="center">
-				<input type="submit" value="Submit"  class="form_button" onclick = "return btnSubmit_OnClick()"/>
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick = "return btnSubmit_OnClick()"/>
+				 &nbsp;
+			    <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 			<s:input type="hidden" id="hidSubCodes" path="strSGCode"></s:input>
 		</s:form>
+		</div>
 	</body>
 </html>

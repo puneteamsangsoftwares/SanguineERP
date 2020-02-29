@@ -19,6 +19,11 @@
 	<script type="text/javascript" src="<spring:url value="/resources/js/Accordian/jquery.multi-accordion-1.5.3.js"/>"></script>	
 		
 <title>Month End</title>
+<style>
+.masterTable td {
+  padding-left: 35px;
+}
+</style>
 <script type="text/javascript">
 
 	/**
@@ -126,9 +131,9 @@
 				+ (rowCount)
 				+ "\" name=\"Locthemes\" type=\"checkbox\" class=\"LocCheckBoxClass\"  size=\"10%\" checked=\"checked\" value='"
 				+ strLocCode + "' />";
-		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strLocCode."
+		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box \" style=\"font-size:14px;\" size=\"15%\" id=\"strLocCode."
 				+ (rowCount) + "\" value='" + strLocCode + "' >";
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strLocName."
+		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box \" style=\"font-size:14px;\" size=\"32%\" id=\"strLocName."
 				+ (rowCount) + "\" value='" + strLocationName + "' >";
 	}
 
@@ -228,18 +233,18 @@
 					<input type="text" id="txtLocCode" class="searchTextBox" placeholder="Type to search">
 				</div>
 			</div><br>
-			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 200px; overflow-x: hidden; overflow-y: scroll;">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 200px;width:50%; overflow-x: hidden; overflow-y: scroll;">
 				<table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
 					<tbody>
 						<tr bgcolor="#c0c0c0">
 							<td width="5%"><input type="checkbox" id="chkLocALL" checked="checked" />Select</td>
-							<td width="25%">Location Code</td>
+							<td width="30%">Location Code</td>
 							<td width="65%">Location Name</td>
 						</tr>
 					</tbody>
 				</table>
 				<table id="tblloc" class="masterTable"style="width: 100%; border-collapse: separate;">
-					<tr bgcolor="#72BEFC">
+					<tr bgcolor="#fafbfb">
 						<td width="10%"></td>
 						<td width="25%"></td>
 						<td width="65%"></td>
@@ -247,8 +252,9 @@
 				</table>
 			</div>
 		</div>
-		<div class="center">
+		<div class="center" style="margin-right: 49%;">
 			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit" onclick="return formSubmit();">Submit</button></a>&nbsp
+			&nbsp;
 			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Reset" onclick="funResetFields()" >Reset</button></a>&nbsp
 			
 		</div>

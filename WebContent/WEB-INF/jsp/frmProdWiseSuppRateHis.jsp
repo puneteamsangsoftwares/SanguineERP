@@ -243,7 +243,7 @@
 			    
 			    row.insertCell(0).innerHTML= "<input id=\"cbGSel."+(rowCount)+"\" type=\"checkbox\" class=\"GCheckBoxClass\" checked=\"checked\" onclick=\"funGroupChkOnClick()\"/>";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strGCode."+(rowCount)+"\" value='"+strGroupCode+"' >";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"40%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
 		}
 		
 		/**
@@ -331,7 +331,7 @@
 		    
 		    row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" name=\"SubGroupthemes\" value='"+strSGCode+"' class=\"SGCheckBoxClass\" />";
 		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"40%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
 		}
 		
 		    /**
@@ -440,16 +440,16 @@
 					<s:input id="txtProdCode" path="strDocCode" value="" cssClass="searchTextBox"  readonly="readonly" ondblclick="funHelp('productmasterslip');" cssStyle="width:150px;height:50%;background-position: 136px 4px;"/>
 				</div>
 				
-				<div class="col-md-2" id="spProdName" style="font-size: 12px;background-color:#dcdada94; width: 100%; height: 42%; margin-top: 27px;">All Product</div>
+				<div class="col-md-2" id="spProdName" style="font-size: 12px;background-color:#dcdada94; width: 100%; height:24px; margin-top: 26px;padding:4px;">All Product</div>
 			<div class="col-md-8"></div>
 		
 		<div class="col-md-6"><label>Group</label>
-			<input type="text"  style="width: 50%;background-position: 240px 2px;" 
+			<input type="text"  style="width: 35%;" 
 			       id="searchGrp" placeholder="Type to search" Class="searchTextBox">
 		</div>
 		
 		<div class="col-md-6"><label>Sub Group</label>
-		  	<input type="text" id="searchSGrp"  style="width: 50%;background-position: 240px 2px;" 
+		  	<input type="text" id="searchSGrp"  style="width: 35%;" 
 		  		 Class="searchTextBox" placeholder="Type to search">
 		 </div>
 		 

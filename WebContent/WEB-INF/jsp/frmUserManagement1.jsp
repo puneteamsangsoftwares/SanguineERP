@@ -658,8 +658,8 @@ $(document).ready(function(){
 					<a href="#"><button class="btn btn-primary center-block"  value="Add" onclick="return funFillPropLocGrid();" style="width: auto;">Add</button></a>
 				</div>
 				<br /><br />
-				<div class="dynamicTableContainer" style="height: 300px;">
-					<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+				
+					<table style="height: 28px; border: #0F0; width: 61%; font-size: 11px; font-weight: bold;">
 						<tr bgcolor="#c0c0c0">
 							<td style="width:15%;">Property</td>
 							<td style="width:15%;">Location</td>
@@ -668,7 +668,7 @@ $(document).ready(function(){
 						</tr>
 					</table>
 			
-					<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+					<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px;overflow-x: hidden; overflow-y: scroll; width:61%;">
 						<table id="tblUserLoc"
 							style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 							class="transTablex col8-center">
@@ -684,14 +684,14 @@ $(document).ready(function(){
 							</tbody>
 						</table>
 					</div>
-				</div>
+				
 				
 				<br /><br />
-			<div class="center">
+			<div class="center" style="margin-right:39%;">
 				<a href="#"><button class="btn btn-primary center-block"  value="Submit" onclick="return funCallFormAction()" 
 				>Submit</button></a>
 				<a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()"
-				>reset</button></a>
+				>Reset</button></a>
 			</div>
 		</s:form>
 	</div>

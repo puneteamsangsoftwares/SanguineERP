@@ -256,7 +256,7 @@
 			    var row = table.insertRow(rowCount);
 			    row.insertCell(0).innerHTML= "<input id=\"cbGSel."+(rowCount)+"\" type=\"checkbox\" class=\"GCheckBoxClass\" name=\"Groupthemes\" checked=\"checked\"  value='"+strGroupCode+"' />";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strGCode."+(rowCount)+"\" value='"+strGroupCode+"' >";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"40%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
 		}
 		 
 		    
@@ -269,7 +269,7 @@
 				
 				row.insertCell(0).innerHTML= "<input id=\"cbLocSel."+(rowCount)+"\" name=\"Locthemes\" type=\"checkbox\" class=\"LocCheckBoxClass\"  checked=\"checked\" value='"+strLocCode+"' />";
 				row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strLocCode."+(rowCount)+"\" value='"+strLocCode+"' >";
-				row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
+				row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"40%\" id=\"strLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
 		}
 		
 	   //Remove all row from table(Grid) Pass parameter table ID
@@ -385,12 +385,12 @@
 				
 				<div class="col-md-6"><label>Location</label>
 				      <input type="text" id="txtLocCode" ondblclick="funHelp('locationmaster')"
-						style="width: 35%;background-position: 160px 2px;"  class="searchTextBox" placeholder="Type to search"> 
+						style="width: 35%;"  class="searchTextBox" placeholder="Type to search"> 
 			          <label id="lblToLocName"></label>
 				</div>
 				
 				<div class="col-md-6"><label>Group</label>
-			           <input type="text"  style="width: 35%;background-position: 160px 2px;" 
+			           <input type="text"  style="width: 35%;" 
 			               id="searchGrp" placeholder="Type to search" Class="searchTextBox">
 		        </div>
 		        

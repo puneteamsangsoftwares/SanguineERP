@@ -286,21 +286,23 @@
 		    } */
 		     
 		    rowCount=listRow;
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listStkPostDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value="+prodCode+">";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"25%\" name=\"listStkPostDtl["+(rowCount)+"].strProdName\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"'>";
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"4%\"  name=\"listStkPostDtl["+(rowCount)+"].dblPrice\" id=\"txtCostRM."+(rowCount)+"\" value="+unitPrice+">";
-		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  style=\"text-align: right;\" size=\"4%\" name=\"listStkPostDtl["+(rowCount)+"].dblWeight\" id=\"txtWtUnit."+(rowCount)+"\"  value="+wtunit+">";
-		    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;margin-left: 12px;\" size=\"8%\"  id=\"txtDisplayStock."+(rowCount)+"\" value='"+DiscurrentStkQty+"'>";
+		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"9%\" name=\"listStkPostDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value="+prodCode+">";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listStkPostDtl["+(rowCount)+"].strProdName\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"'>";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"margin-left: -72px;text-align: right;\" size=\"6%\"  name=\"listStkPostDtl["+(rowCount)+"].dblPrice\" id=\"txtCostRM."+(rowCount)+"\" value="+unitPrice+">";
+		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  style=\"margin-left: -66px;text-align: right;\" size=\"6%\" name=\"listStkPostDtl["+(rowCount)+"].dblWeight\" id=\"txtWtUnit."+(rowCount)+"\"  value="+wtunit+">";
+		    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;margin-left: -60px;\" size=\"12%\"  id=\"txtDisplayStock."+(rowCount)+"\" value='"+DiscurrentStkQty+"'>";
 		   
 		    /* row.insertCell(5).innerHTML= "<input class=\"Box\" type=\"text\" name=\"listStkPostDtl["+(rowCount)+"].strDisplyQty\" size=\"9%\" style=\"text-align: right;\" id=\"txtDisplyQty."+(rowCount)+"\"  value='"+Displyqty+"'/>"; */	
-		    row.insertCell(5).innerHTML= "<input class=\"Box\" type=\"text\" name=\"listStkPostDtl["+(rowCount)+"].strDisplyQty\" size=\"9%\" style=\"text-align: right;\" id=\"txtDisplyQty."+(rowCount)+"\"  value='"+DisplyActualQty+"'/>";
-		    row.insertCell(6).innerHTML= "<input class=\"decimal-places inputText-Auto\" type=\"text\" style=\"text-align: right;\" name=\"listStkPostDtl["+(rowCount)+"].dblLooseQty\" id=\"txtLooseQty."+(rowCount)+"\"  value='"+LooseQty+"' onblur=\"funUpdatePrice(this);\" />";	
+		    row.insertCell(5).innerHTML= "<input class=\"Box\" type=\"text\" name=\"listStkPostDtl["+(rowCount)+"].strDisplyQty\" size=\"15%\" style=\"text-align: right;margin-left: -37px;border: 1px solid #a2a2a2; padding: 1px;width: 110%;\" id=\"txtDisplyQty."+(rowCount)+"\"  value='"+DisplyActualQty+"'/>";
+		    row.insertCell(6).innerHTML= "<input class=\"decimal-places inputText-Auto\" type=\"text\" style=\"text-align: right;margin-left: -23px;border: 1px solid #a2a2a2;padding: 1px; width: 75%;\" name=\"listStkPostDtl["+(rowCount)+"].dblLooseQty\" id=\"txtLooseQty."+(rowCount)+"\"  value='"+LooseQty+"' onblur=\"funUpdatePrice(this);\" />";	
 		   
-		    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  size=\"8%\" name=\"listStkPostDtl["+(rowCount)+"].strDisplyVariance\" id=\"txtDisplayVariance."+(rowCount)+"\" value='"+DisplayVariance+"'>";	
-		    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"6%\"  name=\"listStkPostDtl["+(rowCount)+"].dblAdjWt\" id=\"lblAdjWeight."+(rowCount)+"\" value="+adjWeight+">";
-		    row.insertCell(9).innerHTML= "<input readonly=\"readonly\" class=\"Box totalValueCell\" style=\"text-align: right;\" size=\"8%\"  name=\"listStkPostDtl["+(rowCount)+"].dblAdjValue\" id=\"lblAdjValue."+(rowCount)+"\"  value="+adjValue+">";	
-		    row.insertCell(10).innerHTML= "<input readonly=\"readonly\" class=\"Box totalActualValueCell\" style=\"text-align: right;\" size=\"8%\"  name=\"listStkPostDtl["+(rowCount)+"].dblActualValue\" id=\"lblActualAdjValue."+(rowCount)+"\"  value="+actulAdjValue+">";	
-		    row.insertCell(11).innerHTML= "<input type=\"button\" value = \"Delete\" class=\"deletebutton\" onClick=\"Javacsript:funDeleteRow(this)\">";
+		    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  size=\"14%\" style=\"margin-left: -37px;\" name=\"listStkPostDtl["+(rowCount)+"].strDisplyVariance\" id=\"txtDisplayVariance."+(rowCount)+"\" value='"+DisplayVariance+"'>";	
+		    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;margin-left: 10px;\" size=\"6%\"  name=\"listStkPostDtl["+(rowCount)+"].dblAdjWt\" id=\"lblAdjWeight."+(rowCount)+"\" value="+adjWeight+">";
+		    row.insertCell(9).innerHTML= "<input readonly=\"readonly\" class=\"Box totalValueCell\" style=\"text-align: right;margin-left: -7px;\" size=\"9%\"  name=\"listStkPostDtl["+(rowCount)+"].dblAdjValue\" id=\"lblAdjValue."+(rowCount)+"\"  value="+adjValue+">";	
+		    
+		    row.insertCell(10).innerHTML= "<input readonly=\"readonly\" class=\"Box totalActualValueCell\" style=\"text-align: right;margin-left: -7px;\" size=\"9%\"  name=\"listStkPostDtl["+(rowCount)+"].dblActualValue\" id=\"lblActualAdjValue."+(rowCount)+"\"  value="+actulAdjValue+">";	
+		    row.insertCell(11).innerHTML= "<input type=\"button\" value = \"Delete\" class=\"deletebutton\" style=\"margin-left: 10px;\" onClick=\"Javacsript:funDeleteRow(this)\">";
+		    
 		    row.insertCell(12).innerHTML= "<input type=\"hidden\"  class=\"decimal-places inputText-Auto\" size=\"6%\" name=\"listStkPostDtl["+(rowCount)+"].dblActualRate\" id=\"txtActualRate."+(rowCount)+"\" value="+actualRate+" >";
 		    row.insertCell(13).innerHTML= "<input type=\"hidden\"  class=\"decimal-places inputText-Auto\" size=\"6%\" name=\"listStkPostDtl["+(rowCount)+"].dblPStock\" id=\"txtQuantity."+(rowCount)+"\" value="+phyStkQty+" >";
 		    row.insertCell(14).innerHTML= "<input type=\"hidden\" name=\"listStkPostDtl["+(rowCount)+"].dblVariance\" id=\"lblVariance."+(rowCount)+"\" value="+variance+">";	
@@ -715,23 +717,21 @@
 			    var rowCount = table.rows.length;
 			    var row = table.insertRow(rowCount);		   
 			    
-			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box productCode\" size=\"8%\" name=\"listStkPostDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value="+prodCode+">";
-			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"25%\" name=\"listStkPostDtl["+(rowCount)+"].strProdName\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"'>";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"4%\"  name=\"listStkPostDtl["+(rowCount)+"].dblPrice\" id=\"txtCostRM."+(rowCount)+"\" value="+unitPrice+">";
-			    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  style=\"text-align: right;\" size=\"4%\" name=\"listStkPostDtl["+(rowCount)+"].dblWeight\" id=\"txtWtUnit."+(rowCount)+"\"  value="+wtunit+">";
-			    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;margin-left: 12px;\" size=\"8%\"  id=\"txtDisplayStock."+(rowCount)+"\" value='"+DiscurrentStkQty+"'>";
+			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box productCode\" size=\"9%\" name=\"listStkPostDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value="+prodCode+">";
+			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listStkPostDtl["+(rowCount)+"].strProdName\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"'>";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"margin-left: -72px;text-align: right;\" size=\"6%\"  name=\"listStkPostDtl["+(rowCount)+"].dblPrice\" id=\"txtCostRM."+(rowCount)+"\" value="+unitPrice+">";
+			    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  style=\"margin-left: -66px;text-align: right;\" size=\"6%\" name=\"listStkPostDtl["+(rowCount)+"].dblWeight\" id=\"txtWtUnit."+(rowCount)+"\"  value="+wtunit+">";
+			    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;margin-left: -60px;\" size=\"12%\"  id=\"txtDisplayStock."+(rowCount)+"\" value='"+DiscurrentStkQty+"'>";
 			    
-			    row.insertCell(5).innerHTML= "<input class=\"Box\" type=\"text\" name=\"listStkPostDtl["+(rowCount)+"].strDisplyQty\" size=\"9%\" style=\"text-align: right;\" id=\"txtDisplyQty."+(rowCount)+"\" value='"+Displyqty+"'/>";	
-			    row.insertCell(6).innerHTML= "<input class=\"decimal-places inputText-Auto looseQty\" type=\"text\" style=\"text-align: right;\" name=\"listStkPostDtl["+(rowCount)+"].dblLooseQty\"  id=\"txtLooseQty."+(rowCount)+"\"  value='"+LooseQty+"'onblur=\"funUpdatePrice(this);\" />";	
+			    row.insertCell(5).innerHTML= "<input class=\"Box\" type=\"text\" name=\"listStkPostDtl["+(rowCount)+"].strDisplyQty\" size=\"15%\" style=\"text-align: right;margin-left: -37px;border: 1px solid #a2a2a2; padding: 1px;width: 110%;\" id=\"txtDisplyQty."+(rowCount)+"\" value='"+Displyqty+"'/>";	
+			    row.insertCell(6).innerHTML= "<input class=\"decimal-places inputText-Auto looseQty\" type=\"text\" style=\"text-align: right;margin-left: -23px;border: 1px solid #a2a2a2;padding: 1px; width: 75%;\" name=\"listStkPostDtl["+(rowCount)+"].dblLooseQty\"  id=\"txtLooseQty."+(rowCount)+"\"  value='"+LooseQty+"'onblur=\"funUpdatePrice(this);\" />";	
 			    
-			    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  size=\"8%\" name=\"listStkPostDtl["+(rowCount)+"].strDisplyVariance\" id=\"txtDisplayVariance."+(rowCount)+"\" value='"+DisplayVariance+"'>";
-			    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"6%\"  name=\"listStkPostDtl["+(rowCount)+"].dblAdjWt\" id=\"lblAdjWeight."+(rowCount)+"\" value="+adjWeight+">";
-			    row.insertCell(9).innerHTML= "<input readonly=\"readonly\" class=\"Box totalValueCell\" style=\"text-align: right;\" size=\"8%\"  name=\"listStkPostDtl["+(rowCount)+"].dblAdjValue\" id=\"lblAdjValue."+(rowCount)+"\"  value="+adjValue+">";			    					
+			    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  size=\"14%\" style=\"margin-left: -37px;\" name=\"listStkPostDtl["+(rowCount)+"].strDisplyVariance\" id=\"txtDisplayVariance."+(rowCount)+"\" value='"+DisplayVariance+"'>";
+			    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;margin-left: 10px;\" size=\"6%\"  name=\"listStkPostDtl["+(rowCount)+"].dblAdjWt\" id=\"lblAdjWeight."+(rowCount)+"\" value="+adjWeight+">";
+			    row.insertCell(9).innerHTML= "<input readonly=\"readonly\" class=\"Box totalValueCell\" style=\"text-align: right;margin-left:-7px;\" size=\"9%\"  name=\"listStkPostDtl["+(rowCount)+"].dblAdjValue\" id=\"lblAdjValue."+(rowCount)+"\"  value="+adjValue+">";			    					
 			    
-			    row.insertCell(10).innerHTML= "<input readonly=\"readonly\" class=\"Box totalActualValueCell\" style=\"text-align: right;\" size=\"8%\"  name=\"listStkPostDtl["+(rowCount)+"].dblActualValue\" id=\"lblActualAdjValue."+(rowCount)+"\"  value="+dblActualValue+">";
-			    
-			    row.insertCell(11).innerHTML= "<input type=\"button\" value = \"Delete\" class=\"deletebutton\" onClick=\"Javacsript:funDeleteRow(this)\">";
-			    
+			    row.insertCell(10).innerHTML= "<input readonly=\"readonly\" class=\"Box totalActualValueCell\" style=\"text-align: right;margin-left: -7px;\" size=\"9%\"  name=\"listStkPostDtl["+(rowCount)+"].dblActualValue\" id=\"lblActualAdjValue."+(rowCount)+"\"  value="+dblActualValue+">";
+			    row.insertCell(11).innerHTML= "<input type=\"button\" value = \"Delete\" class=\"deletebutton\" style=\"margin-left: 10px;\" onClick=\"Javacsript:funDeleteRow(this)\">";
 			    row.insertCell(12).innerHTML= "<input type=\"hidden\"  class=\"decimal-places inputText-Auto\" size=\"6%\" name=\"listStkPostDtl["+(rowCount)+"].dblActualRate\" id=\"txtActualRate."+(rowCount)+"\" value="+dblActualRate+" >";
 			    row.insertCell(13).innerHTML= "<input type=\"hidden\" required = \"required\"  class=\"Box phyStk\" size=\"6%\" name=\"listStkPostDtl["+(rowCount)+"].dblPStock\" id=\"txtQuantity."+(rowCount)+"\" value="+phyStkQty+" >";
 			    row.insertCell(14).innerHTML= "<input type=\"hidden\" name=\"listStkPostDtl["+(rowCount)+"].dblVariance\" id=\"lblVariance."+(rowCount)+"\" value="+variance+">";
@@ -1232,20 +1232,21 @@
 // 		    var tempvariance=variance.split(".");
 // 		    var DisplayVariance=tempvariance[0]+" "+ReceivedconversionUOM+"."+Math.round(parseFloat("0."+tempvariance[1])*parseFloat(ConversionValue))+" "+recipeconversionUOM;
 		   
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listStkPostDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value="+prodCode+">";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"25%\" name=\"listStkPostDtl["+(rowCount)+"].strProdName\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"'>";
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"4%\"  name=\"listStkPostDtl["+(rowCount)+"].dblPrice\" id=\"txtCostRM."+(rowCount)+"\" value="+unitPrice+">";
-		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  style=\"text-align: right;\" size=\"5%\" name=\"listStkPostDtl["+(rowCount)+"].dblWeight\" id=\"txtWtUnit."+(rowCount)+"\"  value="+wtunit+">";
-		    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;margin-left: 12px;\" size=\"8%\"   id=\"txtDisplayStock."+(rowCount)+"\" value='"+DiscurrentStkQty+"'>";
+		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"9%\" name=\"listStkPostDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value="+prodCode+">";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listStkPostDtl["+(rowCount)+"].strProdName\" id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"'>";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"margin-left: -72px;text-align: right;\" size=\"6%\"  name=\"listStkPostDtl["+(rowCount)+"].dblPrice\" id=\"txtCostRM."+(rowCount)+"\" value="+unitPrice+">";
+		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  style=\"margin-left: -66px;text-align: right;\" size=\"6%\" name=\"listStkPostDtl["+(rowCount)+"].dblWeight\" id=\"txtWtUnit."+(rowCount)+"\"  value="+wtunit+">";
+		    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;margin-left: -60px;\" size=\"12%\" id=\"txtDisplayStock."+(rowCount)+"\" value='"+DiscurrentStkQty+"'>";
 		    
-		    row.insertCell(5).innerHTML= "<input class=\"Box\" type=\"text\" name=\"listStkPostDtl["+(rowCount)+"].strDisplyQty\" size=\"9%\" style=\"text-align: right;\" id=\"txtDisplyQty."+(rowCount)+"\" value='"+DisplyActualQty+"'/>";	
-		    row.insertCell(6).innerHTML= "<input class=\"decimal-places inputText-Auto\" type=\"text\" style=\"text-align: right;\" name=\"listStkPostDtl["+(rowCount)+"].dblLooseQty\" id=\"txtLooseQty."+(rowCount)+"\"  value='"+LooseQty+"'onblur=\"funUpdatePrice(this);\" />";	
+		    row.insertCell(5).innerHTML= "<input class=\"Box\" type=\"text\" name=\"listStkPostDtl["+(rowCount)+"].strDisplyQty\" size=\"15%\" style=\"text-align:right;margin-left: -37px;border: 1px solid #a2a2a2; padding: 1px;width: 110%;\" id=\"txtDisplyQty."+(rowCount)+"\" value='"+DisplyActualQty+"'/>";	
+		    row.insertCell(6).innerHTML= "<input class=\"decimal-places inputText-Auto\" type=\"text\" style=\"text-align: right;margin-left: -23px;border: 1px solid #a2a2a2;padding: 1px; width: 75%;\" name=\"listStkPostDtl["+(rowCount)+"].dblLooseQty\" id=\"txtLooseQty."+(rowCount)+"\"  value='"+LooseQty+"'onblur=\"funUpdatePrice(this);\" />";	
 		   
-		    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"7%\" name=\"listStkPostDtl["+(rowCount)+"].strDisplyVariance\"  id=\"txtDisplayVariance."+(rowCount)+"\" value='"+DisplayVariance+"'>";	
-		    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"6%\"  name=\"listStkPostDtl["+(rowCount)+"].dblAdjWt\" id=\"lblAdjWeight."+(rowCount)+"\" value="+adjWeight+">";
-		    row.insertCell(9).innerHTML= "<input readonly=\"readonly\" class=\"Box totalValueCell\" style=\"text-align: right;\" size=\"8%\"  name=\"listStkPostDtl["+(rowCount)+"].dblAdjValue\" id=\"lblAdjValue."+(rowCount)+"\"  value="+adjValue+">";	
-		    row.insertCell(10).innerHTML= "<input readonly=\"readonly\" class=\"Box totalActualValueCell\" style=\"text-align: right;\" size=\"8%\"  name=\"listStkPostDtl["+(rowCount)+"].dblActualValue\" id=\"lblActualAdjValue."+(rowCount)+"\"  value="+actualAdjValue+">";
-		    row.insertCell(11).innerHTML= "<input type=\"button\" value = \"Delete\" class=\"deletebutton\" onClick=\"Javacsript:funDeleteRow(this)\">";
+		    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"14%\" style=\"margin-left:-37px;\" name=\"listStkPostDtl["+(rowCount)+"].strDisplyVariance\"  id=\"txtDisplayVariance."+(rowCount)+"\" value='"+DisplayVariance+"'>";	
+		    row.insertCell(8).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;margin-left:10px;\" size=\"6%\"  name=\"listStkPostDtl["+(rowCount)+"].dblAdjWt\" id=\"lblAdjWeight."+(rowCount)+"\" value="+adjWeight+">";
+		    row.insertCell(9).innerHTML= "<input readonly=\"readonly\" class=\"Box totalValueCell\" style=\"text-align: right;margin-left: -7px;\" size=\"9%\"  name=\"listStkPostDtl["+(rowCount)+"].dblAdjValue\" id=\"lblAdjValue."+(rowCount)+"\"  value="+adjValue+">";	
+		   
+		    row.insertCell(10).innerHTML= "<input readonly=\"readonly\" class=\"Box totalActualValueCell\" style=\"text-align: right;margin-left: -7px;\" size=\"9%\"  name=\"listStkPostDtl["+(rowCount)+"].dblActualValue\" id=\"lblActualAdjValue."+(rowCount)+"\"  value="+actualAdjValue+">";
+		    row.insertCell(11).innerHTML= "<input type=\"button\" value = \"Delete\" class=\"deletebutton\" style=\"margin-left: 10px;\" onClick=\"Javacsript:funDeleteRow(this)\">";
 		    row.insertCell(12).innerHTML= "<input type=\"hidden\"  class=\"decimal-places inputText-Auto\" size=\"6%\" name=\"listStkPostDtl["+(rowCount)+"].dblActualRate\" id=\"txtActualRate."+(rowCount)+"\" value="+dblActualRate+" >";
 		    row.insertCell(13).innerHTML= "<input type=\"hidden\" required = \"required\"  class=\"decimal-places inputText-Auto\" size=\"6%\" name=\"listStkPostDtl["+(rowCount)+"].dblPStock\" id=\"txtQuantity."+(rowCount)+"\" value="+phyStkQty+" >";
 		    row.insertCell(14).innerHTML= "<input type=\"hidden\" name=\"listStkPostDtl["+(rowCount)+"].dblVariance\" id=\"lblVariance."+(rowCount)+"\" value="+variance+">";	
@@ -1539,7 +1540,7 @@
 			</div>
 			<div class="col-md-2">	
 				<label>Conversion UOM</label>
-				<select id="cmbConversionUOM" Class="BoxW124px">
+				<select id="cmbConversionUOM">
 					<option value="RecUOM">Recieved UOM</option>
 					<option value="IssueUOM">Issue UOM</option>
 					<option value="RecipeUOM">Recipe UOM</option>
@@ -1593,11 +1594,14 @@
 			 		<label>Quantity</label>
 					<input id="txtQuantity"  type="text"  class="numberField" onkeypress="funGetKeyCode(event,'Qty')"></input>
 			  </div>
-		 </div>
-		 <div class="center" style="margin-right: 40%;">
-			<a href="#"><button class="btn btn-primary center-block" id="btnAdd"  value="Add" onclick="return btnAdd_onclick();">Add</button></a> &nbsp;
-			<a href="#"><button class="btn btn-primary center-block" id="btnRepost"  value="Repost" onclick="return btnRepost_onclick();">Repost</button></a> &nbsp;
-			<a href="#"><button class="btn btn-primary center-block" id="btnMakeStockZero" value="Make Stk Zero" onclick="return funGetLocationWiseProduct();" style="width:123px;" >Make Stk Zero</button></a>
+		 
+			<div class="col-md-5">
+			  <a href="#"><button class="btn btn-primary center-block" id="btnAdd"  value="Add" onclick="return btnAdd_onclick();">Add</button></a>
+			
+			  <a href="#"><button class="btn btn-primary center-block" id="btnRepost"  value="Repost" onclick="return btnRepost_onclick();">Repost</button></a> 
+			
+			  <a href="#"><button class="btn btn-primary center-block" id="btnMakeStockZero" value="Make Stk Zero" onclick="return funGetLocationWiseProduct();" style="width:123px;" >Make Stk Zero</button></a>
+		    </div>
 		</div>
 	
 		<div class="dynamicTableContainer" style="height: 300px;">
@@ -1606,15 +1610,15 @@
 				<tr bgcolor="#c0c0c0">
 					<td width="2%">Prod Code</td>
 					<!--  COl1   -->
-					<td width="8%">Product Name</td>
+					<td width="4%">Product Name</td>
 					<!--  COl2   -->
-					<td width="2%">Unit Price</td>
+					<td width="1.5%">Unit Price</td>
 					<!--  COl3   -->
 					<td width="1%">Wt/Unit</td>
 					<!--  COl4   -->
-					<td width="1%">Current Stock</td>
+					<td width="1.5%">Current Stock</td>
 					<!--  COl5   -->
-					<td width="2%">Qty</td>
+					<td width="1%">Qty</td>
 					<!--  COl6   -->
 					<td width="1%">Loose Qty</td>
 					<!--  COl7   -->
@@ -1622,7 +1626,7 @@
 					<!--  COl8   -->
 					<td width="1%">Adjusted Wt</td>
 					<!--  COl9   -->
-					<td width="2%">Weighted Adj. Value</td>
+					<td width="1%">Weighted Adj. Value</td>
 					<!--  COl10   -->
 					<td width="1%">Actual Value</td>
 					<!--  COl11   -->

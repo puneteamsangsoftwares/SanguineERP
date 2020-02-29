@@ -1,11 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title>Insert title here</title>
 
 	<script>
@@ -268,23 +277,18 @@
 
 </head>
 	<body>
-	<div id="formHeading">
-		<label>Authorization Tool</label>
-	</div>
-	<br/>
-	
+	<div class="container">
+		<label id="formHeading">Authorization Tool</label>
+		<br/>
 		<s:form id="frmAuthorise" method="POST" action="saveAuthorizedTrans.html?saddr=${urlHits}">
-			
-		   	<div style="float: left;width: 209px; height: 300px;background-color:#9FCFF5;overflow-y:auto;font-family: Arial, Helvetica, sans-serif;font-size: 14px; ">
+			<div style="float: left;width: 209px; height: 300px;background-color:#fbfafa;overflow-y:auto;font-family: Arial, Helvetica, sans-serif;font-size: 14px; ">
 		  		<ol>
 		   			<c:forEach items="${listFormName}" var="draw" varStatus="status">
 		   			<br>
 		  				<li style="padding-left: 10px"> <a id="form.${draw.key}"> ${draw.value} </a> </li>
-		  				
-		   			</c:forEach>
+		  			</c:forEach>
 		    	</ol>
 		   	</div>
-		   	 
 		    <table>
 				<tr>
 					<td>
@@ -295,9 +299,6 @@
 						<s:input type="hidden" id="txtFormName" path="strFormName"/>
 					</td>
 				</tr>
-				
-				
-				
 				<%-- <tr>
 					<td>
 						<s:select id="cmbFormName" path="strFormName">
@@ -306,24 +307,18 @@
 					</td>
 				</tr>--%>
 			</table>
-		    
-		    <table id="tblTransactionCode">
-		    
-		    </table>
-		    
-		    <div id="trans" style="margin-left: 235px;overflow-y: scroll; height:600px">
-		    
+		     <table id="tblTransactionCode">
+		     </table>
+		    <div id="trans" style="margin-left: 235px;overflow-y: scroll; height:400px">
 		    </div>
-		    
 		     <br/> 
-		    
 		     <br/>
-		     
-		   		<p align="center">
-			    		<input type="submit" id="btnSubmit" class="form_button"  value="SUBMIT" onclick="return funSubmit_onClick();"/>
-			    		<input type="button" id="btnReset1" class="form_button"  value="RESET" onclick="funChk();"/>
-			  	</p>
+		 <div class="center" style="text-align:center;">
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" id="btnSubmit" value="Submit" onclick="return funSubmit_onClick();">Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block" tabindex="3" id="btnReset1" value="Reset" onclick="funChk();">Reset</button></a>
+		</div>
 		</s:form>
+	</div>
 		<c:if test="${!empty StkAdjCode}">
 <script type="text/javascript">
 	alert('${StkAdjCode}');

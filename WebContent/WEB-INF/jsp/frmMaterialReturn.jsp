@@ -124,10 +124,10 @@ var mreditable;
 	    var rowCount = table.rows.length;	   
 	    var row = table.insertRow(rowCount);
 	    rowCount=listRow;
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\"  name=\"listMaterialRetDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"'/>";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"65%\" name=\"listMaterialRetDtl["+(rowCount)+"].strProdName\" value='"+prodName+"'id=\"txtProdName."+(rowCount)+"\" />";
-	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"9%\" name=\"listMaterialRetDtl["+(rowCount)+"].strPartNo\" value='"+POSItemCode+"' id=\"txtPOSItemCode."+(rowCount)+"\" />";
-	    row.insertCell(3).innerHTML= "<input type=\"text\" class=\"decimal-places inputText-Auto\" name=\"listMaterialRetDtl["+(rowCount)+"].dblQty\" id=\"txtQty."+(rowCount)+"\" value="+qty+" />";	    
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\"  name=\"listMaterialRetDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"'/>";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"63%\" name=\"listMaterialRetDtl["+(rowCount)+"].strProdName\" value='"+prodName+"'id=\"txtProdName."+(rowCount)+"\" />";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listMaterialRetDtl["+(rowCount)+"].strPartNo\" value='"+POSItemCode+"' id=\"txtPOSItemCode."+(rowCount)+"\" />";
+	    row.insertCell(3).innerHTML= "<input type=\"text\" class=\"decimal-places inputText-Auto\" style=\"border: 1px solid #a5a0a1;padding: 1px;\" name=\"listMaterialRetDtl["+(rowCount)+"].dblQty\" id=\"txtQty."+(rowCount)+"\" value="+qty+" />";	    
 	    row.insertCell(4).innerHTML= "<input size=\"32%\" name=\"listMaterialRetDtl["+(rowCount)+"].strRemarks\" id=\"txtRemarks."+(rowCount)+"\" value='"+remarks+"' />";
 	    row.insertCell(5).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:funDeleteRow(this)"  class="deletebutton">';
 	    listRow++;
@@ -150,10 +150,10 @@ var mreditable;
 	    	   POSItemCode="";
 	    	}
 	    quantity=parseFloat(quantity).toFixed(maxQuantityDecimalPlaceLimit);
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listMaterialRetDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"' />";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"65%\" name=\"listMaterialRetDtl["+(rowCount)+"].strProdName\" value='"+prodName+"' id=\"txtProdName."+(rowCount)+"\"  />";
-	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"9%\" name=\"listMaterialRetDtl["+(rowCount)+"].strPartNo\" value='"+POSItemCode+"' id=\"txtPOSItemCode."+(rowCount)+"\" />";
-	    row.insertCell(3).innerHTML= "<input type=\"text\" class=\"decimal-places inputText-Auto\"  name=\"listMaterialRetDtl["+(rowCount)+"].dblQty\" id=\"txtQty."+(rowCount)+"\" value="+quantity+" />";	    
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listMaterialRetDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"63%\" name=\"listMaterialRetDtl["+(rowCount)+"].strProdName\" value='"+prodName+"' id=\"txtProdName."+(rowCount)+"\"  />";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listMaterialRetDtl["+(rowCount)+"].strPartNo\" value='"+POSItemCode+"' id=\"txtPOSItemCode."+(rowCount)+"\" />";
+	    row.insertCell(3).innerHTML= "<input type=\"text\" class=\"decimal-places inputText-Auto\" style=\"border: 1px solid #a5a0a1;padding: 1px;\"  name=\"listMaterialRetDtl["+(rowCount)+"].dblQty\" id=\"txtQty."+(rowCount)+"\" value="+quantity+" />";	    
 	    row.insertCell(4).innerHTML= "<input size=\"32%\" type=\"text\" name=\"listMaterialRetDtl["+(rowCount)+"].strRemarks\" id=\"txtRemarks."+(rowCount)+"\" value='"+remarks+"' />";
 	    row.insertCell(5).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:funDeleteRow(this)" class="deletebutton" >';
 	    funApplyNumberValidation();
@@ -862,11 +862,11 @@ var mreditable;
 			<div class="dynamicTableContainer"  style="height:300px;">
 				<table  style="height:28px;border:#0F0;font-size:11px; font-weight: bold;width: 100%;" >
 					<tr bgcolor="#c0c0c0" >
-					<td width="6%">Product Code</td>
-					<td width="30%">Product Name</td>
-					<td width="6%">POS Item Code</td>
-					<td width="5%">Quantity</td>
-					<td width="20%">Remarks</td>
+					<td width="6%" style="padding-left:10px;">Product Code</td>
+					<td width="30%" style="padding-left:30px;">Product Name</td>
+					<td width="6%" style="padding-left:8px;">POS Item Code</td>
+					<td width="5%" style="padding-left:8px;">Quantity</td>
+					<td width="20%" style="padding-left:30px;">Remarks</td>
 					<td width="5%">Delete</td>
 					</tr>
 			</table>

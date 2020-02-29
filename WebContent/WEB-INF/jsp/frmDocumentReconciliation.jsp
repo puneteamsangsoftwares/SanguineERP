@@ -253,10 +253,10 @@
 		    <div class="row masterTable">
 		   		<div class="col-md-2">
 		   			<label>Form Name</label>
-						<s:select id="cmbFormName" path="strFormName">
+						<s:select id="cmbFormName" path="strFormName" style="width:auto;">
 							<s:options items="${listFormName}"/>
 						</s:select>
-				</div>
+				</div>&nbsp;&nbsp;&nbsp;
 				<div class="col-md-2">	
 					<label>Code</label>
 					<s:input type="text" name="code" id="txtTransactionCode"  cssClass="searchTextBox"  path="strTransCode" ondblclick="funHelp();"/>						
@@ -287,8 +287,9 @@
 					</s:select>
 				</div>
 			</div>
-		<div class="center" style="margin-right: 51%;">
+		<div class="center" style="margin-right: 50%;">
 		   <a href="#"><button class="btn btn-primary center-block"  value="Execute" id="btnSubmit" onclick="return funOnClick()" >Execute</button></a>
+		   &nbsp;
 		   <a href="#"><button class="btn btn-primary center-block"  value="Reset" id="btnReset">Reset</button></a>
 		</div>
 			

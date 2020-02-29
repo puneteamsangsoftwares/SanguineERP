@@ -213,19 +213,19 @@
 			 </div>
 			 <div class="col-md-2">			
 				<label>Location</label>
-				<s:select id="cmbLocation" name="locCode" path="strLocationCode" >
+				<s:select id="cmbLocation" name="locCode" path="strLocationCode" style="width:auto;">
 			    	<s:options items="${listLocation}"/>
 			    </s:select>
 			 </div>
 			 <div class="col-md-8"></div>
 			 <div class="col-md-2">
 				<label id="lblFromDate">From Date</label>
-			    <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
+			    <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox" style="width:70%;"/>
 			    <s:errors path="dteFromDate"></s:errors>
 			 </div>
 			  <div class="col-md-2">        
 			     <label id="lblToDate">To Date</label>
-			     <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
+			     <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox" style="width:70%;"/>
 			     <s:errors path="dteToDate"></s:errors>
 			  </div>
 			  <div class="col-md-2">   			 

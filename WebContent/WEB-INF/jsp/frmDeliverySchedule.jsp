@@ -256,11 +256,11 @@ $(function()
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"8%\" name=\"listObjDeliveryScheduleModuledtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
-		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"60%\" name=\"listObjDeliveryScheduleModuledtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"11%\" name=\"listObjDeliveryScheduleModuledtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"37%\" style=\"margin-left: 10%;\" name=\"listObjDeliveryScheduleModuledtl["+(rowCount)+"].strProdName\" id=\"strProdName."+(rowCount)+"\" value='"+strProdName+"' />";
 		    row.insertCell(2).innerHTML= "<input class=\"Box\" readonly=\"readonly\" size=\"8%\" name=\"listObjDeliveryScheduleModuledtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value='"+strUOM+"' />";
-		    row.insertCell(3).innerHTML= "<input type=\"text\" required = \"required\" size=\"7%\" name=\"listObjDeliveryScheduleModuledtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\"  value="+dblQty+" onblur=\"funUpdatePrice(this);\"  class=\"decimal-places inputText-Auto QtyCell\" >";	    
-		    row.insertCell(4).innerHTML= "<input type=\"Box\" readonly=\"readonly\" size=\"7%\" required = \"required\" name=\"listObjDeliveryScheduleModuledtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\"  value="+dblUnitPrice+"  class=\"decimal-places inputText-Auto\">";		    
+		    row.insertCell(3).innerHTML= "<input type=\"text\" required = \"required\" size=\"7%\" style=\"border: 1px solid #a2a2a2;padding: 1px;\"  name=\"listObjDeliveryScheduleModuledtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\"  value="+dblQty+" onblur=\"funUpdatePrice(this);\"  class=\"decimal-places inputText-Auto QtyCell\" >";	    
+		    row.insertCell(4).innerHTML= "<input type=\"Box\" readonly=\"readonly\" size=\"8%\" required = \"required\" name=\"listObjDeliveryScheduleModuledtl["+(rowCount)+"].dblUnitPrice\" id=\"dblUnitPrice."+(rowCount)+"\"  value="+dblUnitPrice+"  class=\"decimal-places inputText-Auto\">";		    
 			row.insertCell(5).innerHTML= "<input class=\"Box totalValueCell\" style=\"text-align: right;\" size=\"7%\" name=\"listObjDeliveryScheduleModuledtl["+(rowCount)+"].dblTotalPrice\" id=\"dblTotalPrice."+(rowCount)+"\" readonly=\"true\"  value="+dblTotalPrice+">";
 			row.insertCell(6).innerHTML= "<input type=\"Box\" size=\"8%\" name=\"listObjDeliveryScheduleModuledtl["+(rowCount)+"].strRemarks\"  value='"+remark+"' />";
 			row.insertCell(7).innerHTML= '<input type="button" value = "Delete"  class="deletebutton" onClick="Javacsript:funDeleteRow(this)">'; 
@@ -494,9 +494,9 @@ $(function()
 		</div>
 		<br>	
 		<div class="dynamicTableContainer"  style="height:300px;">
-			<table  style="height:28px;border:#0F0;font-size:11px; font-weight: bold;width: 100%;" >
+			<table  style="height:28px;border:#0F0;font-size:11px; font-weight: bold;width: 70%;" >
 				<tr bgcolor="#c0c0c0" >
-					<td width="8%">Product Code</td>
+					<td width="14%">Product Code</td>
 					<td width="40%">Product Name</td>
 					<td width="10%">UOM</td>
 					<td width="10%">Quantity</td>
@@ -507,7 +507,7 @@ $(function()
 				</tr>
 			</table>
 			<div style="background-color:#fbfafa; border: 1px solid #ccc; display: block;height: 255px;
-					    margin: auto; overflow-x: hidden;  overflow-y: scroll; width: 100%;">
+					   overflow-x: hidden;  overflow-y: scroll; width: 70%;">
 				<table id="tblDeliverySchedule"  style="width:100%;border: #0F0;table-layout:fixed;overflow:scroll" class="transTablex col6-center">
 					<tbody>    
 					 <col style="width:7%">
@@ -523,13 +523,13 @@ $(function()
 			</div>
 		</div><br>
 		<div class="row transTable">
-			<div class="col-md-2">
+			<div class="col-md-1">
 				<label id="lblCloseDS">Close DS</label><br>
 				<s:checkbox element="li" id="chkCloseDS" path="strCloseDS" value="Y" />
 			</div>
 			<div class="col-md-3">
 				<label>Narration</label><br>
-		        <s:textarea id="txtNarration" path="strNarration" style="height:27px;"></s:textarea>
+		        <s:textarea id="txtNarration" path="strNarration" style="height:30px;width:100%;"></s:textarea>
 		     </div>
 		</div>
 		

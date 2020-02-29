@@ -201,7 +201,7 @@ function funfillSuppGrid(strSuppCode,strSuppName)
 	    
 	    row.insertCell(0).innerHTML= "<input id=\"cbSuppSel."+(rowCount)+"\" name=\"Suppthemes\" type=\"checkbox\" class=\"SuppCheckBoxClass\"  checked=\"checked\" value='"+strSuppCode+"' />";
 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strSuppCode."+(rowCount)+"\" value='"+strSuppCode+"' >";
-	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strSName."+(rowCount)+"\" value='"+strSuppName+"' >";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"40%\" id=\"strSName."+(rowCount)+"\" value='"+strSuppName+"' >";
 }
 
 
@@ -261,7 +261,7 @@ function funfillSubGroup(strSGCode,strSGName)
     
     row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" name=\"SubGroupthemes\" value='"+strSGCode+"' class=\"SGCheckBoxClass\" />";
     row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
-    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
+    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"40%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
 }
 
 
@@ -350,13 +350,13 @@ function btnSubmit_Onclick()
 				<div class="col-md-10"></div>
 				
 			   <div class="col-md-6"><label>Supplier</label>
-			          <input style="width: 35%; background-position: 150px 2px;" type="text" id="txtSuppCode" 
+			          <input style="width: 35%;" type="text" id="txtSuppCode" 
 			            Class="searchTextBox" placeholder="Type to search" style="width: 35%;"></input>
 			              <label id="lblSuppName"></label>
 			   </div>
 			
 			  <div class="col-md-6"><label>Category</label>
-			          <input style="width: 35%; background-position: 150px 2px;" type="text" id="txtSuppCode" 
+			          <input style="width: 35%;" type="text" id="txtSuppCode" 
 			            Class="searchTextBox" placeholder="Type to search" style="width: 35%;"></input>
 			           <label id="lblCategory"></label>
 			  </div>

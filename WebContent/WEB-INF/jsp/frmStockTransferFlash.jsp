@@ -303,7 +303,7 @@
 				</div>
 				<div class="col-md-2">		
 					<label>To Location</label>
-					<s:select id="cmbToLocation" name="toLocCode" path="strToLocCode" >
+					<s:select id="cmbToLocation" name="toLocCode" path="strToLocCode" style="width:auto;">
 			    		<s:options items="${listToLocation}"/>
 			    	</s:select>
 				</div>	

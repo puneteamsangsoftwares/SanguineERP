@@ -19,11 +19,15 @@
 	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
 <style type="text/css">
-.transTable{
- width:100%;
-
-}
-
+  .transTable{
+    width:100%;
+    }
+  #tblStockLedger tr:first-child{
+     background-color: #c0c0c0;
+     }
+   #dvStockLedgerSummary tr:first-child{
+     background-color: #c0c0c0;
+     }
 </style>	
 	
 <script>
@@ -155,7 +159,7 @@
 					row1.insertCell(0).innerHTML= "<label>"+item[0]+"</label>";
 					row1.insertCell(1).innerHTML= "<label>"+item[5]+"</label>";
 					row1.insertCell(2).innerHTML= "<label>"+item[1]+"</label>";
-					row1.insertCell(3).innerHTML= "<a id=\"urlDocCode\" href=\"openSlip.html?docCode="+item[2]+","+item[1]+"\" target=\"_blank\" >"+item[2]+"</a>";
+					row1.insertCell(3).innerHTML= "<a id=\"urlDocCode\" style=\"text-decoration: underline;\" href=\"openSlip.html?docCode="+item[2]+","+item[1]+"\" target=\"_blank\" >"+item[2]+"</a>";
 // 			   		row1.insertCell(4).innerHTML= "<label>"+item[3].toFixed(maxQuantityDecimalPlaceLimit)+"</label>";
 // 				   	row1.insertCell(5).innerHTML= "<label>"+item[4].toFixed(maxQuantityDecimalPlaceLimit)+"</label>";
 				   		if(qtyWithUOM=='Yes')
@@ -859,7 +863,7 @@
 			      </div>
 			      <div class="col-md-2">
 			        	<label>Quantity With UOM</label>
-						<select id="cmbQtyWithUOM" class="BoxW124px" style="width:70%;">
+						<select id="cmbQtyWithUOM" style="width:70%;">
 							<option selected="selected">No</option>
 							<option>Yes</option>
 						</select>
@@ -873,7 +877,7 @@
 					</div>
 					  <div class="col-md-4"></div>
 					<div class="col-md-2">
-						<s:select path="strExportType" id="cmbExportType" cssClass="BoxW124px" style="margin-top:25px; width:80%;">
+						<s:select path="strExportType" id="cmbExportType" style="margin-top:25px; width:80%;">
 <!-- 						<option value="pdf">PDF</option> -->
 							<option value="xls">Excel</option>
 						</s:select>
@@ -889,9 +893,10 @@
 				</div>
 				<div class="center" style="margin-right:40%;">
 					 <a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return funOnClick()" >Execute</button></a>
+					 &nbsp;
 					 <a href="#"><button class="btn btn-primary center-block" id="btnExport"  value="Export" >Export</button></a>
 				</div>
-			<br><br>
+			<br>
 			
 			<!-- 
 			<table  class="transTable">
@@ -921,15 +926,14 @@
 				<tr></tr>
 				
 			</table> -->
-			<br>
 			
-			<div id="dvStockLedger" style="width: 100% ;height: 100%; border: 1px solid #000">
+			<div id="dvStockLedger" style="width: 100% ;height: 100%;border: 1px solid #c0c0c0;background-color: #fafbfb;">
 				<table id="tblStockLedger" class="transTable col5-right col6-right col7-right col8-right col9-right"></table>
 			</div>
 			
 			<br><br>
 			
-			<div id="dvStockLedgerSummary" style="width: 50% ;height: 100% ; border: 1px solid #000;margin-left: 15px;">
+			<div id="dvStockLedgerSummary" style="width: 50% ;height:100%;border: 1px solid #c0c0c0;background-color: #fafbfb;margin-left: 15px;">
 				<table id="tblStockLedgerSummary"  class="transTable col2-right col3-right">					
 				</table>
 			</div>

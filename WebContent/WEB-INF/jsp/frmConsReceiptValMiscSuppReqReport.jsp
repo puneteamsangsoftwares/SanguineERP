@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -22,7 +21,7 @@
 	
 }
 .transTable td {
-    padding-left: 45px;
+    padding-left: 27px;
  }
 </style>
     <script type="text/javascript">
@@ -217,7 +216,7 @@
 			    
 			    row.insertCell(0).innerHTML= "<input id=\"cbLocSel."+(rowCount)+"\" name=\"Locthemes\" type=\"checkbox\" class=\"LocCheckBoxClass\"  checked=\"checked\" value='"+strLocCode+"' />";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strLocCode."+(rowCount)+"\" value='"+strLocCode+"' >";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"42%\" id=\"strLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
 		}
 			
     	//Remove all Row from Location Grid
@@ -312,14 +311,13 @@
 		   <div class="col-md-8"></div>
 		   
 		   <div class="col-md-2"><label>Location</label>
-				<input type="text" id="txtToLocCode" ondblclick="funHelp('locationmaster')" Class="searchTextBox" placeholder="Type to search"
-			          style="width:100%;background-position: 240px 2px;"  ></input>
+				<input type="text" id="txtToLocCode" ondblclick="funHelp('locationmaster')" Class="searchTextBox" placeholder="Type to search" style="width:100%;"></input>
 			<label id="lblToLocName"></label>
 			</div>
 		</div>
 		<br>
 		<div
-			style="background-color: #fafbfb; width: 95%; margin-left: 28px; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll;">
+			style="background-color: #fafbfb; width: 50%; margin-left: 28px; border: 1px solid #ccc; display: block; height: 230px; overflow-x: hidden; overflow-y: scroll;">
 
 			<table id="" class="masterTable"
 				style="width: 100%; border-collapse: separate;">
@@ -357,7 +355,7 @@
 		</div>
 			
 			<br>
-			<p align="center">
+			<p align="center" style="margin-right: 7%;">
 				 <input type="button" value="Submit" onclick="return formSubmit();"  class="btn btn-primary center-block" class="form_button" />
 				 &nbsp; 
 				 <input type="button" value="Reset"  class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>			     

@@ -587,14 +587,14 @@
 		    dblTotalPrice=parseFloat(dblTotalPrice).toFixed(maxAmountDecimalPlaceLimit);
 		    dblDiscount=parseFloat(dblDiscount).toFixed(maxAmountDecimalPlaceLimit);
 		
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";   
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdName+"' />";
-		    row.insertCell(2).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" size=\"6%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\" value="+dblQty+" class=\"decimal-places inputText-Auto\" onblur=\"funUpdatePrice(this);\">";
-		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"6%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value="+strUOM+">";		   
-		    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblWeight\" id=\"txtWt."+(rowCount)+"\" value="+dblwt+" class=\"decimal-places inputText-Auto\">";
-		    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"6%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dtlTotWt\" id=\"dtlTotWt."+(rowCount)+"\" value="+dtlTotWt+" class=\"decimal-places inputText-Auto\">";
-		    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" type=\"text\"  required = \"required\" style=\"text-align: right;\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblUnitPrice\"  id=\"dblUnitPrice."+(rowCount)+"\" value="+dblPrice+" class=\"decimal-places-amt inputText-Auto\">";
-		    row.insertCell(7).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" size=\"6%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblDiscount\"  id=\"dblDiscount."+(rowCount)+"\" value="+dblDiscount+" class=\"decimal-places-amt inputText-Auto discount\" onblur=\"funUpdatePrice(this);\">";
+		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";   
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"52%\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdName+"' />";
+		    row.insertCell(2).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;\" size=\"6%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\" value="+dblQty+" class=\"decimal-places inputText-Auto\" onblur=\"funUpdatePrice(this);\">";
+		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value="+strUOM+">";		   
+		    row.insertCell(4).innerHTML= "<input type=\"text\"  required = \"required\" style=\"border: 1px solid #a2a2a2;padding: 1px;\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblWeight\" id=\"txtWt."+(rowCount)+"\" value="+dblwt+" class=\"decimal-places inputText-Auto\">";
+		    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"9%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dtlTotWt\" id=\"dtlTotWt."+(rowCount)+"\" value="+dtlTotWt+" class=\"decimal-places inputText-Auto\">";
+		    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" type=\"text\"  required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblUnitPrice\"  id=\"dblUnitPrice."+(rowCount)+"\" value="+dblPrice+" class=\"decimal-places-amt inputText-Auto\">";
+		    row.insertCell(7).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;\" size=\"6%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblDiscount\"  id=\"dblDiscount."+(rowCount)+"\" value="+dblDiscount+" class=\"decimal-places-amt inputText-Auto discount\" onblur=\"funUpdatePrice(this);\">";
 		    row.insertCell(8).innerHTML= "<input readonly=\"readonly\"  style=\"text-align: right;\" size=\"6%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblTotalPrice\"  id=\"dblTotalPrice."+(rowCount)+"\" value="+dblTotalPrice+" class=\"decimal-places-amt inputText-Auto totalPriceCell Box\">" ;
 		    row.insertCell(9).innerHTML= '<input type="button" value = "Delete" class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
 		    funApplyNumberValidation();
@@ -690,14 +690,14 @@
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    rowCount=listRow;
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";   
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdName+"' />";
-		    row.insertCell(2).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;\" size=\"6%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\" value="+dblQty+" class=\"decimal-places inputText-Auto\" onblur=\"funUpdatePrice(this);\">";
-		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"6%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value="+strUOM+">";		   
-		    row.insertCell(4).innerHTML= "<input type=\"text\" required = \"required\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblWeight\" id=\"txtWt."+(rowCount)+"\" value="+dblwt+" class=\"decimal-places inputText-Auto\">";
-		    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"6%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dtlTotWt\" id=\"dtlTotWt."+(rowCount)+"\" value="+dtlTotWt+" class=\"decimal-places inputText-Auto\">";
-		    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" type=\"text\" required = \"required\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblUnitPrice\"  id=\"dblUnitPrice."+(rowCount)+"\" value="+dblPrice+" class=\"decimal-places-amt inputText-Auto\">";
-		    row.insertCell(7).innerHTML= "<input type=\"text\"  required = \"required\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblDiscount\"  id=\"dblDiscount."+(rowCount)+"\" value="+dblDiscount+" class=\"decimal-places-amt inputText-Auto discount\" onblur=\"funUpdatePrice(this);\">";
+		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].strProdCode\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";   
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"52%\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdName+"' />";
+		    row.insertCell(2).innerHTML= "<input type=\"text\"  required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;\" size=\"6%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblQty\" id=\"dblQty."+(rowCount)+"\" value="+dblQty+" class=\"decimal-places inputText-Auto\" onblur=\"funUpdatePrice(this);\">";
+		    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].strUOM\" id=\"strUOM."+(rowCount)+"\" value="+strUOM+">";		   
+		    row.insertCell(4).innerHTML= "<input type=\"text\" required = \"required\" style=\"border: 1px solid #a2a2a2;padding: 1px;\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblWeight\" id=\"txtWt."+(rowCount)+"\" value="+dblwt+" class=\"decimal-places inputText-Auto\">";
+		    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"9%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dtlTotWt\" id=\"dtlTotWt."+(rowCount)+"\" value="+dtlTotWt+" class=\"decimal-places inputText-Auto\">";
+		    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" type=\"text\" required = \"required\" style=\"border: 1px solid #a2a2a2; padding: 1px;\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblUnitPrice\"  id=\"dblUnitPrice."+(rowCount)+"\" value="+dblPrice+" class=\"decimal-places-amt inputText-Auto\">";
+		    row.insertCell(7).innerHTML= "<input type=\"text\"  required = \"required\"  style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblDiscount\"  id=\"dblDiscount."+(rowCount)+"\" value="+dblDiscount+" class=\"decimal-places-amt inputText-Auto discount\" onblur=\"funUpdatePrice(this);\">";
 		    row.insertCell(8).innerHTML= "<input style=\"text-align: right;\" size=\"6%\" name=\"listPurchaseReturnDtl["+(rowCount)+"].dblTotalPrice\"  id=\"dblTotalPrice."+(rowCount)+"\" value="+totalPrice+" class=\"inputText-Auto totalPriceCell Box\">" ;		    		    	    
 		    row.insertCell(9).innerHTML= '<input type="button" value = "Delete" class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';	    
 		    listRow++;
@@ -1032,9 +1032,9 @@
 		    var row = table.insertRow(rowCount);
 		    
 		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listPurchaseReturnTax["+(rowCount)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount)+"\" value='"+taxCode+"' >";
-		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listPurchaseReturnTax["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
-		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" size=\"15.5%\" name=\"listPurchaseReturnTax["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
-		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" size=\"15.5%\" name=\"listPurchaseReturnTax["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"52%\" name=\"listPurchaseReturnTax["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
+		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;\" size=\"15.5%\" name=\"listPurchaseReturnTax["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
+		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;\" size=\"15.5%\" name=\"listPurchaseReturnTax["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
 		    row.insertCell(4).innerHTML= '<input type="button" size=\"6%\" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteTaxRow(this)" >';
 		    
 		    funCalTaxTotal();
@@ -1051,9 +1051,9 @@
 		    var row = table.insertRow(rowCount);
 
 		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listPurchaseReturnTaxDtl["+(rowCount)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount)+"\" value='"+taxCode+"' >";
-		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listPurchaseReturnTaxDtl["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
-		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" size=\"15.5%\" name=\"listPurchaseReturnTaxDtl["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
-		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" size=\"15.5%\" name=\"listPurchaseReturnTaxDtl["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"52%\" name=\"listPurchaseReturnTaxDtl["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
+		    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;\" size=\"15.5%\" name=\"listPurchaseReturnTaxDtl["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
+		    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;border: 1px solid #a2a2a2;padding: 1px;\" size=\"15.5%\" name=\"listPurchaseReturnTaxDtl["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
 		    row.insertCell(4).innerHTML= '<input type="button" size=\"6%\" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteTaxRow(this)" >';
 		    
 		    funGetTaxForCheckTaxOnTax(taxCode);
@@ -1364,7 +1364,7 @@
 					</s:select>
 				</div>
 				<div class="col-md-2">	
-					<s:input id="txtCode" type="text" path="strGRNCode" cssClass="BoxW116px" ondblclick="funHelp('grnForPR');" style="margin-top: 28px;"/>
+					<s:input id="txtCode" type="text" path="strGRNCode" ondblclick="funHelp('grnForPR');" style="margin-top: 28px;"/>
 				</div>
 				<div class="col-md-2"></div>
 				<div class="col-md-2">	
@@ -1372,7 +1372,7 @@
 					<s:input id="txtSuppCode" type="text" required="required"  path="strSuppCode"
 							value="${command.strSuppCode}" ondblclick="funHelp('suppcodeActive')"  cssClass="searchTextBox"/>
 				</div>
-				<div class="col-md-2">	
+				<div class="col-md-4">	
 					<label id="spSuppName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
 					></label>
 				</div>
@@ -1389,7 +1389,7 @@
 					<label>Mode Of Transport</label>
 					<s:input id="txtVehNo" type="text" path="strVehNo" value="${command.strVehNo}" cssClass="BoxW116px"/>
 				</div>
-				<div class="col-md-2"></div>
+				
 				<div class="col-md-2">
 					<label>Your Bill / DC Reference</label>
 					<s:input id="txtMInBy"  type="text" path="strMInBy"
@@ -1410,7 +1410,7 @@
 					<label>Currency</label>
 					<s:select id="cmbCurrency" path="strCurrency" items="${currencyList}" cssClass="BoxW124px" onchange="funOnChangeCurrency()" style="width:80%;"></s:select>
 				</div>
-				<div class="col-md-2"></div>
+				
 				<div class="col-md-2">
 					<s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" style="width:70%; margin-top:27px;" class="decimal-places numberField"></s:input>
 				</div>
@@ -1430,7 +1430,7 @@
 					<label>Discount</label>
 					<input id="txtDiscount" type="text"class="decimal-places-amt numberField" />
 				</div>
-				<div class="col-md-2">	</div>
+			
 				<div class="col-md-2">	
 					<label>Stock </label>
 					<label id="spStock" style="background-color:#dcdada94;width: 100%;height: 52%;text-align:center;"></label>
@@ -1549,18 +1549,18 @@
 					</div>				
 				</div>	
 				<br>
-					<table style="width: 100%;" class="transTablex col5-center">
-						<tr style="background:#c0c0c0;">
-							<td style="width:10%">Tax Code</td>
-							<td style="width:10%">Description</td>
-							<td style="width:10%">Taxable Amount</td>
+					<table style="width: 70%; margin: 0px;" class="transTablex col5-center">
+						<tr style="background:#c0c0c0;width: 70%;">
+							<td style="width:25%">Tax Code</td>
+							<td style="width:35%">Description</td>
+							<td style="width:12%">Taxable Amount</td>
 							<td style="width:10%">Tax Amount</td>
 							<td style="width:5%">Delete</td>
 						</tr>							
 					</table>
-						<div style="background-color: #fbfafa;border: 1px solid #ccc;display: block; height: 150px;
- 			    			margin: auto;overflow-x: hidden; overflow-y: scroll;width: 100%;"> 
-							<table id="tblTax" class="transTablex col5-center" style="width: 100%;">
+						<div style="background-color: #fbfafa;border: 1px solid #ccc;display:block;height:150px;
+ 			    			overflow-x: hidden; overflow-y: scroll;width: 70%;"> 
+							<table id="tblTax" class="transTablex col5-center" style="width:100%;">
 								<tbody>    
 									<col style="width:10%"><!--  COl1   -->
 									<col style="width:10%"><!--  COl2   -->
