@@ -52,6 +52,8 @@ public class clsFunctionProspectusBean{
 
 	private String strQty;
 	
+	private double dblTotal;
+	
 //Setter-Getter Methods
 	public String getStrBookingNo(){
 		return strBookingNo;
@@ -214,6 +216,12 @@ public class clsFunctionProspectusBean{
 	}
 	public void setStrQty(String strQty) {
 		this.strQty = strQty;
+	}
+	public double getDblTotal() {
+		return dblTotal;
+	}
+	public void setDblTotal(double dblTotal) {
+		this.dblTotal = dblTotal;
 	}
 
 

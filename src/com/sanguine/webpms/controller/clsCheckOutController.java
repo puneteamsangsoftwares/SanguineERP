@@ -487,9 +487,9 @@ public class clsCheckOutController {
 				req.getSession().setAttribute("success", true);
 				req.getSession().setAttribute("successMessage", "Room No. : ".concat(objBean.getStrSearchTextField()));
 			}
-			return new ModelAndView("frmCheckOut.html?saddr=" + urlHits);
+			return new ModelAndView("frmCheckOut.html");
 		} else {
-			return new ModelAndView("frmCheckOut?saddr=" + urlHits);
+			return new ModelAndView("frmCheckOut");
 		}
 	}
 	
