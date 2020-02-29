@@ -1402,6 +1402,7 @@ public class clsBillPrintingController {
 				List listInvoiceSummary=new ArrayList();
 				
 				@SuppressWarnings("rawtypes")
+				
 				HashMap reportParams = new HashMap();
 				double total=0.0;
 				String sqlParametersFromBill = "SELECT a.strFolioNo,a.strRoomNo,a.strRegistrationNo,a.strReservationNo, DATE(b.dteArrivalDate),b.tmeArrivalTime, "
@@ -1641,52 +1642,110 @@ public class clsBillPrintingController {
                                        + " AND e.strRoomTypeCode=f.strRoomTypeCode AND a.strCheckInNo='"+checkInNo+"' and g.strPerticulars='Room Tariff'  "
                                        + " AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'  "
                                        + " group by b.strTaxCode,f.strHsnSac; ";
-					List listTaxDetail = objWebPMSUtility.funExecuteQuery(sqlBillDtl, "sql");
+					List listTaxDetail = objWebPMSUtility.funExecuteQuery(sqlTaxRTDtl, "sql");
 					if(listTaxDetail.size()>0)
 					{
+						clsInvoiceFormatBean billPrintingBean = new clsInvoiceFormatBean();
 						for (int cnt = 0; cnt < listTaxDetail.size(); cnt++) 
 						{
-							clsInvoiceFormatBean billPrintingBean = new clsInvoiceFormatBean();
+							
 							Object[] arrObjRTTaxDtl = (Object[]) listTaxDetail.get(cnt);
 							
-							if(mapInvoice.containsKey(arrObjRTTaxDtl[8].toString()))
+							if(mapInvoice.containsKey(arrObjRTTaxDtl[5].toString()))
 						    {
-								
-								
-								 
-							}
-							else
-							{
-								billPrintingBean = new clsInvoiceFormatBean();
-								billPrintingBean.setStrHsn(arrObjRTTaxDtl[5].toString());
+								billPrintingBean =mapInvoice.get(arrObjRTTaxDtl[5].toString());
+								double taxableAmt=billPrintingBean.getDblTaxableValue()+Double.parseDouble(arrObjRTTaxDtl[7].toString());
+								billPrintingBean.setDblTaxableValue(taxableAmt);
 								if(arrObjRTTaxDtl[1].toString().contains("CGST"))
 								{
 									String converted=arrObjRTTaxDtl[4].toString();
 									billPrintingBean.setStrCentralTaxRate(converted.split("\\.")[0]+"%");
-									billPrintingBean.setDblCentralTaxAmountTotal(Double.parseDouble(arrObjRTTaxDtl[2].toString()));
+									billPrintingBean.setDblCentralTaxAmount(Double.parseDouble(arrObjRTTaxDtl[2].toString()));
+									//billPrintingBean.setDblCentralTaxAmountTotal(Double.parseDouble(arrObjRTTaxDtl[2].toString()));
 								}
 								if(arrObjRTTaxDtl[1].toString().contains("SGST"))
 								{
 									String converted=arrObjRTTaxDtl[4].toString();
 									billPrintingBean.setStrStateTaxRate(converted.split("\\.")[0]+"%");
 									billPrintingBean.setDblStateTaxAmount(Double.parseDouble(arrObjRTTaxDtl[2].toString()));
+									//billPrintingBean.setDblStateTaxAmount(Double.parseDouble(arrObjRTTaxDtl[2].toString()));
 								}
-								mapInvoice.put(arrObjRTTaxDtl[8].toString(), billPrintingBean);
+								 
+							}
+							else
+							{
+								billPrintingBean = new clsInvoiceFormatBean();
+								billPrintingBean.setStrHsn(arrObjRTTaxDtl[5].toString());
+								billPrintingBean.setDblTaxableValue(Double.parseDouble(arrObjRTTaxDtl[7].toString()));
+								
+								if(arrObjRTTaxDtl[1].toString().contains("CGST"))
+								{
+									String converted=arrObjRTTaxDtl[4].toString();
+									double taxableAmt=billPrintingBean.getDblTaxableValue()+Double.parseDouble(arrObjRTTaxDtl[7].toString());
+									billPrintingBean.setDblTaxableValue(taxableAmt);
+									billPrintingBean.setStrCentralTaxRate(converted.split("\\.")[0]+"%");
+									billPrintingBean.setDblCentralTaxAmount(Double.parseDouble(arrObjRTTaxDtl[2].toString()));
+									
+								}
+								if(arrObjRTTaxDtl[1].toString().contains("SGST"))
+								{
+									String converted=arrObjRTTaxDtl[4].toString();
+									billPrintingBean.setStrStateTaxRate(converted.split("\\.")[0]+"%");
+									billPrintingBean.setDblStateTaxAmount(Double.parseDouble(arrObjRTTaxDtl[2].toString()));
+									
+								}
+								mapInvoice.put(arrObjRTTaxDtl[5].toString(), billPrintingBean);
 								
 							}
 							
 							
 						}
 					}
+					
+					
+					String sqlTaxIHDtl="select (a.dteBillDate),c.strTaxDesc,sum(c.dblTaxAmt),0,d.dblTaxValue, f.strHsnSac,c.strTaxCode, "
+										+ "sum(c.dblTaxableAmt),CONCAT(f.strHsnSac,' - ',c.strTaxDesc) "
+										+ " from tblbillhd a ,tblbilldtl b,tblbilltaxdtl c,tbltaxmaster d ,tblincomehead f  "
+										+ " where a.strBillNo=b.strBillNo and b.strBillNo=c.strBillNo and b.strDocNo=c.strDocNo  " 
+										+ " and a.strBillNo=c.strBillNo and d.strIncomeHeadCode=f.strIncomeHeadCode AND b.strRevenueCode=f.strIncomeHeadCode "
+										+ " and  a.strCheckInNo='"+checkInNo+"' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' "
+										+ " group by c.strTaxCode;";
+					listTaxDetail = objWebPMSUtility.funExecuteQuery(sqlTaxIHDtl, "sql");
+					if(listTaxDetail.size()>0)
+					{
+						clsInvoiceFormatBean billPrintingBean = new clsInvoiceFormatBean();
+						for (int cnt = 0; cnt < listTaxDetail.size(); cnt++) 
+						{
+                            Object[] arrObjRTTaxDtl = (Object[]) listTaxDetail.get(cnt);
+							if(mapInvoice.containsKey(arrObjRTTaxDtl[5].toString()))
+						    {	
+								billPrintingBean =mapInvoice.get(arrObjRTTaxDtl[5].toString());
+								double taxableAmt=billPrintingBean.getDblTaxableValue()+Double.parseDouble(arrObjRTTaxDtl[7].toString());
+								billPrintingBean.setDblTaxableValue(taxableAmt);
+								String converted=arrObjRTTaxDtl[4].toString();
+								billPrintingBean.setStrStateTaxRate(converted.split("\\.")[0]+"%");
+								billPrintingBean.setDblStateTaxAmount(Double.parseDouble(arrObjRTTaxDtl[2].toString()));
+						    }
+							else
+							{
+								billPrintingBean =new clsInvoiceFormatBean();
+								billPrintingBean.setStrHsn(arrObjRTTaxDtl[5].toString());
+								billPrintingBean.setDblTaxableValue(Double.parseDouble(arrObjRTTaxDtl[7].toString()));
+								String converted=arrObjRTTaxDtl[4].toString();
+								billPrintingBean.setStrCentralTaxRate(converted.split("\\.")[0]+"%");
+								billPrintingBean.setDblCentralTaxAmount(Double.parseDouble(arrObjRTTaxDtl[2].toString()));
+								mapInvoice.put(arrObjRTTaxDtl[5].toString(), billPrintingBean);
+							}
+						}
+					}
+					
 					for(Map.Entry<String,clsInvoiceFormatBean> entry : mapInvoice.entrySet()){
 						clsInvoiceFormatBean objDtlBean =entry.getValue();
-						
+						double taxAmt=objDtlBean.getDblStateTaxAmount()+objDtlBean.getDblCentralTaxAmount();
+						objDtlBean.setDblTotalAmt(taxAmt);
 						listInvoice.add(entry.getValue());
 						
 					}
-					
-					
-				    
 					flgBillRecord = true;
 				}	
 				if (flgBillRecord) {
