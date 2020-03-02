@@ -43,12 +43,12 @@ public class clsPMSGroupBookingController{
 	private clsWebPMSDBUtilityDao objWebPMSUtility;
 	
 //Open PMSGroupBooking
-	@RequestMapping(value = "/frmPMSGroupBooking", method = RequestMethod.GET)
+	@RequestMapping(value = "/frmPMSGroupReservation", method = RequestMethod.GET)
 	public ModelAndView funOpenForm(){
-		return new ModelAndView("frmPMSGroupBooking","command", new clsPMSGroupBookingBean());
+		return new ModelAndView("frmPMSGroupReservation","command", new clsPMSGroupBookingBean());
 	}
 //Load Master Data On Form
-	@RequestMapping(value = "/frmPMSGroupBooking1", method = RequestMethod.POST)
+	@RequestMapping(value = "/frmPMSGroupReservation1", method = RequestMethod.POST)
 	public @ResponseBody clsPMSGroupBookingHDModel funLoadMasterData(HttpServletRequest request){
 		objGlobal=new clsGlobalFunctions();
 		String sql="";
@@ -61,7 +61,7 @@ public class clsPMSGroupBookingController{
 		return objPMSGroupBooking;
 	}
 	
-	@RequestMapping(value = "/frmPMSGroupBookingForReservation", method = RequestMethod.GET)
+	@RequestMapping(value = "/frmPMSGroupReservationForReservation", method = RequestMethod.GET)
 	public ModelAndView funOpenFormForReservation(Map<String, Object> model,
 			HttpServletRequest request,
 			@RequestParam("lblCorporateDesc") String lblCorporateDesc,
@@ -90,9 +90,9 @@ public class clsPMSGroupBookingController{
 		
 		model.put("urlHits", urlHits);
 		if ("2".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmPMSGroupBooking", "command", objBean);
+			return new ModelAndView("frmPMSGroupReservation", "command", objBean);
 		} else if ("1".equalsIgnoreCase(urlHits)) {
-			return new ModelAndView("frmPMSGroupBooking", "command", objBean);
+			return new ModelAndView("frmPMSGroupReservation", "command", objBean);
 		} else {
 			return null;
 		}
@@ -101,7 +101,7 @@ public class clsPMSGroupBookingController{
 	
 
 //Save or Update PMSGroupBooking
-	@RequestMapping(value = "/savePMSGroupBooking", method = RequestMethod.POST)
+	@RequestMapping(value = "/savePMSGroupReservation", method = RequestMethod.POST)
 	public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsPMSGroupBookingBean objBean ,BindingResult result,HttpServletRequest req){
 		if(!result.hasErrors()){
 			String clientCode=req.getSession().getAttribute("clientCode").toString();
@@ -111,11 +111,11 @@ public class clsPMSGroupBookingController{
 			req.getSession().setAttribute("success", true);
 			req.getSession().setAttribute("successMessage", objModel.getStrGroupCode());
 			req.getSession().setAttribute("GroupCodeAndRoomCode", objModel.getStrGroupCode()+"#"+objBean.getStrRoomType()+"#"+objBean.getStrCompCode());
-			return new ModelAndView("redirect:/frmPMSGroupBooking.html");
-			//return new ModelAndView("frmPMSGroupBooking");
+			return new ModelAndView("redirect:/frmPMSGroupReservation.html");
+			//return new ModelAndView("frmPMSGroupReservation");
 		}
 		else{
-			return new ModelAndView("frmPMSGroupBooking");
+			return new ModelAndView("frmPMSGroupReservation");
 		}
 	}
 

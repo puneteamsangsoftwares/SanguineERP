@@ -2175,7 +2175,7 @@
 		
 		var strPaxCnt = parseFloat(adultPax)+parseFloat(childPax);
 		var lblCorporateDesc = $("#lblCorporateDesc").text();
-	    window.open("frmPMSGroupBookingForReservation.html?lblCorporateDesc="+lblCorporateDesc+"&strPaxCnt="+strPaxCnt+"&strDepartureTime="+strDepartureTime+"&strArrivalTime="+strArrivalTime+"&strDepartureDate="+strDepartureDate+"&strCorporateCode="+strCorporateCode+"&strArrDate="+strArrDate+"&gRoomTypeCode="+gRoomTypeCode+"&gRoomTypeDesc="+gRoomTypeDesc,"","dialogHeight:600px;dialogWidth:800px;top=500,left=500")
+	    window.open("frmPMSGroupReservationForReservation.html?lblCorporateDesc="+lblCorporateDesc+"&strPaxCnt="+strPaxCnt+"&strDepartureTime="+strDepartureTime+"&strArrivalTime="+strArrivalTime+"&strDepartureDate="+strDepartureDate+"&strCorporateCode="+strCorporateCode+"&strArrDate="+strArrDate+"&gRoomTypeCode="+gRoomTypeCode+"&gRoomTypeDesc="+gRoomTypeDesc,"","dialogHeight:600px;dialogWidth:800px;top=500,left=500")
 	    
 
 	}

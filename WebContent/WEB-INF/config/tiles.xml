@@ -5258,15 +5258,27 @@
 			<put-attribute name="body"	value="/WEB-INF/jsp/webPMS/masters/frmGroupBlockMaster.jsp"></put-attribute>
 		</definition>
   	
-  		<definition name="frmPMSGroupBooking" extends="base.definition">
-			<put-attribute name="title" value="Group Booking"></put-attribute>
-			<put-attribute name="body" 	value="/WEB-INF/jsp/webPMS/masters/frmPMSGroupBooking.jsp"></put-attribute>
+  		<definition name="frmPMSGroupReservation" extends="base.definition">
+			<put-attribute name="title" value="Group Reservation"></put-attribute>
+			<put-attribute name="body" 	value="/WEB-INF/jsp/webPMS/masters/frmPMSGroupReservation.jsp"></put-attribute>
 		</definition>
 		
-		<definition name="frmPMSGroupBooking_1" extends="base.definition4">
-			<put-attribute name="title" value="Group Booking"></put-attribute>
-			<put-attribute name="body"	value="/WEB-INF/jsp/webPMS/masters/frmPMSGroupBooking.jsp"></put-attribute>
+		<definition name="frmPMSGroupReservation_1" extends="base.definition4">
+			<put-attribute name="title" value="Group Reservation"></put-attribute>
+			<put-attribute name="body"	value="/WEB-INF/jsp/webPMS/masters/frmPMSGroupReservation.jsp"></put-attribute>
 		</definition>
+		
+		<definition name="frmUpdateHouseKeepingStatus" extends="base.definition">
+			<put-attribute name="title" value="Update House Keeping Status"></put-attribute>
+			<put-attribute name="body" 	value="/WEB-INF/jsp/webPMS/transactions/frmUpdateHouseKeepingStatus.jsp"></put-attribute>
+		</definition>
+		
+		<definition name="frmUpdateHouseKeepingStatus_1" extends="base.definition4">
+			<put-attribute name="title" value="Update House Keeping Status"></put-attribute>
+			<put-attribute name="body"	value="/WEB-INF/jsp/webPMS/transactions/frmUpdateHouseKeepingStatus.jsp"></put-attribute>
+		</definition>
+		
+		
   	
 <!-- 	End Of WebPMS Tiles Entry -->
 

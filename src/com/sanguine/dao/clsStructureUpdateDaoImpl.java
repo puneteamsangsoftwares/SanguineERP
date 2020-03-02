@@ -1452,8 +1452,8 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				 + " ('frmComplimentryReport', 'Complimentry Report', 'Reports', 3, 'R', 20, 20, '5', 'imgComplimentaryReport.png', '3', 5, '5', '5', 'NO', 'NO', 'frmComplimentryReport.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
 				 + " ('frmHouseKeepingMaster', 'House Keeping master', 'Master', 1, 'M', 8, 8, '1', 'imgGuestMaster.png', '3', 3, '3', '3', 'NO', 'NO', 'frmHouseKeepingMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
 				 + " ('frmPMSSalesFlash', 'Sales Flash', 'Tools', 1, 'T', 5, 46, '1', 'imgSalesFlash.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSSalesFlash.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
-				 + " ('frmPMSStructureUpdate', 'Structure Update', 'Tools', 1, 'L', 111, 111, '1', 'imgStructureUpdate.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSStructureUpdate.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
-				 + " ('frmPostRoomTariff', 'Post Room Tariff', 'Transaction', 2, 'T', 5, 5, '1', 'imgPostRoomTerrif.png', '3', 3, '3', '3', 'NO', 'NO', 'frmPostRoomTerrif.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'); ";
+				 + " ('frmPMSStructureUpdate', 'Structure Update', 'Tools', 1, 'L', 111, 111, '1', 'imgStructureUpdate.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSStructureUpdate.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y') ";
+				 //+ " ('frmPostRoomTariff', 'Post Room Tariff', 'Transaction', 2, 'T', 5, 5, '1', 'imgPostRoomTerrif.png', '3', 3, '3', '3', 'NO', 'NO', 'frmPostRoomTerrif.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'); ";
 				 //+ " ('frmRoomCancellation', 'Reservation Cancellation', 'Transaction', 2, 'T', 6, 6, '1', 'imgReservationCancellation.png', '3', 3, '3', '3', 'NO', 'NO', 'frmRoomCancellation.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
 				// + " ('frmRoomMaster', 'Room Master', 'Master', 1, 'M', 1, 1, '1', 'imgRoomMaster.png', '3', 3, '3', '3', 'NO', 'NO', 'frmRoomMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
 				 //+ " ('frmRoomStatusDiary', 'Room Status Diary', 'Tools', 4, 'L', 1, 2, '12', 'imgRoomStatusDairy.png', '3', 1, '1', '1', 'NO', 'NO', 'frmRoomStatusDiary.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
@@ -4831,8 +4831,10 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ " ('frmPMSSalesFlash', 'Sales Flash', 'Tools', 1, 'T', 5, 46, '1', 'imgSalesFlash.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSSalesFlash.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
 				+ " ('frmCheckInCheckOutList', 'CheckIn CheckOut List', 'Reports', '3', 'R', '4', '4', '6', 'imgCheckInCheckOutList.png', '3', '1', '1', '1', 'NO', 'NO', 'frmCheckInCheckOutList.html',NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 */				+ "	('frmGroupBlockMaster', 'Group Block Master', 'Master', '1', 'M', '12', '12', '1', 'imgAgentMaster.png', '3', '1', '1', '1', 'NO', 'NO', 'frmGroupBlockMaster.html',NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
-				+ "	('frmPMSGroupBooking', 'Group Booking', 'Master', 1, 'M', 1, 1, '1', 'imgCheckOutDiscount.png', '3', 3, '3', '3', 'NO', 'NO', 'frmPMSGroupBooking.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
+				+ "	('frmPMSGroupBooking', 'Group Booking', 'Master', 1, 'M', 1, 1, '1', 'imgCheckOutDiscount.png', '3', 3, '3', '3', 'NO', 'NO', 'frmPMSGroupBooking.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+				+ " ('frmUpdateHouseKeepingStatus', 'Update House Keeping Status', 'Transaction', 2, 'T', 2, 2, '1', 'imgChangeRoom.png', '3', 1, '1', '1', 'NO', 'NO', 'frmUpdateHouseKeepingStatus.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
 				
+		
 		
 		funExecuteQuery(sql);
 		
@@ -4840,8 +4842,14 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		funExecuteQuery(sql);
 		
 		sql = "UPDATE `tbltreemast` SET `strFormDesc`='Reservation Cancellation' WHERE  `strFormName`='frmRoomCancellation' AND `strModule`='3';";
+		funExecuteQuery(sql);		
+		
+		sql = "UPDATE `tbltreemast` SET `strFormName`='frmPMSGroupReservation', `strFormDesc`='Group Reservation', `strRequestMapping`='frmPMSGroupReservation.html' WHERE  `strFormName`='frmPMSGroupBooking' AND `strModule`='3';";
 		funExecuteQuery(sql);
-
+		
+		
+		
+		
 		// / END ///
 
 		/*----------------WebPMS Forms End---------------------------*/

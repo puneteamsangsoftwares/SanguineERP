@@ -733,7 +733,7 @@ function funSetRoomType(code){
 <body>	
 	 <div class="container">
 		<label id="formHeading">Group Reservation</label>
-		<s:form name="CompanyMaster" method="POST" action="savePMSGroupBooking.html">
+		<s:form name="CompanyMaster" method="POST" action="savePMSGroupReservation.html">
 	 <br>
 	<div id="multiAccordion">	
 		<h3><a href="#">Group Reservation Details</a></h3>

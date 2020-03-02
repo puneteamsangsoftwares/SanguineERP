@@ -383,6 +383,36 @@
     }
 	
 	
+	
+	function funCheckbox()
+	{
+		var table = document.getElementById("tblRoomDtl");
+		var rowCount = table.rows.length;	
+		if ($('#chkBoxAll').is(":checked"))
+		{
+		 	//check all			
+			for(var i=0;i<rowCount;i++)
+			{		
+				//$("strRemoveTax.1").checked=true;
+				document.getElementById("strRemoveTax."+i).checked=1;
+				//$('strRemoveTax.1').prop('checked', true);
+	    	}
+		}
+		else
+		{
+			//uncheck all
+			//$("#chkBoxAll").prop('checked',false);				
+			for(var i=0;i<rowCount;i++)
+			{		
+				document.getElementById("strRemoveTax."+i).checked=0;
+	    	}
+			
+		}
+		
+	   
+	}
+	
+	
 </script>
 
 </head>
@@ -401,7 +431,7 @@
 				</div>
 				
 				<div class="col-md-2">
-					<s:radiobutton id="strSearchTypeCheckIn" path="strSearchType" style="margin-right:5px;" />Group CheckIn
+					<s:radiobutton id="strSearchTypeCheckIn" path="strSearchType" style="margin-right:5px;" />Group Check In
 					<s:input id="strSearchTextField" path="strSearchTextField" readonly="true" cssClass="searchTextBox" ondblclick="funHelp('groupcheckOut')"/>
 				</div>
 				<div class="col-md-2">
@@ -421,16 +451,14 @@
 				<%-- <td><s:checkbox label="Extra Time Charges" id="chkExtraTimeCharges" path="" value="N" onclick=' funTaxOnTaxStateChange() '/></td>
 				<td><s:input colspan="3" type="text" id="txtExtraCharge"  path="" cssClass="longTextBox" onblur="fun1(this);" onkeypress="javascript:return isNumber(event)" /></td>
  --%>			
-			<!-- 
-			<tr>
-				<td colspan="3">
-					<s:checkbox path="" id="" value="N"  label="Show Today's Departures"></s:checkbox>
-				</td>
-			</tr>
-			 -->
+			 
+			
+		
 		</div>
 	
 		<br />
+		
+		<input type="checkbox" id="chkBoxAll" name="chkBoxAll1" value="Bike" style="margin-left: 788px;" onclick="funCheckbox()">
 		<!-- Generate Dynamic Table   -->
 		<div class="dynamicTableContainer" style="height: 200px;">
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
@@ -469,7 +497,7 @@
 					<!-- col8   -->
 					
 					<!-- col9   -->
-					<td style="width: 70px;"align="center">Remove Taxes</td>
+					<td style="width: 70px;"align="center">Remove Taxes </td>
 					<!-- col9   -->
 					
 					<!-- col10   -->
