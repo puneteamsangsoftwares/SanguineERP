@@ -25,12 +25,16 @@ padding-left:1px;
 <script type="text/javascript">
 	
 	var fieldName,gridHelpRow;
-	var gset1 = new Set();
-	var gTempAdultcount=0,gTotalNoRoom=0,gTotalNoGuest=0;
+	var gset1 =[];
+	var gTempAdultcount=0,gTotalNoRoom=0,gTotalNoGuest=0,listRow=0;
 	var gAdultCount,cheGuestCode,gcount;
-	var gAdult=Array();
+	var gAdult=[];
 	var gcount;
 	var gRoomMap = new Map();
+	var gSetTotalRoom=new Set();
+	
+	var globalRoomNo=new Map();
+	var globalNoOfGuest=new Map();
 	
      $(document).ready(function(){
 	    
@@ -44,6 +48,11 @@ padding-left:1px;
 				var activeTab = $(this).attr("data-state");
 				$("#" + activeTab).fadeIn();
 			});
+			
+			
+			$("#txttotrooms").val("0");
+			$("#txttotguest").val("0");
+			
  	});		
  	
  	$(function() 
@@ -59,10 +68,6 @@ padding-left:1px;
  		$("#txtDepartureDate").datepicker({ dateFormat: 'dd-mm-yy' });
  		$("#txtDepartureDate").datepicker('setDate', pmsDate);
  		$("#hidPayee").val('N')
- 		//$("#txtArrivalTime").prop('disabled',true);
- 		//$("#txtDepartureTime").prop('disabled',true);
- 		//$("#txtArrivalDate").prop('disabled',true);
- 		//$("#txtDepartureDate").prop('disabled',true);
 		 
  		$('a#baseUrl').click(function() 
  		{
@@ -329,6 +334,7 @@ padding-left:1px;
 				success : function(response){ 
 					if(response.strReservationNo!="Invalid")
 			    	{
+					
 						funFillHdDataAgainstRes(response);
 						//funFillRoomRate();
 			    	}
@@ -363,6 +369,13 @@ padding-left:1px;
 		
 		function funFillHdDataAgainstRes(response)
 		{
+			
+			//gset1=[];
+			gAdult=[];
+			gAdultCount=[];
+			gRoomMap=new Map();
+			gTempAdultcount=0,gTotalNoRoom=0,gTotalNoGuest=0,listRow=0;
+			
 			gcount=response.intNoRoomsBooked;
 			gAdultCount=response.intNoOfAdults;
 			cheGuestCode=response.strGuestCode;
@@ -551,11 +564,10 @@ padding-left:1px;
 				
 				alert("Room Booking Full");
 			}
-			else if(gAdult.hasObject(guestName)){
+			/* else if(gAdult.hasObject(guestName)){
 							
 				alert("Guest already Added");
-				gAdult.pop();
-			}
+			} */
 			else
 			{
 					gTempAdultcount++;
@@ -563,6 +575,7 @@ padding-left:1px;
 				    var table = document.getElementById("tblCheckInDetails");
 				    var rowCount = table.rows.length;
 				    var row = table.insertRow(rowCount);
+				    rowCount=listRow;
 				    var roomtypeDesc=funSetRoomType(roomTypeCode);
 				    rTypeCode=roomTypeCode
 				    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" style=\"width:90%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].strGuestName\" id=\"strGuestName."+(rowCount)+"\" value='"+guestName+"'/>";	    
@@ -578,7 +591,14 @@ padding-left:1px;
 				    }
 				    else
 				    {
-				    	row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box payeeSel\" style=\"margin-left: -605%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\" value=\"N\" onClick=\"Javacsript:funCheckBoxRow(this)\" />";	
+				    	if(payee=='Y'){
+				    		row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" style=\"margin-left: -605%;\" class=\"Box payeeSel\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\"  value=\"Y\" onClick=\"Javacsript:funCheckBoxRow(this)\"  />";
+				    	}
+				    	else{
+				    		
+				    		row.insertCell(6).innerHTML= "<input id=\"cbItemCodeSel."+(rowCount)+"\" type=\"checkbox\" class=\"Box payeeSel\" style=\"margin-left: -605%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].strPayee\" value=\"N\" onClick=\"Javacsript:funCheckBoxRow(this)\" />";
+				    	}
+				    		
 				    } 			    
 			    row.insertCell(7).innerHTML= "<input class=\"Box\" size=\"2%\" style=\"margin-left: -150%;\" name=\"listCheckInDetailsBean["+(rowCount)+"].intNoOfFolios\" id=\"intNoOfFolios."+(rowCount)+"\" value='1' />";
 			    row.insertCell(8).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"6%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
@@ -590,10 +610,40 @@ padding-left:1px;
 			    {
 			    	$("#hidPayee").val(guestCode);
 			    }
-			   // gTotalNoRoom++;
+			   //gTotalNoRoom++;
 			    gTotalNoGuest++;
-			    $("#txttotrooms").val(gTotalNoRoom);
-			    $("#txttotguest").val(gTotalNoGuest);
+			   // $("#txttotrooms").val(gSetTotalRoom.size);
+			   // $("#txttotguest").val(gTotalNoGuest);
+			    listRow++;
+			    
+			    globalRoomNo=new Map();
+				globalNoOfGuest=new Map();
+			    var table = document.getElementById("tblCheckInDetails");
+				var rowCount = table.rows.length;									
+					for(var i=0;i<rowCount;i++)
+					{
+						var name=table.rows[i].cells[0].children[0].defaultValue;	
+						var roomno=table.rows[i].cells[3].children[0].value;
+						
+
+						if(roomno!='')
+						{
+							if(!globalRoomNo.has(roomno))
+							{
+								globalRoomNo.set(roomno,roomno);									
+							}
+						}
+						
+
+						if(!globalNoOfGuest.has(name))
+							{
+								globalNoOfGuest.set(name,name);
+							}
+					}
+					 
+				    $("#txttotrooms").val(globalRoomNo.size);
+				  	$("#txttotguest").val(globalNoOfGuest.size);
+			    
 	    }
 		}
 
@@ -1182,33 +1232,74 @@ padding-left:1px;
 				{
 				    var index = obj.parentNode.parentNode.rowIndex;
 				    var table = document.getElementById("tblCheckInDetails");
+				    table.deleteRow(index);
+				    index=listRow;
 				    var roomNo=obj.parentNode.parentNode.cells[3].firstElementChild.value;
 				    var Name=obj.parentNode.parentNode.cells[0].firstElementChild.value;
 				    var id="strRoomNo."+index;
 				    var roomNo1=document.getElementById(id);
-				    table.deleteRow(index);
 				    gTempAdultcount--;
-				    if(gset1.has(roomNo)){
-				    	gset1.delete(roomNo);
+				    if(gset1.hasObject(roomNo)){
+				    	for( var i = gset1.length; i--;){
+				    		if ( gset1[i] === roomNo){
+				    			gset1.splice(i, 1);
+				    			break;
+				    		}
+				    		}
 				    	 
 				    }
 				    if(gAdult.hasObject(Name)){
-				    	if (gAdult.indexOf(Name) > -1) {
-				    		gAdult.splice(gAdult.indexOf(gAdult), 1);
+				    	//gAdult.pop(Name);
+				    	//gAdult.splice( gAdult.indexOf(Name), 1);
+				    	for( var i = gAdult.length; i--;){
+				    		if ( gAdult[i] === Name) gAdult.splice(i, 1);
 				    		}
 				    }
 				    
 				    if(gRoomMap.has(roomNo)){
 				    	gRoomMap.delete(roomNo);
+				    	/* for( var i = gRoomMap.size; i--;){
+				    		if ( gRoomMap.has(roomNo)){
+				    			gRoomMap.delete(roomNO);
+				    			
+				    		}
+				    		break;
+				    		}  */
 				    	 
+				    	  
+				    }
+				    if(gSetTotalRoom.has(roomNo)){
+				    	gSetTotalRoom.delete(roomNo);
 				    }
 				    
-				    gTotalNoRoom--;
+				   
 				    gTotalNoGuest--;
-				    $("#txttotrooms").val(gRoomMap.size);
-				    $("#txttotguest").val(gTotalNoGuest);
-				    
-				    	
+				  
+				    //logic
+				    globalRoomNo=new Map();
+					globalNoOfGuest=new Map();
+				    var table = document.getElementById("tblCheckInDetails");
+					var rowCount = table.rows.length;									
+						for(var i=0;i<rowCount;i++)
+						{
+							var name=table.rows[i].cells[0].children[0].defaultValue;	
+							var roomno=table.rows[i].cells[3].children[0].value;
+							if(roomno!='')
+							{
+								if(!globalRoomNo.has(roomno))
+								{
+									globalRoomNo.set(roomno,roomno);									
+								}
+							}					
+
+							if(!globalNoOfGuest.has(name))
+								{
+									globalNoOfGuest.set(name,name);
+								}
+						}
+						 
+					    $("#txttotrooms").val(globalRoomNo.size);
+					  	$("#txttotguest").val(globalNoOfGuest.size);				    	
 				}
 			
 
@@ -1222,6 +1313,7 @@ padding-left:1px;
 				
 				function funHelp1(transactionName,row,condition)
 				{
+					gAdultCount=0;
 					gridHelpRow=row;
 					fieldName=transactionName;	
 					if(transactionName=="roomByRoomType")
@@ -1248,6 +1340,8 @@ padding-left:1px;
 				
 				function funHelpAgainst()
 				{
+					globalRoomNo=new Map();
+					globalNoOfGuest=new Map();
 					if ($("#cmbAgainst").val() == "Reservation")
 					{
 						fieldName="ReservationNo";
@@ -1305,6 +1399,14 @@ padding-left:1px;
 					 
 					 function funValidateForm()
 					 {
+						 	var ArrivalDate1 = $("#txtArrivalDate").val();
+							var DepartureDate1 = $("#txtDepartureDate").val();
+							if(ArrivalDate1>DepartureDate1){
+								alert("Arrival Date must be Greater than DepartureDate")
+							}
+							
+						else{
+								
 							var table = document.getElementById("tblCheckInDetails");
 						    var rowCount = table.rows.length;
 							if(rowCount==0)
@@ -1385,7 +1487,7 @@ padding-left:1px;
 							
 							return true;	 
 					 }
-					 
+				}
 					 
 					 function funSetRoomNo(code,gridHelpRow){						 
 							$.ajax({
@@ -1406,27 +1508,79 @@ padding-left:1px;
 						        			}
 						        		else
 					        			{
-						        			
+											if(document.getElementById("strRoomNo."+gridHelpRow).value!="")
+						    				{
+								    			 if(gRoomMap.has(document.getElementById("strRoomNo."+gridHelpRow).value)){
+												    	gRoomMap.delete(document.getElementById("strRoomNo."+gridHelpRow).value);
+												    }
+								    			 if(gSetTotalRoom.has(document.getElementById("strRoomNo."+gridHelpRow).value)){
+												    	gSetTotalRoom.delete(document.getElementById("strRoomNo."+gridHelpRow).value);
+												    }
+						    					
+						    				}
 											
-											if(gset1.size>=gcount){
-												alert("Room Not available");
-											}
+											if(gset1.length>=gcount){
+												
+												if(gset1.hasObject(response.strRoomCode)){
+												    		gset1.push(response.strRoomCode);												    														    		
+												    		if(!gRoomMap.has(response.strRoomCode))
+															{
+																gRoomMap.set(response.strRoomCode,response.strRoomCode);
+															}	
+												    		gSetTotalRoom.add(response.strRoomCode);
+															//  $("#txttotrooms").val(gSetTotalRoom.size);
+															document.getElementById("strRoomNo."+gridHelpRow).value=response.strRoomCode;						
+											    			document.getElementById("strRoomDesc."+gridHelpRow).value=response.strRoomDesc;
+											    			document.getElementById("strRoomTypeDesc."+gridHelpRow).value=response.strRoomTypeDesc;						
+											    			document.getElementById("strRoomType."+gridHelpRow).value=response.strRoomTypeCode;
+											    			 $( "#tblCheckInDetails" ).load( "your-current-page.html #tblCheckInDetails" );
+												}
+											    	else{
+											    		alert("Room Not available");
+											    	}
+											    } 
 											else{
-												gset1.add(response.strRoomCode);
 												if(!gRoomMap.has(response.strRoomCode))
 												{
 													gRoomMap.set(response.strRoomCode,response.strRoomCode);
 												}	
-												  $("#txttotrooms").val(gRoomMap.size);
+												gSetTotalRoom.add(response.strRoomCode);
 												document.getElementById("strRoomNo."+gridHelpRow).value=response.strRoomCode;						
 								    			document.getElementById("strRoomDesc."+gridHelpRow).value=response.strRoomDesc;
 								    			document.getElementById("strRoomTypeDesc."+gridHelpRow).value=response.strRoomTypeDesc;						
 								    			document.getElementById("strRoomType."+gridHelpRow).value=response.strRoomTypeCode;
 								    			 $( "#tblCheckInDetails" ).load( "your-current-page.html #tblCheckInDetails" );
 											}
-							        		
-							    		//	document.getElementById("strPayee."+gridHelpRow).value=response.strRoomDesc; 
 							        	}
+						        		
+						        		globalRoomNo=new Map();
+										globalNoOfGuest=new Map();
+						        		var table = document.getElementById("tblCheckInDetails");
+						 				var rowCount = table.rows.length;									
+						 					for(var i=0;i<rowCount;i++)
+						 					{
+						 						var name=table.rows[i].cells[0].children[0].defaultValue;	
+						 						var roomno=table.rows[i].cells[3].children[0].value;
+						 						
+
+						 						if(roomno!='')
+						 						{
+						 							if(!globalRoomNo.has(roomno))
+						 							{
+						 								globalRoomNo.set(roomno,roomno);									
+						 							}
+						 						}
+						 						
+
+						 						if(!globalNoOfGuest.has(name))
+						 							{
+						 								globalNoOfGuest.set(name,name);
+						 							}
+						 					}
+						 					 
+						 				    $("#txttotrooms").val(globalRoomNo.size);
+						 				  	$("#txttotguest").val(globalNoOfGuest.size);
+						        		
 						        	}
 								},
 								error : function(e){
@@ -1603,6 +1757,56 @@ padding-left:1px;
 							});
 						}
 					 
+					 function funChangeArrivalDate()
+						{
+							var arrivalDate=$("#txtArrivalDate").val();
+						    var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';
+						    var fromDate=$("#txtArrivalDate").val();
+							var toDate=$("#txtDepartureDate").val()
+							if(fromDate>toDate){
+								 alert("Please Check Arrival Date");
+								 $("#txtDepartureDate").datepicker({ dateFormat: 'dd-mm-yy' });
+								 $("#txtDepartureDate").datepicker('setDate', pmsDate);
+								 return false
+							}
+							
+					    	/* if (arrivalDate < pmsDate) 
+					  		 {
+							    	alert("Arrival Date Should not be come before PMS Date");
+							    	$("#txtArrivalDate").datepicker({ dateFormat: 'dd-mm-yy' });
+									$("#txtArrivalDate").datepicker('setDate', pmsDate);
+									return false
+					         } */
+					    	
+					    	
+						}
+					 
+					 function CalculateDateDiff() 
+						{
+
+							var fromDate=$("#txtArrivalDate").val();
+							var toDate=$("#txtDepartureDate").val()
+							var frmDate= fromDate.split('-');
+						    var fDate = new Date(frmDate[2],frmDate[1],frmDate[0]);
+						    
+						    var tDate= toDate.split('-');
+						    var t1Date = new Date(tDate[2],tDate[1],tDate[0]);
+
+					    	var dateDiff=t1Date-fDate;
+					  		 if (dateDiff >= 0 ) 
+					  		 {
+					  			var total_days = (dateDiff) / (1000 * 60 * 60 * 24);
+					  			$("#txtNoOfNights").val(total_days);
+					         	
+					         }else{
+					        	 alert("Please Check Departure Date");
+					        	 $("#txtDepartureDate").datepicker({ dateFormat: 'dd-mm-yy' });
+								 $("#txtDepartureDate").datepicker('setDate', pmsDate);
+					        	 return false
+					         }
+					 	
+						}
+					 
 			</script>
 			</head>
 <body>
@@ -1636,11 +1840,11 @@ padding-left:1px;
 			</div>
 			
 			<div class="col-md-2"><label>Arrival Date</label>
-				<s:input  type="text" id="txtArrivalDate" path="dteArrivalDate" cssClass="calenderTextBox" style="width: 75%;" />
+				<s:input  type="text" id="txtArrivalDate" path="dteArrivalDate" cssClass="calenderTextBox" style="width: 75%;" onchange="funChangeArrivalDate();" />
 			</div>
 			
 			<div class="col-md-2"><label>Departure Date</label>
-				 <s:input  type="text" id="txtDepartureDate" path="dteDepartureDate" cssClass="calenderTextBox" style="width: 75%;"/>
+				 <s:input  type="text" id="txtDepartureDate" path="dteDepartureDate" cssClass="calenderTextBox" style="width: 75%;" onchange="CalculateDateDiff();"/>
 			</div>
 		
 			<div class="col-md-2"><label>Arrival Time</label>

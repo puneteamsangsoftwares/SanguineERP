@@ -64,7 +64,19 @@ var selectedOccupiedRoom="",selectedFreeRoom="";
 				}
 			}%>
 			
-			funLoadData();
+			//funLoadData();
+			funShowHouseKeepingStatus();	
+			
+			$("#dteFromDate").datepicker({
+				dateFormat : 'dd-mm-yy'
+			});
+			$("#dteFromDate").datepicker('setDate', 'today');	
+			
+			$("#dteToDate").datepicker({
+				dateFormat : 'dd-mm-yy'
+			});
+			$("#dteToDate").datepicker('setDate', 'today');	
+			
 		});
 
 function funLoadData()
@@ -90,7 +102,7 @@ function funLoadData()
 	
 	function funLoadOccupiedTable(tableName)
 	{
-	 var searchurl=getContextPath()+"/loadOccupiedRoomData.html";	
+	 var searchurl=getContextPath()+"/loadOccupiedRoomDataHouseKeeping.html";	
 	 $.ajax({
 			type : "GET",
 			url : searchurl,
@@ -441,6 +453,85 @@ function funResetFields()
 	selectedOccupiedRoom="",selectedFreeRoom="";
 }
 
+
+
+	function funShowHouseKeepingStatus()
+	{
+		var fromDate=$("#dteFromDate").val();
+		var toDate=$("#dteToDate").val();		
+		var searchUrl=getContextPath()+"/loadHouseKeepingStatusOfRooms.html?fDate="+fromDate+"&tDate="+toDate;	
+		$.ajax({
+		        type: "GET",
+		        url: searchUrl,
+			    dataType: "json",
+			    success: function(response)
+			    {
+			    	funFillRoomsTable(response.Rooms);
+			    	funFillHouseKeepingDtl(response.HouseKeepingName);
+					//StkFlashDataHeader=response[0];
+			    	//StkFlashData=response[1];
+			    	//showTable();	    	
+			    },
+			    error: function(jqXHR, exception) {
+		            if (jqXHR.status === 0) {
+		                alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+		                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.n' + jqXHR.responseText);
+		            }		            
+		        }
+		      });
+			return false;
+	}
+
+
+function funFillRoomsTable(obj)
+{
+	 for(var i=0;i<obj.length;i++)
+	   {
+			var table=document.getElementById("tblOccupiedTable");
+			var rowCount=table.rows.length;
+			var row=table.insertRow();
+		   	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strRoomNo\"  id=\"strRoomNo."+obj[i]+"\" value='"+obj[i]+"' >";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strRoomFlag\" id=\"strRoomFlag."+obj[i]+"\" value='Y' >";
+	   }
+	
+    
+/* 	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+(rowCount)+"\" value='"+obj.strRoomNo+"' >";
+    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].strRemoveTax\" id=\"strRemoveTax."+(rowCount)+"\" value='Y' >";
+ */
+	
+}
+
+
+function funFillHouseKeepingDtl(obj)
+{
+	for(var i=0;i<obj.length;i++)
+	   {
+			var table=document.getElementById("tblAllTable");
+			var rowCount=table.rows.length;
+	   		var row=table.insertRow();
+		   	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingName\"  id=\"strHouseKeepingName."+obj[i]+"\" value='"+obj[i][1]+"' >";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingFlag\" id=\"strHouseKeepingFlag."+obj[i]+"\" value='Y' >";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" type=\"hidden\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingCode\" id=\"strHouseKeepingCode."+obj[i]+"\" value='"+obj[i][0]+"'>";
+			
+	   }
+/* 	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+(rowCount)+"\" value='"+obj.strRoomNo+"' >";
+    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].strRemoveTax\" id=\"strRemoveTax."+(rowCount)+"\" value='Y' >";
+ */ 
+	
+}
+
+
 </script>
 
 
@@ -449,19 +540,25 @@ function funResetFields()
 <body onload="funLoadData()">
 	 <div class="transTable" style="margin-left: 10px;width:94%">
 		<label id="formHeading">Update House Keeping Status</label>
-	     <s:form name="Change Room" method="POST" action="changeRoom.html" >
-	      <div class="row">
-                <div class="col-md-4" style="padding-left: 28px;"><label>Reason Code</label>
-				   <div class="row">
-				      <div class="col-md-5"><s:input type="text" id="txtReasonCode" path="strReasonCode" cssClass="searchTextBox" ondblclick="funHelp('reasonPMS');" style="height: 25px;"/></div>
-				      <div class="col-md-7"><label id="lblReasonDesc" style="background-color:#dcdada94; width: 100%; height:100%;"></label></div>
-			       </div>
-			    </div>
-				
-				<div class="col-md-2"><label>Remarks</label>
-				        <s:input type="text" id="txtRemarks" path="strRemarks" style="height: 25px;"/>
-				</div>
-			</div>
+	     <s:form name="Change Room" method="POST" action="saveHouseKeepingStatus.html" >			
+		<%-- 	<div class="row masterTable">
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-6">
+							<label>From Date</label>
+							<s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" />
+							<s:input type="text" id="dteFromDate" path="" required="true" class="calenderTextBox" />
+						</div>
+						<div class="col-md-6">
+							<label>To Date</label>
+							<s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" />	
+							<s:input type="text" id="dteToDate" path="" required="true" class="calenderTextBox" />	
+						</div>
+					</div>
+				</div>	
+				<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return funShowHouseKeepingStatus()"
+				class="form_button">Execute</button></a>
+			</div> --%>
 		
 		<div style="margin-top: 30px;margin-left: 12px;">
 			<div
@@ -483,9 +580,6 @@ function funResetFields()
 					class="transTablex col8-center"></table>
 			</div>
 		</div>
-			<%-- <s:input type="hidden" id="txtOccupiedRoomCode" path="strRoomCode" />
-			<s:input type="hidden" id="txtFreeRoomCode" path="strRoomDesc" />
-			<s:input type="hidden" id="txtCheckInNo" path="strRoomType"/> --%>
 		
 		<br />
 		

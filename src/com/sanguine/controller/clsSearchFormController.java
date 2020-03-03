@@ -3066,7 +3066,7 @@ public class clsSearchFormController {
 			 * "from  tblbillhd where strClientCode='"+clientCode+"' ";
 			 */
 			columnNames = "  a.strCheckInNo,CONCAT(c.strFirstName,c.strMiddleName,c.strLastName), a.dteBillDate,a.strFolioNo,  " + " a.strRegistrationNo,a.strReservationNo,a.dblGrandTotal ,d.strPayee";
-			tableName = " from tblcheckinhd b  ,tblbillhd a ,tblcheckindtl d ,tblguestmaster c " + " where d.strPayee='Y' and b.strCheckInNo =a.strCheckInNo  " + " and b.strCheckInNo=d.strCheckInNo and d.strGuestCode=c.strGuestCode and a.dteBillDate between '" + txtFromDate + " ' and '" + txtToDate + " ' " + " group by a.strCheckInNo, d.strPayee ";
+			tableName = " from tblcheckinhd b  ,tblbillhd a ,tblcheckindtl d ,tblguestmaster c " + " where d.strPayee='Y' and b.strCheckInNo =a.strCheckInNo  " + " and b.strCheckInNo=d.strCheckInNo and d.strGuestCode=c.strGuestCode and a.dteBillDate between '" + txtFromDate + " ' and '" + txtToDate + " ' " + " and a.dblGrandTotal>0 group by a.strCheckInNo, d.strPayee ";
 
 			listColumnNames = "CheckIN No,Bill Date,Guest Name,Folio No,Registration No,Reservation No,GrandTotal ,Payee";
 			idColumnName = "strBillNo";
@@ -3075,6 +3075,7 @@ public class clsSearchFormController {
 			searchFormTitle = "Bill Form";
 			break;
 		}
+
 
 		case "BillForPayment": {
 			columnNames = "  a.strBillNo, CONCAT(c.strFirstName,c.strMiddleName,c.strLastName), " + " DATE_FORMAT(a.dteBillDate,'%d-%m-%Y'),a.dblGrandTotal, " + " (a.dblGrandTotal-ifnull(sum(d.dblPaidAmt),0)) as RemainingAmt " + " ,a.strFolioNo,a.strRegistrationNo,a.strReservationNo ";

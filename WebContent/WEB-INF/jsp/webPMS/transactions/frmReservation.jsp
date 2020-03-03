@@ -1485,6 +1485,12 @@
 		var flg=false;
 		if($("#txtCorporateCode").val()=='')
 		{
+			var ArrivalDate1 = $("#txtArrivalDate").val();
+			var DepartureDate1 = $("#txtDepartureDate").val();
+			if(ArrivalDate1>DepartureDate1){
+				alert("Arrival Date must be Greater than DepartureDate")
+			}
+			
 			if($("#txtBookingTypeCode").val()=='')
 			{
 				alert("Please Select Booking Type");
@@ -2052,7 +2058,17 @@
 	{
 		var arrivalDate=$("#txtArrivalDate").val();
 	    var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';
-
+	    var fromDate=$("#txtArrivalDate").val();
+		var toDate=$("#txtDepartureDate").val()
+		if(fromDate>toDate){
+			 alert("Please Check Arrival Date");
+			 $("#txtDepartureDate").datepicker({ dateFormat: 'dd-mm-yy' });
+			 $("#txtDepartureDate").datepicker('setDate', pmsDate);
+			 return false
+		}
+		else{
+			funFillRoomRate('','');
+		}
     	/* if (arrivalDate < pmsDate) 
   		 {
 		    	alert("Arrival Date Should not be come before PMS Date");
