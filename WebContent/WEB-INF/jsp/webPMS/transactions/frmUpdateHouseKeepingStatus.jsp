@@ -79,11 +79,7 @@ var selectedOccupiedRoom="",selectedFreeRoom="";
 			
 		});
 
-function funLoadData()
-{
-	    funLoadOccupiedTable("tblOccupiedTable");
-	    funLoadAllRooms("tblAllTable");
-}
+
 	
 	
 //Delete a All record from a grid
@@ -100,147 +96,10 @@ function funLoadData()
 	
 	
 	
-	function funLoadOccupiedTable(tableName)
-	{
-	 var searchurl=getContextPath()+"/loadOccupiedRoomDataHouseKeeping.html";	
-	 $.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response){ 
-				funRemoveHeaderTableRows(tableName);
-				
-				var k=0,first="",second="",third="",fourth="";
-				var cnt=0,list,rowPosition=0;
-		
-				list=response.hmOccupiedRooms;
-				
-				var table=document.getElementById(tableName);
-				var rowCount = table.rows.length;
-				var row = table.insertRow(rowCount);
-				var row=table.insertRow();
-				var toolTipText="";
-				$.each(list,function(i,item)
-				{
-					
-					cnt++;
-					toolTipText=item.FolioNo+"\n"+item.CheckInDate+"\n"+item.GuestName+"\n"+item.Reason+"\n"+item.Remark;
-					
-// 					else if(item.Type=="Walk In")
-// 					{
-// 						toolTipText=item.RoomName+"\n"+item.Type+"\n"+item.WalkinNo;
-// 					}
-// 					else
-// 					{
-// 						toolTipText=item.RoomName+"\n"+item.Type+"\n"+item.ReservationNo;
-// 					}
-					if(cnt<=4)
-					  {
-						var x=row.insertCell(0);
-						x.innerHTML="<input type=\"button\" class = \"transForm_redButton\"  value='"+item.RoomName+"'  onclick=\"funOnClick(this,'tblOccupiedTable')\" >";			
-						x.title=toolTipText;
-						
-					  }
-					else
-					 {
-						row=table.insertRow();
-						rowPosition++;
-						cnt=1;
-						var x=row.insertCell(0);
-						x.innerHTML= "<input type=\"button\" class = \"transForm_redButton\"   value='"+item.RoomName+"'  onclick=\"funOnClick(this,'tblOccupiedTable')\" >";
-						x.title=toolTipText;
-					 }
-				
-					mapOccupiedToolTipData.set(item.RoomName,toolTipText+"!"+item.RoomNo+"#"+item.CheckinNo+"."+item.Status);
-				 });
-				
-			},
-			error : function(e){
-				if (jqXHR.status === 0) {
-	                alert('Not connect.n Verify Network.');
-	            } else if (jqXHR.status == 404) {
-	                alert('Requested page not found. [404]');
-	            } else if (jqXHR.status == 500) {
-	                alert('Internal Server Error [500].');
-	            } else if (exception === 'parsererror') {
-	                alert('Requested JSON parse failed.');
-	            } else if (exception === 'timeout') {
-	                alert('Time out error.');
-	            } else if (exception === 'abort') {
-	                alert('Ajax request aborted.');
-	            } else {
-	                alert('Uncaught Error.n' + jqXHR.responseText);
-	            }
-			}
-		});
-	}
-	
-	
-	function funLoadAllRooms(tableName)
-	{
-	 var searchurl=getContextPath()+"/loadAllRoomData.html";	
-	 $.ajax({
-			type : "GET",
-			url : searchurl,
-			dataType : "json",
-			success : function(response){ 
-				funRemoveHeaderTableRows(tableName);
-				var cnt=0,list;
-				list=response.hmAllRooms;
-				var table=document.getElementById(tableName);
-				var rowCount = table.rows.length;
-				var row = table.insertRow(rowCount);
-				var row=table.insertRow();
-				
-				
-				$.each(list,function(i,item)
-				{
-					cnt++;	
-					if(cnt<=4)
-					  {
-						var x=row.insertCell(0);
-						x.innerHTML= "<button type=\"button\" class = \"transForm_button\" value='"+item.RoomName+"' onclick=\"funOnClick(this,'tblAllTable')\" >"+item.RoomName+"<br/>"+item.RoomTypeDesc+"</button>";
-						x.title=item.RoomName;
-					  }
-					else
-					 {
-						row=table.insertRow();
-						cnt=1;
-						var x=row.insertCell(0);
-						x.innerHTML= "<button type=\"button\" class = \"transForm_button\" value='"+item.RoomName+"' onclick=\"funOnClick(this,'tblAllTable')\" >"+item.RoomName+"<br/>"+item.RoomTypeDesc+"</button>";
-						x.title=item.RoomName;	
-					 }
-					mapFreeToolTipData.set(item.RoomName,item.RoomName+"!"+item.RoomNo+"#"+item.RoomTypeDesc
-                );
-	    	    	
-				 });
-				
-			},
-			error : function(e){
-				if (jqXHR.status === 0) {
-	                alert('Not connect.n Verify Network.');
-	            } else if (jqXHR.status == 404) {
-	                alert('Requested page not found. [404]');
-	            } else if (jqXHR.status == 500) {
-	                alert('Internal Server Error [500].');
-	            } else if (exception === 'parsererror') {
-	                alert('Requested JSON parse failed.');
-	            } else if (exception === 'timeout') {
-	                alert('Time out error.');
-	            } else if (exception === 'abort') {
-	                alert('Ajax request aborted.');
-	            } else {
-	                alert('Uncaught Error.n' + jqXHR.responseText);
-	            }
-			}
-		});
-	}
 
-	
-
-	
+	/*	
 	function funOnClick(obj,tableId)
-	{
+	{ 
 		var index,cellIndex,tableName,x,prevIndex,prevCellIndex;
 		index = obj.parentNode.parentNode.rowIndex;
 	    cellIndex=obj.parentNode.cellIndex;
@@ -338,7 +197,7 @@ function funLoadData()
 			$("#txtFreeRoomCode").val(selectedFreeRoom);
 		}	
 					
-	 }
+	 } */
 	
 
 	function funHelp(transactionName)
@@ -501,8 +360,8 @@ function funFillRoomsTable(obj)
 			var table=document.getElementById("tblOccupiedTable");
 			var rowCount=table.rows.length;
 			var row=table.insertRow();
-		   	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strRoomNo\"  id=\"strRoomNo."+obj[i]+"\" value='"+obj[i]+"' >";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strRoomFlag\" id=\"strRoomFlag."+obj[i]+"\" value='Y' >";
+		   	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strRoomNo\"  id=\"strRoomNo."+i+"\" value='"+obj[i]+"' >";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strRoomFlag\" id=\"strRoomFlag."+i+"\" value='Y' >";
 	   }
 	
     
@@ -520,9 +379,9 @@ function funFillHouseKeepingDtl(obj)
 			var table=document.getElementById("tblAllTable");
 			var rowCount=table.rows.length;
 	   		var row=table.insertRow();
-		   	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingName\"  id=\"strHouseKeepingName."+obj[i]+"\" value='"+obj[i][1]+"' >";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingFlag\" id=\"strHouseKeepingFlag."+obj[i]+"\" value='Y' >";
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" type=\"hidden\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingCode\" id=\"strHouseKeepingCode."+obj[i]+"\" value='"+obj[i][0]+"'>";
+		   	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingName\"  id=\"strHouseKeepingName."+i+"\" value='"+obj[i][1]+"' >";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingFlag\" id=\"strHouseKeepingFlag."+i+"\" value='Y' >";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" type=\"hidden\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingCode\" id=\"strHouseKeepingCode."+i+"\" value='"+obj[i][0]+"'>";
 			
 	   }
 /* 	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+(rowCount)+"\" value='"+obj.strRoomNo+"' >";
@@ -530,6 +389,64 @@ function funFillHouseKeepingDtl(obj)
  */ 
 	
 }
+
+
+
+function funCheckboxDirtyRooms()
+	{
+		var table = document.getElementById("tblOccupiedTable");
+		var rowCount = table.rows.length;	
+		if ($('#chkDirtyRooms').is(":checked"))
+		{
+		 	//check all			
+			for(var i=0;i<rowCount;i++)
+			{		
+				//$("strRemoveTax.1").checked=true;
+				document.getElementById("strRoomFlag."+i).checked=1;
+				//$('strRemoveTax.1').prop('checked', true);
+	    	}
+		}
+		else
+		{
+			//uncheck all
+			//$("#chkBoxAll").prop('checked',false);				
+			for(var i=0;i<rowCount;i++)
+			{		
+				document.getElementById("strRoomFlag."+i).checked=0;
+	    	}
+			
+		}	   
+	}
+
+
+
+
+function funCheckboxHouseKeeping()
+	{
+		var table = document.getElementById("tblOccupiedTable");
+		var rowCount = table.rows.length;	
+		if ($('#chkHouseKeeping').is(":checked"))
+		{
+		 	//check all			
+			for(var i=0;i<rowCount;i++)
+			{		
+				//$("strRemoveTax.1").checked=true;
+				document.getElementById("strHouseKeepingFlag."+i).checked=1;
+				//$('strRemoveTax.1').prop('checked', true);
+	    	}
+		}
+		else
+		{
+			//uncheck all
+			//$("#chkBoxAll").prop('checked',false);				
+			for(var i=0;i<rowCount;i++)
+			{		
+				document.getElementById("strHouseKeepingFlag."+i).checked=0;
+	    	}
+			
+		}	   
+	}
+
 
 
 </script>
@@ -561,10 +478,11 @@ function funFillHouseKeepingDtl(obj)
 			</div> --%>
 		
 		<div style="margin-top: 30px;margin-left: 12px;">
-			<div
-				style="background-color: #fafbfb;float:left;margin-left: 10px; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 45%;">
-				<label>Occupied Rooms</label>
+		
+			<div style="background-color: #fafbfb;float:left;margin-left: 10px; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 45%;">
 				
+				<label style="margin-left: 10px">Dirty Rooms</label>
+				<input type="checkbox" id="chkDirtyRooms" name="chkBoxAll1" value="Bike" style="margin-left: 283px;" onclick="funCheckboxDirtyRooms()">
 				<table id="tblOccupiedTable" class="masterTable" style="margin-left: 0px;width:100%;height: 56%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col8-center">
 
@@ -574,8 +492,8 @@ function funFillHouseKeepingDtl(obj)
 			<div
 				style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 45%;">
 
-				<label>Free Rooms</label>
-	    		
+				<label style="margin-left: 10px; margin-bottom: 3px;">House Keeping Details</label>
+	    		<input type="checkbox" id="chkHouseKeeping" name="chkBoxAll1" value="Bike" style="margin-left: 100px;" onclick="funCheckboxHouseKeeping()">
 				<table id="tblAllTable" class="masterTable" style="width: 100%;margin-left: 0px; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col8-center"></table>
 			</div>

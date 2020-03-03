@@ -1575,8 +1575,8 @@ public class clsBillPrintingController {
 						}
 					}
 					
-					sqlBillDtl = "SELECT DATE(a.dteBillDate),b.strTaxDesc,sum(b.dblTaxAmt),0,c.dblTaxValue,f.strHsnSac,b.strTaxCode,"
-							+ " sum(b.dblTaxableAmt),CONCAT(f.strHsnSac,' - ',b.strTaxDesc)"
+					sqlBillDtl = "SELECT DATE(a.dteBillDate),b.strTaxDesc,sum(b.dblTaxAmt),0,c.dblTaxValue,ifnull(f.strHsnSac,''),b.strTaxCode,"
+							+ " sum(b.dblTaxableAmt),ifnull(CONCAT(f.strHsnSac,' - ',b.strTaxDesc),'')"
 							+ " FROM tblbillhd a, tblbilltaxdtl b,tbltaxmaster c,tblroom  e,tblroomtypemaster f"
 							+ " WHERE a.strBillNo=b.strBillNo and b.strTaxCode=c.strTaxCode"
 							+ " AND a.strRoomNo=e.strRoomCode AND e.strRoomTypeCode=f.strRoomTypeCode"
@@ -1632,8 +1632,8 @@ public class clsBillPrintingController {
 					}
 					
 				    Map<String,clsInvoiceFormatBean> mapInvoice=new HashMap<>();
-					String sqlTaxRTDtl="SELECT (a.dteBillDate),b.strTaxDesc,sum(b.dblTaxAmt),0,c.dblTaxValue,f.strHsnSac,b.strTaxCode, "
-                                       + " sum(b.dblTaxableAmt),CONCAT(f.strHsnSac,' - ',b.strTaxDesc)  "
+					String sqlTaxRTDtl="SELECT (a.dteBillDate),b.strTaxDesc,sum(b.dblTaxAmt),0,c.dblTaxValue,ifnull(f.strHsnSac,''),b.strTaxCode, "
+                                       + " sum(b.dblTaxableAmt),ifnull(CONCAT(f.strHsnSac,' - ',b.strTaxDesc),'')  "
                                        + " FROM tblbillhd a,tblbilldtl g ,tblbilltaxdtl b,tbltaxmaster c,tblroom  e,tblroomtypemaster f  "
                                        + " WHERE a.strBillNo=b.strBillNo  "
                                        + " and a.strBillNo=g.strBillNo and g.strBillNo=b.strBillNo and g.strDocNo=b.strDocNo  "
