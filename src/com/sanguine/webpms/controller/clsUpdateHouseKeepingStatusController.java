@@ -130,29 +130,29 @@ public class clsUpdateHouseKeepingStatusController {
 			}
 			for(int i=0;i<listRooms.size();i++)
 			{
-				String sql="UPDATE `tblroom` SET `strStatus`='Free', `strHouseKeepingFlg`='Y' WHERE  `strRoomCode`='"+listRooms.get(i)+"' AND `strClientCode`='"+clientCode+"';";
-				objWebPMSUtility.funExecuteUpdate(sql, "sql");
-				for(int j=0;j<listHouseKeeping.size();j++)
+				if(!listHouseKeeping.isEmpty())
 				{
-					String sqlDeletePrevData = "delete from tblroomhousekeepdtl  where strRoomCode='"+listRooms.get(i)+"' and strRoomCodeFlg='Y' and strHouseKeepCode='"+listHouseKeeping.get(j)+"'";
-					objWebPMSUtility.funExecuteUpdate(sqlDeletePrevData, "sql");
-					
-					String sqlInsertData = "INSERT INTO tblroomhousekeepdtl (`strHouseKeepCode`, `strRoomCode`, `strUser`,`dteDate`, `strRemarks`,`strRoomCodeFlg`, `strClientCode`) VALUES ('"+listHouseKeeping.get(j)+"', '"+listRooms.get(i)+"', '"+userCode+"','"+strFormattedDate+"''" +strCurrTime+"', ' ', '"+"Y"+"','"+clientCode+"');";
-					objWebPMSUtility.funExecuteUpdate(sqlInsertData, "sql");
+					String sql="UPDATE `tblroom` SET `strStatus`='Free', `strHouseKeepingFlg`='Y' WHERE  `strRoomCode`='"+listRooms.get(i)+"' AND `strClientCode`='"+clientCode+"';";
+					objWebPMSUtility.funExecuteUpdate(sql, "sql");
+					for(int j=0;j<listHouseKeeping.size();j++)
+					{
+						String sqlDeletePrevData = "delete from tblroomhousekeepdtl  where strRoomCode='"+listRooms.get(i)+"' and strRoomCodeFlg='Y' and strHouseKeepCode='"+listHouseKeeping.get(j)+"'";
+						objWebPMSUtility.funExecuteUpdate(sqlDeletePrevData, "sql");
+						
+						String sqlInsertData = "INSERT INTO tblroomhousekeepdtl (`strHouseKeepCode`, `strRoomCode`, `strUser`,`dteDate`, `strRemarks`,`strRoomCodeFlg`, `strClientCode`) VALUES ('"+listHouseKeeping.get(j)+"', '"+listRooms.get(i)+"', '"+userCode+"','"+strFormattedDate+"''" +strCurrTime+"', ' ', '"+"Y"+"','"+clientCode+"');";
+						objWebPMSUtility.funExecuteUpdate(sqlInsertData, "sql");
+					}					
+					/*String sqlUpdateFlg = "update tblroom a set a.strHouseKeepingFlg='Y' where a.strRoomCode='"+objBeanData.getStrRoomCode()+"' and a.strClientCode='"+clientCode+"'";
+					objWebPMSUtility.funExecuteUpdate(sqlUpdateFlg, "sql");*/
 				}
-				
-				
-				/*String sqlUpdateFlg = "update tblroom a set a.strHouseKeepingFlg='Y' where a.strRoomCode='"+objBeanData.getStrRoomCode()+"' and a.strClientCode='"+clientCode+"'";
-				objWebPMSUtility.funExecuteUpdate(sqlUpdateFlg, "sql");*/
-				
 				
 			
 			}
 		} 
 		else {
-			return new ModelAndView("redirect:/frmRoomStatusDiary.html?saddr=" + 1);
+			return new ModelAndView("redirect:/frmUpdateHouseKeepingStatus.html?saddr=" + 1);
 		}
-		return new ModelAndView("redirect:/frmRoomStatusDiary.html?saddr=" + 1);
+		return new ModelAndView("redirect:/frmUpdateHouseKeepingStatus.html?saddr=" + 1);
 	}
 }
 	

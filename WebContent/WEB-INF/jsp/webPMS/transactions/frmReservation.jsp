@@ -1599,20 +1599,42 @@
 		else
 		{
 			flg = true;
+			var table = document.getElementById("tblResDetails");
+		    var rowCount = table.rows.length;
+			if(rowCount>0)
+			{
+				
+			}			
+			else
+			{
+				if($("#txtRoomTypeCode").val()=='')
+				{
+					alert("Please Select Room Type");
+					flg=false;
+					$("#txtRoomTypeCode").focus();
+				}
+				
+				if($("#txtBookingTypeCode").val()=='')
+				{
+					alert("Please Select Booking Type");
+					flg=false;
+					$("#txtBookingTypeCode").focus();
+				}				
+			}
 			
-			if($("#txtRoomTypeCode").val()=='')
+			/* if($("#txtRoomTypeCode").val()=='')
 			{
 				alert("Please Select Room Type");
 				flg=false;
 				$("#txtRoomTypeCode").focus();
-			}
+			}*/
 			
 			if($("#txtBookingTypeCode").val()=='')
 			{
 				alert("Please Select Booking Type");
 				flg=false;
 				$("#txtBookingTypeCode").focus();
-			}
+			} 
 			var guestCode='';
 			var mobileNo='0';
 			var guestName='';

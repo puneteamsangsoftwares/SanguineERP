@@ -215,25 +215,48 @@ var selectedOccupiedRoom="",selectedFreeRoom="";
 	
 	function funValidateData(actionName,object)
 	{
-		var flg=true;
-				
-		if($("#txtReasonCode").val().trim().length==0)
-		{
-			alert("Please Select Reason!!");
-			 flg=false;
-		}
-		else
-		{
-			if($("#txtRemarks").val().trim().length==0)
+		var submitFlag=false;
+		var roomsFlag=false;
+		var houseKeepingFlag=false;
+		
+		var table=document.getElementById("tblOccupiedTable");
+		var rowCount=table.rows.length;
+		for(var i=0;i<rowCount;i++)
+		{			
+			if(document.getElementById("strRoomFlag."+i).checked)
+				{
+					roomsFlag=true;
+				}			
+		}		
+			
+		var table=document.getElementById("tblAllTable");
+		var rowCount=table.rows.length;
+		for(var i=0;i<rowCount;i++)
+		{		
+			if(document.getElementById("strHouseKeepingFlag."+i).checked)
 			{
-				alert("Please Enter Remark!!");
-				 flg=false;
-			}
-		}	
+				houseKeepingFlag=true;
+			}			
+		}
 		
+		if(roomsFlag==false && houseKeepingFlag==false)
+		{
+			alert("Please Select At Least One Room and House Keeping Details");
+		}
+		else if(roomsFlag==false)
+		{
+			alert("Please Select At Least One Room");
+		}
+		else if(houseKeepingFlag==false)
+		{
+			alert("Please Select At Least One House Keeping Details");
+		}
+		if(roomsFlag==true && houseKeepingFlag==true)
+		{
+			submitFlag=true;
+		}
 		
-		
-		return flg;	
+		return submitFlag;	
 	}
 	
 	/**
