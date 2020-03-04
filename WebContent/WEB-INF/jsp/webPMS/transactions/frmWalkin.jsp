@@ -1129,6 +1129,7 @@ font-size:13px;
 		
 		 var arrivalDate= $("#txtWalkinDate").val();
 		 var departureDate=$("#txtCheckOutDate").val();
+		 var paxCount=$("#txtNoOfAdults").val();
 		 var roomDescList = new Array();
 		 var table = document.getElementById("tblwalkindtl");
 		 var rowCount = table.rows.length;
@@ -1151,7 +1152,7 @@ font-size:13px;
 		 
 		 $.ajax({
 				type : "POST",
-				url : getContextPath()+ "/loadRoomRateWalkin.html?arrivalDate="+arrivalDate+"&departureDate="+departureDate+"&roomDescList="+roomDescList,
+				url : getContextPath()+ "/loadRoomRateWalkin.html?arrivalDate="+arrivalDate+"&departureDate="+departureDate+"&roomDescList="+roomDescList+"&paxCount="+paxCount,
 			    dataType: "json",
 		        async:false,
 		        success: function(response)

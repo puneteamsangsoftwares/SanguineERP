@@ -471,7 +471,7 @@ public class clsWalkinController {
 	}
 	
 	@RequestMapping(value = "/loadRoomRateWalkin", method = RequestMethod.POST)
-	public @ResponseBody List funLoadRoomRate(String arrivalDate, String departureDate,String roomDescList, HttpServletRequest req) throws ParseException {
+	public @ResponseBody List funLoadRoomRate(String arrivalDate, String departureDate,String roomDescList,String paxCount, HttpServletRequest req) throws ParseException {
 		
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		String propertyCode = req.getSession().getAttribute("propertyCode").toString();

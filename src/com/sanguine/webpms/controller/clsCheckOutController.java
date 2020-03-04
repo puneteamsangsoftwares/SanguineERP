@@ -412,20 +412,20 @@ public class clsCheckOutController {
 						
 					}
 					else
-						{
-						for (clsFolioTaxDtl objFolioTaxDtlModel : listFolioTaxDtlModel) {
-							clsBillTaxDtlModel objBillTaxDtlModel = new clsBillTaxDtlModel();
-							objBillTaxDtlModel.setStrDocNo(objFolioTaxDtlModel.getStrDocNo());
-							objBillTaxDtlModel.setStrTaxCode(objFolioTaxDtlModel.getStrTaxCode());
-							objBillTaxDtlModel.setStrTaxDesc(objFolioTaxDtlModel.getStrTaxDesc());
-							objBillTaxDtlModel.setDblTaxableAmt(objFolioTaxDtlModel.getDblTaxableAmt());
-							objBillTaxDtlModel.setDblTaxAmt(objFolioTaxDtlModel.getDblTaxAmt());
-							grandTotal += objBillTaxDtlModel.getDblTaxAmt();
-							
-							
-							listBillTaxDtlModel.add(objBillTaxDtlModel);
-							// setBillTaxDtlModel.add(objBillTaxDtlModel);
-						}
+					{
+					for (clsFolioTaxDtl objFolioTaxDtlModel : listFolioTaxDtlModel) {
+						clsBillTaxDtlModel objBillTaxDtlModel = new clsBillTaxDtlModel();
+						objBillTaxDtlModel.setStrDocNo(objFolioTaxDtlModel.getStrDocNo());
+						objBillTaxDtlModel.setStrTaxCode(objFolioTaxDtlModel.getStrTaxCode());
+						objBillTaxDtlModel.setStrTaxDesc(objFolioTaxDtlModel.getStrTaxDesc());
+						objBillTaxDtlModel.setDblTaxableAmt(objFolioTaxDtlModel.getDblTaxableAmt());
+						objBillTaxDtlModel.setDblTaxAmt(objFolioTaxDtlModel.getDblTaxAmt());
+						grandTotal += objBillTaxDtlModel.getDblTaxAmt();
+						
+						
+						listBillTaxDtlModel.add(objBillTaxDtlModel);
+						// setBillTaxDtlModel.add(objBillTaxDtlModel);
+					}
 						}
 					objBillHdModel.setStrBillSettled("N");
 					objBillHdModel.setDblGrandTotal(Double.parseDouble(df.format(grandTotal)));
@@ -487,9 +487,9 @@ public class clsCheckOutController {
 				req.getSession().setAttribute("success", true);
 				req.getSession().setAttribute("successMessage", "Room No. : ".concat(objBean.getStrSearchTextField()));
 			}
-			return new ModelAndView("frmCheckOut.html");
+			return new ModelAndView("frmCheckOut.html?saddr=" + urlHits);
 		} else {
-			return new ModelAndView("frmCheckOut");
+			return new ModelAndView("frmCheckOut?saddr=" + urlHits);
 		}
 	}
 	

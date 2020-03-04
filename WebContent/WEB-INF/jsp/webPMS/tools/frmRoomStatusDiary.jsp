@@ -375,21 +375,21 @@ table tbody tr:nth-child(even) {
 					}
 					itemroomType=item.strRoomType;
 					
-					/* if(strPreviousNumber=="")
+					
+					if(strPreviousNumber=="")
 					{
 						strPreviousNumber = "temp";
 					}
 					if(item.strReservationNo==strPreviousNumber)
 					{
-						strPreviousNumber = "temp";
+						strPreviousNumber = item.strReservationNo;
 					}
 					else
 					{
 						strPreviousNumber = item.strReservationNo;
 						funFillRoomStatusRows(item.strRoomNo,item.strDay1,item.strDay2,item.strDay3,item.strDay4,item.strDay5,item.strDay6,item.strDay7,item.strRoomStatus,item);	
-					} */
+					}
 					
-					funFillRoomStatusRows(item.strRoomNo,item.strDay1,item.strDay2,item.strDay3,item.strDay4,item.strDay5,item.strDay6,item.strDay7,item.strRoomStatus,item);
 					
 					/* if(item.strRoomStatus.includes('Occupied'))
 						{
@@ -484,7 +484,7 @@ table tbody tr:nth-child(even) {
 					}
 					if(item.strReservationNo==strPreviousNumber)
 					{
-						strPreviousNumber = "temp";
+						strPreviousNumber = item.strReservationNo;
 					}
 					else
 					{
@@ -1860,9 +1860,9 @@ table tbody tr:nth-child(even) {
 		                 	<span class="mdi mdi-eye" id="btnView" title="Seven Day View" onclick="funShowRoomStatusFlash();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
 		              </div>
 		              
-		             <%--  <div class="icon-action">
+		               <div class="icon-action">
 		                 	<span class="mdi mdi-eye" id="btnView" title="One Day View" onclick="funShowRoomStatusFlashForOneDay();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
-		              </div>  --%>
+		              </div> 
 		              
 		               <div class="icon-action">
 		                 	<span class="mdi mdi-eye" id="btnView" title="House Keeping Viev" onclick="funShowRoomStatusFlashHouseKeeping();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>

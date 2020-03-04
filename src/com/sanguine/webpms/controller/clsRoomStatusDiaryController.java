@@ -1573,7 +1573,7 @@ public class clsRoomStatusDiaryController {
 						{
 							if(PMSDate.equals(tempPMSDate))
 							{
-								sql=" select count(*) "
+								sql=" select COUNT(distinct(b.strRoomCode)) "
 										+ " from  tblcheckindtl a,tblroom b,tblcheckinhd c where a.strCheckInNo=c.strCheckInNo and"
 										+ " a.strRoomNo=b.strRoomCode and date(c.dteCheckInDate) <= '"+tempPMSDate+"'  "
 										+ "  and date(c.dteDepartureDate)>='"+tempPMSDate+"' and b.strRoomTypeDesc='"+listRoomDesc.get(j)+"' and b.strStatus='Occupied' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' AND c.strClientCode='"+clientCode+"'";
