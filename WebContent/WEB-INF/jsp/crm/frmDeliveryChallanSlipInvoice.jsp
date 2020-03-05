@@ -1,13 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 </head>
 <script type="text/javascript">
 
@@ -27,60 +35,45 @@ function funSetData(code)
 
 </script>
 <body>
-	<div id="formHeading">
-		<label>Delivery Challan Slip Invoice</label>
-	</div>
+	<div class="container transTable">
+		<label id="formHeading">Delivery Challan Slip Invoice</label>
 	<s:form name="frmDeliveryChallanSlipInvoice" method="GET"
 		action="rptDeliveryNoteChallanReport.html" >
 		<input type="hidden" value="${urlHits}" name="saddr">
 		<br>
-		<table class="transTable">
-								<tr>
-									<td width="110px"><label>Delivery Note Code</label></td>
-									<td ><s:input path="strDocCode" id="txtDNCode"
-											ondblclick="funHelp('DNCodeslip')"
-											cssClass="searchTextBox" /></td>
-																										
-								</tr>
-								
-                <tr>
-				<td><label>Report Type</label></td>
-				<td ><s:select id="cmbDocType" path="strReportType"
-						cssClass="BoxW124px">
+		
+			<div class="row">
+				<div class="col-md-2"><label>Delivery Note Code</label>
+					<s:input path="strDocCode" id="txtDNCode" ondblclick="funHelp('DNCodeslip')" cssClass="searchTextBox" />
+				</div>
+				<div class="col-md-10"></div>		
+				
+				 <div class="col-md-3">
+				 <div class="row">		
+                <div class="col-md-6"><label>Report Type</label>
+					<s:select id="cmbDocType" path="strReportType" cssClass="BoxW124px">
 <%-- 						<s:option value="Invoice">Invoice</s:option> --%>
 						<s:option value="INVOICE">INVOICE</s:option>
 						<s:option value="Challan">Challan</s:option>
-						
-					</s:select></td>
-
-
-
-
-			</tr>
-			 <tr>
-				<td><label>Export Type</label></td>
-				<td ><s:select id="cmbDocType" path="strExportType"
-						cssClass="BoxW124px">
-
+					</s:select>
+				</div>
+				<div class="col-md-6"><label>Export Type</label>
+					<s:select id="cmbDocType" path="strExportType" cssClass="BoxW124px">
 						<s:option value="PDF">PDF</s:option>
 						<s:option value="XLS">XLS</s:option>
-						
-					</s:select></td>
-
-
-
-
-			</tr>
-
-		</table>
+					</s:select>
+			    </div>
+			   </div></div>
+		</div>
+		
 		<br>
-		<p align="center">
+		<p align="right" style="margin-right:77%">
 			<input type="submit" value="Submit"
-				onclick=""
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <a
-				STYLE="text-decoration: none"
+				onclick="" class="btn btn-primary center-block"
+				class="form_button" /> &nbsp;
+			 <a STYLE="text-decoration: none"
 				href="frmDeliveryChallanSlipInvoice.html?saddr=${urlHits}"><input
-				type="button" id="reset" name="reset" value="Reset"
+				type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block"
 				class="form_button" /></a>
 		</p>
 		<br>
@@ -91,6 +84,6 @@ function funSetData(code)
 				width="60px" height="60px" />
 		</div>
 	</s:form>
-
+   </div>
 </body>
 </html>

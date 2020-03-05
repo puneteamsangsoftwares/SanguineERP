@@ -1,18 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
-<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
-	
-<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" /> 	
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
+		<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
+	
+	
+
+
 <title>Data Import</title>
 <style>
 .ui-autocomplete {
@@ -52,37 +61,23 @@ function funShowImagePreview(input)
 </head>
 <body >
 
-<div id="formHeading">
-	<label>Database Data Import</label>
+	<div class="container">
+		<label id="formHeading">Database Data Import</label>
+			<s:form name="DataImport" method="POST" action="saveDataImport.html?saddr=${urlHits}">
+				<div class="row masterTable">
+					<div class="col-md-4">
+						<label>DataBase Path:</label><br>
+						<s:input type="text" id="txtDBPath" placeholder="Enter full Database path with file name"  name="DbPath" path="strDBName" />
+					</div>
+					<div class="col-md-4"><!-- <input id="BrowseDB" name="BrowseDB"  type="file" accept=".mdb,.accda,.accdb" onchange="funShowDataBasePreview(this);" /> --></div>
+					<div class="col-md-4"></div>
+		
+				</div>
+				<div class="center" style="text-align:center;">
+					<a href="#"><button class="btn btn-primary center-block"  tabindex="3" value="Excute" onclick="" 
+						class="form_button">Execute</button></a>
+				</div>
+		</s:form>
 	</div>
-
-<br/>
-<br/>
-
-<s:form name="DataImport" method="POST" action="saveDataImport.html?saddr=${urlHits}">
-		<table class="masterTable">
-		<tr>
-		 
-				<td width="200px"><label> DataBase Path </label>
-				</td>
-				<td>
-				<s:input type="text" id="txtDBPath" placeholder="Enter full Database path with file name"  name="DbPath" path="strDBName" cssClass="longTextBox" style="width:300px;"/>
-				</td>
-				<!-- <td></td> -->
-				<!-- <td ><input id="BrowseDB" name="BrowseDB"  type="file" accept=".mdb,.accda,.accdb" onchange="funShowDataBasePreview(this);" /></td> -->
-		</tr>
-		<tr>
-				<td></td> <td></td> 
-		</tr>
-		<tr>
-		  
-				<td width="200px">
-				<input type="submit" value="Excute" tabindex="3" class="form_button" />
-				</td>
-				<td></td>
-		</tr>
-		</table>
-</s:form>
-
 </body>
 </html>

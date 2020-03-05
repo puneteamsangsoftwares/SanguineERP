@@ -491,10 +491,10 @@
     	var strAcCode = rowData.strAccountCode;
     	var strAcName = rowData.strMasterDesc;
 		
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listSubGroupLinkUp["+(rowCount)+"].strMasterCode\"   id=\"txtSubgroupCode."+(rowCount)+"\" value='"+strSubgroupCode+"' />";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listSubGroupLinkUp["+(rowCount)+"].strMasterName\"   id=\"txtSubgroupName."+(rowCount)+"\" value='"+strSubgroupName+"' />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listSubGroupLinkUp["+(rowCount)+"].strMasterCode\" style=\"width:100%;\"  id=\"txtSubgroupCode."+(rowCount)+"\" value='"+strSubgroupCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listSubGroupLinkUp["+(rowCount)+"].strMasterName\" style=\"width:100%;\"  id=\"txtSubgroupName."+(rowCount)+"\" value='"+strSubgroupName+"' />";
 	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"searchTextBox\" name=\"listSubGroupLinkUp["+(rowCount)+"].strAccountCode\"    id=\"txtSGAcCode."+(rowCount)+"\" value='"+strAcCode+"' ondblclick=\"funHelp1("+(rowCount)+",'SubGroup')\"/>";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listSubGroupLinkUp["+(rowCount)+"].strMasterDesc\"   id=\"txtSGAcName."+(rowCount)+"\" value='"+strAcName+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listSubGroupLinkUp["+(rowCount)+"].strMasterDesc\" style=\"width:100%;\"  id=\"txtSGAcName."+(rowCount)+"\" value='"+strAcName+"' />";
 	}
 	
 	
@@ -510,10 +510,10 @@
     	var strAcCode = rowData.strAccountCode;
     	var strAcName = rowData.strMasterDesc;
 		
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listTaxLinkUp["+(rowCount)+"].strMasterCode\"  id=\"txtTaxCode."+(rowCount)+"\" value='"+strTaxCode+"' />";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listTaxLinkUp["+(rowCount)+"].strMasterName\"  id=\"txtTaxDesc."+(rowCount)+"\" value='"+strDesc+"' />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listTaxLinkUp["+(rowCount)+"].strMasterCode\" style=\"width:100%;\"  id=\"txtTaxCode."+(rowCount)+"\" value='"+strTaxCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listTaxLinkUp["+(rowCount)+"].strMasterName\" style=\"width:100%;\"  id=\"txtTaxDesc."+(rowCount)+"\" value='"+strDesc+"' />";
 	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"searchTextBox\"  name=\"listTaxLinkUp["+(rowCount)+"].strAccountCode\"   id=\"txtTaxAcCode."+(rowCount)+"\" value='"+strAcCode+"' ondblclick=\"funHelp1("+(rowCount)+",'TaxWeb-Service')\" />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listTaxLinkUp["+(rowCount)+"].strMasterDesc\"   id=\"txtTaxAcName."+(rowCount)+"\" value='"+strAcName+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listTaxLinkUp["+(rowCount)+"].strMasterDesc\" style=\"width:100%;\"   id=\"txtTaxAcName."+(rowCount)+"\" value='"+strAcName+"' />";
 	}
 	
 	function funAddRowSupplierLinkUpData(rowData)
@@ -537,12 +537,12 @@
     	{
     		strWebBookAccName="";
     	}
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listSupplierLinkUp["+(rowCount)+"].strMasterCode\"   id=\"txtSuppcode."+(rowCount)+"\" value='"+strSuppCode+"' />";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listSupplierLinkUp["+(rowCount)+"].strMasterName\"   id=\"txtSuppName."+(rowCount)+"\" value='"+strSuppName+"' />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listSupplierLinkUp["+(rowCount)+"].strMasterCode\"  style=\"width:100%\" id=\"txtSuppcode."+(rowCount)+"\" value='"+strSuppCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listSupplierLinkUp["+(rowCount)+"].strMasterName\" style=\"width:100%\"  id=\"txtSuppName."+(rowCount)+"\" value='"+strSuppName+"' />";
 	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"searchTextBox\"   name=\"listSupplierLinkUp["+(rowCount)+"].strWebBookAccCode\" id=\"txtSuppAcCode."+(rowCount)+"\" value='"+strWebBookAccCode+"' ondblclick=\"funHelp1("+(rowCount)+",'SupplierAccCodeWeb-Service')\" />";
 	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listSupplierLinkUp["+(rowCount)+"].strWebBookAccName\"  id=\"txtSuppAcName."+(rowCount)+"\" value='"+strWebBookAccName+"' />";
 	    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"searchTextBox\"  name=\"listSupplierLinkUp["+(rowCount)+"].strAccountCode\"    id=\"txtCreditorCode."+(rowCount)+"\" value='"+strAcCode+"' ondblclick=\"funHelp1("+(rowCount)+",'SundryCreditorWeb-Service')\"/>";
-	    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listSupplierLinkUp["+(rowCount)+"].strMasterDesc\"   id=\"txtCreditorName."+(rowCount)+"\" value='"+strAcName+"' />";
+	    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listSupplierLinkUp["+(rowCount)+"].strMasterDesc\" style=\"width:100%\"  id=\"txtCreditorName."+(rowCount)+"\" value='"+strAcName+"' />";
 
 	}
 		
@@ -559,10 +559,10 @@
     	var strAcCode = rowData.strAccountCode;
     	var strAcName = rowData.strMasterDesc;
     	
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listDiscountLinkUp["+(rowCount)+"].strMasterCode\"  id=\"txtProdcode."+(rowCount)+"\" value='"+strProdCode+"'  />";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listDiscountLinkUp["+(rowCount)+"].strMasterName\"    id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listDiscountLinkUp["+(rowCount)+"].strMasterCode\" style=\"width:100%\" id=\"txtProdcode."+(rowCount)+"\" value='"+strProdCode+"'  />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listDiscountLinkUp["+(rowCount)+"].strMasterName\" style=\"width:100%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' />";
 	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"searchTextBox\" name=\"listDiscountLinkUp["+(rowCount)+"].strAccountCode\"    id=\"txtDiscountAmt."+(rowCount)+"\" value='"+strAcCode+"' ondblclick=\" funHelp1("+(rowCount)+",'DiscountWeb-Service') \" />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listDiscountLinkUp["+(rowCount)+"].strMasterDesc\"  id=\"txtDiscountName."+(rowCount)+"\" value='"+strAcName+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listDiscountLinkUp["+(rowCount)+"].strMasterDesc\" style=\"width:100%\" id=\"txtDiscountName."+(rowCount)+"\" value='"+strAcName+"' />";
 	}
 	
 	function funAddRowRoundOffLinkUpData(rowData)
@@ -577,10 +577,10 @@
     	var strAcCode = rowData.strAccountCode;
     	var strAcName = rowData.strMasterDesc;
 	      
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listRoundOffLinkUp["+(rowCount)+"].strMasterCode\"  id=\"txtProdcode."+(rowCount)+"\" value='"+strProdCode+"'  />";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listRoundOffLinkUp["+(rowCount)+"].strMasterName\"  id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listRoundOffLinkUp["+(rowCount)+"].strMasterCode\" style=\"width:100%;\"  id=\"txtProdcode."+(rowCount)+"\" value='"+strProdCode+"'  />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listRoundOffLinkUp["+(rowCount)+"].strMasterName\" style=\"width:100%;\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' />";
 	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"searchTextBox\" name=\"listRoundOffLinkUp["+(rowCount)+"].strAccountCode\"    id=\"txtRoundOff."+(rowCount)+"\" value='"+strAcCode+"' ondblclick=\" funHelp1("+(rowCount)+",'RoundOffWeb-Service') \" />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listRoundOffLinkUp["+(rowCount)+"].strMasterDesc\"   id=\"txtRoundOffName."+(rowCount)+"\" value='"+strAcName+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listRoundOffLinkUp["+(rowCount)+"].strMasterDesc\" style=\"width:100%;\"  id=\"txtRoundOffName."+(rowCount)+"\" value='"+strAcName+"' />";
 	}
 	
 	
@@ -596,10 +596,10 @@
     	var strProdName = rowData.strMasterName;
     	var strAcCode = rowData.strAccountCode;
     	var strAcName = rowData.strMasterDesc;
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listExtraCharLinkUp["+(rowCount)+"].strMasterCode\"    id=\"txtProdcode."+(rowCount)+"\" value='"+strProdCode+"'  />";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   name=\"listExtraCharLinkUp["+(rowCount)+"].strMasterName\"  id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listExtraCharLinkUp["+(rowCount)+"].strMasterCode\"  style=\"width:100%;\"  id=\"txtProdcode."+(rowCount)+"\" value='"+strProdCode+"'  />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   name=\"listExtraCharLinkUp["+(rowCount)+"].strMasterName\" style=\"width:100%;\"  id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' />";
 	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"searchTextBox\" name=\"listExtraCharLinkUp["+(rowCount)+"].strAccountCode\"   id=\"txtExtraCharges."+(rowCount)+"\" value='"+strAcCode+"' ondblclick=\" funHelp1("+(rowCount)+",'ExtraChargeWeb-Service') \" />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listExtraCharLinkUp["+(rowCount)+"].strMasterDesc\"    id=\"txtExtraChargesName."+(rowCount)+"\" value='"+strAcName+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listExtraCharLinkUp["+(rowCount)+"].strMasterDesc\"  style=\"width:100%;\"  id=\"txtExtraChargesName."+(rowCount)+"\" value='"+strAcName+"' />";
 	}
 	
 
@@ -614,10 +614,10 @@
     	var strProdName = rowData.strMasterName;
     	var strAcCode = rowData.strAccountCode;
     	var strAcName = rowData.strMasterDesc;
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listOtherCharLinkUp["+(rowCount)+"].strMasterCode\"    id=\"txtProdcode."+(rowCount)+"\" value='"+strProdCode+"'  />";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   name=\"listOtherCharLinkUp["+(rowCount)+"].strMasterName\"  id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listOtherCharLinkUp["+(rowCount)+"].strMasterCode\"  style=\"width:100%;\"   id=\"txtProdcode."+(rowCount)+"\" value='"+strProdCode+"'  />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   name=\"listOtherCharLinkUp["+(rowCount)+"].strMasterName\" style=\"width:100%;\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' />";
 	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"searchTextBox\" name=\"listOtherCharLinkUp["+(rowCount)+"].strAccountCode\"   id=\"txtOtherCharges."+(rowCount)+"\" value='"+strAcCode+"' ondblclick=\" funHelp1("+(rowCount)+",'OtherChargeWeb-Service') \" />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listOtherCharLinkUp["+(rowCount)+"].strMasterDesc\"    id=\"txtOtherChargesName."+(rowCount)+"\" value='"+strAcName+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listOtherCharLinkUp["+(rowCount)+"].strMasterDesc\"  style=\"width:100%;\"  id=\"txtOtherChargesName."+(rowCount)+"\" value='"+strAcName+"' />";
 	}
 	
 	function funSupplierLinkUpData(code)
@@ -975,10 +975,10 @@
     	var strProdName = rowData.strMasterName;
     	var strAcCode = rowData.strAccountCode;
     	var strAcName = rowData.strMasterDesc;
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listSettlementLinkUp["+(rowCount)+"].strMasterCode\"    id=\"txtProdcode."+(rowCount)+"\" value='"+strProdCode+"'  />";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   name=\"listSettlementLinkUp["+(rowCount)+"].strMasterName\"  id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listSettlementLinkUp["+(rowCount)+"].strMasterCode\"  style=\"width:100%;\"  id=\"txtProdcode."+(rowCount)+"\" value='"+strProdCode+"'  />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   name=\"listSettlementLinkUp["+(rowCount)+"].strMasterName\"  style=\"width:100%;\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"' />";
 	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"searchTextBox\" name=\"listSettlementLinkUp["+(rowCount)+"].strAccountCode\"   id=\"txtSettlement."+(rowCount)+"\" value='"+strAcCode+"' ondblclick=\" funHelp1("+(rowCount)+",'SettlementWeb-Service') \" />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listSettlementLinkUp["+(rowCount)+"].strMasterDesc\"    id=\"txtSettlementName."+(rowCount)+"\" value='"+strAcName+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listSettlementLinkUp["+(rowCount)+"].strMasterDesc\"   style=\"width:100%;\"  id=\"txtSettlementName."+(rowCount)+"\" value='"+strAcName+"' />";
 	}
 	
 	function funLocationLinkUpData(code)
@@ -1031,12 +1031,12 @@
     	var strAcName = rowData.strMasterDesc;
     	var strWebAcCode = rowData.strWebBookAccCode;
     	var strWebAcName = rowData.strWebBookAccName;
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listLocationLinkUp["+(rowCount)+"].strMasterCode\"    id=\"txtProdcode."+(rowCount)+"\" value='"+strLocCode+"'  />";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   name=\"listLocationLinkUp["+(rowCount)+"].strMasterName\"  id=\"txtProdName."+(rowCount)+"\" value='"+strLocName+"' />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" name=\"listLocationLinkUp["+(rowCount)+"].strMasterCode\"    style=\"width:100%;\"  id=\"txtProdcode."+(rowCount)+"\" value='"+strLocCode+"'  />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\"   name=\"listLocationLinkUp["+(rowCount)+"].strMasterName\"   style=\"width:100%;\" id=\"txtProdName."+(rowCount)+"\" value='"+strLocName+"' />";
 	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"searchTextBox\"  name=\"listLocationLinkUp["+(rowCount)+"].strWebBookAccCode\" id=\"txtLocAcCode."+(rowCount)+"\" value='"+strWebAcCode+"' ondblclick=\" funHelp1("+(rowCount)+",'Excess') \" />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listLocationLinkUp["+(rowCount)+"].strWebBookAccName\"    id=\"txtLocAcName."+(rowCount)+"\" value='"+strWebAcName+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listLocationLinkUp["+(rowCount)+"].strWebBookAccName\"   style=\"width:100%;\"  id=\"txtLocAcName."+(rowCount)+"\" value='"+strWebAcName+"' />";
 	    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"searchTextBox\" name=\"listLocationLinkUp["+(rowCount)+"].strAccountCode\"   id=\"txtSecLocAcCode."+(rowCount)+"\" value='"+strAcCode+"'  ondblclick=\" funHelp1("+(rowCount)+",'Shortage') \" />";
-	    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listLocationLinkUp["+(rowCount)+"].strMasterDesc\"    id=\"txtSecLocAcName."+(rowCount)+"\" value='"+strAcName+"' />";
+	    row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\"  name=\"listLocationLinkUp["+(rowCount)+"].strMasterDesc\"   style=\"width:100%;\"  id=\"txtSecLocAcName."+(rowCount)+"\" value='"+strAcName+"' />";
 	    /* SundryCreditorWeb-Service */
 	}
 	
@@ -1173,10 +1173,11 @@
 <div class="container">
 	<label id="formHeading">WebBooks Link Up</label>
 	<s:form name="ARLinkUp" method="POST" action="saveARLinkUp.html">
+	<br>
 	<div>
 		<div class="row">	
 			<div class="col-md-2">	
-				<s:select path="strProperty" id="cmbProperty" items="${listProperty}" onchange="funOnChange();"> 						
+				<s:select path="strProperty" id="cmbProperty" items="${listProperty}" onchange="funOnChange();"  style="width:auto;">						
 				</s:select>
 			</div>	
 		</div>
@@ -1195,7 +1196,7 @@
 					</ul><br><br>
 						<div id="divSubGroup" class="tab_content" style="margin-top: 20px;">
 							<table
-								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+								style="height: 28px; border: #0F0; width: 60%; font-size: 11px; font-weight: bold;">
 								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Subgroup Code</td>
 									<td style="width:20%;">Subgroup Name</td>
@@ -1204,7 +1205,7 @@
 								</tr>
 							</table>
 							
-							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 60%;">
 									<table id="tblSubGroup"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
@@ -1219,7 +1220,7 @@
 						</div>
 						
 						<div id="divTax" class="tab_content" style="margin-top: 20px;">
-							<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+							<table style="height: 28px; border: #0F0; width: 60%; font-size: 11px; font-weight: bold;">
 								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Tax Code</td>
 									<td style="width:20%;">Tax Desc</td>
@@ -1228,7 +1229,7 @@
 								</tr>
 							</table>
 						
-							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 60%;">
 								<table id="tblTax" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col8-center">
 								<tbody>
 									<col style="width:10%">
@@ -1242,7 +1243,7 @@
 				
 						<div id="divSupplier" class="tab_content" style="margin-top: 20px;">
 							<table
-								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+								style="height: 28px; border: #0F0; width: 96.8%; font-size: 11px; font-weight: bold;">
 								<tr bgcolor="#c0c0c0">
 								<td style="width:16%;">Supplier Code</td>
 								<td style="width:20%;">Supplier Name</td>
@@ -1253,7 +1254,7 @@
 							</tr>
 						</table>
 							<div
-								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 96.8%;">
 									<table id="tblSupplier"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
@@ -1271,7 +1272,7 @@
 										
 						<div id="divDiscount" class="tab_content" style="margin-top: 20px;">
 							<table
-								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+								style="height: 28px; border: #0F0; width: 60%; font-size: 11px; font-weight: bold;">
 								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Discount Code</td>
 									<td style="width:15%;">Discount Name</td>
@@ -1281,7 +1282,7 @@
 							</table>
 							
 							<div
-								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 60%;">
 									<table id="tblDiscount"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
@@ -1296,7 +1297,7 @@
 						</div>
 						
 						<div id="divRoundOff" class="tab_content" style="margin-top: 20px;">
-							<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+							<table style="height: 28px; border: #0F0; width: 60%; font-size: 11px; font-weight: bold;">
 								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">RoundOff</td>
 									<td style="width:15%;">RoundOff Name</td>
@@ -1304,7 +1305,7 @@
 									<td style="width:15%;">Account Name</td>
 								</tr>
 							</table>
-							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 60%;">
 									<table id="tblRoundOff"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
@@ -1320,7 +1321,7 @@
 						
 						<div id="divExtraCharge" class="tab_content" style="margin-top: 20px;">
 							<table
-								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+								style="height: 28px; border: #0F0; width: 60%; font-size: 11px; font-weight: bold;">
 								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Extra Charges</td>
 									<td style="width:15%;">ExtraCharges Name</td>
@@ -1329,7 +1330,7 @@
 								</tr>
 							</table>
 							<div
-								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 60%;">
 									<table id="tblExtraCharges"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
@@ -1345,7 +1346,7 @@
 						
 						<div id="divOtherCharge" class="tab_content" style="margin-top: 20px;">
 							<table
-								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+								style="height: 28px; border: #0F0; width: 60%; font-size: 11px; font-weight: bold;">
 								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Other Charges</td>
 									<td style="width:15%;">OtherCharges Name</td>
@@ -1354,7 +1355,7 @@
 								</tr>
 							</table>
 							<div
-								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 60%;">
 									<table id="tblOtherCharges"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
@@ -1370,7 +1371,7 @@
 						
 						<div id="divSettlement" class="tab_content" style="height: 550px">
 							<table
-								style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+								style="height: 28px; border: #0F0; width: 60%; font-size: 11px; font-weight: bold;">
 								<tr bgcolor="#c0c0c0">
 									<td style="width:10%;">Settlement Code</td>
 									<td style="width:15%;">Settlement Name</td>
@@ -1379,7 +1380,7 @@
 								</tr>
 							</table>
 							<div
-								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px;overflow-x: hidden; overflow-y: scroll; width: 60%;">
 									<table id="tblSettlement"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col8-center">
@@ -1425,8 +1426,9 @@
 			</div>
 			<br />
 			<br />
-		<div class="center">
+		<div class="center" style="text-align:center">
 			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit">Submit</button></a>
+			&nbsp;
 			<a href="#"><button class="btn btn-primary center-block"  value="Reset" onclick="funResetFields()">Reset</button></a>
 		</div>
 			

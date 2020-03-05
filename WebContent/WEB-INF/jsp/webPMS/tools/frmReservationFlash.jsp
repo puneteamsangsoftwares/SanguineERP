@@ -202,11 +202,11 @@
 					<div class="row">
 						<div class="col-md-6">
 							<label>Property</label>
-							<s:select id="cmbPropertyCode" path="strPropertyCode" items="${hmProperty}"></s:select>
+							<s:select id="cmbPropertyCode" path="strPropertyCode" items="${hmProperty}" style="width:auto;"></s:select>
 						</div>
 						<div class="col-md-6">		
 							<label>Booking Type</label>
-							<s:select id="cmbBookingCode" path="strBookingCode" items="${hmBooking}"></s:select>
+							<s:select id="cmbBookingCode" path="strBookingCode" items="${hmBooking}" style="width:auto;"></s:select>
 						   </div>
 			    	</div>
 				</div>	
@@ -214,7 +214,7 @@
 					<div class="row">
 						<div class="col-md-6">	
 							<label>Rooms Type</label>
-							<s:select id="cmbRoomsType" path="strRoomTypeCode"  items="${hmRoomType}"></s:select>
+							<s:select id="cmbRoomsType" path="strRoomTypeCode"  items="${hmRoomType}" style="width:auto;"></s:select>
 						</div>
 						<div class="col-md-6">
 						  	<label id="lblFromArrDate">From Arrive Date</label>

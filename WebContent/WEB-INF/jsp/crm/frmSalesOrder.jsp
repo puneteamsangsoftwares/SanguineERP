@@ -1,13 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Sales Order</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
+	<title>Sales Order</title>
 
 <script type="text/javascript">
 		
@@ -37,19 +46,19 @@
 		var code='<%=session.getAttribute("locationCode").toString()%>';
 		funSetLocation(code);
 		
-		$("#txtSODate").datepicker({ dateFormat: 'yy-mm-dd' });
+		$("#txtSODate").datepicker({ dateFormat: 'dd-mm-yy' });
 		$("#txtSODate" ).datepicker('setDate', 'today');
 		$("#txtSODate").datepicker();
 				
-		$("#txtCPODate").datepicker({ dateFormat: 'yy-mm-dd' });
+		$("#txtCPODate").datepicker({ dateFormat: 'dd-mm-yy' });
 		$("#txtCPODate" ).datepicker('setDate', 'today');
 		$("#txtCPODate").datepicker();
 		
-		$("#txtFulmtDate").datepicker({ dateFormat: 'yy-mm-dd' });
+		$("#txtFulmtDate").datepicker({ dateFormat: 'dd-mm-yy' });
 		$("#txtFulmtDate" ).datepicker('setDate', 'today');
 		$("#txtFulmtDate").datepicker();
 
-		$("#txtCPODate").datepicker({ dateFormat: 'yy-mm-dd' });
+		$("#txtCPODate").datepicker({ dateFormat: 'dd-mm-yy' });
 		$("#txtCPODate" ).datepicker('setDate', 'today');
 		$("#txtCPODate").datepicker();
 		$("#txtLocCode").focus();
@@ -673,27 +682,27 @@
 	    var avgValue =$("#lblAvg").text();
 // 	    var avgValue = retValue;
 // 	    var avgValue = SaleDtl.dblAvgQty;
-	    row.insertCell(0).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" size=\"8%\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
-	    row.insertCell(1).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"27%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
-	    row.insertCell(2).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" size=\"2%\" id=\"txtUOM."+(rowCount)+"\" value='"+strUOM+"'/>";
+	    row.insertCell(0).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
+	    row.insertCell(1).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
+	    row.insertCell(2).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtUOM."+(rowCount)+"\" value='"+strUOM+"'/>";
 	    
-	    row.insertCell(3).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblQty\" type=\"text\" class=\"Box txtQty \"  required = \"required\"  class=\"decimal-places inputText-Auto txtQty \"  size=\"5%\"  style=\"text-align: right;\"  id=\"txtQty."+(rowCount)+"\" value='"+dblQty+"' >";
-	    row.insertCell(4).innerHTML= "<input  type=\"text\"   style=\"text-align: right;\" class=\"Box\" size=\"5%\" id=\"txtAvgQty."+(rowCount)+"\" value='"+avgValue+"' >";
+	    row.insertCell(3).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblQty\" type=\"text\" class=\"Box txtQty \"  required = \"required\"  class=\"decimal-places inputText-Auto txtQty \" style=\"text-align: right; border:1px solid #c0c0c0;width:99%;\"  id=\"txtQty."+(rowCount)+"\" value='"+dblQty+"' >";
+	    row.insertCell(4).innerHTML= "<input  type=\"text\"   style=\"text-align: right; border:1px solid #c0c0c0;\" class=\"Box\" size=\"5%\" id=\"txtAvgQty."+(rowCount)+"\" value='"+avgValue+"' >";
 	    row.insertCell(5).innerHTML= "";
-	    row.insertCell(6).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblAcceptQty\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto txtQty \" id=\"txtAcceptQty."+(rowCount)+"\" value='"+dblQty+"' onblur=\"Javacsript:funUpdatePrice(this)\">";
+	    row.insertCell(6).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblAcceptQty\" type=\"text\"  required = \"required\" style=\"text-align: right; border: 1px solid #c0c0c0;width:99%;\" class=\"decimal-places inputText-Auto txtQty \" id=\"txtAcceptQty."+(rowCount)+"\" value='"+dblQty+"' onblur=\"Javacsript:funUpdatePrice(this)\">";
 	    
-	    row.insertCell(7).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblWeight\" type=\"text\"  size=\"5%\" required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto  txtWeight\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
-	    row.insertCell(8).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblTotalWeight\" readonly=\"readonly\" class=\"Box txtTotalWeight\" style=\"text-align: right;\" \size=\"5%\" id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
+	    row.insertCell(7).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblWeight\" type=\"text\" required = \"required\" style=\"text-align: right;width:99%;border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto  txtWeight\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
+	    row.insertCell(8).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblTotalWeight\" readonly=\"readonly\" class=\"Box txtTotalWeight\" style=\"text-align: right;width:99%;\"  id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
 		if($("#hidstrSOEditableYN").val()=="Yes")
 		{
-			 row.insertCell(9).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblUnitPrice\"  type=\"text\" class=\"Box \" required = \"required\" style=\"text-align: right;\" size=\"7%\" class=\"decimal-places-amt inputText-Auto txtPrice \" id=\"txtPrice."+(rowCount)+"\" value="+dblPrice+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+			 row.insertCell(9).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblUnitPrice\"  type=\"text\" class=\"Box \" required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;width:99%;\"  class=\"decimal-places-amt inputText-Auto txtPrice \" id=\"txtPrice."+(rowCount)+"\" value="+dblPrice+" onblur=\"Javacsript:funUpdatePrice(this)\">";
 		}else{
-			 row.insertCell(9).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\"  type=\"text\" class=\"Box \" required = \"required\" style=\"text-align: right;\" size=\"7%\" class=\"decimal-places-amt inputText-Auto txtPrice \" id=\"txtPrice."+(rowCount)+"\" value="+dblPrice+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+			 row.insertCell(9).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\"  type=\"text\" class=\"Box \" required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0; width:99%;\"  class=\"decimal-places-amt inputText-Auto txtPrice \" id=\"txtPrice."+(rowCount)+"\" value="+dblPrice+" onblur=\"Javacsript:funUpdatePrice(this)\">";
 		}
 	   
-	    row.insertCell(10).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblDiscount\" type=\"text\" class=\"Box \" required = \"required\"  style=\"text-align: right;\" size=\"3%\" class=\"decimal-places-amt inputText-Auto txtDiscount \" id=\"txtDiscount."+(rowCount)+"\" value="+dblDiscount+" onblur=\"Javacsript:funUpdatePrice(this)\" >";	    
-	    row.insertCell(11).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblAmount\" readonly=\"readonly\" class=\"Box txtAmount \" style=\"text-align: right;\" size=\"9%\" id=\"txtAmount."+(rowCount)+"\" value="+amount+" >";
-	    row.insertCell(12).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strRemarks\" size=\"14%\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
+	    row.insertCell(10).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblDiscount\" type=\"text\" class=\"Box \" required = \"required\"  style=\"text-align: right; border:1px solid #c0c0c0;\" class=\"decimal-places-amt inputText-Auto txtDiscount \" id=\"txtDiscount."+(rowCount)+"\" value="+dblDiscount+" onblur=\"Javacsript:funUpdatePrice(this)\" >";	    
+	    row.insertCell(11).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblAmount\" readonly=\"readonly\" class=\"Box txtAmount \" style=\"text-align: right;width:99%;\"  id=\"txtAmount."+(rowCount)+"\" value="+amount+" >";
+	    row.insertCell(12).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strRemarks\" style=\"width:99%;\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
 	 	row.insertCell(13).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';		    
 	    
 	    
@@ -864,19 +873,19 @@
 // 	    alert(retValue);
 		var dblStk = SaleDtl.dblAvalaibleStk;
 	    var avgValue = SaleDtl.dblAvgQty;
-	    row.insertCell(0).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" size=\"8%\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
-	    row.insertCell(1).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"27%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
-	    row.insertCell(2).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" size=\"2%\" id=\"txtUOM."+(rowCount)+"\" value='"+strUOM+"'/>";
+	    row.insertCell(0).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
+	    row.insertCell(1).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
+	    row.insertCell(2).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtUOM."+(rowCount)+"\" value='"+strUOM+"'/>";
 	 
-	    row.insertCell(3).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblQty\" type=\"text\"  class=\"Box txtQty \" required = \"required\"  class=\"decimal-places inputText-Auto txtQty \" id=\"txtQty."+(rowCount)+"\" value='"+dblQty+"' >";
-	    row.insertCell(4).innerHTML= "<input  type=\"text\"   style=\"text-align: right;\" class=\"Box\" size=\"5%\" id=\"txtAvgQty."+(rowCount)+"\" value='"+avgValue+"' >";
+	    row.insertCell(3).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblQty\" type=\"text\"  class=\"Box txtQty \" required = \"required\"  style=\"border: 1px solid #c0c0c0;width:99%\" class=\"decimal-places inputText-Auto txtQty \" id=\"txtQty."+(rowCount)+"\" value='"+dblQty+"' >";
+	    row.insertCell(4).innerHTML= "<input  type=\"text\"   style=\"text-align: right;border: 1px solid #c0c0c0;\" class=\"Box\" style=\"width:99%;\" id=\"txtAvgQty."+(rowCount)+"\" value='"+avgValue+"' >";
 	    row.insertCell(5).innerHTML= dblStk;
-	    row.insertCell(6).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblAcceptQty\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto txtQty \" id=\"txtAcceptQty."+(rowCount)+"\" value='"+dblAcceptQty+"' onblur=\"Javacsript:funUpdatePrice(this)\">";
+	    row.insertCell(6).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblAcceptQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:99%;border: 1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto txtQty \" id=\"txtAcceptQty."+(rowCount)+"\" value='"+dblAcceptQty+"' onblur=\"Javacsript:funUpdatePrice(this)\">";
 	    
-	    row.insertCell(7).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto txtWeight \" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
-	    row.insertCell(8).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblTotalWeight\" readonly=\"readonly\" class=\"Box txtTotalWeight \" style=\"text-align: right;\" \size=\"3.9%\" id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
-	    row.insertCell(9).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblUnitPrice\" type=\"text\" class=\"Box txtPrice \" required = \"required\" style=\"text-align: right;\" size=\"5%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtPrice."+(rowCount)+"\" value="+dblPrice+" onblur=\"Javacsript:funUpdatePrice(this)\">";
-	    row.insertCell(10).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblDiscount\" type=\"text\"  required = \"required\" class=\"Box txtDiscount\" style=\"text-align: right;\" size=\"3%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtDiscount."+(rowCount)+"\" value="+dblDiscount+" onblur=\"Javacsript:funUpdatePrice(this)\" >";	    
+	    row.insertCell(7).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;border: 1px solid #c0c0c0;width:99%;\" class=\"decimal-places inputText-Auto txtWeight \" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
+	    row.insertCell(8).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblTotalWeight\" readonly=\"readonly\" class=\"Box txtTotalWeight \" style=\"text-align: right;width:99%;\"  id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
+	    row.insertCell(9).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblUnitPrice\" type=\"text\" class=\"Box txtPrice \" required = \"required\" style=\"text-align: right; border: 1px solid #c0c0c0;width:99%;\" class=\"decimal-places-amt inputText-Auto\" id=\"txtPrice."+(rowCount)+"\" value="+dblPrice+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+	    row.insertCell(10).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblDiscount\" type=\"text\"  required = \"required\" class=\"Box txtDiscount\" style=\"text-align: right; border: 1px solid #c0c0c0;width:99%;\"  class=\"decimal-places-amt inputText-Auto\" id=\"txtDiscount."+(rowCount)+"\" value="+dblDiscount+" onblur=\"Javacsript:funUpdatePrice(this)\" >";	    
 	    row.insertCell(11).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblAmount\" readonly=\"readonly\" class=\"Box txtAmount \" style=\"text-align: right;\" size=\"9%\" id=\"txtAmount."+(rowCount)+"\" value="+amount+" >";
 	    row.insertCell(12).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strRemarks\" size=\"20%\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
 	 	row.insertCell(13).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';		    
@@ -1368,10 +1377,10 @@
 	    
 	    row.insertCell(5).innerHTML= "<input  type=\"text\"   style=\"text-align: right;\" class=\"Box\" size=\"5%\" id=\"txtStock."+(rowCount)+"\" value='"+stock+"' >";
 	    row.insertCell(6).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblAcceptQty\" type=\"text\"   required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto txtQty \" id=\"txtAcceptQty."+(rowCount)+"\" value='"+dblAcceptQty+"' onblur=\"Javacsript:funUpdatePrice(this)\">";
-	    row.insertCell(7).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto txtWeight \" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
+	    row.insertCell(7).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;border:1px solid #c0c0c0;width:99%;'\" class=\"decimal-places inputText-Auto txtWeight \" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
 	    row.insertCell(8).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblTotalWeight\" readonly=\"readonly\" class=\"Box txtTotalWeight \" style=\"text-align: right;\" \size=\"3.9%\" id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
-	    row.insertCell(9).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblPrice\" type=\"text\" class=\"Box txtPrice \" required = \"required\" style=\"text-align: right;\" size=\"5%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtPrice."+(rowCount)+"\" value="+dblPrice+" onblur=\"Javacsript:funUpdatePrice(this)\">";
-	    row.insertCell(10).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblDiscount\" type=\"text\"  required = \"required\" class=\"Box txtDiscount\" style=\"text-align: right;\" size=\"3%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtDiscount."+(rowCount)+"\" value="+dblDiscount+" onblur=\"Javacsript:funUpdatePrice(this)\" >";	    
+	    row.insertCell(9).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblPrice\" type=\"text\" class=\"Box txtPrice \" required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" size=\"5%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtPrice."+(rowCount)+"\" value="+dblPrice+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+	    row.insertCell(10).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblDiscount\" type=\"text\"  required = \"required\" class=\"Box txtDiscount\" style=\"text-align: right; border:1px solid #c0c0c0;\" size=\"3%\" class=\"decimal-places-amt inputText-Auto\" id=\"txtDiscount."+(rowCount)+"\" value="+dblDiscount+" onblur=\"Javacsript:funUpdatePrice(this)\" >";	    
 	    row.insertCell(11).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblAmount\" readonly=\"readonly\" class=\"Box txtAmount \" style=\"text-align: right;\" size=\"9%\" id=\"txtAmount."+(rowCount)+"\" value="+amount+" >";
 	    row.insertCell(12).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strRemarks\" size=\"20%\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
 	 	row.insertCell(13).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';		    
@@ -1505,10 +1514,10 @@
 	    row.insertCell(5).innerHTML= "";
 	    row.insertCell(6).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblAcceptQty\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto txtQty \" id=\"txtAcceptQty."+(rowCount)+"\" value='"+dblQty+"' onblur=\"Javacsript:funUpdatePrice(this)\">";
 	    
-	    row.insertCell(7).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblWeight\" type=\"text\"  size=\"5%\" required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto  txtWeight\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
+	    row.insertCell(7).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblWeight\" type=\"text\" required = \"required\" style=\"text-align: right;border:1px solid #c0c0c0;width:99%;\" class=\"decimal-places inputText-Auto  txtWeight\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
 	    row.insertCell(8).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblTotalWeight\" readonly=\"readonly\" class=\"Box txtTotalWeight\" style=\"text-align: right;\" \size=\"3.9%\" id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
-	    row.insertCell(9).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblUnitPrice\" type=\"text\" class=\"Box \" required = \"required\" style=\"text-align: right;\" size=\"5%\" class=\"decimal-places-amt inputText-Auto txtPrice \" id=\"txtPrice."+(rowCount)+"\" value="+dblPrice+" onblur=\"Javacsript:funUpdatePrice(this)\">";
-	    row.insertCell(10).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblDiscount\" type=\"text\" class=\"Box \" required = \"required\"  style=\"text-align: right;\" size=\"3%\" class=\"decimal-places-amt inputText-Auto txtDiscount \" id=\"txtDiscount."+(rowCount)+"\" value="+dblDiscount+" onblur=\"Javacsript:funUpdatePrice(this)\" >";	    
+	    row.insertCell(9).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblUnitPrice\" type=\"text\" class=\"Box \" required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" size=\"5%\" class=\"decimal-places-amt inputText-Auto txtPrice \" id=\"txtPrice."+(rowCount)+"\" value="+dblPrice+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+	    row.insertCell(10).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblDiscount\" type=\"text\" class=\"Box \" required = \"required\"  style=\"text-align: right; border:1px solid #c0c0c0;\" size=\"3%\" class=\"decimal-places-amt inputText-Auto txtDiscount \" id=\"txtDiscount."+(rowCount)+"\" value="+dblDiscount+" onblur=\"Javacsript:funUpdatePrice(this)\" >";	    
 	    row.insertCell(11).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblAmount\" readonly=\"readonly\" class=\"Box txtAmount \" style=\"text-align: right;\" size=\"9%\" id=\"txtAmount."+(rowCount)+"\" value="+amount+" >";
 	    row.insertCell(12).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strRemarks\" size=\"20%\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
 	 	row.insertCell(13).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';		    
@@ -1958,205 +1967,197 @@ function funGetKeyCode(event,controller) {
 
 </head>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>Sales Order</label>
-	</div>
-	<s:form name="SOForm" method="POST"
-		action="saveSOData.html?saddr=${urlHits}">
-		<input type="hidden" value="${urlHits}" name="saddr">
-		<br>
-		<table
-			style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
-			<tr>
-				<td>
-					<div id="tab_container" style="height: 710px">
-						<ul class="tabs">
-							<li class="active" data-state="tab1"
-								style="width: 100px; padding-left: 55px">GENERAL</li>
-							<li data-state="tab2" style="width: 100px; padding-left: 55px">Address</li>
-<!-- 							<li data-state="tab3" style="width: 100px; padding-left: 55px">Taxes</li> -->
-						</ul>
-						<div id="tab1" class="tab_content" style="height: 550px">
-
-							<table class="transTable">
-								
-								<tr>
-								<th align="Right" colspan="8"><a onclick="return funOpenExportImport()"
-								href="javascript:void(0);">Export/Import</a></th>
+	<div class="container">
+		<label id="formHeading">Sales Order</label>
+		<s:form name="SOForm" method="POST"
+			action="saveSOData.html?saddr=${urlHits}">
+			<input type="hidden" value="${urlHits}" name="saddr">
+		<div>
+			<div id="tab_container">
+				<ul class="tabs">
+					<li class="active" data-state="tab1">General</li>
+					<li data-state="tab2">Address</li>
+					<!-- <li data-state="tab3">Taxes</li>  -->
+				</ul>
+				<div id="tab1" class="tab_content"><!--  style="height: 550px" -->
+					<div class="row transTable">
+						<div class="col-md-12" align="right" style="margin-right:2px;">
+							<a onclick="return funOpenExportImport()" href="javascript:void(0);" style="text-decoration:underline;">Export/Import</a>
+							<!-- <a id="baseUrl" href="#">Attach Documents </a> -->
+						</div>	
+						<div class="col-md-2">
+							<label>SO Code</label>
+							<s:input path="strSOCode" id="txtSOCode" ondblclick="funHelp('salesorder')" cssClass="searchTextBox"/>
+						</div>	
+						<div class="col-md-2">	
+							<label>SO Date</label>
+								<s:input path="dteSODate" id="txtSODate" required="required" cssClass="calenderTextBox" style="width:80%;" />
+						</div>				
+						<div class="col-md-2">	
+							<label>Customer Code</label>
+								<s:input path="strCustCode" id="txtCustCode"
+	 								ondblclick="funHelp('custMasterActive')" cssClass="searchTextBox" />
+	 					</div>		
+	 					<div class="col-md-2">		
+	 						<label id="lblCustomerName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+	 						></label>
+	 					</div>	
+	 							
+<%-- 					<td colspan="3"><s:input path="strCustCode" id="txtCustCode"  --%>
+<%--  			 		ondblclick="funOpenCustomer()" cssClass="searchTextBox" /></td>  --%>
+<!--  					<td colspan="2"><label id="lblCustomerName"  -->
+<!-- 					class="namelabel"></label></td> -->
 						
-									<th align="right" ><a id="baseUrl" href="#">
-											Attach Documents </a></th>
-								</tr>
 
-								<tr>
-									<td width="100px"><label>SO Code</label></td>
-									<td width="140px"><s:input path="strSOCode" id="txtSOCode"
-											ondblclick="funHelp('salesorder')"
-											cssClass="searchTextBox" /></td>
+						<div class="col-md-2">				
+							<label>Customer PO NO</label>
+							<s:input id="txtCustPONo" type="text" path="strCustPONo"
+									class="BoxW116px" />
+						</div>
+						<div class="col-md-2">				
+							<label>Customer PO Date</label>
+								<s:input path="dteCPODate" id="txtCPODate" required="required" cssClass="calenderTextBox" style="width:80%;"/>
+						</div>
+						<div class="col-md-2">
+							<label>Credit Days</label>
+							<label id="lblCreditDays" style="background-color:#dcdada94; width: 100%; height: 52%;text-align:center;"></label>
+						</div>
+						<div class="col-md-2">
+							<label>Credit Limit</label>
+							<label id="lblCreditLimits" style="background-color:#dcdada94; width: 100%; height: 52%;text-align:center;"></label>
+						</div>
+						<div class="col-md-2">
+							<label>Location Code</label>
+							<s:input type="text" id="txtLocCode" path="strLocCode" value="${locationCode}"
+								cssClass="searchTextBox" name="locCode" ondblclick="funHelp('locationmaster');" />
+						</div>
+						<div class="col-md-2">
+							<label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+							></label>
+						</div>
+						<div class="col-md-2">
+							<label>FulmtDate</label>
+							<s:input colspan="3" type="text" id="txtFulmtDate"
+								path="dteFulmtDate" cssClass="calenderTextBox" style="width:80%;"/>
+						</div>
+						
+<!-- 			<td><label>fulfilled</label></td> -->
+<!-- 			<td><label id="dteFulfilled"></label></td> -->
+					<div class="col-md-2">			
+						<label>Against</label>
+						<s:select id="txtAgainst" path="strAgainst"
+							items="${againstList}" cssClass="BoxW124px" onchange="funShowSOFieled()" style="width:80%;" />
+					</div>
+					<div class="col-md-2">
+						<s:input id="txtCode" path="strCode" style="display:none; margin-top:20px;" ondblclick="funHelp('')" class="searchTextBox"></s:input>
+					</div>
+					<div class="col-md-2">
+						<label>Settlement</label>
+						<s:select id="cmbSettlement" path="strSettlementCode"
+						items="${settlementList}" cssClass="BoxW124px" onclick="funChangeCombo()"/>
+					</div>
+					<div class="col-md-2">			
+						<label>Mobile No.</label>									
+						<s:input  type="text"  id="txtMobileNoForSettlement" name="txtMobileNoForSettlement" path="strMobileNoForSettlement" class="numeric" cssClass="BoxW116px" />
+					</div>
+					<div class="col-md-2">				
+						<label>Currency</label>
+						<s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px" onclick="funOnChangeCurrency()" style=" width:80%;">
+						</s:select>
+					</div>	
+					<div class="col-md-2">		
+						<label>Conversion</label>
+						<s:input  type="text"  id="txtDblCurrencyConv" style="text-align:right;" name="txtDblCurrencyConv" path="dblConversion" class="decimal-places numberField" />
+					</div>
+					<div class="col-md-2">		
+						<label>Warranty in Month</label>
+						<s:input colspan="3" type="text" class="numeric"
+							id="txtwarmonth" path="intwarmonth" cssClass="BoxW124px" />
+					</div>
+					<div class="col-md-2">
+						<input type="hidden" id="txtSettlementType"> 
+					</div>
+				</div>	
+					<div class="row transTable">
+						<div class="col-md-2">	
+							<label for="a" name="lblSubGroup" >Sub-Group</label>
+							<input id="txtSubGroup" style="text-transform: uppercase;"  name="SubgroupName" class="searchTextBox" 
+								onkeypress="funGetKeyCode(event,'SubGroup')" ondblclick="funHelp('subgroup')" />
+						</div>
+						<div class="col-md-2">
+							<input type="hidden" id="hidSubGroupCode" />
+						</div>
+						<div class="col-md-2">
+							<label>Product</label>
+							<input id="txtProdName"
+								class="searchTextBox" onkeypress="funGetKeyCode(event,'Product')" ondblclick="funHelp('productProduced')" />
+						</div>
+						<div class="col-md-2">
+							<label id="lblUOM" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:center;"
+							></label>
+						</div>
+						<div class="col-md-2">
+							<input type="hidden" id="hidProdCode" />
+						</div>
+						<div class="col-md-2">		
+							<label>Stock</label> 
+							<label id="lblStk" style="background-color:#dcdada94; width: 100%; height: 52%;text-align:center;"></label>
+						</div>
+						<div class="col-md-2">							
+							<label>Avg Qty</label> 
+							<label id="lblAvg" style="background-color:#dcdada94; width: 100%; height: 52%; text-align:center;"></label>
+						</div>
+						<div class="col-md-2">
+							<label>Unit Price</label>
+							<input id="txtPrice" type="text" class="decimal-places numberField" />
+						</div>
+						<div class="col-md-2">
+							<label>Wt/Unit</label>
+							<input type="text" id="txtWeight" class="decimal-places numberField" />
+						</div>
+						<div class="col-md-2">
+							<label>Quantity</label>
+							<input id="txtQty" type="text" class="decimal-places numberField" style="width: 60%" 
+								onkeypress="funGetKeyCode(event,'AddBtn')" />
+						</div>
+						<div class="col-md-2">
+							<label>UOM</label>
+							<s:select id="cmbUOM" name="cmbUOM"
+								path="" items="${uomList}" cssStyle="width: 60%" cssClass="BoxW124px"/>
+						</div>
+						<!-- <td><label>Stock </label></td> -->
+						<div class="col-md-2">	
+							<label>Discount</label>
+							<input id="txtDiscount" type="text"
+								class="decimal-places-amt numberField" value="0"/>
+						</div>
+						<div class="col-md-2">	
+							<label>Remarks</label>
+							<input id="txtRemarks"  type="text"/>
+						</div>
+						<div class="col-md-2">	
+							<input type="button" value="Add" class="btn btn-primary center-block"
+										onclick="return btnAdd_onclick()" style="margin-top:26px;"/>
+						</div>
 									
-									<td width="100px"><label>SO Date</label>
-									<td><s:input path="dteSODate" id="txtSODate"
-											 required="required"
-											cssClass="calenderTextBox" /></td>
-											<td></td>
-											<td></td>
-											<td></td>
-								</tr>
-
-<tr>
-									<td><label>Customer Code</label></td>
-									
-<%-- 									<td colspan="3"><s:input path="strCustCode" id="txtCustCode"  --%>
-<%--  								   ondblclick="funOpenCustomer()" cssClass="searchTextBox" /></td>  --%>
-<!--  									<td colspan="2"><label id="lblCustomerName"  -->
-<!-- 										class="namelabel"></label></td> -->
-									<td ><s:input path="strCustCode" id="txtCustCode"
-	 								ondblclick="funHelp('custMasterActive')" cssClass="searchTextBox" /></td> 
-									<td colspan="2"><label id="lblCustomerName"
-										class="namelabel"></label></td> 
-										
-									<td><label>Customer PO NO</label></td>
-									<td><s:input id="txtCustPONo" type="text" path="strCustPONo"
-										class="BoxW116px" /></td>
-										
-									<td><label>Customer PO Date</label></td>
-									<td colspan="2" align="left"><s:input path="dteCPODate"
-											 id="txtCPODate"
-											required="required" cssClass="calenderTextBox" /></td>
-								</tr>
-								
-								<tr>
-									<td><label>Credit Days</label></td>
-									<td><label id="lblCreditDays"></label></td>
-									<td><label>Credit Limit</label></td>
-									<td><label id="lblCreditLimits"></label></td>
-								</tr>
-								
-								<tr>
-									<td><label>Location Code</label></td>
-									<td><s:input type="text" id="txtLocCode" path="strLocCode" value="${locationCode}"
-											cssClass="searchTextBox" name="locCode" ondblclick="funHelp('locationmaster');" /></td>
-									<td><label id="lblLocName"></label></td>
-									
-									<td><label>FulmtDate</label></td>
-									<td><s:input colspan="3" type="text" id="txtFulmtDate"
-											path="dteFulmtDate" cssClass="calenderTextBox" /></td>
-<!-- 									<td><label>fulfilled</label></td> -->
-<!-- 									<td><label id="dteFulfilled"></label></td> -->
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td><label>Against</label></td>
-									<td><s:select id="txtAgainst" path="strAgainst"
-											items="${againstList}" cssClass="BoxW124px" onchange="funShowSOFieled()" /></td>
-									<td ><s:input id="txtCode" path="strCode" style="display:none" ondblclick="funHelp('')" class="searchTextBox"></s:input></td>		
-									<td width="100px"><label>Settlement</label>
-									<td colspan="3">
-										<s:select id="cmbSettlement" path="strSettlementCode"
-											items="${settlementList}" cssClass="BoxW124px" onclick="funChangeCombo()"/>
-									</td>
-									
-									<td><label>Mobile No.</label></td>
-									<td>
-										<s:input  type="text"  id="txtMobileNoForSettlement" name="txtMobileNoForSettlement" path="strMobileNoForSettlement" class="numeric" cssClass="BoxW116px" />
-									</td>
-									
-									<td>
-										<input type="hidden" id="txtSettlementType"> 
-									</td>
-									
-								</tr>
-								
-								<tr>
-									
-									<td><label>Currency</label></td>
-									<td><s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px" onclick="funOnChangeCurrency()">
-										</s:select></td>
-										
-										
-										<td><label>Conversion</label></td>
-										<td>
-										<s:input  type="text"  id="txtDblCurrencyConv" style="text-align: right;" name="txtDblCurrencyConv" path="dblConversion" class="decimal-places numberField" cssClass="BoxW48px" />
-										</td>
-									<td><label>Warranty in Month</label></td>
-										<td><s:input colspan="3" type="text" class="numeric"
-												id="txtwarmonth" path="intwarmonth" cssClass="BoxW124px" /></td>
-									
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-							</table>
-							
-							<table class="transTableMiddle">
-								<tr>	
-									<td width="100px"><label for="a" name="lblSubGroup">Sub-Group</label></td>
-									<td><input id="txtSubGroup" style="width:80%;text-transform: uppercase;"  name="SubgroupName" class="searchTextBox" 
-										onkeypress="funGetKeyCode(event,'SubGroup')" ondblclick="funHelp('subgroup')" /></td>
-									<input type="hidden" id="hidSubGroupCode" />
-																	
-									<td width="100px"><label>Product</label></td>
-									<td><input id="txtProdName"
-										 class="searchTextBox" onkeypress="funGetKeyCode(event,'Product')" ondblclick="funHelp('productProduced')" /></td>
-									 <td><label id="lblUOM"></label></td>
-									 <td>
-									<input type="hidden" id="hidProdCode" />		
-										<label>&nbsp;&nbsp;&nbsp;&nbsp;Stock &nbsp;&nbsp;&nbsp;&nbsp;</label> 
-										<label id="lblStk"></label> 
-										<label>&nbsp;&nbsp;&nbsp;&nbsp;Avg Qty&nbsp;&nbsp;&nbsp;&nbsp;</label> <label id="lblAvg"></label> 
-										</td>
-
-								</tr>
-								<tr>
-									<td><label>Unit Price</label></td>
-									<td><input id="txtPrice" type="text"
-										class="decimal-places numberField" /></td>
-									<td><label>Wt/Unit</label></td>
-									<td width="150px"><input type="text" id="txtWeight"
-										class="decimal-places numberField" /></td>
-									<td width="100px"><label>Quantity</label></td>
-									<td><input id="txtQty" type="text"
-										class="decimal-places numberField" style="width: 60%" 
-										onkeypress="funGetKeyCode(event,'AddBtn')" /></td>
-									<td width="5%">UOM</td>
-									<td> <s:select id="cmbUOM" name="cmbUOM"
-									path="" items="${uomList}" cssStyle="width: 60%" cssClass="BoxW124px"/></td>
-								</tr>
-
-								<tr>
-									
-									<!-- <td><label>Stock </label></td> -->
-									<td><label>Discount</label></td>
-									<td><input id="txtDiscount" type="text"
-										class="decimal-places-amt numberField" value="0"
-										class="BoxW116px" /></td>
-									<td><label>Remarks</label></td>
-									<td><input id="txtRemarks" class="longTextBox" style="width:100%" /></td>
-									<td><input type="button" value="Add" class="smallButton"
-										onclick="return btnAdd_onclick()" /></td>
-									
-<!-- 									<td>Populate Standard Order</td> -->
-<!-- 									<td><input type="checkbox" id="strStdOrder" value="Y"  /></td> -->
-<!-- 									<td><input type="button" value="Populate Product" class="form_button" -->
-<!-- 										onclick="funPopulateProduct()" /></td>	 -->
-										
-								</tr>
-							</table>
+<!-- 					<td>Populate Standard Order</td> -->
+<!-- 					<td><input type="checkbox" id="strStdOrder" value="Y"  /></td> -->
+<!-- 					<td><input type="button" value="Populate Product" class="form_button" -->
+<!-- 						onclick="funPopulateProduct()" /></td>	 -->
+					
+					</div><br><br>
 
 							<div class="dynamicTableContainer" style="height: 300px;">
 								<table
 									style="height: 20px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-									<tr bgcolor="#72BEFC">
-										<td width="5%">Product Code</td>
+									<tr bgcolor="c0c0c0">
+										<td width="6%">Product Code</td>
 										<!--  COl1   -->
-										<td width="18%">Product Name</td>
+										<td width="16%">Product Name</td>
 										<!--  COl2   -->
 										<td width="3%">UOM</td>
 										<!--  COl3   -->										
-										<td width="4%">Order Qty</td>
+										<td width="5%">Order Qty</td>
 										<!--  COl4   -->
 										<td width="4%">Avg Qty</td>
 										<!--  COl5   -->
@@ -2181,14 +2182,14 @@ function funGetKeyCode(event,controller) {
 									</tr>
 								</table>
 								<div
-									style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+									style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 									<table id="tblProdDet"
 										style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 										class="transTablex col15-center">
 										<tbody>
 										<col style="width: 5%">
 										<!--  COl1   -->
-										<col style="width: 16.5%">
+										<col style="width: 14.5%">
 										<!--  COl2   -->
 										<col style="width: 3%">										
 										<!--  COl3   -->
@@ -2221,172 +2222,148 @@ function funGetKeyCode(event,controller) {
 								</div>
 
 							</div>
-							<table id="tbl2" class="transTable">
-								<tr>
-<!-- 									<td><label id="lblPayMode">Payment Mode</label></td> -->
-<!-- 									<td> -->
-<%-- 									<s:select id="cmbPayMode" items="${paymentMode}"  --%>
-<%-- 									path ="strPayMode" cssClass="BoxW124px"> </s:select> --%>
-											
-<!-- 									</td> -->
-									
-									<td><s:input id="cmbPayMode"  
-									path ="strPayMode" cssClass="BoxW124px" type="hidden"></s:input>
-									</td>
-									<td></td>
-									<td><label id="lblSubTotal">SubTotal</label></td>
-									<td colspan="3"><s:input type="text" id="txtSubTotal"
-											path="dblSubTotal" readonly="true"
-											class="decimal-places-amt numberField" /></td>
-									
-									
-								</tr>
-
-								<tr>
-									
-									<td><label id="lblDiscPer">Discount %</label></td>
-				    				<td><input id="txtDiscPer"  type="text"  onblur="funCalDiscountAmt();" 
-				    				class="decimal-places-amt numberField"/></td>
-				    				
-				    				<td><label id="lblDiscount">Discount Amt</label></td>
-									<td colspan="3"><s:input type="text" id="txtDisc"
-									path="dblDisAmt" onblur="funGetTotal();" onkeypress="funGetKeyCode(event,'changeDiscAmt')"
-									cssClass="decimal-places-amt numberField" /></td>
-								</tr>
-
-
-								<tr>
-									<td ><label id="lblNarration">Narration</label></td>
-									<td><s:textarea cssStyle="width:80%" id="txtNarration" 
-									path="strNarration" /></td>
-									
-									<td><label id="lblExtraCharges">Extra Charges:</label></td>
-									<td colspan="3"><s:input type="text" id="txtExtraCharges"
-											path="dblExtra" onblur="funGetTotal();"
-											cssClass="decimal-places-amt numberField" /></td>
-								</tr>
-								<tr>
-								</tr>
-								<tr>
-								</tr>
-
-								<tr>
-									<td><label id="lblCloseSO">Close SO</label></td>
-									<td><s:checkbox element="li" id="chkCloseSO"
-											path="strCloseSO" value="Y" /></td>
-									<td><label id="lblFinalAmt">Final Amount:</label></td>
-									<td><s:input type="text" id="txtFinalAmt"
-											path="dblTotal" readonly="true"
-											cssClass="decimal-places-amt numberField" /></td>
-								</tr>
-
-								<tr>
-									<td><label id="lblDelSchedule">Delivery Schedule</label></td>
-									<td colspan="5"><input type="button" id="btnDelSchedule" /></td>
-								</tr>
-
-							</table>
-						</div>
-						<div id="tab2" class="tab_content">
-							<table class="transTable">
-								<tr>
-									<th colspan="2" align="left"><label>Bill To</label></th>
-									<th colspan="2" align="left"><label>Ship To </label></th>
-								</tr>
-
-								<tr>
-									<td width="120px"><label>Address Line 1</label></td>
-									<td><s:input path="strBAdd1" id="txtBAddress1"
-											cssClass="longTextBox" /></td>
-									<td width="120px"><label>Address Line 1</label></td>
-									<td><s:input path="strSAdd1" id="txtSAddress1"
-											cssClass="longTextBox" /></td>
-								</tr>
-
-								<tr>
-									<td><label>Address Line 2</label></td>
-									<td><s:input path="strBAdd2" id="txtBAddress2"
-											cssClass="longTextBox" /></td>
-									<td><label>Address Line 2</label></td>
-									<td><s:input path="strSAdd2" id="txtSAddress2"
-											cssClass="longTextBox" /></td>
-								</tr>
-
-								<tr> 
-									<td><label>City</label></td>
-									<td><s:input path="strBCity" id="txtBCity"
-											cssClass="BoxW116px" /></td>
-									<td><label>City</label></td>
-									<td><s:input path="strSCity" id="txtSCity"
-											cssClass="BoxW116px" /></td>
-								</tr>
-
-								<tr>
-									<td><label>State</label></td>
-									<td><s:input path="strBState" id="txtBState"
-											cssClass="BoxW116px" /></td>
-									<td><label>State</label></td>
-									<td><s:input path="strSState" id="txtSState"
-											cssClass="BoxW116px" /></td>
-								</tr>
-
-								<tr>
-									<td><label>Country</label></td>
-									<td><s:input path="strBCountry" id="txtBCountry"
-											cssClass="BoxW116px" /></td>
-									<td><label>Country</label></td>
-									<td><s:input path="strSCountry" id="txtSCountry"
-											cssClass="BoxW116px" /></td>
-								</tr>
-
-								<tr>
-									<td><label>Pin Code</label></td>
-									<td><s:input path="strBPin" id="txtBPin"
-											class="positive-integer BoxW116px" /></td>
-									<td><label>Pin Code</label></td>
-									<td><s:input path="strSPin" id="txtSPin"
-											class="positive-integer BoxW116px" /></td>
-								</tr>
-							</table>
-						</div>
-						
-						
-						<div id="tab3" class="tab_content">
-							<br>
-							<br>
-							<table class="masterTable">
-								<tr><th colspan="5"></th></tr>
-								<tr>
-									<td><input type="button" id="btnGenTax" value="Calculate Tax" class="form_button"></td>
-									<td><label id="tx"></label></td>
-								</tr>
+							<div id="tbl2" class="row transTable">
 								
-								<tr>									
-									<td><label>Tax Code</label></td>
-									<td>
-										<input type="text" id="txtTaxCode" ondblclick="funHelp('nonindicatortax');" class="searchTextBox"/>
-									</td>
-									
-									<td><label>Tax Description</label></td>
-									<td colspan="2">
-										<label id="lblTaxDesc"></label>
-									</td>
-									</tr><tr>
-									<td><label>Taxable Amount</label></td>
-									<td>
-										<input type="number" style="text-align: right;" step="any" id="txtTaxableAmt" class="BoxW116px"/>
-									</td>
-									
-									<td><label>Tax Amount</label></td>
-									<td>
-										<input type="number" style="text-align: right;" step="any" id="txtTaxAmt" class="BoxW116px"/>
-									</td>
-															
-									<td>
-										<input type="button" id="btnAddTax" value="Add" class="smallButton"/>
-									</td>
-								</tr>
-							</table>
+<!-- 				  			 	<td><label id="lblPayMode">Payment Mode</label></td> -->
+<!-- 				   				<td> -->
+<%-- 								<s:select id="cmbPayMode" items="${paymentMode}"  --%>
+<%-- 								path ="strPayMode" cssClass="BoxW124px"> </s:select> --%>
+<!-- 								</td> -->
+								<div class="col-md-2">		
+									<s:input id="cmbPayMode" path ="strPayMode" cssClass="BoxW124px" type="hidden"></s:input>
+								</div>
+								<div class="col-md-2">	
+									<label id="lblSubTotal">SubTotal</label>
+									<s:input type="text" id="txtSubTotal" path="dblSubTotal" readonly="true"
+										class="decimal-places-amt numberField" />
+								</div>
+								<div class="col-md-2">
+									<label id="lblDiscPer">Discount %</label>
+					    			<input id="txtDiscPer"  type="text"  onblur="funCalDiscountAmt();" 
+					    				class="decimal-places-amt numberField"/>
+					    		</div>
+					    		<div class="col-md-2">
+					    			<label id="lblDiscount">Discount Amt</label>
+									<s:input type="text" id="txtDisc"
+										path="dblDisAmt" onblur="funGetTotal();" onkeypress="funGetKeyCode(event,'changeDiscAmt')"
+										cssClass="decimal-places-amt numberField" />
+								</div>
+								<div class="col-md-2">
+									<label id="lblNarration">Narration</label>
+									<s:textarea cssStyle="width:80%" id="txtNarration" path="strNarration" />
+								</div>	
+								<div class="col-md-2">	
+									<label id="lblExtraCharges">Extra Charges:</label>
+									<s:input type="text" id="txtExtraCharges" path="dblExtra" onblur="funGetTotal();" cssClass="decimal-places-amt numberField" />
+								</div>
+								<div class="col-md-2">
+									<label id="lblCloseSO">Close SO</label><br>
+									<s:checkbox element="li" id="chkCloseSO" path="strCloseSO" value="Y" />
+								</div>
+								<div class="col-md-2">
+									<label id="lblFinalAmt">Final Amount:</label>
+									<s:input type="text" id="txtFinalAmt"
+												path="dblTotal" readonly="true"
+												cssClass="decimal-places-amt numberField" />
+								</div>
+								<div class="col-md-2">
+										<label id="lblDelSchedule">Delivery Schedule</label><br>
+										<input type="button" id="btnDelSchedule" />
+								</div>
+							</div>
+						</div>
+					<div id="tab2" class="tab_content">
+						<div class="row transTable">
+							<div class="col-md-6">
+								<h6>Bill To</h6>
+									<div class="row">
+										<div class="col-md-5">
+											<label>Address Line 1</label>
+											<s:input path="strBAdd1" id="txtBAddress1" />
+										</div>
+										<div class="col-md-5">
+											<label>Address Line 2</label>
+											<s:input path="strBAdd2" id="txtBAddress2"/>
+										</div>
+										<div class="col-md-5">
+											<label>City</label>
+											<s:input path="strBCity" id="txtBCity" cssClass="BoxW116px" />
+										</div>
+										<div class="col-md-5">
+											<label>State</label>
+											<s:input path="strBState" id="txtBState" cssClass="BoxW116px" />
+										</div>
+										<div class="col-md-5">
+											<label>Country</label>
+											<s:input path="strBCountry" id="txtBCountry" cssClass="BoxW116px" />
+										</div>
+										<div class="col-md-3">
+											<label>Pin Code</label>
+											<s:input path="strBPin" id="txtBPin" class="positive-integer BoxW116px" />
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<h6>Ship To</h6>
+										<div class="row">
+											<div class="col-md-5">
+												<label>Address Line 1</label>
+												<s:input path="strSAdd1" id="txtSAddress1"/>
+											</div>
+											<div class="col-md-5">	
+												<label>Address Line 2</label>
+												<s:input path="strSAdd2" id="txtSAddress2" />
+											</div>
+											<div class="col-md-5">
+												<label>City</label>
+												<s:input path="strSCity" id="txtSCity"
+													cssClass="BoxW116px" />
+											</div>
+											<div class="col-md-5">
+												<label>State</label>
+												<s:input path="strSState" id="txtSState"
+														cssClass="BoxW116px" />
+											</div>
+											<div class="col-md-5">
+												<label>Country</label>
+												<s:input path="strSCountry" id="txtSCountry"
+														cssClass="BoxW116px" />
+											</div>
+											<div class="col-md-3">
+												<label>Pin Code</label>
+												<s:input path="strSPin" id="txtSPin"
+														class="positive-integer BoxW116px" />
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+						<div id="tab3" class="tab_content">
+							<div class="row masterTable">
+								<div class="col-md-6">
+									<input type="button" id="btnGenTax" value="Calculate Tax" class="form_button">
+									<label id="tx"></label>
+								</div>
+								<div class="col-md-2">									
+									<label>Tax Code</label>
+									<input type="text" id="txtTaxCode" ondblclick="funHelp('nonindicatortax');" class="searchTextBox"/>
+								</div>
+								<div class="col-md-2">		
+									<label>Tax Description</label>
+									<label id="lblTaxDesc"></label>
+								</div>
+								<div class="col-md-2">		
+									<label>Taxable Amount</label>
+									<input type="number" style="text-align: right;" step="any" id="txtTaxableAmt" class="BoxW116px"/>
+								</div>
+								<div class="col-md-2">		
+									<label>Tax Amount</label>
+									<input type="number" style="text-align: right;" step="any" id="txtTaxAmt" class="BoxW116px"/>
+								</div>
+								<div class="col-md-2">		
+									<input type="button" id="btnAddTax" value="Add" class="smallButton"/>
+								</div>
+							</div>
 							<br>
 							<table style="width: 80%;" class="transTablex col5-center">
 								<tr>
@@ -2410,38 +2387,35 @@ function funGetKeyCode(event,controller) {
 									</table>
 							</div>			
 						<br>
-						<table id="tblTaxTotal" class="masterTable">
-							<tr>
-								<td width="130px"><label>Taxable Amt Total</label></td>
-								<td><label id="lblTaxableAmt"></label></td>
-								
-								<td  width="130px"><label>Tax</label></td>
-								<td><label id="lblTaxTotal"></label></td>
-								<td><s:input type="hidden" id="txtPOTaxAmt" path="dblTaxAmt"/></td>
-							</tr>
-							
-							<tr>
-								<td><label>Grand Total</label></td>
-								<td colspan="3"><label id="lblPOGrandTotal"></label></td>
-							</tr>
-						</table>
+						<div id="tblTaxTotal" class="row masterTable">
+							<div class="col-md-2">
+								<label>Taxable Amt Total</label>
+								<label id="lblTaxableAmt"></label>
+							</div>
+							<div class="col-md-2">
+								<label>Tax</label>
+								<label id="lblTaxTotal"></label>
+							</div>
+							<div class="col-md-2">
+								<s:input type="hidden" id="txtPOTaxAmt" path="dblTaxAmt"/>
+							</div>
+							<div class="col-md-2">
+								<label>Grand Total</label>
+								<label id="lblPOGrandTotal"></label>
+							</div>
+						</div>
 							
 						</div>
 						
 					</div>
-				</td>
-			</tr>
-		</table>
-		<br>
-		<p align="center">
-			<input type="submit" value="Submit"
-				onclick="return funCallFormAction('submit',this)"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <a
-				STYLE="text-decoration: none"
-				href="frmSalesOrder.html?saddr=${urlHits}"><input
-				type="button" id="reset" name="reset" value="Reset"
-				class="form_button" /></a>
-		</p>
+		</div>
+		<br><br>
+		<div class="center" style="text-align:center;">
+			<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funCallFormAction('submit',this)"
+				class="form_button">Submit</button></a> &nbsp;
+			<a href="frmSalesOrder.html?saddr=${urlHits}"><button class="btn btn-primary center-block" id="reset" value="Reset"
+				class="form_button">Reset</button></a>
+		</div>
 		<br>
 		
 		<input type="hidden" id="hidStdValue" ></input>
@@ -2456,7 +2430,6 @@ function funGetKeyCode(event,controller) {
 
 			</table>
 		</div>
-		
 			<div id="wait"
 			style="display: block; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
 			<img
@@ -2467,6 +2440,7 @@ function funGetKeyCode(event,controller) {
 			<input id="hidstrSOEditableYN"  value=""  type="hidden"  ><input>
 			
 	</s:form>
+</div>
 	<script type="text/javascript">
 		funApplyNumberValidation();
 	</script>

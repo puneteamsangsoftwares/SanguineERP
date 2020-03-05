@@ -8,11 +8,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
+
 <style>
 
  #tblGroup tr:hover , #tblSubGroup tr:hover
   {
-	background-color: #72BEFC;
+	background-color: #c0c0c0;
 	
   }
 
@@ -60,40 +68,33 @@
 </script>
 </head>
 <body>
-<div id="formHeading">
-		<label>Invoice Profit Report</label>
-	</div>
-	<br />
-	<br />
-		<s:form name="frmInvoiceProfitReport" method="POST" action="rptInvoiceProfitReport.html" target="_blank">
+<div class="container transTable">
+		<label id="formHeading">Invoice Profit Report</label>
+	   <s:form name="frmInvoiceProfitReport" method="POST" action="rptInvoiceProfitReport.html" target="_blank">
+	   	<div class="row">
 	   		
-		<table class="transTable">
-		
+			<div class="col-md-2"><label>From Date</label>
+				 <s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" style="width:70%;"/>
+			</div>
 			
-			<tr>
-				<td><label>From Date</label></td>
-				<td><s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" /></td>
-				<td><label>To Date</label></td>
-				<td><s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" /></td>				
-			</tr>
-		
-			    <tr>
-			      
-			      	<td ><label>Report Type</label></td>
-					<td colspan="3">	
-					<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+			<div class="col-md-2"><label>To Date</label>
+				 <s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" style="width:70%;"/>
+			</div>				
+			<div class="col-md-8"></div>
+			
+			<div class="col-md-2"><label>Report Type</label>
+				        <s:select id="cmbDocType" path="strDocType" style="width:auto;">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
 <%-- 				    		<s:option value="HTML">HTML</s:option> --%>
 <%-- 				    		<s:option value="CSV">CSV</s:option> --%>
-				    </s:select>
-					</td>
-			   </tr>
-			</table>
+				       </s:select></div>
+		</div>
 			<br>
-			<p align="center">
-				<input type="submit" value="Submit"  class="form_button" onclick="return funCallFormAction('submit',this)" />
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+			<p align="center" style="margin-right: 57%;">
+				<input type="submit" value="Submit"  class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this)" />
+				&nbsp;
+			    <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 			<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
@@ -103,5 +104,6 @@
 		</div>
 		
 		</s:form>
+		</div>
 </body>
 </html>

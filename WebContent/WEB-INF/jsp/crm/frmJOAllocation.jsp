@@ -1,12 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="sp"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title></title>
 <script type="text/javascript">
 	var listRow = 0;
@@ -22,10 +31,10 @@
 			$("#wait").css("display", "none");
 		});
 		
-		$( "#txtJADate" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		$( "#txtJADate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 		$( "#txtJADate" ).datepicker('setDate','today');
 		
-		$( "#txtRefDate" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		$( "#txtRefDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 		$( "#txtRefDate" ).datepicker('setDate','today');
 
 	});
@@ -470,103 +479,92 @@
 </head>
 <body>
 
-	<div id="formHeading">
-		<label>Job Order Allocation</label>
-	</div>
-	<br />
+<div class="container">
+	<label id="formHeading">Job Order Allocation</label>
+
 	<s:form name="JOAllocation" method="POST" action="saveJOAllocation.html?saddr=${urlHits}">
 		<br>
-		<table class="transTable">
-			<tr>
-				<td>
-					<label>JA Code</label>
-				</td>
-				<td>
-					<s:input id="txtJACode" ondblclick="funHelp('JACode')" type="text" path="strJACode" cssClass="searchTextBox" />
-				</td>
-				<td></td>
-				<td>JA NO</td>
-				<td>
-					<s:input id="txtJANo" type="text" path="strJANo" cssClass="BoxW116px" required="true" />
-				</td>
-				<td>Date</td>
-				<td>
-					<s:input type="text" id="txtJADate" class="calenderTextBox"	path="dteJADate" />
-				</td>
-			</tr>
-			
-			<tr>
-				<td>Sub Contractor</td>
-				<td>
-					<s:input id="txtSCCode" type="text" required="true" ondblclick="funHelp('subContractor')" path="strSCCode" cssClass="searchTextBox" />
-				</td>
-				<td><label id="txtSCName"></label></td>
-				<td>
-					<label>Ref</label>
-				</td>
-				<td>
-					<s:input id="txtRef" type="text" path="strRef" cssClass="BoxW116px" />
-				</td>
-				<td>Ref Date</td>
-				<td>
-					<s:input type="text" id="txtRefDate" class="calenderTextBox"	path="dteRefDate" />
-				</td>
-			</tr>
-			
-			<tr>
-				<td>Dispatch Mode</td>
-				<td>
-					<s:input id="txtDispatchMode" type="text" required="true" path="strDispatchMode" cssClass="BoxW116px" />
-				</td>
-				<td></td>
-				<td>Payment</td>
-				<td>
-					<s:input id="txtPayment" type="text" required="true" path="strPayment" cssClass="BoxW116px" />
-				</td>
-				<td>Taxes</td>
-				<td>
-					<s:input id="txtTaxes" type="text" required="true" path="strTaxes" cssClass="BoxW116px" />
-				</td>
-			</tr>
-			
-		</table>
-		
-		<br>
-		<table class="transTableMiddle">
-			<tr>
-				<td><label>JO Code</label></td>
-				<td><input id="txtJOCode" ondblclick="funHelp('AllJobOrder')" class="searchTextBox"  /></td>
-				<td colspan="2">Product &nbsp;<label id="txtProductName"></label></td>
-				<td><input id="txtProductCode" type="hidden"></td>
-				
-				<td><label>Quantity</label></td>
-				<td><input type="text" id="txtQty" class="BoxW116px decimal-places"/></td>
-				
-				<td><label>Unit Price</label></td>
-				<td><input type="text" id="txtPrice" class="BoxW116px decimal-places" /></td>
-				
-			</tr>
-			<tr>
-				<td><label>Nature Of Processing</label></td>
-				<td><input id="txtNature"  class="BoxW116px"  /></td>
-				
-				<td><label>product No</label></td>
-				<td><input type="text" id="txtProdNo" class="BoxW116px decimal-places" /></td>
-				
-				<td><label>Remark</label></td>
-				<td colspan="5"><input type="text" id="txtRemark" class="longTextBox" /></td>
-			</tr>
-			<tr>
-				<td colspan="4"></td>
-				<td><input type="Button" value="Add" onclick="return btnAdd_onclick()" class="smallButton" /></td>
-				<td colspan="4"></td>
-			</tr>
-		</table>
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label>JA Code</label>
+				<s:input id="txtJACode" ondblclick="funHelp('JACode')" type="text" path="strJACode" cssClass="searchTextBox" />
+			</div>	
+			<div class="col-md-2">
+				<label>JA NO</label>
+				<s:input id="txtJANo" type="text" path="strJANo" cssClass="BoxW116px" required="true" />
+			</div>
+			<div class="col-md-2">
+				<label>Date</label>
+				<s:input type="text" id="txtJADate" class="calenderTextBox"	path="dteJADate" style="width:80%;" />
+			</div>
+			<div class="col-md-2">
+				<label>Sub Contractor</label>
+				<s:input id="txtSCCode" type="text" required="true" ondblclick="funHelp('subContractor')" path="strSCCode" cssClass="searchTextBox" />
+			</div>
+			<div class="col-md-2">
+				<label id="txtSCName" style="background-color:#dcdada94;width: 100%;height: 52%;text-align:center;margin-top:25px;"
+				></label>
+			</div>
+			<div class="col-md-2"></div>
+			<div class="col-md-2">	
+				<label>Ref</label>
+				<s:input id="txtRef" type="text" path="strRef" cssClass="BoxW116px" />
+			</div>
+			<div class="col-md-2">	
+				<label>Ref Date</label>
+				<s:input type="text" id="txtRefDate" class="calenderTextBox" path="dteRefDate" style="width:80%;"/>
+			</div>
+			<div class="col-md-2">	
+				<label>Dispatch Mode</label>
+				<s:input id="txtDispatchMode" type="text" required="true" path="strDispatchMode" cssClass="BoxW116px" />
+			</div>
+			<div class="col-md-2">	
+				<label>Payment</label>
+				<s:input id="txtPayment" type="text" required="true" path="strPayment" cssClass="BoxW116px" />
+			</div>	
+			<div class="col-md-2">
+				<label>Taxes</label>
+				<s:input id="txtTaxes" type="text" required="true" path="strTaxes" cssClass="BoxW116px" />
+			</div>
+		</div>
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label>JO Code</label>
+				<input id="txtJOCode" ondblclick="funHelp('AllJobOrder')" class="searchTextBox"  />
+			</div>
+			<div class="col-md-2">
+				<label id="txtProductName">Product</label>
+				<input id="txtProductCode" type="hidden">
+			</div>
+			<div class="col-md-2">
+				<label>Quantity</label>
+				<input type="text" id="txtQty" class="BoxW116px decimal-places"/>
+			</div>
+			<div class="col-md-2">
+				<label>Unit Price</label>
+				<input type="text" id="txtPrice" class="BoxW116px decimal-places" />
+			</div>
+			<div class="col-md-2">
+				<label>Nature Of Processing</label>
+				<input id="txtNature" type="text"  />
+			</div>
+			<div class="col-md-2"></div>
+			<div class="col-md-2">
+				<label>product No</label>
+				<input type="text" id="txtProdNo" class="BoxW116px decimal-places" />
+			</div>
+			<div class="col-md-2">
+				<label>Remark</label>
+				<input type="text" id="txtRemark" />
+			</div>
+			<div class="col-md-2">
+				<input type="Button" value="Add" onclick="return btnAdd_onclick()" class="btn btn-primary center-block" style="margin-top:22px;"/>
+			</div>
+		</div>
 		<br>
 		<div class="dynamicTableContainer">
 			<table style="height: 20px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-
-				<tr bgcolor="#72BEFC">
+			<tr bgcolor="#c0c0c0">
 					<td width="8%">JO Code</td>
 					<td width="8%">Product Code</td>
 					<td width="20%">Product Name</td>
@@ -580,8 +578,7 @@
 				</tr>
 			</table>
 
-			<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 150px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblJODet" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col13-center">
 					<tbody>
 						<col style="width: 8%">
@@ -598,35 +595,26 @@
 				</table>
 			</div>
 		</div>
-
-		<br/>	
-			<table class="transTable">
-				<tr>
-				<td></td>
-					<td>
-						<label>Total Quantity</label>
-					</td>
-					<td>
-						<s:input id="txtTotQty" type="text" required="true" readonly="true" path="dbltotQty" cssClass="BoxW116px" />
-					</td>
-					<td></td>
-				</tr>
-			</table>
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label>Total Quantity</label>
+				<s:input id="txtTotQty" type="text" required="true" readonly="true" path="dbltotQty" cssClass="BoxW116px" />
+			</div>
+		</div>
 		<br />
-		<p align="center">
-			<input type="submit" value="Submit" class="form_button" /> 
-			<input type="button" id="reset" value="Reset" class="form_button" />
-		</p>
-		<br />
-		<br />
-
+		<div class="center">
+			<a href="#"><button class="btn btn-primary center-block" value="Submit"
+				class="form_button">Submit</button></a> &nbsp;
+			<a href="#"><button class="btn btn-primary center-block" id="reset" value="Reset"
+				class="form_button">Reset</button></a>
+		</div>
 		<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
 			<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
 				width="60px" height="60px" />
 		</div>
 	</s:form>
-
+</div>
 	<script type="text/javascript">
 		funApplyNumberValidation();
 	</script>

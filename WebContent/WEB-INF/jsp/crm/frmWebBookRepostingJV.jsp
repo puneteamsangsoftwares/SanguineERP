@@ -1,11 +1,21 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <title>Reposting JV</title>
 </head>
 
@@ -63,7 +73,7 @@
 	            }		            
 	        }
 		});
-		
+		return false;
 	}
 	//Remove Display Data of Table
 	function funRemoveRows()
@@ -189,53 +199,42 @@
 	}
  </script>
 <body>
-<div id="formHeading">
-		<label>Reposting JV</label>
-	</div>
-	<s:form action="RepostingJvWebCrm.html" method="GET" 
-	s="frmRepostingJv" target="_blank">
-		<br>
-		<div>
-	
-			<table class="transTable">
-				<tr>
-				    <td><label id="lblFromDate">From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
-			        </td>
-				        
-			        <td><label id="lblToDate">To Date</label></td>
-			        <td>
-			            <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
-			        </td>
-			        
-			   </tr>
-			   <tr>
-			   		<td><label >Transaction Type</label></td>
-			        <td>
-			        	<select id="cmbAgainst" class="BoxW124px" path="strAgainst" >
+	<div class="container">
+		<label id="formHeading">Reposting JV</label>
+		<s:form action="RepostingJvWebCrm.html" method="GET" s="frmRepostingJv" target="_blank">
+			<div class="row transTable">
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-6">
+							<label id="lblFromDate">From Date</label>
+			            		<s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
+			     		</div>
+			    		 <div class="col-md-6">
+			       			<label id="lblToDate">To Date</label>
+			       				<s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
+			    		 </div> 
+			     	</div>
+			    </div>
+			      <div class="col-md-2">
+			      	<label >Transaction Type</label>
+			      	<select id="cmbAgainst" class="BoxW124px" path="strAgainst" >
 			        		<option value="Invoice">Invoice</option>
 			        		<option value="Sales Return">Sales Return</option>
 			        	</select>
-			       </td>
-			       <td></td><td></td>		        
-			   </tr>
-			   <tr>
-					<td><input id="btnExecute" type="button" class="form_button" value="Excute" onclick="funLoadTransactionList()" /></td>
-					<td></td>
-					<td><input id="btnPosting" type="button" class="form_button" value="Post" onclick="funRepostTransaction()" /></td>
-					<td></td> 
-				</tr>
-				</table>
-					
-		</div>
-		<br/>
-		<br/>
-		<div id="divDocList" class="dynamicTableContainer"
-			style="height: 400px;">
+			      </div>
+			      <div class="center">
+						<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Excute" onclick="return funLoadTransactionList()"
+							class="form_button">Execute</button></a> &nbsp;
+						<a href="#"><button class="btn btn-primary center-block" value="Post" id="btnPosting" onclick="funRepostTransaction()"
+							class="form_button">Post</button></a>
+				</div>
+			 </div>
+			
+			<div id="divDocList" class="dynamicTableContainer"
+				style="height: 400px;">
 			<table style="width: 120%; border: #0F0;   overflow-x: scroll; overflow-y: scroll;"
-				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+					class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
 					<td width="2%">Select<input type="checkbox" id="chkALL" onclick="funCheckUncheck()" /></td>
 					<td width="8%">Doc Code</td>
 					
@@ -254,46 +253,42 @@
 				</tr>
 			</table>
 			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 120%;">
+				style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 120%;">
 					<table id="tblTranList"
 					style="width: 100%; border: #0F0;  overflow-x: scroll; overflow-y: scroll;"
 					class="transTablex col15-center">
-					<tbody>
-					<col style="width: 3%">
-					<col style="width: 8%">
-					<!--  COl1   -->
-					<col style="width: 6%">
-					<!--  COl2   -->
-					<col style="width: 9%">
-					<!--  COl3   -->
-					<col style="width: 12%">
-					<!--  COl4   -->
-					<col style="width: 8%">
-					<!--  COl4   -->
-					<col style="width: 8%">
-					
-					<!--COl6   -->
-					<col style="width: 8%">
-					<!-- COl7   -->
-					<col style="width: 8%">
-					<!--  COl8   -->
-					<col style="width: 12%">
-					<col style="width: 8%">
-					<col style="width: 12%">
-					<!--  COl9   -->
-					
-					</tbody>
-
+						<tbody>
+						<col style="width: 3%">
+						<col style="width: 8%">
+						<!--  COl1   -->
+						<col style="width: 6%">
+						<!--  COl2   -->
+						<col style="width: 9%">
+						<!--  COl3   -->
+						<col style="width: 12%">
+						<!--  COl4   -->
+						<col style="width: 8%">
+						<!--  COl4   -->
+						<col style="width: 8%">
+						
+						<!--COl6   -->
+						<col style="width: 8%">
+						<!-- COl7   -->
+						<col style="width: 8%">
+						<!--  COl8   -->
+						<col style="width: 12%">
+						<col style="width: 8%">
+						<col style="width: 12%">
+						<!--  COl9   -->
+						
+						</tbody>
 				</table>
 			</div>
-
 		</div>
-		
 		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
-			</div>
-		
+		</div>
 	</s:form>
-	
+</div>
 </body>
 </html>

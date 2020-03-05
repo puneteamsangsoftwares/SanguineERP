@@ -1,11 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@	taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Withholding Tax Report</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
+
 </head>
 <script type="text/javascript">
 	$(function() {
@@ -102,42 +112,37 @@
 	}
 </script>
 <body>
-	<div id="formHeading">
-		<label>Withholding Tax Report</label>
-	</div>
-
-	<br />
-	<br />
-
-	<s:form name="frmWithholdingTaxReport" method="GET" action="rptWithholdingTaxReport.html" target="_blank">
-		<div>
-			<table class="transTable">
-			    <tr>
-					<td width="10%"><label>From Date </label></td>
-					<td width="10%" colspan="1"><s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
-					<td width="10%"><label>To Date </label></td>
-					<td width="10%"><s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</td>	
-				</tr>
-				<tr>
-					<td width="140px">
-				        <label>Customer Code </label>
-				    </td>
-				    <td  width="15%">
-				       <s:input id="txtPartyCode" name="txtPartyCode"  path="strCustCode" ondblclick="funHelp('custMaster')"   cssClass="searchTextBox"/>
-				     </td>
-				     <td><label>Customer Name</label></td>
-				     <td colspan="3">
-				      <s:input size="80px" type="text" id="txtPartyName"  name="txtPartyName" path="strCustName" cssStyle="text-transform: uppercase;" cssClass="longTextBox" />
-				     </td>
-				</tr>
-			</table>
+	<div class="container transTable">
+		<label id="formHeading">Withholding Tax Report</label>
+	   <s:form name="frmWithholdingTaxReport" method="GET" action="rptWithholdingTaxReport.html" target="_blank">
+	   <br>
+		 <div class="row">
+	   		
+			   <div class="col-md-2"><label>From Date </label>
+					<s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox" style="width:70%"/>
+			   </div>
+			   
+				<div class="col-md-2"><label>To Date </label>
+					<s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox" style="width:70%"/>
+				</div>	
+				<div class="col-md-8"></div>
+				
+				<div class="col-md-2"><label>Customer Code </label>
+				      <s:input id="txtPartyCode" name="txtPartyCode"  path="strCustCode" ondblclick="funHelp('custMaster')" cssClass="searchTextBox"/>
+			     </div>
+			     
+				 <div class="col-md-2"><label>Customer Name</label>
+				     <s:input size="80px" type="text" id="txtPartyName"  name="txtPartyName" path="strCustName" cssStyle="text-transform: uppercase;"/>
+				 </div>
+			
 		</div>
-		<p align="center">
-				<input type="submit" value="Submit"  class="form_button" />
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+		<br>
+		<p align="center" style="margin-right: 48%;">
+				<input type="submit" value="Submit"  class="btn btn-primary center-block" class="form_button" />
+				&nbsp;
+				<input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 	</s:form>
-
+    </div>
 </body>
 </html>

@@ -15,6 +15,13 @@
 	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
 	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
+<style type="text/css">
+.masterTable  td{
+	padding-left:1px;
+	border-left:none;
+}
+</style>
+
 <script type="text/javascript">
 	
 	var fieldName;
@@ -195,9 +202,9 @@
 			var rowCount=table.rows.length;
 			var row=table.insertRow();
 			amount = quantity * rate
-	 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:80%;\" name=\"listIncomeHeadBeans["+(rowCount)+"].strIncomeHeadCode\" id=\"strIncomeHeadCode."+(rowCount)+"\" value='"+incomeHeadCode+"' >";
-	 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:70%;\" name=\"listIncomeHeadBeans["+(rowCount)+"].strIncomeHeadDesc\" id=\"strIncomeHeadDesc."+(rowCount)+"\" value='"+incomeHeadName+"' >";
-	        row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-right: 5px;width:50%;text-align: right;\" name=\"listIncomeHeadBeans["+(rowCount)+"].dblAmount\" id=\"dblAmount."+(rowCount)+"\"  value='"+amount+"' >";
+	 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:95%;\" name=\"listIncomeHeadBeans["+(rowCount)+"].strIncomeHeadCode\" id=\"strIncomeHeadCode."+(rowCount)+"\" value='"+incomeHeadCode+"' >";
+	 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:95%;\" name=\"listIncomeHeadBeans["+(rowCount)+"].strIncomeHeadDesc\" id=\"strIncomeHeadDesc."+(rowCount)+"\" value='"+incomeHeadName+"' >";
+	        row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-right: 5px;width:95%;text-align: right;\" name=\"listIncomeHeadBeans["+(rowCount)+"].dblAmount\" id=\"dblAmount."+(rowCount)+"\"  value='"+amount+"' >";
 			row.insertCell(3).innerHTML= "<input type=\"button\" value=\"Delete\" style=\"padding-right: 5px;width:80%;text-align: right;\" class=\"deletebutton\" onclick=\"funRemoveRow(this,'tblIncomeHeadDtl')\" />";
 					
 		//calculate totals
@@ -383,23 +390,23 @@
 		
 		<br/>
 		<!-- Generate Dynamic Table   -->		
-		<div class="dynamicTableContainer" style="height: 200px; width: 80%">
+		<div class="dynamicTableContainer" style="height: 200px; width: 60%">
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
 				<tr bgcolor="#c0c0c0" style="height: 24px;">
 					<!-- col1   -->
-					<td align="center" style="width: 30.6%">Income Head Code</td>
+					<td style="width: 26%">Income Head Code</td>
 					<!-- col1   -->
 					
 					<!-- col2   -->
-					<td align="center" style="width: 30.6%">Income Head Name</td>
+					<td style="width: 37%">Income Head Name</td>
 					<!-- col2   -->
 					
 					<!-- col3   -->					
-					<td align="center" style="width: 30.6%">Amount</td>
+					<td style="width: 25%">Amount</td>
 					<!-- col4   -->
 					
 					<!-- col4   -->
-					<td align="center">Delete</td>
+					<td>Delete</td>
 					<!-- col4   -->									
 				</tr>
 			</table>
@@ -407,15 +414,15 @@
 				<table id="tblIncomeHeadDtl" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col3-center">
 					<tbody>
 						<!-- col1   -->
-						<col width="100%">
+						<col width="25%">
 						<!-- col1   -->
 						
 						<!-- col2   -->
-						<col width="100%" >
+						<col width="35%" >
 						<!-- col2   -->
 						
 						<!-- col3   -->
-						<col align="right"  width="100%" >
+						<col align="right"  width="25%" >
 						<!-- col3   -->
 						
 						<!-- col4   -->
@@ -425,7 +432,7 @@
 				</table>
 			</div>			
 		</div>		
-		<div class="dynamicTableContainer" style="height: 25px; width: 80%;overflow-x: hidden;">
+		<div class="dynamicTableContainer" style="height: 25px; width: 30%;overflow-x: hidden;background:#fbfafa">
 			<div class="row">
 				 <div class="col-md-3"> <label>Totals</label>
 					  <label id ="dblTotalAmt">0.00</label>									
@@ -435,7 +442,7 @@
 		<!-- Generate Dynamic Table   -->
 		
 		<br />
-		<p align="right" style="margin-right:20%">
+		<p align="right" style="margin-right:40%">
 			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateFields()"/>&nbsp;
 			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>

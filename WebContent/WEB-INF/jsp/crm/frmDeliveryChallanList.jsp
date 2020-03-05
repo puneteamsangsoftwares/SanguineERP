@@ -1,13 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Sales Order</title>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 		
@@ -27,11 +34,11 @@ $(document).ready(function()
 				var startDate="${startDate}";
 				var arr = startDate.split("/");
 				Dat=arr[2]+"-"+arr[1]+"-"+arr[0];
-			    $("#txtFromDate").datepicker({ dateFormat: 'yy-mm-dd' });
+			    $("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
 				$("#txtFromDate" ).datepicker('setDate', Dat);
 				$("#txtFromDate").datepicker();	
 				
-				$("#txtToDate").datepicker({ dateFormat: 'yy-mm-dd' });
+				$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 				$("#txtToDate" ).datepicker('setDate', 'today');
 				$("#txtToDate").datepicker();	
 					
@@ -156,69 +163,57 @@ $(document).ready(function()
 
 </head>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>Delivery Challan List</label>
-	</div>
-	<s:form name="DeliveryChallan" method="GET"
+	<div class="container transTable">
+		<label id="formHeading">Delivery Challan List</label>
+	  <s:form name="DeliveryChallan" method="GET"
 		action="rptDeliveryChallanList.html" >
 		<input type="hidden" value="${urlHits}" name="saddr">
 		<br>
-		<table class="transTable">
+		    <div class="row">
+		        <div class="col-md-3">
+		           <div class="row">
+					<div class="col-md-6"><label>From Date</label>
+						<s:input path="dtFromDate" id="txtFromDate" required="required" cssClass="calenderTextBox" />
+					</div>
+					<div class="col-md-6"><label>To Date</label>
+						<s:input path="dtToDate" id="txtToDate" required="required" cssClass="calenderTextBox" /> 
+			    	</div>								
+				</div></div>
+				<div class="col-md-9"></div>
+				
+			<div class="col-md-2"><label>Customer Code</label>
+					<s:input path="strDocCode" id="txtPartyCode" ondblclick="funHelp('custMaster')"	cssClass="searchTextBox" />&nbsp;&nbsp;&nbsp;&nbsp;
+					<label id="lblPartyName"></label>	
+			</div>
+			
+			<div class="col-md-1"><label>Type</label>
+					<s:select id="cmbType" path="strAgainst" style="width:140%">
+						<s:option value="Summary">Summary</s:option>
+						<s:option value="Detail">Detail</s:option>
+					</s:select>	
+			</div>&nbsp; &nbsp;
+			
+			<div class="col-md-2"><label>Report Format</label>
+					<s:select id="cmbDocType" path="strDocType" style="width:53%">
+						<s:option value="PDF">PDF</s:option>
+						<s:option value="XLS">EXCEL</s:option>
+						<s:option value="HTML">HTML</s:option>
+						<s:option value="CSV">CSV</s:option>
+					</s:select>
+			</div>
+								
+         </div>
 		
-							<tr>
-							<td width="100px"><label>From Date</label>
-									<td><s:input path="dtFromDate" id="txtFromDate"
-											 required="required"
-											cssClass="calenderTextBox" /></td>
-							<td width="100px"><label>To Date</label>
-									<td><s:input path="dtToDate" id="txtToDate"
-											 required="required"
-											cssClass="calenderTextBox" /></td>
-											
-							</tr>
-							<tr>
-									<td width="100px"><label>Customer Code</label></td>
-									<td colspan="3"><s:input path="strDocCode" id="txtPartyCode"
-											ondblclick="funHelp('custMaster')"
-											cssClass="searchTextBox" />&nbsp;&nbsp;&nbsp;&nbsp;
-									<label id="lblPartyName"></label>	</td>
-											
-																										
-							</tr>
-							
-								<tr>
-									<td><label>Report Format</label></td>
-								<td ><s:select id="cmbDocType" path="strDocType"
-										cssClass="BoxW124px">
-										<s:option value="PDF">PDF</s:option>
-										<s:option value="XLS">EXCEL</s:option>
-										<s:option value="HTML">HTML</s:option>
-										<s:option value="CSV">CSV</s:option>
-									</s:select></td>
-									
-								<td><label>Type</label></td>
-								<td ><s:select id="cmbType" path="strAgainst"
-										cssClass="BoxW124px">
-										<s:option value="Summary">Summary</s:option>
-										<s:option value="Detail">Detail</s:option>
-									</s:select></td>	
-								
-								
-								</tr>
-								
-
-		</table>
-		<br>
-		<p align="center">
+		<p align="right" style="margin-right: 66%">
 			<input type="submit" value="Submit"
-				onclick="return funCallFormAction('submit',this)"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <a
-				STYLE="text-decoration: none"
+				onclick="return funCallFormAction('submit',this)" class="btn btn-primary center-block" 
+				class="form_button" /> &nbsp;
+				<a STYLE="text-decoration: none"
 				href="frmDeliveryChallanList.html?saddr=${urlHits}"><input
-				type="button" id="reset" name="reset" value="Reset"
+				type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block" 
 				class="form_button" /></a>
 		</p>
-		<br>
+
 		<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
 			<img
@@ -226,6 +221,7 @@ $(document).ready(function()
 				width="60px" height="60px" />
 		</div>
 	</s:form>
+	</div>
 	<script type="text/javascript">
 		
 	</script>

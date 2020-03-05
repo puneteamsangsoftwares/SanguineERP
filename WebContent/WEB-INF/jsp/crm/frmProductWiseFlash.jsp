@@ -1,12 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+	
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <title>Insert title here</title>
 
 <script type="text/javascript">
@@ -574,75 +583,85 @@
 </head>
 
 <body>
-	<div id="formHeading">
-		<label>ProductWise Flash</label>
-	</div>
-	<s:form name="Form" method="GET" action="">
-		<br />
-
-		<table class="transTable">
-			<tr>
-			
-			
-				<td><label id="lblFromDate">From Date</label></td>
-				<td><s:input id="txtFromDate" required="required" path=""
-						name="fromDate" cssClass="calenderTextBox" onchange="funChangeFromDate();"  /></td>
-				<td style="width: 10%;"><label id="lblToDate">To Date</label></td>
-				<td ><s:input id="txtToDate" name="toDate" path=""
-						cssClass="calenderTextBox" onchange="funChangeToDate();" /></td>				
-				<td><label id="">Settlement</label>&nbsp; &nbsp;&nbsp; &nbsp;
-				<s:select id="cmbSettlement" path="strSettlementCode" items="${settlementList}" cssClass="BoxW124px">
-			    </s:select></td> 	
-				<td>
-				    <input id="btnExecute" type="button" value="EXECUTE"  class="form_button1" onclick="funOnExecuteBtn('divSKUWise')" />
-				    <input id="btnExport" type="button" value="EXPORT"  class="form_button1" onclick="funExportReport()" />
-				    <input id="btnReset" type="button" value="RESET"  class="form_button1" onclick="funResetCustomer()" />
-				</td>				
-			</tr>
-			
-			<tr>
-				<td><label>Location Code</label></td>
-				<td><s:input type="text" id="txtLocCode" path="strLocCode"
-						cssClass="searchTextBox" ondblclick="funHelp('locationmaster');" /></td>
-				<td ><label id="lblLocName"></label></td>	
-				<td ><label id="">Customer Code</label></td>
-				<td><s:input type="text" id="txtCustCode" path="strCustCode"
-						cssClass="searchTextBox" ondblclick="funHelp('custMaster');" value="All"/>
-					<label id="lblCustName"></label>	
-				</td>	
-				<td ><label id="">Currency</label>
+	<div class="container">
+		<label id="formHeading">Product Wise Flash</label>
+		<s:form name="Form" method="GET" action="">
+			<div class="row transTable">
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-6">
+							<label id="lblFromDate">From Date</label>
+							<s:input id="txtFromDate" required="required" path=""
+								name="fromDate" cssClass="calenderTextBox" onchange="funChangeFromDate();"  />
+						</div>
+						<div class="col-md-6">
+							<label id="lblToDate">To Date</label>
+							<s:input id="txtToDate" name="toDate" path=""
+								cssClass="calenderTextBox" onchange="funChangeToDate();" />
+						</div>
+					</div>
+				</div>	
+				<div class="col-md-2">					
+					<label id="">Settlement</label>
+					<s:select id="cmbSettlement" path="strSettlementCode" items="${settlementList}">
+			    		</s:select>	
+			    </div>
+				
+				<div class="col-md-2">
+					<label>Location Code</label>
+					<s:input type="text" id="txtLocCode" path="strLocCode"
+						cssClass="searchTextBox" ondblclick="funHelp('locationmaster');" />
+				</div>
+				<div class="col-md-3">
+					<label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 43%; margin-top:24px; padding:2px;"></label>
+				</div>
+				<div class="col-md-2">
+					<label id="">Currency</label>
 				     <s:select id="cmbCurrency" path="strCurrencyCode" items="${currencyList}" cssClass="BoxW124px">
 			         </s:select>
-				</td> 		
-			</tr>
+				</div>	
+				
+				<div class="col-md-2">
+					<label id="">Customer Code</label>
+					<s:input type="text" id="txtCustCode" path="strCustCode"
+						cssClass="searchTextBox" ondblclick="funHelp('custMaster');" value="All"/>
+				</div>
+				<div class="col-md-3">
+					<label id="lblCustName" style="background-color:#dcdada94; width: 100%; height: 43%; margin-top:25px; padding:2px;"></label>
+				</div>
+				<div class="col-md-2">
+			   		<label id="">Region Code</label>
+					<s:input type="text" id="txtRegionCode" path=""
+						cssClass="searchTextBox" ondblclick="funHelp('crmRegionMaster')" value="All"/>
+				</div>
+				<div class="col-md-3">
+					<label id="lblRegionName" style="background-color:#dcdada94; width: 100%; height: 43%; margin-top:25px; padding:2px;"></label>
+				</div>
+				<div class="col-md-2"></div>
+				<div class="col-md-2">
+					<label id="">Product Code</label>
+					<s:input type="text" id="txtProdCode" path=""
+						cssClass="searchTextBox" ondblclick="funHelp('productProduced')" value="All"/>
+				</div>
+				<div class="col-md-3">
+					<label id="lblProdName" style="background-color:#dcdada94; width: 100%; height: 43%; margin-top:25px; padding:2px;"></label>
+				</div>
+			</div>
+					<p class="center" style="margin-right:7%;">
+						<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="EXECUTE" onclick="funOnExecuteBtn('divSKUWise')" 
+							class="form_button">EXECUTE</button></a>
+						<a href="#"><button class="btn btn-primary center-block" id="btnExport" value="EXPORT" onclick="funExportReport()" 
+							class="form_button">EXPORT</button></a>
+						<a href="#"><button class="btn btn-primary center-block" value="RESET" onclick="funResetCustomer()"
+							class="form_button">RESET</button></a>
+					</p>
+			
 
-			<tr>
-			    <td ><label id="">Region Code</label>
-				<td><s:input type="text" id="txtRegionCode" path=""
-						cssClass="searchTextBox" ondblclick="funHelp('crmRegionMaster')" value="All"/></td>
-				<td ><label id="lblRegionName"></label></td> 
-				<td ><label id="">Product Code</label>
-				<td><s:input type="text" id="txtProdCode" path=""
-						cssClass="searchTextBox" ondblclick="funHelp('productProduced')" value="All"/></td>
-				<td ><label id="lblProdName"></label></td> 
-				 				
-			 </tr>
-
-
-
-		</table>
-
-
-
-<br/>
-	
-
-
-	<div id="divSKUWise" class="dynamicTableContainer"
+		<div id="divSKUWise" class="dynamicTableContainer"
 			style="height: 400px;">
 			<table style="width: 100%; border: #0F0; table-layout: fixed;"
 				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#c0c0c0">
 				
 				    <td width="6%">Invoice No</td>
 					<!--  COl1   -->
@@ -665,7 +684,7 @@
 				</tr>
 			</table>
 			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblCustProdDtl"
 					style="width: 100%; border: #0F0; table-layout: fixed;"
 					class="transTablex col15-center">
@@ -686,21 +705,12 @@
 					<!--  COl7   -->
 					<col style="width: 4.2%">
 					<!--  COl8   -->
-				
-					
-				
 					</tbody>
-
 				</table>
 			</div>
-
 		</div>
-
-
-		
-		
 		<div id="divValueTotal"
-			style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 50px; margin: auto; overflow-x: hidden; overflow-y: hidden; width: 95%;">
+			style="display: block; height: 50px; margin: auto; overflow-x: hidden; overflow-y: hidden; width: 95%;">
 			<table id="tblTotalFlash" class="transTablex"
 				style="width: 100%; font-size: 11px; font-weight: bold;">
 				
@@ -720,11 +730,7 @@
 				</tr>
 			</table>
 		</div>
-
-
-<br/>
-<br/>
-
 	</s:form>
+	</div>
 </body>
 </html>

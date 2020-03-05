@@ -1,11 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <title>Sales Person</title>
 <script type="text/javascript">
 	var fieldName;
@@ -100,40 +109,28 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Sales Person Master</label>
+	<div class="container">
+		<label id="formHeading">Sales Person Master</label>
+			<s:form name="SalesPerson" method="POST" action="saveSalesPerson.html">
+				<div class="row transTable">
+					<div class="col-md-2">
+						<label>Sales Person Code:</label><br>
+						<s:input type="text" id="txtSalesPersonCode" path="strSalesPersonCode" cssClass="searchTextBox" ondblclick="funHelp('salesPersonCode');" />
+					</div>
+					<div class="col-md-2">
+						<label>Sales Person Name:</label><br>
+						<s:input type="text" id="txtSalesPersonName" path="strSalesPersonName"/>
+					</div>
+					<div class="col-md-4"></div>
+				</div>
+				
+				<div class="center" style="text-align:right; margin-right:71%;">
+					<a href="#"><button class="btn btn-primary center-block"  tabindex="3" value="Submit" onclick="" 
+						class="form_button">Submit</button></a> &nbsp;
+					<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetField()"
+						class="form_button">Reset</button></a>
+				</div>
+		</s:form>
 	</div>
-
-<br/>
-<br/>
-
-	<s:form name="SalesPerson" method="POST" action="saveSalesPerson.html">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>Sales Person Code</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtSalesPersonCode" path="strSalesPersonCode" cssClass="searchTextBox" ondblclick="funHelp('salesPersonCode');"/>
-				</td>
-				<td>
-					<label>Sales Person Name</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtSalesPersonName" path="strSalesPersonName" cssClass="longTextBox" />
-				</td>
-			</tr>
-		</table>
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-
-	</s:form>
 </body>
-
 </html>

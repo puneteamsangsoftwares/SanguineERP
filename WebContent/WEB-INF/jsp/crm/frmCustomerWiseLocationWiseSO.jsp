@@ -1,15 +1,24 @@
- <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Cost Of Issue</title>
+    
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+    
     <style>
   #tblGroup tr:hover , #tblSubGroup tr:hover, #tblloc tr:hover{
-	background-color: #72BEFC;
+	background-color: #c0c0c0;
 	
 }
 </style>
@@ -353,62 +362,60 @@
   </head>
   	
 	<body id="CustomerWiseLocationWiseSO" onload="funOnload();">
-	<div id="formHeading">
-		<label>Customer Wise Location Wise SO Report</label>
-	</div>
-		<s:form name="frmCustomerWiseLocationWiseSOReport" method="POST" action="rptCustomerWiseLocationWiseSO.html" target="_blank">
+	<div class="container transTable">
+		<label id="formHeading">Customer Wise Location Wise SO Report</label>
+	     <s:form name="frmCustomerWiseLocationWiseSOReport" method="POST" action="rptCustomerWiseLocationWiseSO.html" target="_blank">
 	   		<br />
-	   		<table class="transTable">
-			    <tr>
-					<td width="10%"><label>From SO Date :</label></td>
-					<td colspan="1" width="10%"><s:input id="txtFromDate" path="dtFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"  onchange="update_FromDate(this.value);"/></td>
-					<td width="10%"><label>To SO Date :</label></td>
-					<td colspan="1"><s:input id="txtToDate" path="dtToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</td>
-				</tr>
-				<tr>
-				<td colspan="4"></td>
-				
-				</tr>
-				 <tr>
-					<td width="10%"><label>From Fulfillment Date :</label></td>
-					<td colspan="1" width="10%"><s:input id="txtFromFulfillment" path="dteFromFulfillment" required="true" readonly="readonly" cssClass="calenderTextBox"  onchange="update_FromFulFillmentDate(this.value);"/></td>
-					<td width="10%"><label>To Fulfillment Date :</label></td>
-					<td colspan="1"><s:input id="txtToFulfillment" path="dteToFulfillment" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</td>
-				</tr>
-				
-			    </table>
+	   		 <div class="row">
+	   		   	 <div class="col-md-3">
+	   				<div class="row">
+					<div class ="col-md-6"><label>From SO Date :</label>
+							<s:input id="txtFromDate" path="dtFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"  onchange="update_FromDate(this.value);"/>
+				     </div>
+				     <div class ="col-md-6"><label>To SO Date :</label>
+					        <s:input id="txtToDate" path="dtToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+					  </div>
+				  </div></div>
+				  
+				 <div class="col-md-3.1">
+	   				<div class="row">
+					 <div class ="col-md-6"><label>From Fulfillment Date :</label>
+							<s:input id="txtFromFulfillment" path="dteFromFulfillment" required="true" style="width:80%" readonly="readonly" cssClass="calenderTextBox"  onchange="update_FromFulFillmentDate(this.value);"/>
+					 </div>
+					 <div class ="col-md-6"><label>To Fulfillment Date :</label>
+							<s:input id="txtToFulfillment" path="dteToFulfillment" required="true" style="width:80%" readonly="readonly" cssClass="calenderTextBox"/>
+					 </div>
+				  </div></div>
+			    </div>
 				<br>
-			<table class="transTable">
+		 <table class="transTable">
 			
 			<tr>
 			
 					
 			</tr>
-		</table>
+		</table> 
 		<br>
 		<table class="transTable">
 				
 		<tr>
-				<td colspan="2">Customer&nbsp;&nbsp;&nbsp;<input style="width: 35%; background-position: 150px 2px;" type="text" id="txtCustCode" 
-			 Class="searchTextBox" placeholder="Type to search"></input>
+				<td colspan="2">Customer
+				<input style="width: 35%" type="text" id="txtCustCode"  Class="searchTextBox" placeholder="Type to search"></input>
 			<label id="lblCustName"></label></td>
 			
-			<td colspan="2">Location&nbsp;&nbsp;&nbsp;
-			<input type="text" id="txtLocCode" 
-			 style="width: 35%;background-position: 150px 2px;"  Class="searchTextBox" placeholder="Type to search"  ></input>
+			<td colspan="2">Location
+			<input type="text" id="txtLocCode" style="width: 35%"  Class="searchTextBox" placeholder="Type to search"  ></input>
 			<label id="lblLocName"></label></td>
 			
 			</tr><tr>
 						<td colspan="2">
 						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px;width: 480px; overflow-x: hidden; overflow-y: scroll;">
+							style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 480px; overflow-x: hidden; overflow-y: scroll;">
 
 							<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#c0c0c0">
 										<td width="15%"><input type="checkbox" checked="checked" 
 										id="chkCustALL"/>Select</td>
 										<td width="25%">To Customer Code</td>
@@ -420,22 +427,22 @@
 							<table id="tblCust" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+							<!-- 	<tr bgcolor="#c0c0c0">
 									
 
-								</tr>
+								</tr> -->
 							</table>
 						</div>
 				</td>
 				
 				<td colspan="2">
 						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px;width: 490px; overflow-x: hidden; overflow-y: scroll;">
+							style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 490px; overflow-x: hidden; overflow-y: scroll;">
 
 							<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#c0c0c0">
 										<td width="15%"><input type="checkbox" checked="checked" 
 										id="chkLocALL"/>Select</td>
 										<td width="25%"> Location Code</td>
@@ -447,10 +454,10 @@
 							<table id="tblloc" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+								<!-- <tr bgcolor="#c0c0c0">
 									
 
-								</tr>
+								</tr> -->
 							</table>
 						</div>
 				</td>
@@ -461,25 +468,23 @@
 		</table>
 		
 		<br>
-		<table class="transTable">
-			<tr>
-				<td width="10%"><label>Report Type :</label></td>
-				<td colspan="3"><s:select id="cmbDocType" path="strDocType"
-						cssClass="BoxW124px">
+		<div class="row">
+			<div class="col-md-2"><label>Report Type :</label>
+				   <s:select id="cmbDocType" path="strDocType" style="width:45%">
  						<s:option value="PDF">PDF</s:option> 
 						<s:option value="XLS">EXCEL</s:option>
 <%-- 						<s:option value="HTML">HTML</s:option> --%>
 <%-- 						<s:option value="CSV">CSV</s:option> --%>
-					</s:select></td>
-			</tr>
+					</s:select>
+			</div>
 
-		</table>
+		</div>
 		
 
 		<br>
 			<p align="center">
-				 <input type="button" value="Submit" onclick="return btnSubmit_Onclick();" class="form_button" />
-				 <input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>			     
+				 <input type="button" value="Submit" onclick="return btnSubmit_Onclick();" class="btn btn-primary center-block" class="form_button" />&nbsp;
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>			     
 			</p>  
 			
 			
@@ -494,5 +499,6 @@
 				width="60px" height="60px" />
 		</div>
 		</s:form>
+		</div>
 	</body>
 </html>

@@ -1,12 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <title></title>
-<style>
+<%-- <style>
 .ui-autocomplete {
     max-height: 200px;
     overflow-y: auto;
@@ -21,7 +31,7 @@
 * html .ui-autocomplete {
     height: 200px;
 }
-</style>
+</style> --%>
 <script type="text/javascript">
 
     
@@ -133,37 +143,29 @@ $(function() {
 </head>
 
 <body >
-	<div id="formHeading">
-		<label>Category Master</label>
-	</div>
-	<s:form name="manufactureForm" method="POST" action="saveCRMCategoryMaster.html?saddr=${urlHits}">
-
-		<br />
-		<br />
-		<table class="masterTable">
-
-			<tr>
-				<td width="150px">Category Code</td>
-				<td><s:input id="txtCategoryCode" path="strCategoryCode"
-						cssClass="searchTextBox jQKeyboard form-control"  ondblclick="funHelp('categoryMaster')" /></td>
-			</tr>
-			<tr>
-				<td><label>Category Desc</label></td>
-				<td><s:input colspan="3" type="text" id="txtCategoryDesc" 
-						path="strCategoryDesc" required="true"
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox jQKeyboard form-control"  /> 
-				</td>
-			</tr>
-			
-			
-		</table>
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button"/> 
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
+	<div class="container">
+		<label  id="formHeading">Category Master</label>
+		<s:form name="manufactureForm" method="POST" action="saveCRMCategoryMaster.html?saddr=${urlHits}">
+		<div class="row masterTable">
+			<div class="col-md-2">
+				<label>Category Code</label><br>
+				<s:input id="txtCategoryCode" path="strCategoryCode" type="text"
+						cssClass="searchTextBox" ondblclick="funHelp('categoryMaster')" />  <!-- class=" jQKeyboard form-control" -->
+			</div>
+			<div class="col-md-2">
+				<label>Category Desc</label><br>
+				<s:input type="text" id="txtCategoryDesc" 
+					path="strCategoryDesc" required="true"
+					cssStyle="text-transform: uppercase;" />  <!-- class=" jQKeyboard form-control" -->
+			</div>
+		</div>
+		<div class="center" style="text-align:right; margin-right:69%;">
+			<a href="#"><button class="btn btn-primary center-block"  tabindex="3" value="Submit" onclick="return funValidateFields()" 
+				class="form_button">Submit</button></a> &nbsp;
+			<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetField()"
+				class="form_button">Reset</button></a>
+		</div>
 	</s:form>
-
+</div>
 </body>
 </html>

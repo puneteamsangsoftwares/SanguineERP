@@ -295,9 +295,9 @@ function funSetAccountCode(code){
 				<!-- General Tab Start -->
 		<div id="tab1" class="tab_content" style="height: 150px">
 	 		<div class="row" style="margin-top: 4%">
-				<div class="col-md-12" align="center"><a id="baseUrl" style="margin-left:-48%;display:none"
+				<!-- <div class="col-md-12" align="center"><a id="baseUrl" style="margin-left:-48%;display:none"
 					href="#"> Attach Documents</a>&nbsp; &nbsp; &nbsp;
-					&nbsp;</div>
+					&nbsp;</div> -->
 			
 			<div class="col-md-2"><label>Extra Bed Type</label>
 				<s:input id="txtExtraBedTypeCode" path="strExtraBedTypeCode" cssClass="searchTextBox" style="height: 50%;" ondblclick="funHelp('extraBed')" />				

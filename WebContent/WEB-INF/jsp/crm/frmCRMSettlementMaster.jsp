@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <style>
 .ui-autocomplete {
     max-height: 200px;
@@ -177,61 +187,50 @@
 
 </head>
 
-<body >
-	<div id="formHeading">
-		<label>Settlement Master</label>
-	</div>
-	<s:form name="manufactureForm" method="POST" action="saveCRMSettlementMaster.html?saddr=${urlHits}">
+<body>
 
-		<br />
-		<br />
-		<table class="masterTable">
-
-			<tr>
-				<td width="150px">Settlement Code</td>
-				<td><s:input id="txtSettlementCode" path="strSettlementCode"
-						cssClass="searchTextBox jQKeyboard form-control"  ondblclick="funHelp('settlementMaster')" /></td>
-			</tr>
-			<tr>
-				<td><label>Settlement Desc</label></td>
-				<td><s:input colspan="3" type="text" id="txtSettlementDesc" 
-						path="strSettlementDesc" required="true"
-						cssStyle="text-transform: uppercase;" cssClass="longTextBox jQKeyboard form-control"  /> 
-				</td>
-			</tr>
-			
-			<tr>
-				<td><label>Settlement Type</label></td>
-				<td>
-					<s:select id="cmbSettlementType" path="strSettlementType" cssClass="BoxW124px">
+	<div class="container">
+		<label id="formHeading">Settlement Master</label>
+		<s:form name="manufactureForm" method="POST" action="saveCRMSettlementMaster.html?saddr=${urlHits}">
+			<div class="row masterTable">
+				<div class="col-md-2">
+					<label>Settlement Code:</label>
+					<s:input id="txtSettlementCode" path="strSettlementCode"
+						cssClass="searchTextBox"  ondblclick="funHelp('settlementMaster')" /> <!-- class=" jQKeyboard form-control" -->
+				</div>
+				<div class="col-md-2">
+					<label>Settlement Desc</label>
+					<s:input type="text" id="txtSettlementDesc" path="strSettlementDesc" required="true"
+						cssStyle="text-transform: uppercase;" /> <!-- class=" jQKeyboard form-control" -->
+				</div>
+				<div class="col-md-2">
+					<label>Settlement Type</label>	
+					<s:select id="cmbSettlementType" path="strSettlementType">
 				    	<option selected="selected" value="Cash">Cash</option>
 				    	<option value="Credit Card">Credit Card</option>
 				    	<option value="Credit">Credit</option>
 				    	<option value="Online Payment">Online Payment</option>
 		         	</s:select>					
-				</td>				
-			</tr>
-			
-			<tr>
-				<td><label>Applicable</label></td>
-				<td><s:checkbox colspan="1"  id="chkApplicable" 
-						name="chkApplicable" path="strApplicable" value ="true" style="width:8%" />
-			
-			<td><label id="lblsettleMaster">Settlement Wise Invoice Series </label></td>
-				 <td > 
-				<s:select id="txtInvSeriesChar" path="strInvSeriesChar" items="${alphabetList}"   cssClass="BoxW124px">
-				    
-		         	</s:select>	
-				</td>	
-			</tr>
-		</table>
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3"  onclick="return funValidateFields()" class="form_button"/> 
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
+				</div>
+				<div class="col-md-6"></div>
+				<div class="col-md-2">
+					<label id="lblsettleMaster">Settlement Wise Invoice Series </label>
+						<s:select id="txtInvSeriesChar" path="strInvSeriesChar" items="${alphabetList}" style="width:60%;">
+		         		</s:select>	
+				</div>
+				<div class="col-md-2">
+					<label>Applicable</label><br>
+					<input type="checkbox" id="chkApplicable" 
+						name="chkApplicable" path="strApplicable" value="true" />
+				</div>	
+			</div>
+			<div class="center" style="text-align:right; margin-right:52%;">
+				<a href="#"><button class="btn btn-primary center-block"  tabindex="3" value="Submit" onclick="return funValidateFields()"
+					class="form_button">Submit</button></a> &nbsp;
+				<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetField()"
+					class="form_button">Reset</button></a>
+			</div>
 	</s:form>
-
+</div>
 </body>
 </html>

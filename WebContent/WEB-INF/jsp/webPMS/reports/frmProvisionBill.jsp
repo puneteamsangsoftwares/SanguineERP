@@ -179,7 +179,7 @@
 			<div class="col-md-9"></div>
 			
 			<div class="col-md-2"><label>Doc No.</label>
-				 <s:input id="strBillNo" path="strBillNo"  cssClass="searchTextBox" ondblclick="funHelp('reservationForBill')" style="height: 45%;"/>
+				 <s:input id="strBillNo" path="strBillNo"  cssClass="searchTextBox" ondblclick="funHelp('reservationForBill')" />
 			</div>
 																
 			<div class="col-md-1.1"><label> Against</label>

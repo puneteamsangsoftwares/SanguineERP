@@ -171,8 +171,8 @@
 		<label id="formHeading">Reason Master</label>
 	    <s:form name="Reason" method="GET" action="saveReasonMaster.html?" >
 	    <div class="row">
-			<div class="col-md-12" align="center"><a id="baseUrl" href="#" style="display:none;"> Attach Documents</a>&nbsp; &nbsp; &nbsp; &nbsp;
-			</div>
+			<!-- <div class="col-md-12" align="center"><a id="baseUrl" href="#" style="display:none;"> Attach Documents</a>&nbsp; &nbsp; &nbsp; &nbsp;
+			</div> -->
 			
 			<div class="col-md-2"><label>Reason Code</label>
 				<s:input id="txtReasonCode" path="strReasonCode" cssClass="searchTextBox" style="height: 48%" ondblclick="funHelp('reasonPMS')" />			

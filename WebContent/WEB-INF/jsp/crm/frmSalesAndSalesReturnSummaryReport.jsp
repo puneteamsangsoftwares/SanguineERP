@@ -1,11 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@	taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Customer And Sub GroupWise Sales Report</title>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
+    
 </head>
 <script type="text/javascript">
 	$(function() {
@@ -31,40 +43,34 @@
 	});
 </script>
 <body>
-	<div id="formHeading">
-		<label>Customer And Sub GroupWise Sales Report</label>
-	</div>
-
-	<br />
-	<br />
-
-	<s:form name="frmSalesAndSalesReturnSummaryReport" method="GET" action="rpSalesAndSalesReturnSummaryReport.html" target="_blank">
-		<div>
-			<table class="transTable">
-			    <tr>
-					<td width="10%"><label>From Date </label></td>
-					<td width="10%" colspan="1"><s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
-					<td width="10%"><label>To Date </label></td>
-					<td width="10%"><s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					</td>	
-				</tr>
-				<tr>
-					<td><label>Report Type </label></td>
-					<td><s:select id="cmbType" path="strType" cssClass="BoxW124px">
+	<div class=" container transTable">
+	    <label id="formHeading">Customer And Sub GroupWise Sales Report</label>
+		<s:form name="frmSalesAndSalesReturnSummaryReport" method="GET" action="rpSalesAndSalesReturnSummaryReport.html" target="_blank">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="row">
+			   		<div class="col-md-6"><label>From Date </label>
+							<s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+					</div>
+					<div class="col-md-6"><label>To Date </label>
+							<s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
+					</div>	
+				</div></div>
+				<div class="col-md-9"></div>
+				<div class="col-md-3" style="padding-left:1%;width:auto;"><label>Report Type </label>
+						<s:select id="cmbType" path="strType" style="width:auto;">
 						<s:option value="Summary" selected="selected">Summary</s:option>
                     	<s:option value="Sub GroupWise Tax Breakup">Sub GroupWise Tax Breakup</s:option>
                     	<s:option value="Customer And SubGroup Wise Breakup">Customer And SubGroup Wise Breakup</s:option> 
-                   </s:select></td>
-					<td colspan="2"></td>
-				</tr>
-				
-			</table>
-		</div>
-		<p align="center">
-				<input type="submit" value="Submit"  class="form_button" />
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
-			</p>
+                   </s:select>
+                </div>
+			    </div>
+		<br>
+		<p align="center" style="margin-right:65%">
+				<input type="submit" value="Submit"  class="btn btn-primary center-block"  class="form_button" />&nbsp;
+				 <input type="button" value="Reset"  class="btn btn-primary center-block"  class="form_button"  onclick="funResetFields()"/>
+		</p>
 	</s:form>
-
+</div>
 </body>
 </html>

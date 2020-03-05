@@ -1,10 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title></title>
 <script type="text/javascript">
 	var fieldName;
@@ -12,13 +21,13 @@
 	
 	$(document).ready(function() 
 			{		
-				$("#txtSRDate").datepicker({ dateFormat: 'yy-mm-dd' });
+				$("#txtSRDate").datepicker({ dateFormat: 'dd-mm-yy' });
 					$("#txtSRDate" ).datepicker('setDate', 'today');
 					
-					$("#txtSCDCDate").datepicker({ dateFormat: 'yy-mm-dd' });
+					$("#txtSCDCDate").datepicker({ dateFormat: 'dd-mm-yy' });
 					$("#txtSCDCDate" ).datepicker('setDate', 'today');
 					
-					$("#txtInRefDate").datepicker({ dateFormat: 'yy-mm-dd' });
+					$("#txtInRefDate").datepicker({ dateFormat: 'dd-mm-yy' });
 					$("#txtInRefDate" ).datepicker('setDate', 'today');
 				});	
 	
@@ -896,160 +905,136 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Sub Contractor GRN</label>
-	</div>
-
-<br/>
-<br/>
-
+	<div class="container">
+		<label id="formHeading">Sub Contractor GRN</label>
+	<br/>
 	<s:form name="SubContractorGRN" method="POST" action="saveSubContractorGRN.html">
 	<input type="hidden" value="${urlHits}" name="saddr">
-
 	
-		<table class="transTable">
-		
-		<tr>
-									<td><label>SC Return Code</label></td>
-									<td ><s:input path="strSRCode" id="txtSRCode"
-											ondblclick="funHelp('SCGRNCode')"
-											cssClass="searchTextBox" /></td>
-											<td><s:input colspan="3" type="text" class="BoxW116px"
-												id="txtNo" path="strSRNo" cssClass="BoxW124px" /></td>
-									
-									<td ><label>SR Date</label>
-									<td colspan="2"><s:input path="dteSRDate" id="txtSRDate"
-											 required="required"
-											cssClass="calenderTextBox" /></td>
-											
-								</tr>
-								<tr>
-									<td ><label>SC Code</label></td>
-									<td ><s:input path="strSCCode" id="txtSCCode"
-											ondblclick="funHelp('subContractor')"
-											cssClass="searchTextBox" /></td>
-										<td colspan="4"><label id="lblSCName"
-										class="namelabel"></label></td>	
-								</tr>
-								<tr>
-									<td><label>Against</label></td>
-									<td>
-										<s:select id="cmbAgainst" path="strAgainst" items="${againstList}" cssClass="BoxW124px" onchange="funShowFieled()" />
-									</td>
-									<td colspan="2">
-										<s:input id="txtSCDCCode" path="strSCDNCode" style="display:none" ondblclick="funHelp('SCDNCode')" class="searchTextBox" />
-									</td>		
-									
-									<td ><label>SC DN Date</label>
-										<td>
-											<s:input path="dteSCDCDate" id="txtSCDCDate" cssClass="calenderTextBox" />
-										</td>
-								</tr>
-								<tr>
-								<td><label>Location Code</label></td>
-									<td><s:input type="text" id="txtLocCode" path="strLocCode"
-											cssClass="searchTextBox" ondblclick="funHelp('locationmaster');" /></td>
-									<td><label id="lblLocName"></label></td>
-									
-								<td><label>Vechile No</label></td>
-									<td colspan="8"><s:input id="txtVehNo" type="text" path="strVehNo"
-											class="BoxW116px" /></td>	
-								
-								</tr>
-								<tr>
-								<td><label>Inward Ref No</label></td>
-									<td ><s:input id="txtInRefNo" type="text" path="strInRefNo"
-											class="BoxW116px" /></td>	
-											
-								<td ><label>Inward Ref Date</label>
-									<td colspan="3"> <s:input path="dteInRefDate" id="txtInRefDate"
-											cssClass="calenderTextBox" /></td>	
-								
-								</tr>
-								
-								<tr>
-									<td ><label>Product</label></td>
-									<td ><input id="txtProdCode"
-										ondblclick="funHelp('productmaster')" class="searchTextBox" /></td>
-									<td align="left" colspan="5"><label id="lblProdName"
-										class="namelabel"></label></td>
-
-								</tr>
-								<tr>
-									<td><label>Unit Price</label></td>
-									<td><input id="txtPrice" type="text"
-										class="decimal-places numberField" /></td>
-									<td><label>Wt/Unit</label></td>
-									<td ><input type="text" id="txtWeight"
-										class="decimal-places numberField" /></td>
-									
-									<td ><label>Qty Recived</label></td>
-									<td ><input id="txtQtyRecived"
-										type="text" class="decimal-places numberField" style="width:60%"/></td>
-									
-									
-								</tr>
-								
-								<tr>
-								
-								<td ><label>Qty Receiveable</label></td>
-									<td ><input id="txtQtyReceiveable"
-										type="text" class="decimal-places numberField" style="width:60%"/></td>
-										
-									<td width="100px"><label>Qty Reject</label></td>
-									<td width="150px"><input id="txtQtyReject"
-										type="text" class="decimal-places numberField" style="width:60%"/></td>	
-									
-								
-								<td><label>Wt Receivable</label></td>
-									<td ><input type="text" id="txtWtReceivable"
-										class="decimal-places numberField" /></td>
-								
-										
-														
-								</tr>
-								<tr>
-								
-								<td ><label>Qty DN</label></td>
-									<td width="150px"><input id="txtQtyDC"
-										type="text" class="decimal-places numberField" style="width:60%" /></td>
-								
-								<td ><label>DN Wt</label></td>
-									<td ><input id="txtDCWt"
-										type="text" class="decimal-places numberField" style="width:60%"/></td>
-								
-											
-								
-								<td ><label>Scrap Returned</label></td>
-									<td ><input id="txtScrapReturned"
-										type="text" class="decimal-places numberField" style="width:60%"/></td>
-								<tr>
-								
-									<td><label>Weight</label></td>
-									<td ><input id="txtInRefNo" type="text" 
-											class="BoxW116px" /></td>	
-								
-								<td><label>Remarks</label></td>
-								<td><input id="txtRemarks" class="longTextBox" style="width:100%" /></td>
-									<td colspan="2"><input type="button" value="Add" class="smallButton"
-										onclick="return btnAdd_onclick()" /></td>
-								</tr>
-								
-								
-		</table>
+			<div class="row transTable">
+				<div class="col-md-2">
+					<label>SC Return Code</label>
+					<s:input path="strSRCode" id="txtSRCode" ondblclick="funHelp('SCGRNCode')"
+						cssClass="searchTextBox" />
+				</div>
+				<div class="col-md-2">
+					<s:input colspan="3" type="text" id="txtNo" path="strSRNo" style="margin-top:27px;" />
+				</div>
+				<div class="col-md-2">
+					<label>SR Date</label>
+					<s:input path="dteSRDate" id="txtSRDate" required="required" cssClass="calenderTextBox" style="width:80%;" />
+				</div>
+				<div class="col-md-2">
+					<label>SC Code</label>
+					<s:input path="strSCCode" id="txtSCCode" ondblclick="funHelp('subContractor')"
+							cssClass="searchTextBox" />
+				</div>
+				<div class="col-md-2">
+					<label id="lblSCName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+					></label>
+				</div>
+				<div class="col-md-2"></div>
+				<div class="col-md-2">
+					<label>Against</label>
+					<s:select id="cmbAgainst" path="strAgainst" items="${againstList}" cssClass="BoxW124px" onchange="funShowFieled()" />
+				</div>
+				<div class="col-md-2">					
+					<s:input id="txtSCDCCode" path="strSCDNCode" style="display:none; margin-top:27px;" ondblclick="funHelp('SCDNCode')" class="searchTextBox" />
+				</div>
+				<div class="col-md-2">						
+					<label>SC DN Date</label>
+					<s:input path="dteSCDCDate" id="txtSCDCDate" cssClass="calenderTextBox" style="width:80%;"/>
+				</div>
+				<div class="col-md-2">						
+					<label>Location Code</label>
+					<s:input type="text" id="txtLocCode" path="strLocCode"
+							cssClass="searchTextBox" ondblclick="funHelp('locationmaster');" />
+				</div>
+				<div class="col-md-2">
+					<label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+						> </label>
+				</div>
+					<div class="col-md-2"></div>
+				<div class="col-md-2">
+					<label>Vechile No</label>
+					<s:input id="txtVehNo" type="text" path="strVehNo"/>
+				</div>
+				<div class="col-md-2">		
+					<label>Inward Ref No</label>
+					<s:input id="txtInRefNo" type="text" path="strInRefNo" />
+				</div>
+				<div class="col-md-2">	
+					<label>Inward Ref Date</label>
+					<s:input path="dteInRefDate" id="txtInRefDate" cssClass="calenderTextBox" style="width:80%;" />	
+				</div>
+				<div class="col-md-2">	
+					<label>Product</label>
+					<input id="txtProdCode" ondblclick="funHelp('productmaster')" class="searchTextBox" />
+				</div>
+				<div class="col-md-2">	
+					<label id="lblProdName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+					></label>
+				</div>
+					<div class="col-md-2"></div>
+				<div class="col-md-2">	
+					<label>Unit Price</label>
+					<input id="txtPrice" type="text" class="decimal-places numberField" />
+				</div>
+				<div class="col-md-2">
+					<label>Wt/Unit</label>
+					<input type="text" id="txtWeight" class="decimal-places numberField" />
+				</div>
+				<div class="col-md-2">
+					<label>Qty Recived</label>
+					<input id="txtQtyRecived" type="text" class="decimal-places numberField" />
+				</div>
+				<div class="col-md-2">					
+					<label>Qty Receiveable</label>
+					<input id="txtQtyReceiveable"
+							type="text" class="decimal-places numberField" style="width:80%"/>
+				</div>
+				<div class="col-md-2">		
+					<label>Qty Reject</label>
+					<input id="txtQtyReject" type="text" class="decimal-places numberField" style="width:80%"/>
+				</div>
+				<div class="col-md-2"></div>
+				<div class="col-md-2">	
+					<label>Wt Receivable</label>
+					<input type="text" id="txtWtReceivable" class="decimal-places numberField" />
+				</div>
+				<div class="col-md-2">	
+					<label>Qty DN</label>
+					<input id="txtQtyDC" type="text" class="decimal-places numberField" style="width:80%" />
+				</div>
+				<div class="col-md-2">					
+					<label>DN Wt</label>
+					<input id="txtDCWt" type="text" class="decimal-places numberField" style="width:80%"/>
+				</div>
+				<div class="col-md-2">
+					<label>Scrap Returned</label>
+					<input id="txtScrapReturned" type="text" class="decimal-places numberField" style="width:80%"/>
+				</div>
+				<div class="col-md-2">
+					<label>Weight</label>
+					<input id="txtInRefNo" type="text"  class="BoxW116px" />
+				</div>
+				<div class="col-md-2"></div>
+				<div class="col-md-2">
+					<label>Remarks</label>
+					<input id="txtRemarks" type="text" />
+				</div>
+				<div class="col-md-2">
+					<input type="button" value="Add" class="btn btn-primary center-block" onclick="return btnAdd_onclick()" style="margin-top:25px;"/>
+				</div>		
+			</div>
+			<br>
 		
 		
-		
-		<div class="dynamicTableContainer" style="height: 300px; width: 964px;">
-								<table
-									style="height: 20px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold; width: 140%">
-									
-										<tr bgcolor="#72BEFC">
-										
-<!-- 										<td colspan="7" style="text-align: center ;" >Delivery Note Details</td> -->
-										
-										
-										<!--  COl7   -->
+				<div class="dynamicTableContainer" style="height: 300px; width: 100%;">
+						<table style="height: 20px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;" >
+							<tr bgcolor="#c0c0c0">
+<!-- 							<td colspan="7" style="text-align: center ;" >Delivery Note Details</td> -->
+									<!--  COl7   -->
 										<td width="5%" rowspan="2">Prod Code</td>
 										<!--  COl8   -->
 										<td width="10%" rowspan="2">Prod Name</td>
@@ -1086,25 +1071,24 @@
 										<!--  COl24   -->
 										<td width="3%" rowspan="2">Delete</td>
 										
-<!-- <!-- 										<td colspan="17"></td></tr> --> 
+<!-- <!-- 									<td colspan="17"></td></tr> --> 
 <!-- 										<tr bgcolor="#72BEFC"> -->
-<!-- 											<td width="5%">DN Code</td> -->
-<!-- 											 COl1   -->
-<!-- 											<td width="5%">Product Code</td> -->
-<!-- 											 COl2   -->
-<!-- 											<td width="10%">Name</td> -->
-<!-- 											 COl3  										 -->
-<!-- 											<td width="5%">Process</td> -->
-<!-- 											 COl4   -->
-<!-- 											<td width="4%">Qty</td> -->
-<!-- 											 COl5   -->
-<!-- 											<td width="4%">Weight</td> -->
-<!-- 											 COl6   -->
-										
+<!-- 										<td width="5%">DN Code</td> -->
+<!-- 										 COl1   -->
+<!-- 										<td width="5%">Product Code</td> -->
+<!-- 										 COl2   -->
+<!-- 										<td width="10%">Name</td> -->
+<!-- 										 COl3  										 -->
+<!-- 										<td width="5%">Process</td> -->
+<!-- 										 COl4   -->
+<!-- 										<td width="4%">Qty</td> -->
+<!-- 										 COl5   -->
+<!-- 										<td width="4%">Weight</td> -->
+<!-- 										 COl6   -->
 									</tr>
 								</table>
 								<div
-									style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%; width: 140%">
+									style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%; width: 140%">
 									<table id="tblProdDet"
 										style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll; width: 100%"
 										class="transTablex col15-center">
@@ -1157,99 +1141,71 @@
 <!-- 										 COl23  -->
 <%-- 										<col style="width: 4%"> --%>
 <!-- 										 COl24  -->
-										
-										
-										</tbody>
-
-									</table>
+											</tbody>
+										</table>
+									</div>
 								</div>
-
-							</div>
-				<br>
+							<br>
 				
-					<table class="transTable">
-						<tr>
-							<td ><label>Total Quanty</label></td>
-										
-										<td><s:input type="text" id="txtTotQty"
-												path="dblTotQty" readonly="true"
-												cssClass="decimal-places-amt numberField" /></td>
-										
-						<td><label>Total Weight</label></td>
-										
-										<td><s:input type="text" id="txtTotWt"
-												path="dblTotWt" readonly="true"
-												cssClass="decimal-places-amt numberField" /></td>
-									
-						
-							<td><label>Total Amount</label></td>
-									
-										<td><s:input type="text" id="txtTotAmt"
-												path="dblTotAmt" readonly="true"
-												cssClass="decimal-places-amt numberField" /></td>
+					<div class="row transTable">
+						<div class="col-md-2">
+							<label>Total Quanty</label>
+							<s:input type="text" id="txtTotQty" path="dblTotQty" readonly="true"
+									cssClass="decimal-places-amt numberField" />
+						</div>
+						<div class="col-md-2">
+							<label>Total Weight</label>
+							<s:input type="text" id="txtTotWt" path="dblTotWt" readonly="true"
+												cssClass="decimal-places-amt numberField" />
+						</div>
+						<div class="col-md-2">
+							<label>Total Amount</label>
+							<s:input type="text" id="txtTotAmt" path="dblTotAmt" readonly="true"
+									cssClass="decimal-places-amt numberField" />
+						</div>
 						<%-- 	<td><label>Job Work</label></td>
-										<td><s:input type="text" id="txtJWCode" path="strJWCode"
-												cssClass="searchTextBox" ondblclick="funHelp('JOCode');" /></td>
-										<td><label id="lblJWName"></label></td>	 --%>
-										<td colspan="4"></td>
-						</tr>
-						
-						<tr>	
-						
-						<td><label>Verification Remark</label></td>
-										<td><s:select id="cmbVerRemark" name="cmbVerRemark"
-												path="strVerRemark" cssClass="BoxW124px">
-												<option value="Accept">Accept</option>
-												<option value="Accept with Devistion">Accept with Devistion</option>
-												<option value="Send For Rectification">Send For Rectification</option>
-												<option value="Accept after Rectification">Accept after Rectification</option>
-												<option value="Under Inspection/Accept">Under Inspection/Accept</option>
-											
-											
-											</s:select></td>
-						
-							
-							
-							<td ><label>Party Delivery</label></td>
-										<td><s:select id="cmbPartDel" name="cmbPartDel"
-												path="strPartDel" cssClass="BoxW124px">
-												<option value="N">No</option>
-												<option value="Y">Yes</option>
-											</s:select></td>	
-							
-							<td ><label>Disposal Action</label></td>
-	 							<td colspan="7"><s:textarea id="txtDispAction" cols="50" rows="3" 
-	 									path="strDispAction"  
-										style="width: 85%" /></td>
-							
-							</tr>				
-						
-						
-						<tr>
-						<td><label>Time In</label></td>
-											<td ><s:input id="txtTimeInOut" path="strTimeInOut" type="text" 
-												class="BoxW116px" /></td>	
-						<td colspan="2">Matrial brought in by</td>
-						<td colspan="7" ><s:input id="txtMInBy" path="strMInBy" type="text" 
-												class="BoxW116px" /></td>
-						
-						</tr>
-										
-					</table>
-	
-		
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3"  class="form_button" 
-			onclick="return funCallFormAction('submit',this)" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-		<br/>
-		<br/>
-
+								<td><s:input type="text" id="txtJWCode" path="strJWCode"
+										cssClass="searchTextBox" ondblclick="funHelp('JOCode');" /></td>
+								<td><label id="lblJWName"></label></td>	 --%>
+								
+						<div class="col-md-2">				
+							<label>Verification Remark</label>
+							<s:select id="cmbVerRemark" name="cmbVerRemark" path="strVerRemark" cssClass="BoxW124px">
+									<option value="Accept">Accept</option>
+									<option value="Accept with Devistion">Accept with Devistion</option>
+									<option value="Send For Rectification">Send For Rectification</option>
+									<option value="Accept after Rectification">Accept after Rectification</option>
+									<option value="Under Inspection/Accept">Under Inspection/Accept</option>
+							</s:select>
+						</div>
+						<div class="col-md-2">		
+							<label>Party Delivery</label>
+							<s:select id="cmbPartDel" name="cmbPartDel" path="strPartDel" style="width:60%;">
+								<option value="N">No</option>
+								<option value="Y">Yes</option>
+							</s:select>
+						 </div><div class="col-md-2">	</div>
+						 <div class="col-md-2">		
+							<label>Disposal Action</label>
+	 						<s:textarea id="txtDispAction" path="strDispAction" />
+	 					</div>
+	 					<div class="col-md-2">	
+							<label>Time In</label>
+							<s:input id="txtTimeInOut" path="strTimeInOut" type="text" />
+						</div>
+						<div class="col-md-2">	
+							<label>Matrial brought in by</label>
+							<s:input id="txtMInBy" path="strMInBy" type="text" class="BoxW116px" />
+						</div>		
+					</div>
+				<div class="center" style="text-align:center;">
+					<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funCallFormAction('submit',this)"
+						class="form_button">Submit</button></a> &nbsp;
+					<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetFields()"
+						class="form_button">Reset</button></a>
+				</div>
 	</s:form>
+</div>
 </body>
 </html>
 					

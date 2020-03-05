@@ -8,6 +8,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
+		
 </head>
 <script>
 
@@ -16,13 +25,13 @@
 			var arr = startDate.split("/");
 			Dat=arr[2]+"-"+arr[1]+"-"+arr[0];
 			$("#dtFromDate").datepicker({
-				dateFormat : 'yy-mm-dd'
+				dateFormat : 'dd-mm-yy'
 			});
 			$("#dtFromDate").datepicker('setDate', Dat);	
 			
 			
 			$("#dtToDate").datepicker({
-				dateFormat : 'yy-mm-dd'
+				dateFormat : 'dd-mm-yy'
 			});
 			$("#dtToDate").datepicker('setDate', 'today');	
 			
@@ -97,32 +106,35 @@
 
 </script>
 <body>
-<div id="formHeading">
-		<label>Daily Production Item Wise Report</label>
-	</div>
-	<br />
-	<br />
-		<s:form name="DailyProductionReportItemWise" method="GET" action="rptDailyProductionReportItemWise.html" target="_blank" >
-
-			<table class="transTable">
-		
-			<tr>
-				<td><label>From Date</label></td>
-				<td><s:input type="text" id="dtFromDate" path="dtFromDate" required="true" class="calenderTextBox" /></td>
-				<td><label>To Date</label></td>
-				<td><s:input type="text" id="dtToDate" path="dtToDate" required="true" class="calenderTextBox" /></td>				
-			</tr>
-			<tr>
-				<td><label>Location Code</label></td>
-				<td><s:input type="text" id="txtLocCode" path="strLocationCode" cssClass="searchTextBox" 
-				name="locCode" ondblclick="funHelp('locationmaster');" /></td>
-			<td><label id="lblLocName"></label></td></tr>
-		</table>
-			<p align="center">
-				<input type="submit" value="Export"  class="form_button" onclick="return funCallFormAction('submit',this)" />
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+    <div class="container transTable">
+		<label  id="formHeading">Daily Production Item Wise Report</label>
+	    <s:form name="DailyProductionReportItemWise" method="GET" action="rptDailyProductionReportItemWise.html" target="_blank" >
+          <div class="row">
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-6"><label>From Date</label>
+							<s:input type="text" id="dtFromDate" path="dtFromDate" required="true" class="calenderTextBox" />
+						</div>
+						<div class="col-md-6"><label>To Date</label>
+							<s:input type="text" id="dtToDate" path="dtToDate" required="true" class="calenderTextBox" />
+						</div>					
+					</div></div>
+			     <div class="col-md-9"></div>
+			<div class="col-md-5">
+					<div class="row">		
+						<div class="col-md-5"><label>Location Code</label>
+							<s:input type="text" id="txtLocCode" path="strLocationCode" cssClass="searchTextBox" 
+							name="locCode" ondblclick="funHelp('locationmaster');" /></div>
+						<div class="col-md-7"><label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 37%; margin: 27px 0px;"></label></div>
+					</div>
+				</div>
+			</div>
+			
+			<p align="center" style="margin-right: 31%;">
+				<input type="submit" value="Export" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this)" />&nbsp
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 		</s:form>
-	
+	</div>
 </body>
 </html>

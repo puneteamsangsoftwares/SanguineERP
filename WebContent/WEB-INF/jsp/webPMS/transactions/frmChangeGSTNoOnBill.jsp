@@ -186,7 +186,7 @@
 	<div class="container">
 		<label id="formHeading">Change GST No</label>
 		<s:form name="frmChangeGSTNoOnBill" method="POST" action="updateGSTNoOnBill.html?saddr=${urlHits}">
-			<div class="transTable" style="overflow: hidden;">
+			<div class="transTable" style="overflow: hidden;width: 100%;">
 				<div class="row">
 					<div class="col-md-2">
 						<label>Bill No.</label><br>	
@@ -242,7 +242,7 @@
 			    	</div>
 				</div>
 			</div>
-			<div class="dynamicTableContainer" style="height: 300px;">
+			<div class="dynamicTableContainer" style="height: 300px;width:70%;">
 					<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
 						<tr bgcolor="#c0c0c0">
 							<td style="width:8%;">Folio</td>
@@ -267,7 +267,7 @@
 				</div>
 			</div>
 			
-			<div class="center">
+			<div class="center" style="margin-right: 30%;">
 				<a href="#"><button class="btn btn-primary center-block" value="Update" onclick="return funSaveBill()" type="submit" tabindex="3"
 					class="form_button">Update</button></a>
 				<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="return funResetField()"

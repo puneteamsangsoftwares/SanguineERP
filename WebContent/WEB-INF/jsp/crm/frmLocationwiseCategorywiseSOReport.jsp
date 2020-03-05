@@ -1,15 +1,23 @@
- <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Locationwise Categorywise SO</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+    
     <style>
   #tblGroup tr:hover , #tblSubGroup tr:hover, #tblloc tr:hover{
-	background-color: #72BEFC;
+	background-color: #c0c0c0;
 	
 }
 </style>
@@ -338,19 +346,20 @@
   </head>
   	
 	<body id="LocationWiseCategorySO" onload="funOnload();">
-	<div id="formHeading">
-		<label>Location Wise Category wise SO Report</label>
-	</div>
-		<s:form name="frmLocationWiseCategorySOReport" method="POST" action="rptLocationWiseCategoryWiseSOReport.html" target="_blank">
-	   		<br />
-	   		<table class="transTable">
-			    <tr>
-				<td><label>From Date</label></td>
-				<td><s:input type="text" id="dteFromDate" path="dtFromDate" required="true" class="calenderTextBox" onchange="update_FromFulFillmentDate(this.value);"/></td>
-				<td><label>To Date</label></td>
-				<td><s:input type="text" id="dteToDate" path="dtToDate" required="true" class="calenderTextBox" /></td>				
-			</tr>
-			
+	<div class="container transTable">
+		<label id="formHeading">Location Wise Category wise SO Report</label>
+ 		<s:form name="frmLocationWiseCategorySOReport" method="POST" action="rptLocationWiseCategoryWiseSOReport.html" target="_blank">
+	   	<br />
+	   		
+	   	<div class="row" >
+			   <div class="col-md-2"><label>From Date</label>
+				     <s:input type="text" id="dteFromDate" path="dtFromDate" required="true" class="calenderTextBox" onchange="update_FromFulFillmentDate(this.value);" style="width:70%"/>
+			   </div>
+			   
+			   <div class="col-md-2"><label>To Date</label>
+				     <s:input type="text" id="dteToDate" path="dtToDate" required="true" class="calenderTextBox" style="width:70%"/>
+			   </div>				
+			   <div class="col-md-8"></div>
 <!-- 			<tr> -->
 <!-- 				<td><label>From Fulfillment Date</label></td> -->
 <%-- 				<td><s:input type="text" id="dteFromFulfillment" path="dteFromFulfillment" required="true" class="calenderTextBox" /></td> --%>
@@ -358,116 +367,87 @@
 <%-- 				<td><s:input type="text" id="dteToFulfillment" path="dteToFulfillment" required="true" class="calenderTextBox" /></td>				 --%>
 <!-- 			</tr> -->
 				
-				
-				
-			    </table>
-				<br>
-			<table class="transTable">
+			<div class="col-md-2"><label>Location</label>
+			        <input type="text" id="txtLocCode" Class="searchTextBox" placeholder="Type to search"></input>
+			</div>
 			
-			<tr>
+			<div class="col-md-4"><label id="lblLocName" style="background-color:#dcdada94; width: 50%; height: 50%; margin-top:8%"></label></div>
+
+			<div class="col-md-2"><label>SubGroupmer</label>
+			      <input type="text" id="txtSGCode" 
+			         Class="searchTextBox" placeholder="Type to search"></input>
+			</div>
 			
-					
-			</tr>
-		</table>
-		<br>
-		<table class="transTable">
-				
-		<tr>
-			<td colspan="2">Location&nbsp;&nbsp;&nbsp;
-			<input type="text" id="txtLocCode" 
-			 style="width: 35%;background-position: 150px 2px;"  Class="searchTextBox" placeholder="Type to search"  ></input>
-			<label id="lblLocName"></label></td>
-
-			<td colspan="2">SubGroupmer&nbsp;&nbsp;&nbsp;<input style="width: 35%; background-position: 150px 2px;" type="text" id="txtSGCode" 
-			 Class="searchTextBox" placeholder="Type to search"></input>
-			<label id="lblSGName"></label></td>
-						
-			</tr><tr>
-										
-				<td colspan="2">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px;width: 490px; overflow-x: hidden; overflow-y: scroll;">
-
-							<table id="" class="masterTable"
+			<div class="col-md-4"><label id="lblSGName" style="background-color:#dcdada94; width: 50%; height: 50%; margin-top:8%"></label>
+		    </div>
+			
+			<div class="col-md-12"></div>	
+			<br>	
+		    <div class="col-md-6" style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 490px; overflow-x: hidden; overflow-y: scroll;">
+                   <table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
-								<tbody>
-									<tr bgcolor="#72BEFC">
+						<tbody>
+							<tr bgcolor="#c0c0c0">
 										<td width="15%"><input type="checkbox" checked="checked" 
 										id="chkLocALL"/>Select</td>
 										<td width="25%"> Location Code</td>
 										<td width="65%"> Location Name</td>
 
-									</tr>
-								</tbody>
-							</table>
-							<table id="tblloc" class="masterTable"
+							  </tr>
+						</tbody>
+						</table>
+				   <table id="tblloc" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+							<!-- <tr bgcolor="#72BEFC">
 									
 
-								</tr>
-							</table>
-						</div>
-				</td>
+							</tr> -->
+					</table>
+				</div>
 				
-				<td colspan="2">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px;width: 480px; overflow-x: hidden; overflow-y: scroll;">
+				<div class="col-md-6" style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 480px; overflow-x: hidden; overflow-y: scroll;">
 
-							<table id="" class="masterTable"
+					<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
-								<tbody>
-									<tr bgcolor="#72BEFC">
+							<tbody>
+								<tr bgcolor="#c0c0c0">
 										<td width="15%"><input type="checkbox" checked="checked" 
 										id="chkSGALL"/>Select</td>
 										<td width="25%">To SubGroup Code</td>
 										<td width="65%">To SubGroup Name</td>
 
-									</tr>
-								</tbody>
-							</table>
-							<table id="tblSG" class="masterTable"
+								</tr>
+							</tbody>
+					</table>
+					<table id="tblSG" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+							<!-- 	<tr bgcolor="#72BEFC">
 									
 
-								</tr>
-							</table>
-						</div>
-				</td>
+								</tr> -->
+					</table>
+			 </div>
 				
-				
-			
-		</table>
-		
-		<br>
-		<table class="transTable">
-			<tr>
-				<td width="10%"><label>Report Type :</label></td>
-				<td colspan="3"><s:select id="cmbDocType" path="strDocType"
-						cssClass="BoxW124px">
- 						<s:option value="PDF">PDF</s:option> 
-						<s:option value="XLS">EXCEL</s:option>
-<%-- 						<s:option value="HTML">HTML</s:option> --%>
-<%-- 						<s:option value="CSV">CSV</s:option> --%>
-					</s:select></td>
-			</tr>
-
-		</table>
-		
-
-		<br>
+		     <div class="col-md-2"><label>Report Type :</label>
+				     <s:select id="cmbDocType" path="strDocType" style="width:auto;">
+ 						 <s:option value="PDF">PDF</s:option> 
+						 <s:option value="XLS">EXCEL</s:option>
+<%-- 						   <s:option value="HTML">HTML</s:option> --%>
+<%-- 						   <s:option value="CSV">CSV</s:option> --%>
+					</s:select>
+			</div>
+		</div>
+           <br>
 			<p align="center">
-				 <input type="button" value="Submit" onclick="return btnSubmit_Onclick();" class="form_button" />
-				 <input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>			     
+				 <input type="button" value="Submit" onclick="return btnSubmit_Onclick();" class="btn btn-primary center-block" class="form_button" />
+				 &nbsp;
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>			     
 			</p>  
-			
 			
 			<s:input type="hidden" id="hidSGCodes" path="strSGCode"></s:input>
 			<s:input type="hidden" id="hidLocCodes" path="strLocationCode"></s:input>
-			
 			
 			<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
@@ -476,5 +456,6 @@
 				width="60px" height="60px" />
 		</div>
 		</s:form>
+		</div>
 	</body>
 </html>

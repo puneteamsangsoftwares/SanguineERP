@@ -1,13 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Sales Order</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
+	<title>Sales Order</title>
 
 <script type="text/javascript">
 
@@ -70,19 +79,19 @@ $(document).ready(function()
 			});
 			
 			
-			 $("#txtDCDate").datepicker({ dateFormat: 'yy-mm-dd' });
+			 $("#txtDCDate").datepicker({ dateFormat: 'dd-mm-yy' });
 				$("#txtDCDate" ).datepicker('setDate', 'today');
 				$("#txtDCDate").datepicker();
 				
-				 $("#txtAginst").datepicker({ dateFormat: 'yy-mm-dd' });
+				 $("#txtAginst").datepicker({ dateFormat: 'dd-mm-yy' });
 					$("#txtAginst" ).datepicker('setDate', 'today');
 					$("#txtAginst").datepicker();
 					
-					 $("#txtWarrPeriod").datepicker({ dateFormat: 'yy-mm-dd' });
+					 $("#txtWarrPeriod").datepicker({ dateFormat: 'dd-mm-yy' });
 						$("#txtWarrPeriod" ).datepicker('setDate', 'today');
 						$("#txtWarrPeriod").datepicker();
 						
-						 $("#txtWarraValidity").datepicker({ dateFormat: 'yy-mm-dd' });
+						 $("#txtWarraValidity").datepicker({ dateFormat: 'dd-mm-yy' });
 							$("#txtWarraValidity" ).datepicker('setDate', 'today');
 							$("#txtWarraValidity").datepicker();		
 							$("#txtCustCode").focus();
@@ -559,18 +568,18 @@ $(document).ready(function()
 	    	var prodPckNo=strProdCode+packingNo
 		row = table.insertRow(rowCount);
 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" type=\"hidden\" class=\"Box\" style=\"display:none;\"  id=\"strPropNLocCode."+(rowCount)+"\" value='"+prodPckNo+"' />";
-	    row.insertCell(1).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" size=\"8%\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
-	    row.insertCell(2).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strPartNo\" readonly=\"readonly\" class=\"Box\" size=\"8%\" id=\"txtPartNo."+(rowCount)+"\" value='"+strPartNo+"'/>";
-	    row.insertCell(3).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"35%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
-	    row.insertCell(4).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strProdType\" readonly=\"readonly\" class=\"Box\" size=\"9%\" id=\"txtProdTpye."+(rowCount)+"\" value='"+strProdType+"'/>";
+	    row.insertCell(1).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
+	    row.insertCell(2).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strPartNo\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtPartNo."+(rowCount)+"\" value='"+strPartNo+"'/>";
+	    row.insertCell(3).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
+	    row.insertCell(4).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strProdType\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtProdTpye."+(rowCount)+"\" value='"+strProdType+"'/>";
 	 
-	    row.insertCell(5).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblPcketQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
-	    row.insertCell(6).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
-	    row.insertCell(7).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblTotalWeight\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" \size=\"3.9%\" id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
-	    row.insertCell(8).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strPktNo\" type=\"text\"  required = \"required\"  class=\"Box\" \size=\"5%\" id=\"txtPktNo."+(rowCount)+"\" value="+packingNo+" >";
-	    row.insertCell(9).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strRemarks\" size=\"10%\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
-	    row.insertCell(10).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strInvoiceable\" readonly=\"readonly\" class=\"Box\"  size=\"6%\" id=\"txtInvoiceable."+(rowCount)+"\" value="+strInvoiceable+" >";
-	    row.insertCell(11).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strSerialNo\" type=\"text\"   class=\"Box\" size=\"5%\" id=\"txtSerialNo."+(rowCount)+"\" value="+strSerialNo+" >";	    
+	    row.insertCell(5).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;width:99%;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblPcketQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+	    row.insertCell(6).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;width:99%;border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
+	    row.insertCell(7).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblTotalWeight\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\" \id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
+	    row.insertCell(8).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strPktNo\" type=\"text\"  required = \"required\" style=\"border:1px solid #c0c0c0;width:99%;\" class=\"Box\"  id=\"txtPktNo."+(rowCount)+"\" value="+packingNo+" >";
+	    row.insertCell(9).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strRemarks\" style=\"width:99%;\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
+	    row.insertCell(10).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strInvoiceable\" readonly=\"readonly\" style=\"width:99%;\" class=\"Box\" id=\"txtInvoiceable."+(rowCount)+"\" value="+strInvoiceable+" >";
+	    row.insertCell(11).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strSerialNo\" type=\"text\"   class=\"Box\" style=\"border:1px solid #c0c0c0;\" id=\"txtSerialNo."+(rowCount)+"\" value="+strSerialNo+" >";	    
 // 	    row.insertCell(10).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblPacketQty\" type=\"text\"  required = \"required\"  class=\"Box\" \size=\"5%\" id=\"txtPktNo."+(rowCount)+"\" value="+dblPcketQty+" >";
 	 
 	 	row.insertCell(12).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';		 
@@ -589,13 +598,13 @@ $(document).ready(function()
 			    row.insertCell(2).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strPartNo\" readonly=\"readonly\" class=\"Box\" size=\"8%\" id=\"txtPartNo."+(rowCount)+"\" value='"+strPartNo+"'/>";
 			    row.insertCell(3).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"35%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
 			    row.insertCell(4).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strProdType\" readonly=\"readonly\" class=\"Box\" size=\"9%\" id=\"txtProdTpye."+(rowCount)+"\" value='"+strProdType+"'/>";
-			    row.insertCell(5).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+noOfPacket+" onblur=\"Javacsript:funUpdatePrice(this)\">";
-			    row.insertCell(6).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
+			    row.insertCell(5).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+noOfPacket+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+			    row.insertCell(6).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
 			    row.insertCell(7).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblTotalWeight\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" \size=\"3.9%\" id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
-			    row.insertCell(8).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strPktNo\" type=\"text\"  required = \"required\"  class=\"Box\" \size=\"5%\" id=\"txtPktNo."+(rowCount)+"\" value="+packingNo+" >";
-			    row.insertCell(9).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strRemarks\" size=\"10%\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
-			    row.insertCell(10).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strInvoiceable\" readonly=\"readonly\" class=\"Box\"  size=\"6%\" id=\"txtInvoiceable."+(rowCount)+"\" value="+strInvoiceable+" >";
-			    row.insertCell(11).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strSerialNo\" type=\"text\"    class=\"Box\" size=\"5%\" id=\"txtSerialNo."+(rowCount)+"\" value="+strSerialNo+" >";	    
+			    row.insertCell(8).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strPktNo\" type=\"text\"  required = \"required\"  class=\"Box\" style=\"border:1px solid #c0c0c0;\" \size=\"5%\" id=\"txtPktNo."+(rowCount)+"\" value="+packingNo+" >";
+			    row.insertCell(9).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strRemarks\"  style=\"width:99%;\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
+			    row.insertCell(10).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strInvoiceable\" readonly=\"readonly\" class=\"Box\"  style=\"width:99%;\" id=\"txtInvoiceable."+(rowCount)+"\" value="+strInvoiceable+" >";
+			    row.insertCell(11).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strSerialNo\" type=\"text\"  style=\"border:1px solid #c0c0c0;\"  class=\"Box\" size=\"5%\" id=\"txtSerialNo."+(rowCount)+"\" value="+strSerialNo+" >";	    
 // 			    row.insertCell(10).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblPacketQty\" type=\"text\"  required = \"required\"  class=\"Box\" \size=\"5%\" id=\"txtPktNo."+(rowCount)+"\" value="+noOfPacket+" >";
 			 
 			 	row.insertCell(12).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';		
@@ -682,13 +691,13 @@ $(document).ready(function()
 	    row.insertCell(3).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"35%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
 	    row.insertCell(4).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strProdType\" readonly=\"readonly\" class=\"Box\" size=\"9%\" id=\"txtProdTpye."+(rowCount)+"\" value='"+strProdType+"'/>";
 	 
-	    row.insertCell(5).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
-	    row.insertCell(6).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
+	    row.insertCell(5).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+	    row.insertCell(6).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
 	    row.insertCell(7).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblTotalWeight\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" \size=\"3.9%\" id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
-	    row.insertCell(8).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strPktNo\" type=\"text\"   class=\"Box\" \size=\"5%\" id=\"txtPktNo."+(rowCount)+"\" value="+packingNo+" >";
-	    row.insertCell(9).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strRemarks\" size=\"10%\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
-	    row.insertCell(10).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strInvoiceable\" readonly=\"readonly\" class=\"Box\"  size=\"6%\" id=\"txtInvoiceable."+(rowCount)+"\" value="+strInvoiceable+" >";
-	    row.insertCell(11).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strSerialNo\" type=\"text\"    class=\"Box\" size=\"5%\" id=\"txtSerialNo."+(rowCount)+"\" value="+strSerialNo+" >";	    
+	    row.insertCell(8).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strPktNo\" type=\"text\"   class=\"Box\" size=\"5%\" style=\"border:1px solid #c0c0c0;\" id=\"txtPktNo."+(rowCount)+"\" value="+packingNo+" >";
+	    row.insertCell(9).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strRemarks\" style=\"width:99%;\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
+	    row.insertCell(10).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strInvoiceable\" readonly=\"readonly\" class=\"Box\"  style=\"width:99%;\" id=\"txtInvoiceable."+(rowCount)+"\" value="+strInvoiceable+" >";
+	    row.insertCell(11).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strSerialNo\" type=\"text\" style=\"border:1px solid #c0c0c0;\"  class=\"Box\" size=\"5%\" id=\"txtSerialNo."+(rowCount)+"\" value="+strSerialNo+" >";	    
 	    
 	 
 	 	row.insertCell(12).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';		    
@@ -1002,13 +1011,13 @@ $(document).ready(function()
 	    row.insertCell(3).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"35%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
 	    row.insertCell(4).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strProdType\" readonly=\"readonly\" class=\"Box\" size=\"9%\" id=\"txtProdTpye."+(rowCount)+"\" value='"+strProdType+"'/>";
 	 
-	    row.insertCell(5).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
-	    row.insertCell(6).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
+	    row.insertCell(5).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+	    row.insertCell(6).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
 	    row.insertCell(7).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblTotalWeight\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" \size=\"3.9%\" id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
-	    row.insertCell(8).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strPktNo\" type=\"text\"    class=\"Box\" \size=\"5%\" id=\"txtPktNo."+(rowCount)+"\" value="+packingNo+" >";
-	    row.insertCell(9).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strRemarks\" size=\"10%\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
-	    row.insertCell(10).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strInvoiceable\" readonly=\"readonly\" class=\"Box\"  size=\"6%\" id=\"txtInvoiceable."+(rowCount)+"\" value="+strInvoiceable+" >";
-	    row.insertCell(11).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strSerialNo\" type=\"text\"    class=\"Box\" size=\"5%\" id=\"txtSerialNo."+(rowCount)+"\" value="+strSerialNo+" >";	    
+	    row.insertCell(8).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strPktNo\" type=\"text\"  style=\"border:1px solid #c0c0c0;\"  class=\"Box\" \size=\"5%\" id=\"txtPktNo."+(rowCount)+"\" value="+packingNo+" >";
+	    row.insertCell(9).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strRemarks\" style=\"width:99%;\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
+	    row.insertCell(10).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strInvoiceable\" readonly=\"readonly\" class=\"Box\"  style=\"width:99%;\" id=\"txtInvoiceable."+(rowCount)+"\" value="+strInvoiceable+" >";
+	    row.insertCell(11).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strSerialNo\" type=\"text\" style=\"border:1px solid #c0c0c0;\"  class=\"Box\" size=\"5%\" id=\"txtSerialNo."+(rowCount)+"\" value="+strSerialNo+" >";	    
 	    
 	 
 	 	row.insertCell(12).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';		    
@@ -1084,13 +1093,13 @@ $(document).ready(function()
 	    row.insertCell(3).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"35%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
 	    row.insertCell(4).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strProdType\" readonly=\"readonly\" class=\"Box\" size=\"9%\" id=\"txtProdTpye."+(rowCount)+"\" value='"+strProdType+"'/>";
 	 
-	    row.insertCell(5).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
-	    row.insertCell(6).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
+	    row.insertCell(5).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+	    row.insertCell(6).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
 	    row.insertCell(7).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].dblTotalWeight\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" \size=\"3.9%\" id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
-	    row.insertCell(8).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strPktNo\" type=\"text\"    class=\"Box\" \size=\"5%\" id=\"txtPktNo."+(rowCount)+"\" value="+packingNo+" >";
-	    row.insertCell(9).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strRemarks\" size=\"10%\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
-	    row.insertCell(10).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strInvoiceable\" readonly=\"readonly\" class=\"Box\"  size=\"6%\" id=\"txtInvoiceable."+(rowCount)+"\" value="+strInvoiceable+" >";
-	    row.insertCell(11).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strSerialNo\" type=\"text\"    class=\"Box\" size=\"5%\" id=\"txtSerialNo."+(rowCount)+"\" value="+strSerialNo+" >";	    
+	    row.insertCell(8).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strPktNo\" type=\"text\" style=\"border:1px solid #c0c0c0;\" class=\"Box\" \size=\"5%\" id=\"txtPktNo."+(rowCount)+"\" value="+packingNo+" >";
+	    row.insertCell(9).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strRemarks\" style=\"width:99%;\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
+	    row.insertCell(10).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strInvoiceable\" readonly=\"readonly\" class=\"Box\"  style=\"width:99%;\" id=\"txtInvoiceable."+(rowCount)+"\" value="+strInvoiceable+" >";
+	    row.insertCell(11).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strSerialNo\" type=\"text\" class=\"Box\" size=\"5%\" style=\"border:1px solid #c0c0c0;\" id=\"txtSerialNo."+(rowCount)+"\" value="+strSerialNo+" >";	    
 	    
 	 
 	 	row.insertCell(12).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';		    
@@ -1410,162 +1419,164 @@ function funHelp1(){
 
 </head>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>Delivery Challan</label>
-	</div>
-	<s:form name="SOForm" method="POST"
-		action="saveDeliveryChallan.html?saddr=${urlHits}">
+	<div class="container">
+		<label id="formHeading">Delivery Challan</label>
+		<s:form name="SOForm" method="POST" action="saveDeliveryChallan.html?saddr=${urlHits}">
 		<input type="hidden" value="${urlHits}" name="saddr">
-		<br>
-		<table
-			style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
-			<tr>
-				<td>
-
-					<div id="tab_container" style="height:600px">
-						<ul class="tabs">
-							<li class="active" data-state="tab1"
-								style="width: 100px; padding-left: 55px">Delivery Challan</li>
-							<li data-state="tab2" style="width: 100px; padding-left: 55px">Address</li>
-
-						</ul>
-
-						<div id="tab1" class="tab_content">
-							<table class="transTable">
-								<tr>
-									<th align="right" colspan="9"><a id="baseUrl" href="#">
-											Attach Documents </a></th>
-								</tr>
-
-								<tr>
-									<td width="100px"><label>DC Code</label></td>
-									<td  colspan="3"><s:input path="strDCCode" id="txtDCCode"
-											ondblclick="funHelp('deliveryChallan')"
-											cssClass="searchTextBox" /></td>
-
-									<td width="100px"><label>DC Date</label>
-									<td><s:input path="dteDCDate" id="txtDCDate"
-											required="required" cssClass="calenderTextBox" /></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td><label>Against</label></td>
-									<td><s:select id="cmbAgainst" path="strAgainst"
-											items="${againstList}" cssClass="BoxW124px" onchange="funShowSOFieled()"/></td>
-											<td colspan="1"><s:input id="txtCode" path="strSOCode" style="display:none" ondblclick="funHelp1('')" class="searchTextBox"></s:input></td>
-<%-- 									<td><s:input id="txtSOCode" path="strSOCode" --%>
-<%-- 											ondblclick="funHelp('salesorder')" style="display:none" class="searchTextBox"></s:input></td> --%>
-									<td  colspan="1"><input type="Button" id="btnFill" value="Fill"
-										onclick="return btnFill_onclick()" style="display:none"  class="smallButton" /></td>
-
-									<td width="100px"><label>Date</label>
-									<td><s:input path="" id="txtAginst"
-											cssClass="calenderTextBox" /></td>
-								</tr>
-
-								<tr>
-									<td><label>Customer Code</label></td>
-									<td  colspan="1"><s:input path="strCustCode" id="txtCustCode"
-											ondblclick="funHelp('custMasterActive')" cssClass="searchTextBox" /></td>
-									<td colspan="2"><label id="lblCustomerName"
-										class="namelabel"></label></td>
-
-									<td><label>PO NO</label></td>
-									<td><s:input id="txtPONo" type="text" path="strPONo"
-											class="BoxW116px" /></td>
-								</tr>
-
-								<tr>
-
-									<td><label>Location Code</label></td>
-									<td><s:input type="text" id="txtLocCode" path="strLocCode"
-											cssClass="searchTextBox"
-											ondblclick="funHelp('locationmaster');" onkeypress="funGetKeyCode(event,'Location')" /></td>
-									<td colspan="2"><label id="lblLocName"></label></td>
-
-									<td><label>Vechile No</label></td>
-									<td ><s:input id="txtVehNo" type="text" path="strVehNo"
-											cssClass="searchTextBox" ondblclick="funHelp('VehCode');"/></td>
-								</tr>
-								<tr>
-								<td width="100px"><label>Settlement</label>
-								<td><s:select id="cmbSettlement" path="strSettlementCode"
-											items="${settlementList}" cssClass="BoxW124px" onkeypress="funGetKeyCode(event,'Settlement')" onchange="funChangeCombo()"/></td>
-											
-									<td width="100px"><label>Warrenty Start Date</label>
-									<td><s:input path="strWarrPeriod" id="txtWarrPeriod"
-											cssClass="calenderTextBox" /></td>
-
-									<td width="100px"><label>Warranty Validity</label>
-									<td><s:input path="strWarraValidity" id="txtWarraValidity"
-											cssClass="calenderTextBox" /></td>
-
-								</tr>
-
-								<tr>
+		<div style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
+			<div id="tab_container">
+				<ul class="tabs">
+					<li class="active" data-state="tab1">Delivery Challan</li>
+					<li data-state="tab2">Address</li>
+				</ul>
+				<div id="tab1" class="tab_content">
+					<div class="row transTable">
+						<div class="col-md-2">
+								<label>DC Code</label>
+								<s:input path="strDCCode" id="txtDCCode" ondblclick="funHelp('deliveryChallan')"
+									cssClass="searchTextBox" />
+							</div>
+							<div class="col-md-2">
+								<label>DC Date</label>
+								<s:input path="dteDCDate" id="txtDCDate"
+									required="required" cssClass="calenderTextBox" style="width:80%;"/>
+							</div>	
+							<div class="col-md-2">
+								<label>Against</label>
+								<s:select id="cmbAgainst" path="strAgainst"
+									items="${againstList}" cssClass="BoxW124px" onchange="funShowSOFieled()"/>
+							</div>
+							<div class="col-md-2">
+								<s:input id="txtCode" path="strSOCode" style="display:none; margin-top:25px;" ondblclick="funHelp1('')" class="searchTextBox"></s:input>
+							</div>
+							
+<%-- 					<td><s:input id="txtSOCode" path="strSOCode" --%>
+<%-- 						ondblclick="funHelp('salesorder')" style="display:none" class="searchTextBox"></s:input></td> --%>
+							<div class="col-md-2">
+								<input type="Button" id="btnFill" value="Fill"
+										onclick="return btnFill_onclick()" style="display:none; margin-top:20px;" class="btn btn-primary center-block" />
+							</div>
+							<div class="col-md-2"></div>
+							<div class="col-md-2">
+								<label>Customer Code</label>
+								<s:input path="strCustCode" id="txtCustCode"
+										ondblclick="funHelp('custMasterActive')" cssClass="searchTextBox" />
+							</div>
+							<div class="col-md-2">
+								<label id="lblCustomerName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+								></label>
+							</div>
+							<div class="col-md-2">
+								<label>Date</label>
+								<s:input path="" id="txtAginst" cssClass="calenderTextBox" style="width:80%;"/>
+							</div>
+							<div class="col-md-2">
+								<label>PO NO</label>
+								<s:input id="txtPONo" type="text" path="strPONo" class="BoxW116px" />
+							</div>	<div class="col-md-4"></div>
+							<div class="col-md-2">
+								<label>Location Code</label>
+								<s:input type="text" id="txtLocCode" path="strLocCode" cssClass="searchTextBox"
+										ondblclick="funHelp('locationmaster');" onkeypress="funGetKeyCode(event,'Location')" />
+							</div>
+							<div class="col-md-2">
+								<label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+								></label>
+							</div>
+							<div class="col-md-2">
+								<label>Vechile No</label>
+								<s:input id="txtVehNo" type="text" path="strVehNo"
+									cssClass="searchTextBox" ondblclick="funHelp('VehCode');"/>
+							</div>
+							<div class="col-md-2">
+								<label>Settlement</label>
+								<s:select id="cmbSettlement" path="strSettlementCode"
+											items="${settlementList}" cssClass="BoxW124px" onkeypress="funGetKeyCode(event,'Settlement')" onchange="funChangeCombo()"/>
+							</div><div class="col-md-4"></div>
+							<div class="col-md-2">			
+								<label>Warrenty Start Date</label>
+								<s:input path="strWarrPeriod" id="txtWarrPeriod"
+											cssClass="calenderTextBox" style="width:80%;"/>
+							</div>
+							<div class="col-md-2">	
+								<label>Warranty Validity</label>
+								<s:input path="strWarraValidity" id="txtWarraValidity" cssClass="calenderTextBox" style="width:80%;"/>
+							</div>	
+						
 									<!-- <td width="100px"><label>Product</label></td>
 									<td><input id="txtProdCode"
 										ondblclick="funHelp('productProduced')" class="searchTextBox" /></td>
 									<td align="left" colspan="2"><label id="lblProdName" class="namelabel"></label></td>
- -->							<td width="100px"><label>Sub-Group</label></td>
-									<td><input id="txtSubGroup" style="width:80%;text-transform: uppercase;"  name="SubgroupName" class="searchTextBox" ondblclick="funHelp('subgroup')" 
-									onkeypress="funGetKeyCode(event,'SubGroup')"
-									/></td>
-									<input type="hidden" id="hidSubGroupCode" />
-									<td width="100px"><label>Product</label></td>
-									<td><input id="txtProdName"
-										ondblclick="funHelp('productProduced')" class="searchTextBox" onkeypress="funGetKeyCode(event,'Product')" /></td>
-									
-								
-								<td>	<input type="hidden" id="hidProdCode" /></td>
-								<input type="hidden" id="hidPartNo" /></td>
-									<td  width="10%"><label>Stock</label></td><td  width="10%"><label id="spStock" class="namelabel"></label><span id="spStockUOM"></span></td>
-
-
-
-								</tr>
-								<tr>
-
-									<td><label>Wt/Unit</label></td>
-									<td><input type="text" id="txtWeight"
-										class="decimal-places numberField" /></td>
-									<td style="width: 115px"><label>Quantity</label></td>
-									<td><input id="txtQty" type="text"
-										class="decimal-places numberField" style="width: 60%" onkeypress="funGetKeyCode(event,'AddBtn')"  /><label id="lblUOM"></label></td>
-
-									<td><label>Invoiceable</label></td>
-									<td><s:select id="cmbInvoiceable" name="cmbInvoiceable"
-											path="" cssClass="BoxW124px">
-											<option value="N">No</option>
-											<option value="Y">Yes</option>
-										</s:select></td>
-
-								</tr>
-
-								<tr>
-								<td><label>Packing No</label></td>
-									<td><input id="txtPackingNo" type="text" class="BoxW116px" /></td>
-
-									<td><label>One Packet Qty</label></td>
-									<td><input id="txtPcketQty" type="text" class="BoxW116px" /></td>
-									<td><label>Remarks</label></td>
-									<td><input id="txtRemarks" class="longTextBox"
-										style="width: 100%" /></td>
-									<td><input type="button" value="Add" class="smallButton"
-										onclick="return btnAdd_onclick()" /></td>
-								</tr>
-							</table>
-
+									-->							
+ 							<div class="col-md-2">	
+								<label>Sub-Group</label>
+								<input id="txtSubGroup" style="text-transform: uppercase;"  name="SubgroupName" class="searchTextBox" ondblclick="funHelp('subgroup')" 
+									 onkeypress="funGetKeyCode(event,'SubGroup')"/>
+							</div>
+							<div class="col-md-2">	
+								<input type="hidden" id="hidSubGroupCode" />
+							</div>
+							<div class="col-md-2">	
+								<input type="hidden" id="hidProdCode" />
+							</div>
+							<div class="col-md-2"></div>
+							<div class="col-md-2">	
+								<label>Product</label>
+								<input id="txtProdName"
+										ondblclick="funHelp('productProduced')" class="searchTextBox" onkeypress="funGetKeyCode(event,'Product')" />
+							</div>
+							<div class="col-md-2">	
+								<input type="hidden" id="hidPartNo" />
+							</div>
+							<div class="col-md-2">	
+								<label>Stock</label>
+								<label id="spStock" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 44%;text-align:   center;"
+								>
+								</label><span id="spStockUOM"></span>
+							</div>
+							<div class="col-md-2">
+								<label>Wt/Unit</label>
+								<input type="text" id="txtWeight" class="decimal-places numberField" />
+							</div>
+							<div class="col-md-4"></div>
+							<div class="col-md-2">
+								<label>Quantity</label>
+								<input id="txtQty" type="text"
+										class="decimal-places numberField" style="width: 60%" onkeypress="funGetKeyCode(event,'AddBtn')"  />
+								<label id="lblUOM"></label>
+							</div>
+							<div class="col-md-2">
+								<label>Invoiceable</label>
+								<s:select id="cmbInvoiceable" name="cmbInvoiceable" path="" cssClass="BoxW124px">
+									<option value="N">No</option>
+									<option value="Y">Yes</option>
+								</s:select>
+							</div>
+							<div class="col-md-2">
+								<label>Packing No</label>
+								<input id="txtPackingNo" type="text" class="BoxW116px" />
+							</div>
+							<div class="col-md-2">
+								<label>One Packet Qty</label>
+								<input id="txtPcketQty" type="text" class="BoxW116px" />
+							</div>
+							<div class="col-md-4"></div>
+							<div class="col-md-2">
+								<label>Remarks</label>
+								<input id="txtRemarks" type="text" />
+							</div>
+							<div class="col-md-2">
+								<input type="button" value="Add" class="btn btn-primary center-block" style="margin-top:23px;"
+									onclick="return btnAdd_onclick()" />
+							</div>
+						</div>
+							<br>
 							<div class="dynamicTableContainer" style="height: 300px;">
-								<table
-									style="height: 20px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-									<tr bgcolor="#72BEFC">
+								<table style="height: 20px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+									<tr bgcolor="#c0c0c0">
 										<td width="5%">Product Code</td>
 										<!--  COl1   -->
 										<td width="5%">Part No</td>
-										
 										<td width="18%">Product Name</td>
 										<!--  COl2   -->
 										<td width="6%">Product Type</td>
@@ -1584,23 +1595,19 @@ function funHelp1(){
 										<!--  COl9   -->
 										<td width="4%">Serial No</td>
 										<!--  COl10   -->
-										
 										<td width="3%">Delete</td>
 										<!--  COl11   -->
 									</tr>
 								</table>
-								<div
-									style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+								<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 									<table id="tblProdDet"
 										style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 										class="transTablex col15-center">
-										<tbody>
-										
+									<tbody>
 										<col style="width:0%">
 										<col style="width: 5%">
 										<!--  COl1   -->
 										<col style="width: 5%">
-										
 										<col style="width: 18%">
 										<!--  COl2   -->
 										<col style="width: 6%">
@@ -1619,115 +1626,92 @@ function funHelp1(){
 										<!--  COl9  -->
 										<col style="width: 4%">
 										<!--  COl10   -->
-									
 										<col style="width: 2.5%">
 										<!--  COl11   -->
-										
 										<!--  COl11   -->
-
-										</tbody>
-
-									</table>
-								</div>
-
+								</tbody>
+								</table>
 							</div>
-
-
-							<table class="transTable">
-								<tr>
-									<td><label>Narration</label></td>
-									<td><s:textarea id="txtNarration" path="strNarration"
-											Cols="10" rows="2" style="width:80%" /></td>
-									<td><label>Pack No</label></td>
-									<td><s:input id="txtPackNo" path="strPackNo" type="text"
-											class="BoxW116px" /></td>
-											<td><label>Serial No</label>&nbsp;&nbsp<s:input id="txtSerialNo" path="strSerialNo" type="text" class="BoxW116px" /></td>
-								</tr>
-
-								<tr>
-									<td><label>Docket No of Courier</label></td>
-									<td><s:input id="txtDktNo" path="strDktNo" type="text"
-											class="BoxW116px" /></td>
-
-									<td><label>Material Sent Out By</label></td>
-									<td><s:input id="txtMInBy" path="strMInBy" type="text"
-											class="BoxW116px" /></td>
-								</tr>
-								<tr>
-									<td><label>Time Out</label></td>
-									<td><s:input id="txtTimeOut" path="strTimeInOut" type="text"
-											class="BoxW116px" /></td>
-									<td><label>Reason Code</label></td>
-									<td><s:input id="txtReaCode" path="strReaCode" required="required"
-											cssClass="searchTextBox" ondblclick="funHelp('reason')" /></td>
-								</tr>
-
-
-							</table>
-
+						</div><br>
+						<div class="row transTable">
+								<div class="col-md-2">
+									<label>Narration</label>
+									<s:textarea id="txtNarration" path="strNarration"/>
+								</div>
+								<div class="col-md-2">
+									<label>Pack No</label>
+									<s:input id="txtPackNo" path="strPackNo" type="text"
+										class="BoxW116px" />
+								</div>
+								<div class="col-md-2">
+									<label>Serial No</label>&nbsp; &nbsp;<s:input id="txtSerialNo" path="strSerialNo" type="text" class="BoxW116px" />
+								</div>
+								<div class="col-md-2">
+									<label>Docket No of Courier</label>
+									<s:input id="txtDktNo" path="strDktNo" type="text"
+											class="BoxW116px" />
+								</div>
+								<div class="col-md-2">
+									<label>Material Sent Out By</label>
+									<s:input id="txtMInBy" path="strMInBy" type="text"
+											class="BoxW116px" />
+								</div>
+								<div class="col-md-2">
+									<label>Time Out</label>
+									<s:input id="txtTimeOut" path="strTimeInOut" type="text"
+											class="BoxW116px" />
+								</div>
+								<div class="col-md-2">
+									<label>Reason Code</label>
+									<s:input id="txtReaCode" path="strReaCode" required="required"
+											cssClass="searchTextBox" ondblclick="funHelp('reason')" />
+								</div>
+							</div>
 						</div>
 						<div id="tab2" class="tab_content">
-							<table class="transTable">
-								<tr>
-									<th colspan="2" align="left"><label>Ship To</label></th>
-								</tr>
-
-								<tr>
-									<td width="120px"><label>Address Line 1</label></td>
-									<td><s:input path="strSAdd1" id="txtSAddress1"
-											cssClass="longTextBox" /></td>
-								</tr>
-
-								<tr>
-
-									<td><label>Address Line 2</label></td>
-									<td><s:input path="strSAdd2" id="txtSAddress2"
-											cssClass="longTextBox" /></td>
-								</tr>
-
-								<tr>
-
-									<td><label>City</label></td>
-									<td><s:input path="strSCity" id="txtSCity"
-											cssClass="BoxW116px" /></td>
-								</tr>
-
-								<tr>
-
-									<td><label>State</label></td>
-									<td><s:input path="strSState" id="txtSState"
-											cssClass="BoxW116px" /></td>
-								</tr>
-
-								<tr>
-
-									<td><label>Country</label></td>
-									<td><s:input path="strSCtry" id="txtSCountry"
-											cssClass="BoxW116px" /></td>
-								</tr>
-
-								<tr>
-
-									<td><label>Pin Code</label></td>
-									<td><s:input path="strSPin" id="txtSPin"
-											class="positive-integer BoxW116px" /></td>
-								</tr>
-							</table>
+							<div class="row transTable">
+								<div class="col-md-12">
+									<h6>Ship To</h6>
+								</div>
+								<div class="col-md-2">
+									<label>Address Line 1</label>
+									<s:input path="strSAdd1" id="txtSAddress1" type="text"/>
+								</div>
+								<div class="col-md-2">
+									<label>Address Line 2</label>
+									<s:input path="strSAdd2" id="txtSAddress2"/>
+								</div>
+								<div class="col-md-2">
+									<label>City</label>
+									<s:input path="strSCity" id="txtSCity" cssClass="BoxW116px" />
+								</div>
+								<div class="col-md-2">
+									<label>State</label>
+									<s:input path="strSState" id="txtSState" cssClass="BoxW116px" />
+								</div>
+								<div class="col-md-4"></div>
+								<div class="col-md-2">
+									<label>Country</label>
+									<s:input path="strSCtry" id="txtSCountry"
+											cssClass="BoxW116px" />
+								</div>
+								<div class="col-md-2">
+									<label>Pin Code</label>
+									<s:input path="strSPin" id="txtSPin"
+											class="positive-integer BoxW116px" />
+								</div>
+							</div>
 						</div>
-
 					</div>
-				</td>
-			</tr>
-		</table>
+			</div>
 	<br>
-
-		<div align="center">
-			<input type="submit" value="Submit"
-				onclick="return funCallFormAction('submit',this)"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <input type="button"
-				id="reset" name="reset" value="Reset" class="form_button" />
-		</div>
-		<s:input type="hidden" id="hidProdType" path="strProdType"></s:input>
+	<div class="center" style="text-align:center;">
+		<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funCallFormAction('submit',this)"
+			class="form_button">Submit</button></a>&nbsp;
+		<a href="#"><button class="btn btn-primary center-block" id="reset" value="Reset"
+			class="form_button">Reset</button></a>
+	</div>
+	<s:input type="hidden" id="hidProdType" path="strProdType"></s:input>
 		
 		
 		<br>
@@ -1739,10 +1723,9 @@ function funHelp1(){
 				width="60px" height="60px" />
 		</div>
 	</s:form>
+</div>
 	<script type="text/javascript">
 		funApplyNumberValidation();
 	</script>
 </body>
-
-
 </html>

@@ -15,6 +15,14 @@
 	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
 	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
+
+<style type="text/css">
+.transTable td{
+	padding-left:1px;
+	border-left:none;
+}
+</style>
+
 <script type="text/javascript">
     $(function(){
 	var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';
@@ -251,10 +259,10 @@
 				<tr bgcolor="#c0c0c0">
 
 					<td style="width: 8%;">Folio</td>
-					<td style="width: 7.5%;">Revenue Code</td>
+					<td style="width: 8%;">Revenue Code</td>
 					<!-- <td style="width:7%;">Doc Code</td> -->
 					<td style="width: 14%;">Income Head</td>
-					<td style="width: 9%; text-align: center;">Total</td>
+					<td style="width: 9%;">Total</td>
 					<td style="width: 3%;">Delete</td>
 
 				</tr>
@@ -266,10 +274,10 @@
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col8-center">
 					<tbody>
-					<col style="width: 8.5%;">
+					<col style="width: 8%;">
 					<col style="width: 8%;">
 					<%-- 	<col style="width: 7%;"> --%>
-					<col style="width: 15%;">
+					<col style="width: 14%;">
 					<col style="width: 9%;">
 					<col style="width: 3%;">
 					<col style="width: 0%;">
@@ -279,7 +287,7 @@
 		</div>
 
 		<br />
-		<p align="center" style="margin-right:-88%">
+		<p align="center">
 			<input type="submit" value="Void Bill" tabindex="3" class="btn btn-primary center-block"
 				class="form_button" onclick="return funBtnVoidBillItem()" />&nbsp;
 		    <input  type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" class="btn btn-primary center-block"

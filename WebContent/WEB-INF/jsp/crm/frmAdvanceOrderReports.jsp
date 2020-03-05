@@ -8,9 +8,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+    
 <style>
   #tblGroup tr:hover , #tblSubGroup tr:hover{
-	background-color: #72BEFC;
+	background-color: #c0c0c0;
 	
 }
 </style>
@@ -540,41 +548,36 @@ $(document).ready(function()
 </script>
 </head>
 <body>
-<div id="formHeading">
-		<label>Advance Order Report</label>
-	</div>
-	<br />
-	<br />
-		<s:form name="AdvanceOrderReport" method="POST" action="rptAdvOrderReport.html" target="_blank" enctype="multipart/form-data">
-	   		
-	<table class="transTable">
-			<tr>
-
-				<th align="right"><a id="baseUrl" href="#">
-						Export Image</a>&nbsp; &nbsp; &nbsp; &nbsp;</th>
-			</tr>
-		</table>
-			
-			<table class="transTable">
-		
-			<tr>
-				<td><label>From Fullfillment Date</label></td>
-				<td><s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" onchange="update_date(this.value);"/></td>
-				<td><label>To Fullfillment Date</label></td>
-				<td><s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" /></td>				
-			</tr>
-		</table>
+     <div class="container transTable">
+		<label id="formHeading">Advance Order Report</label>
+	    <s:form name="AdvanceOrderReport" method="POST" action="rptAdvOrderReport.html" target="_blank" enctype="multipart/form-data">
+	   		<br>
+	   	<div class="row">
+	   		<div class="col-md-12" style="background-color:#d0cece;"><a id="baseUrl" href="#">
+						Export Image</a>&nbsp; &nbsp; &nbsp; &nbsp;
+			</div>
+		</div>
+		<br>
+		     <div class="row">
+	   		    <div class="col-md-3"><label>From Fullfillment Date</label>
+					 <s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" onchange="update_date(this.value);" style="width:50%"/>
+			     </div>
+				<div class="col-md-3"><label>To Fullfillment Date</label>
+				     <s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" style="width:50%"/>
+				</div>				
+			</div>
+		  
 			   <br>
 			   
 			  <table class="transTable">
 		<tr>
 		<td width="49%">Group&nbsp;&nbsp;&nbsp;
-			<input type="text"  style="width: 50%;background-position: 225px 2px;" 
+			<input type="text"  style="width: 30%" 
 			id="searchGrp" placeholder="Type to search" Class="searchTextBox">
 		 </td>
 		 <td width="49%">Sub Group&nbsp;&nbsp;&nbsp;&nbsp;
 		  		 <input type="text" id="searchSGrp" 
-		  		 style="width: 50%;background-position: 225px 2px;" 
+		  		 style="width: 30%" 
 		  		 Class="searchTextBox" placeholder="Type to search">
 		 </td>
 		  </tr>
@@ -582,11 +585,11 @@ $(document).ready(function()
 			<tr>
 				<td style="padding: 0 !important;">
 						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+							style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
 							<table id="" class="display"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#c0c0c0">
 										<td width="15%"><input type="checkbox" id="chkGALL"
 											checked="checked" onclick="funCheckUncheck()" />Select</td>
 										<td width="20%">Group Code</td>
@@ -598,7 +601,7 @@ $(document).ready(function()
 							<table id="tblGroup" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#c0c0c0">
 										<td width="15%"></td>
 										<td width="20%"></td>
 										<td width="65%"></td>
@@ -610,12 +613,12 @@ $(document).ready(function()
 						</td>
 						<td style="padding: 0 !important;">
 						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+							style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
 
 							<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#c0c0c0">
 										<td width="15%"><input type="checkbox" id="chkSGALL"
 											checked="checked" onclick="funCheckUncheckSubGroup()" />Select</td>
 										<td width="25%">Sub Group Code</td>
@@ -627,7 +630,7 @@ $(document).ready(function()
 							<table id="tblSubGroup" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#c0c0c0">
 										<td width="15%"></td>
 										<td width="25%"></td>
 										<td width="65%"></td>
@@ -640,49 +643,37 @@ $(document).ready(function()
 			</tr>
 		</table>
 			   <br>
-			   <table class="transTable">
-			    <tr>
-			      
-			      	<td ><label>Report Type</label></td>
-					<td >	
-					<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+			   <div class="row">
+			  
+			      <div class="col-md-3" ><label>Report Type</label>
+					<s:select id="cmbDocType" path="strDocType" style="width:auto">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
 				    		<s:option value="HTML">HTML</s:option>
 <%-- 				    		<s:option value="CSV">CSV</s:option> --%>
 				    </s:select>
-					</td>
+					</div>
 					
-					<td ><label>Order Type</label></td>
-					<td colspan="2">	
-					<s:select id="cmbType" path="strReportType" cssClass="BoxW124px">
+				 <div class="col-md-3" ><label>Order Type</label>
+					<s:select id="cmbType" path="strReportType" style="width:auto">
 							
 							<option value="Advance Order">Advance Order</option>
 							<option value="Urgent Order">Urgent Order</option>
 				    </s:select>
-					</td>
+					</div>
 					
-					
-					
-					
-			    </tr>
-			   	<tr>
-			   		<td ><label>Show Image</label></td>
-					<td >	
-					<s:select id="cmbExportType" path="strExportType" cssClass="BoxW124px">
+			   	<div class="col-md-3" ><label>Show Image</label>
+					<s:select id="cmbExportType" path="strExportType" style="width:auto">
 				    		<s:option value="No">No</s:option>
 				    		<s:option value="Yes">Yes</s:option>
-				    		
-				    	
 				    </s:select>
-				<td colspan="3"></td>
-								
-				</tr>
-			</table>
+				</div>
+			</div>
 			<br>
 			<p align="center">
-				<input type="submit" value="Submit"  class="form_button" onclick="return funCallFormAction('submit',this)" />
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this)" />
+				&nbsp;
+			   <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 			<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
@@ -693,5 +684,6 @@ $(document).ready(function()
 		<s:input type="hidden" id="hidSubCodes" path="strSGCode"></s:input>
 		<s:input type="hidden" id="hidGCodes" path="strGCode"></s:input>
 		</s:form>
+		</div>
 </body>
 </html>

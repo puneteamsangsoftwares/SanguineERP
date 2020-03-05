@@ -8,6 +8,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
+		
 </head>
 <script>
 
@@ -16,13 +24,13 @@
 			var arr = startDate.split("/");
 			Dat=arr[2]+"-"+arr[1]+"-"+arr[0];
 			$("#dtFromDate").datepicker({
-				dateFormat : 'yy-mm-dd'
+				dateFormat : 'dd-mm-yy'
 			});
 			$("#dtFromDate").datepicker('setDate', Dat);	
 			
 			
 			$("#dtToDate").datepicker({
-				dateFormat : 'yy-mm-dd'
+				dateFormat : 'dd-mm-yy'
 			});
 			$("#dtToDate").datepicker('setDate', 'today');	
 		});
@@ -30,27 +38,26 @@
 
 </script>
 <body>
-<div id="formHeading">
-		<label>Duty Payable Report</label>
-	</div>
-	<br />
-	<br />
-		<s:form name="DutyPayableReport" method="GET" action="rptDutyPayableReport.html" target="_blank" >
-
-			<table class="transTable">
-		
-			<tr>
-				<td><label>From Date</label></td>
-				<td><s:input type="text" id="dtFromDate" path="dtFromDate" required="true" class="calenderTextBox" /></td>
-				<td><label>To Date</label></td>
-				<td><s:input type="text" id="dtToDate" path="dtToDate" required="true" class="calenderTextBox" /></td>				
-			</tr>
-		</table>
-			<p align="center">
-				<input type="submit" value="Export"  class="form_button" onclick="return funCallFormAction('submit',this)" />
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+   <div class="transTable">
+		<label id="formHeading">Duty Payable Report</label>
+	    <s:form name="DutyPayableReport" method="GET" action="rptDutyPayableReport.html" target="_blank" >
+			<div class="row">
+				<div class="col-md-3">
+					<div class="row">
+					<div class="col-md-6"><label>From Date</label>
+							<s:input type="text" id="dtFromDate" path="dtFromDate" required="true" class="calenderTextBox" />
+					</div>
+					<div class="col-md-6"><label>To Date</label>
+							<s:input type="text" id="dtToDate" path="dtToDate" required="true" class="calenderTextBox" />
+					</div>				
+			  </div></div>
+			  </div>
+	        <br>
+			<p align="center" style="margin-right: 64%;">
+				<input type="submit" value="Export" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this)" />&nbsp
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 		</s:form>
-	
+	</div>
 </body>
 </html>

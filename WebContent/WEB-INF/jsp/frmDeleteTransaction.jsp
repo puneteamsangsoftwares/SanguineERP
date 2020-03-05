@@ -317,7 +317,7 @@
 				</div>
 				<div class="col-md-2">	
 					<label>Delete</label>
-			     	 <select id="cmbDelete" class="BoxW62px" style="width:70%;">
+			     	 <select id="cmbDelete" class="BoxW62px" style="width:60%;">
 						<option value="Y">Yes</option>
 						<option value="N">No</option>
 					</select>

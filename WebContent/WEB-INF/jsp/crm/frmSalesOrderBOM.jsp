@@ -1,12 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 
  <!-- start Tree configuration -->
   	
@@ -431,89 +440,72 @@ var listRow=2
 
 </head>
 <body>
-	<div id="formHeading">
-		<label>Sales Order BOM</label>
-	</div>
-	
-	<br />
-	<br />
-
-	<s:form name="SoBom" method="POST" action="saveSOBOM.html">
-		<table class="transTable">
-			<tr>
-				<th align="right" colspan="9"><a id="baseUrl" href="#">Attach
-						Documents </a></th>
-			</tr>
-		</table>
-		<div id="masterdiv1" class="transTable" style="overflow: hidden !important;">
-			
-			<div id="firstchild2" class="transTable"
-				style="float: left; width: 84%; margin: auto;">
-				<table class="transTable"
-					style="margin: 0px; padding: 0px; height: 160px; width: 100%;">
-					<tr>
-						<td><label>Against</label></td>
-						<td><s:select id="txtAgainst" path="strAgainst"
-								cssClass="BoxW124px">
+	<div class="container">
+		<label id="formHeading">Sales Order BOM</label><br>
+		<s:form name="SoBom" method="POST" action="saveSOBOM.html">
+			<!-- <div class="transTable">
+				<p><a id="baseUrl" href="#">Attach Documents</a></p>
+			</div> -->
+			<div id="masterdiv1" class="row transTable" style="overflow: hidden !important; margin:0px;">
+				<div class="col-md-8">
+				<div id="firstchild2">
+					<div class="row transTable" style="margin: 0px; padding: 0px; width: 100%;">
+						<div class="col-md-3">
+							<label>Against</label>
+							<s:select id="txtAgainst" path="strAgainst" cssClass="BoxW124px">
 								<s:option value="salesOrder">Sales Order</s:option>
-								<s:option value="productionOrder">Production Order</s:option>
-								<s:option value="serviceOrder">Service Order</s:option>
-							</s:select></td>
-
-						<td><label>SO Code</label></td>
-						<td><s:input path="strSOCode" id="txtSOCode" 
-								ondblclick="funHelp1()" cssClass="searchTextBox" /></td>
-						<td><label>Sale Order Date</label></td>
-						<td><s:input path="dteSODate" id="txtSODate" readonly="true"
-								required="required" class="BoxW116px" /></td>
-					</tr>
-				</table>
+									<s:option value="productionOrder">Production Order</s:option>
+									<s:option value="serviceOrder">Service Order</s:option>
+								</s:select>
+						</div>
+						<div class="col-md-3">
+							<label>SO Code</label>
+							<s:input path="strSOCode" id="txtSOCode" ondblclick="funHelp1()" cssClass="searchTextBox" />
+						</div>
+						<div class="col-md-3">
+							<label>Sale Order Date</label>
+							<s:input path="dteSODate" id="txtSODate" readonly="true"
+									required="required" class="BoxW116px" />
+						</div>
+					</div>
+				</div>
 			</div>
-			<div id="secondchild1"
-				style="width: 15.7%; height: 160px; border: 1px solid; float: right;">
-				<img id="prodImage" alt="No Image" src=""
-					style="width: 100%; height: 100%;" align="middle">
+			<div class="col-md-4">
+				<div id="secondchild1" style="width: 60%; height: 160px; border: 1px solid;">
+					<img id="prodImage" alt="No Image" src=""
+						style="width: 100%; height: 100%;" align="middle">
+				</div>
 			</div>
-		</div>
-		<br />
-		
-		<div id="masterdiv2" style="width: 100%;">
-			<div id="firstchild2" style="width: 300px;">
-				<div id="test1" class="menu" style="color: blue !important;"></div>
-			</div>
-			<div id="secondchild2" style="width: auto; margin: 10px;">
-				<div style=" display: block; height: 250px; margin: auto;">
-					<table>
-						<tr>
-							<td width="175px"><label>Parent Product</label></td>
-							<td></td>
-							<td><s:input path="strParentCode" id="txtParentCode" 
-								readonly="true" cssClass="BoxW116px" />
-							</td>
-							<td></td>
-							<td colspan="2"><label id="txtParentName"></label>
-							<td>
-						</tr>
-						<tr>
-						<td><label>Parent Proess Code</label></td>
-							<td></td>
-							<td>
+		</div>		
+			<div id="masterdiv2" style="width: 100%;">
+				<div id="secondchild2" style="width: auto; margin: 10px;width:80%;">
+					<div style=" display: block; height: 250px; margin: auto;">
+						<div class="row">
+							<div class="col-md-2">
+								<label>Parent Product</label>
+								<s:input path="strParentCode" id="txtParentCode" readonly="true" cssClass="BoxW116px" />
+							</div>	
+							<div class="col-md-2">
+								<label id="txtParentName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+								></label>
+							</div>
+							<div class="col-md-2">
+								<label>Parent Proess Code</label>
 								<s:input path="strParentProcessCode" id="txtParentProcessCode" 
 								 	readonly="true" cssClass="BoxW116px" />
-							</td>
-							<td></td>
-							<td>
-								<s:label id="txtParentProcessName"
-									path="strParentProcessName"></s:label>
-							</td>
-						</tr>
-					</table>
+							</div>
+							<div class="col-md-2">
+								<s:label id="txtParentProcessName" path="strParentProcessName"
+										 style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:center;">
+								</s:label>
+							</div>
+						</div>
 					<br/>
 
 					<table id="tblProductDtl"
 							style="width:inherit; border: #0F0; table-layout: fixed; overflow: scroll"
 							class="transTablex col15-center">
-						<tr bgcolor="#72BEFC">
+						<tr bgcolor="#c0c0c0">
 							<th width="1%"></th>
 								<!--  COl1   -->
 							<th width="15%">Child Code</th>
@@ -540,30 +532,30 @@ var listRow=2
 								ondblclick="funHelp('productmaster')" class="searchTextBox" />
 							</td>
 
-							<td><input id="txtChildProdName" readonly="readonly" class="longTextBox" style="width: 95% !important;" /></td>
+							<td><input id="txtChildProdName" readonly="readonly" style="width: 99% !important;" /></td>
 
 							<td><input id="txtChildProdQty" class="decimal-places numberField" /></td>
 
-							<td><input id="txtReamark" class="longTextBox" style="width: 95% !important;" /></td>
+							<td><input id="txtReamark" style="width: 90% !important;" /></td>
 
-							<td><input id="btnAdd" type="button" class="smallButton"
+							<td><input id="btnAdd" type="button" class="btn btn-primary center-block" style="margin-top:5px;"
 									value="Add" onclick="return btnAdd_onclick()"></td>
 							<td><input type="hidden" id="dblChildWt" value="1"/></td>
 						</tr>
 					</table>
 				</div>
-
+			</div>
+			<div id="firstchild2" style="width: 300px;">
+				<div id="test1" class="menu" style="color: blue !important;"></div>
 			</div>
 		</div>
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" class="form_button" /> <input
-				type="reset" value="Reset" class="form_button"
-				onclick="funResetFields()" />
-		</p>
+	<div class="center" style="margin-right:19%;">
+		<a href="#"><button class="btn btn-primary center-block" value="Submit"  class="form_button">Submit</button></a> &nbsp;
+		<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetFields()" class="form_button">Reset</button></a>
+	</div>
 
 	</s:form>
+</div>
 	<script type="text/javascript">
 		funApplyNumberValidation();
 	</script>

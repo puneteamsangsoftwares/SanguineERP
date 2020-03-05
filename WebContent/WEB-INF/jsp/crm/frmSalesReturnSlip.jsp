@@ -1,12 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
   	<link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Web Stocks</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
+    
     <script type="text/javascript">
     
     
@@ -24,7 +35,7 @@
     				$("#" + activeTab).fadeIn();
     			});
     			
-//     		$("#txtSRDate").datepicker({ dateFormat: 'yy-mm-dd' });
+//     		$("#txtSRDate").datepicker({ dateFormat: 'dd-mm-yy' });
 //     		$("#txtSRDate" ).datepicker('setDate', 'today');
 //     		$("#txtSRDate").datepicker();
 
@@ -136,51 +147,38 @@
   </head>
   
 	<body >
-	<div id="formHeading">
-		<label>Sales Return Slip</label>
-	</div>
-	<br />
-	<br />
+	  <div class="container masterTable">
+		<label id="formHeading">Sales Return Slip</label>
 		<s:form name="SalesReturnSlip" method="GET" action="rptSalesReturnSlip.html" target="_blank">
-			<table class="masterTable">
+			
 			
 <!-- 			<tr><th colspan="4"></th></tr> -->
-				<tr>
-						<td width="100px"><label>SR Code</label></td>
-						<td width="140px"><s:input path="strSRCode" id="txtSRCode" ondblclick="funHelp('salesReturnslip')" 
- 							cssClass="searchTextBox" /></td> 
-						
-<!-- 						<td width="100px"><label>SR Date</label> -->
-<%-- 						<td><s:input path="dteSRDate" id="txtSRDate"  --%>
-<%-- 									 required="required"  --%>
-<%-- 						   		   	cssClass="calenderTextBox" /></td>  --%>
-						<td></td> 
-						<td></td>
-						<td></td>
-											
-				</tr>
-					
-				<tr>
-						<td><label>Report Type</label></td>
-						<td colspan="4">
-							<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+				<div class="row">
+					<div class="col-md-2"><label>SR Code</label>
+								<s:input path="strSRCode" id="txtSRCode" ondblclick="funHelp('salesReturnslip')" 
+ 							cssClass="searchTextBox" style="height:48%"/>
+ 					</div> 
+ 					
+			<%-- 	<div class="col-md-2"><label>SR Date</label> 
+			<s:input path="dteSRDate" id="txtSRDate"  required="required"  cssClass="calenderTextBox" /></div>   --%>
+			
+					<div class="col-md-1.1"><label>Report Type</label>
+						<s:select id="cmbDocType" path="strDocType">
 					    		<s:option value="PDF">PDF</s:option>
 					    		<s:option value="XLS">EXCEL</s:option>
 					    		<s:option value="HTML">HTML</s:option>
 					    		<s:option value="CSV">CSV</s:option>
 					    	</s:select>
-						</td>
-				</tr>
-			</table>
-			
+					</div>
+				</div>
 			<br/>
-			<br/>
-			<p align="center">
-				<input type="submit" value="Submit"  class="form_button" />
-				<input type="button"   value="Reset" class="form_button" />
+			<p align="center" style="margin-right: 67%;">
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" />&nbsp;
+				<input type="button"   value="Reset" class="btn btn-primary center-block" class="form_button" />
 			</p>
 			<br/>
 		
 		</s:form>
+		</div>
 	</body>
 </html>

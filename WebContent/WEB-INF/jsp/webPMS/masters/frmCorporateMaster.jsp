@@ -181,36 +181,36 @@
 	       <s:form name="CorporateMaster" method="POST" action="saveCorporateMaster.html">
 
 		    <div class="row">
-		    
-				   <div class="col-md-4"><label>Corporate Code</label>
-				       <div class="row">
-				         <div class="col-md-5"><s:input  type="text" id="txtCorporateCode" path="strCorporateCode" cssClass="searchTextBox" style="height: 95%;" ondblclick="funHelp('CorporateCode');"/></div>
-				          <div class="col-md-7"><s:input  type="text" id="txtCorporateDesc" path="strCorporateDesc"/></div>
-				        </div>
-			      </div>
+		    	  <div class="col-md-2">
+		    	  	  <label>Corporate Code</label>
+				       <s:input  type="text" id="txtCorporateCode" path="strCorporateCode" cssClass="searchTextBox"  ondblclick="funHelp('CorporateCode');"/>
+				  </div>
+				  <div class="col-md-2">
+				  	   <s:input  type="text" id="txtCorporateDesc" path="strCorporateDesc" style="margin-top:26px;"/>
+				 </div>
 			
 			      <div class="col-md-2"><label>Person Incharge</label>
 				      <s:input type="text" id="txtPersonIncharge" path="strPersonIncharge"/>
 			      </div>
 		
-		           <div class="col-md-1"><label>Discount %</label>
-				     <s:input type="text" id="txtDiscountPer" path="dblDiscountPer" style="text-align:right;"/>
+		           <div class="col-md-2"><label>Discount %</label>
+				     <s:input type="text" id="txtDiscountPer" path="dblDiscountPer" style="text-align:right;width:60%;"/>
 				   </div>
 		
-			       <div class="col-md-3"><label>Address</label>
+			       <div class="col-md-2"><label>Address</label>
 				       <s:input type="text" id="txtAddress" path="strAddress" />
 				   </div>
-			
-			       <div class="col-md-1"><label>City</label>
-				     <s:select  id="txtCity" path="strCity"  items="${cityArrLsit}" style="width: 85px;"></s:select>
+					<div class="col-md-2"></div>
+			       <div class="col-md-2"><label>City</label>
+				     <s:select  id="txtCity" path="strCity"  items="${cityArrLsit}" style="width: auto;"></s:select>
 				   </div>
 			     
 			       <div class="col-md-2"><label>State</label>
-				       <s:select id="txtState" path="strState"  items="${stateArrLsit}" style="width:100px;"> </s:select>
+				       <s:select id="txtState" path="strState"  items="${stateArrLsit}" style="width:auto;"> </s:select>
 				   </div>
 			
-			        <div class="col-md-1"><label>Country</label>
-				       <s:select id="txtCountry" path="strCountry"  items="${countryArrLsit}" style="width: 85px;"></s:select>
+			        <div class="col-md-2"><label>Country</label>
+				       <s:select id="txtCountry" path="strCountry"  items="${countryArrLsit}" style="width: auto;"></s:select>
 				    </div>
 			      
 			        <div class="col-md-2"><label>Mobile No</label>
@@ -220,28 +220,30 @@
 			        <div class="col-md-2"><label>Telephone No</label>
 				         <s:input colspan="3" type="text" id="txtTelephoneNo" style="text-align:right;" path="lngTelephoneNo"/>
 				    </div>
-			      
+			      	<div class="col-md-2"></div>
 			        <div class="col-md-2"><label>Fax</label>
 			            <s:input type="text" id="txtFax" path="lngFax"/>
 				    </div>
 			      
-			        <div class="col-md-2"><label>Area</label>
-				      <s:select id="txtArea" path="strArea">
-				       <s:option value="Select">Select</s:option></s:select>
+			        <div class="col-md-2">
+			        	<label>Area</label>
+				      		<s:select id="txtArea" path="strArea" style="width:60%;">
+				        		 <s:option value="Select">Select</s:option>
+				     		</s:select>
 				    </div>
 		          
-		            <div class="col-md-1"><label>Pin Code</label>
-				       <s:input type="text" class="numeric" style="text-align:right;" id="txtPinCode" path="intPinCode"/>
+		            <div class="col-md-2"><label>Pin Code</label>
+				       <s:input type="text" class="numeric" style="text-align:right;" id="txtPinCode" path="intPinCode" />
 				    </div>
 			       
-			      <div class="col-md-1"><label>Segment Code</label>
-				         <s:select id="txtSegmentCode" path="strSegmentCode" style="width: 85px;">
+			      <div class="col-md-2"><label>Segment Code</label>
+				         <s:select id="txtSegmentCode" path="strSegmentCode" style="width:80%;">
 					         <s:option value="Select">Select</s:option>
 					      </s:select>
 				   </div>
 				   
 			       <div class="col-md-2"><label>Plan Code</label>
-				     <s:select id="txtPlanCode" path="strPlanCode" style="width:170px">
+				     <s:select id="txtPlanCode" path="strPlanCode">
 					      <s:option value="Select">Select</s:option>
 					      <s:option value="American Plan">American Plan</s:option>
 					      <s:option value="Continental Plan">Continental Plan</s:option>
@@ -249,7 +251,7 @@
 					       <s:option value="Not Applicable">Not Applicable</s:option>
 					 </s:select>
 			       </div>
-	
+	 		 <div class="col-md-2"></div>
 				<div class="col-md-2"><label>Remarks</label>
 					<s:input type="text" id="txtRemarks" path="strRemarks"/>
 				</div>
@@ -279,7 +281,7 @@
 		
 		<br />
 		<br />
-		<p align="right">
+		<p align="right" style="margin-right: 18%;">
 			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funCallFormAction('submit',this);" />&nbsp;
 			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>

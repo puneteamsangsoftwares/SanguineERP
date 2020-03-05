@@ -1,15 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-
-	<%-- <%@ taglib prefix="tab" uri="http://ditchnet.org/jsp-tabs-taglib" %> --%>
-	<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
-	<%@ taglib uri="http://www.springframework.org/tags" prefix="sp"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title>Day End</title>
+<style type="text/css">
+
+.masterTable td{
+	padding-left: 36px;
+</style>
+
 <script type="text/javascript">
 
 	/**
@@ -115,7 +128,7 @@
 
 		row.insertCell(0).innerHTML = "<input id=\"cbLocSel."
 				+ (rowCount)
-				+ "\" name=\"Locthemes\" type=\"checkbox\" class=\"LocCheckBoxClass\"  checked=\"checked\" value='"
+				+ "\" name=\"Locthemes\" type=\"checkbox\" class=\"LocCheckBoxClass\" size=\"10%\" checked=\"checked\" value='"
 				+ strLocCode + "' />";
 		row.insertCell(1).innerHTML = "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strLocCode."
 				+ (rowCount) + "\" value='" + strLocCode + "' >";
@@ -209,62 +222,51 @@
 </script>
 </head>
 <body onload="funOnload();">
-	<div id="formHeading">
-		<label>Day End</label>
-	</div>
+	<div class="container">
+		<label id="formHeading">Day End </label>
 		<s:form name="frmDayEnd" method="POST" action="saveCRMDayEnd.html?saddr=${urlHits}" >
-	   		<br />
-	   		
-				<br>
-		<table class="masterTable">
-			<tr>
-				<td width="49%">Location&nbsp;&nbsp;&nbsp; <input type="text"
-					id="txtLocCode" style="width: 25%; background-position: 190px 2px;"
+		<div class="masterTable">
+			<div class="col-md-2">
+				<label>Location</label>
+				<input type="text"id="txtLocCode"
 					class="searchTextBox" placeholder="Type to search">
-				</td>
-			</tr>
-			<tr>
-				<td style="padding: 0 !important;">
-					<div
-						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-						<table id="" class="masterTable"
-							style="width: 100%; border-collapse: separate;">
-							<tbody>
-								<tr bgcolor="#72BEFC">
-									<td width="15%"><input type="checkbox" id="chkLocALL"
-										checked="checked" />Select</td>
-									<td width="25%">Location Code</td>
-									<td width="65%">Location Name</td>
-								</tr>
-							</tbody>
-						</table>
-						<table id="tblloc" class="masterTable"
-							style="width: 100%; border-collapse: separate;">
-
-							<tr bgcolor="#72BEFC">
-								<td width="15%"></td>
-								<td width="25%"></td>
-								<td width="65%"></td>
-
+			</div><br>
+				<div style="background-color: #fbfafa;width: 80%;  border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+					<table id="" class="masterTable"style="width: 100%; border-collapse: separate;">
+						<tbody>
+							<tr bgcolor="#c0c0c0">
+								<td width="10%"><input type="checkbox" id="chkLocALL"
+									checked="checked" />Select</td>
+								<td width="25%">Location Code</td>
+								<td width="65%">Location Name</td>
 							</tr>
-						</table>
-					</div>
-				</td>
-			</tr>
-		</table>
+						</tbody>
+					</table>
+					<table id="tblloc" class="masterTable" style="width: 100%;">
+						<tr bgcolor="#72BEFC">
+							<td style="width:9%;"></td>
+							<td style="width:25%;"></td>
+							<td style="width:65%;"></td>
+						</tr>
+					</table>
+			</div>
+		</div>
 		<br>
 			<br>
-			<p align="center">
-				 <input type="button" value="Submit" onclick="return formSubmit();" class="form_button" />
-				 <input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>			     
-			</p>
+			<div class="center" style="margin-right: 20%;">
+				<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return formSubmit();"
+					class="form_button">Submit</button></a> &nbsp;
+				<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetFields()"
+					class="form_button">Reset</button></a>
+			</div>
 			<s:input type="hidden" id="hidLocCodes" path="strFromLocCode"></s:input>
-		<div id="wait"
-			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
-			<img
-				src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
-				width="60px" height="60px" />
-		</div>
+			<div id="wait"
+				style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
+				<img
+					src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
+					width="60px" height="60px" />
+			</div>
 		</s:form>
+	</div>
 	</body>
 </html>

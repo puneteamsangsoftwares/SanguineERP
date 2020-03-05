@@ -1,14 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 </head>
+
+<style type="text/css">
+.transTable td {
+	border-style: none;
+	padding-left: 0px;
+}
+</style>
 <script type="text/javascript">
 
 	   $(document).ready(function() 
@@ -24,7 +38,7 @@
 // 			    $("#wait").css("display","none");
 // 			  });
 			  
-			$("#txtFulmtDate").datepicker({ dateFormat: 'yy-mm-dd' });
+			$("#txtFulmtDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtFulmtDate" ).datepicker('setDate', 'today');
 			$("#txtFulmtDate").datepicker();
 			
@@ -287,12 +301,12 @@ function funHelp(transactionName)
 	    var dblAcceptQty=data.dblAcceptQty;
 		
 	   
-	    row.insertCell(0).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strSOCode\" readonly=\"readonly\" class=\"Box txtProdCode\" size=\"8%\" id=\"strSOCode."+(rowCount)+"\" value='"+strSOCode+"' />";		  		   	  
-	    row.insertCell(1).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" size=\"27%\" id=\"strProdCode."+(rowCount)+"\" value='"+strProdCode+"'/>";
-	    row.insertCell(2).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strCustCode\" readonly=\"readonly\" class=\"Box\" size=\"9%\" id=\"strCustCode."+(rowCount)+"\" value='"+strCustCode+"'/>";
-	    row.insertCell(3).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strCustNmae\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"strCustNmae."+(rowCount)+"\" value="+strCustNmae+" >";
-	    row.insertCell(4).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"dblQty."+(rowCount)+"\" value="+dblQty+" >";
-	    row.insertCell(5).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblAcceptQty\"  class=\"Box\" style=\"text-align: right;\" \size=\"3.9%\" class=\"decimal-places inputText-Auto\"  id=\"dblAcceptQty."+(rowCount)+"\"   value='"+dblAcceptQty+"'/>";
+	    row.insertCell(0).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strSOCode\" readonly=\"readonly\" class=\"Box txtProdCode\" style=\"width:99%;\" id=\"strSOCode."+(rowCount)+"\" value='"+strSOCode+"' />";		  		   	  
+	    row.insertCell(1).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"strProdCode."+(rowCount)+"\" value='"+strProdCode+"'/>";
+	    row.insertCell(2).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strCustCode\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"strCustCode."+(rowCount)+"\" value='"+strCustCode+"'/>";
+	    row.insertCell(3).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strCustNmae\" type=\"text\"  required = \"required\" style=\"text-align: right;width:99%;border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"strCustNmae."+(rowCount)+"\" value="+strCustNmae+" >";
+	    row.insertCell(4).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblQty\" type=\"text\" class=\"Box\" required = \"required\" style=\"text-align: right;width:99%; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"dblQty."+(rowCount)+"\" value="+dblQty+" >";
+	    row.insertCell(5).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblAcceptQty\"  class=\"Box\" style=\"text-align:right;width:99%;\"  class=\"decimal-places inputText-Auto\"  id=\"dblAcceptQty."+(rowCount)+"\"   value='"+dblAcceptQty+"'/>";
 	    row.insertCell(6).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';
 	    		    
 	    
@@ -359,57 +373,58 @@ function funHelp(transactionName)
 
 <body>
 
-<div id="formHeading">
-		<label>Invoice Product Variance</label>
-	</div>
-	<s:form name="frmInvoiceVariance" method="GET" action="saveInvoiceVariance.html?saddr=${urlHits}">
+<div class="container transTable" >
+	<label id="formHeading">Invoice Product Variance</label>
+	   <s:form name="frmInvoiceVariance" method="GET" action="saveInvoiceVariance.html?saddr=${urlHits}">
 
 		<br />
 		<br />
+	<div class="row">
 		
-		
-			
-		<table class="transTable">
-
-<tr>
-					<td width="100px">Product Code</td>
-					<td width="120px"><input id="txtProdCode" ondblclick="funHelp('productProduced')" class="searchTextBox" ></input></td>
-					<td width="90px">Product Name </td>
-					<td width="200px"><label id="lblProdName" class="namelabel"></label></td>
-					<td width="50px">Stock  </td>
-					<td width="50px" colspan="3"><input id="txtStock" readonly="readonly" class="BoxW116px right-Align" style="width: 15%;padding-right: 4px;" ></input></td>
-				</tr>
-				<tr>
-				<td><label>FulmtDate</label></td>
-				  <td colspan="4"> <s:input path="dteFulmtDate" id="txtFulmtDate"
-				      required="required" cssClass="calenderTextBox" /></td>
+				<div class="col-md-2"><label> Product Code </label>
+					   <input id="txtProdCode" ondblclick="funHelp('productProduced')" class="searchTextBox" ></input>
+			    </div>
 				
-				<td><input type="button" value="Show" class="smallButton"
-										onclick="return btnAdd_onclick()" /></td>
-				</tr></table>
-						<div class="dynamicTableContainer" style="height: 290px; width: 95%;">
-								<table
-									style="height: 20px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-									<tr bgcolor="#72BEFC">
-										<td width="5%">Sales Order Code</td>
+				
+				<div class="col-md-2"><label> Product Name </label>
+					   <label id="lblProdName" class="namelabel" style="background-color:#dcdada94; width: 110%; height: 50%;"></label>
+			    </div>
+				
+				<div class="col-md-2"><label> Stock </label>
+					   <input id="txtStock" readonly="readonly" class="right-Align" style="width: 80%;" type="text" ></input>
+				</div>
+			    <div class="col-md-6"></div>
+			    
+				<div class="col-md-2"><label>FulmtDate</label>
+				       <s:input path="dteFulmtDate" id="txtFulmtDate" required="required" cssClass="calenderTextBox" style="width:80%;"/>
+				</div>
+				
+				<div class="col-md-2"><br><input type="button" value="Show" class="btn btn-primary center-block" class="smallButton" onclick="return btnAdd_onclick()"/>
+				</div>
+	           
+	            <br>
+				<div class="dynamicTableContainer" style="height: 290px; width: 80%;">
+						<table style="height: 20px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+									<tr bgcolor="#c0c0c0">
+										<td width="6%">Sales Order Code</td>
 										<!--  COl1   -->
-										<td width="5%">Product Code</td>
+										<td width="6%">Product Code</td>
 										<!--  COl2   -->
-										<td width="16%">Customer Code</td>
+										<td width="8.5%">Customer Code</td>
 										<!--  COl3   -->
-										<td width="6%">Customer Name</td>
+										<td width="9%">Customer Name</td>
 										<!--  COl4   -->
 										<td width="3%">Order Qty</td>
 										<!--  COl5   -->
 										<td width="3%">Accept Qty</td>
 										<!--  COl6   -->
-										<td width="3%">Delete</td>
+										<td width="2%">Delete</td>
 										<!--  COl7   -->
 										
 									</tr>
 								</table>
 								<div
-									style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+									style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 									<table id="tblProdDet"
 										style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 										class="transTablex col15-center">
@@ -418,34 +433,32 @@ function funHelp(transactionName)
 										<!--  COl1   -->
 										<col style="width: 5%">
 										<!--  COl2   -->
-										<col style="width: 16%">
+										<col style="width: 7%">
 										<!--  COl3   -->
-										<col style="width: 5.7%">
+										<col style="width: 8%">
 										<!--  COl4   -->
 										<col style="width: 3%">
 										<!--  COl5   -->
 										<col style="width: 3%">
 										<!--  COl6   -->
-										<col style="width: 3%">
+										<col style="width:2%">
 										<!--  COl7   -->
-										
-
-										</tbody>
-
-									</table>
+									</tbody>
+                                   </table>
 								</div>
 
 							</div>
-				
-				
-			<div align="center">
-			<input type="submit" value="Submit"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <input type="button"
-				id="reset" name="reset" value="Reset" class="form_button" />
-		</div>	
+				</div>
+		<br>
+        <p align="center">
+			<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" /> 
+			&nbsp;  
+			<input type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />
+		</p>	
 			
-				<input type="hidden" id="hidLocCode" name="strLocCode" value="${locationCode}"></input>
+		   <input type="hidden" id="hidLocCode" name="strLocCode" value="${locationCode}"></input>
 			
-			</s:form>
+		</s:form>
+	   </div>
 </body>
 </html>

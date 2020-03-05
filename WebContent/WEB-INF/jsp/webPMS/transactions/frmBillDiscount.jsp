@@ -345,7 +345,7 @@ font-size:12px;}
 		    <div class="col-md-3"></div>
 		    
 		   <div class="col-md-1"><label style="width:110%">Grand Total</label>
-				<s:input type="number" step="0.01" readonly="true" path="dblGrandTotal" style ="text-align:right;width:70%;" id="txtGrandTotal"/>
+				<s:input type="number" step="0.01" readonly="true" path="dblGrandTotal" style ="text-align:right;" id="txtGrandTotal"/>
 			</div> 
 			
 			<div class="col-md-2"><label>Reason</label>

@@ -1,13 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Sales Order</title>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <script type="text/javascript">
 		
@@ -27,20 +34,18 @@ $(document).ready(function()
 			var startDate="${startDate}";
 			var arr = startDate.split("/");
 			Dat=arr[2]+"-"+arr[1]+"-"+arr[0];
-			$("#txtFromDate").datepicker({ dateFormat: 'yy-mm-dd' });
+			$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtFromDate" ).datepicker('setDate', Dat);
 			$("#txtFromDate").datepicker();	
 			
-			$("#txtToDate").datepicker({ dateFormat: 'yy-mm-dd' });
+			$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtToDate" ).datepicker('setDate', 'today');
 			$("#txtToDate").datepicker();	
 				
 			
 		});
 		
-	 	
-
-		 	function funCallFormAction(actionName,object) 
+	  	function funCallFormAction(actionName,object) 
 			{
 					
 							
@@ -164,59 +169,52 @@ $(document).ready(function()
 
 </head>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>Job Order List</label>
-	</div>
-	<s:form name="JobOrderList" method="GET"
-		action="rptJobOrderList.html" >
+	<div class="container transTable">
+		<label id="formHeading">Job Order List</label>
+	    <s:form name="JobOrderList" method="GET" action="rptJobOrderList.html" >
 		<input type="hidden" value="${urlHits}" name="saddr">
 		<br>
-		<table class="transTable">
-								
-								<tr>
-							<td><label>From Date</label>
-									<td><s:input path="dtFromDate" id="txtFromDate"
-											 required="required"
-											cssClass="calenderTextBox" /></td>
-							<td ><label>To Date</label>
-									<td><s:input path="dtToDate" id="txtToDate"
-											 required="required"
-											cssClass="calenderTextBox" /></td>
-											
-							</tr>
-								
-							<tr>
-			                <td  ><label>Against</label></td>
-							<td><s:select id="cmbAgainst" path="strAgainst"
-											items="${againstList}" cssClass="BoxW124px" onchange="funShowSOFieled()"/></td>
-						 
-						 
-						 	<td><label>Export Type</label></td>
-								<td ><s:select id="cmbType" path="strDocType"
-										cssClass="BoxW124px">
-										<s:option value="PDF">PDF</s:option>
-										<s:option value="EXCEL">EXCEL</s:option>
-
-									</s:select></td>
-						 </tr>
-							<tr>
-							<td ><label id="lblAgainstCode" style="display:none"></label>
-							<td colspan="3"><s:input id="txtSOCode" path="strSOCode"
-											ondblclick="funHelpAgainstCode()" style="display:none" class="searchTextBox"></s:input></td>
+		      <div class="row">
+		      		<div class="col-md-3">
+			    		 <div class="row">
+							<div class="col-md-6"><label>From Date</label>
+								 <s:input path="dtFromDate" id="txtFromDate" required="required" cssClass="calenderTextBox" />
+							</div>
+							<div class="col-md-6"><label>To Date</label>
+								  <s:input path="dtToDate" id="txtToDate" required="required" cssClass="calenderTextBox" />
+							</div>
+					      </div></div>
+						<div class="col-md-9"></div>	
 						
-						</tr>
-															
+									
+							<div class="col-md-2"><label>Against</label>
+							      <s:select id="cmbAgainst" path="strAgainst" style="width:auto;"
+											items="${againstList}" onchange="funShowSOFieled()"/>
+						     </div>
+						 
+						    <div class="col-md-2"><label>Export Type</label>
+								   <s:select id="cmbType" path="strDocType" style="width:auto;">
+										<s:option value="PDF"> PDF </s:option>
+										<s:option value="EXCEL"> EXCEL </s:option>
+									</s:select>
+						    </div>
+						 
+						    <div class="col-md-8"></div>
+						    
+							<div class="col-md-2"><label id="lblAgainstCode" style="display:none"></label>
+							       <s:input id="txtSOCode" path="strSOCode"
+											ondblclick="funHelpAgainstCode()" style="display:none" class="searchTextBox"></s:input>
+							</div>
 					
-
-		</table>
+		</div>
 		<br>
-		<p align="center">
+		<p align="right" style="margin-right: 68%">
 			<input type="submit" value="Submit"
-				onclick="return funCallFormAction('submit',this)"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <a
-				STYLE="text-decoration: none"
+				onclick="return funCallFormAction('submit',this)" class="btn btn-primary center-block" 
+				class="form_button" /> &nbsp;  
+				<a STYLE="text-decoration: none"
 				href="frmJobOrderList.html?saddr=${urlHits}"><input
-				type="button" id="reset" name="reset" value="Reset"
+				type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block" 
 				class="form_button" /></a>
 		</p>
 		<br>
@@ -227,6 +225,6 @@ $(document).ready(function()
 				width="60px" height="60px" />
 		</div>
 	</s:form>
-
+   </div>
 </body>
 </html>

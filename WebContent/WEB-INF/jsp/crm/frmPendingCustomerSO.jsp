@@ -1,16 +1,26 @@
  <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="default.css" />
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+		 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script> 
     <title>Cost Of Issue</title>
-    <style>
+<style>
   #tblGroup tr:hover , #tblSubGroup tr:hover, #tblloc tr:hover{
 	background-color: #72BEFC;
-	
+}
+.transTable td{
+  padding-left:0px;
+
 }
 </style>
     <script type="text/javascript">
@@ -138,7 +148,7 @@
 			    var row = table.insertRow(rowCount);
 			    
 			    row.insertCell(0).innerHTML= "<input id=\"cbProdSel."+(rowCount)+"\" name=\"Prodthemes\" type=\"checkbox\" class=\"ProdCheckBoxClass\"  checked=\"checked\" value='"+strProdCode+"' />";
-			    row.insertCell(1).innerHTML= "<input name=\"listPendingCustomerSOProductDtlBean["+(rowCount)+"].strCustCode\" readonly=\"readonly\" class=\"Box\" size=\"9%\" id=\"strCustCode."+(rowCount)+"\" value='"+strCustCode+"' >";
+			    row.insertCell(1).innerHTML= "<input name=\"listPendingCustomerSOProductDtlBean["+(rowCount)+"].strCustCode\" readonly=\"readonly\" class=\"Box\" style=\"width:98%;\"  id=\"strCustCode."+(rowCount)+"\" value='"+strCustCode+"' >";
 			    row.insertCell(2).innerHTML= "<input name=\"listPendingCustomerSOProductDtlBean["+(rowCount)+"].strCustName\" readonly=\"readonly\" class=\"Box\" size=\"24%\" id=\"strCustName."+(rowCount)+"\" value='"+strCustName+"' >";
 			    row.insertCell(3).innerHTML= "<input name=\"listPendingCustomerSOProductDtlBean["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" size=\"11%\" id=\"strProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";
 			    //row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strToLocCode."+(rowCount)+"\" value='"+strProdCode+"' >";
@@ -206,8 +216,8 @@
 				    var rowCount = table.rows.length;
 				    var row = table.insertRow(rowCount);
 				    // onClick=Javacsript:funLoadAllProduct('"+strCustCode+"')
-				    row.insertCell(0).innerHTML= "<input id=\"cbSuppSel."+(rowCount)+"\" name=\"Custthemes\" type=\"checkbox\" class=\"CustCheckBoxClass\"   value='"+strCustCode+"'  />";
-				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strCustCode."+(rowCount)+"\" value='"+strCustCode+"' >";
+				    row.insertCell(0).innerHTML= "<input id=\"cbSuppSel."+(rowCount)+"\" name=\"Custthemes\" type=\"checkbox\"  class=\"CustCheckBoxClass\"   value='"+strCustCode+"'  />";
+				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" id=\"strCustCode."+(rowCount)+"\" value='"+strCustCode+"' >";
 				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strCName."+(rowCount)+"\" value='"+strCustName+"' >";
 			}
 		    //Remove All Row from Grid Passing Table Id as a parameter
@@ -377,129 +387,113 @@
 	   
 	</script>    
   </head>
-  	
-	<body id="frmPendingCustomerSO" onload="funOnload();">
-	<div id="formHeading">
-		<label>Pending Customer Sales Order</label>
-	</div>
+ 	
+<body id="frmPendingCustomerSO" onload="funOnload();">
+	<div class="container"> 
+		<label id="formHeading">Pending Customer Sales Order</label>
 		<s:form name="frmPendingCustomerSO" method="POST" action="savePendingCustomerSO.html" >
-	   		<br />
-	   		<div id="tab_container" style="height: 600px">
+	   	<div id="tab_container">
 			<ul class="tabs">
-				<li class="active" id="t1" data-state="tab1" style="width: 100px;padding-left: 55px">Customers</li>
-				<li data-state="tab2" id="t2" style="width: 150px;padding-left: 55px">Products</li>
+				<li class="active" id="t1" data-state="tab1">Customers</li>
+				<li data-state="tab2" id="t2">Products</li>
 			</ul>
-		<br>
-			<div id="tab1" class="tab_content" style="height: 600px" >
-				<table class="transTable">
-				<tr></tr>
-				<tr>
-					<td width="10%"><label>SO Date :</label></td>
-					<td colspan="1" width="10%"><s:input id="txtSODate" path="dteSODate" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
-					<td width="10%"><label>Fullfillment Date :</label></td>
-					<td colspan="1"><s:input id="txtFulmtDate" path="dteFulmtDate" required="true" readonly="readonly" cssClass="calenderTextBox"/></td> 
-				</tr>
-				</table>
-				
-				<table class="transTable">
-					<tr></tr>
-				</table>
-				<br>
-						
-						
-				<table class="transTable">
-				<tr>
-					<td colspan="2">Customer&nbsp;&nbsp;&nbsp;<input style="width: 35%; background-position: 150px 2px;" type="text" id="txtCustCode"  Class="searchTextBox" placeholder="Type to search"></input>
-					<label id="lblCustName"></label></td>
-					
-							</tr><tr>
-							
-				<td colspan="2">
-				<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 570px;width: 1000px; overflow-x: hidden; overflow-y: scroll;">
-					<table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
-						<tbody>
-							<tr bgcolor="#72BEFC">
-								<td width="5%"><input type="checkbox" id="chkCustALL"/>Select</td>
-								<td width="25%">To Customer Code</td>
-								<td width="65%">To Customer Name</td>
-							</tr>
-						</tbody>
-					</table>
-					<table id="tblCust" class="masterTable"	style="width: 100%; border-collapse: separate;">
-					<tr bgcolor="#72BEFC">
-					</tr>
-					</table>
+			<div id="tab1" class="tab_content">
+				<div class="row transTable">
+					<div class="col-md-4">
+						<div class="row">
+							<div class="col-md-6">
+								<label>SO Date:</label>
+								<s:input id="txtSODate" path="dteSODate" required="true" readonly="readonly" cssClass="calenderTextBox" style="width:80%;"/>
+							</div>	
+							<div class="col-md-6">
+								<label>Fullfillment Date:</label>
+								<s:input id="txtFulmtDate" path="dteFulmtDate" required="true" readonly="readonly" cssClass="calenderTextBox" style="width:80%;"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<label>Customer</label>
+						<input type="text" id="txtCustCode"  Class="searchTextBox" placeholder="Type to search"></input>
+					</div>
+					<div class="col-md-2">
+						<label id="lblCustName"></label>
+					</div>
 				</div>
-				</td></tr>
-				
-				<tr>
-				
-				<td colspan="2" align="center"><input id="btnAddProd" type="button" value="Add Prod"  class="smallButton" onclick="return funAddProd()"></input></td>
-				</tr>
-				<tr></tr>
-				<tr></tr>
-				
-				
-				</table>
+				<br>
+				<div class="transTable" style="margin:0px;'">
+					<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 350px; width:60%; 
+							overflow-x: hidden; overflow-y: scroll;margin-top:10px;">
+						<table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
+							<tbody>
+								<tr bgcolor="#c0c0c0">
+									<td width="5%"><input type="checkbox" id="chkCustALL"/>Select</td>
+									<td width="26%">To Customer Code</td>
+									<td width="65%">To Customer Name</td>
+								</tr>
+							</tbody>
+						</table>
+						<table id="tblCust" class="masterTable"	style="width: 100%; border-collapse: separate;">
+							<!-- <tr bgcolor="#72BEFC">
+							</tr> -->
+							<tbody>    
+								<col style="width:1.5%"><!--  COl1   -->
+								<col style="width:1%"><!--  COl2   -->
+								<col style="width:3%"><!--  COl3   -->
+							</tbody>
+						</table>
+					</div>
+					<div class="col-md-12">
+						<a href="#"><button class="btn btn-primary center-block" id="btnAddProd" value="Add Prod" onclick="return funAddProd()"
+							class="form_button">Add Prod</button></a>
+					</div>
+				</div>
 			</div>
 			
-			
-			
 			<div id="tab2" class="tab_content" style="height: 650px" >
-			<table class="transTable">
-			<tr>
-			<td colspan="2">Location&nbsp;&nbsp;&nbsp;
-					<input type="text" id="txtLocCode" style="width: 35%;background-position: 150px 2px;"  Class="searchTextBox" placeholder="Type to search"  ></input>
-						<label id="lblLocName"></label></td>
-			</tr>
-			<tr>			
-				<td colspan="2">			
-			
-				<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 600px;width: 1000px; overflow-x: hidden; overflow-y: scroll;">
-					<table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
-						 <tbody>
-							 <tr bgcolor="#72BEFC">
-								 <td width="4%"><input type="checkbox" checked="checked" id="chkLocALL"/>Select</td>
+				<div class="row transTable">
+					<div class="col-md-2">
+						<label>Location</label>
+							<input type="text" id="txtLocCode" Class="searchTextBox" placeholder="Type to search"></input>
+					</div>
+					<div class="col-md-3">
+						<label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 43%; margin-top:25px; padding:2px;"></label>
+					</div>
+					<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 550px;width: 100%; overflow-x: hidden; overflow-y: scroll;  margin-top:10px;">
+						<table id="" class="masterTable" style="width: 100%;">
+							 <tbody>
+								 <tr bgcolor="#c0c0c0">
+									<td width="4%"><input type="checkbox" checked="checked" id="chkLocALL"/>Select</td>
 									<td width="11%"> Cust Code </td>
 									<td width="22%"> Cust Name </td>
 									<td width="11%"> Product Code</td>
 									<td width="45%"> Product Name</td>
 									<td width="11%"> Qty </td>
-									
-							</tr>
-						</tbody>
-					</table>
-					<table id="tblProd" class="masterTable"	style="width: 100%; border-collapse: separate;">
-					     <tr bgcolor="#72BEFC">
+								</tr>
+							</tbody>
+						</table>
+						<table id="tblProd" class="masterTable"	style="width: 100%; border-collapse: separate;">
+						     <tr bgcolor="#72BEFC">
 							</tr>
 						</table>
 					</div>
-					
-					</td></tr></table>
+				</div>
 			</div>	
-					
-			</div>			
-			<br>
-			<br>
-			<br>
-			<br>			
-			<p align="center">
-				 <input type="button" value="Submit" onclick="return btnSubmit_Onclick();" class="form_button" />
-				 <input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>			     
-			</p>  
-			<br>
-			<br>
+		</div>
+		<div class="center" style="margin-right: 43%;">
+				<a href="#"><button class="btn btn-primary center-block" id="btnAddProd" value="Submit" onclick="return btnSubmit_Onclick();"
+					class="form_button">Submit</button></a>
+				<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetFields()"
+					class="form_button">Reset</button></a>
+		</div>			
 			
 			<s:input type="hidden" id="hidCustCodes" path="strSuppCode"></s:input>
 			<s:input type="hidden" id="hidProdCodes" path="strProdCode"></s:input>
-			
-			
-			<div id="wait"
-			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
-			<img
-				src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
-				width="60px" height="60px" />
-		</div>
-		</s:form>
+			<div id="wait" style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
+				<img
+					src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
+					width="60px" height="60px" />
+			</div>
+	</s:form>
+</div>
 	</body>
 </html>

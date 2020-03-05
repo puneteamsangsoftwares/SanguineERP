@@ -1,13 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="sp"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	var listRow = 0;
 	var remainingQty=0;
@@ -220,83 +228,73 @@ function funHelpDN(transactionName)
 
 </head>
 <body>
-
-	<div id="formHeading">
-		<label>Ageing Report</label>
-	</div>
-	<br />
+   <div class="container masterTable">
+		<label id="formHeading"> Ageing Report </label>
 	<s:form name="ageingReport" method="GET"
 		action="rptAgeingReport.html?saddr=${urlHits}">
 		<br>
-		<table class="masterTable">
-			<tr>
-				<td><label>From Date</label></td>
-				<td><s:input type="text" id="txtFromDate"
+		<div class="row">
+		
+				<div class="col-md-3">
+				 <div class="row">
+				 <div class="col-md-6"><label>From Date</label>
+					<s:input type="text" id="txtFromDate"
 						class="calenderTextBox" path="dteFromDate" required="required" />
-				</td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><label>To Date</label></td>
-				<td><s:input type="text" id="txtToDate" class="calenderTextBox"
-						path="dteToDate" required="required" /></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><label>SC Code</label></td>
-				<td><s:input type="text" id="txtSCCode" path="strSCCode" 
-						cssClass="searchTextBox" ondblclick="funHelp('subContractor');" />
-				</td>
-				<td colspan="2"><label id="txtSCName">All Sub
-						Contractors </label></td>
-			</tr>
-			<tr>
-				<td><label>Sub Contractor Permission Type</label></td>
-				<td><s:select id="txtPermissionType" path="strPermissionType"
-						items="${permissionType}" cssClass="BoxW124px" /></td>
-				<td></td>
-				<td></td>
-			</tr>
+				</div>
+				<div class="col-md-6"><label>To Date</label>
+				    <s:input type="text" id="txtToDate" class="calenderTextBox"
+						path="dteToDate" required="required" />
+				</div>
+				</div></div>
+				
+				<div class="col-md-9"></div>
+				
+				<div class="col-md-5">
+					<div class="row">
+					    <div class="col-md-5"><label>SC Code</label><s:input type="text" id="txtSCCode" path="strSCCode" style="height:38%"
+						cssClass="searchTextBox" ondblclick="funHelp('subContractor');" /></div>
+						<div class="col-md-7"><label id="txtSCName" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top: 11%;">All Sub
+						Contractors </label></div>
+				</div></div>
+				
+				<div class="col-md-3"><label>Sub Contractor Permission Type</label>
+					<s:select id="txtPermissionType" path="strPermissionType"
+						items="${permissionType}" style="width:40%"/>
+				</div>
+				
+				<div class="col-md-4"></div>
+				
+				<div class="col-md-5">
+				<div class="row">
+					<div class="col-md-5"><label>DN Code</label><s:input type="text" id="txtDNCode" path="strDNCode" style="height: 43%"
+						cssClass="searchTextBox" ondblclick="funHelpDN('SCDNCode');" /></div>
+					<div class="col-md-7"><label id="txtDNName" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top:11%;"> </label></div>
+			    </div></div>
+		
+				<div class="col-md-2"><label> Delivery Note Type</label>
+					<s:select id="txtDNType" path="strDNType" items="${dnType}" style="width:40%"/>
+				</div>
+				<div class="col-md-5"></div>
+				
+				<div class="col-md-3">
+				 <div class="row">
+			              <div class="col-md-6"><label>Order By</label>
+						          <s:select id="txtOrderBy" path="strOrderBy"
+						         items="${orderBy}"/>
+			                </div>
 
-			<tr>
-				<td><label>DN Code</label></td>
-				<td><s:input type="text" id="txtDNCode" path="strDNCode"
-						cssClass="searchTextBox" ondblclick="funHelpDN('SCDNCode');" /></td>
-				<td colspan="2"><label id="txtDNName"> </label></td>
-			</tr>
-			<tr>
-				<td><label> Delivery Note Type</label></td>
-				<td><s:select id="txtDNType" path="strDNType" items="${dnType}"
-						cssClass="BoxW124px" /></td>
-				<td></td>
-				<td></td>
-			</tr>
-
-			<tr>
-				<td><label>Order By</label></td>
-				<td><s:select id="txtOrderBy" path="strOrderBy"
-						items="${orderBy}" cssClass="BoxW124px" /></td>
-				<td colspan="2"></td>
-			</tr>
-
-			<tr>
-				<td><label>Export Type</label></td>
-				<td><s:select id="txtExportType" path="strExportType" cssClass="BoxW124px">
-						<s:option value="PDF" />
-						<s:option value="EXCEL" />
-					</s:select></td>
-				<td colspan="2"></td>
-			</tr>
-
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Display" class="form_button" /> <input
-				type="reset" value="Reset" class="form_button" onclick="funResetFields()" />
+				            <div class="col-md-6"><label>Export Type</label>
+					            <s:select id="txtExportType" path="strExportType">
+						             <s:option value="PDF" />
+						              <s:option value="EXCEL" />
+					            </s:select></div>
+              </div></div>
+		</div>
+		
+		<p align="right" style="margin-right: 39%">
+			<input type="submit" value="Display" class="btn btn-primary center-block" class="form_button" />&nbsp;
+			 <input
+				type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()" />
 		</p>
 
 		<div id="wait"
@@ -306,7 +304,7 @@ function funHelpDN(transactionName)
 				width="60px" height="60px" />
 		</div>
 	</s:form>
-
+</div>
 	<script type="text/javascript">
 		funApplyNumberValidation();
 	</script>

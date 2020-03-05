@@ -181,7 +181,7 @@ var fieldName;
 			<input type="hidden" value="${urlHits}" name="saddr">
 			<br />
 			
-		<div class="row  transTable" style=" margin-left: 155px">
+		<div class="row  transTable">
 				<div class="col-md-5"><label>User Code</label>
 				   <div class="row">
 						<div class="col-md-5"><s:input path="strUserCode" cssClass="searchTextBox" id="strUserCode" readonly="true"
@@ -201,7 +201,7 @@ var fieldName;
 
 			<!-- Start of tab container -->
 			<table
-				style="border: 0px solid black; width: 70%; margin-left: auto; margin-right: auto;background-color:#c0c0c0;">
+				style="border: 0px solid black; width: 70%;">
 				<tr>
 					<td>
 						<div id="tab_container">
@@ -406,7 +406,7 @@ var fieldName;
 			</table>
 			<!-- End Of tab container -->
 			<br>
-			<p align="center" style="margin-right: -60%;">
+			<p align="center" style="margin-right:60%;">
 			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" />&nbsp;
 			 <a STYLE="text-decoration:none"  href="frmCRMSecurityShell.html" ><input type="button" class="btn btn-primary center-block" value="Reset" class="form_button" /></a><br/></p>
 		

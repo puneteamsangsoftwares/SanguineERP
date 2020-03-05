@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -8,7 +8,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Sales Order Return</title>
+      <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	  <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	  <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	  <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	  <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	  <script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
+
 </head>
+<style type="text/css">
+.transTable td {
+	border-left:none;
+	padding-left:0px;
+}
+
+</style>
+
 <script type="text/javascript">
 
 var unitprice="";
@@ -27,7 +43,7 @@ $(document).ready(function()
 	});
 	var code='<%=session.getAttribute("locationCode").toString()%>';
 	funSetLocation(code);
-	$("#txtSRDate").datepicker({ dateFormat: 'yy-mm-dd' });
+	$("#txtSRDate").datepicker({ dateFormat: 'dd-mm-yy' });
 	$("#txtSRDate" ).datepicker('setDate', 'today');
 	$("#txtSRDate").datepicker();
 
@@ -91,10 +107,6 @@ $(document).ready(function()
 	});
 });
 		
-		
-
-
-
 function funHelp1(){
 	
 	var agianst = $("#cmbAgainst").val();
@@ -114,8 +126,7 @@ function funHelp1(){
 	
 }
 
-
-	function funHelp(transactionName)
+ function funHelp(transactionName)
 	{
 		fieldName = transactionName;
 		if(transactionName=='invoiceForSR'){
@@ -669,14 +680,14 @@ function funHelp1(){
 	    	totalPrice=(unitprice*dblQty*dblWeight).toFixed(maxAmountDecimalPlaceLimit);
 	    }
 
-	    row.insertCell(0).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box txtProdCode\" size=\"8%\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
-	    row.insertCell(1).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"27%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
-	    row.insertCell(2).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
-	    row.insertCell(3).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
-	    row.insertCell(4).innerHTML= "<input name=\"\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" \size=\"3.9%\" id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
-	    row.insertCell(5).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" \size=\"4.5%\" id=\"unitprice."+(rowCount)+"\"   value='"+unitprice+"'/>";
-	    row.insertCell(6).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" class=\"Box1 totalValueCell\" \size=\"4.5%\" id=\"totalPrice."+(rowCount)+"\"   value='"+totalPrice+"'/>";
-	    row.insertCell(7).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strRemarks\" size=\"10%\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
+	    row.insertCell(0).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box txtProdCode\" style=\"width:99%;\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
+	    row.insertCell(1).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
+	    row.insertCell(2).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right; width:99%; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+	    row.insertCell(3).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right; width:99%; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
+	    row.insertCell(4).innerHTML= "<input name=\"\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\"  id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
+	    row.insertCell(5).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\"  id=\"unitprice."+(rowCount)+"\"   value='"+unitprice+"'/>";
+	    row.insertCell(6).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\" class=\"Box1 totalValueCell\"  id=\"totalPrice."+(rowCount)+"\"   value='"+totalPrice+"'/>";
+	    row.insertCell(7).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strRemarks\" style=\"width:99%;\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
 	 	row.insertCell(8).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';		    
 	    
 	    
@@ -707,14 +718,14 @@ function funHelp1(){
 	    	totalPrice=(unitprice*dblQty*dblWeight).toFixed(maxAmountDecimalPlaceLimit);
 	    }
 	    
-	 	row.insertCell(0).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box txtProdCode\" size=\"8%\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
-	    row.insertCell(1).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"27%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
-	    row.insertCell(2).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
-	    row.insertCell(3).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
-	    row.insertCell(4).innerHTML= "<input name=\"\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" \size=\"3.9%\" id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
-	    row.insertCell(5).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" \size=\"7%\" id=\"unitprice."+(rowCount)+"\"   value='"+unitprice+"'/>";
-	    row.insertCell(6).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" class=\"Box1 totalValueCell\" \size=\"7%\" id=\"totalPrice."+(rowCount)+"\"   value='"+totalPrice+"'/>";
-	    row.insertCell(7).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strRemarks\" size=\"10%\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
+	 	row.insertCell(0).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box txtProdCode\" style=\"width:99%;\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
+	    row.insertCell(1).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
+	    row.insertCell(2).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right; width:99%; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+	    row.insertCell(3).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right; width:99%; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
+	    row.insertCell(4).innerHTML= "<input name=\"\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\"  id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
+	    row.insertCell(5).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\"  id=\"unitprice."+(rowCount)+"\"   value='"+unitprice+"'/>";
+	    row.insertCell(6).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\" class=\"Box1 totalValueCell\"  id=\"totalPrice."+(rowCount)+"\"   value='"+totalPrice+"'/>";
+	    row.insertCell(7).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strRemarks\" style=\"width:99%;\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
 	 	row.insertCell(8).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';		    
 	  
 	    
@@ -749,14 +760,14 @@ function funHelp1(){
 	    if(dblAssValue>0){
 	    	totalPrice=dblAssValue;	
 	    }
-	 	row.insertCell(0).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box txtProdCode\" size=\"8%\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
-	    row.insertCell(1).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"27%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
-	    row.insertCell(2).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
-	    row.insertCell(3).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
-	    row.insertCell(4).innerHTML= "<input name=\"\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" \size=\"3.9%\" id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
-	    row.insertCell(5).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" \size=\"7%\" id=\"unitprice."+(rowCount)+"\"   value='"+unitprice+"'/>";
-	    row.insertCell(6).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblPrice\" \"\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" class=\"Box1 totalValueCell\" \size=\"7%\" id=\"totalPrice."+(rowCount)+"\"   value='"+totalPrice+"'/>";
-	    row.insertCell(7).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strRemarks\" size=\"10%\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
+	 	row.insertCell(0).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box txtProdCode\" style=\"width:99%;\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
+	    row.insertCell(1).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
+	    row.insertCell(2).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right; width:99%; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+	    row.insertCell(3).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right; width:99%; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
+	    row.insertCell(4).innerHTML= "<input name=\"\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\"  id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
+	    row.insertCell(5).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\"  id=\"unitprice."+(rowCount)+"\"   value='"+unitprice+"'/>";
+	    row.insertCell(6).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblPrice\" \"\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\" class=\"Box1 totalValueCell\"  id=\"totalPrice."+(rowCount)+"\"   value='"+totalPrice+"'/>";
+	    row.insertCell(7).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strRemarks\" style=\"width:99%;\"  id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
 	 	row.insertCell(8).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';		    
 	    
 	 	
@@ -793,14 +804,14 @@ function funHelp1(){
 	    	totalPrice=(unitprice*dblQty*dblWeight).toFixed(maxAmountDecimalPlaceLimit);
 	    }
 	    
-	 	row.insertCell(0).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box txtProdCode\" size=\"8%\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
-	    row.insertCell(1).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"27%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
-	    row.insertCell(2).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
-	    row.insertCell(3).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
-	    row.insertCell(4).innerHTML= "<input name=\"\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" \size=\"3.9%\" id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
-	    row.insertCell(5).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" \size=\"7%\" id=\"unitprice."+(rowCount)+"\"   value='"+unitprice+"'/>";
-	    row.insertCell(6).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" class=\"Box1 totalValueCell\" \size=\"7%\" id=\"totalPrice."+(rowCount)+"\"   value='"+totalPrice+"'/>";
-	    row.insertCell(7).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strRemarks\" size=\"10%\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
+	 	row.insertCell(0).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box txtProdCode\" style=\"width:99%;\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
+	    row.insertCell(1).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
+	    row.insertCell(2).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align:right; width:99%; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+	    row.insertCell(3).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align:right; width:99%; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
+	    row.insertCell(4).innerHTML= "<input name=\"\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\"  id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
+	    row.insertCell(5).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\"  id=\"unitprice."+(rowCount)+"\"   value='"+unitprice+"'/>";
+	    row.insertCell(6).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\" class=\"Box1 totalValueCell\"  id=\"totalPrice."+(rowCount)+"\"   value='"+totalPrice+"'/>";
+	    row.insertCell(7).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strRemarks\" style=\"width:99%;\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
 	 	row.insertCell(8).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';		    
 	    
 	    
@@ -835,14 +846,14 @@ function funHelp1(){
 	  //  if(dblWeight>0){
 	 //  	totalPrice=(unitprice*dblQty*dblWeight).toFixed(maxAmountDecimalPlaceLimit);
 	  ///  }
-	 	row.insertCell(0).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box txtProdCode\" size=\"8%\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
-	    row.insertCell(1).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"27%\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
-	    row.insertCell(2).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
-	    row.insertCell(3).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
-	    row.insertCell(4).innerHTML= "<input name=\"\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" \size=\"3.9%\" id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
-	    row.insertCell(5).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" \size=\"7%\" id=\"unitprice."+(rowCount)+"\"   value='"+unitprice+"'/>";
-	    row.insertCell(6).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" class=\"Box1 totalValueCell\" \size=\"7%\" id=\"totalPrice."+(rowCount)+"\"   value='"+totalPrice+"'/>";
-	    row.insertCell(7).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strRemarks\" size=\"10%\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
+	 	row.insertCell(0).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box txtProdCode\" style=\"width:99%;\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
+	    row.insertCell(1).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
+	    row.insertCell(2).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblQty\" type=\"text\"  required = \"required\" style=\"text-align: right; width:99%; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtQty."+(rowCount)+"\" value="+dblQty+" onblur=\"Javacsript:funUpdatePrice(this)\">";
+	    row.insertCell(3).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;width:99%; border:1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto\" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
+	    row.insertCell(4).innerHTML= "<input name=\"\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\" id=\"dblTotalWeight."+(rowCount)+"\"   value='"+dblTotalWeight+"'/>";
+	    row.insertCell(5).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblUnitPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\"  id=\"unitprice."+(rowCount)+"\"   value='"+unitprice+"'/>";
+	    row.insertCell(6).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].dblPrice\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:99%;\" class=\"Box1 totalValueCell\"  id=\"totalPrice."+(rowCount)+"\"   value='"+totalPrice+"'/>";
+	    row.insertCell(7).innerHTML= "<input name=\"listSalesReturn["+(rowCount)+"].strRemarks\" style=\"width:99%;\" id=\"txtRemarks."+(rowCount)+"\" value='"+strRemarks+"'/>";
 	 	row.insertCell(8).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';		    
 	    
 	    
@@ -1128,11 +1139,11 @@ function funHelp1(){
 	    var rowCount = table.rows.length;
 	    var row = table.insertRow(rowCount);
 	    
-	    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listSalesRetrunTaxModel["+(rowCount)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount)+"\" value='"+taxCode+"' >";
-	    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listSalesRetrunTaxModel["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
-	    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" size=\"15.5%\" name=\"listSalesRetrunTaxModel["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
-	    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;\" size=\"15.5%\" name=\"listSalesRetrunTaxModel["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
-	    row.insertCell(4).innerHTML= '<input type="button" size=\"6%\" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteTaxRow(this)" >';
+	    row.insertCell(0).innerHTML= "<input class=\"Box\" style=\"width:99%;\" name=\"listSalesRetrunTaxModel["+(rowCount)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount)+"\" value='"+taxCode+"' >";
+	    row.insertCell(1).innerHTML= "<input class=\"Box\" style=\"width:99%;\" name=\"listSalesRetrunTaxModel["+(rowCount)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount)+"\" value='"+taxDesc+"'>";		    	    
+	    row.insertCell(2).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:99%;border:1px solid #c0c0c0;\"  name=\"listSalesRetrunTaxModel["+(rowCount)+"].strTaxableAmt\" id=\"txtTaxableAmt."+(rowCount)+"\" value="+taxableAmt+">";
+	    row.insertCell(3).innerHTML= "<input type=\"number\" step=\"any\" required = \"required\" style=\"text-align: right;width:99%;border:1px solid #c0c0c0;\"  name=\"listSalesRetrunTaxModel["+(rowCount)+"].strTaxAmt\" id=\"txtTaxAmt."+(rowCount)+"\" value="+taxAmt+">";		    
+	    row.insertCell(4).innerHTML= '<input type="button" style=\"width:99%;\" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteTaxRow(this)" >';
 	    
 	    funCalTaxTotal();
 	    funClearFieldsOnTaxTab();
@@ -1447,167 +1458,153 @@ function funHelp1(){
 	
 </script>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>Sales Return</label>
-	</div>
-
-	<s:form name="SalesREturnForm" method="POST"
-		action="saveSalesReturnData.html?saddr=${urlHits}">
-		<input type="hidden" value="${urlHits}" name="saddr">
+	<div class="container transTable">
+	  <label id="formHeading">Sales Return</label>
+	    <s:form name="SalesREturnForm" method="POST" action="saveSalesReturnData.html?saddr=${urlHits}">
+		  <input type="hidden" value="${urlHits}" name="saddr">
 		<br>
-		<table
-			style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
-			<tr>
-				<td>
-
-					<div id="tab_container" style="height: 580px">
-					<div>
+	
+	  <div id="tab_container">
+				<div>
 						<ul class="tabs">
 							<li class="active" data-state="tab1"
-								style="width: 100px; padding-left: 75px">Sales Return</li>
+								style="width: 100px; padding-left: -25px">Sales Return</li>
 							
-							<li data-state="tab2" style="width: 100px; padding-left: 75px">Taxes</li>
+							<li data-state="tab2" style="width: 50px; padding-left: 6px">Taxes</li>
 						</ul>
-                        			</div>
-						<div id="tab1" class="tab_content" > 
-							<table class="transTable">
-		
-		
-		
-								<tr>
+                 </div>
+		  <div id="tab1" class="tab_content" style="margin-top:50px;height: 640px;"> 
+							
+		                        <!-- <tr>
 									<th align="right" colspan="9"><a id="baseUrl" href="#">
 											Attach Documents </a></th>
-								</tr>
-                                
-								<tr>
-									<td width="100px"><label>SR Code</label></td>
-									<td width="140px"><s:input path="strSRCode" id="txtSRCode"
- 											ondblclick="funHelp('salesReturn')" 
- 											cssClass="searchTextBox" /></td> 
-										<td><label id="lblLocName1"></label></td>
-									<td width="100px"><label>SR Date</label>
-								<td><s:input path="dteSRDate" id="txtSRDate" 
-											 required="required" 
-											cssClass="calenderTextBox" /></td> 
-										<td></td> 
-											<td></td>
-											<td></td>
-											
-											</tr><tr>
-											
-									<td><label>Customer Code</label></td>
-									<td><s:input path="strCustCode" id="txtCustCode"
- 								ondblclick="funHelp('custMasterActive')" cssClass="searchTextBox" /></td> 
-									<td colspan="2"><label id="lblCustomerName"
-										class="namelabel"></label></td>
+								</tr> -->
+             <div class="row">
+	                <div class="col-md-2"><label>SR Code</label>
+						<s:input path="strSRCode" id="txtSRCode" ondblclick="funHelp('salesReturn')" cssClass="searchTextBox" />
+ 					</div> 
+ 					
+ 					<div class="col-md-2"><label id="lblLocName1" style="background-color:#dcdada94; width: 100%; height: 55%; margin-top: 17%;padding-top: 2px"></label></div>
+					
+					<div class="col-md-2"><label>SR Date</label>
+						<s:input path="dteSRDate" id="txtSRDate" required="required" cssClass="calenderTextBox" style="width: 70%"/>
+					</div> 
+					
+					<div class="col-md-6"></div>
 								
-									<td><label>Location Code</label></td>
-									<td><s:input type="text" id="txtLocCode" path="strLocCode"
- 											cssClass="searchTextBox" ondblclick="funHelp('locationmaster');" /></td> 
-									<td><label id="lblLocName"></label></td>
-									</tr>
+					<div class="col-md-2"><label>Customer Code</label>
+						<s:input path="strCustCode" id="txtCustCode" ondblclick="funHelp('custMasterActive')" cssClass="searchTextBox" />
+					</div>
+					
+					<div class="col-md-2"><br><label id="lblCustomerName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 45%; margin-top: 8%;padding-top: 2px"></label>
+					</div>
+								
+					<div class="col-md-2"><label>Location Code</label>
+						<s:input type="text" id="txtLocCode" path="strLocCode" cssClass="searchTextBox" ondblclick="funHelp('locationmaster');" />
+					</div> 
+					
+					<div class="col-md-2"><br><label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top: 6%;padding-top: 2px"></label>
+					</div>
+					<div class="col-md-4"></div>
 									
-								<tr>
-									<td><label>Against</label></td>
-									<td><s:select id="cmbAgainst" path="strAgainst"
-											items="${againstList}" cssClass="BoxW124px" onchange="funShowSOFieled()" /></td> 
-									<td colspan="1"><s:input id="txtCode" path="strDCCode" style="display:none" ondblclick="funHelp1('')" class="searchTextBox"></s:input></td>		 
-								    <td  colspan="1"><input type="Button" id="btnFill" value="Fill"
-										onclick="return btnFill_onclick()" style="display:none"  class="smallButton" /></td> 
-									<td width="10%"><label>Currency</label></td>
-								    <td><s:select id="cmbCurrency" path="strCurrency" items="${currencyList}" cssClass="BoxW124px"  onchange="funOnChangeCurrency()"></s:select></td>
-									<td><s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField" style="width:40px"></s:input></td>
-								</tr>	
+					<div class="col-md-2"><label>Against</label>
+						<s:select id="cmbAgainst" path="strAgainst" items="${againstList}" onchange="funShowSOFieled()" style="width:auto;"/> 
+					</div>
+					
+					<div class="col-md-2">
+					   <s:input id="txtCode" path="strDCCode" style="display:none;height:40%; margin-top:26px;" ondblclick="funHelp1('')" class="searchTextBox"></s:input>		 
+					</div>
+					
+					<div class="col-md-2"><br><br>
+				        <input type="Button" id="btnFill" value="Fill" onclick="return btnFill_onclick()" style="display:none" class="btn btn-primary center-block" class="smallButton" />
+					</div> 
+					
+					
+					<div class="col-md-2"><label>Currency</label>
+							<s:select id="cmbCurrency" path="strCurrency" items="${currencyList}"  onchange="funOnChangeCurrency()" style="width:60%;"></s:select>
+					</div>
+					
+					<div class="col-md-2"><br><s:input id="txtDblConversion" value ="1" path="dblConversion" type="text" class="decimal-places numberField" style="width:60px;margin-top: 6%;"></s:input>
+					</div>	
+					
+					<div class="col-md-2"></div>
 								
-								<tr>
-								<td width="100px"><label>Settlement</label>
-								<td><s:select id="cmbSettlement" path="strSettlementCode"
-											items="${settlementList}" cssClass="BoxW124px" /></td>
+					<div class="col-md-2">
+						<label>Settlement</label>
+						<s:select id="cmbSettlement" path="strSettlementCode" items="${settlementList}" style="width: auto;"/>
+					</div>
 								
-								<td colspan="5"></td>
-								</tr>
-								
-								<tr>
-									<td width="100px"><label>Product</label></td>
-									<td><input id="txtProdCode"
-										ondblclick="funHelp('productmaster')" class="searchTextBox" /></td>
-									<td align="left" colspan="2"><label id="lblProdName" class="namelabel"></label></td>
+					<div class="col-md-2"><label>Product</label>
+						<input id="txtProdCode" ondblclick="funHelp('productmaster')" class="searchTextBox" />
+	                </div>
+	                
+	                <div class="col-md-2"><label id="lblProdName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top: 17%; padding-top: 2px"></label></div>
 
-									<td><label>Wt/Unit</label></td>
-									<td><input type="text" id="txtWeight"
-										class="decimal-places numberField" /></td>
-									<td style="width: 115px"><label>Quantity</label></td>
-									<td><input id="txtQty" type="text"
-										class="decimal-places numberField" style="width: 60%" /></td>
-									
-								
-
-								</tr>
-
-								<tr>
-								
-									<td style="width: 115px"><label>Unit Price</label></td>
-									<td><input id="txtPrice" type="text"
-										class="decimal-places numberField" style="width: 60%" /></td>	
-									<td><label>Remarks</label></td>
-									<td><input id="txtRemarks" class="longTextBox"
-										style="width: 100%" /></td>
-									<td><input type="button" value="Add" class="smallButton"
-										onclick="return btnAdd_onclick()" /></td>
-								</tr>
-							
-			</table>
+					<div class="col-md-2"><label>Wt/Unit</label>
+							<input type="text" id="txtWeight" class="decimal-places numberField" />
+					</div>
+					
+					<div class="col-md-2"><label>Quantity</label>
+							<input id="txtQty" type="text" class="decimal-places numberField" style="width: 60%" />
+					</div>
+					<div class="col-md-2"></div>
+					
+					<div class="col-md-2"><label>Unit Price</label>
+							<input id="txtPrice" type="text" class="decimal-places numberField" style="width: 60%" />
+					</div>	
+					
+					<div class="col-md-2"><label>Remarks</label>
+							<input id="txtRemarks" type="text"/>
+					</div>
+					
+					<div class="col-md-2"><br>
+					    <input type="button" value="Add" class="btn btn-primary center-block" class="smallButton" onclick="return btnAdd_onclick()"/>
+					</div>
 			
-			
-			
-			<div class="dynamicTableContainer" style="height: 300px; width: 100%;">
-								<table
-									style="height: 20px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-									<tr bgcolor="#72BEFC">
-										<td width="5%">Product Code</td>
+			<div class="col-md-12 dynamicTableContainer" style="height:300px; width:100%; padding:0px;">
+					<table style="height: 20px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+							<tr bgcolor="#c0c0c0">
+										<td width="4%">Product Code</td>
 										<%--  COl1 --%>
-										<td width="16%">Product Name</td>
+										<td width="9%">Product Name</td>
 										<%--  COl2 --%>
 										<td width="3%">Qty</td>
 										<%--  COl3 --%>
-										<td width="3%">Wt/Unit</td>
+										<td width="2%">Wt/Unit</td>
 										<%--  COl4 --%>
 										<td width="3%">Total Wt</td>
 										<%-- 	 COl5 --%>
 										<td width="3%">Unit Price</td>
 										<%-- 	 COl6 --%>
-										<td width="6%">Total Amt</td>
+										<td width="4%">Total Amt</td>
 									   	<%-- 	 COl7  --%>
-											<td width="6%">Remarks</td>
+											<td width="5%">Remarks</td>
 										<%-- 	 COl8  --%>
-										 	<td width="3%">Delete</td>
+										 	<td width="3.5%">Delete</td>
 										<%-- 	 COl9  --%>
-									</tr>
-								</table>
-								<div
-									style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-									<table id="tblProdDet"
-										style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-										class="transTablex col15-center">
-										<tbody>
-										<col style="width: 5%">
+								</tr>
+							</table>
+				<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+					<table id="tblProdDet" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"	class="transTablex col15-center">
+							<tbody>
+										<col style="width: 4%">
 										<%-- COl1  --%> 
-										<col style="width: 20%">
+										<col style="width: 10%">
 										<%-- COl2  --%> 
-										<col style="width: 4%">
+										<col style="width: 3%">
 										<%-- COl3  --%>
-										<col style="width: 4%">
+										<col style="width: 3%">
 										<%-- COl4  --%>
 										<col style="width: 3%">
 										<%-- COl5  --%>
 								
-										<col style="width: 5%">
+										<col style="width: 3%">
 										<%-- COl6  --%>
-										<col style="width: 6%">
+										<col style="width: 5%">
 										<%-- COl7 --%>
-										<col style="width: 8%">
+										<col style="width: 5%">
 										 <%--COl8 --%>
-										<col style="width: 2%">
+										<col style="width: 3%">
 										<%-- COl9  --%>
 									
 
@@ -1616,143 +1613,110 @@ function funHelp1(){
 									</table>
 								</div>
 
-							</div>
-							
-							<table class="transTable" style="height: 91px;">
-										<tr ><td colspan="2"></td><td ><label id="lblsubTotlAmt">SubTotal Amount</label></td>
-									<td><s:input type="text" id="txtSubTotlAmt"
-											path="" readonly="true"
-										cssClass="decimal-places-amt numberField" /></td>
-									
-										</tr>
-								<tr>
-								<td colspan="2"></td><td ><label>Discount %</label></td>
-									<td><s:input type="text" id="txtDiscPer" 
-											path="dblDiscPer"  
- 										cssClass="decimal-places-amt numberField" onblur="funCalculateDiscount()"/> 
-										
-									</td>
-									
-									</tr>
-									<tr>
-									<td colspan="2"></td><td ><label>Discount Amount</label></td>
-									<td>
-									<s:input type="text" id="txtDiscAmt" 
-											path="dblDiscAmt" 
-										cssClass="decimal-places-amt numberField" />
-										
-									</td>
-									
-								</tr>		
-								<tr ><td colspan="2"></td><td ><label id="lblFinalAmt">Final Amount</label></td>
-									<td><s:input type="text" id="txtFinalAmt" 
-											path="dblTotalAmt" readonly="true" 
-										cssClass="decimal-places-amt numberField" /></td>
-									
-									</tr> 
-			                  </table>
-			                 
-
-						</div>
-				
+					</div>
 						
-						<div id="tab2" class="tab_content">
-							<br>
-							<br>
-							<table class="transTable">
-								<tr><th colspan="5"></th></tr>
-								<tr>
-									<td><input type="button" id="btnGenTax" value="Calculate Tax" class="form_button"></td>
-									<td><label id="tx"></label></td>
-								</tr>
+					<div class="col-md-2"><label id="lblsubTotlAmt">SubTotal Amount</label>
+							<s:input type="text" id="txtSubTotlAmt" path="" readonly="true" cssClass="decimal-places-amt numberField" style="text-align:right;width: 70%;"/>
+					</div>
 								
-								<tr>									
-									<td><label>Tax Code</label></td>
-									<td>
-										<input type="text" id="txtTaxCode" ondblclick="funHelp('nonindicatortax');" class="searchTextBox"/>
-									</td>
+					<div class="col-md-2"><label>Discount %</label>
+							<s:input type="text" id="txtDiscPer" path="dblDiscPer" cssClass="decimal-places-amt numberField" onblur="funCalculateDiscount()" style="text-align:right;width: 70%;"/> 
+					</div>
 									
-									<td><label>Tax Description</label></td>
-									<td colspan="2">
-										<label id="lblTaxDesc"></label>
-									</td>
-									</tr><tr>
-									<td><label>Taxable Amount</label></td>
-									<td>
-										<input type="number" style="text-align: right;" step="any" id="txtTaxableAmt" class="BoxW116px"/>
-									</td>
+					<div class="col-md-2"><label>Discount Amount</label>
+						   <s:input type="text" id="txtDiscAmt" path="dblDiscAmt" cssClass="decimal-places-amt numberField" style="text-align:right;width: 70%;"/>
+					</div>
 									
-									<td><label>Tax Amount</label></td>
-									<td>
-										<input type="number" style="text-align: right;" step="any" id="txtTaxAmt" class="BoxW116px"/>
-									</td>
-															
-									<td>
-										<input type="button" id="btnAddTax" value="Add" class="smallButton"/>
-									</td>
-								</tr>
-							</table>
+					<div class="col-md-2"><label id="lblFinalAmt">Final Amount</label>
+						<s:input type="text" id="txtFinalAmt" path="dblTotalAmt" readonly="true" cssClass="decimal-places-amt numberField" style="text-align:right;width: 70%;"/>
+				    </div>
+			</div>
+		</div>
+			
+		<div id="tab2" class="tab_content" style="margin-top:30px;height: 475px;">
 							<br>
-							<table style="width: 80%;" class="transTablex col5-center">
-								<tr>
-									<td style="width:10%">Tax Code</td>
-									<td style="width:10%">Description</td>
-									<td style="width:10%">Taxable Amount</td>
-									<td style="width:10%">Tax Amount</td>
-									<td style="width:5%">Delete</td>
-								</tr>							
-							</table>
-							<div style="background-color: #a4d7ff;border: 1px solid #ccc;display: block; height: 150px;
- 			    				margin: auto;overflow-x: hidden; overflow-y: scroll;width: 80%;"> 
+							<br>
+		   <div class="row">
+				
+				<div class="col-md-2">
+				      <input type="button" id="btnGenTax" value="Calculate Tax" class="btn btn-primary center-block" class="form_button">
+					   <label id="tx"></label>
+				</div>
+				<div class="col-md-10"></div>		
+				
+				<div class="col-md-2"><label>Tax Code</label>
+					<input type="text" id="txtTaxCode" ondblclick="funHelp('nonindicatortax');" class="searchTextBox"/>
+				</div>
+									
+				<div class="col-md-2"><label>Tax Description</label>
+					<label id="lblTaxDesc" style="background-color:#dcdada94; width: 100%; height: 50%;"></label>
+				</div>
+				<div class="col-md-8"></div>
+				
+				<div class="col-md-2"><label>Taxable Amount</label>
+					<input type="number" style="text-align: right;" step="any" id="txtTaxableAmt"/>
+				</div>
+									
+				<div class="col-md-2"><label>Tax Amount</label>
+					<input type="number" style="text-align: right;" step="any" id="txtTaxAmt"/>
+				</div>
+															
+				<div class="col-md-2"><br>
+				      <input type="button" id="btnAddTax" value="Add" class="btn btn-primary center-block" class="smallButton"/>
+				</div>
+			</div>
+						
+			<br>
+			<table style="width: 60%; margin:0px; background:#c0c0c0;" class="transTablex col5-center">
+					<tr>
+						<td style="width:10%">Tax Code</td>
+						<td style="width:10%">Description</td>
+						<td style="width:10%">Taxable Amount</td>
+						<td style="width:10%">Tax Amount</td>
+						<td style="width:5%">Delete</td>
+					</tr>							
+					</table>
+						<div style="background-color: #fafbfb;border: 1px solid #ccc;display: block; height: 150px;
+ 			    				overflow-x: hidden; overflow-y: scroll;width: 60%;"> 
 									<table id="tblTax" class="transTablex col5-center" style="width: 100%;">
 									<tbody>    
 											<col style="width:10%"><!--  COl1   -->
 											<col style="width:10%"><!--  COl2   -->
 											<col style="width:10%"><!--  COl3   -->
 											<col style="width:10%"><!--  COl4   -->
-											<col style="width:6%"><!--  COl5   -->									
+											<col style="width:4%"><!--  COl5   -->									
 									</tbody>							
 									</table>
 							</div>			
 						<br>
-						<table id="tblTaxTotal" class="masterTable">
-							<tr>
-								<td width="130px"><label>Taxable Amt Total</label></td>
-								<td><label id="lblTaxableAmt"></label></td>
-								
-								<td  width="130px"><label>Tax</label></td>
-								<td><label id="lblTaxTotal"></label></td>
-								<td><s:input type="hidden" id="txtPOTaxAmt" path="dblTaxAmt"/></td>
-							</tr>
-							
-							<tr>
-								<td><label>Grand Total</label></td>
-								<td colspan="3"><label id="lblPOGrandTotal"></label></td>
-							</tr>
-						</table>
-							
+				<div id="tblTaxTotal" class="row masterTable">
+						<div class="col-md-2"><label>Taxable Amt Total</label>
+								<label id="lblTaxableAmt" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top: 11%;"></label>
 						</div>
-
-
-					</div>
-				</td>
-			</tr>
-		</table>
-	<br>
-
+								
+						<div class="col-md-2"><label>Tax</label>
+								<label id="lblTaxTotal" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top: 11%;"></label>
+								<s:input type="hidden" id="txtPOTaxAmt" path="dblTaxAmt"/>
+						</div>
+							
+						<div class="col-md-2"><label>Grand Total</label>
+								<label id="lblPOGrandTotal" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top: 11%;"></label>
+						</div>
+				</div>
+              </div>
+		</div>
+	    <br>
+        <br>
 		<div align="center">
-			<input type="submit" value="Submit"
-				onclick="return funCallFormAction('submit',this)"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; 
-				
-		<input type="button"
-				id="reset" name="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+			<input type="submit" value="Submit" onclick="return funCallFormAction('submit',this)" class="btn btn-primary center-block" class="form_button" /> 
+			&nbsp; 
+			<input type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</div>
 		<br><br>
 <%-- 		<s:input type="hidden" id="hidProdType" path="strProdType"></s:input> --%>
-		
-		
-		<br>
+	
+	
+	   <br>
 		<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
 			<img
@@ -1760,7 +1724,7 @@ function funHelp1(){
 				width="60px" height="60px" />
 		</div>
 	</s:form>
-
+    </div>
 
 </body>
 </html>

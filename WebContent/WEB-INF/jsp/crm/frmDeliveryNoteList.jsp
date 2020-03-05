@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +11,11 @@ $(document).ready(function()
 				var startDate="${startDate}";
 				var arr = startDate.split("/");
 				Dat=arr[2]+"-"+arr[1]+"-"+arr[0];
-			    $("#txtFromDate").datepicker({ dateFormat: 'yy-mm-dd' });
+			    $("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
 				$("#txtFromDate" ).datepicker('setDate', Dat);
 				$("#txtFromDate").datepicker();
 				
-				$("#txtToDate").datepicker({ dateFormat: 'yy-mm-dd' });
+				$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 				$("#txtToDate" ).datepicker('setDate', 'today');
 				$("#txtToDate").datepicker();
        });
@@ -52,33 +51,35 @@ $(document).ready(function()
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
 
-
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+    
 </head>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>Delivery Note List</label>
-	</div>
-	<s:form name="DeliveryNoteList" method="GET"
+	<div class="container transTable">
+		<label id="formHeading">Delivery Note List</label>
+       <s:form name="DeliveryNoteList" method="GET"
 		action="rptDeliveryNoteList.html" >
 		<input type="hidden" value="${urlHits}" name="saddr">
 		<br>
-		<table class="transTable">
-								<tr>
-                                   
-											
-											
-											<td width="100px"><label>From Date</label>
-									<td><s:input path="dtFromDate" id="txtFromDate"
-											required="required" cssClass="calenderTextBox" /></td>
-								</tr>
-							    <tr>			
-							        <td width="100px"><label>To Date</label>
-									<td><s:input path="dtToDate" id="txtToDate"
+		    <div class="row">
+		    	<div class="col-md-3">
+					<div class="row">
+		             	<div class="col-md-6"><label>From Date</label>
+								<s:input path="dtFromDate" id="txtFromDate"
+											required="required" cssClass="calenderTextBox" />
+					  	</div>
+					  	<div class="col-md-6"><label>To Date</label>
+								<s:input path="dtToDate" id="txtToDate"
 											 required="required"
-											cssClass="calenderTextBox  " /></td>
-											
-																										
-								</tr>
+											cssClass="calenderTextBox  " />
+						</div>
+				</div></div>
+				<div class="col-md-9"></div>
 <!-- 								<tr> -->
 								
 
@@ -95,36 +96,27 @@ $(document).ready(function()
 
 					
 <!-- 							 	</tr> -->
-								<tr>
-									<td width="170px"><label>Sub-Contractor</label></td>
-									<td><s:input path="strDocCode" id="txtJOCode"
-											ondblclick="funHelp('subContractor')"  cssClass="BoxW116px"
-											/></td>
-									
-								   								<tr>
-									<td><label>Export Type</label></td>
-								<td ><s:select id="cmbType" path="strDocType"
-										cssClass="BoxW124px">
+								<div class="col-md-2"><label>Sub-Contractor</label>
+									   <s:input path="strDocCode" id="txtJOCode"
+											ondblclick="funHelp('subContractor')" style="height: 48%;"/>
+								</div>
+														
+								<div class="col-md-1.1"><label>Export Type</label>
+								       <s:select id="cmbType" path="strDocType">
 										<s:option value="PDF">PDF</s:option>
 										<s:option value="EXCEL">EXCEL</s:option>
-
-									</s:select></td>
-									
-																										
-								</tr>																		
+									   </s:select>
+							     </div>
 								
-								</tr>
-								
-
-		</table>
+		</div>
 		<br>
-		<p align="center">
+		<p align="right" style="margin-right: 77%">
 			<input type="submit" value="Submit"
-				onclick="return funCallFormAction('submit',this)"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <a
-				STYLE="text-decoration: none"
+				onclick="return funCallFormAction('submit',this)" class="btn btn-primary center-block"
+				class="form_button" /> &nbsp;
+			 <a STYLE="text-decoration: none"
 				href="frmDeliveryNoteList.html?saddr=${urlHits}"><input
-				type="button" id="reset" name="reset" value="Reset"
+				type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block"
 				class="form_button" /></a>
 		</p>
 		<br>
@@ -135,6 +127,6 @@ $(document).ready(function()
 				width="60px" height="60px" />
 		</div>
 	</s:form>
-
+   </div>
 </body>
 </html>

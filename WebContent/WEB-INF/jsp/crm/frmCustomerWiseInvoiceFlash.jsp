@@ -1,12 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <title>Insert title here</title>
 
 <script type="text/javascript">
@@ -352,6 +361,7 @@
 				            }		            
 				        }
 				      });
+				return false;
 			}
 			
 			function funBillWiseProductDetail(ProdDtl)
@@ -433,161 +443,147 @@
 </head>
 
 <body>
-	<div id="formHeading">
-		<label>Customer Wise Invoice Flash</label>
-	</div>
-	<s:form name="Form" method="GET" action="">
-		<br />
-
-		<table class="transTable">
-			<tr>
-			
-			
-				<td><label id="lblFromDate">From Date</label></td>
-				<td><s:input id="txtFromDate" required="required" path=""
-						name="fromDate" cssClass="calenderTextBox" onchange="funChangeFromDate();"  /></td>
-				<td style="width: 10%;"><label id="lblToDate">To Date</label></td>
-				<td ><s:input id="txtToDate" name="toDate" path=""
-						cssClass="calenderTextBox" onchange="funChangeToDate();" /></td>				
-				<td><label id="">Settlement</label>&nbsp; &nbsp;&nbsp; &nbsp;
-				<s:select id="cmbSettlement" path="strSettlementCode" items="${settlementList}" cssClass="BoxW124px">
-			    </s:select></td> 	
-				<td>
-				    <input id="btnExecute" type="button" value="EXECUTE"  class="form_button1" onclick="funOnExecuteBtn('divInvoiceWise')" />
-				    <input id="btnExport" type="button" value="EXPORT"  class="form_button1" onclick="funExportReport()" />
-				    <input id="btnReset" type="button" value="RESET"  class="form_button1" onclick="funResetCustomer()" />
-				</td>				
-			</tr>
-			
-			<tr>
-				<td><label>Location Code</label></td>
-				<td><s:input type="text" id="txtLocCode" path="strLocCode"
-						cssClass="searchTextBox" ondblclick="funHelp('locationmaster');" /></td>
-				<td ><label id="lblLocName"></label></td>	
-				<td ><label id="">Customer Code</label></td>
-				<td><s:input type="text" id="txtCustCode" path="strCustCode"
+	<div class="container">
+		<label id="formHeading">Customer Wise Invoice Flash</label>
+		<s:form name="Form" method="GET" action="">
+			<div class="row transTable">
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-6">
+							<label>From Date</label><br>
+								<s:input id="txtFromDate" required="required" path=""
+						  			name="fromDate" onchange="funChangeFromDate();" cssClass="calenderTextBox" />
+						</div>
+						<div class="col-md-6">
+							<label id="lblToDate">To Date</label>
+								<s:input id="txtToDate" name="toDate" path=""
+									cssClass="calenderTextBox" onchange="funChangeToDate();"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">			
+					<label id="">Settlement</label>
+					<s:select id="cmbSettlement" path="strSettlementCode" items="${settlementList}">
+			    	</s:select>	
+			    </div>
+			    	<div class="col-md-6"></div>
+			  	<div class="col-md-2">
+			 		<label>Location Code</label>
+					<s:input type="text" id="txtLocCode" path="strLocCode"
+						cssClass="searchTextBox" ondblclick="funHelp('locationmaster');" />
+				</div>
+				<div class="col-md-3">	
+					<label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 42%; margin-top:24px; padding:2px;"></label>
+				</div>
+					<div class="col-md-6"></div>
+				
+				<div class="col-md-2">
+					<label id="">Customer Code</label>
+					<s:input type="text" id="txtCustCode" path="strCustCode"
 						cssClass="searchTextBox" ondblclick="funHelp('custMaster');" value="All"/>
-				</td>	
-				<td ><label id="lblCustName"></label></td> 		
+				</div>
+				<div class="col-md-3"> 
+					<label id="lblCustName" style="background-color:#dcdada94; width: 100%; height: 43%; margin-top:24px; padding:2px;"></label>
+				</div>
+				<div class="col-md-6"></div>
+				<div class="col-md-2">	
+					<label id="">Currency</label>
+					<s:select id="cmbCurrency" path="strCurrencyCode" items="${currencyList}" style="width:80%;">
+			         </s:select>
+			     </div>
+				 </div>
+					<p class="center" style="margin-right:63%;">
+						<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="EXECUTE" onclick=" funOnExecuteBtn('divInvoiceWise')" 
+							class="form_button">EXECUTE</button></a>
+						<a href="#"><button class="btn btn-primary center-block" id="btnExport" value="EXPORT" onclick="funExportReport()" 
+							class="form_button">EXPORT</button></a>
+						<a href="#"><button class="btn btn-primary center-block" value="RESET" onclick="funResetCustomer()"
+							class="form_button">RESET</button></a>
+					</p>
 				
-			</tr>
 			
-			<tr>
-				<td><label id="">Currency</label></td>
-				<td><s:select id="cmbCurrency" path="strCurrencyCode" items="${currencyList}" cssClass="BoxW124px">
-			         </s:select></td>
-				<td ></td>	
-				<td ></td>
-				<td></td>	
-				<td ></td> 		
-				
-			</tr>
-
-
-		</table>
-
-
-
-<br/>
-	
-
-
-	<div id="divInvoiceWise" class="dynamicTableContainer"
-			style="height: 400px;">
-			<table style="width: 100%; border: #0F0; table-layout: fixed;"
-				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
-					<td width="7.6%">Invoice Code</td>
-					<!--  COl1   -->
-					<td width="5.3%">Date</td>
-					<!--  COl2   -->
-					<td width="5.4%">JV No</td>
-					<!--  COl3   -->
-					<td width="11%">Customer Name</td>
-					<!--  COl4   -->
-					<td width="4.6%"> Settement</td>
-					<!--  COl5   -->
-					<td width="4.5%">Against</td>
-					<!-- COl6   -->
-					<td width="3.2%">Vehicle No</td>
-					<!-- COl7   -->
-					<td width="3.2%">Currency</td>  
-					<!--  COl8   -->
-					<td width="5.8%">SubTotal</td>
-					<!--  COl9   -->
-					<td width="5.3%">Tax Amount</td>
-					<!--  COl10   -->
-					<td width="5.2%">Grand Total</td>
-					<!--COl11   -->
-
-				</tr>
-			</table>
-			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-				<table id="tblInvoiceDet"
-					style="width: 100%; border: #0F0; table-layout: fixed;"
-					class="transTablex col15-center">
-					<tbody>
-					<col style="width: 7%">
-					<!--  COl1   -->
-					<col style="width: 5%">
-					<!--  COl2   -->
-					<col style="width: 5%">
-					<!--  COl3   -->
-					<col style="width: 10.5%">
-					<!--  COl4   -->
-					<col style="width: 4.3%">
-					<!--  COl5   -->
-					<col style="width: 4.2%">
-					<!--COl6   -->
-					<col style="width: 3%">  
-					<!--COl7   -->
-					<col style="width: 3%">
-					<!-- COl8   -->
-					<col style="width: 5.5%">
-					<!--  COl9   -->
-					<col style="width: 5%">
-					<!--  COl10   -->
-					<col style="width: 4%">
-					<!--  COl11  -->
-
-
-					</tbody>
-
-				</table>
-			</div>
-
+				<div id="divInvoiceWise" class="dynamicTableContainer"
+						style="height: 400px;">
+						<table style="width: 100%; border: #0F0; table-layout: fixed;"
+							class="transTablex col15-center">
+							<tr bgcolor="#c0c0c0">
+								<td width="7.6%">Invoice Code</td>
+								<!--  COl1   -->
+								<td width="5.3%">Date</td>
+								<!--  COl2   -->
+								<td width="5.4%">JV No</td>
+								<!--  COl3   -->
+								<td width="11%">Customer Name</td>
+								<!--  COl4   -->
+								<td width="4.6%"> Settement</td>
+								<!--  COl5   -->
+								<td width="4.5%">Against</td>
+								<!-- COl6   -->
+								<td width="3.2%">Vehicle No</td>
+								<!-- COl7   -->
+								<td width="3.2%">Currency</td>  
+								<!--  COl8   -->
+								<td width="5.8%">SubTotal</td>
+								<!--  COl9   -->
+								<td width="5.3%">Tax Amount</td>
+								<!--  COl10   -->
+								<td width="5.2%">Grand Total</td>
+								<!--COl11   -->
+			
+							</tr>
+						</table>
+						<div
+							style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+							<table id="tblInvoiceDet"
+								style="width: 100%; border: #0F0; table-layout: fixed;"
+								class="transTablex col15-center">
+								<tbody>
+								<col style="width: 5%">
+								<!--  COl1   -->
+								<col style="width: 4%">
+								<!--  COl2   -->
+								<col style="width: 4%">
+								<!--  COl3   -->
+								<col style="width: 10%">
+								<!--  COl4   -->
+								<col style="width: 4.3%">
+								<!--  COl5   -->
+								<col style="width: 4%">
+								<!--COl6   -->
+								<col style="width: 5.2%">  
+								<!--COl7   -->
+								<col style="width: 4.2%">
+								<!-- COl8   -->
+								<col style="width: 5.5%">
+								<!--  COl9   -->
+								<col style="width: 5%">
+								<!--  COl10   -->
+								<col style="width: 4%">
+								<!--  COl11  -->
+								</tbody>
+							</table>
+						</div>
+				</div>
+					<div id="divValueTotal"
+						style="display: block; height: 50px;overflow-x: hidden; overflow-y: hidden;">
+						<table id="tblTotalFlash" class="transTablex"
+							style="font-size: 11px; font-weight: bold;">
+							<tr style="margin-left: 28px">
+								<td id="labld26" style="width:60%; text-align:right">Total</td>
+								<td id="tdSubTotValue" style="width:13%; align:right">
+									<input id="txtSubTotValue" style="width: 100%; text-align: right;" class="Box"></input>
+								</td>
+								<td id="tdTaxTotValue" style="width:13%; align:right">
+									<input id="txtTaxTotValue" style="width: 100%; text-align: right;" class="Box"></input>
+								</td>
+								<td id="tdTotValue" style="width:14%; align:right">
+									<input id="txtTotValue" style="width: 100%; text-align: right;" class="Box"></input>
+								</td>
+			
+							</tr>
+						</table>
+					</div>
+		</s:form>
 		</div>
-
-
-		
-		
-		<div id="divValueTotal"
-			style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 50px; margin: auto; overflow-x: hidden; overflow-y: hidden; width: 95%;">
-			<table id="tblTotalFlash" class="transTablex"
-				style="width: 100%; font-size: 11px; font-weight: bold;">
-				
-				<tr style="margin-left: 28px">
-				
-					<td id="labld26" style="width:60%; text-align:right">Total</td>
-					<td id="tdSubTotValue" style="width:13%; align:right">
-						<input id="txtSubTotValue" style="width: 100%; text-align: right;" class="Box"></input>
-					</td>
-					<td id="tdTaxTotValue" style="width:13%; align:right">
-						<input id="txtTaxTotValue" style="width: 100%; text-align: right;" class="Box"></input>
-					</td>
-					<td id="tdTotValue" style="width:14%; align:right">
-						<input id="txtTotValue" style="width: 100%; text-align: right;" class="Box"></input>
-					</td>
-
-				</tr>
-			</table>
-		</div>
-
-
-<br/>
-<br/>
-
-	</s:form>
 </body>
 </html>

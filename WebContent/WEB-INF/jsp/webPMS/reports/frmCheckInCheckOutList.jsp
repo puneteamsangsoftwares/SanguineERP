@@ -38,7 +38,7 @@
 
 <body onload="funOnLoad();">
 	<div class="container masterTable">
-		<label id="formHeading">Check-In Check-Out List </label>
+		<label id="formHeading">Check-In  Check-Out  List </label>
 	<s:form name="frmCheckInCheckOutList" method="GET" action="CheckInCheckOutList.html" >
      <div class="row">
 		<div class="col-md-3">

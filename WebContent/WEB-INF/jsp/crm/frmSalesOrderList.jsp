@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -8,6 +8,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Sales Order</title>
+
+ <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
 
 <script type="text/javascript">
 		
@@ -27,20 +35,20 @@ $(document).ready(function()
 			var startDate="${startDate}";
 			var arr = startDate.split("/");
 			Dat=arr[2]+"-"+arr[1]+"-"+arr[0];
-		    $("#txtFromDate").datepicker({ dateFormat: 'yy-mm-dd' });
+		    $("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtFromDate" ).datepicker('setDate', Dat);
 			$("#txtFromDate").datepicker();	
 			
-			$("#txtToDate").datepicker({ dateFormat: 'yy-mm-dd' });
+			$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtToDate" ).datepicker('setDate', 'today');
 			$("#txtToDate").datepicker();	
 				
-			$("#txtFromFulfillment").datepicker({ dateFormat: 'yy-mm-dd' });
+			$("#txtFromFulfillment").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtFromFulfillment" ).datepicker('setDate', Dat);
 			$("#txtFromFulfillment").datepicker();	
 					
 					
-			$("#txtToFulfillment").datepicker({ dateFormat: 'yy-mm-dd' });
+			$("#txtToFulfillment").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtToFulfillment" ).datepicker('setDate', 'today');
 			$("#txtToFulfillment").datepicker();	
 						
@@ -179,77 +187,67 @@ $(document).ready(function()
 
 </head>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>Sales Order List</label>
-	</div>
+	<div class="container transTable">
+		<label id="formHeading">Sales Order List</label>
 	<s:form name="SalesOrderList" method="GET"
 		action="rptSalesOrderList.html" >
 		<input type="hidden" value="${urlHits}" name="saddr">
 		<br>
-		<table class="transTable">
-		
-							<tr>
-							<td width="100px"><label>From Date</label>
-									<td><s:input path="dtFromDate" id="txtFromDate"
+		<div class="row">
+					<div class="col-md-3">
+						<div class="row">
+							<div class="col-md-6"><label>From Date</label>
+									<s:input path="dtFromDate" id="txtFromDate"
 											 required="required"
-											cssClass="calenderTextBox" /></td>
-							<td width="100px"><label>To Date</label>
-									<td><s:input path="dtToDate" id="txtToDate"
+											cssClass="calenderTextBox" /></div>
+							<div class="col-md-6"><label>To Date</label>
+									<s:input path="dtToDate" id="txtToDate"
 											 required="required"
-											cssClass="calenderTextBox" /></td>
-											
-							</tr>
-							<tr>
-									<td width="100px"><label>Customer Code</label></td>
-									<td colspan="3"><s:input path="strDocCode" id="txtPartyCode"
-											ondblclick="funHelp('custMaster')"
-											cssClass="searchTextBox" />&nbsp;&nbsp;&nbsp;&nbsp;
-									<label id="lblPartyName"></label>	</td>
-											
-																										
-							</tr>
-							<tr>
-								<td width="100px"><label>Fulfillment Date From</label>
-									<td><s:input path="dteFromFulfillment" id="txtFromFulfillment"
-											 required="required"
-											cssClass="calenderTextBox" /></td>
-											
-								<td width="100px"><label>Fulfillment Date To</label>
-									<td><s:input path="dteToFulfillment" id="txtToFulfillment"
-											 required="required"
-											cssClass="calenderTextBox" /></td>
-								</tr>
-								<tr>
-									<td><label>Report Format</label></td>
-								<td ><s:select id="cmbDocType" path="strDocType"
-										cssClass="BoxW124px">
+											cssClass="calenderTextBox" /></div>
+						</div></div>
+						
+						<div class="col-md-4">
+							<div class="row">
+								<div class="col-md-5"><label>Customer Code</label>
+									<s:input path="strDocCode" id="txtPartyCode"
+										ondblclick="funHelp('custMaster')" cssClass="searchTextBox" /></div>
+									<div class="col-md-7"><label id="lblPartyName" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label></div>
+						</div></div>				
+						<div class="col-md-5"></div>			
+					<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-6"><label>Fulfillment Date From</label>
+									  <s:input path="dteFromFulfillment" id="txtFromFulfillment"
+										required="required" cssClass="calenderTextBox"/>
+								</div>
+								<div class="col-md-6"><label>Fulfillment Date To</label>
+									   <s:input path="dteToFulfillment" id="txtToFulfillment"
+										required="required" cssClass="calenderTextBox" />
+								</div>
+					</div></div>
+					
+					<div class="col-md-3">
+						<div class="row">
+							<div class="col-md-6"><br><label>Report Format</label>
+								<s:select id="cmbDocType" path="strDocType" style="width:auto;">
 										<s:option value="PDF">PDF</s:option>
 										<s:option value="XLS">EXCEL</s:option>
 										<s:option value="HTML">HTML</s:option>
 										<s:option value="CSV">CSV</s:option>
-									</s:select></td>
-									
-								<td><label>Type</label></td>
-								<td ><s:select id="cmbType" path="strReportType"
-										cssClass="BoxW124px">
+									</s:select></div>
+						    <div class="col-md-6"><br><label>Type</label>
+								    <s:select id="cmbType" path="strReportType" style="width:auto;">
 										<s:option value="Summary">Summary</s:option>
 										<s:option value="Detail">Detail</s:option>
-									</s:select></td>	
-								
-								
-								</tr>
-								
-
-		</table>
+									</s:select></div>	
+						   </div></div>
+		</div>
 		<br>
 		<p align="center">
-			<input type="submit" value="Submit"
-				onclick="return funCallFormAction('submit',this)"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <a
-				STYLE="text-decoration: none"
-				href="frmSalesOrderList.html?saddr=${urlHits}"><input
-				type="button" id="reset" name="reset" value="Reset"
-				class="form_button" /></a>
+			<input type="submit" value="Submit" onclick="return funCallFormAction('submit',this)" class="btn btn-primary center-block"
+				class="form_button" /> &nbsp
+			<a STYLE="text-decoration: none" href="frmSalesOrderList.html?saddr=${urlHits}">
+			<input type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block" class="form_button" /></a>
 		</p>
 		<br>
 		<div id="wait"
@@ -259,6 +257,7 @@ $(document).ready(function()
 				width="60px" height="60px" />
 		</div>
 	</s:form>
+	</div>
 	<script type="text/javascript">
 		
 	</script>

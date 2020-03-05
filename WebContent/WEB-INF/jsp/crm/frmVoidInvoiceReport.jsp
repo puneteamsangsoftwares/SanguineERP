@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -8,6 +8,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Void Bill Report</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
+
 </head>
 
 <script>
@@ -52,34 +60,33 @@
 		
 </script>
 <body>
-	<div id="formHeading">
-		<label>Void Invoice Report </label>
-	</div>
+	<div class="container masterTable">
+		<label id="formHeading">Void Invoice Report </label>
 	<s:form name="frmVoidInvoiceReport" method="GET" action="" >
-		
-	<table class="masterTable">
-		
-			<tr>
-				<td><label>From Date</label></td>
-				<td><s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" /></td>
-				<td><label>To Date</label></td>
-				<td><s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" /></td>				
-			</tr>
-			<tr>
-				<td>Report Type</td>
-				<td colspan="5"> 
-				   <select id="cmbType" class="BoxW124px">
+		<div class="row">
+			<div class="col-md-3">
+			 <div class="row">
+				<div class="col-md-6"><label>From Date</label>
+						<s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" />
+				</div>
+				<div class="col-md-6"><label>To Date</label>
+						<s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" />
+				</div>				
+			 </div></div>
+				
+				<div class="col-md-9"></div>
+				<div class="col-md-2"><label>Report Type</label>
+					<select id="cmbType" style="width:auto;">
 				      <option value="PDF">Pdf</option>
 				  </select>
-				</td>
-			</tr>
-		</table>
+				</div>
+		</div>
 		<br>
-	<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateFields()" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+	<p align="center" style="margin-right: 65%">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateFields()" />&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>	
 	</s:form>
-
+</div>
 </body>
 </html>

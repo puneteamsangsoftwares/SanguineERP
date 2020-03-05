@@ -1,11 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title></title>
+
+<style type="text/css">
+.transTable td {
+ padding-left: 0px;
+ border-left:none;
+}
+
+</style>
+
 <script type="text/javascript">
 	var fieldName,transactionName;
 	var explistRow,listRow=0;
@@ -19,10 +37,10 @@
 			$("#wait").css("display", "none");
 		});
 		
-		$( "#txtDNDate" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		$( "#txtDNDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 		$( "#txtDNDate" ).datepicker('setDate','today');
 		
-		$( "#txtExpDate" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		$( "#txtExpDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 		$( "#txtExpDate" ).datepicker('setDate','today');
 		
 		//Start Expected Details Div Displaying Functionality
@@ -1065,22 +1083,22 @@
 		
 		var rowCount = explistRow;
 
-		row.insertCell(0).innerHTML = "<input size=\"30%\"  readonly=\"readonly\"  class=\"Box\" id=\"txtProductCode."
+		row.insertCell(0).innerHTML = "<input style=\"width:99%;\"  readonly=\"readonly\"  class=\"Box\" id=\"txtProductCode."
 											+ (rowCount) + "\" value='" + strProductCode + "' />";
 
-		row.insertCell(1).innerHTML = "<input size=\"60%\" readonly=\"readonly\"  class=\"Box\" id=\"txtProductName."
+		row.insertCell(1).innerHTML = "<input style=\"width:99%;\" readonly=\"readonly\"  class=\"Box\" id=\"txtProductName."
 											+ (rowCount) + "\" value='" + strProductName + "' />";
 
-		row.insertCell(2).innerHTML = "<input size=\"20%\" readonly=\"readonly\" class=\"Box decimal-places dblQty\" id=\"dblQty."
+		row.insertCell(2).innerHTML = "<input style=\"width:99%;\" readonly=\"readonly\" class=\"Box decimal-places dblQty\" id=\"dblQty."
 											+ (rowCount)+ "\" value='"+ dblQty + "' onchange=\"funUpdatePrice(this)\" />";
 
-		row.insertCell(3).innerHTML = "<input size=\"20%\"  readonly=\"readonly\" class=\"Box decimal-places dblPrice\" id=\"dblPrice."
+		row.insertCell(3).innerHTML = "<input style=\"width:99%;\"  readonly=\"readonly\" class=\"Box decimal-places dblPrice\" id=\"dblPrice."
 											+ (rowCount)+ "\" value='"+ dblPrice + "' onchange=\"funUpdatePrice(this)\" />";
 
-		row.insertCell(4).innerHTML = "<input size=\"10%\" readonly=\"readonly\" class=\"Box dblTotalPrice\" id=\"dblTotalPrice."
+		row.insertCell(4).innerHTML = "<input style=\"width:99%;\" readonly=\"readonly\" class=\"Box dblTotalPrice\" id=\"dblTotalPrice."
 											+ (rowCount)+ "\" value='"+ dblTotalPrice+ "' />";
 
-		row.insertCell(5).innerHTML = '<input size=\"3%\" type="button" value = "Delete"  class="deletebutton" onClick="Javacsript:funDeleteExpDetailRow(this)">';
+		row.insertCell(5).innerHTML = '<input style=\"width:99%;\" type="button" value = "Delete"  class="deletebutton" onClick="Javacsript:funDeleteExpDetailRow(this)">';
 
 		explistRow++;
 
@@ -1098,25 +1116,14 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Delivery Note</label>
-	</div>
-
-<br/>
-<br/>
-
+	<div class="container">
+		<label id="formHeading">Delivery Note</label>
 	<s:form name="DeliveryNote" method="POST" action="saveDeliveryNote.html">
-
-		<table class="transTable">
-			<tr>
-				<td>
-					<label>DN Code</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtDNCode" path="strDNCode" cssClass="searchTextBox" ondblclick="funHelp('DNCode');"/>
-				</td>
-				
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label>DN Code</label>
+				<s:input type="text" id="txtDNCode" path="strDNCode" cssClass="searchTextBox" ondblclick="funHelp('DNCode');"/>
+			</div>
 				<%-- <td>
 					<label>Type Against</label>
 				</td>
@@ -1138,241 +1145,185 @@
 				<td>
 					<s:input type="text" id="txtTypeCode" path="strTypeCode" cssClass="BoxW124px" ondblclick="funHelp('TypeCode');"/>
 				</td> --%>
-				
-				<td colspan="2"></td>
-				<td>
+				<div class="col-md-2">
 					<label>DN Date</label>
-				</td>
-				<td>
-					<s:input type="text" required="true" id="txtDNDate" path="dteDNDate" cssClass="calenderTextBox" />
-				</td>
-				<td colspan="1"></td>
-			</tr>
-			
-			<tr>
-				<td>
+					<s:input type="text" required="true" id="txtDNDate" path="dteDNDate" cssClass="calenderTextBox" style="width:80%;" />
+				</div>
+				<div class="col-md-2">
 					<label>DN Against</label>
-				</td>
-				<td>
-					<s:select id="txtDNType" path="strDNType"  cssClass="BoxW124px">
+					<s:select id="txtDNType" path="strDNType"  cssClass="BoxW124px" style="width:80%;">
 						<s:option value="Direct">Direct</s:option>
 						<s:option value="JA">JA</s:option>
 					</s:select>
-				</td>
+				</div>
+			
 				<%-- <td colspan="3">
 					<s:input type="text" id="txtGRNCode" path="strGRNCode" cssClass="searchTextBox" ondblclick="funHelp1();"/>
 				</td> --%>
-				<td>
+				<div class="col-md-2">
 					<label>JA Code</label>
-				</td>
-				<td>
 					<s:input type="text" id="txtJACode" path="strJACode" cssClass="searchTextBox" ondblclick="funHelp('JACode');"/>
-				</td>
-				<td>
-					<input type="Button" value="Add" onclick="return funFetchJADtls()" class="smallButton" />
-				</td>
-				<td width="100px"><label>Transort Type</label></td>
-				<td>
+				</div>
+				<div class="col-md-2">
+					<input type="Button" value="Add" onclick="return funFetchJADtls()" class="btn btn-primary center-block" style="margin-top:20px;" />
+				</div>
+				<div class="col-md-2"></div>
+				<div class="col-md-2">
+					<label>SC Code</label>
+					<s:input type="text" id="txtSCCode"  required="true" path="strSCCode" cssClass="searchTextBox" ondblclick="funHelp('subContractor');" />
+				</div>
+				<div class="col-md-2">
+					<label id="txtSCName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+					></label>
+				</div>
+				<div class="col-md-2">
+					<label>From</label>
+					<s:select id="txtFrom" path="strFrom" cssClass="BoxW124px" style="width:80%;">
+						<s:option value="Company">Company</s:option>
+						<s:option value="Supplier">Supplier</s:option>
+					</s:select>
+				</div>
+				<div class="col-md-2">
+					<label>Loc Code</label>
+					<s:input id="txtLocCode" path="strLocCode" cssClass="searchTextBox" ondblclick="funHelpForLocation();" />
+				</div>
+				<div class="col-md-2">
+					<label id="txtLocName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+					></label>
+				</div>
+					<div class="col-md-2"></div>
+				<div class="col-md-2">
+					<label>Transort Type</label>
 					<s:select id="cmbTransport" name="cmbTransport" path="strTransportType" cssClass="BoxW124px">
 							<option selected="selected"value="By Vehicle">By Vehicle</option>
 							<option value="By Air">By Air</option>
 							<option value="By Rail">By Rail</option>
 							<option value="By Motor Cycle">By Motor Cycle</option>
 					</s:select>
-				</td>
-			</tr>
+				</div>
+			</div>
 			
-			<tr>
-			
-			<td>
-					<label>SC Code</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtSCCode"  required="true" path="strSCCode" cssClass="searchTextBox" ondblclick="funHelp('subContractor');" />
-				</td>
-				<td colspan="2"><label id="txtSCName"></label></td>
-				<td>
-					<label>From</label>&nbsp;&nbsp;
-					<s:select id="txtFrom" path="strFrom" cssClass="BoxW124px">
-						<s:option value="Company">Company</s:option>
-						<s:option value="Supplier">Supplier</s:option>
-					</s:select>
-				</td>
-				<td>
-					<label>Loc Code</label>&nbsp;&nbsp;
-					<s:input id="txtLocCode" path="strLocCode" cssClass="searchTextBox" ondblclick="funHelpForLocation();" />
-				</td>
-				<td colspan="1"><label id="txtLocName"></label></td>
-			</tr>
-			
-			<tr>
-				<td colspan="7">
-					<div style="width: 100%;">
-						<div id="leftDiv" style="float: left; width: 49%; margin: 2% 0%;">
-							
-							<table class="masterTable" border="1" style=" width: 99%;">
-								<tr>
-									<td><label>SC Address1</label></td>
-									<td><s:input type="text" id="txtSCAdd1" path="strSCAdd1"
-											cssClass="longTextBox" /></td>
-								</tr>
-								<tr>
-									<td><label>SC Address2</label></td>
-									<td><s:input type="text" id="txtSCAdd2" path="strSCAdd2"
-											cssClass="longTextBox" /></td>
-								</tr>
-								<tr>
-									<td><label>SC City</label></td>
-									<td><s:input type="text" id="txtSCCity" path="strSCCity"
-											cssClass="longTextBox" /></td>
-								</tr>
-								<tr>
-									<td><label>SC State</label></td>
-									<td><s:input type="text" id="txtSCState" path="strSCState"
-											cssClass="longTextBox" /></td>
-								</tr>
-								<tr>
-									<td><label>SC Country</label></td>
-									<td><s:input type="text" id="txtSCCountry"
-											path="strSCCountry" cssClass="longTextBox" /></td>
-								</tr>
-								<tr>
-									<td><label>SC Pin</label></td>
-									<td><s:input type="text" id="txtSCPin" path="strSCPin"
-											cssClass="longTextBox" /></td>
-								</tr>
-							</table>
+				<div class="row" style="width: 100%;">
+					<div id="leftDiv" class="col-md-6">
+						<div class="row masterTable">
+								<div class="col-md-8">
+									<label>SC Address1</label>
+									<s:input type="text" id="txtSCAdd1" path="strSCAdd1" />
+								</div>
+								<div class="col-md-8">
+									<label>SC Address2</label>
+									<s:input type="text" id="txtSCAdd2" path="strSCAdd2"/>
+								</div><div class="col-md-4"></div>
+								<div class="col-md-4">
+									<label>SC City</label>
+									<s:input type="text" id="txtSCCity" path="strSCCity"  />
+								</div>
+								<div class="col-md-4">
+									<label>SC State</label>
+									<s:input type="text" id="txtSCState" path="strSCState"/>
+								</div>
+								<div class="col-md-4"></div>
+								<div class="col-md-4">
+									<label>SC Country</label>
+									<s:input type="text" id="txtSCCountry" path="strSCCountry"/>
+								</div>
+								<div class="col-md-4">
+									<label>SC Pin</label>
+									<s:input type="text" id="txtSCPin" path="strSCPin" />
+							  </div>
+							</div>
 						</div>
-						<div id="rightDiv" style="float: right; width: 49%; margin: 2% 1% 2% 0%;">
-							
-							<table class="masterTable" style=" width: 98%; border: solid 1px;">
-								<tr>
-									<td><label>From Address1</label></td>
-									<td><s:input type="text" id="txtFAdd1" path="strFAdd1"
-											cssClass="longTextBox" /></td>
-								</tr>
-								<tr>
-									<td><label>From Address2</label></td>
-									<td><s:input type="text" id="txtFAdd2" path="strFAdd2"
-											cssClass="longTextBox" /></td>
-								</tr>
-								<tr>
-									<td><label>From City</label></td>
-									<td><s:input type="text" id="txtFCity" path="strFCity"
-											cssClass="longTextBox" /></td>
-								</tr>
-								<tr>
-									<td><label>From State</label></td>
-									<td><s:input type="text" id="txtFState" path="strFState"
-											cssClass="longTextBox" /></td>
-								</tr>
-								<tr>
-									<td><label>From Country</label></td>
-									<td><s:input type="text" id="txtFCountry"
-											path="strFCountry" cssClass="longTextBox" /></td>
-								</tr>
-								<tr>
-									<td><label>From Pin</label></td>
-									<td><s:input type="text" id="txtFPin" path="strFPin"
-											cssClass="longTextBox" /></td>
-								</tr>
-							</table>
+						<div id="rightDiv" class="col-md-6">
+							<div class="row masterTable">
+								<div class="col-md-8">
+									<label>From Address1</label>
+									<s:input type="text" id="txtFAdd1" path="strFAdd1"/>
+								</div>
+								<div class="col-md-8">
+									<label>From Address2</label>
+									<s:input type="text" id="txtFAdd2" path="strFAdd2"/>
+								</div>
+								<div class="col-md-4"></div>
+								<div class="col-md-4">
+									<label>From City</label>
+									<s:input type="text" id="txtFCity" path="strFCity"/>
+								</div>
+								<div class="col-md-4">
+									<label>From State</label>
+									<s:input type="text" id="txtFState" path="strFState" />
+								</div>
+								<div class="col-md-4"></div>
+								<div class="col-md-4">
+									<label>From Country</label>
+									<s:input type="text" id="txtFCountry" path="strFCountry" />
+								</div>
+								<div class="col-md-4">
+									<label>From Pin</label>
+									<s:input type="text" id="txtFPin" path="strFPin" />
+								</div>
+							</div>
 						</div>
 					</div>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<label>Expected Date</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtExpDate" path="dteExpDate" cssClass="calenderTextBox" />
-				</td>
-				<td colspan="3"></td>
-				<td>
-					<label>Vehicle No</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtVehNo" path="strVehNo" cssClass="BoxW124px" />
-				</td>
-				<td colspan="3"></td>
-			</tr>
-			</table>
-			
-		<br>
+				<div class="row transTable">
+					<div class="col-md-2">
+						<label>Expected Date</label>
+						<s:input type="text" id="txtExpDate" path="dteExpDate" cssClass="calenderTextBox" style="width:80%;" />
+					</div>
+					<div class="col-md-2">
+						<label>Vehicle No</label>
+						<s:input type="text" id="txtVehNo" path="strVehNo" cssClass="BoxW124px" />
+					</div>
+			   </div>
 
-		<table class="transTableMiddle">
-			<tr>
-				<td><label>Product Code</label></td>
-				<td>
-					<input id="txtProdCode" ondblclick="funHelp('RawProduct')" class="searchTextBox" />
-				</td>
-				<td colspan="1">
-					<label id="lblProdName" class="namelabel"></label>
-				</td>
-				<td>
-					<input type="hidden" id="lblProdUOM" class="searchTextBox" />
-				</td>
-				<td><label>Process Code</label></td>
-				<td>
-					<input id="txtProcessCode" ondblclick="funHelp('processcode')" class="searchTextBox" />
-				</td>
-				<td colspan="1">
-					<label id="lblprocessName" class="namelabel"></label>
-				</td>
-				
-			</tr>
-			<tr>
-				<td>
-					<label>Price/Unit</label>
-				</td>
-				<td>
-					<input id="txtPrice" type="text" class="decimal-places numberField" />
-				</td>
-				<td>
-					<label>Wt/Unit</label>
-				</td>
-				<td>
-					<input type="text" id="txtWeight" class="decimal-places numberField" /></td>
-				<td>
-					<label>Quantity</label>
-				</td>
-				<td>
-					<input id="txtQty" type="text" class="decimal-places numberField" style="width: 60%" />
-				</td>
-				<td></td>
-			</tr>
-
-			<tr>
-				<td>
-					<label>Stock</label>
-				</td>
-				<td>
-					<input id="txtStock" type="text" readonly="readonly"
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label>Product Code</label>
+				<input id="txtProdCode" ondblclick="funHelp('RawProduct')" class="searchTextBox" />
+			</div>	
+			<div class="col-md-2">
+				<label id="lblProdName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+				></label>
+				<input type="hidden" id="lblProdUOM" class="searchTextBox" />
+			</div>
+			<div class="col-md-2">
+				<label>Process Code</label>
+				<input id="txtProcessCode" ondblclick="funHelp('processcode')" class="searchTextBox" />
+			</div>
+			<div class="col-md-2">
+				<label id="lblprocessName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+				></label>
+			</div>
+			<div class="col-md-2">	
+				<label>Price/Unit</label>
+				<input id="txtPrice" type="text" class="decimal-places numberField" />
+			</div>
+			<div class="col-md-2"></div>
+			<div class="col-md-2">	
+				<label>Wt/Unit</label>
+				<input type="text" id="txtWeight" class="decimal-places numberField" />
+			</div>
+			<div class="col-md-2">	
+				<label>Quantity</label>
+				<input id="txtQty" type="text" class="decimal-places numberField" style="width: 60%" />
+			</div>
+			<div class="col-md-2">	
+				<label>Stock</label>
+				<input id="txtStock" type="text" readonly="readonly"
 					class="decimal-places-amt numberField" value="0" class="BoxW116px" />
-				</td>
-				<td>
-					<label>Remarks</label>
-				</td>
-				<td>
-					<input id="txtRemarks" class="longTextBox" />
-				</td>
-				<td></td>
-				<td>
-					<input type="button" value="Add" class="smallButton" onclick="return btnAdd_onclick()" />
-				</td>
-				<td></td>
-			</tr>
-		</table>
-		
+			</div>
+			<div class="col-md-2">	
+				<label>Remarks</label>
+				<input id="txtRemarks" type="text" />
+			</div>
+			<div class="col-md-2">	
+				<input type="button" value="Add" class="btn btn-primary center-block" onclick="return btnAdd_onclick()" style="margin-top:20px;"/>
+			</div>
+		</div>
 		<br/>
-		
 		<div class="dynamicTableContainer" style="height: 300px;">
 			<table
 				style="height: 20px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-				<tr bgcolor="#72BEFC">
-					
+				<tr bgcolor="#c0c0c0">
 					<td width="5%">Product Code</td>
 					<td width="18%">Product Name</td>
 					<td width="4%">UOM</td>
@@ -1387,7 +1338,7 @@
 					<td width="3%">Delete</td>
 				</tr>
 			</table>
-			<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblProdDet"
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col15-center">
@@ -1404,95 +1355,62 @@
 						<col style="width: 6%">
 						<col style="width: 12%">
 						<col style="width: 3%">
-										
 					</tbody>
-
 				</table>
 			</div>
 		</div>
-		
 		<br />
-
-		<table class="transTable">
-		<tr>
-			<td></td>
-			<td>
-				<label>Total Quantity</label>
-			</td>
-			<td>
-				<s:input type="text" readonly="true" id="txtTotalQty" path="dblTotal" 
+	<div class="row transTable">
+		<div class="col-md-2">
+			<label>Total Quantity</label>
+			<s:input type="text" readonly="true" id="txtTotalQty" path="dblTotal" 
 						cssClass="BoxW124px" />
-			</td>
-			
-			<td>
-				<label>Total Weight</label>
-			</td>
-			<td>
-				<s:input type="text" readonly="true" id="txtTotalWt" path="dblTotalWt" 
+		</div>
+		<div class="col-md-2">
+			<label>Total Weight</label>
+			<s:input type="text" readonly="true" id="txtTotalWt" path="dblTotalWt" 
 						cssClass="BoxW124px" />
-			</td>
-			
-			<td>
-				<label>Total Amount</label>
-			</td>
-			<td>
-				<s:input type="text" readonly="true" id="txtTotalAmt" path="dblTotalAmt" 
+		</div>
+		<div class="col-md-2">	
+			<label>Total Amount</label>
+			<s:input type="text" readonly="true" id="txtTotalAmt" path="dblTotalAmt" 
 						cssClass="BoxW124px" />
-			</td>
-		</tr>
-			<tr>
-				<td>
-					<label>Narration</label>
-				</td>
-				<td colspan="10">
-					<s:input type="text" id="txtNarration" path="strNarration" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Material Send By</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtMInBy" path="strMInBy" cssClass="BoxW124px" />
-				</td>
-				<td></td>
-				<td>
-					<label>Time In Out</label></td>
-				<td>
-					<s:input type="text" id="txtTimeInOut" path="strTimeInOut" cssClass="BoxW124px" />
-				</td>
-				<td colspan="5"></td>
-			</tr>
-			<tr>
-				<td>
-					<label>Expected Details</label>
-				</td>
-				<td>
-					<s:select id="txtExpDet" class="BoxW124px" path="strExpDet">
-						<s:option value="No">No</s:option>
-						<s:option value="Yes">Yes</s:option>
-					</s:select>
-				</td>
-				<td colspan="8"></td>
-			</tr>
-		</table>
+		</div>
+		<div class="col-md-2">	
+			<label>Narration</label>
+			<s:input type="text" id="txtNarration" path="strNarration" />
+		</div>
+		<div class="col-md-2">	
+			<label>Material Send By</label>
+			<s:input type="text" id="txtMInBy" path="strMInBy" cssClass="BoxW124px" />
+		</div>
+		<div class="col-md-2">		
+			<label>Time In Out</label>
+			<s:input type="text" id="txtTimeInOut" path="strTimeInOut" cssClass="BoxW124px" />
+		</div>
+		<div class="col-md-2">			
+			<label>Expected Details</label>
+			<s:select id="txtExpDet" class="BoxW124px" path="strExpDet" style="width:80%;">
+				<s:option value="No">No</s:option>
+				<s:option value="Yes">Yes</s:option>
+			</s:select>
+		</div>
+	</div>
 		<br/>
-		<div id="divExpDtl" class="transTable" style="background-color: #a4d7ff; display:none; ">
-			
-			<br/>
-				<h3 style="margin: 1%;">Expected Details</h3>
-			
-			<br>
+	<div id="divExpDtl" class="transTable" style="display:none; ">
+		<br/>
+			<h6 style="margin: 1%;">Expected Details</h6>
+		<br>
 
-		<table class="transTable">
-			<tr>
-				<td><label>Product Code</label></td>
-				<td>
-					<input id="txtExpProdCode" ondblclick="funHelp('expProductmaster')" class="searchTextBox" />
-				</td>
-				<td colspan="2">
-					<label id="lblExpProdName" class="namelabel"></label>
-				</td>
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label>Product Code</label>
+				<input id="txtExpProdCode" ondblclick="funHelp('expProductmaster')" class="searchTextBox" />
+			</div>
+			<div class="col-md-2">
+				<label id="lblExpProdName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+				></label>
+			</div>	
 				
 				<!-- <td><label>Process Code</label></td>
 				<td>
@@ -1501,38 +1419,26 @@
 				<td colspan="2">
 					<label id="lblExpprocessName" class="namelabel"></label>
 				</td> -->
-				<td colspan="4"></td>
-			</tr>
-			<tr>
-				<td>
+				<div class="col-md-2">
 					<label>Price/Unit</label>
-				</td>
-				<td>
 					<input id="txtExpPrice" type="text" class="decimal-places numberField" />
-				</td>
-				<td>
+				</div>
+				<div class="col-md-2">
 					<label>Wt/Unit</label>
-				</td>
-				<td>
-					<input type="text" id="txtExpWeight" readonly="readonly" class="decimal-places numberField" /></td>
-				<td>
+					<input type="text" id="txtExpWeight" readonly="readonly" class="decimal-places numberField" />
+				</div>
+				<div class="col-md-2">
 					<label>Quantity</label>
-				</td>
-				<td>
 					<input id="txtExpQty" type="text" class="decimal-places numberField" style="width: 60%" />
-				</td>
-				<td></td>
-				<td>
-					<input type="button" value="Save" class="smallButton" onclick="return funAddExpDtl()" />
-				</td>
-			</tr>
-		</table>
-		
+				</div>
+				<div class="col-md-2">
+					<input type="button" value="Save" class="btn btn-primary center-block"  onclick="return funAddExpDtl()" style="margin-top:20px;"/>
+				</div>
+			</div>
 		<br/>
-		
 		<div class="dynamicTableContainer" style="height: 300px;">
 			<table style="height: 20px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#c0c0c0">
 					
 					<td width="8%">Product Code</td>
 					<td width="18%">Product Name</td>
@@ -1547,7 +1453,7 @@
 					<td width="4%">Delete</td>
 				</tr>
 			</table>
-			<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblExpProdDet"
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col15-center">
@@ -1569,27 +1475,21 @@
 				</table>
 			</div>
 		</div>
-		
 		<br />
-			
-		</div>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button"
-								onclick="funResetFields()" />
-		</p>
-	<br>
-		<br>
-		<div id="wait"
-			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
-			<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
-				width="60px" height="60px" />
-		</div>
+	</div>
+	<div class="center" style="text-align:center;">
+		<a href="#"><button class="btn btn-primary center-block" value="Submit" 
+			class="form_button">Submit</button></a> &nbsp;
+		<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetFields()"
+			class="form_button">Reset</button></a>
+	</div>
+	<div id="wait"
+		style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
+	<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
+		width="60px" height="60px" />
+	</div>
 	</s:form>
-
+</div>
 	<script type="text/javascript">
 		funApplyNumberValidation();
 	</script>

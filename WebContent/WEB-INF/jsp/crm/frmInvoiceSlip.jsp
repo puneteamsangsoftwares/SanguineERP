@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -8,6 +8,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Invoice Slip</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
+
 <script type="text/javascript">
 
 
@@ -17,7 +25,7 @@ $(document).ready(function()
 	var startDate="${startDate}";
 	var arr = startDate.split("/");
 	Dat=arr[2]+"-"+arr[1]+"-"+arr[0];
-	$("#txtInvDate").datepicker({ dateFormat: 'yy-mm-dd' });
+	$("#txtInvDate").datepicker({ dateFormat: 'dd-mm-yy' });
 	$("#txtInvDate" ).datepicker('setDate', Dat);
 	$("#txtInvDate").datepicker();
 });
@@ -124,38 +132,39 @@ function funHelp()
 
 </script>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>Invoice Slip</label>
-	</div>
-
- <br/><br><br>
-	<s:form name="InvoiceSlipForm" method="GET" action="">
-	<div>
-			<table class="masterTable">
-			<tr>
-	<td width="100px"><label>Invoice Code</label></td>
-									<td  colspan="3"><s:input path="strInvCode" id="txtInvCode"
-											ondblclick="funHelp()"
-											cssClass="searchTextBox" /></td>
+	<div class="container masterTable">
+		<label id="formHeading">Invoice Slip</label>
+	    <s:form name="InvoiceSlipForm" method="GET" action="">
+	
+	       <div class = "row">
+					<div class="col-md-2"><label>Invoice Code</label>
+						<s:input path="strInvCode" id="txtInvCode" ondblclick="funHelp()"  cssClass="searchTextBox" />
+					</div>
 											
-											<td width="100px"><label>Invoice Date</label>
-									<td><s:input path="dteInvDate" id="txtInvDate"
-											required="required" cssClass="calenderTextBox" /></td>
-											
-								<td width="100px"><label>Print Format</label>
-									<td><select id="cmbPrintFormat" name="cmbPrintFormat"
-											 Class="BoxW124px">
-											<option value="A4">Invoice</option>
-											<option value="40 Col">Retail</option>
-										</select></td>			
-</tr></table></div>
-    <div align="center">
+					<div class="col-md-10"></div>
+						
+					<div class="col-md-3">
+						<div class="row">
+						    <div class="col-md-6"><label>Invoice Date</label>
+						         <s:input path="dteInvDate" id="txtInvDate" required="required" cssClass="calenderTextBox" />
+			                </div>
+					        <div class="col-md-6"><label>Print Format</label>
+						         <select id="cmbPrintFormat" name="cmbPrintFormat">
+								     <option value="A4">Invoice</option>
+								     <option value="40 Col">Retail</option>
+						         </select>
+				           </div>			
+					</div></div>
+			</div>
+			<br>
+        <div align="center" style= "margin-right: 66%;">
 			<input type="submit" value="Submit"
-				onclick="return funCallFormAction()"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <input type="button"
-				id="reset" name="reset" value="Reset" class="form_button" />
+				onclick="return funCallFormAction()" class="btn btn-primary center-block"
+				class="form_button" /> &nbsp; <input type="button"
+				id="reset" name="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />
 		</div>
 
 </s:form>
+</div>
 </body>
 </html>

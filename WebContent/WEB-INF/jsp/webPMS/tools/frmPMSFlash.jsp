@@ -201,7 +201,7 @@
 		    var max_elem = Math.min((page_index+1) * items_per_page, pmsFlashData.length);
 		    var newcontent="";
 		    		    	
-			   	newcontent = '<table id="tblPMSFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">Reservation No</td><td id="labld2"> Guest Name</td><td id="labld3"> Booker Name</td>	<td id="labld4"> Arrival Date </td>	<td id="labld5"> Arrival Time</td><td id="labld6"> Departure Date</td><td id="labld7"> Departure Time</td></tr>';
+			   	newcontent = '<table id="tblPMSFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">Reservation No</td><td id="labld2"> Guest Name</td><td id="labld3"> Booker Name</td>	<td id="labld4"> Arrival Date </td>	<td id="labld5"> Arrival Time</td><td id="labld6"> Departure Date</td><td id="labld7"> Departure Time</td></tr>';
 			   	// Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
 			    {
@@ -230,7 +230,7 @@
 		    var max_elem = Math.min((page_index+1) * items_per_page, pmsFlashData.length);
 		    var newcontent="";
 		    		    	
-			   	newcontent = '<table id="tblPMSFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labld1" size="10%">Reservation No</td><td id="labld2"> Guest Name</td><td id="labld3"> Agent Name</td><td id="labld4"> Commision Paid</td> <td id="labld5"> Arrival Date </td>	<td id="labld6"> Arrival Time</td><td id="labld7"> Departure Date</td><td id="labld8"> Departure Time</td></tr>';
+			   	newcontent = '<table id="tblPMSFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labld1" size="10%">Reservation No</td><td id="labld2"> Guest Name</td><td id="labld3"> Agent Name</td><td id="labld4"> Commision Paid</td> <td id="labld5"> Arrival Date </td>	<td id="labld6"> Arrival Time</td><td id="labld7"> Departure Date</td><td id="labld8"> Departure Time</td></tr>';
 			   	// Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
 			    {

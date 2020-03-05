@@ -189,7 +189,8 @@
 			   <div class="col-md-7"><label>Department Desc</label>
 				   <s:input id="txtDeptDesc" path="strDeptDesc"/>				
 			   </div>
-		    </div></div>
+		    </div>
+		 </div>
 		    
 		  <div class="col-md-7"></div>
 		  
@@ -202,9 +203,8 @@
 			      <label>Mobile No</label>
 				  <s:input id="txtMobileNo" path="strMobileNo"/>				
 			</div>
-			<div class="col-md-7"></div>
-			
-		    <div class="col-md-1"><label>Operational</label>
+		
+			 <div class="col-md-1"><label>Operational</label>
 			     <s:select id="cmbOperational" path="strOperational">
 				    <option selected="selected" value="Y">Yes</option>			           
 			        <option value="N">No</option>

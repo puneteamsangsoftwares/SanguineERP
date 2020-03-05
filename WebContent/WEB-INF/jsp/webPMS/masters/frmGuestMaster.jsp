@@ -403,7 +403,7 @@ function funSetGuestCode(code)
 						&nbsp;</th> -->
 						 
  					<div class="col-md-12" align="center"><a onclick="funOpenExportImport()" style="margin-right: -75%;"
-					href="javascript:void(0);"><u>Export/Import</u></a>
+					     href="javascript:void(0);"><u>Export/Import</u></a>
 					<!-- <a id="baseUrl" href="#"> Attach Documents</a> -->
 					</div>
 					
@@ -425,8 +425,8 @@ function funSetGuestCode(code)
 			   </div>
 			   <div class="col-md-10"></div>
 			   
-		        <div class="col-md-1"><label>Guest Prefix</label>
-					<s:select id="cmbGuestPrefix" path="strGuestPrefix">
+		        <div class="col-md-2"><label>Guest Prefix</label>
+					<s:select id="cmbGuestPrefix" path="strGuestPrefix" style="width:60%;">
 				    	<s:options items="${prefix}"/>
 				    </s:select>
 				</div>
@@ -444,21 +444,24 @@ function funSetGuestCode(code)
 				</div>
 				<!-- <div class="col-md-5"></div>	 -->
 				
-				<div class="col-md-1"><label>Gender</label>
+				<div class="col-md-1">
+					<label>Gender</label>
 					 <s:select id="cmbGender" path="strGender">
 				    	<s:options items="${gender}"/>
 				      </s:select>
 				</div>
-					
-				<div class="col-md-1"><label>DOB</label>
-					<s:input type="text" id="txtDOB" path="dteDOB" style="width:155%;height: 25px;" cssClass="calenderTextBox" />
+				<div class="col-md-3"></div>
+				<div class="col-md-2"><label>DOB</label>
+					<s:input type="text" id="txtDOB" path="dteDOB" style="width:70%;" cssClass="calenderTextBox" />
 				</div>
 						
-				<div class="col-md-2" style="padding-left:60px"><label>MobileNo</label><label style="color: red;"> *</label>
+				<div class="col-md-2">
+					<label>MobileNo</label>
+					<label style="color: red;"> *</label>
 					<s:input type="text" id="txtMobileNo" style="text-align:right;" path="intMobileNo" onblur="fun1(this);" />
 				</div>
 				
-				<div class="col-md-3"><label>Email Id</label><br>
+				<div class="col-md-2"><label>Email Id</label><br>
 					  <s:input type="email" placeholder="Enter a valid email address" id="txtEmailId" style="width:100%;border:none;" path="strEmailId"/>
 				</div>
 				
@@ -469,16 +472,16 @@ function funSetGuestCode(code)
 				<div class="col-md-2"><label>Passport No</label>
 					<s:input type="text" id="txtPassportNo" path="strPassportNo"/>
 				</div>
-				
-				<div class="col-md-1"><label>Passport Issue Date</label>
-					<s:input type="text" id="txtPassportIssueDate" style="width:155%;" path="dtePassportIssueDate" cssClass="calenderTextBox" />
+				<div class="col-md-2"></div>
+				<div class="col-md-2"><label>Passport Issue Date</label>
+					<s:input type="text" id="txtPassportIssueDate" style="width:70%;" path="dtePassportIssueDate" cssClass="calenderTextBox" />
 				</div>
 				
-				<div class="col-md-1" style="padding-left:45px"><label>PassportExpiryDate</label>
-					 <s:input type="text" id="txtPassportExpiryDate" style="width:280%;" path="dtePassportExpiryDate" cssClass="calenderTextBox" />
+				<div class="col-md-2"><label>PassportExpiryDate</label>
+					 <s:input type="text" id="txtPassportExpiryDate" style="width:70%;" path="dtePassportExpiryDate" cssClass="calenderTextBox" />
 				</div>
 				
-				<div class="col-md-2" style="padding-left:80px"><label>Nationality</label>
+				<div class="col-md-2"><label>Nationality</label>
 				     <s:input type="text" id="txtNationality" path="strNationality"/>
 			    </div>
 			    
@@ -489,7 +492,7 @@ function funSetGuestCode(code)
 				<div class="col-md-2"><label>Proceeding To</label>
 					   <s:input type="text" id="txtProceedingTo" path="strProceedingTo"/>
 				</div>
-				
+				<div class="col-md-2"></div>
 				<div class="col-md-2"><label>Status</label>
 					<s:input  type="text" id="txtStatus" path="strStatus"/>
 				</div>
@@ -498,20 +501,21 @@ function funSetGuestCode(code)
 					<s:input type="text" id="txtVisitingType" path="strVisitingType"/>
 				</div>
 				
-				<div class="col-md-1"><label>GST No.</label>
-					 <s:input type="text" id="txtGSTNo" path="strGSTNo" style="width: 130px;"/>
+				<div class="col-md-2"><label>GST No.</label>
+					 <s:input type="text" id="txtGSTNo" path="strGSTNo" style="width: 80%;"/>
 				</div>
 						
-				<div class="col-md-2" style="padding-left:85px;"><label style="width:300px;">Anniversary Date</label>
-					<s:input type="text" id="txtAnniversaryDte" path="dteAnniversaryDate" style="width:115%;" cssClass="calenderTextBox" />
+				<div class="col-md-2">
+					<label>Anniversary Date</label>
+					<s:input type="text" id="txtAnniversaryDte" path="dteAnniversaryDate" style="width:70%;" cssClass="calenderTextBox" />
 				</div>
 						
 				<div class="col-md-2"><label>UID No.</label><label style="color: red;"> *</label>
 					<s:input type="text" id="txtUIDNo" style="text-align:right;" path="strUIDNo"/>
 				</div>
 									
-				<div class="col-md-1.1" style="padding-left: 15px;"><label>Default Address</label>
-					<s:select id="cmbDefaultAddr" path="strDefaultAddr">
+				<div class="col-md-2"><label>Default Address</label>
+					<s:select id="cmbDefaultAddr" path="strDefaultAddr" style="width:auto;">
 			    		<s:option value="Local">Local</s:option><s:options/>
 			    		<s:option value="Permanent">Permanent</s:option><s:options/>
 			    		<s:option value="Office">Office</s:option><s:options/>
@@ -520,18 +524,16 @@ function funSetGuestCode(code)
 					
 					
 				<div class="col-md-2">					
-				 <div><img id="memImage" src="" width="170px" height="150px" style="margin:12%;" alt="Member Image"  ></div>
-			                 <div><input  id="memberImage" name="memberImage"   type="file" accept="image/gif,image/png,image/jpeg" onchange="funShowImagePreview(this);" style="width:170px;background-color: #C0E4FF"/></div>
+				 	<div><img id="memImage" src="" style="width:auto;height:150px;margin: 10% 0%;" alt="Member Image"></div>
+			        <div><input  id="memberImage" name="memberImage" type="file" accept="image/gif,image/png,image/jpeg" onchange="funShowImagePreview(this);" style="width:170px; background-color: #fbfafa"/></div>
        			</div>
 					
-				<div class="col-md-12" style="width: 100px;PADDING-LEFT: 5px;FONT-WEIGHT: bold;FONT-SIZE: 13px;
-					PADDING-BOTTOM: 5px;COLOR: #ffffff;PADDING-TOP: 5px;FONT-FAMILY: trebuchet ms, Helvetica, sans-serif;">
+				<div class="col-md-12" style="FONT-WEIGHT: bold;PADDING-TOP: 5px;">
 						<label>Local Address</label>
 				</div>
 			
 				<div class="col-md-2"><label>Address</label>
-					<s:textarea id="txtAddressLocal" path="strAddressLocal"  cssStyle="width:101%;height:35px;border:1px solid;
-						 background-color:inherit;padding-left:01px; text-transform: uppercase;" />
+					<s:textarea id="txtAddressLocal" path="strAddressLocal"  type="text" style="height: 45%;"/>
 				</div>
 				
 		        <div class="col-md-1"><label>City</label>
@@ -557,14 +559,12 @@ function funSetGuestCode(code)
 				</div>
 				<div class="col-md-6"></div>
 				
-					<div class="col-md-12" style="width: 100px;PADDING-LEFT: 5px;FONT-WEIGHT: bold;FONT-SIZE: 13px;
-					PADDING-BOTTOM: 5px;COLOR: #ffffff;PADDING-TOP: 5px;FONT-FAMILY: trebuchet ms, Helvetica, sans-serif;">
-						<label>Permanent Address</label>
-					</div>
+				<div class="col-md-12" style="FONT-WEIGHT: bold;PADDING-TOP: 5px;">
+					<label>Permanent Address</label>
+				</div>
 				
 				<div class="col-md-2"><label>Address</label>
-					<s:textarea id="txtAddressPermanent" path="strAddrPermanent"  cssStyle="width:101%;height:35px;border:1px solid;
-						 background-color:inherit;padding-left:01px; text-transform: uppercase;" />
+					<s:textarea id="txtAddressPermanent" path="strAddrPermanent" type="text" style="height: 45%;" />
 				</div>
 						 
 				 <div class="col-md-1"><label>City</label>
@@ -590,14 +590,12 @@ function funSetGuestCode(code)
 					</div>
 				     <div class="col-md-6"></div>
 				     
-					<div  class="col-md-12" style="width: 100px;PADDING-LEFT: 5px;FONT-WEIGHT: bold;FONT-SIZE: 13px;
-					PADDING-BOTTOM: 5px;COLOR: #ffffff;PADDING-TOP: 5px;FONT-FAMILY: trebuchet ms, Helvetica, sans-serif;">
+					<div class="col-md-12" style="FONT-WEIGHT: bold;PADDING-BOTTOM: 5px;">
 						<label>Office Address</label>
 					</div>
 				
 				    <div class="col-md-2"><label>Address</label>
-					   <s:textarea id="txtAddressOfc" path="strAddressOfc"  cssStyle="width:101%;height:35px;border:1px solid;
-						 background-color:inherit;padding-left:01px; text-transform: uppercase;" />
+					   <s:textarea id="txtAddressOfc" path="strAddressOfc" type="text" style="height: 45%;" />
 					</div>
 					     
 				   <div class="col-md-1"> <label>City</label>

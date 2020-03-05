@@ -386,7 +386,7 @@
 	  <div class="row">
           <div class="col-md-2">
 		      <label> Date</label>
-		      <s:input id="txtFromDate" required="required" path="strFromDate" class="calenderTextBox" />
+		      <s:input id="txtFromDate" required="required" path="strFromDate" class="calenderTextBox" style="width:70%;" />
 		  </div>
 		  <div class="col-md-2">  
 			  <s:input type="button" id="btnShow" value="Show" path="strShow"  class="btn btn-primary center-block form_button form_button" onclick="funShowRecord()" 

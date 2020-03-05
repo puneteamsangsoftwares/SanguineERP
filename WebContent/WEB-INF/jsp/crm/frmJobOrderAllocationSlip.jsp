@@ -1,13 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+    
 
 <script type="text/javascript">
 
@@ -38,50 +46,43 @@ function funHelp(transactionName)
 </script>
 </head>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>Job Order Allocation Slip</label>
-	</div>
-	<s:form name="JobOrderAllocationCode" method="GET"
+	<div class="container transTable">
+		<label id="formHeading">Job Order Allocation Slip</label>
+	   <s:form name="JobOrderAllocationCode" method="GET"
 		action="rptJobOrderAllocationSlip.html" >
 		<input type="hidden" value="${urlHits}" name="saddr">
 		<br>
-		<table class="transTable">
-								<tr>
-									<td width="170px"><label>Job Order Allocation Code</label></td>
-									<td colspan="3"><s:input path="strDocCode" id="txtJACode"
+		       <div class="row">
+		                <div class ="col-md-4">
+		                     <div class="row">
+									<div class ="col-md-6"><label>Job Order Allocation Code</label>
+											<s:input path="strDocCode" id="txtJACode"
 											ondblclick="funHelp('JACodeslip')"
-											cssClass="searchTextBox"/></td>
-											<td colspan="1"><label id="lblJobOrderName"
-										class="namelabel"></label></td>
-																										
-								</tr>
-								<tr>
-								
-
-				<td><label>Type</label></td>
-				<td ><s:select id="cmbDocType" path="strDocType"
+											cssClass="searchTextBox"/></div>
+									<div class ="col-md-6"><label id="lblJobOrderName"
+										class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top:16%"></label></div>
+						      </div>
+						</div>
+						
+				<div class ="col-md-1"><label>Type</label>
+				    <s:select id="cmbDocType" path="strDocType"
 						cssClass="BoxW124px">
 						<s:option value="PDF">PDF</s:option>
 						<s:option value="XLS">EXCEL</s:option>
 						<s:option value="HTML">HTML</s:option>
 						<s:option value="CSV">CSV</s:option>
+                    </s:select>
+				</div>
 
-					</s:select></td>
-
-
-
-
-			</tr>
-
-		</table>
+		     </div>
 		<br>
-		<p align="center">
+		<p align="right" style="margin-right:60%">
 			<input type="submit" value="Submit"
-				onclick="return funCallFormAction('submit',this)"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <a
-				STYLE="text-decoration: none"
+				onclick="return funCallFormAction('submit',this)" class="btn btn-primary center-block"
+				class="form_button" /> &nbsp;
+			 <a STYLE="text-decoration: none"
 				href="JobOrderAllocationCode.html?saddr=${urlHits}"><input
-				type="button" id="reset" name="reset" value="Reset"
+				type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block"
 				class="form_button" /></a>
 		</p>
 		<br>
@@ -92,6 +93,6 @@ function funHelp(transactionName)
 				width="60px" height="60px" />
 		</div>
 	</s:form>
-
+	</div>
 </body>
 </html>

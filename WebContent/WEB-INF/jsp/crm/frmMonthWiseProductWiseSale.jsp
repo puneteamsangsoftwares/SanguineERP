@@ -1,12 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
+
 </head>
 <script type="text/javascript">
 
@@ -179,62 +188,53 @@
 
  		</script>
 <body onload="funOnLoad();">
-<div id="formHeading">
-		<label>Month Wise Product Wise Sale</label>
-	</div>
-	<s:form  method="GET" name="frmMonthPordWiseSaleFlash" target="_blank">
+<div class="container transTable">
+		<label id="formHeading">Month Wise Product Wise Sale</label>
+	   <s:form  method="GET" name="frmMonthPordWiseSaleFlash" target="_blank">
 		<br>
-	
-			<table class="transTable">
-			<tr><th colspan="10"></th></tr>
-				<tr>
-					<td width="10%">Property Code</td>
-					<td width="20%">
-						<s:select id="cmbProperty" name="propCode" path="strPropertyCode" cssClass="longTextBox" cssStyle="width:100%" onchange="funChangeLocationCombo();">
+	<div class="row">
+			<div class="col-md-2"><label> Property Code </label> 
+					   <s:select id="cmbProperty" name="propCode" path="strPropertyCode" style="width:auto;" onchange="funChangeLocationCombo();">
 			    			<s:options items="${listProperty}"/>
 			    		</s:select>
-					</td>
+			</div>
 						
-					<td width="5%"><label>Location</label></td>
-					<td>
-						<s:select id="cmbLocation" name="locCode" path="strLocationCode" cssClass="longTextBox" cssStyle="width:180px;" >
+			<div class="col-md-2"><label>Location</label>
+					<s:select id="cmbLocation" name="locCode" path="strLocationCode" style="width:auto;">
 			    			<s:options items="${listLocation}"/>
 			    		</s:select>
-					</td>
+			</div>
 					
-					<td><label>Currency </label></td>
-					<td><s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px">
-						</s:select></td>
-					<td colspan="2"></td>
-				</tr>
+			<div class="col-md-2"><label>Currency </label>
+					<s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" style="width:auto;">
+						</s:select>
+			</div>
+			<div class="col-md-6"></div>
 					
-				</tr>
-				
-				<tr>
-				    <td><label id="lblFromDate">From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
+			<div class="col-md-2"><label id="lblFromDate">From Date</label>
+			           <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox" style="width:70%;"/>
 			        	<s:errors path="dteFromDate"></s:errors>
-			        </td>
+			</div>
 				        
-			        <td><label id="lblToDate">To Date</label></td>
-			        <td>
-			            <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
+			<div class="col-md-2"><label id="lblToDate">To Date</label>
+			        <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox" style="width:70%;"/>
 			        	<s:errors path="dteToDate"></s:errors>
-			        </td>
-			        <td>
-			        <label >Type Of Data</label></td>
-			        <td><s:select id="cmbType" path="" cssClass="BoxW124px" >
-					<option value="Amount" >Amount Wise </option>
-			        <option value="Qunatity">Quantity Wise</option></s:select></td>
-			   </tr>
-			   <tr>
-					<td><input id="btnExecute" type="button" class="form_button1" value="EXECUTE" onclick="funShowMISFlash()" /></td>
-					<td><input id="btnExport" type="button" class="form_button1" value="EXPORT" onclick="funExport()" /></td>
-					<td colspan="4"></td> 
-				</tr>
+			</div>
+			
+			 <div class="col-md-2"><label >Type Of Data</label>
+			        <s:select id="cmbType" path="" style="width:auto;">
+					  <option value="Amount" >Amount Wise </option>
+			          <option value="Qunatity">Quantity Wise</option></s:select>
+			 </div>
+	  </div>
+	  <br>
+			    <p align="center" style="margin-right: 25%">
+					<input id="btnExecute" type="button" class="btn btn-primary center-block" class="form_button1" value="EXECUTE" onclick="funShowMISFlash()" />
+					&nbsp;
+					<input id="btnExport" type="button" class="btn btn-primary center-block" class="form_button1" value="EXPORT" onclick="funExport()" />
+				</p>
 				<br/>
-				</table>
+			
 					<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
 		<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
 		
@@ -251,6 +251,6 @@
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 	</s:form>
-	
+	</div>
 </body>
 </html>

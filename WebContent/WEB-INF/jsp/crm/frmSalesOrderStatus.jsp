@@ -1,12 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 
 <title>Sales Order Status</title>
 
@@ -25,12 +32,12 @@
 		});
 
 		$("#txtSOFromDate").datepicker({
-			dateFormat : 'yy-mm-dd'
+			dateFormat : 'dd-mm-yy'
 		});
 		$("#txtSOFromDate").datepicker('setDate', 'today');
 
 		$("#txtSOToDate").datepicker({
-			dateFormat : 'yy-mm-dd'
+			dateFormat : 'dd-mm-yy'
 		});
 		$("#txtSOToDate").datepicker('setDate', 'today');
 
@@ -139,6 +146,7 @@
 				}
 			}
 		});
+		return false
 	}
 	
 	
@@ -176,43 +184,42 @@
 
 </head>
 <body>
-	<div id="formHeading">
-		<label>Sales Order Status</label>
-	</div>
-	<s:form name="sostatus" method="POST"
-		action="saveSOStatus.html?saddr=${urlHits}">
+	<div class="container">
+		<label id="formHeading">Sales Order Status</label>
+	<s:form name="sostatus" method="POST" action="saveSOStatus.html?saddr=${urlHits}">
 		<br>
-		<table class="transTable">
-			<tr>
-				<td>SO From Date</td>
-				<td><s:input type="text" id="txtSOFromDate"
-						class="calenderTextBox" path="dteSOFromDate" /></td>
-
-				<td>SO To Date</td>
-				<td><s:input type="text" id="txtSOToDate"
-						class="calenderTextBox" path="dteSOToDate" /></td>
-			</tr>
-
-			<tr>
-				<td><label>Customer Code</label></td>
-				<td><s:input type="text" id="txtCustCode" path="strCustCode"
-						ondblclick="funHelp('custMasterActive')" cssClass="searchTextBox" /></td>
-				<td colspan="1"><label id="txtCustName"></label></td>
-				
-				<td>
-					<input type="button" id="btnExecute" value="Execute" onClick="funShowSalesOrder()" class="smallButton" />
-				</td>
-			</tr>
-		</table>
+		<div class="row transTable">
+			<div class="col-md-2">
+				<label>SO From Date</label>
+				<s:input type="text" id="txtSOFromDate"
+						class="calenderTextBox" path="dteSOFromDate" style="width:80%;" />
+			</div>
+			<div class="col-md-2">
+				<label>SO To Date</label>
+				<s:input type="text" id="txtSOToDate"
+						class="calenderTextBox" path="dteSOToDate" style="width:80%;" />
+			</div>
+			<div class="col-md-2">
+				<label>Customer Code</label>
+				<s:input type="text" id="txtCustCode" path="strCustCode"
+						ondblclick="funHelp('custMasterActive')" cssClass="searchTextBox" />
+			</div>
+			<div class="col-md-2">
+				<label id="txtCustName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+				></label>
+			</div>
+			<div class="col-md-2">
+				<input type="button" id="btnExecute" value="Execute" onClick="funShowSalesOrder()" class="btn btn-primary center-block" style="margin-top:20px;" />
+			</div>
+		</div>
+		<br />
 		
-		<br />
-		<br />
 		<div class="dynamicTableContainer" style="height: 330px">
 			<table id="tblSalesOrderDtl" style="height:28px;border:#0F0;width:100%;font-size:11px;
 			font-weight: bold;">	
 <!-- 		<div class="dynamicTableContainer" style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; margin: auto;"> -->
 <!-- 			<table id="tblSalesOrderDtl" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center"> -->
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#c0c0c0">
 					<th width="10%">Sales Order Code</th>
 					<!--  COl1   -->
 					<th width="10%">Sales Order Date</th>
@@ -230,9 +237,8 @@
 <!-- 				<table id="tblProduct" style="width:100%;border: -->
 <!-- 					#0F0;table-layout:fixed;overflow:scroll;" class="transTablex col20-center"> -->
 					
-					<div style="background-color:  	#a4d7ff;     border: 1px solid #ccc;     display: block;     height: 280px;     margin: auto;     overflow-x: hidden;     overflow-y: scroll;     width: 100%;">
-						<table id="tblProduct" style="width:100%;border: #0F0;table-layout:fixed;overflow:scroll" class="transTablex  col11-center "> 
-						<tbody> 
+			<div style="background-color:#fbfafa;border: 1px solid #ccc;display: block;height: 280px;margin: auto;overflow-x: hidden;overflow-y: scroll; width: 100%;">
+				<table id="tblProduct" style="width:100%;border: #0F0;table-layout:fixed;overflow:scroll" class="transTablex  col11-center "> 
 				<tbody>  
 				<col style="width:11%"><!--  COl1   -->
 				<col style="width:10%"><!--  COl2   -->
@@ -268,7 +274,7 @@
 				width="60px" height="60px" />
 		</div>
 	</s:form>
-
+</div>
 	<script type="text/javascript">
 // 		funApplyNumberValidation();
 	</script>

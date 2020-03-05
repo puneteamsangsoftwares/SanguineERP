@@ -1,12 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <title>Insert title here</title>
 
 <script type="text/javascript">
@@ -250,13 +258,56 @@
 </head>
 
 <body>
-	<div id="formHeading">
-		<label>Billwise Tax Flash</label>
-	</div>
-	<s:form name="Form" method="GET" action="">
-		<br />
-
-		<table class="transTable">
+	<div class="container">
+		<label id="formHeading">Billwise Tax Flash</label>
+			<s:form name="Form" method="GET" action="">
+			<div class="row transTable">
+				<div class="col-md-3">
+					<label>Property Code:</label><br>
+					<s:select id="cmbProperty" name="propCode" path="" onchange="funChangeLocationCombo();">
+			    		<s:options items="${listProperty}"/>
+			    	</s:select>
+				</div>
+				<div class="col-md-2">
+					<label>Location:</label><br>
+					<s:select id="cmbLocation" name="locCode" path="strLocCode">
+			    		<s:options items="${listLocation}"/>
+			    	</s:select>
+				</div>	<div class="col-md-6"></div>
+				<div class="col-md-2">
+					<label>From Date:</label><br>
+					<s:input id="txtFromDate" required="required" path=""
+						name="fromDate" cssClass="calenderTextBox" style="width:80%;"/>
+				</div>
+				<div class="col-md-2">
+					<label>To Date:</label><br>
+					<s:input id="txtToDate" name="toDate" path=""
+						cssClass="calenderTextBox" style="width:80%;" />
+				</div>
+				<div class="col-md-2">
+					<label id="lblHSN">Show HSN no.</label>
+					<s:select id="cmbHSN" required="required" path="" name="HSN" >
+						<option value="No" selected="selected">No</option>
+						<option value="Yes">Yes</option>
+					</s:select>
+				</div>
+			</div>
+			<div class="col-md-5"></div>
+				<div class="center" style="text-align:right; margin-right:55%;">
+					<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="EXECUTE"
+						class="form_button">EXECUTE</button></a> &nbsp;
+					<a href="#"><button class="btn btn-primary center-block" id="btnExport" value="EXPORT" 
+						class="form_button">EXPORT</button></a>
+				</div>
+						
+			<div id="dvBilwiseFlash" style="width: 100% ;height: 100% ;display: none;">
+				<table id="tblBilwiseFlash" class="transTable col3-right col4-right col5-right col6-right col7-right col8-right col9-right" ></table>
+			</div>
+			
+			<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
+				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+			</div>
+		<%--  <table class="transTable">
 			<tr>
 				 <td width="10%">Property Code</td>
 					<td width="20%">
@@ -315,8 +366,9 @@
 		<br><br>
 		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
-			</div>
+			</div> --%>
 
 	</s:form>
+	</div>
 </body>
 </html>

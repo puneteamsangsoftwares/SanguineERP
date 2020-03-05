@@ -1,13 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+<title></title>
 
 <script type="text/javascript">
 		var invoceFlashData,frmDte1="",toDte1="",maxQuantityDecimalPlaceLimit=2;
@@ -264,15 +272,15 @@
 			    var rowCount = table.rows.length;
 			    var row = table.insertRow(rowCount);
 			   
-			    row.insertCell(0).innerHTML= "<input name=\"strPropertyName["+(rowCount)+"]\" readonly=\"readonly\"  class=\"Box\" size=\"25%\" id=\"strPropertyName."+(rowCount)+"\" value='"+data.strPropertyName+"'>";		    
-			    row.insertCell(1).innerHTML= "<input name=\"strSRCode["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"25%\" id=\"strSRCode."+(rowCount)+"\" value='"+data.strSRCode+"'>";
-			    row.insertCell(2).innerHTML= "<input name=\"dteSRDate["+(rowCount)+"]\" id=\"dteSRDate."+(rowCount)+"\" readonly=\"readonly\"   size=\"14%\" class=\"Box\" value="+data.dteSRDate+">";
-			    row.insertCell(3).innerHTML= "<input name=\"strDCCode["+(rowCount)+"]\" id=\"strDCCode."+(rowCount)+"\" readonly=\"readonly\"   size=\"14%\" class=\"Box\" value="+data.strDCCode+">";
-			    row.insertCell(4).innerHTML= "<input name=\"strCustName["+(rowCount)+"]\" readonly=\"readonly\"  class=\"Box\" size=\"25%\" id=\"strCustName."+(rowCount)+"\" value='"+data.strCustName+"'>";
-			    row.insertCell(5).innerHTML= "<input name=\"strAgainst["+(rowCount)+"]\" id=\"strAgainst."+(rowCount)+"\" readonly=\"readonly\"   size=\"14%\" class=\"Box\" value='"+data.strAgainst+"'>";		    	   
-			    row.insertCell(6).innerHTML= "<input name=\"DblSubTotalAmt["+(rowCount)+"]\" id=\"DblSubTotalAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;\" size=\"8%\" class=\"Box\" value="+data.dblTotalAmt+">";
-			    row.insertCell(7).innerHTML= "<input name=\"DblTaxAmt["+(rowCount)+"]\" id=\"DblTaxAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;\" size=\"12%\" class=\"Box\" value="+data.dblTaxAmt+">";
-			    row.insertCell(8).innerHTML= "<input name=\"DblTotalAmt["+(rowCount)+"]\" id=\"DblTotalAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;\" size=\"12%\" class=\"Box\" value="+data.dblGrandTotal+">";
+			    row.insertCell(0).innerHTML= "<input name=\"strPropertyName["+(rowCount)+"]\" readonly=\"readonly\"  class=\"Box\" style=\"width:99%;\" id=\"strPropertyName."+(rowCount)+"\" value='"+data.strPropertyName+"'>";		    
+			    row.insertCell(1).innerHTML= "<input name=\"strSRCode["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"strSRCode."+(rowCount)+"\" value='"+data.strSRCode+"'>";
+			    row.insertCell(2).innerHTML= "<input name=\"dteSRDate["+(rowCount)+"]\" id=\"dteSRDate."+(rowCount)+"\" readonly=\"readonly\" style=\"width:99%;\" class=\"Box\" value="+data.dteSRDate+">";
+			    row.insertCell(3).innerHTML= "<input name=\"strDCCode["+(rowCount)+"]\" id=\"strDCCode."+(rowCount)+"\" readonly=\"readonly\" style=\"width:99%;\" class=\"Box\" value="+data.strDCCode+">";
+			    row.insertCell(4).innerHTML= "<input name=\"strCustName["+(rowCount)+"]\" readonly=\"readonly\"  class=\"Box\" style=\"width:99%;\" id=\"strCustName."+(rowCount)+"\" value='"+data.strCustName+"'>";
+			    row.insertCell(5).innerHTML= "<input name=\"strAgainst["+(rowCount)+"]\" id=\"strAgainst."+(rowCount)+"\" readonly=\"readonly\" style=\"width:99%;\" class=\"Box\" value='"+data.strAgainst+"'>";		    	   
+			    row.insertCell(6).innerHTML= "<input name=\"DblSubTotalAmt["+(rowCount)+"]\" id=\"DblSubTotalAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;width:99%;\"  class=\"Box\" value="+data.dblTotalAmt+">";
+			    row.insertCell(7).innerHTML= "<input name=\"DblTaxAmt["+(rowCount)+"]\" id=\"DblTaxAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;width:99%;\" class=\"Box\" value="+data.dblTaxAmt+">";
+			    row.insertCell(8).innerHTML= "<input name=\"DblTotalAmt["+(rowCount)+"]\" id=\"DblTotalAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;width:99%;\"  class=\"Box\" value="+data.dblGrandTotal+">";
 			   
 			    
 			    funApplyNumberValidation();
@@ -340,14 +348,14 @@
 			     var rowCount = table.rows.length;
 			     var row = table.insertRow(rowCount);
 			    
-				    row.insertCell(0).innerHTML= "<input name=\"strSRCode["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"25%\" id=\"strSRCode."+(rowCount)+"\" value='"+data.strSRCode+"'>";	
-				    row.insertCell(1).innerHTML= "<input name=\"strProductName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"25%\" id=\"strProductName."+(rowCount)+"\" value='"+data.strProductName+"'>";
-				    row.insertCell(2).innerHTML= "<input name=\"strAgainst["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strAgainst."+(rowCount)+"\" value='"+data.strAgainst+"'>";
-				    row.insertCell(3).innerHTML= "<input name=\"dteSRDate["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"12%\" id=\"dteSRDate."+(rowCount)+"\" value='"+data.dteSRDate+"'>";
-				    row.insertCell(4).innerHTML= "<input name=\"CustomerName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"CustomerName."+(rowCount)+"\" value='"+data.strCustName+"'>";
-				    row.insertCell(5).innerHTML= "<input name=\"strLocName["+(rowCount)+"]\" id=\"strLocName."+(rowCount)+"\" readonly=\"readonly\"   size=\"14%\" class=\"Box\" value='"+data.strLocName+"'>";
-				    row.insertCell(6).innerHTML= "<input name=\"dblQty["+(rowCount)+"]\" id=\"dblQty."+(rowCount)+"\" readonly=\"readonly\"   style=\"text-align: right;\" size=\"9%\" class=\"Box\" value="+data.dblConversion+">";
-				    row.insertCell(7).innerHTML= "<input name=\"DblSubTotalAmt["+(rowCount)+"]\" id=\"DblSubTotalAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;\" size=\"10%\" class=\"Box\" value="+data.dblTotalAmt+">";
+				    row.insertCell(0).innerHTML= "<input name=\"strSRCode["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"strSRCode."+(rowCount)+"\" value='"+data.strSRCode+"'>";	
+				    row.insertCell(1).innerHTML= "<input name=\"strProductName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"strProductName."+(rowCount)+"\" value='"+data.strProductName+"'>";
+				    row.insertCell(2).innerHTML= "<input name=\"strAgainst["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"strAgainst."+(rowCount)+"\" value='"+data.strAgainst+"'>";
+				    row.insertCell(3).innerHTML= "<input name=\"dteSRDate["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"dteSRDate."+(rowCount)+"\" value='"+data.dteSRDate+"'>";
+				    row.insertCell(4).innerHTML= "<input name=\"CustomerName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"CustomerName."+(rowCount)+"\" value='"+data.strCustName+"'>";
+				    row.insertCell(5).innerHTML= "<input name=\"strLocName["+(rowCount)+"]\" id=\"strLocName."+(rowCount)+"\" readonly=\"readonly\"  style=\"width:99%;\" class=\"Box\" value='"+data.strLocName+"'>";
+				    row.insertCell(6).innerHTML= "<input name=\"dblQty["+(rowCount)+"]\" id=\"dblQty."+(rowCount)+"\" readonly=\"readonly\"   style=\"text-align: right;width:99%;\"  class=\"Box\" value="+data.dblConversion+">";
+				    row.insertCell(7).innerHTML= "<input name=\"DblSubTotalAmt["+(rowCount)+"]\" id=\"DblSubTotalAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;width:99%;\"  class=\"Box\" value="+data.dblTotalAmt+">";
 				   // row.insertCell(8).innerHTML= "<input name=\"DblTaxAmt["+(rowCount)+"]\" id=\"DblTaxAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;\" size=\"10%\" class=\"Box\" value="+data.dblTaxAmt+">";
 				   // row.insertCell(9).innerHTML= "<input name=\"DblTotalAmt["+(rowCount)+"]\" id=\"DblTotalAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;\" size=\"10%\" class=\"Box\" value="+data.dblGrandTotal+">";
 				    
@@ -417,12 +425,12 @@
 			    var row = table.insertRow(rowCount);
 			    data.dblTotalAmt=parseFloat(data.dblTotalAmt).toFixed(maxQuantityDecimalPlaceLimit);
 			    
-			    row.insertCell(0).innerHTML= "<input name=\"customerCode["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"25%\" id=\"customerCode."+(rowCount)+"\" value='"+data.strSRCode+"'>";
-			    row.insertCell(1).innerHTML= "<input name=\"CustomerName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"25%\" id=\"CustomerName."+(rowCount)+"\" value='"+data.strCustName+"'>";	    
-			    row.insertCell(2).innerHTML= "<input name=\"strAgainst["+(rowCount)+"]\" id=\"strAgainst."+(rowCount)+"\" readonly=\"readonly\"   size=\"14%\" class=\"Box\" value='"+data.strAgainst+"'>";
-			    row.insertCell(3).innerHTML= "<input name=\"strLocName["+(rowCount)+"]\" id=\"strLocName."+(rowCount)+"\" readonly=\"readonly\"   size=\"14%\" class=\"Box\" value='"+data.strLocName+"'>";
-			    row.insertCell(4).innerHTML= "<input name=\"dteSRDate["+(rowCount)+"]\" id=\"dteSRDate."+(rowCount)+"\" readonly=\"readonly\"   size=\"14%\" class=\"Box\" value="+data.dteSRDate+">";
-			    row.insertCell(5).innerHTML= "<input name=\"DblSubTotalAmt["+(rowCount)+"]\" id=\"DblSubTotalAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;\" size=\"12%\" class=\"Box\" value="+data.dblTotalAmt+">";
+			    row.insertCell(0).innerHTML= "<input name=\"customerCode["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"customerCode."+(rowCount)+"\" value='"+data.strSRCode+"'>";
+			    row.insertCell(1).innerHTML= "<input name=\"CustomerName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"CustomerName."+(rowCount)+"\" value='"+data.strCustName+"'>";	    
+			    row.insertCell(2).innerHTML= "<input name=\"strAgainst["+(rowCount)+"]\" id=\"strAgainst."+(rowCount)+"\" readonly=\"readonly\" style=\"width:99%;\" class=\"Box\" value='"+data.strAgainst+"'>";
+			    row.insertCell(3).innerHTML= "<input name=\"strLocName["+(rowCount)+"]\" id=\"strLocName."+(rowCount)+"\" readonly=\"readonly\"  style=\"width:99%;\" class=\"Box\" value='"+data.strLocName+"'>";
+			    row.insertCell(4).innerHTML= "<input name=\"dteSRDate["+(rowCount)+"]\" id=\"dteSRDate."+(rowCount)+"\" readonly=\"readonly\"  style=\"width:99%;\" class=\"Box\" value="+data.dteSRDate+">";
+			    row.insertCell(5).innerHTML= "<input name=\"DblSubTotalAmt["+(rowCount)+"]\" id=\"DblSubTotalAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;width:99%;\"  class=\"Box\" value="+data.dblTotalAmt+">";
 			    
 				}
 				
@@ -485,14 +493,14 @@
 			     var rowCount = table.rows.length;
 			     var row = table.insertRow(rowCount);
 			    
-				    row.insertCell(0).innerHTML= "<input name=\"strSRCode["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"25%\" id=\"strSRCode."+(rowCount)+"\" value='"+data.strSRCode+"'>";		    
-				    row.insertCell(1).innerHTML= "<input name=\"strProductName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"20%\" id=\"strProductName."+(rowCount)+"\" value='"+data.strProductName+"'>";
-				    row.insertCell(2).innerHTML= "<input name=\"strAgainst["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strAgainst."+(rowCount)+"\" value='"+data.strAgainst+"'>";
-				    row.insertCell(3).innerHTML= "<input name=\"dteSRDate["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"12%\" id=\"dteSRDate."+(rowCount)+"\" value='"+data.dteSRDate+"'>";
-				    row.insertCell(4).innerHTML= "<input name=\"CustomerName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"CustomerName."+(rowCount)+"\" value='"+data.strCustName+"'>";
-				    row.insertCell(5).innerHTML= "<input name=\"strLocName["+(rowCount)+"]\" id=\"strLocName."+(rowCount)+"\" readonly=\"readonly\"   size=\"14%\" class=\"Box\" value='"+data.strLocName+"'>";
-				    row.insertCell(6).innerHTML= "<input name=\"dblQty["+(rowCount)+"]\" id=\"dblQty."+(rowCount)+"\" readonly=\"readonly\"   style=\"text-align: right;\" size=\"9%\" class=\"Box\" value="+data.dblConversion+">";
-				    row.insertCell(7).innerHTML= "<input name=\"DblSubTotalAmt["+(rowCount)+"]\" id=\"DblSubTotalAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;\" size=\"10%\" class=\"Box\" value="+data.dblTotalAmt+">";
+				    row.insertCell(0).innerHTML= "<input name=\"strSRCode["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"strSRCode."+(rowCount)+"\" value='"+data.strSRCode+"'>";		    
+				    row.insertCell(1).innerHTML= "<input name=\"strProductName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"strProductName."+(rowCount)+"\" value='"+data.strProductName+"'>";
+				    row.insertCell(2).innerHTML= "<input name=\"strAgainst["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"strAgainst."+(rowCount)+"\" value='"+data.strAgainst+"'>";
+				    row.insertCell(3).innerHTML= "<input name=\"dteSRDate["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"dteSRDate."+(rowCount)+"\" value='"+data.dteSRDate+"'>";
+				    row.insertCell(4).innerHTML= "<input name=\"CustomerName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"CustomerName."+(rowCount)+"\" value='"+data.strCustName+"'>";
+				    row.insertCell(5).innerHTML= "<input name=\"strLocName["+(rowCount)+"]\" id=\"strLocName."+(rowCount)+"\" readonly=\"readonly\"  style=\"width:99%;\" class=\"Box\" value='"+data.strLocName+"'>";
+				    row.insertCell(6).innerHTML= "<input name=\"dblQty["+(rowCount)+"]\" id=\"dblQty."+(rowCount)+"\" readonly=\"readonly\"   style=\"text-align: right;width:99%;\"  class=\"Box\" value="+data.dblConversion+">";
+				    row.insertCell(7).innerHTML= "<input name=\"DblSubTotalAmt["+(rowCount)+"]\" id=\"DblSubTotalAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;width:99%;\"  class=\"Box\" value="+data.dblTotalAmt+">";
 				   // row.insertCell(8).innerHTML= "<input name=\"DblTaxAmt["+(rowCount)+"]\" id=\"DblTaxAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;\" size=\"10%\" class=\"Box\" value="+data.dblTaxAmt+">";
 				   // row.insertCell(9).innerHTML= "<input name=\"DblTotalAmt["+(rowCount)+"]\" id=\"DblTotalAmt."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;\" size=\"10%\" class=\"Box\" value="+data.dblGrandTotal+">";
 				    
@@ -566,62 +574,59 @@
 </head>
 
 <body>
-	<div id="formHeading">
-		<label>Sales Return Flash</label>
-	</div>
-	<s:form name="Form" method="GET" action="">
-		<br />
-
-		<table class="transTable">
-			<tr>
-			
-
-				<td><label id="lblFromDate">From Date</label></td>
-				<td><s:input id="txtFromDate" required="required" path=""
-						name="fromDate" cssClass="calenderTextBox" onchange="funChangeFromDate();" /></td>
-
-				<td><label id="lblToDate">To Date</label></td>
-				<td colspan="3"><s:input id="txtToDate" name="toDate" path=""
-						cssClass="calenderTextBox" onchange="funChangeToDate();" /></td>
-			</tr>
-			<tr>
-				<td><label>Location Code</label></td>
-				<td><s:input type="text" id="txtLocCode" path="strLocCode"
-						cssClass="searchTextBox" ondblclick="funHelp('locationmaster');" /></td>
-				<td colspan="2"><label id="lblLocName"></label></td>
+	<div class="container">
+		<label id="formHeading">Sales Return Flash</label>
+		<s:form name="Form" method="GET" action="">
+			<div class="row transTable">
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-6">
+							<label id="lblFromDate">From Date</label>
+							<s:input id="txtFromDate" required="required" path=""
+								name="fromDate" cssClass="calenderTextBox" onchange="funChangeFromDate();" />
+						</div>
+						<div class="col-md-6">
+							<label id="lblToDate">To Date</label>
+							<s:input id="txtToDate" name="toDate" path=""
+								cssClass="calenderTextBox" onchange="funChangeToDate();" />
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<label>Location Code</label>
+						<s:input type="text" id="txtLocCode" path="strLocCode"
+							cssClass="searchTextBox" ondblclick="funHelp('locationmaster');" />
+				</div>
+				<div class="col-md-2">
+					<label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 43%; margin-top:25px; padding:2px;"></label>
+				</div>
+				<div class="col-md-5"></div>
 <!-- 				<td width="100px"><label>Settlement</label> -->
 <%-- 				<td><s:select id="cmbSettlement" path="strSettlementCode" --%>
 <%-- 						items="${settlementList}" cssClass="BoxW124px" /></td> --%>
-               <td><input id="btnExport" type="button" value="EXPORT"  class="form_button1" onclick="funExportReport()" /></td>
-              
-                   <s:input type="hidden" id="hidReportName" path=""></s:input>		
-               
-			</tr>
-			<tr>
-			
-			<td><label>Customer Code</label></td>
-									<td ><s:input path="" id="txtCustCode"
-											ondblclick="funHelp('custMasterActive')" cssClass="searchTextBox" /></td>
-									<td><label id="lblCustomerName"
-										class="namelabel"></label></td>
-									<td>
-									 <td><input id="btnExport" type="button" value="PRINT"  class="form_button1" onclick="funPrintReport()" /></td>
-									</tr>
-									
-			
-
-
-		</table>
-
-
-
-
-<br/><br/>
+            	 
+                 	<s:input type="hidden" id="hidReportName" path=""></s:input>
+                 <div class="col-md-2">
+					<label>Customer Code</label>
+						<s:input path="" id="txtCustCode"
+							ondblclick="funHelp('custMasterActive')" cssClass="searchTextBox" />
+				</div>
+				<div class="col-md-2">
+					<label id="lblCustomerName" class="namelabel"  style="background-color:#dcdada94; width: 100%; height: 43%; margin-top:25px; padding:2px;"></label>
+				</div>
+			</div>
+			<div class="center" style="text-align:right; margin-right:47%;">
+				<a href="#"><button class="btn btn-primary center-block" id="btnExport" value="EXPORT" onclick="funExportReport()" 
+						 class="form_button1">EXECUTE</button></a>
+				<a href="#"><button class="btn btn-primary center-block" id="btnExport" value="PRINT" onclick="funPrintReport()"
+						class="form_button1">PRINT</button></a>
+			</div>
+	
 		<div id="divRegionWise" class="dynamicTableContainer"
 			style="height: 400px;">
 			<table style="width: 100%; border: #0F0; table-layout: fixed;"
 				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#c0c0c0">
 					<td width="10%">Property Name </td>
 					<td width="6.1%">SR Code</td>
 					<td width="6.1%">Date</td>
@@ -635,7 +640,7 @@
 				</tr>
 			</table>
 			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblRegionDet"
 					style="width: 100%; border: #0F0; table-layout: fixed;"
 					class="transTablex col15-center">
@@ -653,17 +658,12 @@
 
 				</table>
 			</div>
-
 		</div>
-
-
-
-
 		<div id="divItemWise" class="dynamicTableContainer"
 			style="height: 400px;">
 			<table style="width: 100%; border: #0F0; table-layout: fixed;"
 				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#c0c0c0">
 					<td width="5.3%">SR Code</td>
 					<td width="11.7%">Product Name </td>
 					<td width="4.6%">Against</td>
@@ -675,7 +675,7 @@
 				</tr>
 			</table>
 			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblItemDet"
 					style="width: 100%; border: #0F0; table-layout: fixed;"
 					class="transTablex col15-center">
@@ -693,31 +693,22 @@
 
 				</table>
 			</div>
-
 		</div>
-
-
-
-
-		
-
-
 	<div id="divCustomerWise" class="dynamicTableContainer"
 			style="height: 400px;">
 			<table style="width: 100%; border: #0F0; table-layout: fixed;"
 				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#c0c0c0">
 					<td width="4.6%">Customer Code</td>
 					<td width="12%">Customer Name</td>
 					<td width="4.8%">Against</td>
 					<td width="5%">Location</td>
 					<td width="5%">Date</td>
 					<td width="5%">SubTotal</td>
-
 				</tr>
 			</table>
 			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblCustomerDet"
 					style="width: 100%; border: #0F0; table-layout: fixed;"
 					class="transTablex col15-center">
@@ -733,15 +724,12 @@
 
 				</table>
 			</div>
-
 		</div>
-
-
 		<div id="divCategoryWise" class="dynamicTableContainer"
 			style="height: 400px;">
 			<table style="width: 100%; border: #0F0; table-layout: fixed;"
 				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#c0c0c0">
 					<td width="7.4%">Group Name</td>
 					<td width="9.3%">SubGroup Name </td>
 					<td width="4.5%">Against</td>
@@ -753,7 +741,7 @@
 				</tr>
 			</table>
 			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblCategoryDet"
 					style="width: 100%; border: #0F0; table-layout: fixed;"
 					class="transTablex col15-center">
@@ -766,18 +754,12 @@
 					<col style="width: 5%">
 					<col style="width: 4.5%">
 					<col style="width: 3.9%">
-
 					</tbody>
-
 				</table>
 			</div>
-
 		</div>
-
-	
-		
 		<div id="divValueTotal"
-			style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 50px; margin: auto; overflow-x: hidden; overflow-y: hidden; width: 94%;">
+			style="background-color: c0c0c0; border: 1px solid #ccc; display: block; height: 50px; margin: auto; overflow-x: hidden; overflow-y: hidden; width: 94%;">
 			<table id="tblTotalFlash" class="transTablex"
 				style="width: 100%; font-size: 11px; font-weight: bold;">
 				<tr style="margin-left: 28px">
@@ -791,31 +773,36 @@
 					<td id="tdTotValue" width="10%" align="right"><input
 						id="txtTotValue" style="width: 100%; text-align: right;"
 						class="Box"></input></td>
-
 				</tr>
 			</table>
 		</div>
-
-
 		<div
-			style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 50px; margin: auto;  width: 94%;">
-
-			<td><input id="btnRegionWise" type="button" class="form_button"
-				value="Region Wise" onclick="funOnClckRegionWiseBtn('divRegionWise')" /></td>
-			<td><input id="btnItemWise" type="button" class="form_button"
-				value="Product Wise"
-				onclick="funOnClckItemWiseBtn('divItemWise')" /></td>
-			<td><input id="btnCustomerWise" type="button"
-				class="form_button" value="Customer Wise"  onclick="funOnClckCuctomerWiseBtn('divCustomerWise')" /></td>
-			<td><input id="btnCategoryWise" type="button"
-				class="form_button" value="Group SubGroup Wise"  onclick="funOnClckGroupSubGroupWiseBtn('divCategoryWise')" style="background-size: 140px 24px; width: 140px;" /></td>
-			
+			style="background-color: #c0c0c0; border: 1px solid #ccc; display: block; height: 40px; margin: auto;  width: 94%;">
+			<table>
+				<tr>
+					<td>
+						<input id="btnRegionWise" type="button" class="btn btn-primary center-block form_button"
+							value="Region Wise" onclick="funOnClckRegionWiseBtn('divRegionWise')" style="color:#000;" />
+					</td>
+					<td>
+						<input id="btnItemWise" type="button" class="btn btn-primary center-block form_button"
+							value="Product Wise" onclick="funOnClckItemWiseBtn('divItemWise')" style="color:#000;" />
+					</td>
+					<td>
+						<input id="btnCustomerWise" type="button"
+							class="btn btn-primary center-block form_button" value="Customer Wise"  onclick="funOnClckCuctomerWiseBtn('divCustomerWise')" style="color:#000;"/>
+					</td>
+					<td>
+						<input id="btnCategoryWise" type="button"
+							class="btn btn-primary center-block form_button" value="Group SubGroup Wise"  onclick="funOnClckGroupSubGroupWiseBtn('divCategoryWise')" style="background-size: 140px 24px; width: 140px; color:#000;"/>
+					</td>	
+				</tr>
+			</table>
 		</div>
-		
-
-<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
+			<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 	</s:form>
+	</div>
 </body>
 </html>

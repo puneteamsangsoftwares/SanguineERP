@@ -46,7 +46,7 @@
   
 	   <div class="row">
 		<div class="col-md-2"><label>Property Code</label>
-				         <s:select id="strPropertyCode" path="strPropertyCode" items="${listOfProperty}" required="true" style="height: 45%;"></s:select>
+				         <s:select id="strPropertyCode" path="strPropertyCode" items="${listOfProperty}" required="true"></s:select>
 		</div>
 		
 		<div class="col-md-3">
@@ -63,7 +63,7 @@
 			</div></div>
 	        <div class="col-md-7"></div>
 	        <div class="col-md-1"><label style="width: 110%;">Report Type</label>
-					<s:select id="cmbDocType" path="strDocType" style="height: 45%;">
+					<s:select id="cmbDocType" path="strDocType">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
 				    		<s:option value="HTML">HTML</s:option>

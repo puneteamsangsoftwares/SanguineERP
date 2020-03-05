@@ -1,13 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+    
 <script type="text/javascript">
 
 function funHelp(transactionName)
@@ -37,49 +45,41 @@ function funHelp(transactionName)
 </script>
 </head>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>Sub Contractor GRN Slip</label>
-	</div>
+	<div class="container transTable">
+		<label id="formHeading">Sub Contractor GRN Slip</label>
 	<s:form name="SubContractorGRNSlip" method="GET"
 		action="rptSubContractorGRNSlip.html" >
 		<input type="hidden" value="${urlHits}" name="saddr">
 		<br>
-		<table class="transTable">
-								<tr>
-									<td width="170px"><label>Sub-Contractor Return  Code</label></td>
-									<td colspan="3"><s:input path="strDocCode" id="txtSCCode"
+		     <div class="row">
+							<div class="col-md-5">
+			                       <div class="row">
+			                           <div class="col-md-5"><label>Sub-Contractor Return  Code</label>
+									        <s:input path="strDocCode" id="txtSCCode"
 											ondblclick="funHelp('SCGRNCodeslip')"
-											cssClass="searchTextBox" /></td>
-											<td colspan="1"><label id="lblJobOrderName"
-										class="namelabel"></label></td>
-																										
-								</tr>
-								<tr>
-								
-
-				<td><label>Report Type</label></td>
-				<td ><s:select id="cmbDocType" path="strDocType"
-						cssClass="BoxW124px">
+											cssClass="searchTextBox" /></div>
+										<div class="col-md-7"><label id="lblJobOrderName"
+										class="namelabel" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top:11%"></label></div>
+							  </div></div>
+							
+				<div class="col-md-2"><label>Report Type</label>
+			         <s:select id="cmbDocType" path="strDocType" style="width:45%">
 						<s:option value="PDF">PDF</s:option>
 						<s:option value="XLS">EXCEL</s:option>
 						<s:option value="HTML">HTML</s:option>
 						<s:option value="CSV">CSV</s:option>
-					</s:select></td>
+					</s:select>
+			     </div>
 
-
-
-
-			</tr>
-
-		</table>
+		    </div>
 		<br>
-		<p align="center">
+		<p align="right" style="margin-right:50%">
 			<input type="submit" value="Submit"
-				onclick="return funCallFormAction('submit',this)"
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <a
-				STYLE="text-decoration: none"
+				onclick="return funCallFormAction('submit',this)" class="btn btn-primary center-block" 
+				class="form_button" /> &nbsp;
+			 <a STYLE="text-decoration: none"
 				href="frmSubContractorGRNSlip.html?saddr=${urlHits}"><input
-				type="button" id="reset" name="reset" value="Reset"
+				type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block" 
 				class="form_button" /></a>
 		</p>
 		<br>
@@ -90,6 +90,6 @@ function funHelp(transactionName)
 				width="60px" height="60px" />
 		</div>
 	</s:form>
-
+  </div>
 </body>
 </html>

@@ -216,7 +216,7 @@ $(document).ready(function(){
 		    </div>
 			    
 		   <div class="col-md-1"><label style="width: 135%;">Attribute Type</label>
-			    <s:select id="cmbAttType" name="cmbAttType" path="strAttType" items="${listAttType}"/>			    	
+			    <s:select id="cmbAttType" name="cmbAttType" path="strAttType" items="${listAttType}" style="width: auto;"/>			    	
 			    	<s:errors path="strAttType"></s:errors>
 			</div>
 			 <div class="col-md-7"></div> 

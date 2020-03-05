@@ -1,10 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <title></title>
 <script type="text/javascript">
 	var fieldName,txtAgainst;
@@ -339,55 +349,47 @@
 
 </head>
 <body>
-
-	<div id="formHeading">
-	<label>Job Order</label>
-	</div>
-
-<br/>
-<br/>
-
+	<div class="container">
+		<label id="formHeading">Job Order</label>
+	
 	<s:form name="JobOrder" method="POST" action="saveJobOrder.html">
-		<table style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
-			<tr>
-				<td>
-					<div id="tab_container">
-						<ul class="tabs">
-							<li class="active" data-state="tab1"
-								style="width: 100px; padding-left: 55px">Sale Order Wise</li>
-							<li data-state="tab2" style="width: 100px; padding-left: 55px">Direct</li>
-						</ul>
-						
-						<br/>
-						<br/>
-						<div id="tab1" class="tab_content" style="height: 450px">
-
-							<table class="transTable">
-								<tr>
-									<td><label>Against</label></td>
-									<td>
-										<select id="txtAgainst" class="BoxW124px">
-											<option value="salesOrder">Sales Order</option>
-											<option value="productionOrder">Production Order</option>
-											<option value="serviceOrder">Service Order</option>
-										</select>
-									</td>
-									<td><label>Order Code</label></td>
-									<td><s:input type="text" id="txtSOCode" path="strSOCode" ondblclick="funHelp1()"
-												cssClass="searchTextBox"  /></td>
-									<td></td>
-									<td id="btnGenJobOrder">
+		<div style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
+			<div id="tab_container">
+				<ul class="tabs">
+					<li class="active" data-state="tab1">Sale Order Wise</li>
+					<li data-state="tab2">Direct</li>
+				</ul>
+					<br/>
+					<br/>
+						<div id="tab1" class="tab_content">
+							<div class="row transTable">
+								<div class="col-md-2">
+									<label>Against</label>
+									<select id="txtAgainst">
+										<option value="salesOrder">Sales Order</option>
+										<option value="productionOrder">Production Order</option>
+										<option value="serviceOrder">Service Order</option>
+									</select>
+								</div>
+								<div class="col-md-2">	
+									<label>Order Code</label>
+									<s:input type="text" id="txtSOCode" path="strSOCode" ondblclick="funHelp1()"
+												cssClass="searchTextBox"  />
+								</div>
+								<div class="col-md-2">
+									<div id="btnGenJobOrder">
 										<input type="button" id="generateJobOrder" value="Generate" onClick="funGenerateJobOrder();" />
-									</td>
-								</tr>
-							</table>
+									</div>
+								</div>	
+								
+							</div>
 							<br/>
 							
-							<div class="transTable" style="background-color: #a4d7ff; border: 1px solid #ccc;
-									 display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; ">
+							<div class="transTable" style="background-color: #fbfafa; border: 1px solid #ccc;
+									 display: block; height: 250px;overflow-x: hidden; overflow-y: scroll; margin:0px; ">
 								<table id="tblJobOrderDtl" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 											class="transTablex col15-center">
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#c0c0c0">
 											<th width="15%">Job Order No.</th>
 											<!--  COl1   -->
 											<th width="15%">Product Code</th>
@@ -406,49 +408,48 @@
 							 
 
 						<div id="tab2" class="tab_content">
-							
-							<table class="transTable">
-								<tr>
-									<td><label>Job Order Code</label></td>
-									<td><s:input type="text" id="txtJOCode" path="strJOCode"
-											cssClass="searchTextBox" ondblclick="funHelp('JOCode');" /></td>
-
-									<td><label>Job Order Date</label></td>
-									<td><s:input type="text" id="txtJODate" path="dteJODate" require="require"
-											cssClass="calenderTextBox" /></td>
-									<td colspan="2"></td>
-								</tr>
-								<tr>
-									<td><label>Product</label></td>
-									<td><s:input type="text" id="txtProdCode" path="strProdCode" require="require"
-											cssClass="searchTextBox" ondblclick="funHelp('productmaster');" /></td>
-									<td colspan="2"><label id="txtprodName"></label></td>
-											
-									<td><label>Quantity</label></td>
-									<td><s:input type="text"  id="txtQty" path="dblQty" require="require"
-										cssClass="BoxW124px decimal-places numberField"	/></td>
-								</tr>
-								<tr>
-									<td>Status</td>
-									<td colspan="5"><label id="txtStatus"></label></td>
-								</tr>
-							</table>
-							
-							<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
-		</p>
-							
-						</div>
-
-						
-					</div>
-				</td>
-			</tr>
-		</table>
-
-	</s:form>
+							<div class="row transTable" style="overflow:hidden;">
+								<div class="col-md-2">
+									<label>Job Order Code</label>
+									<s:input type="text" id="txtJOCode" path="strJOCode"
+											cssClass="searchTextBox" ondblclick="funHelp('JOCode');" />
+								</div>
+								<div class="col-md-2">
+									<label>Job Order Date</label>
+									<s:input type="text" id="txtJODate" path="dteJODate" require="require"
+											cssClass="calenderTextBox" style="width:80%;" />
+								</div>
+								<div class="col-md-2">
+									<label>Product</label>
+									<s:input type="text" id="txtProdCode" path="strProdCode" require="require"
+											cssClass="searchTextBox" ondblclick="funHelp('productmaster');" />
+								</div>
+								<div class="col-md-2">
+									<label id="txtprodName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+									></label>
+								</div>
+								<div class="col-md-4"></div>
+								<div class="col-md-2">		
+									<label>Quantity</label>
+									<s:input type="text"  id="txtQty" path="dblQty" require="require"
+										cssClass="BoxW124px decimal-places numberField"	/>
+								</div>
+								<div class="col-md-2">	
+									<label>Status</label>
+									<label id="txtStatus" style="background-color:#dcdada94; width: 100%; height: 52%;text-align:   center;"
+									> </label>
+								</div>
+							</div>
+				<div class="center" style="text-align:center;">
+					<a href="#"><button class="btn btn-primary center-block" value="Submit"
+						class="form_button">Submit</button></a> &nbsp;
+					<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetFields()"
+						class="form_button">Reset</button></a>
+				</div>	
+			</div>	
+		</div>
+	</div>
+</s:form>
+</div>
 </body>
 </html>

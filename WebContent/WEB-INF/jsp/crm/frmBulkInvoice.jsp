@@ -1,16 +1,30 @@
- <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Bulk Invoice</title>
+    <title> Bulk Invoice </title>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 	
+	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
+    
     <style>
   #tblGroup tr:hover , #tblSubGroup tr:hover, #tblloc tr:hover{
-	background-color: #72BEFC;
+	       background-color: #c0c0c0;
 	
+}
+.transTable td{ 
+           padding-left: 55px;
 }
 </style>
     <script type="text/javascript">
@@ -116,13 +130,9 @@
 
      			// funSetAllLocationAllPrpoerty();
     		   funSetAllCust();
-    		 
-    			 
-    			 
+    		 	 
     		});	
       
-
-    
 	  //Open Help
       function funHelp(transactionName)
 		{
@@ -143,7 +153,6 @@
 			}
 		}
       
-   
     //Get and Set All Location on the basis of all Property
       /* function funSetAllLocationAllPrpoerty() {
 			var searchUrl = "";
@@ -207,8 +216,7 @@
 		} */
 	  
 	  
-		     
-	      //Get and set Customer  Data 
+	  //Get and set Customer  Data 
 	      function funSetAllCust() {
 				var searchUrl = "";
 				searchUrl = getContextPath()+ "/loadAllCustomer.html";
@@ -306,7 +314,7 @@
 			}
 		    
 				
-		    //Fill Supplier Data
+		//Fill Supplier Data
 		    function funfillCustGrid(strCustCode,strCustName)
 			{
 				
@@ -333,9 +341,7 @@
 				    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box \" name=\"listMultipleSOCodes["+(rowCount)+"].strCustName\" size=\"32%\" id=\"strCustName."+(rowCount)+"\" value='"+strCustName+"' >";
 				    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  name=\"listMultipleSOCodes["+(rowCount)+"].dblSubTotalAmt\"  style=\"text-align: right;\" size=\"11%\" id=\"dblSubTotalAmt."+(rowCount)+"\" value='"+dblSubTotal+"' >";
 				    row.insertCell(5).innerHTML= "<input type=\"hidden\"   name=\"listMultipleSOCodes["+(rowCount)+"].strCustCode\"   size=\"0%\" id=\"strCustCode."+(rowCount)+"\" value='"+strCustCode+"' >";
-
-				
-			}
+             }
 		    
 		    
 		    //Remove All Row from Grid Passing Table Id as a parameter
@@ -533,42 +539,47 @@
   </head>
   	
 	<body id="frmBulkInvoice">
-	<div id="formHeading">
-		<label>Bulk Invoice</label>
-	</div>
-	
-		<s:form name="frmBulkInvoice" method="POST"
-		action="saveBulkInvoice.html?saddr=${urlHits}">
+	<div class="transTable">
+		<label id="formHeading">Bulk Invoice</label>
+	    <s:form name="frmBulkInvoice" method="POST" action="saveBulkInvoice.html?saddr=${urlHits}">
 	   		<br />
-	   		<table class="transTable">
-			    <tr>
-					<td width="10%"><label>From SO Date :</label></td>
-					<td colspan="1" width="10%"><s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
-					<td width="10%"><label>To SO Date :</label></td>
-					<td colspan="1"><s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-					<td width="10%"><label>Invoice Date :</label></td>
-				    <td colspan="1"><s:input id="txtInvoiceDate" path="dteInvDate" required="true" readonly="readonly" cssClass="calenderTextBox"/>
-				     
-		            <td width="10%"><input type="button" value="Execute" class="form_button" onclick="btnExecute_Onclick();"/></td>
+	   		
+	   	<div class="row">
+			 <div class="col-md-2"><label>From SO Date :</label>
+					<s:input id="txtFromDate" path="dteFromDate" required="true" readonly="readonly" cssClass="calenderTextBox" style="width:70%;"/>
+			 </div>
+			 
+		     <div class="col-md-2"><label>To SO Date :</label>
+					<s:input id="txtToDate" path="dteToDate" required="true" readonly="readonly" cssClass="calenderTextBox" style="width:70%;"/>
+			 </div>
+			
+			 <div class="col-md-2"><label>Invoice Date :</label>
+				    <s:input id="txtInvoiceDate" path="dteInvDate" required="true" readonly="readonly" cssClass="calenderTextBox" style="width:70%;"/>
+			 </div>	     
+			 
+		     <div class="col-md-2"><br>
+		            <input type="button" value="Execute"  class="btn btn-primary center-block" class="form_button" onclick="btnExecute_Onclick();"/>
+		     </div>
 					
-				</tr>
-				<tr>
+	         <div class="col-md-4"></div>
+	         
 				<!-- <td colspan="4"></td> -->
-				<td width="100px"><label>Settlement</label>
-					<td><s:select id="cmbSettlement" path="strSettlementCode"
-											items="${settlementList}" cssClass="BoxW124px" 
-											onkeypress="funGetKeyCode(event,'Settlement')" onclick="funChangeCombo()" /></td>
+			   <div class="col-md-2"><label>Settlement</label>
+					<s:select id="cmbSettlement" path="strSettlementCode" items="${settlementList}"
+						onkeypress="funGetKeyCode(event,'Settlement')" onclick="funChangeCombo()" style="width:60%;"/>
+			   </div>
 								
-					<td ><label>Currency </label></td>
-									
-					<td width="10%"><s:select id="cmbCurrency" items="${currencyList}" path="strCurrencyCode" cssClass="BoxW124px" onclick="funOnChangeCurrency()">
-				    </s:select></td>
-					<td >
-					<s:input  type="text"   id="txtDblCurrencyConv" style="text-align: right;" name="txtDblCurrencyConv" path="dblCurrencyConv" class="decimal-places numberField" cssClass="BoxW48px" />
-					</td >
-					<td><input type="hidden" id="txtSettlementType"> 
-					</td>	
-				</tr>
+			   <div class="col-md-2"><label>Currency </label>
+					<s:select id="cmbCurrency" items="${currencyList}" path="strCurrencyCode" onclick="funOnChangeCurrency()" style="width:60%;"> </s:select>
+			   </div>
+			   
+			   <div class="col-md-1"><br>
+			         <s:input  type="text"   id="txtDblCurrencyConv" style="text-align: right;margin-top: 10px;" name="txtDblCurrencyConv" path="dblCurrencyConv" class="decimal-places numberField"/>
+			   </div>           
+			           
+			   <div class="col-md-2"> <input type="hidden" id="txtSettlementType"></div>	
+			  
+               <div class="col-md-5"></div>
 			<%-- 	 <tr>
 					<td width="10%"><label>From Fulfillment Date :</label></td>
 					<td colspan="1" width="10%"><s:input id="txtFromFulfillment" path="dteFromFulfillment" required="true" readonly="readonly" cssClass="calenderTextBox"/></td>
@@ -577,36 +588,22 @@
 					</td>
 				</tr>
  --%>				
-			    </table>
-				<br>
-			<table class="transTable">
-			
-			<tr>
-			
-					
-			</tr>
-		</table>
-		<br>
-		<table class="transTable">
-				
-		<tr>
-				<td colspan="2">Customer&nbsp;&nbsp;&nbsp;<input style="width: 35%; background-position: 150px 2px;" type="text" id="txtCustCode" 
-			 Class="searchTextBox" placeholder="Type to search"></input>
-			<label id="lblCustName"></label></td>
-		
-			</tr>
-			<tr>
-						<td colspan="2">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 350px;width: 400px; overflow-x: hidden; overflow-y: scroll;">
-
-							<table id="" class="masterTable"
-								style="width: 100%; border-collapse: separate;">
+	          <div class="col-md-2"><label>Customer</label>
+	               <input style="width: 95%;" type="text" id="txtCustCode" 
+			            Class="searchTextBox" placeholder="Type to search"></input>
+			       <label id="lblCustName"></label>
+		      </div>
+		      
+		      <div class="col-md-10"> </div>
+		      
+	          <div class="col-md-6"> 
+					<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 350px;width: 580px; overflow-x: hidden; overflow-y: scroll;">
+                          <table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#c0c0c0">
 										<td width="15%"><input type="checkbox" checked="checked" 
 										id="chkCustALL"/>Select</td>
-										<td width="25%">To Customer Code</td>
+										<td width="35%">To Customer Code</td>
 										<td width="65%">To Customer Name</td>
 
 									</tr>
@@ -615,21 +612,21 @@
 							<table id="tblCust" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+								<!-- <tr bgcolor="#fafbfb;">
 									
 
-								</tr>
+								</tr> -->
 							</table>
 						</div>
-				</td>
-				<td colspan="5">
-						<div
-							style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 350px;width: 600px; overflow-x: hidden; overflow-y: scroll;">
+				</div>
+				
+				<div class="col-md-6"> 
+						<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 350px;width: 600px; overflow-x: hidden; overflow-y: scroll;">
 
 							<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+									<tr bgcolor="#c0c0c0">
 										<td width="5%"><input type="checkbox" checked="checked" 
 										id="chkCustALLSO"/>Select</td>
 										<td width="22.5%">SO Code</td>
@@ -644,51 +641,39 @@
 							<table id="tblSOData" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 
-								<tr bgcolor="#72BEFC">
+								<tr bgcolor="#fafbfb">
 									
 
 								</tr>
 							</table>
-						</div>
-				</td>
-				
-				
-				
-				
-				
-				
-			
-		</table>
-		
+				 		</div>
+				    </div>
+			   </div> 
 		<br>
 	<%-- 	<table class="transTable">
 			<tr>
 				<td width="10%"><label>Report Type :</label></td>
-				<td colspan="3"><s:select id="cmbDocType" path="strDocType"
-						cssClass="BoxW124px">
+				<td colspan="3"><s:select id="cmbDocType" path="strDocType">
  						<s:option value="PDF">PDF</s:option> 
 						<s:option value="XLS">EXCEL</s:option>
 					</s:select></td>
 			</tr>
 <tr>
 
-
 	</table> --%>
 		
 
 		<br>
 			<p align="center">
-				 <input type="submit" value="Submit"  class="form_button" onclick ="return funSubmit()" />
-				 <input type="button" value="Reset" class="form_button" onclick="funResetFields()"/>	
+				 <input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick ="return funSubmit()" />
+				 &nbsp;
+				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>	
 				 		     
 			</p>  
 			
-			
 			<s:input type="hidden" id="hidCustCodes" path="strSuppCode"></s:input>
 			<s:input type="hidden" id="hidSOCodes" path="strSOCode"></s:input>
-
-			
-			
+ 
 			<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
 			<img
@@ -696,5 +681,6 @@
 				width="60px" height="60px" />
 		</div>
 		</s:form>
+	   </div>
 	</body>
 </html>

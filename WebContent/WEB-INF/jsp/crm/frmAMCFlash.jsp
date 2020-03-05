@@ -1,10 +1,21 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@	taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	 
+	 	 
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <title>Insert title here</title>
 </head>
 	<script type="text/javascript">
@@ -174,7 +185,7 @@ $(document).ready(function()
 			
 			    
 			    row.insertCell(0).innerHTML= "<input name=\"listAMCDtl["+(rowCount)+"].strselect\" id=\"cbSel."+(rowCount)+"\" size=\"3%\" type=\"checkbox\"  />";
-			    row.insertCell(1).innerHTML= "<input  name=\"listAMCDtl["+(rowCount)+"].strCustomerName\"  readonly=\"readonly\" class=\"Box\" size=\"33%\" id=\"StrInvCode."+(rowCount)+"\" value='"+data.strCustomerName+"'>";
+			    row.insertCell(1).innerHTML= "<input  name=\"listAMCDtl["+(rowCount)+"].strCustomerName\"  readonly=\"readonly\" class=\"Box\" style=\"margin-left: 35px;\" size=\"23%\" id=\"StrInvCode."+(rowCount)+"\" value='"+data.strCustomerName+"'>";
 			    row.insertCell(2).innerHTML= "<input name=\"listAMCDtl["+(rowCount)+"].dblLicenceAmt\" readonly=\"readonly\" class=\"Box\"  style=\"text-align: center;\" size=\"34%\" id=\"DteInvDate."+(rowCount)+"\" value='"+data.dblLicenceAmt+"'>";
 			    row.insertCell(3).innerHTML= "<input name=\"listAMCDtl["+(rowCount)+"].dteInstallation\" readonly=\"readonly\" style=\"text-align: center;\"  class=\"Box\" size=\"30%\" id=\"DteInvDate1."+(rowCount)+"\" value='"+data.dteInstallation+"'>";
 			    row.insertCell(4).innerHTML= "<input name=\"listAMCDtl["+(rowCount)+"].dteExpiry\" id=\"dteExpiry."+(rowCount)+"\" readonly=\"readonly\" style=\"text-align: right;\" size=\"33%\" class=\"Box\" value="+data.dteExpiry+">"; 
@@ -249,51 +260,54 @@ $(document).ready(function()
 		
 </script>
 <body>
-	<s:form name="AMCFlash" method="POST" action="saveAMCInvoice.html?saddr=${urlHits}" >
-	<table class="transTable">
-			<tr><th colspan="6"></th></tr>
-				<tr>
-				    <td><label id="lblFromDate">AMC From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dteFromDate"></s:errors>
-			        </td>
-			        <td><label id="lblToDate">AMC To Date</label></td>
-			        <td>
-			            <s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
-			        	<s:errors path="dteToDate"></s:errors>
-			        </td>
-			        
-					<td width="100px"><label>Settlement</label>
-					<td><s:select id="cmbSettlement" path="strSettlementCode"
-								items="${settlementList}" cssClass="BoxW124px" 
-								onkeypress="funGetKeyCode(event,'Settlement')" onclick="funChangeCombo()" /></td>
-				</tr>
-				<tr>
-					<td colspan="4"><input id="btnExecute" type="button" class="form_button1"   value="EXECUTE"/></td>
-				</tr>
-			</table>
-			
-		<div id="divDocList" class="dynamicTableContainer"
-			style="height: 400px;">
+	<div class="container">
+		<label id="formHeading">AMC Flash</label>
+		<s:form name="AMCFlash" method="POST" action="saveAMCInvoice.html?saddr=${urlHits}" >
+		<div class="row transTable">
+			<div class="col-md-3">
+				<div class="row">
+					<div class="col-md-6">
+			 			<label id="lblFromDate">AMC From Date</label>
+			         		<s:input id="txtFromDate" name="fromDate" path="dteFromDate" cssClass="calenderTextBox"/>
+			          		<s:errors path="dteFromDate"></s:errors>
+					 </div>
+					 <div class="col-md-6">
+			      		<label id="lblToDate">AMC To Date</label>
+			           		<s:input id="txtToDate" name="toDate" path="dteToDate" cssClass="calenderTextBox"/>
+			       			<s:errors path="dteToDate"></s:errors>
+			 		</div>
+			 	</div>
+			 </div>
+			  <div class="col-md-2">
+					<label>Settlement</label>
+					<s:select id="cmbSettlement" path="strSettlementCode"
+						items="${settlementList}" cssClass="BoxW124px" style="width:80%;"
+						onkeypress="funGetKeyCode(event,'Settlement')" onclick="funChangeCombo()" />
+			</div>
+			<div class="col-md-2">
+				<input style="margin-top:23px;" id="btnExecute" type="button" class="btn btn-primary center-block"   value="Execute"/>
+			</div>
+		</div>
+			<br>
+		<div id="divDocList" class="dynamicTableContainer" style="height: 400px;">
 			<table style="width: 100%; border: #0F0;   overflow-x: scroll; overflow-y: scroll;"
 				class="transTablex col15-center">
-				<tr bgcolor="#72BEFC">
-					<td width="1%">Select<input type="checkbox" id="chkALL" onclick="funCheckUncheck()" /></td>
+				<tr bgcolor="#c0c0c0">
+					<td width="3%">Select<input type="checkbox" id="chkALL" onclick="funCheckUncheck()" /></td>
 					<td width="8%">Customer Name</td>
-					<td width="9%"> Licence Amount</td>
-					<td width="9%">Insatlation Date</td>
-					<td width="8%">Expiry Date</td>
+					<td width="10%"> Licence Amount</td>
+					<td width="10%">Insatlation Date</td>
+					<td width="10%">Expiry Date</td>
 					<td width="6%">AMC Amount</td>
 				</tr>
 			</table>
 			<div
-				style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 					<table id="tblTranList"
 					style="width: 100%; border: #0F0;  overflow-x: scroll; overflow-y: scroll;"
 					class="transTablex col15-center">
 					<tbody>
-					<col style="width: 3%">
+					<col style="width: 8%">
 					<col style="width: 8%">
 					<!--  COl1   -->
 					<col style="width: 9%">
@@ -305,22 +319,22 @@ $(document).ready(function()
 					<col style="width: 6%">
 					
 					<col style="width: 0%">
-				 
-					
-										
+				 			
 					</tbody>
 
 				</table>
 			</div>
-
 		</div>
-		<div align="center">
-			<input type="submit" value="Submit" onclick="return funValidateFields();" class="form_button" /> &nbsp; &nbsp; &nbsp; 
-			<input type="button" id="reset" name="reset" value="Reset" class="form_button" />
+		<div class="center">
+			<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidateFields();"
+				class="form_button">Submit</button></a>
+			<a href="#"><button class="btn btn-primary center-block" value="RESET" id="reset" 
+				class="form_button">Reset</button></a>
 		</div>
 		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
-				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
-			</div>
+			<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+		</div>
 	</s:form>
+</div>
 </body>
 </html>
