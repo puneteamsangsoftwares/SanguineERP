@@ -1697,6 +1697,7 @@ padding-left:1px;
 									 var extraBedDesc = "";
 									 var strPayee = "N";
 									funAddDetailsRow(guestName,guestCode,mobileNo,roomNo,roomDesc,extraBedCode,extraBedDesc,strPayee,rTypeCode);
+									funFillRoomRate();
 								},
 								error : function(e){
 									if (jqXHR.status === 0) {

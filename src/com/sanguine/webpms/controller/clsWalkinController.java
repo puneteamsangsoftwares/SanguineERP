@@ -471,7 +471,7 @@ public class clsWalkinController {
 	}
 	
 	@RequestMapping(value = "/loadRoomRateWalkin", method = RequestMethod.POST)
-	public @ResponseBody List funLoadRoomRate(String arrivalDate, String departureDate,String roomDescList,String paxCount, HttpServletRequest req) throws ParseException {
+	public @ResponseBody List funLoadRoomRate(String arrivalDate, String departureDate,String roomDescList, HttpServletRequest req) throws ParseException {
 		
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
@@ -490,6 +490,7 @@ public class clsWalkinController {
 		LocalDate localDdeptDate = dtf.parseLocalDate(deptDate);
 		clsPropertySetupHdModel objPropertySetupModel= objPropertySetupService.funGetPropertySetup(propertyCode, clientCode);
 		String roomCode="";
+		int cntRoom = 0;
 		if(roomDescList!="")
 		{
 			String[] roomCodeList = roomDescList.split(",");
@@ -498,7 +499,13 @@ public class clsWalkinController {
 				roomCode = roomCodeList[i];
 				if(!listRoomCode.contains(roomCode))
 				{
-		
+					for(int j=0;j<roomCodeList.length;j++)
+					{
+						if(roomCode.equalsIgnoreCase(roomCodeList[j]))
+						{
+							cntRoom++;
+						}
+					}
 //		clsRoomMasterModel objRoomMaster=objRoomMasterService.funGetRoomMaster(roomCode, clientCode);
 //		String roomType="";
 //		if(!objRoomMaster.getStrRoomTypeCode().equals(""))
@@ -511,10 +518,21 @@ public class clsWalkinController {
 		if(null!=listRoomData && listRoomData.size()>0)
 		{
 			clsRoomTypeMasterModel objRoomTypeMasterModel = (clsRoomTypeMasterModel) listRoomData.get(0);
-			roomRate=objRoomTypeMasterModel.getDblRoomTerrif();
+			if(cntRoom==1)
+			{
+				roomRate=objRoomTypeMasterModel.getDblRoomTerrif();	
+			}
+			else if(cntRoom==2)
+			{
+				roomRate=objRoomTypeMasterModel.getDblDoubleTariff();	
+			}
+			else 
+			{
+				roomRate=objRoomTypeMasterModel.getDblTrippleTariff();	
+			}
+			
+			
 			roomTypedesc=objRoomTypeMasterModel.getStrRoomTypeDesc();
-		}else{
-			roomRate=0.0;
 		}
 		
 		for (LocalDate date = localArrvDate;(date.isBefore(localDdeptDate)|| date.isEqual(localDdeptDate)); date = date.plusDays(1))
@@ -529,6 +547,7 @@ public class clsWalkinController {
 			
 		}
 		listRoomCode.add(roomCode);
+		cntRoom=0;
 		}
 		
 		}

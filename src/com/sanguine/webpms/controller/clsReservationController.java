@@ -975,7 +975,7 @@ public class clsReservationController {
 		DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
 //		DateTimeFormatter formatter = DateTimeFormatter.BASIC_ISO_DATE;
 		LocalDate localArrvDate = dtf.parseLocalDate(arrvDate);
-		
+		int cntRoom=0;
 		LocalDate localDdeptDate = dtf.parseLocalDate(deptDate);
 		clsPropertySetupHdModel objPropertySetupModel= objPropertySetupService.funGetPropertySetup(propertyCode, clientCode);
 		String roomCode="";
@@ -989,6 +989,13 @@ public class clsReservationController {
 				if(!listRoomCode.contains(roomCode))
 				{
 		
+					for(int j=0;j<roomCodeList.length;j++)
+					{
+						if(roomCode.equalsIgnoreCase(roomCodeList[j]))
+						{
+							cntRoom++;
+						}
+					}
 //		clsRoomMasterModel objRoomMaster=objRoomMasterService.funGetRoomMaster(roomCode, clientCode);
 //		String roomType="";
 //		if(!objRoomMaster.getStrRoomTypeCode().equals(""))
@@ -1001,13 +1008,24 @@ public class clsReservationController {
 		if(null!=listRoomData && listRoomData.size()>0)
 		{
 			clsRoomTypeMasterModel objRoomTypeMasterModel = (clsRoomTypeMasterModel) listRoomData.get(0);
-			roomRate=objRoomTypeMasterModel.getDblRoomTerrif();
-			dblDoubleRoomRate = objRoomTypeMasterModel.getDblDoubleTariff();
+			
+			if(cntRoom==1)
+			{
+				roomRate=objRoomTypeMasterModel.getDblRoomTerrif();	
+			}
+			else if(cntRoom==2)
+			{
+				roomRate=objRoomTypeMasterModel.getDblDoubleTariff();	
+			}
+			else 
+			{
+				roomRate=objRoomTypeMasterModel.getDblTrippleTariff();	
+			}
+			/*roomRate=objRoomTypeMasterModel.getDblRoomTerrif();
+			dblDoubleRoomRate = objRoomTypeMasterModel.getDblDoubleTariff();*/
 			//roomRate = funCalculateTax(roomRate);
 			
 			roomTypedesc=objRoomTypeMasterModel.getStrRoomTypeDesc();
-		}else{
-			roomRate=0.0;
 		}
 		
 		for (LocalDate date = localArrvDate;(date.isBefore(localDdeptDate)|| date.isEqual(localDdeptDate)); date = date.plusDays(1))
@@ -1036,6 +1054,7 @@ public class clsReservationController {
 			
 		}
 		listRoomCode.add(roomCode);
+		cntRoom=0;
 		}
 		
 		}

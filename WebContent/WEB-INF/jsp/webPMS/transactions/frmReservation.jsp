@@ -2030,10 +2030,7 @@
 // 			 month='0'+month;
 // 		 } 
 		var dblRate = list[1];
-		if(dblPaxCnt==2)
-			{
-				dblRate = list[4];
-			}
+		
 		 date=day+"-"+month+"-"+dateSplit[0];
 		 row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:50%;\" name=\"listReservationRoomRateDtl["+(rowCount)+"].dtDate\"  id=\"dtDate."+(rowCount)+"\" value='"+date+"' >";
  	     row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" id=\"strTypeRoomDesc."+(rowCount)+"\" value='"+list[2]+"' />";
