@@ -728,7 +728,7 @@ table tbody tr:nth-child(even) {
 		{
 			color='linear-gradient(250.46deg, #ff94ed 0.67%, #9242fc 100%);';
 		}
-		else if(roomStatus=='Reservation')
+		else if(roomStatus=='RESERVATION')
 		{
 			color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
 		}
@@ -1679,7 +1679,7 @@ table tbody tr:nth-child(even) {
 		  }
 		  function funReservation() 
 		  {		
-			  gSelection='Waiting';			  
+			  gSelection='RESERVATION';			  
 			  if(gViewSelection=='Seven Day View')
 			  {
 				  funShowRoomStatusFlashSelectionWise();
@@ -1777,26 +1777,6 @@ table tbody tr:nth-child(even) {
 			  	alert("Select View First");
 			  }
 		  }
-		  function funReservation() 
-		  {		
-			  gSelection='Reservation';			  
-			  if(gViewSelection=='Seven Day View')
-			  {
-				  funShowRoomStatusFlashSelectionWise();
-			  }
-			  else if(gViewSelection=='One Day View')
-			  {
-				  funShowRoomStatusFlashForOneDaySelectionWise();
-			  }
-			  else if(gViewSelection=='House Keeping View')
-			  {
-				  funShowRoomStatusFlashHouseKeepingSelectionWise();
-			  }
-			  else
-			  {
-			  	alert("Select View First");
-			  }
-		  }	
 		 
 		  
 		  function funGetRoomTypeAndStatusSelectionWise()
@@ -1896,297 +1876,300 @@ table tbody tr:nth-child(even) {
 		   */
 		  function funFillRoomStatusRows(roomNo,day1,day2,day3,day4,day5,day6,day7,roomStatus,response)
 			{
-				var table=document.getElementById("tblRoomType");
-				var rowCount=table.rows.length;
-				var row=table.insertRow();
-				row.style.display='none';
-				response.dblRemainingAmt='Balance: '+response.dblRemainingAmt;
-				var color='';
-				
-				var toolTipText1="",toolTipText2="",toolTipText3="",toolTipText4="",toolTipText5="",toolTipText6="",toolTipText7="";
-				if(roomStatus=='Waiting')
-				{
-					color='linear-gradient(250.46deg, #ff94ed 0.67%, #9242fc 100%);';
-				}
-				else if(roomStatus=='RESERVATION')
-				{
-					color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
-				}
-				else if(roomStatus=='Occupied')
-				{
-					color='linear-gradient(250.46deg, #3ade5e 0%, #2ba56e 100%);';
-				}
-				else if(roomStatus=='Checked Out')
-				{
-					color='linear-gradient(250.46deg, #d5d5d5 0%, #9d9d9d 100%);';
-				}
-				else if(roomStatus=='Blocked')
-				{
-					color='linear-gradient(250.46deg, #94b9ff 0.67%, #4283fc 100%);';
-				}
-				else if(roomStatus=='Dirty')
-				{
-					color='linear-gradient(70.46deg, #e4a846 0%, #ffd58e 100%);';
-				}  
-				else if(roomStatus=='VIRTUAL RESERVATION')
-				{
-					color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
-				}  
-			
-				if(day1==null)
-				{
-					day1='';
-				}
-				else
-				{
-					if(response.strReservationNo!=null)
-					{						
-							      day1+='                  ,'+response.strReservationNo;							  
-							      toolTipText1+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
-					}
-				}
-				
-				if(day2==null)
-				{
-					day2='';
-				}
-				else
-				{
-					if(response.strReservationNo!=null)
+			   if((response.strRoomStatus==gSelection && response.strReservationNo!=null)||gSelection=='')
 					{
-							      day2+='                    ,'+response.strReservationNo;
-							      toolTipText2+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
+					var table=document.getElementById("tblRoomType");
+					var rowCount=table.rows.length;
+					var row=table.insertRow();
+					row.style.display='none';
+					response.dblRemainingAmt='Balance: '+response.dblRemainingAmt;
+					var color='';
+					
+					var toolTipText1="",toolTipText2="",toolTipText3="",toolTipText4="",toolTipText5="",toolTipText6="",toolTipText7="";
+					if(roomStatus=='Waiting')
+					{
+						color='linear-gradient(250.46deg, #ff94ed 0.67%, #9242fc 100%);';
 					}
-				}
+					else if(roomStatus=='RESERVATION')
+					{
+						color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
+					}
+					else if(roomStatus=='Occupied')
+					{
+						color='linear-gradient(250.46deg, #3ade5e 0%, #2ba56e 100%);';
+					}
+					else if(roomStatus=='Checked Out')
+					{
+						color='linear-gradient(250.46deg, #d5d5d5 0%, #9d9d9d 100%);';
+					}
+					else if(roomStatus=='Blocked')
+					{
+						color='linear-gradient(250.46deg, #94b9ff 0.67%, #4283fc 100%);';
+					}
+					else if(roomStatus=='Dirty')
+					{
+						color='linear-gradient(70.46deg, #e4a846 0%, #ffd58e 100%);';
+					}  
+					else if(roomStatus=='VIRTUAL RESERVATION')
+					{
+						color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
+					}  
 				
-				if(day3==null)
-				{
-					day3='';
-				}
-				else
-				{
-					if(response.strReservationNo!=null)
+					if(day1==null)
 					{
-							      day3+='                     ,'+response.strReservationNo;
-							      toolTipText3+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;	
+						day1='';
 					}
-				}
-				
-				if(day4==null)
-				{
-					day4='';
-				}
-				else
-				{
-					if(response.strReservationNo!=null)
+					else
 					{
-							      day4+='                    ,'+response.strReservationNo;
-							      toolTipText4+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
+						if(response.strReservationNo!=null)
+						{						
+								      day1+='                  ,'+response.strReservationNo;							  
+								      toolTipText1+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
+						}
 					}
-				}
-				
-				if(day5==null)
-				{
-					day5='';
-				}
-				else
-				{
-					if(response.strReservationNo!=null)
+					
+					if(day2==null)
 					{
-							      day5+='                    ,'+response.strReservationNo;
-							      toolTipText5+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
+						day2='';
 					}
-				}
-				
-				if(day6==null)
-				{
-					day6='';
-				}
-				else
-				{
-					if(response.strReservationNo!=null)
+					else
 					{
-							      day6+='                    ,'+response.strReservationNo;
-							      toolTipText6+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
+						if(response.strReservationNo!=null)
+						{
+								      day2+='                    ,'+response.strReservationNo;
+								      toolTipText2+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
+						}
 					}
-				}
-				
-				if(day7==null)
-				{
-					day7='';
-				}
-				else
-				{
-					if(response.strReservationNo!=null)
+					
+					if(day3==null)
 					{
-							      day7+='                     ,'+response.strReservationNo;
-							      toolTipText7+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
+						day3='';
 					}
-				}
-						
-				if(roomNo.includes(""))
-				{
-					row.insertCell(0).innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \" style=\"text-align: center;width: 100%;\" value='"+roomNo+"' ></div>";
-				}
-				else
-				{
-					row.insertCell(0).innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \" style=\"text-align: center;width: 100%;\" value='"+roomNo+"' ></div>";
-				}
-								
-				var x1=row.insertCell(1);				
-				if(roomStatus.includes('Dirty'))
+					else
 					{
-						day1='DIRTY                                      ,'+roomNo;
-						x1.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+"; \"><input readonly=\"readonly\" class=\"Box \"  style=\"width: 100%;height: 20px; color: white; \" value='"+day1+"' onClick='funOnClick(this)' ></div>";
+						if(response.strReservationNo!=null)
+						{
+								      day3+='                     ,'+response.strReservationNo;
+								      toolTipText3+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;	
+						}
 					}
-				else
+					
+					if(day4==null)
 					{
-					if(day1==''){
-						x1.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\" ><input  readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;color: white;transform:skew(14deg); \" value='"+day1+"' onClick='funOnClick(this)' ></div>";
+						day4='';
 					}
-					else{
-						x1.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input  readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;color: white;transform:skew(14deg); \" value='"+day1+"' onClick='funOnClick(this)' ></div>";
-					}
-				}
-				
-				if(day1!='')
-				{ 
-					x1.style.transform='skew(-17deg)';
-					x1.title=toolTipText1;
-				}
-				
-				var x2=row.insertCell(2);
-				x2.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(9deg);\" value='"+day2+"' onClick='funOnClick(this)' ></div>";
-				if(day1!='')
-				{
-				if(!day1.includes(day2))
-				{
-					x2.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-size:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day2+"' onClick='funOnClick(this)' ></div>";
-					x2.style.transform='skew(-17deg)';
-					x2.title=toolTipText2;
-				}
-				}
-				else
-				{
-					if(day2!='')
+					else
 					{
-						//x2.bgColor=color;
-						x2.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day2+"' onClick='funOnClick(this)' ></div>";
+						if(response.strReservationNo!=null)
+						{
+								      day4+='                    ,'+response.strReservationNo;
+								      toolTipText4+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
+						}
+					}
+					
+					if(day5==null)
+					{
+						day5='';
+					}
+					else
+					{
+						if(response.strReservationNo!=null)
+						{
+								      day5+='                    ,'+response.strReservationNo;
+								      toolTipText5+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
+						}
+					}
+					
+					if(day6==null)
+					{
+						day6='';
+					}
+					else
+					{
+						if(response.strReservationNo!=null)
+						{
+								      day6+='                    ,'+response.strReservationNo;
+								      toolTipText6+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
+						}
+					}
+					
+					if(day7==null)
+					{
+						day7='';
+					}
+					else
+					{
+						if(response.strReservationNo!=null)
+						{
+								      day7+='                     ,'+response.strReservationNo;
+								      toolTipText7+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
+						}
+					}
+							
+					if(roomNo.includes(""))
+					{
+						row.insertCell(0).innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \" style=\"text-align: center;width: 100%;\" value='"+roomNo+"' ></div>";
+					}
+					else
+					{
+						row.insertCell(0).innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \" style=\"text-align: center;width: 100%;\" value='"+roomNo+"' ></div>";
+					}
+									
+					var x1=row.insertCell(1);				
+					if(roomStatus.includes('Dirty'))
+						{
+							day1='DIRTY                                      ,'+roomNo;
+							x1.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+"; \"><input readonly=\"readonly\" class=\"Box \"  style=\"width: 100%;height: 20px; color: white; \" value='"+day1+"' onClick='funOnClick(this)' ></div>";
+						}
+					else
+						{
+						if(day1==''){
+							x1.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\" ><input  readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;color: white;transform:skew(14deg); \" value='"+day1+"' onClick='funOnClick(this)' ></div>";
+						}
+						else{
+							x1.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input  readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;height: 20px;color: white;transform:skew(14deg); \" value='"+day1+"' onClick='funOnClick(this)' ></div>";
+						}
+					}
+					
+					if(day1!='')
+					{ 
+						x1.style.transform='skew(-17deg)';
+						x1.title=toolTipText1;
+					}
+					
+					var x2=row.insertCell(2);
+					x2.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(9deg);\" value='"+day2+"' onClick='funOnClick(this)' ></div>";
+					if(day1!='')
+					{
+					if(!day1.includes(day2))
+					{
+						x2.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-size:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day2+"' onClick='funOnClick(this)' ></div>";
 						x2.style.transform='skew(-17deg)';
 						x2.title=toolTipText2;
 					}
-				}
-								
-				var x3=row.insertCell(3);
-				x3.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px; transform:skew(9deg); \" value='"+day3+"' onClick='funOnClick(this)'></div>";
-				if(day1!='')
-				{
-					if(!day1.includes(day3))
-					{
-						x3.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-size:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day3+"' onClick='funOnClick(this)'></div>";
-						x3.style.transform='skew(-17deg)';
-						x3.title=toolTipText3;
 					}
-				}
-				else
-				{
-					if(day3!='')
+					else
 					{
-						x3.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day3+"' onClick='funOnClick(this)'></div>";
-						x3.style.transform='skew(-17deg)';
-						x3.title=toolTipText3;
+						if(day2!='')
+						{
+							//x2.bgColor=color;
+							x2.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day2+"' onClick='funOnClick(this)' ></div>";
+							x2.style.transform='skew(-17deg)';
+							x2.title=toolTipText2;
+						}
 					}
-				}				
-				
-				var x4=row.insertCell(4);
-				x4.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px; transform:skew(9deg);\" value='"+day4+"' onClick='funOnClick(this)' ></div>";
-				if(day1!='')
-				{
-					if(!day1.includes(day4))
+									
+					var x3=row.insertCell(3);
+					x3.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px; transform:skew(9deg); \" value='"+day3+"' onClick='funOnClick(this)'></div>";
+					if(day1!='')
 					{
-						x4.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-size:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day4+"' onClick='funOnClick(this)'></div>";
-						x4.style.transform='skew(-17deg)';
-						x4.title=toolTipText4;
+						if(!day1.includes(day3))
+						{
+							x3.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-size:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day3+"' onClick='funOnClick(this)'></div>";
+							x3.style.transform='skew(-17deg)';
+							x3.title=toolTipText3;
+						}
 					}
-				}
-				else
-				{
-					if(day4!='')
+					else
 					{
-						x4.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day4+"' onClick='funOnClick(this)'></div>";
-						x4.style.transform='skew(-17deg)';
-						x4.title=toolTipText4;
+						if(day3!='')
+						{
+							x3.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day3+"' onClick='funOnClick(this)'></div>";
+							x3.style.transform='skew(-17deg)';
+							x3.title=toolTipText3;
+						}
+					}				
+					
+					var x4=row.insertCell(4);
+					x4.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px; transform:skew(9deg);\" value='"+day4+"' onClick='funOnClick(this)' ></div>";
+					if(day1!='')
+					{
+						if(!day1.includes(day4))
+						{
+							x4.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-size:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day4+"' onClick='funOnClick(this)'></div>";
+							x4.style.transform='skew(-17deg)';
+							x4.title=toolTipText4;
+						}
 					}
-				}				
-				
-				var x5=row.insertCell(5);
-				x5.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px; transform:skew(9deg);\" value='"+day5+"' onClick='funOnClick(this)' ></div>";
-				if(day1!='')
-				{
-					if(!day1.includes(day5))
+					else
 					{
-						x5.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width:font:size:0px; 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day5+"' onClick='funOnClick(this)'></div>";
-						x5.style.transform='skew(-17deg)';
-						x5.title=toolTipText5;
+						if(day4!='')
+						{
+							x4.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day4+"' onClick='funOnClick(this)'></div>";
+							x4.style.transform='skew(-17deg)';
+							x4.title=toolTipText4;
+						}
+					}				
+					
+					var x5=row.insertCell(5);
+					x5.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px; transform:skew(9deg);\" value='"+day5+"' onClick='funOnClick(this)' ></div>";
+					if(day1!='')
+					{
+						if(!day1.includes(day5))
+						{
+							x5.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width:font:size:0px; 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day5+"' onClick='funOnClick(this)'></div>";
+							x5.style.transform='skew(-17deg)';
+							x5.title=toolTipText5;
+						}
 					}
-				}
-				else
-				{
-					if(day5!='')
+					else
 					{
-						x5.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day5+"' onClick='funOnClick(this)'></div>";
-						x5.style.transform='skew(-17deg)';
-						x5.title=toolTipText5;
+						if(day5!='')
+						{
+							x5.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day5+"' onClick='funOnClick(this)'></div>";
+							x5.style.transform='skew(-17deg)';
+							x5.title=toolTipText5;
+						}
+					}				
+					
+					
+					var x6=row.insertCell(6);
+					x6.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px; transform:skew(9deg);\" value='"+day6+"' onClick='funOnClick(this)'></div>";
+					if(day1!='')
+					{
+						if(!day1.includes(day6))
+						{
+							x6.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-size:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day6+"' onClick='funOnClick(this)'></div>";
+							x6.style.transform='skew(-17deg)';
+							x6.title=toolTipText6;
+						}
 					}
-				}				
-				
-				
-				var x6=row.insertCell(6);
-				x6.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px; transform:skew(9deg);\" value='"+day6+"' onClick='funOnClick(this)'></div>";
-				if(day1!='')
-				{
-					if(!day1.includes(day6))
+					else
 					{
-						x6.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-size:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day6+"' onClick='funOnClick(this)'></div>";
-						x6.style.transform='skew(-17deg)';
-						x6.title=toolTipText6;
+						if(day6!='')
+						{
+							x6.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day6+"' onClick='funOnClick(this)'></div>";
+							x6.style.transform='skew(-17deg)';
+							x6.title=toolTipText6;
+						}						
+					}				
+					
+					var x7=row.insertCell(7);
+					x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%; color:#fff;height: 20px; transform:skew(9deg); \" value='"+day7+"' onClick='funOnClick(this)' ></div>";
+					if(day1!='')
+					{
+						if(!day1.includes(day7))
+						{
+							x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-style:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day7+"' onClick='funOnClick(this)' ></div>";
+		
+							x7.bgColor=color;
+							x7.style.transform='skew(-17deg)';
+							x7.title=toolTipText7;
+						}
 					}
-				}
-				else
-				{
-					if(day6!='')
+					else
 					{
-						x6.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day6+"' onClick='funOnClick(this)'></div>";
-						x6.style.transform='skew(-17deg)';
-						x6.title=toolTipText6;
-					}						
-				}				
-				
-				var x7=row.insertCell(7);
-				x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%; color:#fff;height: 20px; transform:skew(9deg); \" value='"+day7+"' onClick='funOnClick(this)' ></div>";
-				if(day1!='')
-				{
-					if(!day1.includes(day7))
-					{
-						x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-style:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day7+"' onClick='funOnClick(this)' ></div>";
+						if(day7!='')
+						{
+							x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day7+"' onClick='funOnClick(this)' ></div>";
 	
-						x7.bgColor=color;
-						x7.style.transform='skew(-17deg)';
-						x7.title=toolTipText7;
+							x7.bgColor=color;
+							x7.style.transform='skew(-17deg)';
+							x7.title=toolTipText7;
+						}			
 					}
 				}
-				else
-				{
-					if(day7!='')
-					{
-						x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day7+"' onClick='funOnClick(this)' ></div>";
-
-						x7.bgColor=color;
-						x7.style.transform='skew(-17deg)';
-						x7.title=toolTipText7;
-					}			
-				}
-			}
+		   }
 		  
 		  
 </script>
