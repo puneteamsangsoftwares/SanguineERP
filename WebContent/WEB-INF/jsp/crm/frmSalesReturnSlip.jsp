@@ -142,7 +142,7 @@
   
 	<body >
 	  <div class="container masterTable">
-		<label id="formHeading">Sales Return Slip</label>
+		<label id="formHeading">Sales Return Slip Sales Return Slip</label>
 		<s:form name="SalesReturnSlip" method="GET" action="rptSalesReturnSlip.html" target="_blank">
 			
 			
