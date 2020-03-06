@@ -2746,9 +2746,10 @@ public class clsSearchFormController {
 		case "ReservationNo": {
 			
 			columnNames = " a.strReservationNo,ifnull(CONCAT(c.strFirstName,' ',c.strMiddleName,' ',c.strLastName),'')  ,a.dteArrivalDate,a.dteDepartureDate,ifnull(d.strGroupName,'')";
-			tableName = "from tblreservationhd a left outer join tblgroupbookinghd d on a.strGroupCode=d.strGroupCode,tblreservationdtl b left outer join tblguestmaster c on b.strGuestCode=c.strGuestCode "
-					+ "where a.strReservationNo=b.strReservationNo  and a.strReservationNo NOT IN (select strReservationNo from tblcheckinhd) "
-					+ "and a.strCancelReservation='N' group by a.strReservationNo ";
+			tableName = " from tblreservationhd a left outer join tblgroupbookinghd d on a.strGroupCode=d.strGroupCode "
+					+ "left outer join tblcheckinhd e on e.strReservationNo=a.strReservationNo, "
+					+ "tblreservationdtl b left outer join tblguestmaster c on b.strGuestCode=c.strGuestCode "
+					+ "where a.strReservationNo=b.strReservationNo and a.strCancelReservation='N'  group by a.strReservationNo   ";
 			idColumnName = "strReservationNo";
 			listColumnNames = "ReservationNo,Guest Name,Arrival Date,DepartureDate,Group Name";
 			flgQuerySelection = true;

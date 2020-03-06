@@ -11,12 +11,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     
    	<%-- Started Default Script For Page  --%>
-    	<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.js"/>"></script>
+    	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.js"/>"></script>
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.js"/>"></script>
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
 		<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
 		<script type="text/javascript" src="<spring:url value="/resources/js/TreeMenu.js"/>"></script>
 		<script type="text/javascript" src="<spring:url value="/resources/js/main.js"/>"></script>
@@ -40,17 +40,15 @@
 
 	    <link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon" sizes="16x16">
 	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/materialdesignicons.min.css"/>" />
-	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
-		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-		
-		<%-- <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.css"/>" />
-		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" /> --%>
-		
+	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.grid.css"/>" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.grid.min.css"/>" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.css"/>" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
 	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
 	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/tree.css"/>" /> 
 	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/jquery-ui.css"/>" />
 	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/main.css"/>" />
-	 	<%-- <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/"/>" /> --%>
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/"/>" />
 	 	<link rel="stylesheet"  href="<spring:url value="/resources/css/pagination.css"/>" />
 	 	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 	 
@@ -198,6 +196,10 @@ $(document).ready(function(){
    			funGetNotification();
    		<%}%>
    		
+   		<%if(session.getAttribute("selectedModuleName").toString().equalsIgnoreCase("3-WebPMS")){%>
+   		funGetPMSNotification();
+		<%}%>
+   		
    	    $("#notification").click(function(){
    	        $("#MainDiv").fadeToggle();
    	    });
@@ -209,6 +211,13 @@ $(document).ready(function(){
  	setInterval(function(){funGetNotification()},NotificationTimeinterval);
  	
  	
+<%}%>
+
+<%if(session.getAttribute("selectedModuleName").toString().equalsIgnoreCase("3-WebPMS")){%>
+	NotificationTimeinterval=parseInt(NotificationTimeinterval)*60000;
+	setInterval(function(){funGetPMSNotification()},NotificationTimeinterval);
+	
+	
 <%}%>
 //     NetworkcheckTimeinterval=parseInt(30)*100;
 // 	setInterval(function(){funCheckNetworkConnection()},NetworkcheckTimeinterval);
@@ -258,6 +267,49 @@ function funGetNotification()
 	});
 }
 
+function funGetPMSNotification()
+{
+	var searchUrl=getContextPath()+"/getPMSNotification.html";
+	$.ajax({
+        type: "GET",
+        url: searchUrl,
+        dataType: "json",
+        success: function(response)
+        {
+        	funRemoveNotification();
+        	var count=0;
+        	$.each(response, function(i,item)
+        	        {
+        				count=i;
+        				funfillPMSNotificationRow(response[i][0],response[i][1],response[i][2],response[i][3]);
+        	        });
+        	if(response.length>0)
+        		{
+        			NotificationCount=count+1;	
+        		}
+        	
+        	$("#lblNotifyCount").text(NotificationCount);
+        },
+        error: function(jqXHR, exception) {
+            if (jqXHR.status === 0) {
+                alert('Not connect.n Verify Network.');
+            } else if (jqXHR.status == 404) {
+                alert('Requested page not found. [404]');
+            } else if (jqXHR.status == 500) {
+                alert('Internal Server Error [500].');
+            } else if (exception === 'parsererror') {
+                alert('Requested JSON parse failed.');
+            } else if (exception === 'timeout') {
+                alert('Time out error.');
+            } else if (exception === 'abort') {
+                alert('Ajax request aborted.');
+            } else {
+                alert('Uncaught Error.n' + jqXHR.responseText);
+            }		            
+        }
+	});
+}
+
 function funfillNotificationRow(docCode,locationby,narration,userCreated,formName,strLocOn) 
 {
     var table = document.getElementById("tblNotify");
@@ -270,6 +322,20 @@ function funfillNotificationRow(docCode,locationby,narration,userCreated,formNam
  	row.insertCell(2).innerHTML= "<input class=\"Box\" readonly = \"readonly\" size=\"24%\"  value='"+narration+"'>";
     row.insertCell(3).innerHTML= "<input class=\"Box\" readonly = \"readonly\" size=\"24%\"  value='"+userCreated+"'>";
 }
+
+function funfillPMSNotificationRow(reservationNO,name,arivalDate,formName) 
+{
+    var table = document.getElementById("tblNotify");
+    var rowCount = table.rows.length;
+    var row = table.insertRow(rowCount);
+    
+    //row.insertCell(0).innerHTML= "<label>"+strReqCode+"</label>";
+    row.insertCell(0).innerHTML= "<input class=\"Box\" readonly = \"readonly\" size=\"24%\" onClick=\"funClick('"+formName+"','"+reservationNO+"','');\" value='"+reservationNO+"'>";
+ 	row.insertCell(1).innerHTML= "<input class=\"Box\" readonly = \"readonly\" size=\"54%\"  value='"+name+"'>";
+ 	row.insertCell(2).innerHTML= "<input class=\"Box\" readonly = \"readonly\" size=\"24%\"  value='"+arivalDate+"'>";
+}
+
+
 function funRemoveNotification()
 {
 	 $("#tblNotify").find("tr:gt(0)").remove();
@@ -296,6 +362,10 @@ function funRemoveNotification()
 			
 			case "Authorization" :
 				window.open("frmAuthorisationTool.html");
+				break;
+				
+			case "frmReservation" :
+				window.open("frmCheckIn.html");
 				break;
 		}
 		
@@ -499,7 +569,7 @@ function funGetFormName(){
 
 <style>
   #tblNotify tr:hover{
-	background-color: #72BEFC;
+	background-color: #c0c0c0;;
 	
 }
 </style>
@@ -525,6 +595,9 @@ function funGetFormName(){
           					 	<li><a href="frmHome.html" class="mdi mdi-home-outline menu-link"  title="HOME"></a></li>
           						<li><a href="#" class="mdi  mdi-paperclip menu-link" id="baseUrl" title="Attched document"></a></li>
 					            <li><a href="#" class="mdi mdi-information-outline menu-link" id="notification" title="Notification"></a></li>
+					            <div style=" background-color: #f13c0d;text-align: center;height:25px;;width: 15px;margin-top: 12px;">
+								<label id="lblNotifyCount" style="color:#fff;padding-top:2px"></label>
+								</div>
 					            <li><a href="#" class="mdi mdi-crosshairs-question menu-link"onclick="funGetFormName()" title="HELP"></a></li>
 					            <li><a href="frmPropertySelection.html" class="mdi mdi-tumblr-reblog menu-link" title="Change Property"></a></li>
 					            <li><a href="frmChangeModuleSelection.html" class="mdi mdi-rotate-left-variant menu-link" title="Change Module"></a></li>
@@ -540,6 +613,7 @@ function funGetFormName(){
 								class="transTablex">
 								<tbody id="tbodyNotifyid">
 								<tr><td colspan="4">Notifications</td></tr>
+								
 								<%-- <c:forEach items="${Notifcation}" var="draw1" varStatus="status1">
 								<tr>
 								<td>${draw1.strReqCode}</td>

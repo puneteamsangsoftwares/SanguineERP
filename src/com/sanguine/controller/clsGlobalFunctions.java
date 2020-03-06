@@ -3805,6 +3805,43 @@ public class clsGlobalFunctions {
 	}
 	
 	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/getPMSNotification", method = RequestMethod.GET)
+	public @ResponseBody List funGetPendingReservationNotification(HttpServletRequest req,HttpServletResponse resp) {
+		List list = new ArrayList();
+		if (req.getSession().getAttribute("selectedModuleName")!=null && req.getSession().getAttribute("selectedModuleName").toString().equalsIgnoreCase("3-WebPMS")) {
+
+			String clientCode = req.getSession().getAttribute("clientCode").toString();
+			String strLocCode = req.getSession().getAttribute("locationCode").toString();
+			String strUserCode=req.getSession().getAttribute("usercode").toString();
+			String locationName= req.getSession().getAttribute("locationName").toString();
+			clsUserMasterModel objModel = objUserMasterService.funGetObject(strUserCode, clientCode);
+			String PMSDate=funGetDate("yyyy-MM-dd",req.getSession().getAttribute("PMSDate").toString());
+
+			String userCode = req.getSession().getAttribute("usercode").toString();
+			String dteCurrDate = funGetCurrentDate("yyyy-MM-dd");
+			
+			String sql = "select a.strReservationNo ,concat(b.strFirstName,' ',b.strMiddleName,' ',b.strLastName),DATE_FORMAT(a.dteArrivalDate,'%d-%m-%Y'),'frmReservation' "
+					+ "from tblreservationhd a,tblguestmaster b "
+					+ "where date(a.dteArrivalDate)='"+PMSDate+"' and a.strGuestcode=b.strGuestCode "
+					+ " and a.strReservationNo not in(select strReservationNo from tblcheckinhd ) and a.strClientCode='"+clientCode+"'and b.strClientCode='"+clientCode+"'";
+			
+			list = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");;
+	
+		}
+		
+		
+		
+		
+		
+
+		
+//		
+		
+		return list;
+
+	}
+	
+	@SuppressWarnings("rawtypes")
 	public int funCountTransaction(String transName, String clientCode, String userCode)
 	{
 		String sql = "";
