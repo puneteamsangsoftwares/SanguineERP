@@ -30,12 +30,11 @@ padding-left:1px;
 	var gAdultCount,cheGuestCode,gcount;
 	var gAdult=[];
 	var gcount;
-	/* var gRoomMap = new Map(); */
+	var gRoomMap = new Map();
 	var gSetTotalRoom=new Set();
 	
 	var globalRoomNo=new Map();
 	var globalNoOfGuest=new Map();
-	
      $(document).ready(function(){
 	    
 		  $(".tab_content").hide();
@@ -240,6 +239,7 @@ padding-left:1px;
 	
 	  function funFillCheckInHdData(response)
 		{
+		   
 			$("#txtCheckInNo").val(response.strCheckInNo);
 			$("#txtRegistrationNo").val(response.strRegistrationNo);
 			$("#txtDocNo").val(response.strAgainstDocNo);
@@ -373,7 +373,7 @@ padding-left:1px;
 			//gset1=[];
 			gAdult=[];
 			gAdultCount=[];
-			/* gRoomMap=new Map(); */
+			gRoomMap=new Map();
 			gTempAdultcount=0,gTotalNoRoom=0,gTotalNoGuest=0,listRow=0;
 			
 			gcount=response.intNoRoomsBooked;
@@ -560,10 +560,14 @@ padding-left:1px;
 		function funAddDetailsRow(guestName,guestCode,mobileNo,roomNo,roomDesc,extraBedCode,extraBedDesc,payee,roomTypeCode) 
 		{
 			
-			if(gTempAdultcount>=gAdultCount){
+			if(gTempAdultcount>=$("#txtNoOfAdults").val()){
 				
 				alert("Room Booking Full");
 			}
+			/* else if(gAdult.hasObject(guestName)){
+							
+				alert("Guest already Added");
+			} */
 			else
 			{
 					gTempAdultcount++;
@@ -1245,10 +1249,30 @@ padding-left:1px;
 				    	 
 				    }
 				    if(gAdult.hasObject(Name)){
+				    	//gAdult.pop(Name);
+				    	//gAdult.splice( gAdult.indexOf(Name), 1);
 				    	for( var i = gAdult.length; i--;){
 				    		if ( gAdult[i] === Name) gAdult.splice(i, 1);
 				    		}
 				    }
+				    
+				    if(gRoomMap.has(roomNo)){
+				    	gRoomMap.delete(roomNo);
+				    	/* for( var i = gRoomMap.size; i--;){
+				    		if ( gRoomMap.has(roomNo)){
+				    			gRoomMap.delete(roomNO);
+				    			
+				    		}
+				    		break;
+				    		}  */
+				    	 
+				    	  
+				    }
+				    if(gSetTotalRoom.has(roomNo)){
+				    	gSetTotalRoom.delete(roomNo);
+				    }
+				    
+				   
 				    gTotalNoGuest--;
 				  
 				    //logic
@@ -1260,16 +1284,13 @@ padding-left:1px;
 						{
 							var name=table.rows[i].cells[0].children[0].defaultValue;	
 							var roomno=table.rows[i].cells[3].children[0].value;
-							
-
 							if(roomno!='')
 							{
 								if(!globalRoomNo.has(roomno))
 								{
 									globalRoomNo.set(roomno,roomno);									
 								}
-							}
-							
+							}					
 
 							if(!globalNoOfGuest.has(name))
 								{
@@ -1292,7 +1313,7 @@ padding-left:1px;
 				
 				function funHelp1(transactionName,row,condition)
 				{
-					gTempAdultcount=0;
+					gAdultCount=0;
 					gridHelpRow=row;
 					fieldName=transactionName;	
 					if(transactionName=="roomByRoomType")
@@ -1481,18 +1502,31 @@ padding-left:1px;
 						        	}
 						        	else
 						        	{  
-						        		
-						        		 if(response.strStatus=='Blocked')
+						        		if(response.strStatus=='Blocked')
 						        			{
 						        				alert("This room is blocked Please select Different Room");
 						        			}
 						        		else
 					        			{
-											if(globalRoomNo.size>=gcount){
+											if(document.getElementById("strRoomNo."+gridHelpRow).value!="")
+						    				{
+								    			 if(gRoomMap.has(document.getElementById("strRoomNo."+gridHelpRow).value)){
+												    	gRoomMap.delete(document.getElementById("strRoomNo."+gridHelpRow).value);
+												    }
+								    			 if(gSetTotalRoom.has(document.getElementById("strRoomNo."+gridHelpRow).value)){
+												    	gSetTotalRoom.delete(document.getElementById("strRoomNo."+gridHelpRow).value);
+												    }
+						    					
+						    				}
+											
+											if(gset1.length>=$("#txtNoOfAdults").val()){
 												
-												if(globalRoomNo.has(response.strRoomCode)){
-													globalRoomNo.set(response.strRoomCode);												    														    		
-												    		
+												if(gset1.hasObject(response.strRoomCode)){
+												    		gset1.push(response.strRoomCode);												    														    		
+												    		if(!gRoomMap.has(response.strRoomCode))
+															{
+																gRoomMap.set(response.strRoomCode,response.strRoomCode);
+															}	
 												    		gSetTotalRoom.add(response.strRoomCode);
 															//  $("#txttotrooms").val(gSetTotalRoom.size);
 															document.getElementById("strRoomNo."+gridHelpRow).value=response.strRoomCode;						
@@ -1506,7 +1540,10 @@ padding-left:1px;
 											    	}
 											    } 
 											else{
-												
+												if(!gRoomMap.has(response.strRoomCode))
+												{
+													gRoomMap.set(response.strRoomCode,response.strRoomCode);
+												}	
 												gSetTotalRoom.add(response.strRoomCode);
 												document.getElementById("strRoomNo."+gridHelpRow).value=response.strRoomCode;						
 								    			document.getElementById("strRoomDesc."+gridHelpRow).value=response.strRoomDesc;
@@ -1524,7 +1561,9 @@ padding-left:1px;
 						 					{
 						 						var name=table.rows[i].cells[0].children[0].defaultValue;	
 						 						var roomno=table.rows[i].cells[3].children[0].value;
-						 						 if(roomno!='')
+						 						
+
+						 						if(roomno!='')
 						 						{
 						 							if(!globalRoomNo.has(roomno))
 						 							{
@@ -1536,11 +1575,11 @@ padding-left:1px;
 						 						if(!globalNoOfGuest.has(name))
 						 							{
 						 								globalNoOfGuest.set(name,name);
-						 							} 
+						 							}
 						 					}
 						 					 
 						 				    $("#txttotrooms").val(globalRoomNo.size);
-						 				  	$("#txttotguest").val(globalNoOfGuest.size); 
+						 				  	$("#txttotguest").val(globalNoOfGuest.size);
 						        		
 						        	}
 								},
@@ -1697,7 +1736,6 @@ padding-left:1px;
 									 var extraBedDesc = "";
 									 var strPayee = "N";
 									funAddDetailsRow(guestName,guestCode,mobileNo,roomNo,roomDesc,extraBedCode,extraBedDesc,strPayee,rTypeCode);
-									funFillRoomRate();
 								},
 								error : function(e){
 									if (jqXHR.status === 0) {
@@ -1768,79 +1806,6 @@ padding-left:1px;
 					         }
 					 	
 						}
-					 
-					/* function funSetDublicateRoomNo(code,gridHelpRow){
-						 
-						 if(response.strStatus=='Blocked')
-		        			{
-		        				alert("This room is blocked Please select Different Room");
-		        			}
-		        		else
-	        			{
-							if(globalRoomNo.size>=gcount){
-								
-								if(globalRoomNo.has(response.strRoomCode)){
-									globalRoomNo.set(response.strRoomCode);												    														    		
-								    		if(!gRoomMap.has(response.strRoomCode))
-											{
-												gRoomMap.set(response.strRoomCode,response.strRoomCode);
-											}	
-								    		gSetTotalRoom.add(response.strRoomCode);
-											//  $("#txttotrooms").val(gSetTotalRoom.size);
-											document.getElementById("strRoomNo."+gridHelpRow).value=response.strRoomCode;						
-							    			document.getElementById("strRoomDesc."+gridHelpRow).value=response.strRoomDesc;
-							    			document.getElementById("strRoomTypeDesc."+gridHelpRow).value=response.strRoomTypeDesc;						
-							    			document.getElementById("strRoomType."+gridHelpRow).value=response.strRoomTypeCode;
-							    			 $( "#tblCheckInDetails" ).load( "your-current-page.html #tblCheckInDetails" );
-								}
-							    	else{
-							    		alert("Room Not available");
-							    	}
-							    } 
-							else{
-								if(!gRoomMap.has(response.strRoomCode))
-								{
-									gRoomMap.set(response.strRoomCode,response.strRoomCode);
-								}	
-								gSetTotalRoom.add(response.strRoomCode);
-								document.getElementById("strRoomNo."+gridHelpRow).value=response.strRoomCode;						
-				    			document.getElementById("strRoomDesc."+gridHelpRow).value=response.strRoomDesc;
-				    			document.getElementById("strRoomTypeDesc."+gridHelpRow).value=response.strRoomTypeDesc;						
-				    			document.getElementById("strRoomType."+gridHelpRow).value=response.strRoomTypeCode;
-				    			 $( "#tblCheckInDetails" ).load( "your-current-page.html #tblCheckInDetails" );
-							}
-			        	}
-		        		
-		        		globalRoomNo=new Map();
-						globalNoOfGuest=new Map();
-		        		var table = document.getElementById("tblCheckInDetails");
-		 				var rowCount = table.rows.length;									
-		 					for(var i=0;i<rowCount;i++)
-		 					{
-		 						var name=table.rows[i].cells[0].children[0].defaultValue;	
-		 						var roomno=table.rows[i].cells[3].children[0].value;
-		 						
-
-		 						if(roomno!='')
-		 						{
-		 							if(!globalRoomNo.has(roomno))
-		 							{
-		 								globalRoomNo.set(roomno,roomno);									
-		 							}
-		 						}
-		 						
-
-		 						if(!globalNoOfGuest.has(name))
-		 							{
-		 								globalNoOfGuest.set(name,name);
-		 							}
-		 					}
-		 					 
-		 				    $("#txttotrooms").val(globalRoomNo.size);
-		 				  	$("#txttotguest").val(globalNoOfGuest.size);
-						 
-					 } */
-					 
 					 
 			</script>
 			</head>
@@ -1917,8 +1882,8 @@ padding-left:1px;
 			<div class="col-md-2"><label id="lblReasonDesc" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label>
 			</div>
 			
-			<div class="col-md-2"><input type="button" value="Proceed to Payment" class="btn btn-primary center-block" class="smallButton" onclick='return funAddRow()' style="margin-top:16%"/>
-	        </div>
+			<!-- <div class="col-md-2"><input type="button" value="Proceed to Payment" class="btn btn-primary center-block" class="smallButton" onclick='return funAddRow()' style="margin-top:16%"/>
+	        </div> -->
 	        
 	        <div class="col-md-2"><label>Guest Code</label>
 						<input id="txtGuestCode" ondblclick="funHelp('guestCode');" class="searchTextBox" />

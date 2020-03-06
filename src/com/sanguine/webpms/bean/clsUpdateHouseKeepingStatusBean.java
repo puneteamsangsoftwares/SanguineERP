@@ -3,17 +3,18 @@ package com.sanguine.webpms.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class clsUpdateHouseKeepingStatus {
+public class clsUpdateHouseKeepingStatusBean {
 	// Variable Declaration
 
 	private String strRoomNo;
+	private String strRoomDesc;
 	private String strRoomFlag;
 	private String strHouseKeepingCode;
 	private String strHouseKeepingName;
 	private String strHouseKeepingFlag;
 	
 	
-	List<clsUpdateHouseKeepingStatus> listUpdateHouseKeepingStatus = new ArrayList<clsUpdateHouseKeepingStatus>();
+	List<clsUpdateHouseKeepingStatusBean> listUpdateHouseKeepingStatusBean = new ArrayList<clsUpdateHouseKeepingStatusBean>();
 
 	
 	
@@ -52,15 +53,21 @@ public class clsUpdateHouseKeepingStatus {
 	}
 
 
-	public List<clsUpdateHouseKeepingStatus> getListUpdateHouseKeepingStatus() {
-		return listUpdateHouseKeepingStatus;
+	public List<clsUpdateHouseKeepingStatusBean> getListUpdateHouseKeepingStatusBean() {
+		return listUpdateHouseKeepingStatusBean;
 	}
-	public void setListUpdateHouseKeepingStatus(
-			List<clsUpdateHouseKeepingStatus> listUpdateHouseKeepingStatus) {
-		this.listUpdateHouseKeepingStatus = listUpdateHouseKeepingStatus;
+	public void setListUpdateHouseKeepingStatusBean(
+			List<clsUpdateHouseKeepingStatusBean> listUpdateHouseKeepingStatusBean) {
+		this.listUpdateHouseKeepingStatusBean = listUpdateHouseKeepingStatusBean;
 	}
 	
 	
+	public String getStrRoomDesc() {
+		return strRoomDesc;
+	}
+	public void setStrRoomDesc(String strRoomDesc) {
+		this.strRoomDesc = strRoomDesc;
+	}
 	
 
 

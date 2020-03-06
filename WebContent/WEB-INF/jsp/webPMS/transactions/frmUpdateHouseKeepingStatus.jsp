@@ -25,6 +25,15 @@
     overflow-x: hidden;
     /* add padding to account for vertical scrollbar */
     padding-right: 20px;
+    
+}
+.dynamicTableContainer{
+ overflow:hidden;
+ border:none;
+
+}
+.transTable td {
+border-left:none;
 }
 /* IE 6 doesn't support max-height
  * we use height instead, but this forces the menu to always be this tall
@@ -93,125 +102,12 @@ var selectedOccupiedRoom="",selectedFreeRoom="";
 			rowCount--;
 		}
 	}
-	
-	
-	
-
-	/*	
-	function funOnClick(obj,tableId)
-	{ 
-		var index,cellIndex,tableName,x,prevIndex,prevCellIndex;
-		index = obj.parentNode.parentNode.rowIndex;
-	    cellIndex=obj.parentNode.cellIndex;
-		tableName = document.getElementById(tableId);
-		x=tableName.rows[index].cells[cellIndex];
-		var invoiceNo="";
-		if(tableId=="tblOccupiedTable")
-		{
-			if(obj.className=="transForm_SelectedBtn")
-			{
-				x.innerHTML="<input type=\"button\" class = \"transForm_redButton\"    value='"+obj.value+"'  onclick=\"funOnClick(this,'tblOccupiedTable')\" >";	
-				x.title=mapOccupiedToolTipData.get(obj.value).split('!')[0];
-			}
-			else
-			{
-				 if(selectedOccupiedMap.size>0)
-				 {
-				    	if(selectedOccupiedMap.has(obj.value))
-				    	 {}
-				    	else
-				    	{
-				    	    var value=selectedOccupiedMap.get(1);
-				    		var dataArr = value.split('#');
-				    		prevIndex=parseInt(dataArr[0]);
-				    		prevCellIndex=parseInt(dataArr[1]);
-				    		x=tableName.rows[prevIndex].cells[prevCellIndex];
-				    		selectedOccupiedMap = new Map();
-				    		x.innerHTML="<input type=\"button\" class = \"transForm_redButton\"    value='"+dataArr[2]+"'  onclick=\"funOnClick(this,'tblOccupiedTable')\" >";	
-							x.title=mapOccupiedToolTipData.get(dataArr[2]).split('!')[0];
-							$("#txtCheckInNo").val(mapOccupiedToolTipData.get(obj.value).split('#')[1]);
-							
-							x=tableName.rows[index].cells[cellIndex];
-							x.innerHTML="<input type=\"button\" class = \"transForm_SelectedBtn\"    value='"+obj.value+"'  onclick=\"funOnClick(this,'tblOccupiedTable')\" >";	
-							x.title=mapOccupiedToolTipData.get(obj.value).split('!')[0];
-							selectedOccupiedMap.set(1,index+"#"+cellIndex+"#"+obj.value);
-							$("#txtCheckInNo").val(mapOccupiedToolTipData.get(obj.value).split('#')[1]);
-				    	}	
-				 }
-				 else
-				 {
-					 x.innerHTML="<input type=\"button\" class = \"transForm_SelectedBtn\"    value='"+obj.value+"'  onclick=\"funOnClick(this,'tblOccupiedTable')\" >";	
-					 x.title=mapOccupiedToolTipData.get(obj.value).split('!')[0];
-					$("#txtCheckInNo").val(mapOccupiedToolTipData.get(obj.value).split('#')[1]);
-					
-					 selectedOccupiedMap.set(1,index+"#"+cellIndex+"#"+obj.value);
-				 }	 
-			  }	
-			var text = mapOccupiedToolTipData.get(obj.value).split('!')[1];
-			selectedOccupiedRoom=text;
-			
-			$("#txtOccupiedRoomCode").val(selectedOccupiedRoom);
-		}
-		else
-		{
-			if(obj.className=="transForm_SelectedBtn")
-			{
-				x.innerHTML= "<button type=\"button\" class = \"transForm_button\" value='"+obj.value+"' onclick=\"funOnClick(this,'tblAllTable')\" >"+obj.value+"<br/>"+mapFreeToolTipData.get(obj.value).split('!')[1].split('#')[1]+"</button>";
-				//x.innerHTML="<input type=\"button\" class = \"transForm_button\"    value='"+obj.value+"'  onclick=\"funOnClick(this,'tblAllTable')\" >";	
-				x.title=mapFreeToolTipData.get(obj.value).split('!')[0];
-			}
-			else
-			{
-				 if(selectedFreeMap.size>0)
-				 {
-				    	if(selectedFreeMap.has(obj.value))
-				    	 {}
-				    	else
-				    	{
-				    	    var value=selectedFreeMap.get(1);
-				    		var dataArr = value.split('#');
-				    		prevIndex=parseInt(dataArr[0]);
-				    		prevCellIndex=parseInt(dataArr[1]);
-				    		x=tableName.rows[prevIndex].cells[prevCellIndex];
-				    		selectedFreeMap = new Map();
-				    		x.innerHTML= "<button type=\"button\" class = \"transForm_button\" value='"+dataArr[2]+"' onclick=\"funOnClick(this,'tblAllTable')\" >"+dataArr[2]+"<br/>"+mapFreeToolTipData.get(dataArr[2]).split('!')[1].split('#')[1]+"</button>";
-				    		//x.innerHTML="<input type=\"button\" class = \"transForm_button\"    value='"+dataArr[2]+"'  onclick=\"funOnClick(this,'tblAllTable')\" >";	
-							x.title=mapFreeToolTipData.get(dataArr[2]).split('!')[0];
-							
-							x=tableName.rows[index].cells[cellIndex];
-							x.innerHTML= "<button type=\"button\" class = \"transForm_SelectedBtn\" value='"+obj.value+"' onclick=\"funOnClick(this,'tblAllTable')\" >"+obj.value+"<br/>"+mapFreeToolTipData.get(obj.value).split('!')[1].split('#')[1]+"</button>";
-							//x.innerHTML="<input type=\"button\" class = \"transForm_SelectedBtn\"    value='"+obj.value+"'  onclick=\"funOnClick(this,'tblAllTable')\" >";	
-							x.title=mapFreeToolTipData.get(obj.value).split('!')[0];
-							selectedFreeMap.set(1,index+"#"+cellIndex+"#"+obj.value);
-				    	}	
-				 }
-				 else
-				 {
-					 //x.innerHTML="<input type=\"button\" class = \"transForm_SelectedBtn\"    value='"+obj.value+"'  onclick=\"funOnClick(this,'tblAllTable')\" >";	
-					 x.innerHTML= "<button type=\"button\" class = \"transForm_SelectedBtn\" value='"+obj.value+"' onclick=\"funOnClick(this,'tblAllTable')\" >"+obj.value+"<br/>"+mapFreeToolTipData.get(obj.value).split('!')[1].split('#')[1]+"</button>";
-					 x.title=mapFreeToolTipData.get(obj.value).split('!')[0];
-					 selectedFreeMap.set(1,index+"#"+cellIndex+"#"+obj.value);
-				 }	 
-			  }	
-			selectedFreeRoom=mapFreeToolTipData.get(obj.value).split('!')[1].split('#')[0];
-			$("#txtFreeRoomCode").val(selectedFreeRoom);
-		}	
-					
-	 } */
-	
 
 	function funHelp(transactionName)
 	{
 		fieldName = transactionName;
 		window.open("searchform.html?formname=" + transactionName + "&searchText=", "","dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;");
-	}
-	
-	//Combo Box Change then set value
-	function funOnChange() 
-	{
-		funLoadKOT();
-		
-	}
+	}	
 	
 	function funValidateData(actionName,object)
 	{
@@ -383,14 +279,11 @@ function funFillRoomsTable(obj)
 			var table=document.getElementById("tblOccupiedTable");
 			var rowCount=table.rows.length;
 			var row=table.insertRow();
-		   	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strRoomNo\"  id=\"strRoomNo."+i+"\" value='"+obj[i]+"' >";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strRoomFlag\" id=\"strRoomFlag."+i+"\" value='Y' >";
-	   }
-	
-    
-/* 	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+(rowCount)+"\" value='"+obj.strRoomNo+"' >";
-    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].strRemoveTax\" id=\"strRemoveTax."+(rowCount)+"\" value='Y' >";
- */
+		   	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strRoomDesc\"  id=\"strRoomDesc."+i+"\" value='"+obj[i][1]+"' >";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"hidden\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+i+"\"value='"+obj[i][0]+"' >";
+			row.insertCell(2).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strRoomFlag\" id=\"strRoomFlag."+i+"\" value='Y' >";
+		     
+		}
 	
 }
 
@@ -403,13 +296,10 @@ function funFillHouseKeepingDtl(obj)
 			var rowCount=table.rows.length;
 	   		var row=table.insertRow();
 		   	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingName\"  id=\"strHouseKeepingName."+i+"\" value='"+obj[i][1]+"' >";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingFlag\" id=\"strHouseKeepingFlag."+i+"\" value='Y' >";
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" type=\"hidden\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingCode\" id=\"strHouseKeepingCode."+i+"\" value='"+obj[i][0]+"'>";
-			
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"hidden\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingCode\" id=\"strHouseKeepingCode."+i+"\" value='"+obj[i][0]+"'>";
+			row.insertCell(2).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingFlag\" id=\"strHouseKeepingFlag."+i+"\" value='Y' >";
+		   
 	   }
-/* 	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+(rowCount)+"\" value='"+obj.strRoomNo+"' >";
-    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listCheckOutRoomDtlBeans["+(rowCount)+"].strRemoveTax\" id=\"strRemoveTax."+(rowCount)+"\" value='Y' >";
- */ 
 	
 }
 
@@ -424,15 +314,11 @@ function funCheckboxDirtyRooms()
 		 	//check all			
 			for(var i=0;i<rowCount;i++)
 			{		
-				//$("strRemoveTax.1").checked=true;
 				document.getElementById("strRoomFlag."+i).checked=1;
-				//$('strRemoveTax.1').prop('checked', true);
 	    	}
 		}
 		else
-		{
-			//uncheck all
-			//$("#chkBoxAll").prop('checked',false);				
+		{				
 			for(var i=0;i<rowCount;i++)
 			{		
 				document.getElementById("strRoomFlag."+i).checked=0;
@@ -453,20 +339,15 @@ function funCheckboxHouseKeeping()
 		 	//check all			
 			for(var i=0;i<rowCount;i++)
 			{		
-				//$("strRemoveTax.1").checked=true;
 				document.getElementById("strHouseKeepingFlag."+i).checked=1;
-				//$('strRemoveTax.1').prop('checked', true);
 	    	}
 		}
 		else
-		{
-			//uncheck all
-			//$("#chkBoxAll").prop('checked',false);				
+		{				
 			for(var i=0;i<rowCount;i++)
 			{		
 				document.getElementById("strHouseKeepingFlag."+i).checked=0;
-	    	}
-			
+	    	}			
 		}	   
 	}
 
@@ -480,51 +361,52 @@ function funCheckboxHouseKeeping()
 <body onload="funLoadData()">
 	 <div class="transTable" style="margin-left: 10px;width:94%">
 		<label id="formHeading">Update House Keeping Status</label>
-	     <s:form name="Change Room" method="POST" action="saveHouseKeepingStatus.html" >			
-		<%-- 	<div class="row masterTable">
-				<div class="col-md-3">
-					<div class="row">
-						<div class="col-md-6">
-							<label>From Date</label>
-							<s:input type="text" id="dteFromDate" path="dteFromDate" required="true" class="calenderTextBox" />
-							<s:input type="text" id="dteFromDate" path="" required="true" class="calenderTextBox" />
-						</div>
-						<div class="col-md-6">
-							<label>To Date</label>
-							<s:input type="text" id="dteToDate" path="dteToDate" required="true" class="calenderTextBox" />	
-							<s:input type="text" id="dteToDate" path="" required="true" class="calenderTextBox" />	
-						</div>
-					</div>
-				</div>	
-				<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return funShowHouseKeepingStatus()"
-				class="form_button">Execute</button></a>
-			</div> --%>
-		
-		<div style="margin-top: 30px;margin-left: 12px;">
-		
-			<div style="background-color: #fafbfb;float:left;margin-left: 10px; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 45%;">
-				
-				<label style="margin-left: 10px">Dirty Rooms</label>
-				<input type="checkbox" id="chkDirtyRooms" name="chkBoxAll1" value="Bike" style="margin-left: 283px;" onclick="funCheckboxDirtyRooms()">
-				<table id="tblOccupiedTable" class="masterTable" style="margin-left: 0px;width:100%;height: 56%; border: #0F0; table-layout: fixed; overflow: scroll"
-					class="transTablex col8-center">
-
+	     <s:form name="Change Room" method="POST" action="saveHouseKeepingStatus.html" >	
+		<div style="display:flex;">
+		<div class="dynamicTableContainer" style="height: 400px;width:47%;margin-right:20px;">
+			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
+					<td width="20%">Dirty Rooms</td>
+					<td width="20%"></td>
+					<td style="text-align:center;width:24%; padding:5px;;">Select All<br>
+						<input type="checkbox" id="chkDirtyRooms" name="chkBoxAll1" value="Bike"  onclick="funCheckboxDirtyRooms()">
+					</td>
+				</tr>
+			</table>
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblOccupiedTable"  style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+					<tbody>
+						<col style="width: 20%">
+						<col style="width: 20%">
+						<col style="text-align:center;width:20%;">
+					</tbody>
 				</table>
-			</div>
-
-			<div
-				style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 45%;">
-
-				<label style="margin-left: 10px; margin-bottom: 3px;">House Keeping Details</label>
-	    		<input type="checkbox" id="chkHouseKeeping" name="chkBoxAll1" value="Bike" style="margin-left: 100px;" onclick="funCheckboxHouseKeeping()">
-				<table id="tblAllTable" class="masterTable" style="width: 100%;margin-left: 0px; border: #0F0; table-layout: fixed; overflow: scroll"
-					class="transTablex col8-center"></table>
 			</div>
 		</div>
 		
-		<br />
+		<div class="dynamicTableContainer" style="height: 400px;width:47%;">
+			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
+					<td width="20%">House Keeping Details</td>
+					<td width="20%"></td>
+					<td style="text-align:center;width:26%; padding:5px;">Select All<br>
+	    				<input type="checkbox" id="chkHouseKeeping" name="chkBoxAll1" value="Bike" style="margin-left: 10px;" onclick="funCheckboxHouseKeeping()">
+					</td>
+				</tr>
+			</table>
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblAllTable"  style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+					<tbody>
+						<col style="width: 20%">
+						<col style="width: 20%">
+						<col style="text-align:center;width:20%;">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>	
 		
-     	<p align="center" >
+	<p align="center" >
             		<input type="submit" value="Save"  class="btn btn-primary center-block" class="form_button" onclick="return funValidateData('submit',this);"/>
             		&nbsp;<input type="reset" value="Reset"  class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
        </p>     		

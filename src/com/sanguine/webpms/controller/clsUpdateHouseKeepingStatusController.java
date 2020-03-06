@@ -23,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
-import com.sanguine.webpms.bean.clsUpdateHouseKeepingStatus;
+import com.sanguine.webpms.bean.clsUpdateHouseKeepingStatusBean;
 import com.sanguine.webpms.dao.clsWebPMSDBUtilityDao;
 import com.sanguine.webpms.service.clsRoomCancellationService;
 
@@ -62,9 +62,9 @@ public class clsUpdateHouseKeepingStatusController {
 		model.put("listOfReservationType", listOfReservationType);
 
 		if (urlHits.equalsIgnoreCase("1")) {
-			return new ModelAndView("frmUpdateHouseKeepingStatus", "command", new clsUpdateHouseKeepingStatus());
+			return new ModelAndView("frmUpdateHouseKeepingStatus", "command", new clsUpdateHouseKeepingStatusBean());
 		} else {
-			return new ModelAndView("frmUpdateHouseKeepingStatus", "command", new clsUpdateHouseKeepingStatus());
+			return new ModelAndView("frmUpdateHouseKeepingStatus", "command", new clsUpdateHouseKeepingStatusBean());
 		}
 	}
 	
@@ -75,7 +75,7 @@ public class clsUpdateHouseKeepingStatusController {
 		Map hmRoomData=new HashMap<>();
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		try{		
-			String sqlRooms ="select a.strRoomCode from tblroom a where a.strStatus='Dirty' and a.strClientCode='"+clientCode+"' ";
+			String sqlRooms ="select a.strRoomCode,a.strRoomDesc from tblroom a where a.strStatus='Dirty' and a.strClientCode='"+clientCode+"' ";
 			List listOfRooms = objGlobalFunctionsService.funGetListModuleWise(sqlRooms, "sql");
 			
 			if(listOfRooms!=null)
@@ -105,7 +105,7 @@ public class clsUpdateHouseKeepingStatusController {
 
 	// Save or Update RoomCancellation
 	@RequestMapping(value = "/saveHouseKeepingStatus", method = RequestMethod.POST)
-	public ModelAndView funSaveUpdateHouseKeepingStatus(@ModelAttribute("command") @Valid clsUpdateHouseKeepingStatus objBean, BindingResult result, HttpServletRequest req) {
+	public ModelAndView funSaveUpdateHouseKeepingStatus(@ModelAttribute("command") @Valid clsUpdateHouseKeepingStatusBean objBean, BindingResult result, HttpServletRequest req) {
 		List listRooms = new ArrayList<>();
 		List listHouseKeeping = new ArrayList<>();
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
@@ -117,7 +117,7 @@ public class clsUpdateHouseKeepingStatusController {
 		String strCurrTime = time.format(formatter);
 		if (!result.hasErrors()) 
 		{
-			for(clsUpdateHouseKeepingStatus obj:objBean.getListUpdateHouseKeepingStatus())
+			for(clsUpdateHouseKeepingStatusBean obj:objBean.getListUpdateHouseKeepingStatusBean())
 			{
 				if(obj.getStrRoomFlag()!=null)
 				{
