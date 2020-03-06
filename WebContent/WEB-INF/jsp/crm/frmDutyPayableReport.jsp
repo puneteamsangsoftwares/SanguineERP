@@ -8,12 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 	
-	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+        
 		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
 		
 </head>
@@ -38,7 +33,7 @@
 
 </script>
 <body>
-   <div class="transTable">
+   <div class="container">
 		<label id="formHeading">Duty Payable Report</label>
 	    <s:form name="DutyPayableReport" method="GET" action="rptDutyPayableReport.html" target="_blank" >
 			<div class="row">

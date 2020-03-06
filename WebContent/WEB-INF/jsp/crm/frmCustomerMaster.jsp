@@ -1,20 +1,4 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    
-	<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
-	<%@taglib uri="http://www.springframework.org/tags" prefix="sp"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html >
-<html>
-<head>
-<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
-	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
-	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
-	<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
-        <!-- Load data to paginate -->
-	<link rel="stylesheet" href="<spring:url value="/resources/css/pagination.css"/>" />
 
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
- --%>
  <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -22,14 +6,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
 	<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
 	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
         <!-- Load data to paginate -->
-	<link rel="stylesheet" href="<spring:url value="/resources/css/pagination.css"/>" />
-
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" href="<spring:url value="/resources/css/pagination.css"/>" />
+		
 <title>CUSTOMER MASTER</title>
 <%-- <tab:tabConfig/> --%>
 
@@ -631,8 +616,8 @@ var listProductData;
 		    var table = document.getElementById("tblPartyTax");
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount-1)+"\" value='"+taxCode+"'>";
-		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount-1)+"\" value='"+taxDesc+"'>";
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount-1)+"\" value='"+taxCode+"'>";
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"27%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount-1)+"\" value='"+taxDesc+"'>";
 		    //row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxCode\" id=\"taxcode."+(rowCount-1)+"\" value="+taxCode+">";
 		    //row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\"  id=\"taxDesc."+(rowCount-1)+"\" value="+taxDesc+">";		    
 		    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowForTax(this)">';		    
@@ -909,7 +894,7 @@ var listProductData;
 		    var rowCount=0;
 		   		    	
 			   	newcontent = '<table id="tblProdDetPg" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;">'
-			   	+'<tr bgcolor="#75c0ff">'
+			   	+'<tr bgcolor="#c0c0c0">'
 			   	+'<td width="10px">Product Code</td><td width="22px">Product Name</td>'
 			   	+'<td width="2px">Std Order Qty</td><td width="23px">Amount</td><td width="20px">Margin %</td><td width="8px">Delete</td>'
 			   	+'</tr>';
@@ -1173,413 +1158,373 @@ var listProductData;
 	
 		
 </script>
-		
-		
-		
-
-		
-		
 
 </head>
 <body  id="bodyCustomerMaster">
-<div id="formHeading">
-		<label>Customer Master</label>
-	</div>
-	<s:form name="CustomermasterForm" method="POST" action="saveCustomerMaster.html?saddr=${urlHits}">	
-	<br>
-		
-	<table
-			style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
-			<tr>
-				<td>				
-				<div id="tab_container" style="height: 550px">
-							<ul class="tabs">
-								<li class="active" data-state="tab1" style="width: 100px;padding-left: 55px">General</li>
-								<li data-state="tab2"  style="width: 100px;padding-left: 55px">Address</li>
-								<li data-state="tab3"  style="width: 100px;padding-left: 55px " onclick="funOnClickProdTab()">Products</li>
-								<li data-state="tab4"  style="width: 100px;padding-left: 55px">Tax</li>
-								<li data-state="tab5"  style="width: 100px;padding-left: 55px">Addtional Info/Linkup</li>
-							</ul>
-							
-				<div id="tab1" class="tab_content" style="height: 450px" >
-				<br>
-				<br>
-					<table class="masterTable">
-						<tr>
-					        <th align="right" colspan="4"> <a id="baseUrl" href="#">Attatch Documents</a>&nbsp; &nbsp; &nbsp; &nbsp;  </th>
-					    </tr>
-					    
-				    	<tr>
-				        	<td width="140px">
-				        		<label>Customer Code </label>
-				        	</td>
-				        	<td  width="15%">
-				        		<s:input id="txtPartyCode" name="txtPartyCode"  path="strPCode" ondblclick="funHelp('custMaster')"   cssClass="searchTextBox"/>
-				        	</td>		    
-				    		<td  width="11%">
-				    			<label>Finance Code </label>
-				    		</td>
-				        	<td>
-				        		<s:input id="txtManualCode" cssClass="BoxW116px"  name="txtManualCode" path="strManualCode" />
-				        	</td>		    
-				   		</tr>
-				    	
-				    	<tr>
-				        	<td><label>Name  </label></td>
-				        	<td colspan="3">
-				        		<s:input size="80px" type="text" id="txtPartyName" autocomplete="off" name="txtPartyName" path="strPName" cssStyle="text-transform: uppercase;" cssClass="longTextBox" required="true"/>
-				        	</td>
-				   		</tr>
-						<tr>
-				        	<td><label>Local Language Name </label></td>
-				        	<td colspan="3">
-				        	<%-- <script type="text/javascript">
-            					CreateHindiTextBox("txtPNameMarathi",72);
-        					</script> --%>
-				        		<input size="80px" type="text" id="txtPNameMarathi" autocomplete="off" name="txtPNameMarathi" style="width: 90%;font-size: 16px;font-family: shivaji01;" Class="longTextBox" />
-				        	</td>
-				   		</tr>			    
-				    
-				    	<tr>
-					        <td>
-					        	<label>Tel No.</label>
-					        </td>
-					        <td>
-					        	<s:input  type="tel"   id="txtPhone" name="txtPhone" path="strPhone" cssClass="BoxW116px"  />
-					        </td>
-					   		 
-					        <td>
-					        	<label> Mobile No.  </label>
-					        </td>
-					        <td>
-					        <!-- pattern="[789][0-9]{9}" -->
-					        	<s:input  type="text"  id="txtMobile" name="txtMobile" path="strMobile" cssClass="BoxW116px" />
-					        </td>
-				 		</tr>
-				    
-				    	<tr>
-					    	<td>
-					    		<label>Fax</label>
-					    	</td>
-					        <td>
-					        	<s:input id="txtFax" name="txtFax" path="strFax" cssClass="BoxW116px" />
-					        </td>
-					    	<td>
-					    		<label>Contact Person</label>
-					    	</td>
-					        <td>
-					        	<s:input id="txtContact" name="txtContact" path="strContact" autocomplete="off" cssStyle="text-transform: uppercase;" cssClass="BoxW116px" />
-					        </td>				    
-				  		 </tr>
-				   
-				   		<tr>
-					        <td>
-					        	<label>Email  </label>
-					        </td>
-					        <td colspan="3">
-					        	<s:input  type="email" placeholder="name@email.com"   id="txtEmail" name="txtEmail" path="strEmail" cssClass="longTextBox"/>
-					        </td>
-				   		</tr>
-				   		
-				   		<tr>
-					    	<td>
-					    		<label>Bank Name  </label>
-					    	</td>
-					        <td colspan="3">
-					        	<s:input  id="txtBankName" name="txtBankName" path="strBankName" autocomplete="off" cssStyle="text-transform: uppercase;" cssClass="longTextBox"/>
-					        </td>
-				    	</tr>
-				    	
-				    	<tr>
-					    	<td>
-					    		<label>Bank Address Line 1  </label>
-					    	</td>
-					        <td colspan="3">
-					        	<s:input  id="txtBankAdd1" name="txtBankAdd1" path="strBankAdd1"  cssStyle="text-transform: uppercase;" cssClass="longTextBox"/>
-					        </td>
-				    	</tr>
-				    	
-				    	<tr>
-				    		<td>
-				    			<label>Bank Address Line 2  </label>
-				    		</td>		
-		       				<td colspan="3">
-		       					<s:input id="txtBankAdd2"  name="txtBankAdd2" path="strBankAdd2" cssStyle="text-transform: uppercase;" cssClass="longTextBox"/>
-		       				</td>
-				    	</tr>
-				    	
-				    	<tr>
-					    	<td><label>Bank Account No.</label></td>
-					        <td><s:input id="txtBankAccountNo" name="txtBankAccountNo" path="strBankAccountNo" cssClass="BoxW116px" /></td>
-					        
-					    	<td><label>ABA No.</label></td>
-					        <td><s:input id="txtBankABANo" name="txtBankABANo" path="strBankABANo" cssClass="BoxW116px" /></td>
-				  		 </tr>
-				  		 
-				    	<tr>
-					    	<td>
-					    		<label>IBAN No</label>
-					    	</td>
-					        <td>
-					        	<s:input id="txtIbanNo" name="txtIbanNo" path="strIBANNo" cssClass="BoxW116px" />
-					        </td>
-					    	<td>
-					    		<label>Bank Swift Code</label>
-					    	</td>
-					        <td>
-					        	<s:input id="txtSwiftCode" name="txtSwiftCode" path="strSwiftCode" cssClass="BoxW116px" />
-					        </td>
-				  		</tr>
-				  		 
-				  		<tr>
-				    		<td><label>Tax No. 1</label></td>
-					        <td><s:input id="txtTaxNo1" name="txtTaxNo1" path="strTaxNo1" cssClass="BoxW116px" /></td>
-					    	<td><label>Tax No. 2</label></td>
-					        <td><s:input id="txtTaxNo2" name="txtTaxNo2" path="strTaxNo2" cssClass="BoxW116px" /></td>
-				  		</tr>
-				  		 
-				  		<tr>
-					    	<td><label>CST No/GST No.</label></td>
-					        <td><s:input id="txtCst" name="txtCst" path="strCST" cssClass="BoxW116px" /></td>
-					    	<td><label>VAT</label></td>
-					        <td><s:input id="txtVat" name="txtVat" path="strVAT" cssClass="BoxW116px" /></td>
-				  		</tr>
-				  		 
-					    <tr>
-					    	<td><s:label path="strExcise" >Excise No.</s:label></td>
-					        <td><s:input id="txtExcise" name="txtExcise" path="strExcise" cssClass="BoxW116px" /></td>
-					    	<td><s:label path="strServiceTax" >Service Tax No.</s:label></td>
-					        <td><s:input id="txtServiceTax" name="txtServiceTax" path="strServiceTax" cssClass="BoxW116px" /></td>
-				  		</tr>
-				  		 
-					    <tr>
-					    	<td><s:label path="strPartyType" >Customer Type</s:label></td>
-					        <td><s:select id="cmbPartyType" name="cmbPartyType" path="strPartyType" items="${typeList}" cssClass="BoxW124px" /></td>			    	
-					    	<td><s:label path="strAcCrCode" >A/C Creditors Code</s:label></td>
-					        <td><s:input id="txtAcCrCode" name="txtAcCrCode" path="strAcCrCode" cssClass="BoxW116px" /></td>
-				  		</tr>
-				  		 
-				  		<tr>
-				    		<td><label>Credit Days</label></td>
-				        	<td><s:input id="txtCreditDays" name="txtCreditDays" path="intCreditDays" class="BoxW116px"/></td>
-				    		<td><label>Credit Limit</label></td>
-				        	<td><s:input id="txtCreditLimit" name="txtCreditLimit" path="dblCreditLimit" class="BoxW116px"/></td>
-				  		</tr>
-				  		 
-				  		<tr>
-					    	<td><label>Registration No.</label></td>
-					        <td><s:input id="txtRegistration" name="txtRegistration" path="strRegistration" cssClass="BoxW116px" /></td>
-					    	<td><label>Range:</label></td>
-					        <td><s:input id="txtRange" name="txtRange" path="strRange" cssClass="BoxW116px" /></td>
-				  		</tr>
-				  		 
-				  		<tr>
-				    		<td><s:label path="strDivision" >Division</s:label></td>
-				        	<td><s:input id="txtDivision" name="txtDivision" path="strDivision" cssClass="BoxW116px" /></td>
-				    		<td><s:label path="strCommissionerate" >Commissionerate</s:label></td>
-				        	<td><s:input id="txtCommissionerate" name="txtCommissionerate" path="strCommissionerate" cssClass="BoxW116px" /></td>
-				  		</tr>
+	<div class="container">
+		<label id="formHeading">Customer Master</label>
+		<s:form name="CustomermasterForm" method="POST" action="saveCustomerMaster.html?saddr=${urlHits}">	
+			<div style="border: 0px solid black;">
+				<div id="tab_container" style="margin:10px 0px;; overflow:hidden;">
+					<ul class="tabs" style="margin-bottom:10px;">
+						<li class="active" data-state="tab1">General</li>
+						<li data-state="tab2">Address</li>
+						<li data-state="tab3" onclick="funOnClickProdTab()">Products</li>
+						<li data-state="tab4">Tax</li>
+						<li data-state="tab5">Addtional Info/Linkup</li>
+					</ul><br>	
+					<div id="tab1" class="tab_content">
+						<div class="row masterTable" style="width:100%; margin-top:10px;">
+								<div class="col-md-2">
+									<label>Customer Code:</label><br>
+									<s:input id="txtPartyCode" type="text" name="txtPartyCode"  path="strPCode" ondblclick="funHelp('custMaster')" cssClass="searchTextBox"/>
+								</div>
+				    		<div class="col-md-2">
+				    			<label>Finance Code:</label><br>
+				        		<s:input id="txtManualCode" type="text" name="txtManualCode" path="strManualCode" />
+				        	</div>	
+				    		<div class="col-md-2">
+				        		<label>Name:</label><br>
+				        		<s:input type="text" id="txtPartyName" autocomplete="off" name="txtPartyName" path="strPName" cssStyle="text-transform: uppercase;" required="true"/>
+				        	</div>
+				   			<div class="col-md-2">
+				        	  	<label>Local Language Name:</label><br>
+				        		<%-- <script type="text/javascript">
+            						CreateHindiTextBox("txtPNameMarathi",72);
+        						</script> --%>
+				        		<input type="text" id="txtPNameMarathi" autocomplete="off" name="txtPNameMarathi" style="font-family: shivaji01;"/>
+				        	</div>
+				   			<div class="col-md-2">
+					        	<label>Tel No:</label><br>
+					        	<s:input  type="text" id="txtPhone" name="txtPhone" path="strPhone" />
+					      	</div>
+					      		<div class="col-md-2"></div>
+					       <div class="col-md-2">
+					        	<label> Mobile N0:</label>
+					      <%--   pattern="[789][0-9]{9}" --%>
+					        	<s:input  type="text" id="txtMobile" name="txtMobile" path="strMobile"/>
+					       </div>
+				 		 	<div class="col-md-2">
+					    		<label>Fax:</label>
+					        	<s:input id="txtFax" name="txtFax" path="strFax"/>
+					        </div>
+					    	<div class="col-md-2">
+					    		<label>Contact Person:</label>
+					        	<s:input id="txtContact" name="txtContact" path="strContact" autocomplete="off" cssStyle="text-transform: uppercase;" />
+					       </div>			    
+				  			<div class="col-md-2">
+					        	<label>Email:</label>
+					        	<s:input  type="email" placeholder="name@email.com"   id="txtEmail" name="txtEmail" path="strEmail"/>
+					        </div>
+				   			<div class="col-md-2">
+					    		<label>Bank Name:</label>
+					        	<s:input  id="txtBankName" name="txtBankName" path="strBankName" autocomplete="off" cssStyle="text-transform: uppercase;"/>
+					       </div>
+					       <div class="col-md-2"></div>
+				    		<div class="col-md-2">
+					    		<label>Bank Address Line 1:</label>
+					        	<s:input  id="txtBankAdd1" name="txtBankAdd1" path="strBankAdd1"  cssStyle="text-transform: uppercase;"/>
+					        </div>
+				    	   <div class="col-md-2">
+				    			<label>Bank Address Line 2:</label>
+		       					<s:input id="txtBankAdd2"  name="txtBankAdd2" path="strBankAdd2" cssStyle="text-transform: uppercase;"/>
+		       				</div>
+				    	  	<div class="col-md-2">
+					    		<label>Bank Account No:</label>
+					        	<s:input id="txtBankAccountNo" name="txtBankAccountNo" path="strBankAccountNo"/>
+					        </div>
+					    	<div class="col-md-2">
+					    		<label>ABA No:</label>
+					       		<s:input id="txtBankABANo" name="txtBankABANo" path="strBankABANo"/>
+				  			</div>
+				  			<div class="col-md-2">
+					    		<label>IBAN No:</label>
+					        	<s:input id="txtIbanNo" name="txtIbanNo" path="strIBANNo"/>
+					      	</div> 
+					      	<div class="col-md-2"></div>
+					      	<div class="col-md-2">
+					    		<label>Bank Swift Code:</label>
+					        	<s:input id="txtSwiftCode" name="txtSwiftCode" path="strSwiftCode"/>
+					       </div>
+				  			<div class="col-md-2">
+				    		  	<label>Tax No. 1:</label>
+					         	<s:input id="txtTaxNo1" name="txtTaxNo1" path="strTaxNo1"/>
+					        </div>
+					        <div class="col-md-2">
+					    	 	<label>Tax No. 2:</label>
+					        	<s:input id="txtTaxNo2" name="txtTaxNo2" path="strTaxNo2" />
+					       </div>
+					       <div class="col-md-2">
+					    		<label>CST No/GST No:</label>
+					      		<s:input id="txtCst" name="txtCst" path="strCST" />
+					      	</div>
+					      	<div class="col-md-2">
+					    		<label>VAT:</label>
+					        	<s:input id="txtVat" name="txtVat" path="strVAT"/>
+					        </div>
+					         <div class="col-md-2"></div>
+				  			<div class="col-md-2">
+					    		<s:label path="strExcise" >Excise No.</s:label>
+					        	<s:input id="txtExcise" name="txtExcise" path="strExcise" />
+					        </div>
+					        <div class="col-md-2">
+					    		<s:label path="strServiceTax" >Service Tax No.</s:label>
+					        	<s:input id="txtServiceTax" name="txtServiceTax" path="strServiceTax" />
+					       </div>
+				  			<div class="col-md-2">
+					    	 	<s:label path="strPartyType" >Customer Type</s:label>
+					       		<s:select id="cmbPartyType" name="cmbPartyType" path="strPartyType" items="${typeList}" style="width:70%;" />
+					       	</div>
+					       	<div class="col-md-2">			    	
+					    		<s:label path="strAcCrCode" >A/C Creditors Code</s:label>
+					        	<s:input id="txtAcCrCode" name="txtAcCrCode" path="strAcCrCode"/>
+					        </div>
+				  			<div class="col-md-2">
+				    			<label>Credit Days</label>
+				        		<s:input id="txtCreditDays" name="txtCreditDays" path="intCreditDays"/>
+				        	</div>
+				        	 <div class="col-md-2"></div>
+				        	<div class="col-md-2">
+				    			<label>Credit Limit</label>
+				        		<s:input id="txtCreditLimit" name="txtCreditLimit" path="dblCreditLimit"/>
+				        	</div>
+				  			<div class="col-md-2">
+					    		<label>Registration No.</label>
+					      	 	<s:input id="txtRegistration" name="txtRegistration" path="strRegistration" />
+					      	 </div>
+					      	 <div class="col-md-2">
+					    		<label>Range:</label>
+					        	<s:input id="txtRange" name="txtRange" path="strRange"/>
+					        </div>
+				  		 	<div class="col-md-2">
+				    			<s:label path="strDivision" >Division</s:label>
+				        		<s:input id="txtDivision" name="txtDivision" path="strDivision" />
+				        	</div>
+				        	<div class="col-md-2">
+				    			<s:label path="strCommissionerate" >Commissionerate</s:label>
+				        		<s:input id="txtCommissionerate" name="txtCommissionerate" path="strCommissionerate" />
+				        	</div>
+				  			 <div class="col-md-2"></div>
 				  		 <!-- problem -->
-				  		<tr>
-				    		<td><s:label path="strCategory" >Category</s:label></td>
-				        	<td><s:select id="cmbCategory" name="cmbCategory" path="strCategory" items="${categoryList}" cssClass="BoxW124px" /></td>
-				    		<td><s:label path="strExcisable" >Party Indicator</s:label></td>
-				        	<td><s:select id="cmbPartyIndi" name="cmbPartyIndi" path="strPartyIndi" items="${partyIndicatorList}" cssClass="BoxW124px" /></td>
-						</tr>
-						<tr>
-<!-- 						<td><label>Discount<label></td> -->
-						<td><label>Sale Discount</label></td>
-				        
-				        	<td><s:input id="txtDiscount" name="txtDiscount" path="dblDiscount" class="BoxW116px"/></td>
-				        	
-				        	<td><label>Operational</label></td>
-					    	<td>
-					    		<s:select id="cmbOperational" path="strOperational" cssClass="BoxW124px">
-						    		<option selected="selected" value="Y">Yes</option>
-					            	<option value="N">No</option>
-				            	</s:select>
-					    	</td>
-				        	
-						</tr>
-						
-						<tr>
-						<td><label>Sale Return Discount</label></td>
-				        
-				        	<td><s:input id="txtReturnDiscount" name="txtReturnDiscount" path="dblReturnDiscount" class="BoxW116px"/></td>
-				        
-							
-						
-							<td align="left"><label>Currency </label></td>
-							<td><s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" cssClass="BoxW124px">
-							</s:select></td>
-				  		</tr>
-						
-						<tr>
-						   	<td><label>GST No.</label></td>
-					        <td ><s:input id="txtGSTNo" name="txtGSTNo" path="strGSTNo" cssClass="BoxW116px" /></td>
-					        
-					        <td ><label>E.C.C.No</label></td>
-				        	<td><s:input id="txtECCNo" name="txtECCNo" path="strECCNo" class="BoxW116px"/></td>
-					    </tr>
-					     <tr>
-					    <td><label>Property Code</label></td>
-							<td ><s:input path="strPropCode" id="txtPropCode" ondblclick="funHelp('property');" value="${propertyCode}" cssClass="searchTextBox" /></td>
-						<td colspan="1"><label id="lblPropName">${propertyName}</label></td>
-					    </tr>
-					    <tr>
-						   	<td><label>Location</label></td>
-					        <td ><s:input id="txtLocCode" name="txtLocCode" path="strLocCode" cssClass="searchTextBox" ondblclick="funHelp('locationmaster')"/></td>
-					   		<td colspan="2"><label id="lblLocName"></label>  </td>	
-					    </tr>
-						
-						<tr>
-							<td><label>Applicable For Withholding</label></td>
-					    	<td colspan="3"><s:checkbox id="chkApplForWT" path="strApplForWT" value="Y"/></td>
-						</tr>					   
-				
-					</table>
-							
-				</div>
-							
-							
-			<div id="tab2" class="tab_content">
-			<br><br>
-				<table class="masterTable">
-				<tr><td><label>Region</label></td>
-				
-				<td><s:select id="cmbRegion" name="cmbRegion" path="strRegion" items="${hmRegion}" cssClass="BoxW124px" /></td>
-				</tr>	
+				  			<div class="col-md-2">
+				    			<s:label path="strCategory" >Category</s:label>
+				        		<s:select id="cmbCategory" name="cmbCategory" path="strCategory" items="${categoryList}"  />
+				        	</div>
+				        	<div class="col-md-2">
+				    			<s:label path="strExcisable" >Party Indicator</s:label>
+				        		<s:select id="cmbPartyIndi" name="cmbPartyIndi" path="strPartyIndi" items="${partyIndicatorList}" style="width:50%;"  />
+				        	</div>
+							<div class="col-md-2">
+								<label>Sale Discount</label>
+				        		<s:input type="number" id="txtDiscount" name="txtDiscount" path="dblDiscount"/>
+				        	</div>
+				        	<div class="col-md-2">
+				        	  	<label>Operational</label>
+					    			<s:select id="cmbOperational" path="strOperational" style="width:70%;">
+						    			<option selected="selected" value="Y">Yes</option>
+					            		<option value="N">No</option>
+				            		</s:select>
+					    	</div>
+				        	<div class="col-md-2">
+								<label>Sale Return Discount</label>
+				        		<s:input type="number" id="txtReturnDiscount" name="txtReturnDiscount" path="dblReturnDiscount" />
+				      		 </div>
+				      		 <div class="col-md-2"></div>
+							<div class="col-md-2">
+								<label>Currency </label>
+									<s:select id="cmbCurrency" items="${currencyList}" path="strCurrency" style="width:70%;">
+									</s:select>
+							</div>
+				  			<div class="col-md-2">
+						   		<label>GST No.</label>
+					       		<s:input id="txtGSTNo" name="txtGSTNo" path="strGSTNo"  />
+					        </div>
+					        <div class="col-md-2">
+					         	<label>E.C.C.No</label>
+				        		<s:input id="txtECCNo" name="txtECCNo" path="strECCNo" />
+				        	</div>
+					   		<div class="col-md-2">
+					    		<label>Property Code</label>
+								<s:input path="strPropCode" id="txtPropCode" ondblclick="funHelp('property');" value="${propertyCode}" cssClass="searchTextBox" />
+							</div>
+							<div class="col-md-2">
+								<label id="lblPropName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+								>${propertyName}</label>
+							</div>
+								<div class="col-md-2"></div>
+					 		<div class="col-md-2">
+						   		<label>Location</label>
+					      		<s:input id="txtLocCode" name="txtLocCode" path="strLocCode" cssClass="searchTextBox" ondblclick="funHelp('locationmaster')"/>
+					   		</div>
+					   		<div class="col-md-2">
+					   		 	<label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 52%; margin-top: 26px; text-align:   center;"
+					   		 	></label>
+					   		</div> 
+					   		<div class="col-md-2">
+								<label>Applicable For Withholding</label>
+					    		<s:checkbox id="chkApplForWT" path="strApplForWT" value="Y"/>	
+					    	</div>
+					</div>
+				</div>	
+					<div id="tab2" class="tab_content">
+						<div class="row masterTable" style="width:100%; margin-top:10px;">
 					
-					<tr><th colspan="4" align="left">Main Address</th></tr>
-				<tr>
-		    	<td width="150px"><s:label path="strMAdd1">  Address Line 1  </s:label></td>
-		        <td colspan="3"><s:input cssClass="longTextBox" cssStyle="text-transform: uppercase;" id="txtMainAdd1" name="txtMainAdd1" path="strMAdd1"/></td>
-		    	</tr>
-		    	<tr>
-		    	<td><s:label path="strMAdd2">  Address Line 2  </s:label></td>
-		        <td colspan="3"><s:input cssClass="longTextBox" cssStyle="text-transform: uppercase;" id="txtMainAdd2" name="txtMainAdd2" path="strMAdd2"/></td>
-		    	</tr>
-		    	
-		    	<tr>
-		    	<td><s:label path="strMCity"> City</s:label></td>
-		        <td width="150px"><s:input id="txtMainCity" cssStyle="text-transform: uppercase;" name="txtMainCity" path="strMCity" cssClass="BoxW140px" /></td>
-		        <td width="60px"><s:label path="strMState"> State</s:label></td>
-		        <td ><s:input id="txtMainState" cssStyle="text-transform: uppercase;" name="txtMainState" path="strMState" cssClass="BoxW140px" /></td>
-		    	</tr>
-		    	
-		    	<tr>
-		    	<td><s:label path="strMCountry"> Country</s:label></td>
-		        <td ><s:input id="txtMainCountry" name="txtMainCountry" cssStyle="text-transform: uppercase;" path="strMCountry" cssClass="BoxW140px" /></td>
-		        <td><s:label path="strMPin"> Pin</s:label></td>
-		        <td ><s:input pattern="[0-9]{6}" id="txtMainPin" name="txtMainPin" path="strMPin" cssClass="simpleTextBox"/></td>
-		    	</tr>
-		
-				<tr><th colspan="4" align="left">Billing Address</th></tr>
-				<tr>
-		    	<td><s:label path="strBAdd1">  Address Line 1  </s:label></td>
-		        <td colspan="3"><s:input cssClass="longTextBox" cssStyle="text-transform: uppercase;" id="txtBillAdd1" name="txtBillAdd1" path="strBAdd1"/></td>
-		    	</tr>
-		    	<tr>
-		    	<td><s:label path="strBAdd2">  Address Line 2  </s:label></td>
-		        <td colspan="3"><s:input cssClass="longTextBox" cssStyle="text-transform: uppercase;" id="txtBillAdd2" name="txtBillAdd2" path="strBAdd2"/></td>
-		    	</tr>
-		    	
-		    	<tr>
-		    	<td><s:label path="strBCity"> City</s:label></td>
-		        <td ><s:input id="txtBillCity" name="txtBillCity" cssStyle="text-transform: uppercase;" path="strBCity" cssClass="BoxW140px" /></td>
-		        <td><s:label path="strBState"> State</s:label></td>
-		        <td ><s:input id="txtBillState" name="txtBillState" cssStyle="text-transform: uppercase;" path="strBState" cssClass="BoxW140px" /></td>
-		    	</tr>
-		    	
-		    	<tr>
-		    	<td><s:label path="strBCountry"> Country</s:label></td>
-		        <td ><s:input id="txtBillCountry" name="txtBillCountry" cssStyle="text-transform: uppercase;" path="strBCountry" cssClass="BoxW140px" /></td>
-		        <td><s:label path="strBPin"> Pin</s:label></td>
-		        <td ><s:input pattern="[0-9]{6}" id="txtBillPin" name="txtBillPin" path="strBPin" cssClass="simpleTextBox" /></td>
-		    	</tr>
-		    	
-		    	
-				<tr><th colspan="4" align="left">Shipping Address</th>
-				
-				</tr>
-				
-				<tr>
-				<td><s:label path="">  Same as Billing Address  </s:label></td>
-		        <td colspan="3"><s:checkbox id="chkShipAdd" name="chkShipAdd" path="" value="" onclick="funSetAdd()"  /></td>
-		        </tr>
-				
-				<tr>
-		    	<td><s:label path="strSAdd1">  Address Line 1  </s:label></td>
-		        <td colspan="3"><s:input cssClass="longTextBox" cssStyle="text-transform: uppercase;" id="txtShipAdd1" name="txtShipAdd1" path="strSAdd1" /></td>
-		    	</tr>
-		    	<tr>
-		    	<td><s:label path="strSAdd2">  Address Line 2  </s:label></td>
-		        <td colspan="3"><s:input cssClass="longTextBox" cssStyle="text-transform: uppercase;" id="txtShipAdd2" name="txtShipAdd2" path="strSAdd2"/></td>
-		    	</tr>
-		    	
-		    	<tr>
-		    	<td><s:label path="strSCity"> City</s:label></td>
-		        <td ><s:input id="txtShipCity" name="txtShipCity"  cssStyle="text-transform: uppercase;" path="strSCity" cssClass="BoxW140px" /></td>
-		        <td><s:label path="strSState"> State</s:label></td>
-		        <td ><s:input id="txtShipState" name="txtShipState" cssStyle="text-transform: uppercase;" path="strSState" cssClass="BoxW140px" /></td>
-		    	</tr>
-		    	
-		    	<tr>
-		    	<td><s:label path="strSCountry"> Country</s:label></td>
-		        <td ><s:input id="txtShipCountry" name="txtShipCountry" cssStyle="text-transform: uppercase;" path="strSCountry" cssClass="BoxW140px" /></td>
-		        <td><s:label path="strSPin"> Pin</s:label></td>
-		        <td ><s:input pattern="[0-9]{6}" id="txtShipPin" name="txtShipPin" path="strSPin" cssClass="simpleTextBox" /></td>
-		    	</tr>		
-			   </table>
-
+							<div class="col-md-2">
+								<label>Region</label>
+								<s:select id="cmbRegion" name="cmbRegion" path="strRegion" items="${hmRegion}"  />
+							</div>
+							<div class="col-md-12"><p style="margin:10px 0px;">Main Address</p></div>
 							
-			</div>
-		<div id="tab3" class="tab_content">
-				<!-- Kindly change funAddRow  So that it cnnot add products -->
-						<table style="width: 100%;" class="transTablex">
-						<tr>
-<!-- 								<th><label></label></th> -->
-<!-- 								<th><label></label></th> -->
-<!-- 								<th><label></label></th> -->
-<!-- 								<th><label></label></th> -->
-<!-- 								<th><label></label></th> -->
-<!-- 								<th><label></label></th> -->
-<!-- 								<th><label></label></th> -->
-<!-- 								<th><label></label></th> -->
-							</tr>
-							<tr>
-								<td width="10%">Product Code:</td>
-								<td width="10%"><input id="txtProdCode" class="BoxW140px" style="width:90%" ondblclick="funHelp('productmaster')" ></input></td>
-								<td width="30%"><label id="lblProdName" class="namelabel"></label></td>
-								<td width="10%"><label id="lblLicenceAmt">Licence Amount:</label></td>
-						 		<td><input id="txtAmount" type="text" class="decimal-places-amt numberField"  style="width: 80px"></input></td>
-			    				<td width="10%"><label id="lblAMCAmt">AMC Amount:</label></td>
-			    				<td><s:input  id="txtAMCAmount"  path="" class="decimal-places-amt numberField"  style="width: 100px;" /></td>	
-				  				
-				  				<td width="10%"><label id="lblInstallationDate">Installation Date:</label></td>				    
-				    			<td><s:input  id="txtInstallationDate"  path=""  cssClass="calenderTextBox" /></td>
-				    			<td width="10%"><label id="lblWarrInDays">Warranty In Day's:</label></td>
-				    			<td><s:input  id="txtWarrInDays"  path=""  cssClass="longTextBox" style="width: 100px;" /></td>
-								</tr>
-								<tr>
-								<td width="10%">Std Order Qty:</td>
-								<td width="10%"><input id="txtStandingOrder" type="text" class="decimal-places-amt numberField"  style="width: 80px"></input></td>
-								
-								<td width="10%">Margin:</td>
-								<td width="10%"><input id="txtMargin" type="text" class="decimal-places-amt numberField" style="width: 50px" ></input></td>
-								<td width="10%"><input id="btnAdd" type="button" class="smallButton" value="Add" onclick="return funAddRow()"></input></td>
-							    <td width="10%" colspan="2"><input id="btnAllProd" type="button" class="smallButton" value="All Product" onclick="return funLoadAllProduct()"></input></td> 
-							</tr>
-							
-							
-							
-									
-						</table>
+							<div class="col-md-2">
+				    			<s:label path="strMAdd1">Address Line 1:</s:label>
+				        		<s:input cssStyle="text-transform: uppercase;" id="txtMainAdd1" name="txtMainAdd1" path="strMAdd1"/>
+				        	</div>
+				    		<div class="col-md-2">
+				    	      <s:label path="strMAdd2"> Address Line 2:</s:label>
+				              <s:input cssStyle="text-transform: uppercase;" id="txtMainAdd2" name="txtMainAdd2" path="strMAdd2"/>
+				            </div>
+				    		<div class="col-md-2">
+				    			<s:label path="strMCity">City</s:label>
+				       			<s:input id="txtMainCity" cssStyle="text-transform: uppercase;" name="txtMainCity" path="strMCity" />
+				       		</div>
+				       		<div class="col-md-2">
+				       			 <s:label path="strMState"> State</s:label>
+				       			 <s:input id="txtMainState" cssStyle="text-transform: uppercase;" name="txtMainState" path="strMState" />
+				       		</div>
+				       		<div class="col-md-4"></div>
+				    		<div class="col-md-2">
+				    			<s:label path="strMCountry"> Country</s:label>
+				      			<s:input id="txtMainCountry" name="txtMainCountry" cssStyle="text-transform: uppercase;" path="strMCountry"  />
+				      		</div>
+				      		<div class="col-md-2">
+				       			<s:label path="strMPin"> Pin</s:label>
+				       			<s:input pattern="[0-9]{6}" id="txtMainPin" name="txtMainPin" path="strMPin"/>
+				       		</div>
+				       		
+				       		<div class="col-md-12"><p style="margin:10px 0px;">Billing Address</p></div>
+				    	
+							<div class="col-md-2">
+				    			<s:label path="strBAdd1">Address Line 1</s:label>
+				        		<s:input  cssStyle="text-transform: uppercase;" id="txtBillAdd1" name="txtBillAdd1" path="strBAdd1"/>
+				        	</div>
+				    		<div class="col-md-2">
+				    			<s:label path="strBAdd2">Address Line 2</s:label>
+				        		<s:input cssStyle="text-transform: uppercase;" id="txtBillAdd2" name="txtBillAdd2" path="strBAdd2"/>
+				        	</div>
+				    		<div class="col-md-2">
+				    			<s:label path="strBCity">City</s:label>
+				        		<s:input id="txtBillCity" name="txtBillCity" cssStyle="text-transform: uppercase;" path="strBCity"  />
+				        	</div>
+				        	<div class="col-md-2">
+				        		 <s:label path="strBState">State</s:label>
+				       			 <s:input id="txtBillState" name="txtBillState" cssStyle="text-transform: uppercase;" path="strBState" />
+				       		</div>
+				       			<div class="col-md-4"></div>
+				    		<div class="col-md-2">
+				    			<s:label path="strBCountry">Country</s:label>
+				       			<s:input id="txtBillCountry" name="txtBillCountry" cssStyle="text-transform: uppercase;" path="strBCountry" />
+				       		</div>
+				       		<div class="col-md-2">
+				       			<s:label path="strBPin">Pin</s:label>
+				        		<s:input pattern="[0-9]{6}" id="txtBillPin" name="txtBillPin" path="strBPin" />
+				        	</div>
+				    		<div class="col-md-12"><p style="margin:10px 0px;">Shipping Address</p></div>
+				    		
+				    		<div class="col-md-2">
+				    			<s:label path="">  Same as Billing Address  </s:label>
+				     			<s:checkbox id="chkShipAdd" name="chkShipAdd" path="" value="" onclick="funSetAdd()"  />
+				     		</div>
+				      		<div class="col-md-2">
+				    			<s:label path="strSAdd1">  Address Line 1  </s:label>
+				       			<s:input  cssStyle="text-transform: uppercase;" id="txtShipAdd1" name="txtShipAdd1" path="strSAdd1" />
+				       		</div>
+				    		<div class="col-md-2">
+				    			<s:label path="strSAdd2">  Address Line 2  </s:label>
+				       			<s:input  cssStyle="text-transform: uppercase;" id="txtShipAdd2" name="txtShipAdd2" path="strSAdd2"/>
+				       		</div>
+				       		<div class="col-md-2">
+				    			<s:label path="strSCity"> City</s:label>
+				       			<s:input id="txtShipCity" name="txtShipCity"  cssStyle="text-transform: uppercase;" path="strSCity"/>
+				       		</div>
+				       		<div class="col-md-4"></div>
+				       		<div class="col-md-2">
+				       			<s:label path="strSState"> State</s:label>
+				       	 		<s:input id="txtShipState" name="txtShipState" cssStyle="text-transform: uppercase;" path="strSState" />
+				       	  	</div>
+				    		<div class="col-md-2">
+				    	    	<s:label path="strSCountry"> Country</s:label>
+				       			<s:input id="txtShipCountry" name="txtShipCountry" cssStyle="text-transform: uppercase;" path="strSCountry"  />
+				       		</div>
+				       		
+				       		<div class="col-md-2">
+				        		<s:label path="strSPin"> Pin</s:label>
+				      			<s:input pattern="[0-9]{6}" id="txtShipPin" name="txtShipPin" path="strSPin"  />
+				      		</div> 
+						</div>
+					</div>
+					<div id="tab3" class="tab_content">
+						<!-- Kindly change funAddRow  So that it cnnot add products -->
+						<div class="row transTablex" style="width:100%; margin-top:10px;">
+							<div class="col-md-5">
+								<div class="row">
+									<div class="col-md-5">
+										<label>Product Code:</label>
+										<input id="txtProdCode" ondblclick="funHelp('productmaster')" type="text" Class="searchTextBox" />
+									</div>
+									<div class="col-md-7">
+										<label id="lblProdName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label>
+									</div>
+								</div>
+				      		</div>
+				      		<div class="col-md-5">
+								<div class="row">
+									<div class="col-md-5">
+										<label id="lblLicenceAmt">Licence Amount:</label>
+										<input id="txtAmount" type="text" class="decimal-places-amt numberField"></input>
+									</div>
+									<div class="col-md-7">
+										<label id="lblAMCAmt">AMC Amount:</label>
+										<s:input  id="txtAMCAmount"  path="" class="decimal-places-amt numberField"/>
+									</div>
+								</div><br>
+				      		</div>
+				      		<div class="col-md-5">
+								<div class="row">
+									<div class="col-md-5">
+										<label id="lblInstallationDate">Installation Date:</label>
+										<s:input  id="txtInstallationDate"  path=""  cssClass="calenderTextBox" />
+									</div>
+									<div class="col-md-7">
+										<label id="lblWarrInDays">Warranty In Day's:</label>
+										<s:input  id="txtWarrInDays"  path="" type="text"/>
+									</div>
+								</div>
+				      		</div>
+				      		<div class="col-md-5">
+								<div class="row">
+									<div class="col-md-5">
+										<label>Std Order Qty:</label>
+										<input id="txtStandingOrder" type="text" class="decimal-places-amt numberField"></input>
+									</div>
+									<div class="col-md-5">
+										<label>Margin:</label>
+										<input id="txtMargin" type="text" class="decimal-places-amt numberField"></input>
+									</div>
+								</div><br>
+				      		</div>
+				      		<div class="col-md-6">
+						      <div class="center">
+									<a href="#"><button class="btn btn-primary center-block" id="btnAdd" value="Add" onclick="return funAddRow()">Add</button></a>&nbsp;
+									<a href="#"><button class="btn btn-primary center-block" id="btnAllProd" value="All Product" onclick="return funLoadAllProduct()"
+										class="form_button">All Product</button></a>
+								</div>
+				      		</div>
+						</div>
 <!-- 						<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 80%;"> -->
-<!-- 									<table id="tblProdDet" -->
-<!-- 										style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" -->
-<!-- 										class="transTablex col4-center"> -->
-<!-- 										<tr > -->
+<!-- 							<table id="tblProdDet" -->
+<!-- 								style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" -->
+<!-- 								   class="transTablex col4-center"> -->
+<!-- 								<tr > -->
 <!-- 									<td style="border: 1px white solid;width:10%"><label>Product Code</label></td> -->
 <!-- 									<td style="border: 1px  white solid;width:50%"><label>Product Name</label></td> -->
 <!-- 									<td style="border: 1px  white solid;width:10%"><label>Standing Order</label></td> -->
@@ -1588,13 +1533,9 @@ var listProductData;
 <!-- 									<td style="border: 1px  white solid;width:10%"><label>Delete</label></td> -->
 <!-- 								</tr> -->
 <!-- 								</table> -->
-								
-								
-								
-		<div class="dynamicTableContainer" style="height: 450px;" id="divProductDetails">
-			<table style="height: 30px; border: #0F0;width: 100%;font-size:11px;
-			font-weight: bold;">
-				<tr bgcolor="#72BEFC">
+						<div class="dynamicTableContainer" style="height: 450px;" id="divProductDetails">
+							<table style="height: 30px; border: #0F0;width: 100%; font-size:13px; font-weight: bold;border:1px solid #c0c0c0;">
+								<tr style="bgcolor:#c0c0c0;">
 									<td style="width:10%"><label>Product Code</label></td>
 									<td style="width:25%"><label>Product Name</label></td>
 									<td style="width:10%"><label>Licence Amount</label></td>
@@ -1604,93 +1545,87 @@ var listProductData;
 									<td style="width:10%"><label>Std Order Qty</label></td>
 									<td style="width:10%"><label>Margin %</label></td>
 									<td style="width:10%"><label>Delete</label></td>
-				</tr>
-			</table>
-			<div
-				style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 410px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
-					<table id="tblProdDet1"
-					style="width: 100%; height: 24px; border: #0F0; table-layout: fixed; overflow: scroll"
-					class="transTablex col11-center">
-					<tbody>
-					<col style="width:11%">					
-					<col style="width:28%">
-					<col style="width:11%">
-					<col style="width:11%">
-					<col style="width:11%">
-					<col style="width:11%">
-					<col style="width:12%">
-					<col style="width:10%">
-					<col style="width:3%">
-					
-					</tbody>
-				</table>
-			</div>
-		</div>
-		
-								
-		<%-- <div class="dynamicTableContainer" style="height: 450px;" id="divProductDetails1">
-			<table style="height: 10px; border: #0F0;width: 100%;font-size:11px;
-			font-weight: bold;">
-				<tr bgcolor="#72BEFC">
-									<td style="border: 1px white solid;width:10%"><label>Product Code</label></td>
-									<td style="border: 1px  white solid;width:50%"><label>Product Name</label></td>
-									<td style="border: 1px  white solid;width:10%"><label>Std Order Qty</label></td>
-									<td style="border: 1px  white solid;width:10%"><label>Amount</label></td>
-									<td style="border: 1px  white solid;width:10%"><label>Margin %</label></td>
-									<td style="border: 1px  white solid;width:10%"><label>Delete</label></td>
-				</tr>
-			</table>
-			<div
-				style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 410px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
-					<table id="tblProdDet1"
-					style="width: 100%; height: 24px; border: #0F0; table-layout: fixed; overflow: scroll"
-					class="transTablex col11-center">
-					<tbody>
-					<col style="width:10%">					
-					<col style="width:50%">
-					<col style="width:10%">
-					<col style="width:10%">
-					<col style="width:10%">
-					<col style="width:10%">
-					
-					</tbody>
-				</table>
-			</div>
-		</div> --%>
-			
-	<dl id="Searchresult" style="width: 95%; margin-left: 26px; overflow:auto;"></dl>
-		<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
-		
-		</div>
-		</div>
-			
-			<div id="tab4" class="tab_content">
-						<table style="width: 80%;" class="transTablex col3-center">
-							<tr>
-								<th><label></label></th>
-								<th><label></label></th>
-								<th><label></label></th>
-								<th><label></label></th>
-								<th><label></label></th>
-								<th><label></label></th>
-							</tr>
-							<tr>
-							<td>Tax Code</td>
-							<td><input id="txtTaxCode" ondblclick="funHelp('taxmaster')" Class="searchTextBox" ></input></td>
-							<td>Tax Description</td>
-							<td><input id="txtTaxDesc" class="BoxW140px" readonly="readonly" ></input></td>
-							<td><input id="btnTaxAdd" type="button" value="Add"  class="smallButton" onclick="return funAddRowTax()"></input></td>
-							</tr>	
-						</table>
-						<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 80%;">
-									<table id="tblPartyTax"
-										style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-										class="transTablex col3-center">
-						<!-- <table class="masterTable"  id="tblPartyTax" style="width:80%" > -->
-								<tr >
-									<td style="border: 1px white solid;width:10%"><label>Tax Code</label></td>
-									<td style="border: 1px  white solid;width:50%"><label>Tax Description</label></td>
+								</tr>
+							</table>
+							<div
+								style="border: 1px solid #ccc; display: block; height: 410px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+									<table id="tblProdDet1"
+									style="width: 100%; height: 24px; border: #0F0; table-layout: fixed; overflow: scroll"
+										class="transTablex col11-center">
+									<tbody>
+									<col style="width:11%">					
+									<col style="width:28%">
+									<col style="width:11%">
+									<col style="width:11%">
+									<col style="width:11%">
+									<col style="width:11%">
+									<col style="width:12%">
+									<col style="width:10%">
+									<col style="width:3%">
 									
+									</tbody>
+								</table>
+							</div>
+						</div>
+								
+					<%-- <div class="dynamicTableContainer" style="height: 450px;" id="divProductDetails1">
+						<table style="height: 10px; border: #0F0;width: 100%;font-size:11px;
+						font-weight: bold;">
+							<tr bgcolor="#72BEFC">
+												<td style="border: 1px white solid;width:10%"><label>Product Code</label></td>
+												<td style="border: 1px  white solid;width:50%"><label>Product Name</label></td>
+												<td style="border: 1px  white solid;width:10%"><label>Std Order Qty</label></td>
+												<td style="border: 1px  white solid;width:10%"><label>Amount</label></td>
+												<td style="border: 1px  white solid;width:10%"><label>Margin %</label></td>
+												<td style="border: 1px  white solid;width:10%"><label>Delete</label></td>
+							</tr>
+						</table>
+						<div
+							style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 410px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+								<table id="tblProdDet1"
+								style="width: 100%; height: 24px; border: #0F0; table-layout: fixed; overflow: scroll"
+								class="transTablex col11-center">
+								<tbody>
+								<col style="width:10%">					
+								<col style="width:50%">
+								<col style="width:10%">
+								<col style="width:10%">
+								<col style="width:10%">
+								<col style="width:10%">
+								
+								</tbody>
+							</table>
+						</div>
+					</div> --%>
+			
+				<dl id="Searchresult" style="overflow:auto;width: 80%;"></dl>
+				<div id="Pagination" class="pagination" style="width: 80%;margin-left: 26px;">
+				</div>
+			</div>
+			
+				<div id="tab4" class="tab_content">
+					<div class="row transTablex" style="width:100%; margin-top:10px;">
+						<div class="col-md-2">
+							<label>Tax Code:</label>
+							<input id="txtTaxCode" ondblclick="funHelp('taxmaster')" Class="searchTextBox" ></input>
+						</div>
+						<div class="col-md-2">
+							<label>Tax Description:</label>
+							<input id="txtTaxDesc" readonly="readonly" type="text"></input>
+						</div>
+						<div class="col-md-2">
+							<input style="margin-top:23px;" id="btnTaxAdd" type="button" value="Add"  class="btn btn-primary center-block" onclick="return funAddRowTax()"></input>
+						</div>
+						<div class="col-md-3"></div>
+					</div><br>
+						<div style="border: 1px solid #ccc;height: 250px;background: #fbfafa; overflow-x: hidden; overflow-y: scroll; width: 60%;">
+							<table id="tblPartyTax"
+									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+									class="transTablex col3-center">
+						<!-- <table class="masterTable"  id="tblPartyTax" style="width:80%" > -->
+								<tr style="background:#c0c0c0;">
+									<td style="border: 1px white solid;width:10%"><label>Tax Code</label></td>
+									<td style="border: 1px  white solid;width:30%"><label>Tax Description</label></td>
 									<td style="border: 1px  white solid;width:10%"><label>Delete</label></td>
 								</tr>
 
@@ -1705,62 +1640,45 @@ var listProductData;
 											name="listProdAtt[${status.index}].dblAttValue"
 											value="${prodAtt.dblAttValue}" /></td>
 										<td><input type="hidden"
-											name="listProdAtt[${status.index}].strAVCode"
 											value="${prodAtt.strAVCode}" readonly="readonly" /></td>
 										<td><input type="button" value="Delete"
 											onClick="funDeleteRowForAttribute(this)" class="deletebutton"></td>
 									</tr>
 								</c:forEach> --%>
 							</table>
-							</div>
+						</div>
+				</div>
+				<div id="tab5" class="tab_content">
+					<div class="row transTablex" style="width:100%; margin-top:10px;">
+						<div class="col-md-2">
+							<label>Date of Installation:</label>
+								<s:input type="text" required="true" id="txtdtInstallions" path="dtInstallions" cssClass="calenderTextBox" style="width:70%;"/>
+						</div>
+						<div class="col-md-2">
+							<label>Account Manager:</label>
+								<s:input type="text"  id="txtAccManager" path="strAccManager"/>
+						</div>
+					</div>
+				</div>
+				</div>
 			</div>
-			<div id="tab5" class="tab_content">
-			<table style="width: 80%;" class="transTablex col3-center">
-			<tr>
-				<td>Date of Installation</td>
-				<td><s:input type="text" required="true" id="txtdtInstallions" path="dtInstallions" cssClass="calenderTextBox" /></td>
-			</tr>
-			<tr>
-				<td>Account Manager</td>
-				<td><s:input type="text"  id="txtAccManager" path="strAccManager" cssClass="BoxW140px" /></td>
-			</tr>
-			
-			</table>
-			
-			<br>
-			<br>
-						
-			</div>
-			
+			<div class="center" style="text-align:center;">
+				<input id="formsubmit" type="button" class="btn btn-primary center-block" onclick="return funValidateFields()"
+						value="Submit" />&nbsp
+				<input  type="button" value="Reset" onclick="funResetFields()"
+						class="btn btn-primary center-block" />
 			</div>
 		
- 	 </td>
-  </tr>
-</table>
-		
-
-	<br>
-		<p align="center">
-			<input type="submit" value="Submit" id="formsubmit" onclick="return funValidateFields()"
-				
-				class="form_button" /> <input type="reset" value="Reset"
-				class="form_button" onclick="funResetFields()" />
-		</p>
-		<br>
-	<br><br>
-	
-		<div id="wait"
-			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
-			<img
-				src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
-				width="60px" height="60px" />
-							
-		</div>
-		<s:input id="hidDebtorCode" type="hidden" path="strDebtorCode" />	
-	
-</s:form>
-<%-- <script type="text/javascript">
-		funApplyNumberValidation();
-	</script> --%>
-</body>
-</html>
+			<div id="wait"
+				style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
+				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
+					width="60px" height="60px" />
+			</div>
+			<s:input id="hidDebtorCode" type="hidden" path="strDebtorCode" />	
+		</s:form>
+	</div>
+			<%-- <script type="text/javascript">
+				funApplyNumberValidation();
+			</script> --%>
+ </body>
+ </html>

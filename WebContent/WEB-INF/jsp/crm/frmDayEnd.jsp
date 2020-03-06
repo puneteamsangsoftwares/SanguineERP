@@ -8,13 +8,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta http-equiv="X-UA-Compatible" content="IE=8">
 
-		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 
-	 	 
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
 <title>Day End</title>
 <style type="text/css">
@@ -231,7 +224,7 @@
 				<input type="text"id="txtLocCode"
 					class="searchTextBox" placeholder="Type to search">
 			</div><br>
-				<div style="background-color: #fbfafa;width: 80%;  border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+				<div style="background-color: #fbfafa;width: 60%;  border: 1px solid #ccc; display: block; height: 150px;font-size:13px; overflow-x: hidden; overflow-y: scroll;">
 					<table id="" class="masterTable"style="width: 100%; border-collapse: separate;">
 						<tbody>
 							<tr bgcolor="#c0c0c0">
@@ -253,7 +246,7 @@
 		</div>
 		<br>
 			<br>
-			<div class="center" style="margin-right: 20%;">
+			<div class="center" style="margin-right: 40%;">
 				<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return formSubmit();"
 					class="form_button">Submit</button></a> &nbsp;
 				<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetFields()"

@@ -9,13 +9,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
-		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-
 <style>
 
  #tblGroup tr:hover , #tblSubGroup tr:hover
@@ -23,7 +16,13 @@
 	background-color: #c0c0c0;
 	
   }
-
+.transTable {
+	margin:0px;
+	}
+.transTable td {
+	padding-left: 0px;
+	border-left:none;
+	}
 .searchTextBox 
 {
 	    background-position: 387px 2px;
@@ -247,9 +246,9 @@ $(document).ready(function()
 			    var rowCount = table.rows.length;
 			    var row = table.insertRow(rowCount);
 			    
-			    row.insertCell(0).innerHTML= "<input id=\"cbGSel."+(rowCount)+"\" type=\"checkbox\" class=\"GCheckBoxClass\" checked=\"checked\" name=\"Groupthemes\" value='"+strGroupCode+"' onclick=\"funGroupChkOnClick()\"/>";
-			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strGCode."+(rowCount)+"\" value='"+strGroupCode+"' >";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
+			    row.insertCell(0).innerHTML= "<input id=\"cbGSel."+(rowCount)+"\" type=\"checkbox\" style=\"margin-left: 37%;\" class=\"GCheckBoxClass\" checked=\"checked\" name=\"Groupthemes\" value='"+strGroupCode+"' onclick=\"funGroupChkOnClick()\"/>";
+			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"strGCode."+(rowCount)+"\" value='"+strGroupCode+"' >";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"strGName."+(rowCount)+"\" value='"+strGroupName+"' >";
 		}
 		/**
 		 * After Selected Group Data get the SubGroup Data
@@ -334,9 +333,9 @@ $(document).ready(function()
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    
-		    row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" name=\"SubGroupthemes\" value='"+strSGCode+"' class=\"SGCheckBoxClass\" />";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
-		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
+		    row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" type=\"checkbox\" style=\"margin-left: 37%;\" checked=\"checked\" name=\"SubGroupthemes\" value='"+strSGCode+"' class=\"SGCheckBoxClass\" />";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
+		    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
 		}
 		/**
 		* Remove All rows form grid
@@ -526,7 +525,7 @@ $(document).ready(function()
 </script>
 </head>
 <body>
-	<div class="container transTable">
+	<div class="container">
 		<label id="formHeading">Customer wise Category wise Sales Order Report</label>
 	     <s:form name="frmCustomerWiseCategorySalesOrderReport" method="POSt" action="rptCustomerWiseCategoryWiseSalesOrderReport.html" target="_blank">
 	   		<div class="row">
@@ -564,70 +563,66 @@ $(document).ready(function()
 		<tr>
 		<td width="49%">Group
 			<input type="text"  style="width: 35%; background-position-x: 99%;" 
-			id="searchGrp" placeholder="Type to search" Class="searchTextBox">
+								id="searchGrp" placeholder="Type to search" Class="searchTextBox">
 		 </td>
 		 <td width="49%">Sub Group
 		  		 <input type="text" id="searchSGrp"  style="width: 35%; background-position-x: 99%;" 
 		  		 Class="searchTextBox" placeholder="Type to search">
 		 </td>
 		  </tr>
-			<tr></tr>
-			<tr>
-				<td style="padding: 0 !important;">
-						<div
-							style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-							<table id="" class="display"
-								style="width: 100%; border-collapse: separate;">
+			
+			
+				<td style="padding: 5 !important; margin-right: 16px;">
+						<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block;width:97%; margin-top:7px;">
+							<table id="" class="display"style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center"
+								style="width: 100%;">
 								<tbody>
 									<tr bgcolor="#c0c0c0">
-										<td width="15%"><input type="checkbox" id="chkGALL"
-											checked="checked" onclick="funCheckUncheck()" />Select</td>
-										<td width="20%">Group Code</td>
+									
+									<td style="text-align:center;width:14%;">Select<br><input type="checkbox" id="chkGALL"
+											checked="checked" onclick="funCheckUncheck()" /></td>
+										<td width="35%">Group Code</td>
 										<td width="65%">Group Name</td>
-
 									</tr>
 								</tbody>
 							</table>
+							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				
 							<table id="tblGroup" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
-								<tbody>
-									<tr bgcolor="#c0c0c0">
-										<td width="15%"></td>
-										<td width="20%"></td>
-										<td width="65%"></td>
-
-									</tr>
-								</tbody>
+								<colgroup>
+									<col style="text-align:center;width:5%;">
+									<col style="width:13%">
+									<col style="text-align:center;width:20%;">
+								</colgroup>
 							</table>
 						</div>
+						</div>
 						</td>
-						<td style="padding: 0 !important;">
-						<div
-							style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
-
+					
+						<td>
+						<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block;width:97%;margin-top:7px;">
 							<table id="" class="masterTable"
-								style="width: 100%; border-collapse: separate;">
+								style="width: 100%;">
 								<tbody>
 									<tr bgcolor="#c0c0c0">
-										<td width="15%"><input type="checkbox" id="chkSGALL"
-											checked="checked" onclick="funCheckUncheckSubGroup()" />Select</td>
-										<td width="25%">Sub Group Code</td>
+										<td style="text-align:center;width:14%;">Select<br><input type="checkbox" id="chkSGALL"
+											checked="checked" onclick="funCheckUncheckSubGroup()" /></td>
+										<td width="30%">Sub Group Code</td>
 										<td width="65%">Sub Group Name</td>
-
 									</tr>
 								</tbody>
 							</table>
-							<table id="tblSubGroup" class="masterTable"
-								style="width: 100%; border-collapse: separate;">
-								<tbody>
-									<tr bgcolor="#c0c0c0">
-										<td width="15%"></td>
-										<td width="25%"></td>
-										<td width="65%"></td>
-
-									</tr>
-								</tbody>
+							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+								<table id="tblSubGroup" class="masterTable"
+									style="width: 100%; border-collapse: separate;">
+									<colgroup>
+										<col style="text-align:center;width:5%;">
+										<col style="width:13%">
+										<col style="text-align:center;width:20%;">
+								</colgroup>
 							</table>
+						</div>
 						</div>
 				</td>
 			</tr>

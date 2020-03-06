@@ -7,19 +7,19 @@
   <head>
     <link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Locationwise Categorywise SO</title>
-        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-    
-    <style>
-  #tblGroup tr:hover , #tblSubGroup tr:hover, #tblloc tr:hover{
+    <title>Location wise Categorywise SO</title>
+        
+   <style>
+#tblGroup tr:hover , #tblSubGroup tr:hover, #tblloc tr:hover{
 	background-color: #c0c0c0;
-	
 }
+.transTable {
+	margin:0px;
+	}
+	.transTable td {
+	padding-left: 0px;
+	border-left:none;
+	}
 </style>
     <script type="text/javascript">
     
@@ -194,9 +194,9 @@
 			    var rowCount = table.rows.length;
 			    var row = table.insertRow(rowCount);
 			    
-			    row.insertCell(0).innerHTML= "<input id=\"cbToLocSel."+(rowCount)+"\" name=\"Locthemes\" type=\"checkbox\" class=\"LocCheckBoxClass\"  checked=\"checked\" value='"+strLocCode+"' />";
-			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strToLocCode."+(rowCount)+"\" value='"+strLocCode+"' >";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strToLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
+			    row.insertCell(0).innerHTML= "<input id=\"cbToLocSel."+(rowCount)+"\" name=\"Locthemes\" style=\"margin-left: 37%;\" type=\"checkbox\" class=\"LocCheckBoxClass\"  checked=\"checked\" value='"+strLocCode+"' />";
+			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" style=\"width:99%;\" id=\"strToLocCode."+(rowCount)+"\" value='"+strLocCode+"' >";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" style=\"width:99%;\" id=\"strToLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
 		}
 	  
 	  
@@ -253,9 +253,9 @@
 				    var rowCount = table.rows.length;
 				    var row = table.insertRow(rowCount);
 				    
-				    row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" name=\"SGthemes\" type=\"checkbox\" class=\"SGCheckBoxClass\"  checked=\"checked\" value='"+strSGCode+"' />";
-				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
-				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
+				    row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" name=\"SGthemes\" style=\"margin-left: 37%;\" type=\"checkbox\" class=\"SGCheckBoxClass\"  checked=\"checked\" value='"+strSGCode+"' />";
+				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" style=\"width:99%;\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
+				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" style=\"width:99%;\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
 			}
 		    //Remove All Row from Grid Passing Table Id as a parameter
 		    function funRemRows(tablename) 
@@ -373,7 +373,7 @@
 			
 			<div class="col-md-4"><label id="lblLocName" style="background-color:#dcdada94; width: 50%; height: 50%; margin-top:8%"></label></div>
 
-			<div class="col-md-2"><label>SubGroupmer</label>
+			<div class="col-md-2"><label>SubGroup</label>
 			      <input type="text" id="txtSGCode" 
 			         Class="searchTextBox" placeholder="Type to search"></input>
 			</div>
@@ -381,54 +381,55 @@
 			<div class="col-md-4"><label id="lblSGName" style="background-color:#dcdada94; width: 50%; height: 50%; margin-top:8%"></label>
 		    </div>
 			
-			<div class="col-md-12"></div>	
-			<br>	
-		    <div class="col-md-6" style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 490px; overflow-x: hidden; overflow-y: scroll;">
-                   <table id="" class="masterTable"
-								style="width: 100%; border-collapse: separate;">
-						<tbody>
-							<tr bgcolor="#c0c0c0">
-										<td width="15%"><input type="checkbox" checked="checked" 
-										id="chkLocALL"/>Select</td>
-										<td width="25%"> Location Code</td>
-										<td width="65%"> Location Name</td>
-
-							  </tr>
-						</tbody>
-						</table>
-				   <table id="tblloc" class="masterTable"
-								style="width: 100%; border-collapse: separate;">
-
-							<!-- <tr bgcolor="#72BEFC">
-									
-
-							</tr> -->
-					</table>
-				</div>
-				
-				<div class="col-md-6" style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 480px; overflow-x: hidden; overflow-y: scroll;">
-
-					<table id="" class="masterTable"
-								style="width: 100%; border-collapse: separate;">
+			<div class="col-md-12" style="display:flex;">	
+		    	<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; width:47%; margin-top:7px;margin-right:20px;">
+						<table id="" class="display" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center"
+								style="width: 100%;">
 							<tbody>
 								<tr bgcolor="#c0c0c0">
-										<td width="15%"><input type="checkbox" checked="checked" 
-										id="chkSGALL"/>Select</td>
-										<td width="25%">To SubGroup Code</td>
-										<td width="65%">To SubGroup Name</td>
-
+									<td style="text-align:center;width:14%;">Select<br>
+										<input type="checkbox" checked="checked" 
+												id="chkLocALL"/></td>
+									<td width="35%"> Location Code</td>
+									<td width="65%">Location Name</td>
 								</tr>
 							</tbody>
-					</table>
-					<table id="tblSG" class="masterTable"
+						</table>
+						<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+							<table id="tblloc" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
-
-							<!-- 	<tr bgcolor="#72BEFC">
-									
-
-								</tr> -->
-					</table>
-			 </div>
+								<colgroup>
+									<col style="text-align:center;width:5%;">
+									<col style="width:13%">
+									<col style="text-align:center;width:20%;">
+								</colgroup>
+						</table>
+					</div>
+				</div>
+				
+				<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block;width:47%;margin-top:7px;">
+							<table id="" class="masterTable"
+								style="width: 100%;">
+								<tbody>
+									<tr bgcolor="#c0c0c0">
+										<td style="text-align:center;width:14%;">Select<br><input type="checkbox" checked="checked" id="chkSGALL"/></td>
+										<td width="30%">To SubGroup Code</td>
+										<td width="65%">To SubGroup Name</td>
+									</tr>
+								</tbody>
+							</table>
+							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+								<table id="tblSG" class="masterTable"
+										style="width: 100%; border-collapse: separate;">
+								<colgroup>
+										<col style="text-align:center;width:5%;">
+										<col style="width:13%">
+										<col style="text-align:center;width:20%;">
+								</colgroup>
+							</table>
+						</div>
+				 </div>
+				</div>
 				
 		     <div class="col-md-2"><label>Report Type :</label>
 				     <s:select id="cmbDocType" path="strDocType" style="width:auto;">

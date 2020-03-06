@@ -1,23 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 
 <!DOCTYPE html>
+
+
+
 <html>
     <head>  
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<meta http-equiv="X-UA-Compatible" content="IE=8">
+		
         <title>JSP Page</title>
-        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+       
+		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
 	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
 	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 	
 	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
-        
-<%--         <script type="text/javascript" src="<spring:url value="/resources/js/jquery-2.1.3.js"/>"></script> --%>
+
+ <%--  <script type="text/javascript" src="<spring:url value="/resources/js/jquery-2.1.3.js"/>"></script> --%>
        <script type="text/javascript" src="<spring:url value="/resources/js/canvg.js"/>"></script> 
 		<script type="text/javascript" src="<spring:url value="/resources/js/html2canvas.min.js"/>"></script> 
 		<script type="text/javascript" src="<spring:url value="/resources/js/jspdf.min.js"/>"></script> 
@@ -851,56 +854,57 @@
     </script>
     </head>
     <body>
-     <s:form name="Dashboard"   method="POST"
-		action="rptPOSWiseSalesReport.html?saddr=${urlHits}"
-		target="_blank">
+    <div class="container">
+    	 <s:form name="Dashboard"   method="POST" action="rptPOSWiseSalesReport.html?saddr=${urlHits}"
+			target="_blank">
 	  <div id="tempStyleDiv"></div>	
-	  <div  id="containerGraph" style=" width: 100%; height: 100%; margin: auto; overflow-x: hidden; border-collapse: separate;display: block; ">	
-	  <div class="container masterTable"  style=" margin: auto; float:left; width:100%;height:100%">
-         <label id="formHeading">Dashboard For WebCRM</label>
-		<div class="row">
-			<div class="col-md-3">
-				<div class="row">
-					<div class="col-md-6"><label>From Date</label> 
-		          		<s:input id="txtFromDate" required="required"
-							path="strFromDate" pattern="\d{1,2}-\d{1,2}-\d{4}"
-							cssClass="calenderTextBox" /></div>
-					 <div class="col-md-6"><label>To Date</label>
-		          			<s:input id="txtToDate" required="required"
-							path="strToDate" pattern="\d{1,2}-\d{1,2}-\d{4}"
-							cssClass="calenderTextBox" /></div> 
-			  </div></div>
-			  </div>
-        <br>
-			  <p align="center" style="margin-right: 65%">
-				 <s:input type="button" id="btnShow" value="Show" path="strShow" align="center" class="btn btn-primary center-block" class="form_button" onclick="funShowRecord()"/>
-				 
-				 <s:input type="button" id="btnExport" value="Export" path="" align="center" class="btn btn-primary center-block" class="form_button" onclick="funExport()"/>
-			  </p>
-			
-         <div  style=" width: 100%; height: 100%; margin: auto; overflow-x: hidden; border-collapse: separate;display: block; ">
+	  <div  id="containerGraph">	
+	  	<div class="row masterTable">
+             <div  class="col-md-12">
+               	<label id="formHeading">Dashboard For WebCRM</label>
+             </div>
+              <div class="col-md-2">
+				 <label>From Date</label>
+		         <s:input id="txtFromDate" required="required" path="strFromDate" pattern="\d{1,2}-\d{1,2}-\d{4}"
+						cssClass="calenderTextBox" style="width:70%;"/>
+			</div>
+			<div class="col-md-2">
+				 <label>To Date</label>
+		          <s:input id="txtToDate" required="required"
+						path="strToDate" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" style="width:70%;"/> 
+			</div>
+			<div class="col-md-1">
+				 <s:input type="button" id="btnShow" value="Show" path="strShow" class="btn btn-primary center-block" onclick="funShowRecord()" style="margin-top:24px; width:100%;"/>
+			</div>
+			<div class="col-md-1">
+				 <s:input type="button" id="btnExport" value="Export" path="" class="btn btn-primary center-block" onclick="funExport()" style="margin-top:24px; width:100%;"/>
+			</div>
+		</div>
+	</div>
+    <br>
+      <div  style=" width: 100%; height: 100%; margin: auto; overflow-x: hidden; border-collapse: separate; display: block; ">
 	     <br />
-	     <div id="container1" style=" width: 50%; height: 300px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate">
+	     <div id="container1" style=" width: 50%; height: 300px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate; ">
+		 </div>
+		
+		<div id="container2" style=" width: 50%; height: 300px; margin:auto;float:left;  overflow-x: hidden; border-collapse: separate;">
 		</div>
 		
-		<div id="container2" style=" width: 50%; height: 300px; margin:auto;float:left;  overflow-x: hidden; border-collapse: separate">
+		<div id="container3" style=" width: 50%; height: 300px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate;">
 		</div>
 		
-		<div id="container3" style=" width: 50%; height: 300px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate">
+		<div id="container4" style=" width: 50%; height: 300px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate;">
 		</div>
 		
-		<div id="container4" style=" width: 50%; height: 300px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate">
+		<div id="container5" style=" width: 50%; height: 300px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate;">
 		</div>
 		
-		<div id="container5" style=" width: 50%; height: 300px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate; background-color: #ffffff; ">
+		<div id="container6" style=" width: 50%; height: 300px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate;">
 		</div>
-		
-		<div id="container6" style=" width: 50%; height: 300px; margin: auto;float:left;  overflow-x: hidden; border-collapse: separate; background-color: #ffffff; ">
-		</div>
-		</div>
-	 </div>	
-  	</div>
-   </s:form>	
+	</div>
+	   
+	</s:form>
+</div>	
     </body>
 </html> 
 

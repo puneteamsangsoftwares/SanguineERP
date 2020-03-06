@@ -9,18 +9,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Cost Of Issue</title>
     
-        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-    
     <style>
   #tblGroup tr:hover , #tblSubGroup tr:hover, #tblloc tr:hover{
 	background-color: #c0c0c0;
 	
 }
+.transTable {
+	margin:0px;
+	}
+	.transTable td {
+	padding-left: 0px;
+	border-left:none;
+	}
 </style>
     <script type="text/javascript">
     
@@ -205,9 +205,9 @@
 			    var rowCount = table.rows.length;
 			    var row = table.insertRow(rowCount);
 			    
-			    row.insertCell(0).innerHTML= "<input id=\"cbToLocSel."+(rowCount)+"\" name=\"Locthemes\" type=\"checkbox\" class=\"LocCheckBoxClass\"  checked=\"checked\" value='"+strLocCode+"' />";
-			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strToLocCode."+(rowCount)+"\" value='"+strLocCode+"' >";
-			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strToLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
+			    row.insertCell(0).innerHTML= "<input id=\"cbToLocSel."+(rowCount)+"\" name=\"Locthemes\" style=\"margin-left: 37%;\" type=\"checkbox\" class=\"LocCheckBoxClass\"  checked=\"checked\" value='"+strLocCode+"' />";
+			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" style=\"width:99%;\" id=\"strToLocCode."+(rowCount)+"\" value='"+strLocCode+"' >";
+			    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" style=\"width:99%;\" id=\"strToLocName."+(rowCount)+"\" value='"+strLocationName+"' >";
 		}
 	  
 	  
@@ -269,9 +269,9 @@
 				    var rowCount = table.rows.length;
 				    var row = table.insertRow(rowCount);
 				    
-				    row.insertCell(0).innerHTML= "<input id=\"cbSuppSel."+(rowCount)+"\" name=\"Custthemes\" type=\"checkbox\" class=\"CustCheckBoxClass\"  checked=\"checked\" value='"+strCustCode+"' />";
-				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"15%\" id=\"strCustCode."+(rowCount)+"\" value='"+strCustCode+"' >";
-				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strCName."+(rowCount)+"\" value='"+strCustName+"' >";
+				    row.insertCell(0).innerHTML= "<input id=\"cbSuppSel."+(rowCount)+"\" name=\"Custthemes\" style=\"margin-left: 37%;\" type=\"checkbox\" class=\"CustCheckBoxClass\"  checked=\"checked\" value='"+strCustCode+"' />";
+				    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" style=\"width:99%;\" id=\"strCustCode."+(rowCount)+"\" value='"+strCustCode+"' >";
+				    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" style=\"width:99%;\" id=\"strCName."+(rowCount)+"\" value='"+strCustName+"' >";
 			}
 		    //Remove All Row from Grid Passing Table Id as a parameter
 		    function funRemRows(tablename) 
@@ -387,79 +387,70 @@
 					 </div>
 				  </div></div>
 			    </div>
-				<br>
-		 <table class="transTable">
-			
-			<tr>
-			
-					
-			</tr>
-		</table> 
 		<br>
+		
+		
 		<table class="transTable">
-				
-		<tr>
-				<td colspan="2">Customer
+			<tr>
+				<td width="49%">Customer
 				<input style="width: 35%" type="text" id="txtCustCode"  Class="searchTextBox" placeholder="Type to search"></input>
-			<label id="lblCustName"></label></td>
+					<label id="lblCustName"></label></td>
 			
 			<td colspan="2">Location
 			<input type="text" id="txtLocCode" style="width: 35%"  Class="searchTextBox" placeholder="Type to search"  ></input>
 			<label id="lblLocName"></label></td>
 			
-			</tr><tr>
-						<td colspan="2">
-						<div
-							style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 480px; overflow-x: hidden; overflow-y: scroll;">
-
-							<table id="" class="masterTable"
-								style="width: 100%; border-collapse: separate;">
-								<tbody>
-									<tr bgcolor="#c0c0c0">
-										<td width="15%"><input type="checkbox" checked="checked" 
-										id="chkCustALL"/>Select</td>
-										<td width="25%">To Customer Code</td>
-										<td width="65%">To Customer Name</td>
-
-									</tr>
-								</tbody>
-							</table>
+			</tr>
+				<td style="padding: 5 !important; margin-right: 16px;">
+					<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; width:97%; margin-top:7px;">
+						<table id="" class="display" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center"
+								style="width: 100%;">
+							<tbody>
+								<tr bgcolor="#c0c0c0">
+									<td style="text-align:center;width:14%;">Select<br>
+										<input type="checkbox" checked="checked"  id="chkCustALL"/></td>
+									<td width="35%">To Customer Code</td>
+									<td width="65%">To Customer Name</td>
+								</tr>
+							</tbody>
+						</table>
+						<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 							<table id="tblCust" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
-
-							<!-- 	<tr bgcolor="#c0c0c0">
-									
-
-								</tr> -->
+								<colgroup>
+									<col style="text-align:center;width:5%;">
+									<col style="width:13%">
+									<col style="text-align:center;width:20%;">
+								</colgroup>
 							</table>
 						</div>
+						</div>
 				</td>
-				
-				<td colspan="2">
-						<div
-							style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 490px; overflow-x: hidden; overflow-y: scroll;">
-
+				<td>
+				<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block;width:97%;margin-top:7px;">
 							<table id="" class="masterTable"
-								style="width: 100%; border-collapse: separate;">
+								style="width: 100%;">
 								<tbody>
 									<tr bgcolor="#c0c0c0">
-										<td width="15%"><input type="checkbox" checked="checked" 
-										id="chkLocALL"/>Select</td>
-										<td width="25%"> Location Code</td>
-										<td width="65%"> Location Name</td>
-
+										<td style="text-align:center;width:14%;">Select<br><input type="checkbox" checked="checked" 
+											id="chkLocALL"/></td>
+										<td width="30%">Location Code</td>
+										<td width="65%">Location Name</td>
 									</tr>
 								</tbody>
 							</table>
+							<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+								
 							<table id="tblloc" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
-
-								<!-- <tr bgcolor="#c0c0c0">
-									
-
-								</tr> -->
+								<colgroup>
+										<col style="text-align:center;width:5%;">
+										<col style="width:13%">
+										<col style="text-align:center;width:20%;">
+								</colgroup>
 							</table>
 						</div>
+				</div>
 				</td>
 				
 				

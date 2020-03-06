@@ -1251,87 +1251,63 @@ $(document).ready(function() {
 
 </head>
 <body onload="funOnLoad();">
-	<div id="formHeading">
-		<label>Retail Billing</label>
-	</div>
-	<s:form name="RetailForm" method="POST"
-		action="saveRetailingBillng.html?saddr=${urlHits}">
-		<input type="hidden" value="${urlHits}" name="saddr">
+	<div class="container">
+		<label  id="formHeading">Retail Billing</label>
+		<s:form name="RetailForm" method="POST" action="saveRetailingBillng.html?saddr=${urlHits}">
+			<input type="hidden" value="${urlHits}" name="saddr">
 		<br>
-
 		<div id="tab_container" style="height: 600px">
 			<ul class="tabs">
-				<li class="active" data-state="tab1"
-					style="width: 100px; padding-left: 55px">Retail Billing</li>
-				<li data-state="tab2" style="width: 100px; padding-left: 55px">Settlement</li>
+				<li class="active" data-state="tab1" >Retail Billing</li>
+				<li data-state="tab2">Settlement</li>
 			</ul>
 
 			<div id="tab1" class="tab_content">
-				<table
-					style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
-					<tr>
-						<td>
-							<table class="transTable">
-								<tr>
-									<th align="right" colspan="9"><a id="baseUrl" href="#">
-											Attach Documents </a></th>
-								</tr>
-
-								<tr>
-									<td width="100px"><label>Inv. Code</label></td>
-									<td colspan="3"><s:input path="strInvCode" id="txtInvCode"
-											ondblclick="funHelp('invoiceRetail')"
-											cssClass="searchTextBox" /></td>
-
-									<td width="100px"><label>Inv Date</label>
-									<td><s:input path="dteInvDate" id="txtInvDate"
-											required="required" readonly="true"
-											cssClass="calenderTextBox" /></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-
-
-								<tr>
-									<td><label>Customer Code</label></td>
-									<td colspan="1"><s:input path="strCustCode"
-											id="txtCustCode" ondblclick="funHelp('custMasterActive')"
-											cssClass="searchTextBox"
-											onkeypress="funGetKeyCode(event,'Customer')" /></td>
-									<td colspan="5"><label id="lblCustomerName"
-										class="namelabel"></label></td>
-
-								</tr>
-
-								<tr>
-
-									<td><label>Location Code</label></td>
-									<td><s:input type="text" id="txtLocCode" path="strLocCode"
-											cssClass="searchTextBox" readonly="true" /></td>
-									<td colspan="2"><label id="lblLocName"></label></td>
-
-									<%-- <td><label>Vechile No</label></td>
+				<div style="border: 0px solid black; width: 100%; height: 100%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
+					<table class="row transTable">
+						<div class="col-md-2">
+							<label>Inv. Code</label>
+								<s:input path="strInvCode" id="txtInvCode" ondblclick="funHelp('invoiceRetail')"
+									cssClass="searchTextBox" />
+						</div>
+						<div class="col-md-2">
+							<label>Inv Date</label>
+							<s:input path="dteInvDate" id="txtInvDate" required="required" readonly="true"
+									cssClass="calenderTextBox" />
+						</div>
+						<div class="col-md-2">		
+							<label>Customer Code</label>
+							<s:input path="strCustCode" id="txtCustCode" ondblclick="funHelp('custMasterActive')"
+									cssClass="searchTextBox" onkeypress="funGetKeyCode(event,'Customer')" />
+						</div>
+						<div class="col-md-2">	
+							<label id="lblCustomerName" class="namelabel"></label>
+						</div>
+						<div class="col-md-2">	
+							<label>Location Code</label>
+							<s:input type="text" id="txtLocCode" path="strLocCode" cssClass="searchTextBox" readonly="true" />
+						</div>
+						<div class="col-md-2">		
+							<label id="lblLocName"></label>
+						</div>
+								<%-- <td><label>Vechile No</label></td>
 									<td ><s:input id="txtVehNo" type="text" path="strVehNo"
 											cssClass="searchTextBox" ondblclick="funHelp('VehCode');"/></td> --%>
-								</tr>
-
-
-								<tr>
-
-									<td width="100px"><label>Sub-Group</label></td>
-									<td><input id="txtSubGroup"
-										cssStyle="width:80%;text-transform: uppercase;"
-										name="SubgroupName" class="searchTextBox"
-										style="width: 98%; background-position: 220px 2px;"
-										placeholder="Type to search Subgroup"
-										onkeypress="funGetKeyCode(event,'SubGroup')" /></td>
-									<input type="hidden" id="hidSubGroupCode" />
-
-									<td width="100px"><label>Product</label></td>
-									<td colspan="2"><input id="txtProdName"
-										ondblclick="funHelp('productProduced')" class="searchTextBox"
-										onkeypress="funGetKeyCode(event,'Product')"
+						<div class="col-md-2">			
+							<label>Sub-Group</label>
+							<input id="txtSubGroup" cssStyle="width:80%;text-transform: uppercase;"
+								name="SubgroupName" class="searchTextBox"
+								style="width: 98%; background-position: 220px 2px;" placeholder="Type to search Subgroup"
+								onkeypress="funGetKeyCode(event,'SubGroup')" />
+						</div>
+						<div class="col-md-2">	
+							<input type="hidden" id="hidSubGroupCode" />
+						</div>
+						<div class="col-md-2">
+							<label>Product</label></td>
+							<input id="txtProdName"
+								ondblclick="funHelp('productProduced')" class="searchTextBox"
+								onkeypress="funGetKeyCode(event,'Product')"
 										style="width: 90%; background-position: 280px 2px;"
 										placeholder="Type to search Product" /></td>
 

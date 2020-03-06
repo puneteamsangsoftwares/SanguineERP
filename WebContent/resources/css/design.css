@@ -1205,8 +1205,8 @@ Table
 	width: 95%;
 	border-collapse: collapse;
 	/* overflow: auto; */
-	margin-left: auto;
-	margin-right: auto;
+	/* margin-left: auto;
+	margin-right: auto; */
 	font-size: 11px;
 	
 }

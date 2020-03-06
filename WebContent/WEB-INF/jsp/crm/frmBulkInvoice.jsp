@@ -10,12 +10,7 @@
     <link rel="stylesheet" type="text/css" href="default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title> Bulk Invoice </title>
-        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 	
-	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+        
 		<script type="text/javascript" src="<spring:url value="/resources/js/pagination.js"/>"></script>
     
     <style>
@@ -539,7 +534,7 @@
   </head>
   	
 	<body id="frmBulkInvoice">
-	<div class="transTable">
+	<div class="container">
 		<label id="formHeading">Bulk Invoice</label>
 	    <s:form name="frmBulkInvoice" method="POST" action="saveBulkInvoice.html?saddr=${urlHits}">
 	   		<br />
@@ -597,7 +592,7 @@
 		      <div class="col-md-10"> </div>
 		      
 	          <div class="col-md-6"> 
-					<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 350px;width: 580px; overflow-x: hidden; overflow-y: scroll;">
+					<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 350px; font-size:13px; width: 97%; overflow-x: hidden; overflow-y: scroll;">
                           <table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
 								<tbody>
 									<tr bgcolor="#c0c0c0">
