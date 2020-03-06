@@ -18,10 +18,7 @@
 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
 <script type="text/javascript">
   $(document).ready(function(){
-       $('#
-
-    		   
-').focus();
+	  $('#submit').focus();
        
        $(document).ajaxStart(function(){
    	    $("#wait").css("display","block");

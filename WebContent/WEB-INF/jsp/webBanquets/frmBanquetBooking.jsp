@@ -7,17 +7,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+<style type="text/css">
 
+
+.label{
+    float: left;
+    padding-top: 2px;
+    position: relative;
+    text-align: left;
+    vertical-align: middle;
+}
+.label:after{
+ content:"*" ;
+color:red    
+}
+
+
+</style>
 <script type="text/javascript">
 
-	var fieldName,listServiceRow=0,listEquipRow=0,listStaffRow=0,listItemRow=0;
+	var fieldName,listServiceRow=0,listEquipRow=0,listStaffRow=0,listItemRow=0,listExternalServiceRow=0;
 	var totalTerrAmt = 0.0;
-	var clickCount = 0.0;
-	  $(document).ready(function(){
-		    
+	var gflag;
+	var gbookingflag;
+
+	  $(document).ready(function(){		  
 		  $(".tab_content").hide();
 			$(".tab_content:first").show();
-
 			$("ul.tabs li").click(function() {
 				$("ul.tabs li").removeClass("active");
 				$(this).addClass("active");
@@ -74,12 +90,13 @@
 		});
 		
 		$('#txtFromTime').timepicker('setTime', new Date());
+		$('#txtToTime').timepicker('setTime', new Date());
 	    $("#txtBookingDate").datepicker({ dateFormat: 'dd-mm-yy' });
 		$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
 		$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
+		$("#txtBookingDate").datepicker('setDate','todate');
 		$("#txtFromDate").datepicker('setDate','todate');
 		$("#txtToDate").datepicker('setDate', 'todate');
-		$("#txtBookingDate").datepicker('setDate', 'todate');
 		
 		$('a#baseUrl').click(function() 
 		{
@@ -104,7 +121,22 @@ function funCreateNewCustomer(){
 	
 	function funHelp(transactionName)
 	{
-		fieldName=transactionName;
+		
+		if(transactionName.includes('Booking') || transactionName.includes('QuotationNo')){
+			var strcode = $("#cmbAgainst").val();
+		if(strcode.includes('Booking')){
+			fieldName='BookingNo';	
+			transactionName = fieldName;
+		}
+		else if(strcode.includes('Quotation'))
+			{
+			fieldName='QuotationNo';
+			transactionName = fieldName;
+			}
+		}
+		else
+			fieldName = transactionName;
+		
 	
 			window.open("searchform.html?formname="+transactionName+"&searchText=","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
 			
@@ -152,11 +184,63 @@ function funCreateNewCustomer(){
 				funSetBanquetName(code);
 				break;	 
 		    	
-			
+		    case 'ExternalServices' : 
+				funSetExternalService(code);
+				break;	 
 		
-			
+		    case 'suppcode' :
+		    	funSetVendorName(code);
+		    	break;
+		    	
+		    case 'QuotationNo' :
+		    	funSetQuotationData(code);
+		    	break;
+		    
 		} 
 	}
+	
+	function funSetVendorName(code){
+	
+		gurl=getContextPath()+"/loadPartyMasterData.html?partyCode=";
+		$.ajax({
+	        type: "GET",
+	        url: gurl+code,
+	        dataType: "json",
+	    
+	        success: function(response)
+	        {		        	
+	        		if('Invalid Code' == response.strPCode){
+	        			alert("Invalid Customer Code");
+	        			$("#txtVendorCode").val('');
+	        			$("#txtVendorCode").focus();
+	        			  
+	        		}else{
+	        			$("#txtVendorCode").val(response.strPCode);
+						$("#lblVendorName").text(response.strPName);
+						
+	        		}
+			},
+			error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
+      });
+		
+	}
+	
 	function funSetCustomer(code)
 	{
 		gurl=getContextPath()+"/loadPartyMasterData.html?partyCode=";
@@ -391,7 +475,7 @@ function funCreateNewCustomer(){
 	
     function funSetServiceData(Code)
 	{
-    	funRemAllRows('tblServiceDtl');
+    	funRemAllRows('tblInternalServiceDtl');
 		var funcode=$("#txtFunctionCode").val();
 		var searchurl=getContextPath()+ "/loadBookingServiceData.html?functionCode=" + funcode ;
 		$.ajax({
@@ -427,9 +511,9 @@ function funCreateNewCustomer(){
 		});
 	} 
 	//
-	function funSetBookingFunServiceData()
+	function funSetBookingFunInternalServiceData()
 	{
-		funRemAllRows('tblServiceDtl');
+		funRemAllRows('tblInternalServiceDtl');
 		var funcode=$("#txtFunctionCode").val();
 		var bookCode=$("#txtBookingNo").val();
 		var searchurl=getContextPath()+ "/loadBookingFunServiceData.html?functionCode=" + funcode+"&bookingCode="+ bookCode;
@@ -465,6 +549,91 @@ function funCreateNewCustomer(){
 			}
 		});
 	} 
+	
+	//
+	function funSetBookingFunExternalServiceData()
+	{
+		listExternalServiceRow=0;
+		funRemAllRows('tblExternalServiceDtl');
+		var funcode=$("#txtFunctionCode").val();
+		var bookCode=$("#txtBookingNo").val();
+		var searchurl=getContextPath()+ "/loadBookingExternalServiceData.html?functionCode=" + funcode+"&bookingCode="+ bookCode;
+		$.ajax({
+			type : "GET",
+			url : searchurl,
+			dataType : "json",
+			success : function(response)
+			{ 
+				$.each(response, function(i,item)
+	            {
+					// a.strDocNo,a.strDocName,a.dblDocRate,a.strVendorCode, b.strPName
+					funfillExternalServicesRow(response[i][4],response[i][3],response[i][1],response[i][0],response[i][2]);
+				       // (vendorName,vendorCode,ServiceName,serviceCode,dblRate)
+			    });
+	        	
+			},
+			error : function(jqXHR, exception){
+				if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }			
+
+			}
+		});
+	}
+	
+	function funSetQuotationFunExternalServiceData()
+	{
+		listExternalServiceRow=0;
+		funRemAllRows('tblExternalServiceDtl');
+		var funcode=$("#txtFunctionCode").val();
+		var bookCode=$("#txtBookingNo").val();
+		var searchurl=getContextPath()+ "/loadQuotationExternalServiceData.html?functionCode=" + funcode+"&QuotationCode="+ bookCode;
+		$.ajax({
+			type : "GET",
+			url : searchurl,
+			dataType : "json",
+			success : function(response)
+			{ 
+				$.each(response, function(i,item)
+	            {
+					// a.strDocNo,a.strDocName,a.dblDocRate,a.strVendorCode, b.strPName
+					funfillExternalServicesRow(response[i][4],response[i][3],response[i][1],response[i][0],response[i][2]);
+				       // (vendorName,vendorCode,ServiceName,serviceCode,dblRate)
+			    });
+	        	
+			},
+			error : function(jqXHR, exception){
+				if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }			
+
+			}
+		});
+	}
 	
 	function funSetEquipmentName(code){
 	
@@ -600,11 +769,54 @@ function funCreateNewCustomer(){
 			}
 		});
 	}
+	
+	function funSetExternalService(code)
+	{
+	var vendorName=$("#lblVendorName").text();
+		if(vendorName!=''){
+
+			
+			$.ajax({
+				type : "GET",
+				url : getContextPath()+ "/loadServiceMasterData.html?serviceCode="+code,
+				dataType : "json",
+				success : function(response){
+					//$("#txtItemCode").val(response.strItemCode);
+					//$("#lblItemCode").text(response.strItemName);
+					
+					funfillExternalServicesRow(vendorName,$("#txtVendorCode").val(),response.strServiceName,response.strServiceCode,response.dblRate);
+		        		
+				    },
+				error: function(jqXHR, exception) {
+		            if (jqXHR.status === 0) {
+		                alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+		                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.n' + jqXHR.responseText);
+		            }		            
+		        }
+			});
+
+		}else{
+			alert("First Select The Vendor");
+		}
+		
+	}
+	
     var ServiceTotal=0;
 	function funfillServiceRow(ServiceCode,ServiceName,Rate,Applicable)
 	{
 		
-		var table = document.getElementById("tblServiceDtl");
+		var table = document.getElementById("tblInternalServiceDtl");
 	    var rowCount = table.rows.length;
 	    var row = table.insertRow(rowCount);
 	    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"15%\" name=\"listSeriveDtl["+(rowCount)+"].strDocNo\"  id=\"txtServiceCode."+(rowCount)+"\" value='"+ServiceCode+"' />";
@@ -650,17 +862,18 @@ function funCreateNewCustomer(){
 	
 	function funfillStaffCatRow(StaffCatCode,StaffCatName,StaffQty)
 	{
-		
-		var table = document.getElementById("tblStaffCatDtl");
-	    var rowCount = table.rows.length;
-	    var row = table.insertRow(rowCount);
-	    rowCount=listStaffRow;
-	    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listStaffCatDtl["+(rowCount)+"].strDocNo\"  id=\"txtStaffCatCode."+(rowCount)+"\" value='"+StaffCatCode+"' />";
-	    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"27%\" name=\"listStaffCatDtl["+(rowCount)+"].strDocName\"  id=\"txtStaffCatName."+(rowCount)+"\" value='"+StaffCatName+"'/>";
-	    row.insertCell(2).innerHTML= "<input   class=\" decimal-places-amt\" size=\"5%\" name=\"listStaffCatDtl["+(rowCount)+"].dblDocQty\" style=\"text-align: right;\"  id=\"txtStaffCatNumber."+(rowCount)+"\" value='"+StaffQty+"' onblur=\"funCheckStaffNumber(this,'"+StaffCatCode+"','"+rowCount+"');\"/>";
-	    row.insertCell(3).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowStaff(this)">';		    
-	    listStaffRow++;
-	  
+		if(funDuplicateStaffUpdate(StaffCatCode))
+	    {
+			var table = document.getElementById("tblStaffCatDtl");
+		    var rowCount = table.rows.length;
+		    var row = table.insertRow(rowCount);
+		    rowCount=listStaffRow;
+		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listStaffCatDtl["+(rowCount)+"].strDocNo\"  id=\"txtStaffCatCode."+(rowCount)+"\" value='"+StaffCatCode+"' />";
+		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"27%\" name=\"listStaffCatDtl["+(rowCount)+"].strDocName\"  id=\"txtStaffCatName."+(rowCount)+"\" value='"+StaffCatName+"'/>";
+		    row.insertCell(2).innerHTML= "<input   class=\" decimal-places-amt\" size=\"5%\" name=\"listStaffCatDtl["+(rowCount)+"].dblDocQty\" style=\"text-align: right;\"  id=\"txtStaffCatNumber."+(rowCount)+"\" value='1' onblur=\"funCheckStaffNumber(this,'"+StaffCatCode+"','"+rowCount+"');\"/>";
+		    row.insertCell(3).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowStaff(this)">';		    
+		    listStaffRow++;
+	    }
 	     
 	    
 	}
@@ -731,6 +944,41 @@ function funCreateNewCustomer(){
 	     
 	    
 	}
+	
+	function funfillBanquetRow(ItemCode,ItemName,ItemRate)
+	{
+		$("#txtBanquetCode").val(ItemCode);
+		$("#txtBanquetRate").val(ItemRate);
+		$("#lblBanquetName").text(ItemName);
+		
+		
+	}
+	
+	function funfillExternalServicesRow(vendorName,vendorCode,ServiceName,serviceCode,dblRate)
+	{
+		if(funDuplicateServices(ServiceName))
+		{
+			var table = document.getElementById("tblExternalServiceDtl");
+		    var rowCount = table.rows.length;
+		    var row = table.insertRow(rowCount);
+		    rowCount=listExternalServiceRow;
+		 		    
+		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"25%\"   id=\"txtvendorName."+(rowCount)+"\" value='"+vendorName+"'/>";
+		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" style=\"width: 0px;\" name=\"listExternalServices["+(rowCount)+"].strVendorCode\" size=\"0%\"  id=\"txtvendorCode."+(rowCount)+"\" value='"+vendorCode+"'/>";
+		    row.insertCell(2).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"25%\" name=\"listExternalServices["+(rowCount)+"].strDocName\"  id=\"txtServiceName."+(rowCount)+"\" value='"+ServiceName+"'/>";
+		    row.insertCell(3).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" style=\"width: 0px;\"  name=\"listExternalServices["+(rowCount)+"].strDocNo\" size=\"0%\" id=\"txtServiceCode."+(rowCount)+"\" value='"+serviceCode+"'/>";
+		    row.insertCell(4).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"15%\" style=\"padding-right: 5px;text-align: right;\"  name=\"listExternalServices["+(rowCount)+"].dblDocRate\"  id=\"txtServiceRate."+(rowCount)+"\" value='"+dblRate+"'/>";
+		    row.insertCell(5).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowExternalServices(this)">';	
+		    
+		    listExternalServiceRow++;
+		    funCalculateExternalServicesTotal();
+		    funUpdateTotalBookingAmt();
+		
+		}
+		
+	     
+	    
+	}
 	function funDeleteRowStaff(obj)
 	{
 		 var index = obj.parentNode.parentNode.rowIndex;
@@ -750,6 +998,13 @@ function funCreateNewCustomer(){
 		 var table = document.getElementById("tblMenuDtl");
 		 table.deleteRow(index);
 		 funCalculateItemTotal();
+	}
+	function funDeleteRowExternalServices(obj)
+	{
+		 var index = obj.parentNode.parentNode.rowIndex;
+		 var table = document.getElementById("tblExternalServiceDtl");
+		 table.deleteRow(index);
+		 funCalculateExternalServicesTotal();
 	}
 	
 	function funRemAllRows(tableName)
@@ -801,7 +1056,8 @@ function funCreateNewCustomer(){
 	        		        
 	        		
 	        		funSetCustomer(response.strCustomerCode);
-	        		funSetBookingFunServiceData();
+	        		funSetBookingFunInternalServiceData();
+	        		funSetBookingFunExternalServiceData();
 	        		funUpdateBookingDtl(response.listBanquetBookingDtlModels);
 	        		
 				}
@@ -839,6 +1095,17 @@ function funCreateNewCustomer(){
 			});
    	
 		}
+	 
+	 function funUpdateQuotationDtl(listQuatationDtl){
+		 funRemAllRows('tblEquipDtl');	
+		 funRemAllRows('tblStaffCatDtl');
+		 funRemAllRows('tblMenuDtl');
+   		$.each(listQuatationDtl, function(i,item)
+           {
+   			funfillQuatationDtl(listQuatationDtl[i].strType,listQuatationDtl[i].strDocNo,listQuatationDtl[i].strDocName,listQuatationDtl[i].dblDocRate,listQuatationDtl[i].dblDocQty);
+			});
+   	
+		}
 	
 	function funfillBookingDtl(strType,strDocNo,strDocName,dblDocRate,dblDocQty) {
 		if(strType =='Equipment')
@@ -852,6 +1119,30 @@ function funCreateNewCustomer(){
 		else if(strType =='Menu')
 		{
 			funfillMenuItemDtlRow(strDocNo,strDocName,dblDocRate,dblDocQty);	
+		}
+		else if(strType =='Banquet')
+		{
+			funfillBanquetRow(strDocNo,strDocName,dblDocRate);	
+		}
+		
+	}
+	
+	function funfillQuatationDtl(strType,strDocNo,strDocName,dblDocRate,dblDocQty) {
+		if(strType =='Equipment')
+		{
+			funfillEquipmentDtlRow(strDocNo,strDocName,dblDocRate,dblDocQty);	
+		}
+		else if(strType =='Staff')
+		{
+			funfillStaffCatRow(strDocNo,strDocName,dblDocQty);	
+		}
+		else if(strType =='Menu')
+		{
+			funfillMenuItemDtlRow(strDocNo,strDocName,dblDocRate,dblDocQty);	
+		}
+		else if(strType =='Banquet')
+		{
+			funfillBanquetRow(strDocNo,strDocName,dblDocRate);	
 		}
 		
 	}
@@ -897,7 +1188,7 @@ function funCreateNewCustomer(){
 
 			$.ajax({
 				type : "GET",
-				url : getContextPath()+ "/LoadBanquetRate.html?BanquetCode=" + code,
+				url : getContextPath()+ "/loadBanquetRate.html?BanquetCode=" + code,
 				dataType : "json",
 				success : function(response){ 
 					$("#txtBanquetRate").val(response[0][2]);
@@ -963,9 +1254,61 @@ function funCreateNewCustomer(){
 		    		 
 		    	 }
 		    
-		});
-	   		   
+		}); 
+	
+   		   
+   		  
+   		   
 	   
+   		function funCheckBooking(){
+   			gflag=false;
+   			var fromTime=$('#txtFromTime').val();
+   			var fromDate=$('#txtFromDate').val();   			
+   			var locName=$('#lblAreaCode').text();   	
+   			
+			$.ajax({
+				type : "GET",
+				url : getContextPath()+ "/checkBooking.html?fromTime=" + fromTime+"&fromDate="+fromDate+"&locName="+locName,
+				dataType : "json",
+				success : function(response){
+					if(response==false)
+						{
+							gflag=true;
+							gbookingflag=false;
+						}		
+					else
+					{
+						gbookingflag=true;
+						alert("Select Different Date And Time  ");		
+					}
+				},
+				error : function(e){
+					if (jqXHR.status === 0) {
+		                alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+		                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.n' + jqXHR.responseText);
+		            }
+				}
+			});		
+			
+			
+		}
+	 
+	 
+   		   
+   		   
+   		   
+   		   
 	   	function funUpdateEuipPrice(object)
 		{
 	   		 
@@ -1045,6 +1388,28 @@ function funCreateNewCustomer(){
 		   }
 			
 		}
+		function funCalculateExternalServicesTotal()
+		{
+			funUpdateTotalBookingAmt();
+			 var table = document.getElementById("tblExternalServiceDtl");
+			 var rowCount = table.rows.length;
+			 var TotalItem=0;
+		    if(rowCount > 0)
+		    {
+			    $('#tblExternalServiceDtl tr').each(function()
+			    {
+			    	var amt=$(this).find('input')[4].value;
+			    	
+			    	TotalItem=TotalItem + parseFloat(amt);
+			
+				});
+			    $("#txtTotalExternalServiceAmt").val(TotalItem);
+				    
+		   }
+			
+		    
+		}
+		
 		function funDuplicateEuipForUpdate(strEuipCode)
 		{
 		 var table = document.getElementById("tblEquipDtl");
@@ -1066,6 +1431,27 @@ function funCreateNewCustomer(){
 		   }
 		    return flag;
 		} 
+		function funDuplicateStaffUpdate(strEuipCode)
+		{
+		 var table = document.getElementById("tblEquipDtl");
+		    var rowCount = table.rows.length;		   
+		    var flag=true;
+		    if(rowCount > 0)
+		    {
+				    $('#tblStaffCatDtl tr').each(function()
+				    {
+					    if(strEuipCode==$(this).find('input').val())// `this` is TR DOM element
+	    				{
+					    	alert("Already added Staff "+ strEuipCode );
+					    	flag=false; 
+					    	
+		    			
+	    				}
+					});
+				    
+		   }
+		    return flag;
+		}
 		function funDuplicateItemForUpdate(strItemCode)
 		{
 		 var table = document.getElementById("tblMenuDtl");
@@ -1087,6 +1473,27 @@ function funCreateNewCustomer(){
 		   }
 		    return flag;
 		}
+		
+		function funDuplicateServices(serviceName)
+		{
+		 var table = document.getElementById("tblExternalServiceDtl");
+		    var rowCount = table.rows.length;		   
+		    var flag=true;
+		    if(rowCount > 0)
+		    {
+				    $('#tblExternalServiceDtl tr').each(function()
+				    {
+					    if(serviceName==$(this).find('input')[1].defaultValue)// `this` is TR DOM element
+	    				{
+					    	alert("Already added Item "+ serviceName );
+					    	flag=false; 
+	    				}
+					});
+				    
+		   }
+		    return flag;
+		}
+		
 		function funUpdateTotalBookingAmt()
 		{
 			 var rateService =0;
@@ -1110,37 +1517,84 @@ function funCreateNewCustomer(){
 			   	{
 		   	    	rateBanquet =$("#txtBanquetRate").val(); 
 			   	}
-		   	   var FinalAmount = parseFloat(rateEquip) + parseFloat(rateItem) + parseFloat(rateService) + parseFloat(rateBanquet);
+		   	    var rateExternalServices=0;
+		   	 if($("#txtTotalExternalServiceAmt").val()!='')
+			   	{
+		   		rateExternalServices =$("#txtTotalExternalServiceAmt").val(); 
+			   	}
+		   	 
+		   	   var FinalAmount = parseFloat(rateEquip) + parseFloat(rateItem) + parseFloat(rateService) + parseFloat(rateBanquet) + parseFloat(rateExternalServices) ;
 		       $("#txtTotalBookingAmt").val(FinalAmount);
-		}
-		function funValidateForm()
-		{
-			
-			if(clickCount==0){
-				clickCount=clickCount+1;
-			var flag=true;
-			if($("#txtCustomerCode").val().trim().length==0)
-			{
-				 alert("Please Select Customer Name !!");
-				 flag=false;
-			}
+		}	
 		
-			else if($("#txtAreaCode").val().trim().length==0)
+		
+		function funValidateForm()
+		{	
+			var flag=true;
+			if(gbookingflag==true)
+			{
+				alert("Select Different Date And Time  ");	
+				 flag=false;
+			}			
+			if($("#txtAreaCode").val().trim().length==0)
 			{
 				alert("Please Select Area!!");
 				flag=false;
 			}
 			else if($("#txtFunctionCode").val().trim().length==0)
 			{
-				alert("Please Select fuction!!");
+				alert("Please Select Fuction Code!!");
 				flag=false;
 			}
-		    return flag;
-			}
-			else
+			else if($("#txtMaxPaxNo").val()=="0")
 			{
-				return false;
+				alert("Please Enter Max Pax!!");
+				flag=false;
 			}
+			else if($("#txtBanquetCode").val().trim().length==0)
+			{
+				alert("Please Enter Banquet Code!!");
+				$("#txtBanquetCode").focus();
+				flag=false;
+			}
+			else if($('#txtFromDate').val()>$('#txtToDate').val())
+			{				
+					alert("Please Enter To Date is Greater Than From Date")
+					flag=false;
+			}
+			else if($("#txtCustomerCode").val().trim().length==0)
+			{
+				 alert("Please Select Customer Code !!");
+				 flag=false;
+			}
+			else if($("#txtCustomerName").val().trim().length==0)
+			{
+				 alert("Please Enter Customer Name !!");
+				 flag=false;
+			}		
+			else if($("#txtMobileNo").val().trim().length==0)
+			{
+				 alert("Please Enter Mobile Number !!");
+				 flag=false;
+			}
+			else if($("#txtEmailId").val().trim().length==0)
+			{
+				 alert("Please Enter Email Id !!");
+				 flag=false;
+			}
+			else if($('#txtFromDate').val()==$('#txtToDate').val())
+			{
+				if(!($('#txtToTime').val() >= $('#txtFromTime').val()))
+				{
+					alert("Please Enter Out Time is Greater Than In Time")
+					flag=false;
+				}
+			}			
+			
+						
+			return flag; 
+			
+			
 		}
 	 
 		function funChangeArrivalDate()
@@ -1194,6 +1648,93 @@ function funCreateNewCustomer(){
 	    	
 	    	
 		}
+		function funCheckLocation(){
+			
+			var flag=true;
+			if($("#txtAreaCode").val().trim().length==0)
+			{
+				alert("Select Area  ");	
+				$("#txtAreaCode").focus();
+				 flag=false;
+			}	
+			return flag;
+		} 
+
+		function funSetQuotationData(Code) {
+			
+			var searchurl=getContextPath()+ "/loadBanquetQuotation.html?quotationCode=" + Code;
+			$.ajax({
+				type : "GET",
+				url : searchurl,
+				dataType : "json",
+				success : function(response)
+				{ 
+					if(response.strQuotationNo=='Invalid Code')
+		        	{
+		        		alert("Invalid Booking Code");
+		        		$("#txtBookingNo").val('');
+		        	
+		        	}
+					else
+					{
+						//$("#txtBookingNo").val(response.strQuotationNo);
+		        		$("#txtBookingDate").val(funGetDate(response.dteQuotationDate));
+		        		$("#txtFromDate").val(funGetDate(response.dteFromDate));
+		        		$("#txtToDate").val(funGetDate(response.dteToDate));
+		        		$("#txtMaxPaxNo").val(response.intMaxPaxNo);
+		        		$("#txtMinPaxNo").val(response.intMinPaxNo);
+		        		$("#txtAreaCode").val(response.strAreaCode);
+		        		$("#txtBillingInstructionCode").val(response.strBillingInstructionCode);
+		        		$("#cmbBookingStatus").val(response.strQuotationStatus);
+		        		$("#txtEmailId").val(response.strEmailID);
+		        		$("#txtEventCoordinatorCode").val(response.strEventCoordinatorCode);
+		        		$("#txtFunctionCode").val(response.strFunctionCode);
+		        		funSetPropertyCode(response.strPropertyCode);
+		        		
+		        		$("#txtFromTime").val(response.tmeFromTime);
+		        		$("#txtToTime").val(response.tmeToTime);
+		        		
+		        		$("#txtTotalBookingAmt").val(response.dblSubTotal);
+		        		        
+		        		
+		        		funSetCustomer(response.strCustomerCode);
+		        		funSetBookingFunInternalServiceData();
+		        		funSetQuotationFunExternalServiceData();
+		        		funUpdateQuotationDtl(response.listBanquetQuotationDtlModels);
+		        		
+					}
+
+				},
+				error : function(jqXHR, exception){
+					if (jqXHR.status === 0) {
+		                alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+		                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.n' + jqXHR.responseText);
+		            }			
+
+				}
+			});
+
+			
+		}
+		
+		 /* $(document).ready(function(){
+		    $("#div1").on('click', function(){
+		            console.log("click!!!");
+		        });
+		});
+		 */
+		
 </script>
 
 </head>
@@ -1212,28 +1753,51 @@ function funCreateNewCustomer(){
 		<div id="tab_container" style="height: 550px">
 			<ul class="tabs">
 				<li data-state="tab1" style="width: 6%; padding-left: 2%;"active" >Booking</li>
-				<li data-state="tab2" style="width: 8%; padding-left: 1%">Service</li>
-				<li data-state="tab3" style="width: 8%; padding-left: 1%">Equipment</li>
-				<li data-state="tab4" style="width: 8%; padding-left: 1%">Staff
+				<li data-state="tab2" style="width: 8%; padding-left: 1%">Menu</li>
+				<li data-state="tab3" style="width: 8%; padding-left: 1%">Staff
 					Category</li>
-				<li data-state="tab5" style="width: 8%; padding-left: 1%">Menu</li>
+				<li data-state="tab4" style="width: 8%; padding-left: 1%">Equipment</li>
+				<li data-state="tab5" style="width: 10%; padding-left: 1%">Internal Services</li>
+				<li data-state="tab6" style="width: 10%; padding-left: 1%">External Services</li>
+				
+				
+				
 
 
 			</ul>
 
 		
 
-		<div id="tab1" class="tab_content" style="height: 800px">
+		<div id="tab1" class="tab_content" style="height: 500px">
             <table class="transTable">
 				<tr>
 					<th colspan="6">
 				</tr>
 
 				<tr>
-					<td width="150px"><label>Booking No</label></td>
-					<td width="400px" ><s:input type="text" id="txtBookingNo"
-							path="strBookingNo" cssClass="searchTextBox"
-							ondblclick="funHelp('BookingNo');" /></td>
+					<td width="150px">
+					<label>Against</label>
+					<%-- <s:select id="cmbAgainst"
+							path="" cssClass="BoxW124px">
+							<s:option value="Waiting">Booking</s:option>
+							<s:option value="Provisional">Quotation</s:option>
+
+						</s:select> --%>
+					</td>
+					<td width="400px" >
+							
+							<s:select id="cmbAgainst"
+							path="" cssClass="BoxW124px">
+							<s:option value="Booking">Booking</s:option>
+							<s:option value="Quotation">Quotation</s:option>
+
+						</s:select>
+							
+							<s:input type="text" id="txtBookingNo" readonly="true" 
+                                                        path="strBookingNo" cssClass="searchTextBox"
+                                                        ondblclick="funHelp('Booking');" />
+							
+							</td>
 
 					<td width="150px"><label>Property</label></td>
 					<td width="400px"><s:select id="txtPropertyCode" path="strPropertyCode"
@@ -1243,30 +1807,28 @@ function funCreateNewCustomer(){
 				</tr>
 
 				<tr>
-					<td><label>Area</label></td>
-					<td><s:input type="text" id="txtAreaCode" path="strAreaCode"
-							cssClass="searchTextBox"
-							ondblclick="funHelp('PropertyWiseLocation');" /> <label
-						id="lblAreaCode"></label></td>
-
+					<td><label class="label">Area </label></td>
+					<td><s:input type="text" id="txtAreaCode" path="strAreaCode" cssClass="searchTextBox" readonly="true" 
+											ondblclick="funHelp('PropertyWiseLocation');" /> 
+					<label id="lblAreaCode"></label></td>
+						
+						
 					<td><label>Booking Date</label></td>
 					<td><s:input type="text" id="txtBookingDate"
 							path="dteBookingDate" cssClass="calenderTextBox" onchange="funCheckCuurntDate();"/> <!-- onchange="funChangeArrivalDate();" -->
 						<label id="lblBookingDate"></label></td>
-
-
 				</tr>
 			
 
 				<tr>
 					<td><label>From Date</label></td>
 					<td><s:input type="text" id="txtFromDate" path="dteFromDate"
-							cssClass="calenderTextBox" onchange="funChangeArrivalDate();" /></td>
+							cssClass="calenderTextBox" onchange="funChangeArrivalDate();funCheckBooking;" onblur="funCheckBooking();" onclick= " return funCheckLocation();" /></td>
 
 					<!-- onchange="funChangeArrivalDate();"  -->
 					<td><label>To Date</label></td>
 					<td><s:input type="text" id="txtToDate" path="dteToDate"
-							cssClass="calenderTextBox"  onchange="funCheckFromDate();"/></td>
+							cssClass="calenderTextBox"  onchange="funCheckFromDate();" onblur="funCheckBooking();"/></td>
 					<!-- onchange="CalculateDateDiff();" -->
 					<td colspan="2"></td>
 				</tr>
@@ -1274,7 +1836,7 @@ function funCreateNewCustomer(){
 				<tr>
 					<td><label>In Time</label></td>
 					<td><s:input type="text" id="txtFromTime" path="tmeFromTime"
-							cssClass="calenderTextBox" /></td>
+							cssClass="calenderTextBox" onblur="funCheckBooking();"/></td>
 
 					<td><label>Out Time</label></td>
 					<td><s:input type="text" id="txtToTime" path="tmeToTime"
@@ -1286,8 +1848,8 @@ function funCreateNewCustomer(){
 					<td><label>Min Pax</label></td>
 					<td><s:input id="txtMinPaxNo" name="txtMinPaxNo"
 							path="intMinPaxNo" style="width: 20%;text-align: right;"
-							type="number" min="1" step="1" class="longTextBox" /></td>
-					<td><label>Max Pax</label></td>
+							type="number" min="0" step="1" class="longTextBox" /></td>
+					<td><label class="label">Max Pax </label></td>
 					<td><s:input id="txtMaxPaxNo" path="intMaxPaxNo"
 							style="text-align: right; width: 20%;" type="number" min="0"
 							step="1" name="txtMaxPaxNo" class="longTextBox" /></td>
@@ -1297,12 +1859,12 @@ function funCreateNewCustomer(){
 				<tr>
 				<td><label>Billing Instructions</label></td>
 					<td><s:input type="text" id="txtBillingInstructionCode"
-							path="strBillingInstructionCode" cssClass="searchTextBox"
+							path="strBillingInstructionCode" cssClass="searchTextBox" readonly="true"
 							ondblclick="funHelp('BillingInstCode');" /> <label
 						id="lblBillingInstDesc"></label></td>
 				<td><label>Event Co-Ordinator</label></td>
 					<td><s:input type="text" id="txtEventCoordinatorCode"
-							path="strEventCoordinatorCode" cssClass="searchTextBox"
+							path="strEventCoordinatorCode" cssClass="searchTextBox" readonly="true"
 							ondblclick="funHelp('StaffCode');" /> &nbsp;&nbsp;&nbsp;<label
 						id="lblEventCoordinatorCode"></label></td>
 					
@@ -1310,10 +1872,10 @@ function funCreateNewCustomer(){
 				</tr>
 
 				<tr>
-					<td><label>Function Code</label></td>
+					<td><label class="label">Function Code </label></td>
 					<!--  <td><label>Function Code</label></td> -->
 					<td><s:input id="txtFunctionCode" path="strFunctionCode"
-							readonly="true" ondblclick="funHelp('functionMaster')"
+							readonly="true" ondblclick="funHelp('functionMaster')" 
 							cssClass="searchTextBox" /> <label id="lblFunctionName"></label>
 					</td>
 
@@ -1327,9 +1889,9 @@ function funCreateNewCustomer(){
 
 				</tr>
 				<tr>
-				<td><label>Banquet</label></td>
+				<td><label class="label">Banquet </label></td>
 					<td><s:input type="text" id="txtBanquetCode" 
-							path="strBanquetCode" cssClass="searchTextBox"
+							path="strBanquetCode" cssClass="searchTextBox" readonly="true"
 							ondblclick="funHelp('banquetCode');" /> <label
 						id="lblBanquetName"></label>
 						&nbsp;&nbsp;
@@ -1346,20 +1908,20 @@ function funCreateNewCustomer(){
 
 			</table>
 
-			<br> <br>
+			<br/> <br/>
 
 			<div>
 				<table class="transTable">
 
 					<tr>
-						<td><label>Customer Code</label></td>
-						<td><s:input type="text" id="txtCustomerCode"
+						<td><label class="label">Customer Code </label></td>
+						<td><s:input type="text" id="txtCustomerCode" readonly="true"
 								path="strCustomerCode" ondblclick="funHelp('custMaster');"
 								class="searchTextBox" /></td>
 
 
-						<td><label id="lblGFirstName"> Name</label></td>
-						<td><input type="text" id="txtCustomerName"
+						<td><label id="lblGFirstName" class="label"> Name </label></td>
+						<td><input type="text" id="txtCustomerName" 
 							class="longTextBox" /></td>
 
 						<td><input type="Button" value="New Costomer"
@@ -1369,9 +1931,9 @@ function funCreateNewCustomer(){
 					</tr>
 
 					<tr>
-						<td><label>Mobile No</label></td>
-						<td><input type="text" id="txtMobileNo" class="longTextBox" /></td>
-                        	<td><label>Email Id</label></td>
+						<td><label class="label">Mobile No </label></td>
+						<td><input type="text" id="txtMobileNo"  class="longTextBox" pattern="[789][0-9]{9}" title="Mobile number is wrong"/></td>
+                        	<td><label class="label">Email Id </label></td>
 					<td><s:input type="text" id="txtEmailId" path="strEmailID"
 							cssClass="longTextBox" /></td>
 						<td colspan="1"></td>
@@ -1381,234 +1943,15 @@ function funCreateNewCustomer(){
 				</table>
 			</div>
 
-</br>
+
 			<div style="margin:auto;width: 50%; float:left; margin-left:25px; font-size: 15px;">
 	              <label>Total Booking Amount</label>
-	             <td><s:input id="txtTotalBookingAmt" path="dblSubTotal"  readonly="true" cssClass="shortTextBox"  style="text-align: right;"/></td>
+	             <s:input id="txtTotalBookingAmt" path="dblSubTotal"  readonly="true" cssClass="shortTextBox"  style="text-align: right;"/>
 	           </div>		
 			</div>
-			<div id="tab3" class="tab_content" style="height: 400px">
-				<br />
-				<br />
-				<table class="transTable">
-					<tr>
-						<td width="100px"><label>Equipment Code</label></td>
-						<!--  <td><label>Function Code</label></td> -->
-						<td><s:input id="txtEquipmentCode" path="" readonly="true"
-								ondblclick="funHelp('equipmentCode')" cssClass="searchTextBox" />
-							<label id="lblEquipmentCode"></label>
-						</td>
-
-					</tr>
-
-				</table>
-				<br />
-				<div class="dynamicTableContainer" style="height: 400px; width: 80%">
-					<table
-						style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-						<tr bgcolor="#72BEFC" style="height: 24px;">
-							<!-- col1   -->
-							<td align="center" style="width: 15%">Equipment Code</td>
-							<!-- col1   -->
-
-							<!-- col2   -->
-							<td align="center" style="width: 40%">Equipment Name</td>
-							<!-- col2   -->
-
-							<!-- col3   -->
-							<td align="center" style="width: 10%">Qty</td>
-							<!-- col3   -->
-
-							<!-- col4   -->
-							<td align="center" style="width: 20%">Rate</td>
-							<!-- col4   -->
-
-							<!-- col5   -->
-							<td align="center"">Delete</td>
-							<!-- col5   -->
-
-
-						</tr>
-					</table>
-					<div
-						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-						<table id="tblEquipDtl"
-							style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-							class="transTablex col3-center">
-							<tbody>
-								<!-- col1   -->
-							<col width="16%">
-							<!-- col1   -->
-
-							<!-- col2   -->
-							<col width="42.5%">
-							<!-- col2   -->
-
-							<!-- col3   -->
-							<col width="10.5%">
-							<!-- col3   -->
-
-							<!-- col4   -->
-							<col width="21.5%">
-							<!-- col4   -->
-
-							<!-- col5   -->
-							<col width="14%">
-							<!-- col5   -->
-
-							</tbody>
-						</table>
-					</div>
-
-
-				</div>
-				<div style="margin:auto;width: 25%; float:right; margin-right:100px; ">
-	              <label>Total</label>
-	             <td><s:input id="txtTotalEquipAmt" path=""  readonly="true" cssClass="shortTextBox" style="text-align: right;"/></td>
-	           </div>
-				
-			</div>
-
 			
-
+			
 			<div id="tab2" class="tab_content" style="height: 400px">
-				<br>
-				<br>
-
-				<table class="transTable">
-
-					
-				</table>
-
-				<br />
-				<!-- Generate Dynamic Table   -->
-				<div class="dynamicTableContainer" style="height: 400px; width: 80%">
-					<table
-						style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-						<tr bgcolor="#72BEFC" style="height: 24px;">
-							<!-- col1   -->
-							<td align="center" style="width: 20%">Service Code</td>
-							<!-- col1   -->
-
-							<!-- col2   -->
-							<td align="center" style="width: 50%">Service Name</td>
-							<!-- col2   -->
-
-							<!-- col2   -->
-							<td align="center" style="width: 20%">Rate</td>
-							<!-- col2   -->
-
-							<!-- col3   -->
-							<td align="center"">Select</td>
-							<!-- col3   -->
-
-
-						</tr>
-					</table>
-					<div
-						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-						<table id="tblServiceDtl"
-							style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-							class="transTablex col3-center">
-							<tbody>
-							<col width="35%">
-							<!-- col1   -->
-
-							<!-- col2   -->
-							<col width="90%">
-							<!-- col2   -->
-							<!-- col2   -->
-							<col width="35%">
-							<!-- col2   -->
-
-							<!-- col2   -->
-							<col width="15%">
-							<!-- col2   -->
-							</tbody>
-						</table>
-					</div>
-
-
-				</div>
-				
-				<div style="margin:auto;width: 25%; float:right; margin-right:100px; ">
-	              <label>Total</label>
-	             <td><s:input id="txtTotalServiceAmt" path=""  readonly="true" cssClass="shortTextBox" style="text-align: right;"/></td>
-	           </div>
-			</div>
-
-
-			<div id="tab4" class="tab_content" style="height: 400px">
-				<!-- Generate Dynamic Table   -->
-				<br />
-				<br />
-				<table class="transTable">
-					<tr>
-						<td width="130px"><label>Staff Category Code</label></td> 
-						<!--  <td><label>Function Code</label></td> -->
-						<td><s:input id="txtStaffCatCode" path="" readonly="true"
-								ondblclick="funHelp('StaffCatCode')" cssClass="searchTextBox" />
-							<label id="lblStaffCatCode"></label></td>
-
-					</tr>
-
-				</table>
-				<br />
-				<div class="dynamicTableContainer" style="height: 400px; width: 80%">
-					<table
-						style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-						<tr bgcolor="#72BEFC" style="height: 24px;">
-							<!-- col1   -->
-							<td align="center" style="width: 20%">Staff Category Code</td>
-							<!-- col1   -->
-
-							<!-- col2   -->
-							<td align="center" style="width: 45%">Staff Category Name</td>
-							<!-- col2   -->
-
-							<!-- col2   -->
-							<td align="center" style="width: 20%">Number</td>
-							<!-- col2   -->
-
-							<!-- col3   -->
-							<td align="center"">Delete</td>
-							<!-- col3   -->
-
-
-						</tr>
-					</table>
-					<div
-						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
-						<table id="tblStaffCatDtl"
-							style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
-							class="transTablex col3-center">
-							<tbody>
-								<!-- col1   -->
-							<col width="19%">
-							<!-- col1   -->
-
-							<!-- col2   -->
-							<col width="43%">
-							<!-- col2   -->
-
-							<!-- col2   -->
-							<col width="20%">
-							<!-- col2   -->
-
-							<!-- col2   -->
-							<col width="13%">
-							<!-- col2   -->
-
-							</tbody>
-						</table>
-					</div>
-
-
-				</div>
-				
-			</div>
-
-			<div id="tab5" class="tab_content" style="height: 400px">
 				<!-- Generate Dynamic Table   -->
 				<br />
 				<br />
@@ -1692,10 +2035,305 @@ function funCreateNewCustomer(){
 				
 				<div style="margin:auto;width: 25%; float:right; margin-right:100px; ">
 	              <label>Total</label>
-	             <td><s:input id="txtTotalItemAmt" path=""  readonly="true" cssClass="shortTextBox" style="text-align: right;"/></td>
+	             <s:input id="txtTotalItemAmt" path=""  readonly="true" cssClass="shortTextBox" style="text-align: right;"/>
 	           </div>
 				
 					</div>
+			
+			
+			
+			<div id="tab3" class="tab_content" style="height: 400px">
+				<!-- Generate Dynamic Table   -->
+				<br />
+				<br />
+				<table class="transTable">
+					<tr>
+						<td width="130px"><label>Staff Category Code</label></td> 
+						<!--  <td><label>Function Code</label></td> -->
+						<td><s:input id="txtStaffCatCode" path="" readonly="true"
+								ondblclick="funHelp('StaffCatCode')" cssClass="searchTextBox" />
+							<label id="lblStaffCatCode"></label></td>
+
+					</tr>
+
+				</table>
+				<br />
+				<div class="dynamicTableContainer" style="height: 400px; width: 80%">
+					<table
+						style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+						<tr bgcolor="#72BEFC" style="height: 24px;">
+							<!-- col1   -->
+							<td align="center" style="width: 20%">Staff Category Code</td>
+							<!-- col1   -->
+
+							<!-- col2   -->
+							<td align="center" style="width: 45%">Staff Category Name</td>
+							<!-- col2   -->
+
+							<!-- col2   -->
+							<td align="center" style="width: 20%">Number</td>
+							<!-- col2   -->
+
+							<!-- col3   -->
+							<td align="center"">Delete</td>
+							<!-- col3   -->
+
+
+						</tr>
+					</table>
+					<div
+						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+						<table id="tblStaffCatDtl"
+							style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+							class="transTablex col3-center">
+							<tbody>
+								<!-- col1   -->
+							<col width="19%">
+							<!-- col1   -->
+
+							<!-- col2   -->
+							<col width="43%">
+							<!-- col2   -->
+
+							<!-- col2   -->
+							<col width="20%">
+							<!-- col2   -->
+
+							<!-- col2   -->
+							<col width="13%">
+							<!-- col2   -->
+
+							</tbody>
+						</table>
+					</div>
+
+
+				</div>
+				
+			</div>
+			
+			
+		<div id="tab4" class="tab_content" style="height: 400px">
+				<br />
+				<br />
+				<table class="transTable">
+					<tr>
+						<td width="100px"><label>Equipment Code</label></td>
+						<!--  <td><label>Function Code</label></td> -->
+						<td><s:input id="txtEquipmentCode" path="" readonly="true"
+								ondblclick="funHelp('equipmentCode')" cssClass="searchTextBox" />
+							<label id="lblEquipmentCode"></label>
+						</td>
+
+					</tr>
+
+				</table>
+				<br />
+				<div class="dynamicTableContainer" style="height: 400px; width: 80%">
+					<table
+						style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+						<tr bgcolor="#72BEFC" style="height: 24px;">
+							<!-- col1   -->
+							<td align="center" style="width: 15%">Equipment Code</td>
+							<!-- col1   -->
+
+							<!-- col2   -->
+							<td align="center" style="width: 40%">Equipment Name</td>
+							<!-- col2   -->
+
+							<!-- col3   -->
+							<td align="center" style="width: 10%">Qty</td>
+							<!-- col3   -->
+
+							<!-- col4   -->
+							<td align="center" style="width: 20%">Rate</td>
+							<!-- col4   -->
+
+							<!-- col5   -->
+							<td align="center"">Delete</td>
+							<!-- col5   -->
+
+
+						</tr>
+					</table>
+					<div
+						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+						<table id="tblEquipDtl"
+							style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+							class="transTablex col3-center">
+							<tbody>
+								<!-- col1   -->
+							<col width="16%">
+							<!-- col1   -->
+
+							<!-- col2   -->
+							<col width="42.5%">
+							<!-- col2   -->
+
+							<!-- col3   -->
+							<col width="10.5%">
+							<!-- col3   -->
+
+							<!-- col4   -->
+							<col width="21.5%">
+							<!-- col4   -->
+
+							<!-- col5   -->
+							<col width="14%">
+							<!-- col5   -->
+
+							</tbody>
+						</table>
+					</div>
+
+
+				</div>
+				<div style="margin:auto;width: 25%; float:right; margin-right:100px; ">
+	              <label>Total</label>
+	             <s:input id="txtTotalEquipAmt" path=""  readonly="true" cssClass="shortTextBox" style="text-align: right;"/>
+	           </div>
+				
+			</div>
+			
+			
+			<div id="tab5" class="tab_content" style="height: 400px">
+				<br/>
+				<br />
+				<!-- Generate Dynamic Table   -->
+				<div class="dynamicTableContainer" style="height: 400px; width: 80%">
+					<table
+						style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+						<tr bgcolor="#72BEFC" style="height: 24px;">
+							<!-- col1   -->
+							<td align="center" style="width: 20%">Service Code</td>
+							<!-- col1   -->
+
+							<!-- col2   -->
+							<td align="center" style="width: 50%">Service Name</td>
+							<!-- col2   -->
+
+							<!-- col2   -->
+							<td align="center" style="width: 20%">Rate</td>
+							<!-- col2   -->
+
+							<!-- col3   -->
+							<td align="center"">Select</td>
+							<!-- col3   -->
+
+
+						</tr>
+					</table>
+					<div
+						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+						<table id="tblInternalServiceDtl"
+							style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+							class="transTablex col3-center">
+							<tbody>
+							<col width="35%">
+							<!-- col1   -->
+
+							<!-- col2   -->
+							<col width="90%">
+							<!-- col2   -->
+							<!-- col2   -->
+							<col width="35%">
+							<!-- col2   -->
+
+							<!-- col2   -->
+							<col width="15%">
+							<!-- col2   -->
+							</tbody>
+						</table>
+					</div>
+
+
+				</div>
+				
+				<div style="margin:auto;width: 25%; float:right; margin-right:100px; ">
+	              <label>Total</label>
+	            <s:input id="txtTotalServiceAmt" path=""  readonly="true" cssClass="shortTextBox" style="text-align: right;"/>
+	           </div>
+			</div>
+			
+			
+		<div id="tab6" class="tab_content" style="height: 400px">
+				<br/>
+				<br />
+				
+				<table class="transTable">
+					<tr>
+						<td width="100px"><label>Vendor </label></td>
+						<td><s:input id="txtVendorCode" path="" readonly="true"
+								ondblclick="funHelp('suppcode')" cssClass="searchTextBox" />
+					 	<label id="lblVendorName"></label> 
+						</td>
+						<td width="100px"><label>External Service</label></td>
+						<td><s:input id="txtExternal" path="" readonly="true"
+								ondblclick="funHelp('ExternalServices')" cssClass="searchTextBox" />
+							<!-- <label id="lblEquipmentCode"></label> -->
+						</td>
+						
+						
+					</tr>
+				</table>
+				
+				<!-- Generate Dynamic Table   -->
+				<div class="dynamicTableContainer" style="height: 400px; width: 80%">
+					<table
+						style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+						<tr bgcolor="#72BEFC" style="height: 24px;">
+							<!-- col1   -->
+							<td align="center" style="width: 25%">Vendor Name</td>
+							<!-- col1   -->
+
+							<!-- col2   -->
+							<td align="center" style="width: 25%">Service Name</td>
+							<!-- col2   -->
+
+							<!-- col2   -->
+							<td align="center" style="width: 20%">Rate</td>
+							<!-- col2   -->
+
+							<td align="center" style="width: 05%">Delete</td>
+
+						</tr>
+					</table>
+					<div
+						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+						<table id="tblExternalServiceDtl"
+							style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+							class="transTablex col3-center">
+							<tbody>
+							<col width="25%">
+							<col width="0%">
+							<!-- col1   -->
+
+							<!-- col2   -->
+							<col width="25%">
+							<col width="0%">
+							<!-- col2   -->
+							<!-- col2   -->
+							<col width="20%">
+							<!-- col2   -->
+							<!-- col2   -->
+							<col width="5%">
+							<!-- col2   -->
+							</tbody>
+							
+						</table>
+					</div>
+
+
+				</div>
+				
+				<div style="margin:auto;width: 25%; float:right; margin-right:100px; ">
+	              <label>Total</label>
+	            <s:input id="txtTotalExternalServiceAmt" path=""  readonly="true" cssClass="shortTextBox" style="text-align: right;"/>
+	           </div>
+			</div>
+			
+
+
 			
 
 		

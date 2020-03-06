@@ -315,7 +315,7 @@ public class clsStockLedgerController {
 			}
 			if (qtyWithUOM.equals("No")) {
 				totalOpStk = tempReceipts - tempIssues;
-				if(uomRecv.equalsIgnoreCase("NOS")){
+				if(uomIssue.equalsIgnoreCase("NOS")){
 					totalOpStk=Math.round(totalOpStk);
 				}
 			} else {
@@ -336,7 +336,7 @@ public class clsStockLedgerController {
 					String lowQtyWithUOM = new Integer((int) (dblTemplow * Double.parseDouble(conRecipe))).toString() + " " + uomIssue;
 					String highQtyWithUOM = strtot[0].toString() + " " + uomRecv;
 					strOpStockWithUOM = highQtyWithUOM + "." + lowQtyWithUOM;
-					if(uomRecv.equalsIgnoreCase("NOS")){
+					if(uomIssue.equalsIgnoreCase("NOS")){
 						highQty=Math.round(highQty+(dblTemplow * Double.parseDouble(conRecipe)));
 						strOpStockWithUOM= String.valueOf(highQty) + uomRecv;
 					}

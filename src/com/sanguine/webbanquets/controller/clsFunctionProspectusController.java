@@ -101,16 +101,18 @@ public class clsFunctionProspectusController
 		List listEquipment = new ArrayList<>();
 		List listService = new ArrayList<>();
 		List listMenu = new ArrayList<>();
+		List listExtService = new ArrayList<>();
+		List listIntService = new ArrayList<>();
 		
 		String reportName = servletContext.getRealPath("/WEB-INF/reports/webbanquet/rptFunctionProspectus.jrxml");
 		String imagePath = servletContext.getRealPath("/resources/images/Sanguine_Logo_Icon.png");
 		clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
 		if (objSetup == null) {
 			objSetup = new clsPropertySetupModel();
-		}
+		}		
 		
 		sql="SELECT a.strBookingNo,b.strType,a.strCustomerCode,a.dteBookingDate,c.strLocName,a.strFunctionCode,a.intMinPaxNo,"
-				+ "a.intMaxPaxNo,a.tmeFromTime,a.tmeToTime,d.strStaffName,d.strMobile,d.strEmail,g.strBanquetName FROM tblbqbookinghd a "
+				+ "a.intMaxPaxNo,a.tmeFromTime,a.tmeToTime,ifnull(d.strStaffName,''),ifnull(d.strMobile,''),ifnull(d.strEmail,''),ifnull(g.strBanquetName,''),DATE(a.dteToDate)- DATE(a.dteFromDate) FROM tblbqbookinghd a "
 				+ "LEFT OUTER JOIN tblbqbookingdtl b ON b.strBookingNo=a.strBookingNo LEFT OUTER "
 				+ "JOIN "+webStockDB+".tbllocationmaster c ON c.strLocCode=a.strAreaCode LEFT OUTER JOIN "
 				+ "tblstaffmaster d ON d.strStaffCode=a.strEventCoordinatorCode LEFT OUTER "
@@ -121,6 +123,7 @@ public class clsFunctionProspectusController
 				+ "GROUP BY b.strType";
 		
 		List listData = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+		
 		for(int i=0;i<listData.size();i++)
 		{
 			Object[] obj = (Object[])listData.get(i);
@@ -184,6 +187,30 @@ public class clsFunctionProspectusController
 							objBean.setStrQty(objFunction[3].toString());
 						    listMenu.add(objBean);
 						}
+						else if(strServiceType.equals("Ex Service"))
+						{
+							objBean = new clsFunctionProspectusBean();
+							objBean.setStrServiceType(strServiceType);
+							objBean.setStrService(objFunction[1].toString());
+							objBean.setStrQty(objFunction[3].toString());
+						    listExtService.add(objBean);
+						}
+						else if(strServiceType.equals("In Service"))
+						{
+							objBean = new clsFunctionProspectusBean();
+							objBean.setStrServiceType(strServiceType);
+							objBean.setStrService(objFunction[1].toString());
+							objBean.setStrQty(objFunction[3].toString());
+						    listIntService.add(objBean);
+						}
+						/*else if(strServiceType.equals("Banquet"))
+						{
+							objBean = new clsFunctionProspectusBean();
+							objBean.setStrServiceType(strServiceType);
+							objBean.setStrService(objFunction[1].toString());
+							objBean.setStrQty(objFunction[3].toString());
+						    listMenu.add(objBean);
+						}*/
 					}
 			}
 			
@@ -191,8 +218,37 @@ public class clsFunctionProspectusController
 			reportParams.put("pDate", obj[3].toString().substring(0,obj[3].toString().indexOf(" ")).split("-")[2]+"-"+obj[3].toString().substring(0,obj[3].toString().indexOf(" ")).split("-")[1]+"-"+obj[3].toString().substring(0,obj[3].toString().indexOf(" ")).split("-")[0]);
 			reportParams.put("pTime", obj[3].toString().substring(obj[3].toString().indexOf(" "),obj[3].toString().length()-3));
 			reportParams.put("pPAX", obj[6].toString()+" - "+obj[7].toString());
-			reportParams.put("pDuration", obj[8].toString()+" - "+obj[9].toString());
-			//dataList.add(objBean);
+			int k=(int) Math.round(Double.parseDouble(obj[14].toString()));			
+			String frTime[]=obj[8].toString().split(":");
+			String toTime[]=obj[9].toString().split(":");
+			int hrsCnt=Integer.parseInt(frTime[0])-Integer.parseInt(toTime[0]);
+			int minCnt=Integer.parseInt(frTime[1])-Integer.parseInt(toTime[1]);
+			
+			String hrsCount=null;
+			if(String.valueOf(hrsCnt).startsWith("-"))
+			{
+				String hrsValue[]=String.valueOf(hrsCnt).split("-");
+				hrsCount=hrsValue[1];
+			}
+			else
+			{
+				hrsCount=String.valueOf(hrsCnt);
+			}
+			String minCount=null;
+			if(String.valueOf(minCnt).startsWith("-"))
+			{
+				String hrsValue[]=String.valueOf(minCnt).split("-");
+				minCount=hrsValue[1];
+			}
+			else
+			{
+				minCount=String.valueOf(minCnt);
+			}
+			reportParams.put("pDuration",k+" Day"+ " "+hrsCount+" Hours "+minCount+" Minutes");
+			
+			
+			//reportParams.put("pDuration",obj[8].toString()+" - "+obj[9].toString());
+			
 		}
 		reportParams.put("pCompanyName", companyName);
 		reportParams.put("pAddress1", objSetup.getStrAdd1() + "," + objSetup.getStrAdd2() + "," + objSetup.getStrCity());
@@ -203,6 +259,9 @@ public class clsFunctionProspectusController
 		reportParams.put("listEquipment", listEquipment);
 		reportParams.put("listService", listService);
 		reportParams.put("listMenu", listMenu);
+		reportParams.put("listExtService", listExtService);
+		reportParams.put("listIntService", listIntService);
+		
 		
 		JasperDesign jd = JRXmlLoader.load(reportName);
 		JasperReport jr = JasperCompileManager.compileReport(jd);
