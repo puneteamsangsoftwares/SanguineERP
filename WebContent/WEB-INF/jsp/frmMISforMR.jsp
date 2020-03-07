@@ -183,8 +183,8 @@ function btnClose_onclick()
 </script>
 </head>
 <body onload="funOnLoad()">
-<div style="width: 100%; height: 40px; background-color: #458CCA">
-		<p align="center" style="padding-top: 5px">Material Requisition Details</p>
+<div style="width: 100%; height: 40px; background-color: #c0c0c0;">
+		<p align="center" style="padding-top: 10px;color:white;">Material Requisition Details</p>
 	</div>
     <form id="form1">
         
@@ -192,7 +192,7 @@ function btnClose_onclick()
                             <tr>
                                 <td>Group</td>
                                 <td >
-                                    <select id="cmbGroup" onchange="funFillSubGroup()"class="BoxW124px">
+                                    <select id="cmbGroup" onchange="funFillSubGroup()" >
                                         <option selected="selected" value="ALL">ALL</option>
                                     </select>
                                 </td>
@@ -200,7 +200,7 @@ function btnClose_onclick()
                                     Sub Group</td>
                                 <td >
                                     <label id="lblWODate"></label>
-                                    <select id="cmbSGroup" class="BoxW124px">
+                                    <select id="cmbSGroup">
                                         <option selected="selected" value="ALL">ALL</option>
                                     </select></td>
                             </tr>
@@ -208,10 +208,10 @@ function btnClose_onclick()
                    
                    
                        <div
-				style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 450px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 450px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 						 <table id="tblDNDet"  class="masterTable" style="width: 100%;border-collapse: separate; ">
                             <tbody>
-                             <tr bgcolor="#72BEFC">
+                             <tr bgcolor="#c0c0c0">
                                 <td width="20px">Select<input type="checkbox" id="chkALL" onclick="funCheckUncheck()" />
 								<td width="8%">MR Code</td>				
 								<td width="10%">Date</td>
@@ -225,9 +225,10 @@ function btnClose_onclick()
                             </tbody>
                         </table>
                         </div>
-
-                    <input id="btnClose" type="Button" class="form_button" value="Close" onclick="return btnClose_onclick()" />                                      
-
+                   <br>
+                   <div style="text-align:center;">
+                      <input id="btnClose" type="Button" class="btn btn-primary center-block" class="form_button" value="Close" onclick="return btnClose_onclick()" style="padding:7px;"/>                                      
+                   </div>
        <div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
 			<img

@@ -845,10 +845,10 @@ function funCreateNewCustomer(){
 		    var rowCount = table.rows.length;  
 		    var row = table.insertRow(rowCount);
 		    rowCount=listEquipRow;
-		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listEquipDtl["+(rowCount)+"].strDocNo\"  id=\"txtEquipCode."+(rowCount)+"\" value='"+EquipCode+"' />";
-		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"27%\" name=\"listEquipDtl["+(rowCount)+"].strDocName\"  id=\"txtEquipName."+(rowCount)+"\" value='"+EquipName+"'/>"; 
-		    row.insertCell(2).innerHTML= "<input   class=\" decimal-places-amt\" size=\"5%\" name=\"listEquipDtl["+(rowCount)+"].dblDocQty\" style=\"text-align: right;\"  id=\"txtEquipQty."+(rowCount)+"\" value='"+EquipQty+"' onblur=\"funUpdateEuipPrice(this);\"/>";    
-		    row.insertCell(3).innerHTML= "<input  readonly=\"readonly\" class=\"Box \" style=\"padding-right: 5px;text-align: right;\" size=\"25%\" name=\"listEquipDtl["+(rowCount)+"].dblDocRate\"  id=\"txtEquipRate."+(rowCount)+"\" value='"+EquipRate+"'/>";
+		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"15%\" name=\"listEquipDtl["+(rowCount)+"].strDocNo\"  id=\"txtEquipCode."+(rowCount)+"\" value='"+EquipCode+"' />";
+		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"47%\" name=\"listEquipDtl["+(rowCount)+"].strDocName\"  id=\"txtEquipName."+(rowCount)+"\" value='"+EquipName+"'/>"; 
+		    row.insertCell(2).innerHTML= "<input   class=\" decimal-places-amt\" size=\"9%\" name=\"listEquipDtl["+(rowCount)+"].dblDocQty\" style=\"text-align: right;\"  id=\"txtEquipQty."+(rowCount)+"\" value='"+EquipQty+"' onblur=\"funUpdateEuipPrice(this);\"/>";    
+		    row.insertCell(3).innerHTML= "<input  readonly=\"readonly\" class=\"Box \" style=\"padding-right: 5px;text-align: right;\" size=\"21%\" name=\"listEquipDtl["+(rowCount)+"].dblDocRate\"  id=\"txtEquipRate."+(rowCount)+"\" value='"+EquipRate+"'/>";
 		    row.insertCell(4).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowEquip(this)">';		    
 		    listEquipRow++;
 		    funCalculateEuipTotal();
@@ -868,9 +868,9 @@ function funCreateNewCustomer(){
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    rowCount=listStaffRow;
-		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listStaffCatDtl["+(rowCount)+"].strDocNo\"  id=\"txtStaffCatCode."+(rowCount)+"\" value='"+StaffCatCode+"' />";
-		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"27%\" name=\"listStaffCatDtl["+(rowCount)+"].strDocName\"  id=\"txtStaffCatName."+(rowCount)+"\" value='"+StaffCatName+"'/>";
-		    row.insertCell(2).innerHTML= "<input   class=\" decimal-places-amt\" size=\"5%\" name=\"listStaffCatDtl["+(rowCount)+"].dblDocQty\" style=\"text-align: right;\"  id=\"txtStaffCatNumber."+(rowCount)+"\" value='1' onblur=\"funCheckStaffNumber(this,'"+StaffCatCode+"','"+rowCount+"');\"/>";
+		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"22%\" name=\"listStaffCatDtl["+(rowCount)+"].strDocNo\"  id=\"txtStaffCatCode."+(rowCount)+"\" value='"+StaffCatCode+"' />";
+		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"54%\" name=\"listStaffCatDtl["+(rowCount)+"].strDocName\"  id=\"txtStaffCatName."+(rowCount)+"\" value='"+StaffCatName+"'/>";
+		    row.insertCell(2).innerHTML= "<input   class=\" decimal-places-amt\" size=\"20%\" name=\"listStaffCatDtl["+(rowCount)+"].dblDocQty\" style=\"text-align: right;\"  id=\"txtStaffCatNumber."+(rowCount)+"\" value='1' onblur=\"funCheckStaffNumber(this,'"+StaffCatCode+"','"+rowCount+"');\"/>";
 		    row.insertCell(3).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowStaff(this)">';		    
 		    listStaffRow++;
 	    }
@@ -929,10 +929,10 @@ function funCreateNewCustomer(){
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
 		    rowCount=listItemRow;
-		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listMenuItemDtl["+(rowCount)+"].strDocNo\"  id=\"txtItemCode."+(rowCount)+"\" value='"+ItemCode+"'/>";
-		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"27%\" name=\"listMenuItemDtl["+(rowCount)+"].strDocName\"  id=\"txtItemName."+(rowCount)+"\" value='"+ItemName+"'/>";
-		    row.insertCell(2).innerHTML= "<input  class=\"decimal-places-amt\" size=\"5%\" name=\"listMenuItemDtl["+(rowCount)+"].dblDocQty\"  id=\"txtItemQty."+(rowCount)+"\" style=\"text-align: right;\" value='"+ItemQty+"' onblur=\"funUpdateItemPrice(this);\"/>";
-		    row.insertCell(3).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"15%\" style=\"padding-right: 5px;text-align: right;\"  name=\"listMenuItemDtl["+(rowCount)+"].dblDocRate\"  id=\"txtItemRate."+(rowCount)+"\" value='"+ItemRate+"'/>";
+		    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"18%\" name=\"listMenuItemDtl["+(rowCount)+"].strDocNo\"  id=\"txtItemCode."+(rowCount)+"\" value='"+ItemCode+"'/>";
+		    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"40%\" name=\"listMenuItemDtl["+(rowCount)+"].strDocName\"  id=\"txtItemName."+(rowCount)+"\" value='"+ItemName+"'/>";
+		    row.insertCell(2).innerHTML= "<input  class=\"decimal-places-amt\" size=\"13%\" name=\"listMenuItemDtl["+(rowCount)+"].dblDocQty\"  id=\"txtItemQty."+(rowCount)+"\" style=\"text-align: right;\" value='"+ItemQty+"' onblur=\"funUpdateItemPrice(this);\"/>";
+		    row.insertCell(3).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"16%\" style=\"padding-right: 5px;text-align: right;\"  name=\"listMenuItemDtl["+(rowCount)+"].dblDocRate\"  id=\"txtItemRate."+(rowCount)+"\" value='"+ItemRate+"'/>";
 		    row.insertCell(4).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowMenu(this)">';	
 		    
 		    listItemRow++;
@@ -1770,9 +1770,9 @@ function funCreateNewCustomer(){
                             </s:select>
 					 </div>
 					 		
-					 <div class="col-md-2"><label>Against</label>
+					 <div class="col-md-2"><br>
 					       <s:input type="text" id="txtBookingNo" readonly="true" path="strBookingNo" 
-					         cssClass="searchTextBox" ondblclick="funHelp('Booking');"/>
+					         cssClass="searchTextBox" ondblclick="funHelp('Booking');" style="margin-top: 7%;"/>
 					 </div>
 					  
                      <div class="col-md-2"><label>Property</label>
@@ -1780,7 +1780,7 @@ function funCreateNewCustomer(){
 							items="${listOfProperty}" required="true"></s:select>
 					 </div>
                     
-                     <div class="col-md-2"><label id="lblPropName" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top:11%;"></label>
+                     <div class="col-md-2"><label id="lblPropName" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top:16%;"></label>
 					 </div>
 				     <div class="col-md-4"></div>
 				     
@@ -1862,7 +1862,7 @@ function funCreateNewCustomer(){
 						&nbsp;&nbsp;
 				   </div>	
 						
-				   <div class="col-md-2"><label>Against</label>
+				   <div class="col-md-2"><label>Amount</label>
 				        <s:input id="txtBanquetRate" path=""
 						style="text-align: right; width: 60%;" name="txtBanquetRate" onblur="funUpdateTotalBookingAmt();"/>
 				   </div>

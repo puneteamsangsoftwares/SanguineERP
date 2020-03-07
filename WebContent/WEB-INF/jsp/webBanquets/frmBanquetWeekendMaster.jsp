@@ -34,84 +34,61 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Weekend Master</label>
-	</div>
-
-<br/>
-<br/>
-
+	<div class="container">
+	<label id="formHeading">Weekend Master</label>
+	
 	<s:form name="BanquetWeekendMaster" method="POST" action="saveBanquetWeekendMaster.html">
 
-		<table class="masterTable">
-		<tr>
-		<td>
-				<label>Days</label>
-				</td>
-		</tr>
-			<tr>
-				<td>
-					<label>Sunday</label>
+		<div class="row masterTable">
+		     <div class="col-md-12"><label>Days</label></div>
+		   
+			 <div class="col-md-2"><label>Sunday</label>
 					<!-- <input type="checkbox" name="chkSunday" value="sunday">  -->
-					<td><s:checkbox id="chkSunday" name="chkSunday" path="strSunday" value="Sunday" /></td> 
+					<s:checkbox id="chkSunday" name="chkSunday" path="strSunday" value="Sunday" /> 
 				
-				</td>
+				</div>
 				
-				<td>
-					<label>Monday</label>
+				<div class="col-md-2"><label>Monday</label>
 					<!-- <input type="checkbox" name="chkMonday" value="monday"> -->
-					<td><s:checkbox id="chkMonday" name="chkMonday" path="strMonday" value="Monday" /></td> 
-				 
-				</td>
-				
-			</tr>
-			<tr>
-				<td>
-					<label>Tuesday</label>
+					 <s:checkbox id="chkMonday" name="chkMonday" path="strMonday" value="Monday" /> 
+				</div>
+		
+			    <div class="col-md-2"> <label>Tuesday</label>
 					<!-- <input type="checkbox" name="chkTuesday" value="tuesday">  -->
-					<td><s:checkbox id="chkTuesday" name="chkTuesday" path="strTuesday" value="Tuesday" /></td> 
+					 <s:checkbox id="chkTuesday" name="chkTuesday" path="strTuesday" value="Tuesday" />
+				</div>
 				
-				</td>
-				<td>
-					<label>Wednesday</label>
+				<div class="col-md-2"><label>Wednesday</label>
 					<!-- <input type="checkbox" name="chkWednesday" value="wednesday">  -->
-					<td><s:checkbox id="chkWednesday" name="chkWednesday" path="strWednesday" value="Wednesday" /></td> 
-				
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Thursday</label>
+					 <s:checkbox id="chkWednesday" name="chkWednesday" path="strWednesday" value="Wednesday" />
+				</div>
+			    <div class="col-md-4"></div>
+			    
+			    <div class="col-md-2"><label>Thursday</label>
 					<!-- <input type="checkbox" name="chkThursday" value="thursday">  -->
-					<td><s:checkbox id="chkThursday" name="chkSunday" path="strThursday" value="Thursday" /></td> 
+					 <s:checkbox id="chkThursday" name="chkSunday" path="strThursday" value="Thursday" />
+				</div>
 				
-				</td>
-				<td>
-					<label>Friday</label>
+				<div class="col-md-2"><label>Friday</label>
 					<!-- <input type="checkbox" name="chkFriday" value="friday">  -->
-					<td><s:checkbox id="chkFriday" name="chkFriday" path="strFriday" value="Friday" /></td> 
+					  <s:checkbox id="chkFriday" name="chkFriday" path="strFriday" value="Friday" />
+				</div>
 				
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Saturday</label>
+			    <div class="col-md-2"><label>Saturday</label>
 					<!-- <input type="checkbox" name="chkSaturday" value="saturday">  -->
-					<td><s:checkbox id="chkSaturday" name="chkSaturday" path="strSaturday" value="Saturday" /></td> 
-				
-				</td>
-				
-				
-			</tr>
-		</table>
+					<s:checkbox id="chkSaturday" name="chkSaturday" path="strSaturday" value="Saturday" />
+			    </div>
+		    </div>
 
 		<br />
 		<br />
 		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" />
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

@@ -616,8 +616,8 @@ var listProductData;
 		    var table = document.getElementById("tblPartyTax");
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"15%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount-1)+"\" value='"+taxCode+"'>";
-		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"27%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount-1)+"\" value='"+taxDesc+"'>";
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"11%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount-1)+"\" value='"+taxCode+"'>";
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"38%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount-1)+"\" value='"+taxDesc+"'>";
 		    //row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxCode\" id=\"taxcode."+(rowCount-1)+"\" value="+taxCode+">";
 		    //row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\"  id=\"taxDesc."+(rowCount-1)+"\" value="+taxDesc+">";		    
 		    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowForTax(this)">';		    
@@ -631,8 +631,8 @@ var listProductData;
 		    var table = document.getElementById("tblPartyTax");
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);
-		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount-1)+"\" value='"+taxCode+"'>";
-		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"22%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount-1)+"\" value='"+taxDesc+"'>";
+		    row.insertCell(0).innerHTML= "<input class=\"Box\" size=\"11%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxCode\" id=\"txtTaxCode."+(rowCount-1)+"\" value='"+taxCode+"'>";
+		    row.insertCell(1).innerHTML= "<input class=\"Box\" size=\"38%\" name=\"listclsPartyTaxIndicatorDtlModel["+(rowCount-1)+"].strTaxDesc\" id=\"txtTaxDesc."+(rowCount-1)+"\" value='"+taxDesc+"'>";
 		    row.insertCell(2).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRowForTax(this)">';
 		    return false;
 		}
@@ -1465,60 +1465,53 @@ var listProductData;
 					<div id="tab3" class="tab_content">
 						<!-- Kindly change funAddRow  So that it cnnot add products -->
 						<div class="row transTablex" style="width:100%; margin-top:10px;">
-							<div class="col-md-5">
-								<div class="row">
-									<div class="col-md-5">
+							
+									<div class="col-md-2">
 										<label>Product Code:</label>
 										<input id="txtProdCode" ondblclick="funHelp('productmaster')" type="text" Class="searchTextBox" />
 									</div>
-									<div class="col-md-7">
+									
+									<div class="col-md-3">
 										<label id="lblProdName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label>
 									</div>
-								</div>
-				      		</div>
-				      		<div class="col-md-5">
-								<div class="row">
-									<div class="col-md-5">
+						
+									<div class="col-md-2">
 										<label id="lblLicenceAmt">Licence Amount:</label>
 										<input id="txtAmount" type="text" class="decimal-places-amt numberField"></input>
 									</div>
-									<div class="col-md-7">
+									
+									<div class="col-md-3">
 										<label id="lblAMCAmt">AMC Amount:</label>
 										<s:input  id="txtAMCAmount"  path="" class="decimal-places-amt numberField"/>
 									</div>
-								</div><br>
-				      		</div>
-				      		<div class="col-md-5">
-								<div class="row">
-									<div class="col-md-5">
+								
+				      	
+								
+									<div class="col-md-2">
 										<label id="lblInstallationDate">Installation Date:</label>
 										<s:input  id="txtInstallationDate"  path=""  cssClass="calenderTextBox" />
 									</div>
-									<div class="col-md-7">
-										<label id="lblWarrInDays">Warranty In Day's:</label>
-										<s:input  id="txtWarrInDays"  path="" type="text"/>
-									</div>
-								</div>
-				      		</div>
-				      		<div class="col-md-5">
-								<div class="row">
-									<div class="col-md-5">
+									
+									<div class="col-md-2">
 										<label>Std Order Qty:</label>
 										<input id="txtStandingOrder" type="text" class="decimal-places-amt numberField"></input>
 									</div>
-									<div class="col-md-5">
+									
+									<div class="col-md-3">
 										<label>Margin:</label>
 										<input id="txtMargin" type="text" class="decimal-places-amt numberField"></input>
 									</div>
-								</div><br>
-				      		</div>
+								
+								<div class="col-md-1">
+										<label id="lblWarrInDays">Warranty In Day's:</label>
+										<s:input  id="txtWarrInDays"  path="" type="text"/>
+									</div>
+									
 				      		<div class="col-md-6">
-						      <div class="center">
-									<a href="#"><button class="btn btn-primary center-block" id="btnAdd" value="Add" onclick="return funAddRow()">Add</button></a>&nbsp;
+						            <a href="#"><button class="btn btn-primary center-block" id="btnAdd" value="Add" onclick="return funAddRow()">Add</button></a>&nbsp;
 									<a href="#"><button class="btn btn-primary center-block" id="btnAllProd" value="All Product" onclick="return funLoadAllProduct()"
 										class="form_button">All Product</button></a>
-								</div>
-				      		</div>
+							</div>
 						</div>
 <!-- 						<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 80%;"> -->
 <!-- 							<table id="tblProdDet" -->
@@ -1618,7 +1611,7 @@ var listProductData;
 						</div>
 						<div class="col-md-3"></div>
 					</div><br>
-						<div style="border: 1px solid #ccc;height: 250px;background: #fbfafa; overflow-x: hidden; overflow-y: scroll; width: 60%;">
+						<div style="border: 1px solid #ccc;height: 250px;background: #fbfafa; overflow-x: hidden; overflow-y: scroll; width: 45%;">
 							<table id="tblPartyTax"
 									style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 									class="transTablex col3-center">

@@ -131,7 +131,7 @@ var fieldName="";
 			</div>
 				
 		<br>
-		<p align="center" style="margin-right: 13%;">
+		<p align="center" style="margin-right: 57%;">
 			<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="return btnSubmit_Onclick()" /> 
 			&nbsp;
 			<input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()" />

@@ -2165,7 +2165,7 @@ function funChangeCombo() {
 						
 				<div class="col-md-2"><label>Settlement</label>
 					<s:select id="cmbSettlement" path="strSettlementCode" items="${settlementList}"
-							onkeypress="funGetKeyCode(event,'Settlement')" onclick="funChangeCombo()" style="width:auto;"/>
+							onkeypress="funGetKeyCode(event,'Settlement')" onclick="funChangeCombo()" />
 				</div>
 								
 				<div class="col-md-2"><label>Warrenty Start Date</label>

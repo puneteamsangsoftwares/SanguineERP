@@ -3149,12 +3149,12 @@ function funChangeCombo() {
 					<div class="col-md-4"><label>Narration</label><br>
 							<s:textarea id="txtNarration" path="strNarration" style="width: 350px;"/>
 				    </div>
-					<div class="col-md-8"></div>
-					
-					<div class="col-md-2"><label>Pack No</label>
+				    
+				    <div class="col-md-2"><label>Pack No</label>
 							<s:input id="txtPackNo" path="strPackNo" type="text"/>
 					</div>
-											
+					<div class="col-md-6"></div>
+							
 					<div class="col-md-2"><label>Docket No of Courier</label>
 							<s:input id="txtDktNo" path="strDktNo" type="text" readonly="true"/>
 					</div>
@@ -3163,54 +3163,55 @@ function funChangeCombo() {
 							<s:input id="txtMInBy" path="strMInBy" type="text" />
 					</div>
 					
-					<div class="col-md-2"><label>Time Out</label>
-							<s:input id="txtTimeOut" path="strTimeInOut" type="text"/>
+					<div class="col-md-2"><label id="lblQtyTotl">Total Qty</label>
+							<input type="text" id="txtQtyTotl" value="0.00" readonly="true" style="text-align:right;width:50%;"/>
 					</div>
-					<div class="col-md-4"></div>
+					
+					<div class="col-md-6"></div>
 											
 					<div class="col-md-2"><label>Reason Code</label>
 							<s:input id="txtReaCode" path="strReaCode" type="text" />
 					</div>
 				
-					<div class="col-md-2"><label id="lblQtyTotl">Total Qty</label>
-							<input type="text" id="txtQtyTotl" value="0.00" readonly="true" style="text-align:right;width:50%;"/>
+				    <div class="col-md-2"><label>Time Out</label>
+							<s:input id="txtTimeOut" path="strTimeInOut" type="text"/>
 					</div>
+					
 							
 					<div class="col-md-2"><label id="lblsubTotlAmt">SubTotal Amount </label>
 							<s:input type="text" id="txtSubTotlAmt" path="dblSubTotalAmt" readonly="true" cssClass="decimal-places-amt numberField" />
 					</div>
 					
-					<div class="col-md-2"><label >Discount Per</label>
-							<s:input type="text" id="txtDiscountPer" path="dblDiscount" value="0" cssClass="decimal-places-amt numberField" style="text-align:right;width:50%;" onblur="funCalculateDiscount();"/>
-					</div>
-					<div class="col-md-4"></div>
+					
+					<div class="col-md-6"></div>
 							
 					<div class="col-md-4"><label>Delivery Note</label>
 							<s:textarea id="txtDeliveryNote" path="strDeliveryNote" style="width: 350px;" />
 					</div>
-					<div class="col-md-8"></div>
+					
+					<div class="col-md-2"><label >Discount Per</label>
+							<s:input type="text" id="txtDiscountPer" path="dblDiscount" value="0" cssClass="decimal-places-amt numberField" style="text-align:right;width:50%;" onblur="funCalculateDiscount();"/>
+					</div>
+					<div class="col-md-6"></div>
 							
 					<div class="col-md-2"><label>Supplier's Ref.</label>
 							<s:input id="txtSupplierRef" path="strSupplierRef" type="text"/>
 					</div>
 					
-					<div class="col-md-2"><label>Discount Amount</label>
-							<s:input type="text" id="txtDiscount" path="dblDiscountAmt" value="0" cssClass="decimal-places-amt numberField"  style="text-align:right;width:50%;" onblur="funCalculatePerDiscount();"/>
+					<div class="col-md-2"><label>Other Ref.</label>
+							<s:input id="txtOtherRef" path="strOtherRef" type="text"/>
 					</div>
-						
+					
 					<div class="col-md-2"><label>Extra Charges</label>
 							<s:input type="text" id="txtExtraCharges" path="dblExtraCharges" value="0" cssClass="decimal-places-amt numberField" style="text-align:right;width:50%;" onblur="funCalTaxTotal();"/>
 					</div>
 							
-					<div class="col-md-2"><label>Other Ref.</label>
-							<s:input id="txtOtherRef" path="strOtherRef" type="text"/>
+					<div class="col-md-2"><label>Discount Amount</label>
+							<s:input type="text" id="txtDiscount" path="dblDiscountAmt" value="0" cssClass="decimal-places-amt numberField"  style="text-align:right;width:50%;" onblur="funCalculatePerDiscount();"/>
 					</div>
+						
 					<div class="col-md-4"></div>
-					
-					<div class="col-md-2"><label id="lblFinalAmt">Final Amount</label>
-							<s:input type="text" id="txtFinalAmt" path="dblTotalAmt" readonly="true" cssClass="decimal-places-amt numberField" />
-					</div>	
-																				
+																	
 					<div class="col-md-2"><label>Buyer's Order No.</label>
 							<s:input id="txtBuyersOrderNo" path="strBuyersOrderNo" type="text"/>
 					</div>		
@@ -3218,15 +3219,20 @@ function funChangeCombo() {
 					<div class="col-md-2"><label>Dated</label>
 							<s:input path="dteBuyerOrderNoDated" id="txtBuyerOrderNoDated"  readonly="true" cssClass="calenderTextBox" style="width:80%"/>
 					</div>
-													
+						
+					<div class="col-md-2"><label>Dated</label>
+							<s:input path="dteDispatchDocNoDated" id="txtDispatchDocNoDated"  readonly="true" cssClass="calenderTextBox" style="width:80%"/>
+					</div>								
+					
+					
+					<div class="col-md-2"><label id="lblFinalAmt">Final Amount</label>
+							<s:input type="text" id="txtFinalAmt" path="dblTotalAmt" readonly="true" cssClass="decimal-places-amt numberField" />
+					</div>	
+					<div class="col-md-4"></div>
+					
 					<div class="col-md-2"><label>Dispatch Doc No.</label>
 							<s:input id="txtDispatchDocNo" path="strDispatchDocNo" type="text" />
 					</div>
-					<div class="col-md-4"></div>
-					
-					<div class="col-md-2"><label>Dated</label>
-							<s:input path="dteDispatchDocNoDated" id="txtDispatchDocNoDated"  readonly="true" cssClass="calenderTextBox" style="width:80%"/>
-					</div>	
 															
 					<div class="col-md-2"><label>Dispatch Through</label>
 							<s:input id="txtDispatchThrough" path="strDispatchThrough" type="text"/>

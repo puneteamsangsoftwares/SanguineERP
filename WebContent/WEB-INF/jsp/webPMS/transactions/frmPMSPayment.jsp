@@ -7,14 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
-     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
-	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
-	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-
+    
 <script type="text/javascript">
 	var fieldName,settlementType="",gstrIndustryType;
 	
@@ -631,7 +624,7 @@ function funCreateNewGuest(){
 		    </div></div>
 		  
 	  	    <div class="col-md-2"><label id="lblGuestName"></label>
-		          <label id="lblGuestFullName" style="background-color:#dcdada94; width: 100%; height: 42%;margin-top: 20px;"></label>
+		          <label id="lblGuestFullName" style=" width: 100%; height: 45%;"></label>
 		    </div>
             
             <div class="col-md-5"></div>
