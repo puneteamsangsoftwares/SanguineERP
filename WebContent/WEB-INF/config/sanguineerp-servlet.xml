@@ -682,12 +682,18 @@
     
     
    
-  <!--     
-    End of Email Set Up
-  
-	<mvc:interceptors>
-		<bean class="com.sanguine.util.clsRequestInterceptor"></bean>
-	</mvc:interceptors>  -->
+   <!-- Configuring interceptors based on URI -->
+	<!-- <interceptors>
+		<interceptor>
+			<mapping path="/home" />
+			<beans:bean class="com.sanguine.util.clsRequestInterceptor"></beans:bean>
+		</interceptor>
+	</interceptors> -->
+
+<mvc:interceptors>
+    <bean id="clsRequestInterceptor" class="com.sanguine.util.clsRequestInterceptor"/>
+</mvc:interceptors>
+
 </beans>
 
 

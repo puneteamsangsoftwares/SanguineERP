@@ -119,7 +119,12 @@
 //set date
 	$(document).ready(function(){
 		
-		var pmsDate='<%=session.getAttribute("PMSDate").toString()%>'; 
+		var pmsDate='today';
+		<% if(session.getAttribute("PMSDate")!=null){ %>
+		pmsDate='<%=session.getAttribute("PMSDate").toString() %>';
+		
+		 
+		<%}%>; 
 		
 		 $("#txtArrivalFromDate").datepicker({dateFormat : 'dd-mm-yy'}); 
 		 $("#txtArrivalFromDate").datepicker('setDate', pmsDate); 
