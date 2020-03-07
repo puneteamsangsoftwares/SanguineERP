@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+   
 <script type="text/javascript">
 	var fieldName;
 
@@ -266,108 +268,64 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Item Master</label>
-	</div>
+    <div class="container masterTable">
+	  <label id="formHeading">Item Master</label>
+	   <s:form name="frmItemMaster" method="POST" action="saveItemMaster.html">
 
-<br/>
-<br/>
-
-	<s:form name="frmItemMaster" method="POST" action="saveItemMaster.html">
-
-		<table class="masterTable">
-			<tr>
-				<td style="width:20%;">
-					<label>Item Code</label>
-				</td>
-				<td>
-					<s:input colspan="3" path="strItemCode" type="text" id="txtItemCode" cssClass="searchTextBox jQKeyboard form-control" ondblclick="funHelp('ItemCode')" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Item Name</label>
-				</td>
-				<td>
-					<s:input colspan="3" path="strItemName" type="text" id="txtItemName" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Menu Head Code</label>
-				</td>
-				<td>
-					<s:input colspan="3" path="strMenuHeadCode" type="text" id="txtMenuHeadCode" cssClass="searchTextBox jQKeyboard form-control" ondblclick="funHelp('MenuHeadCode')" />
-					&nbsp&nbsp&nbsp&nbsp<label id="lblMenuHeadName"></label>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Sub-Group Code</label>
-				</td>
-				<td>
-					<s:input colspan="3" path="strSubGroupCode" type="text" id="txtSubGroupCode" cssClass="searchTextBox jQKeyboard form-control" ondblclick="funHelp('subgroup')" />
-					&nbsp&nbsp&nbsp&nbsp<label id="lblSubGroupName"></label>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Department Code</label>
-				</td>
-				<td>
-					<s:input colspan="3" path="strDepartmentCode" type="text" id="txtDepartmentCode" cssClass="searchTextBox jQKeyboard form-control" ondblclick="funHelp('deptCode')"/>
-					&nbsp&nbsp&nbsp&nbsp<label id="lblDepartmentName"></label>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Unit</label>
-				</td>
-				<td>
-					<s:select colspan="3" path="strUnit" type="text" id="txtUnit" cssClass="BoxW124px"
-						items="${uomList}" onchange="funUOMChange(this)" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Amount</label>
-				</td>
-				<td>
-					<s:input colspan="3" path="dblAmount" type="number" step="0.01" id="txtAmount" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Percent</label>
-				</td>
-				<td>
-					<s:input colspan="3" path="dblPercent" type="number" step="0.01" id="txtPercent" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Operational</label>
-				</td>
-				<td>
-					<s:checkbox value="true" element="li" id="chkOperational" path="strOperational"  checked="true"/>
-				</td>
-			</tr>
+		<div class="row">
+                <div class="col-md-2"><label>Item Code</label>
+				        <s:input path="strItemCode" type="text" id="txtItemCode" cssClass="searchTextBox jQKeyboard form-control" ondblclick="funHelp('ItemCode')" />
+				</div>
 			
-			<tr>
-				<td><label>Tax Indicator</label></td>
-				<td><s:select id="cmbTaxIndicator" name="taxIndicator"
-				path="strTaxIndicator" items="${taxIndicatorList}"  cssClass="BoxW48px"/></td>
+			    <div class="col-md-2"><label>Item Name</label>
+				        <s:input path="strItemName" type="text" id="txtItemName"/>
+				</div>
+		  
+			     <div class="col-md-2"><label>Menu Head Code</label>
+				        <s:input path="strMenuHeadCode" type="text" id="txtMenuHeadCode" cssClass="searchTextBox jQKeyboard form-control" ondblclick="funHelp('MenuHeadCode')" />
+				         <label id="lblMenuHeadName"></label> 
+				 </div>
+				 <div class="col-md-6"></div>
+				 
+			     <div class="col-md-2"><label>Sub-Group Code</label>
+				       <s:input path="strSubGroupCode" type="text" id="txtSubGroupCode" cssClass="searchTextBox jQKeyboard form-control" ondblclick="funHelp('subgroup')" />
+				         <label id="lblSubGroupName"></label>
+				 </div>
 			
-		  </tr>
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidate(this)" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+			     <div class="col-md-2"><label>Department Code</label>
+				        <s:input path="strDepartmentCode" type="text" id="txtDepartmentCode" cssClass="searchTextBox jQKeyboard form-control" ondblclick="funHelp('deptCode')"/>
+				         <label id="lblDepartmentName"></label>
+				</div>
+			    
+			    <div class="col-md-2"><label>Unit</label>
+				       <s:select path="strUnit" type="text" id="txtUnit" items="${uomList}" onchange="funUOMChange(this)" style="width:auto;"/>
+				</div>
+			    <div class="col-md-6"></div>
+			    
+			    <div class="col-md-2"><label>Amount</label>
+				       <s:input path="dblAmount" type="number" step="0.01" id="txtAmount" style="width:70%;"/>
+				</div>
+			    
+			    <div class="col-md-2"><label>Percent</label>
+				       <s:input path="dblPercent" type="number" step="0.01" id="txtPercent" style="width:70%;"/>
+				</div>
+			    
+			    <div class="col-md-1"><label>Operational</label><br>
+				        <s:checkbox value="true" element="li" id="chkOperational" path="strOperational"  checked="true"/>
+				</div>
+			    
+			    <div class="col-md-1"><label style="width:120%;">Tax Indicator</label>
+				       <s:select id="cmbTaxIndicator" name="taxIndicator" path="strTaxIndicator" items="${taxIndicatorList}"/>
+				</div>
+		  </div>
+	
+		<br/>
+		<p align="center" style="margin-right:14%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidate(this)" />
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
-
-	</s:form>
+    </s:form>
+	</div>
 </body>
 </html>

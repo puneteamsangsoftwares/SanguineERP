@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,49 +105,34 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Cost Center Master</label>
-	</div>
+	<div class="container masterTable">
+	<label id="formHeading">Cost Center Master</label>
+	   <s:form name="CostCenterMaster" method="POST" action="saveCostCenterMaster.html">
 
-<br/>
-<br/>
-
-	<s:form name="CostCenterMaster" method="POST" action="saveCostCenterMaster.html">
-
-		<table class="masterTable">
-			<tr>
-				<td style="width:20%;">
-					<label>Cost Center Code</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" path="strCostCenterCode" id="txtCostCenterCode" ondblclick="funHelp('CostCenterCode')" cssClass="searchTextBox jQKeyboard form-control" />
-				</td>
+		<div class="row">
+          
+				<div class="col-md-2"><label>Cost Center Code</label>
+				       <s:input type="text" path="strCostCenterCode" id="txtCostCenterCode" ondblclick="funHelp('CostCenterCode')" cssClass="searchTextBox jQKeyboard form-control" />
+				</div>
 				
-				
-			</tr>
-			<tr>
-				<td>
-					<label>Cost Center Name</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" path="strCostCenterName" id="txtCostCenterName" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-			
-			<td><label>Operational</label></td>
-				<td colspan="3"><s:checkbox id="txtOperational" path="strOperational" value="Y"/></td>
-				
-			</tr>
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" onclick="return funValidate(this)" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+				<div class="col-md-2"><label>Cost Center Name</label>
+				       <s:input type="text" path="strCostCenterName" id="txtCostCenterName"/>
+				</div>
+			    <div class="col-md-8"></div>
+			    
+			    <div class="col-md-2"><label>Operational</label><br>
+				       <s:checkbox id="txtOperational" path="strOperational" value="Y"/>
+			    </div>
+			</div>
+		
+		
+		<p align="center" style="margin-right:49%;">
+			<input type="submit" value="Submit" tabindex="3" onclick="return funValidate(this)" class="btn btn-primary center-block" class="form_button" />
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

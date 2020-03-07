@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -148,57 +149,38 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Banquet Master</label>
-	</div>
+	<div class="container masterTable">
+	<label id="formHeading">Banquet Master</label>
+	  <s:form name="BanquetMaster" method="POST" action="saveBanquetMaster.html">
 
-<br/>
-<br/>
-
-	<s:form name="BanquetMaster" method="POST" action="saveBanquetMaster.html">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>Banquet Code</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtBanquetCode" path="strBanquetCode" ondblclick="funHelp('banquetCode')" cssClass="searchTextBox jQKeyboard form-control" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Banquet Name</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtBanquetName" path="strBanquetName" cssClass="longTextBox" />
-				</td>
-			</tr>
+		 <div class="row">
+          
+			<div class="col-md-2"><label>Banquet Code</label>
+				   <s:input type="text" id="txtBanquetCode" path="strBanquetCode" ondblclick="funHelp('banquetCode')" cssClass="searchTextBox jQKeyboard form-control" />
+			</div>
+		
+			<div class="col-md-2"><label>Banquet Name</label>
+				   <s:input type="text" id="txtBanquetName" path="strBanquetName"/>
+			</div>
+			<div class="col-md-8"></div>
 			
-			<tr>
+			<div class="col-md-2"><label>Banquet Type Code</label>
+				   <s:input  type="text" id="txtBanquetTypeCode" path="strBanquetTypeCode" ondblclick="funHelp('banquetTypeCode')" cssClass="searchTextBox jQKeyboard form-control" />
+			</div>
 			
-			<td><label>Operational</label></td>
-				<td colspan="3"><s:checkbox id="strOperational" path="strOperational" value="Y"/></td>
-				
-			</tr>
-			<tr>
-				<td>
-					<label>Banquet Type Code</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtBanquetTypeCode" path="strBanquetTypeCode" ondblclick="funHelp('banquetTypeCode')" cssClass="searchTextBox jQKeyboard form-control" />
-				</td>
-			</tr>
-			
-		</table>
+			<div class="col-md-2"><label>Operational</label><br>
+				   <s:checkbox id="strOperational" path="strOperational" value="Y"/>
+			</div>
+		</div>
 
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" onclick="return funValidate(this)" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right: 49%;">
+			<input type="submit" value="Submit" tabindex="3" onclick="return funValidate(this)" class="btn btn-primary center-block" class="form_button" />
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

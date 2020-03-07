@@ -8,6 +8,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=8" />
 
+<%-- <style>
+.transTable td {
+  padding-left:0px;
+  border:none;
+}
+
+</style> --%>
+
 <script type="text/javascript">
 		var fieldName,gurl,listRow=0,mastercode;
 	 $(document).ready(function()
@@ -37,9 +45,7 @@
 				alert("\n"+message);
 			<%
 			}}%>
-			
-			
-
+		
 		});
 	
 	 
@@ -342,15 +348,12 @@
 
 </head>
 <body>
-	<div id="formHeading">
-		<label>Banquet Setup</label>
-	</div>
-	<div>
-		<s:form name="frmBanquetSetupMaster" action="saveBanquetSetupMaster.html?saddr=${urlHits}"
-			method="POST">
+	<div class="container transTable">
+      <label id="formHeading">Banquet Setup</label>
+	   <s:form name="frmBanquetSetupMaster" action="saveBanquetSetupMaster.html?saddr=${urlHits}" method="POST">
 			<br>
 			<table
-				style="border: 0px solid black; width: 100%; height: 70%; margin-left: auto; margin-right: auto; background-color: #C0E4FF;">
+				style="border: 0px solid black; width: 100%; height: 70%; margin-left: auto; margin-right: auto; background-color: #fafbfb;">
 				<tr>
 					<td>
 						<div id="tab_container" style="height: 380px">
@@ -362,7 +365,7 @@
 			<div id="tab1" class="tab_content" style="height: 290px">
 				<br>
 				<br>
-				<table class="transTable">
+				<table >
 			 
 			 
 			 
@@ -412,11 +415,12 @@
 			</div>
 		</td>
 	</tr>
-</table>
+  </table>
+   <br>
 			<p align="center">
-				<input type="submit" value="Submit" onclick="" class="form_button" />
+				<input type="submit" value="Submit" onclick="" class="btn btn-primary center-block" class="form_button" />
 				&nbsp; &nbsp; &nbsp; 
-				<input type="reset" value="Reset" class="form_button" onclick="funResetField()" />
+				<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetField()" />
 			</p>
 			<br>
 			<br>

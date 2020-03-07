@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+<%--      <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" /> 
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script> --%>
+
 <script type="text/javascript">
 	var fieldName;
 
@@ -126,8 +134,6 @@
 	}
 
 
-
-
 	function funHelp(transactionName)
 	{
 		fieldName=transactionName;
@@ -146,82 +152,45 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Equipment Master</label>
-	</div>
+	<div class="container masterTable">
+	<label id="formHeading">Equipment Master</label>
+      <s:form name="Equipment" method="POST" action="saveEquipment.html">
 
-<br/>
-<br/>
-
-	<s:form name="Equipment" method="POST" action="saveEquipment.html">
-
-		<table class="masterTable">
-			<tr>
-				<td style="width:20%;">
-					<label>Equipment Code</label>
-				</td>
+		 <div class="row">
+          
+				<div class="col-md-2"><label>Equipment Code</label>
+				       <s:input type="text" id="txtEquipmentCode" path="strEquipmentCode" ondblclick="funHelp('equipmentCode')" cssClass="searchTextBox jQKeyboard form-control" style="height: 50%;"/>
+				</div>
+		
+			     <div class="col-md-2"><label>Equipment Name</label>
+				       <s:input type="text" path="strEquipmentName" id="txtEquipmentName"/> 
+				</div>
 				
+				<div class="col-md-1"><label style="width:150%;">Equipment Rate</label>
+				       <s:input type="text" value="0" path="dblEquipmentRate" id="dblEquipmentRate" style="text-align:right;height:50%;" onkeypress="javascript:return isNumber(event)" /> 
+				</div>
+				<div class="col-md-7"></div>
 				
-				<td>
-					<s:input colspan="3" type="text" id="txtEquipmentCode" path="strEquipmentCode" ondblclick="funHelp('equipmentCode')" cssClass="searchTextBox jQKeyboard form-control"  />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Equipment Name</label>
-				</td>
-				<td colspan="4">
-				
-					<s:input colspan="3" type="text" path="strEquipmentName" id="txtEquipmentName" cssClass="longTextBox" /> 
-					
-				</td>
-				</tr>
-				
-				<tr>
-				<td>
-					<label>Equipment Rate</label>
-				</td>
-				<td colspan="4">
-				
-					<s:input colspan="3" type="text" value="0" path="dblEquipmentRate" id="dblEquipmentRate" style="width:17%;text-align:right;" onkeypress="javascript:return isNumber(event)" cssClass="longTextBox" /> 
-					
-				</td>
-				</tr>
-				
-				<tr>
-				<td>
-					<label>Department Code</label>
-				</td>
-				
-				
-				<td>
-					<s:input colspan="3" type="text" id="txtDepartmentCode" path="strDeptCode" ondblclick="funHelp('deptCode')" cssClass="searchTextBox jQKeyboard form-control"  />
-				</td>
-			</tr>
-				
-				<tr>
+				<div class="col-md-2"><label>Department Code</label>
+				      <s:input type="text" id="txtDepartmentCode" path="strDeptCode" ondblclick="funHelp('deptCode')" cssClass="searchTextBox jQKeyboard form-control" style="height: 50%;"/>
+				</div>
 			
-			<td><label>Operational</label></td>
-				<td colspan="3"><s:checkbox id="strOperational" path="strOperational" value="Y"/></td>
-				
-			</tr>
-			
-			<tr>
-				<td><label>Tax Indicator</label></td>
-				<td><s:select id="cmbTaxIndicator" name="taxIndicator"
-				path="strTaxIndicator" items="${taxIndicatorList}"  cssClass="BoxW48px"/></td>
-			
-		  </tr>
-				
-		</table>
+			    <div class="col-md-1"><label style="width:120%;">Tax Indicator</label>
+				       <s:select id="cmbTaxIndicator" name="taxIndicator" path="strTaxIndicator" items="${taxIndicatorList}"/>
+			    </div>
+			    
+			    <div class="col-md-1"><label>Operational</label><br>
+				      <s:checkbox id="strOperational" path="strOperational" value="Y"/>
+			    </div>
+		</div>
 
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" onclick="return funValidate(this)" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="return funResetFields()"/>
+		<p align="center" style="margin-right: 32%;">
+			<input type="submit" value="Submit" tabindex="3" onclick="return funValidate(this)" class="btn btn-primary center-block" class="form_button" />
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="return funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

@@ -137,70 +137,50 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Staff Master</label>
-	</div>
+	<div class="container masterTable">
+	<label id="formHeading">Staff Master</label>
+	    <s:form name="BanquetStaffMaster" method="POST" action="saveBanquetStaffMaster.html">
 
-<br/>
-<br/>
-																		
-	<s:form name="BanquetStaffMaster" method="POST" action="saveBanquetStaffMaster.html">
-
-		<table class="masterTable">				
-			 <tr>
-				<td>
-					<label>Staff Code</label>
-				</td>
-				<td><s:input id="txtStaffCode" name="txtreqCode" path="strStaffCode" cssClass="searchTextBox" ondblclick="funHelp('StaffCode')" readonly="true"/>
-				</td>
-			</tr> 
-			<tr>
-				<td>
-					<label>Staff Name</label>
-				</td>				
-					<td><s:input id="txtStaffName" name="txtStaffName" path="strStaffName" class="BoxW124px" />
-					</td>				
-			</tr>
-			<tr>
-				<td>
-					<label>Staff Categeory Code</label>
-				</td>								
-					<td><s:input id="txtStaffCatCode" name="txtStaffCatCode" path="strStaffCatCode" class="searchTextBox" ondblclick="funHelp('StaffCatCode')" readonly="true"/>
-					</td>					
-			</tr>
-			
-			<tr>			
-			<td><label>Operational Y/N</label></td>
-				
-				<td><s:checkbox id="chkOperationalYN" name="chkOperationalYN" path="strOperationalYN" value="Y" checked="true"/></td> 
-				
-			</tr>
-			
-			<tr>			
-			   <td> <label> Mobile No.  </label> </td>
-		       <td>
-					        <!-- pattern="[789][0-9]{9}" -->
-			     <s:input  type="tel" pattern="[0-9]{10,10}"  maxlength="11"  placeholder="Enter Valid MobileNo." id="txtMobile" name="txtMobile" path="strMobile" cssClass="BoxW116px" />
-			   </td> 
-				
-		    </tr>
-			
-			<tr>
-			   <td><label>Email  </label></td>
-			   <td colspan="3">
-			     <s:input   placeholder="name@email.com"   id="txtEmail" name="txtEmail" path="strEmail" cssClass="longTextBox"/>
-			   </td>
-		   </tr>
+		 <div class="row">
+          
+			<div class="col-md-2"><label>Staff Code</label>
+				<s:input id="txtStaffCode" name="txtreqCode" path="strStaffCode" cssClass="searchTextBox" ondblclick="funHelp('StaffCode')" readonly="true"/>
+			</div>
 		
-		</table>
+			<div class="col-md-2"><label>Staff Name</label>
+				<s:input id="txtStaffName" name="txtStaffName" path="strStaffName" />
+			</div>				
+		    <div class="col-md-8"></div>
+		    
+			<div class="col-md-2"><label>Staff Categeory Code</label>
+				<s:input id="txtStaffCatCode" name="txtStaffCatCode" path="strStaffCatCode" class="searchTextBox" ondblclick="funHelp('StaffCatCode')" readonly="true"/>
+			</div>					
+			
+			<div class="col-md-2"><label>Operational Y/N</label><br>
+				<s:checkbox id="chkOperationalYN" name="chkOperationalYN" path="strOperationalYN" value="Y" checked="true"/>
+			</div>
+			<div class="col-md-8"></div>
+			
+			<div class="col-md-2"><label>Mobile No.</label> 
+		    
+					        <!-- pattern="[789][0-9]{9}" -->
+			     <s:input  type="tel" pattern="[0-9]{10,10}"  maxlength="11"  placeholder="Enter Valid MobileNo." id="txtMobile" name="txtMobile" path="strMobile" style="border:none;" />
+		    </div> 
+				
+			<div class="col-md-2"><label>Email </label>
+			       <s:input  placeholder="name@email.com" id="txtEmail" name="txtEmail" path="strEmail"/>
+			</div>
+		
+		</div>
 
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3"  class="form_button" onclick="return funValidate(this)"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right: 49%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidate(this)"/>
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

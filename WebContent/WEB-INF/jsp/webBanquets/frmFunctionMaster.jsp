@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -210,8 +211,8 @@
 	    var row = table.insertRow(rowCount);
 	    var cnt=0;
 	    var insertRowflg='Y';
-	    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listService["+(rowCount)+"].strServiceCode\"  id=\"txtServiceCode."+(rowCount)+"\" value='"+ServiceCode+"' />";
-	    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"27%\" name=\"listService["+(rowCount)+"].strServiceName\"  id=\"txtServiceName."+(rowCount)+"\" value='"+ServiceName+"'/>";
+	    row.insertCell(0).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listService["+(rowCount)+"].strServiceCode\"  id=\"txtServiceCode."+(rowCount)+"\" value='"+ServiceCode+"' style=\"padding-left: 20px;\" />";
+	    row.insertCell(1).innerHTML= "<input  readonly=\"readonly\" class=\"Box\" size=\"24%\"  name=\"listService["+(rowCount)+"].strServiceName\"  id=\"txtServiceName."+(rowCount)+"\" value='"+ServiceName+"' style=\"margin-left: 15%;padding-left: 20px;\" />";
 	    if(applicable=='Y'){
 	    	row.insertCell(2).innerHTML= "<input id=\"chkApplicable."+(rowCount)+"\" style=\"align:right\" type=\"checkbox\" class=\"GCheckBoxClass\"  name=\"listService["+(rowCount)+"].strApplicable\" checked=\"checked\"  value='"+checked+"' />"; /*  checked=\"checked\"  */
 	    }else{
@@ -277,53 +278,48 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Function Master</label>
-	</div>
-
-<br/>
-<br/>
-	<s:form name="FunctionMaster" method="POST" action="saveFunctionMaster.html">
-     <div id="tab_container" style="height: 405px">
+	<div class="container masterTable">
+	<label id="formHeading"> Function Master </label>
+	  <s:form name="FunctionMaster" method="POST" action="saveFunctionMaster.html">
+      
+      <div id="tab_container">
        <ul class="tabs">
-					<li data-state="tab1" style="width: 6%; padding-left: 2%;margin-left: 10%; " class="active" >Function</li>
-					<li data-state="tab2" style="width: 8%; padding-left: 1%">Service</li>
+					<li data-state="tab1" style="width: 7%; padding-left: 1%;" class="active" >Function</li>
+					<li data-state="tab2" style="width: 7%; padding-left: 1%">Service</li>
 	    </ul>
 		            <!-- Function Tab Start -->
-	      <div id="tab1" class="tab_content" style="height: 400px">
+	      <div id="tab1" class="tab_content" style="height: 150px">
 					<br> 
 					<br>
-			   <table class="masterTable">
-					<tr>
-						<td><label>Function Code</label></td>
-						<td><s:input type="text" id="txtFunctionCode" path="strFunctionCode" value="" cssClass="searchTextBox" ondblclick="funHelp('functionMaster')" /></td>
-					</tr>
+			  <div class="row">
+          
+				<div class="col-md-2"><label>Function Code</label>
+						<s:input type="text" id="txtFunctionCode" path="strFunctionCode" value="" cssClass="searchTextBox" ondblclick="funHelp('functionMaster')" />
+				</div>
 					
-					<tr>
-						<td><label>Function Name</label></td>
-						<td><s:input type="text" id="txtFunctionName" path="strFunctionName" value="" cssClass="longTextBox" /></td>
-					</tr>
-					
-					<tr>
-					<td><label>Operational Y/N</label></td>
-					<td ><s:checkbox path="strOperationalYN" id="txtOperational" value="Y" />
+				<div class="col-md-2"><label>Function Name</label>
+						<s:input type="text" id="txtFunctionName" path="strFunctionName" value="" />
+				</div>
+				<div class="col-md-8"></div>
+				
+				<div class="col-md-2"><label>Operational Y/N</label><br>
+					    <s:checkbox path="strOperationalYN" id="txtOperational" value="Y" />
 								<%-- <s:option value="Y">YES</s:option>
 								<s:option value="N">NO</s:option></s:select></td> --%>
-					</tr>
-			    </table>
-		        </div>
+				</div>
+		 </div></div>
 		        
-	        <div id="tab2" class="tab_content" style="height: 400px">
+	     <div id="tab2" class="tab_content" style="height: 315px;margin-top: 60px;">
 				
-				<table class="masterTable">
-						<tr>
-							<th style="border: 1px white solid;width: 10%"><label>Service Code</label></th>
-							<th style="border: 1px white solid;width: 50%"><label>Service Name</label></th>
-							<th style="border: 1px white solid;width: 10%"><label>Select</label></th>
+				<table class="masterTable" style="width:35%;">
+						<tr style="background-color: #c0c0c0;">
+							<th style="border: 1px white solid;width: 4%;padding-left:10px;"><label>Service Code</label></th>
+							<th style="border: 1px white solid;width: 10%;padding-left:45px;"><label>Service Name</label></th>
+							<th style="border: 1px white solid;width: 4%;padding-left:10px;"><label>Select</label></th>
 						</tr>
 					</table>
 					
-					<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 80%;">
+					<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px;overflow-x: hidden; overflow-y: scroll; width: 35%;">
 						<table id="tblService" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col5-center">
 							<tbody>
 								<col style="width: 5%"><!-- col1   -->
@@ -340,11 +336,13 @@
 
 		<br />
 		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right: 42%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" />
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,12 +39,12 @@
 			 $("#txtBanquetTypeName").focus();
 			}
 		
-		/* if($("#cmbTaxIndicator").val().trim().length==0)
+		if($("#cmbTaxIndicator").val().trim().length==0)
 		{
 		alert("Please Select Tax Indicator !!");
 		 flg=false;
 		 $("#cmbTaxIndicator").focus();
-		} */
+		}
 		
 		
 		return flg;
@@ -106,56 +107,38 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Banquet Type Master</label>
-	</div>
+	<div class="container masterTable">
+	<label id="formHeading">Banquet Type Master</label>
+	     <s:form name="Banquet Type Master" method="POST" action="saveBanquetTypeMaster.html">
 
-<br/>
-<br/>
-
-	<s:form name="Banquet Type Master" method="POST" action="saveBanquetTypeMaster.html">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>Banquet Type Code</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtBanquetTypeCode" path="strBanquetTypeCode" ondblclick="funHelp('banquetTypeCode')" cssClass="searchTextBox jQKeyboard form-control" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Banquet Type Name</label>
-				</td>
-				<td>
-					<s:input colspan="3" style="width:60%;" type="text" id="txtBanquetTypeName" path="strBanquetTypeName" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Rate</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="number" style="text-align:right;width:23%;" step="0.01" id="txtRate" path="dblRate" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Tax Indicator</label>
-				</td>
-				
-				<td><s:select id="cmbTaxIndicator" name="taxIndicator" path="strTaxIndicator" items="${taxIndicatorList}"  cssClass="BoxW48px" /></td>
-			</tr>
-		</table>
+	 <div class="row">
+          
+				 <div class="col-md-2"><label>Banquet Type Code</label>
+				      <s:input type="text" id="txtBanquetTypeCode" path="strBanquetTypeCode" ondblclick="funHelp('banquetTypeCode')" cssClass="searchTextBox jQKeyboard form-control" />
+				 </div>
+			
+			     <div class="col-md-2"><label>Banquet Type Name</label>
+				       <s:input style="width:60%;" type="text" id="txtBanquetTypeName" path="strBanquetTypeName"/>
+				 </div>
+	             <div class="col-md-8"></div>
+	             
+			     <div class="col-md-1"><label>Rate</label>
+				       <s:input type="number" style="text-align:right;height: 45%;" step="0.01" id="txtRate" path="dblRate"/>
+				</div>
+		
+			    <div class="col-md-1"><label style="width:122%;">Tax Indicator</label>
+				       <s:select id="cmbTaxIndicator" name="taxIndicator" path="strTaxIndicator" items="${taxIndicatorList}"/>
+			     </div>
+		     </div>
 
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" onclick="return funValidate(this)" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right: 60%;">
+			<input type="submit" value="Submit" tabindex="3" onclick="return funValidate(this)" class="btn btn-primary center-block" class="form_button" />
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

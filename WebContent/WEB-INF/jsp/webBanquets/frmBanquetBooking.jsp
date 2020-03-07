@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -1739,238 +1739,191 @@ function funCreateNewCustomer(){
 
 </head>
 <body>
+   <div class="container transTable">
+		<label id="formHeading">Banquet Booking</label>
+	   <s:form name="Banquet Booking" method="POST" action="saveBanquetBooking.html">
 
-	<div id="formHeading">
-		<label>Banquet Booking</label>
-	</div>
-
-	<br />
-	<br />
-
-	<s:form name="Banquet Booking" method="POST"
-		action="saveBanquetBooking.html">
-
-		<div id="tab_container" style="height: 550px">
+	 <div id="tab_container">
+	 <br>
 			<ul class="tabs">
-				<li data-state="tab1" style="width: 6%; padding-left: 2%;"active" >Booking</li>
-				<li data-state="tab2" style="width: 8%; padding-left: 1%">Menu</li>
-				<li data-state="tab3" style="width: 8%; padding-left: 1%">Staff
-					Category</li>
-				<li data-state="tab4" style="width: 8%; padding-left: 1%">Equipment</li>
-				<li data-state="tab5" style="width: 10%; padding-left: 1%">Internal Services</li>
-				<li data-state="tab6" style="width: 10%; padding-left: 1%">External Services</li>
-				
-				
-				
-
-
+				<li data-state="tab1">Booking</li>
+				<li data-state="tab2">Menu</li>
+				<li data-state="tab3">Staff Category</li>
+				<li data-state="tab4">Equipment</li>
+				<li data-state="tab5">Internal Services</li>
+				<li data-state="tab6">External Services</li>
 			</ul>
 
-		
-
-		<div id="tab1" class="tab_content" style="height: 500px">
-            <table class="transTable">
-				<tr>
-					<th colspan="6">
-				</tr>
-
-				<tr>
-					<td width="150px">
-					<label>Against</label>
+     <div id="tab1" class="tab_content" style="margin-top: 40px;">
+           <div class="row">
+                
 					<%-- <s:select id="cmbAgainst"
 							path="" cssClass="BoxW124px">
 							<s:option value="Waiting">Booking</s:option>
 							<s:option value="Provisional">Quotation</s:option>
 
 						</s:select> --%>
-					</td>
-					<td width="400px" >
-							
-							<s:select id="cmbAgainst"
-							path="" cssClass="BoxW124px">
-							<s:option value="Booking">Booking</s:option>
-							<s:option value="Quotation">Quotation</s:option>
-
-						</s:select>
-							
-							<s:input type="text" id="txtBookingNo" readonly="true" 
-                                                        path="strBookingNo" cssClass="searchTextBox"
-                                                        ondblclick="funHelp('Booking');" />
-							
-							</td>
-
-					<td width="150px"><label>Property</label></td>
-					<td width="400px"><s:select id="txtPropertyCode" path="strPropertyCode"
-							items="${listOfProperty}" required="true" cssClass="BoxW200px"></s:select></td>
-
-					<td><label id="lblPropName"></label></td>
-				</tr>
-
-				<tr>
-					<td><label class="label">Area </label></td>
-					<td><s:input type="text" id="txtAreaCode" path="strAreaCode" cssClass="searchTextBox" readonly="true" 
-											ondblclick="funHelp('PropertyWiseLocation');" /> 
-					<label id="lblAreaCode"></label></td>
+					<div class="col-md-2"><label>Against</label>
+					        <s:select id="cmbAgainst" path="">
+							     <s:option value="Booking">Booking</s:option>
+							     <s:option value="Quotation">Quotation</s:option>
+                            </s:select>
+					 </div>
+					 		
+					 <div class="col-md-2"><label>Against</label>
+					       <s:input type="text" id="txtBookingNo" readonly="true" path="strBookingNo" 
+					         cssClass="searchTextBox" ondblclick="funHelp('Booking');"/>
+					 </div>
+					  
+                     <div class="col-md-2"><label>Property</label>
+					       <s:select id="txtPropertyCode" path="strPropertyCode"
+							items="${listOfProperty}" required="true"></s:select>
+					 </div>
+                    
+                     <div class="col-md-2"><label id="lblPropName" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top:11%;"></label>
+					 </div>
+				     <div class="col-md-4"></div>
+				     
+				     <div class="col-md-2"><label class="label">Area </label>
+					        <s:input type="text" id="txtAreaCode" path="strAreaCode" cssClass="searchTextBox" 
+					        readonly="true" ondblclick="funHelp('PropertyWiseLocation');" /> 
+					 </div>
+					 
+					 <div class="col-md-2"><label id="lblAreaCode" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top:11%;"></label>
+					 </div>
 						
-						
-					<td><label>Booking Date</label></td>
-					<td><s:input type="text" id="txtBookingDate"
-							path="dteBookingDate" cssClass="calenderTextBox" onchange="funCheckCuurntDate();"/> <!-- onchange="funChangeArrivalDate();" -->
-						<label id="lblBookingDate"></label></td>
-				</tr>
-			
-
-				<tr>
-					<td><label>From Date</label></td>
-					<td><s:input type="text" id="txtFromDate" path="dteFromDate"
-							cssClass="calenderTextBox" onchange="funChangeArrivalDate();funCheckBooking;" onblur="funCheckBooking();" onclick= " return funCheckLocation();" /></td>
+					 <div class="col-md-2"><label>Booking Date</label>
+					        <s:input type="text" id="txtBookingDate" path="dteBookingDate" cssClass="calenderTextBox" onchange="funCheckCuurntDate();" style="width:70%;"/> <!-- onchange="funChangeArrivalDate();" -->
+					 </div>
+					 
+					 <div class="col-md-2"><label id="lblBookingDate" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top:11%;"></label>
+				     </div>
+			         <div class="col-md-4"></div>
+			         
+                     <div class="col-md-2"><label>From Date</label>
+					         <s:input type="text" id="txtFromDate" path="dteFromDate" cssClass="calenderTextBox" onchange="funChangeArrivalDate();funCheckBooking;" onblur="funCheckBooking();" onclick= " return funCheckLocation();" style="width:70%;"/>
+					 </div>
 
 					<!-- onchange="funChangeArrivalDate();"  -->
-					<td><label>To Date</label></td>
-					<td><s:input type="text" id="txtToDate" path="dteToDate"
-							cssClass="calenderTextBox"  onchange="funCheckFromDate();" onblur="funCheckBooking();"/></td>
+					<div class="col-md-2"><label>To Date</label>
+					        <s:input type="text" id="txtToDate" path="dteToDate" style="width:70%;"
+							     cssClass="calenderTextBox"  onchange="funCheckFromDate();" onblur="funCheckBooking();"/>
+					</div>
 					<!-- onchange="CalculateDateDiff();" -->
-					<td colspan="2"></td>
-				</tr>
-
-				<tr>
-					<td><label>In Time</label></td>
-					<td><s:input type="text" id="txtFromTime" path="tmeFromTime"
-							cssClass="calenderTextBox" onblur="funCheckBooking();"/></td>
-
-					<td><label>Out Time</label></td>
-					<td><s:input type="text" id="txtToTime" path="tmeToTime"
-							cssClass="calenderTextBox" /></td>
-					<td colspan="2"></td>
-				</tr>
-
-				<tr>
-					<td><label>Min Pax</label></td>
-					<td><s:input id="txtMinPaxNo" name="txtMinPaxNo"
-							path="intMinPaxNo" style="width: 20%;text-align: right;"
-							type="number" min="0" step="1" class="longTextBox" /></td>
-					<td><label class="label">Max Pax </label></td>
-					<td><s:input id="txtMaxPaxNo" path="intMaxPaxNo"
-							style="text-align: right; width: 20%;" type="number" min="0"
-							step="1" name="txtMaxPaxNo" class="longTextBox" /></td>
-					<td colspan="2"></td>
-				</tr>
-
-				<tr>
-				<td><label>Billing Instructions</label></td>
-					<td><s:input type="text" id="txtBillingInstructionCode"
-							path="strBillingInstructionCode" cssClass="searchTextBox" readonly="true"
-							ondblclick="funHelp('BillingInstCode');" /> <label
-						id="lblBillingInstDesc"></label></td>
-				<td><label>Event Co-Ordinator</label></td>
-					<td><s:input type="text" id="txtEventCoordinatorCode"
-							path="strEventCoordinatorCode" cssClass="searchTextBox" readonly="true"
-							ondblclick="funHelp('StaffCode');" /> &nbsp;&nbsp;&nbsp;<label
-						id="lblEventCoordinatorCode"></label></td>
 					
-					<td colspan="2"></td>
-				</tr>
+				    <div class="col-md-2"><label>In Time</label>
+				            <s:input type="text" id="txtFromTime" path="tmeFromTime" style="width:70%;"
+							      cssClass="calenderTextBox" onblur="funCheckBooking();"/>
+				    </div>
 
-				<tr>
-					<td><label class="label">Function Code </label></td>
+					<div class="col-md-2"><label>Out Time</label>
+					      <s:input type="text" id="txtToTime" path="tmeToTime" style="width:70%;" cssClass="calenderTextBox" />
+					 </div>
+					 <div class="col-md-4"></div>
+					 
+				    <div class="col-md-2"><label>Min Pax</label>
+					       <s:input id="txtMinPaxNo" name="txtMinPaxNo"
+							path="intMinPaxNo" style="width: 60%;text-align: right;" type="number" min="0" step="1"  />
+					</div>
+					
+					<div class="col-md-2"><br><label class="label">Max Pax </label><br>
+					       <s:input id="txtMaxPaxNo" path="intMaxPaxNo"
+							style=" width: 60%; text-align: right;" type="number" min="0" step="1" name="txtMaxPaxNo" />
+					</div>
+			
+				    <div class="col-md-2"><label>Billing Instructions</label>
+					       <s:input type="text" id="txtBillingInstructionCode" path="strBillingInstructionCode" cssClass="searchTextBox" readonly="true"
+							ondblclick="funHelp('BillingInstCode');" /> <label id="lblBillingInstDesc"></label>
+					</div>
+					
+				    <div class="col-md-2"><label>Event Co-Ordinator</label>
+					   <s:input type="text" id="txtEventCoordinatorCode" path="strEventCoordinatorCode" cssClass="searchTextBox" readonly="true"
+							ondblclick="funHelp('StaffCode');" /> &nbsp;&nbsp;&nbsp;<label id="lblEventCoordinatorCode"></label></td>
+				    </div>
+                      <div class="col-md-4"></div>
+                      
+				     <div class="col-md-2"><label class="label">Function Code </label>
 					<!--  <td><label>Function Code</label></td> -->
-					<td><s:input id="txtFunctionCode" path="strFunctionCode"
+					       <s:input id="txtFunctionCode" path="strFunctionCode"
 							readonly="true" ondblclick="funHelp('functionMaster')" 
 							cssClass="searchTextBox" /> <label id="lblFunctionName"></label>
-					</td>
+					</div>
 
-					<td><label>Booking Status</label></td>
-					<td colspan="2"><s:select id="cmbBookingStatus"
-							path="strBookingStatus" cssClass="BoxW124px">
-							<s:option value="Waiting">Waiting</s:option>
-							<s:option value="Provisional">Provisional</s:option>
+				    <div class="col-md-2"><label>Booking Status</label>
+					     <s:select id="cmbBookingStatus" path="strBookingStatus">
+							   <s:option value="Waiting">Waiting</s:option>
+							   <s:option value="Provisional">Provisional</s:option>
+                         </s:select>
+                    </div>
 
-						</s:select></td>
-
-				</tr>
-				<tr>
-				<td><label class="label">Banquet </label></td>
-					<td><s:input type="text" id="txtBanquetCode" 
-							path="strBanquetCode" cssClass="searchTextBox" readonly="true"
-							ondblclick="funHelp('banquetCode');" /> <label
-						id="lblBanquetName"></label>
+				   <div class="col-md-2"><label class="label">Banquet </label>
+					      <s:input type="text" id="txtBanquetCode"	path="strBanquetCode" cssClass="searchTextBox" readonly="true"
+							ondblclick="funHelp('banquetCode');" /><label id="lblBanquetName"></label>
 						&nbsp;&nbsp;
-						<s:input id="txtBanquetRate" path=""
-							style="text-align: right; width: 20%;" 
-						     name="txtBanquetRate" class="longTextBox"  onblur="funUpdateTotalBookingAmt();"/></td>
+				   </div>	
+						
+				   <div class="col-md-2"><label>Against</label>
+				        <s:input id="txtBanquetRate" path=""
+						style="text-align: right; width: 60%;" name="txtBanquetRate" onblur="funUpdateTotalBookingAmt();"/>
+				   </div>
 							<!-- <label
 						id="lblBanquetRate"></label></td> -->
-				
-					
-				</tr>
-				
-				
-
-			</table>
-
-			<br/> <br/>
-
-			<div>
-				<table class="transTable">
-
-					<tr>
-						<td><label class="label">Customer Code </label></td>
-						<td><s:input type="text" id="txtCustomerCode" readonly="true"
-								path="strCustomerCode" ondblclick="funHelp('custMaster');"
-								class="searchTextBox" /></td>
-
-
-						<td><label id="lblGFirstName" class="label"> Name </label></td>
-						<td><input type="text" id="txtCustomerName" 
-							class="longTextBox" /></td>
-
-						<td><input type="Button" value="New Costomer"
-							onclick="return funCreateNewCustomer()" class="form_button" />
-						</td>
-						<td colspan="2"></td>
-					</tr>
-
-					<tr>
-						<td><label class="label">Mobile No </label></td>
-						<td><input type="text" id="txtMobileNo"  class="longTextBox" pattern="[789][0-9]{9}" title="Mobile number is wrong"/></td>
-                        	<td><label class="label">Email Id </label></td>
-					<td><s:input type="text" id="txtEmailId" path="strEmailID"
-							cssClass="longTextBox" /></td>
-						<td colspan="1"></td>
-					</tr>
-				
-
-				</table>
-			</div>
-
-
-			<div style="margin:auto;width: 50%; float:left; margin-left:25px; font-size: 15px;">
-	              <label>Total Booking Amount</label>
-	             <s:input id="txtTotalBookingAmt" path="dblSubTotal"  readonly="true" cssClass="shortTextBox"  style="text-align: right;"/>
-	           </div>		
 			</div>
 			
+			 <br/>
+       
+				<div class="row">
+
+					   <div class="col-md-2"><label class="label">Customer Code </label>
+						   <s:input type="text" id="txtCustomerCode" readonly="true"
+						     path="strCustomerCode" ondblclick="funHelp('custMaster');" class="searchTextBox" />
+				       </div>
+                       
+                       <div class="col-md-2"><label id="lblGFirstName" class="label"> Name </label>
+						        <input type="text" id="txtCustomerName"/>
+						</div>
+
+						<div class="col-md-2"><br>
+						    <input type="Button" value="New Costomer"
+							onclick="return funCreateNewCustomer()" class="btn btn-primary center-block" class="form_button" />
+						</div>
+						<div class="col-md-6"></div>
+						
+					    <div class="col-md-2"><label class="label">Mobile No </label>
+						        <input type="text" id="txtMobileNo"  pattern="[789][0-9]{9}" title="Mobile number is wrong"/>
+						</div>
+                        
+                        <div class="col-md-2"><label class="label">Email Id </label>
+					       <s:input type="text" id="txtEmailId" path="strEmailID" />
+					    </div>
+			           <div class="col-md-8"></div>
+
+                       <div class="col-md-2">
+	                       <label>Total Booking Amount</label>
+	                      <s:input id="txtTotalBookingAmt" path="dblSubTotal"  readonly="true" cssClass="shortTextBox"  style="text-align: right;width:70%; float:left;font-size: 15px;"/>
+	                  </div>		
+			       </div>
+		        </div>	
 			
-			<div id="tab2" class="tab_content" style="height: 400px">
+	 <div id="tab2" class="tab_content" style="margin-top: 40px;">
 				<!-- Generate Dynamic Table   -->
-				<br />
-				<br />
-				<table class="transTable">
-					<tr>
-						<td width="130px"><label>Item Code</label></td>
+			 <div class="row">
+					<div class="col-md-2"><label>Item Code</label>
 						<!--  <td><label>Function Code</label></td> -->
-						<td><s:input id="txtItemCode" path="" readonly="true"
+						    <s:input id="txtItemCode" path="" readonly="true"
 								ondblclick="funHelp('ItemCode')" cssClass="searchTextBox" /> 
-								<label id="lblItemCode"></label></td>
+					 </div>
+					 
+					 <div class="col-md-2"><br>
+					        <label id="lblItemCode" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top:7%;padding:2px;"></label>
+                     </div>
 
-					</tr>
-
-				</table>
+				</div>
 				<br />
 				<div class="dynamicTableContainer" style="height: 400px; width: 80%">
 					<table
 						style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-						<tr bgcolor="#72BEFC" style="height: 24px;">
+						<tr bgcolor="#c0c0c0" style="height: 24px;">
 							
 							<!-- col1   -->
 							<td align="center" style="width: 15%">Item Code</td>
@@ -1998,7 +1951,7 @@ function funCreateNewCustomer(){
 						</tr>
 					</table>
 					<div
-						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+						style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 						<table id="tblMenuDtl"
 							style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 							class="transTablex col3-center">
@@ -2033,35 +1986,30 @@ function funCreateNewCustomer(){
 
 				</div>
 				
-				<div style="margin:auto;width: 25%; float:right; margin-right:100px; ">
-	              <label>Total</label>
-	             <s:input id="txtTotalItemAmt" path=""  readonly="true" cssClass="shortTextBox" style="text-align: right;"/>
+				<div style="margin:auto;width: 20%; float:right; margin-right:20%; ">
+	                  <label>Total</label>
+	                  <s:input id="txtTotalItemAmt" path=""  readonly="true" cssClass="shortTextBox" style="text-align: right;"/>
 	           </div>
-				
-					</div>
+		</div>
 			
-			
-			
-			<div id="tab3" class="tab_content" style="height: 400px">
+		<div id="tab3" class="tab_content" style="margin-top: 40px;">
 				<!-- Generate Dynamic Table   -->
-				<br />
-				<br />
-				<table class="transTable">
-					<tr>
-						<td width="130px"><label>Staff Category Code</label></td> 
+			<div class="row">
+					<div class="col-md-2"><label>Staff Category Code</label>
 						<!--  <td><label>Function Code</label></td> -->
-						<td><s:input id="txtStaffCatCode" path="" readonly="true"
+						<s:input id="txtStaffCatCode" path="" readonly="true"
 								ondblclick="funHelp('StaffCatCode')" cssClass="searchTextBox" />
-							<label id="lblStaffCatCode"></label></td>
-
-					</tr>
-
-				</table>
+					</div>		
+								
+					<div class="col-md-2"><br>
+					       <label id="lblStaffCatCode" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top:7%;padding:2px;"></label>
+                    </div>
+             </div>
 				<br />
 				<div class="dynamicTableContainer" style="height: 400px; width: 80%">
 					<table
 						style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-						<tr bgcolor="#72BEFC" style="height: 24px;">
+						<tr bgcolor="#c0c0c0" style="height: 24px;">
 							<!-- col1   -->
 							<td align="center" style="width: 20%">Staff Category Code</td>
 							<!-- col1   -->
@@ -2077,12 +2025,10 @@ function funCreateNewCustomer(){
 							<!-- col3   -->
 							<td align="center"">Delete</td>
 							<!-- col3   -->
-
-
-						</tr>
+                         </tr>
 					</table>
 					<div
-						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+						style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 						<table id="tblStaffCatDtl"
 							style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 							class="transTablex col3-center">
@@ -2109,30 +2055,28 @@ function funCreateNewCustomer(){
 
 
 				</div>
-				
-			</div>
+	        </div>
+			<br>
 			
-			
-		<div id="tab4" class="tab_content" style="height: 400px">
-				<br />
-				<br />
-				<table class="transTable">
-					<tr>
-						<td width="100px"><label>Equipment Code</label></td>
+		  <div id="tab4" class="tab_content" style="margin-top: 40px;">
+			   <div class="row">
+					<div class="col-md-2"><label>Equipment Code</label>
 						<!--  <td><label>Function Code</label></td> -->
-						<td><s:input id="txtEquipmentCode" path="" readonly="true"
+						<s:input id="txtEquipmentCode" path="" readonly="true"
 								ondblclick="funHelp('equipmentCode')" cssClass="searchTextBox" />
-							<label id="lblEquipmentCode"></label>
-						</td>
+					 </div>
+					 
+					 <div class="col-md-2"><br>
+					      <label id="lblEquipmentCode" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top:7%;padding:2px;"></label>
+					  </div>
+                  </div>
 
-					</tr>
-
-				</table>
+			
 				<br />
 				<div class="dynamicTableContainer" style="height: 400px; width: 80%">
 					<table
 						style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-						<tr bgcolor="#72BEFC" style="height: 24px;">
+						<tr bgcolor="#c0c0c0" style="height: 24px;">
 							<!-- col1   -->
 							<td align="center" style="width: 15%">Equipment Code</td>
 							<!-- col1   -->
@@ -2157,7 +2101,7 @@ function funCreateNewCustomer(){
 						</tr>
 					</table>
 					<div
-						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+						style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 						<table id="tblEquipDtl"
 							style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 							class="transTablex col3-center">
@@ -2188,7 +2132,7 @@ function funCreateNewCustomer(){
 
 
 				</div>
-				<div style="margin:auto;width: 25%; float:right; margin-right:100px; ">
+				<div style="margin:auto;width: 20%; float:right; margin-right:20%; ">
 	              <label>Total</label>
 	             <s:input id="txtTotalEquipAmt" path=""  readonly="true" cssClass="shortTextBox" style="text-align: right;"/>
 	           </div>
@@ -2196,14 +2140,13 @@ function funCreateNewCustomer(){
 			</div>
 			
 			
-			<div id="tab5" class="tab_content" style="height: 400px">
-				<br/>
-				<br />
+			<div id="tab5" class="tab_content" style="margin-top: 70px;">
+				
 				<!-- Generate Dynamic Table   -->
 				<div class="dynamicTableContainer" style="height: 400px; width: 80%">
 					<table
 						style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-						<tr bgcolor="#72BEFC" style="height: 24px;">
+						<tr bgcolor="#c0c0c0" style="height: 24px;">
 							<!-- col1   -->
 							<td align="center" style="width: 20%">Service Code</td>
 							<!-- col1   -->
@@ -2224,7 +2167,7 @@ function funCreateNewCustomer(){
 						</tr>
 					</table>
 					<div
-						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+						style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 						<table id="tblInternalServiceDtl"
 							style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 							class="transTablex col3-center">
@@ -2249,39 +2192,37 @@ function funCreateNewCustomer(){
 
 				</div>
 				
-				<div style="margin:auto;width: 25%; float:right; margin-right:100px; ">
+				<div style="margin:auto;width: 20%; float:right; margin-right:20%; ">
 	              <label>Total</label>
 	            <s:input id="txtTotalServiceAmt" path=""  readonly="true" cssClass="shortTextBox" style="text-align: right;"/>
 	           </div>
 			</div>
 			
 			
-		<div id="tab6" class="tab_content" style="height: 400px">
-				<br/>
-				<br />
-				
-				<table class="transTable">
-					<tr>
-						<td width="100px"><label>Vendor </label></td>
-						<td><s:input id="txtVendorCode" path="" readonly="true"
+		<div id="tab6" class="tab_content" style="margin-top: 40px;">
+			<div class="row">
+					<div class="col-md-2"><label>Vendor </label>
+						  <s:input id="txtVendorCode" path="" readonly="true"
 								ondblclick="funHelp('suppcode')" cssClass="searchTextBox" />
-					 	<label id="lblVendorName"></label> 
-						</td>
-						<td width="100px"><label>External Service</label></td>
-						<td><s:input id="txtExternal" path="" readonly="true"
+					</div>
+					
+					<div class="col-md-2"><br>
+					      <label id="lblVendorName" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top:7%;"></label> 
+					</div>
+						
+					<div class="col-md-2"><label>External Service</label>
+						  <s:input id="txtExternal" path="" readonly="true"
 								ondblclick="funHelp('ExternalServices')" cssClass="searchTextBox" />
 							<!-- <label id="lblEquipmentCode"></label> -->
-						</td>
-						
-						
-					</tr>
-				</table>
+					</div>
+				</div>
+			
 				
 				<!-- Generate Dynamic Table   -->
 				<div class="dynamicTableContainer" style="height: 400px; width: 80%">
 					<table
 						style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
-						<tr bgcolor="#72BEFC" style="height: 24px;">
+						<tr bgcolor="#c0c0c0" style="height: 24px;">
 							<!-- col1   -->
 							<td align="center" style="width: 25%">Vendor Name</td>
 							<!-- col1   -->
@@ -2299,7 +2240,7 @@ function funCreateNewCustomer(){
 						</tr>
 					</table>
 					<div
-						style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+						style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 400px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 						<table id="tblExternalServiceDtl"
 							style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 							class="transTablex col3-center">
@@ -2326,32 +2267,21 @@ function funCreateNewCustomer(){
 
 				</div>
 				
-				<div style="margin:auto;width: 25%; float:right; margin-right:100px; ">
+				<div style="margin:auto;width: 20%; float:right; margin-right:20%; ">
 	              <label>Total</label>
 	            <s:input id="txtTotalExternalServiceAmt" path=""  readonly="true" cssClass="shortTextBox" style="text-align: right;"/>
 	           </div>
 			</div>
-			
-
-
-			
-
-		
-
 		</div>
 
 		<br />
-		<br />
 		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button"
-				onclick="return funValidateForm();" /> <input type="reset"
-				value="Reset" class="form_button" onclick="funResetDetailFields()" />
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateForm();"/> 
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetDetailFields()"/>
 		</p>
-		
-
 		<br />
-		<br />
-
 	</s:form>
+	</div>
 </body>
 </html>

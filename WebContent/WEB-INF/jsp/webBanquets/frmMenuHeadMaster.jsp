@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript">
 	var fieldName;
 
@@ -99,49 +107,33 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Menu Head Master</label>
-	</div>
+	<div class="container masterTable">
+	<label id="formHeading">Menu Head Master</label>
+	   <s:form name="frmMenuHeadMaster" method="POST" action="saveMenuHeadMaster.html">
 
-<br/>
-<br/>
-
-	<s:form name="frmMenuHeadMaster" method="POST" action="saveMenuHeadMaster.html">
-
-		<table class="masterTable">
-			<tr>
-				<td style="width:20%;">
-					<label>Menu Head Code</label>
-				</td>
-				<td>
-					<s:input type="text" path="strMenuHeadCode" id="txtMenuHeadCode" ondblclick="funHelp('MenuHeadCode')" cssClass="searchTextBox jQKeyboard form-control" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Menu Head Name</label>
-				</td>
-				<td>
-					<s:input type="text" path="strMenuHeadName" id="txtMenuHeadName" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Operational</label>
-				</td>
-				<td>
-					<s:checkbox value="true" element="li" path="strOperational" id="chkOperational" checked="true" />
-				</td>
-			</tr>
-		</table>
-
-		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidate(this)" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<div class="row">
+          
+				<div class="col-md-2"><label>Menu Head Code</label>
+				      <s:input type="text" path="strMenuHeadCode" id="txtMenuHeadCode" ondblclick="funHelp('MenuHeadCode')" cssClass="searchTextBox jQKeyboard form-control" style="height: 50%;"/>
+				</div>
+	
+			     <div class="col-md-2"><label>Menu Head Name</label>
+				      <s:input type="text" path="strMenuHeadName" id="txtMenuHeadName"/>
+				 </div>
+		         <div class="col-md-8"></div>
+		         
+			     <div class="col-md-2"><label>Operational</label><br>
+				      <s:checkbox value="true" element="li" path="strOperational" id="chkOperational" checked="true" />
+				</div>
+		</div>
+	
+		<p align="center" style="margin-right: 49%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidate(this)" />
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

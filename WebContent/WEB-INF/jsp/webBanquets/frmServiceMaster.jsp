@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +68,6 @@ function funSetData(code){
 								false);
 	        		
 	        		$("#cmbTaxIndicator").val(response.strTaxIndicator);
-	        		$("#cmbServiceType").val(response.strServiceType);
 				}
 			},
 			error : function(jqXHR, exception){
@@ -165,90 +165,59 @@ function funSetData(code){
 
 </head>
 <body>
+    <div class="container masterTable">
+	<label id="formHeading">Service Master</label>
+	  <s:form name="ServiceMaster" method="POST" action="saveServiceMaster.html">
 
-	<div id="formHeading">
-	<label>Service Master</label>
-	</div>
-
-<br/>
-<br/>
-
-	<s:form name="ServiceMaster" method="POST" action="saveServiceMaster.html">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>Service Code</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtServiceCode" path="strServiceCode" cssClass="searchTextBox jQKeyboard form-control" ondblclick="funHelp('ServiceMaster')" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Service Name</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtServiceName" path="strServiceName" cssClass="longTextBox" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Operational Y/N</label>
-				</td>
-				<td ><s:checkbox path="strOperationalYN" id="txtOperational" value="Y" />
-				
+		<div class="row">
+          
+			<div class="col-md-2"><label>Service Code</label>
+				   <s:input type="text" id="txtServiceCode" path="strServiceCode" cssClass="searchTextBox jQKeyboard form-control" ondblclick="funHelp('ServiceMaster')" />
+			</div>
+	
+			<div class="col-md-2"><label>Service Name</label>
+				   <s:input type="text" id="txtServiceName" path="strServiceName"/>
+			</div>
+		    <div class="col-md-8"></div>
+		    
+			<div class="col-md-2"><label>Operational Y/N</label><br>
+				<s:checkbox path="strOperationalYN" id="txtOperational" value="Y" />
+			</div>	
 				<%-- <td ><s:checkbox value="true" path="strOperationalYN"  id="txtOperational"  /> --%>
-					
-			</tr>
-			<tr>
-				<td><label>Service Type</label></td>
-				<td><s:select id="cmbServiceType" 
-				path="strServiceType" cssClass="BoxW48px" style="width:100px;">
-				<s:option value="Internal">Internal</s:option>
-				<s:option value="External">External</s:option>
-				</s:select>
-				</td>
-				
-		   </tr>
-			<tr>
-				<td>
-				   <label>Department Code</label>
-				</td>
-				<td ><s:input colspan="3" type="text" id="txtDeptCode" path="strDeptCode"  readonly="true" cssClass="searchTextBox jQKeyboard form-control" ondblclick="funHelp('deptCode')"/>
-				&nbsp&nbsp&nbsp&nbsp<label id="lblDepartmentName"></label>		
-			</tr>
 			
-			<tr>
-				<td>
-					<label>Rate</label>
-				</td>
-				<td>
-					<s:input colspan="3" type="text" id="txtRate" path="dblRate" cssClass="decimal-places numberField" />
-				</td>
+			<div class="col-md-2"><label>Service Type</label>
+                  <s:select id="cmbServiceType" path="strServiceType"  style="width:100px;">
+                         <s:option value="Internal">Internal</s:option>
+                         <s:option value="External">External</s:option>
+                  </s:select>
+             </div>
+            <div class="col-md-8"></div>
+            
+			<div class="col-md-2"><label>Department Code</label>
+				<s:input type="text" id="txtDeptCode" path="strDeptCode"  readonly="true" cssClass="searchTextBox jQKeyboard form-control" ondblclick="funHelp('deptCode')" style="background-color:#fff;"/>
+			    <label id="lblDepartmentName"></label>		
+			</div>
+			
+			<div class="col-md-1"><label>Rate</label>
+				   <s:input type="text" id="txtRate" path="dblRate" cssClass="decimal-places numberField" style="text-align:right;"/>
+		
 				<!-- <td><label >Weight</label></td> -->
 				<%--  <td><s:input id="txtWeight" name="weight" path="dblWeight" cssClass="decimal-places numberField"/></td> --%>
-			</tr>
+			</div>
 			
-			<tr>
-				<td><label>Tax Indicator</label></td>
-				<td><s:select id="cmbTaxIndicator" name="taxIndicator"
-				path="strTaxIndicator" items="${taxIndicatorList}"  cssClass="BoxW48px"/></td>
-				
-		   </tr>
-		   
-		   
-		   
-			
-		</table>
-
+			<div class="col-md-1"><label style="width:122%;">Tax Indicator</label>
+				<s:select id="cmbTaxIndicator" name="taxIndicator" path="strTaxIndicator" items="${taxIndicatorList}"/>
+			</div>
+		</div>
+		
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right:49%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" />
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

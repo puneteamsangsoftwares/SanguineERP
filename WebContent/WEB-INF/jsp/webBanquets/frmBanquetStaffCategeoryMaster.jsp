@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -157,65 +158,42 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Staff Categeory Master</label>
-	</div>
+	<div class="container masterTable">
+	<label id="formHeading">Staff Categeory Master</label>
+	   <s:form name="BanquetStaffCategeoryMaster" method="POST" action="saveBanquetStaffCategeoryMaster.html">
 
-<br/>
-<br/>
-
-	<s:form name="BanquetStaffCategeoryMaster" method="POST" action="saveBanquetStaffCategeoryMaster.html">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>Staff Categeory Code</label>
-				</td>
-								
-				<td><s:input id="txtStaffCategeoryCode" name="txtStaffCategeoryCode" path="strStaffCategeoryCode" cssClass="searchTextBox" ondblclick="funHelp('StaffCatCode')" readonly="true"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Staff Categeory Name</label>
-				</td>				
-				<td><s:input id="txtStaffCategeoryName" name="txtStaffCategeoryName" path="strStaffCategeoryName" class="BoxW124px" />
-					</td>
-				
-			</tr>
-			<tr>
-				<td>
-					<label>Staff Count</label>
-				</td>				
-				<td><s:input id="txtStaffCount" name="txtStaffCount" path="strStaffCount" class="BoxW124px" />
-					</td>
-				
-			</tr>
-			<tr>
-				<td>
-					<label>Department Code</label>
-				</td>				
-				<td><s:input id="txtDeptCode" name="txtDeptCode" path="strDeptCode" cssClass="searchTextBox" ondblclick="funHelp('deptCode')" readonly="true"/>
-				</td>			
-			</tr>
-			<tr>
-				<td>
-					<label>Operational Y/N</label>
-				</td>	
-									
-				 <td><s:checkbox id="txtOperationalYN" name="txtOperationalYN" path="strOperationalYN" value="Y" checked="true"/></td> 
-				
-			</tr>
+	    <div class="row">
+          
+			<div class="col-md-2"><label>Staff Categeory Code</label>
+				<s:input id="txtStaffCategeoryCode" name="txtStaffCategeoryCode" path="strStaffCategeoryCode" cssClass="searchTextBox" ondblclick="funHelp('StaffCatCode')" readonly="true"/>
+			</div>
+	
+			<div class="col-md-2"><label>Staff Categeory Name</label>
+				<s:input id="txtStaffCategeoryName" name="txtStaffCategeoryName" path="strStaffCategeoryName" />
+			</div>
+			<div class="col-md-8"></div>
 			
-		</table>
+			<div class="col-md-2"><label>Staff Count</label>
+				<s:input id="txtStaffCount" name="txtStaffCount" path="strStaffCount" />
+			</div>
+				
+			<div class="col-md-2"><label>Department Code</label>
+				 <s:input id="txtDeptCode" name="txtDeptCode" path="strDeptCode" cssClass="searchTextBox" ondblclick="funHelp('deptCode')" readonly="true"/>
+			</div>			
+		
+			<div class="col-md-2"><label>Operational Y/N</label><br>
+				<s:checkbox id="txtOperationalYN" name="txtOperationalYN" path="strOperationalYN" value="Y" checked="true"/>
+			</div>
+		</div>
 
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidate(this)"/>
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right: 27%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidate(this)"/>
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>

@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,32 +115,32 @@ var fieldName="";
 		</script>
 	</head>
 <body>
-	<div id="formHeading">
-		<label id=lblFormHeader>Receipt Register Report</label>
-	</div>
-	<br/>
-	<br/>
-	<s:form id="formTag" name="frmAdvanceStatusReport" method="POST"
-		action="rptAdvanceStatusReport.html" target="_blank">
-		<table class="transTable">
-			<tr>
-				<th colspan="4"></th>
-			</tr>
-			<tr>
-				<td width="10%"><label>From Date</label></td>
-				<td colspan="1" width="10%"><s:input id="txtFromDate" path="dtFromDate" value="" readonly="readonly" cssClass="calenderTextBox" required="true"/></td>
-				<td width="10%"><label>To Date</label></td>
-				<td colspan="1"><s:input id="txtToDate" path="dtToDate" value="" readonly="readonly" cssClass="calenderTextBox " required="true"/></td>
-			</tr>
-		</table>
-		<br>		
+	<div class="container transTable">
+		<label id=lblFormHeader style="font-family:'trebuchet ms';font-size: 20px;color: #646777;font-weight: bold;padding:0px;">Receipt Register Report</label>
+	   <s:form id="formTag" name="frmAdvanceStatusReport" method="POST" action="rptAdvanceStatusReport.html" target="_blank">
+	
+	   <div class="row">
+          
+				<div class="col-md-2"><label>From Date</label>
+				        <s:input id="txtFromDate" path="dtFromDate" value="" readonly="readonly" cssClass="calenderTextBox" required="true" style="width:70%;"/>
+				</div>
+				
+				<div class="col-md-2"><label>To Date</label>
+				        <s:input id="txtToDate" path="dtToDate" value="" readonly="readonly" cssClass="calenderTextBox " required="true" style="width:70%;"/>
+		        </div>
+			</div>
+				
 		<br>
-		<p align="center">
-			<input type="submit" value="Submit" class="form_button" onclick="return btnSubmit_Onclick()" /> <input type="button" value="Reset" class="form_button" onclick="funResetFields()" />
+		<p align="center" style="margin-right: 13%;">
+			<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="return btnSubmit_Onclick()" /> 
+			&nbsp;
+			<input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()" />
 		</p>
+		
 		<div id="wait" style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
 			<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 		</div>
 	</s:form>
+	</div>
 </body>
 </html>

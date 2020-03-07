@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,33 +49,25 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Function Prospectus</label>
-	</div>
+	<div class="container masterTable">
+	<label id="formHeading">Function Prospectus</label>
+	 <s:form name="FunctionProspectus" method="POST" action="rptFunctionProspectus.html">
 
-<br/>
-<br/>
-
-	<s:form name="FunctionProspectus" method="POST" action="rptFunctionProspectus.html">
-
-		<table class="masterTable">
-			<tr>
-				<td style="width:15%;">
-					<label>Booking No</label>
-				</td>
-				<td>
-					<s:input type="text" path="strBookingNo" id="txtBookingNo" ondblclick="funHelp('BillForBanquet')" cssClass="searchTextBox jQKeyboard form-control" />
-				</td>
-			</tr>
-		</table>
-
+		<div class="row">
+          
+			<div class="col-md-2"><label>Booking No</label>
+				  <s:input type="text" path="strBookingNo" id="txtBookingNo" ondblclick="funHelp('BillForBanquet')" cssClass="searchTextBox jQKeyboard form-control" />
+			</div>
+		</div>
+		
 		<br />
-		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidateFields(this)" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right: 60%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateFields(this)" />
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>
+	</div>
 </body>
 </html>
