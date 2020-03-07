@@ -980,9 +980,34 @@ table tbody tr:nth-child(even) {
 				x6.title=toolTipText6;
 			}
 				
-		}		
+		}	
+		
 		
 		var x7=row.insertCell(7);
+		x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px; transform:skew(9deg);\" value='"+day7+"' onClick='funOnClick(this)'></div>";
+		if(day1!='')
+		{
+			if(!day1.includes(day7))
+			{
+				x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-size:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day7+"' onClick='funOnClick(this)'></div>";
+				x7.style.transform='skew(-17deg)';
+				x7.title=toolTipText7;
+			}
+		}
+		else
+		{
+			if(day7!='')
+			{
+				x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day7+"' onClick='funOnClick(this)'></div>";
+				x7.style.transform='skew(-17deg)';
+				x7.title=toolTipText7;
+			}
+				
+		}	
+		
+		
+		/* 
+		 var x7=row.insertCell(7);
 		x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%; color:#fff;height: 20px; transform:skew(9deg); \" value='"+day7+"' onClick='funOnClick(this)' ></div>";
 		if(day1!='')
 		{
@@ -990,7 +1015,7 @@ table tbody tr:nth-child(even) {
 			{
 				x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-style:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day7+"' onClick='funOnClick(this)' ></div>";
 	
-				x7.bgColor=color;
+				//x7.bgColor=color;
 				x7.style.transform='skew(-17deg)';
 				x7.title=toolTipText7;
 			}
@@ -1001,11 +1026,11 @@ table tbody tr:nth-child(even) {
 			{
 				x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day7+"' onClick='funOnClick(this)' ></div>";
 
-				x7.bgColor=color;
+				//x7.bgColor=color;
 				x7.style.transform='skew(-17deg)';
 				x7.title=toolTipText7;
 			}	
-		}
+		} */
 	}
 	
 			
@@ -1877,7 +1902,7 @@ table tbody tr:nth-child(even) {
 		  function funFillRoomStatusRows(roomNo,day1,day2,day3,day4,day5,day6,day7,roomStatus,response)
 			{
 			   if((response.strRoomStatus==gSelection && response.strReservationNo!=null)||gSelection=='')
-					{
+				{
 					var table=document.getElementById("tblRoomType");
 					var rowCount=table.rows.length;
 					var row=table.insertRow();
@@ -1913,7 +1938,11 @@ table tbody tr:nth-child(even) {
 					else if(roomStatus=='VIRTUAL RESERVATION')
 					{
 						color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
-					}  
+					} 
+					else if(roomStatus=='GROUP RESERVATION')
+					{						
+						color='rgb(41, 209, 186)';
+					} 
 				
 					if(day1==null)
 					{
@@ -2145,14 +2174,14 @@ table tbody tr:nth-child(even) {
 					}				
 					
 					var x7=row.insertCell(7);
-					x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%; color:#fff;height: 20px; transform:skew(9deg); \" value='"+day7+"' onClick='funOnClick(this)' ></div>";
+					x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px;margin-right: 3px;\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%; color:#fff;height: 20px; transform:skew(9deg); \" value='"+day7+"' onClick='funOnClick(this)' ></div>";
 					if(day1!='')
 					{
 						if(!day1.includes(day7))
 						{
-							x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-style:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day7+"' onClick='funOnClick(this)' ></div>";
+							x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; margin-right: 3px;background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px;font-style:0px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day7+"' onClick='funOnClick(this)' ></div>";
 		
-							x7.bgColor=color;
+							//x7.bgColor='#ffffff';
 							x7.style.transform='skew(-17deg)';
 							x7.title=toolTipText7;
 						}
@@ -2163,12 +2192,22 @@ table tbody tr:nth-child(even) {
 						{
 							x7.innerHTML= "<div class=\"one\" style=\"margin:3px 0px; background:"+color+";\"><input readonly=\"readonly\" class=\"Box \"  style=\"margin-left:2px; width: 90%;color: white;height: 20px;transform:skew(14deg);\" value='"+day7+"' onClick='funOnClick(this)' ></div>";
 	
-							x7.bgColor=color;
+							//x7.bgColor=color;
 							x7.style.transform='skew(-17deg)';
 							x7.title=toolTipText7;
 						}			
 					}
 				}
+			   if((response.strRoomStatus=="GROUP RESERVATION" && response.strReservationNo!=null)||gSelection=='')
+				{
+				   
+				   
+				   
+				   
+				}
+			   
+			   
+			   
 		   }
 		  
 		  
@@ -2182,7 +2221,7 @@ table tbody tr:nth-child(even) {
          	<div class="title"><label id="formHeading">Room Status Diary</label></div>
           		<div class="status-list ">
            			 <ul>
-           			  <li>
+           			  	<li>
 			              <div class="thumb waiting"></div>
 			             <!--  <div class="thumb-title">Waiting</div> -->
 			              <a href="#" onclick="funWaiting();">&nbsp;&nbsp;&nbsp;Waiting</a> 
@@ -2198,7 +2237,7 @@ table tbody tr:nth-child(even) {
 			             <a href="#" onclick="funOccupied();">&nbsp;&nbsp;&nbsp;Occupied</a> 
 			            </li>
 			            <li>
-			              <div class="thumb checked"></div>
+			              <div class="thumb occupied"></div>
 			             <!--  <div class="thumb-title">Checked Out</div> -->
 			                <a href="#" onclick="funCheckedOut();">&nbsp;&nbsp;&nbsp;Checked Out</a> 
 			            </li>
@@ -2211,6 +2250,11 @@ table tbody tr:nth-child(even) {
 			              <div class="thumb dirty"></div>
 			            <!--   <div class="thumb-title">Dirty</div> -->
 			               <a href="#" onclick="funDirty();">&nbsp;&nbsp;&nbsp;Dirty</a> 
+			            </li>
+			            <li>
+			              <div class="thumb groupReservation"></div>
+			             <!--  <div class="thumb-title">Waiting</div> -->
+			              <a href="#" onclick="funGroupReservation();">&nbsp;&nbsp;&nbsp;Group Reservation</a> 
 			            </li>
 			          </ul>
 			       </div>
@@ -2226,16 +2270,16 @@ table tbody tr:nth-child(even) {
 					<td><s:input colspan="1" type="text" id="txtViewDate"  path="dteViewDate" cssClass="calenderTextBox" /></td>
 				</tr> --%>
 		               <div class="icon-action">
-		                 	<span class="mdi mdi-eye" id="btnView" title="Seven Day View" onclick="funShowRoomStatusFlash();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
+		                 	<span class="mdi mdi-file-word-box" id="btnView" title="Seven Day View" onclick="funShowRoomStatusFlash();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
 		              </div>
 		              
 		               <div class="icon-action">
-		                 	<span class="mdi mdi-eye" id="btnView" title="One Day View" onclick="funShowRoomStatusFlashForOneDay();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
+		                 	<span class="mdi mdi-disqus-outline" id="btnView" title="One Day View" onclick="funShowRoomStatusFlashForOneDay();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
 		              </div> 
 		              
 		               
 		               <div class="icon-action">
-		                 	<span class="mdi mdi-eye" id="btnView" title="House Keeping View" onclick="funShowRoomStatusFlashHouseKeeping();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
+		                 	<span class="mdi mdi-broom" id="btnView" title="House Keeping View" onclick="funShowRoomStatusFlashHouseKeeping();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
 		              </div> 
 		            </div>
 		            <div class="date-actions">

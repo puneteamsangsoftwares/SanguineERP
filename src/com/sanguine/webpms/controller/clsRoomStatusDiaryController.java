@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -185,24 +186,249 @@ public class clsRoomStatusDiaryController {
 		viewDate = objGlobal.funGetDate("yyyy-MM-dd", viewDate);
 		clsRoomStatusDtlBean objRoomStatusDtl=null;
 		clsGuestMasterBean objGuestDtl = null;
+		Map<String,List> hmap= new LinkedHashMap<>(); //hmap for group reservation
 		List objTemp = null;
+		List objGroupReservation = null;
+		List listTotal = new ArrayList<>();;
 		List listRoomStatusBeanDtl = new ArrayList<>();
 		Map objRoomTypeWise = new HashMap<>();
 		Map returnObject = new HashMap<>();
-		String sql="";
-		/*if(!strSelection.equalsIgnoreCase(""))
-		{
-			sql = "select a.strRoomCode,a.strRoomDesc,b.strRoomTypeDesc,a.strStatus from tblroom a,tblroomtypemaster b where a.strRoomTypeCode=b.strRoomTypeCode AND a.strClientCode='"+clientCode+"' and a.strStatus='"+strSelection+"' AND b.strClientCode='"+clientCode+"'"
-					+ " order by b.strRoomTypeCode,a.strRoomDesc; ";
-		}
-		else
-		{*/
-			sql = "select a.strRoomCode,a.strRoomDesc,b.strRoomTypeDesc,a.strStatus from tblroom a,tblroomtypemaster b where a.strRoomTypeCode=b.strRoomTypeCode AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'"
-				+ " order by b.strRoomTypeCode,a.strRoomDesc; ";			
-		//}	
+		String sql="";	
+			sql = "select a.strRoomCode,a.strRoomDesc,b.strRoomTypeDesc,a.strStatus,a.strRoomTypeCode from tblroom a,tblroomtypemaster b where a.strRoomTypeCode=b.strRoomTypeCode AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'"
+				+ " group by a.strRoomTypeCode order by b.strRoomTypeCode,a.strRoomDesc; ";			
 		
+		
+		List listRoomGroupWise = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+		//objTemp=new ArrayList<>();
+		//objGroupReservation=new ArrayList<>();
+		
+		for (int cnt1 = 0; cnt1 < listRoomGroupWise.size(); cnt1++) 
+		{
+			objRoomStatusDtl = new clsRoomStatusDtlBean();
+			Object[] arrObjRooms = (Object[]) listRoomGroupWise.get(cnt1);
+			objRoomStatusDtl.setStrRoomNo(arrObjRooms[1].toString());
+			objRoomStatusDtl.setStrRoomType(arrObjRooms[2].toString());
+			objRoomStatusDtl.setStrRoomStatus(arrObjRooms[3].toString());
+			TreeMap<Integer, List<clsGuestListReportBean>> mapGuestListPerDay=new TreeMap<>();
+			List<clsGuestListReportBean> listMainGuestDetailsBean=new ArrayList<>();
+			String sql1="";
+			objGroupReservation=new ArrayList<>();
+			//Group Reservation Query
+			String sqlGroupReservation="SELECT a.strReservationNo,d.strRoomTypeCode,'Virtual Room', (a.intNoOfAdults+a.intNoOfChild), "
+					+ "'GROUP RESERVATION', DATE_FORMAT(DATE(a.dteArrivalDate),'%d-%m-%Y'), DATE_FORMAT(DATE(a.dteDepartureDate),'%d-%m-%Y'),  "
+					+ "DATEDIFF(DATE(a.dteDepartureDate), DATE(a.dteArrivalDate)),LEFT(TIMEDIFF(a.tmeDepartureTime,(SELECT a.tmeCheckOutTime FROM tblpropertysetup a)),6), "
+					+ "LEFT(TIMEDIFF(a.tmeArrivalTime,(SELECT a.tmeCheckInTime FROM tblpropertysetup a)),6),a.tmeArrivalTime,a.tmeDepartureTime, DATEDIFF(DATE(a.dteArrivalDate),'"+viewDate+"'),DATEDIFF(DATE(a.dteDepartureDate),'"+viewDate+"'),a.strNoRoomsBooked "
+					+ "FROM tblreservationhd a,tblreservationdtl b,tblroom d,tblbookingtype e "
+					+ "WHERE a.strReservationNo=b.strReservationNo  "
+					+ "AND a.strBookingTypeCode=e.strBookingTypeCode AND DATE(a.dteDepartureDate) BETWEEN '"+viewDate+"' AND DATE_ADD('"+viewDate+"', INTERVAL 7 DAY)   "
+					+ "AND a.strReservationNo NOT IN (SELECT strReservationNo FROM tblcheckinhd) AND a.strCancelReservation='N' AND a.strGroupCode!='' AND b.strRoomType='"+arrObjRooms[4].toString()+"' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' AND d.strClientCode='"+clientCode+"' AND e.strClientCode='"+clientCode+"' group by a.strReservationNo ";
+						
+				//For Group Reservation
+				List listsGroupReservation = objGlobalFunctionsService.funGetListModuleWise(sqlGroupReservation, "sql");
+				if (listsGroupReservation.size() > 0) 
+				{
+					for(int i=0;i<listsGroupReservation.size();i++)
+					{
+						int intArrivalCnt = 0;
+						int intDepartureCnt = 0;
+						objGuestDtl = new clsGuestMasterBean();
+						Object[] arrObjRoomDtl = (Object[]) listsGroupReservation.get(i);
+						objGuestDtl.setStrFirstName(arrObjRoomDtl[3].toString());
+						objGuestDtl.setDteArrivalDate(arrObjRoomDtl[5].toString());
+						objGuestDtl.setDteDepartureDate(arrObjRoomDtl[6].toString());
+						objGuestDtl.setStRoomNo(arrObjRoomDtl[2].toString());
+						objGuestDtl.setStrNoOfNights(arrObjRoomDtl[7].toString());
+						objGuestDtl.setTmeArrivalTime(arrObjRoomDtl[10].toString());
+						objGuestDtl.setTmeDepartureTime(arrObjRoomDtl[11].toString());
+						String sqlFolioNo = "select a.strFolioNo from tblfoliohd a where a.strCheckInNo='"+arrObjRoomDtl[0].toString()+"' AND a.strRoomNo='"+arrObjRoomDtl[1].toString()+"' AND a.strClientCode='"+clientCode+"'";
+						List listFolioNo = objGlobalFunctionsService.funGetListModuleWise(sqlFolioNo, "sql");
+						String strFolioNo = "";
+						objGroupReservation=new ArrayList<>();
+						objTemp=new ArrayList<>();
+						if(listFolioNo!=null && listFolioNo.size()>0)
+						{
+							strFolioNo = listFolioNo.get(0).toString();
+						}						
+						objRoomStatusDtl=new clsRoomStatusDtlBean();
+						objRoomStatusDtl.setStrRoomNo("");
+						objRoomStatusDtl.setStrRoomType(arrObjRooms[2].toString());
+						//objRoomStatusDtl.setStrRoomStatus(arrObjRooms[3].toString());
+						/*if(arrObjRoomDtl[4].toString().equalsIgnoreCase("Occupied"))
+						{
+							objRoomStatusDtl.setStrReservationNo(strFolioNo);
+						}
+						else
+						{*/
+							objRoomStatusDtl.setStrReservationNo(arrObjRoomDtl[0].toString());
+						//}
+						objRoomStatusDtl.setStrGuestName(arrObjRoomDtl[4].toString());
+						objRoomStatusDtl.setDteArrivalDate(arrObjRoomDtl[5].toString()+" "+ arrObjRoomDtl[10].toString());
+						objRoomStatusDtl.setDteDepartureDate(arrObjRoomDtl[6].toString()+" "+ arrObjRoomDtl[11].toString());
+						objRoomStatusDtl.setStrNoOfDays(arrObjRoomDtl[7].toString());
+						objRoomStatusDtl.setTmeArrivalTime(arrObjRoomDtl[10].toString());
+						objRoomStatusDtl.setTmeDepartureTime(arrObjRoomDtl[11].toString());
+						objRoomStatusDtl.setDblRoomCnt(Double.parseDouble(arrObjRoomDtl[14].toString()));
+						if(arrObjRoomDtl[4].toString().equalsIgnoreCase("RESERVATION"))
+						{
+							String sqlPaymentCheck = "select a.strReceiptNo from tblreceipthd a where "
+									+ "a.strReservationNo='"+arrObjRoomDtl[0].toString()+"' and a.strClientCode='"+clientCode+"'";
+							
+							List listPaymentCheck = objGlobalFunctionsService.funGetListModuleWise(sqlPaymentCheck, "sql");
+							if(listPaymentCheck!=null && listPaymentCheck.size()>0)
+							{
+								objRoomStatusDtl.setStrRoomStatus(arrObjRoomDtl[4].toString());
+							}
+							else
+							{
+								objRoomStatusDtl.setStrRoomStatus("Waiting");
+							}
+						}else
+						{
+							objRoomStatusDtl.setStrRoomStatus(arrObjRoomDtl[4].toString());
+						}
+						
+						if(arrObjRoomDtl[4].toString().equals("Occupied")){
+						objRoomStatusDtl.setDblRemainingAmt(funGetDblRemainingAmt(strFolioNo,clientCode,arrObjRoomDtl[0].toString()));
+						}
+						intArrivalCnt=Integer.parseInt(arrObjRoomDtl[12].toString());
+						intDepartureCnt=Integer.parseInt(arrObjRoomDtl[13].toString());
+						
+						if (intArrivalCnt<=0 && 0<=intDepartureCnt) 
+							
+						{
+							
+							 objRoomStatusDtl.setStrDay1(" "+objRoomStatusDtl.getStrGuestName());
+						} 
+						if (intArrivalCnt<=1 && 1<=intDepartureCnt) 
+						{
+							
+							 objRoomStatusDtl.setStrDay2(" "+objRoomStatusDtl.getStrGuestName());
+						} 
+						if (intArrivalCnt<=2 && 2<=intDepartureCnt) 
+						{
+							
+							 objRoomStatusDtl.setStrDay3(" "+objRoomStatusDtl.getStrGuestName());
+						} if (intArrivalCnt<=3 && 3<=intDepartureCnt) {
+							
+							 objRoomStatusDtl.setStrDay4(" "+objRoomStatusDtl.getStrGuestName());
+						} if (intArrivalCnt<=4 && 4<=intDepartureCnt) {
+							
+							 objRoomStatusDtl.setStrDay5(" "+objRoomStatusDtl.getStrGuestName());
+						} if (intArrivalCnt<=5 && 5<=intDepartureCnt) {
+							
+							 objRoomStatusDtl.setStrDay6(" "+objRoomStatusDtl.getStrGuestName());
+						} if (intArrivalCnt<=6 && 6<=intDepartureCnt) {
+							
+							 objRoomStatusDtl.setStrDay7(" "+objRoomStatusDtl.getStrGuestName());
+						}
+						
+						if(arrObjRoomDtl[8].toString().contains("-"))
+						{
+							if(arrObjRoomDtl[11].toString().contains("PM") || arrObjRoomDtl[11].toString().contains("pm"))
+							{
+								objRoomStatusDtl.setTmeCheckOutAMPM("PM");
+							}
+							else
+							{
+								objRoomStatusDtl.setTmeCheckOutAMPM("AM");
+							}
+						}
+						else
+						{
+							if(arrObjRoomDtl[8].toString().equals("00:00:"))
+							{
+								if(arrObjRoomDtl[11].toString().contains("PM") || arrObjRoomDtl[11].toString().contains("pm"))
+								{
+									objRoomStatusDtl.setTmeCheckOutAMPM("PM");
+								}
+								else
+								{
+									objRoomStatusDtl.setTmeCheckOutAMPM("AM");
+								}
+							}
+							else
+							{
+								if(arrObjRoomDtl[11].toString().contains("PM") || arrObjRoomDtl[11].toString().contains("pm"))
+								{
+									objRoomStatusDtl.setTmeCheckOutAMPM("PM");
+								}
+								else
+								{
+									objRoomStatusDtl.setTmeCheckOutAMPM("AM");
+								}
+							}
+						}
+						
+						if(arrObjRoomDtl[9].toString().contains("-"))
+						{
+							if(arrObjRoomDtl[10].toString().contains("PM") || arrObjRoomDtl[10].toString().contains("pm"))
+							{
+								objRoomStatusDtl.setTmeCheckInAMPM("PM");
+							}
+							else
+							{
+								objRoomStatusDtl.setTmeCheckInAMPM("AM");
+							}
+						}
+						else
+						{
+							if(arrObjRoomDtl[8].toString().equals("00:00:"))
+							{
+								if(arrObjRoomDtl[10].toString().contains("PM") || arrObjRoomDtl[10].toString().contains("pm"))
+								{
+									objRoomStatusDtl.setTmeCheckInAMPM("PM");
+								}
+								else
+								{
+									objRoomStatusDtl.setTmeCheckInAMPM("AM");
+								}
+							}
+							else
+							{
+								if(arrObjRoomDtl[10].toString().contains("PM") || arrObjRoomDtl[10].toString().contains("pm"))
+								{
+									objRoomStatusDtl.setTmeCheckInAMPM("PM");
+								}
+								else
+								{
+									objRoomStatusDtl.setTmeCheckInAMPM("AM");
+								}
+							}
+						}
+						
+						/*String sqlRoomCnt = "select count(*) from tblroom a where a.strRoomTypeDesc='"+arrObjRooms[2].toString()+"' and a.strClientCode='"+clientCode+"'";
+						List listRoomCnt = objGlobalFunctionsService.funGetListModuleWise(sqlRoomCnt, "sql");
+						if(listRoomCnt!=null && listRoomCnt.size()>0)
+						{*/
+						objRoomStatusDtl.setDblRoomCnt(listRoomGroupWise.size());
+						//}
+						if(strSelection.equalsIgnoreCase("GROUP RESERVATION"))
+						{
+							objGroupReservation.add(objRoomStatusDtl);
+						}
+						if(strSelection.equalsIgnoreCase(""))
+						{
+							objGroupReservation.add(objRoomStatusDtl);
+						}
+						if(hmap.containsKey(objRoomStatusDtl.getStrRoomType()))
+						{
+							List list=new ArrayList<>();
+							list=hmap.get(objRoomStatusDtl.getStrRoomType());
+							list.add(objRoomStatusDtl);
+							hmap.put(objRoomStatusDtl.getStrRoomType(),list);
+						}
+						else
+						{
+							//objGroupReservation.add(objRoomStatusDtl);
+							hmap.put(objRoomStatusDtl.getStrRoomType(),objGroupReservation);
+						}						
+					}
+				}
+		}
+		sql = "select a.strRoomCode,a.strRoomDesc,b.strRoomTypeDesc,a.strStatus,a.strRoomTypeCode from tblroom a,tblroomtypemaster b where a.strRoomTypeCode=b.strRoomTypeCode AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'"
+				+ " order by b.strRoomTypeCode,a.strRoomDesc; ";
 		List listRoom = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
-		objTemp=new ArrayList<>();
+		//for room filling
 		for (int cnt1 = 0; cnt1 < listRoom.size(); cnt1++) 
 		{
 			objRoomStatusDtl = new clsRoomStatusDtlBean();
@@ -294,6 +520,7 @@ public class clsRoomStatusDiaryController {
 			}			
 				
 				List listRoomDtl = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+				objTemp= new ArrayList<>();
 				if (listRoomDtl.size() > 0) 
 				{
 					for(int i=0;i<listRoomDtl.size();i++)
@@ -310,181 +537,100 @@ public class clsRoomStatusDiaryController {
 						objGuestDtl.setStrNoOfNights(arrObjRoomDtl[7].toString());
 						objGuestDtl.setTmeArrivalTime(arrObjRoomDtl[10].toString());
 						objGuestDtl.setTmeDepartureTime(arrObjRoomDtl[11].toString());
-						
-						/*if(objRoomTypeWise.containsKey(arrObjRooms[2].toString()))
+						String sqlFolioNo = "select a.strFolioNo from tblfoliohd a where a.strCheckInNo='"+arrObjRoomDtl[0].toString()+"' AND a.strRoomNo='"+arrObjRoomDtl[1].toString()+"' AND a.strClientCode='"+clientCode+"'";
+						List listFolioNo = objGlobalFunctionsService.funGetListModuleWise(sqlFolioNo, "sql");
+						String strFolioNo = "";						
+						if(listFolioNo!=null && listFolioNo.size()>0)
 						{
-							objTemp=(List)objRoomTypeWise.get(arrObjRooms[2].toString());
-							objRoomStatusDtl=new clsRoomStatusDtlBean();
-							objRoomStatusDtl.setStrRoomNo(arrObjRooms[1].toString());
-							objRoomStatusDtl.setStrRoomType(arrObjRooms[2].toString());
-							objRoomStatusDtl.setStrRoomStatus(arrObjRooms[3].toString());
-							objRoomStatusDtl.setStrReservationNo(arrObjRoomDtl[0].toString());
-							objRoomStatusDtl.setStrGuestName(arrObjRoomDtl[3].toString());
-							objRoomStatusDtl.setDteArrivalDate(arrObjRoomDtl[5].toString());
-							objRoomStatusDtl.setDteDepartureDate(arrObjRoomDtl[6].toString());
-							objRoomStatusDtl.setStrNoOfDays(arrObjRoomDtl[7].toString());
-							objRoomStatusDtl.setTmeArrivalTime(arrObjRoomDtl[10].toString());
-							objRoomStatusDtl.setTmeDepartureTime(arrObjRoomDtl[11].toString());
-							objRoomStatusDtl.setStrRoomStatus(arrObjRoomDtl[4].toString());
-							if(arrObjRoomDtl[8].toString().contains("-"))
-							{
-								if(arrObjRoomDtl[11].toString().contains("PM") || arrObjRoomDtl[11].toString().contains("pm"))
-								{
-									objRoomStatusDtl.setTmeCheckOutAMPM("PM");
-								}
-								else
-								{
-									objRoomStatusDtl.setTmeCheckInAMPM("AM");
-								}
-							}
-							else
-							{
-								if(arrObjRoomDtl[8].toString().equals("00:00:"))
-								{
-									if(arrObjRoomDtl[11].toString().contains("PM") || arrObjRoomDtl[11].toString().contains("pm"))
-									{
-										objRoomStatusDtl.setTmeCheckOutAMPM("PM");
-									}
-									else
-									{
-										objRoomStatusDtl.setTmeCheckOutAMPM("AM");
-									}
-								}
-								else
-								{
-									if(arrObjRoomDtl[11].toString().contains("PM") || arrObjRoomDtl[11].toString().contains("pm"))
-									{
-										objRoomStatusDtl.setTmeCheckOutAMPM("PM");
-									}
-									else
-									{
-										objRoomStatusDtl.setTmeCheckOutAMPM("AM");
-									}
-								}
-							}
-							
-							if(arrObjRoomDtl[9].toString().contains("-"))
-							{
-								if(arrObjRoomDtl[10].toString().contains("PM") || arrObjRoomDtl[10].toString().contains("pm"))
-								{
-									objRoomStatusDtl.setTmeCheckInAMPM("PM");
-								}
-								else
-								{
-									objRoomStatusDtl.setTmeCheckInAMPM("AM");
-								}
-							}
-							else
-							{
-								if(arrObjRoomDtl[8].toString().equals("00:00:"))
-								{
-									if(arrObjRoomDtl[10].toString().contains("PM") || arrObjRoomDtl[10].toString().contains("pm"))
-									{
-										objRoomStatusDtl.setTmeCheckInAMPM("PM");
-									}
-									else
-									{
-										objRoomStatusDtl.setTmeCheckInAMPM("AM");
-									}
-								}
-								else
-								{
-									if(arrObjRoomDtl[10].toString().contains("PM") || arrObjRoomDtl[10].toString().contains("pm"))
-									{
-										objRoomStatusDtl.setTmeCheckInAMPM("PM");
-									}
-									else
-									{
-										objRoomStatusDtl.setTmeCheckInAMPM("AM");
-									}
-								}
-							}
-							objTemp.add(objRoomStatusDtl);
-							objRoomTypeWise.put(arrObjRooms[2].toString(),objTemp);
+							strFolioNo = listFolioNo.get(0).toString();
+						}
+						
+						objRoomStatusDtl=new clsRoomStatusDtlBean();
+						objRoomStatusDtl.setStrRoomNo(arrObjRooms[1].toString());
+						objRoomStatusDtl.setStrRoomType(arrObjRooms[2].toString());
+						objRoomStatusDtl.setStrRoomStatus(arrObjRooms[3].toString());
+						if(arrObjRoomDtl[4].toString().equalsIgnoreCase("Occupied"))
+						{
+							objRoomStatusDtl.setStrReservationNo(strFolioNo);
 						}
 						else
-						{*/
-							String sqlFolioNo = "select a.strFolioNo from tblfoliohd a where a.strCheckInNo='"+arrObjRoomDtl[0].toString()+"' AND a.strRoomNo='"+arrObjRoomDtl[1].toString()+"' AND a.strClientCode='"+clientCode+"'";
-							List listFolioNo = objGlobalFunctionsService.funGetListModuleWise(sqlFolioNo, "sql");
-							String strFolioNo = "";
-							if(listFolioNo!=null && listFolioNo.size()>0)
-							{
-								strFolioNo = listFolioNo.get(0).toString();
-							}
+						{
+							objRoomStatusDtl.setStrReservationNo(arrObjRoomDtl[0].toString());
+						}
+						objRoomStatusDtl.setStrGuestName(arrObjRoomDtl[3].toString());
+						objRoomStatusDtl.setDteArrivalDate(arrObjRoomDtl[5].toString()+" "+ arrObjRoomDtl[10].toString());
+						objRoomStatusDtl.setDteDepartureDate(arrObjRoomDtl[6].toString()+" "+ arrObjRoomDtl[11].toString());
+						objRoomStatusDtl.setStrNoOfDays(arrObjRoomDtl[7].toString());
+						objRoomStatusDtl.setTmeArrivalTime(arrObjRoomDtl[10].toString());
+						objRoomStatusDtl.setTmeDepartureTime(arrObjRoomDtl[11].toString());
+						if(arrObjRoomDtl[4].toString().equalsIgnoreCase("RESERVATION"))
+						{
+							String sqlPaymentCheck = "select a.strReceiptNo from tblreceipthd a where "
+									+ "a.strReservationNo='"+arrObjRoomDtl[0].toString()+"' and a.strClientCode='"+clientCode+"'";
 							
-							objRoomStatusDtl=new clsRoomStatusDtlBean();
-							objRoomStatusDtl.setStrRoomNo(arrObjRooms[1].toString());
-							objRoomStatusDtl.setStrRoomType(arrObjRooms[2].toString());
-							objRoomStatusDtl.setStrRoomStatus(arrObjRooms[3].toString());
-							if(arrObjRoomDtl[4].toString().equalsIgnoreCase("Occupied"))
-							{
-								objRoomStatusDtl.setStrReservationNo(strFolioNo);
-							}
-							else
-							{
-								objRoomStatusDtl.setStrReservationNo(arrObjRoomDtl[0].toString());
-							}
-							objRoomStatusDtl.setStrGuestName(arrObjRoomDtl[3].toString());
-							objRoomStatusDtl.setDteArrivalDate(arrObjRoomDtl[5].toString()+" "+ arrObjRoomDtl[10].toString());
-							objRoomStatusDtl.setDteDepartureDate(arrObjRoomDtl[6].toString()+" "+ arrObjRoomDtl[11].toString());
-							objRoomStatusDtl.setStrNoOfDays(arrObjRoomDtl[7].toString());
-							objRoomStatusDtl.setTmeArrivalTime(arrObjRoomDtl[10].toString());
-							objRoomStatusDtl.setTmeDepartureTime(arrObjRoomDtl[11].toString());
-							if(arrObjRoomDtl[4].toString().equalsIgnoreCase("RESERVATION"))
-							{
-								String sqlPaymentCheck = "select a.strReceiptNo from tblreceipthd a where "
-										+ "a.strReservationNo='"+arrObjRoomDtl[0].toString()+"' and a.strClientCode='"+clientCode+"'";
-								
-								List listPaymentCheck = objGlobalFunctionsService.funGetListModuleWise(sqlPaymentCheck, "sql");
-								if(listPaymentCheck!=null && listPaymentCheck.size()>0)
-								{
-									objRoomStatusDtl.setStrRoomStatus(arrObjRoomDtl[4].toString());
-								}
-								else
-								{
-									objRoomStatusDtl.setStrRoomStatus("Waiting");
-								}
-							}else
+							List listPaymentCheck = objGlobalFunctionsService.funGetListModuleWise(sqlPaymentCheck, "sql");
+							if(listPaymentCheck!=null && listPaymentCheck.size()>0)
 							{
 								objRoomStatusDtl.setStrRoomStatus(arrObjRoomDtl[4].toString());
 							}
-							
-							if(arrObjRoomDtl[4].toString().equals("Occupied")){
-							objRoomStatusDtl.setDblRemainingAmt(funGetDblRemainingAmt(strFolioNo,clientCode,arrObjRoomDtl[0].toString()));
+							else
+							{
+								objRoomStatusDtl.setStrRoomStatus("Waiting");
 							}
-							intArrivalCnt=Integer.parseInt(arrObjRoomDtl[12].toString());
-							intDepartureCnt=Integer.parseInt(arrObjRoomDtl[13].toString());
+						}else
+						{
+							objRoomStatusDtl.setStrRoomStatus(arrObjRoomDtl[4].toString());
+						}
+						
+						if(arrObjRoomDtl[4].toString().equals("Occupied")){
+						objRoomStatusDtl.setDblRemainingAmt(funGetDblRemainingAmt(strFolioNo,clientCode,arrObjRoomDtl[0].toString()));
+						}
+						intArrivalCnt=Integer.parseInt(arrObjRoomDtl[12].toString());
+						intDepartureCnt=Integer.parseInt(arrObjRoomDtl[13].toString());
+						
+						if (intArrivalCnt<=0 && 0<=intDepartureCnt) 
 							
-							if (intArrivalCnt<=0 && 0<=intDepartureCnt) 
-								
+						{
+							
+							 objRoomStatusDtl.setStrDay1(" "+objRoomStatusDtl.getStrGuestName());
+						} 
+						if (intArrivalCnt<=1 && 1<=intDepartureCnt) 
+						{
+							
+							 objRoomStatusDtl.setStrDay2(" "+objRoomStatusDtl.getStrGuestName());
+						} 
+						if (intArrivalCnt<=2 && 2<=intDepartureCnt) 
+						{
+							
+							 objRoomStatusDtl.setStrDay3(" "+objRoomStatusDtl.getStrGuestName());
+						} if (intArrivalCnt<=3 && 3<=intDepartureCnt) {
+							
+							 objRoomStatusDtl.setStrDay4(" "+objRoomStatusDtl.getStrGuestName());
+						} if (intArrivalCnt<=4 && 4<=intDepartureCnt) {
+							
+							 objRoomStatusDtl.setStrDay5(" "+objRoomStatusDtl.getStrGuestName());
+						} if (intArrivalCnt<=5 && 5<=intDepartureCnt) {
+							
+							 objRoomStatusDtl.setStrDay6(" "+objRoomStatusDtl.getStrGuestName());
+						} if (intArrivalCnt<=6 && 6<=intDepartureCnt) {
+							
+							 objRoomStatusDtl.setStrDay7(" "+objRoomStatusDtl.getStrGuestName());
+						}
+						
+						if(arrObjRoomDtl[8].toString().contains("-"))
+						{
+							if(arrObjRoomDtl[11].toString().contains("PM") || arrObjRoomDtl[11].toString().contains("pm"))
 							{
-								
-								 objRoomStatusDtl.setStrDay1(" "+objRoomStatusDtl.getStrGuestName());
-							} 
-							if (intArrivalCnt<=1 && 1<=intDepartureCnt) 
-							{
-								
-								 objRoomStatusDtl.setStrDay2(" "+objRoomStatusDtl.getStrGuestName());
-							} 
-							if (intArrivalCnt<=2 && 2<=intDepartureCnt) 
-							{
-								
-								 objRoomStatusDtl.setStrDay3(" "+objRoomStatusDtl.getStrGuestName());
-							} if (intArrivalCnt<=3 && 3<=intDepartureCnt) {
-								
-								 objRoomStatusDtl.setStrDay4(" "+objRoomStatusDtl.getStrGuestName());
-							} if (intArrivalCnt<=4 && 4<=intDepartureCnt) {
-								
-								 objRoomStatusDtl.setStrDay5(" "+objRoomStatusDtl.getStrGuestName());
-							} if (intArrivalCnt<=5 && 5<=intDepartureCnt) {
-								
-								 objRoomStatusDtl.setStrDay6(" "+objRoomStatusDtl.getStrGuestName());
-							} if (intArrivalCnt<=6 && 6<=intDepartureCnt) {
-								
-								 objRoomStatusDtl.setStrDay7(" "+objRoomStatusDtl.getStrGuestName());
+								objRoomStatusDtl.setTmeCheckOutAMPM("PM");
 							}
-							
-							if(arrObjRoomDtl[8].toString().contains("-"))
+							else
+							{
+								objRoomStatusDtl.setTmeCheckOutAMPM("AM");
+							}
+						}
+						else
+						{
+							if(arrObjRoomDtl[8].toString().equals("00:00:"))
 							{
 								if(arrObjRoomDtl[11].toString().contains("PM") || arrObjRoomDtl[11].toString().contains("pm"))
 								{
@@ -497,31 +643,31 @@ public class clsRoomStatusDiaryController {
 							}
 							else
 							{
-								if(arrObjRoomDtl[8].toString().equals("00:00:"))
+								if(arrObjRoomDtl[11].toString().contains("PM") || arrObjRoomDtl[11].toString().contains("pm"))
 								{
-									if(arrObjRoomDtl[11].toString().contains("PM") || arrObjRoomDtl[11].toString().contains("pm"))
-									{
-										objRoomStatusDtl.setTmeCheckOutAMPM("PM");
-									}
-									else
-									{
-										objRoomStatusDtl.setTmeCheckOutAMPM("AM");
-									}
+									objRoomStatusDtl.setTmeCheckOutAMPM("PM");
 								}
 								else
 								{
-									if(arrObjRoomDtl[11].toString().contains("PM") || arrObjRoomDtl[11].toString().contains("pm"))
-									{
-										objRoomStatusDtl.setTmeCheckOutAMPM("PM");
-									}
-									else
-									{
-										objRoomStatusDtl.setTmeCheckOutAMPM("AM");
-									}
+									objRoomStatusDtl.setTmeCheckOutAMPM("AM");
 								}
 							}
-							
-							if(arrObjRoomDtl[9].toString().contains("-"))
+						}
+						
+						if(arrObjRoomDtl[9].toString().contains("-"))
+						{
+							if(arrObjRoomDtl[10].toString().contains("PM") || arrObjRoomDtl[10].toString().contains("pm"))
+							{
+								objRoomStatusDtl.setTmeCheckInAMPM("PM");
+							}
+							else
+							{
+								objRoomStatusDtl.setTmeCheckInAMPM("AM");
+							}
+						}
+						else
+						{
+							if(arrObjRoomDtl[8].toString().equals("00:00:"))
 							{
 								if(arrObjRoomDtl[10].toString().contains("PM") || arrObjRoomDtl[10].toString().contains("pm"))
 								{
@@ -534,64 +680,47 @@ public class clsRoomStatusDiaryController {
 							}
 							else
 							{
-								if(arrObjRoomDtl[8].toString().equals("00:00:"))
+								if(arrObjRoomDtl[10].toString().contains("PM") || arrObjRoomDtl[10].toString().contains("pm"))
 								{
-									if(arrObjRoomDtl[10].toString().contains("PM") || arrObjRoomDtl[10].toString().contains("pm"))
-									{
-										objRoomStatusDtl.setTmeCheckInAMPM("PM");
-									}
-									else
-									{
-										objRoomStatusDtl.setTmeCheckInAMPM("AM");
-									}
+									objRoomStatusDtl.setTmeCheckInAMPM("PM");
 								}
 								else
 								{
-									if(arrObjRoomDtl[10].toString().contains("PM") || arrObjRoomDtl[10].toString().contains("pm"))
-									{
-										objRoomStatusDtl.setTmeCheckInAMPM("PM");
-									}
-									else
-									{
-										objRoomStatusDtl.setTmeCheckInAMPM("AM");
-									}
+									objRoomStatusDtl.setTmeCheckInAMPM("AM");
 								}
 							}
-							
-							String sqlRoomCnt = "select count(*) from tblroom a where a.strRoomTypeDesc='"+arrObjRooms[2].toString()+"' and a.strClientCode='"+clientCode+"'";
-							List listRoomCnt = objGlobalFunctionsService.funGetListModuleWise(sqlRoomCnt, "sql");
-							if(listRoomCnt!=null && listRoomCnt.size()>0)
-							{
-								objRoomStatusDtl.setDblRoomCnt(Double.parseDouble(listRoomCnt.get(0).toString()));
-							}
-							if(strSelection.equalsIgnoreCase("Waiting")||strSelection.equalsIgnoreCase("Reservation")||strSelection.equalsIgnoreCase("Occupied")||strSelection.equalsIgnoreCase("Checked Out"))
-							{
-								objTemp.add(objRoomStatusDtl);
-							}
-							if(strSelection.equalsIgnoreCase(""))
-							{
-								objTemp.add(objRoomStatusDtl);
-							}
-							//objRoomTypeWise.put(arrObjRooms[2].toString(),objTemp);
-						//}
+						}
+						
+						String sqlRoomCnt = "select count(*) from tblroom a where a.strRoomTypeDesc='"+arrObjRooms[2].toString()+"' and a.strClientCode='"+clientCode+"'";
+						List listRoomCnt = objGlobalFunctionsService.funGetListModuleWise(sqlRoomCnt, "sql");
+						if(listRoomCnt!=null && listRoomCnt.size()>0)
+						{
+							objRoomStatusDtl.setDblRoomCnt(Double.parseDouble(listRoomCnt.get(0).toString()));
+						}
+						if(strSelection.equalsIgnoreCase("Waiting")||strSelection.equalsIgnoreCase("Reservation")||strSelection.equalsIgnoreCase("Occupied")||strSelection.equalsIgnoreCase("Checked Out"))
+						{
+							objTemp.add(objRoomStatusDtl);
+						}
+						if(strSelection.equalsIgnoreCase(""))
+						{
+							objTemp.add(objRoomStatusDtl);
+						}
+						if(hmap.containsKey(objRoomStatusDtl.getStrRoomType()))
+						{
+							List list=new ArrayList<>();
+							list=hmap.get(objRoomStatusDtl.getStrRoomType());
+							list.add(objRoomStatusDtl);
+							hmap.put(objRoomStatusDtl.getStrRoomType(),list);
+						}
+						else
+						{
+							//objGroupReservation.add(objRoomStatusDtl);
+							hmap.put(objRoomStatusDtl.getStrRoomType(),objTemp);
+						}
 					}
 				}
 				else
-				{// dirty rooms add here
-					/*if(objRoomTypeWise.containsKey(arrObjRooms[2].toString()))
-					{
-						objTemp=(List)objRoomTypeWise.get(arrObjRooms[2].toString());
-						objRoomStatusDtl=new clsRoomStatusDtlBean();
-						objRoomStatusDtl.setStrRoomNo(arrObjRooms[1].toString());
-						objRoomStatusDtl.setStrRoomType(arrObjRooms[2].toString());
-						objRoomStatusDtl.setStrRoomStatus(arrObjRooms[3].toString());
-						
-						objTemp.add(objRoomStatusDtl);
-						objRoomTypeWise.put(arrObjRooms[2].toString(),objTemp);
-					}
-					else
-					{*/
-						//objTemp=new ArrayList<>();
+				{		// dirty rooms add here					
 						objRoomStatusDtl=new clsRoomStatusDtlBean();
 						objRoomStatusDtl.setStrRoomNo(arrObjRooms[1].toString());
 						objRoomStatusDtl.setStrRoomType(arrObjRooms[2].toString());
@@ -610,6 +739,18 @@ public class clsRoomStatusDiaryController {
 						if(strSelection.equalsIgnoreCase(""))
 						{
 							objTemp.add(objRoomStatusDtl);
+						}
+						if(hmap.containsKey(objRoomStatusDtl.getStrRoomType()))
+						{
+							List list=new ArrayList<>();
+							list=hmap.get(objRoomStatusDtl.getStrRoomType());
+							list.add(objRoomStatusDtl);
+							hmap.put(objRoomStatusDtl.getStrRoomType(),list);
+						}
+						else
+						{
+							//objGroupReservation.add(objRoomStatusDtl);
+							hmap.put(objRoomStatusDtl.getStrRoomType(),objTemp);
 						}
 						//objRoomTypeWise.put(arrObjRooms[2].toString(),objTemp);
 					//}	
@@ -663,12 +804,20 @@ public class clsRoomStatusDiaryController {
 					}
 				}
 				//objRoomTypeWise.put(objRoomStatusDtl);
-				
-				
 		}
 		listRoomStatusBeanDtl.add(objRoomTypeWise);	
-		//returnObject.put("RoomData", listRoomStatusBeanDtl);			
-		return objTemp;		
+		//returnObject.put("RoomData", listRoomStatusBeanDtl);	
+		for (Map.Entry<String,List> entry : hmap.entrySet())  
+		{
+            List list = new ArrayList<>();
+				list=entry.getValue();
+				for(int i=0;i<list.size();i++)
+				{
+					listTotal.add(list.get(i));
+				}
+				//listTotal.add();
+		} 
+		return listTotal;		
 	}
 	
 	//Dairy for one day view	

@@ -197,6 +197,10 @@ padding: 1px 13px;
 	background: linear-gradientt(70.46deg, #e4a846 0%, #ffd58e 100%);
 }
 
+.title-row .status-list ul li .thumb.groupReservation {
+	background: rgb(41, 209, 186);
+}
+
 .title-row .status-list ul li .thumb-title {
 	margin-left: 8px;
 	color: #4a4a4a;
