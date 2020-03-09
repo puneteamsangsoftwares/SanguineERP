@@ -4756,8 +4756,8 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ "`strUserEdited` VARCHAR(10) NOT NULL, "
 				+ "`dteDateCreated` DATETIME NOT NULL, "
 				+ "`dteDateEdited` DATETIME NOT NULL, "
-				+ "`dteFromDate` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00', "
-				+ "`dteToDate` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00', "
+				+ "`dteFromDate` DATE NOT NULL DEFAULT '1900-01-01', "
+				+ "`dteToDate` DATE NOT NULL DEFAULT '1900-01-01', "
 				+ "`strClientCode` VARCHAR(10) NOT NULL, "
 				+ "PRIMARY KEY (`strSeasonCode`, `strClientCode`) "
 			+ ") "
@@ -4802,6 +4802,11 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ "	PRIMARY KEY (`lngRateContractID`, `strClientCode`) "
 				+ ") COLLATE='utf8_general_ci' "
 				+ "ENGINE=InnoDB ;";
+		
+		funExecutePMSQuery(sql);
+		
+		sql = "ALTER TABLE `tblpropertysetup` "
+				+ "ADD COLUMN `strRatePickUpFrom` VARCHAR(30) NOT NULL DEFAULT '' AFTER `strBillFormat`;";
 		
 		funExecutePMSQuery(sql);
 		

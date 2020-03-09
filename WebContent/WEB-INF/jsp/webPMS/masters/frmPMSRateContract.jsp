@@ -59,28 +59,124 @@
 			case 'BookingTypeCode' : 
 				funSetBookingTypeCode(code);
 				break;
+				
+			case 'PMSRateManagement' : 
+				funSetPMSRateManagementCode(code);
+				break;
 		}
 	}
 
 
-	function funSetBookingTypeCode(code){
+	function funSetPMSRateManagementCode(code){
 
 		$.ajax({
 			type : "GET",
-			url : getContextPath()+ "/loadBookingTypeCode.html?bookingType=" + code,
+			url : getContextPath()+ "/loadPMSRateCode.html?code=" + code,
 			dataType : "json",
 			success: function(response)
 	        {
 				
-	        	if(response.strBookingTypeCode=='Invalid Code')
+	        	if(response.strRateContractID=='Invalid Code')
 	        	{
 	        		alert("Invalid Agent Code");
 	        		$("#txtBookingTypeCode").val('');
 	        	}
 	        	else
 	        	{					        	    	        		
-	        		$("#txtBookingTypeCode").val(response.strBookingTypeCode);
-	        	    $("#txtBookingTypeDesc").val(response.strBookingTypeDesc);
+	        		$("#txtBookingTypeCode").val(response.strRateContractID);
+	        		$("#cmbRoomType").val(response.strRoomTypeCode);
+	        		
+	        		$("#cmbSeason").val(response.strSeasonCode);
+	        		
+	        		if(response.strIncludeTax.includes("Y"))
+	        		{
+	        			document.getElementById("txtIncludeTax").checked = true;	
+	        		} 
+	        		else
+	        		{
+	        			document.getElementById("txtIncludeTax").checked = false;	
+	        		}
+	        		
+	        		$("#txtNoOfNights").val(response.intNoOfNights);
+	        		$("#dteFromDate").val(response.dteFromDate);
+	        		$("#dteToDate").val(response.dteToDate);
+	        		
+	        		if(response.strSunday.includes("Y"))
+	        		{
+	        			document.getElementById("txtSunday").checked = true;	
+	        		} 
+	        		else
+	        		{
+	        			document.getElementById("txtSunday").checked = false;	
+	        		}
+	        		
+	        		if(response.strMonday.includes("Y"))
+	        		{
+	        			document.getElementById("txtMonday").checked = true;	
+	        		} 
+	        		else
+	        		{
+	        			document.getElementById("txtMonday").checked = false;	
+	        		}
+	        		
+	        		if(response.strTuesday.includes("Y"))
+	        		{
+	        			document.getElementById("txtTuesday").checked = true;	
+	        		} 
+	        		else
+	        		{
+	        			document.getElementById("txtTuesday").checked = false;	
+	        		}
+	        		
+	        		if(response.strWednesday.includes("Y"))
+	        		{
+	        			document.getElementById("txtWednesday").checked = true;	
+	        		} 
+	        		else
+	        		{
+	        			document.getElementById("txtWednesday").checked = false;	
+	        		}
+	        		if(response.strThursday.includes("Y"))
+	        		{
+	        			document.getElementById("txtThursday").checked = true;	
+	        		} 
+	        		else
+	        		{
+	        			document.getElementById("txtThursday").checked = false;	
+	        		}
+	        		
+	        		if(response.strFriday.includes("Y"))
+	        		{
+	        			document.getElementById("txtFriday").checked = true;	
+	        		} 
+	        		else
+	        		{
+	        			document.getElementById("txtFriday").checked = false;	
+	        		}
+	        		
+	        		if(response.strSaturday.includes("Y"))
+	        		{
+	        			document.getElementById("txtSaturday").checked = true;	
+	        		} 
+	        		else
+	        		{
+	        			document.getElementById("txtSaturday").checked = false;	
+	        		}
+	        		
+	        		
+	        		
+	        		$("#txtSingleTariffWeekDays").val(response.dblSingleTariWeekDays);
+	        		$("#txtDoubleTariffWeekDays").val(response.dblDoubleTariWeekDays);
+	        		$("#txtTrippleTariffWeekDays").val(response.dblTrippleTariWeekDays);
+	        		$("#txtExtraBedTariffWeekDays").val(response.dblExtraBedTariWeekDays);
+	        		$("#txtChildTariffWeekDays").val(response.dblChildTariWeekDays);
+	        		$("#txtYouthTariffWeekDays").val(response.dblYouthTariWeekDays);
+	        		$("#txtSingleTariffWeekend").val(response.dblSingleTariWeekend);
+	        		$("#txtDoubleTariffWeekend").val(response.dblDoubleTariWeekend);
+	        		$("#txtTrippleTariffWeekend").val(response.dblTrippleTariWeekend);
+	        		$("#txtExtraBedTariffWeekend").val(response.dblExtraBedTariWeekend);
+	        		$("#txtChildTariffWeekend").val(response.dblChildTariWeekend);
+	        		$("#txtYouthTariffWeekend").val(response.dblYouthTariWeekend);
 	        
 	        	}
 			},

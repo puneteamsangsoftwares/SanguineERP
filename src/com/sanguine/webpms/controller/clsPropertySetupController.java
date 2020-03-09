@@ -77,6 +77,7 @@ public class clsPropertySetupController {
 			model.put("emailContentForReservation", "");
 			model.put("enableWebCam", "");
 			model.put("BillFormat", "Format 1");
+			model.put("ratePickUpFrom", "Room Type Master");
 			
 		} else {
 			model.put("checkInTime", objModel.getTmeCheckInTime());
@@ -97,6 +98,7 @@ public class clsPropertySetupController {
 			model.put("enableHousekeeping", objModel.getStrEnableHousekeeping());
 			model.put("enableWebCam", objModel.getStrEnableWebCam());
 			model.put("BillFormat", objModel.getStrBillFormat());
+			model.put("ratePickUpFrom", objModel.getStrRatepickUpFrom());
 		}
 		
 		String sql = "select count(1) from tblroom a where a.strClientCode='" + clientCode + "' ";
@@ -477,6 +479,7 @@ public class clsPropertySetupController {
 		objPropertySetupModel.setStrEnableHousekeeping(objBean.getStrEnableHousekeeping());
 		objPropertySetupModel.setStrEnableWebCam(objBean.getStrEnableWebCam());
 		objPropertySetupModel.setStrBillFormat(objBean.getStrBillFormat());
+		objPropertySetupModel.setStrRatepickUpFrom(objBean.getStrRatepickUpFrom());
 		return objPropertySetupModel;
 	}
 }

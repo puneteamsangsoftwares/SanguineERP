@@ -51,6 +51,8 @@ public class clsPropertySetupBean {
 	private String strEnableWebCam;
 	
 	private String strBillFormat;
+	
+	private String strRatepickUpFrom;
 
 	public String getStrGSTNo() {
 		return strGSTNo;
@@ -251,6 +253,14 @@ public class clsPropertySetupBean {
 
 	public void setStrBillFormat(String strBillFormat) {
 		this.strBillFormat = strBillFormat;
+	}
+
+	public String getStrRatepickUpFrom() {
+		return strRatepickUpFrom;
+	}
+
+	public void setStrRatepickUpFrom(String strRatepickUpFrom) {
+		this.strRatepickUpFrom = strRatepickUpFrom;
 	}
 
 	

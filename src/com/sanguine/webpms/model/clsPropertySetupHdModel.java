@@ -98,6 +98,9 @@ public class clsPropertySetupHdModel implements Serializable {
 	@Column(name = "strCheckInEmailContent")
 	private String strCheckInEmailContent;
 	
+	@Column(name = "strRatepickUpFrom")
+	private String strRatepickUpFrom;
+	
 	// SMS setUp Tab End
 
 	// Setter-Getter Methods
@@ -302,6 +305,14 @@ public class clsPropertySetupHdModel implements Serializable {
 
 	public void setStrBillFormat(String strBillFormat) {
 		this.strBillFormat = strBillFormat;
+	}
+
+	public String getStrRatepickUpFrom() {
+		return strRatepickUpFrom;
+	}
+
+	public void setStrRatepickUpFrom(String strRatepickUpFrom) {
+		this.strRatepickUpFrom = strRatepickUpFrom;
 	}
 
 	

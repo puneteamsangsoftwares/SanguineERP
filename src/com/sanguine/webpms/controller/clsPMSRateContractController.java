@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +20,7 @@ import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webpms.bean.clsPMSRateContractBean;
 import com.sanguine.webpms.model.clsPMSRateContractModel;
+import com.sanguine.webpms.model.clsPMSSettlementMasterHdModel;
 import com.sanguine.webpms.model.clsRoomTypeMasterModel;
 import com.sanguine.webpms.service.clsPMSRateContractService;
 
@@ -61,7 +63,7 @@ public class clsPMSRateContractController{
 		return new ModelAndView("frmPMSRateContract","command", new clsPMSRateContractModel());
 	}
 //Load Master Data On Form
-	@RequestMapping(value = "/frmPMSRateContract1", method = RequestMethod.POST)
+	@RequestMapping(value = "/frmLRateContract1", method = RequestMethod.POST)
 	public @ResponseBody clsPMSRateContractModel funLoadMasterData(HttpServletRequest request){
 		objGlobal=new clsGlobalFunctions();
 		String sql="";
@@ -72,6 +74,20 @@ public class clsPMSRateContractController{
 		List listModel=objGlobalFunctionsService.funGetList(sql);
 		clsPMSRateContractModel objPMSRateContract = new clsPMSRateContractModel();
 		return objPMSRateContract;
+	}
+	
+	@RequestMapping(value = "/loadPMSRateCode", method = RequestMethod.GET)
+	public @ResponseBody clsPMSRateContractModel funFetchSettlementMasterData(@RequestParam("code") String code, HttpServletRequest req) {
+		clsPMSRateContractModel objPMSRateContractModel = null;
+		objGlobal=new clsGlobalFunctions();
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		
+		objPMSRateContractModel = objPMSRateContractService.funGetPMSRateContract(code, clientCode);
+		objPMSRateContractModel.setDteFromDate(objGlobal.funGetDate("dd-MM-yyyy", objPMSRateContractModel.getDteFromDate()));
+		objPMSRateContractModel.setDteToDate(objGlobal.funGetDate("dd-MM-yyyy", objPMSRateContractModel.getDteToDate()));
+
+		
+		return objPMSRateContractModel;
 	}
 
 //Save or Update PMSRateContract
@@ -122,18 +138,18 @@ public class clsPMSRateContractController{
 			objModel.setDteToDate(objGlobal.funGetDate("yyyy-MM-dd", objBean.getDteToDate()));
 			objModel.setIntNoOfNights(objBean.getIntNoOfNights());
 			objModel.setStrClientCode(clientCode);
-			objModel.setStrFriday(objBean.getStrFriday());
-			objModel.setStrIncludeTax(objBean.getStrIncludeTax());
-			objModel.setStrMonday(objBean.getStrMonday());
+			objModel.setStrFriday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrFriday()));
+			objModel.setStrIncludeTax(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrIncludeTax()));
+			objModel.setStrMonday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrMonday()));
 			objModel.setStrRoomTypeCode(objBean.getStrRoomTypeCode());
-			objModel.setStrSaturday(objBean.getStrSaturday());
+			objModel.setStrSaturday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrSaturday()));
 			objModel.setStrSeasonCode(objBean.getStrSeasonCode());
-			objModel.setStrSunday(objBean.getStrSunday());
-			objModel.setStrThursday(objBean.getStrThursday());
-			objModel.setStrTuesday(objBean.getStrTuesday());
+			objModel.setStrSunday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrSunday()));
+			objModel.setStrThursday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrThursday()));
+			objModel.setStrTuesday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrTuesday()));
 			objModel.setStrUserCreated(userCode);
 			objModel.setStrUserEdited(userCode);
-			objModel.setStrWednesday(objBean.getStrWednesday());
+			objModel.setStrWednesday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrWednesday()));
 			
 		}
 		else
@@ -151,24 +167,24 @@ public class clsPMSRateContractController{
 			objModel.setDblTrippleTariWeekend(objBean.getDblTrippleTariWeekend());
 			objModel.setDblYouthTariWeekDays(objBean.getDblYouthTariWeekDays());
 			objModel.setDblYouthTariWeekend(objBean.getDblYouthTariWeekend());
-			objModel.setDteDateCreated(objBean.getDteDateCreated());
+			objModel.setDteDateCreated(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 			objModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 			objModel.setDteFromDate(objGlobal.funGetDate("yyyy-MM-dd", objBean.getDteFromDate()));
 			objModel.setDteToDate(objGlobal.funGetDate("yyyy-MM-dd", objBean.getDteToDate()));
 			objModel.setIntNoOfNights(objBean.getIntNoOfNights());
 			objModel.setStrClientCode(clientCode);
-			objModel.setStrFriday(objBean.getStrFriday());
-			objModel.setStrIncludeTax(objBean.getStrIncludeTax());
-			objModel.setStrMonday(objBean.getStrMonday());
+			objModel.setStrFriday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrFriday()));
+			objModel.setStrIncludeTax(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrIncludeTax()));
+			objModel.setStrMonday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrMonday()));
 			objModel.setStrRoomTypeCode(objBean.getStrRoomTypeCode());
-			objModel.setStrSaturday(objBean.getStrSaturday());
+			objModel.setStrSaturday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrSaturday()));
 			objModel.setStrSeasonCode(objBean.getStrSeasonCode());
-			objModel.setStrSunday(objBean.getStrSunday());
-			objModel.setStrThursday(objBean.getStrThursday());
-			objModel.setStrTuesday(objBean.getStrTuesday());
+			objModel.setStrSunday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrSunday()));
+			objModel.setStrThursday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrThursday()));
+			objModel.setStrTuesday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrTuesday()));
 			objModel.setStrUserCreated(objBean.getStrUserCreated());
 			objModel.setStrUserEdited(userCode);
-			objModel.setStrWednesday(objBean.getStrWednesday());
+			objModel.setStrWednesday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrWednesday()));
 		}
 		
 		return objModel;

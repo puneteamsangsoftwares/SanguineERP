@@ -54,6 +54,8 @@ ul.tabs1 li.active {
 	var enableHousekeeping;
 	var enableWebCam;
 	var billFormat; 
+	var ratePickUp;
+	
 	$(document).ready(function() {
 
 		funTaxLinkUpData('Tax');
@@ -233,7 +235,9 @@ ul.tabs1 li.active {
 			
 			billFormat=value="${BillFormat}"
 				$("#cmbBillFormat").val(billFormat);
-		
+			
+			ratePickUp=value="${ratePickUpFrom}"
+				$("#cmbBRatepickupfrom").val(ratePickUp);	
 	});
 	/**
 		* Success Message After Saving Record
@@ -1138,6 +1142,16 @@ ul.tabs1 li.active {
 								<option value="Format 2">Format 2</option>
 							</s:select>
 						</div>
+						
+						<div class="col-md-2">
+							<label >Rate pickup From </label>
+							
+							<s:select  id="cmbBRatepickupfrom" path="strRatepickUpFrom"  style="width:100%;">
+								<option value="Room Type Master">Room Type Master</option>
+								<option value="Rate management">Rate management</option>
+							</s:select>
+						</div>
+						
  				
  			
 					</div>
