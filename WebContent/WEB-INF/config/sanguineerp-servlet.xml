@@ -570,7 +570,8 @@
 					<value>com.sanguine.webpms.model.clsPMSStaffMasterModel</value>
 					<value>com.sanguine.webpms.model.clsfrmGroupBlockMasterModel</value>
 					<value>com.sanguine.webpms.model.clsPMSGroupBookingHDModel</value>
-				
+					<value>com.sanguine.webpms.model.clsSeasonMasterModel</value>
+					<value>com.sanguine.webpms.model.clsPMSRateContractModel</value>
 				
 					<!-- Web Banquet Start -->
 					<value>com.sanguine.webbanquets.model.clsEquipmentModel</value>

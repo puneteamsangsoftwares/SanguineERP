@@ -3268,8 +3268,27 @@ public class clsSearchFormController {
 			break;
 		}
 		
+		case "Season": {
+			columnNames = "strSeasonCode,strSeasonDesc,strUserEdited,dteDateEdited";
+			tableName = "clsSeasonMasterModel where strClientCode='" + clientCode + "' ";
+			listColumnNames = "Code,Season Desc,Last Edited By,Updated Date";
+			idColumnName = "strSeasonCode";
+			// criteria = getCriteriaQuery(columnNames,search_with,tableName);
+			searchFormTitle = "Season Master";
+			break;
 		
-		
+		}
+		case "PMSRateManagement": {
+			columnNames = "a.strRateContractID,b.strRoomTypeDesc,c.strSeasonDesc,DATE_FORMAT(a.dteFromDate,'%d-%m-%Y'),DATE_FORMAT(a.dteToDate,'%d-%m-%Y') ";
+			tableName = "from tblpmsratecontractdtl a,tblroomtypemaster b,tblseasonmaster c "
+					+ "where a.strRoomTypeCode=b.strRoomTypeCode and a.strSeasonCode=c.strSeasonCode and a.strClientCode='"+clientCode+"'";
+			listColumnNames = "Code,Season Desc,Last Edited By,Updated Date";
+			idColumnName = "strSeasonCode";
+			// criteria = getCriteriaQuery(columnNames,search_with,tableName);
+			flgQuerySelection = true;
+			searchFormTitle = "Season Master";
+			break;
+		}
 		
 		}
 		mainMap.put("columnNames", columnNames);

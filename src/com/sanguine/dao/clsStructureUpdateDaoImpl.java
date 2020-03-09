@@ -4748,6 +4748,57 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ "ADD COLUMN `strTelephone` VARCHAR(30) NOT NULL DEFAULT 'Y' AFTER `strFandB`,"
 				+ "ADD COLUMN `strExtra` VARCHAR(30) NOT NULL DEFAULT 'Y' AFTER `strTelephone`;";
 		funExecutePMSQuery(sql);
+		
+		sql = "CREATE TABLE IF NOT EXISTS `tblseasonmaster` ( "
+				+ "`strSeasonCode` varchar(10) NOT NULL,"
+				+ "`strSeasonDesc` varchar(100) NOT NULL,"
+				+ "`strUserCreated` varchar(10) NOT NULL,"
+				+ "`strUserEdited` varchar(10) NOT NULL,"
+				+ "`dteDateCreated` datetime NOT NULL,"
+				+ "`dteDateEdited` datetime NOT NULL,"
+				+ "`strClientCode` varchar(10) NOT NULL,"
+				+ "PRIMARY KEY (`strSeasonCode`,`strClientCode`) "
+				+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";		
+		funExecutePMSQuery(sql);
+		
+		sql = "CREATE TABLE `tblpmsratecontractdtl` ( "
+				+ "`strRateContractID` VARCHAR(20) NOT NULL DEFAULT '',"
+				+ "	`strRoomTypeCode` VARCHAR(20) NOT NULL DEFAULT '',"
+				+ "	`strSeasonCode` VARCHAR(20) NOT NULL DEFAULT '',"
+				+ "	`strIncludeTax` VARCHAR(1) NOT NULL DEFAULT 'Y', "
+				+ "`intNoOfNights` INT(10) NOT NULL, "
+				+ "`dteFromDate` DATE NOT NULL DEFAULT '1900-01-01', "
+				+ "`dteToDate` DATE NOT NULL DEFAULT '1900-01-01',"
+				+ "	`strSunday` VARCHAR(1) NOT NULL DEFAULT 'Y',"
+				+ "	`strMonday` VARCHAR(1) NOT NULL DEFAULT 'Y',"
+				+ "	`strTuesday` VARCHAR(1) NOT NULL DEFAULT 'Y',"
+				+ "	`strWednesday` VARCHAR(1) NOT NULL DEFAULT 'Y',"
+				+ "	`strThursday` VARCHAR(1) NOT NULL DEFAULT 'Y',"
+				+ "	`strFriday` VARCHAR(1) NOT NULL DEFAULT 'Y',"
+				+ "	`strSaturday` VARCHAR(1) NOT NULL DEFAULT 'Y',"
+				+ "	`dblSingleTariWeekDays` DECIMAL(18,4) NOT NULL DEFAULT '0.0000',"
+				+ "	`dblDoubleTariWeekDays` DECIMAL(18,4) NOT NULL DEFAULT '0.0000',"
+				+ "	`dblTrippleTariWeekDays` DECIMAL(18,4) NOT NULL DEFAULT '0.0000',"
+				+ "	`dblExtraBedTariWeekDays` DECIMAL(18,4) NOT NULL DEFAULT '0.0000',"
+				+ "	`dblChildTariWeekDays` DECIMAL(18,4) NOT NULL DEFAULT '0.0000',"
+				+ "	`dblYouthTariWeekDays` DECIMAL(18,4) NOT NULL DEFAULT '0.0000',"
+				+ "	`dblSingleTariWeekend` DECIMAL(18,4) NOT NULL DEFAULT '0.0000',"
+				+ "	`dblDoubleTariWeekend` DECIMAL(18,4) NOT NULL DEFAULT '0.0000',"
+				+ "	`dblTrippleTariWeekend` DECIMAL(18,4) NOT NULL DEFAULT '0.0000',"
+				+ "	`dblExtraBedTariWeekend` DECIMAL(18,4) NOT NULL DEFAULT '0.0000',"
+				+ "	`dblChildTariWeekend` DECIMAL(18,4) NOT NULL DEFAULT '0.0000',"
+				+ "	`dblYouthTariWeekend` DECIMAL(18,4) NOT NULL DEFAULT '0.0000',"
+				+ "	`strUserCreated` VARCHAR(50) NOT NULL DEFAULT '',"
+				+ "	`strUserEdited` VARCHAR(50) NOT NULL DEFAULT '',"
+				+ "	`dteDateCreated` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00',"
+				+ "	`dteDateEdited` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00', "
+				+ "`strClientCode` VARCHAR(10) NOT NULL DEFAULT '',"
+				+ "	PRIMARY KEY (`lngRateContractID`, `strClientCode`) "
+				+ ") COLLATE='utf8_general_ci' "
+				+ "ENGINE=InnoDB ;";
+		
+		funExecutePMSQuery(sql);
+		
 				// For PMS Form Of Tree master Start///
 		sql = " INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`) VALUES "
 
@@ -4836,7 +4887,9 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ " ('frmCheckInCheckOutList', 'CheckIn CheckOut List', 'Reports', '3', 'R', '4', '4', '6', 'imgCheckInCheckOutList.png', '3', '1', '1', '1', 'NO', 'NO', 'frmCheckInCheckOutList.html',NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 */				+ "	('frmGroupBlockMaster', 'Group Block Master', 'Master', '1', 'M', '12', '12', '1', 'imgAgentMaster.png', '3', '1', '1', '1', 'NO', 'NO', 'frmGroupBlockMaster.html',NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ "	('frmPMSGroupBooking', 'Group Booking', 'Master', 1, 'M', 1, 1, '1', 'imgCheckOutDiscount.png', '3', 3, '3', '3', 'NO', 'NO', 'frmPMSGroupBooking.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
-				+ " ('frmUpdateHouseKeepingStatus', 'Update House Keeping Status', 'Transaction', 2, 'T', 2, 2, '1', 'imgChangeRoom.png', '3', 1, '1', '1', 'NO', 'NO', 'frmUpdateHouseKeepingStatus.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
+				+ " ('frmUpdateHouseKeepingStatus', 'Update House Keeping Status', 'Transaction', 2, 'T', 2, 2, '1', 'imgChangeRoom.png', '3', 1, '1', '1', 'NO', 'NO', 'frmUpdateHouseKeepingStatus.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+				+ "('frmSeasonMaster', 'Season Master', 'Master', 1, 'M', 22, 22, '2', 'imgSeasonMaster.png', '3', 3, '3', '3', 'NO', 'YES', 'frmSeasonMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+				+ "('frmPMSRateContract', 'Rate Management', 'Master', '1', 'M', '22', '22', '2', 'imgSeasonMaster.png', '3', '3', '3', '3', 'NO', 'YES', 'frmPMSRateContract.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
 				
 		
 		

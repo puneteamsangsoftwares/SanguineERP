@@ -5284,6 +5284,27 @@
 		</definition>
 		
 		
+		
+		<definition name="frmSeasonMaster" extends="base.definition">
+			<put-attribute name="title" value="Season"></put-attribute>
+			<put-attribute name="body"
+				value="/WEB-INF/jsp/webPMS/masters/frmSeasonMaster.jsp"></put-attribute>
+		</definition>
+		<definition name="frmSeasonMaster_1" extends="base.definition4">
+			<put-attribute name="title" value="Season"></put-attribute>
+			<put-attribute name="body"
+				value="/WEB-INF/jsp/webPMS/masters/frmSeasonMaster.jsp"></put-attribute>
+		</definition>
+		
+		<definition name="frmPMSRateContract" extends="base.definition">
+			<put-attribute name="title" value="Rate Contract"></put-attribute>
+			<put-attribute name="body" 	value="/WEB-INF/jsp/webPMS/masters/frmPMSRateContract.jsp"></put-attribute>
+		</definition>
+		
+		<definition name="frmPMSRateContract_1" extends="base.definition4">
+			<put-attribute name="title" value="Rate Contract"></put-attribute>
+			<put-attribute name="body"	value="/WEB-INF/jsp/webPMS/masters/frmPMSRateContract.jsp"></put-attribute>
+		</definition>
   	
 <!-- 	End Of WebPMS Tiles Entry -->
 

@@ -464,7 +464,7 @@ function funHelpWindow(formName)
 			break;	
 
 	 	case "frmWebStockHelpPurchaseReturnSlip":
-			window.open("frmWebStockHelpPurchaseReturnSlip.html", "myhelp", "scrollbars=1,width=500,height=350");
+	 		window.open("frmWebStockHelpPurchaseReturnSlip.html", "myhelp", "scrollbars=1,width=500,height=350");
 			break;
 		case "frmWebStockHelpRateContract":
 			window.open("frmWebStockHelpRateContract.html", "myhelp", "scrollbars=1,width=500,height=350");
@@ -595,9 +595,10 @@ function funGetFormName(){
           					 	<li><a href="frmHome.html" class="mdi mdi-home-outline menu-link"  title="HOME"></a></li>
           						<li><a href="#" class="mdi  mdi-paperclip menu-link" id="baseUrl" title="Attched document"></a></li>
 					            <li><a href="#" class="mdi mdi-information-outline menu-link" id="notification" title="Notification"></a></li>
-					            <div style=" background-color: #f13c0d;text-align: center;height:25px;;width: 15px;margin-top: 12px;">
+					          	<label id="lblNotifyCount" style="color:red;padding-top:2px"></label>
+					            <!-- <div style=" background-color: #f13c0d;text-align: center;height:25px;;width: 15px;margin-top: 12px;">
 								<label id="lblNotifyCount" style="color:#fff;padding-top:2px"></label>
-								</div>
+								</div> -->
 					            <li><a href="#" class="mdi mdi-crosshairs-question menu-link"onclick="funGetFormName()" title="HELP"></a></li>
 					            <li><a href="frmPropertySelection.html" class="mdi mdi-tumblr-reblog menu-link" title="Change Property"></a></li>
 					            <li><a href="frmChangeModuleSelection.html" class="mdi mdi-rotate-left-variant menu-link" title="Change Module"></a></li>
