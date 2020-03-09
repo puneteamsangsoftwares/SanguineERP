@@ -215,10 +215,10 @@ public class clsRoomStatusDiaryController {
 			objGroupReservation=new ArrayList<>();
 			//Group Reservation Query
 			String sqlGroupReservation="SELECT a.strReservationNo,d.strRoomTypeCode,'Virtual Room', (a.intNoOfAdults+a.intNoOfChild), "
-					+ "'GROUP RESERVATION', DATE_FORMAT(DATE(a.dteArrivalDate),'%d-%m-%Y'), DATE_FORMAT(DATE(a.dteDepartureDate),'%d-%m-%Y'),  "
+					+ " 'GROUP RESERVATION', DATE_FORMAT(DATE(a.dteArrivalDate),'%d-%m-%Y'), DATE_FORMAT(DATE(a.dteDepartureDate),'%d-%m-%Y'),  "
 					+ "DATEDIFF(DATE(a.dteDepartureDate), DATE(a.dteArrivalDate)),LEFT(TIMEDIFF(a.tmeDepartureTime,(SELECT a.tmeCheckOutTime FROM tblpropertysetup a)),6), "
-					+ "LEFT(TIMEDIFF(a.tmeArrivalTime,(SELECT a.tmeCheckInTime FROM tblpropertysetup a)),6),a.tmeArrivalTime,a.tmeDepartureTime, DATEDIFF(DATE(a.dteArrivalDate),'"+viewDate+"'),DATEDIFF(DATE(a.dteDepartureDate),'"+viewDate+"'),a.strNoRoomsBooked "
-					+ "FROM tblreservationhd a,tblreservationdtl b,tblroom d,tblbookingtype e "
+					+ "LEFT(TIMEDIFF(a.tmeArrivalTime,(SELECT a.tmeCheckInTime FROM tblpropertysetup a)),6),a.tmeArrivalTime,a.tmeDepartureTime, DATEDIFF(DATE(a.dteArrivalDate),'"+viewDate+"'),DATEDIFF(DATE(a.dteDepartureDate),'"+viewDate+"'),a.strNoRoomsBooked,f.strGroupName "
+					+ "FROM tblreservationhd a,tblreservationdtl b,tblroom d,tblbookingtype e ,tblgroupbookinghd f "
 					+ "WHERE a.strReservationNo=b.strReservationNo  "
 					+ "AND a.strBookingTypeCode=e.strBookingTypeCode AND DATE(a.dteDepartureDate) BETWEEN '"+viewDate+"' AND DATE_ADD('"+viewDate+"', INTERVAL 7 DAY)   "
 					+ "AND a.strReservationNo NOT IN (SELECT strReservationNo FROM tblcheckinhd) AND a.strCancelReservation='N' AND a.strGroupCode!='' AND b.strRoomType='"+arrObjRooms[4].toString()+"' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' AND d.strClientCode='"+clientCode+"' AND e.strClientCode='"+clientCode+"' group by a.strReservationNo ";
@@ -261,13 +261,14 @@ public class clsRoomStatusDiaryController {
 						{*/
 							objRoomStatusDtl.setStrReservationNo(arrObjRoomDtl[0].toString());
 						//}
-						objRoomStatusDtl.setStrGuestName(arrObjRoomDtl[4].toString());
+						objRoomStatusDtl.setStrGuestName(arrObjRoomDtl[15].toString());
 						objRoomStatusDtl.setDteArrivalDate(arrObjRoomDtl[5].toString()+" "+ arrObjRoomDtl[10].toString());
 						objRoomStatusDtl.setDteDepartureDate(arrObjRoomDtl[6].toString()+" "+ arrObjRoomDtl[11].toString());
 						objRoomStatusDtl.setStrNoOfDays(arrObjRoomDtl[7].toString());
 						objRoomStatusDtl.setTmeArrivalTime(arrObjRoomDtl[10].toString());
 						objRoomStatusDtl.setTmeDepartureTime(arrObjRoomDtl[11].toString());
 						objRoomStatusDtl.setDblRoomCnt(Double.parseDouble(arrObjRoomDtl[14].toString()));
+						objRoomStatusDtl.setStrSource(arrObjRoomDtl[4].toString());
 						if(arrObjRoomDtl[4].toString().equalsIgnoreCase("RESERVATION"))
 						{
 							String sqlPaymentCheck = "select a.strReceiptNo from tblreceipthd a where "
@@ -705,17 +706,20 @@ public class clsRoomStatusDiaryController {
 						{
 							objTemp.add(objRoomStatusDtl);
 						}
-						if(hmap.containsKey(objRoomStatusDtl.getStrRoomType()))
+						if(!strSelection.equalsIgnoreCase("GROUP RESERVATION"))
 						{
-							List list=new ArrayList<>();
-							list=hmap.get(objRoomStatusDtl.getStrRoomType());
-							list.add(objRoomStatusDtl);
-							hmap.put(objRoomStatusDtl.getStrRoomType(),list);
-						}
-						else
-						{
-							//objGroupReservation.add(objRoomStatusDtl);
-							hmap.put(objRoomStatusDtl.getStrRoomType(),objTemp);
+							if(hmap.containsKey(objRoomStatusDtl.getStrRoomType()))
+							{
+								List list=new ArrayList<>();
+								list=hmap.get(objRoomStatusDtl.getStrRoomType());
+								list.add(objRoomStatusDtl);
+								hmap.put(objRoomStatusDtl.getStrRoomType(),list);
+							}
+							else
+							{
+								//objGroupReservation.add(objRoomStatusDtl);
+								hmap.put(objRoomStatusDtl.getStrRoomType(),objTemp);
+							}
 						}
 					}
 				}
@@ -740,17 +744,20 @@ public class clsRoomStatusDiaryController {
 						{
 							objTemp.add(objRoomStatusDtl);
 						}
-						if(hmap.containsKey(objRoomStatusDtl.getStrRoomType()))
+						if(!strSelection.equalsIgnoreCase("GROUP RESERVATION"))
 						{
-							List list=new ArrayList<>();
-							list=hmap.get(objRoomStatusDtl.getStrRoomType());
-							list.add(objRoomStatusDtl);
-							hmap.put(objRoomStatusDtl.getStrRoomType(),list);
-						}
-						else
-						{
-							//objGroupReservation.add(objRoomStatusDtl);
-							hmap.put(objRoomStatusDtl.getStrRoomType(),objTemp);
+							if(hmap.containsKey(objRoomStatusDtl.getStrRoomType()))
+							{
+								List list=new ArrayList<>();
+								list=hmap.get(objRoomStatusDtl.getStrRoomType());
+								list.add(objRoomStatusDtl);
+								hmap.put(objRoomStatusDtl.getStrRoomType(),list);
+							}
+							else
+							{
+								//objGroupReservation.add(objRoomStatusDtl);
+								hmap.put(objRoomStatusDtl.getStrRoomType(),objTemp);
+							}
 						}
 						//objRoomTypeWise.put(arrObjRooms[2].toString(),objTemp);
 					//}	

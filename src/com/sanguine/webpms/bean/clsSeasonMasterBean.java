@@ -15,6 +15,10 @@ public class clsSeasonMasterBean{
 	private String dteDateEdited;
 
 	private String strClientCode;
+	
+	private String dteFromDate;
+	
+	private String dteToDate;
 
 //Setter-Getter Methods
 	public String getStrSeasonCode(){
@@ -62,10 +66,25 @@ public class clsSeasonMasterBean{
 	public String getStrClientCode(){
 		return strClientCode;
 	}
+	
 	public void setStrClientCode(String strClientCode){
 		this.strClientCode=strClientCode;
 	}
 
-
+	public String getDteFromDate(){
+		return dteFromDate;
+	}	
+	
+	public void setDteFromDate(String dteFromDate) {
+		this.dteFromDate = dteFromDate;
+	}	
+	
+	public String getDteToDate() {
+		return dteToDate;
+	}
+	
+	public void setDteToDate(String dteToDate) {
+		this.dteToDate = dteToDate;
+	}
 
 }

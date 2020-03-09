@@ -1802,6 +1802,26 @@ table tbody tr:nth-child(even) {
 			  	alert("Select View First");
 			  }
 		  }
+		  function funGroupReservation() 
+		  {		
+			  gSelection='GROUP RESERVATION';			  
+			  if(gViewSelection=='Seven Day View')
+			  {
+				  funShowRoomStatusFlashSelectionWise();
+			  }
+			  else if(gViewSelection=='One Day View')
+			  {
+				  funShowRoomStatusFlashForOneDaySelectionWise();
+			  }
+			  else if(gViewSelection=='House Keeping View')
+			  {
+				  funShowRoomStatusFlashHouseKeepingSelectionWise();
+			  }
+			  else
+			  {
+			  	alert("Select View First");
+			  }
+		  }
 		 
 		  
 		  function funGetRoomTypeAndStatusSelectionWise()
@@ -1939,7 +1959,7 @@ table tbody tr:nth-child(even) {
 					{
 						color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
 					} 
-					else if(roomStatus=='GROUP RESERVATION')
+					else if(response.strSource=='GROUP RESERVATION')
 					{						
 						color='rgb(41, 209, 186)';
 					} 
@@ -2265,22 +2285,21 @@ table tbody tr:nth-child(even) {
 		           <div class="date">
 		             <span class="date-switch">
 		             	 <s:input id="txtViewDate"  path="dteViewDate"  type="text" cssClass="calenderTextBox"/>
-		              </span>
-		              <%-- <tr>
-					<td><s:input colspan="1" type="text" id="txtViewDate"  path="dteViewDate" cssClass="calenderTextBox" /></td>
-				</tr> --%>
-		               <div class="icon-action">
-		                 	<span class="mdi mdi-file-word-box" id="btnView" title="Seven Day View" onclick="funShowRoomStatusFlash();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
+		              </span>		              
+		              <div class="icon-action">
+		                 	<span class="mdi mdi-eye" id="btnView" title="Seven Day View" onclick="funShowRoomStatusFlash();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
 		              </div>
 		              
 		               <div class="icon-action">
-		                 	<span class="mdi mdi-disqus-outline" id="btnView" title="One Day View" onclick="funShowRoomStatusFlashForOneDay();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
+		                 	<span class="mdi mdi-eye" id="btnView" title="One Day View" onclick="funShowRoomStatusFlashForOneDay();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
 		              </div> 
 		              
 		               
 		               <div class="icon-action">
-		                 	<span class="mdi mdi-broom" id="btnView" title="House Keeping View" onclick="funShowRoomStatusFlashHouseKeeping();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
-		              </div> 
+		                 	<span class="mdi mdi-eye" id="btnView" title="House Keeping View" onclick="funShowRoomStatusFlashHouseKeeping();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
+		              </div>
+		               
+		               
 		            </div>
 		            <div class="date-actions">
 		              <div class="add-room">

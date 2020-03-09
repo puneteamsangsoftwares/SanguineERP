@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webpms.bean.clsSeasonMasterBean;
 import com.sanguine.webpms.dao.clsSeasonMasterDao;
@@ -94,10 +95,12 @@ public class clsSeasonMasterController{
 	@RequestMapping(value = "/loadSeasonMasterData", method = RequestMethod.GET)
 	public @ResponseBody clsSeasonMasterModel funFetchBathTypeMasterData(@RequestParam("SeasonCode") String SeasonCode, HttpServletRequest req) {
 		clsSeasonMasterModel objSeasonMasterModel = null;
-
+		clsGlobalFunctions objGlobal = new clsGlobalFunctions();
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		List listBathTypeData = objSeasonMasterDao.funGetSeasonMaster(SeasonCode, clientCode);
 		objSeasonMasterModel = (clsSeasonMasterModel) listBathTypeData.get(0);
+		objSeasonMasterModel.setDteFromDate(objGlobal.funGetDate("dd-MM-yyyy",objSeasonMasterModel.getDteFromDate()));
+		objSeasonMasterModel.setDteToDate(objGlobal.funGetDate("dd-MM-yyyy",objSeasonMasterModel.getDteToDate()));
 		return objSeasonMasterModel;
 	}
 

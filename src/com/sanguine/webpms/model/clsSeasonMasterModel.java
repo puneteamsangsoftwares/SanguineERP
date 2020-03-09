@@ -50,6 +50,12 @@ public class clsSeasonMasterModel implements Serializable{
 
 	@Column(name="strClientCode")
 	private String strClientCode;
+	
+	@Column(name="dteFromDate")
+	private String dteFromDate;
+		
+	@Column(name="dteToDate")
+	private String dteToDate;
 
 //Setter-Getter Methods
 	public String getStrSeasonCode(){
@@ -97,11 +103,27 @@ public class clsSeasonMasterModel implements Serializable{
 	public String getStrClientCode(){
 		return strClientCode;
 	}
+	
 	public void setStrClientCode(String strClientCode){
 		this. strClientCode = (String) setDefaultValue( strClientCode, "NA");
+	}	
+
+	public String getDteFromDate() {
+		return dteFromDate;
 	}
 
+	public void setDteFromDate(String dteFromDate) {
+		this.dteFromDate = dteFromDate;
+	}
 
+	public String getDteToDate() {
+		return dteToDate;
+	}
+
+	public void setDteToDate(String dteToDate) {
+		this.dteToDate = dteToDate;
+	}
+	
 //Function to Set Default Values
 	private Object setDefaultValue(Object value, Object defaultValue){
 		if(value !=null && (value instanceof String && value.toString().length()>0)){

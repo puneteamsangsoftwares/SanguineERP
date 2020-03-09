@@ -47,6 +47,8 @@ public class clsSeasonMasterServiceImpl implements clsSeasonMasterService{
 		objSeasonMasterModel.setStrClientCode(clientCode);
 		objSeasonMasterModel.setStrUserCreated(userCode);
 		objSeasonMasterModel.setDteDateCreated(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+		objSeasonMasterModel.setDteFromDate(objGlobal.funGetDate("yyyy-MM-dd", objSeasonMasterBean.getDteFromDate()));
+		objSeasonMasterModel.setDteToDate(objGlobal.funGetDate("yyyy-MM-dd", objSeasonMasterBean.getDteToDate()));
 		return objSeasonMasterModel;
 	}
 

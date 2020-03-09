@@ -275,6 +275,7 @@ public class clsReservationController {
 		objBean.setTmeDropTime(objReservationModel.getTmeDropTime());
 		objBean.setStrDontApplyTax(objReservationModel.getStrDontApplyTax());
 		objBean.setStrBillToCorporate(objReservationModel.getStrBillToCorporate());
+		objBean.setStrExternalNo(objReservationModel.getStrExternalNo());
 		clsRoomMasterModel objRoomMasterModel = objRoomMasterService.funGetRoomMaster(objReservationModel.getStrRoomNo(), clientCode);
 		objBean.setStrRoomNo(objReservationModel.getStrRoomNo());
 		if (objRoomMasterModel != null) {
@@ -757,7 +758,8 @@ public class clsReservationController {
 		objModel.setStrDontApplyTax(objGlobal.funIfNull(objBean.getStrDontApplyTax(), "N", "Y"));
 		objModel.setStrBillToCorporate(objGlobal.funIfNull(objBean.getStrBillToCorporate(), "N", "Y"));
 		objModel.setStrGroupCode(objBean.getStrGroupCode());
-
+		objModel.setStrExternalNo(objBean.getStrExternalNo());
+		
 		List<clsReservationDtlModel> listResDtlModel = new ArrayList<clsReservationDtlModel>();
 
 		for (clsReservationDetailsBean objResDtl : objBean.getListReservationDetailsBean()) {

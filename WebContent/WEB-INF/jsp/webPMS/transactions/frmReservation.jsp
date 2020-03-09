@@ -945,31 +945,26 @@
 	    $("#txtExtraBed").val(response.strExtraBedCode);
 	    $("#lblExtraBed").text(response.strExtraBedDesc);	    
 	    $("#txtNoOfAdults").val(response.intNoOfAdults);
-	    $("#txtNoOfChild").val(response.intNoOfChild);
-				
+	    $("#txtNoOfChild").val(response.intNoOfChild);				
 		$("#txtArrivalDate").val(response.dteArrivalDate);
 		$("#txtDepartureDate").val(response.dteDepartureDate);
-
 		$("#txtArrivalTime").val(response.tmeArrivalTime);
 		$("#txtDepartureTime").val(response.tmeDepartureTime);
 		$("#txtNoOfNights").val(response.intNoOfNights);
 		$("#txtNoOfBookingRoom").val(response.intNoRoomsBooked);
 		$("#txtContactPerson").val(response.strContactPerson);
 		$("#txtEmailId").val(response.strEmailId);
-		$("#txtMobileNo").val(response.lngMobileNo);
-		
+		$("#txtMobileNo").val(response.lngMobileNo);		
 		$("#txtRemarks").val(response.strRemarks);
 		$("#txtCancelDate").val(response.dteCancelDate);
 		$("#txtConfirmDate").val(response.dteConfirmDate);
-		$("#txtOTANo").text(response.strOTANo);
-		
+		$("#txtOTANo").text(response.strOTANo);		
 		$("#txtPickUpTime").val(response.tmePickUpTime);
-		$("#txtDropTime").text(response.tmeDropTime);
-		
+		$("#txtDropTime").text(response.tmeDropTime);		
 		$("#txtPackageCode").val(response.strPackageCode);
-		$("#txtPackageName").val(response.strPackageName);
-		      
+		$("#txtPackageName").val(response.strPackageName);		      
 		$("#hidIncomeHead").val("");
+		$("#txtExternalno").val(response.strExternalNo);
 		
 		 if(response.strDontApplyTax=='Y')
 	    	{
@@ -2311,6 +2306,15 @@
 			}
 			}
 	}
+	
+	
+	function isNumber(evt) {
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+            return false;
+
+        return true;
+    } 
 </script>
 
 </head>
@@ -2431,7 +2435,8 @@
 				
 			<div class="col-md-1"><label>Total Cost</label>
 			    <s:input id="txtSubTotal" path=""   class="decimal-places-amt numberField" value="0" placeholder="amt" onkeypress="javascript:return isNumber(event)" />
-			</div>
+			</div>	
+			
 			
 			 <div class="col-md-2"><label>Dont apply tax</label><br />
 			     <s:checkbox id="txtDontApplyTax" path="strDontApplyTax" value="Y" />
@@ -2440,6 +2445,10 @@
 			<div class="col-md-2"><label>Bill To Corporate</label><br />
 			     <s:checkbox id="txtBillToCorporate" path="strBillToCorporate" value="Y" />
 			</div>
+			
+			<div class="col-md-2"><label>External Number</label>
+				 	<s:input type="text" id="txtExternalno" path="strExternalNo" onkeypress="javascript:return isNumber(event)" />
+				 	</div>
 			
 			
 		  </div>

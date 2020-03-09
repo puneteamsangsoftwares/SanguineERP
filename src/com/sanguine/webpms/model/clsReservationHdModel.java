@@ -171,6 +171,9 @@ public class clsReservationHdModel implements Serializable {
 	
 	@Column(name = "strGroupCode")
 	private String strGroupCode;
+	
+	@Column(name = "strExternalNo")
+	private String strExternalNo;
 
 	public List<clsReservationDtlModel> getListReservationDtlModel() {
 		return listReservationDtlModel;
@@ -517,8 +520,12 @@ public class clsReservationHdModel implements Serializable {
 		this.strGroupCode = strGroupCode;
 	}
 
-	
-	
-	
+	public String getStrExternalNo() {
+		return strExternalNo;
+	}
 
+	public void setStrExternalNo(String strExternalNo) {
+		this.strExternalNo = strExternalNo;
+	}
+	
 }

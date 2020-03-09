@@ -115,6 +115,9 @@ public class clsReservationBean {
 	
 	private String strGroupCode;
 	
+	private String strExternalNo;
+	
+	
 	public String getStrTotalPackageAmt() {
 		return strTotalPackageAmt;
 	}
@@ -576,7 +579,13 @@ public class clsReservationBean {
 		this.strGroupCode = strGroupCode;
 	}
 
-	
+	public String getStrExternalNo() {
+		return strExternalNo;
+	}
+
+	public void setStrExternalNo(String strExternalNo) {
+		this.strExternalNo = strExternalNo;
+	}
 
 
 }

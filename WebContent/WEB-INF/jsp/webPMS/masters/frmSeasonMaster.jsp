@@ -16,6 +16,25 @@
    
 <script type="text/javascript">
 
+
+$(document).ready(function(){
+	
+	var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';
+	
+	$("#txtFromDate").datepicker({
+		dateFormat : 'dd-mm-yy'
+	});
+	$("#txtFromDate").datepicker('setDate', pmsDate);
+
+	$("#txtToDate").datepicker({
+		dateFormat : 'dd-mm-yy'
+	});
+	$("#txtToDate").datepicker('setDate', pmsDate);
+	
+	
+	
+});
+
 		/**
 		* Open Help
 		**/
@@ -85,8 +104,16 @@
 				        	}
 				        	else
 				        	{
+				        		 var FromDate1=response.dteFromDate;
+					        		var FromDate= FromDate1.split(' ');
+					        	    var FDate = FromDate[0];
+					        	    var toDate2=response.dteToDate;
+					        		var toDate= toDate2.split(' ');
+					        	    var tDate = toDate[0];
 					        	$("#txtSeasonDesc").val(response.strSeasonDesc);
 					        	$("#txtSeasonCode").val(response.strSeasonCode);
+					        	$("#txtFromDate").val(FDate);
+					        	$("#txtToDate").val(tDate);
 					     
 					        	
 				        	}
@@ -139,14 +166,32 @@
 					function funCallFormAction(actionName,object) 
 					{
 						var flg=true;
-						if($('#txtBathTypeDesc').val()=='')
+						if($('#txtSeasonDesc').val()=='')
 						{
-							 alert('Enter Bath Type Name ');
+							 alert('Enter Season Name ');
 							 flg=false;
 							  
 						}
 						return flg;
 					}
+			
+			//set Date value
+			
+		function funSetDate(id,responseValue)
+		{
+		var id=id;
+		var value=responseValue;
+		var date=responseValue.split(" ")[0];
+		
+		var y=date.split("-")[0];
+		var m=date.split("-")[1];
+		var d=date.split("-")[2];
+		
+		$(id).val(d+"-"+m+"-"+y);
+		
+	}
+			
+		
 </script>
 </head>
 <body>
@@ -166,8 +211,18 @@
 					</div>
 					<div class="col-md-7"><label>Season Desc</label>
 						<s:input id="txtSeasonDesc" path="strSeasonDesc"/>			
-					</div> 
-			</div></div>
+					</div>
+					<div class="col-md-5"><label>From Date</label>
+					 <s:input type="text" id="txtFromDate" path="dteFromDate" style="width: 70%;" cssClass="calenderTextBox" />
+					</div>
+			
+					<div class="col-md-4"><label>To Date</label>
+					<s:input type="text" id="txtToDate" path="dteToDate" style="width: 70%;" cssClass="calenderTextBox" />
+					</div>
+					 
+				</div>
+				
+			</div>
 		</div>
 		<br />
 		<p align="center" style="margin-right: 31%;">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 

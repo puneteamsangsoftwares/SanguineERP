@@ -4749,16 +4749,22 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ "ADD COLUMN `strExtra` VARCHAR(30) NOT NULL DEFAULT 'Y' AFTER `strTelephone`;";
 		funExecutePMSQuery(sql);
 		
-		sql = "CREATE TABLE IF NOT EXISTS `tblseasonmaster` ( "
-				+ "`strSeasonCode` varchar(10) NOT NULL,"
-				+ "`strSeasonDesc` varchar(100) NOT NULL,"
-				+ "`strUserCreated` varchar(10) NOT NULL,"
-				+ "`strUserEdited` varchar(10) NOT NULL,"
-				+ "`dteDateCreated` datetime NOT NULL,"
-				+ "`dteDateEdited` datetime NOT NULL,"
-				+ "`strClientCode` varchar(10) NOT NULL,"
-				+ "PRIMARY KEY (`strSeasonCode`,`strClientCode`) "
-				+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";		
+		sql = "CREATE TABLE `tblseasonmaster` ( "
+				+ "`strSeasonCode` VARCHAR(10) NOT NULL, "
+				+ "`strSeasonDesc` VARCHAR(100) NOT NULL, "
+				+ "`strUserCreated` VARCHAR(10) NOT NULL, "
+				+ "`strUserEdited` VARCHAR(10) NOT NULL, "
+				+ "`dteDateCreated` DATETIME NOT NULL, "
+				+ "`dteDateEdited` DATETIME NOT NULL, "
+				+ "`dteFromDate` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00', "
+				+ "`dteToDate` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00', "
+				+ "`strClientCode` VARCHAR(10) NOT NULL, "
+				+ "PRIMARY KEY (`strSeasonCode`, `strClientCode`) "
+			+ ") "
+			+ "COLLATE='utf8_general_ci' "
+			+ "ENGINE=InnoDB "
+			+ "; ";
+		
 		funExecutePMSQuery(sql);
 		
 		sql = "CREATE TABLE `tblpmsratecontractdtl` ( "
@@ -4888,8 +4894,8 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 */				+ "	('frmGroupBlockMaster', 'Group Block Master', 'Master', '1', 'M', '12', '12', '1', 'imgAgentMaster.png', '3', '1', '1', '1', 'NO', 'NO', 'frmGroupBlockMaster.html',NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ "	('frmPMSGroupBooking', 'Group Booking', 'Master', 1, 'M', 1, 1, '1', 'imgCheckOutDiscount.png', '3', 3, '3', '3', 'NO', 'NO', 'frmPMSGroupBooking.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ " ('frmUpdateHouseKeepingStatus', 'Update House Keeping Status', 'Transaction', 2, 'T', 2, 2, '1', 'imgChangeRoom.png', '3', 1, '1', '1', 'NO', 'NO', 'frmUpdateHouseKeepingStatus.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
-				+ "('frmSeasonMaster', 'Season Master', 'Master', 1, 'M', 22, 22, '2', 'imgSeasonMaster.png', '3', 3, '3', '3', 'NO', 'YES', 'frmSeasonMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
-				+ "('frmPMSRateContract', 'Rate Management', 'Master', '1', 'M', '22', '22', '2', 'imgSeasonMaster.png', '3', '3', '3', '3', 'NO', 'YES', 'frmPMSRateContract.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
+				+ " ('frmSeasonMaster', 'Season Master', 'Master', 1, 'M', 22, 22, '2', 'imgSeasonMaster.png', '3', 3, '3', '3', 'NO', 'YES', 'frmSeasonMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+				+ " ('frmPMSRateContract', 'Rate Management', 'Master', '1', 'M', '22', '22', '2', 'imgSeasonMaster.png', '3', '3', '3', '3', 'NO', 'YES', 'frmPMSRateContract.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
 				
 		
 		
@@ -4903,6 +4909,9 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		
 		sql = "UPDATE `tbltreemast` SET `strFormName`='frmPMSGroupReservation', `strFormDesc`='Group Reservation', `strRequestMapping`='frmPMSGroupReservation.html' WHERE  `strFormName`='frmPMSGroupBooking' AND `strModule`='3';";
 		funExecuteQuery(sql);
+		
+		sql = "ALTER TABLE `tblreservationhd` ADD COLUMN `strExternalNo` VARCHAR(20) NOT NULL AFTER `strGroupCode`; ";		
+		funExecutePMSQuery(sql);
 		
 		
 		
