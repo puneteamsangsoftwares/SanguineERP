@@ -7,14 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
-     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
-	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
-	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-
+    
 <script type="text/javascript">
 	
 	var fieldName;
@@ -411,7 +404,7 @@
 			<div class="col-md-2"><label>Guest Name</label>
 				<s:input id="txtGuestName" path="strGuestName"  readonly="true" placeholder="last"  />
 			</div>
-			  <div class="col-md-6"></div>
+			  <div class="col-md-8"></div>
 			     
 			
             <div class="col-md-2"><label>Reason Code</label>
@@ -438,7 +431,7 @@
 		</div>
 
 		<br />
-		<p align="center" style="margin-right:13%">
+		<p align="center" style="margin-right:49%">
 			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateData()"/>
 			&nbsp;
 			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
