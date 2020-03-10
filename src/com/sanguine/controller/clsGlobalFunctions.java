@@ -1312,6 +1312,412 @@ public class clsGlobalFunctions {
 		objGlobalFunctionsService.funAddCurrentStock(clientCode, userCode, locCode, stockableItem);
 	}
 
+	/*
+	 * @SuppressWarnings("rawtypes") public int funProcessStock(String locCode,
+	 * String fromDate, String toDate, String clientCode, String userCode,
+	 * HttpServletRequest req, HttpServletResponse resp) {
+	 * 
+	 * String propertyCode = ""; String sql =
+	 * "select strPropertyCode from tbllocationmaster " + " where strLocCode='" +
+	 * locCode + "' and strClientCode='" + clientCode + "'"; List listProperty =
+	 * objGlobalFunctionsService.funGetList(sql, "sql"); Iterator itrPropCode =
+	 * listProperty.iterator(); if (itrPropCode.hasNext()) { propertyCode =
+	 * itrPropCode.next().toString(); }
+	 * 
+	 * Map<String, String> hmAuthorisedForms = new HashMap<String, String>(); sql =
+	 * "select strFormName from tblworkflowforslabbasedauth " +
+	 * "where strPropertyCode='" + propertyCode + "' and strClientCode='" +
+	 * clientCode + "'"; List list = objGlobalFunctionsService.funGetList(sql,
+	 * "sql"); Iterator itr = list.iterator(); while (itr.hasNext()) { String
+	 * formName = itr.next().toString(); hmAuthorisedForms.put(formName, formName);
+	 * }
+	 * 
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode); sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty-b.dblRejected),'" + clientCode + "','" +
+	 * userCode + "' " + "from tblgrnhd a,tblgrndtl b " +
+	 * "where a.strGRNCode=b.strGRNCode and date(a.dtGRNDate) between '" + fromDate
+	 * + "' and '" + toDate + "' "; if (!locCode.equalsIgnoreCase("All")) { sql +=
+	 * "and a.strLocCode='" + locCode + "' "; } if (null !=
+	 * hmAuthorisedForms.get("frmGRN")) { sql += "and a.strAuthorise='Yes' "; } sql
+	 * += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+	 * 
+	 * hql=
+	 * "Update clsCurrentStockModel a Set a.dblGRN = IFNULL((select b.dblQty from clsTempItemStockModel b "
+	 * +"where a.strProdCode = b.strProdCode and b.dblQty),0)";
+	 * 
+	 * sql =
+	 * "Update tblcurrentstock a Set a.dblGRN = a.dblGRN + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty ),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
+	 * 
+	 * // Insert Opening Stock Qty into tblTempItemStock Table //hql =
+	 * "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from clsInitialInventoryModel a,clsOpeningStkDtl b " +
+	 * "where a.strOpStkCode=b.strOpStkCode and date(a.dtCreatedDate) between '" +
+	 * fromDate + "' and '" + toDate + "' "; sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from tblinitialinventory a,tblinitialinvdtl b " +
+	 * "where a.strOpStkCode=b.strOpStkCode and date(a.dtCreatedDate) between '" +
+	 * fromDate + "' and '" + toDate + "' "; if (!locCode.equalsIgnoreCase("All")) {
+	 * sql += "and a.strLocCode='" + locCode + "' "; } if (null !=
+	 * hmAuthorisedForms.get("frmOpeningStock")) { sql +=
+	 * "and a.strAuthorise='Yes' "; }
+	 * 
+	 * sql += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql"); // Update Opening
+	 * Stock Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblOpeningStk = a.dblOpeningStk + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * 
+	 * if (!locCode.equalsIgnoreCase("All")) { // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode); //
+	 * Insert Stock Transfer In Qty into tblTempItemStock Table //hql =
+	 * "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from clsStkTransferHdModel a,clsStkTransferDtlModel b " +
+	 * "where a.strSTCode=b.strSTCode and date(a.dtSTDate) between '" + fromDate +
+	 * "' and '" + toDate + "' " + "and a.strToLocCode='" + locCode + "' "; sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from tblstocktransferhd a,tblstocktransferdtl b " +
+	 * "where a.strSTCode=b.strSTCode and date(a.dtSTDate) between '" + fromDate +
+	 * "' and '" + toDate + "' " + "and a.strToLocCode='" + locCode + "' "; if (null
+	 * != hmAuthorisedForms.get("frmStockTransfer")) { sql +=
+	 * "and a.strAuthorise='Yes' "; } sql += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql"); // Update Stock
+	 * Transfer In Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblStkTransIn = a.dblStkTransIn + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode); //
+	 * Insert MIS In Qty into tblTempItemStock Table sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from tblmishd a,tblmisdtl b " +
+	 * "where a.strMISCode=b.strMISCode and date(a.dtMISDate) between '" + fromDate
+	 * + "' and '" + toDate + "' "; if (!locCode.equalsIgnoreCase("All")) { sql +=
+	 * "and a.strLocTo='" + locCode + "' "; } if (null !=
+	 * hmAuthorisedForms.get("frmMIS")) { sql += "and a.strAuthorise='Yes' "; } sql
+	 * += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql"); // Update MIS In
+	 * Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblMISIn = a.dblMISIn + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode); //
+	 * Insert SalesReturn Qty into tblTempItemStock Table sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from tblsalesreturnhd a,tblsalesreturndtl b " +
+	 * "where a.strSRCode=b.strSRCode and date(a.dteSRDate) between '" + fromDate +
+	 * "' and '" + toDate + "' "; if (!locCode.equalsIgnoreCase("All")) { sql +=
+	 * "and a.strLocCode='" + locCode + "' "; } sql += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql"); // Update
+	 * SalesReturn Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblSalesReturn = a.dblSalesReturn + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode); //
+	 * Insert Material In Qty into tblTempItemStock Table sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from tblmaterialreturnhd a,tblmaterialreturndtl b " +
+	 * "where a.strMRetCode=b.strMRetCode and date(a.dtMRetDate) between '" +
+	 * fromDate + "' and '" + toDate + "' "; if (!locCode.equalsIgnoreCase("All")) {
+	 * sql += "and a.strLocTo='" + locCode + "' "; } if (null !=
+	 * hmAuthorisedForms.get("frmMaterialReturn")) { sql +=
+	 * "and a.strAuthorise='Yes' "; } sql += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql"); // Update Material
+	 * In Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblMaterialReturnIn = a.dblMaterialReturnIn + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode); //
+	 * Insert Stock Transfer Out Qty into tblTempItemStock Table //hql =
+	 * "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from clsStkTransferHdModel a,clsStkTransferDtlModel b " +
+	 * "where a.strSTCode=b.strSTCode and date(a.dtSTDate) between '" + fromDate +
+	 * "' and '" + toDate + "' " + "and a.strFromLocCode='" + locCode + "' "; sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from tblstocktransferhd a,tblstocktransferdtl b " +
+	 * "where a.strSTCode=b.strSTCode and date(a.dtSTDate) between '" + fromDate +
+	 * "' and '" + toDate + "' " + "and a.strFromLocCode='" + locCode + "' "; if
+	 * (null != hmAuthorisedForms.get("frmStockTransfer")) { sql +=
+	 * "and a.strAuthorise='Yes' "; } sql += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql"); // Update Stock
+	 * Transfer Out Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblStkTransOut = a.dblStkTransOut + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode); //
+	 * Insert MIS Out Qty into tblTempItemStock Table sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from tblmishd a,tblmisdtl b " +
+	 * "where a.strMISCode=b.strMISCode and date(a.dtMISDate) between '" + fromDate
+	 * + "' and '" + toDate + "' "; if (!locCode.equalsIgnoreCase("All")) { sql +=
+	 * "and a.strLocFrom='" + locCode + "' "; } if (null !=
+	 * hmAuthorisedForms.get("frmMIS")) { sql += "and a.strAuthorise='Yes' "; } sql
+	 * += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql"); // Update MIS Out
+	 * Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblMISOut = a.dblMISOut + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode); //
+	 * Insert Material Out Qty into tblTempItemStock Table sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from tblmaterialreturnhd a,tblmaterialreturndtl b " +
+	 * "where a.strMRetCode=b.strMRetCode and date(a.dtMRetDate) between '" +
+	 * fromDate + "' and '" + toDate + "' "; if (!locCode.equalsIgnoreCase("All")) {
+	 * sql += "and a.strLocFrom='" + locCode + "' "; } if (null !=
+	 * hmAuthorisedForms.get("frmMaterialReturn")) { sql +=
+	 * "and a.strAuthorise='Yes' "; } sql += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql"); // Update Material
+	 * In Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblMaterialReturnOut = a.dblMaterialReturnOut + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql); }
+	 * 
+	 * // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode); //
+	 * Insert Stock Adjustment In Qty into tblTempItemStock Table sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from tblstockadjustmenthd a,tblstockadjustmentdtl b " +
+	 * "where a.strSACode=b.strSACode and date(a.dtSADate) between '" + fromDate +
+	 * "' and '" + toDate + "' and b.strType='In' "; if
+	 * (!locCode.equalsIgnoreCase("All")) { sql += "and a.strLocCode='" + locCode +
+	 * "' "; } if (null != hmAuthorisedForms.get("frmStockAdjustment")) { sql +=
+	 * "and a.strAuthorise='Yes' "; } sql += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql"); // Update Stock
+	 * Adjustment In Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblStkAdjIn = a.dblStkAdjIn + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode); //
+	 * Insert Stock Adjustment Out Qty into tblTempItemStock Table sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from tblstockadjustmenthd a,tblstockadjustmentdtl b " +
+	 * "where a.strSACode=b.strSACode and date(a.dtSADate) between '" + fromDate +
+	 * "' and '" + toDate + "' and b.strType='Out' "; if
+	 * (!locCode.equalsIgnoreCase("All")) { sql += "and a.strLocCode='" + locCode +
+	 * "' "; } if (null != hmAuthorisedForms.get("frmStockAdjustment")) { sql +=
+	 * "and a.strAuthorise='Yes' "; } sql += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql"); // Update Stock
+	 * Adjustment Out Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblStkAdjOut = a.dblStkAdjOut + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode); //
+	 * Insert Produced Qty into tblTempItemStock Table sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQtyProd),'" + clientCode + "','" + userCode
+	 * + "' " + "from tblproductionhd a,tblproductiondtl b " +
+	 * "where a.strPDCode=b.strPDCode and date(a.dtPDDate) between '" + fromDate +
+	 * "' and '" + toDate + "' "; if (!locCode.equalsIgnoreCase("All")) { sql +=
+	 * "and a.strLocCode='" + locCode + "' "; } if (null !=
+	 * hmAuthorisedForms.get("frmProduction")) { sql += "and a.strAuthorise='Yes' ";
+	 * } sql += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql"); // Update Produced
+	 * Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblQtyProduced = a.dblQtyProduced + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode); //
+	 * Insert Purchase Return In Qty into tblTempItemStock Table sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from tblpurchasereturnhd a,tblpurchasereturndtl b " +
+	 * "where a.strPRCode=b.strPRCode and date(a.dtPRDate) between '" + fromDate +
+	 * "' and '" + toDate + "' "; if (!locCode.equalsIgnoreCase("All")) { sql +=
+	 * "and a.strLocCode='" + locCode + "' "; } if (null !=
+	 * hmAuthorisedForms.get("frmPurchaseReturn")) { sql +=
+	 * "and a.strAuthorise='Yes' "; } sql += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql"); // Update Purchase
+	 * Return In Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblPurchaseReturn = a.dblPurchaseReturn + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode); //
+	 * Insert SCGRN Qty into tblTempItemStock Table sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from tblscreturnhd a,tblscreturndtl b " +
+	 * "where a.strSRCode=b.strSRCode and date(a.dteSRDate) between '" + fromDate +
+	 * "' and '" + toDate + "' "; if (!locCode.equalsIgnoreCase("All")) { sql +=
+	 * "and a.strLocCode='" + locCode + "' "; } if (null !=
+	 * hmAuthorisedForms.get("frmSubContractorGRN")) { sql +=
+	 * "and a.strAuthorise='Yes' "; } sql += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql"); // Update SCGRN
+	 * Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblSCGRN = a.dblSCGRN + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode); //
+	 * Insert Delivery Note Qty into tblTempItemStock Table sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from tbldeliverynotehd a,tbldeliverynotedtl b " +
+	 * "where a.strDNCode=b.strDNCode and date(a.dteDNDate) between '" + fromDate +
+	 * "' and '" + toDate + "' "; if (!locCode.equalsIgnoreCase("All")) { sql +=
+	 * "and a.strLocCode='" + locCode + "' "; } if (null !=
+	 * hmAuthorisedForms.get("frmDeliveryNote")) { sql +=
+	 * "and a.strAuthorise='Yes' "; } sql += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql"); // Update Delivery
+	 * Note Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblDeliveryNote = a.dblDeliveryNote + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
+	 * String propCode = req.getSession().getAttribute("propertyCode").toString();
+	 * clsPropertySetupModel objSetup =
+	 * objSetupMasterService.funGetObjectPropertySetup(propCode, clientCode); if
+	 * (objSetup.getStrEffectOfInvoice().equalsIgnoreCase("Invoice")) { // Insert
+	 * Invoice chaaln Qty into tblTempItemStock Table when // Industry type is
+	 * Retaling String sqlForRetail =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + " select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + " FROM tblinvoicehd a,tblinvoicedtl b " +
+	 * " WHERE a.strInvCode=b.strInvCode AND DATE(a.dteInvDate)  between '" +
+	 * fromDate + "' and '" + toDate + "' "; if (!locCode.equalsIgnoreCase("All")) {
+	 * sqlForRetail += "and a.strLocCode='" + locCode + "' "; } if (null !=
+	 * hmAuthorisedForms.get("frmInovice")) { sqlForRetail +=
+	 * "and a.strAuthorise='Yes' "; } sqlForRetail += "group by b.strProdCode";
+	 * 
+	 * objGlobalFunctionsService.funExcuteQuery(sqlForRetail); } else { // Insert
+	 * Delivery Challan (Sale) Qty into tblTempItemStock Table sql =
+	 * "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+	 * + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode +
+	 * "' " + "from tbldeliverychallanhd a,tbldeliverychallandtl b " +
+	 * "where a.strDCCode=b.strDCCode and date(a.dteDCDate) between '" + fromDate +
+	 * "' and '" + toDate + "' "; if (!locCode.equalsIgnoreCase("All")) { sql +=
+	 * "and a.strLocCode='" + locCode + "' "; } if (null !=
+	 * hmAuthorisedForms.get("frmDeliveryChallan")) { sql +=
+	 * "and a.strAuthorise='Yes' "; } sql += "group by b.strProdCode";
+	 * objGlobalFunctionsService.funAddTempItemStock(sql, "sql"); }
+	 * 
+	 * // Update Delivery Note Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblSales = a.dblSales + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * // Delete TempItemStock Table
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode); //
+	 * Insert Consumed Qty into tblTempItemStock Table
+	 * 
+	 * sql =
+	 * " select d.strChildCode,sum((d.dblQty/e.dblRecipeConversion)*b.dblQtyProd),'"
+	 * + clientCode + "','" + userCode + "' " +
+	 * "	from tblproductionhd a,tblproductiondtl b,tblbommasterhd c,tblbommasterdtl d, tblproductmaster e "
+	 * +
+	 * "	where a.strPDCode=b.strPDCode and b.strProdCode=c.strParentCode and c.strBOMCode=d.strBOMCode "
+	 * + "	and d.strChildCode=e.strProdCode " + " and date(a.dtPDDate) between '" +
+	 * fromDate + "' and '" + toDate + "' ";
+	 * 
+	 * if (!locCode.equalsIgnoreCase("All")) { sql += "and a.strLocCode='" + locCode
+	 * + "' "; } if (null != hmAuthorisedForms.get("frmProduction")) { sql +=
+	 * "and a.strAuthorise='Yes' "; } sql += "group by d.strChildCode";
+	 * 
+	 * List listProd = objGlobalFunctionsService.funGetList(sql, "sql");
+	 * listChildNodes1 = new ArrayList<String>(); hmChildNodes = new HashMap<String,
+	 * Double>(); for (int i = 0; i < listProd.size(); i++) { Object[] ob =
+	 * (Object[]) listProd.get(i);
+	 * 
+	 * if (hmChildNodes.containsKey(ob[0].toString())) { double qtyChild = (double)
+	 * hmChildNodes.get(ob[0].toString()); qtyChild =
+	 * Double.parseDouble(ob[1].toString()) + qtyChild;
+	 * hmChildNodes.put(ob[0].toString(), qtyChild); } else {
+	 * 
+	 * hmChildNodes.put(ob[0].toString(), Double.parseDouble(ob[1].toString())); }
+	 * funGetBOMNodes(ob[0].toString(), 0, Double.parseDouble(ob[1].toString())); }
+	 * String restHql2 = ""; if (!hmChildNodes.isEmpty()) { for (Map.Entry<String,
+	 * Double> entry : hmChildNodes.entrySet()) {
+	 * 
+	 * String prodCode = entry.getKey(); double reqdQty = entry.getValue();
+	 * 
+	 * restHql2 += " ('" + prodCode + "','" + reqdQty + "','" + clientCode + "','" +
+	 * userCode + "'),"; } restHql2 = restHql2.substring(1, (restHql2.length() -
+	 * 1)); String restHql1 =
+	 * " insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) values  "
+	 * ;
+	 * 
+	 * objGlobalFunctionsService.funAddTempItemStock(restHql1 + restHql2, "sql"); }
+	 * 
+	 * 
+	 * // Update Consumed Qty in tblCurrentStock table sql =
+	 * "Update tblcurrentstock a Set a.dblQtyConsumed = a.dblQtyConsumed + IFNULL((select b.dblQty from tbltempitemstock b "
+	 * + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode +
+	 * "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * 
+	 * // Update dblClosingStock field in tblCurrentStock table sql =
+	 * "update tblcurrentstock set dblClosingStk=(dblOpeningStk+dblGRN+dblSCGRN+dblStkTransIn+dblStkAdjIn+"
+	 * +
+	 * "dblMISIn+dblMaterialReturnIn+dblSalesReturn+dblQtyProduced-dblStkTransOut-dblStkAdjOut-dblMISOut-dblQtyConsumed"
+	 * +
+	 * "-dblSales-dblMaterialReturnOut-dblDeliveryNote-dblPurchaseReturn) where strClientCode='"
+	 * + clientCode + "' and strUserCode='" + userCode + "'";
+	 * objGlobalFunctionsService.funUpdateCurrentStock(sql);
+	 * objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
+	 * return 1; }
+	 * 
+	 */
+	
+
 	
 	@SuppressWarnings("rawtypes")
 	public int funProcessStock(String locCode, String fromDate, String toDate, String clientCode, String userCode, HttpServletRequest req, HttpServletResponse resp) {
@@ -1334,244 +1740,246 @@ public class clsGlobalFunctions {
 		}
 
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
-		sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty-b.dblRejected),'" + clientCode + "','" + userCode + "' " + "from tblgrnhd a,tblgrndtl b " + "where a.strGRNCode=b.strGRNCode and date(a.dtGRNDate) between '" + fromDate + "' and '" + toDate + "' ";
+		String hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode,dblFreeQty) " + "select b.strProdCode,sum(b.dblQty-b.dblRejected),'" + clientCode + "','" + userCode + "',sum(b.dblFreeQty)" + "from clsGRNHdModel a,clsGRNDtlModel b " + "where a.strGRNCode=b.strGRNCode and date(a.dtGRNDate) between '" + fromDate + "' and '" + toDate + "' ";
 		if (!locCode.equalsIgnoreCase("All")) {
-			sql += "and a.strLocCode='" + locCode + "' ";
+			hql += "and a.strLocCode='" + locCode + "' ";
 		}
 		if (null != hmAuthorisedForms.get("frmGRN")) {
-			sql += "and a.strAuthorise='Yes' ";
+			hql += "and a.strAuthorise='Yes' ";
 		}
-		sql += "group by b.strProdCode";
-		objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+		hql += "group by b.strProdCode";
+		objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		/*
 		 * hql=
 		 * "Update clsCurrentStockModel a Set a.dblGRN = IFNULL((select b.dblQty from clsTempItemStockModel b "
 		 * +"where a.strProdCode = b.strProdCode and b.dblQty),0)";
 		 */
-		sql = "Update tblcurrentstock a Set a.dblGRN = a.dblGRN + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty ),0)";
-		objGlobalFunctionsService.funUpdateCurrentStock(sql);
+		//hql = "Update tblcurrentstock a Set a.dblGRN = a.dblGRN + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty ),0)";
+		
+		//hql = "Update tblcurrentstock a Set a.dblGRN = a.dblGRN + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty ),0),a.dblFreeQty = a.dblFreeQty + IFNULL((select b.dblFreeQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty and b.dblFreeQty ),0)";
+
+		hql = "Update tblcurrentstock a Set a.dblGRN = a.dblGRN + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty ),0),a.dblFreeQty = a.dblFreeQty + IFNULL((select b.dblFreeQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' ),0)";
+		
+		objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		
 		// Insert Opening Stock Qty into tblTempItemStock Table
-		//hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsInitialInventoryModel a,clsOpeningStkDtl b " + "where a.strOpStkCode=b.strOpStkCode and date(a.dtCreatedDate) between '" + fromDate + "' and '" + toDate + "' ";
-		sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblinitialinventory a,tblinitialinvdtl b " + "where a.strOpStkCode=b.strOpStkCode and date(a.dtCreatedDate) between '" + fromDate + "' and '" + toDate + "' ";
+		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsInitialInventoryModel a,clsOpeningStkDtl b " + "where a.strOpStkCode=b.strOpStkCode and date(a.dtCreatedDate) between '" + fromDate + "' and '" + toDate + "' ";
 		if (!locCode.equalsIgnoreCase("All")) {
-			sql += "and a.strLocCode='" + locCode + "' ";
+			hql += "and a.strLocCode='" + locCode + "' ";
 		}
 		if (null != hmAuthorisedForms.get("frmOpeningStock")) {
-			sql += "and a.strAuthorise='Yes' ";
+			hql += "and a.strAuthorise='Yes' ";
 		}
 
-		sql += "group by b.strProdCode";
-		objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+		hql += "group by b.strProdCode";
+		objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		// Update Opening Stock Qty in tblCurrentStock table
-		sql = "Update tblcurrentstock a Set a.dblOpeningStk = a.dblOpeningStk + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-		objGlobalFunctionsService.funUpdateCurrentStock(sql);
+		hql = "Update tblcurrentstock a Set a.dblOpeningStk = a.dblOpeningStk + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 		if (!locCode.equalsIgnoreCase("All")) {
 			// Delete TempItemStock Table
 			objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 			// Insert Stock Transfer In Qty into tblTempItemStock Table
-			//hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsStkTransferHdModel a,clsStkTransferDtlModel b " + "where a.strSTCode=b.strSTCode and date(a.dtSTDate) between '" + fromDate + "' and '" + toDate + "' " + "and a.strToLocCode='" + locCode + "' ";
-			sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblstocktransferhd a,tblstocktransferdtl b " + "where a.strSTCode=b.strSTCode and date(a.dtSTDate) between '" + fromDate + "' and '" + toDate + "' " + "and a.strToLocCode='" + locCode + "' ";
+			hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsStkTransferHdModel a,clsStkTransferDtlModel b " + "where a.strSTCode=b.strSTCode and date(a.dtSTDate) between '" + fromDate + "' and '" + toDate + "' " + "and a.strToLocCode='" + locCode + "' ";
 			if (null != hmAuthorisedForms.get("frmStockTransfer")) {
-				sql += "and a.strAuthorise='Yes' ";
+				hql += "and a.strAuthorise='Yes' ";
 			}
-			sql += "group by b.strProdCode";
-			objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+			hql += "group by b.strProdCode";
+			objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 			// Update Stock Transfer In Qty in tblCurrentStock table
-			sql = "Update tblcurrentstock a Set a.dblStkTransIn = a.dblStkTransIn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-			objGlobalFunctionsService.funUpdateCurrentStock(sql);
+			hql = "Update tblcurrentstock a Set a.dblStkTransIn = a.dblStkTransIn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+			objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 			// Delete TempItemStock Table
 			objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 			// Insert MIS In Qty into tblTempItemStock Table
-			sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblmishd a,tblmisdtl b " + "where a.strMISCode=b.strMISCode and date(a.dtMISDate) between '" + fromDate + "' and '" + toDate + "' ";
+			hql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblmishd a,tblmisdtl b " + "where a.strMISCode=b.strMISCode and date(a.dtMISDate) between '" + fromDate + "' and '" + toDate + "' ";
 			if (!locCode.equalsIgnoreCase("All")) {
-				sql += "and a.strLocTo='" + locCode + "' ";
+				hql += "and a.strLocTo='" + locCode + "' ";
 			}
 			if (null != hmAuthorisedForms.get("frmMIS")) {
-				sql += "and a.strAuthorise='Yes' ";
+				hql += "and a.strAuthorise='Yes' ";
 			}
-			sql += "group by b.strProdCode";
-			objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+			hql += "group by b.strProdCode";
+			objGlobalFunctionsService.funAddTempItemStock(hql, "sql");
 			// Update MIS In Qty in tblCurrentStock table
-			sql = "Update tblcurrentstock a Set a.dblMISIn = a.dblMISIn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-			objGlobalFunctionsService.funUpdateCurrentStock(sql);
+			hql = "Update tblcurrentstock a Set a.dblMISIn = a.dblMISIn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+			objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 			// Delete TempItemStock Table
 			objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 			// Insert SalesReturn Qty into tblTempItemStock Table
-			sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblsalesreturnhd a,tblsalesreturndtl b " + "where a.strSRCode=b.strSRCode and date(a.dteSRDate) between '" + fromDate + "' and '" + toDate + "' ";
+			hql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblsalesreturnhd a,tblsalesreturndtl b " + "where a.strSRCode=b.strSRCode and date(a.dteSRDate) between '" + fromDate + "' and '" + toDate + "' ";
 			if (!locCode.equalsIgnoreCase("All")) {
-				sql += "and a.strLocCode='" + locCode + "' ";
+				hql += "and a.strLocCode='" + locCode + "' ";
 			}
-			sql += "group by b.strProdCode";
-			objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+			hql += "group by b.strProdCode";
+			objGlobalFunctionsService.funAddTempItemStock(hql, "sql");
 			// Update SalesReturn Qty in tblCurrentStock table
-			sql = "Update tblcurrentstock a Set a.dblSalesReturn = a.dblSalesReturn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-			objGlobalFunctionsService.funUpdateCurrentStock(sql);
+			hql = "Update tblcurrentstock a Set a.dblSalesReturn = a.dblSalesReturn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+			objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 			// Delete TempItemStock Table
 			objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 			// Insert Material In Qty into tblTempItemStock Table
-			sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblmaterialreturnhd a,tblmaterialreturndtl b " + "where a.strMRetCode=b.strMRetCode and date(a.dtMRetDate) between '" + fromDate + "' and '" + toDate + "' ";
+			hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsMaterialReturnHdModel a,clsMaterialReturnDtlModel b " + "where a.strMRetCode=b.strMRetCode and date(a.dtMRetDate) between '" + fromDate + "' and '" + toDate + "' ";
 			if (!locCode.equalsIgnoreCase("All")) {
-				sql += "and a.strLocTo='" + locCode + "' ";
+				hql += "and a.strLocTo='" + locCode + "' ";
 			}
 			if (null != hmAuthorisedForms.get("frmMaterialReturn")) {
-				sql += "and a.strAuthorise='Yes' ";
+				hql += "and a.strAuthorise='Yes' ";
 			}
-			sql += "group by b.strProdCode";
-			objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+			hql += "group by b.strProdCode";
+			objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 			// Update Material In Qty in tblCurrentStock table
-			sql = "Update tblcurrentstock a Set a.dblMaterialReturnIn = a.dblMaterialReturnIn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-			objGlobalFunctionsService.funUpdateCurrentStock(sql);
+			hql = "Update tblcurrentstock a Set a.dblMaterialReturnIn = a.dblMaterialReturnIn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+			objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 			// Delete TempItemStock Table
 			objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 			// Insert Stock Transfer Out Qty into tblTempItemStock Table
-			//hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsStkTransferHdModel a,clsStkTransferDtlModel b " + "where a.strSTCode=b.strSTCode and date(a.dtSTDate) between '" + fromDate + "' and '" + toDate + "' " + "and a.strFromLocCode='" + locCode + "' ";
-			sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblstocktransferhd a,tblstocktransferdtl b " + "where a.strSTCode=b.strSTCode and date(a.dtSTDate) between '" + fromDate + "' and '" + toDate + "' " + "and a.strFromLocCode='" + locCode + "' ";
+			hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsStkTransferHdModel a,clsStkTransferDtlModel b " + "where a.strSTCode=b.strSTCode and date(a.dtSTDate) between '" + fromDate + "' and '" + toDate + "' " + "and a.strFromLocCode='" + locCode + "' ";
 			if (null != hmAuthorisedForms.get("frmStockTransfer")) {
-				sql += "and a.strAuthorise='Yes' ";
+				hql += "and a.strAuthorise='Yes' ";
 			}
-			sql += "group by b.strProdCode";
-			objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+			hql += "group by b.strProdCode";
+			objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 			// Update Stock Transfer Out Qty in tblCurrentStock table
-			sql = "Update tblcurrentstock a Set a.dblStkTransOut = a.dblStkTransOut + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-			objGlobalFunctionsService.funUpdateCurrentStock(sql);
+			hql = "Update tblcurrentstock a Set a.dblStkTransOut = a.dblStkTransOut + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+			objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 			// Delete TempItemStock Table
 			objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 			// Insert MIS Out Qty into tblTempItemStock Table
-			sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblmishd a,tblmisdtl b " + "where a.strMISCode=b.strMISCode and date(a.dtMISDate) between '" + fromDate + "' and '" + toDate + "' ";
+			hql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblmishd a,tblmisdtl b " + "where a.strMISCode=b.strMISCode and date(a.dtMISDate) between '" + fromDate + "' and '" + toDate + "' ";
 			if (!locCode.equalsIgnoreCase("All")) {
-				sql += "and a.strLocFrom='" + locCode + "' ";
+				hql += "and a.strLocFrom='" + locCode + "' ";
 			}
 			if (null != hmAuthorisedForms.get("frmMIS")) {
-				sql += "and a.strAuthorise='Yes' ";
+				hql += "and a.strAuthorise='Yes' ";
 			}
-			sql += "group by b.strProdCode";
-			objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+			hql += "group by b.strProdCode";
+			objGlobalFunctionsService.funAddTempItemStock(hql, "sql");
 			// Update MIS Out Qty in tblCurrentStock table
-			sql = "Update tblcurrentstock a Set a.dblMISOut = a.dblMISOut + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-			objGlobalFunctionsService.funUpdateCurrentStock(sql);
+			hql = "Update tblcurrentstock a Set a.dblMISOut = a.dblMISOut + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+			objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 			// Delete TempItemStock Table
 			objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 			// Insert Material Out Qty into tblTempItemStock Table
-			sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblmaterialreturnhd a,tblmaterialreturndtl b " + "where a.strMRetCode=b.strMRetCode and date(a.dtMRetDate) between '" + fromDate + "' and '" + toDate + "' ";
+			hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsMaterialReturnHdModel a,clsMaterialReturnDtlModel b " + "where a.strMRetCode=b.strMRetCode and date(a.dtMRetDate) between '" + fromDate + "' and '" + toDate + "' ";
 			if (!locCode.equalsIgnoreCase("All")) {
-				sql += "and a.strLocFrom='" + locCode + "' ";
+				hql += "and a.strLocFrom='" + locCode + "' ";
 			}
 			if (null != hmAuthorisedForms.get("frmMaterialReturn")) {
-				sql += "and a.strAuthorise='Yes' ";
+				hql += "and a.strAuthorise='Yes' ";
 			}
-			sql += "group by b.strProdCode";
-			objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+			hql += "group by b.strProdCode";
+			objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 			// Update Material In Qty in tblCurrentStock table
-			sql = "Update tblcurrentstock a Set a.dblMaterialReturnOut = a.dblMaterialReturnOut + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-			objGlobalFunctionsService.funUpdateCurrentStock(sql);
+			hql = "Update tblcurrentstock a Set a.dblMaterialReturnOut = a.dblMaterialReturnOut + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+			objGlobalFunctionsService.funUpdateCurrentStock(hql);
 		}
 
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		// Insert Stock Adjustment In Qty into tblTempItemStock Table
-		sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,(b.dblQty),sum'" + clientCode + "','" + userCode + "' " + "from tblstockadjustmenthd a,tblstockadjustmentdtl b " + "where a.strSACode=b.strSACode and date(a.dtSADate) between '" + fromDate + "' and '" + toDate + "' and b.strType='In' ";
+		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsStkAdjustmentHdModel a,clsStkAdjustmentDtlModel b " + "where a.strSACode=b.strSACode and date(a.dtSADate) between '" + fromDate + "' and '" + toDate + "' and b.strType='In' ";
 		if (!locCode.equalsIgnoreCase("All")) {
-			sql += "and a.strLocCode='" + locCode + "' ";
+			hql += "and a.strLocCode='" + locCode + "' ";
 		}
 		if (null != hmAuthorisedForms.get("frmStockAdjustment")) {
-			sql += "and a.strAuthorise='Yes' ";
+			hql += "and a.strAuthorise='Yes' ";
 		}
-		sql += "group by b.strProdCode";
-		objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+		hql += "group by b.strProdCode";
+		objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		// Update Stock Adjustment In Qty in tblCurrentStock table
-		sql = "Update tblcurrentstock a Set a.dblStkAdjIn = a.dblStkAdjIn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-		objGlobalFunctionsService.funUpdateCurrentStock(sql);
+		hql = "Update tblcurrentstock a Set a.dblStkAdjIn = a.dblStkAdjIn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' ),0)";// and b.dblQty
+		objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		// Insert Stock Adjustment Out Qty into tblTempItemStock Table
-		sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblstockadjustmenthd a,tblstockadjustmentdtl b " + "where a.strSACode=b.strSACode and date(a.dtSADate) between '" + fromDate + "' and '" + toDate + "' and b.strType='Out' ";
+		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsStkAdjustmentHdModel a,clsStkAdjustmentDtlModel b " + "where a.strSACode=b.strSACode and date(a.dtSADate) between '" + fromDate + "' and '" + toDate + "' and b.strType='Out' ";
 		if (!locCode.equalsIgnoreCase("All")) {
-			sql += "and a.strLocCode='" + locCode + "' ";
+			hql += "and a.strLocCode='" + locCode + "' ";
 		}
 		if (null != hmAuthorisedForms.get("frmStockAdjustment")) {
-			sql += "and a.strAuthorise='Yes' ";
+			hql += "and a.strAuthorise='Yes' ";
 		}
-		sql += "group by b.strProdCode";
-		objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+		hql += "group by b.strProdCode";
+		objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		// Update Stock Adjustment Out Qty in tblCurrentStock table
-		sql = "Update tblcurrentstock a Set a.dblStkAdjOut = a.dblStkAdjOut + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-		objGlobalFunctionsService.funUpdateCurrentStock(sql);
+		hql = "Update tblcurrentstock a Set a.dblStkAdjOut = a.dblStkAdjOut + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' ),0)";//and b.dblQty
+		objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		// Insert Produced Qty into tblTempItemStock Table
-		sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQtyProd),'" + clientCode + "','" + userCode + "' " + "from tblproductionhd a,tblproductiondtl b " + "where a.strPDCode=b.strPDCode and date(a.dtPDDate) between '" + fromDate + "' and '" + toDate + "' ";
+		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQtyProd),'" + clientCode + "','" + userCode + "' " + "from clsProductionHdModel a,clsProductionDtlModel b " + "where a.strPDCode=b.strPDCode and date(a.dtPDDate) between '" + fromDate + "' and '" + toDate + "' ";
 		if (!locCode.equalsIgnoreCase("All")) {
-			sql += "and a.strLocCode='" + locCode + "' ";
+			hql += "and a.strLocCode='" + locCode + "' ";
 		}
 		if (null != hmAuthorisedForms.get("frmProduction")) {
-			sql += "and a.strAuthorise='Yes' ";
+			hql += "and a.strAuthorise='Yes' ";
 		}
-		sql += "group by b.strProdCode";
-		objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+		hql += "group by b.strProdCode";
+		objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		// Update Produced Qty in tblCurrentStock table
-		sql = "Update tblcurrentstock a Set a.dblQtyProduced = a.dblQtyProduced + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-		objGlobalFunctionsService.funUpdateCurrentStock(sql);
+		hql = "Update tblcurrentstock a Set a.dblQtyProduced = a.dblQtyProduced + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		// Insert Purchase Return In Qty into tblTempItemStock Table
-		sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblpurchasereturnhd a,tblpurchasereturndtl b " + "where a.strPRCode=b.strPRCode and date(a.dtPRDate) between '" + fromDate + "' and '" + toDate + "' ";
+		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsPurchaseReturnHdModel a,clsPurchaseReturnDtlModel b " + "where a.strPRCode=b.strPRCode and date(a.dtPRDate) between '" + fromDate + "' and '" + toDate + "' ";
 		if (!locCode.equalsIgnoreCase("All")) {
-			sql += "and a.strLocCode='" + locCode + "' ";
+			hql += "and a.strLocCode='" + locCode + "' ";
 		}
 		if (null != hmAuthorisedForms.get("frmPurchaseReturn")) {
-			sql += "and a.strAuthorise='Yes' ";
+			hql += "and a.strAuthorise='Yes' ";
 		}
-		sql += "group by b.strProdCode";
-		objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+		hql += "group by b.strProdCode";
+		objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		// Update Purchase Return In Qty in tblCurrentStock table
-		sql = "Update tblcurrentstock a Set a.dblPurchaseReturn = a.dblPurchaseReturn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-		objGlobalFunctionsService.funUpdateCurrentStock(sql);
+		hql = "Update tblcurrentstock a Set a.dblPurchaseReturn = a.dblPurchaseReturn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		// Insert SCGRN Qty into tblTempItemStock Table
-		sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblscreturnhd a,tblscreturndtl b " + "where a.strSRCode=b.strSRCode and date(a.dteSRDate) between '" + fromDate + "' and '" + toDate + "' ";
+		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsSubContractorGRNModelHd a,clsSubContractorGRNModelDtl b " + "where a.strSRCode=b.strSRCode and date(a.dteSRDate) between '" + fromDate + "' and '" + toDate + "' ";
 		if (!locCode.equalsIgnoreCase("All")) {
-			sql += "and a.strLocCode='" + locCode + "' ";
+			hql += "and a.strLocCode='" + locCode + "' ";
 		}
 		if (null != hmAuthorisedForms.get("frmSubContractorGRN")) {
-			sql += "and a.strAuthorise='Yes' ";
+			hql += "and a.strAuthorise='Yes' ";
 		}
-		sql += "group by b.strProdCode";
-		objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+		hql += "group by b.strProdCode";
+		objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		// Update SCGRN Qty in tblCurrentStock table
-		sql = "Update tblcurrentstock a Set a.dblSCGRN = a.dblSCGRN + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-		objGlobalFunctionsService.funUpdateCurrentStock(sql);
+		hql = "Update tblcurrentstock a Set a.dblSCGRN = a.dblSCGRN + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		// Insert Delivery Note Qty into tblTempItemStock Table
-		sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tbldeliverynotehd a,tbldeliverynotedtl b " + "where a.strDNCode=b.strDNCode and date(a.dteDNDate) between '" + fromDate + "' and '" + toDate + "' ";
+		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsDeliveryNoteHdModel a,clsDeliveryNoteDtlModel b " + "where a.strDNCode=b.strDNCode and date(a.dteDNDate) between '" + fromDate + "' and '" + toDate + "' ";
 		if (!locCode.equalsIgnoreCase("All")) {
-			sql += "and a.strLocCode='" + locCode + "' ";
+			hql += "and a.strLocCode='" + locCode + "' ";
 		}
 		if (null != hmAuthorisedForms.get("frmDeliveryNote")) {
-			sql += "and a.strAuthorise='Yes' ";
+			hql += "and a.strAuthorise='Yes' ";
 		}
-		sql += "group by b.strProdCode";
-		objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+		hql += "group by b.strProdCode";
+		objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		// Update Delivery Note Qty in tblCurrentStock table
-		sql = "Update tblcurrentstock a Set a.dblDeliveryNote = a.dblDeliveryNote + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-		objGlobalFunctionsService.funUpdateCurrentStock(sql);
+		hql = "Update tblcurrentstock a Set a.dblDeliveryNote = a.dblDeliveryNote + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
@@ -1592,37 +2000,37 @@ public class clsGlobalFunctions {
 			objGlobalFunctionsService.funExcuteQuery(sqlForRetail);
 		} else {
 			// Insert Delivery Challan (Sale) Qty into tblTempItemStock Table
-			sql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tbldeliverychallanhd a,tbldeliverychallandtl b " + "where a.strDCCode=b.strDCCode and date(a.dteDCDate) between '" + fromDate + "' and '" + toDate + "' ";
+			hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsDeliveryChallanHdModel a,clsDeliveryChallanModelDtl b " + "where a.strDCCode=b.strDCCode and date(a.dteDCDate) between '" + fromDate + "' and '" + toDate + "' ";
 			if (!locCode.equalsIgnoreCase("All")) {
-				sql += "and a.strLocCode='" + locCode + "' ";
+				hql += "and a.strLocCode='" + locCode + "' ";
 			}
 			if (null != hmAuthorisedForms.get("frmDeliveryChallan")) {
-				sql += "and a.strAuthorise='Yes' ";
+				hql += "and a.strAuthorise='Yes' ";
 			}
-			sql += "group by b.strProdCode";
-			objGlobalFunctionsService.funAddTempItemStock(sql, "sql");
+			hql += "group by b.strProdCode";
+			objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		}
 
 		// Update Delivery Note Qty in tblCurrentStock table
-		sql = "Update tblcurrentstock a Set a.dblSales = a.dblSales + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-		objGlobalFunctionsService.funUpdateCurrentStock(sql);
+		hql = "Update tblcurrentstock a Set a.dblSales = a.dblSales + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		// Insert Consumed Qty into tblTempItemStock Table
 	
-		sql = " select d.strChildCode,sum((d.dblQty/e.dblRecipeConversion)*b.dblQtyProd),'" + clientCode + "','" + userCode + "' " + "	from tblproductionhd a,tblproductiondtl b,tblbommasterhd c,tblbommasterdtl d, tblproductmaster e " + "	where a.strPDCode=b.strPDCode and b.strProdCode=c.strParentCode and c.strBOMCode=d.strBOMCode " + "	and d.strChildCode=e.strProdCode "
+		hql = " select d.strChildCode,sum((d.dblQty/e.dblRecipeConversion)*b.dblQtyProd),'" + clientCode + "','" + userCode + "' " + "	from clsProductionHdModel a,clsProductionDtlModel b,clsBomHdModel c,clsBomDtlModel d, clsProductMasterModel e " + "	where a.strPDCode=b.strPDCode and b.strProdCode=c.strParentCode and c.strBOMCode=d.strBOMCode " + "	and d.strChildCode=e.strProdCode "
 				+ " and date(a.dtPDDate) between '" + fromDate + "' and '" + toDate + "' ";
 
 		if (!locCode.equalsIgnoreCase("All")) {
-			sql += "and a.strLocCode='" + locCode + "' ";
+			hql += "and a.strLocCode='" + locCode + "' ";
 		}
 		if (null != hmAuthorisedForms.get("frmProduction")) {
-			sql += "and a.strAuthorise='Yes' ";
+			hql += "and a.strAuthorise='Yes' ";
 		}
-		sql += "group by d.strChildCode";
+		hql += "group by d.strChildCode";
 
-		List listProd = objGlobalFunctionsService.funGetList(sql, "sql");
+		List listProd = objGlobalFunctionsService.funGetList(hql, "hql");
 		listChildNodes1 = new ArrayList<String>();
 		hmChildNodes = new HashMap<String, Double>();
 		for (int i = 0; i < listProd.size(); i++) {
@@ -1655,12 +2063,12 @@ public class clsGlobalFunctions {
 		
 
 		// Update Consumed Qty in tblCurrentStock table
-		sql = "Update tblcurrentstock a Set a.dblQtyConsumed = a.dblQtyConsumed + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
-		objGlobalFunctionsService.funUpdateCurrentStock(sql);
+		hql = "Update tblcurrentstock a Set a.dblQtyConsumed = a.dblQtyConsumed + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 		// Update dblClosingStock field in tblCurrentStock table
-		sql = "update tblcurrentstock set dblClosingStk=(dblOpeningStk+dblGRN+dblSCGRN+dblStkTransIn+dblStkAdjIn+" + "dblMISIn+dblMaterialReturnIn+dblSalesReturn+dblQtyProduced-dblStkTransOut-dblStkAdjOut-dblMISOut-dblQtyConsumed" + "-dblSales-dblMaterialReturnOut-dblDeliveryNote-dblPurchaseReturn) where strClientCode='" + clientCode + "' and strUserCode='" + userCode + "'";
-		objGlobalFunctionsService.funUpdateCurrentStock(sql);
+		hql = "update tblcurrentstock set dblClosingStk=(dblOpeningStk+dblGRN+dblFreeQty+dblSCGRN+dblStkTransIn+dblStkAdjIn+" + "dblMISIn+dblMaterialReturnIn+dblSalesReturn+dblQtyProduced-dblStkTransOut-dblStkAdjOut-dblMISOut-dblQtyConsumed" + "-dblSales-dblMaterialReturnOut-dblDeliveryNote-dblPurchaseReturn) where strClientCode='" + clientCode + "' and strUserCode='" + userCode + "'";
+		objGlobalFunctionsService.funUpdateCurrentStock(hql);
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		return 1;
 	}

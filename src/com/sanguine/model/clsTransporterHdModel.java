@@ -16,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "tbltransportermaster")
 @IdClass(clsTransporterHdModel_ID.class)

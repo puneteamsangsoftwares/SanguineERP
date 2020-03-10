@@ -26,9 +26,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.mysql.jdbc.Connection;
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.crm.bean.clsShopOrderBean;
+import com.sanguine.model.clsPropertyMaster;
 import com.sanguine.model.clsPropertySetupModel;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.service.clsGroupMasterService;
+import com.sanguine.service.clsPropertyMasterService;
 import com.sanguine.service.clsSetupMasterService;
 import com.sanguine.util.clsReportBean;
 
@@ -61,7 +63,9 @@ public class clsShopOrderListReportController {
 	private clsGroupMasterService objGrpMasterService;
 	@Autowired
 	private clsGlobalFunctionsService objGlobalFunctionsService;
-
+	@Autowired
+	private clsPropertyMasterService objPropertyMasterService;
+  
 	@RequestMapping(value = "/rptShopOrderList", method = RequestMethod.POST)
 	private void funShopOrderList(@ModelAttribute("command") clsReportBean objBean, HttpServletResponse resp, HttpServletRequest req) {
 
@@ -70,6 +74,7 @@ public class clsShopOrderListReportController {
 
 		// frmCallShopOrderListWithoutTablewise(objBean, resp, req);
 		frmCallShopOrderListTablewise(objBean, resp, req);
+		
 
 	}
 
@@ -97,7 +102,7 @@ public class clsShopOrderListReportController {
 
 			// Customer code
 			String strCustCodes = objBean.getStrSuppCode();
-			String tempstrCCode[] = strCustCodes.split(",");
+			String tempstrCCode[] = strCustCodes.split(",");	
 			String strCCodes = "(";
 			for (int i = 0; i < tempstrCCode.length; i++) {
 				if (i == 0) {
@@ -122,19 +127,19 @@ public class clsShopOrderListReportController {
 			String dteFromDate = fy + "-" + fm + "-" + fd;
 			String dteToDate = ty + "-" + tm + "-" + td;
 
-			String fromFulDate = objBean.getDteFromFulfillment();
-			String toFulDate = objBean.getDteToFulfillment();
-
-			String ffd = fromFulDate.split("-")[0];
-			String ffm = fromFulDate.split("-")[1];
-			String ffy = fromFulDate.split("-")[2];
-
-			String tfd = toFulDate.split("-")[0];
-			String tfm = toFulDate.split("-")[1];
-			String tfy = toFulDate.split("-")[2];
-
-			String dteFromFulDate = ffy + "-" + ffm + "-" + ffd;
-			String dteToFulDate = tfy + "-" + tfm + "-" + tfd;
+//			String fromFulDate = objBean.getDteFromFulfillment();
+//			String toFulDate = objBean.getDteToFulfillment();
+//
+//			String ffd = fromFulDate.split("-")[0];
+//			String ffm = fromFulDate.split("-")[1];
+//			String ffy = fromFulDate.split("-")[2];
+//
+//			String tfd = toFulDate.split("-")[0];
+//			String tfm = toFulDate.split("-")[1];
+//			String tfy = toFulDate.split("-")[2];
+//
+//			String dteFromFulDate = ffy + "-" + ffm + "-" + ffd;
+//			String dteToFulDate = tfy + "-" + tfm + "-" + tfd;
 
 			String allGroupSql = "select a.strGCode  from tblgroupmaster a where  a.strClientCode='" + clientCode + "' ";
 			List listAllGroupCode = objGlobalFunctionsService.funGetDataList(allGroupSql, "sql");
@@ -154,26 +159,32 @@ public class clsShopOrderListReportController {
 			 * customer order print
 			 */
 
-			String sqlSubGroup = " select  a.strCustCode from tblsalesorderhd a,tblsalesorderdtl b,tblsubgroupmaster c, " + " tblproductmaster d , tblpartymaster e ,tblgroupmaster f " + " where a.strSOCode=b.strSOCode  and b.strProdCode=d.strProdCode  " + "and d.strSGCode=c.strSGCode  and a.strCustCode=e.strPCode " + "and c.strGCode=f.strGCode  and a.strCustCode IN " + strCCodes + " "
-					+ " and date(a.dteSODate)  between '" + dteFromDate + "' and '" + dteToDate + "' " + " and date(a.dteFulmtDate)  between '" + dteFromFulDate + "' and '" + dteToFulDate + "' " + " group by a.strCustCode " + " ORDER BY e.strPName  ";
-
-			List listCustSubgroup = objGlobalFunctionsService.funGetDataList(sqlSubGroup, "sql");
+//			String sqlSubGroup = " select  a.strCustCode from tblsalesorderhd a,tblsalesorderdtl b,tblsubgroupmaster c, " + " tblproductmaster d , tblpartymaster e ,tblgroupmaster f " + " where a.strSOCode=b.strSOCode  and b.strProdCode=d.strProdCode  " + "and d.strSGCode=c.strSGCode  and a.strCustCode=e.strPCode " + "and c.strGCode=f.strGCode  and a.strCustCode IN " + strCCodes + " "
+//					+ " and date(a.dteSODate)  between '" + dteFromDate + "' and '" + dteToDate + "' " + " and date(a.dteFulmtDate)  between '" + dteFromFulDate + "' and '" + dteToFulDate + "' " + " group by a.strCustCode " + " ORDER BY e.strPName  ";
+//             
+			List listCustSubgroup=new ArrayList<>();
+			for(int k=0;k<tempstrCCode.length;k++)
+			{
+				listCustSubgroup.add(tempstrCCode[k]);
+			}
+			//List listCustSubgroup = objGlobalFunctionsService.funGetDataList(sqlSubGroup, "sql");
 
 			List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
 
 			for (int cnt = 0; cnt < listCustSubgroup.size(); cnt++) {
 				String strCustCode = listCustSubgroup.get(cnt).toString();
-
-				String sqlGroup = " select  c.strGCode from tblsalesorderhd a,tblsalesorderdtl b,tblsubgroupmaster c, " + " tblproductmaster d , tblpartymaster e ,tblgroupmaster f " + " where a.strSOCode=b.strSOCode  and b.strProdCode=d.strProdCode  " + " and d.strSGCode=c.strSGCode  and a.strCustCode=e.strPCode " + " and c.strGCode=f.strGCode  and a.strCustCode='" + strCustCode + "' "
-						+ " and c.strGCode IN  " + strGCodes + "  " + " and date(a.dteSODate)  between '" + dteFromDate + "' and '" + dteToDate + "' " + " and date(a.dteFulmtDate)  between '" + dteFromFulDate + "' and '" + dteToFulDate + "' " + " group by c.strGCode " + " ORDER BY c.strGCode ";
+/*
+				String sqlGroup = " select  c.strGCode from tblsalesorderhd a,tblsalesorderdtl b,tblsubgroupmaster c, " + " tblproductmaster d , tblpartymaster e ,tblgroupmaster f,tbllocationmaster g  " + " where a.strSOCode=b.strSOCode  and b.strProdCode=d.strProdCode  " + " and d.strSGCode=c.strSGCode  and a.strCustCode=e.strPCode " + " and c.strGCode=f.strGCode  and a.strCustCode='" + strCustCode + "' "
+						+ " and c.strGCode IN  " + strGCodes + "  " + " and date(a.dteSODate)  between '" + dteFromDate + "' and '" + dteToDate + "' " + " and date(a.dteFulmtDate)  between '" + dteFromFulDate + "' and '" + dteToFulDate + "' AND a.strLocCode=g.strLocCode AND g.strPropertyCode='"+propertyCode+"' " + " group by c.strGCode " + " ORDER BY c.strGCode ";
 
 				List listGroup = objGlobalFunctionsService.funGetDataList(sqlGroup, "sql");
 
-				for (int i = 0; i < listGroup.size(); i++) {
-					String strGCode = listGroup.get(i).toString();
+				for (int i = 0; i < listGroup.size(); i++) {*/
+				//	String strGCode = listGroup.get(i).toString();
+				    String strGCode="";
 					JasperPrint jp = funCallReportShopOrderList(strCustCode, strGCode, objBean, resp, req);
 					jprintlist.add(jp);
-				}
+			//	}
 			}
 
 			if (jprintlist.size() > 0) {
@@ -184,7 +195,7 @@ public class clsShopOrderListReportController {
 					exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
 					exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, servletOutputStream);
 					exporter.setParameter(JRPdfExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
-					resp.setHeader("Content-Disposition", "inline;filename=ShopOrderListTableWise_" + dteFromFulDate + "_To_" + dteToFulDate + "_" + userCode + ".pdf");
+					resp.setHeader("Content-Disposition", "inline;filename=ShopOrderListTableWise_" + dteFromDate + "_To_" + dteToDate + "_" + userCode + ".pdf");
 					exporter.exportReport();
 					servletOutputStream.flush();
 					servletOutputStream.close();
@@ -194,7 +205,7 @@ public class clsShopOrderListReportController {
 					exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT_LIST, jprintlist);
 					exporter.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, servletOutputStream);
 					exporter.setParameter(JRXlsExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
-					resp.setHeader("Content-Disposition", "inline;filename=ShopOrderListTableWise_" + dteFromFulDate + "_To_" + dteToFulDate + "_" + userCode + ".xls");
+					resp.setHeader("Content-Disposition", "inline;filename=ShopOrderListTableWise_" + dteFromDate + "_To_" + dteToDate + "_" + userCode + ".xls");
 					exporter.exportReport();
 					servletOutputStream.flush();
 					servletOutputStream.close();
@@ -259,22 +270,22 @@ public class clsShopOrderListReportController {
 			String dteFromDate = fy + "-" + fm + "-" + fd;
 			String dteToDate = ty + "-" + tm + "-" + td;
 
-			String fromFulDate = objBean.getDteFromFulfillment();
-			String toFulDate = objBean.getDteToFulfillment();
-
-			String ffd = fromFulDate.split("-")[0];
-			String ffm = fromFulDate.split("-")[1];
-			String ffy = fromFulDate.split("-")[2];
-
-			String tfd = toFulDate.split("-")[0];
-			String tfm = toFulDate.split("-")[1];
-			String tfy = toFulDate.split("-")[2];
-
-			String dteFromFulDate = ffy + "-" + ffm + "-" + ffd;
-			String dteToFulDate = tfy + "-" + tfm + "-" + tfd;
+//			String fromFulDate = objBean.getDteFromFulfillment();
+//			String toFulDate = objBean.getDteToFulfillment();
+//
+//			String ffd = fromFulDate.split("-")[0];
+//			String ffm = fromFulDate.split("-")[1];
+//			String ffy = fromFulDate.split("-")[2];
+//
+//			String tfd = toFulDate.split("-")[0];
+//			String tfm = toFulDate.split("-")[1];
+//			String tfy = toFulDate.split("-")[2];
+//
+//			String dteFromFulDate = ffy + "-" + ffm + "-" + ffd;
+//			String dteToFulDate = tfy + "-" + tfm + "-" + tfd;
 
 			ArrayList fieldList = new ArrayList();
-			String sqlEvnQuery="select p.custName,p.groupName,p.subGroupName,p.prodName,p.dblQty as salesq,p.dblAcceptQty,"
+			/*String sqlEvnQuery="select p.custName,p.groupName,p.subGroupName,p.prodName,p.dblQty as salesq,p.dblAcceptQty,"
 					+ " p.soCode,p.custCode,p.sortNo ,IFNULL(q.dblRetQty,0)"
 					+ "from"
 					+ " (SELECT e.strPName as custName,f.strGName as groupName,c.strSGName as subGroupName,"
@@ -296,10 +307,29 @@ public class clsShopOrderListReportController {
 					+ " AND d.strSGCode=c.strSGCode AND a.strCustCode=e.strPCode AND c.strGCode=f.strGCode "
 					+ " AND a.strCustCode = '" + strCustName + "' AND c.strGCode='" + strGCode + "'  and  DATE(a.dteSRDate)  between '" + dteFromDate + "' and '" + dteToDate + "' "
 					+ " GROUP BY b.strProdCode,d.strSGCode,f.strGCode,a.strCustCode"
-					+ " ORDER BY e.strPName,c.intSortingNo,d.strProdName) q on p.prodCode=q.prodCode";
+					+ " ORDER BY e.strPName,c.intSortingNo,d.strProdName) q on p.prodCode=q.prodCode";*/
 			/*String sqlEvnQuery = " select  e.strPName,f.strGName,c.strSGName,d.strProdName,sum(b.dblQty) as dblQty  ,sum(b.dblAcceptQty) as dblAcceptQty ," + " a.strSOCode,a.strCustCode,c.intSortingNo " + " from tblsalesorderhd a,tblsalesorderdtl b,tblsubgroupmaster c, tblproductmaster d ," + " tblpartymaster e ,tblgroupmaster f  " + " where a.strSOCode=b.strSOCode "
 					+ " and b.strProdCode=d.strProdCode " + " and d.strSGCode=c.strSGCode " + " and a.strCustCode=e.strPCode " + " and c.strGCode=f.strGCode " + " and a.strCustCode = '" + strCustName + "' and c.strGCode='" + strGCode + "' ";
-*/
+*/             
+			String sqlEvnQuery="SELECT p.custName,p.groupName,p.subGroupName,p.prodName,p.dblQty AS salesq,p.dblAcceptQty, p.invCode,p.custCode,p.sortNo, IFNULL(q.dblQty,0) "
+                               + " FROM (SELECT e.strPName AS custName,f.strGName AS groupName,c.strSGName AS subGroupName, d.strProdName AS prodName, SUM(b.dblQty)  "
+                               + " AS dblQty, SUM(b.dblQty) AS dblAcceptQty, a.strInvCode AS invCode, a.strCustCode AS custCode,c.intSortingNo AS sortNo,  "
+                               + " b.strProdCode AS prodCode  "
+                               + " FROM tblinvoicehd a,tblinvoicedtl b,tblsubgroupmaster c, tblproductmaster d, tblpartymaster e,tblgroupmaster f  "
+                               + " WHERE a.strInvCode=b.strInvCode AND b.strProdCode=d.strProdCode AND d.strSGCode=c.strSGCode AND a.strCustCode=e.strPCode   "
+                               + " AND c.strGCode=f.strGCode AND a.strCustCode = '"+strCustName+"' AND DATE(a.dteInvDate) BETWEEN '" + dteFromDate + "'   "// AND c.strGCode='" + strGCode + "' 
+                               + " AND '" + dteToDate + "'   "
+                               + " GROUP BY b.strProdCode,d.strSGCode,f.strGCode,a.strCustCode  "
+                               + " ORDER BY e.strPName,c.intSortingNo,d.strProdName) p  "
+                               + " LEFT OUTER  "
+                               + " JOIN (SELECT e.strPName AS custName,f.strGName AS groupName,c.strSGName AS subGroupName, d.strProdName AS prodName, SUM(b.dblQty)   "
+                               + " AS dblQty, '' AS dblAcceptQty,a.strCustCode AS custCode,c.intSortingNo AS sortNo, b.strProdCode AS prodCode  "
+                               + " FROM tblsalesreturnhd a,tblsalesreturndtl b,tblsubgroupmaster c, tblproductmaster d, tblpartymaster e,tblgroupmaster f  "
+                               + " WHERE a.strSRCode=b.strSRCode AND b.strProdCode=d.strProdCode AND d.strSGCode=c.strSGCode AND a.strCustCode=e.strPCode  "
+                               + " AND c.strGCode=f.strGCode AND a.strCustCode = '"+strCustName+"'  AND DATE(a.dteSRDate) BETWEEN '" + dteFromDate + "'  "//AND c.strGCode='" + strGCode + "'
+                               + " AND '" + dteToDate + "'  "
+                               + " GROUP BY b.strProdCode,d.strSGCode,f.strGCode,a.strCustCode  "
+                               + " ORDER BY e.strPName,c.intSortingNo,d.strProdName) q ON p.prodCode=q.prodCode; ";
 			
 			HashMap<String, String> hmCustWiseSub = new HashMap<String, String>();
 
@@ -314,7 +344,7 @@ public class clsShopOrderListReportController {
 			/*String sqlSubGroup = " select  e.strPName,c.strSGName from tblsalesorderhd a,tblsalesorderdtl b,tblsubgroupmaster c, " + " tblproductmaster d , tblpartymaster e ,tblgroupmaster f " + " where a.strSOCode=b.strSOCode  and b.strProdCode=d.strProdCode  " + "and d.strSGCode=c.strSGCode  and a.strCustCode=e.strPCode " + "and c.strGCode=f.strGCode and a.strCustCode  =  '" + strCustName
 					+ "' and c.strGCode='" + strGCode + "' " + " and date(a.dteSODate) " + " between '" + dteFromDate + "' and '" + dteToDate + "' " + " and date(a.dteFulmtDate) between '" + dteFromFulDate + "' and '" + dteToFulDate + "' " + " group by d.strSGCode,a.strCustCode " + " ORDER BY e.strPName,c.intSortingNo,d.strProdName   ";
 */        
-            String sqlSubGroup="select p.custName,p.groupName,p.subGroupName,p.prodName,p.dblQty as salesq,p.dblAcceptQty,"
+           /* String sqlSubGroup="select p.custName,p.groupName,p.subGroupName,p.prodName,p.dblQty as salesq,p.dblAcceptQty,"
 			+ " p.soCode,p.custCode,p.sortNo ,IFNULL(q.dblRetQty,0)"
 			+ "from"
 			+ " (SELECT e.strPName as custName,f.strGName as groupName,c.strSGName as subGroupName,"
@@ -336,7 +366,27 @@ public class clsShopOrderListReportController {
 			+ " AND d.strSGCode=c.strSGCode AND a.strCustCode=e.strPCode AND c.strGCode=f.strGCode "
 			+ " AND a.strCustCode = '" + strCustName + "' AND c.strGCode='" + strGCode + "'  and  DATE(a.dteSRDate)  between '" + dteFromDate + "' and '" + dteToDate + "' "
 			+ " GROUP BY b.strProdCode,d.strSGCode,f.strGCode,a.strCustCode"
-			+ " ORDER BY e.strPName,c.intSortingNo,d.strProdName) q on p.prodCode=q.prodCode";
+			+ " ORDER BY e.strPName,c.intSortingNo,d.strProdName) q on p.prodCode=q.prodCode";*/
+			
+			String sqlSubGroup=" SELECT p.custName,p.groupName,p.subGroupName,p.prodName,p.dblQty AS salesq,p.dblAcceptQty, p.invCode,p.custCode,p.sortNo, IFNULL(q.dblQty,0) "
+                               + " FROM (SELECT e.strPName AS custName,f.strGName AS groupName,c.strSGName AS subGroupName, d.strProdName AS prodName, SUM(b.dblQty)  "
+                               + " AS dblQty, SUM(b.dblQty) AS dblAcceptQty, a.strInvCode AS invCode, a.strCustCode AS custCode,c.intSortingNo AS sortNo,  "
+                               + " b.strProdCode AS prodCode  "
+                               + " FROM tblinvoicehd a,tblinvoicedtl b,tblsubgroupmaster c, tblproductmaster d, tblpartymaster e,tblgroupmaster f  "
+                               + " WHERE a.strInvCode=b.strInvCode AND b.strProdCode=d.strProdCode AND d.strSGCode=c.strSGCode AND a.strCustCode=e.strPCode   "
+                               + " AND c.strGCode=f.strGCode  AND a.strCustCode = '"+strCustName+"'   AND DATE(a.dteInvDate) BETWEEN '" + dteFromDate + "'   "//AND c.strGCode='" + strGCode + "'
+                               + " AND '" + dteToDate + "'   "
+                               + " GROUP BY b.strProdCode,d.strSGCode,f.strGCode,a.strCustCode  "
+                               + " ORDER BY e.strPName,c.intSortingNo,d.strProdName) p  "
+                               + " LEFT OUTER  "
+                               + " JOIN (SELECT e.strPName AS custName,f.strGName AS groupName,c.strSGName AS subGroupName, d.strProdName AS prodName, SUM(b.dblQty)   "
+                               + " AS dblQty, '' AS dblAcceptQty,a.strCustCode AS custCode,c.intSortingNo AS sortNo, b.strProdCode AS prodCode  "
+                               + " FROM tblsalesreturnhd a,tblsalesreturndtl b,tblsubgroupmaster c, tblproductmaster d, tblpartymaster e,tblgroupmaster f  "
+                               + " WHERE a.strSRCode=b.strSRCode AND b.strProdCode=d.strProdCode AND d.strSGCode=c.strSGCode AND a.strCustCode=e.strPCode  "
+                               + " AND c.strGCode=f.strGCode AND a.strCustCode = '"+strCustName+"'   AND DATE(a.dteSRDate) BETWEEN '" + dteFromDate + "'  "//AND c.strGCode='" + strGCode + "'
+                               + " AND '" + dteToDate + "' "
+                               + " GROUP BY b.strProdCode,d.strSGCode,f.strGCode,a.strCustCode  "
+                               + " ORDER BY e.strPName,c.intSortingNo,d.strProdName) q ON p.prodCode=q.prodCode;";
 			List listCustSubgroup = objGlobalFunctionsService.funGetDataList(sqlSubGroup, "sql");
 			Map<String, List<String>> hmCustSG = new HashMap<String, List<String>>();
 			// Map<String,String> hmCustSG=new HashMap<String,String>();
@@ -479,7 +529,14 @@ public class clsShopOrderListReportController {
 			System.out.println(objOdd);
 
 			HashMap hm = new HashMap();
-			hm.put("strCompanyName", companyName);
+			clsPropertyMaster objPropertyMaster = objPropertyMasterService.funGetProperty(propertyCode, clientCode);
+			if(clientCode.equals("319.001") && objPropertyMaster.getPropertyName().equalsIgnoreCase("TARANG FOODS"))
+			{
+				hm.put("strCompanyName", objPropertyMaster.getPropertyName());
+			}else
+			{
+				hm.put("strCompanyName", companyName);
+			}
 			hm.put("strUserCode", userCode);
 			hm.put("strImagePath", imagePath);
 			hm.put("strAddr1", objSetup.getStrAdd1());
@@ -488,8 +545,8 @@ public class clsShopOrderListReportController {
 			hm.put("strState", objSetup.getStrState());
 			hm.put("strCountry", objSetup.getStrCountry());
 			hm.put("strPin", objSetup.getStrPin());
-			hm.put("dteFromDate", dteFromFulDate);
-			hm.put("dteToDate", dteToFulDate);
+			hm.put("dteFromDate", dteFromDate);
+			hm.put("dteToDate", dteToDate);
 			hm.put("objEven", objEven);
 			hm.put("objOdd", objOdd);
 			// hm.put("strCustName", strCustName);

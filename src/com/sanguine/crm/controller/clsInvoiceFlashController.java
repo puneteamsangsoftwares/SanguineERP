@@ -42,10 +42,12 @@ import com.sanguine.crm.service.clsCRMSettlementMasterService;
 import com.sanguine.model.clsCompanyMasterModel;
 import com.sanguine.model.clsCurrencyMasterModel;
 import com.sanguine.model.clsLocationMasterModel;
+import com.sanguine.model.clsPropertyMaster;
 import com.sanguine.model.clsPropertySetupModel;
 import com.sanguine.service.clsCurrencyMasterService;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.service.clsLocationMasterService;
+import com.sanguine.service.clsPropertyMasterService;
 import com.sanguine.service.clsSetupMasterService;
 
 @Controller
@@ -74,6 +76,10 @@ public class clsInvoiceFlashController {
 	@Autowired
 	private ServletContext servletContext;
 	
+	@Autowired
+	private clsPropertyMasterService objPropertyMasterService;
+	
+	
 	String baseCurrencyCode="";
 	Map<String,String> currencyList=new TreeMap<String, String>();
 	@RequestMapping(value = "/frmInvoiceFlash", method = RequestMethod.GET)
@@ -96,6 +102,7 @@ public class clsInvoiceFlashController {
 		String custCode = request.getParameter("custCode").toString();
 		String strClientCode = request.getSession().getAttribute("clientCode").toString();
 		String currencyCode=request.getParameter("currencyCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		String dbWebBook=request.getSession().getAttribute("WebBooksDB").toString();
 		clsCompanyMasterModel objCompModel = objSetupMasterService.funGetObject(strClientCode);
 		
@@ -147,12 +154,12 @@ public class clsInvoiceFlashController {
 			
 
 			sqlInvoiceFlash.append("and a.strSettlementCode=c.strSettlementCode  and a.dblSubTotalAmt>0 "
-				+ "  order by a.strInvCode ");
+				+ " and b.strPropCode='"+propertyCode+"'  order by a.strInvCode ");
 		}
 		else
 		{
-			sqlInvoiceFlash.append("select a.strInvCode ,DATE_FORMAT(a.dteInvDate,'%d-%m-%Y'),b.strPName,a.strAgainst,a.strVehNo,a.dblSubTotalAmt/" + currValue + ",a.dblTaxAmt/" + currValue + ""
-					+ ",(a.dblSubTotalAmt/" + currValue + "+ a.dblTaxAmt/" + currValue + "),a.strExciseable,c.strSettlementDesc,'',ifnull(a.strNarration,'') "
+			sqlInvoiceFlash.append("(select a.strInvCode ,DATE_FORMAT(a.dteInvDate,'%d-%m-%Y'),b.strPName,a.strAgainst,a.strVehNo,a.dblSubTotalAmt/" + currValue + ",a.dblTaxAmt/" + currValue + ""
+					+ ",(a.dblSubTotalAmt/" + currValue + "+ a.dblTaxAmt/" + currValue + "),a.strExciseable,c.strSettlementDesc,'Invoice',ifnull(a.strNarration,'') "
 					+ " FROM tblpartymaster b,tblsettlementmaster c,tblinvoicehd a "
 					+ " where   date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' " + " and a.strLocCode='" + locCode +"' "
 					+ " and a.strCustCode=b.strPCode and  a.strClientCode='" + strClientCode + "'");
@@ -166,10 +173,32 @@ public class clsInvoiceFlashController {
 			{
 				sqlInvoiceFlash.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
 			}
+			sqlInvoiceFlash.append(" and a.strSettlementCode=c.strSettlementCode and a.strNarration not like '%Entry deleted%'"
+				+ " and b.strPropCode='"+propertyCode+"' order by a.strInvCode  )");
 			
-
-			sqlInvoiceFlash.append("and a.strSettlementCode=c.strSettlementCode and a.strNarration not like '%Entry deleted%'"
-				+ "  order by a.strInvCode ");
+			sqlInvoiceFlash.append( " UNION ");
+			
+			sqlInvoiceFlash.append("(select a.strInvCode ,DATE_FORMAT(a.dteInvDate,'%d-%m-%Y'),b.strPName,a.strAgainst,a.strVehNo,a.dblSubTotalAmt/" + currValue + ",a.dblTaxAmt/" + currValue + ""
+					+ ",(a.dblSubTotalAmt/" + currValue + "+ a.dblTaxAmt/" + currValue + "),a.strExciseable,'Multisettle','Invoice',ifnull(a.strNarration,'') "
+					+ " FROM tblpartymaster b,tblinvoicehd a "
+					+ " where   date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' " + " and a.strLocCode='" + locCode +"' "
+					+ " and a.strCustCode=b.strPCode and  a.strClientCode='" + strClientCode + "'");
+			
+			sqlInvoiceFlash.append(" and  a.strSettlementCode='Multisettle' ");
+			
+			if (!custCode.equals("All")) {
+				sqlInvoiceFlash.append( " and  a.strCustCode='" + custCode + "' ");
+			}
+			if(!currencyCode.equalsIgnoreCase("All"))
+			{
+				sqlInvoiceFlash.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
+			}
+			sqlInvoiceFlash.append("  and a.strNarration not like '%Entry deleted%'"
+				+ " and b.strPropCode='"+propertyCode+"' order by a.strInvCode  )");
+			
+		
+			
+			
 		}
 		
 		
@@ -214,6 +243,7 @@ public class clsInvoiceFlashController {
 				dblTaxTotalValue = dblTaxTotalValue.add(value);
 			}
 		}
+		
 		listofInvoiveTotal.add(listofInvFlash);
 		listofInvoiveTotal.add(df.format(dblTotalValue));
 		listofInvoiveTotal.add(df.format(dblSubTotalValue));
@@ -367,6 +397,8 @@ public class clsInvoiceFlashController {
 		String custCode = request.getParameter("custCode").toString();
 		String currencyCode=request.getParameter("currencyCode").toString();
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
+		Map<String,List<Object>> mapSettlementWise= new HashMap<>();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		String currencyName="";
 		double currValue = 1.0;
 		if(currencyCode.equalsIgnoreCase("All"))
@@ -396,10 +428,10 @@ public class clsInvoiceFlashController {
 		String strClientCode = request.getSession().getAttribute("clientCode").toString();
 		StringBuilder sqlInvoiceFlash = new StringBuilder();
 		sqlInvoiceFlash.setLength(0);
-		sqlInvoiceFlash.append("select c.strSettlementCode,ifnull(c.strSettlementDesc,''),ifnull(c.strSettlementType,''),sum(a.dblGrandTotal) "
+		sqlInvoiceFlash.append("(select c.strSettlementCode,ifnull(c.strSettlementDesc,''),ifnull(c.strSettlementType,''),sum(a.dblGrandTotal) "
 				+ " from tblinvoicehd a,tblsettlementmaster c,tblpartymaster d  "
 				+ " where  a.strSettlementCode=c.strSettlementCode and  a.strCustCode=d.strPCode "
-				+ "  and a.strLocCode='" + locCode + "' and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + strClientCode + "'");
+				+ "  and a.strLocCode='" + locCode + "' and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + strClientCode + "' and d.strPropCode='"+propertyCode+"'");
 		if (!settlementcode.equals("All")) {
 			sqlInvoiceFlash.append(" and  a.strSettlementCode='" + settlementcode + "' ");
 		}
@@ -414,7 +446,30 @@ public class clsInvoiceFlashController {
 		}
 		
 
-		sqlInvoiceFlash.append("group by a.strSettlementCode ");
+		sqlInvoiceFlash.append("group by a.strSettlementCode ) ");
+		
+		sqlInvoiceFlash.append(" UNION ");
+		
+		sqlInvoiceFlash.append(" (select e.strSettlementCode,ifnull(c.strSettlementDesc,''),ifnull(c.strSettlementType,''),SUM(e.dblSettlementAmt) "
+				+ " from tblinvoicehd a,tblsettlementmaster c,tblpartymaster d ,tblinvsettlementdtl e "
+				+ " where   a.strCustCode=d.strPCode and a.strInvCode=e.strInvCode  and e.strSettlementCode=c.strSettlementCode "
+				+ "  and a.strLocCode='" + locCode + "' and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + strClientCode + "' and d.strPropCode='"+propertyCode+"'");
+		
+	    sqlInvoiceFlash.append(" and  a.strSettlementCode='MultiSettle' ");
+		
+		
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append( " and  a.strCustCode='" + custCode + "' ");
+		}
+		
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
+		}
+		
+
+		sqlInvoiceFlash.append("group by e.strSettlementCode )");
+
 
 		DecimalFormat df = new DecimalFormat("#.##");
 		double floatingPoint = 0.0;
@@ -422,22 +477,40 @@ public class clsInvoiceFlashController {
 		if (!listOfInvoice.isEmpty()) {
 			for (int i = 0; i < listOfInvoice.size(); i++) {
 				Object[] objInvoice = (Object[]) listOfInvoice.get(i);
-				List dataList = new ArrayList<>();
-				dataList.add(objInvoice[0].toString());
-				dataList.add(objInvoice[1].toString());
-				dataList.add(objInvoice[2].toString());
+				if(mapSettlementWise.containsKey(objInvoice[0].toString()))
+				{
+					List list=mapSettlementWise.get(objInvoice[0].toString());
+					double dblAmt = Double.parseDouble(df.format( Double.parseDouble(objInvoice[3].toString())));
+					dblAmt = Double.parseDouble(list.get(3).toString()) + dblAmt;
+					list.set(3, dblAmt);	
+					
+				}
+				else
+				{
+					List dataList = new ArrayList<>();
+					dataList.add(objInvoice[0].toString());
+					dataList.add(objInvoice[1].toString());
+					dataList.add(objInvoice[2].toString());
 
-				floatingPoint = Double.parseDouble(objInvoice[3].toString());
-				floatingPoint = Double.parseDouble(df.format(floatingPoint).toString());
-				dataList.add(floatingPoint);
-				dataList.add(currencyName);
-				listofInvFlash.add(dataList);
+					floatingPoint = Double.parseDouble(objInvoice[3].toString());
+					floatingPoint = Double.parseDouble(df.format(floatingPoint).toString());
+					dataList.add(floatingPoint);
+					dataList.add(currencyName);
+					
+					mapSettlementWise.put(objInvoice[0].toString(), dataList);
+				}
 				BigDecimal value = new BigDecimal(Double.parseDouble(objInvoice[3].toString()));
 				dblTotalValue = dblTotalValue.add(value);
+				
+				
 
 			}
 		}
-
+		 for(Map.Entry maplist:mapSettlementWise.entrySet())
+		 {
+			 listofInvFlash.add(maplist.getValue());
+		 }
+		
 		listofInvoiveTotal.add(listofInvFlash);
 		listofInvoiveTotal.add(dblTotalValue);
 		return listofInvoiveTotal;
@@ -452,6 +525,7 @@ public class clsInvoiceFlashController {
 		String locCode = request.getParameter("locCode").toString();
 		String currencyCode=request.getParameter("currencyCode").toString();
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		String currencyName="";
 		double currValue = 1.0;
 		if(currencyCode.equalsIgnoreCase("All"))
@@ -478,7 +552,10 @@ public class clsInvoiceFlashController {
 		String strClientCode = request.getSession().getAttribute("clientCode").toString();
 		StringBuilder sqlInvoiceFlash = new StringBuilder();
 		sqlInvoiceFlash.setLength(0);
-		sqlInvoiceFlash.append("SELECT b.strUserCode,b.strUserName,  sum(a.dblGrandTotal)/" + currValue + ",sum(a.dblDiscountAmt)/" + currValue + ",ifnull(c.strSettlementDesc,'')  from tblinvoicehd a,tbluserhd b,tblsettlementmaster c " + " WHERE a.strUserCreated=b.strUserCode and a.strSettlementCode=c.strSettlementCode " + " and a.strLocCode='" + locCode + "' and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate
+		sqlInvoiceFlash.append("(SELECT b.strUserCode,b.strUserName,  sum(a.dblGrandTotal)/" + currValue + ",sum(a.dblDiscountAmt)/" + currValue + ",ifnull(c.strSettlementDesc,'')  "
+				+ " from tblinvoicehd a,tbluserhd b,tblsettlementmaster c " + " "
+				+ " WHERE a.strUserCreated=b.strUserCode and a.strSettlementCode=c.strSettlementCode " + " and a.strLocCode='" + locCode + "' "
+				+ " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate
 				+ "' and  a.strClientCode='" + strClientCode + "'");
 		if (!settlementcode.equals("All")) {
 			sqlInvoiceFlash.append( " and  a.strSettlementCode='" + settlementcode + "' ");
@@ -487,8 +564,25 @@ public class clsInvoiceFlashController {
 		{
 			sqlInvoiceFlash.append(" and  a.strCurrencyCode='" + currencyCode + "' ");
 		}
-		sqlInvoiceFlash.append("group by a.strUserCreated,c.strSettlementCode order by a.strUserCreated ");
-
+		sqlInvoiceFlash.append(" and b.strProperty='"+propertyCode+"' group by a.strUserCreated,c.strSettlementCode "
+				+ "  order by a.strUserCreated ) ");
+		
+		sqlInvoiceFlash.append(" UNION ");
+		
+		sqlInvoiceFlash.append("(SELECT a.strUserCreated,a.strUserCreated,  SUM(d.dblSettlementAmt)/" + currValue + ",sum(a.dblDiscountAmt)/" + currValue + ",ifnull(c.strSettlementDesc,'')  "
+				+ " FROM tblinvoicehd a left outer join tbllocationmaster e on a.strLocCode=e.strLocCode,tblsettlementmaster c,tblinvsettlementdtl d" + " "
+				+ " WHERE  c.strSettlementCode=d.strSettlementCode   and a.strInvCode=d.strInvCode  " + " and a.strLocCode='" + locCode + "' "
+				+ " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate
+				+ "' and  a.strClientCode='" + strClientCode + "'"
+			    + " and a.strSettlementCode='MultiSettle'");
+		
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append(" and  a.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append(" and e.strPropertyCode='"+propertyCode+"' group by a.strUserCreated,d.strSettlementCode "
+				+ " order by a.strUserCreated )  ");
+		
 		DecimalFormat df = new DecimalFormat("#.##");
 		double floatingPoint = 0.0;
 		String strUserCode = "";
@@ -546,6 +640,8 @@ public class clsInvoiceFlashController {
 		String custCode = request.getParameter("custCode").toString();
 		String currencyCode=request.getParameter("currencyCode").toString();
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
+		Map<String,List<Object>> mapCustomerWise= new HashMap<>();
 		String currencyName="";
 		
 		double currValue = 1.0;
@@ -575,7 +671,12 @@ public class clsInvoiceFlashController {
 		String strClientCode = request.getSession().getAttribute("clientCode").toString();
 		StringBuilder sqlInvoiceFlash = new StringBuilder();
 		sqlInvoiceFlash.setLength(0);
-		sqlInvoiceFlash.append("select b.strCustCode,a.strPName,a.strPType,count(b.strInvCode),sum(b.dblGrandTotal)/" + currValue + " " + " from tblpartymaster a,tblinvoicehd b where b.strCustCode=a.strPCode  and b.strLocCode='" + locCode + "' " + " and date(b.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  b.strClientCode='" + strClientCode + "'");
+		sqlInvoiceFlash.append("(select b.strCustCode,a.strPName,a.strPType,count(b.strInvCode),"
+				+ " sum(b.dblGrandTotal)/" + currValue + " " + " "
+				+ " from tblpartymaster a,tblinvoicehd b "
+				+ " where b.strCustCode=a.strPCode  and b.strLocCode='" + locCode + "' " + " "
+				+ " and date(b.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  "
+				+ " b.strClientCode='" + strClientCode + "'");
 		if (!settlementcode.equals("All")) {
 			sqlInvoiceFlash.append(" and  b.strSettlementCode='" + settlementcode + "' ");
 		}
@@ -586,7 +687,26 @@ public class clsInvoiceFlashController {
 		{
 			sqlInvoiceFlash.append( " and  b.strCurrencyCode='" + currencyCode + "' ");
 		}
-		sqlInvoiceFlash.append("group by b.strCustCode  order by sum(b.dblGrandTotal) desc ");
+		sqlInvoiceFlash.append(" and a.strPropCode='"+propertyCode+"' group by b.strCustCode  order by sum(b.dblGrandTotal) desc ) ");
+		
+		sqlInvoiceFlash.append(" UNION ");
+		
+		sqlInvoiceFlash.append("(select b.strCustCode,a.strPName,a.strPType,count(b.strInvCode),"
+				+ " sum(e.dblSettlementAmt)/" + currValue + " " + " "
+				+ " from tblpartymaster a,tblinvoicehd b,tblinvsettlementdtl e "
+				+ " where b.strCustCode=a.strPCode  and b.strLocCode='" + locCode + "' " + " "
+				+ " and date(b.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  "
+				+ " b.strClientCode='" + strClientCode + "'"
+				+ " and b.strCustCode=e.strCustomerCode and b.strInvCode=e.strInvCode AND b.strSettlementCode='MultiSettle' ");
+		
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append( " and  b.strCustCode='" + custCode + "' ");
+		}
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append( " and  b.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append(" and a.strPropCode='"+propertyCode+"' group by b.strCustCode  order by sum(e.dblSettlementAmt) desc ) ");
 
 		DecimalFormat df = new DecimalFormat("#.##");
 
@@ -594,21 +714,42 @@ public class clsInvoiceFlashController {
 		if (!listOfInvoice.isEmpty()) {
 			for (int i = 0; i < listOfInvoice.size(); i++) {
 				Object[] objInvoice = (Object[]) listOfInvoice.get(i);
-				List dataList = new ArrayList<>();
-				dataList.add(objInvoice[0].toString());
-				dataList.add(objInvoice[1].toString());
-				dataList.add(objInvoice[2].toString());
-				dataList.add(objInvoice[3].toString());
-				dataList.add(objInvoice[4].toString());
-				dataList.add(currencyName);
+				if(mapCustomerWise.containsKey(objInvoice[0].toString()))
+				{
+					List list=mapCustomerWise.get(objInvoice[0].toString());
+					double dblNoOfBills = Double.parseDouble(df.format( Double.parseDouble(objInvoice[3].toString())));
+					dblNoOfBills = Double.parseDouble(list.get(3).toString()) + dblNoOfBills;
+					list.set(3, dblNoOfBills);
+					double dblAmt = Double.parseDouble(df.format( Double.parseDouble(objInvoice[4].toString())));
+					dblAmt = Double.parseDouble(list.get(4).toString()) + dblAmt;
+					list.set(4, dblAmt);
+					
+				}
+				else
+				{
+					List dataList = new ArrayList<>();
+					dataList.add(objInvoice[0].toString());
+					dataList.add(objInvoice[1].toString());
+					dataList.add(objInvoice[2].toString());
+					dataList.add(objInvoice[3].toString());
+					dataList.add(objInvoice[4].toString());
+					dataList.add(currencyName);
+					mapCustomerWise.put(objInvoice[0].toString(), dataList);
 
-				listofInvFlash.add(dataList);
+				}
+				
+
+				
 				BigDecimal value = new BigDecimal(Double.parseDouble(objInvoice[4].toString()));
 				dblTotalValue = dblTotalValue.add(value);
 
 			}
 
 		}
+		 for(Map.Entry maplist:mapCustomerWise.entrySet())
+		 {
+			 listofInvFlash.add(maplist.getValue());
+		 }
 
 		listofInvoiveTotal.add(listofInvFlash);
 		listofInvoiveTotal.add(dblTotalValue);
@@ -626,6 +767,8 @@ public class clsInvoiceFlashController {
 		String custCode = request.getParameter("custCode").toString();
 		String currencyCode=request.getParameter("currencyCode").toString();
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
+		Map<String,List<Object>> mapProductWise= new HashMap<>();
 		String currencyName="";
 		double currValue = 1.0;
 		if(currencyCode.equalsIgnoreCase("All"))
@@ -647,12 +790,14 @@ public class clsInvoiceFlashController {
 		List listofInvoiveTotal = new ArrayList();
 		BigDecimal dblTotalValue = new BigDecimal(0);
 		BigDecimal dblTotalQty = new BigDecimal(0);
+		BigDecimal dblTotalDiscAmt = new BigDecimal(0);
+		BigDecimal dblTotalAmt = new BigDecimal(0);
 		List listofInvFlash = new ArrayList();
 
 		String strClientCode = request.getSession().getAttribute("clientCode").toString();
 		StringBuilder sqlInvoiceFlash = new StringBuilder();
 		sqlInvoiceFlash.setLength(0);
-		sqlInvoiceFlash.append( "SELECT  b.strProdCode,c.strProdName,sum(b.dblQty)/" + currValue + ", SUM(b.dblQty*b.dblPrice)/" + currValue + " FROM tblinvoicedtl b, tblproductmaster c,tblinvoicehd a,tblpartymaster d " + " WHERE a.strInvCode=b.strInvCode  and b.strProdCode=c.strProdCode and a.strCustCode=d.strPCode and a.strLocCode='" + locCode + "' " + " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + strClientCode + "'");
+		sqlInvoiceFlash.append( "(SELECT  b.strProdCode,c.strProdName,sum(b.dblQty)/" + currValue + ", SUM(b.dblQty*b.dblPrice)/" + currValue + ",b.dblProdDiscAmount , SUM(b.dblQty*b.dblPrice)/1.0 - b.dblProdDiscAmount  FROM tblinvoicedtl b, tblproductmaster c,tblinvoicehd a,tblpartymaster d " + " WHERE a.strInvCode=b.strInvCode  and b.strProdCode=c.strProdCode and a.strCustCode=d.strPCode and a.strLocCode='" + locCode + "' " + " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + strClientCode + "'");
 		if (!settlementcode.equals("All")) {
 			sqlInvoiceFlash.append( " and  a.strSettlementCode='" + settlementcode + "' ");
 		}
@@ -663,33 +808,82 @@ public class clsInvoiceFlashController {
 		{
 			sqlInvoiceFlash.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
 		}
-		sqlInvoiceFlash.append("group by b.strProdCode ");
+		sqlInvoiceFlash.append(" and d.strPropCode='"+propertyCode+"' group by b.strProdCode ) ");
+		
+		sqlInvoiceFlash.append(" UNION  ");
+		
+		sqlInvoiceFlash.append( "(SELECT  b.strProdCode,c.strProdName,sum(b.dblQty)/" + currValue + ", SUM(b.dblQty*b.dblPrice)/" + currValue + ",b.dblProdDiscAmount,SUM(b.dblQty*b.dblPrice)/1.0 - b.dblProdDiscAmount FROM tblinvoicedtl b, tblproductmaster c,tblinvoicehd a,tblpartymaster d " + " WHERE a.strInvCode=b.strInvCode  and b.strProdCode=c.strProdCode and a.strCustCode=d.strPCode and a.strLocCode='" + locCode + "' " + " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + strClientCode + "'");
+	
+		sqlInvoiceFlash.append( " and  a.strSettlementCode='Multisettle' ");
 
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append( " and  a.strCustCode='" + custCode + "' ");
+		}
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append(" and d.strPropCode='"+propertyCode+"' group by b.strProdCode ) ");
+		
+		DecimalFormat df = new DecimalFormat("#.##");
 		List listOfInvoice = objGlobalService.funGetList(sqlInvoiceFlash.toString(), "sql");
 		if (!listOfInvoice.isEmpty()) {
 			for (int i = 0; i < listOfInvoice.size(); i++) {
 				Object[] objInvoice = (Object[]) listOfInvoice.get(i);
-				List dataList = new ArrayList<>();
-				dataList.add(objInvoice[0].toString());
-				dataList.add(objInvoice[1].toString());
-				dataList.add(objInvoice[2].toString());
-				dataList.add(objInvoice[3].toString());
-				dataList.add(currencyName);
+				if(mapProductWise.containsKey(objInvoice[0].toString()))
+				{
+					List list=mapProductWise.get(objInvoice[0].toString());
+					double dblAmt = Double.parseDouble(df.format( Double.parseDouble(objInvoice[3].toString())));
+					dblAmt = Double.parseDouble(list.get(3).toString()) + dblAmt;
+					list.set(3, dblAmt);	
+					double dblQty=Double.parseDouble(df.format( Double.parseDouble(objInvoice[2].toString())));
+					dblQty=Double.parseDouble(list.get(2).toString()) + dblQty;
+					list.set(2, dblQty);
+					double dblDiscAmt = Double.parseDouble(df.format( Double.parseDouble(objInvoice[4].toString())));
+					dblDiscAmt = Double.parseDouble(list.get(5).toString()) + dblDiscAmt;
+					list.set(5, dblDiscAmt);
+					double TotAmt = Double.parseDouble(df.format( Double.parseDouble(objInvoice[5].toString())));
+					TotAmt = Double.parseDouble(list.get(6).toString()) + TotAmt;
+					list.set(6, TotAmt);
+					
+				}
+				else
+				{
+					List dataList = new ArrayList<>();
+					dataList.add(objInvoice[0].toString());
+					dataList.add(objInvoice[1].toString());
+					dataList.add(objInvoice[2].toString());
+					dataList.add(objInvoice[3].toString());					
+					dataList.add(currencyName);
+					dataList.add(objInvoice[4].toString());
+					dataList.add(objInvoice[5].toString());
 
-				listofInvFlash.add(dataList);
+					mapProductWise.put(objInvoice[0].toString(), dataList);
+				}
+				
 				BigDecimal value = new BigDecimal(Double.parseDouble(objInvoice[3].toString()));
 				dblTotalValue = dblTotalValue.add(value);
 				BigDecimal qty = new BigDecimal(Double.parseDouble(objInvoice[2].toString()));
 				dblTotalQty = dblTotalQty.add(qty);
+				BigDecimal discAmt = new BigDecimal(Double.parseDouble(objInvoice[4].toString()));
+				dblTotalDiscAmt=dblTotalDiscAmt.add(discAmt);
+				BigDecimal TotAmt = new BigDecimal(Double.parseDouble(objInvoice[5].toString()));
+				dblTotalAmt=dblTotalAmt.add(TotAmt);
+				
 				
 				
 			}
 
 		}
-
+		 for(Map.Entry maplist:mapProductWise.entrySet())
+		 {
+			 listofInvFlash.add(maplist.getValue());
+		 }
 		listofInvoiveTotal.add(listofInvFlash);
 		listofInvoiveTotal.add(dblTotalValue);
 		listofInvoiveTotal.add(dblTotalQty);
+		listofInvoiveTotal.add(dblTotalDiscAmt);
+		listofInvoiveTotal.add(dblTotalAmt);
 
 		return listofInvoiveTotal;
 	}
@@ -705,12 +899,17 @@ public class clsInvoiceFlashController {
 		String withZeroAmt = request.getParameter("withZeroAmt").toString();
 		String currencyCode=request.getParameter("currencyCode").toString();
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
+		
 		String currencyName="";
 		List listofInvoiveTotal = new ArrayList();
 		BigDecimal dblTotalValue = new BigDecimal(0);
 		BigDecimal dblTotalDis = new BigDecimal(0);
 		BigDecimal dblTotalQty = new BigDecimal(0);
 		List listofInvFlash = new ArrayList();
+		DecimalFormat df = new DecimalFormat("#.##");
+		Map<String,List<Object>> mapCategoryWise= new HashMap<>();
+		
 		
 		double currValue = 1.0;
 		if(currencyCode.equalsIgnoreCase("All"))
@@ -745,18 +944,69 @@ public class clsInvoiceFlashController {
 		{
 			sqlInvoiceFlash.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
 		}
-		sqlInvoiceFlash.append( "  group by  c.strSGCode ");
+		sqlInvoiceFlash.append( " and f.strPropCode='"+propertyCode+"'  group by  c.strSGCode ");
+		
+		sqlInvoiceFlash.append( " UNION ");
+		
+		sqlInvoiceFlash.append("select b.strSGCode,c.strSGName,sum(d.dblQty)/" + currValue + ",sum(d.dblQty*d.dblUnitPrice)/" + currValue + ",e.strGName,sum(d.dblProdDiscAmount)/" + currValue + "  from tblinvoicehd a,tblproductmaster b,tblsubgroupmaster c,tblinvoicedtl d,tblgroupmaster e,tblpartymaster f " + " where a.strInvCode=d.strInvCode  and d.strProdCode=b.strProdCode and b.strSGCode=c.strSGCode and c.strGCode=e.strGCode and a.strCustCode=f.strPCode and a.strLocCode='" + locCode + "' " + " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate
+				+ "' and  a.strClientCode='" + clientCode + "'");
+		
+		sqlInvoiceFlash.append( " and  a.strSettlementCode='MultiSettle' ");
+	
+		
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append( " and  a.strCustCode='" + custCode + "' ");
+		}
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append( "and  f.strPropCode='"+propertyCode+"' group by  c.strSGCode ");
 
 		
 		List listOfInvoice = objGlobalService.funGetList(sqlInvoiceFlash.toString(), "sql");
+		
 		if (!listOfInvoice.isEmpty()) {
 			for (int i = 0; i < listOfInvoice.size(); i++) {
 				Object[] objInvoice = (Object[]) listOfInvoice.get(i);
-				List dataList = new ArrayList<>();
+				if(mapCategoryWise.containsKey(objInvoice[4].toString()+objInvoice[1].toString()))
+				{
+					List list=mapCategoryWise.get(objInvoice[4].toString()+objInvoice[1].toString());
+					double dblQty = Double.parseDouble(df.format( Double.parseDouble(objInvoice[2].toString())));
+					dblQty = Double.parseDouble(list.get(2).toString()) + dblQty;
+					list.set(2, dblQty);
+					double dblAmt= Double.parseDouble(df.format( Double.parseDouble(objInvoice[3].toString())));
+					dblAmt = Double.parseDouble(list.get(3).toString()) + dblAmt;
+					list.set(3, dblAmt);
+					double dblDiscAmt= Double.parseDouble(df.format( Double.parseDouble(objInvoice[5].toString())));
+					dblDiscAmt = Double.parseDouble(list.get(4).toString()) + dblDiscAmt;
+					list.set(4, dblDiscAmt);
+					
+				}
+				else
+				{
+					List dataList = new ArrayList<>();
+					dataList.add(objInvoice[4].toString());
+					dataList.add(objInvoice[1].toString());
+					dataList.add(objInvoice[2].toString());	
+					if(withZeroAmt.equals("Yes"))
+					{
+						double amt=Double.valueOf(objInvoice[3].toString())-Double.valueOf(objInvoice[5].toString());
+						dataList.add(String.valueOf(amt));
+					}
+					else
+					{
+						dataList.add(objInvoice[3].toString());
+					}
+					dataList.add(objInvoice[5].toString());
+					dataList.add(currencyName);
+					mapCategoryWise.put(objInvoice[4].toString()+objInvoice[1].toString(),dataList);
+				}
+				/*List dataList = new ArrayList<>();
 				dataList.add(objInvoice[4].toString());
 				dataList.add(objInvoice[1].toString());
-				dataList.add(objInvoice[2].toString());
-				if(withZeroAmt.equals("Yes"))
+				dataList.add(objInvoice[2].toString());*/
+				/*if(withZeroAmt.equals("Yes"))
 				{
 					double amt=Double.valueOf(objInvoice[3].toString())-Double.valueOf(objInvoice[5].toString());
 					dataList.add(String.valueOf(amt));
@@ -767,8 +1017,8 @@ public class clsInvoiceFlashController {
 				}
 				
 				dataList.add(objInvoice[5].toString());
-				dataList.add(currencyName);
-				listofInvFlash.add(dataList);
+				dataList.add(currencyName);*/
+				//listofInvFlash.add(dataList);
 				BigDecimal disValue = new BigDecimal(Double.parseDouble(objInvoice[5].toString()));
 				dblTotalDis= dblTotalDis.add(disValue);
 				BigDecimal value = new BigDecimal(Double.parseDouble(objInvoice[3].toString()));
@@ -783,6 +1033,10 @@ public class clsInvoiceFlashController {
 			}
 
 		}
+		for(Map.Entry maplist:mapCategoryWise.entrySet())
+		 {
+			 listofInvFlash.add(maplist.getValue());
+		 }
 
 		listofInvoiveTotal.add(listofInvFlash);
 		listofInvoiveTotal.add(dblTotalValue);
@@ -801,6 +1055,7 @@ public class clsInvoiceFlashController {
 		String custCode = request.getParameter("custCode").toString();
 		String currencyCode=request.getParameter("currencyCode").toString();
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		String currencyName="";
 		List listofInvoiveTotal = new ArrayList();
 		BigDecimal dblTotalValue = new BigDecimal(0);
@@ -829,10 +1084,28 @@ public class clsInvoiceFlashController {
 		StringBuilder sqlInvoiceFlash = new StringBuilder();
 		sqlInvoiceFlash.setLength(0);
 		sqlInvoiceFlash.append("  select b.strManufacturerCode,c.strManufacturerName,sum(d.dblQty)/" + currValue + ",sum(d.dblQty*d.dblUnitPrice)/" + currValue + " from tblinvoicehd a,tblproductmaster b,tblmanufacturemaster c,tblinvoicedtl d,tblpartymaster e " + " where a.strInvCode=d.strInvCode  and d.strProdCode=b.strProdCode and b.strManufacturerCode=c.strManufacturerCode  and a.strCustCode=e.strPCode  and a.strLocCode='" + locCode + "' "
-				+ " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "'");
+				+ " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "' AND e.strPropCode='"+propertyCode+"' ");
 		if (!settlementcode.equals("All")) {
 			sqlInvoiceFlash.append(" and  a.strSettlementCode='" + settlementcode + "' ");
 		}
+		
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append( " and  a.strCustCode='" + custCode + "' ");
+		}
+		
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append( " group by  c.strManufacturerCode ");
+		
+		sqlInvoiceFlash.append( " UNION ");
+		
+		sqlInvoiceFlash.append("  select b.strManufacturerCode,c.strManufacturerName,sum(d.dblQty)/" + currValue + ",sum(d.dblQty*d.dblUnitPrice)/" + currValue + " from tblinvoicehd a,tblproductmaster b,tblmanufacturemaster c,tblinvoicedtl d,tblpartymaster e " + " where a.strInvCode=d.strInvCode  and d.strProdCode=b.strProdCode and b.strManufacturerCode=c.strManufacturerCode  and a.strCustCode=e.strPCode  and a.strLocCode='" + locCode + "' "
+				+ " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "' AND e.strPropCode='"+propertyCode+"' ");
+	
+		sqlInvoiceFlash.append(" and  a.strSettlementCode='MultiSettle' ");
+		
 		
 		if (!custCode.equals("All")) {
 			sqlInvoiceFlash.append( " and  a.strCustCode='" + custCode + "' ");
@@ -882,10 +1155,14 @@ public class clsInvoiceFlashController {
 		String custCode = request.getParameter("custCode").toString();
 		String currencyCode=request.getParameter("currencyCode").toString();
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		String currencyName="";
 		List listofInvoiveTotal = new ArrayList();
 		BigDecimal dblTotalValue = new BigDecimal(0);
 		BigDecimal dblTotalQty= new BigDecimal(0);
+		DecimalFormat df = new DecimalFormat("#.##");
+		Map<String,List<Object>> mapDepartmentWise= new HashMap<>();
+		
 
 		List listofInvFlash = new ArrayList();
 		
@@ -909,7 +1186,7 @@ public class clsInvoiceFlashController {
 
 		StringBuilder sqlInvoiceFlash = new StringBuilder();
 		sqlInvoiceFlash.setLength(0);
-		sqlInvoiceFlash.append(" select b.strLocCode,b.strLocName ,sum(d.dblQty)/" + currValue + ",sum(d.dblQty*d.dblUnitPrice)/" + currValue + " from tblinvoicehd a,tbllocationmaster b,tblinvoicedtl d,tblpartymaster c " + "   where a.strInvCode=d.strInvCode  and a.strLocCode=b.strLocCode  and a.strCustCode=c.strPCode  " + " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "'");
+		sqlInvoiceFlash.append(" select b.strLocCode,b.strLocName ,sum(d.dblQty)/" + currValue + ",sum(d.dblQty*d.dblUnitPrice)/" + currValue + " from tblinvoicehd a,tbllocationmaster b,tblinvoicedtl d,tblpartymaster c " + "   where a.strInvCode=d.strInvCode  and a.strLocCode=b.strLocCode  and a.strCustCode=c.strPCode  " + " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "' AND c.strPropCode='"+propertyCode+"' ");
 		if (!settlementcode.equals("All")) {
 			sqlInvoiceFlash.append(" and  a.strSettlementCode='" + settlementcode + "' ");
 		}
@@ -925,20 +1202,53 @@ public class clsInvoiceFlashController {
 			sqlInvoiceFlash.append(" and  a.strCurrencyCode='" + currencyCode + "' ");
 		}
 		sqlInvoiceFlash.append(" group by  a.strLocCode ");
+		
+		sqlInvoiceFlash.append(" UNION ");
+		
+		sqlInvoiceFlash.append(" select b.strLocCode,b.strLocName ,sum(d.dblQty)/" + currValue + ",sum(d.dblQty*d.dblUnitPrice)/" + currValue + " from tblinvoicehd a,tbllocationmaster b,tblinvoicedtl d,tblpartymaster c " + "   where a.strInvCode=d.strInvCode  and a.strLocCode=b.strLocCode  and a.strCustCode=c.strPCode  " + " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "'");
 
-		DecimalFormat df = new DecimalFormat("#.##");
+		sqlInvoiceFlash.append(" and  a.strSettlementCode='MultiSettle' AND c.strPropCode='"+propertyCode+"' ");
 
+		if (!locCode.equals("All")) {
+			sqlInvoiceFlash.append( "and a.strLocCode='" + locCode + "' ");
+		}
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append( " and  a.strCustCode='" + custCode + "' ");
+		}
+		
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append(" and  a.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append(" group by  a.strLocCode ");
+
+		
 		List listOfInvoice = objGlobalService.funGetList(sqlInvoiceFlash.toString(), "sql");
 		if (!listOfInvoice.isEmpty()) {
 			for (int i = 0; i < listOfInvoice.size(); i++) {
 				Object[] objInvoice = (Object[]) listOfInvoice.get(i);
-				List dataList = new ArrayList<>();
-				dataList.add(objInvoice[0].toString());
-				dataList.add(objInvoice[1].toString());
-				dataList.add(objInvoice[2].toString());
-				dataList.add(objInvoice[3].toString());
-				dataList.add(currencyName);
-				listofInvFlash.add(dataList);
+				if(mapDepartmentWise.containsKey(objInvoice[0].toString()))
+				{
+					List list=mapDepartmentWise.get(objInvoice[0].toString());
+					double dblQty = Double.parseDouble(df.format( Double.parseDouble(objInvoice[2].toString())));
+					dblQty = Double.parseDouble(list.get(2).toString()) + dblQty;
+					list.set(2, dblQty);
+					double dblAmt= Double.parseDouble(df.format( Double.parseDouble(objInvoice[3].toString())));
+					dblAmt = Double.parseDouble(list.get(3).toString()) + dblAmt;
+					list.set(3, dblAmt);
+				}
+				else
+				{
+					List dataList = new ArrayList<>();
+					dataList.add(objInvoice[0].toString());
+					dataList.add(objInvoice[1].toString());
+					dataList.add(objInvoice[2].toString());
+					dataList.add(objInvoice[3].toString());
+					dataList.add(currencyName);	
+					mapDepartmentWise.put(objInvoice[0].toString(), dataList);
+				}
+				
+				
 				BigDecimal value = new BigDecimal(Double.parseDouble(objInvoice[3].toString()));
 				dblTotalValue = dblTotalValue.add(value);
 				BigDecimal totalQty = new BigDecimal(Double.parseDouble(objInvoice[2].toString()));
@@ -948,6 +1258,11 @@ public class clsInvoiceFlashController {
 			}
 
 		}
+		for(Map.Entry maplist:mapDepartmentWise.entrySet())
+		 {
+			 listofInvFlash.add(maplist.getValue());
+		 }
+		
 
 		listofInvoiveTotal.add(listofInvFlash);
 		listofInvoiveTotal.add(dblTotalQty);
@@ -966,9 +1281,12 @@ public class clsInvoiceFlashController {
 		String custCode = request.getParameter("custCode").toString();
 		String currencyCode=request.getParameter("currencyCode").toString();
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		String currencyName="";
 		List listofInvoiveTotal = new ArrayList();
 		BigDecimal dblTotalValue = new BigDecimal(0);
+		Map<String,List<Object>> mapMonthWise= new HashMap<>();
+		DecimalFormat df = new DecimalFormat("#.##");
 		
 		double currValue = 1.0;
 		if(currencyCode.equalsIgnoreCase("All"))
@@ -992,8 +1310,8 @@ public class clsInvoiceFlashController {
 
 		StringBuilder sqlInvoiceFlash = new StringBuilder();
 		sqlInvoiceFlash.setLength(0);
-		sqlInvoiceFlash.append("select c.strSettlementCode,ifnull(c.strSettlementDesc,''),ifnull(c.strSettlementType,''),sum(a.dblGrandTotal)/" + currValue + ",MONTHNAME(DATE(a.dteInvDate)), YEAR(DATE(a.dteInvDate))"
-				+ " from tblinvoicehd a,tblsettlementmaster c,tblpartymaster d " + " where  a.strSettlementCode=c.strSettlementCode and a.strCustCode=d.strPCode " + " and a.strLocCode='" + locCode + "' and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "'");
+		sqlInvoiceFlash.append(" (select c.strSettlementCode,ifnull(c.strSettlementDesc,''),ifnull(c.strSettlementType,''),sum(a.dblGrandTotal)/" + currValue + ",MONTHNAME(DATE(a.dteInvDate)), YEAR(DATE(a.dteInvDate))"
+				+ " from tblinvoicehd a,tblsettlementmaster c,tblpartymaster d " + " where  a.strSettlementCode=c.strSettlementCode and a.strCustCode=d.strPCode " + " and a.strLocCode='" + locCode + "' and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "' AND d.strPropCode='"+propertyCode+"' ");
 		if (!settlementcode.equals("All")) {
 			sqlInvoiceFlash.append(" and  a.strSettlementCode='" + settlementcode + "' ");
 		}
@@ -1006,31 +1324,66 @@ public class clsInvoiceFlashController {
 			sqlInvoiceFlash.append(" and  a.strCurrencyCode='" + currencyCode + "' ");
 		}
 		sqlInvoiceFlash.append("group by a.strSettlementCode,YEAR(DATE(a.dteInvDate)),MONTHNAME(DATE(a.dteInvDate))"
-				        + "  order by YEAR(DATE(a.dteInvDate)) desc,MONTHNAME(DATE(a.dteInvDate)) desc");
+				        + "  order by YEAR(DATE(a.dteInvDate)) desc,MONTHNAME(DATE(a.dteInvDate)) desc )");
+		
+		sqlInvoiceFlash.append( " UNION ");
 
-		DecimalFormat df = new DecimalFormat("#.##");
+		
+		sqlInvoiceFlash.append(" (select c.strSettlementCode,ifnull(c.strSettlementDesc,''),ifnull(c.strSettlementType,''),sum(e.dblSettlementAmt)/" + currValue + ",MONTHNAME(DATE(a.dteInvDate)), YEAR(DATE(a.dteInvDate))"
+				+ " from tblinvoicehd a,tblsettlementmaster c,tblpartymaster d ,tblinvsettlementdtl e "
+				+ " where  a.strInvCode=e.strInvCode and e.strSettlementCode=c.strSettlementCode and a.strCustCode=e.strCustomerCode and e.strCustomerCode=d.strPCode "
+				+ " and a.strCustCode=d.strPCode " + " and a.strLocCode='" + locCode + "' and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "' AND d.strPropCode='"+propertyCode+"' ");
+	
+	   sqlInvoiceFlash.append(" and  a.strSettlementCode='MultiSettle' ");
+
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append( " and  a.strCustCode='" + custCode + "' ");
+		}
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append(" and  a.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append("group by e.strSettlementCode,YEAR(DATE(a.dteInvDate)),MONTHNAME(DATE(a.dteInvDate))"
+				        + "  order by YEAR(DATE(a.dteInvDate)) desc,MONTHNAME(DATE(a.dteInvDate)) desc )");
+
+	
 		double floatingPoint = 0.0;
 		List listOfInvoice = objGlobalService.funGetList(sqlInvoiceFlash.toString(), "sql");
 		if (!listOfInvoice.isEmpty()) {
 			for (int i = 0; i < listOfInvoice.size(); i++) {
 				Object[] objInvoice = (Object[]) listOfInvoice.get(i);
-				List dataList = new ArrayList<>();
-				dataList.add(objInvoice[0].toString());
-				dataList.add(objInvoice[1].toString());
-				dataList.add(objInvoice[2].toString());
+				if(mapMonthWise.containsKey(objInvoice[1].toString()+objInvoice[4].toString()))
+				{
+					List list=mapMonthWise.get(objInvoice[1].toString()+objInvoice[4].toString());
+					
+					double dblAmt= Double.parseDouble(df.format( Double.parseDouble(objInvoice[3].toString())));
+					dblAmt = Double.parseDouble(list.get(3).toString()) + dblAmt;
+					list.set(3, dblAmt);
+				}
+				else
+				{
+					List dataList = new ArrayList<>();
+					dataList.add(objInvoice[0].toString());
+					dataList.add(objInvoice[1].toString());
+					dataList.add(objInvoice[2].toString());
 
-				floatingPoint = Double.parseDouble(objInvoice[3].toString());
-				floatingPoint = Double.parseDouble(df.format(floatingPoint).toString());
-				dataList.add(floatingPoint);
-				dataList.add(objInvoice[4].toString());
-				dataList.add(objInvoice[5].toString());
-				dataList.add(currencyName);
-				listofInvFlash.add(dataList);
+					floatingPoint = Double.parseDouble(objInvoice[3].toString());
+					floatingPoint = Double.parseDouble(df.format(floatingPoint).toString());
+					dataList.add(floatingPoint);
+					dataList.add(objInvoice[4].toString());
+					dataList.add(objInvoice[5].toString());
+					dataList.add(currencyName);
+					mapMonthWise.put(objInvoice[1].toString()+objInvoice[4].toString(), dataList);
+				}
 				BigDecimal value = new BigDecimal(Double.parseDouble(objInvoice[3].toString()));
 				dblTotalValue = dblTotalValue.add(value);
 
 			}
 		}
+		for(Map.Entry maplist:mapMonthWise.entrySet())
+		 {
+			 listofInvFlash.add(maplist.getValue());
+		 }
 
 		listofInvoiveTotal.add(listofInvFlash);
 		listofInvoiveTotal.add(dblTotalValue);
@@ -1047,10 +1400,13 @@ public class clsInvoiceFlashController {
 		String locCode = request.getParameter("locCode").toString();
 		String custCode = request.getParameter("custCode").toString();
 		String currencyCode=request.getParameter("currencyCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
 		String currencyName="";
 		List listofInvoiveTotal = new ArrayList();
 		BigDecimal dblTotalValue = new BigDecimal(0);
+		Map<String,List<Object>> mapRegionWise= new HashMap<>();
+		DecimalFormat df = new DecimalFormat("#.##");
 		
 		double currValue = 1.0;
 		if(currencyCode.equalsIgnoreCase("All"))
@@ -1074,12 +1430,12 @@ public class clsInvoiceFlashController {
 
 		StringBuilder sqlInvoiceFlash = new StringBuilder();
 		sqlInvoiceFlash.setLength(0);
-		sqlInvoiceFlash.append("SELECT c.strRegionCode,c.strRegionDesc, SUM(b.dblGrandTotal)/" + currValue + ""
+		sqlInvoiceFlash.append("(SELECT c.strRegionCode,c.strRegionDesc, SUM(b.dblGrandTotal)/" + currValue + ""
 				+ " FROM tblpartymaster a,tblinvoicehd b,tblregionmaster c"
 				+ " WHERE b.strCustCode=a.strPCode AND a.strRegion=c.strRegionCode  "
 				+ " and b.strLocCode='" + locCode + "' " + " "
 				+ " and date(b.dteInvDate) between '" + fromDate + "' and '" + toDate + "' "
-				+ " and  b.strClientCode='" + clientCode + "'");
+				+ " and  b.strClientCode='" + clientCode + "'  AND a.strPropCode='"+propertyCode+"' ");
 		if (!settlementcode.equals("All")) {
 			sqlInvoiceFlash.append(" and  b.strSettlementCode='" + settlementcode + "' ");
 		}
@@ -1090,23 +1446,61 @@ public class clsInvoiceFlashController {
 		{
 			sqlInvoiceFlash.append(" and  b.strCurrencyCode='" + currencyCode + "' ");
 		}
-		sqlInvoiceFlash.append("group by a.strRegion  order by sum(b.dblGrandTotal) desc ");
+		sqlInvoiceFlash.append("group by a.strRegion  order by sum(b.dblGrandTotal) desc ) ");
+		
+		sqlInvoiceFlash.append(" UNION ");
+		
+		sqlInvoiceFlash.append("(SELECT c.strRegionCode,c.strRegionDesc, SUM(b.dblGrandTotal)/" + currValue + ""
+				+ " FROM tblpartymaster a,tblinvoicehd b,tblregionmaster c"
+				+ " WHERE b.strCustCode=a.strPCode AND a.strRegion=c.strRegionCode  "
+				+ " and b.strLocCode='" + locCode + "' " + " "
+				+ " and date(b.dteInvDate) between '" + fromDate + "' and '" + toDate + "' "
+				+ " and  b.strClientCode='" + clientCode + "'  AND a.strPropCode='"+propertyCode+"' ");
+		
+		sqlInvoiceFlash.append(" and  b.strSettlementCode='Multisettle' ");
+		
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append(" and  b.strCustCode='" + custCode + "' ");
+		}
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append(" and  b.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append("group by a.strRegion  order by sum(b.dblGrandTotal) desc )");
+		
 		List listOfInvoice = objGlobalService.funGetList(sqlInvoiceFlash.toString(), "sql");
 		if (!listOfInvoice.isEmpty()) {
 			for (int i = 0; i < listOfInvoice.size(); i++) {
 				Object[] objInvoice = (Object[]) listOfInvoice.get(i);
+				if(mapRegionWise.containsKey(objInvoice[0].toString()))
+				{
+					List list=mapRegionWise.get(objInvoice[0].toString());
+					
+					double dblAmt= Double.parseDouble(df.format( Double.parseDouble(objInvoice[2].toString())));
+					dblAmt = Double.parseDouble(list.get(2).toString()) + dblAmt;
+					list.set(2, dblAmt);
+				}
+				else
+				{
 				List dataList = new ArrayList<>();
 				dataList.add(objInvoice[0].toString());
 				dataList.add(objInvoice[1].toString());
 				dataList.add(objInvoice[2].toString());
 				dataList.add(currencyName);
-				listofInvFlash.add(dataList);
+				mapRegionWise.put(objInvoice[0].toString(), dataList);
+				}
+				
 				BigDecimal value = new BigDecimal(Double.parseDouble(objInvoice[2].toString()));
 				dblTotalValue = dblTotalValue.add(value);
 
 			}
 
 		}
+		for(Map.Entry maplist:mapRegionWise.entrySet())
+		 {
+			 listofInvFlash.add(maplist.getValue());
+		 }
+
 
 		listofInvoiveTotal.add(listofInvFlash);
 		listofInvoiveTotal.add(dblTotalValue);
@@ -1143,6 +1537,7 @@ public class clsInvoiceFlashController {
 		String userCode = request.getSession().getAttribute("usercode").toString();
 		String dbWebBook=request.getSession().getAttribute("WebBooksDB").toString();
 		String currencyCode=request.getParameter("currencyCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		String currencyName="";
 		clsCompanyMasterModel objCompModel = objSetupMasterService.funGetObject(clientCode);
 
@@ -1236,12 +1631,12 @@ public class clsInvoiceFlashController {
 			
 
 			sqlInvoiceFlash.append("and a.strSettlementCode=c.strSettlementCode "
-				+ "  order by a.strInvCode ");
+				+ " and b.strPropCode='"+propertyCode+"' order by a.strInvCode ");
 		}
 		else
 		{
-			sqlInvoiceFlash.append("select a.strInvCode ,DATE_FORMAT(a.dteInvDate,'%d-%m-%Y'),b.strPName,a.strAgainst,a.strVehNo,a.dblSubTotalAmt/" + currValue + ",a.dblTaxAmt/" + currValue + ""
-					+ ",(a.dblSubTotalAmt/" + currValue + "+ a.dblTaxAmt/" + currValue + "),a.strExciseable,c.strSettlementDesc,'',ifnull(a.strNarration,'') "
+			sqlInvoiceFlash.append("(select a.strInvCode ,DATE_FORMAT(a.dteInvDate,'%d-%m-%Y'),b.strPName,a.strAgainst,a.strVehNo,a.dblSubTotalAmt/" + currValue + ",a.dblTaxAmt/" + currValue + ""
+					+ ",(a.dblSubTotalAmt/" + currValue + "+ a.dblTaxAmt/" + currValue + "),a.strExciseable,c.strSettlementDesc,'invoice',ifnull(a.strNarration,'') "
 					+ " FROM tblpartymaster b,tblsettlementmaster c,tblinvoicehd a "
 					+ " where   date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' " + " and a.strLocCode='" + locCode +"' "
 					+ " and a.strCustCode=b.strPCode and  a.strClientCode='" + clientCode + "'");
@@ -1258,7 +1653,31 @@ public class clsInvoiceFlashController {
 			
 
 			sqlInvoiceFlash.append("and a.strSettlementCode=c.strSettlementCode  and a.dblSubTotalAmt>0 "
-				+ "  order by a.strInvCode ");
+				+ " and b.strPropCode='"+propertyCode+"' order by a.strInvCode ) ");
+			
+			sqlInvoiceFlash.append( " UNION ");
+				
+			sqlInvoiceFlash.append("(select a.strInvCode ,DATE_FORMAT(a.dteInvDate,'%d-%m-%Y'),b.strPName,a.strAgainst,a.strVehNo,a.dblSubTotalAmt/" + currValue + ",a.dblTaxAmt/" + currValue + ""
+					+ ",(a.dblSubTotalAmt/" + currValue + "+ a.dblTaxAmt/" + currValue + "),a.strExciseable,'invoice','Multisettle',ifnull(a.strNarration,'') "
+					+ " FROM tblpartymaster b,tblinvoicehd a "
+					+ " where   date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' " + " and a.strLocCode='" + locCode +"' "
+					+ " and a.strCustCode=b.strPCode and  a.strClientCode='" + clientCode + "'");
+			
+		   sqlInvoiceFlash.append(" and  a.strSettlementCode='Multisettle' ");
+		
+			if (!custCode.equals("All")) {
+				sqlInvoiceFlash.append( " and  a.strCustCode='" + custCode + "' ");
+			}
+			if(!currencyCode.equalsIgnoreCase("All"))
+			{
+				sqlInvoiceFlash.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
+			}
+			
+
+			sqlInvoiceFlash.append(" and a.dblSubTotalAmt>0 "
+				+ " and b.strPropCode='"+propertyCode+"'  order by a.strInvCode )");
+			
+			
 		}
 		
 		DecimalFormat df = new DecimalFormat("#.##");
@@ -1410,8 +1829,10 @@ public class clsInvoiceFlashController {
 		String currencyCode=request.getParameter("currencyCode").toString();
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
 		String userCode = request.getSession().getAttribute("usercode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		String currencyName="";
 		BigDecimal dblTotalValue = new BigDecimal(0);
+		Map<String,List<Object>> mapSettlementWise= new HashMap<>();
 		
 		double currValue = 1.0;
 		if(currencyCode.equalsIgnoreCase("All"))
@@ -1437,7 +1858,7 @@ public class clsInvoiceFlashController {
 		sqlInvoiceFlash.append("select c.strSettlementCode,ifnull(c.strSettlementDesc,''),ifnull(c.strSettlementType,''),sum(a.dblGrandTotal)/" + currValue + " "
 				+ " from tblinvoicehd a,tblsettlementmaster c,tblpartymaster d "
 				+ " where  a.strSettlementCode=c.strSettlementCode and  a.strCustCode=d.strPCode "
-				+ " and a.strLocCode='" + locCode + "' and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "'");
+				+ " and a.strLocCode='" + locCode + "' and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "' ");
 		if (!settlementcode.equals("All")) {
 			sqlInvoiceFlash.append(" and  a.strSettlementCode='" + settlementcode + "' ");
 		}
@@ -1450,7 +1871,29 @@ public class clsInvoiceFlashController {
 			sqlInvoiceFlash.append(" and  a.strCurrencyCode='" + currencyCode + "' ");
 		}
 
-		sqlInvoiceFlash.append( "group by a.strSettlementCode ");
+		sqlInvoiceFlash.append( " and d.strPropCode='"+propertyCode+"' group by a.strSettlementCode ");
+		
+        sqlInvoiceFlash.append(" UNION ");
+		
+		sqlInvoiceFlash.append(" (select e.strSettlementCode,ifnull(c.strSettlementDesc,''),ifnull(c.strSettlementType,''),SUM(e.dblSettlementAmt) "
+				+ " from tblinvoicehd a,tblsettlementmaster c,tblpartymaster d ,tblinvsettlementdtl e "
+				+ " where   a.strCustCode=d.strPCode and a.strInvCode=e.strInvCode  and e.strSettlementCode=c.strSettlementCode "
+				+ "  and a.strLocCode='" + locCode + "' and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "'");
+		
+	    sqlInvoiceFlash.append(" and  a.strSettlementCode='MultiSettle' ");
+		
+		
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append( " and  a.strCustCode='" + custCode + "' ");
+		}
+		
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
+		}
+		
+
+		sqlInvoiceFlash.append(" and d.strPropCode='"+propertyCode+"' group by e.strSettlementCode )");
 
 		DecimalFormat df = new DecimalFormat("#.##");
 		
@@ -1459,19 +1902,36 @@ public class clsInvoiceFlashController {
 		
 		  for (int i = 0; i < listOfInvoice.size(); i++) {
 				Object[] objInvoice = (Object[]) listOfInvoice.get(i);
+				if(mapSettlementWise.containsKey(objInvoice[0].toString()))
+				{
+					List list=mapSettlementWise.get(objInvoice[0].toString());
+					double dblAmt = Double.parseDouble(df.format( Double.parseDouble(objInvoice[3].toString())));
+					dblAmt = Double.parseDouble(list.get(4).toString()) + dblAmt;
+					list.set(4, dblAmt);	
+					
+				}
+				else
+				{
 				List DataList = new ArrayList<>();
 				DataList.add(objInvoice[0].toString());
 				DataList.add(objInvoice[1].toString());
 				DataList.add(objInvoice[2].toString());
 				DataList.add(currencyName);
 				DataList.add(df.format(new BigDecimal(Double.parseDouble(objInvoice[3].toString()))));
-				
-				detailList.add(DataList);
+				mapSettlementWise.put(objInvoice[0].toString(), DataList);
+				}
+				//detailList.add(DataList);
 				BigDecimal value = new BigDecimal(Double.parseDouble(objInvoice[3].toString()));
 				dblTotalValue = dblTotalValue.add(value);
-
+				}
 			}
-		}
+				
+		
+		for(Map.Entry maplist:mapSettlementWise.entrySet())
+		 {
+			detailList.add(maplist.getValue());
+		 }
+		
 
 		totalsList.add(df.format(dblTotalValue));
 		
@@ -1523,6 +1983,7 @@ public class clsInvoiceFlashController {
 		String currencyCode=request.getParameter("currencyCode").toString();
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
 		String userCode = request.getSession().getAttribute("usercode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		String currencyName="";
 		BigDecimal dblTotalValue = new BigDecimal(0);
 		
@@ -1547,7 +2008,7 @@ public class clsInvoiceFlashController {
 		
 		StringBuilder sqlInvoiceFlash = new StringBuilder();
 		sqlInvoiceFlash.setLength(0);
-		sqlInvoiceFlash.append("SELECT b.strUserCode,b.strUserName,  sum(a.dblGrandTotal)/" + currValue + ",sum(a.dblDiscountAmt)/" + currValue + ",ifnull(c.strSettlementDesc,'')  from tblinvoicehd a,tbluserhd b,tblsettlementmaster c " + " WHERE a.strUserCreated=b.strUserCode and a.strSettlementCode=c.strSettlementCode " + " and a.strLocCode='" + locCode + "' and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate
+		sqlInvoiceFlash.append("(SELECT b.strUserCode,b.strUserName,  sum(a.dblGrandTotal)/" + currValue + ",sum(a.dblDiscountAmt)/" + currValue + ",ifnull(c.strSettlementDesc,'')  from tblinvoicehd a,tbluserhd b,tblsettlementmaster c " + " WHERE a.strUserCreated=b.strUserCode and a.strSettlementCode=c.strSettlementCode " + " and a.strLocCode='" + locCode + "' and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate
 				+ "' and  a.strClientCode='" + clientCode + "'");
 		if (!settlementcode.equals("All")) {
 			sqlInvoiceFlash.append(" and  a.strSettlementCode='" + settlementcode + "' ");
@@ -1556,7 +2017,23 @@ public class clsInvoiceFlashController {
 		{
 			sqlInvoiceFlash.append(" and  a.strCurrencyCode='" + currencyCode + "' ");
 		}
-		sqlInvoiceFlash.append("group by a.strUserCreated,c.strSettlementCode order by a.strUserCreated ");
+		sqlInvoiceFlash.append(" and b.strProperty='"+propertyCode+"' group by a.strUserCreated,c.strSettlementCode order by a.strUserCreated )");
+		
+        sqlInvoiceFlash.append(" UNION ");
+		
+		sqlInvoiceFlash.append("(SELECT a.strUserCreated,a.strUserCreated,  SUM(d.dblSettlementAmt)/" + currValue + ",sum(a.dblDiscountAmt)/" + currValue + ",ifnull(c.strSettlementDesc,'')  "
+				+ " FROM tblinvoicehd a left outer join tbllocationmaster e on a.strLocCode=e.strLocCode,tblsettlementmaster c,tblinvsettlementdtl d" + " "
+				+ " WHERE  c.strSettlementCode=d.strSettlementCode   and a.strInvCode=d.strInvCode  " + " and a.strLocCode='" + locCode + "' "
+				+ " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate
+				+ "' and  a.strClientCode='" + clientCode + "'"
+			    + " and a.strSettlementCode='MultiSettle'");
+		
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append(" and  a.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append(" and e.strPropertyCode='"+propertyCode+"' group by a.strUserCreated,d.strSettlementCode "
+				+ " order by a.strUserCreated )  ");
 
 
 		DecimalFormat df = new DecimalFormat("#.##");
@@ -1647,6 +2124,8 @@ public class clsInvoiceFlashController {
 		totalsList.add("");
 		totalsList.add("");
 		totalsList.add("");
+		
+		Map<String,List<Object>> mapCustomerWise= new HashMap<>();
 
 		String fromDate = request.getParameter("frmDte").toString();
 		String toDate = request.getParameter("toDte").toString();
@@ -1655,6 +2134,7 @@ public class clsInvoiceFlashController {
 		String currencyCode=request.getParameter("currencyCode").toString();
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
 		String userCode = request.getSession().getAttribute("usercode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		String currencyName="";
 		BigDecimal dblTotalValue = new BigDecimal(0);
 		
@@ -1677,7 +2157,7 @@ public class clsInvoiceFlashController {
 		}
 		StringBuilder sqlInvoiceFlash = new StringBuilder();
 		sqlInvoiceFlash.setLength(0);
-		sqlInvoiceFlash.append("select b.strCustCode,a.strPName,a.strPType,count(b.strInvCode),sum(b.dblGrandTotal)/" + currValue + " " + " from tblpartymaster a,tblinvoicehd b where b.strCustCode=a.strPCode  and b.strLocCode='" + locCode + "' " + " and date(b.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  b.strClientCode='" + clientCode + "'");
+		sqlInvoiceFlash.append("(select b.strCustCode,a.strPName,a.strPType,count(b.strInvCode),sum(b.dblGrandTotal)/" + currValue + " " + " from tblpartymaster a,tblinvoicehd b where b.strCustCode=a.strPCode  and b.strLocCode='" + locCode + "' " + " and date(b.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  b.strClientCode='" + clientCode + "'");
 		if (!settlementcode.equals("All")) {
 			sqlInvoiceFlash.append(" and  b.strSettlementCode='" + settlementcode + "' ");
 		}
@@ -1688,15 +2168,49 @@ public class clsInvoiceFlashController {
 		{
 			sqlInvoiceFlash.append(" and  b.strCurrencyCode='" + currencyCode + "' ");
 		}
-		sqlInvoiceFlash.append( "group by b.strCustCode  order by sum(b.dblGrandTotal) desc ");
+		sqlInvoiceFlash.append( " and a.strPropCode='"+propertyCode+"' group by b.strCustCode  order by sum(b.dblGrandTotal) desc) ");
+		
+		sqlInvoiceFlash.append(" UNION ");
+		
+		sqlInvoiceFlash.append("(select b.strCustCode,a.strPName,a.strPType,count(b.strInvCode),"
+				+ " sum(e.dblSettlementAmt)/" + currValue + " " + " "
+				+ " from tblpartymaster a,tblinvoicehd b,tblinvsettlementdtl e "
+				+ " where b.strCustCode=a.strPCode  and b.strLocCode='" + locCode + "' " + " "
+				+ " and date(b.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  "
+				+ " b.strClientCode='" + clientCode + "'"
+				+ " and b.strCustCode=e.strCustomerCode and b.strInvCode=e.strInvCode AND b.strSettlementCode='MultiSettle' ");
+		
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append( " and  b.strCustCode='" + custCode + "' ");
+		}
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append( " and  b.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append("and a.strPropCode='"+propertyCode+"' group by b.strCustCode  order by sum(e.dblSettlementAmt) desc ) ");
 
 		DecimalFormat df = new DecimalFormat("#.##");
 		
 		List listOfInvoice = objGlobalService.funGetList(sqlInvoiceFlash.toString(), "sql");
+	
 		if (!listOfInvoice.isEmpty()) {
 		  for (int i = 0; i < listOfInvoice.size(); i++) 
 			{
 				Object[] objInvoice = (Object[]) listOfInvoice.get(i);
+				if(mapCustomerWise.containsKey(objInvoice[0].toString()))
+				{
+					List list=mapCustomerWise.get(objInvoice[0].toString());
+					double dblNoOfBills = Double.parseDouble(df.format( Double.parseDouble(objInvoice[3].toString())));
+					dblNoOfBills = Double.parseDouble(list.get(3).toString()) + dblNoOfBills;
+					list.set(3, dblNoOfBills);
+					double dblAmt = Double.parseDouble(df.format( Double.parseDouble(objInvoice[4].toString())));
+					dblAmt = Double.parseDouble(list.get(5).toString()) + dblAmt;
+					list.set(5, dblAmt);
+					
+				}
+				else
+				{
+				
 				List DataList = new ArrayList<>();
 				DataList.add(objInvoice[0].toString());
 				DataList.add(objInvoice[1].toString());
@@ -1704,13 +2218,19 @@ public class clsInvoiceFlashController {
 				DataList.add(objInvoice[3].toString());
 				DataList.add(currencyName);
 				DataList.add(df.format(Double.valueOf(objInvoice[4].toString())));
-				
-				detailList.add(DataList);
+				mapCustomerWise.put(objInvoice[0].toString(), DataList);
+				}
+				//detailList.add(DataList);
 				BigDecimal value = new BigDecimal(Double.parseDouble(objInvoice[4].toString()));
 				dblTotalValue = dblTotalValue.add(value);
 
 		   }
 		}
+		for(Map.Entry maplist:mapCustomerWise.entrySet())
+		 {
+			detailList.add(maplist.getValue());
+		 }
+
 
 		totalsList.add(df.format(dblTotalValue));
 		
@@ -1751,6 +2271,7 @@ public class clsInvoiceFlashController {
 		totalsList.add("Total");
 		totalsList.add("");
 		totalsList.add("");
+		Map<String,List<Object>> mapProductWise= new HashMap<>();
 
 		String fromDate = request.getParameter("frmDte").toString();
 		String toDate = request.getParameter("toDte").toString();
@@ -1759,9 +2280,12 @@ public class clsInvoiceFlashController {
 		String currencyCode=request.getParameter("currencyCode").toString();
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
 		String userCode = request.getSession().getAttribute("usercode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		String currencyName="";
 		BigDecimal dblTotalValue = new BigDecimal(0);
 		BigDecimal dblTotalQty = new BigDecimal(0);
+		BigDecimal dblTotalDiscAmt = new BigDecimal(0);
+		BigDecimal dblTotalFinalAmt = new BigDecimal(0);
 			
 		double currValue = 1.0;
 		if(currencyCode.equalsIgnoreCase("All"))
@@ -1783,7 +2307,7 @@ public class clsInvoiceFlashController {
 		
 		StringBuilder sqlInvoiceFlash = new StringBuilder();
 		sqlInvoiceFlash.setLength(0);
-		sqlInvoiceFlash.append("SELECT  b.strProdCode,c.strProdName,sum(b.dblQty)/" + currValue + ", SUM(b.dblQty*b.dblPrice)/" + currValue + " FROM tblinvoicedtl b, tblproductmaster c,tblinvoicehd a,tblpartymaster d " + " WHERE a.strInvCode=b.strInvCode  and b.strProdCode=c.strProdCode and a.strCustCode=d.strPCode and a.strLocCode='" + locCode + "' " + " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "'");
+		sqlInvoiceFlash.append("(SELECT  b.strProdCode,c.strProdName,sum(b.dblQty)/" + currValue + ", SUM(b.dblQty*b.dblPrice)/" + currValue + ",b.dblProdDiscAmount,SUM(b.dblQty*b.dblPrice)/1.0 - b.dblProdDiscAmount FROM tblinvoicedtl b, tblproductmaster c,tblinvoicehd a,tblpartymaster d " + " WHERE a.strInvCode=b.strInvCode  and b.strProdCode=c.strProdCode and a.strCustCode=d.strPCode and a.strLocCode='" + locCode + "' " + " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "'");
 		if (!settlementcode.equals("All")) {
 			sqlInvoiceFlash.append(" and  a.strSettlementCode='" + settlementcode + "' ");
 		}
@@ -1794,7 +2318,22 @@ public class clsInvoiceFlashController {
 		{
 			sqlInvoiceFlash.append(" and  a.strCurrencyCode='" + currencyCode + "' ");
 		}
-		sqlInvoiceFlash.append("group by b.strProdCode ");
+		sqlInvoiceFlash.append(" and d.strPropCode='"+propertyCode+"' group by b.strProdCode )");
+		
+        sqlInvoiceFlash.append(" UNION  ");
+		
+		sqlInvoiceFlash.append( "(SELECT  b.strProdCode,c.strProdName,sum(b.dblQty)/" + currValue + ", SUM(b.dblQty*b.dblPrice)/" + currValue + ",b.dblProdDiscAmount,SUM(b.dblQty*b.dblPrice)/1.0 - b.dblProdDiscAmount FROM tblinvoicedtl b, tblproductmaster c,tblinvoicehd a,tblpartymaster d " + " WHERE a.strInvCode=b.strInvCode  and b.strProdCode=c.strProdCode and a.strCustCode=d.strPCode and a.strLocCode='" + locCode + "' " + " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "'");
+	
+		sqlInvoiceFlash.append( " and  a.strSettlementCode='Multisettle' ");
+
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append( " and  a.strCustCode='" + custCode + "' ");
+		}
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append(" and d.strPropCode='"+propertyCode+"' group by b.strProdCode ) ");
 
 		DecimalFormat df = new DecimalFormat("#.##");
 		List listOfInvoice = objGlobalService.funGetList(sqlInvoiceFlash.toString(), "sql");
@@ -1802,23 +2341,62 @@ public class clsInvoiceFlashController {
 		for (int i = 0; i < listOfInvoice.size(); i++) 
 		   {
 				Object[] objInvoice = (Object[]) listOfInvoice.get(i);
+				if(mapProductWise.containsKey(objInvoice[0].toString()))
+				{
+					List list=mapProductWise.get(objInvoice[0].toString());
+					double dblAmt = Double.parseDouble(df.format( Double.parseDouble(objInvoice[3].toString())));
+					dblAmt = Double.parseDouble(list.get(4).toString()) + dblAmt;
+					list.set(4, dblAmt);	
+					
+					double dblQty=Double.parseDouble(df.format( Double.parseDouble(objInvoice[2].toString())));
+					dblQty=Double.parseDouble(list.get(3).toString()) + dblQty;
+					list.set(3, dblQty);
+					
+					double dblDiscAmt=Double.parseDouble(df.format( Double.parseDouble(objInvoice[4].toString())));
+					dblDiscAmt=Double.parseDouble(list.get(5).toString()) + dblDiscAmt;
+					list.set(5, dblDiscAmt);
+					
+					double dblTotalAmt=Double.parseDouble(df.format( Double.parseDouble(objInvoice[5].toString())));
+					dblTotalAmt=Double.parseDouble(list.get(6).toString()) + dblTotalAmt;
+					list.set(6, dblTotalAmt);
+					
+					
+				}
+				else
+				{
+				
 				List dataList = new ArrayList<>();
 				dataList.add(objInvoice[0].toString());
 				dataList.add(objInvoice[1].toString());
 				dataList.add(currencyName);
 				dataList.add(df.format(Double.valueOf(objInvoice[2].toString())));
 				dataList.add(df.format(Double.valueOf(objInvoice[3].toString())));
-				
-				detailList.add(dataList);
+				dataList.add(df.format(Double.valueOf(objInvoice[4].toString())));
+				dataList.add(df.format(Double.valueOf(objInvoice[5].toString())));
+				mapProductWise.put(objInvoice[0].toString(), dataList);
+				}
+				//detailList.add(dataList);
 				BigDecimal value = new BigDecimal(Double.parseDouble(objInvoice[3].toString()));
 				dblTotalValue = dblTotalValue.add(value);			
 				BigDecimal valueQty = new BigDecimal(Double.parseDouble(objInvoice[2].toString()));
 				dblTotalQty = dblTotalQty.add(valueQty);
+				BigDecimal discAmt = new BigDecimal(Double.parseDouble(objInvoice[4].toString()));
+				dblTotalDiscAmt = dblTotalDiscAmt.add(discAmt);
+				
+				BigDecimal toatalAmt = new BigDecimal(Double.parseDouble(objInvoice[5].toString()));
+				dblTotalFinalAmt = dblTotalFinalAmt.add(toatalAmt);
+				
 			}
 		}
+		for(Map.Entry maplist:mapProductWise.entrySet())
+		 {
+			 detailList.add(maplist.getValue());
+		 }
 
 		totalsList.add(df.format(dblTotalQty));
 		totalsList.add(df.format(dblTotalValue));
+		totalsList.add(df.format(dblTotalDiscAmt));
+		totalsList.add(df.format(dblTotalFinalAmt));
 	
 		
 		headerList.add("Product Code");
@@ -1826,6 +2404,8 @@ public class clsInvoiceFlashController {
 		headerList.add("Currency");
 		headerList.add("Quantity");
 		headerList.add("Sales Amount");
+		headerList.add("Disc Amount");
+		headerList.add("Total Amount");
 
 		Object[] objHeader = (Object[]) headerList.toArray();
 
@@ -1858,6 +2438,7 @@ public class clsInvoiceFlashController {
 		totalsList.add("Total");
 		totalsList.add("");
 		totalsList.add("");
+		Map<String,List<Object>> mapCategoryWise= new HashMap<>();
 		
 		String fromDate = request.getParameter("frmDte").toString();
 		String toDate = request.getParameter("toDte").toString();
@@ -1867,6 +2448,7 @@ public class clsInvoiceFlashController {
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
 		String userCode = request.getSession().getAttribute("usercode").toString();
 		String withZeroAmt = request.getParameter("withZeroAmt").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		String currencyName="";
 		BigDecimal dblTotalValue = new BigDecimal(0);
 		BigDecimal dblTotalQty = new BigDecimal(0);
@@ -1905,7 +2487,24 @@ public class clsInvoiceFlashController {
 		{
 			sqlInvoiceFlash.append(" and  a.strCurrencyCode='" + currencyCode + "' ");
 		}
-		sqlInvoiceFlash.append( "  group by  c.strSGCode ");
+		sqlInvoiceFlash.append( " f.strPropCode='"+propertyCode+"'  group by  c.strSGCode ");
+		
+        sqlInvoiceFlash.append( " UNION ");
+		
+		sqlInvoiceFlash.append("select b.strSGCode,c.strSGName,sum(d.dblQty)/" + currValue + ",sum(d.dblQty*d.dblUnitPrice)/" + currValue + ",e.strGName,sum(d.dblProdDiscAmount)/" + currValue + "  from tblinvoicehd a,tblproductmaster b,tblsubgroupmaster c,tblinvoicedtl d,tblgroupmaster e,tblpartymaster f " + " where a.strInvCode=d.strInvCode  and d.strProdCode=b.strProdCode and b.strSGCode=c.strSGCode and c.strGCode=e.strGCode and a.strCustCode=f.strPCode and a.strLocCode='" + locCode + "' " + " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate
+				+ "' and  a.strClientCode='" + clientCode + "'");
+		
+		sqlInvoiceFlash.append( " and  a.strSettlementCode='MultiSettle' ");
+	
+		
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append( " and  a.strCustCode='" + custCode + "' ");
+		}
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append( " f.strPropCode='"+propertyCode+"' group by  c.strSGCode ");
 
 		DecimalFormat df = new DecimalFormat("#.##");
 		List listOfInvoice = objGlobalService.funGetList(sqlInvoiceFlash.toString(), "sql");
@@ -1928,6 +2527,23 @@ public class clsInvoiceFlashController {
 		if (!listOfInvoice.isEmpty()) {
 			for (int i = 0; i < listOfInvoice.size(); i++) {
 				Object[] objInvoice = (Object[]) listOfInvoice.get(i);
+				if(mapCategoryWise.containsKey(objInvoice[4].toString()+objInvoice[1].toString()))
+				{
+					List list=mapCategoryWise.get(objInvoice[4].toString()+objInvoice[1].toString());
+					double dblQty = Double.parseDouble(df.format( Double.parseDouble(objInvoice[2].toString())));
+					dblQty = Double.parseDouble(list.get(3).toString()) + dblQty;
+					list.set(3, dblQty);
+					double dblAmt= Double.parseDouble(df.format( Double.parseDouble(objInvoice[3].toString())));
+					dblAmt = Double.parseDouble(list.get(5).toString()) + dblAmt;
+					list.set(5, dblAmt);
+					double dblDiscAmt= Double.parseDouble(df.format( Double.parseDouble(objInvoice[5].toString())));
+					dblDiscAmt = Double.parseDouble(list.get(4).toString()) + dblDiscAmt;
+					list.set(4, dblDiscAmt);
+					
+				}
+				else
+				{
+				
 				List dataList = new ArrayList<>();
 				dataList.add(objInvoice[4].toString());
 				dataList.add(objInvoice[1].toString());
@@ -1945,11 +2561,18 @@ public class clsInvoiceFlashController {
 					dataList.add(df.format(Double.valueOf(objInvoice[3].toString())));
 					dataList.add(df.format(Math.round((Double.valueOf(objInvoice[3].toString())/dblTotalValue.doubleValue())*100))+"%");
 				}
+				mapCategoryWise.put(objInvoice[4].toString()+objInvoice[1].toString(), dataList);
+			}
 				
-				detailList.add(dataList);
+				//detailList.add(dataList);
 				
 			}
 		}
+		for(Map.Entry maplist:mapCategoryWise.entrySet())
+		 {
+			detailList.add(maplist.getValue());
+		 }
+
 		totalsList.add(df.format(dblTotalQty));
 		totalsList.add(df.format(dblTotalDis));
 		totalsList.add(df.format(dblTotalValue));
@@ -2041,6 +2664,24 @@ public class clsInvoiceFlashController {
 			sqlInvoiceFlash.append(" and  a.strCurrencyCode='" + currencyCode + "' ");
 		}
 		sqlInvoiceFlash.append( " group by  c.strManufacturerCode ");
+		
+        sqlInvoiceFlash.append( " UNION ");
+		
+		sqlInvoiceFlash.append("  select b.strManufacturerCode,c.strManufacturerName,sum(d.dblQty)/" + currValue + ",sum(d.dblQty*d.dblUnitPrice)/" + currValue + " from tblinvoicehd a,tblproductmaster b,tblmanufacturemaster c,tblinvoicedtl d,tblpartymaster e " + " where a.strInvCode=d.strInvCode  and d.strProdCode=b.strProdCode and b.strManufacturerCode=c.strManufacturerCode  and a.strCustCode=e.strPCode  and a.strLocCode='" + locCode + "' "
+				+ " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "'");
+	
+		sqlInvoiceFlash.append(" and  a.strSettlementCode='MultiSettle' ");
+		
+		
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append( " and  a.strCustCode='" + custCode + "' ");
+		}
+		
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append( " group by  c.strManufacturerCode ");
 
 		DecimalFormat df = new DecimalFormat("#.##");
 		List listOfInvoice = objGlobalService.funGetList(sqlInvoiceFlash.toString(), "sql");
@@ -2104,6 +2745,8 @@ public class clsInvoiceFlashController {
 		totalsList.add("");
 		totalsList.add("");
 		
+		Map<String,List<Object>> mapDepartmentWise= new HashMap<>();
+		
 		String fromDate = req.getParameter("frmDte").toString();
 		String toDate = req.getParameter("toDte").toString();
 		String locCode = req.getParameter("locCode").toString();
@@ -2150,6 +2793,25 @@ public class clsInvoiceFlashController {
 			sqlInvoiceFlash.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
 		}
 		sqlInvoiceFlash.append(" group by  a.strLocCode ");
+		
+        sqlInvoiceFlash.append(" UNION ");
+		
+		sqlInvoiceFlash.append(" select b.strLocCode,b.strLocName ,sum(d.dblQty)/" + currValue + ",sum(d.dblQty*d.dblUnitPrice)/" + currValue + " from tblinvoicehd a,tbllocationmaster b,tblinvoicedtl d,tblpartymaster c " + "   where a.strInvCode=d.strInvCode  and a.strLocCode=b.strLocCode  and a.strCustCode=c.strPCode  " + " and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "'");
+
+		sqlInvoiceFlash.append(" and  a.strSettlementCode='MultiSettle' ");
+
+		if (!locCode.equals("All")) {
+			sqlInvoiceFlash.append( "and a.strLocCode='" + locCode + "' ");
+		}
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append( " and  a.strCustCode='" + custCode + "' ");
+		}
+		
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append(" and  a.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append(" group by  a.strLocCode ");
 
 		DecimalFormat df = new DecimalFormat("#.##");
 
@@ -2157,14 +2819,27 @@ public class clsInvoiceFlashController {
 		if (!listOfInvoice.isEmpty()) {
 			for (int i = 0; i < listOfInvoice.size(); i++) {
 				Object[] objInvoice = (Object[]) listOfInvoice.get(i);
+				if(mapDepartmentWise.containsKey(objInvoice[0].toString()))
+				{
+					List list=mapDepartmentWise.get(objInvoice[0].toString());
+					double dblQty = Double.parseDouble(df.format( Double.parseDouble(objInvoice[2].toString())));
+					dblQty = Double.parseDouble(list.get(3).toString()) + dblQty;
+					list.set(3, dblQty);
+					double dblAmt= Double.parseDouble(df.format( Double.parseDouble(objInvoice[3].toString())));
+					dblAmt = Double.parseDouble(list.get(4).toString()) + dblAmt;
+					list.set(4, dblAmt);
+				}
+				else
+				{
 				List dataList = new ArrayList<>();
 				dataList.add(objInvoice[0].toString());
 				dataList.add(objInvoice[1].toString());
 				dataList.add(currencyName);
 				dataList.add(df.format(Double.valueOf(objInvoice[2].toString())));
 				dataList.add(df.format(Double.valueOf(objInvoice[3].toString())));
-				
-				detailList.add(dataList);
+				mapDepartmentWise.put(objInvoice[0].toString(), dataList);
+				}
+				//detailList.add(dataList);
 				BigDecimal value = new BigDecimal(Double.parseDouble(objInvoice[3].toString()));
 				dblTotalValue = dblTotalValue.add(value);
 				
@@ -2174,6 +2849,10 @@ public class clsInvoiceFlashController {
 			}
 
 		}
+		for(Map.Entry maplist:mapDepartmentWise.entrySet())
+		 {
+			detailList.add(maplist.getValue());
+		 }
 
 		totalsList.add(df.format(dblTotalQty));
 		totalsList.add(df.format(dblTotalValue));
@@ -2219,6 +2898,7 @@ public class clsInvoiceFlashController {
 		totalsList.add("");
 		totalsList.add("");
 		totalsList.add("");
+		Map<String,List<Object>> mapMonthWise= new HashMap<>();
 		
 		String fromDate = request.getParameter("frmDte").toString();
 		String toDate = request.getParameter("toDte").toString();
@@ -2251,7 +2931,7 @@ public class clsInvoiceFlashController {
 
 		StringBuilder sqlInvoiceFlash = new StringBuilder();
 		sqlInvoiceFlash.setLength(0);
-		sqlInvoiceFlash.append( "select c.strSettlementCode,ifnull(c.strSettlementDesc,''),ifnull(c.strSettlementType,''),sum(a.dblGrandTotal)/" + currValue + ",MONTHNAME(DATE(a.dteInvDate)), YEAR(DATE(a.dteInvDate))"
+		sqlInvoiceFlash.append( "(select c.strSettlementCode,ifnull(c.strSettlementDesc,''),ifnull(c.strSettlementType,''),sum(a.dblGrandTotal)/" + currValue + ",MONTHNAME(DATE(a.dteInvDate)), YEAR(DATE(a.dteInvDate))"
 				+ " from tblinvoicehd a,tblsettlementmaster c,tblpartymaster d " + " where  a.strSettlementCode=c.strSettlementCode and a.strCustCode=d.strPCode " + " and a.strLocCode='" + locCode + "' and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "'");
 		if (!settlementcode.equals("All")) {
 			sqlInvoiceFlash.append( " and  a.strSettlementCode='" + settlementcode + "' ");
@@ -2266,7 +2946,27 @@ public class clsInvoiceFlashController {
 		}
 		
 		sqlInvoiceFlash.append( "group by a.strSettlementCode,YEAR(DATE(a.dteInvDate)),MONTHNAME(DATE(a.dteInvDate))"
-				        + "  order by YEAR(DATE(a.dteInvDate)) desc,MONTHNAME(DATE(a.dteInvDate)) desc");
+				        + "  order by YEAR(DATE(a.dteInvDate)) desc,MONTHNAME(DATE(a.dteInvDate)) desc)");
+		
+        sqlInvoiceFlash.append( " UNION ");
+
+		
+		sqlInvoiceFlash.append(" (select c.strSettlementCode,ifnull(c.strSettlementDesc,''),ifnull(c.strSettlementType,''),sum(e.dblSettlementAmt)/" + currValue + ",MONTHNAME(DATE(a.dteInvDate)), YEAR(DATE(a.dteInvDate))"
+				+ " from tblinvoicehd a,tblsettlementmaster c,tblpartymaster d ,tblinvsettlementdtl e "
+				+ " where  a.strInvCode=e.strInvCode and e.strSettlementCode=c.strSettlementCode and a.strCustCode=e.strCustomerCode and e.strCustomerCode=d.strPCode "
+				+ " and a.strCustCode=d.strPCode " + " and a.strLocCode='" + locCode + "' and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' and  a.strClientCode='" + clientCode + "'");
+	
+	   sqlInvoiceFlash.append(" and  a.strSettlementCode='MultiSettle' ");
+
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append( " and  a.strCustCode='" + custCode + "' ");
+		}
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append(" and  a.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append("group by e.strSettlementCode,YEAR(DATE(a.dteInvDate)),MONTHNAME(DATE(a.dteInvDate))"
+				        + "  order by YEAR(DATE(a.dteInvDate)) desc,MONTHNAME(DATE(a.dteInvDate)) desc )");
 
 		DecimalFormat df = new DecimalFormat("#.##");
 		double floatingPoint = 0.0;
@@ -2274,6 +2974,16 @@ public class clsInvoiceFlashController {
 		if (!listOfInvoice.isEmpty()) {
 			for (int i = 0; i < listOfInvoice.size(); i++) {
 				Object[] objInvoice = (Object[]) listOfInvoice.get(i);
+				if(mapMonthWise.containsKey(objInvoice[1].toString()+objInvoice[4].toString()))
+				{
+					List list=mapMonthWise.get(objInvoice[1].toString()+objInvoice[4].toString());
+					
+					double dblAmt= Double.parseDouble(df.format( Double.parseDouble(objInvoice[3].toString())));
+					dblAmt = Double.parseDouble(list.get(5).toString()) + dblAmt;
+					list.set(5, dblAmt);
+				}
+				else
+				{
 				List dataList = new ArrayList<>();
 				dataList.add(objInvoice[1].toString());
 				dataList.add(objInvoice[2].toString());
@@ -2282,15 +2992,19 @@ public class clsInvoiceFlashController {
 				dataList.add(currencyName);
 				floatingPoint = Double.parseDouble(objInvoice[3].toString());
 				dataList.add(df.format(floatingPoint));
+				mapMonthWise.put(objInvoice[1].toString()+objInvoice[4].toString(), dataList);
+				}
 				
-				
-				detailList.add(dataList);
+				//detailList.add(dataList);
 				BigDecimal value = new BigDecimal(Double.parseDouble(objInvoice[3].toString()));
 				dblTotalValue = dblTotalValue.add(value);
 
 			}
 		}
-
+		for(Map.Entry maplist:mapMonthWise.entrySet())
+		 {
+			 detailList.add(maplist.getValue());
+		 }
 		totalsList.add(df.format(dblTotalValue));
 		
 		headerList.add("Settlement Name");
@@ -2342,6 +3056,7 @@ public class clsInvoiceFlashController {
 		String userCode = request.getSession().getAttribute("usercode").toString();
 		String currencyName="";
 		BigDecimal dblTotalValue = new BigDecimal(0);
+		Map<String,List<Object>> mapRegionWise= new HashMap<>();
 		
 		double currValue = 1.0;
 		if(currencyCode.equalsIgnoreCase("All"))
@@ -2363,7 +3078,7 @@ public class clsInvoiceFlashController {
 		
 		StringBuilder sqlInvoiceFlash = new StringBuilder();
 		sqlInvoiceFlash.setLength(0);
-		sqlInvoiceFlash.append( "SELECT c.strRegionCode,c.strRegionDesc, SUM(b.dblGrandTotal)/" + currValue + ""
+		sqlInvoiceFlash.append( "(SELECT c.strRegionCode,c.strRegionDesc, SUM(b.dblGrandTotal)/" + currValue + ""
 				+ " FROM tblpartymaster a,tblinvoicehd b,tblregionmaster c"
 				+ " WHERE b.strCustCode=a.strPCode AND a.strRegion=c.strRegionCode  "
 				+ " and b.strLocCode='" + locCode + "' " + " "
@@ -2379,7 +3094,27 @@ public class clsInvoiceFlashController {
 		{
 			sqlInvoiceFlash.append( " and  b.strCurrencyCode='" + currencyCode + "' ");
 		}
-		sqlInvoiceFlash.append( "group by a.strRegion  order by sum(b.dblGrandTotal) desc ");
+		sqlInvoiceFlash.append( "group by a.strRegion  order by sum(b.dblGrandTotal) desc )");
+		
+        sqlInvoiceFlash.append(" UNION ");
+		
+		sqlInvoiceFlash.append("(SELECT c.strRegionCode,c.strRegionDesc, SUM(b.dblGrandTotal)/" + currValue + ""
+				+ " FROM tblpartymaster a,tblinvoicehd b,tblregionmaster c"
+				+ " WHERE b.strCustCode=a.strPCode AND a.strRegion=c.strRegionCode  "
+				+ " and b.strLocCode='" + locCode + "' " + " "
+				+ " and date(b.dteInvDate) between '" + fromDate + "' and '" + toDate + "' "
+				+ " and  b.strClientCode='" + clientCode + "'");
+		
+		sqlInvoiceFlash.append(" and  b.strSettlementCode='Multisettle' ");
+		
+		if (!custCode.equals("All")) {
+			sqlInvoiceFlash.append(" and  b.strCustCode='" + custCode + "' ");
+		}
+		if(!currencyCode.equalsIgnoreCase("All"))
+		{
+			sqlInvoiceFlash.append(" and  b.strCurrencyCode='" + currencyCode + "' ");
+		}
+		sqlInvoiceFlash.append("group by a.strRegion  order by sum(b.dblGrandTotal) desc )");
 
 		DecimalFormat df = new DecimalFormat("#.##");
 		
@@ -2388,19 +3123,34 @@ public class clsInvoiceFlashController {
 		  for (int i = 0; i < listOfInvoice.size(); i++) 
 			{
 				Object[] objInvoice = (Object[]) listOfInvoice.get(i);
+				if(mapRegionWise.containsKey(objInvoice[0].toString()))
+				{
+					List list=mapRegionWise.get(objInvoice[0].toString());
+					
+					double dblAmt= Double.parseDouble(df.format( Double.parseDouble(objInvoice[2].toString())));
+					dblAmt = Double.parseDouble(list.get(3).toString()) + dblAmt;
+					list.set(3, dblAmt);
+				}
+				else
+				{
 				List dataList = new ArrayList<>();
 				dataList.add(objInvoice[0].toString());
 				dataList.add(objInvoice[1].toString());
 				dataList.add(currencyName);
 				dataList.add(df.format(Double.valueOf(objInvoice[2].toString())));
-				
-				detailList.add(dataList);
+				mapRegionWise.put(objInvoice[0].toString(), dataList);
+				}
+				//detailList.add(dataList);
 				BigDecimal value = new BigDecimal(Double.parseDouble(objInvoice[2].toString()));
 				dblTotalValue = dblTotalValue.add(value);
 
 		   }
 		  
 		}
+		for(Map.Entry maplist:mapRegionWise.entrySet())
+		 {
+			 detailList.add(maplist.getValue());
+		 }
 
 		totalsList.add(df.format(dblTotalValue));
 		
@@ -2473,7 +3223,7 @@ public class clsInvoiceFlashController {
 				}
 			}
 			
-			sqlInvoiceFlashPDF.append("select a.strInvCode ,DATE_FORMAT(a.dteInvDate,'%d-%m-%Y') as dteInvDate,b.strPName as strCustName,a.dblSubTotalAmt/" + currValue + " as subTotalAmt,a.dblTaxAmt/" + currValue + " as taxAmt"
+			sqlInvoiceFlashPDF.append("(select a.strInvCode ,DATE_FORMAT(a.dteInvDate,'%d-%m-%Y') as dteInvDate,b.strPName as strCustName,a.dblSubTotalAmt/" + currValue + " as subTotalAmt,a.dblTaxAmt/" + currValue + " as taxAmt"
 					+ ",(a.dblSubTotalAmt/" + currValue + "+ a.dblTaxAmt/" + currValue + ") as totalAmt,ifnull(a.strNarration,'') as strRemark"
 					+ " FROM tblpartymaster b,tblsettlementmaster c,tblinvoicehd a "
 					+ " where   date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' " + " and a.strLocCode='" + locCode +"' "
@@ -2488,10 +3238,32 @@ public class clsInvoiceFlashController {
 			{
 				sqlInvoiceFlashPDF.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
 			}
+				
+			sqlInvoiceFlashPDF.append("and a.strSettlementCode=c.strSettlementCode and a.dblSubTotalAmt>0 "
+				+ " and b.strPropCode='"+propertyCode+"' order by a.strInvCode )");
+			
+			sqlInvoiceFlashPDF.append(" UNION ");
+			
+			sqlInvoiceFlashPDF.append("(select a.strInvCode ,DATE_FORMAT(a.dteInvDate,'%d-%m-%Y') as dteInvDate,b.strPName as strCustName,a.dblSubTotalAmt/" + currValue + " as subTotalAmt,a.dblTaxAmt/" + currValue + " as taxAmt"
+					+ ",(a.dblSubTotalAmt/" + currValue + "+ a.dblTaxAmt/" + currValue + ") as totalAmt,ifnull(a.strNarration,'') as strRemark"
+					+ " FROM tblpartymaster b,tblinvoicehd a "
+					+ " where   date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' " + " and a.strLocCode='" + locCode +"' "
+					+ " and a.strCustCode=b.strPCode and  a.strClientCode='" + clientCode + "'");
+			
+			sqlInvoiceFlashPDF.append(" and  a.strSettlementCode='Multisettle' ");
+		
+			if (!custCode.equals("All")) {
+				sqlInvoiceFlashPDF.append( " and  a.strCustCode='" + custCode + "' ");
+			}
+			if(!currencyCode.equalsIgnoreCase("All"))
+			{
+				sqlInvoiceFlashPDF.append( " and  a.strCurrencyCode='" + currencyCode + "' ");
+			}
 			
 	
-			sqlInvoiceFlashPDF.append("and a.strSettlementCode=c.strSettlementCode and a.dblSubTotalAmt>0 "
-				+ "  order by a.strInvCode ");
+			sqlInvoiceFlashPDF.append(" and a.dblSubTotalAmt>0 "
+				+ " and b.strPropCode='"+propertyCode+"' order by a.strInvCode )");
+			
 			
 		/*	List listOfInvoicePDF = objGlobalService.funGetList(sqlInvoiceFlashPDF.toString(), "sql");
 			List dataList= new ArrayList<>();
@@ -2530,7 +3302,14 @@ public class clsInvoiceFlashController {
 			
 			JasperReport jr = JasperCompileManager.compileReport(jd);
 			HashMap hm = new HashMap();
-			hm.put("strCompanyName", companyName);
+			clsPropertyMaster objPropertyMaster = objPropertyMasterService.funGetProperty(propertyCode, clientCode);
+			if(clientCode.equals("319.001") && objPropertyMaster.getPropertyName().equalsIgnoreCase("TARANG FOODS"))
+			{
+				hm.put("strCompanyName", objPropertyMaster.getPropertyName());
+			}else
+			{
+				hm.put("strCompanyName", companyName);
+			}
 			hm.put("strUserCode", userCode);
 			hm.put("strImagePath", imagePath);
 			hm.put("strAddr1", objSetup.getStrAdd1());

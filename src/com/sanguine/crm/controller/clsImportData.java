@@ -267,7 +267,7 @@ public class clsImportData {
 		objModel.setStrUserCreated(userCode);
 		objModel.setDtCreatedDate(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 
-		//objModel.setStrProductImage(funBlankBlob());
+		objModel.setStrProductImage(new byte[100]);
 		// System.out.println("funBlankBlob() --"+funBlankBlob());
 
 		objModel.setStrProdName(prodName1.toUpperCase() + " " + prodName2.toUpperCase());

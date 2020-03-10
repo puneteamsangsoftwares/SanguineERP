@@ -16,10 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-
-
-import com.sanguine.webbooks.model.clsJVDtlModel;
-
 @Entity
 @Table(name = "tbluserhd")
 @IdClass(clsUserMasterModel_ID.class)

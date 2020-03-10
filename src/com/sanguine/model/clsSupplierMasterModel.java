@@ -16,7 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-
 @Entity
 @Table(name = "tblpartymaster")
 @IdClass(clsSupplierMasterModel_ID.class)

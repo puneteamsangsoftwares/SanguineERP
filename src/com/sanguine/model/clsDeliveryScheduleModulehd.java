@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sanguine.crm.model.clsInvoiceModelDtl;
-import com.sanguine.model.clsDeliveryScheduleModulehd_ID;
-
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -18,7 +15,6 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "tbldeliveryschedulehd")

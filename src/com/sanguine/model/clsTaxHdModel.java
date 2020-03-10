@@ -17,7 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-
 import com.sanguine.base.model.clsBaseModel;
 
 @Entity

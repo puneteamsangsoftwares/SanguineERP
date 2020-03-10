@@ -38,10 +38,12 @@ import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.crm.bean.clsSalesReturnBean;
 import com.sanguine.crm.service.clsCRMSettlementMasterService;
 import com.sanguine.model.clsCurrencyMasterModel;
+import com.sanguine.model.clsPropertyMaster;
 import com.sanguine.model.clsPropertySetupModel;
 import com.sanguine.service.clsCurrencyMasterService;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.service.clsLocationMasterService;
+import com.sanguine.service.clsPropertyMasterService;
 import com.sanguine.service.clsSetupMasterService;
 
 @Controller
@@ -69,6 +71,9 @@ public class clsSalesReturnFlashController {
 
 	@Autowired
 	private clsSetupMasterService objSetupMasterService;
+	
+	@Autowired
+	private clsPropertyMasterService objPropertyMasterService;
 	
 
 	
@@ -122,6 +127,7 @@ public class clsSalesReturnFlashController {
 		String toDate = request.getParameter("toDte").toString();
 		String locCode = request.getParameter("locCode").toString();
 		String strCustCode=request.getParameter("custCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		BigDecimal dblTotalValue = new BigDecimal(0);
 		BigDecimal dblSubTotalValue = new BigDecimal(0);
 		BigDecimal dblTaxTotalValue = new BigDecimal(0);
@@ -136,7 +142,7 @@ public class clsSalesReturnFlashController {
 				+ " left outer join tblsalesreturndtl c on a.strSRCode=c.strSRCode"
 				+ " left outer join tblpartymaster b on a.strCustCode=b.strPCode"
 				+ " where a.strLocCode='"+locCode+"' and a.strClientCode='"+strClientCode+"' "
-				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"'  and a.strCustCode='"+strCustCode+"' and a.dblTotalAmt>0 "
+				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"'  and a.strCustCode='"+strCustCode+"' and a.dblTotalAmt>0 and b.strPropCode='"+propertyCode+"'"
 				+ " group by c.strSRCode;";
 		
 		List listOfSaleRet = objGlobalService.funGetList(sql, "sql");
@@ -187,6 +193,7 @@ public class clsSalesReturnFlashController {
 		String toDate = request.getParameter("toDte").toString();
 		String locCode = request.getParameter("locCode").toString();
 		String strCustCode = request.getParameter("custCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		BigDecimal dblQty = new BigDecimal(0);
 		BigDecimal dblTotalValue = new BigDecimal(0);
 		BigDecimal dblSubTotalValue = new BigDecimal(0);
@@ -204,7 +211,7 @@ public class clsSalesReturnFlashController {
 				+ " left outer join tblproductmaster d on c.strProdCode=d.strProdCode"
 				+ " left outer join tbllocationmaster e on a.strLocCode=e.strLocCode"
 				+ " where a.strLocCode='"+locCode+"' and a.strClientCode='"+strClientCode+"' "
-				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"' and a.strCustCode='"+strCustCode+"' and a.dblTotalAmt>0 "
+				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"' and a.strCustCode='"+strCustCode+"' and a.dblTotalAmt>0 and b.strPropCode='"+propertyCode+"' "
 				+ " group by c.strProdCode,a.dteSRDate"
 				+ " order by c.strSRCode,d.strProdName;";
 		
@@ -252,6 +259,7 @@ public class clsSalesReturnFlashController {
 		String toDate = request.getParameter("toDte").toString();
 		String locCode = request.getParameter("locCode").toString();
 		String strCustCode = request.getParameter("custCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		BigDecimal dblTotalValue = new BigDecimal(0);
 		BigDecimal dblSubTotalValue = new BigDecimal(0);
 		BigDecimal dblTaxTotalValue = new BigDecimal(0);
@@ -266,7 +274,7 @@ public class clsSalesReturnFlashController {
 				+ " left outer join tblsalesreturndtl c on a.strSRCode=c.strSRCode"
 				+ " left outer join tblpartymaster b on a.strCustCode=b.strPCode left outer join tbllocationmaster d on a.strLocCode=d.strLocCode"
 				+ " where a.strLocCode='"+locCode+"' and a.strClientCode='"+strClientCode+"' "
-				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"' and  a.strCustCode='"+strCustCode+"' and a.dblTotalAmt>0 "
+				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"' and  a.strCustCode='"+strCustCode+"' and a.dblTotalAmt>0 and b.strPropCode='"+propertyCode+"'"
 				
 				+ " group by b.strPCode"
 				+ " order by b.strPName";
@@ -303,6 +311,7 @@ public class clsSalesReturnFlashController {
 		String toDate = request.getParameter("toDte").toString();
 		String locCode = request.getParameter("locCode").toString();
 		String strCustCode = request.getParameter("custCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		BigDecimal dblQty = new BigDecimal(0);
 		BigDecimal dblTotalValue = new BigDecimal(0);
 		BigDecimal dblSubTotalValue = new BigDecimal(0);
@@ -322,7 +331,7 @@ public class clsSalesReturnFlashController {
 				+ " Left outer join tblsubgroupmaster f on d.strSGCode=f.strSGCode"
 				+ " Left outer join tblgroupmaster g on f.strGCode=g.strGCode"
 				+ " where a.strLocCode='"+locCode+"' and a.strClientCode='"+strClientCode+"' "
-				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"' and a.strCustCode='"+strCustCode+"' and a.dblTotalAmt>0 "
+				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"' and a.strCustCode='"+strCustCode+"' and a.dblTotalAmt>0 and b.strPropCode='"+propertyCode+"' "
 				+ " GROUP BY  g.strGCode,f.strSGCode "
 				+ " ORDER BY g.strGName;";
 		
@@ -389,6 +398,7 @@ public class clsSalesReturnFlashController {
 		String toDate = request.getParameter("toDte").toString();
 		String locCode = request.getParameter("locCode").toString();
 		String strCustCode = request.getParameter("custCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 	
 		BigDecimal dblTotalValue = new BigDecimal(0);
 		BigDecimal dblSubTotalValue = new BigDecimal(0);
@@ -401,7 +411,7 @@ public class clsSalesReturnFlashController {
 				+ " left outer join tblsalesreturndtl c on a.strSRCode=c.strSRCode"
 				+ " left outer join tblpartymaster b on a.strCustCode=b.strPCode"
 				+ " where a.strLocCode='"+locCode+"' and a.strClientCode='"+strClientCode+"' "
-				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"' and a.strCustCode='"+strCustCode+"' and  a.dblTotalAmt>0"
+				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"' and a.strCustCode='"+strCustCode+"' and  a.dblTotalAmt>0  and b.strPropCode='"+propertyCode+"'"
 				+ " group by c.strSRCode;";
 		
 		List listOfSaleRet = objGlobalService.funGetList(sql, "sql");
@@ -491,6 +501,7 @@ public class clsSalesReturnFlashController {
 		String toDate = request.getParameter("toDte").toString();
 		String locCode = request.getParameter("locCode").toString();
 		String strCustCode = request.getParameter("custCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		BigDecimal dblQty = new BigDecimal(0);
 		BigDecimal dblTotalValue = new BigDecimal(0);
 		BigDecimal dblSubTotalValue = new BigDecimal(0);
@@ -504,7 +515,7 @@ public class clsSalesReturnFlashController {
 				+ " left outer join tblproductmaster d on c.strProdCode=d.strProdCode"
 				+ " left outer join tbllocationmaster e on a.strLocCode=e.strLocCode"
 				+ " where a.strLocCode='"+locCode+"' and a.strClientCode='"+strClientCode+"' "
-				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"'  and  a.strCustCode='"+strCustCode+"' and a.dblTotalAmt>0 "
+				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"'  and  a.strCustCode='"+strCustCode+"' and a.dblTotalAmt>0 and b.strPropCode='"+propertyCode+"' "
 				+ " group by c.strProdCode,a.dteSRDate"
 				+ " order by c.strSRCode,d.strProdName;";
 		
@@ -564,7 +575,7 @@ public class clsSalesReturnFlashController {
 					+ " FROM tblsalesreturnhd a"
 					+ " LEFT OUTER JOIN tblpartymaster b ON a.strCustCode=b.strPCode"
 					+ " LEFT OUTER JOIN tbllocationmaster d ON a.strLocCode=d.strLocCode"
-					+ " WHERE a.strLocCode='"+locCode+"' AND a.strClientCode='"+strClientCode+"' AND a.strCustCode='"+strCustCode+"' AND DATE(a.dteSRDate) BETWEEN '"+fromDate+"'  AND '"+toDate+"' "
+					+ " WHERE a.strLocCode='"+locCode+"' AND a.strClientCode='"+strClientCode+"' AND a.strCustCode='"+strCustCode+"' AND DATE(a.dteSRDate) BETWEEN '"+fromDate+"'  AND '"+toDate+"' and b.strPropCode='"+propertyCode+"'"
 					+ " GROUP BY b.strPCode"
 					+ " ORDER BY b.strPName";
 			
@@ -623,6 +634,7 @@ public class clsSalesReturnFlashController {
 		String toDate = request.getParameter("toDte").toString();
 		String locCode = request.getParameter("locCode").toString();
 		String strCustCode = request.getParameter("custCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		/*BigDecimal dblTotalValue = new BigDecimal(0);
 		BigDecimal dblSubTotalValue = new BigDecimal(0);
 		BigDecimal dblTaxTotalValue = new BigDecimal(0);*/
@@ -635,7 +647,7 @@ public class clsSalesReturnFlashController {
 				+ " from tblsalesreturnhd a "
 				+ " left outer join tblpartymaster b on a.strCustCode=b.strPCode left outer join tbllocationmaster d on a.strLocCode=d.strLocCode"
 				+ " where a.strLocCode='"+locCode+"' and a.strClientCode='"+strClientCode+"' and a.strCustCode='"+strCustCode+"' and a.dblTotalAmt>0 "
-				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"'"
+				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"' and b.strPropCode='"+propertyCode+"' "
 				+ " group by b.strPCode"
 				+ " order by b.strPName";
 		List listOfSaleRet = objGlobalService.funGetList(sql, "sql");
@@ -714,6 +726,7 @@ public class clsSalesReturnFlashController {
 		String toDate = request.getParameter("toDte").toString();
 		String locCode = request.getParameter("locCode").toString();
 		String strCustCode = request.getParameter("custCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
 		BigDecimal dblQty = new BigDecimal(0);
 		BigDecimal dblTotalValue = new BigDecimal(0);
 		BigDecimal dblSubTotalValue = new BigDecimal(0);
@@ -729,7 +742,7 @@ public class clsSalesReturnFlashController {
 				+ " Left outer join tblsubgroupmaster f on d.strSGCode=f.strSGCode"
 				+ " Left outer join tblgroupmaster g on f.strGCode=g.strGCode "
 				+ " where a.strLocCode='"+locCode+"' and a.strClientCode='"+strClientCode+"' "
-				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"' and a.strCustCode='"+strCustCode+"' and  a.dblTotalAmt>0 "
+				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"' and a.strCustCode='"+strCustCode+"' and  a.dblTotalAmt>0 and b.strPropCode='"+propertyCode+"' "
 				+ " GROUP BY  g.strGCode,f.strSGCode "
 				+ " ORDER BY g.strGName;";
 		
@@ -839,7 +852,7 @@ public class clsSalesReturnFlashController {
 				+ " left outer join tblproductmaster d on c.strProdCode=d.strProdCode"
 				+ " left outer join tbllocationmaster e on a.strLocCode=e.strLocCode"
 				+ " where a.strLocCode='"+locCode+"' and a.strClientCode='"+strClientCode+"' "
-				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"'  and  a.strCustCode='"+strCustCode+"' and a.dblTotalAmt>0 "
+				+ " and date(a.dteSRDate) BETWEEN '"+fromDate+"' and '"+toDate+"'  and  a.strCustCode='"+strCustCode+"' and a.dblTotalAmt>0 and b.strPropCode='"+propertyCode+"' "
 				+ " group by c.strProdCode,a.dteSRDate"
 				+ " order by c.strSRCode,d.strProdName;");
 		/*	if (!settlementcode.equals("All")) {
@@ -915,7 +928,14 @@ public class clsSalesReturnFlashController {
 			
 			JasperReport jr = JasperCompileManager.compileReport(jd);
 			HashMap hm = new HashMap();
-			hm.put("strCompanyName", companyName);
+			clsPropertyMaster objPropertyMaster = objPropertyMasterService.funGetProperty(propertyCode, strClientCode);
+			if(strClientCode.equals("319.001") && objPropertyMaster.getPropertyName().equalsIgnoreCase("TARANG FOODS"))
+			{
+				hm.put("strCompanyName", objPropertyMaster.getPropertyName());
+			}else
+			{
+				hm.put("strCompanyName", companyName);
+			}
 			hm.put("strUserCode", userCode);
 			hm.put("strImagePath", imagePath);
 			hm.put("strAddr1", objSetup.getStrAdd1());

@@ -17,7 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-
 @Entity
 @Table(name = "tblmishd")
 @IdClass(clsMISHdModel_ID.class)

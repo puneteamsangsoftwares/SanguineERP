@@ -16,11 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
-
-
-import com.sanguine.crm.model.clsInvoiceHdModel_ID;
-import com.sanguine.crm.model.clsInvoiceModelDtl;
-
 @Entity
 @Table(name = "tblbudgetmasterhd")
 @IdClass(clsBudgetMasterHdModel_ID.class)

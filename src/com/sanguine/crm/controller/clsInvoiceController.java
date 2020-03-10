@@ -92,6 +92,7 @@ import com.sanguine.model.clsProdSuppMasterModel;
 import com.sanguine.model.clsProductMasterModel;
 import com.sanguine.model.clsProductReOrderLevelModel;
 import com.sanguine.model.clsProductReOrderLevelModel_ID;
+import com.sanguine.model.clsPropertyMaster;
 import com.sanguine.model.clsPropertySetupModel;
 import com.sanguine.model.clsSettlementMasterModel;
 import com.sanguine.model.clsStkAdjustmentDtlModel;
@@ -105,12 +106,13 @@ import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.service.clsLinkUpService;
 import com.sanguine.service.clsLocationMasterService;
 import com.sanguine.service.clsProductMasterService;
+import com.sanguine.service.clsPropertyMasterService;
 import com.sanguine.service.clsSetupMasterService;
 import com.sanguine.service.clsStkAdjustmentService;
 import com.sanguine.service.clsSubGroupMasterService;
 import com.sanguine.util.clsNumberToWords;
 import com.sanguine.util.clsReportBean;
-
+import com.sanguine.model.clsPropertyMaster;
 @Controller
 public class clsInvoiceController
 {
@@ -174,6 +176,10 @@ public class clsInvoiceController
 
 	@Autowired
 	clsJVGeneratorController objJVGen;
+	
+	@Autowired
+	private clsPropertyMasterService objPropertyMasterService;
+	
 
 	List<clsSubGroupMasterModel> dataSG = new ArrayList<clsSubGroupMasterModel>();
 
@@ -246,6 +252,7 @@ public class clsInvoiceController
 			model.put("againstList", strAgainst);
 
 			Map<String, String> settlementList = objSettlementService.funGetSettlementComboBox(clientCode);
+			
 			model.put("settlementList", settlementList);
 
 			Map<String, String> hmCurrency = objCurrencyMasterService.funCurrencyListToDisplay(clientCode);
@@ -262,7 +269,7 @@ public class clsInvoiceController
 			}
 			catch (NullPointerException e)
 			{
-				flagOpenFromAuthorization = false;
+				flagOpenFromAuthorization = false; 
 			}
 			model.put("flagOpenFromAuthorization", flagOpenFromAuthorization);
 			if (flagOpenFromAuthorization)
@@ -297,7 +304,11 @@ public class clsInvoiceController
 		model.put("againstList", strAgainst);
 
 		Map<String, String> settlementList = objSettlementService.funGetSettlementComboBox(clientCode);
+		settlementList.put("MultiSettle", "MultiSettle");
 		model.put("settlementList", settlementList);
+        
+		Map<String, String> settleListWithoutMultiSettle = objSettlementService.funGetSettlementComboBox(clientCode);
+		model.put("settleListWithoutMultiSettle", settleListWithoutMultiSettle);
 
 		Map<String, String> hmCurrency = objCurrencyMasterService.funCurrencyListToDisplay(clientCode);
 		if (hmCurrency.isEmpty()) {
@@ -446,7 +457,30 @@ public class clsInvoiceController
 			objHDModel.setDblExtraCharges(objBean.getDblExtraCharges());
 
 			// /********Save Data forDetail in SO***********////
-
+			String settlementCode=objBean.getStrSettlementCode();
+			List<clsInvSettlementdtlModel> listSettlement=objBean.getListInvsettlementdtlModel();
+            if(objBean.getStrSettlementCode().equalsIgnoreCase("MultiSettle"))
+            {
+            	if(listSettlement != null)
+    			{
+    				for(clsInvSettlementdtlModel obj:listSettlement)
+    				{
+    					if(obj.getDblSettlementAmt() > 0)
+    					{
+    						settlementCode=obj.getStrSettlementCode();
+    						
+    					}
+    				}
+    			}
+    		
+            }
+			
+			
+			
+           
+			
+			
+			
 			StringBuilder sqlQuery = new StringBuilder();
 			DecimalFormat decFormat = objGlobalFunctions.funGetDecimatFormat(req);
 
@@ -454,7 +488,7 @@ public class clsInvoiceController
 			Map<String, List<clsInvoiceModelDtl>> hmInvCustDtl = new HashMap<String, List<clsInvoiceModelDtl>>();
 			Map<String, Map<String, clsInvoiceTaxDtlModel>> hmInvCustTaxDtl = new HashMap<String, Map<String, clsInvoiceTaxDtlModel>>();
 			Map<String, List<clsInvoiceProdTaxDtl>> hmInvProdTaxDtl = new HashMap<String, List<clsInvoiceProdTaxDtl>>();
-			List<clsInvoiceDtlBean> listInvDtlBean = objBean.getListclsInvoiceModelDtl();
+			List<clsInvoiceDtlBean> listInvDtlBean =  objBean.getListclsInvoiceModelDtl();
 			Map mapSubTotal=new HashMap<>();
 			double dblSubTotalAmt=0;
 			
@@ -512,7 +546,19 @@ public class clsInvoiceController
 						objInvDtlModel.setStrUOM("");
 						objInvDtlModel.setDblUOMConversion(1);
 					}
+					if(objBean.getStrDiscType().equalsIgnoreCase("Total Disc"))
+			        {
+						 objInvDtl.setDblDisAmt((objInvDtl.getDblUnitPrice() * objInvDtl.getDblQty()  * objBean.getDblDiscount())/100 );
+
+
+						if(objInvDtl.getDblWeight() >0)
+						{
+							 objInvDtl.setDblDisAmt((objInvDtl.getDblUnitPrice() * objInvDtl.getDblQty() * objInvDtl.getDblWeight()  * objBean.getDblDiscount())/100 );
+
+						}
+			        }
 					objInvDtlModel.setDblProdDiscAmount(objInvDtl.getDblDisAmt());
+					
 					List<clsInvoiceProdTaxDtl> listInvProdTaxDtl = null;
 					if (hmInvProdTaxDtl.containsKey(key))
 					{
@@ -580,14 +626,14 @@ public class clsInvoiceController
 					{
 						prodRateForTaxCal = objInvDtl.getDblUnitPrice() * objInvDtl.getDblWeight() * dblCurrencyConv;
 					}*/
-					String prodTaxDtl = objInvDtl.getStrProdCode() + "," + prodRateForTaxCal + "," + objInvDtl.getStrCustCode() + "," + objInvDtl.getDblQty() + ",0,"+objInvDtl.getDblWeight();
+					String prodTaxDtl = objInvDtl.getStrProdCode() + "," + prodRateForTaxCal + "," + objInvDtl.getStrCustCode() + "," + objInvDtl.getDblQty() +","+objInvDtl.getDblDisAmt()+","+objInvDtl.getDblWeight();
 					Map<String, String> hmProdTaxDtl = null;
 					if(strModuleName.equalsIgnoreCase("7-WebBanquet")){
 						hmProdTaxDtl = objGlobalFunctions.funCalculateTax(prodTaxDtl, "Banquet", objBean.getDteInvDate(), "0",objBean.getStrSettlementCode(), req);
 					}
 					else
 					{
-						hmProdTaxDtl = objGlobalFunctions.funCalculateTax(prodTaxDtl, "Sales", objBean.getDteInvDate(), "0",objBean.getStrSettlementCode(), req);
+						hmProdTaxDtl = objGlobalFunctions.funCalculateTax(prodTaxDtl, "Sales", objBean.getDteInvDate(), "0",settlementCode, req);
 					
 					System.out.println("Map Size= " + hmProdTaxDtl.size());
 					}
@@ -651,7 +697,7 @@ public class clsInvoiceController
 						objInvProdTaxDtl.setDblValue(taxAmt);
 						objInvProdTaxDtl.setDblTaxableAmt(taxableAmt);
 						objInvProdTaxDtl.setDblWeight(objInvDtl.getDblWeight());
-						listInvProdTaxDtl.add(objInvProdTaxDtl);
+						 listInvProdTaxDtl.add(objInvProdTaxDtl);
 						
 						if(!mapSubTotal.containsKey(objInvProdTaxDtl.getStrProdCode()+""+objInvDtl.getDblWeight()+""+objInvDtl.getDblQty()))
 						{
@@ -725,7 +771,16 @@ public class clsInvoiceController
 					String invCode ="";
 				
 					clsSettlementMasterModel objModel = objSttlementMasterService.funGetObject(objBean.getStrSettlementCode(), clientCode);
-
+					String strInvoiceSeries="";
+					if(objModel !=null)
+					{
+						 strInvoiceSeries=objModel.getStrInvSeriesChar();
+					}
+				
+                    if(objBean.getStrSettlementCode().equalsIgnoreCase("MultiSettle"))
+                    {
+                    	strInvoiceSeries="M";
+                    }
                     String strInvColumn1="ifnull(max(MID(a.strInvCode,8,5)),'' )";
 					if(objSetup.getStrSettlementWiseInvSer().equals("Yes"))
 					{
@@ -771,9 +826,10 @@ public class clsInvoiceController
 						{
 							
 						if (lastnoLive > lastnoAudit) {
-							invCode = propCode + "IV" + transYear + transMonth + objModel.getStrInvSeriesChar() + String.format("%05d", lastnoLive + 1);
+							
+							invCode = propCode + "IV" + transYear + transMonth + strInvoiceSeries + String.format("%05d", lastnoLive + 1);
 						} else {
-							invCode = propCode + "IV" + transYear + transMonth + objModel.getStrInvSeriesChar() +String.format("%05d", lastnoAudit + 1);
+							invCode = propCode + "IV" + transYear + transMonth + strInvoiceSeries +String.format("%05d", lastnoAudit + 1);
 						}
 						
 						
@@ -974,6 +1030,56 @@ public class clsInvoiceController
 				objHDModel=funSaveVoidedProductList(objHDModel,objBean,clientCode);
 
 				objInvoiceHdService.funAddUpdateInvoiceHd(objHDModel);
+				if(objBean.getStrSettlementCode().equalsIgnoreCase("MultiSettle"))
+	            {
+					if(listSettlement != null)
+					{
+						for(clsInvSettlementdtlModel obj:listSettlement)
+						{
+							if(obj.getDblSettlementAmt() > 0)
+							{
+								obj.setStrInvCode(objHDModel.getStrInvCode());
+								obj.setDteInvDate(objHDModel.getDteInvDate());
+								obj.setDblPaidAmt(obj.getDblSettlementAmt());
+								obj.setStrClientCode(clientCode);
+								obj.setStrCustomerCode(objHDModel.getStrCustCode());
+								obj.setStrCardName("");
+								obj.setStrDataPostFlag("");
+								obj.setStrExpiryDate("");
+								obj.setStrFolioNo("");
+								obj.setStrGiftVoucherCode("");
+								obj.setStrRemark("");
+								obj.setStrRoomNo("");
+								objInvoiceHdService.funDeleteSettlement(objHDModel.getStrInvCode(), clientCode);
+								objInvoiceHdService.funAddUpdateInvSettlementdtl(obj);
+							}
+							
+						}
+					}
+					 
+	            }
+				else
+				{
+					clsInvSettlementdtlModel obj=new clsInvSettlementdtlModel();
+					obj.setStrSettlementCode(objHDModel.getStrSettlementCode());
+					obj.setStrInvCode(objHDModel.getStrInvCode());
+					obj.setDblSettlementAmt(objHDModel.getDblGrandTotal() );
+					obj.setDteInvDate(objHDModel.getDteInvDate());
+					obj.setDblPaidAmt(obj.getDblSettlementAmt());
+					obj.setStrClientCode(clientCode);
+					obj.setStrCustomerCode(objHDModel.getStrCustCode());
+					obj.setStrCardName("");
+					obj.setStrDataPostFlag("");
+					obj.setStrExpiryDate("");
+					obj.setStrFolioNo("");
+					obj.setStrGiftVoucherCode("");
+					obj.setStrRemark("");
+					obj.setStrRoomNo("");
+					objInvoiceHdService.funDeleteSettlement(objHDModel.getStrInvCode(), clientCode);
+					objInvoiceHdService.funAddUpdateInvSettlementdtl(obj);
+				}
+				  
+				
 				String dcCode = "";
 				if (objSetup.getStrEffectOfInvoice().equals("DC"))
 				{
@@ -6876,7 +6982,7 @@ public void funCallReportInvoiceFormat8Report(@RequestParam("rptInvCode") String
 			+ " AS dblPrice, a.dteInvDate, " + " IFNULL(d.strPName,''),ifnull(e.strDCCode,''),"
 			+ " ifnull(e.dteDCDate,''),ifnull(e.strPONo,''), " + " b.strProdCode,c.strHSNCode,g.dblValue as discAmt,IFNULL(d.strBAdd1,''),"
 			+ " IFNULL(d.strBAdd2,''), " + " IFNULL(d.strBState,''),IFNULL(d.strBPin,'') ,IFNULL(d.strSAdd1,''),IFNULL(d.strSAdd2,''), " + " IFNULL(d.strSState,''),IFNULL(d.strSPin,'') "
-			+ ",IFNULL(d.strGSTNo,''),b.dblProdDiscAmount,b.dblWeight,f.strSGName,IFNULL(d.strEmail,''), IFNULL(d.strMobile,''),f.intSortingNo  "//29
+			+ ",IFNULL(d.strGSTNo,''),b.dblProdDiscAmount,b.dblWeight,f.strSGName,IFNULL(d.strEmail,''), IFNULL(d.strMobile,''),f.intSortingNo ,a.dblExtraCharges,ifnull(b.strRemarks,'') "//31
 			+ " from tblinvoicehd a left outer join tblinvoicedtl b on a.strInvCode=b.strInvCode   " + " left outer join tblproductmaster c  "
 			+ " on b.strProdCode=c.strProdCode left outer join tblpartymaster d on a.strCustCode=d.strPCode " + " left outer join tbldeliverychallanhd e on a.strSOCode=e.strDCCode " + ""
 			+ " left outer join tblsubgroupmaster f on f.strSGCode=c.strSGCode " + ""
@@ -6892,12 +6998,12 @@ public void funCallReportInvoiceFormat8Report(@RequestParam("rptInvCode") String
 	String custGSTNo = "";
 	String custEmailID="",custMobileNo="";
 	double totalInvoiceValue = 0.0;
-	double grandTotal=0.0;
+	double grandTotal=0.0,deliveryCharges=0.0;
 	List listProdDtl = objGlobalFunctionsService.funGetDataList(sqlProdDtl, "sql");
 	List<clsInvoiceDtlBean> dataList = new ArrayList<clsInvoiceDtlBean>();
 	Map<Double, Double> hmCGSTCalculateTax = new HashMap<Double, Double>();
 	Map<Double, Double> hmSGSTCalculateTax = new HashMap<Double, Double>();
-	  Map<String,clsInvoiceDtlBean> mapGSTSummary=new HashMap<>();
+	Map<String,clsInvoiceDtlBean> mapGSTSummary=new HashMap<>();
 	if (listProdDtl.size() > 0)
 	{
 		for (int i = 0; i < listProdDtl.size(); i++)
@@ -6905,6 +7011,11 @@ public void funCallReportInvoiceFormat8Report(@RequestParam("rptInvCode") String
 			Object[] obj = (Object[]) listProdDtl.get(i);
 			clsInvoiceDtlBean objDtlBean = new clsInvoiceDtlBean();
 			objDtlBean.setStrProdName(obj[0].toString());
+			if(obj[30].toString().length()>0)
+			{
+				objDtlBean.setStrProdName(obj[0].toString()+" ( Remark : "+obj[30].toString()+" ) ");
+			}
+			
 			
 			objDtlBean.setStrProdNamemarthi(obj[1].toString());
 			objDtlBean.setDblQty(Double.parseDouble(obj[2].toString()));
@@ -6928,13 +7039,14 @@ public void funCallReportInvoiceFormat8Report(@RequestParam("rptInvCode") String
 			bAddress = obj[14].toString() + " " + obj[15].toString();
 			bState = obj[16].toString();
 			bPin = obj[17].toString();
-			objDtlBean.setDblDisAmt(Double.parseDouble(obj[13].toString()));
+			objDtlBean.setDblDisAmt(Double.parseDouble(obj[23].toString()));
 			sAddress = obj[18].toString() + " " + obj[19].toString();
 			sState = obj[20].toString();
 			sPin = obj[21].toString();
 			custGSTNo = obj[22].toString();
 			custEmailID=obj[26].toString();
 			custMobileNo=obj[27].toString();
+			deliveryCharges=(Double.parseDouble(obj[29].toString()));
 			objDtlBean.setDblWeight(Double.parseDouble(obj[24].toString()));
 			double qty=Double.parseDouble(obj[2].toString());
 			double rate=Double.parseDouble(obj[5].toString());
@@ -6974,6 +7086,13 @@ public void funCallReportInvoiceFormat8Report(@RequestParam("rptInvCode") String
 						objDtlBean.setDblTaxableAmt(Double.parseDouble(objGST[4].toString()));
 					//	totalInvoiceValue = totalInvoiceValue + Double.parseDouble(objGST[2].toString());
 					}
+					else if (objGST[3].toString().equalsIgnoreCase("IGST"))
+					{
+						objDtlBean.setDblIGSTPer(Double.parseDouble(objGST[1].toString()));
+						objDtlBean.setDblIGSTAmt(Double.parseDouble(objGST[2].toString()));
+						objDtlBean.setDblTaxableAmt(Double.parseDouble(objGST[4].toString()));
+					//	totalInvoiceValue = totalInvoiceValue + Double.parseDouble(objGST[2].toString());
+					}
 					else
 					{
 						objDtlBean.setDblNonGSTTaxPer(Double.parseDouble(objGST[1].toString()));
@@ -6984,12 +7103,12 @@ public void funCallReportInvoiceFormat8Report(@RequestParam("rptInvCode") String
 				}
 			}
 			DecimalFormat decFormat = new DecimalFormat("#.##");
-			objDtlBean.setDblTotalAmt(Double.parseDouble(decFormat.format(objDtlBean.getDblTaxableAmt()+objDtlBean.getDblSGSTAmt()+objDtlBean.getDblCGSTAmt())));
+			objDtlBean.setDblTotalAmt(Double.parseDouble(decFormat.format(objDtlBean.getDblTaxableAmt()+objDtlBean.getDblSGSTAmt()+objDtlBean.getDblCGSTAmt()+objDtlBean.getDblIGSTAmt())));
 			// if abatement amount is greater than zero then tax not added in GT
 			if(isTaxAbatement){
 				grandTotal=totalInvoiceValue;
 			}else{
-				grandTotal=Double.parseDouble(decFormat.format(totalInvoiceValue+objDtlBean.getDblSGSTAmt()+objDtlBean.getDblCGSTAmt()));
+				grandTotal=Double.parseDouble(decFormat.format(totalInvoiceValue+objDtlBean.getDblSGSTAmt()+objDtlBean.getDblCGSTAmt()+objDtlBean.getDblIGSTAmt()));
 			}
 			
 			dataList.add(objDtlBean);
@@ -7022,6 +7141,12 @@ public void funCallReportInvoiceFormat8Report(@RequestParam("rptInvCode") String
 						 objDtlBean.setDblCGSTPer(Double.parseDouble(objGST[5].toString()));
 						 objDtlBean.setDblCGSTAmt(Double.parseDouble(objGST[2].toString()));
 					 }
+					if (objGST[7].toString().equalsIgnoreCase("IGST"))
+					 {
+						 objDtlBean.setDblIGSTPer(Double.parseDouble(objGST[5].toString()));
+						 objDtlBean.setDblIGSTAmt(Double.parseDouble(objGST[2].toString()));
+					 }
+					
 					
 					 
 				}else{
@@ -7041,6 +7166,11 @@ public void funCallReportInvoiceFormat8Report(@RequestParam("rptInvCode") String
 						 objDtlBean.setDblSGSTPer(Double.parseDouble(objGST[5].toString()));
 						 objDtlBean.setDblSGSTAmt(Double.parseDouble(objGST[2].toString()));	
 					 }
+						if (objGST[7].toString().equalsIgnoreCase("IGST"))
+						 {
+							 objDtlBean.setDblIGSTPer(Double.parseDouble(objGST[5].toString()));
+							 objDtlBean.setDblIGSTAmt(Double.parseDouble(objGST[2].toString()));
+						 }
 					 
 					// objDtlBean.setDblTotalAmt(Double.parseDouble(objGST[1].toString()));
 					 
@@ -7076,7 +7206,15 @@ public void funCallReportInvoiceFormat8Report(@RequestParam("rptInvCode") String
 		String totalInvoiceValueInWords = obj1.getNumberInWorld(Math.round(grandTotal), shortName);
 
 		HashMap hm = new HashMap();
-		hm.put("strCompanyName", companyName);
+		clsPropertyMaster objPropertyMaster = objPropertyMasterService.funGetProperty(propertyCode, clientCode);
+		if(clientCode.equals("319.001") && objPropertyMaster.getPropertyName().equalsIgnoreCase("TARANG FOODS"))
+		{
+			hm.put("strCompanyName", objPropertyMaster.getPropertyName());
+		}else
+		{
+			hm.put("strCompanyName", companyName);
+		}
+		
 		hm.put("strUserCode", userCode);
 		hm.put("strImagePath", imagePath);
 
@@ -7111,6 +7249,9 @@ public void funCallReportInvoiceFormat8Report(@RequestParam("rptInvCode") String
 		hm.put("strBankName",objSetup.getStrBankName());
 		hm.put("strBranchName", objSetup.getStrBranchName());
 		hm.put("strBankIFSC", objSetup.getStrSwiftCode());
+		hm.put("dbldeliveryCharges", deliveryCharges);
+		
+		
 
 		// ////////////
 
@@ -7501,6 +7642,19 @@ public void funCallReportInvoiceFormat8Report(@RequestParam("rptInvCode") String
 }
 
 */
+
+@RequestMapping(value = "/LoadSettlementData", method = RequestMethod.GET)
+public @ResponseBody Map<String, String> funLoadSettlementData(HttpServletRequest req)
+{
+	String clientCode = req.getSession().getAttribute("clientCode").toString();
+
+	Map<String, String> settlementList = objSettlementService.funGetSettlementComboBox(clientCode);
+	
+	return settlementList;
+}
+
+
+			
 
 
 
