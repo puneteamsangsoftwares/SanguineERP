@@ -9,13 +9,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>GRN</title>
-     <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />
-	 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
-	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-	 <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-
+    <link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 
 
 <style type="text/css">
 .contents{
@@ -870,6 +865,7 @@
 		{
 			if ($("#cmbAgainst").val() == 'Purchase Order')
 			{
+				var location=$("#txtLocCode").val();
 				var POCode=$("#cmbPODoc").val();
 				//alert(POCode);
 				if(POCode.trim().length>0)
@@ -877,7 +873,7 @@
 					fieldName = "prodforPO";
 					transactionName=fieldName;
 				//	window.showModalDialog("searchform.html?formname="+transactionName+"&POCode="+POCode+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;dialogLeft:200px;")
-					window.open("searchform.html?formname="+transactionName+"&POCode="+POCode+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;top=500,left=500")
+					window.open("searchform.html?formname="+transactionName+"&POCode="+POCode+"&locationCode="+location+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;top=500,left=500")
 				}
 			}
 			/* if($("#cmbAgainst").val() == 'Invoice')
@@ -913,9 +909,10 @@
 				}
 				else
 				{
+					var location=$("#txtLocCode").val();
 					var searchProd="RawProduct";
 			       // window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;dialogLeft:200px;")
-				window.open("searchform.html?formname="+searchProd+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;top=500,left=500")
+				window.open("searchform.html?formname="+searchProd+"&locationCode="+location+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;top=500,left=500")
 				}
 			}
 			else

@@ -8,13 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=8"/>
 	
-	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-
+	    
 
 <title>MATERIAL REQUISITION</title>
 
@@ -163,7 +157,7 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 		function funHelp(transactionName)
 		{
 			fieldName=transactionName;
-		
+			var location=$("#txtLocBy").val();
 			if("productInUse"==transactionName)
 				{
 					if($("#txtLocOn").val()=="")
@@ -174,7 +168,7 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 					else
 						{
 					//	window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:1100px;dialogLeft:200px;")
-						window.open("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px,dialogWidth:1100px,top=500,left=500")
+						window.open("searchform.html?formname="+transactionName+"&locationCode="+location+"&searchText=","","dialogHeight:600px,dialogWidth:1100px,top=500,left=500")
 						
 						}
 				}

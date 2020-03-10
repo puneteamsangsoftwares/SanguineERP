@@ -8,13 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=8"/>
 	
-	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-
+	    
 <title>Opening Stock</title>
 <script type="text/javascript">
 	/**
@@ -402,9 +396,9 @@
 		function funHelp(transactionName)
 		{
 			fieldName=transactionName;
-	        
+	        	var location=$("#txtLocCode").val();
 	    //    window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;dialogLeft:200px;")
-	        window.open("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;dialogLeft:200px;")
+	        window.open("searchform.html?formname="+transactionName+"&locationCode="+location+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;dialogLeft:200px;")
 	    }
 		
 		/**
@@ -925,7 +919,7 @@
 
 <body onload="funOnLoad()">
 <div class="container">
-	<label id="formHeading">Opening Stock</label>
+	<label id="formHeading">Opening Stock </label>
 	<s:form id="frmOpeningStock" name="frmOpeningStock" method="POST" action="saveOpeningStk.html?saddr=${urlHits}">
 		<br>
 		<div class="row transTable">

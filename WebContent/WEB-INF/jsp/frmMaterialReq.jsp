@@ -8,13 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=8" />
 
-<%-- <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
 
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
- --%>
 <title>MATERIAL REQUISITION</title>
 
 <style type="text/css">
@@ -160,29 +154,12 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	function funApplyNumberValidation() {
 		$(".numeric").numeric();
 		$(".integer").numeric(false, function() {
-			alert("Integers only");
-			this.value = "";
-			this.focus();
-		});
-		$(".positive").numeric({
-			negative : false
-		}, function() {
-			alert("No negative values");
-			this.value = "";
-			this.focus();
-		});
-		$(".positive-integer").numeric({
-			decimal : false,
-			negative : false
-		}, function() {
-			alert("Positive integers only");
-			this.value = "";
-			this.focus();
-		});
-		$(".decimal-places").numeric({
-			decimalPlaces : maxQuantityDecimalPlaceLimit,
-			negative : false
-		});
+		alert("Integers only");this.value = "";this.focus();});
+		$(".positive").numeric({negative : false}, function() {alert("No negative values");this.value = "";this.focus();});
+		$(".positive-integer").numeric({decimal : false,negative : false}, function() {alert("Positive integers only");this.value = "";this.focus();});
+		
+	
+	$(".decimal-places").numeric({decimalPlaces : maxQuantityDecimalPlaceLimit,negative : false});
 	}
 
 	/* Textfiled On blur geting data */
@@ -190,27 +167,31 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	$(function() {
 		$("#txtreqCode").blur(function() {
 			var code = $("#txtreqCode").val();
-			if (code.trim().length > 0 && code != "?" && code != "/") {
+			if (code.trim().length > 0 && code != "?" && code != "/") 
+			{
 				funSetReqData(code);
 			}
 		});
 
 		$("#txtLocBy").blur(function() {
 			var code = $("#txtLocBy").val();
-			if (code.trim().length > 0 && code != "?" && code != "/") {
+			if (code.trim().length > 0 && code != "?" && code != "/") 
+			{
 				funSetLocationBy(code);
 			}
 		});
 
 		$("#txtLocOn").blur(function() {
 			var code = $("#txtLocOn").val();
-			if (code.trim().length > 0 && code != "?" && code != "/") {
+			if (code.trim().length > 0 && code != "?" && code != "/") 
+			{
 				funSetLocationOn(code);
 			}
 		});
 		$("#txtProdCode").blur(function() {
 			var code = $("#txtProdCode").val();
-			if (code.trim().length > 0 && code != "?" && code != "/") {
+			if (code.trim().length > 0 && code != "?" && code != "/") 
+			{
 				funSetProduct(code);
 			}
 		});
@@ -219,33 +200,37 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 * Open Help Form 
 	 */
-	function funHelp(transactionName) {
+	function funHelp(transactionName)
+	 {
 		fieldName = transactionName;
-
-		if ("productInUse" == transactionName) {
-			if ($("#txtLocOn").val() == "") {
+		var byLocation =  $("#txtLocBy").val();
+		if ("productInUse" == transactionName) 
+		
+		{
+			if ($("#txtLocOn").val() == "") 
+			{
 				alert("Please Select To Location");
 				return false;
-			} else {
-				//	window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:1100px;dialogLeft:200px;")
-				window
-						.open("searchform.html?formname=" + transactionName
-								+ "&searchText=", "",
-								"dialogHeight:600px,dialogWidth:1100px,top=500,left=500")
+			} 
+			else
+			
 
-			}
-		} else if ("ProductionOrder" == transactionName) {
+			 {
+				//	window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:1100px;dialogLeft:200px;")
+				window.open("searchform.html?formname=" + transactionName+"&locationCode="+byLocation+ "&searchText=", "","dialogHeight:600px,dialogWidth:1100px,top=500,left=500")
+				
+						}
+				} 
+				else if ("ProductionOrder" == transactionName) 
+				{
 			//	window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;dialogLeft:200px;")
-			window.open("searchform.html?formname=" + transactionName
-					+ "&searchText=", +"",
-					"dialogHeight:600px,dialogWidth:1000px,top=500,left=500")
+			window.open("searchform.html?formname=" + transactionName+ "&searchText=", +"","dialogHeight:600px,dialogWidth:1000px,top=500,left=500")
 		}
 
-		else {
+		else 
+		{
 			//window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;dialogLeft:200px;")
-			window.open("searchform.html?formname=" + transactionName
-					+ "&searchText=", "",
-					"dialogHeight:600,dialogWidth:1000,top=500,left=500")
+			window.open("searchform.html?formname=" + transactionName+ "&searchText=", "","dialogHeight:600,dialogWidth:1000,top=500,left=500")
 		}
 
 	}
@@ -253,38 +238,44 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 * Location Help Open based on "Only Store or other Location Type"
 	 */
-	function funLocationOnOpen(transactionName) {
+	function funLocationOnOpen(transactionName) 
+	{
 		fieldName = transactionName;
 		var byLocation = $("#txtLocBy").val();
 
 		//alert("strLocationType"+strLocationType);
-		if (strLocationType == "Stores") {
+		if (strLocationType == "Stores") 
+		{
 			//	window.showModalDialog("searchform.html?formname=LocationToAllPropertyStore&searchText=","","dialogHeight:600px;dialogWidth:1000px;dialogLeft:200px;")
-			window.open(
-					"searchform.html?formname=LocationToAllPropertyStore&searchText="
-							+ byLocation, "",
-					"dialogHeight:600px,dialogWidth:1000px,dialogLeft:200px")
-		} else if (strLocationType == "Cost Center"
-				|| strLocationType == "Profit Center") {
-
+			window.open("searchform.html?formname=LocationToAllPropertyStore&searchText="+ byLocation, "","dialogHeight:600px,dialogWidth:1000px,dialogLeft:200px") }
+			 else if (strLocationType == "Cost Center"|| strLocationType == "Profit Center")
+			
+ 			{
+		
+			
+			
+			
 			//	window.showModalDialog("searchform.html?formname=StoreLocationTo&searchText=","","dialogHeight:600px;dialogWidth:1000px;dialogLeft:200px;")
-			window.open("searchform.html?formname=StoreLocationTo&searchText="
-					+ byLocation, "",
-					"dialogHeight:600px,dialogWidth:1000px,dialogLeft:200px,")
-		} else {
+			window.open("searchform.html?formname=StoreLocationTo&searchText="+ byLocation, "","dialogHeight:600px,dialogWidth:1000px,dialogLeft:200px,")
+			} 
+			else 
+			
+			
+	{
+	
 			//	window.showModalDialog("searchform.html?formname=locon&searchText=","","dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;")
-			window.open("searchform.html?formname=locon&searchText="
-					+ byLocation, "",
-					"dialogHeight:600px,dialogWidth:600px,dialogLeft:400px,")
+			window.open("searchform.html?formname=locon&searchText="+ byLocation, "","dialogHeight:600px,dialogWidth:600px,dialogLeft:400px,")
 		}
 	}
 
 	/**
 	 * Set Data after selecting form Help windows
 	 */
-	function funSetData(code) {
+	function funSetData(code) 
+	{
 		var searchUrl = "";
-		switch (fieldName) {
+		switch (fieldName) 
+		{
 		case 'locby':
 			funSetLocationBy(code);
 			break;
@@ -306,11 +297,14 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 
 	}
 
-	function funHelpAgainst() {
-		if ($("#cmbAgainst").val() == "Work Order") {
+	function funHelpAgainst() 
+	{
+		if ($("#cmbAgainst").val() == "Work Order") 
+		{
 			funHelp('');
 		}
-		if ($("#cmbAgainst").val() == "Production Order") {
+		if ($("#cmbAgainst").val() == "Production Order") 
+		{
 			funHelp('ProductionOrder');
 		}
 	}
@@ -318,15 +312,16 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 * Get and set Location By Data Based on passing Location Code
 	 */
-	function funSetLocationBy(code) {
+	function funSetLocationBy(code) 
+	{
 		var searchUrl = "";
-		searchUrl = getContextPath() + "/loadLocationMasterData.html?locCode="
-				+ code;
+		searchUrl = getContextPath() + "/loadLocationMasterData.html?locCode="+ code;
 		$.ajax({
 			type : "GET",
 			url : searchUrl,
 			dataType : "json",
-			success : function(response) {
+			success : function(response) 
+			{
 				$("#txtLocBy").val(response.strLocCode);
 				$("#lblLocBy").text(response.strLocName);
 				strLocationType = response.strType;
@@ -354,15 +349,16 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 * Get and set location on data based on passing location code
 	 */
-	function funSetLocationOn(code) {
+	function funSetLocationOn(code) 
+	{
 		var searchUrl = "";
-		searchUrl = getContextPath() + "/loadLocationMasterData.html?locCode="
-				+ code;
+		searchUrl = getContextPath() + "/loadLocationMasterData.html?locCode="+ code;
 		$.ajax({
 			type : "GET",
 			url : searchUrl,
 			dataType : "json",
-			success : function(response) {
+			success : function(response) 
+			{
 				$("#txtLocOn").val(response.strLocCode);
 				$("#lblLocOn").text(response.strLocName);
 
@@ -393,25 +389,29 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 * Get and set prodcut data based on product code
 	 */
-	function funSetProduct(code) {
+	function funSetProduct(code) 
+	{
 		var searchUrl = "";
 		//alert(showReqStk);
-		searchUrl = getContextPath() + "/loadProductMasterData.html?prodCode="
-				+ code;
+		searchUrl = getContextPath() + "/loadProductMasterData.html?prodCode="+ code;
 		//alert(searchUrl);
-		$
-				.ajax({
+	
+		$.ajax({
 					type : "GET",
 					url : searchUrl,
 					dataType : "json",
-					success : function(response) {
+					success : function(response) 
+					{
 						if ('Invalid Code' == response.strProdCode) {
 							alert('Invalid Product Code');
 							$("#txtProdCode").val('');
 							$("#spProdName").text('');
 							$("#txtProdCode").focus();
-						} else {
-							if (showReqStk == "N") {
+							} 
+							else 
+							{
+							if (showReqStk == "N") 
+							{
 								$("#spStock").text("0");
 								$("#spStockUOM").text(response.strIssueUOM);
 							} else {
@@ -432,6 +432,7 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 							}
 							$("#txtProdCode").val(response.strProdCode);
 							$("#spProdName").text(response.strProdName);
+							
 							$("#hidNonStkableItem").val(
 									response.strNonStockableItem);
 							if (showReqVal == "N") {
@@ -560,7 +561,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 		$("#cmbAgainst").val(response.strAgainst);
 		$("#txtWOCode").val(response.strWoCode);
 		$("#txtWoQty").val(response.dblWOQty);
-		if (response.strCloseReq == 'Y') {
+		if (response.strCloseReq == 'Y') 
+		{
 			$("#cbCloseReq").prop('checked', true);
 		} else {
 			$("#cbCloseReq").prop('checked', false);
@@ -609,11 +611,7 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 		//= parseFloat(dblTotalPrice).toFixed(parseInt(maxAmountDecimalPlaceLimit));
 		//alert(dblTotalPrice);
 		selectedIndex = rowCount;
-		row.insertCell(0).innerHTML = "<input class=\"Box\" size=\"10%\" name=\"listReqDtl["
-				+ (rowCount)
-				+ "].strProdCode\" id=\"txtProdCode."
-				+ (rowCount)
-				+ "\" value='" + strProdCode + "' />";
+		row.insertCell(0).innerHTML = "<input class=\"Box\" size=\"10%\" name=\"listReqDtl["+ (rowCount)+ "].strProdCode\" id=\"txtProdCode."+ (rowCount)+ "\" value='" + strProdCode + "' />";
 		row.insertCell(1).innerHTML = "<input class=\"Box\" size=\"53%\" name=\"listReqDtl["
 				+ (rowCount)
 				+ "].strProdName\" id=\"strProdName."
@@ -678,13 +676,15 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 
 		var key = event.keyCode;
 
-		if (key == 40) {
+		if (key == 40) 
+		{
 			rowcount = rowcount + 1;
 			document.getElementById("dblQty." + rowcount).focus();
 
 		}
 
-		if (key == 38) {
+		if (key == 38) 
+		{
 			rowcount = rowcount - 1;
 			document.getElementById("dblQty." + rowcount).focus();
 
@@ -695,15 +695,18 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 * Check validation before adding product data in grid
 	 */
-	function btnAdd_onclick() {
-
-		if ($("#txtProdCode").val().trim().length == 0) {
+	function btnAdd_onclick() 
+	
+		{
+		if ($("#txtProdCode").val().trim().length == 0) 
+		{
 			alert("Please Enter Product Code Or Search");
 			//alert("Please Enter Product Code Or Search");
 			$('#txtProdCode').focus();
 			return false;
 		}
 
+		
 		if (($("#txtProdQty").val() == 0)
 				|| ($("#txtProdQty").val().trim().length == 0)) {
 			alert("Please Enter Quantity ");
@@ -712,7 +715,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 		} else {
 			var strProdCode = $("#txtProdCode").val();
 			//if(funDuplicateProduct(strProdCode))
-			if (true) {
+			if (true) 
+			{
 				funAddProductRow();
 			}
 		}
@@ -722,12 +726,15 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 * Check duplicate record in grid
 	 */
-	function funDuplicateProduct(strProdCode) {
+	function funDuplicateProduct(strProdCode) 
+	{
 		var table = document.getElementById("tblProdDet");
 		var rowCount = table.rows.length;
 		var flag = true;
-		if (rowCount > 0) {
-			$('#tblProdDet tr').each(function() {
+		if (rowCount > 0) 
+		{
+			$('#tblProdDet tr').each(function() 
+			{
 				if (strProdCode == $(this).find('input').val())// `this` is TR DOM element
 				{
 					alert("Already added " + strProdCode);
@@ -744,7 +751,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 * Adding Product Data in grid 
 	 */
-	function funAddProductRow() {
+	function funAddProductRow() 
+	{
 		var dblUnitPrice = 0;
 		var strProdCode = $("#txtProdCode").val().trim();
 		var strProdName = $("#spProdName").text();
@@ -768,15 +776,16 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 		// 				    	return false;
 		// 				    }
 
-		if (showReqVal == "N") {
+		if (showReqVal == "N")
+		 {
 			dblUnitPrice = $("#txthidUnitPrice").val();
-		} else {
+			} 
+			else 
+			{
 			dblUnitPrice = $("#txtUnitPrice").val();
 		}
-		var dblTotalPrice = parseFloat($("#txtProdQty").val())
-				* parseFloat(dblUnitPrice);
-		dblTotalPrice = parseFloat(dblTotalPrice).toFixed(
-				parseInt(maxAmountDecimalPlaceLimit));
+		var dblTotalPrice = parseFloat($("#txtProdQty").val())* parseFloat(dblUnitPrice);
+		dblTotalPrice = parseFloat(dblTotalPrice).toFixed(parseInt(maxAmountDecimalPlaceLimit));
 		var strRemarks = $("#txtRemarks").val();
 
 		var table = document.getElementById("tblProdDet");
@@ -852,7 +861,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 * Delete a particular record from a grid
 	 */
-	function funDeleteRow(obj) {
+	function funDeleteRow(obj) 
+	{
 		var index = obj.parentNode.parentNode.rowIndex;
 		var table = document.getElementById("tblProdDet");
 		table.deleteRow(index);
@@ -862,11 +872,13 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 * Remove all product from grid
 	 */
-	function funRemoveProductRows() {
+	function funRemoveProductRows() 
+	{
 		var table = document.getElementById("tblProdDet");
 		var rowCount = table.rows.length;
 		//alert("rowCount\t"+rowCount);
-		for (var i = rowCount - 1; i >= 0; i--) {
+		for (var i = rowCount - 1; i >= 0; i--)
+		 {
 			table.deleteRow(i);
 		}
 	}
@@ -874,7 +886,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 * Calcutating subtotal
 	 */
-	function funCalSubTotal() {
+	function funCalSubTotal() 
+	{
 		funApplyNumberValidation();
 		var dblQtyTot = 0;
 		var subtot = 0;
@@ -886,29 +899,33 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 
 		});
 
-		$("#txtTotalAmount").val(
-				parseFloat(subtot)
+	
+		$("#txtTotalAmount").val(parseFloat(subtot)
 						.toFixed(parseInt(maxAmountDecimalPlaceLimit)));
-		$("#txtTotalQty").val(
-				parseFloat(dblQtyTot).toFixed(
-						parseInt(maxQuantityDecimalPlaceLimit)));
+		$("#txtTotalQty").val(parseFloat(dblQtyTot).toFixed(parseInt(maxQuantityDecimalPlaceLimit)));
 
 	}
 
 	/**
 	 * Update total price when user change the qty 
 	 */
-	function funUpdatePrice(object) {
+	function funUpdatePrice(object) 
+	{
 		var index = object.parentNode.parentNode.rowIndex;
 		var prodCode = document.getElementById("txtProdCode." + index).value;
 		var dblStock = funGetProductStock(prodCode);
-		if (dblStock < 0) {
+		if (dblStock < 0) 
+		{
 			alert("Stock Is Not Available!!!");
 			return false;
-		} else if (dblStock < parseFloat(object.value)) {
+				} 
+				else if (dblStock < parseFloat(object.value)) 
+				{
 			alert("Stock Is Not Available!!!");
 			return false;
-		} else {
+				} 
+				else 
+				{
 			var price = parseFloat(document.getElementById("dblUnitPrice."
 					+ index).value)
 					* parseFloat(object.value);
@@ -921,7 +938,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 * Clear textfiled after adding data in textfield
 	 */
-	function funClearReqData() {
+	function funClearReqData() 
+	{
 		document.getElementById("txtProdCode").value = "";
 		// 				document.getElementById("spPartNo").innerHTML="";
 		document.getElementById("spProdName").innerHTML = "";
@@ -1075,18 +1093,22 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 		      	funCalSubTotal();	
 		  	} */
 
-		var timer = setInterval(function() {
-			if (response.closed) {
-				if (response.returnValue != null) {
-					if (null != response) {
+		var timer = setInterval(function()
+		 {
+			if (response.closed) 
+			{
+				if (response.returnValue != null) 
+				{
+					if (null != response) 
+					{
 						response = response.returnValue;
 
 						funRemoveProductRows();
 
-						$.each(response, function(i, item) {
+						$.each(response, function(i, item) 
+						{
 							//	function funfillProdRow(strProdCode,strProdName,strUOM,dblQty,dblUnitPrice,strRemarks)
-							funfillProdRow(response[i].strProdCode,
-									response[i].strProdName,
+							funfillProdRow(response[i].strProdCode,response[i].strProdName,
 									response[i].strUOM,
 									response[i].dblOrderQty,
 									response[i].dblPrice, "");
@@ -1105,10 +1127,13 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 *  Ready function for Textfield on blur event
 	 */
-	$(function() {
-		$("#txtreqCode").blur(function() {
+	$(function() 
+	{
+		$("#txtreqCode").blur(function() 
+		{
 			var code = $('#txtreqCode').val();
-			if (code.trim().length > 0 && code != "?" && code != "/") {
+			if (code.trim().length > 0 && code != "?" && code != "/") 
+			{
 				funSetReqData(code);
 			}
 		});
@@ -1141,8 +1166,10 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 					funSetProduct(code);
 				}
 			}
-			if (e.which == 13) {
-				if (code.trim().length > 8) {
+			if (e.which == 13) 
+			{
+				if (code.trim().length > 8) 
+				{
 					funSetProduct(code);
 				}
 			}
@@ -1172,10 +1199,10 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 		/**
 		 * Attached document Link
 		 */
-		$('a#baseUrl')
-				.click(
-						function() {
-							if ($("#txtreqCode").val().trim() == "") {
+		$('a#baseUrl').click(function() 
+		{
+							if ($("#txtreqCode").val().trim() == "") 
+							{
 								alert("Please Select Requsition Code");
 								return false;
 							}
@@ -1197,8 +1224,7 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 		var searchUrl = getContextPath()
 				+ "/loadLocationMasterData.html?locCode=" + code;
 		//alert(searchUrl);
-		$
-				.ajax({
+		$.ajax({
 					type : "GET",
 					url : searchUrl,
 					dataType : "json",
@@ -1240,12 +1266,15 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 * Reset function  
 	 */
-	function funResetFields() {
+	function funResetFields() 
+	{
 		location.reload(true);
 	}
 
-	function btnFill_onclick() {
-		if ($("#txtWOCode").val() == "") {
+	function btnFill_onclick() 
+	{
+		if ($("#txtWOCode").val() == "")
+		 {
 			alert("Please Select Production Code !");
 		} else {
 			var code = $("#txtWOCode").val();
@@ -1255,7 +1284,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 
 	// 		function funGetChildNodes(opCode,code)
 	// 		{
-	function funGetOPData(code) {
+	function funGetOPData(code) 
+	{
 		funRemoveProductRows();
 		var searchUrl = getContextPath() + "/getOPChildNodes.html?OPCode="
 				+ code;
@@ -1265,8 +1295,10 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 			type : "GET",
 			url : searchUrl,
 			dataType : "json",
-			success : function(response) {
-				$.each(response, function(i, itemDtl) {
+			success : function(response)
+			 {
+				$.each(response, function(i, itemDtl) 
+				{
 					funfillProdRow(itemDtl[0], itemDtl[1], itemDtl[2],
 							itemDtl[3], itemDtl[4], '');
 
@@ -1293,7 +1325,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 
 	}
 
-	function funLoadStandardProduct() {
+	function funLoadStandardProduct() 
+	{
 		var locCode = $("#txtLocBy").val()
 		var searchUrl = "";
 		searchUrl = getContextPath()
@@ -1376,7 +1409,8 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 * Reset textfield
 	 */
-	function funResetProductFields() {
+	function funResetProductFields() 
+	{
 		$("#txtProdCode").val('');
 		document.getElementById("lblProdName").innerHTML = '';
 		$("#txtCostRM").val('');
@@ -1388,17 +1422,20 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 	/**
 	 * Get conversion Ratio form product master
 	 */
-	function fungetConversionUOM(code) {
+	function fungetConversionUOM(code) 
+	{
 		var searchUrl = "";
 		var ProductData;
 		searchUrl = getContextPath() + "/loadProductMasterData.html?prodCode="
 				+ code;
-		$.ajax({
+		$.ajax
+		({
 			type : "GET",
 			url : searchUrl,
 			dataType : "json",
 			async : false,
-			success : function(response) {
+			success : function(response)
+			 {
 				ProductData = response;
 			},
 			error : function(jqXHR, exception) {
@@ -1434,8 +1471,7 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 		var unitPrice = dblCostPUnit;
 		unitPrice = parseFloat(unitPrice).toFixed(maxAmountDecimalPlaceLimit);
 		var wtunit = dblWeight;
-		dblActualRate = parseFloat(dblActualRate).toFixed(
-				maxAmountDecimalPlaceLimit);
+		dblActualRate = parseFloat(dblActualRate).toFixed(maxAmountDecimalPlaceLimit);
 
 		wtunit = parseFloat(wtunit).toFixed(maxAmountDecimalPlaceLimit);
 		var currentStkQty = dblStock;
@@ -1447,8 +1483,7 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 		adjValue = parseFloat(adjValue).toFixed(maxQuantityDecimalPlaceLimit);
 
 		var actualAdjValue = dblActualRate * variance;
-		actualAdjValue = parseFloat(actualAdjValue).toFixed(
-				maxQuantityDecimalPlaceLimit);
+		actualAdjValue = parseFloat(actualAdjValue).toFixed(maxQuantityDecimalPlaceLimit);
 
 		var adjWeight = wtunit * variance;
 		adjWeight = parseFloat(adjWeight).toFixed(maxQuantityDecimalPlaceLimit);
@@ -1457,8 +1492,7 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 		var row = table.insertRow(rowCount);
 
 		var DiscurrentStkQty = dblStock;
-		DiscurrentStkQty = parseFloat(DiscurrentStkQty).toFixed(
-				maxQuantityDecimalPlaceLimit);
+		DiscurrentStkQty = parseFloat(DiscurrentStkQty).toFixed(maxQuantityDecimalPlaceLimit);
 		var tempStkQty = DiscurrentStkQty.split(".");
 		DiscurrentStkQty = tempStkQty[0]
 				+ " "

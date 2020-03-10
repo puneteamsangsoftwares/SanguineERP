@@ -774,10 +774,13 @@
 					    success: function(response)
 					    {
 					    	funSKUWiseProductDetail(response[0]);
-					    	$("#txtTotValue").val(parseFloat(response[1]).toFixed(maxQuantityDecimalPlaceLimit));
+					    	$("#txtTotValue").val(parseFloat(response[3]).toFixed(maxQuantityDecimalPlaceLimit));
 					    	document.getElementById("txtTaxTotValue").style.visibility = "visible";
-					    	$("#txtTaxTotValue").val(parseFloat(response[2]).toFixed(maxQuantityDecimalPlaceLimit));
-					    	document.getElementById("txtSubTotValue").style.visibility = "hidden"; 
+					    	$("#txtTaxTotValue").val(parseFloat(response[1]).toFixed(maxQuantityDecimalPlaceLimit));
+					    	$("#txtSubTotValue").val(parseFloat(response[2]).toFixed(maxQuantityDecimalPlaceLimit));
+					    	document.getElementById("txFinalTotValue").style.visibility = "visible"
+					    	$("#txFinalTotValue").val(parseFloat(response[4]).toFixed(maxQuantityDecimalPlaceLimit));					    	
+					    	//document.getElementById("txFinalTotValue").style.visibility = "hidden"; 
 					    	
 					    },
 					    error: function(jqXHR, exception) {
@@ -813,7 +816,8 @@
 				
 				 data[2]=parseFloat(data[2]).toFixed(maxQuantityDecimalPlaceLimit);
 				 data[3]=parseFloat(data[3]).toFixed(maxQuantityDecimalPlaceLimit);
-				 
+				 data[5]=parseFloat(data[5]).toFixed(maxQuantityDecimalPlaceLimit);
+				 data[6]=parseFloat(data[6]).toFixed(maxQuantityDecimalPlaceLimit);				 
 			    var table = document.getElementById("tblSKUProdDet");
 			    var rowCount = table.rows.length;
 			    var row = table.insertRow(rowCount);
@@ -824,6 +828,9 @@
 			    row.insertCell(2).innerHTML= "<input name=\"currency["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"currency."+(rowCount)+"\" value='"+data[4]+"'>";
 			    row.insertCell(3).innerHTML= "<input name=\"SKUQty["+(rowCount)+"]\" id=\"SKUQty."+(rowCount)+"\"readonly=\"readonly\" style=\"text-align: right;width:99%;\"  class=\"Box\" value="+data[2]+">";
 			    row.insertCell(4).innerHTML= "<input name=\"SKUAmount["+(rowCount)+"]\" id=\"SKUAmount."+(rowCount)+"\" readonly=\"readonly\"  style=\"text-align: right;width:99%;\"   class=\"Box\"  value="+data[3]+">";
+			    row.insertCell(5).innerHTML= "<input name=\"SKUDiscAmount["+(rowCount)+"]\" id=\"SKUDiscAmount."+(rowCount)+"\" readonly=\"readonly\"  style=\"text-align: right;\"  style=\"width:99%;\" class=\"Box\"  value="+data[5]+">";
+			    row.insertCell(6).innerHTML= "<input name=\"SKUTotalAmount["+(rowCount)+"]\" id=\"SKUTotalAmount."+(rowCount)+"\" readonly=\"readonly\"  style=\"text-align: right;\"  style=\"width:99%;\" class=\"Box\"  value="+data[6]+">";
+
 			    
 			    
 			   }
@@ -853,7 +860,7 @@
 					    success: function(response)
 					    {
 					    	funCategoryWiseProductDetail(response[0],response[1]);
-					    	
+					    	document.getElementById("txFinalTotValue").style.visibility = "hidden"
 					    	//$("#txtTotValue").val(parseFloat(response[1]).toFixed(maxQuantityDecimalPlaceLimit));
 					    	document.getElementById("txtSubTotValue").style.visibility = "visible"; 
 							document.getElementById("txtTaxTotValue").style.visibility = "visible";

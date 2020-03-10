@@ -7,13 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=8"/>
 	
-	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-
+	   
 <script type="text/javascript">
 	/**
 	 * Ready Function for Initialization Text Field with default value 
@@ -96,7 +90,49 @@
 	 /**
 	 * Ready function when execute button clicked or load Stock variance Data
 	 */
-	
+	$(document).ready(function() 
+			{
+				$("#btnExecute").click(function(){
+				var fromDate=$("#txtFromDate").val();
+				var toDate=$("#txtToDate").val();
+				var locCode=$("#txtLocCode").val();
+				var param1=locCode+","+fromDate+","+toDate;
+				var searchUrl=getContextPath()+"/loadStkVarianceFlashData.html?param1="+param1;
+				$.ajax({
+			        type: "GET",
+			        url: searchUrl,
+				    dataType: "json",
+				    success: function(response)
+				    {
+				    	funDeleteTableAllRows()
+						$.each(response, function(i,item)
+						{
+						  funAddRow(response[i][0],response[i][1],response[i][2],response[i][3],response[i][4],response[i][5],response[i][6],response[i][7]);
+						});
+				    		
+				    	funGetTotalVariance();
+				    },
+				    error: function(jqXHR, exception) {
+			            if (jqXHR.status === 0) {
+			                alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+		                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.n' + jqXHR.responseText);
+		            }		            
+		        }
+		      });
+		
+		});
+		});
 		
 	 /**
 	 * filling Records in grid
@@ -168,8 +204,27 @@
 					 
 				 }
 			});
-			 
+			 /**
+			 * Export to excel
+			 */
+			 $("#btnExport").click(function (e)
+					{
+						var fromDate=$("#txtFromDate").val();
+						var toDate=$("#txtToDate").val();
+						var locCode=$("#txtLocCode").val();
+						var locName=$("#lblLocName").text();
 						
+						var param1=locCode+","+fromDate+","+toDate+","+locName;
+						var reportType=$("#cmbExportType").val();
+						
+						if(reportType=="Excel"){
+						window.location.href=getContextPath()+"/ExportExcelStkVariance.html?param1="+param1;
+						}
+						else{
+							window.location.href=getContextPath()+"/rptStkVarianceFlashReport.html?param1="+param1+"&fDate="+fromDate+"&tDate="+toDate;
+						}
+					}); 
+			
 			
 		});
 	 /**

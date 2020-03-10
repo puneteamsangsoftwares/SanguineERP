@@ -8,13 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=8"/>
 	
-	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-
+	    
 <title>Material Return</title>
 <script type="text/javascript">
 
@@ -194,10 +188,11 @@ var mreditable;
 	var fieldName="";	
 	function funHelp(transactionName)
 	{
+		var fromLoc=$("#txtLocFromCode").val(code);
 		fieldName=transactionName;
 		
 		// window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;dialogLeft:200px;")
-		 window.open("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;top=500,left=500")
+		 window.open("searchform.html?formname="+transactionName+"&locationCode="+fromLoc+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;top=500,left=500")
 	}	
 	
 	/**

@@ -7,12 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=8"/>
 	
-	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 <style type="text/css">
 .transTable th	{
 		 background:#c0c0c0;
@@ -51,7 +45,7 @@
 		$("#strUser3_SB").css('visibility','hidden');
 		$("#strUser4_SB").css('visibility','hidden');
 		$("#strUser5_SB").css('visibility','hidden');
-		$('#item').attr('src', getContextPath1()+"/resources/images/company_Logo.png");
+		$('#itemImage').attr('src', getContextPath1()+"/resources/images/company_Logo.png");
 		 var property='<%=session.getAttribute("userProperty").toString()%>';
 		 funGetImage();
 //  		 funGetProperty(property);

@@ -19,12 +19,6 @@
 	<link rel="stylesheet" href="<spring:url value="/resources/css/pagination.css"/>" />
 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" /> 	
 	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/jquery-ui.css"/>" />
-	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 	
 	
 	<title>Batch Report</title>
@@ -85,12 +79,76 @@
 	 */
 	$(document).ready(function() 
 		{
+		$("#btnExecute").click(function(){
+			var reportType=$("#cmbReportType").val();
+			var fromDate=$("#txtFromDate").val();
+			var toDate=$("#txtToDate").val();
+			var locCode=$("#cmbLocation").val();
+			var propCode=$("#cmbProperty").val();
+			var EXPFromDate=$("#txtEXPFromDate").val();
+			var EXPToDate=$("#txtEXPToDate").val();
+			var prodcode=$("#txtProdCode").val();
+			if(prodcode.trim().length==0)
+				{
+					prodcode="ALL";
+				}
+	var suppcode=$("#txtSuppCode").val();
+			if(suppcode.trim().length==0)
+			{
+				suppcode="ALL";
+			}
+	
+				
 			
-			
+	var param1=reportType+","+locCode+","+propCode+","+fromDate+","+toDate+","+EXPFromDate+","+EXPToDate+","+prodcode+","+suppcode;
+	        
+			var searchUrl=getContextPath()+"/frmExpiryFlashReport.html?param1="+param1;
+			//alert(searchUrl);
+			$.ajax({
+		        type: "GET",
+		        url: searchUrl,
+			    dataType: "json",
+			    success: function(response)
+			    {
+			    	ExpiryFlashData=response;
+			    	showTable();
+			    },
+			    error: function(jqXHR, exception) {
+		            if (jqXHR.status === 0) {
+		                alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+		                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.n' + jqXHR.responseText);
+		            }		            
+		        }
+		      });
+		
+		});			
 	/**
 	 * Excel export
 	 **/
-	
+	$("#btnExport").click(function(){
+		var reportType=$("#cmbReportType").val();
+		var fromDate=$("#txtFromDate").val();
+		var toDate=$("#txtToDate").val();
+		var locCode=$("#cmbLocation").val();
+		var propCode=$("#cmbProperty").val();
+		var EXPFromDate=$("#txtEXPFromDate").val();
+		var EXPToDate=$("#txtEXPToDate").val();var prodcode=$("#txtProdCode").val();
+		var suppcode=$("#txtSuppCode").val();
+		var param1=reportType+","+locCode+","+propCode+","+fromDate+","+toDate+","+EXPFromDate+","+EXPToDate+","+prodcode+","+suppcode;
+		window.location.href=getContextPath()+"/ExportExpiryFlashReport.html?param1="+param1;
+		
+	    });
 });
 
 

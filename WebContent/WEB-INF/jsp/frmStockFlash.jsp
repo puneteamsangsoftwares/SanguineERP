@@ -8,13 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=8"/>
 	
-	    <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-
+	   
 	<script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 	<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
 	<script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
@@ -167,6 +161,28 @@ border:1px solid #fff;
 			
 			$("#btnExecute").click(function( event )
 			{
+				var fromDate=$("#txtFromDate").val();
+				var toDate=$("#txtToDate").val();
+				if($("#cmbReportType").val()=='Detail')
+				{
+					document.getElementById("divValueTotal").style.visibility = "visible";
+					funCalculateStockFlashForDetail();
+				}
+				if($("#cmbReportType").val()=='Summary')
+				{
+					document.getElementById("divValueTotal").style.visibility = "visible";
+					funCalculateStockFlashForSummary();
+				}
+				if($("#cmbReportType").val()=='Mini')
+				{
+					document.getElementById("divValueTotal").style.visibility = "visible";
+					funCalculateMiniStockFlash();
+				}
+				if($("#cmbReportType").val()=='Total')
+				{
+					document.getElementById("divValueTotal").style.visibility = "hidden"; 
+					funCalculateStockFlashForTotal();
+				}
 				
 				
 			});
@@ -330,8 +346,8 @@ border:1px solid #fff;
 		    }
 		    if($("#cmbReportType").val()=='Mini') 
 		    {
-	        	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td id="labls2">Product Code</td><td id="labls3">Product Name</td><td id="labls13">Closing Stock</td><td id="labls14">Value</td><td style="width: 10%;"></td></tr>';
-				   
+	        	newcontent = '<table id="tblStockFlash" class="transTablex" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td id="labls2">Product Code</td><td id="labls3">Product Name</td><td id="labls13">Closing Stock</td><td id="labls14">Value</td><td style="width: 10%;"></td></tr>';
+	        	 var qtyWithUOM=$("#cmbQtyWithUOM").val();
 			    // Iterate through a selection of the content and build an HTML string
 			    for(var i=page_index*items_per_page;i<max_elem;i++)
 			    {
@@ -651,33 +667,6 @@ border:1px solid #fff;
         	 }	 
 		} 
 		 
-        function funOnClick()
-        {
-        	var fromDate=$("#txtFromDate").val();
-			var toDate=$("#txtToDate").val();
-			if($("#cmbReportType").val()=='Detail')
-			{
-				document.getElementById("divValueTotal").style.visibility = "visible";
-				funCalculateStockFlashForDetail();
-			}
-			if($("#cmbReportType").val()=='Summary')
-			{
-				document.getElementById("divValueTotal").style.visibility = "visible";
-				funCalculateStockFlashForSummary();
-			}
-			if($("#cmbReportType").val()=='Mini')
-			{
-				document.getElementById("divValueTotal").style.visibility = "visible";
-				funCalculateMiniStockFlash();
-			}
-			if($("#cmbReportType").val()=='Total')
-			{
-				document.getElementById("divValueTotal").style.visibility = "hidden"; 
-				funCalculateStockFlashForTotal();
-			}
-			
-			return false;
-        }
 		 
 	</script>
 </head>
