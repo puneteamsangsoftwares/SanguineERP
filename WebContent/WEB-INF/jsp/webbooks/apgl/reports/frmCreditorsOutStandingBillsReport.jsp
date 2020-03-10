@@ -30,29 +30,25 @@
 	});
 </script>
 <body>
-	<div id="formHeading">
-		<label>Creditor OutStanding Bill Report</label>
-	</div>
-
-	<br />
-	<br />
-
-	<s:form name="FLR3AReport" method="POST" action="" target="_blank">
+	<div class="container">
+		<label  id="formHeading">Creditor OutStanding Bill Report</label>
+		<s:form name="FLR3AReport" method="POST" action="" target="_blank">
 		<div>
-			<table class="masterTable">
-				<tr>
-					<td><label>From Date</label></td>
-					<td><input type="text" id="txtFromDate"
-							class="calenderTextBox" required="required" ></td>
-
-					<td><label>To Date</label></td>
-					<td><input type="text" id="txtToDate"
-							class="calenderTextBox" required="required" ></td>
-				</tr>
-			</table>
+			<div class="row masterTable">
+				<div class="col-md-2">
+					<label>From Date</label>
+					<input type="text" id="txtFromDate"
+							class="calenderTextBox" required="required" style="width:80%;" >
+				</div>
+				<div class="col-md-2">
+					<label>To Date</label>
+					<input type="text" id="txtToDate"
+							class="calenderTextBox" required="required" style="width:80%;" >
+				</div>
+			</div>
 		</div>
 	</s:form>
-
+</div>
 
 </body>
 </html>

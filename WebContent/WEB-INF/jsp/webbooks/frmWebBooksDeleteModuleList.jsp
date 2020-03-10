@@ -59,7 +59,7 @@ var members,propertyName,locationName;
 	function pageselectCallback(page_index, jq){
 	    // Get number of elements per pagionation page from form
 	    var max_elem = Math.min((page_index+1) * items_per_page, members.length);
-	    var newcontent = '<table id="tblFromDtl" class="transTablex col2-center" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#75c0ff"><td>Module Name</td><td>Select<input type="checkbox" id="chkALL" onclick="funSelectAll();"/></td></tr>';
+	    var newcontent = '<table id="tblFromDtl" class="transTablex col2-center" style="width: 100%;font-size:11px;font-weight: bold;"><tr bgcolor="#c0c0c0"><td>Module Name</td><td>Select<input type="checkbox" id="chkALL" onclick="funSelectAll();"/></td></tr>';
 	  
 	    
 	    // Iterate through a selection of the content and build an HTML string
@@ -242,7 +242,7 @@ var members,propertyName,locationName;
 </head>
 <body onload="funOnLoad()">
 
-	<div id="formHeading">
+	<div id="formHeading" >
 		<label id="strHeader"></label>
 	</div>
 	<div>
@@ -265,10 +265,12 @@ var members,propertyName,locationName;
 		<div id="Pagination" class="pagination"></div>
 			
 			<br>
-			<br>
+		
 			<p align="center">
-			<input type="button" value="Submit" class="form_button" onclick="funSubmit_click();" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields();" /><br/></p>
+			<input type="button" value="Submit" class="btn btn-primary center-block" onclick="funSubmit_click();" style="height: 32px;"/> &nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" onclick="funResetFields();" style="height: 32px;"/><br/></p>
+			
+		
 		</form>
 	</div>
 </body>

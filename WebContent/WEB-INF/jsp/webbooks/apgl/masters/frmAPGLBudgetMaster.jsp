@@ -133,46 +133,30 @@
 </script>
 </head>
 <body>
-	<div id="formHeading">
-		<label>Budget</label>
-	</div>
-
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-
-	<s:form name="APGLBudget" method="POST"
-		action="saveAPGLBudget.html?saddr=${urlHits}">
-
+	<div class="container">
+		<label id="formHeading">Budget</label>
+		<s:form name="APGLBudget" method="POST" action="saveAPGLBudget.html?saddr=${urlHits}">
 		<div>
-			<table class="transTable">
-				<tr>
-
-					<td>Select Year</td>
-
-					<td>
+			<div class="row transTable">
+				<div class="col-md-2">
+					<label>Select Year</label>
 						<%--<s:input type="text" id="txtYear" class="calenderTextBox" path="Year" required="required" /> --%>
-
 						<s:select id="cmbYear" path="strYear" items="${listFinancialYear}" class="BoxW124px"></s:select>
-					</td>
-					<td><input id="btnAdd" type="button" class="smallButton"
-						value="Proceed"; onclick="funOnClickProceed()"></input></td>
-				</tr>
-			</table>
+				</div>
+				<div class="col-md-2">
+					<input id="btnAdd" type="button" class="btn btn-primary center-block" style="margin-top: 22px;"
+						value="Proceed"; onclick="funOnClickProceed()"></input>
+				</div>
+			</div>
 		</div>
 		<br />
 		<br />
-
-
-
 		<div class="dynamicTableContainer"
 			style="height: 30%; border: #0F0; text-align: center">
 			<table
 				style="width: 100%; border: #0F0; table-layout: fixed; text-align: center"
 				class="transTablex col7-center">
-				<tr>
+				<tr style="background:#c0c0c0;">
 					<td style="width: 12%;">Account Code</td>
 					<td style="width: 28%;">Account Name</td>
 					<td style="width: 20%;">Yearly Amount</td>
@@ -181,7 +165,7 @@
 				</tr>
 			</table>
 			<div
-				style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 350px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 350px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 				<table id="tblBudget"
 					style="width: 100%; height: 550px; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col8-center">
@@ -195,13 +179,11 @@
 				</table>
 			</div>
 		</div>
-		<br />
-		<br />
+		
 		<br />
 		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" onclick="return funValidate();" />
-			<input type="reset" value="Reset" class="form_button"
-				onclick="funResetFields()" />
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" onclick="return funValidate();" />&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" onclick="funResetFields()" />
 		</p>
 		
 	</s:form>
