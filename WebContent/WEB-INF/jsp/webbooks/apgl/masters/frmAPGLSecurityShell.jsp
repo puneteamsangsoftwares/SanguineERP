@@ -151,43 +151,34 @@ var fieldName;
 </head>
 <body>
 
-	<div id="formHeading">
-		<label>Security Shell</label>
-	</div>
+	<div class="container">
+		<label id="formHeading">Security Shell</label>
 	<div>
-		<s:form action="saveAPGLSecurityShell.html?saddr=${urlHits}" method="POST"
-			name="APGLsecurityShell">
+		<s:form action="saveAPGLSecurityShell.html?saddr=${urlHits}" method="POST" name="APGLsecurityShell">
 			<input type="hidden" value="${urlHits}" name="saddr">
-			<br />
 			
-			<table
-				style="border: 0px solid black; width: 70%; margin-left: auto; margin-right: auto;background-color:#A3D0F7;font-size:11px;
-			font-weight: bold;" class="transTable">
-				<thead>
-					<tr >
-						<td width="100px"><label>User Code</label></td>
-						<td width="100px"> <s:input path="strUserCode"
-								cssClass="searchTextBox" id="strUserCode" readonly="true"
-								ondblclick="funHelp('usermaster')" /></td>
-						<td > <s:input id="UserName"
-							cssClass="Box" cssStyle="width:50%;height:18px;" readonly="true" path="strUserName"/></td>
-					</tr>
-					<tr>
-					<td width="100px"><label>Like User </label></td>
-						<td width="100px"> <s:input path="strLikeUserCode" 
-								cssClass="searchTextBox" id="strLikeUserCode" readonly="true"
-								ondblclick="funHelp('Likeusermaster')" /></td>
-					<td > <s:input id="LikeUserName"
-							cssClass="Box" cssStyle="width:50%;height:18px;" readonly="true" path="strLikeUserName"/></td>
-					</tr>
-				</thead>
-				
-			</table>
+		<div class="row transTable">
+				<div class="col-md-2">
+					<label>User Code</label>
+					<s:input path="strUserCode" cssClass="searchTextBox" id="strUserCode" readonly="true"
+							ondblclick="funHelp('usermaster')" />
+				</div>
+				<div class="col-md-2">
+					<s:input id="UserName" readonly="true" path="strUserName" style="margin-top: 27px;"/>
+				</div>
+				<div class="col-md-2">
+					<label>Like User </label>
+					<s:input path="strLikeUserCode"  cssClass="searchTextBox" id="strLikeUserCode" readonly="true"
+							 ondblclick="funHelp('Likeusermaster')" />
+				</div>
+				<div class="col-md-2">
+					<s:input id="LikeUserName" readonly="true" path="strLikeUserName" style="margin-top: 27px;"/>
+				</div>
+			</div>
 			<br>
-
-			<!-- Start of tab container -->
+		<!-- Start of tab container -->
 			<table
-				style="border: 0px solid black; width: 70%; margin-left: auto; margin-right: auto;background-color:#C0E4FF;">
+				style="border: 0px solid black; width: 70%; background-color:#fbfafa;">
 				<tr>
 					<td>
 						<div id="tab_container">
@@ -391,12 +382,13 @@ var fieldName;
 				</tr>
 			</table>
 			<!-- End Of tab container -->
-			
+			<br>
 			<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			 <a STYLE="text-decoration:none"  href="frmAPGLSecurityShell.html" ><input type="button" value="Reset" class="form_button" /></a><br/></p>
+			<input type="submit" value="Submit"  class="btn btn-primary center-block" />&nbsp;
+			 <a STYLE="text-decoration:none"  href="frmAPGLSecurityShell.html" ><input type="button" value="Reset" class="btn btn-primary center-block" /></a><br/></p>
 		
 		</s:form>
+	</div>
 	</div>
 </body>
 </html>

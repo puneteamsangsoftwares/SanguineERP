@@ -123,9 +123,9 @@ var listRow=2
 	<br />
 
 	<s:form name="frmAuthorisedMaster" method="POST" action="saveAuthorisedMember.html">
-		<table class="transTable">
+		<table class="transTable"  style="background:#c0c0c0;">
 			<tr>
-				<th align="right" colspan="9"><a id="baseUrl" href="#">Attach
+				<th align="right"  style="background:#fbfafa;" colspan="9"><a id="baseUrl" href="#">Attach
 						Documents </a></th>
 			</tr>
 		</table>
@@ -134,9 +134,8 @@ var listRow=2
 		<br />
 		<br />
 		<p align="center">
-			<input type="submit" value="Submit" class="form_button" /> <input
-				type="reset" value="Reset" class="form_button"
-				onclick="funResetFields()" />
+			<input type="submit" value="Submit" class="btn btn-primary center-block" /> &nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" onclick="funResetFields()" />
 		</p>
 
 	</s:form>

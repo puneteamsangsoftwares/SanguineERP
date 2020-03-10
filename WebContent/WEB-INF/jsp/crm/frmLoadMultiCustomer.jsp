@@ -161,7 +161,7 @@ $( window ).load(function() {
 </script>
 </head>
 <body >
-<div style="width: 100%; height: 40px; background-color: #458CCA">
+<div style="width: 100%; height: 40px; background-color: #c0c0c0">
 		<p align="center" style="padding-top: 5px;color: white">Load Customer Detail</p>
 	</div>
     <s:form id="form1">       
@@ -188,7 +188,7 @@ $( window ).load(function() {
                         <div class="dynamicTableContainer" style="height: 300px;">
 			<table style="height: 20px; border: #0F0;width: 100%;font-size:11px;
  			font-weight: bold;"> 
-				<tr bgcolor="#72BEFC">
+				<tr bgcolor="#c0c0c0">
 					<td width="10%">Select<input type="checkbox" id="chkALL" onclick="funCheckUncheck()" /></td>	
 					<td width="18.6%">Customer Code</td>
 					<td width="30%">Customer Name</td>				
@@ -198,7 +198,7 @@ $( window ).load(function() {
 				</tr>
 			</table>
 			<div
-				style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 250px; margin: auto;  width: 99.80%;">
+				style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 250px; margin: auto;  width: 99.80%;">
 					<table id="tblCustDet"
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col11-center">
@@ -214,9 +214,9 @@ $( window ).load(function() {
 				</table>
 			</div>
 		</div>
-                                         
-
-                    <input id="btnClose" type="Button" class="form_button" value="Close" onclick="return btnClose_onclick()" />                                      
+             <p align="right">                            
+				<input id="btnClose" type="Button" class="btn btn-primary center-block" value="Close" onclick="return btnClose_onclick()" />                                      
+			</p>
 		<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
 			<img
