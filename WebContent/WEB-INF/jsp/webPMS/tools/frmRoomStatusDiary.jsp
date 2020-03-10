@@ -1961,7 +1961,7 @@ table tbody tr:nth-child(even) {
 					} 
 					else if(response.strSource=='GROUP RESERVATION')
 					{						
-						color='rgb(41, 209, 186)';
+						color='rgb(105, 89, 205)';
 					} 
 				
 					if(day1==null)
@@ -2257,7 +2257,7 @@ table tbody tr:nth-child(even) {
 			             <a href="#" onclick="funOccupied();">&nbsp;&nbsp;&nbsp;Occupied</a> 
 			            </li>
 			            <li>
-			              <div class="thumb occupied"></div>
+			              <div class="thumb checked"></div>
 			             <!--  <div class="thumb-title">Checked Out</div> -->
 			                <a href="#" onclick="funCheckedOut();">&nbsp;&nbsp;&nbsp;Checked Out</a> 
 			            </li>

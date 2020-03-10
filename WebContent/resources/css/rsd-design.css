@@ -191,6 +191,7 @@ padding: 1px 13px;
 
 .title-row .status-list ul li .thumb.checked {
 	background: linear-gradient(250.46deg, #d5d5d5 0%, #9d9d9d 100%);
+	
 }
 
 .title-row .status-list ul li .thumb.dirty {
@@ -198,7 +199,7 @@ padding: 1px 13px;
 }
 
 .title-row .status-list ul li .thumb.groupReservation {
-	background: rgb(41, 209, 186);
+	background: rgb(105, 89, 205);
 }
 
 .title-row .status-list ul li .thumb-title {

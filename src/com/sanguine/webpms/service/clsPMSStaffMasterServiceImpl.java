@@ -1,11 +1,14 @@
 package com.sanguine.webpms.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sanguine.webpms.dao.clsPMSStaffMasterDao;
+import com.sanguine.webpms.model.clsPMSStaffMasterDtlModel;
 import com.sanguine.webpms.model.clsPMSStaffMasterModel;
 
 @Service("clsPMSStaffMasterService")
@@ -29,6 +32,23 @@ public class clsPMSStaffMasterServiceImpl implements clsPMSStaffMasterService{
 		return objPMSStaffMasterDao.funGetObject(code, clientCode);
 	}
 
+	//Staff Master 
+	
+	@Override
+	public void funAddUpdatePMSStaffMasterDtl(clsPMSStaffMasterDtlModel objMaster){
+		objPMSStaffMasterDao.funAddUpdatePMSStaffMasterDtl(objMaster);
+	}
 
+	@Override
+	public List<String> funGetPMSStaffMasterDtl(String staffCode,String clientCode){
+		return objPMSStaffMasterDao.funGetPMSStaffMasterDtl(staffCode,clientCode);
+	}
+
+	@Override
+	public void funDeleteStaffMasterDtl(String staffCode,String clientCode){
+		objPMSStaffMasterDao.funDeleteStaffMasterDtl(staffCode,clientCode);
+	}
+
+	
 
 }

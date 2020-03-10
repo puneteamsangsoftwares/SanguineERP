@@ -46,16 +46,6 @@ public class clsWebClubMemberCategoryMasterBean {
 	
 	private List<clsWebClubFacilityMasterModel> listFacilityDtl;
 	// Setter-Getter Methods
-	
-
-
-	public List<clsWebClubFacilityMasterModel> getListFacilityDtl() {
-		return listFacilityDtl;
-	}
-
-	public void setListFacilityDtl(List<clsWebClubFacilityMasterModel> listFacilityDtl) {
-		this.listFacilityDtl = listFacilityDtl;
-	}
 
 	public String getStrFacilityCode() {
 		return strFacilityCode;
@@ -208,5 +198,15 @@ public class clsWebClubMemberCategoryMasterBean {
 	public void setStrTenure(String strTenure) {
 		this.strTenure = strTenure;
 	}
+	
+
+	public List<clsWebClubFacilityMasterModel> getListFacilityDtl() {
+		return listFacilityDtl;
+	}
+
+	public void setListFacilityDtl(List<clsWebClubFacilityMasterModel> listFacilityDtl) {
+		this.listFacilityDtl = listFacilityDtl;
+	}
+
 
 }

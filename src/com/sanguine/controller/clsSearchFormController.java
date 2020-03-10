@@ -3290,6 +3290,18 @@ public class clsSearchFormController {
 			break;
 		}
 		
+		
+		case "roomForStaffMaster": {
+			columnNames = "a.strRoomCode,a.strRoomDesc,b.strRoomTypeDesc,a.strFloorCode,a.strBedType";
+			tableName = " from tblroom a,tblroomtypemaster b where a.strRoomTypeCode=b.strRoomTypeCode and a.strClientCode='"+clientCode+"'  and a.strRoomCode NOT IN (select strRoomCode from tblstaffmasterdtl ) ";
+			listColumnNames = "Code,Description,Type,Floor No,Bed Type,Funiture,Extra Bed";
+			idColumnName = "strRoomCode";
+			flgQuerySelection = true;
+			criteria = getCriteriaQuery(columnNames, search_with, tableName);
+			searchFormTitle = "Room Master";
+			break;
+		}
+		
 		}
 		mainMap.put("columnNames", columnNames);
 		mainMap.put("tableName", tableName);

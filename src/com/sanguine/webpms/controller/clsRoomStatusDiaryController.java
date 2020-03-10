@@ -220,7 +220,7 @@ public class clsRoomStatusDiaryController {
 					+ "LEFT(TIMEDIFF(a.tmeArrivalTime,(SELECT a.tmeCheckInTime FROM tblpropertysetup a)),6),a.tmeArrivalTime,a.tmeDepartureTime, DATEDIFF(DATE(a.dteArrivalDate),'"+viewDate+"'),DATEDIFF(DATE(a.dteDepartureDate),'"+viewDate+"'),a.strNoRoomsBooked,f.strGroupName "
 					+ "FROM tblreservationhd a,tblreservationdtl b,tblroom d,tblbookingtype e ,tblgroupbookinghd f "
 					+ "WHERE a.strReservationNo=b.strReservationNo  "
-					+ "AND a.strBookingTypeCode=e.strBookingTypeCode AND DATE(a.dteDepartureDate) BETWEEN '"+viewDate+"' AND DATE_ADD('"+viewDate+"', INTERVAL 7 DAY)   "
+					+ "AND a.strBookingTypeCode=e.strBookingTypeCode AND a.strGroupCode=f.strGroupCode AND DATE(a.dteDepartureDate) BETWEEN '"+viewDate+"' AND DATE_ADD('"+viewDate+"', INTERVAL 7 DAY)   "
 					+ "AND a.strReservationNo NOT IN (SELECT strReservationNo FROM tblcheckinhd) AND a.strCancelReservation='N' AND a.strGroupCode!='' AND b.strRoomType='"+arrObjRooms[4].toString()+"' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' AND d.strClientCode='"+clientCode+"' AND e.strClientCode='"+clientCode+"' group by a.strReservationNo ";
 						
 				//For Group Reservation
@@ -245,12 +245,12 @@ public class clsRoomStatusDiaryController {
 						String strFolioNo = "";
 						objGroupReservation=new ArrayList<>();
 						objTemp=new ArrayList<>();
-						if(listFolioNo!=null && listFolioNo.size()>0)
+						/*if(listFolioNo!=null && listFolioNo.size()>0)
 						{
 							strFolioNo = listFolioNo.get(0).toString();
-						}						
+						}	*/					
 						objRoomStatusDtl=new clsRoomStatusDtlBean();
-						objRoomStatusDtl.setStrRoomNo("");
+						objRoomStatusDtl.setStrRoomNo(arrObjRoomDtl[3].toString()+" PAX");
 						objRoomStatusDtl.setStrRoomType(arrObjRooms[2].toString());
 						//objRoomStatusDtl.setStrRoomStatus(arrObjRooms[3].toString());
 						/*if(arrObjRoomDtl[4].toString().equalsIgnoreCase("Occupied"))
@@ -269,7 +269,7 @@ public class clsRoomStatusDiaryController {
 						objRoomStatusDtl.setTmeDepartureTime(arrObjRoomDtl[11].toString());
 						objRoomStatusDtl.setDblRoomCnt(Double.parseDouble(arrObjRoomDtl[14].toString()));
 						objRoomStatusDtl.setStrSource(arrObjRoomDtl[4].toString());
-						if(arrObjRoomDtl[4].toString().equalsIgnoreCase("RESERVATION"))
+						/*if(arrObjRoomDtl[4].toString().equalsIgnoreCase("RESERVATION"))
 						{
 							String sqlPaymentCheck = "select a.strReceiptNo from tblreceipthd a where "
 									+ "a.strReservationNo='"+arrObjRoomDtl[0].toString()+"' and a.strClientCode='"+clientCode+"'";
@@ -284,30 +284,26 @@ public class clsRoomStatusDiaryController {
 								objRoomStatusDtl.setStrRoomStatus("Waiting");
 							}
 						}else
-						{
-							objRoomStatusDtl.setStrRoomStatus(arrObjRoomDtl[4].toString());
-						}
+						{*/
+						objRoomStatusDtl.setStrRoomStatus(arrObjRoomDtl[4].toString());
+						//}
 						
-						if(arrObjRoomDtl[4].toString().equals("Occupied")){
+						/*if(arrObjRoomDtl[4].toString().equals("Occupied")){
 						objRoomStatusDtl.setDblRemainingAmt(funGetDblRemainingAmt(strFolioNo,clientCode,arrObjRoomDtl[0].toString()));
-						}
+						}*/
 						intArrivalCnt=Integer.parseInt(arrObjRoomDtl[12].toString());
 						intDepartureCnt=Integer.parseInt(arrObjRoomDtl[13].toString());
 						
-						if (intArrivalCnt<=0 && 0<=intDepartureCnt) 
-							
-						{
-							
+						if (intArrivalCnt<=0 && 0<=intDepartureCnt) 							
+						{							
 							 objRoomStatusDtl.setStrDay1(" "+objRoomStatusDtl.getStrGuestName());
 						} 
 						if (intArrivalCnt<=1 && 1<=intDepartureCnt) 
-						{
-							
+						{							
 							 objRoomStatusDtl.setStrDay2(" "+objRoomStatusDtl.getStrGuestName());
 						} 
 						if (intArrivalCnt<=2 && 2<=intDepartureCnt) 
-						{
-							
+						{							
 							 objRoomStatusDtl.setStrDay3(" "+objRoomStatusDtl.getStrGuestName());
 						} if (intArrivalCnt<=3 && 3<=intDepartureCnt) {
 							
@@ -589,10 +585,8 @@ public class clsRoomStatusDiaryController {
 						intArrivalCnt=Integer.parseInt(arrObjRoomDtl[12].toString());
 						intDepartureCnt=Integer.parseInt(arrObjRoomDtl[13].toString());
 						
-						if (intArrivalCnt<=0 && 0<=intDepartureCnt) 
-							
-						{
-							
+						if (intArrivalCnt<=0 && 0<=intDepartureCnt) 							
+						{							
 							 objRoomStatusDtl.setStrDay1(" "+objRoomStatusDtl.getStrGuestName());
 						} 
 						if (intArrivalCnt<=1 && 1<=intDepartureCnt) 
@@ -601,8 +595,7 @@ public class clsRoomStatusDiaryController {
 							 objRoomStatusDtl.setStrDay2(" "+objRoomStatusDtl.getStrGuestName());
 						} 
 						if (intArrivalCnt<=2 && 2<=intDepartureCnt) 
-						{
-							
+						{							
 							 objRoomStatusDtl.setStrDay3(" "+objRoomStatusDtl.getStrGuestName());
 						} if (intArrivalCnt<=3 && 3<=intDepartureCnt) {
 							

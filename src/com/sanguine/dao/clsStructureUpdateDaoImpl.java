@@ -4808,11 +4808,23 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		sql = "ALTER TABLE `tblpropertysetup` "
 				+ "ADD COLUMN `strRatePickUpFrom` VARCHAR(30) NOT NULL DEFAULT '' AFTER `strBillFormat`;";
 		
+		sql = "CREATE TABLE `tblstaffmasterdtl` ( "
+				+ "`strStffCode` VARCHAR(255) NOT NULL, "
+				+ "`strRoomCode` VARCHAR(255) NOT NULL, "
+				+ "`strRoomDesc` VARCHAR(255) NOT NULL, "
+				+ "`strClientCode` VARCHAR(255) NOT NULL, "
+				+ "PRIMARY KEY (`strStffCode`, `strRoomCode`, `strClientCode`) "
+				+ ") "
+				+ "COLLATE='latin1_swedish_ci' "
+				+ "ENGINE=InnoDB "
+				+ ";";
+
 		funExecutePMSQuery(sql);
+		
+		
 		
 				// For PMS Form Of Tree master Start///
 		sql = " INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`) VALUES "
-
 				+ " ('frmAgentCommision', 'Agent Commision', 'Master', 1, 'M', 13, 13, '1', 'imgAgentCommission.png', '3', 1, '1', '1', 'NO', 'NO', 'frmAgentCommision.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
 				+ " ('frmAgentMaster', 'Agent Master', 'Master', 1, 'M', 12, 12, '1', 'imgAgentMaster.png', '3', 1, '1', '1', 'NO', 'NO', 'frmAgentMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
 				// +" ('frmAttributeValueMaster', 'Attribute Value Master', 'Master', 1, 'M', 15, 15, '3', 'Attribute-Value-Master.png', '3', 3, '3', '3', 'NO', 'YES', 'frmAttributeValueMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
@@ -4856,7 +4868,6 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ " ('frmWalkin', 'Walk In', 'Transaction', 2, 'T', 4, 4, '12', 'imgWalkIn.png', '3', 3, '3', '3', 'NO', 'YES', 'frmWalkin.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
 				+ " ('frmCancelationReport', 'Cancellation Report', 'Reports', 3, 'R', 3, 6, '6', 'imgCancellationReport.png', '3', 1, '1', '1', 'NO', 'NO', 'frmCancelationReport.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
 				+ " ('frmPMSFlash', 'PMS Flash', 'Tools', 1, 'L', 3, 43, '1', 'imgPMSFlash.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSFlash.html' , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
-
 				+ " ('frmBillDiscount', 'Bill Discount', 'Transaction', '2', 'T', '12', '12', '1', 'imgBillDiscount.png', '3', '3', '3', '3', 'NO', 'YES', 'frmBillDiscount.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
 				+ " ('frmSplitBill', 'Split Bill', 'Transaction', '2', 'T', '3', '3', '1', 'imgSplitBill.png', '3', '2', '2', '2', 'NO', 'NO', 'frmSplitBill.html' , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
 				+ " ('frmReservationFlash', 'Reservation Flash', 'Tools', '4', 'L', '1', '3', '12', 'imgReservationFlash.png', '3', '1', '1', '1', 'NO', 'NO', 'frmReservationFlash.html' , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
@@ -4882,27 +4893,20 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		 		+ " ('frmPMSSecurityShell', 'Security Shell', 'Master', 1, 'M', 8, 8, '1', 'imgSecurityShell.png', '3', 3, '3', '3', 'NO', 'NO', 'frmPMSSecurityShell.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
 		 		+ " ('frmReceiptReport', 'Receipt Report', 'Reports', '3', 'R', '19', '19', '5', 'imgReceiptReport.png', '3', '5', '5', '5', 'NO', 'NO', 'frmReceiptReport.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);";
 		 		
-		
-		
+				
 		//System.out.println(sql);
 		funExecuteQuery(sql);
 
 		
 		sql = "INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`,`strInvoice`,`strDeliverySchedule`,`strFormAccessYN`) VALUES "
-/*				+ " ('frmBlockRoomMaster', 'Block Room', 'Transaction', '2', 'T', '16', '16', '1', 'imgBlockRoom.png', '3', '2', '2', '2', 'NO', 'NO', 'frmBlockRoomMaster.html',NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
-				+ " ('frmPMSStructureUpdate', 'Structure Update', 'Tools', 1, 'L', 111, 111, '1', 'imgStructureUpdate.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSStructureUpdate.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
-				+ " ('frmComplimentryReport', 'Complimentry Report', 'Reports', '3', 'R', '20', '20', '5', 'imgComplimentaryReport.png', '3', '5', '5', '5', 'NO', 'NO', 'frmComplimentryReport.html',  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
-				+ " ('frmAddExtraBed', 'Add Extra Bed','Transaction', '2', 'T', '17', '17', '1', 'imgAddExtraBed.png', '3', '2', '2', '2', 'NO', 'NO', 'frmAddExtraBed.html',  NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
-				+ " ('frmBlockRoomReport', 'Block Room Report', 'Reports', '3', 'R', '20', '20', '5', 'imgBlockRoomReport.png', '3', '5', '5', '5', 'NO', 'NO', 'frmBlockRoomReport.html' , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
-				+ " ('frmPMSSalesFlash', 'Sales Flash', 'Tools', 1, 'T', 5, 46, '1', 'imgSalesFlash.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSSalesFlash.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
-				+ " ('frmCheckInCheckOutList', 'CheckIn CheckOut List', 'Reports', '3', 'R', '4', '4', '6', 'imgCheckInCheckOutList.png', '3', '1', '1', '1', 'NO', 'NO', 'frmCheckInCheckOutList.html',NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
-*/				+ "	('frmGroupBlockMaster', 'Group Block Master', 'Master', '1', 'M', '12', '12', '1', 'imgAgentMaster.png', '3', '1', '1', '1', 'NO', 'NO', 'frmGroupBlockMaster.html',NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+				+ "	('frmGroupBlockMaster', 'Group Block Master', 'Master', '1', 'M', '12', '12', '1', 'imgAgentMaster.png', '3', '1', '1', '1', 'NO', 'NO', 'frmGroupBlockMaster.html',NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ "	('frmPMSGroupBooking', 'Group Booking', 'Master', 1, 'M', 1, 1, '1', 'imgCheckOutDiscount.png', '3', 3, '3', '3', 'NO', 'NO', 'frmPMSGroupBooking.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ " ('frmUpdateHouseKeepingStatus', 'Update House Keeping Status', 'Transaction', 2, 'T', 2, 2, '1', 'imgChangeRoom.png', '3', 1, '1', '1', 'NO', 'NO', 'frmUpdateHouseKeepingStatus.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ " ('frmSeasonMaster', 'Season Master', 'Master', 1, 'M', 22, 22, '2', 'imgSeasonMaster.png', '3', 3, '3', '3', 'NO', 'YES', 'frmSeasonMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
-				+ " ('frmPMSRateContract', 'Rate Management', 'Master', '1', 'M', '22', '22', '2', 'imgSeasonMaster.png', '3', '3', '3', '3', 'NO', 'YES', 'frmPMSRateContract.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
-				
+				+ " ('frmPMSRateContract', 'Rate Management', 'Master', '1', 'M', '22', '22', '2', 'imgSeasonMaster.png', '3', '3', '3', '3', 'NO', 'YES', 'frmPMSRateContract.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+				+ " ('frmPMSStaffMaster', 'Staff Master', 'Master', 1, 'M', 1, 9, '1', 'imgRoomMaster.png', '3', 3, '3', '3', 'NO', 'NO', 'frmPMSStaffMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
 		
+
 		
 		funExecuteQuery(sql);
 		

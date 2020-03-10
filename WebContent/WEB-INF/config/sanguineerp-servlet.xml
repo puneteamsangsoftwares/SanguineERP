@@ -567,11 +567,12 @@
 					<value>com.sanguine.webpms.model.clsPMSSettlementTaxMasterModel</value>
 					<value>com.sanguine.webpms.model.clsFolioDtlBackupModel</value>
 					<value>com.sanguine.webpms.model.clsHouseKeepingMasterModel</value>
-					<value>com.sanguine.webpms.model.clsPMSStaffMasterModel</value>
+					<value>com.sanguine.webpms.model.clsPMSStaffMasterModel</value>					
 					<value>com.sanguine.webpms.model.clsfrmGroupBlockMasterModel</value>
 					<value>com.sanguine.webpms.model.clsPMSGroupBookingHDModel</value>
 					<value>com.sanguine.webpms.model.clsSeasonMasterModel</value>
-					<value>com.sanguine.webpms.model.clsPMSRateContractModel</value>
+					<value>com.sanguine.webpms.model.clsPMSRateContractModel</value>					
+					<value>com.sanguine.webpms.model.clsPMSStaffMasterDtlModel</value>
 				
 					<!-- Web Banquet Start -->
 					<value>com.sanguine.webbanquets.model.clsEquipmentModel</value>

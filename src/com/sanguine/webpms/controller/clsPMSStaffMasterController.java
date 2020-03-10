@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webpms.bean.clsPMSStaffMasterBean;
+import com.sanguine.webpms.dao.clsWebPMSDBUtilityDao;
+import com.sanguine.webpms.model.clsPMSStaffMasterDtlModel;
 import com.sanguine.webpms.model.clsPMSStaffMasterModel;
 import com.sanguine.webpms.model.clsPMSStaffMasterModel_ID;
 import com.sanguine.webpms.service.clsPMSStaffMasterService;
@@ -31,6 +33,7 @@ public class clsPMSStaffMasterController{
 	@Autowired
 	private clsGlobalFunctionsService objGlobalFunctionsService;
 	private clsGlobalFunctions objGlobal=null;
+	
 
 //Open PMSStaffMaster
 	@RequestMapping(value = "/frmPMSStaffMaster", method = RequestMethod.GET)
@@ -60,7 +63,7 @@ public class clsPMSStaffMasterController{
 			clsPMSStaffMasterModel objModel = funPrepareModel(objBean,userCode,clientCode);
 			objPMSStaffMasterService.funAddUpdatePMSStaffMaster(objModel);
 			req.getSession().setAttribute("success", true);
-			req.getSession().setAttribute("successMessage", objModel.getStrStaffCode());
+			req.getSession().setAttribute("successMessage",objModel.getStrStaffCode());
 			return new ModelAndView("redirect:/frmPMSStaffMaster.html");
 		}
 		else{
@@ -74,13 +77,20 @@ public class clsPMSStaffMasterController{
 		clsPMSStaffMasterModel objLocCode = objPMSStaffMasterService.funGetObject(staffCode, clientCode);
 		if (null == objLocCode) {
 			objLocCode = new clsPMSStaffMasterModel();
-			//objLocCode.setStrLocCode("Invalid Code");
 		}
-
 		return objLocCode;
 	}
 	
-
+	// Load Staff Master Detail
+	@RequestMapping(value = "/loadStaffMasterRoomsDtl", method = RequestMethod.GET)
+	public @ResponseBody List funLoadFacilityMasterListData(@RequestParam("staffCode") String staffCode, HttpServletRequest req) {
+		objGlobal = new clsGlobalFunctions();
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		String userCode = req.getSession().getAttribute("usercode").toString();
+		List<String> list = objPMSStaffMasterService.funGetPMSStaffMasterDtl(staffCode,clientCode); 
+		return list;					
+	}
+		
 //Convert bean to model function
 	private clsPMSStaffMasterModel funPrepareModel(clsPMSStaffMasterBean objBean,String userCode,String clientCode){
 		objGlobal=new clsGlobalFunctions();
@@ -128,8 +138,32 @@ public class clsPMSStaffMasterController{
 			mpModel.setStrUserEdited(userCode);			
 			mpModel.setDtEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 		
+			//Staff Master Details			
+			if(objBean.getListStaffMasterDtl()!=null)
+			{
+				objPMSStaffMasterService.funDeleteStaffMasterDtl(mpModel.getStrStaffCode(),clientCode);
+				for(int i=0;i<objBean.getListStaffMasterDtl().size();i++)
+				{
+					clsPMSStaffMasterDtlModel objDtlModel = new clsPMSStaffMasterDtlModel();
+					objDtlModel=objBean.getListStaffMasterDtl().get(i);
+					if(objDtlModel.getStrRoomCode()!=null)
+					{
+						objDtlModel.setStrStffCode(mpModel.getStrStaffCode());
+						objDtlModel.setStrRoomCode(objBean.getListStaffMasterDtl().get(i).getStrRoomCode());
+						objDtlModel.setStrRoomDesc(objBean.getListStaffMasterDtl().get(i).getStrRoomDesc());
+						objDtlModel.setStrClientCode(clientCode);
+						objPMSStaffMasterService.funAddUpdatePMSStaffMasterDtl(objDtlModel);	
+					}
+				}
+				
+			}			
 			return mpModel;		
-
 	}
+	
+	
+	
+	
+	
+	
 
 }

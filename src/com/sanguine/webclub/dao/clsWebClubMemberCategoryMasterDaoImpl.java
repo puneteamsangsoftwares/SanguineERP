@@ -61,28 +61,14 @@ public class clsWebClubMemberCategoryMasterDaoImpl implements clsWebClubMemberCa
 	@Override
 	public List<String> funGetCategoryWiseFacilityDtlList(String strCatCode,String strClientCode) {
 		Query query=null;
-		/*String sql= " FROM tblcategeorywisefacilitydtl"
-				+ "  where  strCatCode=:strCatCode";*/
-		List<String> objListItem = new ArrayList<String>();
-		
+		List<String> objListItem = new ArrayList<String>();		
 		try {
 				String sql = "select a.strCatCode,a.strFacilityCode,a.strFacilityName,a.strOperationalYN,a.strClientCode " + "from tblcategeorywisefacilitydtl a where a.strCatCode='" + strCatCode + "' and a.strClientCode='"+strClientCode+"'  ";
 				objListItem = WebClubSessionFactory.getCurrentSession().createSQLQuery(sql).list();
-
-			
-			
-	/*		query =  WebClubSessionFactory.getCurrentSession().createSQLQuery(sql);	
-			query.setParameter("strCatCode", strCatCode);
-			int result = query.executeUpdate();	*/
-			
-
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
-		
+		}				
 		return  objListItem;
-	
-	
 	}	
 
 	

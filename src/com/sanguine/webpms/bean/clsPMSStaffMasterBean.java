@@ -1,5 +1,10 @@
 package com.sanguine.webpms.bean;
 
+import java.util.List;
+
+import com.sanguine.webclub.model.clsWebClubFacilityMasterModel;
+import com.sanguine.webpms.model.clsPMSStaffMasterDtlModel;
+
 public class clsPMSStaffMasterBean{
 //Variable Declaration
 	private String strStaffCode;
@@ -18,7 +23,9 @@ public class clsPMSStaffMasterBean{
 
 	private String IntGId;	
 	
-   public String getIntGId() {
+	private List<clsPMSStaffMasterDtlModel> listStaffMasterDtl;
+	
+	public String getIntGId() {
 		return IntGId;
 	}
 	public void setIntGId(String intGId) {
@@ -71,8 +78,16 @@ public class clsPMSStaffMasterBean{
 	}
 	public void setDtEdited(String dtEdited) {
 		this.dtEdited = dtEdited;
+	}	
+
+	public List<clsPMSStaffMasterDtlModel> getListStaffMasterDtl() {
+		return listStaffMasterDtl;
 	}
-	
+
+	public void setListStaffMasterDtl(
+			List<clsPMSStaffMasterDtlModel> listStaffMasterDtl) {
+			this.listStaffMasterDtl = listStaffMasterDtl;
+	}
 
 
 }

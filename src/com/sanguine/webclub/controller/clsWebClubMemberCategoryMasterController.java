@@ -88,16 +88,16 @@ public class clsWebClubMemberCategoryMasterController {
 			return objMemCatModel;			
 		}
 		
-		// Load Master Data For Member List
-				@RequestMapping(value = "/loadWebClubFacilityMasterListDtl", method = RequestMethod.GET)
-				public @ResponseBody List funLoadFacilityMasterListData(@RequestParam("catCode") String catCode, HttpServletRequest req) {
-					objGlobal = new clsGlobalFunctions();
-					String clientCode = req.getSession().getAttribute("clientCode").toString();
-					String userCode = req.getSession().getAttribute("usercode").toString();
-					List<String> list =  objWebClubMemberCategoryMasterService.funGetCategoryWiseFacilityDtlList(catCode,clientCode);
-					//clsWebClubCategeoryWiseFacilityModel objWebClubMemberCategoryMaster = new clsWebClubCategeoryWiseFacilityModel();
-					return list;					
-				}
+	// Load Master Data For Member List
+	@RequestMapping(value = "/loadWebClubFacilityMasterListDtl", method = RequestMethod.GET)
+	public @ResponseBody List funLoadFacilityMasterListData(@RequestParam("catCode") String catCode, HttpServletRequest req) {
+		objGlobal = new clsGlobalFunctions();
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		String userCode = req.getSession().getAttribute("usercode").toString();
+		List<String> list =  objWebClubMemberCategoryMasterService.funGetCategoryWiseFacilityDtlList(catCode,clientCode);
+		//clsWebClubCategeoryWiseFacilityModel objWebClubMemberCategoryMaster = new clsWebClubCategeoryWiseFacilityModel();
+		return list;					
+	}
 				
 	// Save or Update WebClubMemberCategoryMaster
 	@RequestMapping(value = "/saveWebClubMemberCategoryMaster", method = RequestMethod.POST)
