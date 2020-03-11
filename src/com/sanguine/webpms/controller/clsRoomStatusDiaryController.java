@@ -127,7 +127,7 @@ public class clsRoomStatusDiaryController {
 //			/*String date = day + " " + cd.getTime().getDate() + "-" + (cd.getTime().getMonth() + 1) + "-" + (cd.getTime().getYear() + 1900);*/
 			String date = day + ", " + cd.getTime().getDate() ;
 			System.out.println(date);
-			listViewDates.add(date);
+			listViewDates.add(date );
 			cd.add(Calendar.DATE, 1);
 		}
 		System.out.println(listViewDates);

@@ -2287,18 +2287,17 @@ table tbody tr:nth-child(even) {
 		             	 <s:input id="txtViewDate"  path="dteViewDate"  type="text" cssClass="calenderTextBox"/>
 		              </span>		              
 		              <div class="icon-action">
-		                 	<span class="mdi mdi-eye" id="btnView" title="Seven Day View" onclick="funShowRoomStatusFlash();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
+		                 	<span class="mdi mdi-file-word-box" id="btnView" title="Seven Day View" onclick="funShowRoomStatusFlash();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
 		              </div>
-		              
+		              		              
 		               <div class="icon-action">
-		                 	<span class="mdi mdi-eye" id="btnView" title="One Day View" onclick="funShowRoomStatusFlashForOneDay();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
-		              </div> 
-		              
+		                 	<span class="mdi mdi-disqus-outline" id="btnView" title="One Day View" onclick="funShowRoomStatusFlashForOneDay();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
+		              </div> 		              
 		               
 		               <div class="icon-action">
-		                 	<span class="mdi mdi-eye" id="btnView" title="House Keeping View" onclick="funShowRoomStatusFlashHouseKeeping();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
+		                 	<span class="mdi mdi-broom" id="btnView" title="House Keeping View" onclick="funShowRoomStatusFlashHouseKeeping();" style="padding: 0px 18px; font-size: 23px; color: #9a9d9f;" ></span>
 		              </div>
-		               
+		                              
 		               
 		            </div>
 		            <div class="date-actions">

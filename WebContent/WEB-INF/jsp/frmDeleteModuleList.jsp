@@ -231,16 +231,14 @@ var members,propertyName,locationName;
 	}
 	
 	function funLoctionName(propName)
-	{
-		
+	{		
 		searchUrl = getContextPath()+ "/loadLocName.html?propName="+propName;
 		//alert(searchUrl);
 		$.ajax({
 			type : "GET",
 			url : searchUrl,
 			dataType : "json",
-			success : function(response) {
-				
+			success : function(response) {				
 				$.each(response, function(i, items) 
 						{ 
 						  $('#cmbLoction').append( $('<option></option>').val(items).html(items) );
