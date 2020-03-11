@@ -4807,6 +4807,7 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		
 		sql = "ALTER TABLE `tblpropertysetup` "
 				+ "ADD COLUMN `strRatePickUpFrom` VARCHAR(30) NOT NULL DEFAULT '' AFTER `strBillFormat`;";
+		funExecutePMSQuery(sql);
 		
 		sql = "CREATE TABLE `tblstaffmasterdtl` ( "
 				+ "`strStffCode` VARCHAR(255) NOT NULL, "

@@ -279,9 +279,9 @@ function funFillRoomsTable(obj)
 			var table=document.getElementById("tblOccupiedTable");
 			var rowCount=table.rows.length;
 			var row=table.insertRow();
-		   	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strRoomDesc\"  id=\"strRoomDesc."+i+"\" value='"+obj[i][1]+"' >";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"hidden\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+i+"\"value='"+obj[i][0]+"' >";
-			row.insertCell(2).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strRoomFlag\" id=\"strRoomFlag."+i+"\" value='Y' >";
+		   	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatusBean["+(rowCount)+"].strRoomDesc\"  id=\"strRoomDesc."+i+"\" value='"+obj[i][1]+"' >";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"hidden\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatusBean["+(rowCount)+"].strRoomNo\" id=\"strRoomNo."+i+"\"value='"+obj[i][0]+"' >";
+			row.insertCell(2).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatusBean["+(rowCount)+"].strRoomFlag\" id=\"strRoomFlag."+i+"\" value='Y' >";
 		     
 		}
 	
@@ -295,9 +295,9 @@ function funFillHouseKeepingDtl(obj)
 			var table=document.getElementById("tblAllTable");
 			var rowCount=table.rows.length;
 	   		var row=table.insertRow();
-		   	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingName\"  id=\"strHouseKeepingName."+i+"\" value='"+obj[i][1]+"' >";
-		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"hidden\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingCode\" id=\"strHouseKeepingCode."+i+"\" value='"+obj[i][0]+"'>";
-			row.insertCell(2).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatus["+(rowCount)+"].strHouseKeepingFlag\" id=\"strHouseKeepingFlag."+i+"\" value='Y' >";
+		   	row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatusBean["+(rowCount)+"].strHouseKeepingName\"  id=\"strHouseKeepingName."+i+"\" value='"+obj[i][1]+"' >";
+		    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" type=\"hidden\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatusBean["+(rowCount)+"].strHouseKeepingCode\" id=\"strHouseKeepingCode."+i+"\" value='"+obj[i][0]+"'>";
+			row.insertCell(2).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\"  class=\"Box payeeSel\"  style=\"padding-left: 5px;width: 100%;\" name=\"listUpdateHouseKeepingStatusBean["+(rowCount)+"].strHouseKeepingFlag\" id=\"strHouseKeepingFlag."+i+"\" value='Y' >";
 		   
 	   }
 	
