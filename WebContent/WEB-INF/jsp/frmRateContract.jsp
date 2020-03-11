@@ -196,8 +196,8 @@
 		    var tcName=$("#lblTCName").text();
 		    var tcDesc=$("#txtTCDesc").val();
 		    
-		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" name=\"listTCMaster["+(rowCount)+"].strTCName\" id=\"txtTCName."+(rowCount)+"\" value='"+tcName+"' />";
-		    row.insertCell(1).innerHTML= "<input class=\"longTextBox\" size=\"20%\" name=\"listTCMaster["+(rowCount)+"].strTCDesc\" id=\"txtTCDesc."+(rowCount)+"\" value='"+tcDesc+"' />";
+		    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" style=\"width:97%;\" name=\"listTCMaster["+(rowCount)+"].strTCName\" id=\"txtTCName."+(rowCount)+"\" value='"+tcName+"' />";
+		    row.insertCell(1).innerHTML= "<input class=\"longTextBox\" style=\"width:90%;border:1px solid #a2a2a2;\" name=\"listTCMaster["+(rowCount)+"].strTCDesc\" id=\"txtTCDesc."+(rowCount)+"\" value='"+tcDesc+"' />";
 		    row.insertCell(2).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" class=\"Box\" name=\"listTCMaster["+(rowCount)+"].strTCCode\" id=\"txtTCCode."+(rowCount)+"\" value='"+tcCode+"' />";
 		    row.insertCell(3).innerHTML= '<input type="button" class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteTCRow(this)">';
 		    funResetTCFields();
@@ -711,7 +711,7 @@
 					<div class="row transTable">
 						<!-- <a id="baseUrl" href="#">Attach Documents</a> -->
 				   		<div class="col-md-2">
-				   			<label id="lblRateContNo" >Rate Contract Code</label>
+				   			<label id="lblRateContNo">Rate Contract Code</label>
 				        	<s:input id="txtRateContractNo" path="strRateContNo" ondblclick="funHelp('ratecontno')" cssClass="searchTextBox"/>
 				        </div>
 				        <div class="col-md-2">
@@ -838,14 +838,19 @@
 							<input type="Button" value="Add" id="btnAddTC" class="btn btn-primary center-block" style="margin-top:20px;" />
 						</div>
 					</div><br>
-					<table class="transTable" id="tblTermsAndCondColumns">
+					<table class="transTable" id="tblTermsAndCondColumns" style="width: 50%;background-color: #c0c0c0;">
 						<tr>
-							<td width="20%">TC Name</td>
-							<td width="80%">TC Description</td>
+							<td width="36%">TC Name</td>
+							<td width="35%">TC Description</td>
+							<td width="10%">Delete</td>
 						</tr>
 					</table>
-					<table border="1" class="myTable" style="font-size:11px;
-							font-weight: bold;" id="tblTermsAndCond">
+					<table border="1" class="myTable" style="font-size:11px;font-weight: bold;width:50%;" id="tblTermsAndCond">
+						<%-- <tbody>    
+							<col style="width:18%"><!--  COl1   -->
+							<col style="width:17%">
+							
+						</tbody> --%>
 					</table>
 				</div>	
 			</div>
@@ -853,7 +858,7 @@
 	<br>
 		<div class="center" style="text-align:center">
 			<a href="#"><button class="btn btn-primary center-block" id="btnSubmit" value="Submit" onclick="return funCallFormAction('submit',this)">Submit</button></a>&nbsp
-			<a href="#"><button class="btn btn-primary center-block"  value="Reset" onclick="funResetFields();">Reset</button></a>
+			<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetFields();">Reset</button></a>
 		</div>
 		
 		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">

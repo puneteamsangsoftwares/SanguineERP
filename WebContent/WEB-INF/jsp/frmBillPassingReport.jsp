@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <html>
   <head>
   	<link rel="stylesheet" type="text/css" href="default.css" />
@@ -35,42 +35,32 @@
     </script>
   </head>
   
-	<body>
-	<div id="formHeading">
-		<label>Bill Passing</label>
-	</div>
-	<br />
-	<br />
-		<s:form name="frmBillPassingReport" method="GET" action="rptBillPassingReport.html" target="_blank">
-			<table class="masterTable">
-	<tr><th colspan="2"></th></tr>
-				<tr>
-					<td width="150px"><label>Bill passing Code</label></td>
-					<td><s:input  id="txtBPCode" path="strDocCode" ondblclick="funHelp('BillPassing')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/></td>
-				</tr>
+  <body>
+	<div class="container">
+		<label id="formHeading">Bill Passing</label>
+	    <s:form name="frmBillPassingReport" method="GET" action="rptBillPassingReport.html" target="_blank">
+			 <div class="row masterTable">
+						<div class="col-md-2"><label>Bill passing Code</label>
+					        <s:input  id="txtBPCode" path="strDocCode" ondblclick="funHelp('BillPassing')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
+				        </div>
 				
-				<tr>
-					<td><label>Report Type</label></td>
-					<td>
-						<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
-				    		<s:option value="PDF">PDF</s:option>
-				    		<s:option value="XLS">EXCEL</s:option>
-				    		<s:option value="HTML">HTML</s:option>
-				    		<s:option value="CSV">CSV</s:option>
-				    	</s:select>
-					</td>
-				</tr>
-				
-				<tr>
-				<td colspan="2"></td>
-				</tr>
-			</table>
+				        <div class="col-md-2"><label>Report Type</label>
+					       <s:select id="cmbDocType" path="strDocType" style="width:auto;">
+				    		  <s:option value="PDF">PDF</s:option>
+				    		  <s:option value="XLS">EXCEL</s:option>
+				    		  <s:option value="HTML">HTML</s:option>
+				    		  <s:option value="CSV">CSV</s:option>
+				    	   </s:select>
+					    </div>
+			  </div>
 			<br>
-			<p align="center">
-				<input type="submit" value="Submit"  class="form_button"/>
-				 <input type="button" value="Reset" class="form_button"  onclick="funResetFields()"/>
+			<p align="center" style="margin-right:66%;">
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button"/>
+				&nbsp;
+			    <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 			</p>
 			
 		</s:form>
+	</div>
 	</body>
 </html>

@@ -1,11 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript"
 	src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 <script type="text/javascript"
@@ -695,51 +701,62 @@ var flagSelectAll=false;
 	
 </script>
 </head>
-<body >
-<div style="width: 100%; height: 40px; background-color: #458CCA">
+<body>
+   <div class="container" style="width: 100%; height: 40px; background-color: #c0c0c0">
 		<p align="center" style="padding-top: 5px;color: white">Auto Generated PI</p>
-	</div>
-<s:form id="autoPI" name="autoPI" action="fillAutoPIData.html" >
+	 <s:form id="autoPI" name="autoPI" action="fillAutoPIData.html" >
 
-<!--Start Of Filter Table  -->
-<div
-		style="width: 100%; min-height:450px; height:100%;  overflow-y: auto; padding-bottom: auto;">
-		<table class="masterTable" style="width: 100%" >
-				<tr>
-					<td><label>Group</label></td>
-					<td><s:select path="strGCode" items="${command.group}" id="strGCode" onchange="funFillCombo(this.value);" cssClass="BoxW124px"></s:select></td>
-					<td><label>SubGroup</label></td>
-					<td> <s:select path="strSGCode" items="${command.subGroup}" id="strSGCode" cssClass="BoxW124px"> </s:select></td>
-				</tr>
-		
-				<tr>
-					<td><label>Supplier</label></td>
-					<td><input id="txtSuppCode" ondblclick="funHelp('suppcode')" class="searchTextBox"></td>
-					<td colspan="3"><label id="lblSuppName"></label></td>
-				</tr>
+   <!--Start Of Filter Table  -->
+   <div style="width: 100%;">
+		<div class="row masterTable" >
+				<div class="col-md-2"><label>Group</label>
+					  <s:select path="strGCode" items="${command.group}" id="strGCode" onchange="funFillCombo(this.value);" ></s:select>
+				</div>
 				
-				<tr>
-					<td><label>Indent On</label></td>
-					<td><select id="cmbIndentOn" onchange="funOnChange()" class="BoxW200px">
-					<option value="Sales Order">Sales Order</option>
-					<option value="MiProduction Order">Production Order</option>
-					<option value="Minimum Level" selected>Minimum Level</option>
-					<option value="Requisition">Requisition</option>
-					</select></td>
-					<td colspan="2"><input id="txtIOCode" class="searchTextBox" ondblclick="funHelp1()"/></td>
-				</tr>
-				<tr>
-					<td>Location</td>
-					<td><input type="text" id="txtLocCode" ondblclick="funHelp('locationmaster')" class="searchTextBox" ></input>
-					<label id="lblLocName"></label></td>
-					<td><input type="button" id="SHOW" value="Show" class="smallButton" onclick="btnShow_onclick();"></td>
-					 <td style="text-align: center;" >
-	                    <input id="btnClose" type="Button" value="Close" class="smallButton" onclick="btnClose_onclick()" />
-	                    </td>
-				</tr>
+				<div class="col-md-2"><label>SubGroup</label>
+					 <s:select path="strSGCode" items="${command.subGroup}" id="strSGCode"> </s:select>
+				</div>
+		        <div class="col-md-8"></div>
+		        
+				<div class="col-md-2"><label>Supplier</label>
+					  <input id="txtSuppCode" ondblclick="funHelp('suppcode')" class="searchTextBox">
+			    </div>
+			    
+				<div class="col-md-3"><br>
+				    <label id="lblSuppName" style="background-color:#dcdada94; width: 100%; height: 52%;text-align:center;"></label>
+				</div>
+				<div class="col-md-7"></div>
+				
+				<div class="col-md-2"><label>Indent On</label>
+					<select id="cmbIndentOn" onchange="funOnChange()">
+					   <option value="Sales Order">Sales Order</option>
+					   <option value="MiProduction Order">Production Order</option>
+					   <option value="Minimum Level" selected>Minimum Level</option>
+					   <option value="Requisition">Requisition</option>
+					</select>
+				</div>
+				
+				<div class="col-md-3"><br><input id="txtIOCode" class="searchTextBox" ondblclick="funHelp1()"/></div>
+				<div class="col-md-7"></div>
+				
+				<div class="col-md-2"><label>Location</label>
+					  <input type="text" id="txtLocCode" ondblclick="funHelp('locationmaster')" class="searchTextBox" ></input>
+				</div>
+				 
+				<div class="col-md-3"><br>
+				   <label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 52%;text-align:center;"></label>
+				</div>
+				 
+				<div class="col-md-1"><br>
+				     <input type="button" id="SHOW" value="Show" class="btn btn-primary center-block" class="smallButton" onclick="btnShow_onclick();">
+				</div>
+					 
+				<div class="col-md-1" style="text-align: center;"><br>
+	                 <input id="btnClose" type="Button" value="Close" class="btn btn-primary center-block" class="smallButton" onclick="btnClose_onclick()"/>
+	            </div>
 		
 				
-		</table>
+		</div>
 		<dl id="Searchresult"></dl>
 		<div id="Pagination" class="pagination"></div>
 		
@@ -772,13 +789,13 @@ var flagSelectAll=false;
                         </table>
                 </div> --%>
                
-					</div>
+	 </div>
 			<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:50%;left:45%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 		
 <!--End Of Result Table  -->
 </s:form>
-
+</div>
 </body>
 </html>

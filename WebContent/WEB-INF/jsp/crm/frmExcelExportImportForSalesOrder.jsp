@@ -6,12 +6,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+        <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+        <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
  <script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" /> 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Excel Import Export</title>
+
+<style>
+.masterTable td {
+       padding-left: 28px;
+      }
+</style>
 <script type="text/javascript">
 //Press ESC button to Close Form
 	window.onkeyup = function (event) {
@@ -148,8 +160,8 @@
 	    var row = table.insertRow(rowCount);
 	    
 	    row.insertCell(0).innerHTML= "<input id=\"cbSGSel."+(rowCount)+"\" type=\"checkbox\" checked=\"checked\" name=\"SubGroupthemes\" value='"+strSGCode+"' class=\"SGCheckBoxClass\" />";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
-	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"50%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"13%\" id=\"strSGCode."+(rowCount)+"\" value='"+strSGCode+"' >";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" id=\"strSGName."+(rowCount)+"\" value='"+strSGName+"' >";
 	}
 	
 	function funGetAllSubGroupData()
@@ -197,63 +209,58 @@
 	
 </script>
 </head>
-<body onload="funOnLoad();">
-
+<body onload="funOnLoad();" >
+<div class="container">
 <s:form name="uploadExcel" id="uploadExcel" method="POST" action="ExcelExportImportSales.html" enctype="multipart/form-data" >
 <br>
 <br>
-	<table>
-	   <tbody>
-		    <tr>
-			    <td class="content" bgcolor="#a6d1f6">Export Excel File</td>
-			    <td><input type="button" id="btnExport" value="Export" class="form_button1" onclick="funExport();"/></td>
-		    </tr>
-		    <tr>
-		    	<td><input type="file" id="File"  Width="50%" accept="application/vnd.ms-excel"  ></input></td>    
-		    </tr>
-	    </tbody>
-	    <tr>
-	    
-	    <td>
-	    <div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 200px; overflow-x: hidden; overflow-y: scroll;">
+	 <div class="row">
+	
+		    <div class="col-md-2"  id="formHeading" class="content" bgcolor="#a6d1f6">Export Excel File
+			      <input type="button" id="btnExport" value="Export" class="btn btn-primary center-block" class="form_button1" onclick="funExport();"/>
+		    </div>
+		    
+		    <div class="col-md-2">
+		    	  <input type="file" id="File"  Width="50%" accept="application/vnd.ms-excel"></input>   
+		    </div>
+	
+	  </div>  
+	  <br>
+	    <div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 200px; width:50%;overflow-x: hidden; overflow-y: scroll;">
 
 							<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
-										<td width="15%"><input type="checkbox" id="chkSGALL"
+									<tr bgcolor="#c0c0c0">
+										<td width="5%"><input type="checkbox" id="chkSGALL"
 											checked="checked" onclick="funCheckUncheckSubGroup()" />Select</td>
-										<td width="25%">Sub Group Code</td>
+										<td width="35%">Sub Group Code</td>
 										<td width="65%">Sub Group Name</td>
 
 									</tr>
 								</tbody>
 							</table>
 							<table id="tblSubGroup" class="masterTable"
-								style="width: 100%; border-collapse: separate;">
+								style="width: 50%; border-collapse: separate;">
 								<tbody>
-									<tr bgcolor="#72BEFC">
+								<!-- 	<tr bgcolor="#fafbfb">
 										<td width="15%"></td>
 										<td width="25%"></td>
 										<td width="65%"></td>
 
-									</tr>
+									</tr> -->
 								</tbody>
 							</table>
 			</div>
 	    
-	    </td>
-	    
-	    </tr>
-	    
-	    
-	</table>
+	   
 	<br>
-    <p align="center">
-			<input id="btnSubmit" type="button" class="form_button" value="Submit" onclick="return funSubmit();"/>
-			&nbsp; &nbsp; &nbsp;
-			 <input id="btnReset" type="reset" value="Reset" class="form_button" onclick="funResetField()" />
+    <p align="center" style="margin-right: 12%;">
+			<input id="btnSubmit" type="button" class="btn btn-primary center-block" class="form_button" value="Submit" onclick="return funSubmit();"/>
+			&nbsp; 
+			 <input id="btnReset" type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetField()" />
 	</p>
 </s:form>
+</div>
 </body>
 </html>

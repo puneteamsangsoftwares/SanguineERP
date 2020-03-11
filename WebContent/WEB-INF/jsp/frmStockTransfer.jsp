@@ -978,7 +978,7 @@
 				</div>
 				<div class="col-md-2">
 					<label>Product Name</label>
-					<label id="lblProdName" class="namelabel" style="background-color:#dcdada94; width: 100%; height: 52%;text-align: center;"
+					<label id="lblProdName" class="namelabel" style="background-color:#dcdada94; width: 100%; text-align: center;"
 					></label>
 				</div>
 				<div class="col-md-2">

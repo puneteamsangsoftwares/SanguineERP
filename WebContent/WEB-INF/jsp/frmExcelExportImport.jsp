@@ -5,6 +5,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+ <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
+	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
  <script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>

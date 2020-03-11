@@ -376,7 +376,7 @@
 	   <s:form name="RoomCancellation" method="POST" action="saveRoomCancellation.html">
  
         <div class="row">
-            <div class="col-md-2"><label>Property</label>
+            <div class="col-md-2"><label> Property</label>
 				  <s:select id="strPropertyCode" path="strPropertyCode" items="${listOfProperty}" required="true"></s:select>
 			</div>
 			
@@ -387,11 +387,11 @@
 			 <div class="col-md-8"></div>
 			 
 			 
-			<div class="col-md-2" id="trDate"><label >Arrival From Date</label>
+			<div class="col-md-2" id="trDate"><label> Arrival From Date </label>
 				  <s:input type="text" id="txtArrivalFromDate" path="dteArrivalFromDate" required="true" class="calenderTextBox" style="width:70%;" />
 		     </div>
 		     
-			<div class="col-md-2"><label >Arrival To Date</label>
+			<div class="col-md-2"><label> Arrival To Date </label>
 				  <s:input type="text" id="txtArrivalToDate" path="dteArrivalToDate" required="true" class="calenderTextBox" style="width:70%;"/>
 			</div>
 			
@@ -401,26 +401,26 @@
 <!-- 				<td colspan="2"> -->
 <!-- 			</tr> -->
 			
-			<div class="col-md-2"><label>Guest Name</label>
+			<div class="col-md-2"><label> Guest Name </label>
 				<s:input id="txtGuestName" path="strGuestName"  readonly="true" placeholder="last"  />
 			</div>
 			  <div class="col-md-8"></div>
 			     
 			
-            <div class="col-md-2"><label>Reason Code</label>
+            <div class="col-md-2"><label> Reason Code </label>
 			     <s:input type="text" id="txtReasonCode" path="strReasonCode" cssClass="searchTextBox" ondblclick="funHelp('reasonPMS');" style="height:45%"/>
 			 </div>
 			 
 			 <div class="col-md-2"><br><label id="lblReasonDesc" style="background-color:#dcdada94; width: 100%; height: 50%;"></label></div>
 			
 			 
-			<div class="col-md-2"><label id="lblCorporate">Corporate</label>
+			<div class="col-md-2"><label id="lblCorporate"> Corporate </label>
 				  <span id="txtCorporate"><s:input id="txtCorporateCode" path="strCorporate" readonly="true"/></span>
 				<!-- <td><label id="lblCorporateName"></label></td> -->
 			</div>
 			<div class="col-md-6"></div>
 			
-			<div class="col-md-2"><label>Remarks</label>
+			<div class="col-md-2"><label> Remarks </label>
 				  <s:input type="text" id="txtRemarks" path="strRemarks"/>
 			</div>
 			

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,13 +21,13 @@
 		
 		$('#txtDispatchTime').timepicker({ 'step': 15 });
 		
-		$( "#txtDispatchDate" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		$( "#txtDispatchDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 		$( "#txtDispatchDate" ).datepicker('setDate','today');
 		
-		$( "#txtECDate" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		$( "#txtECDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 		$( "#txtECDate" ).datepicker('setDate','today');
 		
-		$( "#txtGRChallanDate" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		$( "#txtGRChallanDate" ).datepicker({ dateFormat: 'dd-mm-yy' });
 		$( "#txtGRChallanDate" ).datepicker('setDate','today');
 		
 		var message='';
@@ -149,184 +150,112 @@
 </head>
 <body>
 
-	<div id="formHeading">
-	<label>Excise Challan</label>
-	</div>
+	<div class="container">
+	<label id="formHeading">Excise Challan</label>
+	  <s:form name="ExciseChallan" method="POST" action="saveExciseChallan.html?saddr=${urlHits}">
 
-<br/>
-<br/>
-
-	<s:form name="ExciseChallan" method="POST" action="saveExciseChallan.html?saddr=${urlHits}">
-
-		<table class="masterTable">
-			<tr>
-				<td>
-					<label>EC Code</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtECCode" path="strECCode" cssClass="searchTextBox" ondblclick="funHelp('ecCode');"/>
-				</td>
-				<td>
-					<label>EC Date</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtECDate" path="dteECDate" cssClass="calenderTextBox" />
-				</td>
-				<td colspan="2"></td>
-				</tr>
+		<div class="row masterTable">
+			  <div class="col-md-2"><label>EC Code</label>
+				   <s:input type="text" id="txtECCode" path="strECCode" cssClass="searchTextBox" ondblclick="funHelp('ecCode');"/>
+			  </div>
+			  
+			  <div class="col-md-2"><label>EC Date</label>
+				   <s:input type="text" id="txtECDate" path="dteECDate" cssClass="calenderTextBox" style="width:70%;"/>
+			  </div>
 				
-				<tr>
-				<td>
-					<label>Against</label>
-				</td>
-				<td>
-					<s:select id="txtAgainst" path="strAgainst"  cssClass="BoxW124px">
-					<s:option value="deliveryNote">Delivery Note</s:option>
-					<s:option value="purchaseReturn">Purchase Return</s:option>
+			  <div class="col-md-2"><label>Against</label>
+				    <s:select id="txtAgainst" path="strAgainst" style="width:auto;">
+					    <s:option value="deliveryNote">Delivery Note</s:option>
+					    <s:option value="purchaseReturn">Purchase Return</s:option>
 					</s:select>
-				</td>
+			  </div>
+				 <div class="col-md-6"></div>
+				 
+			    <div class="col-md-2"><label>GR Challan Code</label>
 				
-				<td>
-					<label>GR Challan Code</label>
-				</td>
 		<%-- 		<td>
 					<s:input type="text" id="txtGRChallanCode" path="strGRChallanCode" cssClass="searchTextBox" ondblclick="funHelp('GRChallanCode');"/>
 				</td> --%>
 				
-				<td>
-					<s:input type="text" id="txtGRChallanCode" path="strGRChallanCode" cssClass="BoxW124px" />
-				</td>
+				<s:input type="text" id="txtGRChallanCode" path="strGRChallanCode" />
+				</div>
 				
-				<td>
-					<label>GRN Date</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtGRChallanDate" path="dteGRChallanDate" cssClass="calenderTextBox" />
-				</td>
-				</tr>
-				
-				<tr>
-				<td>
-					<label>S Code</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtScode" path="strScode" cssClass="BoxW124px" />
-				</td>
-				<td colspan="4">
-			</tr>
+			   <div class="col-md-2"><label>GRN Date</label>
+				    <s:input type="text" id="txtGRChallanDate" path="dteGRChallanDate" cssClass="calenderTextBox" style="width:70%;"/>
+			   </div>
 			
-			<tr>
-				
-				<td>
-					<label>Product Code</label>
-				</td>
+			   <div class="col-md-2"><label>S Code</label>
+				     <s:input type="text" id="txtScode" path="strScode" />
+			    </div>
+			  <div class="col-md-6"></div>
+			  
+			   <div class="col-md-2"><label>Product Code</label>
+			 
 				<%-- <td>
 					<s:input type="text" id="txtProdCode" path="strProdCode" cssClass="searchTextBox" ondblclick="funHelp('ProdCode');"/>
 				</td> --%>
 				
-				<td>
-					<s:input type="text" id="txtProdCode" path="strProdCode" cssClass="BoxW124px" />
-				</td>
-				<td colspan="4"></td>
-			</tr>
-			
-			<tr>
-				<td>
-					<label>Process Code</label>
-				</td>
+				    <s:input type="text" id="txtProdCode" path="strProdCode" />
+				</div>
+				
+		        <div class="col-md-2"><label>Process Code</label>
+				
 <!-- 				<td> -->
 <%-- 					<s:input type="text" id="txtProcessCode" path="strProcessCode" cssClass="searchTextBox" ondblclick="funHelp('ProcessCode');"/> --%>
 <!-- 				</td> -->
 				
-				<td>
-					<s:input type="text" id="txtProcessCode" path="strProcessCode" cssClass="BoxW124px" />
-				</td>
-				<td colspan="4"></td>
-			</tr>
+				       <s:input type="text" id="txtProcessCode" path="strProcessCode"/>
+				</div>
 			
-			<tr>
-				
-				<td>
-					<label>Challan Type</label>
-				</td>
-				<td>
-					<s:select id="txtChallanType" path="strChallanType" cssClass="BoxW124px">
+		        <div class="col-md-2"><label>Challan Type</label>
+				      <s:select id="txtChallanType" path="strChallanType" style="width:auto;">
 						<s:option value="jobOrder">Job Order</s:option>
 						<s:option value="thirdParty">Third party</s:option>
 						<s:option value="return">Return</s:option>
-					</s:select>
-				</td>
-				<td>
-					<label>Tariff</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtTariff" path="strTariff" cssClass="BoxW124px" />
-				</td>
-				<td colspan="2"></td>
-			</tr>
-			<tr>
-				<td>
-					<label>Dispatch Date</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtDispatchDate" path="dteDispatchDate" cssClass="calenderTextBox" />
-				</td>
-				<td>
-					<label>Dispatch Time</label>
-				</td>
-				<td>
-					<s:input type="datetime-local " id="txtDispatchTime" path="dteDispatchTime" class="BoxW124px" />
-				</td>					
-				<td colspan="2"></td>
-			</tr>
-			
-			<tr>
-				<td>
-					<label>Quantity</label>
-				</td>
-				<td>
-					<s:input type="text"  id="txtQty" path="dblQty" class="BoxW124px decimal-places-amt numeric" />
-				</td>
-				<td>
-					<label>Unit Price</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtUnitPrice" path="dblUnitPrice" class="BoxW124px decimal-places-amt numeric" />
-				</td>
-				<td colspan="2"></td>
-			</tr>
-			<tr>
-				<td>
-					<label>Identity Marks</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtIdentityMarks" path="strIdentityMarks" cssClass="longTextBox" />
-				</td>
-				<td>
-					<label>Duration</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtDuration" path="strDuration" cssClass="BoxW124px" />
-				</td>
-				<td colspan="2"></td>
-			</tr>
-			
-			<tr>
-				<td>
-					<label>Currency</label>
-				</td>
-				<td>
-					<s:input type="text" id="txtCurrency" path="strCurrency" cssClass="longTextBox" />
-				</td>
-				<td colspan="4"></td>
-			</tr>
-		</table>
-
+					  </s:select>
+				</div>
+				<div class="col-md-6"></div>
+				
+				<div class="col-md-2"><label>Tariff</label>
+				       <s:input type="text" id="txtTariff" path="strTariff" />
+				</div>
+				
+			    <div class="col-md-2"><label>Dispatch Date</label>
+				        <s:input type="text" id="txtDispatchDate" path="dteDispatchDate" cssClass="calenderTextBox" style="width:70%;"/>
+				</div>
+				
+				 <div class="col-md-2"><label>Dispatch Time</label>
+				         <s:input type="datetime-local " id="txtDispatchTime" path="dteDispatchTime" style="border:none;"/>
+				</div>					
+				<div class="col-md-6"></div>
+				
+			    <div class="col-md-2"><label>Quantity</label>
+				      <s:input type="text"  id="txtQty" path="dblQty" class="decimal-places-amt numeric" />
+				</div>
+				
+				<div class="col-md-2"><label>Unit Price</label>
+			           <s:input type="text" id="txtUnitPrice" path="dblUnitPrice" class="BoxW124px decimal-places-amt numeric" />
+				</div>
+				
+			    <div class="col-md-2"><label>Identity Marks</label>
+				      <s:input type="text" id="txtIdentityMarks" path="strIdentityMarks"/>
+				</div>
+				<div class="col-md-6"></div>
+				
+				<div class="col-md-2"><label>Duration</label>
+				       <s:input type="text" id="txtDuration" path="strDuration"/>
+				</div>
+				
+			   <div class="col-md-2"><label>Currency</label>
+				      <s:input type="text" id="txtCurrency" path="strCurrency"/>
+				</div>
+		   </div>
 		<br />
 		<br />
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="form_button" />
-			<input type="reset" value="Reset" class="form_button" onclick="funResetFields()"/>
+		<p align="center" style="margin-right: 12%;">
+			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" />
+			&nbsp;
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>
 
 	</s:form>

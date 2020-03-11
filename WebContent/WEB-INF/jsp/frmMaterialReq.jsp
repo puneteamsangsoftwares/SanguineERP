@@ -1789,9 +1789,9 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 						<!--<th width="12%">Pos Item Code</th>col2   -->
 						<td width="15%" style="padding-left: 100px">Prod name</td>
 						<!-- col3   -->
-						<td width="2%" style="padding-left: 7%">UOM</td>
+						<td width="2%" style="padding-left: 5%">UOM</td>
 						<!-- col4   -->
-						<td width="2%" align="right" style="padding-left: 3%">Qty</td>
+						<td width="5%" align="right" style="padding-left: 5%">Qty</td>
 						<!-- col5   -->
 						<td width="5%" align="right">Unit Price</td>
 						<!-- col6   -->
@@ -1887,7 +1887,7 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 			<div class="center" style="text-align: center">
 				<a href="#"><button class="btn btn-primary center-block"
 						tabindex="3" value="Submit"
-						onclick="return funCallFormAction('submit',this)">Submit</button></a>
+						onclick="return funCallFormAction('submit',this)">Submit</button></a>&nbsp;
 				<a href="#"><button class="btn btn-primary center-block"
 						value="Reset" onclick="funResetFields();">Reset</button></a>
 			</div>

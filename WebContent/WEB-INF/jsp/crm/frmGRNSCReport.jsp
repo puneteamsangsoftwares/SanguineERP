@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,34 +35,21 @@ function funSetData(code)
 
 </script>
 <body>
-	<div id="formHeading">
-		<label>GRN SC Report</label>
-	</div>
-	<s:form name="frmGRNSCReport" method="GET"
-		action="rptGRNSCReport.html" >
+	<div class="container">
+	  <label id="formHeading">GRN SC Report</label>
+	   <s:form name="frmGRNSCReport" method="GET" action="rptGRNSCReport.html" >
 		<input type="hidden" value="${urlHits}" name="saddr">
 		<br>
-		<table class="transTable">
-								<tr>
-									<td width="160px"><label>Sub Contractor Return Code</label></td>
-									<td ><s:input path="strDocCode" id="txtSCGRNCode"
-											ondblclick="funHelp('SCGRNCode')"
-											cssClass="searchTextBox" /></td>
-																										
-								</tr>
-								
-             
-
-		</table>
+		<div class="row transTable">
+			<div class="col-md-2"><label>Sub Contractor Return Code</label>
+				<s:input path="strDocCode" id="txtSCGRNCode" ondblclick="funHelp('SCGRNCode')" cssClass="searchTextBox" />
+			</div>
+		</div>
 		<br>
-		<p align="center">
-			<input type="submit" value="Submit"
-				onclick=""
-				class="form_button" /> &nbsp; &nbsp; &nbsp; <a
-				STYLE="text-decoration: none"
-				href="frmGRNSCReport.html?saddr=${urlHits}"><input
-				type="button" id="reset" name="reset" value="Reset"
-				class="form_button" /></a>
+		<p align="left" style="margin-left:10%;">
+			<input type="submit" value="Submit" onclick="" class="btn btn-primary center-block" class="form_button" /> &nbsp; 
+			<a STYLE="text-decoration: none" href="frmGRNSCReport.html?saddr=${urlHits}">
+			<input type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block" class="form_button"/></a>
 		</p>
 		<br>
 		<div id="wait"
@@ -73,6 +59,6 @@ function funSetData(code)
 				width="60px" height="60px" />
 		</div>
 	</s:form>
-
+   </div>
 </body>
 </html>

@@ -152,16 +152,16 @@
 </script>
 </head>
 <body onload="funOnLoad()">
-<div style="width: 100%; height: 40px; background-color: #458CCA">
+<div style="width: 100%; height: 40px; background-color: #c0c0c0;">
 		<p align="center" style="padding-top: 5px;color: white">PO for DS</p>
 	</div>
     <form id="form1">       
                         
                        <div
-				style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 450px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 450px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 						 <table id="tblPOForDS"  class="masterTable" style="width: 90%;border-collapse: separate; ">
                             <tbody>
-                             <tr  bgcolor="#75c0ff">
+                             <tr  style="background-color:#c0c0c0;">
                                 <td width="10%">Select<input type="checkbox" id="chkALL" onclick="funCheckUncheck()" /></td>	
 								<td width="30%">PO Code</td>				
 								<td width="30%">Date</td>    

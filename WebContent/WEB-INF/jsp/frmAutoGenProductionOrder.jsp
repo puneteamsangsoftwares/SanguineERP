@@ -47,11 +47,11 @@ var flagSelectAll=false;
 	  $(document).ready(function() 
 	    		{
 	    
-	    $("#txtFromDate").datepicker({ dateFormat: 'yy-mm-dd' });
+	    $("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtFromDate" ).datepicker('setDate', 'today');
 			$("#txtFromDate").datepicker();
 			
-			 $("#txtToDate").datepicker({ dateFormat: 'yy-mm-dd' });
+			 $("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 				$("#txtToDate" ).datepicker('setDate', 'today');
 				$("#txtToDate").datepicker();	
 			
@@ -398,11 +398,11 @@ var flagSelectAll=false;
 		  <div class="row">
 			
 			<div class="col-md-2"><label>From Date</label>
-				<input  id="txtFromDate" Class="calenderTextBox" />
+				<input  type="text" id="txtFromDate" Class="calenderTextBox" />
 			</div>
 											
 			<div class="col-md-2"><label>To Date</label>
-				<input  id="txtToDate" Class="calenderTextBox" />		
+				<input  type="text" id="txtToDate" Class="calenderTextBox" />		
 			</div>
 			
 			<div class="col-md-2"><label>Location By:</label>
