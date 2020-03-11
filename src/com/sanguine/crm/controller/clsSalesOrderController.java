@@ -437,7 +437,7 @@ public class clsSalesOrderController {
 			SOHDModel.setStrSOCode(strDocNo);
 			SOHDModel.setStrUserCreated(userCode);
 			SOHDModel.setDteDateCreated(objGlobal
-					.funGetCurrentDateTime("yyyy-MM-dd"));
+					.funGetCurrentDate("yyyy-MM-dd"));
 			SOHDModel.setIntId(lastNo);
 		} else {
 			clsSalesOrderHdModel objSalesModel = objSalesOrderService
@@ -450,7 +450,7 @@ public class clsSalesOrderController {
 				SOHDModel.setIntId(lastNo);
 				SOHDModel.setStrUserCreated(userCode);
 				SOHDModel.setDteDateCreated(objGlobal
-						.funGetCurrentDateTime("yyyy-MM-dd"));
+						.funGetCurrentDate("yyyy-MM-dd"));
 			} else {
 				SOHDModel = new clsSalesOrderHdModel(
 						new clsSalesOrderHdModel_ID(objBean.getStrSOCode(),
@@ -459,13 +459,13 @@ public class clsSalesOrderController {
 		}
 		SOHDModel.setStrUserModified(userCode);
 		SOHDModel.setDteLastModified(objGlobal
-				.funGetCurrentDateTime("yyyy-MM-dd"));
-		SOHDModel.setDteSODate(objBean.getDteSODate());
+				.funGetCurrentDate("yyyy-MM-dd"));
+		SOHDModel.setDteSODate(objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getDteSODate()));
 		SOHDModel.setStrCustCode(objBean.getStrCustCode());
 		SOHDModel.setStrCustPONo(objBean.getStrCustPONo());
-		SOHDModel.setDteCPODate(objBean.getDteCPODate());
+		SOHDModel.setDteCPODate(objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getDteCPODate()));
 		SOHDModel.setStrLocCode(objBean.getStrLocCode());
-		SOHDModel.setDteFulmtDate(objBean.getDteFulmtDate());
+		SOHDModel.setDteFulmtDate(objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getDteFulmtDate()));
 		SOHDModel.setStrAgainst(objBean.getStrAgainst());
 		SOHDModel.setStrCode(objBean.getStrCode());
 		SOHDModel.setStrCurrency(objGlobalFunctions.funIfNull(
@@ -569,7 +569,7 @@ public class clsSalesOrderController {
 			for (int i = 0; i < objSalesDtlModelList.size(); i++) {
 				Object[] ob = (Object[]) objSalesDtlModelList.get(i);
 				clsSalesOrderDtl saleDtl = (clsSalesOrderDtl) ob[0];
-				clsProductMasterModel prodmast = (clsProductMasterModel) ob[1];
+				 clsProductMasterModel prodmast = (clsProductMasterModel) ob[1];
 
 				listSalesChar = objSalesOrderService.funGetSalesChar(
 						objBeanSale.getStrSOCode(), saleDtl.getStrProdCode());
@@ -654,8 +654,8 @@ public class clsSalesOrderController {
 			currRate = 1.0;
 		}
 		objBeanSale.setStrSOCode(objSalesOrderHdModel.getStrSOCode());
-		objBeanSale.setDteSODate(objSalesOrderHdModel.getDteSODate());
-		objBeanSale.setDteCPODate(objSalesOrderHdModel.getDteCPODate());
+	    objBeanSale.setDteSODate(objGlobalFunctions.funGetDate("yyyy-MM-dd",objSalesOrderHdModel.getDteSODate()));
+		objBeanSale.setDteCPODate(objGlobalFunctions.funGetDate("yyyy-MM-dd",objSalesOrderHdModel.getDteCPODate()));
 		objBeanSale.setStrCustCode(objSalesOrderHdModel.getStrCustCode());
 		objBeanSale.setStrLocCode(objSalesOrderHdModel.getStrLocCode());
 		objBeanSale.setStrAgainst(objSalesOrderHdModel.getStrAgainst());
@@ -673,7 +673,7 @@ public class clsSalesOrderController {
 		objBeanSale.setDblTotal(objSalesOrderHdModel.getDblTotal() / currRate);
 		objBeanSale.setStrLocName(objLocationMasterModel.getStrLocName());
 		objBeanSale.setStrcustName(objPartyMasterModel.getStrPName());
-		objBeanSale.setDteFulmtDate(objSalesOrderHdModel.getDteFulmtDate());
+		objBeanSale.setDteFulmtDate(objGlobalFunctions.funGetDate("yyyy-MM-dd",objSalesOrderHdModel.getDteFulmtDate()));
 		objBeanSale.setStrCustPONo(objSalesOrderHdModel.getStrCustPONo());
 		objBeanSale.setStrCode(objSalesOrderHdModel.getStrCode());
 		objBeanSale.setStrCloseSO(objSalesOrderHdModel.getStrCloseSO());

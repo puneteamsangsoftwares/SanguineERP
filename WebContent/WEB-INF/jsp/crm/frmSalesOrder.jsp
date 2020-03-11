@@ -2413,8 +2413,9 @@ function funGetKeyCode(event,controller) {
 		<div class="center" style="text-align:center;">
 			<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funCallFormAction('submit',this)"
 				class="form_button">Submit</button></a> &nbsp;
-			<a href="frmSalesOrder.html?saddr=${urlHits}"><button class="btn btn-primary center-block" id="reset" value="Reset"
-				class="form_button">Reset</button></a>
+			<%-- <a href="frmSalesOrder.html?saddr=${urlHits}"><button class="btn btn-primary center-block" id="reset" value="Reset"
+				class="form_button">Reset</button></a> --%>
+			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields();" />
 		</div>
 		<br>
 		

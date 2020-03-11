@@ -378,8 +378,8 @@ public class clsInvoiceController
 
 			clsInvoiceHdModel objHDModel = new clsInvoiceHdModel();
 			objHDModel.setStrUserModified(userCode);
-			objHDModel.setDteLastModified(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
-			objHDModel.setDteInvDate(objBean.getDteInvDate() + " " + reportDate);
+			objHDModel.setDteLastModified(objGlobalFunctions.funGetCurrentDate("yyyy-MM-dd"));
+			objHDModel.setDteInvDate(objGlobalFunctions.funGetDate("yyyy-MM-dd",objBean.getDteInvDate()) + " " + reportDate);
 			objHDModel.setStrAgainst(objBean.getStrAgainst());
 			objHDModel.setStrAuthorise(objGlobalFunctions.funCheckFormAuthorization("Invoice", req));
 			if (objBean.getStrAgainst().equalsIgnoreCase("Sales Order"))
@@ -414,7 +414,7 @@ public class clsInvoiceController
 			objHDModel.setStrSOCode(objBean.getStrSOCode());
 			objHDModel.setStrSettlementCode(objBean.getStrSettlementCode());
 			objHDModel.setStrUserCreated(userCode);
-			objHDModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
+			objHDModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDate("yyyy-MM-dd"));
 			objHDModel.setStrClientCode(clientCode);
 
 			objHDModel.setStrMobileNo(objBean.getStrMobileNoForSettlement());
@@ -449,9 +449,9 @@ public class clsInvoiceController
 			objHDModel.setStrSupplierRef(objBean.getStrSupplierRef());
 			objHDModel.setStrOtherRef(objBean.getStrOtherRef());
 			objHDModel.setStrBuyersOrderNo(objBean.getStrBuyersOrderNo());
-			objHDModel.setDteBuyerOrderNoDated(objBean.getDteBuyerOrderNoDated());
+			objHDModel.setDteBuyerOrderNoDated(objGlobalFunctions.funGetDate("yyyy-MM-dd",objBean.getDteBuyerOrderNoDated()));
 			objHDModel.setStrDispatchDocNo(objBean.getStrDispatchDocNo());
-			objHDModel.setDteDispatchDocNoDated(objBean.getDteDispatchDocNoDated());
+			objHDModel.setDteDispatchDocNoDated(objGlobalFunctions.funGetDate("yyyy-MM-dd",objBean.getDteDispatchDocNoDated()));
 			objHDModel.setStrDispatchThrough(objBean.getStrDispatchThrough());
 			objHDModel.setStrDestination(objBean.getStrDestination());
 			objHDModel.setDblExtraCharges(objBean.getDblExtraCharges());
@@ -847,13 +847,13 @@ public class clsInvoiceController
 //					}
 					objHDModel.setStrInvCode(invCode);
 					objHDModel.setStrUserCreated(userCode);
-					objHDModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
+					objHDModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDate("yyyy-MM-dd"));
 					objHDModel.setStrDulpicateFlag("N");
 				}
 				else // Update
 				{
 					objHDModel.setStrUserCreated(userCode);
-					objHDModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
+					objHDModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDate("yyyy-MM-dd"));
 					objHDModel.setStrInvCode(objBean.getStrInvCode());
 					objHDModel.setStrDulpicateFlag("Y");
 				}
@@ -1039,7 +1039,7 @@ public class clsInvoiceController
 							if(obj.getDblSettlementAmt() > 0)
 							{
 								obj.setStrInvCode(objHDModel.getStrInvCode());
-								obj.setDteInvDate(objHDModel.getDteInvDate());
+								obj.setDteInvDate(objHDModel.getDteInvDate().split(" ")[0]);
 								obj.setDblPaidAmt(obj.getDblSettlementAmt());
 								obj.setStrClientCode(clientCode);
 								obj.setStrCustomerCode(objHDModel.getStrCustCode());
@@ -1064,7 +1064,7 @@ public class clsInvoiceController
 					obj.setStrSettlementCode(objHDModel.getStrSettlementCode());
 					obj.setStrInvCode(objHDModel.getStrInvCode());
 					obj.setDblSettlementAmt(objHDModel.getDblGrandTotal() );
-					obj.setDteInvDate(objHDModel.getDteInvDate());
+					obj.setDteInvDate(objHDModel.getDteInvDate().split(" ")[0]);
 					obj.setDblPaidAmt(obj.getDblSettlementAmt());
 					obj.setStrClientCode(clientCode);
 					obj.setStrCustomerCode(objHDModel.getStrCustCode());
@@ -1111,7 +1111,7 @@ public class clsInvoiceController
 					objProdCustModel.setDblMaxQty(0);
 					objProdCustModel.setDblStandingOrder(0);
 					
-					objProdCustModel.setDtLastDate(objBean.getDteInvDate());
+					objProdCustModel.setDtLastDate(objGlobalFunctions.funGetDate("yyyy-MM-dd",objBean.getDteInvDate()));
 					
 		
 					
@@ -4077,7 +4077,7 @@ public class clsInvoiceController
 			String strDCCode = cd + String.format("%06d", lastNo);
 			objDcHdModel.setStrDCCode(strDCCode);
 			objDcHdModel.setStrUserCreated(userCode);
-			objDcHdModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
+			objDcHdModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDate("yyyy-MM-dd"));
 			objDcHdModel.setIntid(lastNo);
 		}
 		objDcHdModel.setStrSOCode(objInvHDModel.getStrInvCode());

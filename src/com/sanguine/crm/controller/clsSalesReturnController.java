@@ -361,7 +361,7 @@ public class clsSalesReturnController {
 
 		srHdModel.setStrUserEdited(userCode);
 		srHdModel.setDteDateEdited(objGlobalfunction.funGetCurrentDateTime("yyyy-MM-dd"));
-		srHdModel.setDteSRDate(objBean.getDteSRDate());
+		srHdModel.setDteSRDate(objGlobalfunction.funGetDate("yyyy-MM-dd", objBean.getDteSRDate()));
 		srHdModel.setStrAgainst(objBean.getStrAgainst());
 
 		srHdModel.setStrCustCode(objBean.getStrCustCode());
