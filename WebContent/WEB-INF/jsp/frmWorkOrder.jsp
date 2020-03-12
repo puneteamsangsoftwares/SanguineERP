@@ -898,7 +898,7 @@
                       <s:input id="txtOPCode" path="strSOCode" style="width:100%;background-color:white;" ondblclick="funHelp1('OPCodeForWO')"  type="text" class="simpleTextBox"></s:input>
                 </div>
                  
-                <div class="col-md-2"><br><br>
+                <div class="col-md-2"><br>
                       <input id="btnGenerate" class="btn btn-primary center-block" class="smallButton" type="button" value="Generate" onclick='funGetWorkOrderOPData()'/>
                  </div>
                            		<!-- <td>
@@ -906,7 +906,7 @@
                                 </td>  -->                         
             </div>
           <br>                 
-       <table style="width: 95%;height:28px;margin-left: auto;font-size: 11px;font-weight: bold;">
+       <table style="width: 95%;height:28px;font-size: 11px;font-weight: bold;">
 			<tr style="background-color:#c0c0c0">
                       <td width="5%"><input type="checkbox" id="chkGALL"
 											checked="checked" onclick="funCheckUncheck()" />Select</td>
@@ -926,8 +926,7 @@
                         </tr>
                         </table>
                         
-                       <div id="divProduct" style="width: 95%;height:200px;margin-left: auto;
-					                  background-color: #fafbfb;overflow: scroll;">
+                       <div id="divProduct" style="width: 95%;height:200px; background-color: #fafbfb;overflow: scroll;">
                         <table style="width:100%;border: #0F0;table-layout:fixed;overflow:scroll"
                                class="transTablex col5-center" id="tblWODet">
                         <tbody>
@@ -979,18 +978,17 @@
 					     <span id="spProdName" style="background-color:#dcdada94; width: 100%; height:51%;margin-top: 27px;padding:8px;"></span>
 					</div>
 					
-				   <div class="col-md-2"><label>Quantity</label>
+				   <div class="col-md-1"><label>Quantity</label>
 						<s:input id="txtQty" path="dblQty" value="1.00" cssStyle="width:92%" cssClass="right-Align"></s:input>
 				   </div>
-					<div class="col-md-6"></div>
+					<div class="col-md-7"></div>
 												
 				  <div class="col-md-2"><label>Status</label>
 					   <label id="strStatus" style="float: left;background-color:#dcdada94; width: 100%; height:51%;padding:4px;"></label>
 			       </div>
 				</div>				
 		   <br>
-		<table style="width: 95%;height:28px;margin-left: auto;
-	                          margin-right: auto;font-size: 11px; font-weight: bold;">
+		<table style="width: 95%;height:28px;font-size: 11px; font-weight: bold;">
 					<tr bgcolor="#c0c0c0">
 						<td style="width: 20%; height: 16px;" align="left">Process Code</td>
 						<td style="width: 30%; height: 16px;" align="left">Process Name</td>
@@ -1000,8 +998,7 @@
 					</tr>
 				</table>
 
-				<div id="divProduct" style="width: 95%;height:200px;margin-left: auto;
-					margin-right: auto; bgcolor: #fafbfb; overflow: scroll;">
+				<div id="divProduct" style="width: 95%;height:200px;background-color: #fafbfb; overflow: scroll;">
 					<table  style="width:100%;border: #0F0;table-layout:fixed;overflow:scroll" class="transTablex col5-center" id="tblProdDet"
 						style="overflow: scroll;">
 						<tbody>    

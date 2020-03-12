@@ -194,25 +194,29 @@
 		<br>
 		<table class="masterTable" style="width:100%;">
 			<tr bgcolor="#c0c0c0">
-				<td>
+				<td style="width: 24%;">
 					<label>Group/Tax Code</label>
 				</td>
 				
-				<td>
+				<td style="width: 33%;">
 					<label>Group/Tax Name</label>
 				</td>
 				
-				<td>
+				<td style="width: 25%;">
 					<label>Group/Tax Des</label>
 				</td>
 				
-				<td>
+				<td style="width: 14%;">
 					<label>Tally Alias Code</label>
+				</td>	
+				
+				<td>
+					<label>Delete</label>
 				</td>				
 			</tr>
 		</table>
 
-		<table class="masterTable" style=" width:100%; height: 100%; text-align: center; border: 1px solid black; font-size: 11px; font-weight: bold;">
+		<table class="masterTable" style=" width:100%; height: 100%; text-align: center; border: 1px solid #c0c0c0; font-size: 11px; font-weight: bold;">
 			<tr>
 				<td>
 					<table  id="tblTermsAndCond">

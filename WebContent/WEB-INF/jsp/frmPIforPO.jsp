@@ -172,7 +172,7 @@ $(document).ready(function()
 </script>
 </head>
 <body onload="funOnLoad()">
-<div style="width: 100%; height: 40px; background-color: #458CCA">
+<div style="width: 100%; height: 40px; background-color: #a2a2a2;">
 		<p align="center" style="padding-top: 5px;color: white;">PI for PO</p>
 	</div>
     <form id="form1">       
@@ -180,7 +180,7 @@ $(document).ready(function()
                        <div class="dynamicTableContainer" style="width: 100%;height: 500px">
 						 <table class="masterTable" style="width: 100%;border-collapse: separate; ">
                             <tbody>
-                             <tr  bgcolor="#75c0ff">
+                             <tr  style="background-color:#c0c0c0;">
                                 <td width="5%">Select<input type="checkbox" id="chkALL" onclick="funCheckUncheck()" /></td>	
 								<td width="10%">PI Code</td>				
 								<td width="8%">Date</td>
@@ -191,7 +191,7 @@ $(document).ready(function()
                             </tbody>
                         </table>
                         <div
-				style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 450px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 450px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 					<table id="tblDNDet"
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col11-center">
@@ -206,9 +206,10 @@ $(document).ready(function()
 				</table>
 			</div>
                         </div>
-
-                    <input id="btnClose" type="Button" class="form_button" value="Close" onclick="return btnClose_onclick()" />                                      
-
+    <br>
+      <div align="center"> 
+         <input id="btnClose" type="Button" class="btn btn-primary center-block" class="form_button" value="Close" onclick="return btnClose_onclick()" style="padding:10px;"/>                                      
+      </div>
        <div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
 			<img

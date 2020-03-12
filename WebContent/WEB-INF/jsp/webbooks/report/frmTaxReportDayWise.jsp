@@ -16,6 +16,11 @@
 	    <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 
+<style>
+.masterTable td {
+     padding-left: 33px;
+     }
+</style>
 <script type="text/javascript">
 
 $(document).ready(function() 
@@ -127,8 +132,8 @@ $(document).ready(function()
 					    var row = table.insertRow(rowCount);
 					    
 					    row.insertCell(0).innerHTML= "<input id=\"cbTaxSel."+(rowCount)+"\" name=\"Taxthemes\" type=\"checkbox\" class=\"TaxCheckBoxClass\"  checked=\"checked\" value='"+strTaxCode+"' />";
-					    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"25%\" id=\"strTaxCode."+(rowCount)+"\" value='"+strTaxCode+"' >";
-					    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"50%\" id=\"strTaxName."+(rowCount)+"\" value='"+strTaxName+"' >";
+					    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"17%\" id=\"strTaxCode."+(rowCount)+"\" value='"+strTaxCode+"' >";
+					    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \" size=\"35%\" style=\"margin-left: -20px;\" id=\"strTaxName."+(rowCount)+"\" value='"+strTaxName+"' >";
 				}
 			    //Remove All Row from Grid Passing Table Id as a parameter
 			    function funRemRows(tablename) 
@@ -252,14 +257,16 @@ $(document).ready(function()
 <!-- 			<td colspan="2"></td>				 -->
 <!-- 			</tr> -->
 			
-				<div class="col-md-3">Tax  &nbsp;&nbsp;&nbsp;
-				<input type="text" id="txtTaxCode" 
-				 style="background-position: 235px 7px;"  Class="searchTextBox" placeholder="Type to search"  ></input>
+				<div class="col-md-2">Tax  &nbsp;&nbsp;&nbsp;
+				<input type="text" id="txtTaxCode" Class="searchTextBox" placeholder="Type to search"  ></input>
 				</div>
 	
-				<div class="col-md-3"><label id="lblTaxName" style="background-color:#dcdada94; width: 100%; height: 40%; margin: 27px 0px;"></label></div>
+				<div class="col-md-2">
+				   <label id="lblTaxName" style="background-color:#dcdada94; width: 100%; height: 40%; margin: 27px 0px;"></label>
+				</div>
+				<div class="col-md-8"></div>
 				<br>
-		         <div class="row" style="background-color: #fafbfb; border: 1px solid #ccc;margin:12px 15px; display: block; height: 150px; overflow-x: hidden; overflow-y: scroll;">
+		         <div class="row" style="background-color: #fafbfb; border: 1px solid #ccc;margin:12px 15px; display: block;width:50%; height: 215px; overflow-x: hidden; overflow-y: scroll;">
 							<table id="" class="masterTable" style="width: 100%; border-collapse: separate;">
 								<tbody>
 									<tr bgcolor="#c0c0c0">
@@ -272,17 +279,17 @@ $(document).ready(function()
 							</table>
 							
 							<table id="tblTax" class="masterTable"
-								style="width: 100%; border-collapse: separate;">
-
+								style="width: 50%; border-collapse: separate;">
+                              <!-- 
 								<tr bgcolor="#fafbfb">
 									
 
-								</tr>
+								</tr> -->
 							</table>
 						</div>
 			</div>
-			
-		<p align="right"  style="margin: 0px 405px;">
+			<br>
+		<p align="center"  style="margin-right: 9%;">
 			<input type="submit" value="Submit" onclick="return btnSubmit_Onclick();" class="btn btn-primary center-block" class="form_button"/> &nbsp
 			<input type="button" id="reset" name="reset" value="Reset" class="btn btn-primary center-block" class="form_button" />
 		</p>

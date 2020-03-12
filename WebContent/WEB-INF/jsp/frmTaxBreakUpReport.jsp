@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -174,76 +176,68 @@
  </script>
  </head>
 <body onload="funOnLoad()">
-<div id="formHeading">
-		<label>Tax BreakUp Report</label>
-	</div>
-	<s:form action="rptTaxBreakUpReport.html" method="POST" name="frmTaxBreakUpReport" target="_blank">
+<div class="container">
+		<label id="formHeading">Tax BreakUp Report</label>
+	  <s:form action="rptTaxBreakUpReport.html" method="POST" name="frmTaxBreakUpReport" target="_blank">
 	
 	<br>
 	
-			<table class="masterTable">
-			<tr><th colspan="7"></th></tr>
-				<tr>
-					<td width="10%">Property Code</td>
-					<td width="20%">
-						<s:select id="cmbProperty" name="propCode" path="strPropertyCode" cssClass="longTextBox" cssStyle="width:100%" onchange="funChangeLocationCombo();">
+			<div class="row masterTable">
+			       <div class="col-md-2"><label>Property Code</label>
+					    <s:select id="cmbProperty" name="propCode" path="strPropertyCode"  cssStyle="width:auto;" onchange="funChangeLocationCombo();">
 			    			<s:options items="${listProperty}"/>
 			    		</s:select>
-					</td>
+					</div>
 						
-					<td width="5%"><label>Location</label></td>
-					<td>
-						<s:select id="cmbLocation" name="locCode" path="strLocationCode" cssClass="longTextBox" cssStyle="width:180px;" >
+					<div class="col-md-2"><label>Location</label></td>
+				        <s:select id="cmbLocation" name="locCode" path="strLocationCode" cssStyle="width:auto;" >
 			    			<s:options items="${listLocation}"/>
 			    		</s:select>
-					</td>
-				</tr>
-					
-				<tr>
-				    <td><label id="lblFromDate">From Date</label></td>
-			        <td>
-			            <s:input id="txtFromDate" name="fromDate" path="dtFromDate" cssClass="calenderTextBox"/>
+					</div>
+			        <div class="col-md-8"></div>
+			        
+				    <div class="col-md-2"><label id="lblFromDate">From Date</label>
+			            <s:input id="txtFromDate" name="fromDate" path="dtFromDate" cssClass="calenderTextBox" cssStyle="width:70%;"/>
 			        	<s:errors path="dtFromDate"></s:errors>
-			        </td>
+			        </div>
 				        
-			        <td><label id="lblToDate">To Date</label></td>
-			        <td>
-			            <s:input id="txtToDate" name="toDate" path="dtToDate" cssClass="calenderTextBox"/>
+			        <div class="col-md-2"><label id="lblToDate">To Date</label>
+			              <s:input id="txtToDate" name="toDate" path="dtToDate" cssClass="calenderTextBox" cssStyle="width:70%;"/>
 			        	<s:errors path="dtToDate"></s:errors>
-			        </td>
-				</tr>
-						
-				<tr>
-					<td>Tax Code</td>
-					<td>
-						<s:input type="text" id="txtTaxCode" path="strTaxCode" ondblclick="funHelp('taxmaster')" cssClass="searchTextBox" cssStyle="width: 75px;background-position: 65px 2px;"/>
-						<label id="lblTaxName">All Tax</label>
-					</td>
-										
-					<td>Supplier Code</td>
-					<td>
-						<s:input type="text" id="txtSuppCode" path="strSuppCode" ondblclick="funHelp('suppcode')" cssClass="searchTextBox" cssStyle="width: 75px;background-position: 65px 2px;"/>
-						<label id="lblsuppName">All Supplier</label>
-					</td>
+			        </div>
+					<div class="col-md-8"></div>
 					
-					</tr>
-					<tr>
-				<td width="10%"><label>Report Type</label></td>
-					<td colspan="3">
-						<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+				    <div class="col-md-2"><label>Tax Code</label>
+					    <s:input type="text" id="txtTaxCode" path="strTaxCode" ondblclick="funHelp('taxmaster')" cssClass="searchTextBox" />
+					</div>
+					<div class="col-md-2"><br><label id="lblTaxName" style="background-color:#dcdada94; width: 100%; height: 53%;margin-top: 2px; padding: 3px; text-align:center;">All Tax</label>
+					</div>
+					<div class="col-md-8"></div>
+										
+					<div class="col-md-2"><label>Supplier Code</label>
+					 	<s:input type="text" id="txtSuppCode" path="strSuppCode" ondblclick="funHelp('suppcode')" cssClass="searchTextBox" />
+					</div>
+					<div class="col-md-2"><br><label id="lblsuppName" style="background-color:#dcdada94; width: 175%; height: 53%;margin-top: 2px; padding: 3px;text-align:center;">All Supplier</label>
+					</div>
+					<div class="col-md-8"></div>
+					
+				   <div class="col-md-2"><label>Report Type</label>
+					    <s:select id="cmbDocType" path="strDocType" style="width:auto;">
 				    		<s:option value="PDF">PDF</s:option>
 				    		<s:option value="XLS">EXCEL</s:option>
 				    		<s:option value="HTML">HTML</s:option>
 				    		<s:option value="CSV">CSV</s:option>
 				    	</s:select>
-			</td>
-	</tr>
-			</table>
+			       </div>
+	           </div>
+			
 			<br>
-			<p align="center">
-				 <input type="submit" value="Submit" class="form_button" />
-				 <input type="reset" value="Reset" class="form_button" onclick="funResetFields();"/>			     
+			<p align="center" style="margin-right: 28%;">
+				 <input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" />
+				 &nbsp;
+				 <input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields();"/>			     
 			</p>
 	</s:form>
+	</div>
 </body>
 </html>
