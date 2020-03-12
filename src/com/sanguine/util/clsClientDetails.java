@@ -220,7 +220,7 @@ public class clsClientDetails {
 			hmClientDtl.put("331.001", clsClientDetails.createClientDetails("331.001", "DMPRS HOSPITALITY LLP", dFormat.parse("2019-09-09"), dFormat.parse("2019-12-08")));//renewed on 09-11-2019 for one month till 2019-12-08//(Mumbai)//Released on 09-09-2019 for 1 MONTH till 08-10-2019 for 8 SPOS ,4 APOS, WebStocks,No SMS Pack,No Bill Deletion.", "Mr.RAVI", "7738332591", "bythebae.versova@gmail.com", "No Bill Deletion","santesting"));
 			
 			hmClientDtl.put("336.001", clsClientDetails.createClientDetails("336.001", "SHAH SPORTS ACADEMY PRIVATE LIMITED", dFormat.parse("2019-10-05"), dFormat.parse("2020-03-05")));//renewed on 06-02-2020 for 1 momnth //renewed on 05-11-2019 for one month till 05-12-2019//renewed on 06-12-2019 for one month till 05-1-2020
-			hmClientDtl.put("337.001", clsClientDetails.createClientDetails("337.001", "Symbiosis University", dFormat.parse("2019-10-08"), dFormat.parse("2020-03-11")));//Abhijit Rege  9112299043 headhospitality@symbiosis.ac.in regeabhijit@gmail.com
+			hmClientDtl.put("337.001", clsClientDetails.createClientDetails("337.001", "Symbiosis University", dFormat.parse("2019-10-08"), dFormat.parse("2020-03-13")));//Abhijit Rege  9112299043 headhospitality@symbiosis.ac.in regeabhijit@gmail.com
 			
 			hmClientDtl.put("341.001", clsClientDetails.createClientDetails("341.001", "THE FLOUR WORKS", dFormat.parse("2019-12-01"), dFormat.parse("2020-02-11")));//(Mumbai)//Released on 09-12-2019 for 1 year till 09-12-2020
 			
