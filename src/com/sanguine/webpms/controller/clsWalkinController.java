@@ -474,6 +474,7 @@ public class clsWalkinController {
 	public @ResponseBody List funLoadRoomRate(String arrivalDate, String departureDate,String roomDescList, HttpServletRequest req) throws ParseException {
 		
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		String strPMSDate = req.getSession().getAttribute("PMSDate").toString();
 		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
 		String arrvDate=objGlobal.funGetDate("yyyy-MM-dd", arrivalDate);
 		String deptDate=objGlobal.funGetDate("yyyy-MM-dd", departureDate);
@@ -518,18 +519,27 @@ public class clsWalkinController {
 		if(null!=listRoomData && listRoomData.size()>0)
 		{
 			clsRoomTypeMasterModel objRoomTypeMasterModel = (clsRoomTypeMasterModel) listRoomData.get(0);
-			if(cntRoom==1)
+			if(objPropertySetupModel.getStrRatepickUpFrom().equalsIgnoreCase("Rate Management"))
 			{
-				roomRate=objRoomTypeMasterModel.getDblRoomTerrif();	
+				roomRate = objGlobal.funGetDblRoomTariffFromRateManagement(roomCode,cntRoom,strPMSDate,clientCode);
 			}
-			else if(cntRoom==2)
+			else
 			{
-				roomRate=objRoomTypeMasterModel.getDblDoubleTariff();	
+				
+				if(cntRoom==1)
+				{
+					roomRate=objRoomTypeMasterModel.getDblRoomTerrif();	
+				}
+				else if(cntRoom==2)
+				{
+					roomRate=objRoomTypeMasterModel.getDblDoubleTariff();	
+				}
+				else 
+				{
+					roomRate=objRoomTypeMasterModel.getDblTrippleTariff();	
+				}
 			}
-			else 
-			{
-				roomRate=objRoomTypeMasterModel.getDblTrippleTariff();	
-			}
+			
 			
 			
 			roomTypedesc=objRoomTypeMasterModel.getStrRoomTypeDesc();

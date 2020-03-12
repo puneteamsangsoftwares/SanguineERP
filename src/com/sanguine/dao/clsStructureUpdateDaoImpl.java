@@ -4799,7 +4799,7 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ "	`dteDateCreated` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00',"
 				+ "	`dteDateEdited` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00', "
 				+ "`strClientCode` VARCHAR(10) NOT NULL DEFAULT '',"
-				+ "	PRIMARY KEY (`lngRateContractID`, `strClientCode`) "
+				+ "	PRIMARY KEY (`strRateContractID`, `strClientCode`) "
 				+ ") COLLATE='utf8_general_ci' "
 				+ "ENGINE=InnoDB ;";
 		
@@ -4905,7 +4905,8 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ " ('frmUpdateHouseKeepingStatus', 'Update House Keeping Status', 'Transaction', 2, 'T', 2, 2, '1', 'imgChangeRoom.png', '3', 1, '1', '1', 'NO', 'NO', 'frmUpdateHouseKeepingStatus.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ " ('frmSeasonMaster', 'Season Master', 'Master', 1, 'M', 22, 22, '2', 'imgSeasonMaster.png', '3', 3, '3', '3', 'NO', 'YES', 'frmSeasonMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ " ('frmPMSRateContract', 'Rate Management', 'Master', '1', 'M', '22', '22', '2', 'imgSeasonMaster.png', '3', '3', '3', '3', 'NO', 'YES', 'frmPMSRateContract.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
-				+ " ('frmPMSStaffMaster', 'Staff Master', 'Master', 1, 'M', 1, 9, '1', 'imgRoomMaster.png', '3', 3, '3', '3', 'NO', 'NO', 'frmPMSStaffMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
+				+ " ('frmPMSStaffMaster', 'Staff Master', 'Master', 1, 'M', 1, 9, '1', 'imgRoomMaster.png', '3', 3, '3', '3', 'NO', 'NO', 'frmPMSStaffMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+				+ " ('frmPMSWeekenfMaster', 'PMS Weekend Master', 'Master', '1', 'M', '19', '19', '2', 'default.png', '3', '3', '1', '1', 'No', 'No', 'frmBanquetWeekendMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
 		
 
 		
