@@ -5819,7 +5819,7 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				funExecuteQuery(sql);
 				sql = "truncate table tblpossalesdtl";
 				funExecuteQuery(sql);
-				sql = "update tblroom a set a.strStatus='Free' and a.strClientCode='"+clientCode+"';";
+				sql = "update tblroom a set a.strStatus='Free' where a.strClientCode='"+clientCode+"';";
 				funExecutePMSQuery(sql);
 
 			}
