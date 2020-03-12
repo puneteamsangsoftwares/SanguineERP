@@ -1093,12 +1093,17 @@
 	</definition>
     
     <definition name="frmBatchProcess" extends="base.searchFormDefination">
-	 <put-attribute name="title" value="Batch Generation"></put-attribute>
+	    <put-attribute name="title" value="Batch Generation"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/jsp/frmBatchProcess.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="frmBatchMonitorReport" extends="base.searchFormDefination">
+	    <put-attribute name="title" value="Batch Report"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/frmBatchMonitorReport.jsp"></put-attribute>
+	</definition>
+	
 	<definition name="frmManualBatch" extends="base.searchFormDefination">
-	 <put-attribute name="title" value="Manual Batch"></put-attribute>
+	    <put-attribute name="title" value="Manual Batch"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/jsp/frmManualBatch.jsp"></put-attribute>
 	</definition>
 	

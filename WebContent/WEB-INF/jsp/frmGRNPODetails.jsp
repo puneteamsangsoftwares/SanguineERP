@@ -157,16 +157,15 @@
 </script>
 </head>
 <body onload="funOnLoad()">
-<div style="width: 100%; height: 40px; background-color: #458CCA">
+<div style="width: 100%; height: 40px; background-color: #a2a2a2">
 		<p align="center" style="padding-top: 5px;color: white">PO for GRN</p>
 	</div>
     <form id="form1">       
                         
-                       <div
-				style="background-color: #C0E2FE; border: 1px solid #ccc; display: block; height: 450px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+         <div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 450px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
 						 <table id="tblDNDet"  class="masterTable" style="width: 90%;border-collapse: separate; ">
                             <tbody>
-                             <tr  bgcolor="#75c0ff">
+                             <tr style="background-color:#c0c0c0;">
                                 <td width="10%">Select<input type="checkbox" id="chkALL" onclick="funCheckUncheck()" /></td>	
 								<td width="15%">PO Code</td>				
 								<td width="15%">Date</td>    
@@ -174,17 +173,16 @@
 								<td width="12%">Total Amt</td>				
 								<td width="15%">Currency</td>    
 								<td width="12%">Conversion Rate</td>    
-								                     
-                              </tr>
+							 </tr>
                             </tbody>
                         </table>
                         </div>
-
-                    <input id="btnClose" type="Button" class="form_button" value="Close" onclick="return btnClose_onclick()" />                                      
-		<div id="wait"
-			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
-			<img
-				src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
+       <br>
+       <div  style="text-align:center;">
+          <input id="btnClose" type="Button" class="btn btn-primary center-block" class="form_button" value="Close" onclick="return btnClose_onclick()" style="padding:10px;"/>
+       </div>                                      
+	     <div id="wait" style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
+		    <img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
 				width="60px" height="60px" />
 		</div>
        

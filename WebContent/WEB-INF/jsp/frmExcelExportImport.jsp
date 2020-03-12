@@ -20,7 +20,7 @@
 <title>Excel Import Export</title>
 <style>
   .masterTable td {
-       padding-left: 0px;
+       padding-left: 16px;
    } 
 </style>
 
@@ -808,15 +808,15 @@
 </script>
 </head>
 <body onload="funOnLoad();">
-<div class="container">
+<div class="container" style="overflow-y:scroll;">
 <s:form name="uploadExcel" id="uploadExcel" method="POST" action="ExcelExportImport.html" enctype="multipart/form-data" >
 <br>
 <br>
 	<div class="row" style="background-color:#c0c0c0;padding: 7px;">
-			    <div class="col-md-2" class="content" >Export Excel File</div>
+			    <div class="col-md-2" class="content">Export Excel File</div>
 			    <div class="col-md-2"><input type="button" id="btnExport" value="Export" class="btn btn-primary center-block" class="form_button1" onclick="funExport();"/></div>
 	 </div><br>
-		        <div class="col-md-2"><input type="file" id="File"  Width="50%" accept="application/vnd.ms-excel"  ></input></div>  
+		        <div class="col-md-2"><input type="file" id="File"  Width="50%" accept="application/vnd.ms-excel"></input></div>  
   
   <div id="divFilter" style="display:block;">
   

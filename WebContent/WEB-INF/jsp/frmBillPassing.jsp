@@ -20,11 +20,6 @@
 	
 <script type="text/javascript">
 
-
-
-
-
-
 	$(document).ready(function() {
 
 		$(".tab_content").hide();

@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -79,43 +81,35 @@
   </head>
   
 	<body >
-	<div id="formHeading">
-		<label>Delivery Schedule Slip</label>
-	</div>
-	<br />
-	<br />
-		<s:form name="DeliverScheduleSlip" method="GET" action="rptDeliveryScheduleSlip.html" target="_blank">
-			<table class="masterTable">
+	<div class="container">
+		<label id="formHeading">Delivery Schedule Slip</label>
+	    <s:form name="DeliverScheduleSlip" method="GET" action="rptDeliveryScheduleSlip.html" target="_blank">
+			<div class="row masterTable">
 			
-				<tr><th colspan="4"></th></tr>
-				<tr>
-					<td width="120px"><s:label path="strDSCode">DS Code</s:label></td>
-					<td><s:input id="txtDSCode" name="txtDSCode" path="strDSCode"
-						ondblclick="funHelp('dscode')" cssClass="searchTextBox" ></s:input></td>
-	
-	 			</tr>
+				 <div class="col-md-2"><s:label path="strDSCode">DS Code</s:label>
+					    <s:input id="txtDSCode" name="txtDSCode" path="strDSCode"
+						ondblclick="funHelp('dscode')" cssClass="searchTextBox" ></s:input>
+	             </div>
 					
-				<tr>
-						<td><label>Report Type</label></td>
-						<td colspan="4">
-							<s:select id="cmbDocType" path="strDocType" cssClass="BoxW124px">
+				 <div class="col-md-2"><label>Report Type</label>
+						    <s:select id="cmbDocType" path="strDocType" style="width:auto;">
 					    		<s:option value="PDF">PDF</s:option>
 					    		<s:option value="XLS">EXCEL</s:option>
 					    		<s:option value="HTML">HTML</s:option>
 					    		<s:option value="CSV">CSV</s:option>
 					    	</s:select>
-						</td>
-				</tr>
-			</table>
+				 </div>
+			</div>
 			
 			<br/>
-			<br/>
-			<p align="center">
-				<input type="submit" value="Submit"  class="form_button" />
-				<input type="button"   value="Reset" class="form_button" />
+			<p align="center" style="margin-right:66%;">
+				<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" />
+				&nbsp;
+				<input type="button" class="btn btn-primary center-block" value="Reset" class="form_button" />
 			</p>
 			<br/>
 		
 		</s:form>
+		</div>
 	</body>
 </html>

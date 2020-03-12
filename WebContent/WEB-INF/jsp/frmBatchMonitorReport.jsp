@@ -9,34 +9,33 @@
 <title>Batch Monitor</title>
 </head>
 <body>
-<div id="formHeading">
-		<label>Supplier Tax Wise GRN Report</label>
-	</div>
-		<s:form name="frmBatchMonitorReport" method="POST" action="" >
-			<input type="hidden" value="${urlHits}" name="saddr">
+<div class="container">
+	 <label id="formHeading">Supplier Tax Wise GRN Report</label>
+	  <s:form name="frmBatchMonitorReport" method="POST" action="" >
+		<input type="hidden" value="${urlHits}" name="saddr">
             <br />
-	   		<table class="transTable">
+	   		<div class="row transTable">
 			  <!--  <tr><th colspan="10"></th></tr> -->
 				
 				<br>
 				
-				<tr>
-				<td width="10%"><label >Batch Code</label></td>
-				   <td width="60%"><s:input id="txtBatchCode"  path="strBatchCode"  readonly="true" ondblclick="funHelp('Batch')" cssClass="searchTextBox jQKeyboard form-control"/></td>
+				<div class="col-md-2"><label>Batch Code</label>
+				      <s:input id="txtBatchCode" path="strBatchCode" readonly="true" ondblclick="funHelp('Batch')" cssClass="searchTextBox jQKeyboard form-control"/>
+				</div>
+			    <div class="col-md-10"></div>
+			    
+				<div class="col-md-2"> 
+				      <input id="btnExecute" type="button" class="btn btn-primary center-block" class="form_button1" value="EXECUTE"/>
+				 </div>
 				 
-				 <td colspan="7">
-				 <input id="btnExecute" type="button" class="form_button1" value="EXECUTE"/></td>  
-				 
-				 <td colspan="9">						
-						<input id="btnExport" type="button" value="EXPORT"  class="form_button1"/>
-					</td>
-				</tr>
-				
-			</table>
+				 <div class="col-md-2">						
+					  <input id="btnExport" type="button" value="EXPORT" class="btn btn-primary center-block" class="form_button1"/>
+				 </div>
+			
+			</div>
 			<br>
 			
-			
-			
 		</s:form>
+		</div>
 </body>
 </html>

@@ -6,6 +6,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+       <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+       <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+        <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
 <script type="text/javascript" src="<spring:url value="/resources/js/jQuery.js"/>"></script>
 <script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
 <script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
@@ -391,48 +395,58 @@
 
 </head>
 <body onload="funOnLoad();"  >
-<div style="width: 100%; height: 40px; background-color: #458CCA">
+<div class="container">
+<div style="width: 100%; height: 40px; background-color: #a2a2a2;">
 		<p align="center" style="padding-top: 5px;color: white">Manual Batch</p>
 	</div>
 
 	<s:form id="frmManualBatch" name="frmManualBatch" method="POST" action="saveManualBatch.html" modelAttribute="setManualBatch" target="_self">
 	<br>
-			<table class="transTable">
-					<tr>
-					<td>MIS Code</td>
-					<td colspan="6">
-						<s:input path="strMISCode" id="txtMISCode" type="text"  disabled="disabled" />
-					</td>
-					</tr>
-					<tr>
-						<td>Product Code</td>
-						<td><input id="txtProdcode" type="text" readonly="readonly" style="width:100%"  ondblclick="funHelp1('BatchHelpForMIS');" />
-							<span class="spans" id="spProdName" ></span>
-						</td>
-				
-						<td>Batch Code</td>
-						<td width="15%"><input id="txtBatchCode" readonly="readonly" style="width:100%" ondblclick="funHelp1('ProdBatchCode')"  type="text"/></td>
-				   		<td>Quantity</td>
-				    	<td><input id="txtQty" style="width:60%" type=text /></td>
-				    	<td>Batch Qty
-				    	<input id="txtBatchQty" disabled="disabled" style="width:50%" type=text /></td>
-					</tr>
-					<tr>
-						<td>Transaction Code</td>
-						<td><input id="txtTransCode" disabled="disabled" style="width:100%"  type="text"/>
-						</td>
-						<td>Expiry Date</td>
-						<td><input id="dtExpDate" style="width:100%" disabled="disabled" type="text" /></td> 
-						<td>Manufacture Code</td>
-						<td colspan="6"><input type="text" id="txtManuCode" disabled="disabled" size="15"/>
-							<input id="btnAdd"  type="button" value="Add" class="smallButton" onclick="return btnAdd_onclick();" />
-						</td>
+			<div class="row transTable">
+					<div class="col-md-2"><label>MIS Code</label>
+				           <s:input path="strMISCode" id="txtMISCode" type="text"  disabled="disabled" />
+					</div>
 					
-				</table>
+					<div class="col-md-2"><label>Product Code<label>
+						<input id="txtProdcode" type="text" readonly="readonly" style="width:100%"  ondblclick="funHelp1('BatchHelpForMIS');" />
+							<span class="spans" id="spProdName" ></span>
+					</div>
+				
+					<div class="col-md-2"><label>Batch Code<label>
+						<input id="txtBatchCode" readonly="readonly" ondblclick="funHelp1('ProdBatchCode')"  type="text"/>
+					</div>
+				   	
+				   	<div class="col-md-2"><label>Quantity<label>
+				    	<input id="txtQty" type=text />
+				    </div>
+				    
+				    <div class="col-md-4"></div>
+				    
+				    <div class="col-md-2"><label>Batch Qty<label>
+				    	<input id="txtBatchQty" disabled="disabled" type=text />
+				    </div>
+					
+					<div class="col-md-2"><label>Transaction Code<label>
+						<input id="txtTransCode" disabled="disabled"  type="text"/>
+					</div>
+					
+					<div class="col-md-2"><label>Expiry Date<label>
+						 <input id="dtExpDate"  disabled="disabled" type="text" />
+					</div> 
+					
+					<div class="col-md-2"><label>Manufacture Code<label>
+					     <input type="text" id="txtManuCode" disabled="disabled" size="15"/>
+					</div>     
+					     
+					<div class="col-md-2"><br><br>
+					     <input id="btnAdd"  type="button" value="Add" class="btn btn-primary center-block"  class="smallButton" onclick="return btnAdd_onclick();" />
+					</div>
+					
+			</div>
 	<div class="dynamicTableContainer" style="height: 300px;">
 							<table style="height:25px;border:#0F0;width:100%;font-size:11px;
 								font-weight: bold;">	
-								<tr bgcolor="#79BAF2">
+								<tr style="background-color:#c0c0c0">
 									<td style="width: 6%; height: 16px;" align="left">Product Code</td>
 									<td style="width: 28%; height: 16px;" align="left">Product Name</td>
 									<td style="width: 7%; height: 16px;" align="left">MIS Qty</td>
@@ -444,7 +458,7 @@
 									
 								</tr>
 							</table>
-					<div style="background-color:  	#a4d7ff;
+					<div style="background-color: #fafbfb;
 					    border: 1px solid #ccc;
 					    display: block;
 					    height: 250px;
@@ -479,12 +493,13 @@
 					</table>
 					</div>	
 				</div>
-					<p align="center">
-			<input type="submit" value="Submit"
-							onclick="return btnSubmit_onclick()"
-				class="form_button" /> <input type="button" value="Reset"
-				onclick="funResetFields();" class="form_button" />
-		</p>		
+			<br>	
+			<p align="center">
+			     <input type="submit" value="Submit" onclick="return btnSubmit_onclick()" class="btn btn-primary center-block" class="form_button" />
+			     &nbsp;
+			     <input type="button" value="Reset" onclick="funResetFields();" class="btn btn-primary center-block" class="form_button" />
+		   </p>		
 	</s:form>
+	</div>
 </body>
 </html>

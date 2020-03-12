@@ -61,7 +61,7 @@
 </script>
 </head>
 <body>
-<div style="width: 100%; height: 40px; background-color: #458CCA">
+<div style="width: 100%; height: 40px; background-color: #a2a2a2">
 		<p align="center" style="padding-top: 5px;color: white">Batch Generation</p>
 	</div>
 
@@ -70,7 +70,7 @@
 	
 							<table  style="height:25px;border:#0F0;width:100%;font-size:11px;
 								font-weight: bold;">	
-								<tr bgcolor="#79BAF2">
+								<tr bgcolor="#c0c0c0">
 									<td style="width: 13%; height: 16px;" align="left">GRN Code</td>
 									<td style="width: 12%; height: 16px;" align="left">Product Code</td>
 									<td style="width: 34%; height: 16px;" align="left">Product Name</td>
@@ -79,7 +79,7 @@
 									<td style="width: 20%; height: 16px;" align="left">Manufacture Batch Code</td>
 								</tr>
 							</table>
-					<div style="background-color:  	#a4d7ff;
+					<div style="background-color:  	#fafbfb;
 					    border: 1px solid #ccc;
 					    display: block;
 					    height: 300px;
@@ -113,10 +113,8 @@
 					</div>	
 				
 					<p align="center">
-			<input type="submit" value="Submit"
-							onclick="return btnSubmit_onclick()"
-				class="form_button" /> <input type="button" value="Reset"
-				onclick="funResetFields();" class="form_button" />
+			<input type="submit" value="Submit" onclick="return btnSubmit_onclick()" class="btn btn-primary center-block" class="form_button" /> 
+			<input type="button" value="Reset" onclick="funResetFields();" class="btn btn-primary center-block" class="form_button" /> 
 		</p>		
 	</s:form>
 </body>
