@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
+import com.sanguine.util.SpringException;
 import com.sanguine.webbanquets.bean.clsEquipmentBean;
 import com.sanguine.webbanquets.model.clsEquipmentModel;
 import com.sanguine.webbanquets.service.clsEquipmentService;
@@ -94,6 +96,7 @@ public class clsEquipmentController{
 	
 //Save or Update Equipment
 	@RequestMapping(value = "/saveEquipment", method = RequestMethod.POST)
+	//@ExceptionHandler({SpringException.class})
 	public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsEquipmentBean objBean ,BindingResult result,HttpServletRequest req){
 		if(!result.hasErrors()){
 			String clientCode=req.getSession().getAttribute("clientCode").toString();

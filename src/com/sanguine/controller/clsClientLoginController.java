@@ -46,7 +46,6 @@ public class clsClientLoginController {
 	String applicationType;
 
 	@RequestMapping(value = "/validateClient", method = RequestMethod.POST)
-	@ExceptionHandler({SpringException.class})
 	public ModelAndView login(HttpServletRequest req, @Valid clsClientBean objClientBean, BindingResult result, ModelMap map) {
 		ModelAndView objMV = null;
 		try {

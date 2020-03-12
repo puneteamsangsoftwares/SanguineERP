@@ -1,18 +1,12 @@
 package com.sanguine.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributes;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sanguine.bean.clsUserHdBean;
 import com.sanguine.model.clsUserMasterModel;
 import com.sanguine.service.clsUserMasterService;
+import com.sanguine.util.SpringException;
 
 @Controller
 public class clsConfirmLogin {
@@ -51,6 +46,7 @@ public class clsConfirmLogin {
 	 */
 	@SuppressWarnings("finally")
 	@RequestMapping(value = "/confirmUser", method = RequestMethod.POST)
+	@ExceptionHandler({SpringException.class})
 	public @ResponseBody String funCheckConfirmLoginUserForm(clsUserHdBean userBean, BindingResult result, HttpServletRequest req) {
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		String userCode = req.getParameter("userName").toString();
@@ -80,6 +76,18 @@ public class clsConfirmLogin {
 		} finally {
 			return retValue;
 		}
+
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public void handleAllException(Exception ex) {
+
+		ex.printStackTrace();
+		/*
+		 * ModelAndView model = new ModelAndView("error/generic_error");
+		 * model.addObject("errMsg", "this is Exception.class");
+		 */
+		//return model;
 
 	}
 }

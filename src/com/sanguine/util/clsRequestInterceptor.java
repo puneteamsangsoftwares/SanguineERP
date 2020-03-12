@@ -55,6 +55,7 @@ public class clsRequestInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		
 		if(ex!=null) {
+			 ex.printStackTrace();
 			System.out.println("error handler :");
 		}
 		/*

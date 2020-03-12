@@ -682,8 +682,16 @@
         </property>
     </bean>
     
+    	<bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<map>
+				<entry key="Exception" value="frmError"></entry>
+			</map>
+		</property>
+		<property name="defaultErrorView" value="frmError"/>
+	</bean>
     
-    <bean class = "org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+<!--     <bean class = "org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
       <property name = "exceptionMappings">
          <props>
             <prop key = "com.sanguine.util">
@@ -692,7 +700,7 @@
          </props>
       </property>
       <property name = "defaultErrorView" value = "error"/>
-   </bean>
+   </bean> -->
    
    <!-- Configuring interceptors based on URI -->
 	<!-- <interceptors>
