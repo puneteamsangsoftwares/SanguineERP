@@ -11,21 +11,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
 
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/materialdesignicons.min.css"/>" />
-<%-- 	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/all.min.css"/>" /> --%>
-	  	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.css"/>" /> 
-		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" />  
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 	<!--  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
-	 	 
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-	<%-- 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/all.min.js"/>"></script> --%>
-	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.js"/>"></script> 
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-		
 <script type="text/javascript">
 	var fieldName;
 
@@ -120,26 +105,24 @@ function funHelp(transactionName)
 		<label  id="formHeading">Locker Master</label>
 			<s:form name="WebClubLockerMaster" method="POST" action="saveWebClubLockerMaster.html">
 				<div class="row masterTable">
-					<div class="col-md-6">
-						<label>Locker Code:</label><br>
-							<div class="row">
-								<div class="col-md-6"><s:input id="txtLockerCode" type="text" placeholder="Locker Code" path="strLockerCode" readonly="true" 
+					     <div class="col-md-2"><label>Locker Code:</label><br>
+							    <s:input id="txtLockerCode" type="text"  path="strLockerCode" readonly="true" 
 				                   cssClass="searchTextBox" ondblclick="funHelp('WCLockerMaster')" ></s:input>
-								</div>
-								<div class="col-md-6">
-									<s:input id="textLockerName" path="strLockerName" required="" type="text" placeholder="Locker Code"></s:input>
-								</div>
-							</div>
-					</div>
-				     <div class="col-md-3">
-						<label>Locker Description:</label><br>
+						 </div>
+						 
+						 <div class="col-md-2"><br>
+								<s:input id="textLockerName" path="strLockerName" required="" type="text" placeholder="Locker Name"></s:input>
+						  </div>
+			             <div class="col-md-8"></div>
+			             
+			            <div class="col-md-3"><label>Locker Description:</label><br>
 							<s:input id="txtLockerDesc" path="strLockerDesc" required=""
-				             type="text" placeholder="Locker Code"></s:input>
+				             type="text"></s:input>
 				     </div>	
 				</div>
-					<div class="center">
+					<div align="center" style="margin-right:54%;">
 						<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick=""
-							class="form_button">Submit</button></a>
+							class="form_button">Submit</button></a>&nbsp;
 						<a href="#"><button class="btn btn-primary center-block" type="reset"
 						 value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
 					</div>

@@ -2018,24 +2018,23 @@
 </script>
 </head>
 	<body onload="funOnLoad();">
-		<div>
+		<div class="container">
 			<label id="formHeading">Member Explorer</label>
-		</div>
-		<div>
+		
 			<s:form name="Member Explorer" method="POST" action="showMemberExplorer.html?saddr=${urlHits}">
-				<table class="masterTable">
-				<tr>
-					<td width="140px" style="border-style:none;">Member Code</td>
-					<td ><s:input id="txtCustCode" path="strCustomerCode" readonly="true"
-							cssClass="searchTextBox" ondblclick="funHelp('WCmemProfileCustomer')" /></td>
-				</tr>
-			</table>
+				<br>
+				<div class="row masterTable">
+				<div class="col-md-2"  style="border-style:none;">Member Code
+					<s:input id="txtCustCode" path="strCustomerCode" readonly="true"
+							cssClass="searchTextBox" ondblclick="funHelp('WCmemProfileCustomer')" />
+				
+			</div>
 				<br/>
-					<div class="center">
+					<div align="center" style="margin-right:58%;">
 						<a href="#"><button class="btn btn-primary center-block" value="Show" onclick="return funCallFormAction('submit',this);" 
-							class="form_button">Submit</button></a>
+							class="form_button">Submit</button></a>&nbsp;
 						<a href="#"><button class="btn btn-primary center-block" type="reset"
-							value="Reset" class="form_button" onclick="funResetField()">Reset</button></a>
+							value="Reset" class="form_button" onclick="funResetField()">Reset</button></a>&nbsp;
 					
 						<a href="#"><button class="btn btn-primary center-block" value="Print" onclick="return funPrintForm();" class="form_button">Print</button></a>
 						<td><label id="txtAttachedDocCount" style=" display: none;"></label></td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -8,18 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
 
-<link rel="stylesheet" type="text/css" media="screen"
-	href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-<link rel="stylesheet" type="text/css" media="screen"
-	href="<spring:url value="/resources/css/design.css"/>" />
-<link rel="stylesheet" type="text/css" media="screen"
-	href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-
-<script type="text/javascript"
-	src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-<script type="text/javascript"
-	src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-
 <style type="text/css">
 .divBorder {
 	margin-top: -1px;
@@ -3412,8 +3400,8 @@ function funCheckTableActive()
 </head>
 <body>
 
-	<div class="container-fuild">
-		<label id="formHeading">GeneralMaster</label> <br /> <br />
+	<div class="container">
+		<label id="formHeading">General Master</label> <br /> <br />
 
 		<s:form name="frmGeneralMaster" method="POST"
 			action="saveWebClubGeneralMaster.html">
@@ -3423,24 +3411,24 @@ function funCheckTableActive()
 
 			<div>
 				<div class="divBorder" style="float: left; width: 200px; background-color: #fafbfb;">
-					<a href="#" onclick="showDiv( 'Area' );">Area</a> <br> <a
-						href="#" onclick="showDiv( 'City' );">City</a> <br> <a
-						href="#" onclick="showDiv( 'Region' );">Region</a> <br> <a
-						href="#" onclick="showDiv( 'State' );">State</a> <br> <a
-						href="#" onclick="showDiv( 'Country' );">Country</a> <br> <a
-						href="#" onclick="showDiv( 'Education' );">Eduction</a> <br>
+					<a href="#" onclick="showDiv( 'Area' );">Area</a> <br> 
+					<a href="#" onclick="showDiv( 'City' );">City</a> <br> 
+				    <a href="#" onclick="showDiv( 'Region' );">Region</a> <br> 
+				    <a href="#" onclick="showDiv( 'State' );">State</a> <br> 
+				    <a href="#" onclick="showDiv( 'Country' );">Country</a> <br> 
+				    <a href="#" onclick="showDiv( 'Education' );">Eduction</a> <br>
 					<a href="#" onclick="showDiv( 'Marital' );">Marital Status</a> <br>
 					<a href="#" onclick="showDiv( 'Profession' );">Profession</a> <br>
 					<a href="#" onclick="showDiv( 'Designation' );">Designation</a> <br>
-					<a href="#" onclick="showDiv( 'Reason' );">Reason</a> <br> <a
-						href="#" onclick="showDiv( 'CommitteeMemberRole' );">Committee
-						Member Role</a> <br> <a href="#" onclick="showDiv( 'Relation' );">Relation</a>
-					<br> <a href="#" onclick="showDiv( 'Staff' );">Staff</a> <br>
+					<a href="#" onclick="showDiv( 'Reason' );">Reason</a> <br> 
+					<a href="#" onclick="showDiv( 'CommitteeMemberRole' );">Committee Member Role</a> <br> 
+					<a href="#" onclick="showDiv( 'Relation' );">Relation</a><br>
+				    <a href="#" onclick="showDiv( 'Staff' );">Staff</a> <br>
 					<a href="#" onclick="showDiv( 'CurrencyDetails' );">Currency</a> <br>
 					<a href="#" onclick="showDiv( 'InvitedBy' );">Invited By</a> <br>
-					<a href="#" onclick="showDiv( 'ItemCategory' );">Item Category</a>
-					<br> <a href="#" onclick="showDiv( 'Profile' );">Profile
-						Source</a> <br> <a href="#" onclick="showDiv( 'Salutation' );">Salutation</a>
+					<a href="#" onclick="showDiv( 'ItemCategory' );">Item Category</a><br> 
+					<a href="#" onclick="showDiv( 'Profile' );">Profile Source</a> <br>
+				    <a href="#" onclick="showDiv( 'Salutation' );">Salutation</a>
 					<br> <a href="#" onclick="showDiv( 'Title' );">Title</a> <br>
 
 
@@ -3531,7 +3519,8 @@ function funCheckTableActive()
 						<tr  style="background-color:#c0c0c0;">
 							<td style="width: 0.3%;"></td>
 							<td style="width: 2.3%;">State Code</td>
-							<td style="width: 20%;">State Name</td>
+							<td style="width: 2%;">State Name</td>
+							<td style="width: 10%;">Delete</td>
 						</tr>
 					</table>
 					<div
@@ -3555,7 +3544,8 @@ function funCheckTableActive()
 						<tr style="background-color:#c0c0c0;">
 							<td style="width: 0.3%;"></td>
 							<td style="width: 2%;">Country Code</td>
-							<td style="width: 20%;">Country Name</td>
+							<td style="width: 2%;">Country Name</td>
+							<td style="width: 10%;">Delete</td>
 						</tr>
 					</table>
 					<div
@@ -3931,7 +3921,7 @@ function funCheckTableActive()
 			<td><label id="lblAreaName" style="display:none">Area Name </label>
 			      <s:input id="txtAreaName" path="strAreaName"  style="display:none" /></td>
 		
-		</tr><br>
+		</tr>
 		<tr id="City" style="height:70px !important;">
 				
 				<td><label id="lblCityCode" style="display:none">City Code</label>
@@ -4295,15 +4285,11 @@ function funCheckTableActive()
 			<p>
 				<s:input type="hidden" id="hidMasterID" path="strMasterID"></s:input>
 			</p>
-			<br />
-			<br />
-
+			
 			<div class="center" style="text-align: center;">
-				<a href="#"><button class="btn btn-primary center-block"
-						value="Submit" onclick="return funCheckTableActive()" class="form_button">Submit</button></a> <a
-					href="#"><button class="btn btn-primary center-block"
-						type="reset" value="Reset" class="form_button"
-						onclick="funResetField()">Reset</button></a>
+				<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funCheckTableActive()" class="form_button">Submit</button></a> 
+				&nbsp;
+				<a href="#"><button class="btn btn-primary center-block" type="reset" value="Reset" class="form_button" onclick="funResetField()">Reset</button></a>
 			</div>
 
 		</s:form>

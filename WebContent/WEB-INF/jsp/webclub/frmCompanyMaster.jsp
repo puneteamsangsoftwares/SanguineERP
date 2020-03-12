@@ -9,14 +9,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=8">
 <title></title>
 
-		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 	
-	 	<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-	 
-	 
 	 <script type="text/javascript">
 	var fieldName;
 
@@ -566,11 +558,11 @@
 		<label id="formHeading">Company Master</label>
 		<s:form name="CompanyMaster" method="POST" action="saveCompanyMaster.html">
 			<div class="row masterTable">
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<label>Company Name:</label>
 					<div class="row">
 						<div class="col-md-6"><s:input id="txtCompanyCode" ondblclick="funHelp('WCCompanyCode')" cssClass="searchTextBox"
-							readonly="true" placeholder="Company Name" type="text" path="strCompanyCode"></s:input>
+							readonly="true" type="text" path="strCompanyCode"></s:input>
 						</div>
 					
 						<div class="col-md-6"><s:input id="txtCompanyName" required="true" path="strCompanyName" 
@@ -578,35 +570,35 @@
 						</div>
 					</div>
 				</div>	
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<div class="row">
 						<div class="col-md-6">
 							<label>Type of Company:</label>
-								<s:select id="cmbCompanyType" name="cmbCompanyType" path="">
+								<s:select id="cmbCompanyType" name="cmbCompanyType" path="" style="width:50%;">
 									 <option value="N">No</option>
 				 				 	<option value="Y">Yes</option>
 				 				</s:select>
 						</div>
 						<div class="col-md-6">
 							<label>Annual Turnover:</label>
-								<s:input id="txtAnnualTrunover" path="dblAnnualTrunover" 
-							 	placeholder="Annual Turnover" type="text" pattern="^\d+(\.\d{1,2})?$"></s:input>
+								<s:input id="txtAnnualTrunover" path="dblAnnualTrunover" type="text" pattern="^\d+(\.\d{1,2})?$" style="width:50%;"></s:input>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
 					<label>Member Code:</label>
 						<div class="row">
 							<div class="col-md-6"><s:input id="txtMemberCode"
 									ondblclick="funHelp('WCmemProfileCustomer')" cssClass="searchTextBox"
-									type="text" path="strMemberCode" placeholder="Member Code" readonly="true"></s:input>
+									type="text" path="strMemberCode" readonly="true"></s:input>
 							</div>
 							<div class="col-md-6"><s:input id="txtMemberName" path=""
-									 placeholder="Member Code" type="text" readonly="true"></s:input>
+									 placeholder="Member name" type="text" readonly="true"></s:input>
 							</div>
 						</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<div class="row">
 						<div class="col-md-6">
 							<label>Capital and Reserved:</label>
@@ -615,137 +607,144 @@
 						</div>
 						<div class="col-md-6">
 							<label>No. of Active:</label>
-								<s:input id="txtActiveNominee" path="strActiveNominee" 
-									 type="text" placeholder="No. of Activer"></s:input>
+								<s:input id="txtActiveNominee" path="strActiveNominee" type="text"></s:input>
 						</div>
 					</div>
 				</div>	
-				<div class="col-md-6">
+				<div class="col-md-4"></div>
+				
+				<div class="col-md-4">
 					<label>Category Code:</label>
 					<div class="row">
 						<div class="col-md-6"><s:input id="txtCategoryCode"
 									ondblclick="funHelp('WCCatMaster')" cssClass="searchTextBox"
-									type="text" placeholder="Category Code" path="strCategoryCode" readonly="true"></s:input>
+									type="text" path="strCategoryCode" readonly="true"></s:input>
 						</div>
 						<div class="col-md-6"><s:input id="txtCategoryName"  path=""
-									 placeholder="Category Code" type="text" readonly="true"></s:input>
+									 placeholder="Category Name" type="text" readonly="true"></s:input>
 						</div>
 					</div>
 				</div>	
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<div class="row">
 						<div class="col-md-6">
 							<label>Address Line 1:</label>
-								<s:input id="txtAddress1" path="strAddress1" 
-									placeholder="Address Line 1" type="text"></s:input>
+								<s:input id="txtAddress1" path="strAddress1" type="text"></s:input>
 						</div>
 						<div class="col-md-6">
 							<label>Address Line 2:</label>
-								<s:input id="txtAddress2" path="strAddress2" 
-								 placeholder="Address Line 2" type="text"></s:input>
+								<s:input id="txtAddress2" path="strAddress2" type="text"></s:input>
 						</div>
 					</div>
-				</div>	
-				<div class="col-md-6">
+				</div>
+				<div class="col-md-4"></div>
+					
+				<div class="col-md-4">
 					<label>Area Code:</label>
 					<div class="row">
 						<div class="col-md-6"><s:input id="txtAreaCode" path="strAreaCode" class="searchTextBox" 
-							placeholder="Area Code" ondblclick="funHelp('WCComAreaMaster')" type="text" value="" readonly="true"></s:input>
+							ondblclick="funHelp('WCComAreaMaster')" type="text" value="" readonly="true"></s:input>
 						</div>
-						<div class="col-md-6"><s:input id="txtAreaName"  path=""
-									 placeholder="Area Code" type="text" value="" readonly="true"></s:input>
+						<div class="col-md-6">
+						   <s:input id="txtAreaName"  path=""  placeholder="Area Name" type="text" value="" readonly="true"></s:input>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<div class="row">
 						<div class="col-md-6">
 							<label>Address Line 3:</label>
-						<s:input id="txtAddress3" path="strAddress3" 
-									placeholder="Address Line 3" type="text"></s:input>
+						<s:input id="txtAddress3" path="strAddress3" type="text"></s:input>
 						</div>
 						<div class="col-md-6">
 							<label>Landmark:</label>
-						<s:input id="txtLandMark" path="strLandmark" 
-							placeholder="Landmark" type="text" value=""></s:input>
+						<s:input id="txtLandMark" path="strLandmark" type="text" value=""></s:input>
 						</div>
 					</div>
 				</div>	
-				<div class="col-md-6">
+				<div class="col-md-4"></div>
+				
+				<div class="col-md-4">
 					<label>City Code:</label>
 					<div class="row">
 						<div class="col-md-6"><s:input id="txtCtCode" path="strCityCode" cssClass="searchTextBox" 
-							placeholder="City Code" ondblclick="funHelp('WCComCityMaster')" type="text" value="" readonly="true"></s:input>
+						       ondblclick="funHelp('WCComCityMaster')" type="text" value="" readonly="true"></s:input>
 						</div>
 						<div class="col-md-6"><s:input id="txtCityName"  path=""
-									 placeholder="City Code" type="text" value="" readonly="true"></s:input>
+									 placeholder="City name" type="text" value="" readonly="true"></s:input>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<label>State Code:</label>
 					<div class="row">
 						<div class="col-md-6"><s:input id="txtStateCode" path="strStateCode" class="searchTextBox" 
-							placeholder="State Code" ondblclick="funHelp('WCComStateMaster')" type="text" value="" readonly="true"></s:input>
+							 ondblclick="funHelp('WCComStateMaster')" type="text" value="" readonly="true"></s:input>
 						</div>
 						<div class="col-md-6"><s:input id="txtStateName"  path=""
-									 placeholder="State Code" type="text" value="" readonly="true"></s:input>
+									 placeholder="State Name" type="text" value="" readonly="true"></s:input>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4"></div>
+				
+				<div class="col-md-4">
 					<label>Region  Code:</label>
 					<div class="row">
 						<div class="col-md-6"><s:input id="txtRegionCode" path="strRegionCode" class="searchTextBox" 
-							placeholder="Region Code" ondblclick="funHelp('WCComRegionMaster')" type="text" value="" readonly="true"></s:input>
+							 ondblclick="funHelp('WCComRegionMaster')" type="text" value="" readonly="true"></s:input>
 						</div>
 						<div class="col-md-6"><s:input id="txtRegionName"  path=""
-									 placeholder="Region Code" type="text" value="" readonly="true"></s:input>
+						    placeholder="Region Name" type="text" value="" readonly="true"></s:input>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<label>Country Code:</label>
 					<div class="row">
 						<div class="col-md-6"><s:input id="txtCountryCode" path="strCountryCode" class="searchTextBox" 
-							placeholder="Country Code" ondblclick="funHelp('WCComCountryMaster')" type="text" value="" readonly="true"></s:input>
+							 ondblclick="funHelp('WCComCountryMaster')" type="text" value="" readonly="true"></s:input>
 						</div>
 						<div class="col-md-6"><s:input id="txtCountryName" readonly="true" path=""
-									 placeholder="Country Code" type="text" value="" ></s:input>
+									 placeholder="Country Name" type="text" value="" ></s:input>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4"></div>
+				
+				<div class="col-md-4">
 					<label>Telephone:</label>
 					<div class="row">
 						<div class="col-md-6"><s:input id="txtTelePhone1" path="strTelephone1" class="decimal-places numberField"
-							placeholder="Telephone"  type="text" value=""></s:input>
+							type="text" value=""></s:input>
 						</div>
 						<div class="col-md-6"><s:input id="txtTelePhone2"  path="strTelephone2" class="decimal-places numberField" 
-									 placeholder="Telephone" type="text" value=""></s:input>
+							 type="text" value=""></s:input>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<label>Fax:</label>
 					<div class="row">
 						<div class="col-md-6"><s:input id="txtFax1" path="strFax1" class="decimal-places numberField"
-							placeholder="Fax"  type="text" value=""></s:input>
+							 type="text" value=""></s:input>
 						</div>
 						<div class="col-md-6"><s:input id="txtFax2"  path="strFax2" class="decimal-places numberField" 
-									 placeholder="Fax" type="text" value=""></s:input>
+							 type="text" value=""></s:input>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-4"></div>
+				
+				<div class="col-md-2">
 					<label>PinCode:</label>
-						<s:input id="txtPinCode" path="strPin" 
-							placeholder="PinCode" type="text" class="decimal-places numberField" value=""></s:input>
+						<s:input id="txtPinCode" path="strPin" type="text" class="decimal-places numberField" value=""></s:input>
 				</div>
 			</div>
-			<div class="center">
+		
+			<div align="right" style="margin-right:34%;">
 				<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidateFields()"
-					class="form_button">Submit</button></a>
+					class="form_button">Submit</button></a>&nbsp;
 				<a href="#"><button class="btn btn-primary center-block" type="reset"
 					value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
 			</div>

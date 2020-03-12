@@ -8,15 +8,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta http-equiv="X-UA-Compatible" content="IE=8">
 
-		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 
-	 	 
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-	 
-
 <script type="text/javascript">
 	$(document).ready(function() {
 		
@@ -168,12 +159,12 @@ var fieldName;
 <%-- <tab:tabConfig /> --%>
 </head>
 <body>
-	<div class="container-fuild">
+	<div class="container">
 		<label id="formHeading">Member Profile Setup</label>
 			<s:form action="saveWebClubMemberProfileSetup.html?saddr=${urlHits}" method="POST" name="securityShell">				
 			<!-- Start of tab container -->
 			<table  class="table table-striped"
-				style="border: 0px solid black; width:100%;">
+				style="border: 0px solid black; width:50%;">
 				<tr>
 					<td style="background-color: #f5f3f394; border-style:none;">						
 							<!--  Start of Masters tab-->
@@ -230,9 +221,9 @@ var fieldName;
 				</tr>
 			</table>
 			<!-- End Of tab container -->
-			<div class="center" style="text-align:center;">
+			<div class="center" style="text-align:center;margin-right:18%;">
 				<a href="#"><button class="btn btn-primary center-block"  tabindex="3" value="Submit" onclick="" 
-					class="form_button">Submit</button></a>
+					class="form_button">Submit</button></a>&nbsp;
 				<a href="frmWebClubSecurityShell.html"><button class="btn btn-primary center-block" value="Reset" onclick="funResetField()"
 					class="form_button">Reset</button></a>
 			</div>

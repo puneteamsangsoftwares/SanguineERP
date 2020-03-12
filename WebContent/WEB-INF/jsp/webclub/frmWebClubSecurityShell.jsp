@@ -8,15 +8,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta http-equiv="X-UA-Compatible" content="IE=8">
 
-		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 
-	 	 
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-	 
-
 <script type="text/javascript">
 	$(document).ready(function() {
 
@@ -150,43 +141,39 @@ var fieldName;
 <%-- <tab:tabConfig /> --%>
 </head>
 <body>
-	<div class="container-fuild">
+	<div class="container">
 		<label id="formHeading">Security Shell</label>
 			<s:form action="saveSecurityShell.html?saddr=${urlHits}" method="POST" name="securityShell">
 				<input type="hidden" value="${urlHits}" name="saddr">
 					<div class="row transTable"> <!--  transTable --><!-- id="tab_container"  -->
-						<div class="col-md-6">
-							<label>User Code:</label><br>
-							<div class="row">
-								<div class="col-md-6">
-									<s:input  type="text" placeholder="User Code" id="strUserCode" cssClass="searchTextBox" readonly="true"
+						
+						<div class="col-md-4"><label>User Code:</label>
+						<div class="row">
+						     <div class="col-md-6">
+							     <s:input  type="text" id="strUserCode" cssClass="searchTextBox" readonly="true"
 									 path="strUserCode" ondblclick="funHelp('usermaster')" />
-								</div>
-								<div class="col-md-6">
-									<s:input  type="text" placeholder="User Code" id="UserName" readonly="true"
-									 path="strUserName" />
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<label>Like User:</label><br>
-							<div class="row">
-								<div class="col-md-6">
-									<s:input  type="text" placeholder="Like User" id="strLikeUserCode" cssClass="searchTextBox" readonly="true"
+						      </div>
+						      <div class="col-md-6">
+							     <s:input  type="text" placeholder="User Name" id="UserName" readonly="true" path="strUserName" />
+						      </div>
+						</div></div>
+						
+						<div class="col-md-4"><label>Like User:</label>
+						<div class="row">
+					        <div class="col-md-6">
+							     <s:input  type="text" id="strLikeUserCode" cssClass="searchTextBox" readonly="true"
 									 path="strLikeUserCode" ondblclick="funHelp('Likeusermaster')" />
-								</div>
-								<div class="col-md-6">
-									<s:input  type="text" placeholder="Like User" id="LikeUserName" readonly="true"
-									 path="strLikeUserName" />
-								</div>
-							</div>
-						</div>
-					</div>
+						    </div>
+						    <div class="col-md-6">
+							     <s:input  type="text" placeholder="Like User Name" id="LikeUserName" readonly="true" path="strLikeUserName" />
+						    </div>
+				         </div></div>
+				    </div>
+				    <br>
 			<!-- Start of tab container -->
-			<table  class="table table-striped"
-				style="border: 0px solid black; width:100%;">
+			<table   style="border: 0px solid black; width:60%;">
 				<tr>
-					<td style="background-color: #f5f3f394; border-style:none;">
+					<td>
 						<div id="tab_container">
 							<ul class="tabs">
 								<li class="active" data-state="tab1">Masters</li>
@@ -201,7 +188,7 @@ var fieldName;
 							<!--  Start of Masters tab-->
 
 							<div id="tab1" class="tab_content">
-								<table border="1" class="myTable">
+								<table border="1" class="myTable" style="background-color:#fafbfb;">
 									<thead>
 										<tr>
 											<th>Form Name</th>
@@ -380,15 +367,13 @@ var fieldName;
 				</tr>
 			</table>
 			<!-- End Of tab container -->
-			<div class="center" style="text-align:center;">
+			<div align="center" style="margin-right:-3%;">
 				<a href="#"><button class="btn btn-primary center-block"  tabindex="3" value="Submit" onclick="" 
-					class="form_button">Submit</button></a>
+					class="form_button">Submit</button></a>&nbsp;
 				<a href="frmWebClubSecurityShell.html"><button class="btn btn-primary center-block" value="Reset" onclick="funResetField()"
 					class="form_button">Reset</button></a>
 			</div>
-			
-			
 			</s:form>
-	</div> 
+	   </div> 
 </body>
 </html>

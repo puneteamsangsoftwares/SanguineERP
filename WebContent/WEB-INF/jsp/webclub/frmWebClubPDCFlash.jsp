@@ -7,12 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
-		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 	 
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		
 <style>
 .transTable td{
 	border-style:none;}
@@ -372,7 +367,7 @@
 
 </head>
 <body>
-	<div class="container-fuild">
+	<div class="container">
 		<label id="formHeading">PDC Flash</label>
 			<s:form name="WebClubPDC" method="POST" action="saveWebClubPDC.html">
 					<table class="masterTable">
@@ -382,28 +377,29 @@
 									<div id="tab_container" style="height: auto;">
 										<div class="transTable" style="padding:10px; overflow-x: hidden; overflow-y: hidden;">
 												<div class="row">
-													<div class="col-md-3">
-													<label>From Date:</label><s:input id="txtFromDate"
+													<div class="col-md-2">
+													<label>From Date:</label><s:input id="txtFromDate" style="width:70%;"
 														 type="text" cssClass="calenderTextBox" path="dteFromDate"></s:input> <s:errors path="dteFromDate"></s:errors>
 													</div>
-													<div class="col-md-3">
-													<label id="lblCityName">Cheque Type:</label><select id="cmbChequeType" type="text" path="strChequeType" >
+													<div class="col-md-2">
+													<label id="lblCityName">Cheque Type:</label><select id="cmbChequeType" type="text" style="width:auto;" path="strChequeType" >
 														<option selected="selected">Received</option>
 														<option>Issued</option>
 													</select>
 													</div>
-													<div class="col-md-3">
-													<label>To Date:</label><s:input id="txtToDate"  cssClass="calenderTextBox"
+													<div class="col-md-8"></div>
+													<div class="col-md-2">
+													<label>To Date:</label><s:input id="txtToDate"  cssClass="calenderTextBox" style="width:70%;"
 														type="text" path="dteToDate" /><s:errors path="dteToDate"></s:errors>
 													</div>
-													<div class="col-md-3">
+													<div class="col-md-2">
 													<label>Member Code:</label><s:input id="txtMemCode" class="searchTextBox" ondblclick="funHelp('WCmemProfileCustomer');" readonly="true"
 														type="text" path="strMemCode" />
 													</div>
 												</div>
-												<div class="center">
+												<div align="center" style="margin-right: 58%;">
 													<a href="#"><button class="btn btn-primary center-block" type="text" 
-									  					class="form_button" id="btnExcecute" onclick="return btnExecute()">Execute</button></a>
+									  					class="form_button" id="btnExcecute" onclick="return btnExecute()">Execute</button></a>&nbsp;
 													<a href="#"><button class="btn btn-primary center-block" type="text"  
 						  								class="form_button" id="btnExporte" onclick="return btnExport()">Export</button></a>
 												</div>

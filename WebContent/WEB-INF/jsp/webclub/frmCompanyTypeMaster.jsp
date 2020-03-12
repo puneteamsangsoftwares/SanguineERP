@@ -8,20 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
 <meta http-equiv="X-UA-Compatible" content="IE=8">
-	 	<%-- <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/materialdesignicons.min.css"/>" />
-	  	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.css"/>" /> --%>
-		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
-	 	<%-- <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.css"/>" /> --%>
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" />
-	 	<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
-	 	 
 	 	
-	 	
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
-		<%-- <script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.js"/>"></script>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.js"/>"></script> --%>
-		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
-	 
 <script type="text/javascript">
 	var fieldName;
 	
@@ -129,37 +116,29 @@ function funResetFields()
 		<label id="formHeading">Company Type Master</label>
 		<s:form name="WebClubCompanyTypeMaster" method="POST" action="saveWebClubCompanyTypeMaster.html">
 		<div class="row masterTable">
-			<div class="col-md-6">
-				<label>Company Type:</label><br>
-					<div class="row">
-						<div class="col-md-6"><s:input id="textCompanyTypeCode" ondblclick="funHelp('WCCompanyTypeMaster')" cssClass="searchTextBox"  readonly="true"
-							 placeholder="Company Type" type="text" required="true" path="strCompanyTypeCode" ></s:input>
+			            <div class="col-md-2"><label>Company Type:</label><br>
+						   <s:input id="textCompanyTypeCode" ondblclick="funHelp('WCCompanyTypeMaster')" cssClass="searchTextBox"  readonly="true"
+							    type="text" required="true" path="strCompanyTypeCode" ></s:input>
 						</div>
 					
-						<div class="col-md-6"><s:input id="textstrCompanyName" path="strCompanyName" required="true"
-				              placeholder="Company Type" type="text" ></s:input>
+						<div class="col-md-2"><br>
+						   <s:input id="textstrCompanyName" path="strCompanyName" required="true"
+				              placeholder="Company Name" type="text" ></s:input>
 						</div>
-					</div>
-			</div>
-			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-6">
-						<label>Min Annual TurnOvers:</label>
-							<s:input id="textAnnualTurnOver" path="strAnnualTurnOver" required="true"
-				             	type="text" placeholder="Minimum Annual TurnOvers"></s:input>	
-				     </div>
-				     <div class="col-md-6">
-						<label>Min Capital & Reserved:</label>
-						<s:input id="textCapitalAndReserved" path="strCapitalAndReserved" required="true"
-				            type="text" placeholder="Minimum Capital and Reserved"></s:input>	
-				     </div>
-				</div>
-			</div>		
-			
-		</div>
-		<div class="center">
+					    <div class="col-md-8"></div>
+					    
+					    <div class="col-md-2"><label>Min Annual TurnOvers:</label>
+							<s:input id="textAnnualTurnOver" path="strAnnualTurnOver" required="true" type="text"></s:input>	
+				       </div>
+				    
+				       <div class="col-md-2"><label>Min Capital & Reserved:</label>
+						    <s:input id="textCapitalAndReserved" path="strCapitalAndReserved" required="true" type="text"></s:input>	
+				       </div>
+	   </div>
+	   <br>
+		<div align="center" style="margin-right:54%;">
 			<a href="#"><button class="btn btn-primary center-block" tabindex="3" value="Submit" onclick=""
-				class="form_button">Submit</button></a>
+				class="form_button">Submit</button></a>&nbsp;
 			<a href="#"><button class="btn btn-primary center-block" type="reset"
 				value="Reset" class="form_button" onclick="funResetField()" >Reset</button></a>
 		</div>

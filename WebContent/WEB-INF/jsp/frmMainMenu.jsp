@@ -37,9 +37,9 @@
 		<c:forEach items="${desktop}" var="draw1" varStatus="status1">
 			<div class="mainMenuIcon">
 				<div style="padding-left: 30%; padding-right: 10%">
-				<a href="${draw1.strRequestMapping}?saddr=1"><img id="Desktop" src="../${pageContext.request.contextPath}/resources/images/${draw1.strImgName}" title="${draw1.strFormDesc}" ></a>
+				    <a href="${draw1.strRequestMapping}?saddr=1"><img id="Desktop" src="../${pageContext.request.contextPath}/resources/images/${draw1.strImgName}" title="${draw1.strFormDesc}"></a>
 				</div>
-				<div style=" text-align: center;font-size:0.7em;font-weight:bold;">${draw1.strFormDesc}</div>
+				    <div style=" text-align: center;font-size:0.7em;font-weight:bold;">${draw1.strFormDesc}</div>
 			</div>
 		</c:forEach>
 	</body>
