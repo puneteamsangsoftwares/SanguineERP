@@ -1,5 +1,9 @@
 package com.sanguine.webbanquets.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -18,14 +22,8 @@ import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webbanquets.bean.clsEquipmentBean;
 import com.sanguine.webbanquets.model.clsEquipmentModel;
 import com.sanguine.webbanquets.service.clsEquipmentService;
-import com.sanguine.webclub.model.clsWebClubMemberProfileModel;
-import com.sanguine.webclub.model.clsWebClubRegionMasterModel;
 import com.sanguine.webpms.dao.clsDepartmentMasterDao;
 import com.sanguine.webpms.model.clsDepartmentMasterModel;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 public class clsEquipmentController{
@@ -122,10 +120,10 @@ public class clsEquipmentController{
 		/*lastNo = objGlobalFunctionsService.funGetLastNo("tblequipment", "Equipment Master", "intId", clientCode);*/
 		lastNo = objGlobalFunctionsService.funGetLastNoModuleWise("tblequipment", "Equipment Master","intId",clientCode,"3-WebPMS");
 		String strEquipmentCode = "EC" + String.format("%06d", lastNo);
-		objModel.setDteDateCreated(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-		objModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+		//objModel.setDteDateCreated(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+		//objModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 		objModel.setStrClientCode(clientCode);
-		objModel.setStrEquipmentCode(objBean.getStrEquipmentCode());
+		//objModel.setStrEquipmentCode(objBean.getStrEquipmentCode());
 		objModel.setStrEquipmentName(objBean.getStrEquipmentName());
 		objModel.setStrUserCreated(userCode);
 		objModel.setStrUserEdited(userCode);
@@ -139,8 +137,8 @@ public class clsEquipmentController{
 		
 		else
 		{
-			objModel.setDteDateCreated(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-			objModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+			//objModel.setDteDateCreated(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+			//objModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 			objModel.setStrClientCode(clientCode);
 			objModel.setStrEquipmentCode(objBean.getStrEquipmentCode());
 			objModel.setStrEquipmentName(objBean.getStrEquipmentName());

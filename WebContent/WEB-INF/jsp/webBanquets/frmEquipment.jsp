@@ -163,7 +163,7 @@
 				</div>
 		
 			     <div class="col-md-2"><label>Equipment Name</label>
-				       <s:input type="text" path="strEquipmentName" id="txtEquipmentName"/> 
+				       <s:input type="text" path=""  id="txtEquipmentName"/><!--  path="strEquipmentName" -->
 				</div>
 				
 				<div class="col-md-1"><label style="width:150%;">Equipment Rate</label>

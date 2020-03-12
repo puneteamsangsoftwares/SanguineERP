@@ -35,4 +35,28 @@
   <session-config>
     <session-timeout>100</session-timeout>
   </session-config>
+  
+ <!--  
+   Prior to Servlet 3.0 define either an error-code or an exception-type but not both
+ <error-page>
+  Define error page to react on Java exception
+  <exception-type>java.lang.Throwable</exception-type>
+  The location of the resource to display in response to the error will point to the Spring MVC handler method
+  <location>/frmError.jsp</location>
+ </error-page>
+  
+ <error-page>
+  <error-code>404</error-code>
+  <location>/frmError.jsp</location>
+ </error-page> -->
+   
+ <!-- With Servlet 3.0 and above general error page is possible -->
+ <!-- <error-page>
+  <location>/frmError.jsp</location>
+ </error-page>
+  -->
+ <!-- 
+  <error-page>
+    <location>/errors</location>
+</error-page> -->
 </web-app>

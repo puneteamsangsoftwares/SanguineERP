@@ -683,6 +683,16 @@
     </bean>
     
     
+    <bean class = "org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+      <property name = "exceptionMappings">
+         <props>
+            <prop key = "com.sanguine.util">
+               frmError
+            </prop>
+         </props>
+      </property>
+      <property name = "defaultErrorView" value = "error"/>
+   </bean>
    
    <!-- Configuring interceptors based on URI -->
 	<!-- <interceptors>
@@ -695,6 +705,7 @@
 <mvc:interceptors>
     <bean id="clsRequestInterceptor" class="com.sanguine.util.clsRequestInterceptor"/>
 </mvc:interceptors>
+
 
 </beans>
 

@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -28,6 +29,7 @@ import com.sanguine.service.clsLocationMasterService;
 import com.sanguine.service.clsSetupMasterService;
 import com.sanguine.service.clsTreeMenuService;
 import com.sanguine.service.clsUserMasterService;
+import com.sanguine.util.SpringException;
 import com.sanguine.util.clsClientDetails;
 
 @Controller
@@ -44,6 +46,7 @@ public class clsClientLoginController {
 	String applicationType;
 
 	@RequestMapping(value = "/validateClient", method = RequestMethod.POST)
+	@ExceptionHandler({SpringException.class})
 	public ModelAndView login(HttpServletRequest req, @Valid clsClientBean objClientBean, BindingResult result, ModelMap map) {
 		ModelAndView objMV = null;
 		try {
