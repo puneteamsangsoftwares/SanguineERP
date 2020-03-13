@@ -86,11 +86,14 @@ public class clsRoomTypeMasterController {
 
 	@RequestMapping(value = "/loadRoomTypeMasterData", method = RequestMethod.GET)
 	public @ResponseBody clsRoomTypeMasterModel funFetchRoomTypeMasterData(@RequestParam("roomCode") String roomCode, HttpServletRequest req) {
-		clsRoomTypeMasterModel objRoomTypeMasterModel = null;
+		clsRoomTypeMasterModel objRoomTypeMasterModel = new clsRoomTypeMasterModel();
 
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		List listRoomData = objRoomTypeMasterDao.funGetRoomTypeMaster(roomCode, clientCode);
-		objRoomTypeMasterModel = (clsRoomTypeMasterModel) listRoomData.get(0);
+		if(listRoomData.size()>0 && listRoomData!=null)
+		{
+			objRoomTypeMasterModel = (clsRoomTypeMasterModel) listRoomData.get(0);
+		}
 		return objRoomTypeMasterModel;
 	}
 

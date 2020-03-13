@@ -1807,6 +1807,41 @@ padding-left:1px;
 					 	
 						}
 					 
+					 
+					 function funOpenExportImport()			
+						{
+							var transactionformName="frmCheckIn";
+							//var guestCode=$('#txtGuestCode').val();
+							
+							
+						//	response=window.showModalDialog("frmExcelExportImport.html?formname="+transactionformName+"&strLocCode="+locCode,"","dialogHeight:500px;dialogWidth:500px;dialogLeft:550px;");
+							response=window.open("frmExcelExportImport.html?formname="+transactionformName,"dialogHeight:500px;dialogWidth:500px;dialogLeft:550px;");
+							var timer = setInterval(function ()
+								    {
+									if(response.closed)
+										{
+											if (response.returnValue != null)
+											{
+                                                var roomNo=" ",roomDesc=" ",extraBedCode=" ",extraBedDesc=" ",payee=" ",roomTypeCode=" ";
+												if(null!=response)
+										        {
+													response=response.returnValue;
+													$.each(response, function(i,item)
+													{
+														var GuestName=item.strFirstName +" "+item.strMiddleName +" "+item.strLastName;
+														 funAddDetailsRow(GuestName,item.strGuestCode,item.lngMobileNo,roomNo,roomDesc,extraBedCode,extraBedDesc,payee,rTypeCode);							
+													});											    	 
+										        }
+							
+											}
+											clearInterval(timer);
+										}
+								    }, 500);
+							
+							
+							
+						}
+					 
 			</script>
 			</head>
 <body>
@@ -1893,7 +1928,11 @@ padding-left:1px;
 			     <s:checkbox id="txtDontApplyTax" path="strDontApplyTax" value="Y" />
 			</div>
 	        
-	        <div class="col-md-2"><input type="button" value="Add" class="btn btn-primary center-block" class="smallButton" onclick='return funAddRow()' style="margin-top:16%"/>
+<!-- 	        <div class="col-md-2"><input type="button" value="Add" class="btn btn-primary center-block" class="smallButton" onclick='return funAddRow()' style="margin-top:16%"/>
+ -->	        <div class="col-md-12" align="center"><a onclick="funOpenExportImport()" style="margin-right: -75%;"
+					     href="javascript:void(0);"><u>Export/Import</u></a>
+					<!-- <a id="baseUrl" href="#"> Attach Documents</a> -->
+					</div>
 	        </div>
 		
 			<div class="dynamicTableContainer" style="height: 300px; width:100%;">

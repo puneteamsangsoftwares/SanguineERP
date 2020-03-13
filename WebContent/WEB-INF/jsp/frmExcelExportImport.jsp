@@ -153,7 +153,7 @@
 				break;
 				
 			case "frmGuestMaster" :
-				window.location.href=getContextPath()+"/GuestMasterExport.html";	
+				window.location.href=getContextPath()+"/GuestMasterExport.html?formname="+transactionformName;	
 				break;
 				
 			case "frmRoomMaster" :
@@ -168,6 +168,11 @@
 			case "frmProductMaster" :
 				window.location.href=getContextPath()+"/ProductMasterExport.html";
 				break;
+				
+			case "frmCheckIn" :
+				window.location.href=getContextPath()+"/GuestMasterExport.html?formname="+transactionformName;	
+				break;	
+				
 				
 			/* case "frmCheckInCheckOutList" :
 				window.location.href=getContextPath()+"/CheckInCheckOutList.html";	

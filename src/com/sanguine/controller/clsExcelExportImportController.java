@@ -836,6 +836,10 @@ public class clsExcelExportImportController {
 			case "frmProductMaster":
 			    list = funProductList(worksheet,request,excelfile);
 			    break;
+			    
+			case "frmCheckIn":
+				list = funGuestList(worksheet, request);
+				break;   
 			}
 		} catch (Exception e) {
 			logger.error(e);
@@ -1817,7 +1821,7 @@ public class clsExcelExportImportController {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/GuestMasterExport", method = RequestMethod.GET)
-	public ModelAndView funPMSGuestExcelExport(HttpServletRequest request) {
+	public ModelAndView funPMSGuestExcelExport(@RequestParam("formname") String strFormName,HttpServletRequest request) {
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
 		
 		//String LocCode = "";
@@ -1829,39 +1833,43 @@ public class clsExcelExportImportController {
 		List ExportList = new ArrayList();
 		String[] ExcelHeader = header.split(",");
 		ExportList.add(ExcelHeader);
-		try{
-		String sql="SELECT a.strGuestCode,a.strFirstName,a.strMiddleName,a.strLastName,a.strGender,a.lngMobileNo "
-				+ "FROM tblguestmaster a "
-				+ "WHERE a.strClientCode='"+clientCode+"';";
-	            
-		list=objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
-		if(!list.isEmpty())
-	   {
-			for (int i = 0; i < list.size(); i++)
-			{
-	             Object[] obj = (Object[]) list.get(i);
-	             DataGuestList=new ArrayList<>();
-	             DataGuestList.add(obj[0].toString());
-	             DataGuestList.add(obj[1].toString());
-	             DataGuestList.add(obj[2].toString());
-	             DataGuestList.add(obj[3].toString());
-	             DataGuestList.add(obj[4].toString());
-	             long mobNo = new Double(Double.parseDouble(obj[5].toString())).longValue(); 
-	            		 
-	             DataGuestList.add(mobNo);	           
-	            
+		if(strFormName.equalsIgnoreCase("frmGuestMaster"))
+		{
+			try{
+				String sql="SELECT a.strGuestCode,a.strFirstName,a.strMiddleName,a.strLastName,a.strGender,a.lngMobileNo "
+						+ "FROM tblguestmaster a "
+						+ "WHERE a.strClientCode='"+clientCode+"';";
+			            
+				list=objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+				if(!list.isEmpty())
+			   {
+					for (int i = 0; i < list.size(); i++)
+					{
+			             Object[] obj = (Object[]) list.get(i);
+			             DataGuestList=new ArrayList<>();
+			             DataGuestList.add(obj[0].toString());
+			             DataGuestList.add(obj[1].toString());
+			             DataGuestList.add(obj[2].toString());
+			             DataGuestList.add(obj[3].toString());
+			             DataGuestList.add(obj[4].toString());
+			             long mobNo = new Double(Double.parseDouble(obj[5].toString())).longValue(); 
+			            		 
+			             DataGuestList.add(mobNo);	           
+			            
 
-	             
-	             AllGuestlist.add(DataGuestList);
-			}
+			             
+			             AllGuestlist.add(DataGuestList);
+					}
+				}
+				//
+				
+				}
+				catch(Exception ex){
+					ex.printStackTrace();
+					}
+				ExportList.add(AllGuestlist);
 		}
-		//
 		
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
-			}
-		ExportList.add(AllGuestlist);
 		
 		return new ModelAndView("excelView", "stocklist", ExportList);
 	}
@@ -1962,7 +1970,7 @@ public class clsExcelExportImportController {
 	}
 @SuppressWarnings({ "rawtypes", "unchecked" })
 	public List funGuestList(HSSFSheet worksheet, HttpServletRequest request) {
-		List listGuestlist = new ArrayList<>();
+		List<clsGuestMasterHdModel> listGuestlist = new ArrayList<>();
 		int RowCount = 0;
 		//String prodCode = "";
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
@@ -2036,7 +2044,7 @@ public class clsExcelExportImportController {
 				
 				
 			}
-			funAddGuestData(listData,clientCode,userCode);
+			funAddGuestData(listData,clientCode,userCode,listGuestlist);
 
 		} catch (Exception e) {
 			logger.error(e);
@@ -2049,7 +2057,7 @@ public class clsExcelExportImportController {
 		return listGuestlist;
 	}
 
-private void funAddGuestData(List listData, String clientCode, String userCode) {
+private void funAddGuestData(List listData, String clientCode, String userCode,List<clsGuestMasterHdModel> listGuestlist) {
 	
 	
 	for (int i = 0; i < listData.size(); i++) {
@@ -2154,6 +2162,7 @@ private void funAddGuestData(List listData, String clientCode, String userCode) 
 			objGuestMasterModel.setStrClientCode(clientCode);
 			
 			objGuestMasterDao.funAddUpdateGuestMaster(objGuestMasterModel);
+			listGuestlist.add(objGuestMasterModel);
 			
 		
 		}
