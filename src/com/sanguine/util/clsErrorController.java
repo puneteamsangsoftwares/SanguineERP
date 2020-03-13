@@ -48,6 +48,7 @@ public class clsErrorController {
 	  return httpStatus.getReasonPhrase();
 	 }
 	
+	 
 	/*
 	 * @RequestMapping(value ="/errors",method = RequestMethod.GET) public
 	 * ModelAndView funOpenForm(@ModelAttribute("command") clsPropBean bean,

@@ -123,10 +123,10 @@ public class clsEquipmentController{
 		/*lastNo = objGlobalFunctionsService.funGetLastNo("tblequipment", "Equipment Master", "intId", clientCode);*/
 		lastNo = objGlobalFunctionsService.funGetLastNoModuleWise("tblequipment", "Equipment Master","intId",clientCode,"3-WebPMS");
 		String strEquipmentCode = "EC" + String.format("%06d", lastNo);
-		//objModel.setDteDateCreated(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-		//objModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+		objModel.setDteDateCreated(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+		objModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 		objModel.setStrClientCode(clientCode);
-		//objModel.setStrEquipmentCode(objBean.getStrEquipmentCode());
+		objModel.setStrEquipmentCode(objBean.getStrEquipmentCode());
 		objModel.setStrEquipmentName(objBean.getStrEquipmentName());
 		objModel.setStrUserCreated(userCode);
 		objModel.setStrUserEdited(userCode);
@@ -140,8 +140,8 @@ public class clsEquipmentController{
 		
 		else
 		{
-			//objModel.setDteDateCreated(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
-			//objModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+			objModel.setDteDateCreated(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+			objModel.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
 			objModel.setStrClientCode(clientCode);
 			objModel.setStrEquipmentCode(objBean.getStrEquipmentCode());
 			objModel.setStrEquipmentName(objBean.getStrEquipmentName());
