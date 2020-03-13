@@ -1816,6 +1816,7 @@ padding-left:1px;
 							
 						//	response=window.showModalDialog("frmExcelExportImport.html?formname="+transactionformName+"&strLocCode="+locCode,"","dialogHeight:500px;dialogWidth:500px;dialogLeft:550px;");
 							response=window.open("frmExcelExportImport.html?formname="+transactionformName,"dialogHeight:500px;dialogWidth:500px;dialogLeft:550px;");
+						
 							var timer = setInterval(function ()
 								    {
 									if(response.closed)
