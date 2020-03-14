@@ -20,6 +20,9 @@
 padding-left:1px;
 
 }
+.dynamicTableContainer{
+overflow-x: hidden;
+}
 
 </style>
 <script type="text/javascript">
@@ -1503,9 +1506,9 @@ padding-left:1px;
 						        	else
 						        	{  
 						        		if(response.strStatus=='Blocked')
-						        			{
-						        				alert("This room is blocked Please select Different Room");
-						        			}
+					        			{
+					        				alert("This room is blocked Please select Different Room");
+					        			}
 						        		else
 					        			{
 											if(document.getElementById("strRoomNo."+gridHelpRow).value!="")
@@ -1552,34 +1555,44 @@ padding-left:1px;
 								    			 $( "#tblCheckInDetails" ).load( "your-current-page.html #tblCheckInDetails" );
 											}
 							        	}
-						        		
 						        		globalRoomNo=new Map();
 										globalNoOfGuest=new Map();
+						        		var RoomNoType="";
+						        		
+						        		
 						        		var table = document.getElementById("tblCheckInDetails");
-						 				var rowCount = table.rows.length;									
-						 					for(var i=0;i<rowCount;i++)
-						 					{
-						 						var name=table.rows[i].cells[0].children[0].defaultValue;	
-						 						var roomno=table.rows[i].cells[3].children[0].value;
-						 						
+					 				    var rowCount = table.rows.length;									
+					 					for(var i=0;i<rowCount;i++)
+					 					{
+					 						var name=table.rows[i].cells[0].children[0].defaultValue;	
+					 						var roomno=table.rows[i].cells[3].children[0].value;
+					 						var roomTypeCode=table.rows[i].cells[11].children[0].value;
+					 						if(roomno !="")
+				 							{
+						 						RoomNoType +=","+roomTypeCode +" "+roomno;
 
-						 						if(roomno!='')
-						 						{
-						 							if(!globalRoomNo.has(roomno))
-						 							{
-						 								globalRoomNo.set(roomno,roomno);									
-						 							}
-						 						}
-						 						
+				 							}
+					 						
 
-						 						if(!globalNoOfGuest.has(name))
-						 							{
-						 								globalNoOfGuest.set(name,name);
-						 							}
-						 					}
+					 						if(roomno!='')
+					 						{
+					 							if(!globalRoomNo.has(roomno))
+					 							{
+					 								globalRoomNo.set(roomno,roomno);									
+					 							}
+					 						}
+					 						
+
+					 						if(!globalNoOfGuest.has(name))
+				 							{
+				 								globalNoOfGuest.set(name,name);
+				 							}
+					 					}
 						 					 
 						 				    $("#txttotrooms").val(globalRoomNo.size);
 						 				  	$("#txttotguest").val(globalNoOfGuest.size);
+						 				  //	alert(RoomNoType);
+						 				  funFillTarrifData(RoomNoType);
 						        		
 						        	}
 								},
@@ -1842,7 +1855,38 @@ padding-left:1px;
 							
 							
 						}
-					 
+					 function funFillTarrifData(RoomNoType)
+					 {
+						 var arrivalDate= $("#txtArrivalDate").val();
+						 var departureDate=$("#txtDepartureDate").val();
+						 $.ajax({
+								type : "POST",
+								url : getContextPath()+ "/loadRoomRateCheckIn.html?arrivalDate="+arrivalDate+"&departureDate="+departureDate+"&roomDescList="+RoomNoType,
+							    dataType: "json",
+						        async:false,
+						        success: function(response)
+						        {
+						        	funAddRommRateDtl(response);
+								},
+								error: function(jqXHR, exception){
+									if (jqXHR.status === 0) {
+						                alert('Not connect.n Verify Network.');
+						            } else if (jqXHR.status == 404) {
+						                alert('Requested page not found. [404]');
+						            } else if (jqXHR.status == 500) {
+						                alert('Internal Server Error [500].');
+						            } else if (exception === 'parsererror') {
+						                alert('Requested JSON parse failed.');
+						            } else if (exception === 'timeout') {
+						                alert('Time out error.');
+						            } else if (exception === 'abort') {
+						                alert('Ajax request aborted.');
+						            } else {
+						                alert('Uncaught Error.n' + jqXHR.responseText);
+						            }
+								}
+							});
+					 }
 			</script>
 			</head>
 <body>

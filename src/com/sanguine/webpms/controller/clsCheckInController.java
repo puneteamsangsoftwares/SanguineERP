@@ -12,6 +12,9 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -33,6 +36,7 @@ import com.sanguine.webpms.bean.clsTaxCalculation;
 import com.sanguine.webpms.bean.clsTaxProductDtl;
 import com.sanguine.webpms.dao.clsExtraBedMasterDao;
 import com.sanguine.webpms.dao.clsGuestMasterDao;
+import com.sanguine.webpms.dao.clsRoomTypeMasterDao;
 import com.sanguine.webpms.dao.clsWalkinDao;
 import com.sanguine.webpms.dao.clsWebPMSDBUtilityDao;
 import com.sanguine.webpms.model.clsCheckInDtl;
@@ -51,6 +55,7 @@ import com.sanguine.webpms.model.clsReservationHdModel;
 import com.sanguine.webpms.model.clsReservationRoomRateModelDtl;
 import com.sanguine.webpms.model.clsRoomMasterModel;
 import com.sanguine.webpms.model.clsRoomPackageDtl;
+import com.sanguine.webpms.model.clsRoomTypeMasterModel;
 import com.sanguine.webpms.model.clsWalkinHdModel;
 import com.sanguine.webpms.model.clsWalkinRoomRateDtlModel;
 import com.sanguine.webpms.service.clsCheckInService;
@@ -159,7 +164,8 @@ public class clsCheckInController {
 	
 	@Autowired
 	private clsPostRoomTerrifController objPostRoomTerrif;
-	
+	@Autowired
+	private clsRoomTypeMasterDao objRoomTypeMasterDao;
 
 	@Autowired
 	private clsPMSGroupBookingService objPMSGroupBookingService;
@@ -1900,5 +1906,125 @@ public class clsCheckInController {
 				}
 			}
 		}
+	}
+	
+	@RequestMapping(value = "/loadRoomRateCheckIn", method = RequestMethod.POST)
+	public @ResponseBody List funLoadRoomRate(String arrivalDate, String departureDate,String roomDescList, HttpServletRequest req) throws ParseException {
+		
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		String strPMSDate = req.getSession().getAttribute("PMSDate").toString();
+		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
+		String arrvDate=objGlobal.funGetDate("yyyy-MM-dd", arrivalDate);
+		String deptDate=objGlobal.funGetDate("yyyy-MM-dd", departureDate);
+		
+		List<List> returnList=new ArrayList();
+		List listRoomCode = new ArrayList();
+        Map<String,List> mapRoom= new HashMap();
+		String fromDate = req.getParameter("arrivalDate");
+		String toDate = req.getParameter("departureDate");
+		DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
+//		DateTimeFormatter formatter = DateTimeFormatter.BASIC_ISO_DATE;
+		LocalDate localArrvDate = dtf.parseLocalDate(arrvDate);
+		roomDescList=roomDescList.substring(1);
+		LocalDate localDdeptDate = dtf.parseLocalDate(deptDate);
+		clsPropertySetupHdModel objPropertySetupModel= objPropertySetupService.funGetPropertySetup(propertyCode, clientCode);
+		String roomCode="";
+		String roomNumber="";
+		int cntRoom = 0;
+		if(roomDescList!="")
+		{
+			String[] roomCodeList = roomDescList.split(",");
+			for(int i=0; i<roomCodeList.length; i++)
+			{
+				String[] roomTypeRoomNo=roomCodeList[i].split(" ");
+				roomCode=roomTypeRoomNo[0];
+				roomNumber=roomTypeRoomNo[1];
+				if(!(listRoomCode.contains(roomCode) &&listRoomCode.contains(roomNumber)) )
+				{
+					for(int j=0;j<roomCodeList.length;j++)
+					{
+						String[] roomTypeRoomNumber=roomCodeList[j].split(" ");
+						if(roomCode.equalsIgnoreCase(roomTypeRoomNumber[0]) && roomNumber.equalsIgnoreCase(roomTypeRoomNumber[1]))
+						{
+							cntRoom++;
+						}
+		}
+//		clsRoomMasterModel objRoomMaster=objRoomMasterService.funGetRoomMaster(roomCode, clientCode);
+//		String roomType="";
+//		if(!objRoomMaster.getStrRoomTypeCode().equals(""))
+//		{
+//			roomType=objRoomMaster.getStrRoomTypeCode();
+//		}
+		List listRoomData = objRoomTypeMasterDao.funGetRoomTypeMaster(roomCode, clientCode);
+		double roomRate=0.0;
+		String roomTypedesc="";
+		if(null!=listRoomData && listRoomData.size()>0)
+		{
+			clsRoomTypeMasterModel objRoomTypeMasterModel = (clsRoomTypeMasterModel) listRoomData.get(0);
+			if(objPropertySetupModel.getStrRatepickUpFrom().equalsIgnoreCase("Rate Management"))
+			{
+				roomRate = objGlobal.funGetDblRoomTariffFromRateManagement(roomCode,cntRoom,strPMSDate,clientCode);
+			}
+			else
+			{
+				
+				if(cntRoom==1)
+				{
+					roomRate=objRoomTypeMasterModel.getDblRoomTerrif();	
+				}
+				else if(cntRoom==2)
+				{
+					roomRate=objRoomTypeMasterModel.getDblDoubleTariff();	
+				}
+				else 
+				{
+					roomRate=objRoomTypeMasterModel.getDblTrippleTariff();	
+				}
+			}
+			
+			
+			
+			roomTypedesc=objRoomTypeMasterModel.getStrRoomTypeDesc();
+		}
+		
+		for (LocalDate date = localArrvDate;(date.isBefore(localDdeptDate)|| date.isEqual(localDdeptDate)); date = date.plusDays(1))
+		{
+			
+		    if(mapRoom.containsKey(date.toString() +"!"+roomTypedesc))
+		    {
+		    	List listRoom=mapRoom.get(date.toString() +"!"+roomTypedesc);
+		    	double rate=Double.parseDouble(listRoom.get(1).toString());
+		    	listRoom.remove(1);
+		    	listRoom.add(1, rate+roomRate);
+		    	
+		    }
+		    else
+		    {
+		    	
+		    	List listRoomRate=new ArrayList();
+		    	listRoomRate.add(date.toString());
+				listRoomRate.add(roomRate);
+				listRoomRate.add(roomTypedesc);
+				listRoomRate.add(roomCode);	
+				mapRoom.put(date.toString() +"!"+roomTypedesc,listRoomRate);
+				
+		    }
+			
+			
+			
+		}
+		listRoomCode.add(roomCode);
+		listRoomCode.add(roomNumber);
+		cntRoom=0;
+		}
+		
+		}
+			for(Map.Entry<String, List> entry:mapRoom.entrySet())
+			{
+				returnList.add(entry.getValue());
+			}
+			
+		}
+		return returnList;
 	}
 }
