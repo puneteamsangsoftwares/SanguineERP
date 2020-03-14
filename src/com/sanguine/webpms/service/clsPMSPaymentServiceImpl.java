@@ -134,9 +134,11 @@ public class clsPMSPaymentServiceImpl implements clsPMSPaymentService {
 						double balanceAmt=Double.parseDouble(listReceipt.get(0).toString());
 						if(objBillHdModel.getDblGrandTotal()-balanceAmt-objPaymentBean.getDblReceiptAmt()==0.0)
 							objBillHdModel.setStrBillSettled("Y");
+							
 						else
 							objBillHdModel.setStrBillSettled("N");
 					}
+					objBillHdModel.setStrRemark("");
 					objBillService.funAddUpdateBillHd(objBillHdModel);
 				}
 			}

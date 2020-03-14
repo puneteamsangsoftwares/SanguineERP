@@ -150,7 +150,8 @@ public class clsSplitBillController {
 							objBillHdModel.setListBillDtlModels(tempDtl);
 							// objBillHdModel.setSetBillDtlModels(tempDtl);
 							objBillHdModel.setDblGrandTotal(grandAmt);
-							objBillService.funAddUpdateBillHd(objBillHdModel);
+							objBillHdModel.setStrRemark("");
+//							objBillService.funAddUpdateBillHd(objBillHdModel);
 							flgDeleteMainHdData = true;
 							splitBillCodes += objBillHdModel.getStrBillNo() + ",";
 							i++;
@@ -184,6 +185,7 @@ public class clsSplitBillController {
 						objBillHdModel.setListBillDtlModels(tempDtl);
 						// objBillHdModel.setSetBillDtlModels(tempDtl);
 						objBillHdModel.setDblGrandTotal(grandAmt);
+						objBillHdModel.setStrRemark("");
 						objBillService.funAddUpdateBillHd(objBillHdModel);
 						flgDeleteMainHdData = true;
 						splitBillCodes += objBillHdModel.getStrBillNo() + ",";
@@ -254,6 +256,7 @@ public class clsSplitBillController {
 							objBillHdModel.setDblGrandTotal(objBillHdModel.getDblGrandTotal() - grandAmtRest);
 							objBillHdModel.setListBillDtlModels(tempDtl);
 							// objBillHdModel.setSetBillDtlModels(tempDtl);
+							objBillHdModel.setStrRemark("");
 							objBillService.funAddUpdateBillHd(objBillHdModel);
 							flgDeleteMainHdData = true;
 							splitBillCodes += objBillHdModel.getStrBillNo() + ",";
@@ -296,6 +299,7 @@ public class clsSplitBillController {
 						objBillHdModel.setDblGrandTotal(objBillHdModel.getDblGrandTotal() - grandAmtRest);
 						objBillHdModel.setListBillDtlModels(tempDtl);
 						// objBillHdModel.setSetBillDtlModels(tempDtl);
+						objBillHdModel.setStrRemark("");
 						objBillService.funAddUpdateBillHd(objBillHdModel);
 						flgDeleteMainHdData = true;
 						splitBillCodes += objBillHdModel.getStrBillNo() + ",";

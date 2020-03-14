@@ -25,6 +25,10 @@ public class clsBillHdBean {
 	private String dteDateEdited;
 
 	private String strClientCode;
+	
+	private String strRemark;
+
+	
 
 	private List<clsBillDtlBean> listBillDtlBean;
 
@@ -124,5 +128,13 @@ public class clsBillHdBean {
 
 	public void setListBillDtlBean(List<clsBillDtlBean> listBillDtlBean) {
 		this.listBillDtlBean = listBillDtlBean;
+	}
+	
+	public String getStrRemark() {
+		return strRemark;
+	}
+
+	public void setStrRemark(String strRemark) {
+		this.strRemark = strRemark;
 	}
 }
