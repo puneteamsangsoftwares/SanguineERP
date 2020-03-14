@@ -561,7 +561,7 @@ footer {
 	background: #d8d8d894;
 	padding: 20px 14px;
 	min-height: calc(100vh - 57px);
-    margin-top: 60px; 
+   /*  margin-top: 60px;  */
 }
 
 .clearfix {

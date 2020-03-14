@@ -18,7 +18,7 @@
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script> --%>
 </head>
 
-<body>
+<body >
 
 		 <div class="row12" >
 			    <tiles:insertAttribute name="header"></tiles:insertAttribute>
@@ -33,7 +33,7 @@
 			        <div class="sidebar">
 			          <tiles:insertAttribute name="menu"></tiles:insertAttribute>
 			        </div>
-			        <div class="contents">
+			        <div class="contents" style="overflow: scroll;">
 			           <tiles:insertAttribute name="body"></tiles:insertAttribute>
 			        </div>
 			        <!-- <div class="clearfix"></div> -->
