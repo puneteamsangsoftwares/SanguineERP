@@ -5310,6 +5310,15 @@
 			<put-attribute name="title" value="Rate Contract"></put-attribute>
 			<put-attribute name="body"	value="/WEB-INF/jsp/webPMS/masters/frmPMSRateContract.jsp"></put-attribute>
 		</definition>
+		
+		<definition name="frmMergeBill" extends="base.definition">
+			<put-attribute name="title" value="Bill Merge" />
+			<put-attribute name="body" value="/WEB-INF/jsp/webPMS/transactions/frmMergeBill.jsp" />
+		</definition>
+		<definition name="frmMergeBill_1" extends="base.definition4">
+			<put-attribute name="title" value="Bill Merge" />
+			<put-attribute name="body" value="/WEB-INF/jsp/webPMS/transactions/frmMergeBill.jsp" />
+		</definition>
   	
 <!-- 	End Of WebPMS Tiles Entry -->
 

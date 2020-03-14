@@ -1726,7 +1726,7 @@ public class clsRoomStatusDiaryController {
 			}
 			
 			if(!code.equals("")){
-				String sqlExtraBed = "select b.dblChargePerBed from tblfoliohd a , tblextrabed b where a.strFolioNo='FO002262' and a.strExtraBedCode=b.strExtraBedTypeCode and a.strClientCode='"+clientCode+"'";
+				String sqlExtraBed = "select b.dblChargePerBed from tblfoliohd a , tblextrabed b where a.strFolioNo='"+code+"' and a.strExtraBedCode=b.strExtraBedTypeCode and a.strClientCode='"+clientCode+"'";
 				List listExtraBed = objGlobalFunctionsService.funGetListModuleWise(sqlExtraBed, "sql");
 				if(listExtraBed!=null && listExtraBed.size()>0)
 				{

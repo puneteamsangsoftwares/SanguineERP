@@ -4822,6 +4822,72 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 
 		funExecutePMSQuery(sql);
 		
+		sql = "CREATE TABLE `tblbilldtlbckp` ( "
+				+ "`strBillNo` VARCHAR(15) NOT NULL, "
+				+ "`strFolioNo` VARCHAR(15) NOT NULL, "
+				+ "`dteDocDate` DATETIME NOT NULL, "
+				+ "`strDocNo` VARCHAR(10) NOT NULL, "
+				+ "`strPerticulars` VARCHAR(200) NOT NULL, "
+				+ "`strRevenueType` VARCHAR(255) NOT NULL, "
+				+ "`strRevenueCode` VARCHAR(15) NOT NULL, "
+				+ "`dblDebitAmt` DECIMAL(18,2) NOT NULL, "
+				+ "`dblCreditAmt` DECIMAL(18,2) NOT NULL, "
+				+ "`dblBalanceAmt` DECIMAL(18,2) NOT NULL, "
+				+ "`strClientCode` VARCHAR(10) NOT NULL, "
+				+ "`dteDateEdited` VARCHAR(255) NULL DEFAULT NULL, "
+				+ "`strTransactionType` VARCHAR(255) NULL DEFAULT NULL, "
+				+ "`strUserEdited` VARCHAR(255) NULL DEFAULT NULL,"
+				+ "	INDEX `FK3FECBEF7DA3532E0` (`strBillNo`, `strClientCode`) "
+				+ ") COLLATE='utf8_general_ci' "
+				+ "ENGINE=InnoDB ;";
+		
+		funExecutePMSQuery(sql);
+		
+		sql = "CREATE TABLE `tblbillhdbckp` ( "
+				+ "`strBillNo` VARCHAR(15) NOT NULL, "
+				+ "`dteBillDate` DATETIME NOT NULL, "
+				+ "`strCheckInNo` VARCHAR(15) NOT NULL,"
+				+ "	`strFolioNo` VARCHAR(15) NOT NULL, "
+				+ "`strRoomNo` VARCHAR(10) NOT NULL, "
+				+ "`strExtraBedCode` VARCHAR(10) NOT NULL, "
+				+ "`strRegistrationNo` VARCHAR(15) NOT NULL, "
+				+ "`strReservationNo` VARCHAR(15) NOT NULL,"
+				+ "	`dblGrandTotal` DECIMAL(18,2) NOT NULL,"
+				+ "	`strUserCreated` VARCHAR(10) NOT NULL, "
+				+ "`strUserEdited` VARCHAR(10) NOT NULL, "
+				+ "`dteDateCreated` DATETIME NOT NULL, "
+				+ "`dteDateEdited` DATETIME NOT NULL, "
+				+ "`strClientCode` VARCHAR(10) NOT NULL, "
+				+ "`strBillSettled` VARCHAR(1) NOT NULL DEFAULT 'N', "
+				+ "`strGSTNo` VARCHAR(50) NOT NULL DEFAULT '', "
+				+ "`strCompanyName` VARCHAR(100) NOT NULL DEFAULT '', "
+				+ "PRIMARY KEY (`strBillNo`, `strClientCode`) "
+				+ ") COLLATE='utf8_general_ci' ENGINE=InnoDB ;";
+		
+		funExecutePMSQuery(sql);
+		
+		sql = "CREATE TABLE `tblbilltaxdtlbckp` ( "
+				+ "`strBillNo` VARCHAR(15) NOT NULL, "
+				+ "`strDocNo` VARCHAR(15) NOT NULL, "
+				+ "`strTaxCode` VARCHAR(10) NOT NULL, "
+				+ "`strTaxDesc` VARCHAR(200) NOT NULL, "
+				+ "`dblTaxableAmt` DECIMAL(18,2) NOT NULL, "
+				+ "`dblTaxAmt` DECIMAL(18,2) NOT NULL, "
+				+ "`strClientCode` VARCHAR(10) NOT NULL, "
+				+ "INDEX `FK19AB8F56DA3532E0` (`strBillNo`, `strClientCode`) "
+				+ ") COLLATE='utf8_general_ci' "
+				+ "ENGINE=InnoDB;";
+		
+		funExecutePMSQuery(sql);
+		
+		sql = "ALTER TABLE `tblbillhd` "
+				+ "ALTER `strCheckInNo` DROP DEFAULT, "
+				+ "ALTER `strFolioNo` DROP DEFAULT,"
+				+ "	ALTER `strRoomNo` DROP DEFAULT,"
+				+ "	ALTER `strExtraBedCode` DROP DEFAULT, "
+				+ "ALTER `strRegistrationNo` DROP DEFAULT;";
+		
+		funExecutePMSQuery(sql);
 		
 		
 				// For PMS Form Of Tree master Start///
@@ -4906,7 +4972,8 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ " ('frmSeasonMaster', 'Season Master', 'Master', 1, 'M', 22, 22, '2', 'imgSeasonMaster.png', '3', 3, '3', '3', 'NO', 'YES', 'frmSeasonMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ " ('frmPMSRateContract', 'Rate Management', 'Master', '1', 'M', '22', '22', '2', 'imgSeasonMaster.png', '3', '3', '3', '3', 'NO', 'YES', 'frmPMSRateContract.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ " ('frmPMSStaffMaster', 'Staff Master', 'Master', 1, 'M', 1, 9, '1', 'imgRoomMaster.png', '3', 3, '3', '3', 'NO', 'NO', 'frmPMSStaffMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
-				+ " ('frmPMSWeekenfMaster', 'PMS Weekend Master', 'Master', '1', 'M', '19', '19', '2', 'default.png', '3', '3', '1', '1', 'No', 'No', 'frmBanquetWeekendMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
+				+ " ('frmPMSWeekenfMaster', 'PMS Weekend Master', 'Master', '1', 'M', '19', '19', '2', 'default.png', '3', '3', '1', '1', 'No', 'No', 'frmBanquetWeekendMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+				+ " ('frmMergeBill', 'Bill Merge', 'Transaction', 2, 'T', 11, 11, '5', 'default.png', '3', 5, '5', '5', 'NO', 'NO', 'frmMergeBill.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
 		
 
 		

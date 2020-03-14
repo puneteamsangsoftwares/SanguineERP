@@ -3066,7 +3066,7 @@ public class clsSearchFormController {
 			 * ; tableName =
 			 * "from  tblbillhd where strClientCode='"+clientCode+"' ";
 			 */
-			columnNames = "  a.strCheckInNo,CONCAT(c.strFirstName,c.strMiddleName,c.strLastName), a.dteBillDate,a.strFolioNo,  " + " a.strRegistrationNo,a.strReservationNo,a.dblGrandTotal ,d.strPayee";
+			columnNames = "  a.strCheckInNo,CONCAT(c.strFirstName,c.strMiddleName,c.strLastName), a.dteBillDate,a.strFolioNo,  " + " a.strRegistrationNo,a.strReservationNo,a.dblGrandTotal ,d.strPayee,a.strBillNo ";
 			tableName = " from tblcheckinhd b  ,tblbillhd a ,tblcheckindtl d ,tblguestmaster c " + " where d.strPayee='Y' and b.strCheckInNo =a.strCheckInNo  " + " and b.strCheckInNo=d.strCheckInNo and d.strGuestCode=c.strGuestCode and a.dteBillDate between '" + txtFromDate + " ' and '" + txtToDate + " ' " + " and a.dblGrandTotal>0 group by a.strCheckInNo, d.strPayee ";
 
 			listColumnNames = "CheckIN No,Bill Date,Guest Name,Folio No,Registration No,Reservation No,GrandTotal ,Payee";
@@ -3299,6 +3299,21 @@ public class clsSearchFormController {
 			flgQuerySelection = true;
 			criteria = getCriteriaQuery(columnNames, search_with, tableName);
 			searchFormTitle = "Room Master";
+			break;
+		}
+		
+		case "MergeBill": {
+			columnNames = "a.strBillNo,a.strFolioNo,b.strCheckInNo, CONCAT(c.strFirstName,c.strMiddleName,c.strLastName) ";
+			tableName = "from  tblbillhd a ,tblcheckindtl b,tblguestmaster c,tblroom d " 
+					+ " where a.strClientCode='" + clientCode + "' and a.strCheckInNo=b.strCheckInNo   " 
+					+ " and b.strGuestCode=c.strGuestCode and b.strPayee='Y'  and b.strRoomNo=d.strRoomCode "
+					+ " group by a.strBillNo";
+
+			listColumnNames = "Bill No,Folio No,CheckIn NO,Guest Name ";
+			idColumnName = "strBillNo";
+			flgQuerySelection = true;
+			// criteria = getCriteriaQuery(columnNames,search_with,tableName);
+			searchFormTitle = "Merge Bill";
 			break;
 		}
 		

@@ -97,6 +97,8 @@
 	function funResetFields()
 	{
 		$('#tblRoomDtl tbody > tr').remove();
+		$("#strSearchTextField").val('');
+		return false;
 	}
 	
 	
@@ -579,7 +581,7 @@
 		<div class="center">
 			<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidateData()"
 				class="form_button">Submit</button></a>
-			<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="funResetField()"
+			<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="return funResetFields()"
 				class="form_button">Reset</button></a>
 		</div>
 	</s:form>

@@ -108,10 +108,10 @@ public class clsFolioController {
 		
 		
 		// getter settert
-		objFolioModel.setStrRoom(objFolioBean.getStrRoom());
-		objFolioModel.setStrFandB(objFolioBean.getStrFandB());
-		objFolioModel.setStrTelephone(objFolioBean.getStrTelephone());
-		objFolioModel.setStrExtra(objFolioBean.getStrExtra());
+		objFolioModel.setStrRoom(objGlobal.funIfNull(objFolioBean.getStrRoom(), "Y", objFolioBean.getStrRoom()));
+		objFolioModel.setStrFandB(objGlobal.funIfNull(objFolioBean.getStrFandB(), "Y", objFolioBean.getStrFandB()));
+		objFolioModel.setStrTelephone(objGlobal.funIfNull(objFolioBean.getStrTelephone(), "Y", objFolioBean.getStrTelephone()));
+		objFolioModel.setStrExtra(objGlobal.funIfNull(objFolioBean.getStrExtra(), "Y", objFolioBean.getStrExtra()));
 
 		/*
 		 * List<clsFolioDtlModel> listFolioDtlModel=new

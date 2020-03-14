@@ -9,10 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sanguine.webpms.dao.clsBillDao;
 import com.sanguine.webpms.model.clsBillDtlModel;
+import com.sanguine.webpms.model.clsBillHdBackupModel;
 import com.sanguine.webpms.model.clsBillHdModel;
 
 @Service("clsBillService")
-@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
+//@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 public class clsBillServiceImpl implements clsBillService {
 	@Autowired
 	private clsBillDao objBillDao;
@@ -37,6 +38,12 @@ public class clsBillServiceImpl implements clsBillService {
 	@Override
 	public void funDeleteBill(clsBillHdModel objBillHdModel) {
 		objBillDao.funDeleteBill(objBillHdModel);
+	}
+
+	@Override
+	public void funAddUpdateBillHdBackup(clsBillHdBackupModel objHdBackupModel) {
+		objBillDao.funAddUpdateBillHdBackup(objHdBackupModel);
+		
 	}
 
 }

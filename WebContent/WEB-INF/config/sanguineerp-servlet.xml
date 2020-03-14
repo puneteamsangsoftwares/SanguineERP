@@ -573,6 +573,7 @@
 					<value>com.sanguine.webpms.model.clsSeasonMasterModel</value>
 					<value>com.sanguine.webpms.model.clsPMSRateContractModel</value>					
 					<value>com.sanguine.webpms.model.clsPMSStaffMasterDtlModel</value>
+					<value>com.sanguine.webpms.model.clsBillHdBackupModel</value>
 				
 					<!-- Web Banquet Start -->
 					<value>com.sanguine.webbanquets.model.clsEquipmentModel</value>
