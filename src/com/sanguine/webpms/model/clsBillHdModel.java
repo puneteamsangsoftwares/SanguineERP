@@ -113,10 +113,6 @@ public class clsBillHdModel implements Serializable {
 	private String strRemark;
 	
 	
-	@Column(name = "strIsMergedBill")
-	private String strIsMergedBill;
-	
-	
 
 	@Column(name = "strMergedBillNo")
 	private String strMergedBillNo;
@@ -269,13 +265,7 @@ public class clsBillHdModel implements Serializable {
 	}
 	
 	
-	public String getStrIsMergedBill() {
-		return strIsMergedBill;
-	}
-
-	public void setStrIsMergedBill(String strIsMergedBill) {
-		this.strIsMergedBill = strIsMergedBill;
-	}
+	
 
 	public String getStrMergedBillNo() {
 		return strMergedBillNo;

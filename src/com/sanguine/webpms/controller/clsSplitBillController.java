@@ -151,7 +151,6 @@ public class clsSplitBillController {
 							// objBillHdModel.setSetBillDtlModels(tempDtl);
 							objBillHdModel.setDblGrandTotal(grandAmt);
 							objBillHdModel.setStrRemark("");
-							objBillHdModel.setStrIsMergedBill("");
 							objBillHdModel.setStrMergedBillNo("");
 //							objBillService.funAddUpdateBillHd(objBillHdModel);
 							flgDeleteMainHdData = true;
