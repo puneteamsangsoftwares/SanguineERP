@@ -259,6 +259,7 @@ public class clsMergeBillController {
 		objBackupModel.setStrUserCreated(objModel.getStrUserCreated());
 		objBackupModel.setStrUserEdited(objModel.getStrUserEdited());
 		objBackupModel.setStrRemark(objModel.getStrRemark());
+		objBackupModel.setStrMergedBillNo(objModel.getStrMergedBillNo());
 		
 		
 		List<clsBillDtlBackupModel> listBillDtlModel = new ArrayList<clsBillDtlBackupModel>();

@@ -4900,6 +4900,17 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		funExecutePMSQuery(sql);
 		
 		
+		sql = "ALTER TABLE `tblbillhd` "
+				+ "ADD COLUMN `strMergedBillNo` VARCHAR(50) NOT NULL DEFAULT '' AFTER `strRemark`;";
+		
+		funExecutePMSQuery(sql);
+		
+		sql = "ALTER TABLE `tblbillhdbckp` "
+				+ "ADD COLUMN `strMergedBillNo` VARCHAR(50) NOT NULL DEFAULT '' AFTER `strCompanyName`;";
+		
+		funExecutePMSQuery(sql);
+		
+		
 				// For PMS Form Of Tree master Start///
 		sql = " INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`) VALUES "
 				+ " ('frmAgentCommision', 'Agent Commision', 'Master', 1, 'M', 13, 13, '1', 'imgAgentCommission.png', '3', 1, '1', '1', 'NO', 'NO', 'frmAgentCommision.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "

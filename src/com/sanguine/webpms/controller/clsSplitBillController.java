@@ -188,7 +188,6 @@ public class clsSplitBillController {
 						// objBillHdModel.setSetBillDtlModels(tempDtl);
 						objBillHdModel.setDblGrandTotal(grandAmt);
 						objBillHdModel.setStrRemark("");
-						objBillHdModel.setStrIsMergedBill("");
 						objBillHdModel.setStrMergedBillNo("");
 						objBillService.funAddUpdateBillHd(objBillHdModel);
 						flgDeleteMainHdData = true;
@@ -261,7 +260,6 @@ public class clsSplitBillController {
 							objBillHdModel.setListBillDtlModels(tempDtl);
 							// objBillHdModel.setSetBillDtlModels(tempDtl);
 							objBillHdModel.setStrRemark("");
-							objBillHdModel.setStrIsMergedBill("");
 							objBillHdModel.setStrMergedBillNo("");
 							objBillService.funAddUpdateBillHd(objBillHdModel);
 							flgDeleteMainHdData = true;
@@ -306,7 +304,6 @@ public class clsSplitBillController {
 						objBillHdModel.setListBillDtlModels(tempDtl);
 						// objBillHdModel.setSetBillDtlModels(tempDtl);
 						objBillHdModel.setStrRemark("");
-						objBillHdModel.setStrIsMergedBill("");
 						objBillHdModel.setStrMergedBillNo("");
 						objBillService.funAddUpdateBillHd(objBillHdModel);
 						flgDeleteMainHdData = true;

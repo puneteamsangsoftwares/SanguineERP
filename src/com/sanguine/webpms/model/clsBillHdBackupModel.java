@@ -111,6 +111,17 @@ public class clsBillHdBackupModel implements Serializable {
 	
 	@Column(name = "strRemark")
 	private String strRemark;
+	
+	@Column(name = "strMergedBillNo")
+	private String strMergedBillNo;
+
+	public String getStrMergedBillNo() {
+		return strMergedBillNo;
+	}
+
+	public void setStrMergedBillNo(String strMergedBillNo) {
+		this.strMergedBillNo = strMergedBillNo;
+	}
 
 	public String getStrCompanyName() {
 		return strCompanyName;

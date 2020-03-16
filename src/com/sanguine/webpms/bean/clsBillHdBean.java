@@ -28,8 +28,6 @@ public class clsBillHdBean {
 	
 	private String strRemark;
 	
-	private String strIsMergedBill;
-	
 	private String strMergedBillNo;
 
 	
@@ -142,14 +140,7 @@ public class clsBillHdBean {
 		this.strRemark = strRemark;
 	}
 	
-	public String getStrIsMergedBill() {
-		return strIsMergedBill;
-	}
-
-	public void setStrIsMergedBill(String strIsMergedBill) {
-		this.strIsMergedBill = strIsMergedBill;
-	}
-
+	
 	public String getStrMergedBillNo() {
 		return strMergedBillNo;
 	}
