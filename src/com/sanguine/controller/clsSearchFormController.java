@@ -3304,10 +3304,8 @@ public class clsSearchFormController {
 		
 		case "MergeBill": {
 			columnNames = "a.strBillNo,a.strFolioNo,b.strCheckInNo, CONCAT(c.strFirstName,c.strMiddleName,c.strLastName) ";
-			tableName = "from  tblbillhd a ,tblcheckindtl b,tblguestmaster c,tblroom d " 
-					+ " where a.strClientCode='" + clientCode + "' and a.strCheckInNo=b.strCheckInNo   " 
-					+ " and b.strGuestCode=c.strGuestCode and b.strPayee='Y'  and b.strRoomNo=d.strRoomCode "
-					+ " group by a.strBillNo";
+			tableName = "from  tblbillhd a ,tblcheckindtl b,tblguestmaster c,tblroom d  where a.strClientCode='"+clientCode+"' "
+					+ "and b.strGuestCode=c.strGuestCode and b.strPayee='Y'  group by a.strBillNo";
 
 			listColumnNames = "Bill No,Folio No,CheckIn NO,Guest Name ";
 			idColumnName = "strBillNo";

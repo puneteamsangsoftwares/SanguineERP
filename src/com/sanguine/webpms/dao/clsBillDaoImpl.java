@@ -87,4 +87,33 @@ public class clsBillDaoImpl implements clsBillDao {
 		webPMSSessionFactory.getCurrentSession().saveOrUpdate(objHdBackupModel);
 	}
 
+	@Override
+	public clsBillHdBackupModel funLoadBillBackup(String docCode,
+			String clientCode) {
+
+		//clsBillHdModel hdModel = (clsBillHdModel) webPMSSessionFactory.getCurrentSession().get(clsBillHdModel.class, new clsBillModel_ID(docCode, clientCode));
+		
+		Criteria cr = webPMSSessionFactory.getCurrentSession().createCriteria(clsBillHdBackupModel.class);
+		cr.add(Restrictions.eq("strBillNo", docCode));
+		cr.add(Restrictions.eq("strClientCode", clientCode));
+		List list = cr.list();
+
+		clsBillHdBackupModel objModel = null;
+		if (list.size() > 0) {
+			objModel = (clsBillHdBackupModel) list.get(0);
+			objModel.getListBillDtlModels().size();
+			objModel.getListBillTaxDtlModels().size();
+		}
+		return objModel;
+		/*
+		 * List<clsBillDtlModel> list = hdModel.getListBillDtlModels();
+		 * hdModel.setListBillDtlModels(list); List<clsBillTaxDtlModel> list2 =
+		 * hdModel.getListBillTaxDtlModels();
+		 * hdModel.setListBillTaxDtlModels(list2); clsBillHdModel hdModelRet
+		 * =hdModel;
+		 */
+		//return hdModel;
+	
+	}
+
 }

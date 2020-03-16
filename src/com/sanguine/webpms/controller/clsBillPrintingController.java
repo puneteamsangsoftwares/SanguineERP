@@ -1412,6 +1412,7 @@ public class clsBillPrintingController {
 						@SuppressWarnings("rawtypes")
 						
 						HashMap reportParams = new HashMap();
+						int countt = 1;
 						double total=0.0;
 						double totalCount=0.0;
 						String sqlParametersFromBill = "SELECT a.strFolioNo,a.strRoomNo,a.strRegistrationNo,a.strReservationNo, "
@@ -1507,7 +1508,7 @@ public class clsBillPrintingController {
 							reportParams.put("pForMessageBot","for SYMBIOSIS - SANDIPANI");
 							reportParams.put("pCompanyGSTINAboveName","44 Sandipani Campus (2019-20)");
 
-							
+							String sqlBillDtl = "";
 						
 							if(clientCode.equalsIgnoreCase("320.001"))
 							{
@@ -1516,17 +1517,24 @@ public class clsBillPrintingController {
 							
 								
 							}
+							String sqlBillNo = "SELECT a.strBillNo "
+									+ "FROM tblbillhd a "
+									+ "WHERE SUBSTRING_INDEX(a.strCheckInNo,',',1) = '"+strCheckInNo+"' and strClientCode='"+clientCode+"'";
+							List billList = objFolioService.funGetParametersList(sqlBillNo);
+							
+							if(billList!=null && billList.size()>0)
+							{
 							// get bill details
-							String sqlBillDtl = "SELECT date(b.dteDocDate),b.strDocNo,IFNULL(SUBSTRING_INDEX(SUBSTRING_INDEX(b.strPerticulars,'(', -1),')',1),'') "
-									+ ",sum(b.dblDebitAmt),sum(b.dblCreditAmt),sum(b.dblBalanceAmt),a.strBillNo,c.strRoomDesc,a.strFolioNo,d.strHsnSac"
-									+ " FROM tblbillhd a inner join tblbilldtl b ON a.strFolioNo=b.strFolioNo ,tblroom c ,tblroomtypemaster d"
-									+ " WHERE a.strCheckInNo='"
-									+ strCheckInNo
-									+ "' and a.strBillNo=b.strBillNo and a.strRoomNo=c.strRoomCode and a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' AND c.strClientCode='"+clientCode+"' and d.strRoomTypeCode=c.strRoomTypeCode "
-								    + " group by b.strPerticulars"
-											+ " ORDER BY a.strBillNo";
+								sqlBillDtl = "SELECT DATE(b.dteDocDate),b.strDocNo, IFNULL(SUBSTRING_INDEX(SUBSTRING_INDEX(b.strPerticulars,'(', -1),')',1),''), "
+									+ "SUM(b.dblDebitAmt), SUM(b.dblCreditAmt), SUM(b.dblBalanceAmt),a.strBillNo,c.strRoomDesc,a.strFolioNo,d.strHsnSac "
+									+ "FROM tblbillhd a "
+									+ ", tblbilldtl b ,tblroom c,tblroomtypemaster d "
+									+ "WHERE a.strBillNo='"+billList.get(0).toString()+"' AND a.strBillNo=b.strBillNo  AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' "
+									+ "AND c.strClientCode='"+clientCode+"' AND d.strRoomTypeCode=c.strRoomTypeCode "
+									+ "GROUP BY b.strPerticulars "
+									+ "ORDER BY a.strBillNo";
 						
-							int countt=1;
+							
 							List billDtlList = objFolioService.funGetParametersList(sqlBillDtl);
 							
 							for (int i = 0; i < billDtlList.size(); i++) {
@@ -1572,6 +1580,7 @@ public class clsBillPrintingController {
 									}
 								}
 							}
+						}
 							for(int cnt=0;cnt<billNo.size();cnt++){
 							String sqlDisc = " select date(a.dteBillDate),'','Discount','0.00',a.dblDiscAmt from  tblbilldiscount a "
 									+ " WHERE a.strBillNo='"
@@ -2026,7 +2035,7 @@ public class clsBillPrintingController {
 					reportParams.put("pCompanyGSTINAboveName","44 Sandipani Campus (2019-20)");
 
 					
-				
+					int countt=1;
 					if(clientCode.equalsIgnoreCase("320.001"))
 					{
 						String strIssue = "Issued Subject to Nashik Jurisdiction";
@@ -2044,7 +2053,7 @@ public class clsBillPrintingController {
 						    + " group by b.strPerticulars"
 									+ " ORDER BY a.strBillNo";
 				
-					int countt=1;
+					
 					List billDtlList = objFolioService.funGetParametersList(sqlBillDtl);
 					
 					for (int i = 0; i < billDtlList.size(); i++) {

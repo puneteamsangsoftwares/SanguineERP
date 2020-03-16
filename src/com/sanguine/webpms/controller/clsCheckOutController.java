@@ -432,6 +432,7 @@ public class clsCheckOutController {
 					objBillHdModel.setListBillDtlModels(listBillDtlModel);
 					objBillHdModel.setListBillTaxDtlModels(listBillTaxDtlModel);
 					objBillHdModel.setStrRemark("");
+					objBillHdModel.setStrMergedBillNo("");
 					// objBillHdModel.setSetBillDtlModels(setBillDtlModel);
 					// objBillHdModel.setSetBillTaxDtlModels(setBillTaxDtlModel);
 					

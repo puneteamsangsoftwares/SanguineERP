@@ -378,7 +378,7 @@ public class clsPostRoomTerrifController {
 			{
 				String sqlExtraBedAmt = "select a.dblChargePerBed from tblextrabed a where a.strExtraBedTypeCode = '"+extraBedCode+"' AND a.strClientCode='"+clientCode+"'";
 				List listExtraBedAmt = objGlobalFunctionsService.funGetListModuleWise(sqlExtraBedAmt, "sql");
-				if(!extraBedCode.isEmpty())
+				if(listExtraBedAmt!=null && listExtraBedAmt.size()>0)
 				{
 					double dblExtraBedAmt = Double.parseDouble(listExtraBedAmt.get(0).toString());
 					//dblExtraBedAmt = dblExtraBedAmt + objTaxProductDtl.getDblTaxProdAmt();
@@ -623,6 +623,8 @@ public class clsPostRoomTerrifController {
 		{	
 		if (!extraBedCode.isEmpty()) {
 			List listExtraBed = objExtraBedMasterDao.funGetExtraBedMaster(extraBedCode, clientCode);
+			if(listExtraBed!=null && listExtraBed.size()>0)
+			{
 			clsExtraBedMasterModel objExtraBedMaster = (clsExtraBedMasterModel) listExtraBed.get(0);
 
 			doc = objPMSUtility.funGenerateFolioDocForRoom("RoomFolio");
@@ -681,6 +683,7 @@ public class clsPostRoomTerrifController {
 				objFolioTaxDtl.setDblTaxAmt(objTaxCal.getDblTaxAmt());
 				listFolioTaxDtl.add(objFolioTaxDtl);
 			}
+		}
 		}
 		}
 	}

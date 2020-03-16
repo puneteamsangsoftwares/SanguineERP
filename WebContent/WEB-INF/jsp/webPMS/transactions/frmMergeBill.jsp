@@ -35,6 +35,22 @@
 		return flag;
 	}
 	
+	function funValidateRevertFields()
+	{
+		var flag=false;
+		if($("#strBillNo").val().trim().length==0)
+		{
+			alert("Please Select Bill No.");
+		}
+		else
+		{
+			var billNo = $("#strBillNo").val();
+			window.open(getContextPath()+"/saveRevertBill.html?billNo="+billNo+"");
+		}
+		
+		return flag;
+	}
+	
 	function funSetBillNo(billNo)
 	{
 		$("#strBillNo").val(billNo);
@@ -289,6 +305,10 @@
 			     <div class="row">
 			       <div class="col-md-6"><label>Bill No.</label>
 				       <s:input id="strBillNo" path="strBillNo"  cssClass="searchTextBox" ondblclick="funHelp('MergeBill')" style="height: 45%;"/>												
+				       
+				      <%--  <s:radiobutton id="MergeRadioButton" path="strMergeButton"   value="Y"   style="margin-left: 20px;margin-right:5px;" />Merge
+				       <s:radiobutton id="RevertRadioButton" path="strRevertButton" value="Y"     style="margin-left: 20px;margin-right:5px;" />Revert
+ --%>				       				       
 			       </div>
 			       
 			     <!--   <div class="col-md-6">
@@ -304,7 +324,7 @@
 						<td style="width:7.5%;">Folio No</td>
 						<td style="width:14%;">Check In No</td>
 						<td style="width:9%; text-align: center;">Total</td>
-						<td style="width:3%;">Select <input type="checkbox" id="chkBill" /></td>
+						<td style="width:3%;">Delete</td>
 					</tr>
 				</table>
 		
@@ -326,7 +346,9 @@
 		<br />
 		<p align="center" style="margin-right:-68%">
 			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateFields()" />&nbsp;
+			<input type="button" value="Revert Bill" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateRevertFields()" />&nbsp;
 			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
+			
 		</p>
 		<s:input type="hidden" id="hidData" path="" ></s:input>				
 	</s:form>

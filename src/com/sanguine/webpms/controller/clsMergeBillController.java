@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,6 +38,7 @@ import com.sanguine.webpms.model.clsBillHdModel;
 import com.sanguine.webpms.model.clsBillTaxDtlBackupModel;
 import com.sanguine.webpms.model.clsBillTaxDtlModel;
 import com.sanguine.webpms.model.clsCheckInDtl;
+import com.sanguine.webpms.model.clsExtraBedMasterModel;
 import com.sanguine.webpms.model.clsPropertySetupHdModel;
 import com.sanguine.webpms.service.clsBillService;
 import com.sanguine.webpms.service.clsVoidBillService;
@@ -226,7 +229,8 @@ public class clsMergeBillController {
 			objMergeBillHdModel.setStrFolioNo(strFolioNo.substring(1));
 			objMergeBillHdModel.setStrRegistrationNo(strRegistrationNo.substring(1));;
 			objMergeBillHdModel.setStrRoomNo(strRoomNo.substring(1));
-			objMergeBillHdModel.setStrRemark(strRemarks.substring(1));
+			objMergeBillHdModel.setStrRemark("");
+			objMergeBillHdModel.setStrMergedBillNo(strRemarks.substring(1));
 			
 			objBillService.funAddUpdateBillHd(objMergeBillHdModel);
 		} 
@@ -259,7 +263,7 @@ public class clsMergeBillController {
 		objBackupModel.setStrUserCreated(objModel.getStrUserCreated());
 		objBackupModel.setStrUserEdited(objModel.getStrUserEdited());
 		objBackupModel.setStrRemark(objModel.getStrRemark());
-		objBackupModel.setStrMergedBillNo(objModel.getStrMergedBillNo());
+		objBackupModel.setStrMergedBillNo(objModel.getStrBillNo());
 		
 		
 		List<clsBillDtlBackupModel> listBillDtlModel = new ArrayList<clsBillDtlBackupModel>();
@@ -301,6 +305,105 @@ public class clsMergeBillController {
 		return objBackupModel;
 	}
 	
+	@RequestMapping(value = "/saveRevertBill", method = RequestMethod.GET)
+	public @ResponseBody ModelAndView funSaveRevertBill(HttpServletResponse resp, HttpServletRequest req) {
+		
+		
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		String userCode = req.getSession().getAttribute("usercode").toString();
+		String strPMSDate = req.getSession().getAttribute("PMSDate").toString();
+		LocalTime time = LocalTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		String strCurrTime = time.format(formatter);
+		String strBillNo = req.getParameter("billNo").toString();
+		
+		clsBillHdModel objModel = objBillService.funLoadBill(strBillNo, clientCode);
+		
+		String[] strBillArray = objModel.getStrMergedBillNo().split(",");
+		
+		for(int i=0;i<strBillArray.length;i++)
+		{
+			clsBillHdBackupModel objBackupModel = objBillService.funLoadBillBackup(strBillArray[i], clientCode);
+			
+			clsBillHdModel objBillHdModel = funPrepareBillHdModel(objBackupModel,clientCode);
+		}
+		
+		
+		List listRooms = new ArrayList<>();
+		List listHouseKeeping = new ArrayList<>();
+			
+		
+		
+		
+			return new ModelAndView("redirect:/frmMergeBill.html?saddr=" + 1);
+	
+	}
+	
+	private clsBillHdModel funPrepareBillHdModel(clsBillHdBackupModel objBackupModel,String clientCode)
+	{
+		
+		clsBillHdModel objModel = new clsBillHdModel();
+		
+		objModel.setDblGrandTotal(objBackupModel.getDblGrandTotal());
+		objModel.setDteBillDate(objBackupModel.getDteBillDate());
+		objModel.setDteDateCreated(objBackupModel.getDteDateCreated());
+		objModel.setDteDateEdited(objBackupModel.getDteDateEdited());
+		objModel.setStrBillNo(objBackupModel.getStrBillNo());
+		objModel.setStrBillSettled(objBackupModel.getStrBillSettled());
+		objModel.setStrCheckInNo(objBackupModel.getStrCheckInNo());
+		objModel.setStrClientCode(objBackupModel.getStrClientCode());
+		objModel.setStrCompanyName(objBackupModel.getStrCompanyName());
+		objModel.setStrExtraBedCode(objBackupModel.getStrExtraBedCode());
+		objModel.setStrFolioNo(objBackupModel.getStrFolioNo());
+		objModel.setStrGSTNo(objBackupModel.getStrGSTNo());
+		objModel.setStrRegistrationNo(objBackupModel.getStrRegistrationNo());
+		objModel.setStrReservationNo(objBackupModel.getStrReservationNo());
+		objModel.setStrRoomNo(objBackupModel.getStrRoomNo());
+		objModel.setStrSplitType(objBackupModel.getStrSplitType());
+		objModel.setStrUserCreated(objBackupModel.getStrUserCreated());
+		objModel.setStrUserEdited(objBackupModel.getStrUserEdited());
+		objModel.setStrRemark(objBackupModel.getStrRemark());
+		objModel.setStrMergedBillNo(objBackupModel.getStrBillNo());
+		
+		
+		List<clsBillDtlModel> listBillDtlModel = new ArrayList<clsBillDtlModel>();
+		for (clsBillDtlBackupModel objBillDetails : objBackupModel.getListBillDtlModels())
+		{
+			clsBillDtlBackupModel objDtlModel = new clsBillDtlBackupModel();
+			objDtlModel.setDblBalanceAmt(objBillDetails.getDblBalanceAmt());
+			objDtlModel.setDblCreditAmt(objBillDetails.getDblCreditAmt());
+			objDtlModel.setDblDebitAmt(objBillDetails.getDblDebitAmt());
+			objDtlModel.setDteDateEdited(objBillDetails.getDteDateEdited());
+			objDtlModel.setDteDocDate(objBillDetails.getDteDocDate());
+			objDtlModel.setStrDocNo(objBillDetails.getStrDocNo());
+			objDtlModel.setStrFolioNo(objBillDetails.getStrFolioNo());
+			objDtlModel.setStrPerticulars(objBillDetails.getStrPerticulars());
+			objDtlModel.setStrRevenueCode(objBillDetails.getStrRevenueCode());
+			objDtlModel.setStrRevenueType(objBillDetails.getStrRevenueType());
+			objDtlModel.setStrTransactionType(objBillDetails.getStrTransactionType());
+			objDtlModel.setStrUserEdited(objBillDetails.getStrUserEdited());
+			/*listBillDtlModel.add(objDtlModel);*/
+		}
+		
+		List<clsBillTaxDtlModel> listBillTaxDtlBackupModel = new ArrayList<clsBillTaxDtlModel>();
+		for (clsBillTaxDtlBackupModel objBillDetails : objBackupModel.getListBillTaxDtlModels())
+		{
+			clsBillTaxDtlBackupModel objTaxDtlModel = new clsBillTaxDtlBackupModel();
+
+			objTaxDtlModel.setDblTaxableAmt(objBillDetails.getDblTaxableAmt());
+			objTaxDtlModel.setDblTaxAmt(objBillDetails.getDblTaxAmt());
+			objTaxDtlModel.setStrDocNo(objBillDetails.getStrDocNo());
+			objTaxDtlModel.setStrTaxCode(objBillDetails.getStrTaxCode());
+			objTaxDtlModel.setStrTaxDesc(objBillDetails.getStrTaxDesc());
+			
+			/*listBillTaxDtlBackupModel.add(objTaxDtlModel);*/
+		}
+		objModel.setListBillDtlModels(listBillDtlModel);
+		objModel.setListBillTaxDtlModels(listBillTaxDtlBackupModel);
+		
+		
+		return objModel;
+	}
 	
 	
 }
