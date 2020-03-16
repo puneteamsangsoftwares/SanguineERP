@@ -111,6 +111,15 @@ public class clsBillHdModel implements Serializable {
 	
 	@Column(name = "strRemark")
 	private String strRemark;
+	
+	
+	@Column(name = "strIsMergedBill")
+	private String strIsMergedBill;
+	
+	
+
+	@Column(name = "strMergedBillNo")
+	private String strMergedBillNo;
 
 	
 
@@ -257,6 +266,23 @@ public class clsBillHdModel implements Serializable {
 
 	public void setListBillTaxDtlModels(List<clsBillTaxDtlModel> listBillTaxDtlModels) {
 		this.listBillTaxDtlModels = listBillTaxDtlModels;
+	}
+	
+	
+	public String getStrIsMergedBill() {
+		return strIsMergedBill;
+	}
+
+	public void setStrIsMergedBill(String strIsMergedBill) {
+		this.strIsMergedBill = strIsMergedBill;
+	}
+
+	public String getStrMergedBillNo() {
+		return strMergedBillNo;
+	}
+
+	public void setStrMergedBillNo(String strMergedBillNo) {
+		this.strMergedBillNo = strMergedBillNo;
 	}
 
 	// Function to Set Default Values

@@ -122,8 +122,14 @@ public class clsPMSRateContractModel implements Serializable{
 
 	@Column(name="strClientCode")
 	private String strClientCode;
+	
+	
+	@Column(name="strRateContractName")
+	private String strRateContractName;
 
-//Setter-Getter Methods
+
+
+	//Setter-Getter Methods
 	public String getStrRoomTypeCode(){
 		return strRoomTypeCode;
 	}
@@ -361,6 +367,14 @@ public class clsPMSRateContractModel implements Serializable{
 
 	public void setStrRateContractID(String strRateContractID) {
 		this.strRateContractID = strRateContractID;
+	}
+	
+	public String getStrRateContractName() {
+		return strRateContractName;
+	}
+
+	public void setStrRateContractName(String strRateContractName) {
+		this.strRateContractName = strRateContractName;
 	}
 
 }

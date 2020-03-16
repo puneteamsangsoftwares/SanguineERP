@@ -81,7 +81,6 @@ public class clsPMSRateContractController{
 		clsPMSRateContractModel objPMSRateContractModel = null;
 		objGlobal=new clsGlobalFunctions();
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
-		
 		objPMSRateContractModel = objPMSRateContractService.funGetPMSRateContract(code, clientCode);
 		objPMSRateContractModel.setDteFromDate(objGlobal.funGetDate("dd-MM-yyyy", objPMSRateContractModel.getDteFromDate()));
 		objPMSRateContractModel.setDteToDate(objGlobal.funGetDate("dd-MM-yyyy", objPMSRateContractModel.getDteToDate()));
@@ -150,6 +149,7 @@ public class clsPMSRateContractController{
 			objModel.setStrUserCreated(userCode);
 			objModel.setStrUserEdited(userCode);
 			objModel.setStrWednesday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrWednesday()));
+			objModel.setStrRateContractName(objBean.getStrRateContractName());
 			
 		}
 		else
@@ -185,6 +185,7 @@ public class clsPMSRateContractController{
 			objModel.setStrUserCreated(objBean.getStrUserCreated());
 			objModel.setStrUserEdited(userCode);
 			objModel.setStrWednesday(objGlobal.funIfNull(objBean.getStrWednesday(), "N", objBean.getStrWednesday()));
+			objModel.setStrRateContractName(objBean.getStrRateContractName());
 		}
 		
 		return objModel;

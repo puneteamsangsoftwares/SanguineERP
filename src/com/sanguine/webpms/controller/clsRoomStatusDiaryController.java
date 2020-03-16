@@ -1682,6 +1682,7 @@ public class clsRoomStatusDiaryController {
 		List listReturn=new ArrayList<>();
 		try
 		{
+		
 			code = code.split(",")[1];
 			if(code.startsWith("F"))
 			{

@@ -126,10 +126,6 @@
 		</div>
 		<br>
        <p align="center" style="margin-right:61%">
-			
-			<!--  
-			<input type="button" value="Start Day" id="btnStartDay" tabindex="3" class="form_button" />
-			-->
 			<input type="submit" value="Day End" id="btnDayEnd" tabindex="3" class="btn btn-primary center-block" class="form_button"/>&nbsp;
 			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>
 		</p>

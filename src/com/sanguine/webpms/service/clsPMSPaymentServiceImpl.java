@@ -139,6 +139,8 @@ public class clsPMSPaymentServiceImpl implements clsPMSPaymentService {
 							objBillHdModel.setStrBillSettled("N");
 					}
 					objBillHdModel.setStrRemark("");
+					objBillHdModel.setStrIsMergedBill("");
+					objBillHdModel.setStrMergedBillNo("");
 					objBillService.funAddUpdateBillHd(objBillHdModel);
 				}
 			}

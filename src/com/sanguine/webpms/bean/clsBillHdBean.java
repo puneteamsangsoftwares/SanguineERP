@@ -27,6 +27,10 @@ public class clsBillHdBean {
 	private String strClientCode;
 	
 	private String strRemark;
+	
+	private String strIsMergedBill;
+	
+	private String strMergedBillNo;
 
 	
 
@@ -136,5 +140,21 @@ public class clsBillHdBean {
 
 	public void setStrRemark(String strRemark) {
 		this.strRemark = strRemark;
+	}
+	
+	public String getStrIsMergedBill() {
+		return strIsMergedBill;
+	}
+
+	public void setStrIsMergedBill(String strIsMergedBill) {
+		this.strIsMergedBill = strIsMergedBill;
+	}
+
+	public String getStrMergedBillNo() {
+		return strMergedBillNo;
+	}
+
+	public void setStrMergedBillNo(String strMergedBillNo) {
+		this.strMergedBillNo = strMergedBillNo;
 	}
 }

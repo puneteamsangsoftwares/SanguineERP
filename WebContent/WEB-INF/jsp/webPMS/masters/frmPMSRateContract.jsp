@@ -177,6 +177,7 @@
 	        		$("#txtExtraBedTariffWeekend").val(response.dblExtraBedTariWeekend);
 	        		$("#txtChildTariffWeekend").val(response.dblChildTariWeekend);
 	        		$("#txtYouthTariffWeekend").val(response.dblYouthTariWeekend);
+	        		$("#txtRateContractName").val(response.strRateContractName);
 	        
 	        	}
 			},
@@ -285,6 +286,10 @@
 				    <s:input type="text" id="txtBookingTypeCode" path="strRateContractID" value="" style="height: 48%" cssClass="searchTextBox" ondblclick="funHelp('PMSRateManagement');"/>
 			</div>
 			
+			<div class="col-md-3"><label>Rate Contract Name</label> 
+				 <s:input type="text" id="txtRateContractName" style="width:60%;text-align:right" path="strRateContractName"/>
+			</div>
+			
 		</div>
 		<!-----------------------  -->
 		
@@ -351,6 +356,8 @@
 			<div class="col-md-2"><label>Youth</label>
 				 <s:input type="text" id="txtYouthTariffWeekDays" style="width:50%;text-align:right" path="dblYouthTariWeekDays"/>
 			</div>
+			
+			
 		</div>
 		
 		<div class="row">
@@ -380,35 +387,41 @@
 			<div class="col-md-2"><label>Youth</label>
 				 <s:input type="text" id="txtYouthTariffWeekend" style="width:50%;text-align:right" path="dblYouthTariWeekend"/>
 			</div>
-		</div>
-            <div class="row">
-			<div class="col-md-2"><label>Monday</label><br />
+			
+			<%-- <div class="col-md-3"><label>Rate Contract Name</label> 
+				 <s:input type="text" id="txtRateContractName" style="width:80%;text-align:right" path="strRateContractName"/>
+			</div>
+			 --%>
+			
+			<div class="col-md-1"><label>Monday</label><br />
 				 <s:checkbox  id="txtMonday" checked="checked" value="Y" path="strMonday"/>
 			</div>
 			
-			<div class="col-md-2"><label>Tuesday</label><br />
+			<div class="col-md-1"><label>Tuesday</label><br />
 				 <s:checkbox  id="txtTuesday" checked="checked" value="Y" path="strTuesday"/>
 			</div>
 			
-			<div class="col-md-2"><label>Wednesday</label><br />
+			<div class="col-md-1"><label>Wednesday</label><br />
 				 <s:checkbox  id="txtWednesday" checked="checked" value="Y" path="strWednesday"/>
 			</div> 
 			
-			<div class="col-md-2"><label>Thursday</label><br />
+			<div class="col-md-1"><label>Thursday</label><br />
 				 <s:checkbox  id="txtThursday" checked="checked" value="Y" path="strThursday"/>
 			</div> 
 			
-			<div class="col-md-2"><label>Friday</label><br />
+			<div class="col-md-1"><label>Friday</label><br />
 				 <s:checkbox  id="txtFriday" checked="checked" value="Y" path="strFriday"/>
 			</div>
 			
-			<div class="col-md-2"><label>Saturday</label><br />
+			<div class="col-md-1"><label>Saturday</label><br />
 				 <s:checkbox  id="txtSaturday" checked="checked" value="Y" path="strSaturday"/>
 			</div>
 			
-			<div class="col-md-2"><label>Sunday</label><br />
+			<div class="col-md-1"><label>Sunday</label><br />
 				 <s:checkbox  id="txtSunday" checked="checked" value="Y" path="strSunday"/>
 			</div>
+		</div>
+            
 		</div>
             
             <!-- ---------------------- -->
