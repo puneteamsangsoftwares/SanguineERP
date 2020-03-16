@@ -1526,7 +1526,7 @@ public class clsBillPrintingController {
 							{
 							// get bill details
 								sqlBillDtl = "SELECT DATE(b.dteDocDate),b.strDocNo, IFNULL(SUBSTRING_INDEX(SUBSTRING_INDEX(b.strPerticulars,'(', -1),')',1),''), "
-									+ "SUM(b.dblDebitAmt), SUM(b.dblCreditAmt), SUM(b.dblBalanceAmt),a.strBillNo,c.strRoomDesc,a.strFolioNo,d.strHsnSac "
+									+ "ifnull(a.dblGrandTotal,0.0), SUM(b.dblCreditAmt), SUM(b.dblBalanceAmt),a.strBillNo,c.strRoomDesc,a.strFolioNo,d.strHsnSac "
 									+ "FROM tblbillhd a "
 									+ ", tblbilldtl b ,tblroom c,tblroomtypemaster d "
 									+ "WHERE a.strBillNo='"+billList.get(0).toString()+"' AND a.strBillNo=b.strBillNo  AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' "

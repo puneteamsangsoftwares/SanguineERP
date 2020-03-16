@@ -326,6 +326,9 @@ public class clsMergeBillController {
 			clsBillHdBackupModel objBackupModel = objBillService.funLoadBillBackup(strBillArray[i], clientCode);
 			
 			clsBillHdModel objBillHdModel = funPrepareBillHdModel(objBackupModel,clientCode);
+			
+			objBillService.funAddUpdateBillHd(objBillHdModel);
+			
 		}
 		
 		
@@ -369,7 +372,7 @@ public class clsMergeBillController {
 		List<clsBillDtlModel> listBillDtlModel = new ArrayList<clsBillDtlModel>();
 		for (clsBillDtlBackupModel objBillDetails : objBackupModel.getListBillDtlModels())
 		{
-			clsBillDtlBackupModel objDtlModel = new clsBillDtlBackupModel();
+			clsBillDtlModel objDtlModel = new clsBillDtlModel();
 			objDtlModel.setDblBalanceAmt(objBillDetails.getDblBalanceAmt());
 			objDtlModel.setDblCreditAmt(objBillDetails.getDblCreditAmt());
 			objDtlModel.setDblDebitAmt(objBillDetails.getDblDebitAmt());
@@ -382,13 +385,13 @@ public class clsMergeBillController {
 			objDtlModel.setStrRevenueType(objBillDetails.getStrRevenueType());
 			objDtlModel.setStrTransactionType(objBillDetails.getStrTransactionType());
 			objDtlModel.setStrUserEdited(objBillDetails.getStrUserEdited());
-			/*listBillDtlModel.add(objDtlModel);*/
+			listBillDtlModel.add(objDtlModel);
 		}
 		
 		List<clsBillTaxDtlModel> listBillTaxDtlBackupModel = new ArrayList<clsBillTaxDtlModel>();
 		for (clsBillTaxDtlBackupModel objBillDetails : objBackupModel.getListBillTaxDtlModels())
 		{
-			clsBillTaxDtlBackupModel objTaxDtlModel = new clsBillTaxDtlBackupModel();
+			clsBillTaxDtlModel objTaxDtlModel = new clsBillTaxDtlModel();
 
 			objTaxDtlModel.setDblTaxableAmt(objBillDetails.getDblTaxableAmt());
 			objTaxDtlModel.setDblTaxAmt(objBillDetails.getDblTaxAmt());
@@ -396,7 +399,7 @@ public class clsMergeBillController {
 			objTaxDtlModel.setStrTaxCode(objBillDetails.getStrTaxCode());
 			objTaxDtlModel.setStrTaxDesc(objBillDetails.getStrTaxDesc());
 			
-			/*listBillTaxDtlBackupModel.add(objTaxDtlModel);*/
+			listBillTaxDtlBackupModel.add(objTaxDtlModel);
 		}
 		objModel.setListBillDtlModels(listBillDtlModel);
 		objModel.setListBillTaxDtlModels(listBillTaxDtlBackupModel);

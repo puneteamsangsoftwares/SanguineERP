@@ -88,6 +88,7 @@ public class clsBillDaoImpl implements clsBillDao {
 	}
 
 	@Override
+	@Transactional(value = "WebPMSTransactionManager")
 	public clsBillHdBackupModel funLoadBillBackup(String docCode,
 			String clientCode) {
 

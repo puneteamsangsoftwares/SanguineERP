@@ -46,7 +46,7 @@ public class clsBillServiceImpl implements clsBillService {
 		
 	}
 
-	@Override
+
 	public clsBillHdBackupModel funLoadBillBackup(String docCode,
 			String clientCode) {
 		return objBillDao.funLoadBillBackup(docCode, clientCode);
