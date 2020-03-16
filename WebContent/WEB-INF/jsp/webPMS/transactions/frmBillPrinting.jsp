@@ -61,11 +61,11 @@
 				 }
 				 
 			});
-			if(strSelectBill=="")
+			/* if(strSelectBill=="")
 			{
 			 	alert("Please Select Folio ");
 			 	return false;
-			}
+			} */
 			$("#hidData").val(strSelectBill);
 			
 			if(against=='Bill')

@@ -108,6 +108,9 @@ public class clsBillHdBackupModel implements Serializable {
 	
 	@Column(name = "strCompanyName")
 	private String strCompanyName;
+	
+	@Column(name = "strRemark")
+	private String strRemark;
 
 	public String getStrCompanyName() {
 		return strCompanyName;
@@ -283,6 +286,14 @@ public class clsBillHdBackupModel implements Serializable {
 
 	public void setStrBillSettled(String strBillSettled) {
 		this.strBillSettled = (String) setDefaultValue(strBillSettled, "N");
+	}
+
+	public String getStrRemark() {
+		return strRemark;
+	}
+
+	public void setStrRemark(String strRemark) {
+		this.strRemark = strRemark;
 	}
 
 	/*

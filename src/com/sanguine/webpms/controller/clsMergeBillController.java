@@ -130,6 +130,7 @@ public class clsMergeBillController {
 			String strRegistrationNo = "";
 			String strExtraBedCode = "";
 			String strBillNo ="";
+			String strRemarks ="";
 			String transaDate = objGlobal.funGetCurrentDateTime("dd-MM-yyyy").split(" ")[0];
 			strBillNo = objGlobal.funGeneratePMSDocumentCode("frmBillHd", transaDate, req);
 
@@ -176,6 +177,8 @@ public class clsMergeBillController {
 				objMergeBillHdModel.setStrSplitType(objModel.getStrSplitType());
 				objMergeBillHdModel.setStrUserCreated(objModel.getStrUserCreated());
 				objMergeBillHdModel.setStrUserEdited(objModel.getStrUserEdited());
+				//objMergeBillHdModel.setStrRemark(strRemarks);
+				strRemarks = strRemarks+","+objModel.getStrBillNo();
 				
 				//For Merge Bill Dtl and tax dtl list
 				
@@ -223,6 +226,7 @@ public class clsMergeBillController {
 			objMergeBillHdModel.setStrFolioNo(strFolioNo.substring(1));
 			objMergeBillHdModel.setStrRegistrationNo(strRegistrationNo.substring(1));;
 			objMergeBillHdModel.setStrRoomNo(strRoomNo.substring(1));
+			objMergeBillHdModel.setStrRemark(strRemarks.substring(1));
 			
 			objBillService.funAddUpdateBillHd(objMergeBillHdModel);
 		} 
@@ -254,6 +258,7 @@ public class clsMergeBillController {
 		objBackupModel.setStrSplitType(objModel.getStrSplitType());
 		objBackupModel.setStrUserCreated(objModel.getStrUserCreated());
 		objBackupModel.setStrUserEdited(objModel.getStrUserEdited());
+		objBackupModel.setStrRemark(objModel.getStrRemark());
 		
 		
 		List<clsBillDtlBackupModel> listBillDtlModel = new ArrayList<clsBillDtlBackupModel>();

@@ -3067,7 +3067,7 @@ public class clsSearchFormController {
 			 * "from  tblbillhd where strClientCode='"+clientCode+"' ";
 			 */
 			columnNames = "  a.strCheckInNo,CONCAT(c.strFirstName,c.strMiddleName,c.strLastName), a.dteBillDate,a.strFolioNo,  " + " a.strRegistrationNo,a.strReservationNo,a.dblGrandTotal ,d.strPayee,a.strBillNo ";
-			tableName = " from tblcheckinhd b  ,tblbillhd a ,tblcheckindtl d ,tblguestmaster c " + " where d.strPayee='Y' and b.strCheckInNo =a.strCheckInNo  " + " and b.strCheckInNo=d.strCheckInNo and d.strGuestCode=c.strGuestCode and a.dteBillDate between '" + txtFromDate + " ' and '" + txtToDate + " ' " + " and a.dblGrandTotal>0 group by a.strCheckInNo, d.strPayee ";
+			tableName = " from tblcheckinhd b  ,tblbillhd a ,tblcheckindtl d ,tblguestmaster c " + " where d.strPayee='Y' and b.strCheckInNo =a.strCheckInNo  " + " and b.strCheckInNo=d.strCheckInNo and d.strGuestCode=c.strGuestCode and a.dteBillDate between '" + txtFromDate + " ' and '" + txtToDate + " ' " + " and a.dblGrandTotal>0 or a.strRemark!='' group by a.strCheckInNo ";
 
 			listColumnNames = "CheckIN No,Bill Date,Guest Name,Folio No,Registration No,Reservation No,GrandTotal ,Payee";
 			idColumnName = "strBillNo";

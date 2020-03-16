@@ -4889,6 +4889,16 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		
 		funExecutePMSQuery(sql);
 		
+		sql = "ALTER TABLE `tblbillhd` "
+				+ "ADD COLUMN `strRemark` VARCHAR(50) NOT NULL DEFAULT '' AFTER `strCompanyName`;";
+		
+		funExecutePMSQuery(sql);
+		
+		sql = "ALTER TABLE `tblbillhdbckp` "
+				+ "ADD COLUMN `strRemark` VARCHAR(50) NOT NULL DEFAULT '' AFTER `strCompanyName`;";
+		
+		funExecutePMSQuery(sql);
+		
 		
 				// For PMS Form Of Tree master Start///
 		sql = " INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`) VALUES "

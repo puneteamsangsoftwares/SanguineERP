@@ -431,6 +431,7 @@ public class clsCheckOutController {
 					objBillHdModel.setDblGrandTotal(Double.parseDouble(df.format(grandTotal)));
 					objBillHdModel.setListBillDtlModels(listBillDtlModel);
 					objBillHdModel.setListBillTaxDtlModels(listBillTaxDtlModel);
+					objBillHdModel.setStrRemark("");
 					// objBillHdModel.setSetBillDtlModels(setBillDtlModel);
 					// objBillHdModel.setSetBillTaxDtlModels(setBillTaxDtlModel);
 					
