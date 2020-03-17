@@ -15,8 +15,9 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -78,6 +79,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -101,6 +103,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sun.misc.BASE64Encoder;
 
 @Controller
 public class clsCheckInController {
@@ -1294,45 +1297,79 @@ public class clsCheckInController {
 
 	private void funCallAPI(clsPropertySetupHdModel objModel,String clientCode,String pmsDate) 
 	{
-		
-		try{
-		JSONObject jobj= new JSONObject();
-		JSONArray jArray = new JSONArray();
-		String isoDatePattern = "yyyy-MM-dd'T'HH:mm:ssZ";
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(isoDatePattern);
-		String sqlRoomInvData = "select a.strClientCode ,'SANGUINEPMS' as OTA_Name ,a.strRoomTypeCode,a.strRateContractID,count(b.strRoomCode) from tblpmsratecontractdtl a "
-				+ "left outer join  tblroom b on a.strRoomTypeCode=b.strRoomTypeCode where b.strStatus='Free' and a.strClientCode='"+clientCode+"' "
-				+ "group by a.strRoomTypeCode ";
-		List listRoomInvData = objGlobalFunctionsService.funGetListModuleWise(sqlRoomInvData, "sql");
-		if(listRoomInvData!=null && listRoomInvData.size()>0)
+		try
 		{
-			for(int i=0;i<listRoomInvData.size();i++)
+			JSONObject jobj= new JSONObject();
+			JSONArray jArray = new JSONArray();
+			String isoDatePattern = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(isoDatePattern);
+			String sqlRoomInvData = "select a.strClientCode ,'SANGUINEPMS' as OTA_Name ,a.strRoomTypeCode,a.strRateContractID,count(b.strRoomCode) from tblpmsratecontractdtl a "
+					+ "left outer join  tblroom b on a.strRoomTypeCode=b.strRoomTypeCode where b.strStatus='Free' and a.strClientCode='"+clientCode+"' "
+					+ "group by a.strRoomTypeCode ";
+			List listRoomInvData = objGlobalFunctionsService.funGetListModuleWise(sqlRoomInvData, "sql");
+			if(listRoomInvData!=null && listRoomInvData.size()>0)
 			{
-				Object [] objArray = (Object[]) listRoomInvData.get(i);
-				jobj.put("HotelId", objArray[0].toString());
-				jobj.put("OTACode", objArray[1].toString());
+				for(int i=0;i<listRoomInvData.size();i++)
+				{
+					Object [] objArray = (Object[]) listRoomInvData.get(i);
+					jobj.put("HotelId", objArray[0].toString());
+					jobj.put("OTACode", objArray[1].toString());
+					
+					JSONObject jRoomObj  = new JSONObject();
+					jRoomObj.put("RoomId", objArray[2].toString());
+					jRoomObj.put("RateplanId", objArray[3].toString());
+					Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(pmsDate);  
+					Date date2=new SimpleDateFormat("yyyy-MM-dd").parse(pmsDate);
+					jRoomObj.put("FromDate", simpleDateFormat.format(date1));
+					jRoomObj.put("ToDate", simpleDateFormat.format(date2));
+					jRoomObj.put("Inventory", objArray[4].toString());
+					jArray.add(jRoomObj);
+					
+				}
+				jobj.put("Rooms", jArray);
 				
-				JSONObject jRoomObj  = new JSONObject();
-				jRoomObj.put("RoomId", objArray[2].toString());
-				jRoomObj.put("RateplanId", objArray[3].toString());
-				Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(pmsDate);  
-				Date date2=new SimpleDateFormat("yyyy-MM-dd").parse(pmsDate);
-				jRoomObj.put("FromDate", simpleDateFormat.format(date1));
-				jRoomObj.put("ToDate", simpleDateFormat.format(date2));
-				jRoomObj.put("Inventory", objArray[4].toString());
-				
-				
-				
-				jArray.put(jRoomObj);
-				
+				funCallingToRestAPI(objModel,jobj);
 			}
-			jobj.put("Rooms", jArray);
-			
+		}
+		catch(Exception e){
+			e.printStackTrace();
 		}
 	}
-	catch(Exception e){
-		e.printStackTrace();
-	}
+	
+	public void funCallingToRestAPI(clsPropertySetupHdModel objModel,JSONObject jobj)
+	{
+		try
+		{
+			URL obj = new URL(objModel.getStrIntegrationUrl()+"/MaxiMojoIntegration/MaxiMojoIntegration/funPushInventory");
+		    HttpURLConnection postConnection = (HttpURLConnection) obj.openConnection();
+		    postConnection.setDoOutput(true);
+		    postConnection.setRequestMethod("POST");
+		    postConnection.setRequestProperty("Content-Type", "application/json");
+		    
+		    OutputStream os = postConnection.getOutputStream();
+			os.write(jobj.toJSONString().getBytes());
+			os.flush();
+
+			BufferedReader br = new BufferedReader(new InputStreamReader((postConnection.getInputStream())));
+
+			String output="",op="";
+			System.out.println("Output from Server .... \n");
+			while ((output = br.readLine()) != null) {
+				op+=output;
+			}
+			System.out.println("Output :: "+op);
+			
+			/*JSONParser parser = new JSONParser();
+		    JSONObject jObjMenuDownloaded = (JSONObject) parser.parse(op);*/
+
+			postConnection.disconnect();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	private void funPostRoomTarrif(String strCheckInNo,String clientCode,String strpmsDate,String propCode,String userCode) 
