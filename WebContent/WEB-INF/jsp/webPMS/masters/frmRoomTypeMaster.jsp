@@ -92,6 +92,7 @@
 					        	$("#txtDoubleTarrif").val(response.dblDoubleTariff);
 					        	$("#txtTrippleTarrif").val(response.dblTrippleTariff);
 					        	$("#txtHsnSac").val(response.strHsnSac);
+					        	$("#txtGuestCapcity").val(response.strGuestCapcity);
 					        	
 				        	}
 						},
@@ -160,7 +161,6 @@
 					        var iKeyCode = (evt.which) ? evt.which : evt.keyCode
 					        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
 					            return false;
-
 					        return true;
 					    } 
 					 
@@ -174,7 +174,8 @@
 				    				} 
 				    					window.open('attachDoc.html?transName=frmRoomTypeMaster.jsp&formName=Member Profile&code='+$('#txtRoomTypeCode').val(),"mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600,left=400px");
 				    			});
-		
+					 
+
 	
 </script>
 
@@ -212,6 +213,10 @@
 			</div>
 			<div class="col-md-2"><label>HSN/SAC</label>
 				<s:input id="txtHsnSac" path="strHsnSac"/>				
+			</div>
+		
+			<div class="col-md-2"><label>Guest Capcity</label>
+				<s:input id="txtGuestCapcity" path="strGuestCapcity" type="number" onkeypress="return isNumber(event)" max="100"/>				
 			</div>
 			
 		</div>

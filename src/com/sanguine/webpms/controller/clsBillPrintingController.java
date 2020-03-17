@@ -1405,6 +1405,8 @@ public class clsBillPrintingController {
 						
 						List listInvoice=new ArrayList();
 						String reportName = servletContext.getRealPath("/WEB-INF/reports/webpms/rptInvoiceFormat.jrxml");
+						imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
+
 						List<clsInvoiceFormatBean> dataList = new ArrayList<clsInvoiceFormatBean>();
 						
 						List listInvoiceSummary=new ArrayList();
@@ -1507,7 +1509,7 @@ public class clsBillPrintingController {
 							reportParams.put("pCompanyGSTINTop", GSTNo);					
 							reportParams.put("pForMessageBot","for SYMBIOSIS - SANDIPANI");
 							reportParams.put("pCompanyGSTINAboveName","44 Sandipani Campus (2019-20)");
-
+							reportParams.put("strImagePath", imagePath);
 							String sqlBillDtl = "";
 						
 							if(clientCode.equalsIgnoreCase("320.001"))

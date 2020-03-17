@@ -158,7 +158,7 @@
 <!-- 				<option value="Food">Food</option> -->
 				
 <%-- 				</select> --%>
-				      <s:checkbox name="splitType" path="strSplitType" value="ROOM"/>&nbsp;ROOM &nbsp;&nbsp;
+				      <s:checkbox name="splitType" path="strSplitType" value="ROOM" />&nbsp;ROOM &nbsp;&nbsp;
 				      <s:checkbox  name="splitType" path="strSplitType" value="FOOD"/>&nbsp;FOOD &nbsp;&nbsp;
 				      <s:checkbox  name="splitType" path="strSplitType" value="LIQUOR"/>&nbsp;LIQUOR &nbsp;&nbsp;
 				      <s:checkbox  name="splitType" path="strSplitType" value="GUEST WISE"/>&nbsp;GUEST WISE 

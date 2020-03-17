@@ -342,7 +342,7 @@
 			       <div class="col-md-6"><label>Against</label>
 				       <select id="cmbType">
 				   		<option value="Bill">Bill</option>
-				   		<option value="CheckIn">CheckIn</option>
+				   		<option value="CheckIn">Check In</option>
 				       </select>
 			       </div>
 		     </div></div>

@@ -41,6 +41,17 @@ public class clsRoomTypeMasterModel {
 	
 	@Column(name = "strHsnSac")
 	private String strHsnSac;
+	
+	@Column(name = "strGuestCapcity")
+	private String strGuestCapcity;
+
+	public String getStrGuestCapcity() {
+		return strGuestCapcity;
+	}
+
+	public void setStrGuestCapcity(String strGuestCapcity) {
+		this.strGuestCapcity = strGuestCapcity;
+	}
 
 	public String getStrHsnSac() {
 		return strHsnSac;
