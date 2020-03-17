@@ -99,6 +99,8 @@ public class clsPropertySetupController {
 			model.put("enableWebCam", objModel.getStrEnableWebCam());
 			model.put("BillFormat", objModel.getStrBillFormat());
 			model.put("ratePickUpFrom", objModel.getStrRatepickUpFrom());
+			model.put("OnlineIntegration", objModel.getStrOnlineIntegration());
+			model.put("IntegrationUrl", objModel.getStrIntegrationUrl());
 		}
 		
 		String sql = "select count(1) from tblroom a where a.strClientCode='" + clientCode + "' ";
@@ -480,6 +482,9 @@ public class clsPropertySetupController {
 		objPropertySetupModel.setStrEnableWebCam(objBean.getStrEnableWebCam());
 		objPropertySetupModel.setStrBillFormat(objBean.getStrBillFormat());
 		objPropertySetupModel.setStrRatepickUpFrom(objBean.getStrRatepickUpFrom());
+		objPropertySetupModel.setStrOnlineIntegration(objBean.getStrOnlineIntegration());
+		objPropertySetupModel.setStrIntegrationUrl(objBean.getStrIntegrationUrl());
+		
 		return objPropertySetupModel;
 	}
 }

@@ -53,6 +53,10 @@ public class clsPropertySetupBean {
 	private String strBillFormat;
 	
 	private String strRatepickUpFrom;
+	
+	private String strOnlineIntegration;
+	
+	private String strIntegrationUrl;
 
 	public String getStrGSTNo() {
 		return strGSTNo;
@@ -261,6 +265,22 @@ public class clsPropertySetupBean {
 
 	public void setStrRatepickUpFrom(String strRatepickUpFrom) {
 		this.strRatepickUpFrom = strRatepickUpFrom;
+	}
+
+	public String getStrOnlineIntegration() {
+		return strOnlineIntegration;
+	}
+
+	public void setStrOnlineIntegration(String strOnlineIntegration) {
+		this.strOnlineIntegration = strOnlineIntegration;
+	}
+
+	public String getStrIntegrationUrl() {
+		return strIntegrationUrl;
+	}
+
+	public void setStrIntegrationUrl(String strIntegrationUrl) {
+		this.strIntegrationUrl = strIntegrationUrl;
 	}
 
 	

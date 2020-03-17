@@ -101,6 +101,12 @@ public class clsPropertySetupHdModel implements Serializable {
 	@Column(name = "strRatepickUpFrom")
 	private String strRatepickUpFrom;
 	
+	@Column(name = "strOnlineIntegration")
+	private String strOnlineIntegration;
+	
+	@Column(name = "strIntegrationUrl")
+	private String strIntegrationUrl;
+	
 	// SMS setUp Tab End
 
 	// Setter-Getter Methods
@@ -313,6 +319,22 @@ public class clsPropertySetupHdModel implements Serializable {
 
 	public void setStrRatepickUpFrom(String strRatepickUpFrom) {
 		this.strRatepickUpFrom = strRatepickUpFrom;
+	}
+
+	public String getStrOnlineIntegration() {
+		return strOnlineIntegration;
+	}
+
+	public void setStrOnlineIntegration(String strOnlineIntegration) {
+		this.strOnlineIntegration = strOnlineIntegration;
+	}
+
+	public String getStrIntegrationUrl() {
+		return strIntegrationUrl;
+	}
+
+	public void setStrIntegrationUrl(String strIntegrationUrl) {
+		this.strIntegrationUrl = strIntegrationUrl;
 	}
 
 	

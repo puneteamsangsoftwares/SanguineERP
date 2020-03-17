@@ -55,6 +55,7 @@ ul.tabs1 li.active {
 	var enableWebCam;
 	var billFormat; 
 	var ratePickUp;
+	var OnlineIntegration;
 	
 	$(document).ready(function() {
 
@@ -237,7 +238,11 @@ ul.tabs1 li.active {
 				$("#cmbBillFormat").val(billFormat);
 			
 			ratePickUp=value="${ratePickUpFrom}"
-				$("#cmbBRatepickupfrom").val(ratePickUp);	
+				$("#cmbBRatepickupfrom").val(ratePickUp);
+			
+			OnlineIntegration =value="${OnlineIntegration}";
+			
+			$("#cmbOnlineIntegration").val(OnlineIntegration);
 	});
 	/**
 		* Success Message After Saving Record
@@ -1048,6 +1053,7 @@ ul.tabs1 li.active {
 						<li data-state="tab2">SMS Setup</li>
 						<li data-state="tab3">Linkup</li>
 						<li data-state="tab4">E-mail Setup</li>
+						<li data-state="tab5">Online Integration</li>
 					</ul>
 				<div id="tab1" class="tab_content">
 					<br><br>
@@ -1412,6 +1418,29 @@ ul.tabs1 li.active {
 						<div class="col-md-3">
 							<s:textarea cssStyle="height: 50px; width: 100%; margin-bottom: 10px;" id="txtCheckINEmailContent" path="strCheckInEmailContent"  />
 						</div>	
+					</div>
+				</div>
+				
+				<!--For Online Integratoion  -->
+				
+				<div id="tab5" class="tab_content">
+					<br><br><br>
+					<div id="tblAudit" class="row transTable">
+						<div class="col-md-3">
+							<label >Online Integration </label><br>
+								<select  id="cmbOnlineIntegration" path="strOnlineIntegration" style="width:70%;">
+									<option value="Yes">Yes</option>
+									<option value="No">No</option>
+									
+								</select>
+						</div>
+						
+						<div class="col-md-2"> 
+							<label>Integration URL</label>
+							<s:input type="text" class="text" placeholder="URL" id="txtIntegratrionURL" path="strIntegrationUrl" value="${IntegrationUrl}"/>
+						</div>
+					
+							
 					</div>
 				</div>
 		</div>
