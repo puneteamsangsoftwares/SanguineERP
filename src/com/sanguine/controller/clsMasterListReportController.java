@@ -88,6 +88,10 @@ public class clsMasterListReportController {
 			String reportName = servletContext.getRealPath("/WEB-INF/reports/rptMasterList.jrxml");
 			String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
 			String code = null, Name = null, masterName = null;
+			
+			fromDate=objGlobal.funGetDate("yyyy-MM-dd", fromDate) ;
+			toDate=objGlobal.funGetDate("yyyy-MM-dd", toDate) ;
+			
 			switch (tblName) {
 
 			case "tblattributemaster": {

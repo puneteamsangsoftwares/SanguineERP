@@ -98,7 +98,7 @@
     		var billdate="";
 			var locCode=$("#txtToLocCode").val();
 			var searchUrl="";
-			searchUrl=getContextPath()+"/loadProductDataWithTax.html?prodCode="+code +"&locCode="+locCode+"&suppCode="+suppCode+"&billDate="+billDate;
+			searchUrl=getContextPath()+"/loadProductDataWithTax.html?prodCode="+code +"&locCode="+locCode+"&suppCode="+suppCode+"&billDate="+billdate;
 			$.ajax
 			({
 		        type: "GET",

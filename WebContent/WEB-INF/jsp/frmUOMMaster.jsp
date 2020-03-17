@@ -14,6 +14,11 @@
 
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+		
+		<script type="text/javascript" src="<spring:url value="/resources/js/controller/scriptchart.js"/>"></script>
+	
+	  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
+<script src='https://cdn3.devexpress.com/jslib/17.1.6/js/dx.all.js'></script>
 	
 <script type="text/javascript">
 	
@@ -54,6 +59,35 @@
 	<s:input type="hidden" id="txtHidUom" path="strhidUom"></s:input>
 </s:form>
 </div>
+
+<main class="main">
+  <button id="random" class="button">Random value</button>
+<h1 class="main__title">Gauge Chart</h1>
+  
+  <div class="gauge-container">
+    <div class="gauge"></div>
+      <!-- <div class="gauge"></div>-->
+    <!-- <div class="gauge"></div>-->
+  </div>
+</main>
+
+  <!--<footer class="footer">
+  <p>A pen by <a href="http://brunocarvalho.me">Bruno Carvalho</a></p>
+</footer>-->
+
+<svg width="0" height="0" version="1.1" class="gradient-mask" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+      <linearGradient id="gradientGauge" radius="50%">
+        <stop class="color-red" offset="20%" radius="50%"/>
+        <stop class="color-yellow" offset="17%" width="50%"/>
+        <stop class="color-green" offset="40%" width="50%"/>
+        <stop class="color-yellow" offset="87%" width="50%"/>
+        <stop class="color-red" offset="100%" width="50%"	/>
+      </linearGradient>
+  </defs>  
+</svg>
+<!-- partial -->
+
 
 </body>
 </html>

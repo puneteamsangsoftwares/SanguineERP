@@ -1157,14 +1157,14 @@ public class clsProductMasterController {
 		
 		String sql = "";
 		if (objSetup.getStrShowProdMaster().equalsIgnoreCase("Y")) {
-			sql = " select p.strProdCode as ProdCode,p.strProdName as ProdName,s.strSGName as SGName," + " p.strUOM as UOM,p.dblCostRM as CostRM,p.dblListPrice as ListPrice," + " ifnull(l.strlocname,'') as Locname,p.strSpecification as Specification ,p.strBinNo as BinNo " + " from tblproductmaster p" + " left outer join tblsubgroupmaster s on p.strSGCode=s.strSGCode and s.strClientcode='" + clientCode
+			sql = " select p.strProdCode as ProdCode,p.strProdName as ProdName,ifnull(s.strSGName,'') as SGName," + " p.strUOM as UOM,p.dblCostRM as CostRM,p.dblListPrice as ListPrice," + " ifnull(l.strlocname,'') as Locname,p.strSpecification as Specification ,p.strBinNo as BinNo " + " from tblproductmaster p" + " left outer join tblsubgroupmaster s on p.strSGCode=s.strSGCode and s.strClientcode='" + clientCode
 					+ "' " + " left outer join tbllocationmaster l on p.strloccode=l.strloccode and l.strClientcode='" + clientCode + "' " + " and l.strPropertyCode='" + propertyCode + "' where p.strClientcode='" + clientCode + "' and (p.strLocCode='" + strLocCode + "' or p.strLocCode='') ";
 			if (!objBean.getStrProdType().equalsIgnoreCase("ALL")) {
 				sql += " and p.strProdType='" + objBean.getStrProdType() + "' ";
 			}
 
 		} else {
-			sql = "select p.strProdCode as ProdCode,p.strProdName as ProdName,s.strSGName as SGName," + " p.strUOM as UOM,p.dblCostRM as CostRM,p.dblListPrice as ListPrice," + " ifnull(l.strlocname,'') as Locname,p.strSpecification as Specification ,p.strBinNo as BinNo " + " from tblproductmaster p" + " left outer join tblsubgroupmaster s on p.strSGCode=s.strSGCode and s.strClientcode='" + clientCode
+			sql = "select p.strProdCode as ProdCode,p.strProdName as ProdName,ifnull(s.strSGName,'') as SGName," + " p.strUOM as UOM,p.dblCostRM as CostRM,p.dblListPrice as ListPrice," + " ifnull(l.strlocname,'') as Locname,p.strSpecification as Specification ,p.strBinNo as BinNo " + " from tblproductmaster p" + " left outer join tblsubgroupmaster s on p.strSGCode=s.strSGCode and s.strClientcode='" + clientCode
 					+ "' " + " left outer join tbllocationmaster l on p.strloccode=l.strloccode and l.strClientcode='" + clientCode + "' " + " where p.strClientcode='" + clientCode + "' ";
 			if (!objBean.getStrProdType().equalsIgnoreCase("ALL")) {
 				sql += " and p.strProdType='" + objBean.getStrProdType() + "' ";
