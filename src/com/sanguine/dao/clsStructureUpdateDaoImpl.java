@@ -5029,19 +5029,21 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		
 		sql = "ALTER TABLE `tblguestmaster`  CHANGE COLUMN `strUserCreated` `strUserCreated` VARCHAR(30) NOT NULL AFTER `strCorporate`, "
 				+ "  CHANGE COLUMN `strUserEdited` `strUserEdited` VARCHAR(30) NOT NULL AFTER `strUserCreated`; ";
-
+		funExecutePMSQuery(sql);
 
 		sql = "ALTER TABLE `tblreservationhd` "
 			 + "  CHANGE COLUMN `strRemarks` `strRemarks` VARCHAR(400) NOT NULL AFTER `strAgentCode`, "
 		     + "  CHANGE COLUMN `strUserCreated` `strUserCreated` VARCHAR(30) NOT NULL AFTER `strCancelReservation`, "
 		     + "  CHANGE COLUMN `strUserEdited` `strUserEdited` VARCHAR(30) NOT NULL AFTER `strUserCreated`;";
-
+		funExecutePMSQuery(sql);
 
 		sql = "ALTER TABLE `tblreservationdtl` "
 				+ " CHANGE COLUMN `strRemark` `strRemark` VARCHAR(400) NOT NULL AFTER `strPayee`; ";
+		funExecutePMSQuery(sql);
 
 		sql = "ALTER TABLE `tblpmsratecontractdtl` "
 				+ "ADD COLUMN `strRateContractName` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strRateContractID`; ";
+		funExecutePMSQuery(sql);
 		
 		// / END ///
 

@@ -1,8 +1,20 @@
 package com.sanguine.webpms.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.json.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -13,16 +25,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-import java.util.Map;
-
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webpms.bean.clsPMSRateContractBean;
+import com.sanguine.webpms.dao.clsWebPMSDBUtilityDao;
 import com.sanguine.webpms.model.clsPMSRateContractModel;
-import com.sanguine.webpms.model.clsPMSSettlementMasterHdModel;
-import com.sanguine.webpms.model.clsRoomTypeMasterModel;
+import com.sanguine.webpms.model.clsPropertySetupHdModel;
 import com.sanguine.webpms.service.clsPMSRateContractService;
+import com.sanguine.webpms.service.clsPropertySetupService;
+
+import sun.misc.BASE64Encoder;
 
 @Controller
 public class clsPMSRateContractController{
@@ -32,6 +44,12 @@ public class clsPMSRateContractController{
 	@Autowired
 	private clsGlobalFunctionsService objGlobalFunctionsService;
 	private clsGlobalFunctions objGlobal=null;
+
+	@Autowired
+	private clsPropertySetupService objPropertySetupService;
+	
+	@Autowired
+	private clsWebPMSDBUtilityDao objWebPMSUtility;
 
 //Open PMSRateContract
 	@RequestMapping(value = "/frmPMSRateContract", method = RequestMethod.GET)
@@ -94,10 +112,13 @@ public class clsPMSRateContractController{
 	public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsPMSRateContractBean objBean ,BindingResult result,HttpServletRequest req){
 		if(!result.hasErrors()){
 			String clientCode=req.getSession().getAttribute("clientCode").toString();
+			String propertyCode = req.getSession().getAttribute("propertyCode").toString();
 			String userCode=req.getSession().getAttribute("usercode").toString();
 			clsPMSRateContractModel objModel = funPrepareModel(objBean,userCode,clientCode);
 			objPMSRateContractService.funAddUpdatePMSRateContract(objModel);
-			
+			clsPropertySetupHdModel objModel1 = objPropertySetupService.funGetPropertySetup(propertyCode, clientCode);
+			String pmsDate = req.getSession().getAttribute("PMSDate").toString();
+			funCallAPI(objModel1,clientCode,pmsDate);
 			req.getSession().setAttribute("success", true);
 			req.getSession().setAttribute("successMessage", "Rate management code : ".concat(objModel.getStrRateContractID()));
 
@@ -109,6 +130,122 @@ public class clsPMSRateContractController{
 		}
 	}
 
+	private void funCallAPI(clsPropertySetupHdModel objModel1, String clientCode,String pmsDate) 
+	{
+		try{
+			JSONObject JMainObject = new JSONObject();		
+			String isoDatePattern = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(isoDatePattern);
+			String sql = "select a.strClientCode ,'SANGUINEPMS' as OTA_Name ,a.strRoomTypeCode,a.strRateContractID,a.dblSingleTariWeekDays,a.dblDoubleTariWeekDays, "
+					+ "a.dblTrippleTariWeekDays,a.dblExtraBedTariWeekDays,a.dblChildTariWeekDays,a.dblYouthTariWeekDays from tblpmsratecontractdtl a "
+					+ "left outer join  tblroom b on a.strRoomTypeCode=b.strRoomTypeCode where b.strStatus='Free' and a.strClientCode='"+clientCode+"' "
+					+ "group by a.strRoomTypeCode ";
+			
+			List listData = objWebPMSUtility.funExecuteQuery(sql, "sql"); 
+			if(listData!=null && listData.size()>0)
+			{
+				JSONObject JroomObj = new JSONObject();
+				for(int i=0;i<listData.size();i++)
+				{
+					Object [] obj = (Object[]) listData.get(i);
+					JMainObject.put("HotelId", obj[0].toString());
+					JMainObject.put("OTACode", obj[1].toString());										
+					
+					JroomObj = new JSONObject();
+					JroomObj.put("RoomId", obj[2].toString());
+					JroomObj.put("RateplanId", obj[3].toString());					
+					
+					Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(pmsDate);  
+					Date date2=new SimpleDateFormat("yyyy-MM-dd").parse(pmsDate);
+					JroomObj.put("FromDate", simpleDateFormat.format(date1));
+					JroomObj.put("ToDate", simpleDateFormat.format(date2));
+					
+					JSONObject jObjj = new JSONObject();
+					JSONArray jArray = new JSONArray();
+					//single tarrif
+					jObjj.put("NumberOfGuest", "1");
+					jObjj.put("Amount", obj[4].toString());
+					jArray.put(jObjj);
+					
+					//double tarrif
+					jObjj = new JSONObject();					
+					jObjj.put("NumberOfGuest", "2");
+					jObjj.put("Amount", obj[5].toString());
+					jArray.put(jObjj);
+					
+					//tripple tarrif
+					jObjj = new JSONObject();
+					jObjj.put("NumberOfGuest", "3");
+					jObjj.put("Amount", obj[6].toString());
+					jArray.put(jObjj);
+					JroomObj.put("Rates", jArray);
+					
+					//Additonal Rates
+					jArray = new JSONArray();
+					jObjj = new JSONObject();
+					jObjj.put("OccupantsAgeCode", "10");
+					jObjj.put("Amount", obj[7].toString());
+					jArray.put(jObjj);
+					
+					jObjj = new JSONObject();
+					jObjj.put("OccupantsAgeCode", "8");
+					jObjj.put("Amount", obj[8].toString());
+					jArray.put(jObjj);
+					JroomObj.put("AdditionalRates", jArray);					
+				}
+				JMainObject.put("Rooms", JroomObj);	
+				funCallingToRestAPI(objModel1,JMainObject);
+				System.out.println(JMainObject);
+				
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();			
+		}
+		
+		
+		
+		
+	}
+	
+	
+	public void funCallingToRestAPI(clsPropertySetupHdModel objModel,JSONObject jobj)
+    {
+            try
+            {
+                URL obj = new URL("http://"+objModel.getStrIntegrationUrl()+"/MaxiMojoIntegration/MaxiMojoIntegration/funPushRates");
+                HttpURLConnection postConnection = (HttpURLConnection) obj.openConnection();
+                postConnection.setDoOutput(true);
+                postConnection.setRequestMethod("POST");
+                postConnection.setRequestProperty("Content-Type", "application/json");
+                
+                OutputStream os = postConnection.getOutputStream();
+                    os.write(jobj.toJSONString().getBytes());
+                    os.flush();
+
+                    BufferedReader br = new BufferedReader(new InputStreamReader((postConnection.getInputStream())));
+
+                    String output="",op="";
+                    System.out.println("Output from Server .... \n");
+                    while ((output = br.readLine()) != null) {
+                            op+=output;
+                    }
+                    System.out.println("Output :: "+op);
+                    
+                    /*JSONParser parser = new JSONParser();
+                JSONObject jObjMenuDownloaded = (JSONObject) parser.parse(op);*/
+
+                    postConnection.disconnect();
+            }
+            catch(Exception e)
+            {
+                    e.printStackTrace();
+            }            
+            
+    }
+	
 //Convert bean to model function
 	private clsPMSRateContractModel funPrepareModel(clsPMSRateContractBean objBean,String userCode,String clientCode){
 		objGlobal=new clsGlobalFunctions();

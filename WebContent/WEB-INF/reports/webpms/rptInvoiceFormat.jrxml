@@ -504,8 +504,8 @@
 			<line>
 				<reportElement positionType="Float" x="475" y="244" width="1" height="13" uuid="ada2a241-df4e-4edd-81d6-75b2d5bbba04"/>
 			</line>
-			<image>
-				<reportElement x="0" y="-18" width="130" height="88" uuid="e2c423c0-4258-421f-a574-85ccdf9bcb9b"/>
+			<image scaleImage="FillFrame" hAlign="Center">
+				<reportElement x="0" y="-18" width="177" height="88" uuid="e2c423c0-4258-421f-a574-85ccdf9bcb9b"/>
 				<imageExpression><![CDATA[$P{strImagePath}]]></imageExpression>
 			</image>
 			<line>
