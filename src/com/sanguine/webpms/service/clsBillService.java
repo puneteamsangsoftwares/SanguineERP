@@ -23,5 +23,7 @@ public interface clsBillService {
 	public void funAddUpdateBillHdBackup(clsBillHdBackupModel objHdBackupModel);
 	
 	public clsBillHdBackupModel funLoadBillBackup(String docCode, String clientCode);
+	
+	public void funDeleteBillBackup(clsBillHdBackupModel objBillHdBackupModel);
 
 }

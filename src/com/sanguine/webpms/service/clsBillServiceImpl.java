@@ -45,6 +45,11 @@ public class clsBillServiceImpl implements clsBillService {
 		objBillDao.funAddUpdateBillHdBackup(objHdBackupModel);
 		
 	}
+	
+	@Override
+	public void funDeleteBillBackup(clsBillHdBackupModel objBillHdBackupModel) {
+		objBillDao.funDeleteBillBackup(objBillHdBackupModel);
+	}
 
 
 	public clsBillHdBackupModel funLoadBillBackup(String docCode,

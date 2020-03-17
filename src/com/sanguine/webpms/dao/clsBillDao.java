@@ -21,4 +21,6 @@ public interface clsBillDao {
 	public void funAddUpdateBillHdBackup(clsBillHdBackupModel objHdBackupModel);
 
 	public clsBillHdBackupModel funLoadBillBackup(String docCode, String clientCode);
+
+	void funDeleteBillBackup(clsBillHdBackupModel objBillHdModel);
 }

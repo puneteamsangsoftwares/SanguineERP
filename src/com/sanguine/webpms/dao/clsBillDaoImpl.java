@@ -78,6 +78,7 @@ public class clsBillDaoImpl implements clsBillDao {
 	}
 
 	@Override
+	@Transactional(value = "WebPMSTransactionManager")
 	public void funDeleteBill(clsBillHdModel objBillHdModel) {
 		webPMSSessionFactory.getCurrentSession().delete(objBillHdModel);
 	}
@@ -115,6 +116,11 @@ public class clsBillDaoImpl implements clsBillDao {
 		 */
 		//return hdModel;
 	
+	}
+	@Override
+	@Transactional(value = "WebPMSTransactionManager")
+	public void funDeleteBillBackup(clsBillHdBackupModel objBillHdModel) {
+		webPMSSessionFactory.getCurrentSession().delete(objBillHdModel);
 	}
 
 }

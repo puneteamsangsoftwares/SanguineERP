@@ -233,6 +233,13 @@ public class clsMergeBillController {
 			objMergeBillHdModel.setStrMergedBillNo(strRemarks.substring(1));
 			
 			objBillService.funAddUpdateBillHd(objMergeBillHdModel);
+			for(int i=0;i<listTemp.size();i++)
+			{
+				clsPMSMergeBillBean objTempBean = (clsPMSMergeBillBean) listTemp.get(i);
+				clsBillHdModel objModel = objBillService.funLoadBill(objTempBean.getStrBillNo(), clientCode);
+				objBillService.funDeleteBill(objModel);
+			}
+			
 		} 
 		else {
 			return new ModelAndView("redirect:/frmMergeBill.html?saddr=" + 1);
@@ -331,9 +338,16 @@ public class clsMergeBillController {
 			
 		}
 		
+		clsBillHdModel objModelDelete = objBillService.funLoadBill(strBillNo, clientCode);
+
+		objBillService.funDeleteBill(objModelDelete);
 		
-		List listRooms = new ArrayList<>();
-		List listHouseKeeping = new ArrayList<>();
+		for(int i=0;i<strBillArray.length;i++)
+		{
+			clsBillHdBackupModel objBackupModel = objBillService.funLoadBillBackup(strBillArray[i], clientCode);
+
+			objBillService.funDeleteBillBackup(objBackupModel);
+		}
 			
 		
 		
