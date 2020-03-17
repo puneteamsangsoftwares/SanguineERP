@@ -1428,11 +1428,11 @@ ul.tabs1 li.active {
 					<div id="tblAudit" class="row transTable">
 						<div class="col-md-3">
 							<label >Online Integration </label><br>
-								<select  id="cmbOnlineIntegration" path="strOnlineIntegration" style="width:70%;">
+								<s:select  id="cmbOnlineIntegration" path="strOnlineIntegration" style="width:70%;">
 									<option value="Yes">Yes</option>
 									<option value="No">No</option>
 									
-								</select>
+								</s:select>
 						</div>
 						
 						<div class="col-md-2"> 
