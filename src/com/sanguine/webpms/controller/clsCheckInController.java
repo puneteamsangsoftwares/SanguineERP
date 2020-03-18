@@ -1340,7 +1340,7 @@ public class clsCheckInController {
 	{
 		try
 		{
-			URL obj = new URL(objModel.getStrIntegrationUrl()+"/MaxiMojoIntegration/MaxiMojoIntegration/funPushInventory");
+			URL obj = new URL("http://"+objModel.getStrIntegrationUrl()+"/MaxiMojoIntegration/MaxiMojoIntegration/funPushInventory");
 		    HttpURLConnection postConnection = (HttpURLConnection) obj.openConnection();
 		    postConnection.setDoOutput(true);
 		    postConnection.setRequestMethod("POST");

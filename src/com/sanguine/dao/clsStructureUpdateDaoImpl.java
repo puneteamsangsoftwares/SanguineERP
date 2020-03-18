@@ -4910,15 +4910,16 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		
 		funExecutePMSQuery(sql);
 		
-		sql = "ALTER TABLE `tblbillhd`"
-				+ "	CHANGE COLUMN `strCheckInNo` `strCheckInNo` VARCHAR(50) NOT NULL AFTER `dteBillDate`,"
-				+ "	CHANGE COLUMN `strFolioNo` `strFolioNo` VARCHAR(50) NOT NULL AFTER `strCheckInNo`,"
-				+ "	CHANGE COLUMN `strRoomNo` `strRoomNo` VARCHAR(50) NOT NULL AFTER `strFolioNo`,"
-				+ "	CHANGE COLUMN `strExtraBedCode` `strExtraBedCode` VARCHAR(50) NOT NULL AFTER `strRoomNo`,"
-				+ "	CHANGE COLUMN `strRegistrationNo` `strRegistrationNo` VARCHAR(50) NOT NULL AFTER `strExtraBedCode`,"
-				+ "	CHANGE COLUMN `strReservationNo` `strReservationNo` VARCHAR(15) NOT NULL AFTER `strRegistrationNo`;";		
 		
-		funExecutePMSQuery(sql);
+		sql = "ALTER TABLE `tblbillhd`"
+				+ "	CHANGE COLUMN `strCheckInNo` `strCheckInNo` VARCHAR(1500) NOT NULL AFTER `dteBillDate`,"
+				+ "	CHANGE COLUMN `strFolioNo` `strFolioNo` VARCHAR(3000) NOT NULL AFTER `strCheckInNo`,"
+				+ "	CHANGE COLUMN `strRoomNo` `strRoomNo` VARCHAR(1500) NOT NULL AFTER `strFolioNo`,"
+				+ "	CHANGE COLUMN `strExtraBedCode` `strExtraBedCode` VARCHAR(1500) NOT NULL AFTER `strRoomNo`,"
+				+ "	CHANGE COLUMN `strRegistrationNo` `strRegistrationNo` VARCHAR(1500) NOT NULL AFTER `strExtraBedCode`,"
+				+ "	CHANGE COLUMN `strReservationNo` `strReservationNo` VARCHAR(1500) NOT NULL AFTER `strRegistrationNo`;";
+				
+				funExecutePMSQuery(sql);
 		
 		sql = "ALTER TABLE `tblpropertysetup` "
 				+ "ADD COLUMN `strOnlineIntegration` VARCHAR(3) NOT NULL DEFAULT '' AFTER `strRatePickUpFrom`,"

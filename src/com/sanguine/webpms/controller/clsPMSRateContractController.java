@@ -12,8 +12,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
-import org.json.JSONArray;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -165,19 +164,19 @@ public class clsPMSRateContractController{
 					//single tarrif
 					jObjj.put("NumberOfGuest", "1");
 					jObjj.put("Amount", obj[4].toString());
-					jArray.put(jObjj);
+					jArray.add(jObjj);
 					
 					//double tarrif
 					jObjj = new JSONObject();					
 					jObjj.put("NumberOfGuest", "2");
 					jObjj.put("Amount", obj[5].toString());
-					jArray.put(jObjj);
+					jArray.add(jObjj);
 					
 					//tripple tarrif
 					jObjj = new JSONObject();
 					jObjj.put("NumberOfGuest", "3");
 					jObjj.put("Amount", obj[6].toString());
-					jArray.put(jObjj);
+					jArray.add(jObjj);
 					JroomObj.put("Rates", jArray);
 					
 					//Additonal Rates
@@ -185,12 +184,12 @@ public class clsPMSRateContractController{
 					jObjj = new JSONObject();
 					jObjj.put("OccupantsAgeCode", "10");
 					jObjj.put("Amount", obj[7].toString());
-					jArray.put(jObjj);
+					jArray.add(jObjj);
 					
 					jObjj = new JSONObject();
 					jObjj.put("OccupantsAgeCode", "8");
 					jObjj.put("Amount", obj[8].toString());
-					jArray.put(jObjj);
+					jArray.add(jObjj);
 					JroomObj.put("AdditionalRates", jArray);					
 				}
 				JMainObject.put("Rooms", JroomObj);	

@@ -3067,7 +3067,7 @@ public class clsSearchFormController {
 			 * "from  tblbillhd where strClientCode='"+clientCode+"' ";
 			 */
 			columnNames = "  a.strCheckInNo,CONCAT(c.strFirstName,c.strMiddleName,c.strLastName), a.dteBillDate,a.strFolioNo,  " + " a.strRegistrationNo,a.strReservationNo,a.dblGrandTotal ,d.strPayee,a.strBillNo ";
-			tableName = " from tblcheckinhd b  ,tblbillhd a ,tblcheckindtl d ,tblguestmaster c " + " where d.strPayee='Y' and d.strGuestCode=c.strGuestCode and a.dteBillDate between '" + txtFromDate + " ' and '" + txtToDate + " ' " + " and a.dblGrandTotal>0 or a.strRemark!='' group by a.strCheckInNo ";
+			tableName = " from tblbillhd a ,tblcheckinhd b left outer join tblcheckindtl d on b.strCheckInNo=d.strCheckInNo left outer join tblguestmaster c on d.strGuestCode=c.strGuestCode" + " where d.strPayee='Y' and d.strGuestCode=c.strGuestCode and a.dteBillDate between '" + txtFromDate + " ' and '" + txtToDate + " ' " + " and a.dblGrandTotal>0 or a.strRemark!='' group by a.strCheckInNo ";
 
 			listColumnNames = "CheckIN No,Bill Date,Guest Name,Folio No,Registration No,Reservation No,GrandTotal ,Payee";
 			idColumnName = "strBillNo";
@@ -3304,7 +3304,8 @@ public class clsSearchFormController {
 		
 		case "MergeBill": {
 			columnNames = "a.strBillNo,a.strFolioNo,b.strCheckInNo, CONCAT(c.strFirstName,c.strMiddleName,c.strLastName) ";
-			tableName = "from  tblbillhd a ,tblcheckindtl b,tblguestmaster c,tblroom d  where a.strClientCode='"+clientCode+"' "
+			tableName = "from  tblbillhd a left outer join tblcheckindtl b on a.strCheckInNo=b.strCheckInNo left outer join  tblguestmaster c on b.strGuestCode=c.strGuestCode"
+					+ ", tblroom d   where a.strClientCode='"+clientCode+"' "
 					+ "and b.strGuestCode=c.strGuestCode and b.strPayee='Y'  group by a.strBillNo";
 
 			listColumnNames = "Bill No,Folio No,CheckIn NO,Guest Name ";
