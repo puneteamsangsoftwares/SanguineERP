@@ -558,7 +558,10 @@ $(document).ready(function()
 	    for(var i=0;i<noOfPacket;i++)
 		{	
 	    	var prodPckNo=strProdCode+packingNo
-		row = table.insertRow(rowCount);
+	    	if(i > 1){
+	    		row = table.insertRow(rowCount);		
+	    	}
+		
 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" type=\"hidden\" class=\"Box\" style=\"display:none;\"  id=\"strPropNLocCode."+(rowCount)+"\" value='"+prodPckNo+"' />";
 	    row.insertCell(1).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtProdCode."+(rowCount)+"\" value='"+strProdCode+"' />";		  		   	  
 	    row.insertCell(2).innerHTML= "<input name=\"listclsDeliveryChallanModelDtl["+(rowCount)+"].strPartNo\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtPartNo."+(rowCount)+"\" value='"+strPartNo+"'/>";
@@ -577,7 +580,10 @@ $(document).ready(function()
 	 	row.insertCell(12).innerHTML= '<input  class="deletebutton" value = "Delete" onClick="Javacsript:funDeleteRow(this)">';		 
 	 	
 	 	packingNo=parseFloat(packingNo)+1;
-	 	rowCount=rowCount+1;
+	 	if(i > 1){
+	 		rowCount=rowCount+1;
+	 	}
+	 	
 		}
 		if(!(dblQty%dblPcketQty==0))
 		{

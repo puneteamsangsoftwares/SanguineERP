@@ -632,7 +632,7 @@ public class clsPurchaseOrderController {
 					list = objGlobalFunctionsService.funGetProductDataForTransaction(sql, prodCode, clientCode);
 				}
 			} else {
-				sql = "select a.strProdcode,a.strProdName,a.strUOM,a.dblCostRM, ifnull(b.strSuppCode,'') as strSuppCode," + " ifnull(c.strPName,'') as strPName,a.strProdType,a.dblWeight,a.strPartNo,a.dblCostRM " + " from tblproductmaster a left outer join tblprodsuppmaster b on a.strProdCode=b.strProdCode and b.strClientCode='" + clientCode + "' and b.strDefault='Y'"
+				sql = "select a.strProdcode,a.strProdName,a.strUOM,a.dblCostRM, ifnull(b.strSuppCode,'') as strSuppCode," + " ifnull(c.strPName,'') as strPName,a.strProdType,a.dblWeight,a.strPartNo,a.dblCostRM as rate " + " from tblproductmaster a left outer join tblprodsuppmaster b on a.strProdCode=b.strProdCode and b.strClientCode='" + clientCode + "' and b.strDefault='Y'"
 						+ " left outer join tblpartymaster c on b.strSuppCode=c.strPCode and c.strClientCode='" + clientCode + "' " + " where  a.strProdCode='" + prodCode + "' and a.strClientCode='" + clientCode + "'";
 				list = objGlobalFunctionsService.funGetProductDataForTransaction(sql, prodCode, clientCode);
 			}
