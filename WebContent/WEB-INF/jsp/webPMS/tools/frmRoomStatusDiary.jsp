@@ -751,7 +751,7 @@ table tbody tr:nth-child(even) {
 		else if(roomStatus=='VIRTUAL RESERVATION')
 		{
 			//color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
-			color='linear-gradient(to top, #d299c2 0%, #fef9d7 100%);';			
+			color='linear-gradient(to top, #e6b980 0%, #eacda3 100%);';			
 		}   
 	
 		if(day1==null)
@@ -1823,7 +1823,26 @@ table tbody tr:nth-child(even) {
 			  	alert("Select View First");
 			  }
 		  }
-		 
+		  function funVirtualReservation() 
+		  {		
+			  gSelection='VIRTUAL RESERVATION';			  
+			  if(gViewSelection=='Seven Day View')
+			  {
+				  funShowRoomStatusFlashSelectionWise();
+			  }
+			  else if(gViewSelection=='One Day View')
+			  {
+				  funShowRoomStatusFlashForOneDaySelectionWise();
+			  }
+			  else if(gViewSelection=='House Keeping View')
+			  {
+				  funShowRoomStatusFlashHouseKeepingSelectionWise();
+			  }
+			  else
+			  {
+			  	alert("Select View First");
+			  }
+		  }
 		  
 		  function funGetRoomTypeAndStatusSelectionWise()
 			{
@@ -1958,8 +1977,7 @@ table tbody tr:nth-child(even) {
 					}  
 					else if(roomStatus=='VIRTUAL RESERVATION')
 					{
-						color='linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,242,224,1) 35%, rgba(0,212,255,1) 100%)';
-						//color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
+						color='linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(230,17,68,1) 1%);';		
 					} 
 					else if(response.strSource=='GROUP RESERVATION')
 					{						
@@ -2281,9 +2299,8 @@ table tbody tr:nth-child(even) {
 			            
 			            <li>
 			              <div class="thumb virtualReservation"></div>
-			              <a href="#" onclick="">&nbsp;&nbsp;&nbsp;Virtual Reservation</a> 
+			              <a href="#" onclick="funVirtualReservation();">&nbsp;&nbsp;&nbsp;Virtual Reservation</a> 
 			            </li>
-			            
 			            
 			          </ul>
 			       </div>

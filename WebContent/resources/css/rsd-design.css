@@ -203,7 +203,7 @@ padding: 1px 13px;
 }
 
 .title-row .status-list ul li .thumb.virtualReservation {
-		background:linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
+		background:linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(230,17,68,1) 1%);
 }
 
 .title-row .status-list ul li .thumb-title {

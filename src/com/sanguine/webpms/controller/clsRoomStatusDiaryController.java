@@ -360,7 +360,7 @@ public class clsRoomStatusDiaryController {
 							}
 						}						
 						objRoomStatusDtl.setDblRoomCnt(listsVirtualRoom.size());
-						if(strSelection.equalsIgnoreCase("VIRTUAL RESERVATION"))
+						if(strSelection.equalsIgnoreCase("VIRTUAL RESERVATION")||strSelection.equalsIgnoreCase(""))
 						{
 							objGroupReservation.add(objRoomStatusDtl);
 						}
@@ -377,7 +377,10 @@ public class clsRoomStatusDiaryController {
 						}
 						else
 						{
-							hmap.put(objRoomStatusDtl.getStrRoomType(),objGroupReservation);
+							if(strSelection.equalsIgnoreCase("VIRTUAL RESERVATION")||strSelection.equalsIgnoreCase(""))
+							{
+								hmap.put(objRoomStatusDtl.getStrRoomType(),objGroupReservation);
+							}
 						}						
 					}
 				}
@@ -544,7 +547,7 @@ public class clsRoomStatusDiaryController {
 							}
 						}						
 						objRoomStatusDtl.setDblRoomCnt(listRoomGroupWise.size());
-						if(strSelection.equalsIgnoreCase("GROUP RESERVATION"))
+						if(strSelection.equalsIgnoreCase("GROUP RESERVATION")||strSelection.equalsIgnoreCase(""))
 						{
 							objGroupReservation.add(objRoomStatusDtl);
 						}
@@ -561,7 +564,10 @@ public class clsRoomStatusDiaryController {
 						}
 						else
 						{
-							hmap.put(objRoomStatusDtl.getStrRoomType(),objGroupReservation);
+							if(strSelection.equalsIgnoreCase("GROUP RESERVATION")||strSelection.equalsIgnoreCase(""))
+							{
+								hmap.put(objRoomStatusDtl.getStrRoomType(),objGroupReservation);
+							}
 						}						
 					}
 				}
@@ -840,7 +846,7 @@ public class clsRoomStatusDiaryController {
 						{
 							objTemp.add(objRoomStatusDtl);
 						}
-						if(!strSelection.equalsIgnoreCase("GROUP RESERVATION"))
+						if(!strSelection.equalsIgnoreCase("GROUP RESERVATION")||!strSelection.equalsIgnoreCase("VIRTUAL RESERVATION"))
 						{
 							if(hmap.containsKey(objRoomStatusDtl.getStrRoomType()))
 							{
@@ -851,7 +857,10 @@ public class clsRoomStatusDiaryController {
 							}
 							else
 							{
-								hmap.put(objRoomStatusDtl.getStrRoomType(),objTemp);
+								if(strSelection.equalsIgnoreCase("Waiting")||strSelection.equalsIgnoreCase("Reservation")||strSelection.equalsIgnoreCase("Occupied")||strSelection.equalsIgnoreCase("Checked Out"))
+								{
+									hmap.put(objRoomStatusDtl.getStrRoomType(),objTemp);
+								}
 							}
 						}
 					}
