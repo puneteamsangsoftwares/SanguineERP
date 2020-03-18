@@ -202,6 +202,10 @@ padding: 1px 13px;
 	background: rgb(105, 89, 205);
 }
 
+.title-row .status-list ul li .thumb.virtualReservation {
+		background:linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
+}
+
 .title-row .status-list ul li .thumb-title {
 	margin-left: 8px;
 	color: #4a4a4a;

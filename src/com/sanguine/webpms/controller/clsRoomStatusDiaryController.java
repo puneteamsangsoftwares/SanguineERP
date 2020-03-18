@@ -179,6 +179,213 @@ public class clsRoomStatusDiaryController {
 		List listRoomStatusBeanDtl = new ArrayList<>();
 		Map objRoomTypeWise = new HashMap<>();
 		Map returnObject = new HashMap<>();
+		
+		
+		//For Virtual Room
+		String sqlVirtualRoom="";	
+		sqlVirtualRoom = "select a.strRoomCode,a.strRoomDesc,b.strRoomTypeDesc,a.strStatus,a.strRoomTypeCode from tblroom a,tblroomtypemaster b where a.strRoomTypeCode=b.strRoomTypeCode AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'"
+						+ " group by a.strRoomTypeCode order by b.strRoomTypeCode,a.strRoomDesc; ";			
+		List listVirtualRoom = objGlobalFunctionsService.funGetListModuleWise(sqlVirtualRoom, "sql");	
+	
+		for (int cnt1 = 0; cnt1 < listVirtualRoom.size(); cnt1++) 
+		{
+			objRoomStatusDtl = new clsRoomStatusDtlBean();
+			Object[] arrObjRooms = (Object[]) listVirtualRoom.get(cnt1);
+			objRoomStatusDtl.setStrRoomNo(arrObjRooms[1].toString());
+			objRoomStatusDtl.setStrRoomType(arrObjRooms[2].toString());
+			objRoomStatusDtl.setStrRoomStatus(arrObjRooms[3].toString());
+			TreeMap<Integer, List<clsGuestListReportBean>> mapGuestListPerDay=new TreeMap<>();
+			List<clsGuestListReportBean> listMainGuestDetailsBean=new ArrayList<>();
+			String sql1="";
+			objGroupReservation=new ArrayList<>();
+			//Virtual Reservation Query
+/*			String sqlGroupReservation="SELECT a.strReservationNo,d.strRoomTypeCode,'Virtual Room', (a.intNoOfAdults+a.intNoOfChild), "
+					+ " 'VIRTUAL RESERVATION', DATE_FORMAT(DATE(a.dteArrivalDate),'%d-%m-%Y'), DATE_FORMAT(DATE(a.dteDepartureDate),'%d-%m-%Y'),  "
+					+ "DATEDIFF(DATE(a.dteDepartureDate), DATE(a.dteArrivalDate)),LEFT(TIMEDIFF(a.tmeDepartureTime,(SELECT a.tmeCheckOutTime FROM tblpropertysetup a)),6), "
+					+ "LEFT(TIMEDIFF(a.tmeArrivalTime,(SELECT a.tmeCheckInTime FROM tblpropertysetup a)),6),a.tmeArrivalTime,a.tmeDepartureTime, DATEDIFF(DATE(a.dteArrivalDate),'"+viewDate+"'),DATEDIFF(DATE(a.dteDepartureDate),'"+viewDate+"'),a.strNoRoomsBooked,f.strGroupName "
+					+ "FROM tblreservationhd a,tblreservationdtl b,tblroom d,tblbookingtype e ,tblgroupbookinghd f "
+					+ "WHERE a.strReservationNo=b.strReservationNo  "
+					+ "AND a.strBookingTypeCode=e.strBookingTypeCode AND a.strGroupCode=f.strGroupCode AND DATE(a.dteDepartureDate) BETWEEN '"+viewDate+"' AND DATE_ADD('"+viewDate+"', INTERVAL 7 DAY)   "
+					+ "AND a.strReservationNo NOT IN (SELECT strReservationNo FROM tblcheckinhd) AND a.strCancelReservation='N' AND a.strGroupCode!='' AND b.strRoomType='"+arrObjRooms[4].toString()+"' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' AND d.strClientCode='"+clientCode+"' AND e.strClientCode='"+clientCode+"' group by a.strReservationNo ";
+						*/
+			
+			String sqlGroupReservation="SELECT a.strReservationNo,d.strRoomTypeCode,'Virtual Room', (a.intNoOfAdults+a.intNoOfChild), 'VIRTUAL RESERVATION', "					
+					+ "DATE_FORMAT(DATE(a.dteArrivalDate),'%d-%m-%Y'), DATE_FORMAT(DATE(a.dteDepartureDate),'%d-%m-%Y'),  "
+					+ "DATEDIFF(DATE(a.dteDepartureDate), DATE(a.dteArrivalDate)), "
+					+ "LEFT(TIMEDIFF(a.tmeDepartureTime,(SELECT a.tmeCheckOutTime FROM tblpropertysetup a)),6), "
+					+ "LEFT(TIMEDIFF(a.tmeArrivalTime,(SELECT a.tmeCheckInTime FROM tblpropertysetup a)),6),a.tmeArrivalTime, "
+					+ "a.tmeDepartureTime, DATEDIFF(DATE(a.dteArrivalDate),'"+viewDate+"'), DATEDIFF(DATE(a.dteDepartureDate),'"+viewDate+"'), "
+					+ "a.strNoRoomsBooked,concat(f.strFirstName,' ',f.strMiddleName,' ',f.strLastName)"
+					+ "FROM tblreservationhd a,tblreservationdtl b,tblroom d,tblbookingtype e,tblguestmaster f "
+					+ "WHERE a.strReservationNo=b.strReservationNo AND a.strBookingTypeCode=e.strBookingTypeCode  "
+					+ "AND DATE(a.dteDepartureDate) BETWEEN '"+viewDate+"' AND DATE_ADD('"+viewDate+"', INTERVAL 7 DAY)  "
+					+ "AND a.strReservationNo NOT IN (SELECT strReservationNo FROM tblcheckinhd) AND a.strCancelReservation='N'  "
+					+ "AND b.strRoomNo=''  "
+					+ "AND b.strRoomType='"+arrObjRooms[4].toString()+"' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' "
+					+ "AND d.strClientCode='"+clientCode+"' AND e.strClientCode='"+clientCode+"' and f.strGuestCode=b.strGuestCode "
+					+ "GROUP BY a.strReservationNo ;";
+			
+			
+			
+				//For Group Reservation
+				List listsVirtualRoom= objGlobalFunctionsService.funGetListModuleWise(sqlGroupReservation, "sql");
+				if (listsVirtualRoom.size() > 0) 
+				{
+					for(int i=0;i<listsVirtualRoom.size();i++)
+					{
+						int intArrivalCnt = 0;
+						int intDepartureCnt = 0;
+						objGuestDtl = new clsGuestMasterBean();
+						Object[] arrObjRoomDtl = (Object[]) listsVirtualRoom.get(i);
+						objGuestDtl.setStrFirstName(arrObjRoomDtl[3].toString());
+						objGuestDtl.setDteArrivalDate(arrObjRoomDtl[5].toString());
+						objGuestDtl.setDteDepartureDate(arrObjRoomDtl[6].toString());
+						objGuestDtl.setStRoomNo(arrObjRoomDtl[2].toString());
+						objGuestDtl.setStrNoOfNights(arrObjRoomDtl[7].toString());
+						objGuestDtl.setTmeArrivalTime(arrObjRoomDtl[10].toString());
+						objGuestDtl.setTmeDepartureTime(arrObjRoomDtl[11].toString());
+						String sqlFolioNo = "select a.strFolioNo from tblfoliohd a where a.strCheckInNo='"+arrObjRoomDtl[0].toString()+"' AND a.strRoomNo='"+arrObjRoomDtl[1].toString()+"' AND a.strClientCode='"+clientCode+"'";
+						List listFolioNo = objGlobalFunctionsService.funGetListModuleWise(sqlFolioNo, "sql");
+						String strFolioNo = "";
+						objGroupReservation=new ArrayList<>();
+						objTemp=new ArrayList<>();
+						objRoomStatusDtl=new clsRoomStatusDtlBean();
+						objRoomStatusDtl.setStrRoomNo(arrObjRoomDtl[3].toString()+" PAX");
+						objRoomStatusDtl.setStrRoomType(arrObjRooms[2].toString());
+						objRoomStatusDtl.setStrReservationNo(arrObjRoomDtl[0].toString());
+						objRoomStatusDtl.setStrGuestName(arrObjRoomDtl[15].toString());
+						objRoomStatusDtl.setDteArrivalDate(arrObjRoomDtl[5].toString()+" "+ arrObjRoomDtl[10].toString());
+						objRoomStatusDtl.setDteDepartureDate(arrObjRoomDtl[6].toString()+" "+ arrObjRoomDtl[11].toString());
+						objRoomStatusDtl.setStrNoOfDays(arrObjRoomDtl[7].toString());
+						objRoomStatusDtl.setTmeArrivalTime(arrObjRoomDtl[10].toString());
+						objRoomStatusDtl.setTmeDepartureTime(arrObjRoomDtl[11].toString());
+						objRoomStatusDtl.setDblRoomCnt(Double.parseDouble(arrObjRoomDtl[14].toString()));
+						objRoomStatusDtl.setStrSource(arrObjRoomDtl[4].toString());
+						objRoomStatusDtl.setStrRoomStatus("VIRTUAL RESERVATION");
+						intArrivalCnt=Integer.parseInt(arrObjRoomDtl[12].toString());
+						intDepartureCnt=Integer.parseInt(arrObjRoomDtl[13].toString());						
+						if (intArrivalCnt<=0 && 0<=intDepartureCnt)   {							
+							objRoomStatusDtl.setStrDay1(" "+objRoomStatusDtl.getStrGuestName());
+						} 
+						if (intArrivalCnt<=1 && 1<=intDepartureCnt)   {							
+							 objRoomStatusDtl.setStrDay2(" "+objRoomStatusDtl.getStrGuestName());
+						} 
+						if (intArrivalCnt<=2 && 2<=intDepartureCnt)   {							
+							 objRoomStatusDtl.setStrDay3(" "+objRoomStatusDtl.getStrGuestName());
+						} 
+						if (intArrivalCnt<=3 && 3<=intDepartureCnt) {							
+							 objRoomStatusDtl.setStrDay4(" "+objRoomStatusDtl.getStrGuestName());
+						} 
+						if (intArrivalCnt<=4 && 4<=intDepartureCnt) {							
+							 objRoomStatusDtl.setStrDay5(" "+objRoomStatusDtl.getStrGuestName());
+						} 
+						if (intArrivalCnt<=5 && 5<=intDepartureCnt) {							
+							 objRoomStatusDtl.setStrDay6(" "+objRoomStatusDtl.getStrGuestName());
+						} 
+						if (intArrivalCnt<=6 && 6<=intDepartureCnt) {							
+							 objRoomStatusDtl.setStrDay7(" "+objRoomStatusDtl.getStrGuestName());
+						}
+						
+						if(arrObjRoomDtl[8].toString().contains("-"))
+						{
+							if(arrObjRoomDtl[11].toString().contains("PM") || arrObjRoomDtl[11].toString().contains("pm"))
+							{
+								objRoomStatusDtl.setTmeCheckOutAMPM("PM");
+							}
+							else
+							{
+								objRoomStatusDtl.setTmeCheckOutAMPM("AM");
+							}
+						}
+						else
+						{
+							if(arrObjRoomDtl[8].toString().equals("00:00:"))
+							{
+								if(arrObjRoomDtl[11].toString().contains("PM") || arrObjRoomDtl[11].toString().contains("pm"))
+								{
+									objRoomStatusDtl.setTmeCheckOutAMPM("PM");
+								}
+								else
+								{
+									objRoomStatusDtl.setTmeCheckOutAMPM("AM");
+								}
+							}
+							else
+							{
+								if(arrObjRoomDtl[11].toString().contains("PM") || arrObjRoomDtl[11].toString().contains("pm"))
+								{
+									objRoomStatusDtl.setTmeCheckOutAMPM("PM");
+								}
+								else
+								{
+									objRoomStatusDtl.setTmeCheckOutAMPM("AM");
+								}
+							}
+						}
+						
+						if(arrObjRoomDtl[9].toString().contains("-"))
+						{
+							if(arrObjRoomDtl[10].toString().contains("PM") || arrObjRoomDtl[10].toString().contains("pm"))
+							{
+								objRoomStatusDtl.setTmeCheckInAMPM("PM");
+							}
+							else
+							{
+								objRoomStatusDtl.setTmeCheckInAMPM("AM");
+							}
+						}
+						else
+						{
+							if(arrObjRoomDtl[8].toString().equals("00:00:"))
+							{
+								if(arrObjRoomDtl[10].toString().contains("PM") || arrObjRoomDtl[10].toString().contains("pm"))
+								{
+									objRoomStatusDtl.setTmeCheckInAMPM("PM");
+								}
+								else
+								{
+									objRoomStatusDtl.setTmeCheckInAMPM("AM");
+								}
+							}
+							else
+							{
+								if(arrObjRoomDtl[10].toString().contains("PM") || arrObjRoomDtl[10].toString().contains("pm"))
+								{
+									objRoomStatusDtl.setTmeCheckInAMPM("PM");
+								}
+								else
+								{
+									objRoomStatusDtl.setTmeCheckInAMPM("AM");
+								}
+							}
+						}						
+						objRoomStatusDtl.setDblRoomCnt(listsVirtualRoom.size());
+						if(strSelection.equalsIgnoreCase("VIRTUAL RESERVATION"))
+						{
+							objGroupReservation.add(objRoomStatusDtl);
+						}
+						if(strSelection.equalsIgnoreCase(""))
+						{
+							objGroupReservation.add(objRoomStatusDtl);
+						}
+						if(hmap.containsKey(objRoomStatusDtl.getStrRoomType()))
+						{
+							List list=new ArrayList<>();
+							list=hmap.get(objRoomStatusDtl.getStrRoomType());
+							list.add(objRoomStatusDtl);
+							hmap.put(objRoomStatusDtl.getStrRoomType(),list);
+						}
+						else
+						{
+							hmap.put(objRoomStatusDtl.getStrRoomType(),objGroupReservation);
+						}						
+					}
+				}
+		}
+		
+		
+		
+		//For Group Reservation
 		String sql="";	
 			sql = "select a.strRoomCode,a.strRoomDesc,b.strRoomTypeDesc,a.strStatus,a.strRoomTypeCode from tblroom a,tblroomtypemaster b where a.strRoomTypeCode=b.strRoomTypeCode AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'"
 				+ " group by a.strRoomTypeCode order by b.strRoomTypeCode,a.strRoomDesc; ";			

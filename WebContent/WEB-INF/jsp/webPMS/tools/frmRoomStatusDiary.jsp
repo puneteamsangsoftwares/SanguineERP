@@ -750,8 +750,9 @@ table tbody tr:nth-child(even) {
 		}  
 		else if(roomStatus=='VIRTUAL RESERVATION')
 		{
-			color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
-		}  
+			//color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
+			color='linear-gradient(to top, #d299c2 0%, #fef9d7 100%);';			
+		}   
 	
 		if(day1==null)
 		{
@@ -1957,7 +1958,8 @@ table tbody tr:nth-child(even) {
 					}  
 					else if(roomStatus=='VIRTUAL RESERVATION')
 					{
-						color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
+						color='linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,242,224,1) 35%, rgba(0,212,255,1) 100%)';
+						//color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
 					} 
 					else if(response.strSource=='GROUP RESERVATION')
 					{						
@@ -2276,6 +2278,13 @@ table tbody tr:nth-child(even) {
 			             <!--  <div class="thumb-title">Waiting</div> -->
 			              <a href="#" onclick="funGroupReservation();">&nbsp;&nbsp;&nbsp;Group Reservation</a> 
 			            </li>
+			            
+			            <li>
+			              <div class="thumb virtualReservation"></div>
+			              <a href="#" onclick="">&nbsp;&nbsp;&nbsp;Virtual Reservation</a> 
+			            </li>
+			            
+			            
 			          </ul>
 			       </div>
 			 </div>
