@@ -250,7 +250,8 @@ public class clsRoomStatusDiaryController {
 						objGroupReservation=new ArrayList<>();
 						objTemp=new ArrayList<>();
 						objRoomStatusDtl=new clsRoomStatusDtlBean();
-						objRoomStatusDtl.setStrRoomNo(arrObjRoomDtl[3].toString()+" PAX");
+						//objRoomStatusDtl.setStrRoomNo(arrObjRoomDtl[3].toString()+" PAX");
+						objRoomStatusDtl.setStrRoomNo("");						
 						objRoomStatusDtl.setStrRoomType(arrObjRooms[2].toString());
 						objRoomStatusDtl.setStrReservationNo(arrObjRoomDtl[0].toString());
 						objRoomStatusDtl.setStrGuestName(arrObjRoomDtl[15].toString());
@@ -368,20 +369,20 @@ public class clsRoomStatusDiaryController {
 						{
 							objGroupReservation.add(objRoomStatusDtl);
 						}
-						if(hmap.containsKey(objRoomStatusDtl.getStrRoomType()))
+						if(strSelection.equalsIgnoreCase("VIRTUAL RESERVATION")||strSelection.equalsIgnoreCase(""))
 						{
-							List list=new ArrayList<>();
-							list=hmap.get(objRoomStatusDtl.getStrRoomType());
-							list.add(objRoomStatusDtl);
-							hmap.put(objRoomStatusDtl.getStrRoomType(),list);
-						}
-						else
-						{
-							if(strSelection.equalsIgnoreCase("VIRTUAL RESERVATION")||strSelection.equalsIgnoreCase(""))
+							if(hmap.containsKey(objRoomStatusDtl.getStrRoomType()))
 							{
-								hmap.put(objRoomStatusDtl.getStrRoomType(),objGroupReservation);
+								List list=new ArrayList<>();
+								list=hmap.get(objRoomStatusDtl.getStrRoomType());
+								list.add(objRoomStatusDtl);
+								hmap.put(objRoomStatusDtl.getStrRoomType(),list);
 							}
-						}						
+							else
+							{							
+									hmap.put(objRoomStatusDtl.getStrRoomType(),objGroupReservation);							
+							}			
+						}
 					}
 				}
 		}
@@ -437,7 +438,8 @@ public class clsRoomStatusDiaryController {
 						objGroupReservation=new ArrayList<>();
 						objTemp=new ArrayList<>();
 						objRoomStatusDtl=new clsRoomStatusDtlBean();
-						objRoomStatusDtl.setStrRoomNo(arrObjRoomDtl[3].toString()+" PAX");
+						//objRoomStatusDtl.setStrRoomNo(arrObjRoomDtl[3].toString()+" PAX");
+						objRoomStatusDtl.setStrRoomNo("");	
 						objRoomStatusDtl.setStrRoomType(arrObjRooms[2].toString());
 						objRoomStatusDtl.setStrReservationNo(arrObjRoomDtl[0].toString());
 						objRoomStatusDtl.setStrGuestName(arrObjRoomDtl[15].toString());
@@ -555,20 +557,20 @@ public class clsRoomStatusDiaryController {
 						{
 							objGroupReservation.add(objRoomStatusDtl);
 						}
-						if(hmap.containsKey(objRoomStatusDtl.getStrRoomType()))
+						if(strSelection.equalsIgnoreCase("GROUP RESERVATION")||strSelection.equalsIgnoreCase(""))
 						{
-							List list=new ArrayList<>();
-							list=hmap.get(objRoomStatusDtl.getStrRoomType());
-							list.add(objRoomStatusDtl);
-							hmap.put(objRoomStatusDtl.getStrRoomType(),list);
-						}
-						else
-						{
-							if(strSelection.equalsIgnoreCase("GROUP RESERVATION")||strSelection.equalsIgnoreCase(""))
+							if(hmap.containsKey(objRoomStatusDtl.getStrRoomType()))
 							{
-								hmap.put(objRoomStatusDtl.getStrRoomType(),objGroupReservation);
+								List list=new ArrayList<>();
+								list=hmap.get(objRoomStatusDtl.getStrRoomType());
+								list.add(objRoomStatusDtl);
+								hmap.put(objRoomStatusDtl.getStrRoomType(),list);
 							}
-						}						
+							else
+							{							
+								hmap.put(objRoomStatusDtl.getStrRoomType(),objGroupReservation);							
+							}						
+						}
 					}
 				}
 		}
@@ -846,7 +848,7 @@ public class clsRoomStatusDiaryController {
 						{
 							objTemp.add(objRoomStatusDtl);
 						}
-						if(!strSelection.equalsIgnoreCase("GROUP RESERVATION")||!strSelection.equalsIgnoreCase("VIRTUAL RESERVATION"))
+						if(strSelection.equalsIgnoreCase("Waiting")||strSelection.equalsIgnoreCase("Reservation")||strSelection.equalsIgnoreCase("Occupied")||strSelection.equalsIgnoreCase("Checked Out"))
 						{
 							if(hmap.containsKey(objRoomStatusDtl.getStrRoomType()))
 							{

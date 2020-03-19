@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,7 +117,7 @@ public class clsPMSRateContractController{
 			clsPMSRateContractModel objModel = funPrepareModel(objBean,userCode,clientCode);
 			objPMSRateContractService.funAddUpdatePMSRateContract(objModel);
 			clsPropertySetupHdModel objModel1 = objPropertySetupService.funGetPropertySetup(propertyCode, clientCode);
-			String pmsDate = req.getSession().getAttribute("PMSDate").toString();
+			String pmsDate = objGlobal.funGetDate("yyyy-MM-dd", req.getSession().getAttribute("PMSDate").toString());
 			funCallAPI(objModel1,clientCode,pmsDate);
 			req.getSession().setAttribute("success", true);
 			req.getSession().setAttribute("successMessage", "Rate management code : ".concat(objModel.getStrRateContractID()));
@@ -144,6 +145,7 @@ public class clsPMSRateContractController{
 			if(listData!=null && listData.size()>0)
 			{
 				JSONObject JroomObj = new JSONObject();
+				JSONArray jsonArray = new JSONArray();
 				for(int i=0;i<listData.size();i++)
 				{
 					Object [] obj = (Object[]) listData.get(i);
@@ -192,7 +194,8 @@ public class clsPMSRateContractController{
 					jArray.add(jObjj);
 					JroomObj.put("AdditionalRates", jArray);					
 				}
-				JMainObject.put("Rooms", JroomObj);	
+				jsonArray.add(JroomObj);
+				JMainObject.put("Rooms", jsonArray);	
 				funCallingToRestAPI(objModel1,JMainObject);
 				System.out.println(JMainObject);
 				
