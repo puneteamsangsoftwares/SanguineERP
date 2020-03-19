@@ -118,7 +118,7 @@ public class clsPMSRateContractController{
 			objPMSRateContractService.funAddUpdatePMSRateContract(objModel);
 			clsPropertySetupHdModel objModel1 = objPropertySetupService.funGetPropertySetup(propertyCode, clientCode);
 			String pmsDate = objGlobal.funGetDate("yyyy-MM-dd", req.getSession().getAttribute("PMSDate").toString());
-			funCallAPI(objModel1,clientCode,pmsDate);
+			funCallAPI(objModel1,clientCode,pmsDate,objBean.getStrRateContractID());
 			req.getSession().setAttribute("success", true);
 			req.getSession().setAttribute("successMessage", "Rate management code : ".concat(objModel.getStrRateContractID()));
 
@@ -130,7 +130,7 @@ public class clsPMSRateContractController{
 		}
 	}
 
-	private void funCallAPI(clsPropertySetupHdModel objModel1, String clientCode,String pmsDate) 
+	private void funCallAPI(clsPropertySetupHdModel objModel1, String clientCode,String pmsDate,String rateContractId) 
 	{
 		try{
 			JSONObject JMainObject = new JSONObject();		
@@ -139,7 +139,7 @@ public class clsPMSRateContractController{
 			String sql = "select a.strClientCode ,'SANGUINEPMS' as OTA_Name ,a.strRoomTypeCode,a.strRateContractID,a.dblSingleTariWeekDays,a.dblDoubleTariWeekDays, "
 					+ "a.dblTrippleTariWeekDays,a.dblExtraBedTariWeekDays,a.dblChildTariWeekDays,a.dblYouthTariWeekDays from tblpmsratecontractdtl a "
 					+ "left outer join  tblroom b on a.strRoomTypeCode=b.strRoomTypeCode where b.strStatus='Free' and a.strClientCode='"+clientCode+"' "
-					+ "group by a.strRoomTypeCode ";
+					+ "AND a.strRateContractID='"+rateContractId+"' GROUP BY a.strRateContractID ";
 			
 			List listData = objWebPMSUtility.funExecuteQuery(sql, "sql"); 
 			if(listData!=null && listData.size()>0)
