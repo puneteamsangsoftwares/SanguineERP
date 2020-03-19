@@ -848,7 +848,7 @@ public class clsRoomStatusDiaryController {
 						{
 							objTemp.add(objRoomStatusDtl);
 						}
-						if(strSelection.equalsIgnoreCase("Waiting")||strSelection.equalsIgnoreCase("Reservation")||strSelection.equalsIgnoreCase("Occupied")||strSelection.equalsIgnoreCase("Checked Out"))
+						if(strSelection.equalsIgnoreCase("Waiting")||strSelection.equalsIgnoreCase("Reservation")||strSelection.equalsIgnoreCase("Occupied")||strSelection.equalsIgnoreCase("Checked Out")||strSelection.equalsIgnoreCase(""))
 						{
 							if(hmap.containsKey(objRoomStatusDtl.getStrRoomType()))
 							{
@@ -859,7 +859,7 @@ public class clsRoomStatusDiaryController {
 							}
 							else
 							{
-								if(strSelection.equalsIgnoreCase("Waiting")||strSelection.equalsIgnoreCase("Reservation")||strSelection.equalsIgnoreCase("Occupied")||strSelection.equalsIgnoreCase("Checked Out"))
+								if(strSelection.equalsIgnoreCase("Waiting")||strSelection.equalsIgnoreCase("Reservation")||strSelection.equalsIgnoreCase("Occupied")||strSelection.equalsIgnoreCase("Checked Out")||strSelection.equalsIgnoreCase(""))
 								{
 									hmap.put(objRoomStatusDtl.getStrRoomType(),objTemp);
 								}
