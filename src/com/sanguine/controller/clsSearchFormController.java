@@ -3316,6 +3316,17 @@ public class clsSearchFormController {
 			break;
 		}
 		
+		case "feedbackcode": {
+			columnNames = "a.strFeedbackCode,a.strFeedbackDesc";
+			tableName = " from tblpmsfeedbackmaster a ";
+			listColumnNames = "Feedback Code,Description ";
+			idColumnName = "strFeedbackCode";
+			flgQuerySelection = true;
+			// criteria = getCriteriaQuery(columnNames,search_with,tableName);
+			searchFormTitle = "Feedback Master";
+			break;
+		}
+		
 		}
 		mainMap.put("columnNames", columnNames);
 		mainMap.put("tableName", tableName);

@@ -4926,7 +4926,19 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ "	ADD COLUMN `strIntegrationUrl` VARCHAR(100) NOT NULL DEFAULT '' AFTER `strOnlineIntegration`;";
 		
 		funExecutePMSQuery(sql);
+		
+		sql = "CREATE TABLE `tblpmsfeedbackmaster` ( "
+				+ "`strFeedbackCode` VARCHAR(10) NOT NULL, "
+				+ "`strFeedbackDesc` VARCHAR(100) NOT NULL,"
+				+ "	`strUserCreated` VARCHAR(10) NOT NULL,"
+				+ "	`strUserEdited` VARCHAR(10) NOT NULL,"
+				+ "	`dteDateCreated` DATETIME NOT NULL,"
+				+ "	`dteDateEdited` DATETIME NOT NULL,"
+				+ "	`strClientCode` VARCHAR(10) NOT NULL "
+				+ " ) "
+				+ "COLLATE='utf8_general_ci' ENGINE=InnoDB;";
 				
+		funExecutePMSQuery(sql);
 				// For PMS Form Of Tree master Start///
 		sql = " INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`) VALUES "
 				+ " ('frmAgentCommision', 'Agent Commision', 'Master', 1, 'M', 13, 13, '1', 'imgAgentCommission.png', '3', 1, '1', '1', 'NO', 'NO', 'frmAgentCommision.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
@@ -5010,7 +5022,8 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ " ('frmPMSRateContract', 'Rate Management', 'Master', '1', 'M', '22', '22', '2', 'imgSeasonMaster.png', '3', '3', '3', '3', 'NO', 'YES', 'frmPMSRateContract.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ " ('frmPMSStaffMaster', 'Staff Master', 'Master', 1, 'M', 1, 9, '1', 'imgRoomMaster.png', '3', 3, '3', '3', 'NO', 'NO', 'frmPMSStaffMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ " ('frmPMSWeekenfMaster', 'PMS Weekend Master', 'Master', '1', 'M', '19', '19', '2', 'default.png', '3', '3', '1', '1', 'No', 'No', 'frmBanquetWeekendMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
-				+ " ('frmMergeBill', 'Bill Merge', 'Transaction', 2, 'T', 11, 11, '5', 'default.png', '3', 5, '5', '5', 'NO', 'NO', 'frmMergeBill.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
+				+ " ('frmMergeBill', 'Bill Merge', 'Transaction', 2, 'T', 11, 11, '5', 'default.png', '3', 5, '5', '5', 'NO', 'NO', 'frmMergeBill.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+				+ "('frmPMSFeedbackMaster', 'PMS FeedbackMaster', 'Master', 1, 'M', 22, 22, '2', 'imgSeasonMaster.png', '3', 3, '3', '3', 'NO', 'YES', 'frmPMSFeedbackMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
 		
 
 		

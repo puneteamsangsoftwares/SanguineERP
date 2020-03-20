@@ -5319,6 +5319,15 @@
 			<put-attribute name="title" value="Bill Merge" />
 			<put-attribute name="body" value="/WEB-INF/jsp/webPMS/transactions/frmMergeBill.jsp" />
 		</definition>
+		
+		<definition name="frmPMSFeedbackMaster" extends="base.definition">
+			<put-attribute name="title" value="Feedback Master" />
+			<put-attribute name="body" value="/WEB-INF/jsp/webPMS/masters/frmPMSFeedbackMaster.jsp" />
+		</definition>
+		<definition name="frmPMSFeedbackMaster" extends="base.definition4">
+			<put-attribute name="title" value="Feedback Master" />
+			<put-attribute name="body" value="/WEB-INF/jsp/webPMS/masters/frmPMSFeedbackMaster.jsp" />
+		</definition>
   	
 <!-- 	End Of WebPMS Tiles Entry -->
 
