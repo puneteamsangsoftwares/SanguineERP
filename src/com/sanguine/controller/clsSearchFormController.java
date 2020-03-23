@@ -3327,6 +3327,18 @@ public class clsSearchFormController {
 			break;
 		}
 		
+		case "guestFeedback": {
+			columnNames = "  a.strGuestFeedbackCode,Concat(b.strFirstName,' ',b.strMiddleName,' ',b.strLastName) ,c.strFeedbackDesc ";
+			tableName = " from tblguestfeedback a,tblguestmaster b,tblpmsfeedbackmaster c "
+					+ " where a.strFeedbackCode=c.strFeedbackCode and a.strGuestCode=b.strGuestCode and a.strClientCode='"+clientCode+"' ";
+			listColumnNames = "Guest Feedback Code,Name,Feedback ";
+			idColumnName = "strGuestFeedbackCode,strClientCode";
+			flgQuerySelection = true;
+			// criteria = getCriteriaQuery(columnNames,search_with,tableName);
+			searchFormTitle = "Feedback Form";
+			break;
+		}
+		
 		}
 		mainMap.put("columnNames", columnNames);
 		mainMap.put("tableName", tableName);

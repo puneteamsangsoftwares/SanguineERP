@@ -15,6 +15,20 @@ public class clsPMSFeedbackMasterBean{
 	private String dteDateEdited;
 
 	private String strClientCode;
+	
+	private String strExcellent;
+
+	private String strGood;
+
+	private String strFair;
+
+	private String strPoor;
+	
+	private String strGuestFeedbackCode;
+	
+	private String strGuestCode;
+	
+	private String strRemark;
 
 //Setter-Getter Methods
 	public String getStrFeedbackCode(){
@@ -64,6 +78,48 @@ public class clsPMSFeedbackMasterBean{
 	}
 	public void setStrClientCode(String strClientCode){
 		this.strClientCode=strClientCode;
+	}
+	public String getStrExcellent() {
+		return strExcellent;
+	}
+	public void setStrExcellent(String strExcellent) {
+		this.strExcellent = strExcellent;
+	}
+	public String getStrGood() {
+		return strGood;
+	}
+	public void setStrGood(String strGood) {
+		this.strGood = strGood;
+	}
+	public String getStrFair() {
+		return strFair;
+	}
+	public void setStrFair(String strFair) {
+		this.strFair = strFair;
+	}
+	public String getStrPoor() {
+		return strPoor;
+	}
+	public void setStrPoor(String strPoor) {
+		this.strPoor = strPoor;
+	}
+	public String getStrGuestFeedbackCode() {
+		return strGuestFeedbackCode;
+	}
+	public void setStrGuestFeedbackCode(String strGuestFeedbackCode) {
+		this.strGuestFeedbackCode = strGuestFeedbackCode;
+	}
+	public String getStrGuestCode() {
+		return strGuestCode;
+	}
+	public void setStrGuestCode(String strGuestCode) {
+		this.strGuestCode = strGuestCode;
+	}
+	public String getStrRemark() {
+		return strRemark;
+	}
+	public void setStrRemark(String strRemark) {
+		this.strRemark = strRemark;
 	}
 
 

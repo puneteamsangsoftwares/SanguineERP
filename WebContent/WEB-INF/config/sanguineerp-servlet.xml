@@ -575,6 +575,8 @@
 					<value>com.sanguine.webpms.model.clsPMSStaffMasterDtlModel</value>
 					<value>com.sanguine.webpms.model.clsBillHdBackupModel</value>
 					<value>com.sanguine.webpms.model.clsPMSFeedbackMasterModel</value>
+					<value>com.sanguine.webpms.model.clsPMSGuestFeedbackModel</value>
+				
 				
 					<!-- Web Banquet Start -->
 					<value>com.sanguine.webbanquets.model.clsEquipmentModel</value>
