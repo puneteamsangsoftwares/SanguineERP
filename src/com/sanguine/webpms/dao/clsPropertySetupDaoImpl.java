@@ -34,6 +34,7 @@ public class clsPropertySetupDaoImpl implements clsPropertySetupDao {
 	}
 
 	@Override
+	@Transactional(value = "WebPMSTransactionManager")
 	public List<clsCompanyMasterModel> funGetListCompanyMasterModel(String clientCode) {
 
 		String sql = "from clsCompanyMasterModel where strClientCode=:clientCode order by intId desc";

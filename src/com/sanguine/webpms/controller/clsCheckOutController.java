@@ -265,7 +265,7 @@ public class clsCheckOutController {
 					objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() - Double.parseDouble(arrObjFolio[1].toString()));
 				}
 				
-				sql = "SELECT Sum(a.dblCreditAmt) from tblfoliodtl a where a.strFolioNo='"+obj[6].toString()+"' AND a.strClientCode='"+clientCode+"'";
+				sql = "SELECT ifnull(Sum(a.dblCreditAmt),0.0) from tblfoliodtl a where a.strFolioNo='"+obj[6].toString()+"' AND a.strClientCode='"+clientCode+"'";
 				List listFolioDisc = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
 				for (int cnt = 0; cnt < listFolioDisc.size(); cnt++) {
 					objCheckOutRoomDtlBean.setDblAmount(objCheckOutRoomDtlBean.getDblAmount() - Double.parseDouble(listFolioDisc.get(cnt).toString()));
@@ -357,6 +357,16 @@ public class clsCheckOutController {
 					billNo = objGlobal.funGeneratePMSDocumentCode("frmBillHd", transaDate, req);
 					RommNo = objFolioHdModel.getStrRoomNo();
 					clsBillHdModel objBillHdModel = new clsBillHdModel();
+					String sqlBillNoCheck = "select a.strBillNo,date(a.dteBillDate) from tblbillhd a where a.strFolioNo='"+objFolioHdModel.getStrFolioNo()+"' and a.strClientCode='"+clientCode+"'";
+					
+					List listBillNoCheck= objGlobalFunctionsService.funGetListModuleWise(sqlBillNoCheck, "sql");
+					if(listBillNoCheck!=null && listBillNoCheck.size()>0)
+					{
+						Object[] arr = (Object[]) listBillNoCheck.get(0);
+						billNo = arr[0].toString();
+						PMSDate = arr[1].toString();
+					}
+
 					objBillHdModel.setStrBillNo(billNo);
 					objBillHdModel.setDteBillDate(PMSDate);
 					objBillHdModel.setStrClientCode(clientCode);
@@ -401,6 +411,37 @@ public class clsCheckOutController {
 						grandTotal += objFolioDtlModel.getDblDebitAmt();
 						listBillDtlModel.add(objBillDtlModel);
 						// setBillDtlModel.add(objBillDtlModel);
+					}
+					if(listBillNoCheck!=null && listBillNoCheck.size()>0){
+						String sqlBillDtl = "select * from tblbilldtl a where a.strBillNo='"+billNo+"' and a.strClientCode='"+clientCode+"'";
+						List listBillDtl= objGlobalFunctionsService.funGetListModuleWise(sqlBillDtl, "sql");
+						if(listBillDtl!=null && listBillDtl.size()>0)
+						{
+							for(int g=0;i<listBillDtl.size();i++)
+							{
+								Object[] arr = (Object[]) listBillDtl.get(i);
+								clsBillDtlModel objBillDtlModel = new clsBillDtlModel();
+								objBillDtlModel.setStrFolioNo(arr[1].toString());
+								objBillDtlModel.setStrDocNo(arr[3].toString());
+								objBillDtlModel.setStrPerticulars(arr[4].toString());
+								objBillDtlModel.setDteDocDate(arr[2].toString());
+								objBillDtlModel.setDblBalanceAmt(Double.parseDouble(arr[9].toString()));
+								objBillDtlModel.setDblCreditAmt(Double.parseDouble(arr[8].toString()));
+								objBillDtlModel.setDblDebitAmt(Double.parseDouble(arr[7].toString()));
+								objBillDtlModel.setStrRevenueType(arr[5].toString());
+								objBillDtlModel.setStrRevenueCode(arr[6].toString());
+								objBillDtlModel.setStrUserEdited(arr[13].toString());
+								objBillDtlModel.setDteDateEdited(arr[11].toString());
+								objBillDtlModel.setStrTransactionType(arr[12].toString());
+								
+								
+								
+								grandTotal += Double.parseDouble(arr[7].toString());
+								listBillDtlModel.add(objBillDtlModel);
+							}
+							
+						}
+
 					}
 					DecimalFormat df = new DecimalFormat("0.00");
 					List<clsBillTaxDtlModel> listBillTaxDtlModel = new ArrayList<clsBillTaxDtlModel>();

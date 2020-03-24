@@ -29,6 +29,8 @@ public class clsPMSFeedbackMasterBean{
 	private String strGuestCode;
 	
 	private String strRemark;
+	
+	private String strGuestName;
 
 //Setter-Getter Methods
 	public String getStrFeedbackCode(){
@@ -120,6 +122,12 @@ public class clsPMSFeedbackMasterBean{
 	}
 	public void setStrRemark(String strRemark) {
 		this.strRemark = strRemark;
+	}
+	public String getStrGuestName() {
+		return strGuestName;
+	}
+	public void setStrGuestName(String strGuestName) {
+		this.strGuestName = strGuestName;
 	}
 
 

@@ -28,6 +28,7 @@ public class clsPropertySetupServiceImpl implements clsPropertySetupService {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebPMSTransactionManager")
 	public List<clsCompanyMasterModel> funGetListCompanyMasterModel(String clientCode) {
 		return objPropertySetupDao.funGetListCompanyMasterModel(clientCode);
 

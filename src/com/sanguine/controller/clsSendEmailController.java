@@ -618,7 +618,7 @@ public class clsSendEmailController
         				helper.setSubject(subject);
         				//helper.addAttachment("PO Slip.pdf", aAttachment);
         				helper.setText(strMessege);
-        				mailSender.send(helper.getMimeMessage());
+        				//mailSender.send(helper.getMimeMessage());
                 	}                	
                 }
 				

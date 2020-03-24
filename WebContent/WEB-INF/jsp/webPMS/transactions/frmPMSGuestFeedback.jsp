@@ -192,6 +192,8 @@
 	 		   {
 	 			  
 	 			   fillTableRow(index,obj);
+	 			  $("#lblGuestName").text(obj.strGuestName);
+	 			   
 	 		   });
 			},
 			error: function(jqXHR, exception) 
@@ -397,6 +399,8 @@
 				<div class="col-md-2">
 					<label>Guest Code</label>
 					<s:input id="txtGuestCode" path="strGuestCode" readonly="true" cssClass="searchTextBox" ondblclick="funHelp('guestCode')"/>
+					
+					<label id="lblGuestName"></label>
 				</div>
 			</div> 
 	

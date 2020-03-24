@@ -28,6 +28,7 @@ import com.sanguine.webpms.bean.clsPMSFeedbackMasterBean;
 import com.sanguine.webpms.model.clsPMSFeedbackMasterModel;
 import com.sanguine.webpms.service.clsPMSFeedbackMasterService;
 import com.sanguine.webpms.bean.clsPMSGuestFeedbackBean;
+import com.sanguine.webpms.dao.clsWebPMSDBUtilityDao;
 import com.sanguine.webpms.model.clsPMSGuestFeedbackModel;
 import com.sanguine.webpms.service.clsPMSGuestFeedbackService;
 
@@ -39,6 +40,10 @@ public class clsPMSGuestFeedbackController{
 	@Autowired
 	private clsGlobalFunctionsService objGlobalFunctionsService;
 	private clsGlobalFunctions objGlobal=null;
+	
+
+	@Autowired
+	private clsWebPMSDBUtilityDao objWebPMSUtility;
 
 //Open PMSGuestFeedback
 	@RequestMapping(value = "/frmPMSGuestFeedback", method = RequestMethod.GET)
@@ -118,7 +123,7 @@ public class clsPMSGuestFeedbackController{
 		}
 		else
 		{
-			String sql = "select a.strGuestFeedbackCode,a.strGuestCode,a.strFeedbackCode,a.strExcellent,a.strGood,a.strFair,a.strPoor,a.strRemark,b.strFeedbackDesc from tblguestfeedback a ,tblpmsfeedbackmaster b where a.strFeedbackCode=b.strFeedbackCode and  a.strClientCode='"+clientCode+"' AND a.strGuestCode='"+docCode+"' ";
+			String sql = "select a.strGuestFeedbackCode,a.strGuestCode,a.strFeedbackCode,a.strExcellent,a.strGood,a.strFair,a.strPoor,a.strRemark,b.strFeedbackDesc,Concat(c.strFirstName,' ',c.strMiddleName,' ',c.strLastName) from tblguestfeedback a ,tblpmsfeedbackmaster b,tblguestmaster c  where a.strFeedbackCode=b.strFeedbackCode and  a.strClientCode='"+clientCode+"' AND a.strGuestCode='"+docCode+"' and a.strGuestCode=c.strGuestCode ";
 			List listModel=objGlobalFunctionsService.funGetListModuleWise(sql,"sql");
 
 			if(listModel!=null && listModel.size()>0)
@@ -136,6 +141,7 @@ public class clsPMSGuestFeedbackController{
 					objBean2.setStrPoor(arr[6].toString());
 					objBean2.setStrRemark(arr[7].toString());
 					objBean2.setStrFeedbackDesc(arr[8].toString());
+					objBean2.setStrGuestName(arr[9].toString());
 					
 					listReturn.add(objBean2);
 					
@@ -182,7 +188,12 @@ public class clsPMSGuestFeedbackController{
 		if(!result.hasErrors()){
 			String clientCode=req.getSession().getAttribute("clientCode").toString();
 			String userCode=req.getSession().getAttribute("usercode").toString();
-			
+			String strGuestCode = objBean.getStrGuestCode();
+			if(strGuestCode!=null && !strGuestCode.equals(""))
+			{
+				String deleteOldRecord = "delete from  tblguestfeedback  where strGuestCode='"+strGuestCode+"'";
+				objWebPMSUtility.funExecuteUpdate(deleteOldRecord,"sql");
+			}
 				for(clsPMSGuestFeedbackBean objBean1 : objBean.getListBean())
 				{
 					
@@ -210,7 +221,7 @@ public class clsPMSGuestFeedbackController{
 		long lastNo=0;
 		clsPMSGuestFeedbackModel objModel = new clsPMSGuestFeedbackModel();
 		
-		if (objBean.getStrGuestFeedbackCode().trim().length() == 0) {
+		if (objBean.getStrGuestFeedbackCode().trim().length() == 0 || objBean.getStrGuestFeedbackCode().equals("undefined")) {
 			lastNo = objGlobalFunctionsService.funGetPMSMasterLastNo("tblguestfeedback", "GuestFeedbackMastter", "strGuestFeedbackCode", clientCode);
 			// lastNo=1;
 			String feedbackCode = "FF" + String.format("%06d", lastNo);
