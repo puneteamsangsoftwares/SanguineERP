@@ -1085,6 +1085,20 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		sql="ALTER TABLE `tblsalesorderdtl` ADD COLUMN `strMessage` VARCHAR(50) NOT NULL DEFAULT '' AFTER `dblAcceptQty`,ADD COLUMN `strShape` VARCHAR(50) NOT NULL DEFAULT '' AFTER `strMessage`;";
 		funExecuteQuery(sql);
 		
+		sql="ALTER TABLE `tbldeliverychallanhd`"
+				+ " CHANGE COLUMN `dteCreatedDate` `dteCreatedDate` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' AFTER `strUserCreated`,"
+				+ " CHANGE COLUMN `dteLastModified` `dteLastModified` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' AFTER `strUserModified`;";
+
+		funExecuteQuery(sql);
+		
+		sql="ALTER TABLE `tblinvoicehd`"
+				+ " CHANGE COLUMN `dteCreatedDate` `dteCreatedDate` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' AFTER `strUserCreated`,"
+				+ " CHANGE COLUMN `dteLastModified` `dteLastModified` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' AFTER `strUserModified`;";
+		funExecuteQuery(sql);
+		
+		sql="ALTER TABLE `tblinvsettlementdtl`"
+				+ " CHANGE COLUMN `dteInvDate` `dteInvDate` DATETIME NOT NULL AFTER `strRoomNo`;";
+		funExecuteQuery(sql);
 		/*----------------WebStock Forms only---------------------------*/
 		String strIndustryType = "",strWebStockModule="";
 		List<clsCompanyMasterModel> listClsCompanyMasterModel = objSetupMasterService.funGetListCompanyMasterModel();

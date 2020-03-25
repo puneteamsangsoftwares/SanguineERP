@@ -348,7 +348,7 @@ public class clsInvoiceController
 	// Save or Update Invoice
 	@SuppressWarnings({ "unused", "rawtypes" })
 	@RequestMapping(value = "/saveInvoice", method = RequestMethod.POST)
-	public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBean objBean, BindingResult result, HttpServletRequest req)
+public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBean objBean, BindingResult result, HttpServletRequest req)
 	{
 		boolean flgHdSave = false;
 		String urlHits = "1";
@@ -363,6 +363,7 @@ public class clsInvoiceController
 		// List<clsInvoiceGSTModel> listGST=new ArrayList<clsInvoiceGSTModel>();
 		if (!result.hasErrors())
 		{
+			objBean.setDteInvDate(objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getDteInvDate()));
 			String clientCode = req.getSession().getAttribute("clientCode").toString();
 			String userCode = req.getSession().getAttribute("usercode").toString();
 			String propCode = req.getSession().getAttribute("propertyCode").toString();
@@ -378,8 +379,8 @@ public class clsInvoiceController
 
 			clsInvoiceHdModel objHDModel = new clsInvoiceHdModel();
 			objHDModel.setStrUserModified(userCode);
-			objHDModel.setDteLastModified(objGlobalFunctions.funGetCurrentDate("yyyy-MM-dd"));
-			objHDModel.setDteInvDate(objGlobalFunctions.funGetDate("yyyy-MM-dd",objBean.getDteInvDate()) + " " + reportDate);
+			objHDModel.setDteLastModified(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
+			objHDModel.setDteInvDate(objBean.getDteInvDate() + " " + reportDate);
 			objHDModel.setStrAgainst(objBean.getStrAgainst());
 			objHDModel.setStrAuthorise(objGlobalFunctions.funCheckFormAuthorization("Invoice", req));
 			if (objBean.getStrAgainst().equalsIgnoreCase("Sales Order"))
@@ -414,7 +415,7 @@ public class clsInvoiceController
 			objHDModel.setStrSOCode(objBean.getStrSOCode());
 			objHDModel.setStrSettlementCode(objBean.getStrSettlementCode());
 			objHDModel.setStrUserCreated(userCode);
-			objHDModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDate("yyyy-MM-dd"));
+			objHDModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
 			objHDModel.setStrClientCode(clientCode);
 
 			objHDModel.setStrMobileNo(objBean.getStrMobileNoForSettlement());
@@ -449,7 +450,7 @@ public class clsInvoiceController
 			objHDModel.setStrSupplierRef(objBean.getStrSupplierRef());
 			objHDModel.setStrOtherRef(objBean.getStrOtherRef());
 			objHDModel.setStrBuyersOrderNo(objBean.getStrBuyersOrderNo());
-			objHDModel.setDteBuyerOrderNoDated(objGlobalFunctions.funGetDate("yyyy-MM-dd",objBean.getDteBuyerOrderNoDated()));
+			objHDModel.setDteBuyerOrderNoDated(objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getDteBuyerOrderNoDated()));
 			objHDModel.setStrDispatchDocNo(objBean.getStrDispatchDocNo());
 			objHDModel.setDteDispatchDocNoDated(objGlobalFunctions.funGetDate("yyyy-MM-dd",objBean.getDteDispatchDocNoDated()));
 			objHDModel.setStrDispatchThrough(objBean.getStrDispatchThrough());
@@ -657,8 +658,8 @@ public class clsInvoiceController
 
 						String taxDtl = entry.getValue();
 						String taxCode = entry.getKey();
-						double taxableAmt = Double.parseDouble(taxDtl.split("#")[0]);
-						double taxAmt = Double.parseDouble(taxDtl.split("#")[5]);
+						double taxableAmt = Double.parseDouble(decFormat.format(Double.parseDouble(taxDtl.split("#")[0])));
+						double taxAmt =Double.parseDouble(decFormat.format(Double.parseDouble(taxDtl.split("#")[5])));
 						String shortName = taxDtl.split("#")[6];
 
 						double taxAmtForSingleQty = taxAmt / objInvDtl.getDblQty();
@@ -847,13 +848,13 @@ public class clsInvoiceController
 //					}
 					objHDModel.setStrInvCode(invCode);
 					objHDModel.setStrUserCreated(userCode);
-					objHDModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDate("yyyy-MM-dd"));
+					objHDModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
 					objHDModel.setStrDulpicateFlag("N");
 				}
 				else // Update
 				{
 					objHDModel.setStrUserCreated(userCode);
-					objHDModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDate("yyyy-MM-dd"));
+					objHDModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
 					objHDModel.setStrInvCode(objBean.getStrInvCode());
 					objHDModel.setStrDulpicateFlag("Y");
 				}
@@ -969,8 +970,9 @@ public class clsInvoiceController
 				Map<String, clsInvoiceTaxDtlModel> hmInvTaxDtlTemp = hmInvCustTaxDtl.get(entry.getKey());
 				for (Map.Entry<String, clsInvoiceTaxDtlModel> entryTaxDtl : hmInvTaxDtlTemp.entrySet())
 				{
+					entryTaxDtl.getValue().setDblTaxAmt(Double.parseDouble(decFormat.format(entryTaxDtl.getValue().getDblTaxAmt())));
 					listInvoiceTaxDtl.add(entryTaxDtl.getValue());
-					taxAmt += entryTaxDtl.getValue().getDblTaxAmt();
+					taxAmt += Double.parseDouble(decFormat.format(entryTaxDtl.getValue().getDblTaxAmt()));
 
 					String sqlTaxDtl = "select strExcisable from tbltaxhd " + " where strTaxCode='" + entryTaxDtl.getValue().getStrTaxCode() + "' ";
 					List list = objGlobalFunctionsService.funGetList(sqlTaxDtl, "sql");
@@ -1039,7 +1041,7 @@ public class clsInvoiceController
 							if(obj.getDblSettlementAmt() > 0)
 							{
 								obj.setStrInvCode(objHDModel.getStrInvCode());
-								obj.setDteInvDate(objHDModel.getDteInvDate().split(" ")[0]);
+								obj.setDteInvDate(objHDModel.getDteInvDate());
 								obj.setDblPaidAmt(obj.getDblSettlementAmt());
 								obj.setStrClientCode(clientCode);
 								obj.setStrCustomerCode(objHDModel.getStrCustCode());
@@ -1064,7 +1066,7 @@ public class clsInvoiceController
 					obj.setStrSettlementCode(objHDModel.getStrSettlementCode());
 					obj.setStrInvCode(objHDModel.getStrInvCode());
 					obj.setDblSettlementAmt(objHDModel.getDblGrandTotal() );
-					obj.setDteInvDate(objHDModel.getDteInvDate().split(" ")[0]);
+					obj.setDteInvDate(objHDModel.getDteInvDate());
 					obj.setDblPaidAmt(obj.getDblSettlementAmt());
 					obj.setStrClientCode(clientCode);
 					obj.setStrCustomerCode(objHDModel.getStrCustCode());
@@ -1111,7 +1113,7 @@ public class clsInvoiceController
 					objProdCustModel.setDblMaxQty(0);
 					objProdCustModel.setDblStandingOrder(0);
 					
-					objProdCustModel.setDtLastDate(objGlobalFunctions.funGetDate("yyyy-MM-dd",objBean.getDteInvDate()));
+					objProdCustModel.setDtLastDate(objBean.getDteInvDate());
 					
 		
 					
@@ -2738,7 +2740,7 @@ public class clsInvoiceController
 				String locCode = request.getParameter("strlocCode");
 				String dtfullfilled = request.getParameter("dtFullFilled");
 				String custCode = request.getParameter("strCustCode");
-				// dtfullfilled=objGlobalFunctions.funGetDate("yyyy-MM-dd",dtfullfilled);
+				dtfullfilled=objGlobalFunctions.funGetDate("yyyy-MM-dd",dtfullfilled);
 				String webStockDB=request.getSession().getAttribute("WebStockDB").toString();
 				String strModuleName = request.getSession().getAttribute("selectedModuleName").toString();
 				List SOHelpList = new ArrayList<>();
@@ -4077,7 +4079,7 @@ public class clsInvoiceController
 			String strDCCode = cd + String.format("%06d", lastNo);
 			objDcHdModel.setStrDCCode(strDCCode);
 			objDcHdModel.setStrUserCreated(userCode);
-			objDcHdModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDate("yyyy-MM-dd"));
+			objDcHdModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
 			objDcHdModel.setIntid(lastNo);
 		}
 		objDcHdModel.setStrSOCode(objInvHDModel.getStrInvCode());

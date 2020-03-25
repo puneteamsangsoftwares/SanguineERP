@@ -828,8 +828,8 @@
 			    row.insertCell(2).innerHTML= "<input name=\"currency["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"currency."+(rowCount)+"\" value='"+data[4]+"'>";
 			    row.insertCell(3).innerHTML= "<input name=\"SKUQty["+(rowCount)+"]\" id=\"SKUQty."+(rowCount)+"\"readonly=\"readonly\" style=\"text-align: right;width:99%;\"  class=\"Box\" value="+data[2]+">";
 			    row.insertCell(4).innerHTML= "<input name=\"SKUAmount["+(rowCount)+"]\" id=\"SKUAmount."+(rowCount)+"\" readonly=\"readonly\"  style=\"text-align: right;width:99%;\"   class=\"Box\"  value="+data[3]+">";
-			    row.insertCell(5).innerHTML= "<input name=\"SKUDiscAmount["+(rowCount)+"]\" id=\"SKUDiscAmount."+(rowCount)+"\" readonly=\"readonly\"  style=\"text-align: right;\"  style=\"width:99%;\" class=\"Box\"  value="+data[5]+">";
-			    row.insertCell(6).innerHTML= "<input name=\"SKUTotalAmount["+(rowCount)+"]\" id=\"SKUTotalAmount."+(rowCount)+"\" readonly=\"readonly\"  style=\"text-align: right;\"  style=\"width:99%;\" class=\"Box\"  value="+data[6]+">";
+			    row.insertCell(5).innerHTML= "<input name=\"SKUDiscAmount["+(rowCount)+"]\" id=\"SKUDiscAmount."+(rowCount)+"\" readonly=\"readonly\"  style=\"text-align: right;width:99%;\"  class=\"Box\"  value="+data[5]+">";
+			    row.insertCell(6).innerHTML= "<input name=\"SKUTotalAmount["+(rowCount)+"]\" id=\"SKUTotalAmount."+(rowCount)+"\" readonly=\"readonly\"   style=\"text-align: right;width:99%;\"  class=\"Box\"  value="+data[6]+">";
 
 			    
 			    
@@ -1333,11 +1333,13 @@
 				<s:select id="cmbSettlement" path="strSettlementCode" items="${settlementList}" style="width:70%;" >
 				 </s:select>
 			  </div> 
-			   <div class="col-md-6"></div>	
-			  <!-- <div class="col-md-5">
+			 
+			  <div class="col-md-5">
 				 <input id="btnExport" type="button" value="EXPORT"  class="form_button1" onclick="funExportReport()" />
 				 <input id="btnReset" type="button" value="RESET"  class="form_button1" onclick="funResetCustomer()" />
-			</div> -->
+			     <input id="btnExport" type="button" value="Print"  class="form_button1" onclick="funPrintReport()" />
+			     
+			  </div>
 			<div class="col-md-2">
 				<label>Location Code</label>
 				<s:input type="text" id="txtLocCode" path="strLocCode"
@@ -1351,17 +1353,17 @@
 				<s:input type="text" id="txtCustCode" path="strCustCode"
 						cssClass="searchTextBox" ondblclick="funHelp('custMaster');" value="All"/>
 			</div>
-			  <div class="col-md-6"></div>
+			 
 				  <div class="col-md-2">	
 	              	<label id="">Currency</label>
 					<s:select id="cmbCurrency" path="strCurrencyCode" items="${currencyList}" style="width:70%;">
 				    </s:select>
 				 </div>
 			  	
-			<!-- <div class="col-md-2">
+			<!--  <div class="col-md-2">
 				<label id="lblCustName"></label>	
-				<input id="btnExport" type="button" value="Print"  class="form_button1" onclick="funPrintReport()" />
-			</div> -->
+			</div> --> 
+			
 			<div class="col-md-2">	
 				<s:input type="hidden" id="hidReportName" path=""></s:input>
 			</div>		
@@ -1588,13 +1590,17 @@
 					<!--  COl1   -->
 					<td width="9.3%">Product Name</td>
 					<!--  COl2   -->
-					<td width="4.8%">Currency</td>
+					<td width="5%">Currency</td>
 					<!-- COl3  -->
-					<td width="5%">Quantity</td>
+					<td width="4.7%">Quantity</td>
 					<!-- COl4  -->
-					<td width="5.2%">Sales Amount</td>
+					<td width="4.9%">Sales Amount</td>
 					<!--  COl5   -->
+					<td width="4.9%">Disc Amount</td>
 					
+					<td width="5.5%">Total Amount</td>
+					
+
 
 				</tr>
 			</table>
@@ -1604,6 +1610,7 @@
 					style="width: 100%; border: #0F0; table-layout: fixed;"
 					class="transTablex col15-center">
 					<tbody>
+					
 					<col style="width: 3.5%">
 					<!--  COl1   -->
 					<col style="width: 10.5%">
@@ -1614,10 +1621,17 @@
 					<!--  COl4   -->
 					<col style="width: 5.5%">
 					<!--  COl5   -->
+					<col style="width: 5.5%">
+					<!--  COl6   -->
+					<col style="width: 5.5%">
 				
 					
 				
 					</tbody>
+				
+					
+				
+					
 
 				</table>
 			</div>
@@ -1856,7 +1870,7 @@
 				
 				<tr style="margin-left: 28px">
 				
-					<td id="labld26" style="width:70%; text-align:right">Total</td>
+					<td id="labld26" style="width:50%; text-align:right">Total</td>
 					<td id="tdSubTotValue" style="width:10%; align:right">
 						<input id="txtSubTotValue" style="width: 100%; text-align: right;font-size: 16px;" class="Box"></input>
 					</td>
@@ -1865,6 +1879,10 @@
 					</td>
 					<td id="tdTotValue" style="width:10%; align:right">
 						<input id="txtTotValue" style="width: 100%; text-align: right;font-size: 16px;" class="Box"></input>
+					</td>
+					</td>
+					<td id="tdFinalTotValue" style="width:10%; align:right">
+						<input id="txFinalTotValue" style="width: 100%; text-align: right;font-size: 16px;" class="Box"></input>
 					</td>
 
 				</tr>

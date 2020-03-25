@@ -93,7 +93,7 @@ public class clsShopOrderListReportController {
 			}
 			String suppName = "";
 
-			String propNameSql = "select a.strPropertyName  from dbwebmms.tblpropertymaster a where a.strPropertyCode='" + propertyCode + "' and a.strClientCode='" + clientCode + "' ";
+			String propNameSql = "select a.strPropertyName  from tblpropertymaster a where a.strPropertyCode='" + propertyCode + "' and a.strClientCode='" + clientCode + "' ";
 			List listPropName = objGlobalFunctionsService.funGetDataList(propNameSql, "sql");
 			String propName = "";
 			if (listPropName!=null && listPropName.size() > 0) {
@@ -250,7 +250,7 @@ public class clsShopOrderListReportController {
 			String reportName = servletContext.getRealPath("/WEB-INF/reports/webcrm/rptShopOrderListTableWise.jrxml");
 			String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
 
-			String propNameSql = "select a.strPropertyName  from dbwebmms.tblpropertymaster a where a.strPropertyCode='" + propertyCode + "' and a.strClientCode='" + clientCode + "' ";
+			String propNameSql = "select a.strPropertyName  from  tblpropertymaster a where a.strPropertyCode='" + propertyCode + "' and a.strClientCode='" + clientCode + "' ";
 			List listPropName = objGlobalFunctionsService.funGetDataList(propNameSql, "sql");
 			String propName = "";
 			if (listPropName!=null && listPropName.size() > 0) {

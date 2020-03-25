@@ -192,7 +192,7 @@ public class clsSalesOrderHdDaoImpl implements clsSalesOrderHdDao {
 
 		List objSalesList = null;
 		String sql = " select b.strProdCode,c.strProdName,c.strProdType,sum(b.dblAcceptQty),b.dblUnitPrice , b.dblWeight,a.strCustCode" 
-			+ " ,d.dblDiscount,a.strSOCode,b.dblDiscount,ifnull(a.strCurrency,''),ifnull(a.dblConversion,1.0)  " 
+			+ " ,'',a.strSOCode,b.dblDiscount,ifnull(a.strCurrency,''),ifnull(a.dblConversion,1.0)  " 
 			+ " from tblsalesorderhd a,tblsalesorderdtl b,tblproductmaster c,tblpartymaster d " 
 			+ " where a.strSOCode=b.strSOCode and b.strProdCode=c.strProdCode and ( " + soCode + " ) " + "  and a.strCustCode=d.strPCode and a.strClientCode='"
 			+ clientCode + "' " + " and b.strClientCode='" + clientCode + "' and c.strClientCode='" + clientCode + "' " 
@@ -237,7 +237,7 @@ public class clsSalesOrderHdDaoImpl implements clsSalesOrderHdDao {
 
 		List objSalesList = null;
 		String sql = " select b.strProdCode,c.strProdName,c.strProdType,sum(b.dblAcceptQty),b.dblUnitPrice , b.dblWeight,a.strCustCode" 
-			+ " ,d.dblDiscount,a.strSOCode,b.dblDiscount,ifnull(a.strCurrency,''),ifnull(a.dblConversion,1.0)  " 
+			+ " ,'',a.strSOCode,b.dblDiscount,ifnull(a.strCurrency,''),ifnull(a.dblConversion,1.0)  " 
 			+ " from tblsalesorderhd a,tblsalesorderdtl b,tblproductmaster c,tblpartymaster d " 
 			+ " where a.strSOCode=b.strSOCode and b.strProdCode=c.strProdCode and ( " + soCode + " ) " + "  and a.strCustCode=d.strPCode and a.strClientCode='"
 			+ clientCode + "' " + " and b.strClientCode='" + clientCode + "' and c.strClientCode='" + clientCode + "' and a.strCustCode='"+custCode+"' " 

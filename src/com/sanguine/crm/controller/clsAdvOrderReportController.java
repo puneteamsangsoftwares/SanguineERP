@@ -373,18 +373,18 @@ sqlAdvOrd = " select i.strSGName,   g.strProdCode,g.strProdName,b.dblQty AS dblQ
 					String prodImage = "";
 					objProdBean = (clsProductionComPilationBean) fieldList.get(a);
 
-					List listBean = objAdvOrderService.funGetImageAdvOrder(objProdBean.getStrSOCode(), objProdBean.getStrItemCode(), clientCode);
-					Blob image = null;
+					List<byte[]> listBean = objAdvOrderService.funGetImageAdvOrder(objProdBean.getStrSOCode(), objProdBean.getStrItemCode(), clientCode);
+					//Blob image = null;
 					byte[] imgData = null;
 
 					try {
 
-						Object prodimage = (Object) listBean.get(0);
-						image = (Blob) prodimage;
-						if (null != image && image.length() > 0) {
-							imgData = image.getBytes(1, (int) image.length());
+						//Object prodimage = listBean.get(0);
+						//image = (Blob) prodimage;
+						if (null != listBean.get(0) && listBean.get(0).length > 0) {
+							imgData = listBean.get(0);
 							try {
-								imgData = Base64.getDecoder().decode(imgData);// decoding
+								//imgData = Base64.getDecoder().decode(imgData);// decoding
 																				// of
 																				// byte
 							} catch (Exception ex) {
@@ -414,6 +414,7 @@ sqlAdvOrd = " select i.strSGName,   g.strProdCode,g.strProdName,b.dblQty AS dblQ
 
 					} catch (Exception ex) {
 						objProdBean.setStrImage(prodImage);
+						ex.printStackTrace();
 
 					}
 					finalList.add(objProdBean);

@@ -354,21 +354,21 @@
 	     <s:form name="frmShopOrdersList" method="POST" action="rptShopOrderList.html" target="_blank">
 	   		<br />
 	   		 <div class="row">
-					<div class ="col-md-2"><label>From SO Date :</label>
+					<div class ="col-md-2"><label>From Inv Date :</label>
 							<s:input id="txtFromDate" path="dtFromDate" required="true" readonly="readonly" cssClass="calenderTextBox" style="width:70%"/>
 					</div>
 					
-					<div class ="col-md-2"><label>To SO Date :</label>
+					<div class ="col-md-2"><label>To Inv Date :</label>
 							<s:input id="txtToDate" path="dtToDate" required="true" readonly="readonly" cssClass="calenderTextBox" style="width:70%"/>
 					</div>
 				
-				     <div class ="col-md-2"><label>From Fulfillment Date :</label>
+				   <%--   <div class ="col-md-2"><label>From Fulfillment Date :</label>
 							<s:input id="txtFromFulfillment" path="dteFromFulfillment" required="true" readonly="readonly" cssClass="calenderTextBox" style="width:70%"/>
 					 </div>
 					 
 					<div class ="col-md-2"><label>To Fulfillment Date :</label>
 							<s:input id="txtToFulfillment" path="dteToFulfillment" required="true" readonly="readonly" cssClass="calenderTextBox" style="width:70%"/>
-					</div>
+					</div> --%>
 				</div>
 			<br>
 		<table class="transTable">

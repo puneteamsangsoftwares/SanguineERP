@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tblattachdocument")
 public class clsAttachDocModel {
@@ -41,10 +43,13 @@ public class clsAttachDocModel {
 	@Column(name = "strClientCode", columnDefinition = "VARCHAR(255) NOT NULL default ''")
 	private String strClientCode;
 
-	@Lob @Basic(fetch = FetchType.LAZY)
+	@Lob 
+	@Basic(fetch = FetchType.LAZY)
     @Column(name="binContent", nullable=false)
+	@JsonIgnore
     private byte[] binContent;
-
+	
+	
 
 	@Column(name = "strContentType", columnDefinition = "VARCHAR(255) NOT NULL default ''")
 	private String strContentType;
