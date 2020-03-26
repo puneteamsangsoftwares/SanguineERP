@@ -28,66 +28,30 @@
 		var rowCount=table.rows.length;
 		if(rowCount>0)
 		{
-			var folioNo=document.getElementById("strFolioNo.0").defaultValue;
-			var checkOutDate=document.getElementById("dteCheckOutDate.0").defaultValue;
-			var searchUrl=getContextPath()+"/isCheckFolioStatus.html?folioNo="+folioNo+"&checkOutDate="+checkOutDate;
-			$.ajax({
-				
-				url:searchUrl,
-				type :"GET",
-				dataType: "json",
-				async:false,
-		        success: function(response)
-		        {
-		        	checkOutParam=response;
-		 		   if(checkOutParam==false)
-	 			   {
-		 			  var test=confirm("Do you want to do Post Room Tariff ?");
-						/* if(test)
-						{
-							window.open(getContextPath() +"/frmPostRoomTerrif.html",'_blank');
-						}
-						returnValue=false; */
-						if(test)
-						{
-							window.open(getContextPath() +"/frmPostRoomTerrif.html",'_blank');
-							returnValue=false;
-						}
-						else
-						{
-							returnValue=true;
-						}
-	 			   }
-		 		   else
-	 			   {
-		 			  returnValue=true;
-	 			   }
-				},
-				error: function(jqXHR, exception) 
-				{
-		            if (jqXHR.status === 0) {
-		                alert('Not connect.n Verify Network.');
-		            } else if (jqXHR.status == 404) {
-		                alert('Requested page not found. [404]');
-		            } else if (jqXHR.status == 500) {
-		                alert('Internal Server Error [500].');
-		            } else if (exception === 'parsererror') {
-		                alert('Requested JSON parse failed.');
-		            } else if (exception === 'timeout') {
-		                alert('Time out error.');
-		            } else if (exception === 'abort') {
-		                alert('Ajax request aborted.');
-		            } else {
-		                alert('Uncaught Error.n' + jqXHR.responseText);
-		            }
-		        }
-			});
-			
-			return returnValue;
+			return true;
 		}
 		else
 		{
-			alert("Please Select Room Detail.");
+			alert("Please Select Guest.");
+			return false;
+		}
+		return returnValue;
+	}
+	
+	function funPrintData()
+	{
+		var table=document.getElementById("tblRoomDtl");
+		var rowCount=table.rows.length;
+		if(rowCount>0)
+		{
+			var code = $("#txtGuestCode").val();
+			
+			window.open(getContextPath()+"/printGuestFeedback.html?guestCode="+code,'_blank');
+			return false;
+		}
+		else
+		{
+			alert("Please Select Guest.");
 			return false;
 		}
 		return returnValue;
@@ -506,6 +470,9 @@
 		<div class="center">
 			<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidateData()"
 				class="form_button">Submit</button></a>
+				
+				<a href="#"><button class="btn btn-primary center-block" value="Print" onclick="return funPrintData()"
+				class="form_button">Print</button></a>
 			<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="return funResetFields()"
 				class="form_button">Reset</button></a>
 		</div>

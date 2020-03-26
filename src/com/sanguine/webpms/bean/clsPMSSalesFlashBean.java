@@ -47,6 +47,11 @@ public class clsPMSSalesFlashBean implements Serializable
 	private double dblDiscount;
 	private double dblGrndTotal;
 	private String dteDatesForHousekeeping;
+	
+	private String strStaffName;
+	private String strAssignedRooms;
+	private String strCompletedRooms="";
+	private String strPendingRooms="";
 	public String getStrExportType() {
 		return strExportType;
 	}
@@ -301,6 +306,30 @@ public class clsPMSSalesFlashBean implements Serializable
 	}
 	public void setDteDatesForHousekeeping(String dteDatesForHousekeeping) {
 		this.dteDatesForHousekeeping = dteDatesForHousekeeping;
+	}
+	public String getStrStaffName() {
+		return strStaffName;
+	}
+	public void setStrStaffName(String strStaffName) {
+		this.strStaffName = strStaffName;
+	}
+	public String getStrAssignedRooms() {
+		return strAssignedRooms;
+	}
+	public void setStrAssignedRooms(String strAssignedRooms) {
+		this.strAssignedRooms = strAssignedRooms;
+	}
+	public String getStrCompletedRooms() {
+		return strCompletedRooms;
+	}
+	public void setStrCompletedRooms(String strCompletedRooms) {
+		this.strCompletedRooms = strCompletedRooms;
+	}
+	public String getStrPendingRooms() {
+		return strPendingRooms;
+	}
+	public void setStrPendingRooms(String strPendingRooms) {
+		this.strPendingRooms = strPendingRooms;
 	}
 	
 	

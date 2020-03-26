@@ -98,6 +98,7 @@ function funShowTableGUI(divID)
 	document.all["divPayment"].style.display = 'none';
 	document.all["divBillPrinting"].style.display = 'none';
 	document.all["divHousekeepingSummary"].style.display = 'none';
+	document.all["divStaffWiseHousekeepingSummary"].style.display = 'none';
 	
 	
 	// for show Table GUI
@@ -876,6 +877,10 @@ function funExportReport()
 	 } else if(hidReportName=='divHousekeepingSummary')
 	 {
 			window.location.href = getContextPath()+"/exportPMSHousekeepingSummary.html?frmDte="+frmDte1+"&toDte="+toDte1;
+	}
+	 else if(hidReportName=='divStaffWiseHousekeepingSummary')
+	 {
+			window.location.href = getContextPath()+"/exportPMSStaffWiseHousekeepingSummary.html?frmDte="+frmDte1+"&toDte="+toDte1;
 	} 
 	
 	
@@ -986,6 +991,71 @@ function funOnClickHousekeepingSummary( divId)
 	            }		            
 	        }
 	      });
+	
+}
+
+function funOnClickStaffWiseHousekeepingSummary( divId)
+{
+	funShowTableGUI(divId);
+	
+	var frmDte1=$('#dteFromDate').val();
+    var toDte1=$('#dteToDate').val();
+	var searchUrl=getContextPath()+"/loadStaffWiseHousekeepingSummary.html?frmDte="+frmDte1+"&toDte="+toDte1;
+	$.ajax({
+	        type: "GET",
+	        url: searchUrl,
+		    dataType: "json",
+		    success: function(response)
+		    {
+		    	
+		    				funSetStaffWiseHousekeepingSummary(response);
+		    		
+		    	
+		    	
+		    	
+		    },
+		    error: function(jqXHR, exception) {
+	            if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }		            
+	        }
+	      });
+	
+}
+function funSetStaffWiseHousekeepingSummary(response)
+{
+	$('#tblStaffWiseHousekeepingSummary tbody').empty();
+	 var table = document.getElementById("tblStaffWiseHousekeepingSummary");
+	 $.each(response, function(i,item)
+	 			{
+	 var rowCount = table.rows.length;
+     var row = table.insertRow();
+     var cnt=0;
+     var list = [];
+     
+     
+ 			
+ 	
+     row.insertCell(0).innerHTML= "<td><input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='"+item.strStaffName+"' ></td>";
+     row.insertCell(1).innerHTML= "<td><input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='"+item.strAssignedRooms+"' ></td>";
+     row.insertCell(2).innerHTML= "<td><input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='"+item.strCompletedRooms+"' ></td>";
+     row.insertCell(3).innerHTML= "<td><input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='"+item.strPendingRooms+"' ></td>";
+ 			});
+     
+     
+        
 	
 }
 
@@ -1239,6 +1309,29 @@ function funClick(obj)
 			</table>
 			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: scroll; overflow-y: scroll; width: 100%;">
 				<table id="tblHousekeepingSummary" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTable">
+				</table>
+			</div>
+		</div>
+		
+		
+		
+		<div id="divStaffWiseHousekeepingSummary" class="dynamicTableContainer" style="height: 400px;">
+			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+				<tr bgcolor="#c0c0c0">
+					<td width="7.4%">Staff Name</td>
+					<td width="9.3%">Assigned rooms </td>
+					<td width="9.2%">Cleaned rooms</td>
+					<td width="9.2%">Pending  rooms</td>
+				</tr>
+			</table>
+			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
+				<table id="tblStaffWiseHousekeepingSummary" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
+					<tbody>
+						<col style="width: 7.2%">
+						<col style="width: 9.2%">
+						<col style="width: 9.2%">
+						<col style="width: 9.2%">
+					</tbody>
 				</table>
 			</div>
 		</div>
@@ -1615,8 +1708,15 @@ function funClick(obj)
 			<table class="transTable" style="width:100%;height:30px; ">
 			 	<tr>
 					<td><input id="btnHousekeepingSummary" type="button"
-						class="btn btn-primary center-block" value="Housekeeping"  onclick="funOnClickHousekeepingSummary('divHousekeepingSummary')" style="background-size: 140px 24px; width: 150px; color:#000;" /></td>	
+						class="btn btn-primary center-block" value="Housekeeping"  onclick="funOnClickHousekeepingSummary('divHousekeepingSummary')" style="background-size: 140px 24px; width: 150px; color:#000;" />
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<input id="btnStaffWiseHousekeepingSummary" type="button"
+						class="btn btn-primary center-block" value="StaffWise Housekeeping"  onclick="funOnClickStaffWiseHousekeepingSummary('divStaffWiseHousekeepingSummary')" style="background-size: 140px 24px; width: 150px; color:#000;" /></td>	
+			
 				 </tr>
+				 
+		
+					
 			</table>
 		</div>
 		<br/><br/>

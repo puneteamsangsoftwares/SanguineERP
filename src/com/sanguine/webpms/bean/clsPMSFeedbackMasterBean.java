@@ -30,7 +30,7 @@ public class clsPMSFeedbackMasterBean{
 	
 	private String strRemark;
 	
-	private String strGuestName;
+	private String strGuestName = "";
 
 //Setter-Getter Methods
 	public String getStrFeedbackCode(){

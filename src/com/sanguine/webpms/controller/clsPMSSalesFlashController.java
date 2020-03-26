@@ -633,7 +633,7 @@ public class clsPMSSalesFlashController {
 					objBean.setDblDiscount(dblDiscAmt);
 				}
 				
-				String sqlTaxAmt = "select sum(a.dblTaxAmt) from tblbilltaxdtl a where a.strBillNo='"+arr2[0].toString()+"' and a.strTaxCode like 'TC%' and a.strClientCode='"+strClientCode+"'";
+				String sqlTaxAmt = "select ifnull(sum(a.dblTaxAmt),0.0) from tblbilltaxdtl a where a.strBillNo='"+arr2[0].toString()+"' and a.strTaxCode like 'TC%' and a.strClientCode='"+strClientCode+"'";
 				List listTaxAmt = objGlobalService.funGetListModuleWise(sqlTaxAmt, "sql");
 				if(listTaxAmt!=null && listTaxAmt.size()>0)
 				{
@@ -751,6 +751,66 @@ public class clsPMSSalesFlashController {
 		
 				
 		return mapHousekeepingSummary;
+	}
+	
+	@RequestMapping(value = "/loadStaffWiseHousekeepingSummary", method = RequestMethod.GET)
+	public @ResponseBody List<clsPMSSalesFlashBean> funloadStaffWiseHousekeepingSummary(HttpServletRequest request) throws ParseException {
+		String strClientCode = request.getSession().getAttribute("clientCode").toString();
+		String fromDate = request.getParameter("frmDte").toString();
+		String[] arr = fromDate.split("-");
+		String fromDte = arr[2] + "-" + arr[1] + "-" + arr[0];
+		String toDate = request.getParameter("toDte").toString();
+		String[] arr1 = toDate.split("-");
+		String toDte = arr1[2] + "-" + arr1[1] + "-" + arr1[0];
+		String PMSDate=request.getSession().getAttribute("PMSDate").toString();
+		List listRoomCLeanCheck =  new ArrayList();
+		Map<String,List> mapHousekeepingSummary = new HashMap<String, List>();
+		List<clsPMSSalesFlashBean> listReturn = new ArrayList<clsPMSSalesFlashBean>();
+		DateFormat formatter ; 
+		List<Date> dates = new ArrayList<Date>();
+		clsPMSSalesFlashBean objBean = null;
+		TreeSet listDatesHeader = new TreeSet();
+		List listRoomWise = new ArrayList();
+		//Taking all rooms from tblroom
+		
+		String sqlData = "SELECT a.strStaffCode,a.strStaffName,b.strRoomDesc AS assigned_rooms, IFNULL(c.strRoomCode,'') as Completed_rooms"
+				+ " FROM tblpmsstaffmaster a "
+				+ "LEFT OUTER "
+				+ "JOIN tblstaffmasterdtl b ON a.strStaffCode=b.strStffCode "
+				+ "LEFT OUTER "
+				+ "JOIN tblroomhousekeepdtl c ON b.strRoomCode=c.strRoomCode AND DATE(c.dteDate) "
+				+ "BETWEEN '"+fromDte+"' AND '"+toDte+"'";
+		
+	   listRoomCLeanCheck = objGlobalService.funGetListModuleWise(sqlData, "sql");
+
+	   if(listRoomCLeanCheck!=null && listRoomCLeanCheck.size()>0)
+	   {
+		   for(int i=0;i<listRoomCLeanCheck.size();i++)
+		   {
+			   Object[] arrData = (Object[]) listRoomCLeanCheck.get(i);
+			   
+			   clsPMSSalesFlashBean objBean1 = new clsPMSSalesFlashBean();
+			   
+			   objBean1.setStrStaffName(arrData[1].toString());
+			   objBean1.setStrAssignedRooms(arrData[2].toString());
+			   			   
+			   if(!arrData[3].toString().equals(""))
+			   {
+				   objBean1.setStrCompletedRooms(arrData[2].toString());
+			   }
+			   else
+			   {
+				   objBean1.setStrPendingRooms(arrData[2].toString());
+			   }
+			   
+			   listReturn.add(objBean1);
+		   }
+		   
+	   }
+		
+		
+				
+		return listReturn;
 	}
 	
 	private String funGetDayOfWeek(int day) {
@@ -2012,6 +2072,96 @@ public class clsPMSSalesFlashController {
 		
 		return new ModelAndView("excelViewFromToDteReportName", "listFromToDateReportName", retList);
     }
+
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/exportPMSStaffWiseHousekeepingSummary", method = RequestMethod.GET)
+	private ModelAndView funexportPMSStaffWiseHousekeepingSummary(HttpServletRequest request) throws ParseException
+	{
+	    
+			String strClientCode = request.getSession().getAttribute("clientCode").toString();
+			String userCode = request.getSession().getAttribute("usercode").toString();
+			List retList = new ArrayList();
+			List detailList = new ArrayList();
+			List headerList = new ArrayList();
+
+			
+			String fromDate = request.getParameter("frmDte").toString();
+			String[] arr = fromDate.split("-");
+			String fromDte = arr[2] + "-" + arr[1] + "-" + arr[0];
+			
+			String toDate = request.getParameter("toDte").toString();
+			String[] arr1 = toDate.split("-");
+			String toDte = arr1[2] + "-" + arr1[1] + "-" + arr1[0];
+			
+			BigDecimal dblTotalValue = new BigDecimal(0);
+			DecimalFormat df = new DecimalFormat("#.##");
+			String sqlData = "SELECT a.strStaffCode,a.strStaffName,b.strRoomDesc AS assigned_rooms, IFNULL(c.strRoomCode,'') as Completed_rooms"
+					+ " FROM tblpmsstaffmaster a "
+					+ "LEFT OUTER "
+					+ "JOIN tblstaffmasterdtl b ON a.strStaffCode=b.strStffCode "
+					+ "LEFT OUTER "
+					+ "JOIN tblroomhousekeepdtl c ON b.strRoomCode=c.strRoomCode AND DATE(c.dteDate) "
+					+ "BETWEEN '"+fromDte+"' AND '"+toDte+"'";
+			
+		  List listRoomCLeanCheck = objGlobalService.funGetListModuleWise(sqlData, "sql");
+
+		   if(listRoomCLeanCheck!=null && listRoomCLeanCheck.size()>0)
+		   {
+			   for(int i=0;i<listRoomCLeanCheck.size();i++)
+			   {
+				   Object[] arr2 = (Object[]) listRoomCLeanCheck.get(i);
+				   
+					List DataList = new ArrayList<>();
+				    DataList.add(arr2[1].toString());
+				    DataList.add(arr2[2].toString());
+				    if(!arr2[3].toString().equals(""))
+				    {
+				    	DataList.add(arr2[2].toString());
+				    	DataList.add("");
+				    }
+				    else
+				    {
+				    	DataList.add("");
+				    	DataList.add(arr2[2].toString());
+				    }
+				    
+					detailList.add(DataList);
+
+				}
+			}
+			retList.add("Staffwise Housekeeping_" + fromDte + "to" + toDte + "_" + userCode);
+			List titleData = new ArrayList<>();
+			titleData.add("Staffwise Housekeeping");
+			retList.add(titleData);
+				
+			List filterData = new ArrayList<>();
+			filterData.add("From Date");
+			filterData.add(fromDate);
+			filterData.add("To Date");
+		    filterData.add(toDate);
+		    retList.add(filterData);  
+			
+		    headerList.add("Staff Name");
+			headerList.add("Assigned Rooms");
+			headerList.add("Completed Rooms");
+			headerList.add("Pending Rooms");
+			Object[] objHeader = (Object[]) headerList.toArray();
+
+			String[] ExcelHeader = new String[objHeader.length];
+			for (int k = 0; k < objHeader.length; k++) {
+				ExcelHeader[k] = objHeader[k].toString();
+			}
+			List blankList = new ArrayList();
+		    detailList.add(blankList);// Blank Row at Bottom
+		    
+			
+			retList.add(ExcelHeader);
+			retList.add(detailList);
+			
+			return new ModelAndView("excelViewFromToDteReportName", "listFromToDateReportName", retList);
+		
+	}
 	
 }
 
