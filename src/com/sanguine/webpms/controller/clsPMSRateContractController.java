@@ -167,7 +167,10 @@ public class clsPMSRateContractController{
 			objPMSRateContractService.funAddUpdatePMSRateContract(objModel);
 			clsPropertySetupHdModel objModel1 = objPropertySetupService.funGetPropertySetup(propertyCode, clientCode);
 			String pmsDate = objGlobal.funGetDate("yyyy-MM-dd", req.getSession().getAttribute("PMSDate").toString());
-			funCallAPI(objModel1,clientCode,pmsDate,objBean.getStrRateContractID());
+			if(objModel1.getStrOnlineIntegration().equalsIgnoreCase("Yes"))
+			{
+				funCallAPI(objModel1,clientCode,pmsDate,objBean);
+			}
 			req.getSession().setAttribute("success", true);
 			req.getSession().setAttribute("successMessage", "Rate management code : ".concat(objModel.getStrRateContractID()));
 
@@ -179,7 +182,7 @@ public class clsPMSRateContractController{
 		}
 	}
 
-	private void funCallAPI(clsPropertySetupHdModel objModel1, String clientCode,String pmsDate,String rateContractId) 
+	private void funCallAPI(clsPropertySetupHdModel objModel1, String clientCode,String pmsDate,clsPMSRateContractBean objBean) 
 	{
 		try{
 			JSONObject JMainObject = new JSONObject();		
@@ -188,7 +191,7 @@ public class clsPMSRateContractController{
 			String sql = "select a.strClientCode ,'SANGUINEPMS' as OTA_Name ,a.strRoomTypeCode,a.strRateContractID,a.dblSingleTariWeekDays,a.dblDoubleTariWeekDays, "
 					+ "a.dblTrippleTariWeekDays,a.dblExtraBedTariWeekDays,a.dblChildTariWeekDays,a.dblYouthTariWeekDays from tblpmsratecontractdtl a "
 					+ "left outer join  tblroom b on a.strRoomTypeCode=b.strRoomTypeCode where b.strStatus='Free' and a.strClientCode='"+clientCode+"' "
-					+ "AND a.strRateContractID='"+rateContractId+"' GROUP BY a.strRateContractID ";
+					+ "AND a.strRateContractID='"+objBean.getStrRateContractID()+"' GROUP BY a.strRateContractID ";
 			
 			List listData = objWebPMSUtility.funExecuteQuery(sql, "sql"); 
 			if(listData!=null && listData.size()>0)
@@ -205,8 +208,8 @@ public class clsPMSRateContractController{
 					JroomObj.put("RoomId", obj[2].toString());
 					JroomObj.put("RateplanId", obj[3].toString());					
 					
-					Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(pmsDate);  
-					Date date2=new SimpleDateFormat("yyyy-MM-dd").parse(pmsDate);
+					Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(objGlobal.funGetDate("yyyy-MM-dd", objBean.getDteFromDate()));  
+					Date date2=new SimpleDateFormat("yyyy-MM-dd").parse(objGlobal.funGetDate("yyyy-MM-dd", objBean.getDteToDate()));
 					JroomObj.put("FromDate", simpleDateFormat.format(date1));
 					JroomObj.put("ToDate", simpleDateFormat.format(date2));
 					
@@ -284,10 +287,6 @@ public class clsPMSRateContractController{
                             op+=output;
                     }
                     System.out.println("Output :: "+op);
-                    
-                    /*JSONParser parser = new JSONParser();
-                JSONObject jObjMenuDownloaded = (JSONObject) parser.parse(op);*/
-
                     postConnection.disconnect();
             }
             catch(Exception e)

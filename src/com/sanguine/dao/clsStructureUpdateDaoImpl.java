@@ -4936,7 +4936,7 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				funExecutePMSQuery(sql);
 		
 		sql = "ALTER TABLE `tblpropertysetup` "
-				+ "ADD COLUMN `strOnlineIntegration` VARCHAR(3) NOT NULL DEFAULT '' AFTER `strRatePickUpFrom`,"
+				+ "ADD COLUMN `strOnlineIntegration` VARCHAR(3) NOT NULL DEFAULT 'No' AFTER `strRatePickUpFrom`,"
 				+ "	ADD COLUMN `strIntegrationUrl` VARCHAR(100) NOT NULL DEFAULT '' AFTER `strOnlineIntegration`;";
 		
 		funExecutePMSQuery(sql);
@@ -4972,6 +4972,24 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ ") COLLATE='utf8_general_ci' "
 				+ "ENGINE=InnoDB ;";
 		funExecutePMSQuery(sql);
+		
+		sql="ALTER TABLE `tblreceipthd`CHANGE COLUMN `strUserCreated` `strUserCreated` VARCHAR(30) "
+				+ "NOT NULL AFTER `dteDateEdited`;";
+		funExecutePMSQuery(sql);
+		
+		sql="ALTER TABLE `tblreceipthd` CHANGE COLUMN `strUserEdited` `strUserEdited` VARCHAR(30) "
+				+ "NOT NULL AFTER `dteDateEdited`;";
+		funExecutePMSQuery(sql);
+		
+		sql="ALTER TABLE `tblreservationhd` "
+				+ "CHANGE COLUMN `strRemarks` `strRemarks` VARCHAR(950) NOT NULL AFTER `strAgentCode`;";
+		funExecutePMSQuery(sql);
+		
+		sql="ALTER TABLE `tblreservationdtl` "
+				+ "CHANGE COLUMN `strRemarks` `strRemarks` VARCHAR(950) NOT NULL AFTER `strPayee`;";
+		funExecutePMSQuery(sql);
+		
+		
 		
 				// For PMS Form Of Tree master Start///
 		sql = " INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`) VALUES "

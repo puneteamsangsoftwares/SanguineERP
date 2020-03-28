@@ -145,6 +145,10 @@ public class clsPropertySetupController {
 		{
 			objBean.setStrEnableWebCam("N");
 		}
+		if(objBean.getStrOnlineIntegration()==null)
+		{
+			objBean.setStrOnlineIntegration("No");
+		}
 		if (!result.hasErrors()) {
 			String clientCode = req.getSession().getAttribute("clientCode").toString();
 			String userCode = req.getSession().getAttribute("usercode").toString();
@@ -480,8 +484,24 @@ public class clsPropertySetupController {
 		objPropertySetupModel.setStrCheckInEmailContent(objBean.getStrCheckInEmailContent());
 		objPropertySetupModel.setStrEnableHousekeeping(objBean.getStrEnableHousekeeping());
 		objPropertySetupModel.setStrEnableWebCam(objBean.getStrEnableWebCam());
-		objPropertySetupModel.setStrBillFormat(objBean.getStrBillFormat());
-		objPropertySetupModel.setStrRatepickUpFrom(objBean.getStrRatepickUpFrom());
+		if(objBean.getStrBillFormat()==null ||objBean.getStrBillFormat().isEmpty())
+		{
+			objBean.setStrBillFormat("N");
+			objPropertySetupModel.setStrBillFormat("N");
+		}
+		else
+		{
+			objPropertySetupModel.setStrBillFormat(objBean.getStrBillFormat());
+		}
+		if(objBean.getStrRatepickUpFrom()==null ||objBean.getStrRatepickUpFrom().isEmpty())
+		{
+			objBean.setStrRatepickUpFrom(" ");
+			objPropertySetupModel.setStrRatepickUpFrom(" ");
+		}
+		else
+		{
+			objPropertySetupModel.setStrRatepickUpFrom(objBean.getStrRatepickUpFrom());
+		}
 		objPropertySetupModel.setStrOnlineIntegration(objBean.getStrOnlineIntegration());
 		objPropertySetupModel.setStrIntegrationUrl(objBean.getStrIntegrationUrl());
 		

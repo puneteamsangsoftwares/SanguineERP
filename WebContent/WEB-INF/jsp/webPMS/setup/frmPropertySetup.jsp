@@ -503,6 +503,18 @@ ul.tabs1 li.active {
 			var roomLimit =  parseFloat($("#txtRoomLimit").val());
 			var noOfRoom =  parseFloat($("#txtNoOfRooms").val());
 			
+			var e = document.getElementById("cmbOnlineIntegration");
+			var strOnlineIntegrate = e.options[e.selectedIndex].value;
+			
+			if(strOnlineIntegrate == 'Yes')
+			{
+				var strIntegrationURL=document.getElementById("txtIntegratrionURL").value;
+				if(strIntegrationURL == '')
+				{
+					alert("Please Enter Integration URL with port no..");
+				}
+			}
+			
 			/* if(roomLimit =="0" || roomLimit == "")
 			{
 				 alert("Please Enter Room Limit");
