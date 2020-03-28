@@ -230,7 +230,7 @@
 			<div class="col-md-4" style="margin-right:-40px;"> 
 			
 			<div style="width: 100%;height: 200px;"><img alt="" src="../${pageContext.request.contextPath}/resources/images/${headerImage}" width="100%" height="200px" style="background-repeat: no-repeat"></div>
-	<div style="background-color: inherit; top: 200px; bottom: 0;float: left;padding-left: 40px; margin: 145px 100px;"><img alt="" src="../${pageContext.request.contextPath}/resources/images/${moduleTitleImage}" height="150px" width="150px">
+	<div style="background-color: inherit; top: 200px; bottom: 0;float: left;padding-left: 10px; margin: 145px 100px;"><img alt="" src="../${pageContext.request.contextPath}/resources/images/${moduleTitleImage}" height="150px" width="350px">
 	
 <!-- 	<div style="float: left;padding-left: 40px;"> -->
 <!-- 		<img alt="" -->

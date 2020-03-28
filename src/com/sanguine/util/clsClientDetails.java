@@ -225,6 +225,8 @@ public class clsClientDetails {
 			hmClientDtl.put("344.001", clsClientDetails.createClientDetails("344.001", "THE GLOBAL ADDA", dFormat.parse("2019-12-09"), dFormat.parse("2020-12-09")));//(Mumbai)//Released on 09-12-2019 for 1 year till 09-12-2020
 			hmClientDtl.put("346.001", clsClientDetails.createClientDetails("346.001", "MNV HOSPITALITY LLP", dFormat.parse("2020-02-01"), dFormat.parse("2020-03-10")));//(Mumbai)//Released on 04-02-2020 for 1 month till 10-03-2020
 			hmClientDtl.put("345.001", clsClientDetails.createClientDetails("345.001", "YOGI RESORTS", dFormat.parse("2019-12-10"), dFormat.parse("2020-03-20")));//Renewed on 11-02-2020 for 1 month till 09-03-2020//Created Licence On 10-12-2019 to 10-02-2020
+			
+			hmClientDtl.put("359.001", clsClientDetails.createClientDetails("359.001", "Hotel Demo", dFormat.parse("2020-03-27"), dFormat.parse("2023-03-27")));//Generated on 2020-03-27 for 3 year till 2023-03-27 as per swapnil said
 			//345.001 is given to yogi resort please give license after this number
 			
 			

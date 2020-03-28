@@ -37,7 +37,13 @@
 		   $('input#password').mlKeyboard({layout: 'en_US'});
 		   $('#username').focus();
 		}*/
+		var companyName='';
+		<%if(null!=session.getAttribute("companyName")){%>
+		companyName="<%=session.getAttribute("companyName")%>";
+		<%}%>
 		
+		
+		$('#lblCompanyName').text(companyName);
 	
   });
   	
@@ -74,7 +80,7 @@
 			<div class="col-md-4">
 				<s:form name="login" method="POST" action="validateUser.html">
 				<div class="box">
-							<h2>Sanguine Softwares Solutions Pvt.Ltd</h2>
+							<h2 id="lblCompanyName">sanguine software solutions</h2>
 							<h3  style="border: 2px solid #2e6eb1;border-bottom-right-radius:50%;width:50%s; background-color:#2e6eb1; color:#fff;"> Login</h3>
 					<form style="padding-left:30px;">
 						<div class="inputbox">
@@ -87,7 +93,7 @@
 							<s:label path="strPassword">Password</s:label>
 							
 						</div>
-						<h2><input type="submit" name="" value="submit" style="margin-left:200px; font-weight:700px"></h2>
+						<h2><input type="submit" name="" value="Submit" style="margin-left:200px; font-weight:700px"></h2>
 					</form>
 				</div>
 			</s:form>

@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -56,27 +57,50 @@ public class clsPMSRateContractController{
 	public ModelAndView funOpenForm(Map<String, Object> model,HttpServletRequest request){
 		String clientCode=request.getSession().getAttribute("clientCode").toString();
 
-		String sqlRoomTypes = "select a.strRoomTypeCode from tblroomtypemaster a where a.strClientCode='"+clientCode+"'";
+		String sqlRoomTypes = "select a.strRoomTypeCode,a.strRoomTypeDesc from tblroomtypemaster a where a.strClientCode='"+clientCode+"'";
 		
 		List list = objGlobalFunctionsService.funGetListModuleWise(sqlRoomTypes, "sql");
-		
+		List roomTypeCode = new ArrayList<>();
+		List roomTypeDesc = new ArrayList<>();
 		if(list!=null && list.size()>0)
 		{
+			for(int i=0;i<list.size();i++)
+			{
+				Object[] arr = (Object[]) list.get(i);
+				
+				roomTypeCode.add(arr[0].toString());
+				roomTypeDesc.add(arr[1].toString());
+				
+			}
 			
-			model.put("RoomType", list);
+			
 
 		}
+		model.put("RoomType", roomTypeCode);
+		model.put("RoomDesc", roomTypeDesc);
 
-		String sqlSeason = "select a.strSeasonCode  from tblseasonmaster a  where a.strClientCode='"+clientCode+"'";
+		String sqlSeason = "select a.strSeasonCode,a.strSeasonDesc  from tblseasonmaster a  where a.strClientCode='"+clientCode+"'";
 		
 		List listSeason = objGlobalFunctionsService.funGetListModuleWise(sqlSeason, "sql");
-		
+		List seasonType = new ArrayList<>();
+		List seasonDesc = new ArrayList<>();
+
 		if(listSeason!=null && listSeason.size()>0)
 		{
 			
-			model.put("Season", listSeason);
+			for(int i=0;i<listSeason.size();i++)
+			{
+				Object[] arr = (Object[]) listSeason.get(i);
+				
+				seasonType.add(arr[0].toString());
+				seasonDesc.add(arr[1].toString());
+				
+			}
+			
 
 		}
+		model.put("Season", seasonType);
+		model.put("SeasonDesc", seasonDesc);
 		
 		return new ModelAndView("frmPMSRateContract","command", new clsPMSRateContractModel());
 	}
@@ -102,6 +126,18 @@ public class clsPMSRateContractController{
 		objPMSRateContractModel = objPMSRateContractService.funGetPMSRateContract(code, clientCode);
 		objPMSRateContractModel.setDteFromDate(objGlobal.funGetDate("dd-MM-yyyy", objPMSRateContractModel.getDteFromDate()));
 		objPMSRateContractModel.setDteToDate(objGlobal.funGetDate("dd-MM-yyyy", objPMSRateContractModel.getDteToDate()));
+		String sqlRoomTypeCode = "select a.strRoomTypeDesc from tblroomtypemaster a where a.strRoomTypeCode='"+objPMSRateContractModel.getStrRoomTypeCode()+"'";
+		List listROomtypeCode = objGlobalFunctionsService.funGetListModuleWise(sqlRoomTypeCode, "sql");
+		if(listROomtypeCode!=null && listROomtypeCode.size()>0)
+		{
+			objPMSRateContractModel.setStrRoomTypeCode(listROomtypeCode.get(0).toString());
+		}
+		String sqlSeasonCode = "select a.strSeasonDesc from tblseasonmaster a where a.strSeasonCode='"+objPMSRateContractModel.getStrSeasonCode()+"'";
+		List listSeasonCode = objGlobalFunctionsService.funGetListModuleWise(sqlSeasonCode, "sql");
+		if(listSeasonCode!=null && listSeasonCode.size()>0)
+		{
+			objPMSRateContractModel.setStrSeasonCode(listSeasonCode.get(0).toString());
+		}
 
 		
 		return objPMSRateContractModel;
@@ -114,6 +150,19 @@ public class clsPMSRateContractController{
 			String clientCode=req.getSession().getAttribute("clientCode").toString();
 			String propertyCode = req.getSession().getAttribute("propertyCode").toString();
 			String userCode=req.getSession().getAttribute("usercode").toString();
+			String sqlRoomTypeCode = "select a.strRoomTypeCode from tblroomtypemaster a where a.strRoomTypeDesc='"+objBean.getStrRoomTypeCode()+"'";
+			List listROomtypeCode = objGlobalFunctionsService.funGetListModuleWise(sqlRoomTypeCode, "sql");
+			if(listROomtypeCode!=null && listROomtypeCode.size()>0)
+			{
+				objBean.setStrRoomTypeCode(listROomtypeCode.get(0).toString());
+			}
+			String sqlSeasonCode = "select a.strSeasonCode from tblseasonmaster a where a.strSeasonDesc='"+objBean.getStrSeasonCode()+"'";
+			List listSeasonCode = objGlobalFunctionsService.funGetListModuleWise(sqlSeasonCode, "sql");
+			if(listSeasonCode!=null && listSeasonCode.size()>0)
+			{
+				objBean.setStrSeasonCode(listSeasonCode.get(0).toString());
+			}
+
 			clsPMSRateContractModel objModel = funPrepareModel(objBean,userCode,clientCode);
 			objPMSRateContractService.funAddUpdatePMSRateContract(objModel);
 			clsPropertySetupHdModel objModel1 = objPropertySetupService.funGetPropertySetup(propertyCode, clientCode);

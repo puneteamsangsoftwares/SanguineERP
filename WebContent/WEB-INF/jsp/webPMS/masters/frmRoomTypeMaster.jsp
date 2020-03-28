@@ -199,16 +199,16 @@
 				<s:input id="txtRoomTypeDesc" path="strRoomTypeDesc"/>				
 			</div>
 			
-			<div class="col-md-2"><label>Room Tariff</label>
+			<div class="col-md-2"><label>Single Occupancy</label>
 				<s:input id="txtRoomTerrif" path="dblRoomTerrif" style="text-align:right; width: 40%;" onkeypress="javascript:return isNumber(event)"/>				
 			</div>
 			<div class="col-md-6"></div>
 			
-			<div class="col-md-2"><label>Double Tariff</label>
+			<div class="col-md-2"><label>Double Occupancy</label>
 				<s:input id="txtDoubleTarrif" path="dblDoubleTariff" style="text-align:right; width: 40%;" onkeypress="javascript:return isNumber(event)"/>				
 			</div>
 			
-			<div class="col-md-2"><label>Tripple Tariff</label>
+			<div class="col-md-2"><label>Tripple Occupancy</label>
 				<s:input id="txtTrippleTarrif" path="dblTrippleTariff" style="text-align:right; width: 40%;" onkeypress="javascript:return isNumber(event)"/>				
 			</div>
 			<div class="col-md-2"><label>HSN/SAC</label>

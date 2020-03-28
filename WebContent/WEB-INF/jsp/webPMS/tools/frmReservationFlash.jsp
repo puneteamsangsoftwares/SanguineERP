@@ -202,11 +202,11 @@
 					<div class="row">
 						<div class="col-md-6">
 							<label>Property</label>
-							<s:select id="cmbPropertyCode" path="strPropertyCode" items="${hmProperty}" style="width:auto;"></s:select>
+							<s:select id="cmbPropertyCode" path="strPropertyCode" items="${hmProperty}" ></s:select>
 						</div>
 						<div class="col-md-6">		
 							<label>Booking Type</label>
-							<s:select id="cmbBookingCode" path="strBookingCode" items="${hmBooking}" style="width:auto;"></s:select>
+							<s:select id="cmbBookingCode" path="strBookingCode" items="${hmBooking}" ></s:select>
 						   </div>
 			    	</div>
 				</div>	
@@ -214,17 +214,17 @@
 					<div class="row">
 						<div class="col-md-6">	
 							<label>Rooms Type</label>
-							<s:select id="cmbRoomsType" path="strRoomTypeCode"  items="${hmRoomType}" style="width:auto;"></s:select>
+							<s:select id="cmbRoomsType" path="strRoomTypeCode"  items="${hmRoomType}" ></s:select>
 						</div>
 						<div class="col-md-6">
-						  	<label id="lblFromArrDate">From Arrive Date</label>
+						  	<label id="lblFromArrDate" style="width:251px;">From  Arrival Date</label>
 					        <s:input id="txtArriveFromDate" name="dteArriveFromDate" path="dteArriveFromDate" cssClass="calenderTextBox"/>
 					   	</div>
 					</div><br>
 				</div>
 				<div class="col-md-5"></div>   	
 			    <div class="col-md-2">
-			       <label id="lblToArrDate">To Arrive Date</label>
+			       <label id="lblToArrDate">To Arrival Date</label>
 			       <s:input id="txtArriveToDate" name="dteArriveToDate" path="dteArriveToDate" cssClass="calenderTextBox" style="width:75%;" />
 			    </div> 
 			    <div class="col-md-2">

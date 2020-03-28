@@ -3282,7 +3282,7 @@ public class clsSearchFormController {
 			columnNames = "a.strRateContractID,b.strRoomTypeDesc,c.strSeasonDesc,DATE_FORMAT(a.dteFromDate,'%d-%m-%Y'),DATE_FORMAT(a.dteToDate,'%d-%m-%Y') ";
 			tableName = "from tblpmsratecontractdtl a,tblroomtypemaster b,tblseasonmaster c "
 					+ "where a.strRoomTypeCode=b.strRoomTypeCode and a.strSeasonCode=c.strSeasonCode and a.strClientCode='"+clientCode+"'";
-			listColumnNames = "Code,Season Desc,Last Edited By,Updated Date";
+			listColumnNames = "Code,Room Desc,Season ,Updated Date";
 			idColumnName = "strSeasonCode";
 			// criteria = getCriteriaQuery(columnNames,search_with,tableName);
 			flgQuerySelection = true;

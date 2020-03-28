@@ -1809,7 +1809,7 @@ public class clsRoomStatusDiaryController {
 								sql = "SELECT count(a.strReservationNo) "
 										+ "FROM tblreservationdtl a,tblroomtypemaster b,tblreservationhd c "
 										+ "WHERE  DATE(c.dteArrivalDate) <= '"+tempPMSDate+"' AND DATE(c.dteDepartureDate)>='"+tempPMSDate+"' AND b.strRoomTypeDesc='"+listRoomDesc.get(j)+"' AND a.strRoomType=b.strRoomTypeCode "
-										+ " AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' AND c.strClientCode='"+clientCode+"'";
+										+ " AND a.strClientCode='"+clientCode+"' and a.strRoomNo!='' AND a.strReservationNo=c.strReservationNo AND b.strClientCode='"+clientCode+"' AND c.strClientCode='"+clientCode+"'";
 										
 								List listCheckInData = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
 								String dd1=String.valueOf((Integer.parseInt(dd)+i));

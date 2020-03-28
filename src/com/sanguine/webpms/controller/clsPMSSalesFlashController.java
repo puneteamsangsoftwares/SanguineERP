@@ -753,6 +753,50 @@ public class clsPMSSalesFlashController {
 		return mapHousekeepingSummary;
 	}
 	
+	@RequestMapping(value = "/loadMonthwiseSale", method = RequestMethod.GET)
+	public @ResponseBody Map funloadMonthwiseSale(HttpServletRequest request) throws ParseException {
+		String strClientCode = request.getSession().getAttribute("clientCode").toString();
+		String fromDate = request.getParameter("frmDte").toString();
+		String[] arr = fromDate.split("-");
+		String fromDte = arr[2] + "-" + arr[1] + "-" + arr[0];
+		String toDate = request.getParameter("toDte").toString();
+		String[] arr1 = toDate.split("-");
+		String toDte = arr1[2] + "-" + arr1[1] + "-" + arr1[0];
+		String PMSDate=request.getSession().getAttribute("PMSDate").toString();
+		List listRoomCLeanCheck =  new ArrayList();
+		Map<String,List> mapHousekeepingSummary = new HashMap<String, List>();
+		DateFormat formatter ; 
+		List<Date> dates = new ArrayList<Date>();
+		clsPMSSalesFlashBean objBean = null;
+		TreeSet listDatesHeader = new TreeSet();
+		List listRoomWise = new ArrayList();
+		//Taking all rooms from tblroom
+		
+		String sqlRoom = "select a.strRoomCode,a.strRoomDesc from tblroom a where a.strClientCode='"+strClientCode+"'"; 
+
+		List listMain = new ArrayList();
+		List listRoomNo= objGlobalService.funGetListModuleWise(sqlRoom, "sql");
+		for(int r = 0;r<listRoomNo.size();r++)
+		{
+			
+		}
+		List listDates = new ArrayList<>();
+		
+		Iterator<Integer> iterator = listDatesHeader.iterator(); 
+		while (iterator.hasNext()) 
+            {
+				listDates.add(iterator.next());
+            }
+		mapHousekeepingSummary.put("Months", listMain); 
+		mapHousekeepingSummary.put("Week", listDates); 
+		
+		
+		
+				
+		return mapHousekeepingSummary;
+	}
+	
+	
 	@RequestMapping(value = "/loadStaffWiseHousekeepingSummary", method = RequestMethod.GET)
 	public @ResponseBody List<clsPMSSalesFlashBean> funloadStaffWiseHousekeepingSummary(HttpServletRequest request) throws ParseException {
 		String strClientCode = request.getSession().getAttribute("clientCode").toString();

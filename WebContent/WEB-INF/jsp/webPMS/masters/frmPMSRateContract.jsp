@@ -37,7 +37,7 @@
 		
 		var RoomType=value="${RoomType}"
 		
-		$("#cmbRoomType").val(RoomType);
+		//$("#cmbRoomType").val(RoomType);
 		
 	var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';
 		
@@ -305,12 +305,17 @@
 			        
 			         <div class="col-md-2"><label>Room Type</label>
 			              
-							<s:select  id="cmbRoomType" path="strRoomTypeCode" items="${RoomType}" required="true" style="width:70%;" />
+<%-- 							<s:select  id="cmbRoomType" path="strRoomTypeCode" items="${RoomType}"  required="true" style="width:70%;" />
+ --%>							<s:select  id="cmbRoomType" path="strRoomTypeCode" items="${RoomDesc}" required="true"  style="width:70%;" />
+							
 					</div>
 					
 					<div class="col-md-2"><label>Season</label>
 			              
-							<s:select  id="cmbSeason" path="strSeasonCode" items="${Season}" required="true" style="width:70%;" />
+<%-- 							<s:select  id="cmbSeason"  path="strSeasonCode" items="${Season}" required="true" style="width:70%;" />
+ --%>							
+							<s:select  id="cmbSeason"  path="strSeasonCode" items="${SeasonDesc}" required="true" style="width:70%;" />
+							
 					</div>
 					
 					<div class="col-md-2">
