@@ -1144,7 +1144,7 @@ overflow-x: hidden;
 				 var dateSplit = date.split("-");
 				 date=dateSplit[2]+"-"+dateSplit[1]+"-"+dateSplit[0];
 				 var dateSplit = date.split("-");
-				 date=dateSplit[2]+"-"+dateSplit[1]+"-"+dateSplit[0];
+				 date=dateSplit[0]+"-"+dateSplit[1]+"-"+dateSplit[2];
 				 row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:34%;\" name=\"listWalkinRoomRateDtl["+(rowCount)+"].dtDate\"  id=\"dtDate."+(rowCount)+"\" value='"+date+"' >";
 		 	     row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"34%\" id=\"strRoomTypeDesc."+(rowCount)+"\" value='"+roomtypeDesc+"' />";
 		 	     row.insertCell(2).innerHTML= "<input type=\"text\" style=\"text-align:right;width:34%;\"  name=\"listWalkinRoomRateDtl["+(rowCount)+"].dblRoomRate\" id=\"dblRoomRate."+(rowCount)+"\" onchange =\"Javacsript:funCalculateTotals()\" value='"+roomRate+"' >";
@@ -1943,11 +1943,11 @@ overflow-x: hidden;
 				<s:input id="txtNoOfChild" path="intNoOfChild" type="number" min="0" step="1" name="txtNoOfChild" style="width: 38%;text-align: right;"/>				
 			</div> 
 			
-			<div class="col-md-2"><label>NO POST Folio</label>
+			<div class="col-md-2"><label>No Post Folio</label>
 			     <s:checkbox id="txtNoPostFolio" path="strNoPostFolio" value="Y" />
 			</div>
 			
-			<div class="col-md-2"><label>Complimentry</label>
+			<div class="col-md-2"><label>Complimentary</label>
 			    <s:checkbox id="txtComplimentry" path="strComplimentry" value="N" onclick="funComplimentryChange(this);"/>
 			</div>
 			

@@ -5321,12 +5321,12 @@
 		</definition>
 		
 		<definition name="frmPMSFeedbackMaster" extends="base.definition">
-			<put-attribute name="title" value="Feedback Master" />
-			<put-attribute name="body" value="/WEB-INF/jsp/webPMS/masters/frmPMSFeedbackMaster.jsp" />
+			<put-attribute name="title" value="Feedback Master" ></put-attribute>
+			<put-attribute name="body" value="/WEB-INF/jsp/webPMS/masters/frmPMSFeedbackMaster.jsp" ></put-attribute>
 		</definition>
-		<definition name="frmPMSFeedbackMaster" extends="base.definition4">
-			<put-attribute name="title" value="Feedback Master" />
-			<put-attribute name="body" value="/WEB-INF/jsp/webPMS/masters/frmPMSFeedbackMaster.jsp" />
+		<definition name="frmPMSFeedbackMaster_1" extends="base.definition4">
+			<put-attribute name="title" value="Feedback Master" ></put-attribute>
+			<put-attribute name="body" value="/WEB-INF/jsp/webPMS/masters/frmPMSFeedbackMaster.jsp" ></put-attribute>
 		</definition>
 		
 		<definition name="frmPMSGuestFeedback" extends="base.definition">

@@ -10,7 +10,32 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/rsd-design.css"/>" />
 		<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
 	<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.container {
+  display: inline-block;
+  cursor: pointer;
+}
 
+.bar1, .bar2, .bar3 {
+  width: 30px;
+  height: 2px;
+  background-color: #333;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
 <style type="text/css">
 #tblDays td{
        width:176px;
@@ -1613,6 +1638,9 @@ table tbody tr:nth-child(even) {
 		 function hidePopup() {
 		        document.getElementById('popover').style.cssText = 'display: none';
 		      }
+		 function hidePopupreport() {
+		        document.getElementById('reportsPopup').style.cssText = 'display: none';
+		      }
 		 
 		 function funOpenRoomMaster()
 	      {
@@ -2537,7 +2565,58 @@ table tbody tr:nth-child(even) {
 			   
 			   
 		   }
-		  
+		   function myFunction(x) {
+			   //x.classList.toggle("change");
+			   document.getElementById('reportsPopup').style.cssText = 'display: block';
+			  
+			 }
+		   
+		   function funOpenCheckInList()
+		   {
+			   transactionName="frmCheckInList";
+				window.open("frmCheckInList.html?formname="+transactionName+"&objData="+name,"","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=200,height=200,left=400");
+				window.close;
+		   }
+		   
+
+		   function funOpenCheckOutList()
+		   {
+			   transactionName="frmCheckOutList";
+				window.open("frmCheckOutList.html?formname="+transactionName+"&objData="+name,"","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=200,height=200,left=400");
+				window.close;
+		   } 
+		   function funOpenExpArrivalList()
+		   {
+			   transactionName="frmExpectedArrivalList";
+				window.open("frmExpectedArrivalList.html?formname="+transactionName+"&objData="+name,"","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=200,height=200,left=400");
+				window.close;
+		   }
+		   function funOpenExpDepartureList()
+		   {
+			   transactionName="frmExpectedDepartureList";
+				window.open("frmExpectedDepartureList.html?formname="+transactionName+"&objData="+name,"","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=200,height=200,left=400");
+				window.close;
+		   }function funOpenGuestList()
+		   {
+			   transactionName="frmGuestListReport";
+				window.open("frmGuestListReport.html?formname="+transactionName+"&objData="+name,"","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=200,height=200,left=400");
+				
+				
+		   }
+		   function funOpenRevenueHead()
+		   {
+			   transactionName="frmRevenueHeadReport";
+				window.open("frmRevenueHeadReport.html?formname="+transactionName+"&objData="+name,"","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=400,height=400,left=40");
+				
+				
+		   }
+		   function funOpenRoomInventory()
+		   {
+			   transactionName="frmRoomTypeInventoryReport";
+				window.open("frmRoomTypeInventoryReport.html?formname="+transactionName+"&objData="+name,"","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=400,height=400,left=40");
+				
+				
+		   }
 		  
 </script>
 
@@ -2621,6 +2700,12 @@ table tbody tr:nth-child(even) {
 		              <div class="icon-action">
 		                <span class="mdi mdi-magnify" onclick="hidePopup()"></span>
 		              </div>
+		              
+		              <div class="col-md-2" onclick="myFunction(this)">
+					  <div class="bar1"></div>
+					  <div class="bar2"></div>
+					  <div class="bar3"></div>
+					</div>
 		            </div>
 		        </div>
 			</div>
@@ -2752,6 +2837,52 @@ table tbody tr:nth-child(even) {
           </div>
         </div>
       </div>
+      
+      <div class="popup-details" id="reportsPopup" style="position: relative">
+          <div class="popup-data" style="width: 5%;background:#f2f2f2;min-width: fit-content;top: 90px;position:relative;left:970px;">
+           <div>
+           
+           <div>
+			<label style="font-size:30px;">Quick View</label>
+			<i class="mdi mdi-close close-icon" onclick="hidePopupreport()" style="font-size:25px;"></i>
+           </div>
+           <br />
+                <div>
+                <a href="#"  onclick="funOpenCheckInList();" style="font-size:20px;border: ridge;">&nbsp;&nbsp;&nbsp;Check In List</a> 
+                
+                </div>
+                <div>
+                <a href="#" onclick="funOpenCheckOutList();" style="font-size:20px;border: ridge;">&nbsp;&nbsp;&nbsp;Check Out List</a> 
+                
+                </div>
+                
+                 <div>
+                <a href="#" onclick="funOpenExpArrivalList();" style="font-size:20px;border: ridge;">&nbsp;&nbsp;&nbsp;Expected Arival List</a> 
+                
+                </div>
+                
+                 <div>
+                <a href="#" onclick="funOpenExpDepartureList();" style="font-size:20px;border: ridge;">&nbsp;&nbsp;&nbsp;Expected Departure List</a> 
+                
+                </div>
+                
+                <div>
+                <a href="#" onclick="funOpenGuestList();" style="font-size:20px;border: ridge;">&nbsp;&nbsp;&nbsp;Guest List</a> 
+                
+                </div>
+                 <div>
+                <a href="#" onclick="funOpenRevenueHead();" style="font-size:20px;border: ridge;">&nbsp;&nbsp;&nbsp;Revenue Head Report</a> 
+                
+                </div>
+                 <div>
+                <a href="#" onclick="funOpenRoomInventory();" style="font-size:20px;border: ridge;">&nbsp;&nbsp;&nbsp;Room Type Inventory</a> 
+                
+                </div>
+           </div>
+                
+                    </div>
+      </div>
+      
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
 		<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">

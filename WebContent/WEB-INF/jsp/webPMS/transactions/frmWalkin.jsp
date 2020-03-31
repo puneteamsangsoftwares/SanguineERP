@@ -1918,7 +1918,7 @@ font-size:13px;
 					<div class="row" style="padding-bottom:10px;">
 						<div class="col-md-2">
 							<label>Total</label>
-							<s:input id="txtTotalAmt" path=""  readonly="true"/>
+							<s:input id="txtTotalAmt" path="" style="text-align:right" readonly="true"/>
 						</div>
 						<div class="col-md-2">
 							<label>Discount</label>
@@ -1954,7 +1954,7 @@ font-size:13px;
 				  </div>
 				  <div class="col-md-2">
 					    <label>Amount</label>
-					    <input type="text" id="txtIncomeHeadAmt" path="" Class="BoxW124px"  />
+					    <input type="text" id="txtIncomeHeadAmt" path="" style="text-align:right" Class="BoxW124px"  />
 				  </div>
 				   <div class="col-md-2"></div>
 				  <div class="col-md-2">

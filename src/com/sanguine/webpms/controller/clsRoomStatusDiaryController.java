@@ -215,7 +215,7 @@ public class clsRoomStatusDiaryController {
 					+ " IFNULL(LEFT(TIMEDIFF(a.tmeDepartureTime,(SELECT a.tmeCheckOutTime FROM tblpropertysetup a)),6),''), "
 					+ " IFNULL(LEFT(TIMEDIFF(a.tmeArrivalTime,(SELECT a.tmeCheckInTime FROM tblpropertysetup a)),6),''),a.tmeArrivalTime, "
 					+ "a.tmeDepartureTime, DATEDIFF(DATE(a.dteArrivalDate),'"+viewDate+"'), DATEDIFF(DATE(a.dteDepartureDate),'"+viewDate+"'), "
-					+ "a.strNoRoomsBooked,concat(f.strFirstName,' ',f.strMiddleName,' ',f.strLastName)"
+					+ "count(d.strRoomCode),concat(f.strFirstName,' ',f.strMiddleName,' ',f.strLastName)"
 					+ "FROM tblreservationhd a,tblreservationdtl b,tblroom d,tblbookingtype e,tblguestmaster f "
 					+ "WHERE a.strReservationNo=b.strReservationNo AND a.strBookingTypeCode=e.strBookingTypeCode  "
 					+ "AND DATE(a.dteDepartureDate) BETWEEN '"+viewDate+"' AND DATE_ADD('"+viewDate+"', INTERVAL 7 DAY)  "
@@ -360,7 +360,7 @@ public class clsRoomStatusDiaryController {
 								}
 							}
 						}						
-						objRoomStatusDtl.setDblRoomCnt(listsVirtualRoom.size());
+						//objRoomStatusDtl.setDblRoomCnt(listsVirtualRoom.size());
 						if(strSelection.equalsIgnoreCase("VIRTUAL RESERVATION")||strSelection.equalsIgnoreCase(""))
 						{
 							objGroupReservation.add(objRoomStatusDtl);

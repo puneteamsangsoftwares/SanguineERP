@@ -2788,9 +2788,9 @@ public class clsSearchFormController {
 		}
 
 		case "roomType": {
-			columnNames = "strRoomTypeCode,strRoomTypeDesc,strUserEdited,dteDateEdited";
+			columnNames = "strRoomTypeCode,strRoomTypeDesc ";
 			tableName = "clsRoomTypeMasterModel where strClientCode='" + clientCode + "' ";
-			listColumnNames = "Code,RoomType Desc,Last Edited By,Updated Date";
+			listColumnNames = "Code,RoomType Desc ";
 			idColumnName = "strRoomTypeCode";
 			// criteria = getCriteriaQuery(columnNames,search_with,tableName);
 			searchFormTitle = "RoomType Master";
@@ -2808,9 +2808,9 @@ public class clsSearchFormController {
 		}
 
 		case "extraBed": {
-			columnNames = "a.strExtraBedTypeCode,a.strExtraBedTypeDesc,a.intNoBeds,a.dblChargePerBed,a.strUserEdited,a.dteDateEdited";
+			columnNames = "a.strExtraBedTypeCode,a.strExtraBedTypeDesc,a.intNoBeds,a.dblChargePerBed";
 			tableName = " from tblextrabed a where a.strClientCode='" + clientCode + "' ";
-			listColumnNames = "Code,ExtraBed Desc,No Of Bed,Bed Per Charges,Last Edited By,Updated Date";
+			listColumnNames = "Code,ExtraBed Desc,No Of Bed,Bed Per Charges";
 			idColumnName = "strExtraBedTypeCode";
 			flgQuerySelection = true;
 			// criteria = getCriteriaQuery(columnNames,search_with,tableName);
@@ -2819,9 +2819,9 @@ public class clsSearchFormController {
 		}
 
 		case "reasonPMS": {
-			columnNames = "strReasonCode,strReasonDesc,strReasonType,strUserEdited,dteDateEdited";
+			columnNames = "strReasonCode,strReasonDesc,strReasonType";
 			tableName = "clsPMSReasonMasterModel where strClientCode='" + clientCode + "' ";
-			listColumnNames = "Code,Reason Desc,Reason Type,Last Edited By,Updated Date";
+			listColumnNames = "Code,Reason Desc,Reason Type ";
 			idColumnName = "strReasonCode";
 			// criteria = getCriteriaQuery(columnNames,search_with,tableName);
 			searchFormTitle = "Reason Master";
@@ -2829,9 +2829,9 @@ public class clsSearchFormController {
 		}
 
 		case "incomeHead": {
-			columnNames = "a.strIncomeHeadCode,a.strIncomeHeadDesc,b.strDeptDesc,a.strUserEdited,a.dteDateEdited";
+			columnNames = "a.strIncomeHeadCode,a.strIncomeHeadDesc,b.strDeptDesc ";
 			tableName = " from tblincomehead a,tbldepartmentmaster b " + " where a.strDeptCode=b.strDeptCode and a.strClientCode='" + clientCode + "' ";
-			listColumnNames = "Code,IncomeHead Desc,Dept,Last Edited By,Updated Date";
+			listColumnNames = "Code,IncomeHead Desc,Dept";
 			idColumnName = "strIncomeHeadCode";
 			searchFormTitle = "IncomeHead Master";
 			flgQuerySelection = true;
@@ -2889,9 +2889,9 @@ public class clsSearchFormController {
 		}
 
 		case "CorporateCode": {
-			columnNames = "strCorporateCode,strCorporateDesc,strPlanCode,strSegmentCode,strBlackList,strCity,strState,strCountry,strUserEdited,dteDateEdited ";
+			columnNames = "strCorporateCode,strCorporateDesc,strPersonIncharge ";
 			tableName = "clsCorporateMasterHdModel where strClientCode='" + clientCode + "' ";
-			listColumnNames = "Code,CorporateDesc,Plan,Segment,strBlackList,City,State,Country,Last Edited By,Updated Date ";
+			listColumnNames = "Code,CorporateDesc,Person In Charge ";
 			idColumnName = "strCorporateCode";
 			criteria = getCriteriaQuery(columnNames, search_with, tableName);
 			searchFormTitle = "Corporate Master";
