@@ -2,9 +2,11 @@ package com.sanguine.webpms.controller;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -527,6 +531,11 @@ public class clsCheckOutController {
 					
 				}
 				funSendSMSPayment(billNo, clientCode, RommNo, propCode);
+				clsPropertySetupHdModel objModel1 = objPropertySetupService.funGetPropertySetup(propCode, clientCode);
+				if(objModel.getStrOnlineIntegration().equalsIgnoreCase("Yes"))
+				{
+					funCallAPI(objModel1,clientCode,PMSDate);
+				}
 				req.getSession().setAttribute("success", true);
 				req.getSession().setAttribute("successMessage", "Room No. : ".concat(objBean.getStrSearchTextField()));
 			}
@@ -711,5 +720,81 @@ public class clsCheckOutController {
 			return null;
 		}
 	}
+	private void funCallAPI(clsPropertySetupHdModel objModel,String clientCode,String pmsDate) 
+	{
+		try
+		{
+			JSONObject jobj= new JSONObject();
+			JSONArray jArray = new JSONArray();
+			String isoDatePattern = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(isoDatePattern);
+			String sqlRoomInvData = "select a.strClientCode ,'SANGUINEPMS' as OTA_Name ,a.strRoomTypeCode,a.strRateContractID,count(b.strRoomCode) from tblpmsratecontractdtl a "
+					+ "left outer join  tblroom b on a.strRoomTypeCode=b.strRoomTypeCode where b.strStatus='Free' and a.strClientCode='"+clientCode+"' "
+					+ "group by a.strRoomTypeCode ";
+			List listRoomInvData = objGlobalFunctionsService.funGetListModuleWise(sqlRoomInvData, "sql");
+			if(listRoomInvData!=null && listRoomInvData.size()>0)
+			{
+				for(int i=0;i<listRoomInvData.size();i++)
+				{
+					Object [] objArray = (Object[]) listRoomInvData.get(i);
+					jobj.put("HotelId", objArray[0].toString());
+					jobj.put("OTACode", objArray[1].toString());
+					
+					JSONObject jRoomObj  = new JSONObject();
+					jRoomObj.put("RoomId", objArray[2].toString());
+					jRoomObj.put("RateplanId", objArray[3].toString());
+					Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(pmsDate);  
+					Date date2=new SimpleDateFormat("yyyy-MM-dd").parse(pmsDate);
+					jRoomObj.put("FromDate", simpleDateFormat.format(date1));
+					jRoomObj.put("ToDate", simpleDateFormat.format(date2));
+					jRoomObj.put("Inventory", objArray[4].toString());
+					jArray.add(jRoomObj);
+					
+				}
+				jobj.put("Rooms", jArray);
+				
+				funCallingToRestAPI(objModel,jobj);
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void funCallingToRestAPI(clsPropertySetupHdModel objModel,JSONObject jobj)
+	{
+		try
+		{
+			URL obj = new URL("http://"+objModel.getStrIntegrationUrl()+"/MaxiMojoIntegration/MaxiMojoIntegration/funPushInventory");
+		    HttpURLConnection postConnection = (HttpURLConnection) obj.openConnection();
+		    postConnection.setDoOutput(true);
+		    postConnection.setRequestMethod("POST");
+		    postConnection.setRequestProperty("Content-Type", "application/json");
+		    
+		    OutputStream os = postConnection.getOutputStream();
+			os.write(jobj.toJSONString().getBytes());
+			os.flush();
+
+			BufferedReader br = new BufferedReader(new InputStreamReader((postConnection.getInputStream())));
+
+			String output="",op="";
+			System.out.println("Output from Server .... \n");
+			while ((output = br.readLine()) != null) {
+				op+=output;
+			}
+			System.out.println("Output :: "+op);
+			
+			/*JSONParser parser = new JSONParser();
+		    JSONObject jObjMenuDownloaded = (JSONObject) parser.parse(op);*/
+
+			postConnection.disconnect();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		
+	}
+
 
 }

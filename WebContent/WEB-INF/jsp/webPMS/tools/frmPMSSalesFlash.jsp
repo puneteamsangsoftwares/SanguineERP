@@ -17,6 +17,7 @@
 
 <script type="text/javascript">
 var frmDte1="",toDte1="",maxQuantityDecimalPlaceLimit=2;
+var dblTotalSale=0.0;
 
 $(document).ready(function() 
 		{		
@@ -78,6 +79,7 @@ $(document).ready(function(){
 		dateFormat : 'dd-mm-yy'
 	});
 	$("#dteToDate").datepicker('setDate', pmsDate);	
+	
 });
 
 
@@ -99,10 +101,11 @@ function funShowTableGUI(divID)
 	document.all["divBillPrinting"].style.display = 'none';
 	document.all["divHousekeepingSummary"].style.display = 'none';
 	document.all["divStaffWiseHousekeepingSummary"].style.display = 'none';
+	document.all["divMonthWiseSale"].style.display = 'none';
 	
 	
 	// for show Table GUI
-	document.all[divID].style.display = 'block';
+	document.all[divID].style.display = 'block'; 
 }
 
 function funOnClckSettlementWiseBtn( divId)
@@ -882,6 +885,10 @@ function funExportReport()
 	 {
 			window.location.href = getContextPath()+"/exportPMSStaffWiseHousekeepingSummary.html?frmDte="+frmDte1+"&toDte="+toDte1;
 	} 
+	 else if(hidReportName=='divMonthWiseSale')
+	 {
+			window.location.href = getContextPath()+"/exportPMSMonthWiseSale.html?frmDte="+frmDte1+"&toDte="+toDte1;
+	}
 	
 	
 	
@@ -958,8 +965,9 @@ function funOnClickPayment( divId)
 
 function funOnClickMonthwiseSale( divId)
 {
+	$('#tblMonthWiseSale tbody').empty();
 	funShowTableGUI(divId);
-	
+	dblTotalSale=0.0;
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
 	var searchUrl=getContextPath()+"/loadMonthwiseSale.html?frmDte="+frmDte1+"&toDte="+toDte1;
@@ -969,7 +977,10 @@ function funOnClickMonthwiseSale( divId)
 		    dataType: "json",
 		    success: function(response)
 		    {
-		    	funSetMonthwiseSale(response);
+		    	$.each(response, function(j, item) {
+		    		funSetMonthwiseSale(item);
+		    	});
+		    	
 		    	
 		    	
 		    },
@@ -1097,135 +1108,23 @@ function funSetStaffWiseHousekeepingSummary(response)
 	
 }
 
-function funSetMonthwiseSale(response)
+function funSetMonthwiseSale(item)
 {
-	$('#tblMonthWiseSale tbody').empty();
-	 var table = document.getElementById("tblMonthWiseSale");
-     var rowCount = table.rows.length;
-     var row = table.insertRow();
-     var cnt=0;
-     var list = [];
+	//$('#tblMonthWiseSale tbody').empty();
+	     
+     var table = document.getElementById("tblMonthWiseSale");
+	 var rowCount = table.rows.length;
+	 var row = table.insertRow(rowCount);
      
-    
-     row.insertCell(0).innerHTML= "<td><input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='Month' ></td>";
-     $.each(response.date, function(j, item) {
+	 dblTotalSale=dblTotalSale+item.dblAmount;
+         
     	 
-    	 row.insertCell(j+1).innerHTML= "<td><input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='"+item+"' ></td>";	 
-     });
-     
-     $.each(response.data, function(i, item) {
+    	 row.insertCell(0).innerHTML= "<td><input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='"+item.strMonthName+"' ></td>";	 
+    	 row.insertCell(1).innerHTML= "<td><input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;text-align: right;\" value='"+item.week+"' ></td>";
+    	 row.insertCell(2).innerHTML= "<td><input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;text-align: right;\" value='"+item.dblAmount+"' ></td>";	 
     	 
-    		// for(var j=0;j<item.length;j++)
-    			// {
-    			// if(item[j].includes(' '))
-        		// {
-    				 cnt=item.length;
-    				 var row1 = table.insertRow();
-    				 for(var c=0;c<cnt;c++)
-    					 {
-    					 var symbol;
-    					 if(item[c].includes('Completed'))
-    						 {
-    						 symbol = "&#10003";
-    						 }
-    					 else
-    						 {
-    						 	symbol ="&#9747";
-    						 }
-    					 if(item[c].includes(' '))
-    						 {
-    						 row1.insertCell(c).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='"+item[c]+"' >";	 
-    						 }
-    					 else
-    						 {
-    						 row1.insertCell(c).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='"+symbol+"' >";
-    						 }
-    					 	 
-    					 }
-    				 
-    				
-    			// }
-    			/*  else
-    				 {
-    					row.insertCell(cnt).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='"+item[i][j]+"' >";		 
-    				 } */
-    		 	
-    		    		 
-    		 	//cnt++;
-    		// }
-     
-     });
-     /* 
-     $.each(response.data, function(i, item) {
-    		 for(var p=0;p<item.length;p++)
-    			 {
-                 if(!item.includes('-'))
-                	 {
-                	 for(var s=0;s<item.length;s++)
-                		 {
-                		 
-                	 
-                	 
-                	 if(!list.includes(item[s][0]))
-                		 {
-	                		var row1 = table.insertRow();
-	          			 	row1.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 50px;\" value='"+item[s][0]+"' >";
-	          			 	
-	          			 	
-                		 }
-                	 
-                	 list.push(item[s][0]);
-                	 
-                	
-                	 }
-                	 
-                	 break;
-                	 }
-                 break;
-    			 };
-    			 
-    			 
-     });
-     cnt=1;
-   $.each(response.data, function(i, item) {
-		 for(var p=0;p<item.length-(item.length-1);p++)
-			 {
-             if(!item.includes('-'))
-            	 {
-            	 for(var s=0;s<item.length;s++)
-            		 {
-            		 
-            	 
-            	 
-            	 if(!list.includes(item[s][1]))
-            		 {
-                		var row = table.insertRow();
-                		
-                		row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='SS' >";
-                		row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width: 100px;\" value='"+item[s][1]+"' >"; 
-            		 	 cnt++;
-          			 
-            		 }
-            	 list.push(item[s][0]);
-            	
-            	 }
-            	 break;
-            	 }
-             break;
-			 };  
-			 
- }); */
-    	 
-    
-    		
-		
-	
-    
-    
-	
-    
-        
-	
+    	 $("#txtTotValue").val(dblTotalSale);
+    	$("#txtTaxTotValue").val("");
 }
 
 
@@ -1483,16 +1382,24 @@ function funClick(obj)
 			</div>
 		</div>
 		
-		<!-- <div id="divMonthWiseSale" class="dynamicTableContainer" style="height: 400px;">
+		 <div id="divMonthWiseSale" class="dynamicTableContainer" style="height: 400px;">
 			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
 				<tr bgcolor="#c0c0c0">
+					<td width="7.4%">Month</td>
+					<td width="9.2%">Week</td>
+					<td width="9.2%">Sale</td>
 				</tr>
 			</table>
 			<div style="background-color: #fbfafa; border: 1px solid #ccc; display: block; height: 330px; margin: auto; overflow-x: scroll; overflow-y: scroll; width: 100%;">
 				<table id="tblMonthWiseSale" style="width: 100%; border: #0F0; table-layout: fixed;" class="transTable">
+				<tbody>
+						<col style="width: 7.2%">
+						<col style="width: 9.2%">
+						<col style="width: 9.2%">
+					</tbody>
 				</table>
 			</div>
-		</div> -->
+		</div> 
 		
 		<div id="divStaffWiseHousekeepingSummary" class="dynamicTableContainer" style="height: 400px;">
 			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
@@ -1892,10 +1799,10 @@ function funClick(obj)
 						<input id="btnStaffWiseHousekeepingSummary" type="button"
 						class="btn btn-primary center-block" value="StaffWise Housekeeping"  onclick="funOnClickStaffWiseHousekeepingSummary('divStaffWiseHousekeepingSummary')" style="background-size: 140px 24px; width: 150px; color:#000;" />	
 			
-			<!-- &nbsp;&nbsp;&nbsp;&nbsp;
+			 &nbsp;&nbsp;&nbsp;&nbsp;
 						<input id="btnMonthwiseSale" type="button"
-						class="btn btn-primary center-block" value="Monthwise Sale"  onclick="funOnClickMonthwiseSale('divMonthwiseSale')" style="background-size: 140px 24px; width: 150px; color:#000;" /></td>	
-			 -->
+						class="btn btn-primary center-block" value="Monthwise Sale"  onclick="funOnClickMonthwiseSale('divMonthWiseSale')" style="background-size: 140px 24px; width: 150px; color:#000;" /></td>	
+			 
 				 </tr>
 				 
 		

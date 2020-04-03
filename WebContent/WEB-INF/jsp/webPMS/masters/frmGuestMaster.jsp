@@ -524,8 +524,8 @@ function funSetGuestCode(code)
 					
 					
 				<div class="col-md-2">					
-				 	<div><img id="memImage" src="" style="width:auto;height:150px;margin: 10% 0%;" alt="Member Image"></div>
-			        <div><input  id="memberImage" name="memberImage" type="file" accept="image/gif,image/png,image/jpeg" onchange="funShowImagePreview(this);" style="width:170px; background-color: #fbfafa"/></div>
+				 	<div><img id="memImage" src="" style="width:auto;height:150px;margin: 10% 0%;font-size:14px;" alt="Member Image"></div>
+			        <div><input  id="memberImage" name="memberImage" type="file" accept="image/gif,image/png,image/jpeg" onchange="funShowImagePreview(this);" style="width:220px; background-color: #fbfafa"/></div>
        			</div>
 					
 				<div class="col-md-12" style="FONT-WEIGHT: bold;PADDING-TOP: 5px;">

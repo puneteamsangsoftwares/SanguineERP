@@ -754,7 +754,7 @@ public class clsPMSSalesFlashController {
 	}
 	
 	@RequestMapping(value = "/loadMonthwiseSale", method = RequestMethod.GET)
-	public @ResponseBody Map funloadMonthwiseSale(HttpServletRequest request) throws ParseException {
+	public @ResponseBody List<clsPMSSalesFlashBean> funloadMonthwiseSale(HttpServletRequest request) throws ParseException {
 		String strClientCode = request.getSession().getAttribute("clientCode").toString();
 		String fromDate = request.getParameter("frmDte").toString();
 		String[] arr = fromDate.split("-");
@@ -772,28 +772,28 @@ public class clsPMSSalesFlashController {
 		List listRoomWise = new ArrayList();
 		//Taking all rooms from tblroom
 		
-		String sqlRoom = "select a.strRoomCode,a.strRoomDesc from tblroom a where a.strClientCode='"+strClientCode+"'"; 
+		String sqlData = "select WEEKDAY(date(a.dteReceiptDate)) as weekdays,sum(a.dblReceiptAmt),MONTHNAME(a.dteReceiptDate)"
+				+ " from tblreceipthd a where date(a.dteReceiptDate) BETWEEN '"+fromDte+"' and  '"+toDte+"' "
+				+ " group by weekdays "
+				+ " order by date(a.dteReceiptDate); "; 
 
-		List listMain = new ArrayList();
-		List listRoomNo= objGlobalService.funGetListModuleWise(sqlRoom, "sql");
+		List<clsPMSSalesFlashBean> listMain = new ArrayList<clsPMSSalesFlashBean>();
+		List listRoomNo= objGlobalService.funGetListModuleWise(sqlData, "sql");
 		for(int r = 0;r<listRoomNo.size();r++)
 		{
+			Object[] arr2 = (Object[]) listRoomNo.get(r);
+			clsPMSSalesFlashBean objBean2 = new clsPMSSalesFlashBean();
+			
+			objBean2.setStrMonthName(arr2[2].toString());
+			objBean2.setWeek(Integer.parseInt(arr2[0].toString()));
+			objBean2.setDblAmount(Double.parseDouble(arr2[1].toString()));
+			
+			listMain.add(objBean2);
+			
 			
 		}
-		List listDates = new ArrayList<>();
+		return listMain;
 		
-		Iterator<Integer> iterator = listDatesHeader.iterator(); 
-		while (iterator.hasNext()) 
-            {
-				listDates.add(iterator.next());
-            }
-		mapHousekeepingSummary.put("Months", listMain); 
-		mapHousekeepingSummary.put("Week", listDates); 
-		
-		
-		
-				
-		return mapHousekeepingSummary;
 	}
 	
 	

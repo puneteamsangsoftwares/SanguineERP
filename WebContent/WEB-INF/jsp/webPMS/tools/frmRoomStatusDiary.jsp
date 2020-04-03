@@ -18,11 +18,14 @@
 }
 
 .bar1, .bar2, .bar3 {
-  width: 30px;
-  height: 2px;
+  width: 25px;
+  height: 1px;
   background-color: #333;
   margin: 6px 0;
   transition: 0.4s;
+}
+c:hover{
+background-color: gray
 }
 
 .change .bar1 {
@@ -2701,11 +2704,12 @@ table tbody tr:nth-child(even) {
 		                <span class="mdi mdi-magnify" onclick="hidePopup()"></span>
 		              </div>
 		              
-		              <div class="col-md-2" onclick="myFunction(this)">
-					  <div class="bar1"></div>
+		             <c > <div class="col-md-2"  onclick="myFunction(this)">
+					  <div  class="bar1"></div>
 					  <div class="bar2"></div>
 					  <div class="bar3"></div>
 					</div>
+					</c>
 		            </div>
 		        </div>
 			</div>
@@ -2839,43 +2843,43 @@ table tbody tr:nth-child(even) {
       </div>
       
       <div class="popup-details" id="reportsPopup" style="position: relative">
-          <div class="popup-data" style="width: 5%;background:#f2f2f2;min-width: fit-content;top: 90px;position:relative;left:970px;">
+          <div class="popup-data" style="width: 5%;background:#f2f2f2;min-width: fit-content;top: 90px;position:relative;left:1050px;">
            <div>
            
            <div>
-			<label style="font-size:30px;">Quick View</label>
-			<i class="mdi mdi-close close-icon" onclick="hidePopupreport()" style="font-size:25px;"></i>
+			<label style="font-size:20px;padding-left: 10px;">Quick View</label>
+			<i class="mdi mdi-close close-icon" onclick="hidePopupreport()" style="font-size:20px;"></i>
            </div>
            <br />
                 <div>
-                <a href="#"  onclick="funOpenCheckInList();" style="font-size:20px;border: ridge;">&nbsp;&nbsp;&nbsp;Check In List</a> 
+                <a href="#"  onclick="funOpenCheckInList();" style="font-size:15px;">&nbsp;&nbsp;&nbsp;Check In List</a> 
                 
                 </div>
                 <div>
-                <a href="#" onclick="funOpenCheckOutList();" style="font-size:20px;border: ridge;">&nbsp;&nbsp;&nbsp;Check Out List</a> 
+                <a href="#" onclick="funOpenCheckOutList();" style="font-size:15px;">&nbsp;&nbsp;&nbsp;Check Out List</a> 
                 
                 </div>
                 
                  <div>
-                <a href="#" onclick="funOpenExpArrivalList();" style="font-size:20px;border: ridge;">&nbsp;&nbsp;&nbsp;Expected Arival List</a> 
+                <a href="#" onclick="funOpenExpArrivalList();" style="font-size:15px;">&nbsp;&nbsp;&nbsp;Expected Arival List</a> 
                 
                 </div>
                 
                  <div>
-                <a href="#" onclick="funOpenExpDepartureList();" style="font-size:20px;border: ridge;">&nbsp;&nbsp;&nbsp;Expected Departure List</a> 
+                <a href="#" onclick="funOpenExpDepartureList();" style="font-size:15px;">&nbsp;&nbsp;&nbsp;Expected Departure List</a> 
                 
                 </div>
                 
                 <div>
-                <a href="#" onclick="funOpenGuestList();" style="font-size:20px;border: ridge;">&nbsp;&nbsp;&nbsp;Guest List</a> 
+                <a href="#" onclick="funOpenGuestList();" style="font-size:15px;">&nbsp;&nbsp;&nbsp;Guest List</a> 
                 
                 </div>
                  <div>
-                <a href="#" onclick="funOpenRevenueHead();" style="font-size:20px;border: ridge;">&nbsp;&nbsp;&nbsp;Revenue Head Report</a> 
+                <a href="#" onclick="funOpenRevenueHead();" style="font-size:15px;">&nbsp;&nbsp;&nbsp;Revenue Head Report</a> 
                 
                 </div>
                  <div>
-                <a href="#" onclick="funOpenRoomInventory();" style="font-size:20px;border: ridge;">&nbsp;&nbsp;&nbsp;Room Type Inventory</a> 
+                <a href="#" onclick="funOpenRoomInventory();" style="font-size:15px;">&nbsp;&nbsp;&nbsp;Room Type Inventory</a> 
                 
                 </div>
            </div>

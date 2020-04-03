@@ -52,6 +52,9 @@ public class clsPMSSalesFlashBean implements Serializable
 	private String strAssignedRooms;
 	private String strCompletedRooms="";
 	private String strPendingRooms="";
+	private String strMonthName="";
+	private int week=0;
+	
 	public String getStrExportType() {
 		return strExportType;
 	}
@@ -330,6 +333,18 @@ public class clsPMSSalesFlashBean implements Serializable
 	}
 	public void setStrPendingRooms(String strPendingRooms) {
 		this.strPendingRooms = strPendingRooms;
+	}
+	public String getStrMonthName() {
+		return strMonthName;
+	}
+	public void setStrMonthName(String strMonthName) {
+		this.strMonthName = strMonthName;
+	}
+	public int getWeek() {
+		return week;
+	}
+	public void setWeek(int week) {
+		this.week = week;
 	}
 	
 	
