@@ -641,7 +641,7 @@ $(document).ready(function(){
 								$.each(retValue, function(i,item)
 					               { 
 									count=i;
-										funfillProdRow(retValue[i].strProdCode,retValue[i].strProdName,retValue[i].dblQty,"",dtReqDate,retValue[i].strInStock,retValue[i].dblMinLevel,"",retValue[i].dblRate,parseFloat(retValue[i].dblRate)*parseFloat(retValue[i].dblQty));                 
+										funfillProdRow(retValue[i].strProdCode,retValue[i].strProdName,retValue[i].dblQty,retValue[i].dblRate,"",dtReqDate,retValue[i].strInStock,retValue[i].dblMinLevel,"");                 
 										$('#hidDocCode').val(retValue[i].strDocCode);
 										$('#hidDocType').val(retValue[i].strDocType);
 					               

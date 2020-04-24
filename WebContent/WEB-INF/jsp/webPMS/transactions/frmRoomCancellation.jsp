@@ -64,13 +64,14 @@
 	        	else
 	        	{
 	        		$("#txtReservationNo").val(response[0][0]);
-	        		$("#txtCorporateCode").val(response[0][3]);
+	        		$("#txtGuestName").val(response[0][3]);
 	        		$("#lblCorporateName").text(response[0][2]);
-	        		$("#txtGuestName").val(response[0][1]);
-	        		$("#lblRoomNo").text(response[0][4]);
+/* 	        		$("#txtGuestName").val(response[0][1]);
+ */	        		$("#lblRoomNo").text(response[0][4]);
 	        		$("#txtGuestCode").val(response[0][2]);
 	        		$("#txtRemarks").text(response[0][6]);
 	        		$("#txtRoomNo").val(response[0][6]);
+	        		$("#dteResDate").val(response[0][7]);
 	        	}
 			},
 			error: function(jqXHR, exception) 
@@ -124,6 +125,9 @@
 		
 		 $("#txtArrivalToDate").datepicker({dateFormat : 'dd-mm-yy'}); 
 		 $("#txtArrivalToDate").datepicker('setDate', pmsDate); 
+		 
+		 $("#dteResDate").datepicker({dateFormat : 'dd-mm-yy'}); 
+		 $("#dteResDate").datepicker('setDate', pmsDate); 
 		
 <%-- 		 var pmsDate='<%=session.getAttribute("PMSDate").toString()%>'; --%>
 // 		  var dte=pmsDate.split("-");
@@ -384,9 +388,14 @@
 			      <s:input id="txtReservationNo" path="strReservationNo" readonly="true"  ondblclick="funHelp('ReservationNo')" cssClass="searchTextBox"/>
 			</div>
 			
-			 <div class="col-md-8"></div>
+			<div class="col-md-2"><label> Reservation Date </label>
+				<s:input id="dteResDate" path="" class="calenderTextBox" style="width:70%;"  readonly="true" />
+			</div>
+			 <div class="col-md-6"></div>
 			 
-			 
+			 <div class="col-md-2"><label> Guest Name </label>
+				<s:input id="txtGuestName" path="strGuestName"  readonly="true" />
+			</div>
 			<div class="col-md-2" id="trDate"><label> Arrival From Date </label>
 				  <s:input type="text" id="txtArrivalFromDate" path="dteArrivalFromDate" required="true" class="calenderTextBox" style="width:70%;" />
 		     </div>
@@ -401,11 +410,7 @@
 <!-- 				<td colspan="2"> -->
 <!-- 			</tr> -->
 			
-			<div class="col-md-2"><label> Guest Name </label>
-				<s:input id="txtGuestName" path="strGuestName"  readonly="true" placeholder="last"  />
-			</div>
-			  <div class="col-md-8"></div>
-			     
+				<div class="col-md-6"></div>
 			
             <div class="col-md-2"><label> Reason Code </label>
 			     <s:input type="text" id="txtReasonCode" path="strReasonCode" cssClass="searchTextBox" ondblclick="funHelp('reasonPMS');" style="height:45%"/>
@@ -414,11 +419,10 @@
 			 <div class="col-md-2"><br><label id="lblReasonDesc" style="background-color:#dcdada94; width: 100%; height: 50%;"></label></div>
 			
 			 
-			<div class="col-md-2"><label id="lblCorporate"> Corporate </label>
+			<%-- <div class="col-md-2"><label id="lblCorporate"> Corporate </label>
 				  <span id="txtCorporate"><s:input id="txtCorporateCode" path="strCorporate" readonly="true"/></span>
 				<!-- <td><label id="lblCorporateName"></label></td> -->
-			</div>
-			<div class="col-md-6"></div>
+			</div> --%>
 			
 			<div class="col-md-2"><label> Remarks </label>
 				  <s:input type="text" id="txtRemarks" path="strRemarks"/>

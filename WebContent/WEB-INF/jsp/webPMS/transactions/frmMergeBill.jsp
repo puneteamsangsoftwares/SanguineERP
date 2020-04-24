@@ -197,7 +197,7 @@
 				//funRemoveRows();
 				$.each(response, function(i,item)
 				{
-					funFillBillTable(response[i][0],response[i][1],response[i][2],response[i][3]);
+					funFillBillTable(response[i][0],response[i][1],response[i][2],response[i][3],response[i][6],response[i][4],response[i][5]);
 				});
 				
 			},
@@ -260,7 +260,7 @@
 		});
 	}
 	
-	function funFillBillTable(strBillNo,strFolioNo,strCheckInNo,strTotal){
+	function funFillBillTable(strBillNo,strFolioNo,strCheckInNo,strTotal,strGuestName,dteCheckInDate,dteCheckOutDate){
 	 	var table = document.getElementById("tblBillDetails");
 	    var rowCount = table.rows.length;
 	    var row = table.insertRow(rowCount);
@@ -268,8 +268,11 @@
 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: left;width:100%\" name=\"listMergeBill["+(rowCount)+"].strBillNo\" id=\"strBillNo."+(rowCount)+"\" value='"+strBillNo+"' />";
 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: left;width:100%\" name=\"listMergeBill["+(rowCount)+"].strFolioNo\" id=\"strFolioNo."+(rowCount)+"\" value='"+strFolioNo+"' />";
 	   	row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: left;width:100%\" name=\"listMergeBill["+(rowCount)+"].strCheckInNo\" id=\"strCheckInNo."+(rowCount)+"\" value='"+strCheckInNo+"' />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: right;width:100%\" name=\"listMergeBill["+(rowCount)+"].dblDblTotal\" id=\"dblDblTotal."+(rowCount)+"\" value='"+strTotal+"' />";
-	    row.insertCell(4).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"6%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
+	   	row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: left;width:100%\" name=\"listMergeBill["+(rowCount)+"].strGuestName\" id=\"strGuestName."+(rowCount)+"\" value='"+strGuestName+"' />";
+	   	row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: left;width:100%\" name=\"listMergeBill["+(rowCount)+"].dteCheckIndate\" id=\"dteCheckInDate."+(rowCount)+"\" value='"+dteCheckInDate+"' />";
+	   	row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: left;width:100%\" name=\"listMergeBill["+(rowCount)+"].dteCheckoutdate\" id=\"dteCheckOutDate."+(rowCount)+"\" value='"+dteCheckOutDate+"' />";
+	    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: right;width:100%\" name=\"listMergeBill["+(rowCount)+"].dblDblTotal\" id=\"dblDblTotal."+(rowCount)+"\" value='"+strTotal+"' />";
+	    row.insertCell(7).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"6%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
 	    
 	   // row.insertCell(0).innerHTML= "<input id=\"cbSuppSel."+(rowCount)+"\" name=\"Suppthemes\" type=\"checkbox\" class=\"SuppCheckBoxClass\"  checked=\"checked\" value='"+strSuppCode+"' />";
 	}
@@ -322,7 +325,10 @@
 					
 						<td style="width:8%;">Bill No</td>
 						<td style="width:7.5%;">Folio No</td>
-						<td style="width:14%;">Check In No</td>
+						<td style="width:9%;">Check In No</td>
+						<td style="width:14%; text-align: center;">Guest Name</td>
+						<td style="width:9%; text-align: center;">CheckIn Date</td>
+						<td style="width:9%; text-align: center;">Checkout Date</td>
 						<td style="width:9%; text-align: center;">Total</td>
 						<td style="width:3%;">Delete</td>
 					</tr>
@@ -335,14 +341,30 @@
 					<tbody>
 						<col style="width: 8.5%;">
 						<col style="width: 8%;">
+						<col style="width: 9%;">
 						<col style="width: 15%;">
 						<col style="width: 9%;">
+						<col style="width: 9%;">
+						<col style="width: 9%;">
 						<col style="width: 3%;">
+						
 					</tbody>
 				</table>
 			</div>
 		</div>
 			
+		
+		<div id="divValueTotal" style="background-color: #c0c0c0; border: 1px solid #ccc; display: block; height: 25px; overflow-x: hidden; overflow-y: hidden; width: 90%;">
+			<table id="tblTotalFlash" class="transTablex" style="width: 100%; font-size: 11px; font-weight: bold;">
+				<tr style="margin-left: 28px">
+					<td id="labld26" width="50%" align="right">Total Value</td>
+					<td id="tdTotValue" width="10%" align="right">
+						<input id="txtTotValue" style="width: 80%; text-align: right;font-size: 14px;" class="Box"></input>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
 		<br />
 		<p align="center" style="margin-right:-68%">
 			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button" onclick="return funValidateFields()" />&nbsp;

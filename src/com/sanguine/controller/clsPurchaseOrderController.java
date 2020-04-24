@@ -1023,7 +1023,9 @@ public class clsPurchaseOrderController {
 	public @ResponseBody List funLoadHelpPIforPO(HttpServletRequest req) {
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		String propCode = req.getSession().getAttribute("propertyCode").toString();
-		return objPurchaseOrderService.funGetHelpdataPIforPo(clientCode, propCode);
+		List listReturn = new ArrayList<>();
+		listReturn = objPurchaseOrderService.funGetHelpdataPIforPo(clientCode, propCode);
+		return listReturn;
 	}
 
 	@RequestMapping(value = "/getPODate", method = RequestMethod.GET)

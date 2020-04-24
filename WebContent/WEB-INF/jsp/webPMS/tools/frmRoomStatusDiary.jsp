@@ -9,6 +9,8 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/jquery-ui.css"/>" />
 		<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/rsd-design.css"/>" />
 		<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+		<script type="text/javascript" src="<spring:url value="/resources/js/canvas.js"/>"></script>
+		
 	<title></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -154,8 +156,63 @@ table tbody tr:nth-child(even) {
 		
 		$("#txtViewDate").datepicker({ dateFormat: 'dd-mm-yy' });
 		$("#txtViewDate").datepicker('setDate', pmsDate);
-		
+		$("#lblPMSDate").text(pmsDate);
 		//funFillHeaderRows();
+
+
+		var chart = new CanvasJS.Chart("chartContainer", {
+			animationEnabled: true,
+			theme: "light2",
+			title:{
+				
+			},
+			axisY:{
+				includeZero: false
+			},
+			data: [{        
+				type: "line",
+		      	indexLabelFontSize: 16,
+				dataPoints: [
+					{ y: 450 },
+					{ y: 414},
+					{ y: 520, indexLabel: "\u2191 highest",markerColor: "red", markerType: "triangle" },
+					{ y: 460 },
+					{ y: 450 },
+					{ y: 500 },
+					{ y: 480 },
+					{ y: 480 },
+					{ y: 410 , indexLabel: "\u2193 lowest",markerColor: "DarkSlateGrey", markerType: "cross" },
+					{ y: 500 },
+					{ y: 480 },
+					{ y: 505 },
+					{ y: 486 },
+					{ y: 510 }
+				]
+			}]
+		});
+		chart.render();
+		
+		
+		
+		 $(".tab_content").hide();
+		$(".tab_content:first").show();
+
+		$(".tab_content1").hide();
+		$(".tab_content1:first").show();
+		
+		$("ul.tabs li").click(function() {
+			$("ul.tabs li").removeClass("active");
+			$(this).addClass("active");
+			$(".tab_content").hide(); 
+			$(".tab_content1").hide();
+			
+			var activeTab = $(this).attr("data-state");
+			$("#" + activeTab).fadeIn();
+			
+			var activeTab1 = $(this).attr("data-state1");
+			$("#" + activeTab1).fadeIn();
+			
+		});
 	});
 	
 	
@@ -1641,6 +1698,9 @@ table tbody tr:nth-child(even) {
 		 function hidePopup() {
 		        document.getElementById('popover').style.cssText = 'display: none';
 		      }
+		 function hidePopupCheckIn() {
+		        document.getElementById('checkInListPopUp').style.cssText = 'display: none';
+		      }
 		 function hidePopupreport() {
 		        document.getElementById('reportsPopup').style.cssText = 'display: none';
 		      }
@@ -2576,9 +2636,11 @@ table tbody tr:nth-child(even) {
 		   
 		   function funOpenCheckInList()
 		   {
-			   transactionName="frmCheckInList";
+			   /* transactionName="frmCheckInList";
 				window.open("frmCheckInList.html?formname="+transactionName+"&objData="+name,"","mywindow","directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=200,height=200,left=400");
-				window.close;
+				window.close; */
+			   document.getElementById('checkInListPopUp').style.cssText = 'display: block';
+			   funOpenReservationData();
 		   }
 		   
 
@@ -2621,6 +2683,82 @@ table tbody tr:nth-child(even) {
 				
 		   }
 		  
+		   function funOpenReservationData()
+		   {
+
+			   var viewDate = $("#txtViewDate").val();
+				var searchUrl=getContextPath()+ "/loadDataReservation.html?viewDate=" + viewDate;
+				$.ajax({
+					type :"GET",
+					url : searchUrl,
+					dataType : "json",
+					async: false,
+					success: function(response){
+						
+						$("#lblArrival").text(response[0]);
+						$("#lblDeparture").text(response[1]);
+						$("#lblRoomsOccupied").text(response[2]);
+						//funFillBillTable(response[i].strFolioNo,response[i].strDocNo,response[i].strMenuHead,response[i].dblIncomeHeadPrice,response[i].strRevenueCode);
+						funFillReservationTable();
+						funFillActivityTable();
+						
+					},
+					error : function(jqXHR, exception)
+					{
+						if (jqXHR.status === 0) {
+							alert('Not connect.n Verify Network.');
+						} else if (jqXHR.status == 404) {
+							alert('Requested page not found. [404]');
+						} else if (jqXHR.status == 500) {
+							alert('Internal Server Error [500].');
+						} else if (exception === 'parsererror') {
+							alert('Requested JSON parse failed.');
+						} else if (exception === 'timeout') {
+							alert('Time out error.');
+						} else if (exception === 'abort') {
+							alert('Ajax request aborted.');
+						} else {
+							alert('Uncaught Error.n' + jqXHR.responseText);
+						}
+					}
+
+				});
+		   }
+		   
+		   function funFillReservationTable()
+		   {
+			   var table = document.getElementById("tblReservationFlash");
+			    var rowCount = table.rows.length;
+			    var row = table.insertRow(rowCount);
+
+			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: left;width:100%\" id=\"strName."+(rowCount)+"\" value='SUMEET B' />";
+			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: left;width:100%\" id=\"strResNo."+(rowCount)+"\" value='RS000001' />";
+			   	row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: right;width:100%\" id=\"strRoomNo."+(rowCount)+"\" value='A 101' />";
+			    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: right;width:100%\ id=\"strStatus."+(rowCount)+"\" value='Confirmed' />";
+			    row.insertCell(4).innerHTML= "<input id=\"cbToLocSel."+(rowCount)+"\" type=\"button\" name=\"billData\"  size=\"2%\" style=\"text-align: center;background: #b5b3b3;width:100%\" class=\"btn btn-primary center-block\"  value='Check-In' onClick='funOnClickCheckIn(this)' />";
+
+		   }
+		   function funFillActivityTable()
+		   {
+		
+			   var table = document.getElementById("tblActivityFlash");
+			    var rowCount = table.rows.length;
+			    var row = table.insertRow(rowCount);
+
+			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: left;width:100%\" id=\"strName."+(rowCount)+"\" value='SUMEET B' />";
+			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: left;width:100%\" id=\"dblRevenue."+(rowCount)+"\" value='400' />";
+			   	row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: left;width:100%\" id=\"strDate."+(rowCount)+"\" value='20-11-2020' />";
+			    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: right;;width:100%\ id=\"intNights."+(rowCount)+"\" value='3' />";
+
+		   }
+		   function funOnClickCheckIn(data)
+		   {
+			   	var code=data.defaultValue.split(",");
+				  var subStr = code[1];
+				  url=getContextPath()+"/frmCheckIn1.html?docCode="+subStr
+				  window.open(url);
+
+		   }
 </script>
 
 
@@ -2704,7 +2842,7 @@ table tbody tr:nth-child(even) {
 		                <span class="mdi mdi-magnify" onclick="hidePopup()"></span>
 		              </div>
 		              
-		             <c > <div class="col-md-2"  onclick="myFunction(this)">
+		             <c > <div class="col-md-2"  onclick="funOpenCheckInList(this)">
 					  <div  class="bar1"></div>
 					  <div class="bar2"></div>
 					  <div class="bar3"></div>
@@ -2848,44 +2986,356 @@ table tbody tr:nth-child(even) {
            
            <div>
 			<label style="font-size:20px;padding-left: 10px;">Quick View</label>
-			<i class="mdi mdi-close close-icon" onclick="hidePopupreport()" style="font-size:20px;"></i>
+			<i class="mdi mdi-close close-icon" onclick="hidePopupreport()" style="font-size:15px;"></i>
            </div>
            <br />
                 <div>
-                <a href="#"  onclick="funOpenCheckInList();" style="font-size:15px;">&nbsp;&nbsp;&nbsp;Check In List</a> 
+                <a href="#"  onclick="funOpenCheckInList();" style="font-size:13px;">&nbsp;&nbsp;&nbsp;Check In List</a> 
                 
                 </div>
                 <div>
-                <a href="#" onclick="funOpenCheckOutList();" style="font-size:15px;">&nbsp;&nbsp;&nbsp;Check Out List</a> 
+                <a href="#" onclick="funOpenCheckOutList();" style="font-size:13px;">&nbsp;&nbsp;&nbsp;Check Out List</a> 
                 
                 </div>
                 
                  <div>
-                <a href="#" onclick="funOpenExpArrivalList();" style="font-size:15px;">&nbsp;&nbsp;&nbsp;Expected Arival List</a> 
+                <a href="#" onclick="funOpenExpArrivalList();" style="font-size:13px;">&nbsp;&nbsp;&nbsp;Expected Arival List</a> 
                 
                 </div>
                 
                  <div>
-                <a href="#" onclick="funOpenExpDepartureList();" style="font-size:15px;">&nbsp;&nbsp;&nbsp;Expected Departure List</a> 
+                <a href="#" onclick="funOpenExpDepartureList();" style="font-size:13px;">&nbsp;&nbsp;&nbsp;Expected Departure List</a> 
                 
                 </div>
                 
                 <div>
-                <a href="#" onclick="funOpenGuestList();" style="font-size:15px;">&nbsp;&nbsp;&nbsp;Guest List</a> 
+                <a href="#" onclick="funOpenGuestList();" style="font-size:13px;">&nbsp;&nbsp;&nbsp;Guest List</a> 
                 
                 </div>
                  <div>
-                <a href="#" onclick="funOpenRevenueHead();" style="font-size:15px;">&nbsp;&nbsp;&nbsp;Revenue Head Report</a> 
+                <a href="#" onclick="funOpenRevenueHead();" style="font-size:13px;">&nbsp;&nbsp;&nbsp;Revenue Head Report</a> 
                 
                 </div>
                  <div>
-                <a href="#" onclick="funOpenRoomInventory();" style="font-size:15px;">&nbsp;&nbsp;&nbsp;Room Type Inventory</a> 
+                <a href="#" onclick="funOpenRoomInventory();" style="font-size:13px;">&nbsp;&nbsp;&nbsp;Room Type Inventory</a> 
                 
                 </div>
            </div>
                 
                     </div>
       </div>
+      <!--Check in list popup  -->
+       <div class="popup-details" id="checkInListPopUp" style="position: relative">
+          <div class="popup-data" style="width: 75%;background:white;top: 45px;position:relative;left:150px;">
+           <div>
+           
+           <div>
+			<label id="lblPMSDate" style="font-size:20px;padding-left: 20px;"></label>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" style = "background: #b5b3b3;width: fit-content;" value="New Reservation" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()">
+			</input>
+			
+			<div class="row" style="margin-left: 16px">
+			
+			<div class="col-md-1.5" style="border: ridge;width: 120px;">
+			<label id="lblArrival" style="padding-left: 10px;color: red;">
+				</label><br />
+				<label style="padding-left: 10px;">Arrival</label>
+			
+			</div>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<div class="col-md-1.5" style="border: ridge;width: 120px;">
+				<label id="lblDeparture" style="padding-left: 10px;color: green;">
+				</label><br />
+				<label style="padding-left: 10px;">Departure</label>
+			
+			</div>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<div class="col-md-1.5" style="border: ridge;width: 120px;">
+				<label id="lblRoomsOccupied" style="padding-left: 10px;color: blue;">
+				</label><br />
+				<label style="padding-left: 10px;">Rooms Occupied</label>
+			
+			</div>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<div class="col-md-1.5" style="border: ridge;width: 120px;">
+				<label id="lblBookedToday" style="padding-left: 10px;color: orange;">3
+				</label><br />
+				<label style="padding-left: 10px;">Booked Today</label>
+			
+			</div>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<div class="col-md-1.5" style="border: ridge;width: 120px;">
+				<label id="lblRoomNights" style="padding-left: 10px;color: cyan;">1
+				</label><br />
+				<label style="padding-left: 10px;">Room Nights</label>
+			
+			</div>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<div class="col-md-1.5" style="border: ridge;width: 120px;">
+				<label id="lblRevenue" style="padding-left: 10px;color: gray;">2
+				</label><br />
+				<label style="padding-left: 10px;">Revenue</label>
+			
+			</div>
+			
+			<div>
+<!-- 			<i class="mdi mdi-close close-icon"  onclick="hidePopupCheckIn()" style="font-size:15px;padding-left:800px;"></i>
+ -->			
+			</div>
+						</div>
+			
+			
+			           </div><br />
+          <div class=" row transTable" style="width:100%;">
+           <div class="col-md-6">
+           <label style="width: 100%;background: #646777;color: white;padding-top: 0px;">Reservation</label>
+           
+           
+           <div id="tab_container">
+					<ul class="tabs">
+						<li data-state="tab1">Arrival</li>
+						<li data-state="tab2">Departure</li>
+						<li data-state="tab3">Stay Over</li>
+						<li data-state="tab4">In House Guest</li>
+					</ul>
+					<div id="tab1" class="tab_content">
+           <div class="dynamicTableContainer" style="width:100%;height: 240px;margin-top:10px;">
+				<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+					<tr bgcolor="#c0c0c0">
+					
+						<td style="width:13%;">Name</td>
+						<td style="width:5%;">Reservation No.</td>
+						<td style="width:3%;">Room</td>
+						<td style="width:4%;">Status</td>
+						<td style="width:5%;">Check-In</td> 
+				</table>
+		
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				<table id="tblReservationFlash"
+					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+					class="transTablex col8-center">
+					<tbody>
+						<col style="width: 8%;">
+						<col style="width: 5%;">
+						<col style="width: 3%;">
+						<col style="width: 4%;">
+						<col style="width: 5%;"> 
+					</tbody>
+				</table>
+			</div>
+			</div>
+			</div>
+			
+			
+			<div id="tab2" class="tab_content">
+           <div class="dynamicTableContainer" style="width:100%;height: 240px;margin-top:10px;">
+				<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+					<tr bgcolor="#c0c0c0">
+					
+						<td style="width:13%;">Name</td>
+						<td style="width:5%;">Reservation No.</td>
+						<td style="width:3%;">Room</td>
+						<td style="width:4%;">Status</td>
+						<td style="width:5%;">Check-In</td> 
+				</table>
+		
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				<table id="tblDepartureFlash"
+					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+					class="transTablex col8-center">
+					<tbody>
+						<col style="width: 8%;">
+						<col style="width: 5%;">
+						<col style="width: 3%;">
+						<col style="width: 4%;">
+						<col style="width: 5%;"> 
+					</tbody>
+				</table>
+			</div>
+			</div>
+			</div>
+			
+			<div id="tab3" class="tab_content">
+           <div class="dynamicTableContainer" style="width:100%;height: 240px;margin-top:10px;">
+				<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+					<tr bgcolor="#c0c0c0">
+					
+						<td style="width:13%;">Name</td>
+						<td style="width:5%;">Reservation No.</td>
+						<td style="width:3%;">Room</td>
+						<td style="width:4%;">Status</td>
+						<td style="width:5%;">Check-In</td> 
+				</table>
+		
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				<table id="tblStayOverFlash"
+					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+					class="transTablex col8-center">
+					<tbody>
+						<col style="width: 8%;">
+						<col style="width: 5%;">
+						<col style="width: 3%;">
+						<col style="width: 4%;">
+						<col style="width: 5%;"> 
+					</tbody>
+				</table>
+			</div>
+			</div>
+			</div>
+			
+			<div id="tab4" class="tab_content">
+           <div class="dynamicTableContainer" style="width:100%;height: 240px;margin-top:10px;">
+				<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+					<tr bgcolor="#c0c0c0">
+					
+						<td style="width:13%;">Name</td>
+						<td style="width:5%;">Reservation No.</td>
+						<td style="width:3%;">Room</td>
+						<td style="width:4%;">Status</td>
+						<td style="width:5%;">Check-In</td> 
+				</table>
+		
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				<table id="tblSInHouseFlash"
+					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+					class="transTablex col8-center">
+					<tbody>
+						<col style="width: 8%;">
+						<col style="width: 5%;">
+						<col style="width: 3%;">
+						<col style="width: 4%;">
+						<col style="width: 5%;"> 
+					</tbody>
+				</table>
+			</div>
+			</div>
+			</div>
+			
+			
+			</div>
+			
+				
+				
+		
+		</div>
+		
+		<!-- Activity -->
+		
+		<div class="col-md-6">
+           <label style="width: 100%;background: #646777;color: white;padding-top: 0px;">Todays Activity</label>
+          <div id="tab_container">
+					<ul class="tabs">
+						<li data-state1="tab11">Sales</li>
+						<li data-state1="tab22">Cancellation</li>
+						<li data-state1="tab33">Overbooking</li>
+					</ul>
+					<div id="tab11" class="tab_content1">
+           <div class="dynamicTableContainer" style="width:100%;height: 240px;margin-top:10px;">
+				<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+					<tr bgcolor="#c0c0c0">
+					
+						<td style="width:11%;">Name</td>
+						<td style="width:5%;">Revenue</td>
+						<td style="width:3%;">Check-In</td>
+						<td style="width:4%;">Nights</td>
+				</table>
+		
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				<table id="tblActivityFlash"
+					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+					class="transTablex col8-center">
+					<tbody>
+						<col style="width: 8%;">
+						<col style="width: 5%;">
+						<col style="width: 3%;">
+						<col style="width: 4%;">
+					</tbody>
+				</table>
+			</div>
+			</div>
+			</div>
+			
+			<div id="tab22" class="tab_content1">
+           <div class="dynamicTableContainer" style="width:100%;height: 240px;margin-top:10px;">
+				<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+					<tr bgcolor="#c0c0c0">
+					
+						<td style="width:11%;">Name</td>
+						<td style="width:5%;">Revenue</td>
+						<td style="width:3%;">Check-In</td>
+						<td style="width:4%;">Nights</td>
+				</table>
+		
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				<table id="tblCancellationFlash"
+					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+					class="transTablex col8-center">
+					<tbody>
+						<col style="width: 8%;">
+						<col style="width: 5%;">
+						<col style="width: 3%;">
+						<col style="width: 4%;">
+					</tbody>
+				</table>
+			</div>
+			</div>
+			</div>
+			
+			<div id="tab33" class="tab_content1">
+           <div class="dynamicTableContainer" style="width:100%;height: 240px;margin-top:10px;">
+				<table style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
+					<tr bgcolor="#c0c0c0">
+					
+						<td style="width:11%;">Name</td>
+						<td style="width:5%;">Revenue</td>
+						<td style="width:3%;">Check-In</td>
+						<td style="width:4%;">Nights</td>
+				</table>
+		
+			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 250px; overflow-x: hidden; overflow-y: scroll; width: 99.80%;">
+				<table id="tblOverbookingFlash"
+					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
+					class="transTablex col8-center">
+					<tbody>
+						<col style="width: 8%;">
+						<col style="width: 5%;">
+						<col style="width: 3%;">
+						<col style="width: 4%;">
+					</tbody>
+				</table>
+			</div>
+			</div>
+			</div>
+			
+			
+			</div>
+				
+				
+		
+		</div>
+		<div style="width: 100%;">
+           <label style="width: 97%;background: #646777;color: white;padding-top: 0px;padding-left: 10px;margin-left: 15px;">14 Days Outlook</label>
+                 <div id="chartContainer" style="height: 150px; width: 100%; margin: 0px;"></div>
+		
+		
+		</div>
+				 
+		</div>
+           
+                
+                
+           </div>
+                
+                    </div>
+      </div>
+      
       
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
 		<div id="wait"
@@ -2894,7 +3344,6 @@ table tbody tr:nth-child(even) {
 				src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif"
 				width="60px" height="60px" />
 		</div>
-
 	</s:form>
 	</div>
 </body>

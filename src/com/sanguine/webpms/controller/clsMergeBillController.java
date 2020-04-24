@@ -97,8 +97,11 @@ public class clsMergeBillController {
 		List retList = new ArrayList<>();
 		
 	
-		String sqlData= "select a.strBillNo,a.strFolioNo,a.strCheckInNo,a.dblGrandTotal "
-				+ "from tblbillhd a where a.strBillNo='"+strBillNo+"' and a.strClientCode='"+clientCode+"'";
+		String sqlData= "SELECT a.strBillNo,a.strFolioNo,a.strCheckInNo,a.dblGrandTotal,"
+				+ " DATE_FORMAT(b.dteArrivalDate,'%d-%m-%Y'), "
+				+ "DATE_FORMAT(b.dteDepartureDate,'%d-%m-%Y'),CONCAT(d.strFirstName,' ',d.strMiddleName,' ',d.strLastName) "
+				+ "FROM tblbillhd a,tblcheckinhd b left outer join tblcheckindtl c on b.strCheckInNo=c.strCheckInNo "
+				+ "left outer join tblguestmaster d on c.strGuestCode=d.strGuestCode where a.strBillNo='"+strBillNo+"' AND a.strCheckInNo=b.strCheckInNo and a.strClientCode='"+clientCode+"' group by a.strBillNo";
 		List listData = objGlobalFunctionsService.funGetListModuleWise(sqlData, "sql");
 
 	

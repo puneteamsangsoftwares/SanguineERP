@@ -111,6 +111,7 @@ function funShowTableGUI(divID)
 function funOnClckSettlementWiseBtn( divId)
 {
 	funShowTableGUI(divId)
+	$('#lblButton').text("Settlement wise");
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
 	var searchUrl=getContextPath()+"/loadSettlementWiseDtl.html?frmDte="+frmDte1+"&toDte="+toDte1;
@@ -177,6 +178,7 @@ function funApplyNumberValidation(){
 function funOnClckRevenueHeadWiseBtn( divId)
 {
 	funShowTableGUI(divId)
+	$('#lblButton').text("Revenue head wise");
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
 	var searchUrl=getContextPath()+"/loadRevenueHeadWiseDtl.html?frmDte="+frmDte1+"&toDte="+toDte1;
@@ -232,6 +234,7 @@ function funRevenueHeadWiseDetail(ProdDtl)
 function funOnClckTaxWiseBtn( divId)
 {
 	funShowTableGUI(divId)
+	$('#lblButton').text("Tax wise");
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
 	var searchUrl=getContextPath()+"/loadTaxWiseDtl.html?frmDte="+frmDte1+"&toDte="+toDte1;
@@ -286,6 +289,7 @@ function funTaxWiseDetail(ProdDtl)
 function funOnClckExpectedArrWiseBtn( divId)
 {
 	funShowTableGUI(divId)
+	$('#lblButton').text("Expected arrival");
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
 	var searchUrl=getContextPath()+"/loadExpectedArrWiseDtl.html?frmDte="+frmDte1+"&toDte="+toDte1;
@@ -345,6 +349,7 @@ function funExpectedArrDetail(ProdDtl)
 function funOnClckExpectedDeptWiseBtn( divId)
 {
 	funShowTableGUI(divId)
+	$('#lblButton').text("Department wise");
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
 	var searchUrl=getContextPath()+"/loadExpectedDeptWiseDtl.html?frmDte="+frmDte1+"&toDte="+toDte1;
@@ -411,6 +416,7 @@ function funExpectedDeptDetail(ProdDtl)
 function funOnClckCheckInBtn( divId)
 {
 	funShowTableGUI(divId)
+	$('#lblButton').text("Check-in wise");
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
 	var searchUrl=getContextPath()+"/loadCheckInDtl.html?frmDte="+frmDte1+"&toDte="+toDte1;
@@ -423,6 +429,10 @@ function funOnClckCheckInBtn( divId)
 		    	funCheckInDetail(response);
 		    	$("#txtTotValue").val("");
 		    	$("#txtTaxTotValue").val("");
+		    	$("#lblButton").text("Check In List");
+ 		    	/* $(".divValueTotal").none();	 */	
+ 		    	document.getElementById('divValueTotal').style.display = 'none';
+
 		    },
 		    error: function(jqXHR, exception) {
 	            if (jqXHR.status === 0) {
@@ -483,6 +493,7 @@ function funCheckInOpenSlip(data,against)
 function funOnClckCheckOutBtn( divId)
 {
 	funShowTableGUI(divId)
+	$('#lblButton').text("Check-out wise");
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
 	var searchUrl=getContextPath()+"/loadCheckOutDtl.html?frmDte="+frmDte1+"&toDte="+toDte1;
@@ -550,6 +561,7 @@ function funCheckOutDetail(ProdDtl)
 function funOnClckCancelationWiseBtn( divId)
 {
 	funShowTableGUI(divId)
+	$('#lblButton').text("Cancellation wise");
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
 	var searchUrl=getContextPath()+"/loadCancelationWiseDtl.html?frmDte="+frmDte1+"&toDte="+toDte1;
@@ -618,6 +630,7 @@ function funCancelationDetail(ProdDtl)
 function funOnClckNoShowWiseBtn( divId)
 {
 	funShowTableGUI(divId)
+	$('#lblButton').text("No show wise");
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
 	var searchUrl=getContextPath()+"/loadNoShowDtl.html?frmDte="+frmDte1+"&toDte="+toDte1;
@@ -672,6 +685,7 @@ function funNoShowDetail(ProdDtl)
 function funOnClckVoidBillWiseBtn( divId)
 {
 	funShowTableGUI(divId)
+	$('#lblButton').text("Void Bill wise");
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
 	var searchUrl=getContextPath()+"/loadVoidBillDtl.html?frmDte="+frmDte1+"&toDte="+toDte1;
@@ -930,6 +944,7 @@ function funGetBillPerticular(billNo)
 function funOnClickPayment( divId)
 {
 	funShowTableGUI(divId)
+	$('#lblButton').text("Payment");
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
 	var searchUrl=getContextPath()+"/loadPaymentForSalesFlash.html?frmDte="+frmDte1+"&toDte="+toDte1;
@@ -966,6 +981,7 @@ function funOnClickPayment( divId)
 function funOnClickMonthwiseSale( divId)
 {
 	$('#tblMonthWiseSale tbody').empty();
+	$('#lblButton').text("Month wise sale");
 	funShowTableGUI(divId);
 	dblTotalSale=0.0;
 	var frmDte1=$('#dteFromDate').val();
@@ -978,7 +994,9 @@ function funOnClickMonthwiseSale( divId)
 		    success: function(response)
 		    {
 		    	$.each(response, function(j, item) {
+		    		
 		    		funSetMonthwiseSale(item);
+		    		
 		    	});
 		    	
 		    	
@@ -1008,7 +1026,7 @@ function funOnClickMonthwiseSale( divId)
 function funOnClickHousekeepingSummary( divId)
 {
 	funShowTableGUI(divId);
-	
+	$('#lblButton').text("Housekeeping Summary");
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
 	var searchUrl=getContextPath()+"/loadHousekeepingSummary.html?frmDte="+frmDte1+"&toDte="+toDte1;
@@ -1046,7 +1064,7 @@ function funOnClickHousekeepingSummary( divId)
 function funOnClickStaffWiseHousekeepingSummary( divId)
 {
 	funShowTableGUI(divId);
-	
+	$('#lblButton').text("StaffWise Housekeeping Summary");
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
 	var searchUrl=getContextPath()+"/loadStaffWiseHousekeepingSummary.html?frmDte="+frmDte1+"&toDte="+toDte1;
@@ -1347,7 +1365,8 @@ function funClick(obj)
 
 <body onload="funOnLoad();">
 	<div class="container">
-		<label id="formHeading">Sales Flash </label>
+		<label id="formHeading">Sales Flash  -</label>
+		&nbsp;&nbsp;&nbsp;<label id="lblButton" style="font-weight: bold;"> </label>
 		<s:form name="frmPMSSalesFlash" method="GET" action="">
 			<div class="row transTable">
 	     		<div class="col-md-3">

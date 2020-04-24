@@ -173,7 +173,7 @@ public class clsRoomCancellationController {
 			String arrivalFromDate = request.getParameter("arrivalFromDate").toString();
 			String arrivalToDate = request.getParameter("arrivalToDate").toString();
 
-			String sql = "select a.strReservationNo,ifnull(c.strCorporateCode,'NA'),ifnull(c.strCorporateDesc,'NA' ) " + " ,concat(d.strFirstName,' ',d.strMiddleName,' ',d.strLastName),f.strRoomTypeDesc,b.strGuestCode,e.strRoomCode "
+			String sql = "select a.strReservationNo,ifnull(c.strCorporateCode,'NA'),ifnull(c.strCorporateDesc,'NA' ) " + " ,concat(d.strFirstName,' ',d.strMiddleName,' ',d.strLastName),f.strRoomTypeDesc,b.strGuestCode,e.strRoomCode ,DATE_FORMAT(a.dteReservationDate,'%d-%m-%Y') "
 					+ " from tblreservationhd a left outer join tblreservationdtl b on a.strReservationNo=b.strReservationNo AND b.strClientCode='"+clientCode+"'" + " left outer join tblcorporatemaster c on a.strCorporateCode=c.strCorporateCode AND c.strClientCode='"+clientCode+"'" + " left outer join tblguestmaster d on b.strGuestCode=d.strGuestCode AND d.strClientCode='"+clientCode+"'"
 					+ " left outer join tblroom e on b.strRoomNo=e.strRoomCode AND e.strClientCode='"+clientCode+"'"
 					+ " left outer join tblroomtypemaster f on f.strRoomTypeCode=b.strRoomType " 

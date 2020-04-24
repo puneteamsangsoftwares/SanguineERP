@@ -341,8 +341,8 @@ public class clsPMSSalesFlashController {
 			String toDte = arr1[2] + "-" + arr1[1] + "-" + arr1[0];
 
 			List<clsPMSSalesFlashBean> listofCheckInDtl = new ArrayList<clsPMSSalesFlashBean>();
-			String sql="SELECT a.strCheckInNo,a.strType, DATE(a.dteArrivalDate),c.strRoomDesc,c.strRoomTypeDesc, "
-                      +" CONCAT(d.strFirstName,'', d.strMiddleName,'',d.strLastName), a.tmeArrivalTime "
+			String sql="SELECT a.strCheckInNo,a.strType, DATE_FORMAT(a.dteArrivalDate,'%d-%m-%Y'),c.strRoomDesc,c.strRoomTypeDesc, "
+                      +" CONCAT(d.strFirstName,' ', d.strMiddleName,' ',d.strLastName), a.tmeArrivalTime "
                       +" FROM tblcheckinhd a,tblcheckindtl b,tblroom c,tblguestmaster d "
                       +" WHERE a.strCheckInNo=b.strCheckInNo AND b.strRoomNo=c.strRoomCode "
                       +" AND b.strGuestCode=d.strGuestCode "

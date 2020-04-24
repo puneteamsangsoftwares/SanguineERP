@@ -109,6 +109,9 @@ public class clsUserController {
 	
 	@Autowired
 	clsStructureUpdateController objStructureUpdateController;
+	
+	@Autowired
+	private clsGlobalFunctionsService objGlobalFunctionsService;
 
 	// public String webServiceUrl=wsServerIp +":"+ wsServerPortNo;
 	@Value("${applicationType}")
@@ -1843,6 +1846,74 @@ public class clsUserController {
 			e.printStackTrace();
 		}
 		return newFromDate;
+	}
+	
+	//For Masters Empty check in PMS
+	
+	@RequestMapping(value = "/checkMasterEmptyForPMS", method = RequestMethod.GET)
+	public @ResponseBody boolean funcheckMasterEmptyForPMS( HttpServletRequest req) {
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+
+		boolean returnVal = true;
+		
+		if(returnVal){
+		String sqlGUestMaster = "select a.strGuestCode from tblguestmaster a where a.strClientCode='"+clientCode+"'";
+		List listGuest = objGlobalFunctionsService.funGetListModuleWise(sqlGUestMaster, "sql");
+
+		if(listGuest!=null && listGuest.size()>0)
+		{
+			returnVal = true;
+		}
+		else
+		{
+			returnVal = false;
+		}
+		
+		}
+		
+		if(returnVal){
+		String sqlRoom = "select a.strRoomCode from tblroom a where a.strClientCode='"+clientCode+"'";
+		List listROom = objGlobalFunctionsService.funGetListModuleWise(sqlRoom, "sql");
+
+		if(listROom!=null && listROom.size()>0)
+		{
+			returnVal = true;
+		}
+		else
+		{
+			returnVal = false;
+		}
+		}
+		
+		if(returnVal){
+			String sqlRoomType = "select a.strRoomTypeCode from tblroomtypemaster a where a.strClientCode='"+clientCode+"'";
+			List listROomType = objGlobalFunctionsService.funGetListModuleWise(sqlRoomType, "sql");
+
+			if(listROomType!=null && listROomType.size()>0)
+			{
+				returnVal = true;
+			}
+			else
+			{
+				returnVal = false;
+			}
+			}
+		
+		if(returnVal){
+			String sqlTax = "select a.strTaxCode from tbltaxmaster a where a.strClientCode='"+clientCode+"'";
+			List listTax = objGlobalFunctionsService.funGetListModuleWise(sqlTax, "sql");
+
+			if(listTax!=null && listTax.size()>0)
+			{
+				returnVal = true;
+			}
+			else
+			{
+				returnVal = false;
+			}
+			}
+		
+		return returnVal;
 	}
 
 }

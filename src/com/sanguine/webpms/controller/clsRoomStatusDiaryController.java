@@ -30,6 +30,7 @@ import com.sanguine.webpms.bean.clsGuestListReportBean;
 import com.sanguine.webpms.bean.clsGuestMasterBean;
 import com.sanguine.webpms.bean.clsRoomStatusDiaryBean;
 import com.sanguine.webpms.bean.clsRoomStatusDtlBean;
+import com.sanguine.webpms.bean.clsVoidBillBean;
 import com.sanguine.webpms.model.clsBusinessSourceMasterModel;
 import com.sanguine.webpms.model.clsFolioDtlModel;
 import com.sanguine.webpms.model.clsFolioHdModel;
@@ -1966,4 +1967,60 @@ public class clsRoomStatusDiaryController {
 		}
 		return listReturn;		
 	}
+	
+	
+	@RequestMapping(value="/loadDataReservation",method=RequestMethod.GET)
+	public @ResponseBody List funLoadCheckInBill(@RequestParam("viewDate") String viewDate ,HttpServletRequest request)
+	{
+		String clientCode = request.getSession().getAttribute("clientCode").toString();
+		String PMSDate=objGlobal.funGetDate("yyyy-MM-dd",viewDate);
+
+		List listReturn=new ArrayList();
+		
+		String sqlArrivalCnt = "select a.strReservationNo from tblreservationhd a where date(a.dteArrivalDate)='"+PMSDate+"'";
+		
+		List listArrivalCnt = objGlobalFunctionsService.funGetListModuleWise(sqlArrivalCnt, "sql");
+
+		if(listArrivalCnt!=null && listArrivalCnt.size()>0)
+		{
+			listReturn.add(listArrivalCnt.size());
+		}
+		else
+		{
+			listReturn.add(0);
+		}
+		
+		
+		String sqlDeparture = "select a.strCheckInNo from tblcheckinhd a where date(a.dteDepartureDate)='"+PMSDate+"'";
+					
+		List listDeparture = objGlobalFunctionsService.funGetListModuleWise(sqlDeparture, "sql");
+
+		if(listDeparture!=null && listDeparture.size()>0)
+		{
+			listReturn.add(listDeparture.size());
+		}
+		else
+		{
+			listReturn.add(0);
+		}
+		
+		
+		
+		String sqlBookedRooms = "select a.strRoomDesc from tblroom a "
+				+ "where a.strStatus='Occupied' and a.strClientCode='"+clientCode+"'";
+					
+		List listData = objGlobalFunctionsService.funGetListModuleWise(sqlBookedRooms, "sql");
+
+		if(listData!=null && listData.size()>0)
+		{
+			listReturn.add(listData.size());
+		}
+		else
+		{
+			listReturn.add(0);
+		}
+		
+		return listReturn;
+	}
+	
 }

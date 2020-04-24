@@ -75,7 +75,7 @@
 		var feedbackCode = $("#txtFeedback").val(); 
 	   
  	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"width: 100%;\"  value='"+obj.strFeedbackDesc+"' >";
-        row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"width: 80%;\" name=\"listBean["+(rowCount)+"].strGuestCode\" id=\"strGuestCode."+(rowCount)+"\"  value='"+guestCode+"' >";
+        row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \" hidden=hidden style=\"width: 1px%;\" name=\"listBean["+(rowCount)+"].strGuestCode\" id=\"strGuestCode."+(rowCount)+"\"  value='"+guestCode+"' >";
 		if(obj.strExcellent.includes("Y"))
 			{
 				row.insertCell(2).innerHTML= "<input readonly=\"readonly\" type=\"checkbox\" checked=\"checked\" style=\"width: 100%;\" name=\"listBean["+(rowCount)+"].strExcellent\" id=\"strExcellent."+(rowCount)+"\"  value='Y' >";		
@@ -182,7 +182,7 @@
 	}
 	
 
-	<%-- $(document).ready(function()
+	$(document).ready(function()
 	{
 		var message='';
 		<%if (session.getAttribute("success") != null) 
@@ -217,7 +217,7 @@
 		  var dte=pmsDate.split("-");
 		  $("#txtPMSDate").val(dte[2]+"-"+dte[1]+"-"+dte[0]);
 	});
-	 --%>
+
 	
 	
 	/**
@@ -379,7 +379,7 @@
 					<!-- col1   -->
 					
 					<!-- col2   -->
-					<td  style=" width:55px;" align="center">Guest Code</td>
+					<!-- <td  style=" width:55px;" align="center">Guest Code</td> -->
 					<!-- col2   -->
 					
 					<!-- col2   -->
@@ -414,7 +414,7 @@
 						<!-- col1   -->
 						
 						<!-- col2   -->
-						<col  style="width: 80%;" >
+						<col  style="width: 1%;" >
 						<!-- col2   -->
 					
 						<!-- col2   -->

@@ -1883,13 +1883,13 @@ font-size:13px;
 						<table style="height: 28px; border: #0F0; width: 100%;font-size:13px;">
 							<tr bgcolor="#c0c0c0" style="height: 24px;">
 								<!-- col1   -->
-								<td align="center" style="width: 35%">Date</td>
+								<td align="center" style="width: 35%;text-align:left">Date</td>
 									<!-- col1   -->
 									<!-- col2   -->
-								<td align="center" style="width: 35%">room Type.</td>
+								<td align="center" style="width: 35%;text-align:left">Room Type.</td>
 									<!-- col2   -->
 									<!-- col3   -->
-								<td align="center" style="width: 35%">Rate.</td>
+								<td align="center" style="width: 35%;text-align:left">Rate.</td>
 									<!-- col3   -->		
 							</tr>
 						</table>

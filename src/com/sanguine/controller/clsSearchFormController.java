@@ -989,8 +989,10 @@ public class clsSearchFormController {
 
 			case "MaterialReq": {
 				columnNames = "a.strReqCode,DATE_FORMAT(a.dtReqDate,'%d-%m-%Y'),b.strLocName,c.strLocName,a.strAuthorise" + ",DATE_FORMAT(a.strUserCreated,'%d-%m-%Y'),DATE_FORMAT(a.dtCreatedDate,'%d-%m-%Y'),a.strNarration";
-				String sqlforNoraml = "clsRequisitionHdModel a,clsLocationMasterModel b,clsLocationMasterModel c " + " where a.strLocBy=b.strLocCode and a.strLocOn=c.strLocCode " + " and a.strReqCode not in (select strReqCode from clsMISHdModel) " + " and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' and c.strClientCode='" + clientCode + "' "
-						+ " and EXTRACT(YEAR FROM a.dtReqDate) between '" + finYear[0] + "' and '" + finYear[1] + "' ";
+				String sqlforNoraml = "clsRequisitionHdModel a left outer join  clsLocationMasterModel b on a.strLocBy=b.strLocCode and a.strReqCode "
+						+ " not in (select strReqCode from clsMISHdModel)   left outer join "
+						+ "clsLocationMasterModel c  on a.strLocOn=c.strLocCode " + " where "
+						+ "  EXTRACT(YEAR FROM a.dtReqDate) between '" + finYear[0] + "' and '" + finYear[1] + "' ";
 				if (showPrptyWiseProdDoc.equalsIgnoreCase("Y")) {
 					sqlforNoraml = sqlforNoraml + "and b.strPropertyCode='" + propCode + "' ";
 				}

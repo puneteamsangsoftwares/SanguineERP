@@ -2061,15 +2061,15 @@ overflow-x: hidden;
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:13px; font-weight: bold;">
 				<tr bgcolor="#c0c0c0" style="height: 24px;">
 					<!-- col1   -->
-					<td align="center" style="width: 30.6%">Date</td>
+					<td align="center" style="width: 30.6%;text-align:left">Date</td>
 					<!-- col1   -->
 					
 					<!-- col2   -->
-					<td align="center" style="width: 30.6%">Room Type.</td>
+					<td align="center" style="width: 30.6%;text-align:left">Room Type.</td>
 					<!-- col2   -->
 					
 					<!-- col3   -->
-					<td align="center" style="width: 30.6%">Rate.</td>
+					<td align="center" style="width: 30.6%;text-align:left;">Rate.</td>
 					<!-- col3   -->
 					
 													

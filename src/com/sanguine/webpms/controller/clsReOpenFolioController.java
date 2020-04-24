@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -13,6 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sanguine.service.clsGlobalFunctionsService;
@@ -76,7 +79,30 @@ public class clsReOpenFolioController
 			}
 		}
 		
-		
+		@RequestMapping(value = "/loadReopenData", method = RequestMethod.GET)
+		public @ResponseBody List funLoadQuotationExternalServiceData(@RequestParam("folioNo") String folioNo, HttpServletRequest req)
+		{
+			List list =null;
+			try{
+				String webStockDB=req.getSession().getAttribute("WebStockDB").toString();
+				String clientCode = req.getSession().getAttribute("clientCode").toString();
+				String 	sql="SELECT DATE_FORMAT(d.dteArrivalDate,'%d-%m-%Y'),DATE_FORMAT(d.dteDepartureDate,'%d-%m-%Y'),Concat(c.strFirstName,' ',c.strMiddleName,' ',c.strLastName) "
+						+ "FROM tblbillhd a "
+						+ "LEFT OUTER "
+						+ "JOIN tblcheckinhd d ON a.strCheckInNo=d.strCheckInNo "
+						+ "LEFT OUTER "
+						+ "JOIN tblcheckindtl b ON d.strCheckInNo=b.strCheckInNo "
+						+ "LEFT OUTER "
+						+ "JOIN tblguestmaster c ON b.strGuestCode=c.strGuestCode "
+						+ "WHERE a.strFolioNo='"+folioNo+"' and a.strClientCode='"+clientCode+"' group by d.strCheckInNo ";
+				list= objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+				}
+			catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			return list;
+		}
 		
 		// Save data in foliohd
 		@RequestMapping(value = "/saveFolio", method = RequestMethod.POST)

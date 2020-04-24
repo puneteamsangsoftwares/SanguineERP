@@ -41,7 +41,43 @@
 	
 	function funSetFolioNo(folioNo)
 	{
+		
 		$("#strFolioNo").val(folioNo);
+		var searchurl=getContextPath()+ "/loadReopenData.html?folioNo=" + folioNo;
+		$.ajax({
+			type : "GET",
+			url : searchurl,
+			dataType : "json",
+			success : function(response)
+			{ 
+				$.each(response, function(i,item)
+	            {
+					
+					$("#strGuestName").val(item[2]);
+					$("#dteCheckinDate").val(item[0]);
+					$("#dteCheckoutDate").val(item[1]);
+			    });
+	        	
+			},
+			error : function(jqXHR, exception){
+				if (jqXHR.status === 0) {
+	                alert('Not connect.n Verify Network.');
+	            } else if (jqXHR.status == 404) {
+	                alert('Requested page not found. [404]');
+	            } else if (jqXHR.status == 500) {
+	                alert('Internal Server Error [500].');
+	            } else if (exception === 'parsererror') {
+	                alert('Requested JSON parse failed.');
+	            } else if (exception === 'timeout') {
+	                alert('Time out error.');
+	            } else if (exception === 'abort') {
+	                alert('Ajax request aborted.');
+	            } else {
+	                alert('Uncaught Error.n' + jqXHR.responseText);
+	            }			
+
+			}
+		});
 	}	
 	
 	/**
@@ -122,6 +158,15 @@
        <div class="row">
 				<div class="col-md-2"><label>Folio No.</label>
 				      <s:input id="strFolioNo" path="strFolioNo" readonly="true" cssClass="searchTextBox" ondblclick="funHelp('folioNoForReOpen')" style="height: 45%"/>													
+	            </div>
+	            <div class="col-md-2"><label>Guest Name</label>
+				      <s:input id="strGuestName" path="" readonly="true" cssClass="longTextBox"  style="height: 45%"/>													
+	            </div>
+	            <div class="col-md-2"><label>Check-in Date</label>
+				      <s:input id="dteCheckinDate" path="" readonly="true" cssClass="longTextBox"  style="height: 45%"/>													
+	            </div>
+	            <div class="col-md-2"><label>Check-out Date</label>
+				      <s:input id="dteCheckoutDate" path="" readonly="true" cssClass="longTextBox"  style="height: 45%"/>													
 	            </div>
 		</div>
 		

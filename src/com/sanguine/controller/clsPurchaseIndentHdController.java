@@ -187,8 +187,8 @@ public class clsPurchaseIndentHdController {
 	 */
 	@RequestMapping(value = "/savepurchaseIndent", method = RequestMethod.POST)
 	public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsPurchaseIndentHdBean objBean, BindingResult result, HttpServletRequest req) {
-		 
 		String urlHits = "1";
+		if (!result.hasErrors()) {
 		try {
 			urlHits = req.getParameter("saddr").toString();
 		} catch (NullPointerException e) {
@@ -210,6 +210,7 @@ public class clsPurchaseIndentHdController {
 			}
 
 			return new ModelAndView("redirect:/frmPurchaseIndent.html?saddr=" + urlHits);
+		}
 		}
 
 		return new ModelAndView("frmPurchaseIndent?saddr=" + urlHits);

@@ -76,7 +76,7 @@ public class clsPurchaseOrderDaoImpl implements clsPurchaseOrderDao {
 	@Override
 	public List funGetHelpdataPIforPo(String clientCode, String strPropCode) {
 
-		String sql = "select a.strPICode, date(a.dtPIDate),b.strLocName,a.strNarration " + "from tblpurchaseindendhd a,tbllocationmaster b where strPICode IN " + "(select a.strPICode from tblpurchaseindenddtl a left outer join " + "(select b.strPICode, b.strProdCode,sum(dblOrdQty) POQty " + " from tblpurchaseorderhd a,  tblpurchaseorderdtl b "
+		String sql = "select a.strPICode, a.dtPIDate,b.strLocName,a.strNarration " + "from tblpurchaseindendhd a,tbllocationmaster b where strPICode IN " + "(select a.strPICode from tblpurchaseindenddtl a left outer join " + "(select b.strPICode, b.strProdCode,sum(dblOrdQty) POQty " + " from tblpurchaseorderhd a,  tblpurchaseorderdtl b "
 				+ "where a.strPOCode = b.strPOCode and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' " + "group by b.strPICode, b.strProdCode) as b on a.strPIcode = b.strPICode  and a.strProdCode = b.strProdCode " + "where a.strClientCode='" + clientCode + "' and a.dblQty > ifnull(b.POQty,0)) " + " and a.strLocCode=b.strLocCode and a.strClientCode='" + clientCode
 				+ "' " + "and b.strClientCode='" + clientCode + "' and b.strPropertyCode ='" + strPropCode + "'";
 

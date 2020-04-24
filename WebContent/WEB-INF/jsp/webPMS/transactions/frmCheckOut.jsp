@@ -460,7 +460,7 @@
 	
 		<br />
 		
-		<input type="checkbox" id="chkBoxAll" name="chkBoxAll1" value="Bike" style="margin-left: 788px;" onclick="funCheckbox()">
+		<input type="checkbox" id="chkBoxAll" name="chkBoxAll1" value="Bike" style="margin-left: 1050px;" onclick="funCheckbox()">
 		<!-- Generate Dynamic Table   -->
 		<div class="dynamicTableContainer" style="height: 200px;">
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
@@ -502,9 +502,7 @@
 					<td style="width: 70px;"align="center">Remove Taxes </td>
 					<!-- col9   -->
 					
-					<!-- col10   -->
-					<td ></td>
-					<!-- col10   -->
+					
 									
 				</tr>
 			</table>
@@ -547,9 +545,7 @@
 						<col style="width: 70px;">
 						<!-- col9   -->
 						
-						<!-- col10   -->
-						<col >
-						<!-- col10   -->					
+										
 					</tbody>
 					<%-- <c:forEach items="${command.listReqDtl}" var="reqdtl"
 						varStatus="status">
