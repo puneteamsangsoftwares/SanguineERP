@@ -198,42 +198,42 @@ left outer join tbllocationmaster h on CONCAT(a.strClientCode,a.strPOSCode) = h.
 					<textFieldExpression><![CDATA["Location Total :"]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0" isBlankWhenNull="true">
-					<reportElement x="217" y="2" width="60" height="15" forecolor="#066000" uuid="451b18d0-8393-43c1-9558-3df0150ab585"/>
+					<reportElement x="291" y="2" width="60" height="15" forecolor="#066000" uuid="451b18d0-8393-43c1-9558-3df0150ab585"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{totLocSV}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0" isBlankWhenNull="true">
-					<reportElement x="343" y="2" width="49" height="15" forecolor="#066000" uuid="94d22753-5879-48c7-a238-98856235fdb7"/>
+					<reportElement x="417" y="2" width="49" height="15" forecolor="#066000" uuid="94d22753-5879-48c7-a238-98856235fdb7"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{totLocCV}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0" isBlankWhenNull="true">
-					<reportElement x="399" y="2" width="44" height="15" forecolor="#066000" uuid="b266b6bc-be08-4622-a88a-e86e66d424bc"/>
+					<reportElement x="473" y="2" width="44" height="15" forecolor="#066000" uuid="b266b6bc-be08-4622-a88a-e86e66d424bc"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{totLocProfit}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="452" y="2" width="51" height="15" forecolor="#066000" uuid="4f9853da-d979-413b-aab3-4a35065d4996"/>
+					<reportElement x="526" y="2" width="51" height="15" forecolor="#066000" uuid="4f9853da-d979-413b-aab3-4a35065d4996"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[(($V{totLocCV}.doubleValue()*100)/$V{totLocSV}.doubleValue())]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="643" y="5" width="51" height="15" forecolor="#066000" uuid="47bfe73a-d7d1-4d28-abf4-b348d89c28a0"/>
+					<reportElement x="717" y="5" width="51" height="15" forecolor="#066000" uuid="47bfe73a-d7d1-4d28-abf4-b348d89c28a0"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vtotLocVarience}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0" isBlankWhenNull="true">
-					<reportElement x="581" y="5" width="50" height="15" forecolor="#066000" uuid="e0841aa4-c183-49ca-bd1f-9d3ffed7cb33"/>
+					<reportElement x="655" y="5" width="50" height="15" forecolor="#066000" uuid="e0841aa4-c183-49ca-bd1f-9d3ffed7cb33"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
@@ -271,42 +271,42 @@ left outer join tbllocationmaster h on CONCAT(a.strClientCode,a.strPOSCode) = h.
 					<textFieldExpression><![CDATA["Group Total :"]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0" isBlankWhenNull="true">
-					<reportElement x="233" y="3" width="44" height="15" forecolor="#000000" uuid="4ca0f6b0-07a5-4241-b049-a6f0d2db8d85"/>
+					<reportElement x="307" y="3" width="44" height="15" forecolor="#000000" uuid="4ca0f6b0-07a5-4241-b049-a6f0d2db8d85"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{totGSV}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0" isBlankWhenNull="true">
-					<reportElement x="399" y="3" width="44" height="15" forecolor="#000000" uuid="e70afde7-9999-464a-bbdd-867d9be60cff"/>
+					<reportElement x="473" y="3" width="44" height="15" forecolor="#000000" uuid="e70afde7-9999-464a-bbdd-867d9be60cff"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{totGPropfit}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0" isBlankWhenNull="true">
-					<reportElement x="343" y="3" width="49" height="15" forecolor="#000000" uuid="3b6b00be-9180-4952-88bd-7a6e41909294"/>
+					<reportElement x="417" y="3" width="49" height="15" forecolor="#000000" uuid="3b6b00be-9180-4952-88bd-7a6e41909294"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{totGCV}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="451" y="3" width="52" height="15" forecolor="#000000" uuid="a3f24ab2-9c49-4993-a91c-3c013633c7e5"/>
+					<reportElement x="525" y="3" width="52" height="15" forecolor="#000000" uuid="a3f24ab2-9c49-4993-a91c-3c013633c7e5"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[(($V{totGCV}.doubleValue()*100)/$V{totGSV}.doubleValue())]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="580" y="8" width="52" height="15" forecolor="#000000" uuid="0018d7e0-750e-48eb-aa6c-71195a507c72"/>
+					<reportElement x="654" y="8" width="52" height="15" forecolor="#000000" uuid="0018d7e0-750e-48eb-aa6c-71195a507c72"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vtotGroupStdValue}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="643" y="10" width="52" height="15" forecolor="#000000" uuid="12a71b4b-28ab-47ca-8269-857216c991d2"/>
+					<reportElement x="717" y="10" width="52" height="15" forecolor="#000000" uuid="12a71b4b-28ab-47ca-8269-857216c991d2"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
@@ -344,42 +344,42 @@ left outer join tbllocationmaster h on CONCAT(a.strClientCode,a.strPOSCode) = h.
 					<textFieldExpression><![CDATA["SubGroup Total :"]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0" isBlankWhenNull="true">
-					<reportElement x="217" y="2" width="60" height="15" forecolor="#066000" uuid="cee982a2-2c3b-49d4-b9fd-c159352e7382"/>
+					<reportElement x="291" y="2" width="60" height="15" forecolor="#066000" uuid="cee982a2-2c3b-49d4-b9fd-c159352e7382"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{totSubSV}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0" isBlankWhenNull="true">
-					<reportElement x="343" y="2" width="49" height="15" forecolor="#066000" uuid="3d964be3-9341-40ba-9a7b-ef718f51e224"/>
+					<reportElement x="417" y="2" width="49" height="15" forecolor="#066000" uuid="3d964be3-9341-40ba-9a7b-ef718f51e224"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{totSubCV}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0" isBlankWhenNull="true">
-					<reportElement x="398" y="2" width="44" height="15" forecolor="#066000" uuid="3a4f522e-1e05-40d8-bf10-530a6dddeff1"/>
+					<reportElement x="472" y="2" width="44" height="15" forecolor="#066000" uuid="3a4f522e-1e05-40d8-bf10-530a6dddeff1"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{totSubProfit}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="451" y="2" width="52" height="15" forecolor="#066000" uuid="cb5839ee-0d21-4922-9c31-130377bb849e"/>
+					<reportElement x="525" y="2" width="52" height="15" forecolor="#066000" uuid="cb5839ee-0d21-4922-9c31-130377bb849e"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[(($V{totSubCV}.doubleValue()*100)/$V{totSubSV}.doubleValue())]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="581" y="4" width="52" height="15" forecolor="#066000" uuid="54734dbe-6fe9-43e6-bfcb-727b6bec4e94"/>
+					<reportElement x="655" y="4" width="52" height="15" forecolor="#066000" uuid="54734dbe-6fe9-43e6-bfcb-727b6bec4e94"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vtotSGStdValue}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="643" y="5" width="52" height="15" forecolor="#066000" uuid="5c0bc192-b5dd-4c7e-a389-102c2f344d9d"/>
+					<reportElement x="717" y="5" width="52" height="15" forecolor="#066000" uuid="5c0bc192-b5dd-4c7e-a389-102c2f344d9d"/>
 					<textElement textAlignment="Right">
 						<font fontName="Serif" isBold="true"/>
 					</textElement>
@@ -476,74 +476,74 @@ left outer join tbllocationmaster h on CONCAT(a.strClientCode,a.strPOSCode) = h.
 				<text><![CDATA[Prod Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="165" y="2" width="36" height="15" forecolor="#000000" uuid="3aa91cd2-19f1-4d28-84dc-9fbc71660bf6"/>
+				<reportElement style="Column header" x="239" y="2" width="36" height="15" forecolor="#000000" uuid="3aa91cd2-19f1-4d28-84dc-9fbc71660bf6"/>
 				<textElement>
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<text><![CDATA[UOM]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="201" y="2" width="18" height="15" forecolor="#000000" uuid="d1a1ba4c-de72-4696-91c9-85d18b0c66b6"/>
+				<reportElement style="Column header" x="275" y="2" width="18" height="15" forecolor="#000000" uuid="d1a1ba4c-de72-4696-91c9-85d18b0c66b6"/>
 				<textElement>
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<text><![CDATA[Qty]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="227" y="2" width="55" height="15" forecolor="#000000" uuid="8015213c-242a-4991-8357-a37f862ed7fe"/>
+				<reportElement style="Column header" x="301" y="2" width="55" height="15" forecolor="#000000" uuid="8015213c-242a-4991-8357-a37f862ed7fe"/>
 				<textElement>
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<text><![CDATA[Sale Value]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="284" y="2" width="55" height="15" forecolor="#000000" uuid="a60d17e8-d10a-4eed-924f-70291139194f"/>
+				<reportElement style="Column header" x="358" y="2" width="55" height="15" forecolor="#000000" uuid="a60d17e8-d10a-4eed-924f-70291139194f"/>
 				<textElement>
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<text><![CDATA[Actual Price]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="343" y="2" width="59" height="15" forecolor="#000000" uuid="c5237fc6-991d-46f9-8e6e-cb66acf553b5"/>
+				<reportElement style="Column header" x="417" y="2" width="59" height="15" forecolor="#000000" uuid="c5237fc6-991d-46f9-8e6e-cb66acf553b5"/>
 				<textElement>
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<text><![CDATA[Cost Value]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="412" y="2" width="35" height="15" forecolor="#000000" uuid="ad33edd6-1bcf-4540-8b79-580bc971e676"/>
+				<reportElement style="Column header" x="486" y="2" width="35" height="15" forecolor="#000000" uuid="ad33edd6-1bcf-4540-8b79-580bc971e676"/>
 				<textElement textAlignment="Right">
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<text><![CDATA[Profit]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="452" y="2" width="54" height="34" forecolor="#000000" uuid="e8fabc25-a7d6-4d6b-971e-ed3645b35adb"/>
+				<reportElement style="Column header" x="526" y="2" width="54" height="34" forecolor="#000000" uuid="e8fabc25-a7d6-4d6b-971e-ed3645b35adb"/>
 				<textElement textAlignment="Right">
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<text><![CDATA[Food Cost %]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="518" y="2" width="54" height="34" forecolor="#000000" uuid="e02bfd35-8bcf-4d5a-bb80-6cc7d0f66bab"/>
+				<reportElement style="Column header" x="592" y="2" width="54" height="34" forecolor="#000000" uuid="e02bfd35-8bcf-4d5a-bb80-6cc7d0f66bab"/>
 				<textElement textAlignment="Right">
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<text><![CDATA[Recipe Price]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="580" y="3" width="54" height="34" forecolor="#000000" uuid="18e151b3-c9f5-42e9-9b24-148a6a078bab"/>
+				<reportElement style="Column header" x="654" y="3" width="54" height="34" forecolor="#000000" uuid="18e151b3-c9f5-42e9-9b24-148a6a078bab"/>
 				<textElement textAlignment="Right">
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<text><![CDATA[Standard Value]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="650" y="4" width="54" height="31" forecolor="#000000" uuid="ff520334-62b8-4c1e-b328-9cd6ee900296"/>
+				<reportElement style="Column header" x="724" y="4" width="54" height="31" forecolor="#000000" uuid="ff520334-62b8-4c1e-b328-9cd6ee900296"/>
 				<textElement textAlignment="Right">
 					<font fontName="Serif" size="10"/>
 				</textElement>
-				<text><![CDATA[Varience]]></text>
+				<text><![CDATA[Variance]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -557,77 +557,77 @@ left outer join tbllocationmaster h on CONCAT(a.strClientCode,a.strPOSCode) = h.
 				<textFieldExpression><![CDATA[$F{strProdCode}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement style="Detail" x="55" y="0" width="108" height="15" uuid="9405c57c-92e5-43dd-a89b-1dc391c5e073"/>
+				<reportElement style="Detail" x="55" y="0" width="174" height="15" uuid="9405c57c-92e5-43dd-a89b-1dc391c5e073"/>
 				<textElement>
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{strProdName}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement style="Detail" x="166" y="0" width="22" height="15" uuid="972e11f6-e2d0-48f5-8341-93525b95e7df"/>
+				<reportElement style="Detail" x="240" y="0" width="22" height="15" uuid="972e11f6-e2d0-48f5-8341-93525b95e7df"/>
 				<textElement textAlignment="Left">
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{strReceivedUOM}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#0" isBlankWhenNull="true">
-				<reportElement style="Detail" x="189" y="0" width="30" height="15" uuid="cf517329-edaf-474b-8afa-90af0d72ffb7"/>
+				<reportElement style="Detail" x="263" y="0" width="30" height="15" uuid="cf517329-edaf-474b-8afa-90af0d72ffb7"/>
 				<textElement textAlignment="Right">
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dblQuantity}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement style="Detail" x="219" y="0" width="58" height="15" uuid="6bb9b199-b336-47ca-8e1a-26ef5a269365"/>
+				<reportElement style="Detail" x="293" y="0" width="58" height="15" uuid="6bb9b199-b336-47ca-8e1a-26ef5a269365"/>
 				<textElement textAlignment="Right">
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SaleValue}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#0" isBlankWhenNull="true">
-				<reportElement style="Detail" x="280" y="0" width="55" height="15" uuid="0a611afc-2c36-47b5-bcba-598f32445ac1"/>
+				<reportElement style="Detail" x="354" y="0" width="55" height="15" uuid="0a611afc-2c36-47b5-bcba-598f32445ac1"/>
 				<textElement textAlignment="Right">
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CostPrice}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#0" isBlankWhenNull="true">
-				<reportElement style="Detail" x="337" y="0" width="55" height="15" uuid="d5906fe3-1570-42f5-8ff5-65b3fae66796"/>
+				<reportElement style="Detail" x="411" y="0" width="55" height="15" uuid="d5906fe3-1570-42f5-8ff5-65b3fae66796"/>
 				<textElement textAlignment="Right">
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CostValue}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#0" isBlankWhenNull="true">
-				<reportElement style="Detail" x="392" y="0" width="50" height="15" uuid="b49d9554-5ba9-4926-87c1-05799b9eb060"/>
+				<reportElement style="Detail" x="466" y="0" width="50" height="15" uuid="b49d9554-5ba9-4926-87c1-05799b9eb060"/>
 				<textElement textAlignment="Right">
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Profit}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#0.00" isBlankWhenNull="true">
-				<reportElement style="Detail" x="451" y="0" width="55" height="15" uuid="f41e13d2-1ad4-4c3a-b89f-0bf185c7c203"/>
+				<reportElement style="Detail" x="525" y="0" width="55" height="15" uuid="f41e13d2-1ad4-4c3a-b89f-0bf185c7c203"/>
 				<textElement textAlignment="Right">
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{FoodCostPer}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="Detail" x="517" y="3" width="55" height="15" uuid="f4c2b895-d1e6-4888-93b3-8f6830c59b3f"/>
+				<reportElement style="Detail" x="591" y="3" width="55" height="15" uuid="f4c2b895-d1e6-4888-93b3-8f6830c59b3f"/>
 				<textElement textAlignment="Right">
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dblStdPrice}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="Detail" x="580" y="3" width="55" height="15" uuid="b807393e-b334-4297-9ea9-2d7bb280f555"/>
+				<reportElement style="Detail" x="654" y="3" width="55" height="15" uuid="b807393e-b334-4297-9ea9-2d7bb280f555"/>
 				<textElement textAlignment="Right">
 					<font fontName="Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dblStdPriceValue}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="Detail" x="640" y="3" width="55" height="15" uuid="7a8b01a1-eb37-458c-9b0c-c0e85002f8d4"/>
+				<reportElement style="Detail" x="714" y="3" width="55" height="15" uuid="7a8b01a1-eb37-458c-9b0c-c0e85002f8d4"/>
 				<textElement textAlignment="Right">
 					<font fontName="Serif" size="10"/>
 				</textElement>

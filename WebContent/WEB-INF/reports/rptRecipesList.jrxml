@@ -81,6 +81,9 @@
 		<field name="strLocation" class="java.lang.String"/>
 		<field name="dtValidFrom" class="java.lang.String"/>
 		<field name="dtValidTo" class="java.lang.String"/>
+		<field name="strParentUOM" class="java.lang.String">
+			<fieldDescription><![CDATA[strParentUOM]]></fieldDescription>
+		</field>
 		<variable name="totVal" class="java.math.BigDecimal" resetType="Group" resetGroup="strParentCode" calculation="Sum">
 			<variableExpression><![CDATA[$F{dblAmount}]]></variableExpression>
 		</variable>
@@ -163,24 +166,30 @@
 										<font fontName="Serif" size="10"/>
 									</textElement>
 									<textFieldExpression><![CDATA["Parent Product "+$F{strParentCode}+", Parent Name "+$F{strParentName}
- +", Date "+$F{dtValidFrom}+" To "+$F{dtValidTo}+", Qty "+$F{dblQty}
-+", "+$F{strUOM}+", Location "+$F{strLocation}]]></textFieldExpression>
+ +", Date "+$F{dtValidFrom}+" To "+$F{dtValidTo}+", Qty "+" 1 "
++", "+$F{strParentUOM}+", Location "+$F{strLocation}]]></textFieldExpression>
 								</textField>
 							</jr:cell>
 						</jr:groupHeader>
 						<jr:groupFooter groupName="strParentCode">
 							<jr:cell style="table_TD" height="30" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="550" height="15" uuid="7032ba6f-3780-4d21-8357-35735a88be3b"/>
+									<reportElement x="0" y="0" width="550" height="15" uuid="7032ba6f-3780-4d21-8357-35735a88be3b">
+										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+									</reportElement>
 									<textElement>
 										<font fontName="Serif" isBold="true"/>
+										<paragraph leftIndent="2"/>
 									</textElement>
 									<text><![CDATA[Total]]></text>
 								</staticText>
 								<textField pattern="###0.00;-###0.00">
-									<reportElement x="0" y="15" width="550" height="15" uuid="89d00433-47e9-49e3-abb7-5fcf9345b28f"/>
+									<reportElement x="0" y="15" width="550" height="15" uuid="89d00433-47e9-49e3-abb7-5fcf9345b28f">
+										<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+									</reportElement>
 									<textElement textAlignment="Right">
 										<font fontName="Serif" isBold="true"/>
+										<paragraph rightIndent="2"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$V{totVal}]]></textFieldExpression>
 								</textField>
@@ -189,9 +198,12 @@
 						<jr:column width="154" uuid="713cc36a-f55b-4122-a9cf-cd336a43a1ac">
 							<jr:tableHeader style="table 2_TH" height="30" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="154" height="30" uuid="38fb0c1a-85a8-47f2-ae67-bbda20cd51f7"/>
+									<reportElement x="0" y="0" width="154" height="30" uuid="38fb0c1a-85a8-47f2-ae67-bbda20cd51f7">
+										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+									</reportElement>
 									<textElement>
 										<font fontName="Serif" size="12" isBold="true"/>
+										<paragraph leftIndent="2"/>
 									</textElement>
 									<text><![CDATA[Product Name]]></text>
 								</staticText>
@@ -199,9 +211,12 @@
 							<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
 							<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 								<textField>
-									<reportElement x="0" y="0" width="154" height="20" uuid="2ef07cdc-6674-47b6-abba-89350eb46bab"/>
+									<reportElement x="0" y="0" width="154" height="20" uuid="2ef07cdc-6674-47b6-abba-89350eb46bab">
+										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+									</reportElement>
 									<textElement>
 										<font fontName="Serif"/>
+										<paragraph leftIndent="2"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{strParentName}]]></textFieldExpression>
 								</textField>
@@ -210,9 +225,12 @@
 						<jr:column width="46" uuid="acda11dd-11b4-466c-aed6-8906401725bd">
 							<jr:tableHeader style="table 2_TH" height="30" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="46" height="30" uuid="153d99bb-e7a9-4b88-84cd-a98b8ed625ae"/>
+									<reportElement x="0" y="0" width="46" height="30" uuid="153d99bb-e7a9-4b88-84cd-a98b8ed625ae">
+										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+									</reportElement>
 									<textElement>
 										<font fontName="Serif" size="12" isBold="true"/>
+										<paragraph leftIndent="2"/>
 									</textElement>
 									<text><![CDATA[Child Code]]></text>
 								</staticText>
@@ -220,9 +238,12 @@
 							<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
 							<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 								<textField>
-									<reportElement x="0" y="0" width="46" height="20" uuid="ae7a3977-63f5-402f-9ddd-624fbb95db98"/>
+									<reportElement x="0" y="0" width="46" height="20" uuid="ae7a3977-63f5-402f-9ddd-624fbb95db98">
+										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+									</reportElement>
 									<textElement>
 										<font fontName="Serif"/>
+										<paragraph leftIndent="1"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{strChildCode}]]></textFieldExpression>
 								</textField>
@@ -231,9 +252,12 @@
 						<jr:column width="129" uuid="248b6f29-bd4c-43e7-bcf4-bc79b9c480bd">
 							<jr:tableHeader style="table 2_TH" height="30" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="129" height="30" uuid="2bd6f2c7-3941-48cf-854a-c2c16f127c0a"/>
+									<reportElement x="0" y="0" width="129" height="30" uuid="2bd6f2c7-3941-48cf-854a-c2c16f127c0a">
+										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+									</reportElement>
 									<textElement>
 										<font fontName="Serif" size="12" isBold="true"/>
+										<paragraph leftIndent="2"/>
 									</textElement>
 									<text><![CDATA[Child Product Name]]></text>
 								</staticText>
@@ -241,9 +265,12 @@
 							<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
 							<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 								<textField>
-									<reportElement x="0" y="0" width="129" height="20" uuid="2e3487bb-c3e7-40b9-aad4-c1e35cd2921a"/>
+									<reportElement x="0" y="0" width="129" height="20" uuid="2e3487bb-c3e7-40b9-aad4-c1e35cd2921a">
+										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+									</reportElement>
 									<textElement>
 										<font fontName="Serif"/>
+										<paragraph leftIndent="2"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{strChildName}]]></textFieldExpression>
 								</textField>
@@ -263,9 +290,12 @@
 							<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 								<textField>
-									<reportElement x="0" y="0" width="34" height="20" uuid="650b2086-26dd-47c5-acc0-aa1ca32a1a66"/>
+									<reportElement x="0" y="0" width="34" height="20" uuid="650b2086-26dd-47c5-acc0-aa1ca32a1a66">
+										<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+									</reportElement>
 									<textElement textAlignment="Right">
 										<font fontName="Serif"/>
+										<paragraph rightIndent="2"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{dblQty}]]></textFieldExpression>
 								</textField>
@@ -307,9 +337,12 @@
 							<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 								<textField pattern="#0.0000">
-									<reportElement x="0" y="0" width="43" height="20" uuid="5caaeb51-623b-4729-bfff-975315e8e934"/>
+									<reportElement x="0" y="0" width="43" height="20" uuid="5caaeb51-623b-4729-bfff-975315e8e934">
+										<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+									</reportElement>
 									<textElement textAlignment="Right">
 										<font fontName="Serif"/>
+										<paragraph rightIndent="1"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{dblPrice}]]></textFieldExpression>
 								</textField>
@@ -329,9 +362,12 @@
 							<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 								<textField>
-									<reportElement x="10" y="0" width="53" height="20" uuid="38d4109a-6751-4c1f-be7a-22a15345a238"/>
+									<reportElement x="10" y="0" width="53" height="20" uuid="38d4109a-6751-4c1f-be7a-22a15345a238">
+										<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+									</reportElement>
 									<textElement>
 										<font fontName="Serif"/>
+										<paragraph rightIndent="2"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{strLocation}]]></textFieldExpression>
 								</textField>
@@ -340,20 +376,26 @@
 						<jr:column width="39" uuid="1cdd51cd-8615-4449-9d87-03c62f82b520">
 							<jr:tableHeader style="table 2_TH" height="30" rowSpan="1">
 								<staticText>
-									<reportElement x="0" y="0" width="39" height="30" uuid="6173ecdb-1f91-44ef-9996-d18758fc9dcc"/>
+									<reportElement x="0" y="0" width="39" height="30" uuid="6173ecdb-1f91-44ef-9996-d18758fc9dcc">
+										<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+									</reportElement>
 									<textElement>
 										<font fontName="Serif" size="12" isBold="true"/>
+										<paragraph leftIndent="2"/>
 									</textElement>
-									<text><![CDATA[value]]></text>
+									<text><![CDATA[Value]]></text>
 								</staticText>
 							</jr:tableHeader>
 							<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
 							<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 								<textField pattern="#0.0000">
-									<reportElement x="0" y="0" width="39" height="20" uuid="cf9fc544-6e28-405f-8c29-3c22bcea170a"/>
+									<reportElement x="0" y="0" width="39" height="20" uuid="cf9fc544-6e28-405f-8c29-3c22bcea170a">
+										<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+									</reportElement>
 									<textElement textAlignment="Right">
 										<font fontName="Serif"/>
+										<paragraph rightIndent="2"/>
 									</textElement>
 									<textFieldExpression><![CDATA[$F{dblAmount}]]></textFieldExpression>
 								</textField>

@@ -57,6 +57,7 @@ import com.sanguine.service.clsSetupMasterService;
 import com.sanguine.service.clsSubGroupMasterService;
 import com.sanguine.service.clsSupplierMasterService;
 import com.sanguine.webpms.bean.clsGuestMasterBean;
+import com.sanguine.webpms.bean.clsRoomMasterBean;
 import com.sanguine.webpms.dao.clsGuestMasterDao;
 import com.sanguine.webpms.dao.clsRoomTypeMasterDao;
 import com.sanguine.webpms.model.clsGuestMasterHdModel;
@@ -1018,7 +1019,7 @@ public class clsExcelExportImportController {
 	private List funRoomList(HSSFSheet worksheet, HttpServletRequest request) {
 	
 
-		List listGuestlist = new ArrayList<>();
+		List<clsRoomMasterBean> listRoom = new ArrayList<clsRoomMasterBean>();
 		int RowCount = 0;
 		//String prodCode = "";
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
@@ -1037,7 +1038,7 @@ public class clsExcelExportImportController {
 			while (i <= worksheet.getLastRowNum()) {
 				// Creates an object representing a single row in excel
 				
-				
+				clsRoomMasterBean objBean = new clsRoomMasterBean(); 
 				HSSFRow row = worksheet.getRow(i++);
 				// Sets the Read data to the model class
 				RowCount = row.getRowNum();
@@ -1048,9 +1049,11 @@ public class clsExcelExportImportController {
 				hm.put(row.getCell(1).toString(),Double.parseDouble(row.getCell(2).toString()));
 				hmRoom.put(row.getCell(0).toString(), row.getCell(1).toString());
 				
+				objBean.setStrRoomDesc(strRoomName);
+				objBean.setStrRoomTypeDesc(row.getCell(1).toString());
+				objBean.setDblTariff(Double.parseDouble(row.getCell(2).toString()));
 				
-				
-				//list.add(strRoomName);
+				listRoom.add(objBean);
 			}
 			
 			funCheckRoomType(hm,clientCode,userCode);
@@ -1065,7 +1068,7 @@ public class clsExcelExportImportController {
 			//list.add("Invalid Entry In Row No." + RowCount + " and Product Code " + prodCode + " ");
 			return list;
 		}
-		return listGuestlist;
+		return listRoom;
 	
 	}
 
@@ -1181,7 +1184,8 @@ public class clsExcelExportImportController {
 			 
 		 
 		
-		String sqlCheck = "select * from tblroomtypemaster a where a.strRoomTypeDesc='"+entry.getKey()+"' and a.strClientCode='"+clientCode+"'";
+		String sqlCheck = "select  a.strRoomTypeCode,a.strRoomTypeDesc,a.dblRoomTerrif,a.strUserCreated,a.strUserEdited,a.dteDateCreated,a.dteDateEdited,a.strClientCode, "
+				+ "a.dblDoubleTariff,a.dblTrippleTariff,ifnull(a.strGuestCapcity,''),ifnull(a.strHsnSac,'') from tblroomtypemaster a where a.strRoomTypeDesc='"+entry.getKey()+"' and a.strClientCode='"+clientCode+"'";
 		
 		List list=objGlobalFunctionsService.funGetListModuleWise(sqlCheck, "sql");
 		
@@ -1201,7 +1205,7 @@ public class clsExcelExportImportController {
 			objRoomTypeMasterModel.setDteDateCreated(arrObj[5].toString());
 			objRoomTypeMasterModel.setDteDateEdited(arrObj[6].toString());
 			objRoomTypeMasterModel.setStrClientCode(clientCode);
-			objRoomTypeMasterModel.setStrHsnSac(arrObj[10].toString());
+			objRoomTypeMasterModel.setStrHsnSac(objGlobalFunctions.funIfNull(arrObj[10].toString(), "", arrObj[10].toString()));
 			}
 			objRoomTypeMasterDao.funAddUpdateRoomMaster(objRoomTypeMasterModel);
 		}
@@ -1970,7 +1974,7 @@ public class clsExcelExportImportController {
 	}
 @SuppressWarnings({ "rawtypes", "unchecked" })
 	public List funGuestList(HSSFSheet worksheet, HttpServletRequest request) {
-		List<clsGuestMasterHdModel> listGuestlist = new ArrayList<>();
+		List<clsGuestMasterBean> listData = new ArrayList<>();
 		int RowCount = 0;
 		//String prodCode = "";
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
@@ -1979,7 +1983,7 @@ public class clsExcelExportImportController {
 		//String prodStock=request.getParameter("prodStock");
 		try {
 			int i = 1;
-			List<clsGuestMasterBean> listData = new ArrayList<clsGuestMasterBean>();
+			/*List<clsGuestMasterBean> listData = new ArrayList<clsGuestMasterBean>();*/
 			while (i <= worksheet.getLastRowNum()) {
 				// Creates an object representing a single row in excel
 				
@@ -2044,7 +2048,8 @@ public class clsExcelExportImportController {
 				
 				
 			}
-			funAddGuestData(listData,clientCode,userCode,listGuestlist);
+			/*funAddGuestData(listData,clientCode,userCode,listGuestlist);*/
+			/*request.getSession().setAttribute("listGuestDataForFillMaster", listData);*/
 
 		} catch (Exception e) {
 			logger.error(e);
@@ -2054,7 +2059,7 @@ public class clsExcelExportImportController {
 			//list.add("Invalid Entry In Row No." + RowCount + " and Product Code " + prodCode + " ");
 			return list;
 		}
-		return listGuestlist;
+		return listData;
 	}
 
 private void funAddGuestData(List listData, String clientCode, String userCode,List<clsGuestMasterHdModel> listGuestlist) {

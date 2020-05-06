@@ -257,6 +257,7 @@ table tbody tr:nth-child(even) {
 		
 		gSelection='';					
 		gViewSelection='Seven Day View';
+		$("#lblView").text("-  Seven Day View");
 		var viewDate=$("#txtViewDate").val();
 				
 		$.ajax({
@@ -299,6 +300,7 @@ table tbody tr:nth-child(even) {
 	{
 		gSelection='';
 		gViewSelection='One Day View';
+		$("#lblView").text("-  One Day View");
 		var viewDate=$("#txtViewDate").val();
 				
 		$.ajax({
@@ -341,6 +343,7 @@ table tbody tr:nth-child(even) {
 	{
 		gSelection='';
 		gViewSelection='House Keeping View';
+		$("#lblView").text("-  House Keeping View");
 		var viewDate=$("#txtViewDate").val();				
 		$.ajax({
 			type : "GET",
@@ -2766,7 +2769,9 @@ table tbody tr:nth-child(even) {
 <body>
 	<div class="container-fluid">
 		<div class="title-row">
-         	<div class="title"><label id="formHeading">Room Status Diary</label></div>
+         	<div class="title"><label id="formHeading">Room Status Diary</label>&nbsp;&nbsp;
+         	<label id="lblView"></label>
+         	</div>
           		<div class="status-list ">
            			 <ul>
            			  	<li>

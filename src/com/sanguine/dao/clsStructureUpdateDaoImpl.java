@@ -605,6 +605,11 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ "ADD COLUMN `dblFreeQty` DECIMAL(18,4) NOT NULL DEFAULT '0.00' AFTER `strMISCode`;";
 		funExecuteQuery(sql);
 		
+		sql = "ALTER TABLE `tblpartymaster`"
+				+ "	CHANGE COLUMN `dtInstallions` `dtInstallions` DATETIME NOT NULL DEFAULT '1900-01-01' AFTER `strECCNo`;";
+		
+		funExecuteQuery(sql);
+		
 		sql = " select strMasterCode from tbllinkup ";
 		int i=funExecute(sql);
 		
@@ -1539,6 +1544,10 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		// //--------------------END----------------------------/////
 
 		funExecuteQuery(sql);
+		
+		
+		
+		
 
 		/*----------------WebStock Forms END---------------------------*/
 
@@ -5076,7 +5085,8 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ " ('frmPMSWeekenfMaster', 'PMS Weekend Master', 'Master', '1', 'M', '19', '19', '2', 'default.png', '3', '3', '1', '1', 'No', 'No', 'frmBanquetWeekendMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ " ('frmMergeBill', 'Bill Merge', 'Transaction', 2, 'T', 11, 11, '5', 'default.png', '3', 5, '5', '5', 'NO', 'NO', 'frmMergeBill.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ "('frmPMSFeedbackMaster', 'PMS FeedbackMaster', 'Master', 1, 'M', 22, 22, '2', 'imgSeasonMaster.png', '3', 3, '3', '3', 'NO', 'YES', 'frmPMSFeedbackMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
-				+ "('frmPMSGuestFeedback', 'Guest Feedback', 'Transaction', 2, 'T', 2, 2, '1', 'imgCheckIn.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSGuestFeedback.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
+				+ "('frmPMSGuestFeedback', 'Guest Feedback', 'Transaction', 2, 'T', 2, 2, '1', 'imgCheckIn.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSGuestFeedback.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y') , "
+				+ " ('frmPMSFillMasters', 'Fill Masters ', 'Tools', 4, 'L', 1, 2, '12', 'imgPropertySetup.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSFillMasters.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
 		
 
 		

@@ -183,7 +183,7 @@ public class clsPartyMasterController {
 	// master into database and also validates all fields of form.
 	@RequestMapping(value = "/saveCustomerMaster", method = RequestMethod.POST)
 	public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsPartyMasterBean objBean, BindingResult result, HttpServletRequest req, HttpServletResponse resp) {
-		
+			if (!result.hasErrors()) {
 		String urlHits = "1";
 		String pNameMarathi = "";
 		try {
@@ -196,6 +196,7 @@ public class clsPartyMasterController {
 			e.printStackTrace();
 			urlHits = "1";
 		}
+		
 		clsSundryDebtorMasterModel objDebtorModel = null;
 		String userCode = req.getSession().getAttribute("usercode").toString();
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
@@ -218,6 +219,10 @@ public class clsPartyMasterController {
 			return new ModelAndView("redirect:/frmCustomerMaster.html?saddr=" + urlHits);
 		} else {
 			return new ModelAndView("frmCustomerMaster?saddr=" + urlHits, "command", new clsPartyMasterModel());
+		}
+		}
+		else {
+			return new ModelAndView("frmCustomerMaster");
 		}
 	}
 

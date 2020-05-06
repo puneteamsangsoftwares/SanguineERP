@@ -352,9 +352,9 @@
 // 				+ dblQty
 // 				+ " onblur=\"funUpdatePrice(this);\" class=\"decimal-places inputText-Auto dblQty\">";
 
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"width: 100%;\" id=\"dblOrdQty."	+ (rowCount)+ "\" value="+ dblOrdQty+ " >";
+		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width: 100%;\" id=\"dblOrdQty."	+ (rowCount)+ "\" value="+ dblOrdQty+ " >";
 				
-		row.insertCell(3).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"width: 100%;\"   id=\"dblStock."	+ (rowCount)+ "\" value="+ dblStock+ " >";
+		row.insertCell(3).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width: 100%;\"   id=\"dblStock."	+ (rowCount)+ "\" value="+ dblStock+ " >";
 				
 		row.insertCell(4).innerHTML = "<input type=\"text\"  required = \"required\" style=\"text-align: right;width: 100%;border: 1px solid #a2a2a2;padding: 1px;\" name=\"listclsProductionOrderDtlModel["+ (rowCount)+ "].dblQty\" id=\"dblQty."	+ (rowCount)+ "\" value="+ dblAcceptQty+ " onblur=\"funUpdatePrice(this);\" class=\"decimal-places inputText-Auto\">";		
 			
@@ -456,9 +456,9 @@
 		rowCount=listRow;
 		row.insertCell(0).innerHTML = "<input  readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listclsProductionOrderDtlModel["	+ (rowCount) + "].strProdCode\" id=\"strProdCode."	+ (rowCount) + "\" value=" + strProdCode + " >";
 		row.insertCell(1).innerHTML= strProdName;
-		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"width:100%;\" id=\"dblOrdQty."  + (rowCount)+ "\" value="+ dblOrdQty+ " >";
+		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:100%;\" id=\"dblOrdQty."  + (rowCount)+ "\" value="+ dblOrdQty+ " >";
 				
-		row.insertCell(3).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"width:100%;\"  id=\"dblStock."	+ (rowCount)+ "\" value="+ dblStock+ " >";
+		row.insertCell(3).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:100%;\"  id=\"dblStock."	+ (rowCount)+ "\" value="+ dblStock+ " >";
 				
 		row.insertCell(4).innerHTML = "<input type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border: 1px solid #a2a2a2;padding: 1px;\" name=\"listclsProductionOrderDtlModel["+ (rowCount)+ "].dblQty\" id=\"dblQty."	+ (rowCount)+ "\" value="+ dblAcceptQty+ " onblur=\"funUpdatePrice(this);\" class=\"decimal-places inputText-Auto\">";		
 				
@@ -981,15 +981,15 @@
             <div class="col-md-6"></div>
               
 			<div class="col-md-2"><label>Quantity</label>
-			        <input id="dblQty" type="text" class="decimal-places numberField">
+			        <input id="dblQty" type="text" style="text-align: right;" class="decimal-places numberField">
 			</div>
 			
 			<div class="col-md-2"><label>Unit Price</label>
-				  <input id="dblUnitPrice" type="text" class="decimal-places-amt numberField">
+				  <input id="dblUnitPrice" type="text" style="text-align: right;"  class="decimal-places-amt numberField">
 			</div>
 			
 			<div class="col-md-2"><label>Wt/Unit</label>
-				<input id="dblWeight" type="text" class="decimal-places numberField">
+				<input id="dblWeight" type="text" style="text-align: right;"  class="decimal-places numberField">
 		    </div>
 		    
 			<div class="col-md-2"><br><input type="button" value="Add"

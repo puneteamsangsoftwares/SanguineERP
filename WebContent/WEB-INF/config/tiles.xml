@@ -5338,6 +5338,17 @@
 			<put-attribute name="title" value="Feedback Form"></put-attribute>
 			<put-attribute name="body"	value="/WEB-INF/jsp/webPMS/transactions/frmPMSGuestFeedback.jsp"></put-attribute>
 		</definition>
+		
+		
+		
+		<definition name="frmPMSFillMasters" extends="base.definition">
+		<put-attribute name="title" value="Fill Masters"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webPMS/tools/frmPMSFillMasters.jsp"></put-attribute>
+	</definition>
+	<definition name="frmPMSFillMasters_1" extends="base.definition4">
+		<put-attribute name="title" value="Fill Masters"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webPMS/tools/frmPMSFillMasters.jsp"></put-attribute>
+	</definition>
   	
 <!-- 	End Of WebPMS Tiles Entry -->
 

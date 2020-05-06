@@ -156,6 +156,7 @@
 				window.location.href=getContextPath()+"/GuestMasterExport.html?formname="+transactionformName;	
 				break;
 				
+				
 			case "frmRoomMaster" :
 				window.location.href=getContextPath()+"/RoomMasterImport.html";	
 				break;
@@ -172,6 +173,8 @@
 			case "frmCheckIn" :
 				window.location.href=getContextPath()+"/GuestMasterExport.html?formname="+transactionformName;	
 				break;	
+				
+				
 				
 				
 			/* case "frmCheckInCheckOutList" :
@@ -266,6 +269,7 @@
 				   searchUrl=getContextPath()+"/ExcelExportImport.html?formname="+transactionformName+"&prodStock="+prodStock;
 				}else{
 					searchUrl=getContextPath()+"/ExcelExportImport.html?formname="+transactionformName;
+					
 				}
 			    	
 		        $.ajax({
@@ -286,6 +290,7 @@
 		            		}
 		            	else
 		            		{
+		            			funPreviousForm(response);
 								window.returnValue = response;
 								window.close();
 		            		}
@@ -318,6 +323,25 @@
 		
 		transactionformName='<%=request.getParameter("formname") %>'
 		
+		if(transactionformName=="frmGuestMaster")
+			{
+			$("#divMain").hide();
+			$("#divId").hide();
+			$("#divShow").hide();
+			}
+		
+		if(transactionformName=="frmRoomMaster")
+		{
+		$("#divMain").hide();
+		$("#divId").hide();
+		$("#divShow").hide();
+		}
+		if(transactionformName=="frmPMSFillMasters")
+		{
+		$("#divMain").hide();
+		$("#divId").hide();
+		$("#divShow").hide();
+		}
 		
 		if(transactionformName=="frmPhysicalStkPosting")
 			{
@@ -810,6 +834,10 @@
 							
 						});
 					 
+			 function funPreviousForm(value) {
+					window.opener.funSetData(value);
+					window.close();
+				}
 </script>
 </head>
 <body onload="funOnLoad();">
@@ -825,8 +853,8 @@
   
   <div id="divFilter" style="display:block;">
   
-  <div class="row">
-			    <div class="col-md-3"><label>Show Stock Wise Product</label>
+  <div id ="divShow" class="row">
+			    <div  class="col-md-3"><label>Show Stock Wise Product</label>
 				   <select id="cmbProdStock" style="width:auto;">
 						<option value="Yes">Yes</option>
 						<option selected="selected" value="No">No</option>
@@ -863,7 +891,7 @@
 		 </div>
 	  </div>
 		<br>	
-		<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 55%;overflow-x: hidden; overflow-y: scroll;">
+		<div id="divMain" style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 55%;overflow-x: hidden; overflow-y: scroll;">
 				<table id="" class="display"
 							style="width: 100%; border-collapse: separate;">
 								<tbody>
@@ -889,7 +917,7 @@
 							</table>
 				</div>
 				<br>
-				<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 55%;overflow-x: hidden; overflow-y: scroll;">
+				<div id="divId" style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 150px;width: 55%;overflow-x: hidden; overflow-y: scroll;">
 
 							<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">

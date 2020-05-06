@@ -55,7 +55,8 @@ public class clsRoomMasterBean {
 	private String strRemarks;
 	
 	private String strRoomTypeDesc;
-	
+
+	private double dblTariff;
 	
 	
 	// Setter-Getter Methods
@@ -275,6 +276,14 @@ public class clsRoomMasterBean {
 
 	public void setStrRoomTypeDesc(String strRoomTypeDesc) {
 		this.strRoomTypeDesc = strRoomTypeDesc;
+	}
+
+	public double getDblTariff() {
+		return dblTariff;
+	}
+
+	public void setDblTariff(double dblTariff) {
+		this.dblTariff = dblTariff;
 	}
 
 

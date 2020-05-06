@@ -233,8 +233,8 @@ public class clsGRNController {
 		Map<String, String> settlementList = objSettlementService.funGetSettlementComboBox(clientCode);
 	    if(settlementList == null || settlementList.size()==0 )
 	    {
-	    	settlementList.put("cash", "cash");
-	    	settlementList.put("credit","credit");
+	    	settlementList.put("Cash", "Cash");
+	    	settlementList.put("Credit","Credit");
 	    }
 	    model.put("settlementList", settlementList);
 	    

@@ -3528,7 +3528,7 @@ function funCalculateOtherChargesTotal()
 						<div class="col-md-2"></div>
 						
 						<div class="col-md-2"><label>Unit Price</label>
-								   <input type="text"  id="txtCostRM" value="0"  class="decimal-places-amt numberField" onkeypress="funGetKeyCode(event,'UnitPrice')"></input>
+								   <input type="text"  id="txtCostRM" value="0" style="text-align: right;" class="decimal-places-amt numberField" onkeypress="funGetKeyCode(event,'UnitPrice')"></input>
 						</div>
 						
 						<div class="col-md-2"><label>UOM</label>
@@ -3540,24 +3540,24 @@ function funCalculateOtherChargesTotal()
 						</div>
 						
 						<div class="col-md-2"><label>Discount Amount</label>
-								    <input id="txtDiscount" value="0" type="text" ></input>
+								    <input id="txtDiscount" value="0" style="text-align: right;" type="text" ></input>
 						</div>
 		                  <div class="col-md-4"></div>
 		                  
 						<div class="col-md-2"><label>Rejected</label>
-								    <input id="txtRejected" value="0" type="text"  class="decimal-places numberField"></input>
+								    <input id="txtRejected" value="0" style="text-align: right;" type="text"  class="decimal-places numberField"></input>
 						</div>
 						
 						<div class="col-md-2"><label>DC/Wt</label>
-									<input id="txtDCWt" value="0" type="text"  class="decimal-places numberField"></input>
+									<input id="txtDCWt" value="0" type="text" style="text-align: right;" class="decimal-places numberField"></input>
 						</div>
 						
 						<div class="col-md-2"><label>DC Qty</label>
-									<input id="txtDCQty" value="0" type="text"  class="decimal-places numberField" ></input>
+									<input id="txtDCQty" value="0" type="text" style="text-align: right;" class="decimal-places numberField" ></input>
 						</div>
 						
 						<div class="col-md-2"><label>Quantity Receiveable</label>
-									<input id="txtQtyRec" value="0" type="text"  class="decimal-places numberField"></input>
+									<input id="txtQtyRec" value="0" type="text" style="text-align: right;" class="decimal-places numberField"></input>
 						</div>
 							<div class="col-md-4"></div>
 								
@@ -3571,11 +3571,11 @@ function funCalculateOtherChargesTotal()
 						</div>
 						
 						<div class="col-md-2"><label>Rework</label>
-							<input id="txtRework" value="0.00" type="text"  class="decimal-places numberField"></input>
+							<input id="txtRework" value="0.00" type="text" style="text-align: right;" class="decimal-places numberField"></input>
 						</div>
 						
 						<div class="col-md-2"><label>Packaging & Forwording</label>
-							<input id="txtPack" value="0.00" type="text"  class="decimal-places numberField"></input>
+							<input id="txtPack" value="0.00" type="text" style="text-align: right;" class="decimal-places numberField"></input>
 						</div>
 						<div class="col-md-4"></div>
 									
@@ -3588,7 +3588,7 @@ function funCalculateOtherChargesTotal()
 					    </div>
 					    
 						<div class="col-md-2"><label>Free Qty</label>
-							<s:input id="txtFreeQty" value="0" path="dblFreeQty" cssClass="decimal-places-amt numberField"/>
+							<s:input id="txtFreeQty" value="0" style="text-align: right;" path="dblFreeQty" cssClass="decimal-places-amt numberField"/>
 						</div>
 				   
 				</div><br>				
@@ -3685,21 +3685,21 @@ function funCalculateOtherChargesTotal()
 				</div><br>							
 				<div class="row transTable">
 					<div class="col-md-2"><label id="lblTotalWt">Total Weight</label>
-						 <input type="text" id="txtTotalWt" value="0.0" style="background-color:#fff;" disabled="disabled"  class="decimal-places-amt numberField"/>
+						 <input type="text" id="txtTotalWt" value="0.0" style="background-color:#fff;text-align: right;" disabled="disabled"  class="decimal-places-amt numberField"/>
 					</div>
 									    
 					<div class="col-md-2"><label id="lblTotalQty">Total Quantity</label>
-						 <input id="txtTotalQty" type="text" value="0.0" style="background-color:#fff;" disabled="disabled" class="decimal-places-amt numberField"/>
+						 <input id="txtTotalQty" type="text" value="0.0" style="background-color:#fff;text-align: right;" disabled="disabled" class="decimal-places-amt numberField"/>
 					</div>
 					<div class="col-md-2"><label id="lblSubTotal">Sub Total</label>
-							<s:input id="txtSubTotal" type="text"  path="dblSubTotal" readonly="true" cssClass="decimal-places-amt numberField"/>
+							<s:input id="txtSubTotal" type="text"  path="dblSubTotal" readonly="true" style="text-align: right;" cssClass="decimal-places-amt numberField"/>
 					</div>
 								    
 					<div class="col-md-2"><label id="lblDiscPer">Discount %</label>
-							<s:input id="txtDiscPer" path="dblDisRate" type="text" onblur="funCalDiscountAmt();"  class="decimal-places-amt numberField"/>
+							<s:input id="txtDiscPer" path="dblDisRate" type="text" style="text-align: right;" onblur="funCalDiscountAmt();"  class="decimal-places-amt numberField"/>
 					</div>
 					<div class="col-md-2"><label id="lblDiscAmount">Discount Amount</label>
-						   <s:input id="txtDiscAmount" path="dblDisAmt" type="text" onblur="funCalDiscountPercentage();"  class="decimal-places-amt numberField"/>
+						   <s:input id="txtDiscAmount" path="dblDisAmt" type="text" style="text-align: right;" onblur="funCalDiscountPercentage();"  class="decimal-places-amt numberField"/>
 					 </div>
 								  
 					<div class="col-md-2"><label id="lblNarration">Narration</label>
@@ -3714,7 +3714,7 @@ function funCalculateOtherChargesTotal()
 							 <s:input id="txtLessAmt" path="dblLessAmt" type="text"  style="text-align:right; " onblur="funGetTotal();" class="decimal-places-amt numberField"/>
 				     </div>
 					<div class="col-md-2"><label id="lblFinalAmt">Final Amount</label>
-							<s:input type="text" id="txtFinalAmt" path="dblTotal"  readonly="true" cssClass="decimal-places-amt numberField"/>
+							<s:input type="text" id="txtFinalAmt" path="dblTotal"  style="text-align: right;" readonly="true" cssClass="decimal-places-amt numberField"/>
 					</div>
 					<div class="col-md-2"><label id="lblVehicleNo">Vehicle No</label>
 							<s:input id="txtVehicleNo" path="strVehNo"/>

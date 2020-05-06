@@ -349,9 +349,10 @@ function funExpectedArrDetail(ProdDtl)
 function funOnClckExpectedDeptWiseBtn( divId)
 {
 	funShowTableGUI(divId)
-	$('#lblButton').text("Department wise");
+	$('#lblButton').text("Expected Departure List");
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
+    $('#divValueTotal').hide();
 	var searchUrl=getContextPath()+"/loadExpectedDeptWiseDtl.html?frmDte="+frmDte1+"&toDte="+toDte1;
 	$.ajax({
 	        type: "GET",
@@ -402,8 +403,8 @@ function funExpectedDeptDetail(ProdDtl)
 	bookingType=bookingType.replace(" ",'_');
 
 	}
-	row.insertCell(0).innerHTML= "<input name=\"strCheckInNo["+(rowCount)+"]\" readonly=\"readonly\"  class=\"Box\" size=\"24%\" id=\"strCheckInNo."+(rowCount)+"\" value='"+data.strCheckInNo+"'>";		    
-    row.insertCell(1).innerHTML= "<input name=\"strGuestName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"25%\" id=\"strGuestName."+(rowCount)+"\" value='"+data.strGuestName+"'>";
+	row.insertCell(0).innerHTML= "<input name=\"strCheckInNo["+(rowCount)+"]\" readonly=\"readonly\"  class=\"Box\" size=\"15%\" id=\"strCheckInNo."+(rowCount)+"\" value='"+data.strCheckInNo+"'>";		    
+    row.insertCell(1).innerHTML= "<input name=\"strGuestName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"32%\" id=\"strGuestName."+(rowCount)+"\" value='"+data.strGuestName+"'>";
     row.insertCell(2).innerHTML= "<input name=\"dteDepartureDate["+(rowCount)+"]\" id=\"dteDepartureDate."+(rowCount)+"\" readonly=\"readonly\"   size=\"14%\" class=\"Box\" value="+data.dteDepartureDate+">";
     row.insertCell(3).innerHTML= "<input name=\"strRoomDesc["+(rowCount)+"]\" id=\"strRoomDesc."+(rowCount)+"\" readonly=\"readonly\"   size=\"14%\" class=\"Box\" value="+roomDesc+">";
     row.insertCell(4).innerHTML= "<input name=\"strRoomType["+(rowCount)+"]\" readonly=\"readonly\"  class=\"Box\" size=\"14%\" id=\"strRoomType."+(rowCount)+"\" value='"+data.strRoomType+"'>";
@@ -493,9 +494,10 @@ function funCheckInOpenSlip(data,against)
 function funOnClckCheckOutBtn( divId)
 {
 	funShowTableGUI(divId)
-	$('#lblButton').text("Check-out wise");
+	$('#lblButton').text("Check-out List");
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
+    $('#txtTotValue').hide(); 
 	var searchUrl=getContextPath()+"/loadCheckOutDtl.html?frmDte="+frmDte1+"&toDte="+toDte1;
 	$.ajax({
 	        type: "GET",
@@ -546,7 +548,7 @@ function funCheckOutDetail(ProdDtl)
     	}
     
     row.insertCell(0).innerHTML='<input name=\"strBillNo['+(rowCount)+']\" readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strBillNo.'+(rowCount)+'\" value='+data.strBillNo+'> </a> ';
-	row.insertCell(1).innerHTML= "<input name=\"strGuestName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"25%\" id=\"strGuestName."+(rowCount)+"\" value='"+data.strGuestName+"'>";
+	row.insertCell(1).innerHTML= "<input name=\"strGuestName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"28%\" id=\"strGuestName."+(rowCount)+"\" value='"+data.strGuestName+"'>";
     row.insertCell(2).innerHTML= "<input name=\"dteDepartureDate["+(rowCount)+"]\" id=\"dteDepartureDate."+(rowCount)+"\" readonly=\"readonly\"   size=\"14%\" class=\"Box\" value="+data.dteDepartureDate+">";
     row.insertCell(3).innerHTML= "<input name=\"strRoomDesc["+(rowCount)+"]\" id=\"strRoomDesc."+(rowCount)+"\" readonly=\"readonly\"   size=\"14%\" class=\"Box\" value="+roomDesc+">";
     row.insertCell(4).innerHTML= "<input name=\"strRoomType["+(rowCount)+"]\" readonly=\"readonly\"  class=\"Box\" size=\"14%\" id=\"strRoomType."+(rowCount)+"\" value='"+data.strRoomType+"'>";
@@ -818,7 +820,7 @@ function funSetBillPrintingDetail(ProdDtl)
      	row.insertCell(0).innerHTML= "<input name=\"strBillNo["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strBillNo."+(rowCount)+"\" value='"+strBillNo+"' onclick=\"funOpenBillPrintingSlip(this,'"+perticular+"')\">";
 	    row.insertCell(1).innerHTML= "<input name=\"dteBillDate["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"text-align: center;\" size=\"15%\" id=\"dteBillDate."+(rowCount)+"\" value='"+dteBillDate+"'>";
 	    row.insertCell(2).innerHTML= "<input name=\"strRoomDesc["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strRoomDesc."+(rowCount)+"\" value='"+strRoomDesc+"'>";
-	    row.insertCell(3).innerHTML= "<input name=\"strGuestName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strGuestName."+(rowCount)+"\" value='"+strGuestName+"'>";
+	    row.insertCell(3).innerHTML= "<input name=\"strGuestName["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" size=\"26%\" id=\"strGuestName."+(rowCount)+"\" value='"+strGuestName+"'>";
 	    row.insertCell(4).innerHTML= "<input name=\"dblGrndTotal["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"15%\" id=\"dblGrndTotal."+(rowCount)+"\" value='"+dblGrndTotal+"'>";
 /* 	    row.insertCell(5).innerHTML= "<input name=\"dblDiscount["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"15%\" id=\"dblDiscount."+(rowCount)+"\" value='"+dblDiscount+"' >";
  */	    row.insertCell(5).innerHTML= "<input name=\"dblTaxAmount["+(rowCount)+"]\" readonly=\"readonly\" class=\"Box\" style=\"text-align: right;\" size=\"15%\" id=\"dblTaxAmount."+(rowCount)+"\" value='"+dblTaxAmount+"'>";
@@ -1297,6 +1299,7 @@ function funOnClckBillPrinting( divId)
 	funShowTableGUI(divId)
 	var frmDte1=$('#dteFromDate').val();
     var toDte1=$('#dteToDate').val();
+    $('#lblButton').text("Bill wise");
 	var searchUrl=getContextPath()+"/loadBillPrintingForSalesFlash.html?frmDte="+frmDte1+"&toDte="+toDte1;
 	$.ajax({
 	        type: "GET",
@@ -1365,7 +1368,7 @@ function funClick(obj)
 
 <body onload="funOnLoad();">
 	<div class="container">
-		<label id="formHeading">Sales Flash  -</label>
+		<label id="formHeading">PMS Flash  -</label>
 		&nbsp;&nbsp;&nbsp;<label id="lblButton" style="font-weight: bold;"> </label>
 		<s:form name="frmPMSSalesFlash" method="GET" action="">
 			<div class="row transTable">
@@ -1580,7 +1583,7 @@ function funClick(obj)
 		<div id="divCheckOutList" class="dynamicTableContainer" style="height:400px;">
 			<table style="width: 100%; border: #0F0; table-layout: fixed;" class="transTablex col15-center">
 				<tr bgcolor="#c0c0c0">
-					<td width="7.4%">Bill No </td>
+					<td width="7.4%">Check-in No </td>
 					<td width="10%">Guest Name</td>
 					<td width="6.1%">Departure Date</td>
 					<td width="5%">Room Description</td>

@@ -1,5 +1,4 @@
-
- <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
@@ -143,7 +142,38 @@ var listProductData;
 				$("#txtPartyName").focus();
 				return false;
 			}
+			
+			/* if(flg==true)
+				{
+				   $.ajax({
+						type : "POST",
+						url : getContextPath()+ "/saveCustomerMaster.html?",
+						dataType : "json",
+						async:false,
+						success : function(response){ 
+							},
+						error : function(e){
+							if (jqXHR.status === 0) {
+				                alert('Not connect.n Verify Network.');
+				            } else if (jqXHR.status == 404) {
+				                alert('Requested page not found. [404]');
+				            } else if (jqXHR.status == 500) {
+				                alert('Internal Server Error [500].');
+				            } else if (exception === 'parsererror') {
+				                alert('Requested JSON parse failed.');
+				            } else if (exception === 'timeout') {
+				                alert('Time out error.');
+				            } else if (exception === 'abort') {
+				                alert('Ajax request aborted.');
+				            } else {
+				                alert('Uncaught Error.n' + jqXHR.responseText);
+				            }
+						}
+					});
+				
+				} */
 			return flg;
+			
 	    }
 		
 		function funSetAdd()
@@ -1163,7 +1193,7 @@ var listProductData;
 <body  id="bodyCustomerMaster">
 	<div class="container">
 		<label id="formHeading">Customer Master</label>
-		<s:form name="CustomermasterForm" method="POST" action="saveCustomerMaster.html?saddr=${urlHits}">	
+	<s:form name="CustomermasterForm" method="POST" action="saveCustomerMaster.html?saddr=${urlHits}">	
 			<div style="border: 0px solid black;">
 				<div id="tab_container" style="margin:10px 0px;; overflow:hidden;">
 					<ul class="tabs" style="margin-bottom:10px;">
@@ -1185,7 +1215,7 @@ var listProductData;
 				        	</div>	
 				    		<div class="col-md-2">
 				        		<label>Name:</label><br>
-				        		<s:input type="text" id="txtPartyName" autocomplete="off" name="txtPartyName" path="strPName" cssStyle="text-transform: uppercase;" required="true"/>
+				        		<s:input type="text" id="txtPartyName" autocomplete="off"  path="strPName" cssStyle="text-transform: uppercase;" required="true"/>
 				        	</div>
 				   			<div class="col-md-2">
 				        	  	<label>Local Language Name:</label><br>
@@ -1656,8 +1686,7 @@ var listProductData;
 				</div>
 			</div>
 			<div class="center" style="text-align:center;">
-				<input id="formsubmit" type="button" class="btn btn-primary center-block" onclick="return funValidateFields()"
-						value="Submit" />&nbsp
+				<input id="formsubmit" type="Submit" class="btn btn-primary center-block" onclick="return funValidateFields()" value="Submit" />
 				<input  type="button" value="Reset" onclick="funResetFields()"
 						class="btn btn-primary center-block" />
 			</div>

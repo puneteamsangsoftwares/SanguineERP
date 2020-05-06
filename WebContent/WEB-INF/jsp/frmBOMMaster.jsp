@@ -104,6 +104,7 @@
 		
 	 	function funSetBom(code)
 		{
+	 		
 	 		$("#txtBomCode").val(code);
 	 		searchUrl=getContextPath()+"/loadBOMMaster.html?BOMCode="+code;
 			//alert(searchUrl);
@@ -126,6 +127,7 @@
 			        		$("#txtToDate").val(response.dtValidTo);
 			        		$("#txtMethod").val(response.strMethod);
 			        		$("#txtQty").focus();
+			        		fillParentImage(response.strParentCode);
 			        		
 			        		var count=0;
 				        	funRemoveProductRows();
@@ -134,7 +136,7 @@
 			                {
 								count=i;
 								funLoadBomData(listdata[i].strChildCode,listdata[i].strProdName,listdata[i].dblQty,listdata[i].strUOM );
-			                                               
+								                          
 			                });
 							listRow=count+1;
 							funShowRecipeCost(code);
@@ -169,6 +171,7 @@
 	 		
 // 			document.recipeForm.action="frmBOMMaster1.html?BOMCode="+code;
 // 			document.recipeForm.submit();
+			
 		} 
 		
 		function funSetChild(code)
@@ -513,6 +516,11 @@
 			$('#childProdImages').append('<div class=\"mainMenuIcon\" id="'+imageCode+'"><img  src="'+searchUrl+'" width=\"100px\" height=\"100px\"/><div>');
 		}
 		
+		function fillParentImage(imageCode){
+			searchUrl=getContextPath()+"/getProdImage.html?prodCode="+imageCode;
+			$('#itemImage').append('<div class=\"mainMenuIcon\" id="'+imageCode+'"><img  src="'+searchUrl+'" width=\"100%\" height=\"147px\"/><div>');
+		}
+		
 		function setImages_ChildProd(){
 			var table = document.getElementById("tblChild");
 			var rowCount = table.rows.length;
@@ -591,7 +599,7 @@
 	</script>
 </head>
 
-<body>
+<body id="bodyMain">
 	<div class="container">
 		<!-- <label>Recipe Master</label> -->
 		<label id="lblFormName"></label>
@@ -662,8 +670,12 @@
 					</div>
 				</div>
 				<div class="col-md-3">
-					<div style="background-color: #fbfafa; width:90%;margin-top: 10px; border: 1px solid black; height:auto;"><img id="itemImage" src="" width="134px" height="127px" alt="Item Image"  >
-					</div>
+					<!-- <div style="background-color: #fbfafa; width:90%;margin-top: 10px; border: 1px solid black; height:auto;"><img id="itemImage" src="" width="134px" height="127px" alt="Item Image"  >
+					</div> -->
+					
+					<div id="itemImage" style="width: 134px; height:157px;">
+	
+			</div>
 				</div>
 			</div>
 			<div style="margin-bottom: 30px;min-height: 300px">
@@ -730,7 +742,7 @@
 		</div>
 		<div class="center" style="margin-right: 5%;">
 		   <a href="#"><button class="btn btn-primary center-block" id="formsubmit"  value="Submit" onclick="return funValidateFields()">Submit</button></a>
-		   <a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields();">Reset</button></a>
+		   <a href="#"><button class="btn btn-primary center-block" type="button"  value="Reset" onclick="funResetFields();">Reset</button></a>
 		</div>
 		<br><br>
 		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">

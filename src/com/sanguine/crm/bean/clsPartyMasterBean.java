@@ -7,7 +7,7 @@ import com.sanguine.model.clsProdSuppMasterModel;
 
 public class clsPartyMasterBean {
 
-	private String strPCode, strPName, strPhone, strMobile, strFax, strContact, strEmail, strPType, strBankName, strBankAdd1, strBankAdd2;
+	private String strPCode="", strPName, strPhone, strMobile, strFax, strContact, strEmail, strPType, strBankName, strBankAdd1, strBankAdd2;
 	private String strTaxNo1, strTaxNo2, strPartyType, strPmtTerms, strAcCrCode, strMAdd1, strMAdd2, strMCity, strMPin, strMState, strMCountry;
 	private String strBAdd1, strBAdd2, strBCity, strBPin, strBState, strBCountry;
 	private String strSAdd1, strSAdd2, strSCity, strSPin, strSState, strSCountry;

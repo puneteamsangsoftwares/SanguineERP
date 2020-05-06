@@ -48,6 +48,9 @@ public class clsRecipeMasterBean {
 
 	private String strLocation;
 	
+	private String strParentUOM;
+
+	
 	
 	
 	
@@ -228,6 +231,14 @@ public class clsRecipeMasterBean {
 
 	public void setStrLocation(String strLocation) {
 		this.strLocation = strLocation;
+	}
+
+	public String getStrParentUOM() {
+		return strParentUOM;
+	}
+
+	public void setStrParentUOM(String strParentUOM) {
+		this.strParentUOM = strParentUOM;
 	}
 
 }

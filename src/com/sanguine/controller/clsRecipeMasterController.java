@@ -515,6 +515,7 @@ public class clsRecipeMasterController {
 					objBean.setDblPrice(bomrate);
 					objBean.setDtValidFrom(obj[15].toString());
 					objBean.setDtValidTo(obj[16].toString());
+					objBean.setStrParentUOM(obj[4].toString());
 					listDtlBean.add(objBean);
 					
 				}

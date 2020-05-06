@@ -297,7 +297,7 @@ public class clsPMSSalesFlashController {
 		String toDte = arr1[2] + "-" + arr1[1] + "-" + arr1[0];
 
 		List<clsPMSSalesFlashBean> listofExpectedDeptDtl = new ArrayList<clsPMSSalesFlashBean>();
-		String sql="SELECT a.strCheckInNo,a.strType, DATE(a.dteDepartureDate),c.strRoomDesc,c.strRoomTypeDesc,"
+		String sql="SELECT a.strCheckInNo,a.strType, DATE_FORMAT(a.dteDepartureDate,'%d-%m-%Y') ,c.strRoomDesc,c.strRoomTypeDesc,"
 				  +" CONCAT(d.strFirstName,' ',d.strMiddleName,'',d.strLastName) "
                   +" FROM tblcheckinhd a,tblcheckindtl b,tblroom c,tblguestmaster d "
                   +" WHERE a.strCheckInNo=b.strCheckInNo AND b.strRoomNo=c.strRoomCode AND b.strGuestCode=d.strGuestCode "
@@ -383,8 +383,8 @@ public class clsPMSSalesFlashController {
 			List<clsPMSSalesFlashBean> listofCheckOutDtl = new ArrayList<clsPMSSalesFlashBean>();
 			List listofCheckOutTotal = new ArrayList<>();
 
-			String sql="SELECT a.strCheckInNo,a.strType, DATE(a.dteDepartureDate),c.strRoomDesc,c.strRoomTypeDesc, "
-                      +" CONCAT(d.strFirstName,'', d.strMiddleName,'',d.strLastName), e.dblGrandTotal "
+			String sql="SELECT a.strCheckInNo,a.strType, DATE_FORMAT(a.dteDepartureDate,'%d-%m-%Y'),c.strRoomDesc,c.strRoomTypeDesc, "
+                      +" CONCAT(d.strFirstName,' ', d.strMiddleName,' ',d.strLastName), e.dblGrandTotal "
                       +" FROM tblcheckinhd a,tblcheckindtl b,tblroom c,tblguestmaster d,tblbillhd e "
                       +" WHERE a.strCheckInNo=b.strCheckInNo AND b.strRoomNo=c.strRoomCode AND b.strGuestCode=d.strGuestCode " 
                       +" AND  a.strCheckInNo=e.strCheckInNo AND a.strClientCode='"+strClientCode+"' AND b.strClientCode='"+strClientCode+"' "

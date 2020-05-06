@@ -91,7 +91,7 @@
 					  var isCheckOk=confirm("Do You Want to Open fill Masters ?"); 
 						if(isCheckOk)
 						{			 	 
-							url=getContextPath()+"/frmWalkin.html?"
+							url=getContextPath()+"/frmPMSFillMasters.html?"
 					 	 	window.open(url); 
 						}
 					  }

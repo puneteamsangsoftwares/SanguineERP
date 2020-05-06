@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
 	var fieldName;
-    
+    var total=0;
 	
 	function funValidateFields()
 	{
@@ -273,10 +273,14 @@
 	   	row.insertCell(5).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: left;width:100%\" name=\"listMergeBill["+(rowCount)+"].dteCheckoutdate\" id=\"dteCheckOutDate."+(rowCount)+"\" value='"+dteCheckOutDate+"' />";
 	    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" style=\"text-align: right;width:100%\" name=\"listMergeBill["+(rowCount)+"].dblDblTotal\" id=\"dblDblTotal."+(rowCount)+"\" value='"+strTotal+"' />";
 	    row.insertCell(7).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"6%\" value = \"\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
-	    
+	    total = total+strTotal;
+	    funCalculateTotal(total);
 	   // row.insertCell(0).innerHTML= "<input id=\"cbSuppSel."+(rowCount)+"\" name=\"Suppthemes\" type=\"checkbox\" class=\"SuppCheckBoxClass\"  checked=\"checked\" value='"+strSuppCode+"' />";
 	}
-	
+	function funCalculateTotal(total)
+	{
+		$("#txtTotValue").val(total);
+	}
 	function funDeleteRow(obj) 
 	{
 	    var index = obj.parentNode.parentNode.rowIndex;

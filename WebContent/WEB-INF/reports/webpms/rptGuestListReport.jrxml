@@ -364,7 +364,7 @@
 								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 								<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="126" height="20" uuid="b175e84c-14e1-4509-918d-4f530c55c646"/>
-									<textElement textAlignment="Center"/>
+									<textElement textAlignment="Left"/>
 									<textFieldExpression><![CDATA[$F{strGuestName}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
@@ -424,7 +424,7 @@
 								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 								<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="124" height="20" uuid="8567abb1-0d56-48d0-b7a9-c85c3a7f6493"/>
-									<textElement textAlignment="Center"/>
+									<textElement textAlignment="Left"/>
 									<textFieldExpression><![CDATA[$F{strAddress}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
@@ -444,7 +444,7 @@
 								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 								<textField>
 									<reportElement x="0" y="0" width="61" height="20" uuid="11665732-e4f2-4ae8-9d3f-77d97822b401"/>
-									<textElement textAlignment="Center"/>
+									<textElement textAlignment="Right"/>
 									<textFieldExpression><![CDATA[$F{strPax}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
