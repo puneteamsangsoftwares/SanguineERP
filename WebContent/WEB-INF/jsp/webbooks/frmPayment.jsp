@@ -818,13 +818,13 @@ function funSetDebtorMasterData(debtorCode)
 	    	debtorCode="";
 	    }
 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listPaymentDetailsBean["+(rowCount)+"].strAccountCode\" id=\"strAccountCode."+(rowCount)+"\" value='"+accountCode+"' />";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"18%\" name=\"listPaymentDetailsBean["+(rowCount)+"].strDescription\" id=\"strDescription."+(rowCount)+"\" value='"+description+"' />";
-	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"12%\" name=\"listPaymentDetailsBean["+(rowCount)+"].strDebtorCode\" id=\"strDebtorCode."+(rowCount)+"\" value='"+debtorCode+"' />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"14%\" name=\"listPaymentDetailsBean["+(rowCount)+"].strDebtorName\" id=\"strDebtorName."+(rowCount)+"\" value='"+debtorName+"' />";
-	    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"5%\" name=\"listPaymentDetailsBean["+(rowCount)+"].strDC\" id=\"strDC."+(rowCount)+"\" value='"+transType+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listPaymentDetailsBean["+(rowCount)+"].strDescription\" id=\"strDescription."+(rowCount)+"\" value='"+description+"' />";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"14%\" name=\"listPaymentDetailsBean["+(rowCount)+"].strDebtorCode\" id=\"strDebtorCode."+(rowCount)+"\" value='"+debtorCode+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listPaymentDetailsBean["+(rowCount)+"].strDebtorName\" id=\"strDebtorName."+(rowCount)+"\" value='"+debtorName+"' />";
+	    row.insertCell(4).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" name=\"listPaymentDetailsBean["+(rowCount)+"].strDC\" id=\"strDC."+(rowCount)+"\" value='"+transType+"' />";
 	    row.insertCell(5).innerHTML= "<input type=\"text\" class=\" debitAmt\"  onblur=\"Javacsript:funUpdateDebitAmount(this)\" size=\"10%\" name=\"listPaymentDetailsBean["+(rowCount)+"].dblDebitAmt\" style=\"text-align: right;width:98%;\" id=\"dblDebitAmt."+(rowCount)+"\" value='"+debitAmt+"'/>";
 	    row.insertCell(6).innerHTML= "<input type=\"text\" class=\" creditAmt\" onblur=\"Javacsript:funUpdateCreditAmount(this)\"  size=\"10%\" name=\"listPaymentDetailsBean["+(rowCount)+"].dblCreditAmt\" style=\"text-align: right;width:98%;\" id=\"dblCreditAmt."+(rowCount)+"\" value='"+creditAmt+"'/>";
-	    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listPaymentDetailsBean["+(rowCount)+"].strDimension\" id=\"strDimension."+(rowCount)+"\" value='"+dimension+"'/>";	        
+	    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listPaymentDetailsBean["+(rowCount)+"].strDimension\" id=\"strDimension."+(rowCount)+"\" value='"+dimension+"'/>";	        
 	    row.insertCell(8).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"2%\" value = \"Delete\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
 // 	    row.insertCell(8).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" size=\"1%\" name=\"listPaymentDetailsBean["+(rowCount)+"].strDebtorName\" id=\"strDebtorName."+(rowCount)+"\" value='"+debtorName+"' />";
 	    
@@ -1657,7 +1657,7 @@ function funSetDebtorMasterData(debtorCode)
 					 				</select>
 								</div>
 								<div class="col-md-4"><label>Amount</label>
-				         	 		<input type="text" id="txtAmount" value="0.00" class="decimal-places numberField"/>
+				         	 		<input type="text" id="txtAmount" value="0.00"  style="text-align:right" class="decimal-places numberField"/>
 								</div>
 								<div class="col-md-2"><label>Dimension</label>
 				        			<select id="cmbDimesion" class="BoxW124px">
@@ -1685,14 +1685,14 @@ function funSetDebtorMasterData(debtorCode)
 					<table
 						style="height: 28px; border: #0F0; width: 100%; font-size: 11px; font-weight: bold;">
 						<tr bgcolor="#c0c0c0">
-							<td style="width:10%;">Account Code</td>
-							<td style="width:10%;">Description</td>
-							<td style="width:7%;">Creditor Code</td>
-							<td style="width:9%;">Creditor Name</td>
-							<td style="width:3%;">D/C</td>
-							<td style="width:5.3%;"  align ="right">Debit Amt</td>
-							<td style="width:6%;" align ="right">Credit Amt</td>
-							<td style="width:5%;">Dimension</td>
+							<td style="width:7%;">Account Code</td>
+							<td style="width:8%;">Description</td>
+							<td style="width:6%;">Creditor Code</td>
+							<td style="width:8%;">Creditor Name</td>
+							<td style="width:1%;">D/C</td>
+							<td style="width:5.8%;"  align ="right">Debit Amt</td>
+							<td style="width:5%;" align ="right">Credit Amt</td>
+							<td style="width:4%;">Dimension</td>
 							<td style="width:1%;">Delete</td>
 						</tr>
 					</table>
@@ -1707,10 +1707,10 @@ function funSetDebtorMasterData(debtorCode)
 									<col style="width:13%">
 									<col style="width:15%">
 									<col style="width:5%">
+									<col style="width:11%">
 									<col style="width:10%">
-									<col style="width:10%">
-									<col style="width:8%">
-									<col style="width:5%">
+									<col style="width:13%">
+									<col style="width:3%">
 					<%-- 			<col style="width:2%;;"> --%>
 								</tbody>
 						</table>
@@ -1721,10 +1721,10 @@ function funSetDebtorMasterData(debtorCode)
 					<table class="transTable">
 						<tr>
 							<td width="2%"><label>Difference</label></td>
-							<td><label id ="lblDiffAmt">0.00</label></td>
+							<td style="text-align:right"><label id ="lblDiffAmt">0.00</label></td>
 							<td><label>Total</label></td>
-							<td><label id ="lblDebitAmt">0.00</label></td>
-							<td><label id ="lblCreditAmt">0.00</label></td>
+							<td style="text-align:right"><label id ="lblDebitAmt">0.00</label></td>
+							<td style="text-align:right"><label id ="lblCreditAmt">0.00</label></td>
 						</tr>
 						
 						<tr>

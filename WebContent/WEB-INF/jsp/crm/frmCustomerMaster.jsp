@@ -1311,12 +1311,12 @@ var listProductData;
 					        </div>
 				  			<div class="col-md-2">
 				    			<label>Credit Days</label>
-				        		<s:input id="txtCreditDays" name="txtCreditDays" path="intCreditDays"/>
+				        		<s:input type="number" id="txtCreditDays" name="txtCreditDays" path="intCreditDays"/>
 				        	</div>
 				        	 <div class="col-md-2"></div>
 				        	<div class="col-md-2">
 				    			<label>Credit Limit</label>
-				        		<s:input id="txtCreditLimit" name="txtCreditLimit" path="dblCreditLimit"/>
+				        		<s:input type="number" id="txtCreditLimit" name="txtCreditLimit" path="dblCreditLimit"/>
 				        	</div>
 				  			<div class="col-md-2">
 					    		<label>Registration No.</label>

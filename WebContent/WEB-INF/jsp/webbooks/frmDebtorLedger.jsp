@@ -905,7 +905,7 @@
 									 path="strGLCode" ondblclick="funHelp('debtorAccountCode')"/>
 								</div>
 								<div class="col-md-7">
-									<label id="lblGLCode" style="background-color:#dcdada94; width: 100%; height:100% "></label>
+									<label id="lblGLCode" style="background-color:#dcdada94; width: 100%; height:100% ;padding-left: 7px;padding-bottom: 3px;padding-top: 3px;"></label>
 								</div>
 							</div>
 						</div>
@@ -937,7 +937,7 @@
 									 path="strFromDebtorCode" ondblclick="funHelp('debtorCode')"/>
 								</div>
 								<div class="col-md-7">
-									<label id="lblFromDebtorName" style="background-color:#dcdada94; width: 100%; height:100%"></label>
+									<label id="lblFromDebtorName" style="background-color:#dcdada94; width: 100%; height:100%;padding-left: 7px;padding-bottom: 3px;padding-top: 3px;"></label>
 								</div>
 							</div>
 						</div>

@@ -476,7 +476,7 @@
 					 
 					 <div class="col-md-2">
 								<label>Previous Year Balance</label>
-									<s:input  type="text" placeholder="Previous Year Balance" id="txtPrevYearBal" step="0.0001"
+									<s:input  type="text" placeholder="Previous Year Balance" id="txtPrevYearBal" step="0.0001" style="width:80%; text-align:right"
 									 path="intPrevYearBal" items="${listOpeningBalance}" class="decimal-places numberField" required="true"/>
 						</div>
 							

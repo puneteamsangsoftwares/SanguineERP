@@ -616,7 +616,7 @@
 			</div>
 	
 		<div id="divRegionWise" class="dynamicTableContainer"
-			style="height: 400px;">
+			style="height: 350px;">
 			<table style="width: 100%; border: #0F0; table-layout: fixed;"
 				class="transTablex col15-center">
 				<tr bgcolor="#c0c0c0">

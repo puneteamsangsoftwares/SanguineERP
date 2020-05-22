@@ -490,7 +490,7 @@
 									 	path="strGLCode" ondblclick="funHelp('EmployeeAccountCode');"/>
 							</div>
 							<div class="col-md-7">
-								<label id="lblGLCode" style="background-color:#dcdada94; width: 100%; height: 85%"></label>
+								<label id="lblGLCode" style="background-color:#dcdada94; width: 100%; height: 85%;padding-left: 7px;padding-bottom: 3px;padding-top: 3px;"></label>
 							</div>
 						</div> 
 					</div>
@@ -504,7 +504,7 @@
 									 	path="strFromEmployeeCode" ondblclick="funHelp('employeeCode');"/>
 							</div>
 							<div class="col-md-7">
-								<label id="lblFromEmployeeName" style="background-color:#dcdada94; width: 100%; height:85%"></label>
+								<label id="lblFromEmployeeName" style="background-color:#dcdada94; width: 100%; height:85%;padding-left: 7px;padding-bottom: 3px;padding-top: 3px;"></label>
 							</div>
 						</div> 
 					</div>

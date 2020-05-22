@@ -598,12 +598,12 @@
 	    
 	    debitAmt=parseFloat(debitAmt).toFixed(maxAmountDecimalPlaceLimit);
 	    creditAmt=parseFloat(creditAmt).toFixed(maxAmountDecimalPlaceLimit);
-	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listJVDtlBean["+(rowCount)+"].strAccountCode\" id=\"strAccountCode."+(rowCount)+"\" value='"+accountCode+"' />";
-	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"12%\" name=\"listJVDtlBean["+(rowCount)+"].strDebtorCode\" id=\"strDebtorCode."+(rowCount)+"\" value='"+debtorCode+"' />";
-	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listJVDtlBean["+(rowCount)+"].strDescription\" id=\"strDescription."+(rowCount)+"\" value='"+description+"' />";
-	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"1%\" name=\"listJVDtlBean["+(rowCount)+"].strDC\" id=\"strDC."+(rowCount)+"\"style=\"text-align: center;\" value='"+transType+"' />";
-	    row.insertCell(4).innerHTML= "<input type=\"text\"  size=\"7%\" name=\"listJVDtlBean["+(rowCount)+"].dblDebitAmt\" style=\"text-align: right;\"  id=\"dblDebitAmt."+(rowCount)+"\" value='"+debitAmt+"'  onblur=\"Javacsript:funUpdateDebitAmount(this)\" />";
-	    row.insertCell(5).innerHTML= "<input type=\"text\"  size=\"7%\" name=\"listJVDtlBean["+(rowCount)+"].dblCreditAmt\" style=\"text-align: right;\"  id=\"dblCreditAmt."+(rowCount)+"\" value='"+creditAmt+"' onblur=\"Javacsript:funUpdateCreditAmount(this)\" />";
+	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listJVDtlBean["+(rowCount)+"].strAccountCode\" id=\"strAccountCode."+(rowCount)+"\" value='"+accountCode+"' />";
+	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"11%\" name=\"listJVDtlBean["+(rowCount)+"].strDebtorCode\" id=\"strDebtorCode."+(rowCount)+"\" value='"+debtorCode+"' />";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listJVDtlBean["+(rowCount)+"].strDescription\" id=\"strDescription."+(rowCount)+"\" value='"+description+"' />";
+	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" name=\"listJVDtlBean["+(rowCount)+"].strDC\" id=\"strDC."+(rowCount)+"\"style=\"text-align: center;\" value='"+transType+"' />";
+	    row.insertCell(4).innerHTML= "<input type=\"text\"  size=\"9%\" name=\"listJVDtlBean["+(rowCount)+"].dblDebitAmt\" style=\"text-align: right;\"  id=\"dblDebitAmt."+(rowCount)+"\" value='"+debitAmt+"'  onblur=\"Javacsript:funUpdateDebitAmount(this)\" />";
+	    row.insertCell(5).innerHTML= "<input type=\"text\"  size=\"9%\" name=\"listJVDtlBean["+(rowCount)+"].dblCreditAmt\" style=\"text-align: right;\"  id=\"dblCreditAmt."+(rowCount)+"\" value='"+creditAmt+"' onblur=\"Javacsript:funUpdateCreditAmount(this)\" />";
 	    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listJVDtlBean["+(rowCount)+"].strDimension\" id=\"strDimension."+(rowCount)+"\" value='"+dimension+"'/>";
 	   
 	    row.insertCell(7).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" name=\"listJVDtlBean["+(rowCount)+"].strNarration\" id=\"strNarration."+(rowCount)+"\" value='"+narration+"'/>";
@@ -946,7 +946,7 @@
 			</div>
 				
 			<div class="col-md-2"><label>Initiated By </label><br>
-				  <label id="lblInitialtedby" style="background-color:#fff;width:100%">USER</label>
+				  <label id="lblInitialtedby" style="background-color:#fff;width:100%;padding-left: 7px;padding-bottom: 3px;padding-top: 3px;">USER</label>
 			</div>
 			
 			<div class="col-md-2"><label>Narration</label>
@@ -1003,7 +1003,7 @@
 			</div>
 				
 		    <div class="col-md-2"><label>Amount</label>
-				<input type="text" id="txtAmount" value="" class="decimal-places numberField"/>
+				<input type="number" id="txtAmount" value="" class="decimal-places numberField"/>
 			</div>	
 			
 			<div class="col-md-2"><label>Dimension</label>
@@ -1034,14 +1034,14 @@
 				<td style="width:9.2%">Account Code</td>
 				<td style="width:9.8%">Debtor Code</td>
 				<td style="width:21.2%">Description</td>
-				<td style="width:3.9%">D/C</td>
-				<td style="width:6.7%">Debit Amt</td>
-				<td style="width:6.7%">Credit Amt</td>
+				<td style="width:4%">D/C</td>
+				<td style="width:9.7%">Debit Amt</td>
+				<td style="width:10%">Credit Amt</td>
 				<td style="width:7.7%">Dimension</td>
 <!-- 				<td style="width:8%;">One Line Account</td> -->
-				<td style="width:12.40%">Narration</td>
-				<td style="width:6.5%">Debtor YN</td>
-				<td style="width:14.3%">Delete</td>
+				<td style="width:11.40%">Narration</td>
+				<td style="width:5%">Debtor YN</td>
+				<td style="width:9.3%">Delete</td>
 				
 			</tr>
 		</table>
@@ -1053,13 +1053,13 @@
 				<tbody>
 					<col style="width:9.5%">
 					<col style="width:10.08%">
-					<col style="width:22%">
-					<col style="width:4%">
-					<col style="width:7%">
-					<col style="width:7%">
+					<col style="width:21.8%">
+					<col style="width:4.5%">
+					<col style="width:10%">
+					<col style="width:10.5%">
 					<col style="width:8%">
 					<col style="width:13%">
-					<col style="width:3%">
+					<col style="width:5%">
 					<col style="width:2%">
 					<col style="width:0%">
 					<col style="width:0%">
@@ -1072,10 +1072,10 @@
 		<table class="transTable">
 			<tr>
 				<td width="2%"><label>Difference</label></td>
-				<td><label id ="lblDiffAmt">0.00</label></td>
+				<td style="text-align:right"><label id ="lblDiffAmt">0.00</label></td>
 				<td><label>Total</label></td>
-				<td><label id ="lblDebitAmt">0.00</label></td>
-				<td><label id ="lblCreditAmt">0.00</label></td>
+				<td style="text-align:right"><label id ="lblDebitAmt">0.00</label></td>
+				<td style="text-align:right"><label id ="lblCreditAmt">0.00</label></td>
 			</tr>
 			
 			<tr>

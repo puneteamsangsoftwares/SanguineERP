@@ -252,7 +252,7 @@
 				    </div>
 			
 					<div class="col-md-2"><label>Narration</label>
-				             <s:textarea type="text" id="txtNarration" path="strNarration"  style="width: 100%; height:27px;"/>
+				             <s:textarea type="text" id="txtNarration" path="strNarration"  style="width: 150%; height:100px;"/>
 					</div>
 			</div>
 		<p align="right" style="margin-right:26%;">

@@ -627,11 +627,11 @@
 	    
 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strAccountCode\" id=\"strAccountCode."+(rowCount)+"\" value='"+accountCode+"' />";
 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"9%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strDebtorCode\" id=\"strDebtorCode."+(rowCount)+"\" value='"+debtorCode+"' />";
-	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"20%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strDescription\" id=\"strDescription."+(rowCount)+"\" value='"+description+"' />";
+	    row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"30%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strDescription\" id=\"strDescription."+(rowCount)+"\" value='"+description+"' />";
 	    row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strDC\" id=\"strDC."+(rowCount)+"\" value='"+transType+"' />";
 	    row.insertCell(4).innerHTML= "<input type=\"text\" class=\" debitAmt\"  onblur=\"Javacsript:funUpdateDebitAmount(this)\"size=\"8%\"  style=\"text-align: right;\" name=\"listReceiptBeanDtl["+(rowCount)+"].dblDebitAmt\" id=\"dblDebitAmt."+(rowCount)+"\" value='"+debitAmt+"'/>";
 	    row.insertCell(5).innerHTML= "<input type=\"text\" class=\" creditAmt\" onblur=\"Javacsript:funUpdateCreditAmount(this)\" size=\"8%\" style=\"text-align: right;\" name=\"listReceiptBeanDtl["+(rowCount)+"].dblCreditAmt\" id=\"dblCreditAmt."+(rowCount)+"\" value='"+creditAmt+"'/>";
-	    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"2%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strDimension\" id=\"strDimension."+(rowCount)+"\" value='"+dimension+"'/>";	        
+	    row.insertCell(6).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"8%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strDimension\" id=\"strDimension."+(rowCount)+"\" value='"+dimension+"'/>";	        
 	    row.insertCell(7).innerHTML= "<input type=\"button\" class=\"deletebutton\" size=\"2%\" value = \"Delete\" onClick=\"Javacsript:funDeleteRow(this)\"/>";
   	    row.insertCell(8).innerHTML= "<input type=\"hidden\" readonly=\"readonly\" size=\"1%\" name=\"listReceiptBeanDtl["+(rowCount)+"].strDebtorName\" id=\"strDebtorName."+(rowCount)+"\" value='"+debtorName+"' />";
 	    
@@ -1501,12 +1501,12 @@
 			<tr bgcolor="#c0c0c0">
 				<td style="width:5.8%;">Account Code</td>
 				<td style="width:5.6%;">Debtor Code</td>
-				<td style="width:26.7%;">Description</td>
-				<td style="width:2.8%;">D/C</td>
-				<td style="width:7.2%;">Debit Amt</td>
-				<td style="width:7%;">Credit Amt</td>
-				<td style="width:1%;">Dimension</td>
-				<td style="width:4%;">Delete</td>
+				<td style="width:18.7%;">Description</td>
+				<td style="width:2%;">D/C</td>
+				<td style="width:7.2%;" align ="right">Debit Amt</td>
+				<td style="width:7.3%;" align ="right">Credit Amt</td>
+				<td style="width:1.5%;">Dimension</td>
+				<td style="width:2%;">Delete</td>
 				
 			</tr>
 		</table>
@@ -1518,12 +1518,12 @@
 				<tbody>
 					<col style="width:6%">
 					<col style="width:6%">
-					<col style="width:29%">
-					<col style="width:3.3%">
+					<col style="width:19%">
+					<col style="width:3%">
+					<col style="width:7%">
 					<col style="width:8%">
-					<col style="width:8%">
-					<col style="width:4%">
-					<col style="width:4%">
+					<col style="width:4.5%">
+					<col style="width:3%">
 					<col style="width:0%">
 				</tbody>
 			</table>
@@ -1534,11 +1534,11 @@
 			
 		<table class="transTable">
 			<tr>
-				<td width="2%"><label>Difference</label></td>
-				<td><label id ="lblDiffAmt">0.00</label></td>
+				<td width="2%" ><label>Difference</label></td>
+				<td style="width:7.3%;" align ="right"><label id ="lblDiffAmt">0.00</label></td>
 				<td><label>Total</label></td>
-				<td><label id ="lblDebitAmt">0.00</label></td>
-				<td><label id ="lblCreditAmt">0.00</label></td>
+				<td align="right"><label id ="lblDebitAmt">0.00</label></td>
+				<td align="right"><label id ="lblCreditAmt">0.00</label></td>
 			</tr>
 			
 			<tr>

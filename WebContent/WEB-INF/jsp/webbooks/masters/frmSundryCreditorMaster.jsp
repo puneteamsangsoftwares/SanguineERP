@@ -1364,11 +1364,11 @@
 				<div class="row">
 					<div class="col-md-6">
 						<label>License Fee in Rs.</label>
-						<s:input  type="text"  id="txtLicenseFee" path="dblLicenseFee" /> 	
+						<s:input  type="text"  id="txtLicenseFee" style="text-align:right" path="dblLicenseFee" /> 	
 					</div>
 					<div class="col-md-6">
 					<label>Annual Fee in Rs.</label>
-						<s:input  type="text"  id="txtAnnualFee" path="dblAnnualFee"/> 	
+						<s:input  type="text"  id="txtAnnualFee" style="text-align:right" path="dblAnnualFee"/> 	
 					</div>
 				</div> 
 			</div>
@@ -1411,7 +1411,7 @@
 			
 			<div class="col-md-2">
 						<label>Credit Days:</label><br>
-					<s:input  type="text"  id="txtCreditDays" path="intCreditDays" pattern="\d*" /> 
+					<s:input  type="text"  id="txtCreditDays" style="text-align:right" path="intCreditDays" pattern="\d*" /> 
 			</div>
 			
 			<div class="col-md-4"></div>

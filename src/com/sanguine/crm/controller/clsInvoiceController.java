@@ -380,7 +380,7 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 			clsInvoiceHdModel objHDModel = new clsInvoiceHdModel();
 			objHDModel.setStrUserModified(userCode);
 			objHDModel.setDteLastModified(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
-			objHDModel.setDteInvDate(objBean.getDteInvDate() + " " + reportDate);
+			objHDModel.setDteInvDate( objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getDteInvDate()) + " " + reportDate);
 			objHDModel.setStrAgainst(objBean.getStrAgainst());
 			objHDModel.setStrAuthorise(objGlobalFunctions.funCheckFormAuthorization("Invoice", req));
 			if (objBean.getStrAgainst().equalsIgnoreCase("Sales Order"))
@@ -1113,7 +1113,7 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 					objProdCustModel.setDblMaxQty(0);
 					objProdCustModel.setDblStandingOrder(0);
 					
-					objProdCustModel.setDtLastDate(objBean.getDteInvDate());
+					objProdCustModel.setDtLastDate(objHDModel.getDteInvDate());
 					
 		
 					
@@ -1472,9 +1472,9 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 		objBean.setStrSupplierRef(objInvHdModel.getStrSupplierRef());
 		objBean.setStrOtherRef(objInvHdModel.getStrOtherRef());
 		objBean.setStrBuyersOrderNo(objInvHdModel.getStrBuyersOrderNo());
-		objBean.setDteBuyerOrderNoDated(objInvHdModel.getDteBuyerOrderNoDated());
+		objBean.setDteBuyerOrderNoDated(objGlobalFunctions.funGetDate("dd-MM-yyyy", objInvHdModel.getDteBuyerOrderNoDated()));
 		objBean.setStrDispatchDocNo(objInvHdModel.getStrDispatchDocNo());
-		objBean.setDteDispatchDocNoDated(objInvHdModel.getDteDispatchDocNoDated());
+		objBean.setDteDispatchDocNoDated(objGlobalFunctions.funGetDate("dd-MM-yyyy",objInvHdModel.getDteDispatchDocNoDated()));
 		objBean.setStrDispatchThrough(objInvHdModel.getStrDispatchThrough());
 		objBean.setStrDestination(objInvHdModel.getStrDestination());
 		objBean.setStrCurrencyCode(objInvHdModel.getStrCurrencyCode());

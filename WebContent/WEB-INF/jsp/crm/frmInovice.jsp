@@ -3204,8 +3204,8 @@ function funChangeCombo() {
 					</div>
 					
 							
-					<div class="col-md-2"><label id="lblsubTotlAmt">SubTotal Amount </label>
-							<s:input type="text" id="txtSubTotlAmt" path="dblSubTotalAmt" readonly="true" cssClass="decimal-places-amt numberField" />
+					<div class="col-md-2"><label id="lblsubTotlAmt">Sub Total Amount </label>
+							<s:input type="number" id="txtSubTotlAmt" path="dblSubTotalAmt" readonly="true" cssClass="decimal-places-amt numberField" />
 					</div>
 					
 					
@@ -3252,7 +3252,7 @@ function funChangeCombo() {
 					
 					
 					<div class="col-md-2"><label id="lblFinalAmt">Final Amount</label>
-							<s:input type="text" id="txtFinalAmt" path="dblTotalAmt" readonly="true" cssClass="decimal-places-amt numberField" />
+							<s:input type="number" id="txtFinalAmt" path="dblTotalAmt" readonly="true" cssClass="decimal-places-amt numberField" />
 					</div>	
 					<div class="col-md-4"></div>
 					
@@ -3439,15 +3439,16 @@ function funChangeCombo() {
 						
 						
 					</div>
+					<p align="center">
+						<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button"  onclick="return funCallFormAction('submit',this)"/>
+						&nbsp;
+						<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields();" />
+			        </p>
 				</div>
 		
 	<br>
 
-		<p align="center">
-			<input type="submit" value="Submit" tabindex="3" class="btn btn-primary center-block" class="form_button"  onclick="return funCallFormAction('submit',this)"/>
-			&nbsp;
-			<input type="reset" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields();" />
-        </p>
+		
 		<br><br>
 		<s:input type="hidden" id="hidProdType" path="strProdType"></s:input>
 	 <s:input type="hidden" id="hidDiscType" path="strDiscType"></s:input> 

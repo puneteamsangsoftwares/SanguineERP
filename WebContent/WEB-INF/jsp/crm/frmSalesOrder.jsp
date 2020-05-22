@@ -687,6 +687,8 @@
 	    row.insertCell(2).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtUOM."+(rowCount)+"\" value='"+strUOM+"'/>";
 	    
 	    row.insertCell(3).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblQty\" type=\"text\" class=\"Box txtQty \"  required = \"required\"  class=\"decimal-places inputText-Auto txtQty \" style=\"text-align: right; border:1px solid #c0c0c0;width:99%;\"  id=\"txtQty."+(rowCount)+"\" value='"+dblQty+"' >";
+	    
+	    
 	    row.insertCell(4).innerHTML= "<input  type=\"text\"   style=\"text-align: right; border:1px solid #c0c0c0;\" class=\"Box\" size=\"5%\" id=\"txtAvgQty."+(rowCount)+"\" value='"+avgValue+"' >";
 	    row.insertCell(5).innerHTML= "";
 	    row.insertCell(6).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblAcceptQty\" type=\"text\"  required = \"required\" style=\"text-align: right; border: 1px solid #c0c0c0;width:99%;\" class=\"decimal-places inputText-Auto txtQty \" id=\"txtAcceptQty."+(rowCount)+"\" value='"+dblQty+"' onblur=\"Javacsript:funUpdatePrice(this)\">";
@@ -877,9 +879,12 @@
 	    row.insertCell(1).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtProdName."+(rowCount)+"\" value='"+strProdName+"'/>";
 	    row.insertCell(2).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].strUOM\" readonly=\"readonly\" class=\"Box\" style=\"width:99%;\" id=\"txtUOM."+(rowCount)+"\" value='"+strUOM+"'/>";
 	 
-	    row.insertCell(3).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblQty\" type=\"text\"  class=\"Box txtQty \" required = \"required\"  style=\"border: 1px solid #c0c0c0;width:99%\" class=\"decimal-places inputText-Auto txtQty \" id=\"txtQty."+(rowCount)+"\" value='"+dblQty+"' >";
+	    row.insertCell(3).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblQty\" type=\"text\"  class=\"Box\" required = \"required\"  style=\"text-align: right;width:99%;border: 1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto txtQty \" id=\"txtQty."+(rowCount)+"\" value='"+dblQty+"' >";
 	    row.insertCell(4).innerHTML= "<input  type=\"text\"   style=\"text-align: right;border: 1px solid #c0c0c0;\" class=\"Box\" style=\"width:99%;\" id=\"txtAvgQty."+(rowCount)+"\" value='"+avgValue+"' >";
-	    row.insertCell(5).innerHTML= dblStk;
+	   
+	    row.insertCell(5).innerHTML= "<input type=\"text\"  class=\"Box\" required = \"required\"  style=\"text-align: right;width:99%;border: 1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto txtQty \" id=\"dblStk."+(rowCount)+"\" value='"+dblStk+"' >";
+	    
+	    //row.insertCell(5).innerHTML= dblStk;
 	    row.insertCell(6).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblAcceptQty\" type=\"text\"  required = \"required\" style=\"text-align: right;width:99%;border: 1px solid #c0c0c0;\" class=\"decimal-places inputText-Auto txtQty \" id=\"txtAcceptQty."+(rowCount)+"\" value='"+dblAcceptQty+"' onblur=\"Javacsript:funUpdatePrice(this)\">";
 	    
 	    row.insertCell(7).innerHTML= "<input name=\"listSODtl["+(rowCount)+"].dblWeight\" type=\"text\"  required = \"required\" style=\"text-align: right;border: 1px solid #c0c0c0;width:99%;\" class=\"decimal-places inputText-Auto txtWeight \" id=\"txtWeight."+(rowCount)+"\" value="+dblWeight+" >";
@@ -1449,7 +1454,7 @@
 		if($('#txtCustCode').val()!='')
 		{
 			var transactionformName="frmSalesOrder";
-	        var retval=window.open("frmExcelExportImportForSalesOrder.html","","dialogHeight:500px;dialogWidth:500px;dialogLeft:500px;");
+	        var retval=window.open("frmExcelExportImportForSalesOrder.html","","dialogHeight:5000px;dialogWidth:5000px;dialogLeft:5000px;");
 	        var timer = setInterval(function ()
 		    {
 				if(retval.closed)
@@ -2071,7 +2076,7 @@ function funGetKeyCode(event,controller) {
 					</div>
 					<div class="col-md-2">		
 						<label>Warranty in Month</label>
-						<s:input colspan="3" type="text" class="numeric"
+						<s:input colspan="3" type="text" class="numeric" style="text-align:right;"
 							id="txtwarmonth" path="intwarmonth" cssClass="BoxW124px" />
 					</div>
 					<div class="col-md-2">
@@ -2128,7 +2133,7 @@ function funGetKeyCode(event,controller) {
 						<!-- <td><label>Stock </label></td> -->
 						<div class="col-md-2">	
 							<label>Discount</label>
-							<input id="txtDiscount" type="text"
+							<input id="txtDiscount" type="text" style="text-align:right;"
 								class="decimal-places-amt numberField" value="0"/>
 						</div>
 						<div class="col-md-2">	
@@ -2234,18 +2239,18 @@ function funGetKeyCode(event,controller) {
 								</div>
 								<div class="col-md-2">	
 									<label id="lblSubTotal">SubTotal</label>
-									<s:input type="text" id="txtSubTotal" path="dblSubTotal" readonly="true"
+									<s:input type="text" id="txtSubTotal" path="dblSubTotal" style="text-align:right;" readonly="true"
 										class="decimal-places-amt numberField" />
 								</div>
 								<div class="col-md-2">
 									<label id="lblDiscPer">Discount %</label>
-					    			<input id="txtDiscPer"  type="text"  onblur="funCalDiscountAmt();" 
+					    			<input id="txtDiscPer"  type="text"  onblur="funCalDiscountAmt();" style="text-align:right;"
 					    				class="decimal-places-amt numberField"/>
 					    		</div>
 					    		<div class="col-md-2">
 					    			<label id="lblDiscount">Discount Amt</label>
 									<s:input type="text" id="txtDisc"
-										path="dblDisAmt" onblur="funGetTotal();" onkeypress="funGetKeyCode(event,'changeDiscAmt')"
+										path="dblDisAmt" onblur="funGetTotal();" style="text-align:right;" onkeypress="funGetKeyCode(event,'changeDiscAmt')"
 										cssClass="decimal-places-amt numberField" />
 								</div>
 								<div class="col-md-2">
@@ -2254,7 +2259,7 @@ function funGetKeyCode(event,controller) {
 								</div>	
 								<div class="col-md-2">	
 									<label id="lblExtraCharges">Extra Charges:</label>
-									<s:input type="text" id="txtExtraCharges" path="dblExtra" onblur="funGetTotal();" cssClass="decimal-places-amt numberField" />
+									<s:input type="text" id="txtExtraCharges" style="text-align:right;" path="dblExtra" onblur="funGetTotal();" cssClass="decimal-places-amt numberField" />
 								</div>
 								<div class="col-md-2">
 									<label id="lblCloseSO">Close SO</label><br>
@@ -2262,8 +2267,7 @@ function funGetKeyCode(event,controller) {
 								</div>
 								<div class="col-md-2">
 									<label id="lblFinalAmt">Final Amount:</label>
-									<s:input type="text" id="txtFinalAmt"
-												path="dblTotal" readonly="true"
+									<s:input type="text" id="txtFinalAmt" style="text-align:right;" path="dblTotal" readonly="true"
 												cssClass="decimal-places-amt numberField" />
 								</div>
 								<div class="col-md-2">

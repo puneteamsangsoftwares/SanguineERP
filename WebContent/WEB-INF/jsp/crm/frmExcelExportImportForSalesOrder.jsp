@@ -226,7 +226,7 @@
 	
 	  </div>  
 	  <br>
-	    <div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 200px; width:50%;overflow-x: hidden; overflow-y: scroll;">
+	    <div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 200px; width:80%;overflow-x: hidden; overflow-y: scroll;">
 
 							<table id="" class="masterTable"
 								style="width: 100%; border-collapse: separate;">
@@ -234,8 +234,8 @@
 									<tr bgcolor="#c0c0c0">
 										<td width="5%"><input type="checkbox" id="chkSGALL"
 											checked="checked" onclick="funCheckUncheckSubGroup()" />Select</td>
-										<td width="35%">Sub Group Code</td>
-										<td width="65%">Sub Group Name</td>
+										<td width="20%">Sub Group Code</td>
+										<td width="80%">Sub Group Name</td>
 
 									</tr>
 								</tbody>
