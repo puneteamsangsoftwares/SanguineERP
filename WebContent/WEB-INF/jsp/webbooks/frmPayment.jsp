@@ -348,7 +348,7 @@
 	        	else
 	        	{
 	        		$("#txtDrawnOn").val(response.strBankCode);
-	        		$("#lblDrawnOnDesc").text(response.strBankName);
+	        		$("#txtBranch").val(response.strBankName);
 	        		$("#txtBranch").focus();
 	        	}
 			},
@@ -1626,7 +1626,7 @@ function funSetDebtorMasterData(debtorCode)
 		    </div>
 				
 			<div class="col-md-2"><label>Branch</label>
-				 <s:input  type="text" id="txtBranch" path="strBranch"/>
+				 <s:input  type="text" id="txtBranch" readonly="true" path="strBranch"/>
 			</div>
 		    <div class="col-md-3"><label>Narration</label>
 				  <s:textarea  id="txtNarration" path="strNarration" style="width:225px; height:27px;"/>

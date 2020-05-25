@@ -380,7 +380,7 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 			clsInvoiceHdModel objHDModel = new clsInvoiceHdModel();
 			objHDModel.setStrUserModified(userCode);
 			objHDModel.setDteLastModified(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
-			objHDModel.setDteInvDate( objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getDteInvDate()) + " " + reportDate);
+			objHDModel.setDteInvDate(objBean.getDteInvDate()+ " " + reportDate);
 			objHDModel.setStrAgainst(objBean.getStrAgainst());
 			objHDModel.setStrAuthorise(objGlobalFunctions.funCheckFormAuthorization("Invoice", req));
 			if (objBean.getStrAgainst().equalsIgnoreCase("Sales Order"))
@@ -670,11 +670,12 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 						// For Check it is Correct Or not
 						// double
 						// taxAmt=Math.round(Double.parseDouble(taxDtl.split("#")[5]));
-
+						DecimalFormat decimalFormat = new DecimalFormat("#.##");
 						if (hmInvTaxDtl.containsKey(entry.getKey()))
 						{
 							objInvTaxModel = hmInvTaxDtl.get(entry.getKey());
-							objInvTaxModel.setDblTaxableAmt(objInvTaxModel.getDblTaxableAmt() + taxableAmt);
+							objInvTaxModel.setDblTaxableAmt(Double.parseDouble(decimalFormat.format(objInvTaxModel.getDblTaxableAmt()) + taxableAmt));
+							
 							objInvTaxModel.setDblTaxAmt(objInvTaxModel.getDblTaxAmt() + taxAmt);
 						}
 						else

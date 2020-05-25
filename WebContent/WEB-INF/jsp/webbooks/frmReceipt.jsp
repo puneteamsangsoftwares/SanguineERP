@@ -1397,8 +1397,8 @@
 				<s:input colspan="3" type="text" id="txtCFCode" readonly="true" path="strCFCode" cssClass="searchTextBox" ondblclick="funHelp('cashBankAccNo');"/>
 			</div>
 				
-			<div class="col-md-2"><label id="lblCFDesc"></label>
-			       <label id="lblBankBalAmt"  style="color:blue; font:bold; font-size:115%; background-color:#dcdada94; width: 100%; height: 45%; margin: 20px 0px;"></label>
+			<div class="col-md-2"><br><br><label id="lblCFDesc" style="margin-top: -10px;"></label>
+			       <label id="lblBankBalAmt"  style="color:blue; font:bold; font-size:115%; background-color:#dcdada94; width: 80%; height: 38%; margin-top: 1px;"></label>
 			</div>
 			<div class="col-md-2"><label>Type</label>
 				<!-- <s:select id="txtType" path="strType" cssClass="BoxW124px"/> -->

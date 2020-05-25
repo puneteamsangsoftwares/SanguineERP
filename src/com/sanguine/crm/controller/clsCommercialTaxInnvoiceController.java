@@ -305,7 +305,18 @@ public class clsCommercialTaxInnvoiceController {
 		objHdCommerModel.setDblTotalAmt(subTotal);
 		objHdCommerModel.setDblTaxAmt(dblTotalTaxAmt);
 		objHdCommerModel.setDblGrandTotal(dblGtotal);
-
+		objHdCommerModel.setStrBuyersOrderNo("");
+		objHdCommerModel.setDteBuyerOrderNoDated(objGlobalfunction.funGetCurrentDateTime("yyyy-MM-dd"));
+		objHdCommerModel.setDteDispatchDocNoDated(objGlobalfunction.funGetCurrentDateTime("yyyy-MM-dd"));
+		objHdCommerModel.setStrBuyersOrderNo("");
+		objHdCommerModel.setStrCloseIV("N");
+		objHdCommerModel.setStrDeliveryNote("");
+		objHdCommerModel.setStrDestination("");
+		objHdCommerModel.setStrDispatchDocNo("");
+		objHdCommerModel.setStrDispatchThrough("");
+		objHdCommerModel.setStrJVNo("");
+		objHdCommerModel.setStrOtherRef("");
+		objHdCommerModel.setStrSupplierRef("");
 		return objHdCommerModel;
 	}
 
