@@ -243,26 +243,9 @@ public class clsExcelExportImportController {
 		} else {
 			if (!locCode.equals("") || !locCode.isEmpty()) {
 			hql = " from clsProductMasterModel a, clsSubGroupMasterModel b,clsGroupMasterModel c " + " where a.strSGCode=b.strSGCode  and b.strGCode=c.strGCode  " + " and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' " + "and c.strClientCode='" + clientCode + "'  ";
-			if (!sgCode.equals("") || !sgCode.isEmpty()) 
-			{
-				hql += "and a.strSGCode='"+sgCode+"'";
-			}
 			
-			if (!gCode.equals("") || !gCode.isEmpty()) 
-			{
-				hql += "and b.strGCode='"+gCode+"'";
-			}
 			}else{
 				hql = " from clsProductMasterModel a, clsSubGroupMasterModel b,clsGroupMasterModel c ,clsProductReOrderLevelModel d" + " where a.strSGCode=b.strSGCode  and b.strGCode=c.strGCode and a.strProdCode=d.strProdCode " + " and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' " + "and c.strClientCode='" + clientCode + "'  and d.strLocationCode='" + locCode + "' ";	
-				if (!sgCode.equals("") || !sgCode.isEmpty()) 
-				{
-					hql += "and a.strSGCode='"+sgCode+"'";
-				}
-				
-				if (!gCode.equals("") || !gCode.isEmpty()) 
-				{
-					hql += "and b.strGCode='"+gCode+"'";
-				}
 			}
 		
 		}
@@ -1280,13 +1263,16 @@ public class clsExcelExportImportController {
 
 					String uom = funGetProductUOM(row.getCell(2).getStringCellValue(), expUOM, request);
 					OpeningStkDtl.setStrUOM(uom); // thiS is for Independent of
-													// excel sheet uom
+					 								// excel sheet uom
 
 					// OpeningStkDtl.setStrUOM(row.getCell(5).getStringCellValue());
 					// thiS is for according to EXcel uom
-					OpeningStkDtl.setDblCostPUnit(row.getCell(6).getNumericCellValue());
-					OpeningStkDtl.setDblRevLvl(row.getCell(7).getNumericCellValue());
-					OpeningStkDtl.setStrLotNo(String.valueOf(row.getCell(8).getNumericCellValue()));
+					OpeningStkDtl.setDblCostPUnit(Double.parseDouble(row.getCell(6).getStringCellValue()));
+					
+				    OpeningStkDtl.setDblRevLvl(Double.parseDouble(row.getCell(7).getStringCellValue()));
+					
+					OpeningStkDtl.setStrLotNo(String.valueOf(row.getCell(8).getStringCellValue()));
+					
 					// Sends the model object to service layer for validation,
 					// data processing and then to persist
 					listOpeningStklist.add(OpeningStkDtl);

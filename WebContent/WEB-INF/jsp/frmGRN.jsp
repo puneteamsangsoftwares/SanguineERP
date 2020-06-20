@@ -213,13 +213,13 @@
 		    
 		    if(strReqCode=="" && strStkble=="Yes")
 		    {
-				row.insertCell(17).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" required = \"required\" class=\"Box IssueLocCode\" size=\"6%\"  id=\"txtIssueLocation."+(rowCount)+"\" onblur=\"funCheckIssueLocation(this)\" value='"+strIssueLocation+"' ><input type=button   onclick=funHelp1("+(rowCount)+",'IssueLoc1') value=...>";
+				row.insertCell(17).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" required = \"required\" class=\"Box IssueLocCode\" size=\"4%\"  id=\"txtIssueLocation."+(rowCount)+"\" onblur=\"funCheckIssueLocation(this)\" value='"+strIssueLocation+"' ><input type=button   onclick=funHelp1("+(rowCount)+",'IssueLoc1') value=...>";
             	row.insertCell(18).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIsueLocName\" readonly=\"readonly\" class=\"Box\" size=\"20%\"  id=\"txtIsueLocName."+(rowCount)+"\" value='"+strIsueLocName+"' >";
 		    }
 		    else
 		    {
 		    	/* row.insertCell(16).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" required = \"required\" class=\"Box IssueLocCode\" size=\"9%\"  id=\"txtIssueLocation."+(rowCount)+"\" onblur=\"funCheckIssueLocation(this)\" value='"+strIssueLocation+"' ><input type=button   onclick=funHelp1("+(rowCount)+",'IssueLoc1') value=...>"; */
-				row.insertCell(17).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" readonly=\"readonly\" class=\"Box IssueLocCode\" size=\"6%\"  id=\"txtIssueLocation."+(rowCount)+"\" value='"+strIssueLocation+"' >";
+				row.insertCell(17).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" readonly=\"readonly\" class=\"Box IssueLocCode\" size=\"4%\"  id=\"txtIssueLocation."+(rowCount)+"\" value='"+strIssueLocation+"' >";
 	        	row.insertCell(18).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIsueLocName\" readonly=\"readonly\" class=\"Box\" size=\"40%\"  id=\"txtIsueLocName."+(rowCount)+"\" value='"+strIsueLocName+"' >";
 		    }
 		    
@@ -565,12 +565,12 @@
 		    
 		    if(strStkble=="Yes")
 		    {
-			    row.insertCell(17).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" required = \"required\" readonly=\"readonly\" class=\"Box IssueLocCode\" size=\"6%\"  id=\"txtIssueLocation."+(rowCount)+"\" value='"+strIssueLocCode+"' ><input type=button   onclick=funHelp1("+(rowCount)+",'IssueLoc1') value=...>";
+			    row.insertCell(17).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" required = \"required\" readonly=\"readonly\" class=\"Box IssueLocCode\" size=\"4%\"  id=\"txtIssueLocation."+(rowCount)+"\" value='"+strIssueLocCode+"' ><input type=button   onclick=funHelp1("+(rowCount)+",'IssueLoc1') value=...>";
 			    row.insertCell(18).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIsueLocName\" readonly=\"readonly\" class=\"Box\" size=\"20%\"  id=\"txtIsueLocName."+(rowCount)+"\" value='"+strIssueLocName+"' >";
 		    }
 		    else
 		    {
-		    	row.insertCell(17).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" readonly=\"readonly\" class=\"Box IssueLocCode\" size=\"6%\"  id=\"txtIssueLocation."+(rowCount)+"\" value='"+strIssueLocCode+"' >";
+		    	row.insertCell(17).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" readonly=\"readonly\" class=\"Box IssueLocCode\" size=\"4%\"  id=\"txtIssueLocation."+(rowCount)+"\" value='"+strIssueLocCode+"' >";
 			    row.insertCell(18).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIsueLocName\" readonly=\"readonly\" class=\"Box\" size=\"20%\"  id=\"txtIsueLocName."+(rowCount)+"\" value='"+strIssueLocName+"' >";
 		    } 
 		    
@@ -1972,12 +1972,12 @@
 					
 					if(strReqCode!="" || strNONStkble=="No" )
 					{
-						row.insertCell(17).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" readonly=\"readonly\" class=\"Box IssueLocCode\" size=\"6%\"  id=\"txtIssueLocation."+(rowCount)+"\" value='"+strIssueLocCode+"' >";
+						row.insertCell(17).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" readonly=\"readonly\" class=\"Box IssueLocCode\" size=\"4%\"  id=\"txtIssueLocation."+(rowCount)+"\" value='"+strIssueLocCode+"' >";
 						row.insertCell(18).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIsueLocName\" readonly=\"readonly\" class=\"Box\" size=\"20%\"  id=\"txtIsueLocName."+(rowCount)+"\" value='"+strIsueLocName+"' >";
 					}
 					else
 					{
-						 row.insertCell(17).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" required = \"required\" readonly=\"readonly\" class=\"Box IssueLocCode\" size=\"6%\"  id=\"txtIssueLocation."+(rowCount)+"\" value='"+strIssueLocCode+"' ><input type=button   onclick=funHelp1("+(rowCount)+",'IssueLoc1') value=...>";
+						 row.insertCell(17).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" required = \"required\" readonly=\"readonly\" class=\"Box IssueLocCode\" size=\"4%\"  id=\"txtIssueLocation."+(rowCount)+"\" value='"+strIssueLocCode+"' ><input type=button   onclick=funHelp1("+(rowCount)+",'IssueLoc1') value=...>";
 						 row.insertCell(18).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIsueLocName\" readonly=\"readonly\" class=\"Box\" size=\"20%\"  id=\"txtIsueLocName."+(rowCount)+"\" value='"+strIsueLocName+"' >";
 					}		
 					
@@ -3235,12 +3235,12 @@
 		    
 		    if(strStkble=="Yes")
 		    {
-			    row.insertCell(16).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" required = \"required\" readonly=\"readonly\" class=\"Box IssueLocCode\" size=\"6%\"  id=\"txtIssueLocation."+(rowCount)+"\" value='"+strIssueLocCode+"' ><input type=button   onclick=funHelp1("+(rowCount)+",'IssueLoc1') value=...>";
+			    row.insertCell(16).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" required = \"required\" readonly=\"readonly\" class=\"Box IssueLocCode\" size=\"4%\"  id=\"txtIssueLocation."+(rowCount)+"\" value='"+strIssueLocCode+"' ><input type=button   onclick=funHelp1("+(rowCount)+",'IssueLoc1') value=...>";
 			    row.insertCell(17).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIsueLocName\" readonly=\"readonly\" class=\"Box\" size=\"20%\"  id=\"txtIsueLocName."+(rowCount)+"\" value='"+strIssueLocName+"' >";
 		    }
 		    else
 		    {
-		    	row.insertCell(16).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" readonly=\"readonly\" class=\"Box IssueLocCode\" size=\"6%\"  id=\"txtIssueLocation."+(rowCount)+"\" value='"+strIssueLocCode+"' >";
+		    	row.insertCell(16).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIssueLocation\" readonly=\"readonly\" class=\"Box IssueLocCode\" size=\"4%\"  id=\"txtIssueLocation."+(rowCount)+"\" value='"+strIssueLocCode+"' >";
 			    row.insertCell(17).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strIsueLocName\" readonly=\"readonly\" class=\"Box\" size=\"20%\"  id=\"txtIsueLocName."+(rowCount)+"\" value='"+strIssueLocName+"' >";
 		    } 
 		    
@@ -3612,8 +3612,8 @@ function funCalculateOtherChargesTotal()
 								<td width="2%">Total Price</td><!--  COl16   -->
 								<td width="5%">Remarks</td><!--  COl17   -->
 								<td width="3%">PO Weight</td><!--  COl18   -->
-								<td width="4%">Issue Loc Code</td><!--  COl3   -->
-								<td width="8%">Location Name</td><!--  COl4   -->
+								<td width="6%">Issue Loc Code</td><!--  COl3   -->
+								<td width="6%">Location Name</td><!--  COl4   -->
 								<td width="3%">code</td><!--  COl19   -->
 								<td width="1%">rework</td><!--  COl120   -->
 								<td style="width:10%;display:none">gTaxAmount</td><!--  COl21   -->

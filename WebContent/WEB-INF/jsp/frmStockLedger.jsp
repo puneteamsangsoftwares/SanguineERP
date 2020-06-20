@@ -84,7 +84,7 @@
 				var locCode=$("#cmbLocation").val();
 				var propCode=$("#cmbProperty").val();
 				var prodCode=$("#txtProdCode").val();
-				funGetStockLedger(fromDate,toDate,locCode,propCode,prodCode);
+				//funGetStockLedger(fromDate,toDate,locCode,propCode,prodCode);
 			
 			});
 			
@@ -207,9 +207,9 @@
 				   	if(qtyWithUOM=='Yes')
 			   		{
 				   	
-				   	 row1.insertCell(9).innerHTML= "<input type=\"hidden\" value='"+item[7]+"'/>";
+				   	 //row1.insertCell(9).innerHTML= "<input type=\"hidden\" value='"+item[7]+"'/>";
 				   	 
-				   		//row1.insertCell(8).innerHTML= "<label type=\"hidden\">"+item[7]+"</label>";
+				   		row1.insertCell(8).innerHTML= "<label type=\"hidden\">"+item[7]+"</label>";
 			   		}
 				   	if(item[7].toString().includes("!"))
 				   		{

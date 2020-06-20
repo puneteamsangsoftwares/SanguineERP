@@ -210,7 +210,7 @@ public class clsGRNDaoImpl implements clsGRNDao {
 		 * sql="select strPOCode,date(dtPODate),strCode from tblpurchaseorderhd  "
 		 * + " where strSuppCode='"+strSuppCode+"' and strclosePO='No' ";
 		 */
-		String sql = "select strPOCode,Date(dtPODate),strAgainst,ifnull(dblTotal,0),ifnull(b.strCurrencyName,''),ifnull(dblConversion,1) from tblpurchaseorderhd a "
+		String sql = "select strPOCode,DATE_FORMAT(dtPODate,'%d-%m-%Y'),strAgainst,ifnull(dblTotal,0),ifnull(b.strCurrencyName,''),ifnull(dblConversion,1) from tblpurchaseorderhd a "
 				+ " left outer join tblcurrencymaster b on a.strCurrency=b.strCurrencyCode "
 				+ " Where strPOCode IN " + "(select distinct a.strPOCode from tblpurchaseorderdtl a " + "left outer join (SELECT b.strCode AS POCode, b.strProdCode, SUM(b.dblQty) AS POQty " + "FROM tblgrnhd a INNER JOIN tblgrndtl b ON a.strGRNCode = b.strGRNCode and b.strClientCode='" + strClientCode + "' "
 				+ " WHERE (a.strAgainst = 'Purchase Order') and a.strClientCode='" + strClientCode + "' GROUP BY b.strCode, b.strProdCode) b " + "on a.strPOCode = b.POCode and a.strProdCode = b.strProdCode and a.strClientCode='" + strClientCode + "'" + "where  a.dblOrdQty > ifnull(b.POQty,0)) " + " and a.strClosePO != 'Yes' and a.strAuthorise='Yes' and a.strSuppCode='" + strSuppCode

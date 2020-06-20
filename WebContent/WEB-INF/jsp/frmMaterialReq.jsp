@@ -591,7 +591,7 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 		});
 		listRow = count + 1;
 		funCalSubTotal();
-
+		
 	}
 
 	/**
@@ -669,7 +669,24 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 				+ (rowCount) + "].strRemarks\" id=\"txtRemarks." + (rowCount)
 				+ "\" value='" + strRemarks + "'>";
 		row.insertCell(7).innerHTML = '<input type="button" value = "Delete"  class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
-
+		funCalculateTotalAmt();   
+	}
+	
+	/**
+	 * Calculate Total Amount
+	 */
+	function funCalculateTotalAmt()
+	{
+		var totalAmt=0;
+		var table = document.getElementById("tblProdDet");
+		var rowCount = table.rows.length;
+		
+	
+		for(var i=0;i<rowCount;i++)
+		{
+			totalAmt=parseFloat(document.getElementById("dblTotalPrice."+i).value)+totalAmt;
+		}
+		$("#txtTotalAmount").val(Math.round(totalAmt));
 	}
 
 	function funGetKeyCode(event, rowcount) {

@@ -18,7 +18,7 @@ public class clsAuthorizeDaoImpl implements clsAuthorizeDao {
 		sessionFactory.getCurrentSession().saveOrUpdate(objModel);
 	}
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	@Transactional
 	public void funUpdateTransLevel(String sql) {
 		sessionFactory.getCurrentSession().createQuery(sql).executeUpdate();
 	}

@@ -182,7 +182,7 @@ function btnClose_onclick()
 
 </script>
 </head>
-<body onload="funOnLoad()">
+<body>
 <div style="width: 100%; height: 40px; background-color: #c0c0c0;">
 		<p align="center" style="padding-top: 10px;color:white;">Material Requisition Details</p>
 	</div>
