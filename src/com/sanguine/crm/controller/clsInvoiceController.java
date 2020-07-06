@@ -348,7 +348,7 @@ public class clsInvoiceController
 	// Save or Update Invoice
 	@SuppressWarnings({ "unused", "rawtypes" })
 	@RequestMapping(value = "/saveInvoice", method = RequestMethod.POST)
-public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBean objBean, BindingResult result, HttpServletRequest req)
+	public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBean objBean, BindingResult result, HttpServletRequest req)
 	{
 		boolean flgHdSave = false;
 		String urlHits = "1";
@@ -363,7 +363,6 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 		// List<clsInvoiceGSTModel> listGST=new ArrayList<clsInvoiceGSTModel>();
 		if (!result.hasErrors())
 		{
-			objBean.setDteInvDate(objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getDteInvDate()));
 			String clientCode = req.getSession().getAttribute("clientCode").toString();
 			String userCode = req.getSession().getAttribute("usercode").toString();
 			String propCode = req.getSession().getAttribute("propertyCode").toString();
@@ -380,7 +379,8 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 			clsInvoiceHdModel objHDModel = new clsInvoiceHdModel();
 			objHDModel.setStrUserModified(userCode);
 			objHDModel.setDteLastModified(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
-			objHDModel.setDteInvDate(objBean.getDteInvDate()+ " " + reportDate);
+			//objHDModel.setDteInvDate(objBean.getDteInvDate() + " " + reportDate);
+			objHDModel.setDteInvDate(objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getDteInvDate()) + " " + reportDate);
 			objHDModel.setStrAgainst(objBean.getStrAgainst());
 			objHDModel.setStrAuthorise(objGlobalFunctions.funCheckFormAuthorization("Invoice", req));
 			if (objBean.getStrAgainst().equalsIgnoreCase("Sales Order"))
@@ -409,8 +409,8 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 			objHDModel.setStrSState(objBean.getStrSState());
 			objHDModel.setStrTimeInOut(objBean.getStrTimeInOut());
 			objHDModel.setStrVehNo(objBean.getStrVehNo());
-			objHDModel.setStrWarraValidity(objBean.getStrWarraValidity());
-			objHDModel.setStrWarrPeriod(objBean.getStrWarrPeriod());
+			objHDModel.setStrWarraValidity(objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getStrWarraValidity()));
+			objHDModel.setStrWarrPeriod(objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getStrWarrPeriod()));
 			objHDModel.setDblSubTotalAmt(0.0);
 			objHDModel.setStrSOCode(objBean.getStrSOCode());
 			objHDModel.setStrSettlementCode(objBean.getStrSettlementCode());
@@ -450,9 +450,11 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 			objHDModel.setStrSupplierRef(objBean.getStrSupplierRef());
 			objHDModel.setStrOtherRef(objBean.getStrOtherRef());
 			objHDModel.setStrBuyersOrderNo(objBean.getStrBuyersOrderNo());
+			//objHDModel.setDteBuyerOrderNoDated(objBean.getDteBuyerOrderNoDated());
 			objHDModel.setDteBuyerOrderNoDated(objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getDteBuyerOrderNoDated()));
 			objHDModel.setStrDispatchDocNo(objBean.getStrDispatchDocNo());
-			objHDModel.setDteDispatchDocNoDated(objGlobalFunctions.funGetDate("yyyy-MM-dd",objBean.getDteDispatchDocNoDated()));
+			//objHDModel.setDteDispatchDocNoDated(objBean.getDteDispatchDocNoDated());
+			objHDModel.setDteDispatchDocNoDated(objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getDteDispatchDocNoDated()));
 			objHDModel.setStrDispatchThrough(objBean.getStrDispatchThrough());
 			objHDModel.setStrDestination(objBean.getStrDestination());
 			objHDModel.setDblExtraCharges(objBean.getDblExtraCharges());
@@ -658,8 +660,8 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 
 						String taxDtl = entry.getValue();
 						String taxCode = entry.getKey();
-						double taxableAmt = Double.parseDouble(decFormat.format(Double.parseDouble(taxDtl.split("#")[0])));
-						double taxAmt =Double.parseDouble(decFormat.format(Double.parseDouble(taxDtl.split("#")[5])));
+						double taxableAmt = Double.parseDouble(taxDtl.split("#")[0]);
+						double taxAmt = Double.parseDouble(taxDtl.split("#")[5]);
 						String shortName = taxDtl.split("#")[6];
 
 						double taxAmtForSingleQty = taxAmt / objInvDtl.getDblQty();
@@ -670,12 +672,11 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 						// For Check it is Correct Or not
 						// double
 						// taxAmt=Math.round(Double.parseDouble(taxDtl.split("#")[5]));
-						DecimalFormat decimalFormat = new DecimalFormat("#.##");
+
 						if (hmInvTaxDtl.containsKey(entry.getKey()))
 						{
 							objInvTaxModel = hmInvTaxDtl.get(entry.getKey());
-							objInvTaxModel.setDblTaxableAmt(Double.parseDouble(decimalFormat.format(objInvTaxModel.getDblTaxableAmt()) + taxableAmt));
-							
+							objInvTaxModel.setDblTaxableAmt(objInvTaxModel.getDblTaxableAmt() + taxableAmt);
 							objInvTaxModel.setDblTaxAmt(objInvTaxModel.getDblTaxAmt() + taxAmt);
 						}
 						else
@@ -699,7 +700,7 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 						objInvProdTaxDtl.setDblValue(taxAmt);
 						objInvProdTaxDtl.setDblTaxableAmt(taxableAmt);
 						objInvProdTaxDtl.setDblWeight(objInvDtl.getDblWeight());
-						 listInvProdTaxDtl.add(objInvProdTaxDtl);
+						listInvProdTaxDtl.add(objInvProdTaxDtl);
 						
 						if(!mapSubTotal.containsKey(objInvProdTaxDtl.getStrProdCode()+""+objInvDtl.getDblWeight()+""+objInvDtl.getDblQty()))
 						{
@@ -798,12 +799,22 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 						
 						String[] spDate = dateInvoice.split("-");
 						String transMonth = objGlobalFunctions.funGetAlphabet(Integer.parseInt(spDate[1])-1);
-						/*String sql = "select ifnull(max(MID(a.strInvCode,8,5)),'' ) " + " from tblinvoicehd a where MID(a.strInvCode,5,1) = '" + transYear + "' " + " and MID(a.strInvCode,1,2) = '" + propCode + "' and strClientCode='" + clientCode + "' ";	//and MID(a.strInvCode,6,1) = '" + transMonth + "' " + " 
-						String sqlAudit = " select ifnull(max(MID(a.strTransCode,8,5)),'' ) " + " from tblaudithd a where MID(a.strTransCode,5,1) = '" + transYear + "' and MID(a.strTransCode,1,2) = '" + propCode + "' and strClientCode='" + clientCode + "' " + "and a.strTransType='Invoice' ;  ";  		//" + " and MID(a.strTransCode,6,1) = '" + transMonth + "' " + "
-						*/
-						String sql = "select ifnull(max(MID(a.strInvCode,8,5)),'' ) " + " from tblinvoicehd a where MID(a.strInvCode,5,1) = '" + transYear + "' " + " and MID(a.strInvCode,6,1) = '" + transMonth + "' " + " and MID(a.strInvCode,1,2) = '" + propCode + "' and strClientCode='" + clientCode + "' ";
-						String sqlAudit = " select ifnull(max(MID(a.strTransCode,8,5)),'' ) " + " from tblaudithd a where MID(a.strTransCode,5,1) = '" + transYear + "' " + " and MID(a.strTransCode,6,1) = '" + transMonth + "' " + " and MID(a.strTransCode,1,2) = '" + propCode + "' and strClientCode='" + clientCode + "' " + "and a.strTransType='Invoice' ;  ";
-						
+						String sql="";
+						String sqlAudit="";
+						if(clientCode.equalsIgnoreCase("336.001"))
+						{
+							 sql = "select ifnull(max(MID(a.strInvCode,8,5)),'' ) " + " from tblinvoicehd a where MID(a.strInvCode,5,1) = '" + transYear + "' " + " and MID(a.strInvCode,1,2) = '" + propCode + "' and strClientCode='" + clientCode + "' ";	//and MID(a.strInvCode,6,1) = '" + transMonth + "' " + " 
+						    sqlAudit = " select ifnull(max(MID(a.strTransCode,8,5)),'' ) " + " from tblaudithd a where MID(a.strTransCode,5,1) = '" + transYear + "' and MID(a.strTransCode,1,2) = '" + propCode + "' and strClientCode='" + clientCode + "' " + "and a.strTransType='Invoice' ;  ";  		//" + " and MID(a.strTransCode,6,1) = '" + transMonth + "' " + "
+							
+						}
+						else
+						{
+
+							 sql = "select ifnull(max(MID(a.strInvCode,8,5)),'' ) " + " from tblinvoicehd a where MID(a.strInvCode,5,1) = '" + transYear + "' " + " and MID(a.strInvCode,6,1) = '" + transMonth + "' " + " and MID(a.strInvCode,1,2) = '" + propCode + "' and strClientCode='" + clientCode + "' ";
+						 sqlAudit = " select ifnull(max(MID(a.strTransCode,8,5)),'' ) " + " from tblaudithd a where MID(a.strTransCode,5,1) = '" + transYear + "' " + " and MID(a.strTransCode,6,1) = '" + transMonth + "' " + " and MID(a.strTransCode,1,2) = '" + propCode + "' and strClientCode='" + clientCode + "' " + "and a.strTransType='Invoice' ;  ";
+							
+							
+						}
 						
 						List listAudit = objGlobalFunctionsService.funGetListModuleWise(sqlAudit, "sql");
 						long lastnoAudit;
@@ -971,9 +982,8 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 				Map<String, clsInvoiceTaxDtlModel> hmInvTaxDtlTemp = hmInvCustTaxDtl.get(entry.getKey());
 				for (Map.Entry<String, clsInvoiceTaxDtlModel> entryTaxDtl : hmInvTaxDtlTemp.entrySet())
 				{
-					entryTaxDtl.getValue().setDblTaxAmt(Double.parseDouble(decFormat.format(entryTaxDtl.getValue().getDblTaxAmt())));
 					listInvoiceTaxDtl.add(entryTaxDtl.getValue());
-					taxAmt += Double.parseDouble(decFormat.format(entryTaxDtl.getValue().getDblTaxAmt()));
+					taxAmt += entryTaxDtl.getValue().getDblTaxAmt();
 
 					String sqlTaxDtl = "select strExcisable from tbltaxhd " + " where strTaxCode='" + entryTaxDtl.getValue().getStrTaxCode() + "' ";
 					List list = objGlobalFunctionsService.funGetList(sqlTaxDtl, "sql");
@@ -1114,7 +1124,8 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 					objProdCustModel.setDblMaxQty(0);
 					objProdCustModel.setDblStandingOrder(0);
 					
-					objProdCustModel.setDtLastDate(objHDModel.getDteInvDate());
+					objProdCustModel.setDtLastDate(objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getDteInvDate()));
+					
 					
 		
 					
@@ -1422,13 +1433,16 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 
 	private clsInvoiceBean funPrepardHdBean(clsInvoiceHdModel objInvHdModel, clsLocationMasterModel objLocationMasterModel, clsPartyMasterModel objPartyMasterModel)
 	{
+		
 		clsInvoiceBean objBean = new clsInvoiceBean();
 		String[] date = objInvHdModel.getDteInvDate().split(" ");
+		String[] date1=date[0].split("-");
+		
 		// String [] dateTime=date[2].split(" ");
 
 		// String date1 = date[1]+"/"+dateTime[0]+"/"+date[0];
 		double  currValue=objInvHdModel.getDblCurrencyConv();
-		objBean.setDteInvDate(date[0]);
+		objBean.setDteInvDate(date1[2]+"-"+date1[1]+"-"+date1[0]);
 		objBean.setStrAgainst(objInvHdModel.getStrAgainst());
 		objBean.setStrCustCode(objInvHdModel.getStrCustCode());
 		objBean.setStrInvCode(objInvHdModel.getStrInvCode());
@@ -1452,8 +1466,8 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 		objBean.setStrSState(objInvHdModel.getStrSState());
 		objBean.setStrTimeInOut(objInvHdModel.getStrTimeInOut());
 		objBean.setStrVehNo(objInvHdModel.getStrVehNo());
-		objBean.setStrWarraValidity(objInvHdModel.getStrWarraValidity());
-		objBean.setStrWarrPeriod(objInvHdModel.getStrWarrPeriod());
+		objBean.setStrWarraValidity(objGlobalFunctions.funGetDate("dd-MM-yyyy", objInvHdModel.getStrWarraValidity()));
+		objBean.setStrWarrPeriod(objGlobalFunctions.funGetDate("dd-MM-yyyy", objInvHdModel.getStrWarrPeriod()));
 		objBean.setDblSubTotalAmt(objInvHdModel.getDblSubTotalAmt() / currValue);
 		objBean.setDblTaxAmt(objInvHdModel.getDblTaxAmt() / currValue);
 		objBean.setDblTotalAmt(objInvHdModel.getDblTotalAmt() / currValue);
@@ -5679,8 +5693,8 @@ public ModelAndView funAddUpdate(@ModelAttribute("command") @Valid clsInvoiceBea
 		objBean.setStrSState(objInvHdModel.getStrSState());
 		objBean.setStrTimeInOut(objInvHdModel.getStrTimeInOut());
 		objBean.setStrVehNo(objInvHdModel.getStrVehNo());
-		objBean.setStrWarraValidity(objInvHdModel.getStrWarraValidity());
-		objBean.setStrWarrPeriod(objInvHdModel.getStrWarrPeriod());
+		objBean.setStrWarraValidity(objGlobalFunctions.funGetDate("dd-MM-yyyy", objInvHdModel.getStrWarraValidity()));
+		objBean.setStrWarrPeriod(objGlobalFunctions.funGetDate("dd-MM-yyyy", objInvHdModel.getStrWarrPeriod()));
 		objBean.setDblSubTotalAmt(objInvHdModel.getDblSubTotalAmt());
 		objBean.setDblTaxAmt(objInvHdModel.getDblTaxAmt());
 		objBean.setDblTotalAmt(objInvHdModel.getDblTotalAmt());
@@ -7227,6 +7241,13 @@ public void funCallReportInvoiceFormat8Report(@RequestParam("rptInvCode") String
 		hm.put("strState", objSetup.getStrState());
 		hm.put("strCountry", objSetup.getStrCountry());
 		hm.put("strPin", objSetup.getStrPin());
+		
+		if(clientCode.equalsIgnoreCase("336.001"))
+		{
+			InvCode=InvCode.substring(7,InvCode.length() );
+			int InvNum=Integer.parseInt(InvCode);
+			InvCode=String.valueOf(InvNum);
+		}
 		hm.put("InvCode", InvCode);
 		hm.put("InvDate", InvDate);
 		hm.put("challanDate", challanDate);

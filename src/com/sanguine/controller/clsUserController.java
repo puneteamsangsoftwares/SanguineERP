@@ -1408,7 +1408,7 @@ public class clsUserController {
 			String strWebBanquetModule = objCompanyMasterModel.getStrWebBanquetModule();
 			String strWebStockModule = objCompanyMasterModel.getStrWebStockModule();
 			String isSuperUser = req.getSession().getAttribute("superuser").toString();
-
+            req.getSession().setAttribute("selectedPMSModule",strWebPMSModule);
 			List<String> list = objUserMasterService.funGetUserWiseModules(userCode, clientCode);
 
 			Map<String, String> moduleMap = new TreeMap<String, String>();

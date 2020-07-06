@@ -88,7 +88,7 @@ public class clsCRMReportsController {
 		}
 
 	}
-
+	
 	@RequestMapping(value = "/frmCustomerWiseCategorySalesOrderReport", method = RequestMethod.GET)
 	public ModelAndView funOpenCustomerWiseCategoryWiseSalesOrderForm(Map<String, Object> model, HttpServletRequest request) {
 		request.getSession().setAttribute("formName", "frmCustomerWiseCategorySalesOrderReport");
@@ -105,7 +105,7 @@ public class clsCRMReportsController {
 		} else {
 			return new ModelAndView("frmCustomerWiseCategorySalesOrderReport", "command", new clsReportBean());
 		}
-
+        
 	}
 
 	/**
@@ -425,7 +425,7 @@ public class clsCRMReportsController {
 		String reportName = servletContext.getRealPath("/WEB-INF/reports/webcrm/rptCategoryWiseSalesOrderReport.jrxml");
 		String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
 
-		String propNameSql = "select a.strPropertyName  from tblpropertymaster a where a.strPropertyCode='" + propertyCode + "' and a.strClientCode='" + clientCode + "' ";
+		String propNameSql = "select a.strPropertyName  from dbwebmms.tblpropertymaster a where a.strPropertyCode='" + propertyCode + "' and a.strClientCode='" + clientCode + "' ";
 		List listPropName = objGlobalFunctionsService.funGetDataList(propNameSql, "sql");
 		String propName = "";
 		if (listPropName.size() > 0) {

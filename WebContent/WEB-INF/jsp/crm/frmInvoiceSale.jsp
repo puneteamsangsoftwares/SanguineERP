@@ -231,8 +231,8 @@ $( window ).load(function() {
 					style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll"
 					class="transTablex col11-center">
 					<tbody>
-					<col style="width:11%">					
-					<col style="width:20%">
+					<col style="width:12%">					
+					<col style="width:25%">
 					<col style="width:37%">
 					<col style="width:17.5%">
 					<col style="width:20%">

@@ -774,7 +774,7 @@
 						$("#txtSState").val(response.strSState);
 						$("#txtSPin").val(response.strSPin);
 						$("#txtSCountry").val(response.strSCountry);
-						$("#txtSubTotlAmt").val(response.dblSubTotalAmt);
+						$("#txtSubTotlAmt").val(response.dblSubTotalAmt.toFixed(maxQuantityDecimalPlaceLimit));
 						$("#txtFinalAmt").val(response.dblTotalAmt.toFixed(maxQuantityDecimalPlaceLimit));
 						$("#txtDiscount").val(response.dblDiscountAmt.toFixed(maxQuantityDecimalPlaceLimit));
 						$("#txtDiscountPer").val(response.dblDiscount);
@@ -1741,7 +1741,7 @@
 			dblDisAmt=parseFloat(document.getElementById("dblDisAmt."+i).value)+dblDisAmt;
 		}
 		
-		$("#txtSubTotlAmt").val(totalAmt);
+		$("#txtSubTotlAmt").val(totalAmt.toFixed(maxQuantityDecimalPlaceLimit));
 		
 		/* var discount=(totalAmt*parseFloat($("#txtDiscountPer").val()))/100;
 		dblDisAmt=dblDisAmt+parseFloat(discount); */
@@ -2397,7 +2397,7 @@
 							    	 txtFinalAmt = txtFinalAmt + qty*untiprice;
 							    	 txtSubTotlAmt = txtSubTotlAmt + qty*untiprice;
 							    	 $('#txtFinalAmt').val(txtFinalAmt.toFixed(maxQuantityDecimalPlaceLimit));
-							    	 $('#txtSubTotlAmt').val(txtSubTotlAmt);
+							    	 $('#txtSubTotlAmt').val(txtSubTotlAmt.toFixed(maxQuantityDecimalPlaceLimit));
 					    		}
 	    				}
 					});
@@ -3060,7 +3060,7 @@ function funChangeCombo() {
                         <input type="button" value="Add" class="btn btn-primary center-block" 
                            class="smallButton" onclick="return btnAdd_onclick()" />
 			    </div>
-				
+			
 				<div class="col-md-1"><br><br>
 				        <input type="button" value="Update" class="btn btn-primary center-block" 
 				          class="smallButton" onclick="return btnUpdate_onclick()" />

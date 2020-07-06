@@ -771,7 +771,7 @@
 				    <input id="txtWt" ondblclick="" type="text" class="decimal-places numberField"></input>
 				</div>	
 					
-				<div class="col-md-2"><label>Direct </label><br>
+				<div class="col-md-2"><label>Work Order </label><br>
 				    <input type="Checkbox" id="chkDirectWorkOrder"/>
 				</div>
                  <div class="col-md-6"></div>

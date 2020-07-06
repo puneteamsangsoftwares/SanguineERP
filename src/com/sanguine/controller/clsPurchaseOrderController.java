@@ -616,7 +616,7 @@ public class clsPurchaseOrderController {
 			} else {
 				String locCode = req.getSession().getAttribute("locationCode").toString();
 
-				sql = "select a.strProdcode,a.strProdName,a.strUOM,ifnull(d.dblPrice,0.0) as dblCostRM, ifnull(b.strSuppCode,'') as strSuppCode," + " ifnull(c.strPName,'') as strPName,a.strProdType,a.dblWeight,a.strPartNo,a.dblCostRM " + " from tblproductmaster a left outer join tblprodsuppmaster b on a.strProdCode=b.strProdCode and b.strClientCode='" + clientCode + "' and b.strDefault='Y' "
+				sql = "select a.strProdcode,a.strProdName,a.strUOM,ifnull(d.dblPrice,0.0) as dblPrice, ifnull(b.strSuppCode,'') as strSuppCode," + " ifnull(c.strPName,'') as strPName,a.strProdType,a.dblWeight,a.strPartNo,a.dblCostRM " + " from tblproductmaster a left outer join tblprodsuppmaster b on a.strProdCode=b.strProdCode and b.strClientCode='" + clientCode + "' and b.strDefault='Y' "
 						+ " left outer join tblpartymaster c on b.strSuppCode=c.strPCode and c.strClientCode='" + clientCode + "' " + "  left outer join tblreorderlevel d on a.strProdCode=d.strProdCode and d.strLocationCode='" + locCode + "' and d.strClientCode='" + clientCode + "' " + " where  a.strProdCode='" + prodCode + "' and a.strClientCode='" + clientCode + "'";
 			}
 			list = objGlobalFunctionsService.funGetProductDataForTransaction(sql, prodCode, clientCode);

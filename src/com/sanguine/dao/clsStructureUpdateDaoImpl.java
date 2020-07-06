@@ -1079,6 +1079,10 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		funExecuteQuery(sql);
 		
 		sql = "ALTER TABLE `tblpropertysetup`"
+				+ " ADD COLUMN `strCheckPOSSales` VARCHAR(1) NOT NULL DEFAULT 'N' AFTER `strFifo`;";
+			funExecuteQuery(sql);
+		
+		sql = "ALTER TABLE `tblpropertysetup`"
 				+ "ADD COLUMN `strFifo` VARCHAR(1) NOT NULL DEFAULT 'N' AFTER `strIncludeTaxInWeightAvgPrice`;";
 		funExecuteQuery(sql);
 		

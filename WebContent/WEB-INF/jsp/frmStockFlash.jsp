@@ -767,7 +767,9 @@ border:1px solid #fff;
 		</div>
 		<div class="center" style="text-align:center;">
 		 	<a href="#"><button class="btn btn-primary center-block" id="btnExport" value="Export">Export</button></a>&nbsp
-		 	<a href="#"><button class="btn btn-primary center-block" id="btnExecute" onclick="return funOnClick()" value="EXECUTE">Execute</button></a>
+		 	<!-- <a href="#"><button class="btn btn-primary center-block" id="btnExecute" onclick="return funOnClick()" value="EXECUTE">Execute</button></a> -->
+		 	
+		 	<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="EXECUTE">Execute</button></a>
 		 
 		</div>
 			

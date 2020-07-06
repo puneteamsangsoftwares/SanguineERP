@@ -212,7 +212,7 @@
 			
 		}
 	
-		function 	(){
+		function  funTakeDBBackup(){
 			var searchurl=getContextPath()+"/takeDBBackUp.html?";
 			 $.ajax({
 				  type: "GET",

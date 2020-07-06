@@ -66,7 +66,8 @@ public class clsSearchFormController {
 	String strModule = "1";
 	String strGroupCode="",strSubGroupCode="";
 	private String txtArrivalDate;
-
+	String strLocation="";
+	
 	// Variable For Excise
 	private String txtFromDate = "";
 	private String txtToDate = "";
@@ -79,6 +80,11 @@ public class clsSearchFormController {
 	private  String strCustCode="",strFunctionCode = "";
 	@RequestMapping(value = "/searchform", method = RequestMethod.GET)
 	public ModelAndView funOpenSearchForm(Map<String, Object> model, @ModelAttribute("formname") String value, BindingResult result, @RequestParam(value = "formname") String formName, @RequestParam(value = "searchText") String search_with, HttpServletRequest req) {
+		
+		if(req.getParameter("locationCode") !=null)
+		{
+			strLocation = req.getParameter("locationCode").toString();	
+		}
 		if (req.getSession().getAttribute("selectedModuleName").toString().equalsIgnoreCase("7-WebBanquet"))
 		{
 			formName = "Banquet"+formName;
@@ -643,7 +649,11 @@ public class clsSearchFormController {
 
 			case "taxmaster": {
 				columnNames = "strTaxCode,strTaxDesc,strTaxIndicator,strExternalCode";
-				tableName = "clsTaxHdModel where strClientCode='" + clientCode + "' and strPropertyCode='" + propertyCode + "' ";
+				tableName = "clsTaxHdModel where strClientCode='" + clientCode + "' ";;
+						if(!clientCode.equalsIgnoreCase("319.001"))
+						{
+							tableName += " and strPropertyCode='" + propertyCode + "' ";
+						}
 				listColumnNames = "Tax Code,Tax Desc,Tax Indicator,External Code";
 				idColumnName = "strTaxCode";
 				searchFormTitle = "Tax Master";
@@ -691,7 +701,7 @@ public class clsSearchFormController {
 				columnNames = "a.strProdCode,a.strProdName,c.strSGName,d.strGName,a.strUOM,a.strProdType" + ",a.strSpecification,a.strCalAmtOn,a.strClass,a.strNonStockableItem,a.strPartNo";
 				tableName = "clsProductMasterModel a , clsSubGroupMasterModel c , clsGroupMasterModel d ";
 				if (showAllProd.equals("N")) {
-					tableName = tableName + " ,clsProductReOrderLevelModel b " + " where a.strProdCode=b.strProdCode and b.strLocationCode='" + strLocCode + "' and b.strClientCode='" + clientCode + "' and ";
+					tableName = tableName + " ,clsProductReOrderLevelModel b " + " where a.strProdCode=b.strProdCode and b.strLocationCode='" + strLocation + "' and b.strClientCode='" + clientCode + "' and ";
 				} else {
 					tableName = tableName + " where  ";
 				}
@@ -1016,14 +1026,14 @@ public class clsSearchFormController {
 			}
 
 			case "MaterialReqSlip": {
-				columnNames = "a.strReqCode,DATE_FORMAT(a.dtReqDate,'%d-%m-%Y'),b.strLocName,c.strLocName,a.strAuthorise" + ",a.strUserCreated,DATE_FORMAT(a.dtCreatedDate,'%d-%m-%Y'),a.strNarration";
+			    columnNames = "a.strReqCode,DATE_FORMAT(a.dtReqDate,'%d-%m-%Y'),b.strLocName,c.strLocName,a.strAuthorise" + ",a.strUserCreated,DATE_FORMAT(a.dtCreatedDate,'%d-%m-%Y'),a.strNarration";
 				String sqlforNoraml = "clsRequisitionHdModel a,clsLocationMasterModel b,clsLocationMasterModel c " + " where a.strLocBy=b.strLocCode and a.strLocOn=c.strLocCode " + " and a.strReqCode not in (select strReqCode from clsMISHdModel) " + " and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' and c.strClientCode='" + clientCode + "' "
 						+ " and EXTRACT(YEAR FROM a.dtReqDate) between '" + finYear[0] + "' and '" + finYear[1] + "' ";
 				if (showPrptyWiseProdDoc.equalsIgnoreCase("Y")) {
 					sqlforNoraml = sqlforNoraml + "and b.strPropertyCode='" + propCode + "' ";
 				}
 
-				tableName += " and a.strAuthorise='No'";
+				tableName += sqlforNoraml +  " and a.strAuthorise='Yes' ";
 
 				tableName = tableName + " order by a.strReqCode " + ShowTransAsc_Desc + " ";
 				listColumnNames = "Req Code,Req Date,Loc By,Loc On,Authorise,User Created,Date Created,Narration";
@@ -1547,7 +1557,7 @@ public class clsSearchFormController {
 				columnNames = "a.strProdCode,a.strProdName,c.strSGName,d.strGName,a.strUOM,a.strProdType,a.strBarCode" + ",a.strSpecification,a.strCalAmtOn,a.strClass,a.strNonStockableItem,a.strPartNo";
 				tableName = "clsProductMasterModel a, clsSubGroupMasterModel c , clsGroupMasterModel d ";
 				if (showAllProd.equals("N")) {
-					tableName = tableName + " ,clsProductReOrderLevelModel b " + " where  a.strProdCode=b.strProdCode and  b.strLocationCode='" + strLocCode + "' and " + " b.strClientCode='" + clientCode + "' and ";
+					tableName = tableName + " ,clsProductReOrderLevelModel b " + " where  a.strProdCode=b.strProdCode and  b.strLocationCode='" + strLocation + "' and " + " b.strClientCode='" + clientCode + "' and ";
 				} else {
 					tableName = tableName + "  where   ";
 				}
@@ -1649,7 +1659,7 @@ public class clsSearchFormController {
 				tableName = "clsProductMasterModel a, clsSubGroupMasterModel c , clsGroupMasterModel d ";
 				if (showAllProd.equals("N")) {
 
-					tableName = tableName + " ,clsProductReOrderLevelModel b " + " where  a.strProdCode=b.strProdCode  " + "and b.strLocationCode='" + loctemp + "' and  b.strClientCode='" + clientCode + "' and ";
+					tableName = tableName + " ,clsProductReOrderLevelModel b " + " where  a.strProdCode=b.strProdCode  " + "and b.strLocationCode='" + strLocation + "' and  b.strClientCode='" + clientCode + "' and ";
 				} else {
 					tableName = tableName + "  where   ";
 				}
@@ -4420,7 +4430,11 @@ public class clsSearchFormController {
 
 		case "taxmaster": {
 			columnNames = "strTaxCode,strTaxDesc,strTaxIndicator";
-			tableName = "clsTaxHdModel where strClientCode='" + clientCode + "' and strPropertyCode='" + propertyCode + "' ";
+			tableName = "clsTaxHdModel where strClientCode='" + clientCode + "' ";
+			if(!clientCode.equalsIgnoreCase("319.001"))
+			{
+				tableName += " and strPropertyCode='" + propertyCode + "' ";
+			}
 			listColumnNames = "Tax Code,Tax Desc,Tax Indicator";
 			idColumnName = "strTaxCode";
 			searchFormTitle = "Tax Master";

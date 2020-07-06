@@ -136,7 +136,7 @@ public class clsDownloadExcelController {
 						sqlBuilder.append( " and b.strManufacturerCode='" + strManufactureCode + "'");	
 					}
 					if (!(prodType.equalsIgnoreCase("ALL"))) {
-						sqlBuilder.append( " and  b.strProdType <> '" + prodType + "'  ");
+						sqlBuilder.append( " and  b.strProdType = '" + prodType + "'  ");
 					}
 				} else if (!(strGCode.equals("ALL")) && strSGCode.equals("ALL")) // for
 																					// Particulor
@@ -164,7 +164,7 @@ public class clsDownloadExcelController {
 						sqlBuilder.append(" and b.strManufacturerCode='" + strManufactureCode + "'");	
 					}
 					if (!(prodType.equalsIgnoreCase("ALL"))) {
-						sqlBuilder.append(" and  b.strProdType <> '" + prodType + "'  ");
+						sqlBuilder.append(" and  b.strProdType = '" + prodType + "'  ");
 					}
 
 				} else // // for Particulor group and Particulor SubGroup
@@ -188,7 +188,7 @@ public class clsDownloadExcelController {
 						sqlBuilder.append( " and b.strManufacturerCode='" + strManufactureCode + "'");	
 					}
 					if (!(prodType.equalsIgnoreCase("ALL"))) {
-						sqlBuilder.append( " and  b.strProdType <> '" + prodType + "'  ");
+						sqlBuilder.append( " and  b.strProdType = '" + prodType + "'  ");
 					}
 				}
 
@@ -244,7 +244,7 @@ public class clsDownloadExcelController {
 				}
 
 				if (!(prodType.equalsIgnoreCase("ALL"))) {
-					sqlBuilder.append(" and  b.strProdType <> '" + prodType + "'  ");
+					sqlBuilder.append(" and  b.strProdType = '" + prodType + "'  ");
 				}
 
 				if (!strGCode.equalsIgnoreCase("All")) {
@@ -552,7 +552,7 @@ public class clsDownloadExcelController {
 				}
 
 				if (!(prodType.equalsIgnoreCase("ALL"))) {
-					sqlBuilder.append( " and  b.strProdType <> '" + prodType + "'  ");
+					sqlBuilder.append( " and  b.strProdType = '" + prodType + "'  ");
 				}
 				if(!strManufactureCode.equals("")){
 					sqlBuilder.append(" and b.strManufacturerCode='" + strManufactureCode + "'");	
@@ -713,7 +713,7 @@ public class clsDownloadExcelController {
 						sqlBuilder.append( " and b.strManufacturerCode='" + strManufactureCode + "'");	
 					}
 					if (!(prodType.equalsIgnoreCase("ALL"))) {
-						sqlBuilder.append( " and  b.strProdType <> '" + prodType + "'  ");
+						sqlBuilder.append( " and  b.strProdType = '" + prodType + "'  ");
 					}
 				} else if (!(strGCode.equals("ALL")) && strSGCode.equals("ALL")) 
 				{
@@ -736,7 +736,7 @@ public class clsDownloadExcelController {
 						sqlBuilder.append( " and b.strManufacturerCode='" + strManufactureCode + "'");	
 					}
 					if (!(prodType.equalsIgnoreCase("ALL"))) {
-						sqlBuilder.append(" and  b.strProdType <> '" + prodType + "'  ");
+						sqlBuilder.append(" and  b.strProdType = '" + prodType + "'  ");
 					}
 
 				} else // // for Particulor group and Particulor SubGroup
@@ -760,7 +760,7 @@ public class clsDownloadExcelController {
 						sqlBuilder.append(" and b.strManufacturerCode='" + strManufactureCode + "'");	
 					}
 					if (!(prodType.equalsIgnoreCase("ALL"))) {
-						sqlBuilder.append(" and  b.strProdType <> '" + prodType + "'  ");
+						sqlBuilder.append(" and  b.strProdType = '" + prodType + "'  ");
 					}
 				}
 
@@ -816,7 +816,7 @@ public class clsDownloadExcelController {
 				}
 
 				if (!(prodType.equalsIgnoreCase("ALL"))) {
-					sqlBuilder.append(  " and  b.strProdType <> '" + prodType + "'  ");
+					sqlBuilder.append(  " and  b.strProdType = '" + prodType + "'  ");
 				}
 
 				if (!strGCode.equalsIgnoreCase("All")) {
@@ -1019,7 +1019,7 @@ public class clsDownloadExcelController {
 					}
 
 					if (!(prodType.equalsIgnoreCase("ALL"))) {
-						sqlBuilder.append(" and  b.strProdType <> '" + prodType + "'  ");
+						sqlBuilder.append(" and  b.strProdType = '" + prodType + "'  ");
 					}
 				} else if (!(strGCode.equals("ALL")) && strSGCode.equals("ALL")) // for
 																					// Particulor
@@ -1042,7 +1042,7 @@ public class clsDownloadExcelController {
 					}
 
 					if (!(prodType.equalsIgnoreCase("ALL"))) {
-						sqlBuilder.append(" and  b.strProdType <> '" + prodType + "'  ");
+						sqlBuilder.append(" and  b.strProdType = '" + prodType + "'  ");
 					}
 					if(!strManufactureCode.equals("")){
 						sqlBuilder.append(" and b.strManufacturerCode='" + strManufactureCode + "'");	
@@ -1065,7 +1065,7 @@ public class clsDownloadExcelController {
 					}
 
 					if (!(prodType.equalsIgnoreCase("ALL"))) {
-						sqlBuilder.append(" and  b.strProdType <> '" + prodType + "'  ");
+						sqlBuilder.append(" and  b.strProdType = '" + prodType + "'  ");
 					}
 					if(!strManufactureCode.equals("")){
 						sqlBuilder.append(" and b.strManufacturerCode='" + strManufactureCode + "'");	

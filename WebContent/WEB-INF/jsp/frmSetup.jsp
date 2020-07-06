@@ -853,7 +853,7 @@
 			<!--  Start of tabContainer-->
 			<div style="border: 0px solid black; width: 100%;height:100%; margin-left: auto; margin-right: auto;">
 				<div id="tab_container">
-					<ul class="tabs">
+					<ul class="tabs" >
 						<li class="active" data-state="tab1">Company</li>
 						<li data-state="tab2">General</li>
 						<li data-state="tab3">Purchase Order</li>
@@ -1478,6 +1478,13 @@
 										<s:checkbox path="strLastSuppRateShowInStockFlash" value="Y"/></td>
 										</tr> --%>
 									</div>
+									<div class="col-md-2"></div>
+									<div class="col-md-2">	
+										<label>Check POS Sales In Physical Post </label>
+										<s:checkbox path="strCheckPOSSales" value="Y"/>
+									</div>
+									
+									
 								</div>
 							</div>
 				

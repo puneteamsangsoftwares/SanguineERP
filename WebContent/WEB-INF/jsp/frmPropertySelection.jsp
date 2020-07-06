@@ -69,7 +69,9 @@
 		var companyName=$( "#cmbCompany option:selected" ).text();
 	    var  propertyName=$( "#cmbProperty option:selected" ).text();
 	    var locationName=$( "#cmbLocation option:selected" ).text();
-	    var financialYear=$( "#cmbFinancialYear option:selected" ).text();   
+	    var financialYear=$( "#cmbFinancialYear option:selected" ).text();  
+	    var pmsModule='<%=session.getAttribute("selectedPMSModule").toString()%>';
+	   
 	 	if(locationName.trim().length == 0){
 	 	$.jAlert("Please Select Location");	
 		return false;
@@ -78,45 +80,48 @@
 	    $("#strPropertyName").val(propertyName);
 	    $("#strLocationName").val(locationName);
 	    $("#strFinancialYear").val(financialYear);
+	   if(pmsModule.equals("Yes"))
+	   {
+		   var searchurl=getContextPath()+"/checkMasterEmptyForPMS.html?";
+			 $.ajax({
+				  type: "GET",
+				  url: searchurl,
+				  dataType:"text",
+				  async:false,
+				  success: function(response){
+					  if(response.includes(false))
+						  {
+						  var isCheckOk=confirm("Do You Want to Open fill Masters ?"); 
+							if(isCheckOk)
+							{			 	 
+								url=getContextPath()+"/frmPMSFillMasters.html?"
+						 	 	window.open(url); 
+							}
+						  }
+					  
+				  },
+				  error: function(jqXHR, exception) {
+			            if (jqXHR.status === 0) {
+			                alert('Not connect.n Verify Network.');
+			            } else if (jqXHR.status == 404) {
+			                alert('Requested page not found. [404]');
+			            } else if (jqXHR.status == 500) {
+			                alert('Internal Server Error [500].');
+			            } else if (exception === 'parsererror') {
+			                alert('Requested JSON parse failed.');
+			            } else if (exception === 'timeout') {
+			                alert('Time out error.');
+			            } else if (exception === 'abort') {
+			                alert('Ajax request aborted.');
+			            } else {
+			                alert('Uncaught Error.n' + jqXHR.responseText);
+			            }		            
+			        }
+				 });
+		  	
+		   
+	   }
 	    
-	    var searchurl=getContextPath()+"/checkMasterEmptyForPMS.html?";
-		 $.ajax({
-			  type: "GET",
-			  url: searchurl,
-			  dataType:"text",
-			  async:false,
-			  success: function(response){
-				  if(response.includes(false))
-					  {
-					  var isCheckOk=confirm("Do You Want to Open fill Masters ?"); 
-						if(isCheckOk)
-						{			 	 
-							url=getContextPath()+"/frmPMSFillMasters.html?"
-					 	 	window.open(url); 
-						}
-					  }
-				  
-			  },
-			  error: function(jqXHR, exception) {
-		            if (jqXHR.status === 0) {
-		                alert('Not connect.n Verify Network.');
-		            } else if (jqXHR.status == 404) {
-		                alert('Requested page not found. [404]');
-		            } else if (jqXHR.status == 500) {
-		                alert('Internal Server Error [500].');
-		            } else if (exception === 'parsererror') {
-		                alert('Requested JSON parse failed.');
-		            } else if (exception === 'timeout') {
-		                alert('Time out error.');
-		            } else if (exception === 'abort') {
-		                alert('Ajax request aborted.');
-		            } else {
-		                alert('Uncaught Error.n' + jqXHR.responseText);
-		            }		            
-		        }
-			 });
-	  	
-	   
 	 	}
 	}
 	

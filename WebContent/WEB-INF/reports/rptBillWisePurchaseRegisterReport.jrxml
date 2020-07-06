@@ -27,6 +27,8 @@
 	<parameter name="strState" class="java.lang.String"/>
 	<parameter name="strCountry" class="java.lang.String"/>
 	<parameter name="strPin" class="java.lang.String"/>
+	<parameter name="dblExtraAmt" class="java.lang.Double"/>
+	<parameter name="dblDisAmt" class="java.lang.Double"/>
 	<queryString>
 		<![CDATA[select  1 from dual]]>
 	</queryString>
@@ -309,21 +311,13 @@
 		</band>
 	</pageFooter>
 	<lastPageFooter>
-		<band height="20">
-			<textField>
-				<reportElement style="SubTitle" x="0" y="0" width="290" height="17" forecolor="#050505" uuid="154d5c93-aa74-4f74-9cc8-ce1fdecd528f"/>
-				<textElement>
-					<font fontName="Serif" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Total"]]></textFieldExpression>
-			</textField>
-			<textField pattern="#0.00">
-				<reportElement x="450" y="0" width="103" height="20" forecolor="#050505" uuid="98b41385-0e2e-48fc-9e48-da9704aa5a1c"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Serif" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{vTotalAmt}]]></textFieldExpression>
-			</textField>
+		<band height="70">
+			<line>
+				<reportElement x="0" y="61" width="555" height="1" forecolor="#969696" uuid="db397613-d6e9-4755-96b6-7b0b417fd3f4"/>
+				<graphicElement>
+					<pen lineWidth="3.0"/>
+				</graphicElement>
+			</line>
 		</band>
 	</lastPageFooter>
 	<summary>

@@ -16,6 +16,7 @@
 	 */
 	 
 	 var phystckeditable;
+	 var checkPOSSales;
 	$(document).ready(function(){
 // 		 resetForms('stkPosting');
 		   $("#txtProdCode").focus();	
@@ -31,7 +32,8 @@
 			  phystckeditable="${phystckeditable}" ;
 			  if(phystckeditable=="false"){
 				  $("#txtStkPostCode").prop('disabled', true);
-			  }	  
+			  }	
+			  checkPOSSales="${strCheckPOSSales}" ;
 				  
 			  
 	});
@@ -54,6 +56,11 @@
 		 */
 		function btnAdd_onclick() 
 		{			
+			var flag= funCheckPOSSalesData();
+			if(flag)
+			{
+			    return false;
+			}
 			
 			if($("#txtProdCode").val().trim().length ==0)
 	        {
@@ -1073,6 +1080,11 @@
 							{
 								if(null!=response)
 						        {
+									var flag= funCheckPOSSalesData();
+									if(flag)
+									{
+										return false;
+									}
 									response=response.returnValue;
 						        	var count=0;
 						        	funResetProductFields();
@@ -1591,6 +1603,73 @@
 	    			$("#txtQuantity").val("0");
 	    			btnAdd_onclick();
 			    }
+			    
+			    function funCheckPOSSales()
+				{
+			    	var postingDate=$("#txtStkPostDate").val();
+			    	var loc=$("#txtLocCode").val();	
+			       
+					var searchUrl="";
+					searchUrl=getContextPath()+"/CheckPOSCheck.html?postingDate="+postingDate+"&location="+loc;
+					$.ajax
+					({
+				        type: "GET",
+				        url: searchUrl,
+					    dataType: "json",
+					    async: false,
+					    success: function(response)
+					    {
+					    	ProductData=response.strDocType;
+					    	
+					    },
+					    error: function(jqXHR, exception) {
+				            if (jqXHR.status === 0) {
+				                alert('Not connect.n Verify Network.');
+				            } else if (jqXHR.status == 404) {
+				                alert('Requested page not found. [404]');
+				            } else if (jqXHR.status == 500) {
+				                alert('Internal Server Error [500].');
+				            } else if (exception === 'parsererror') {
+				                alert('Requested JSON parse failed.');
+				            } else if (exception === 'timeout') {
+				                alert('Time out error.');
+				            } else if (exception === 'abort') {
+				                alert('Ajax request aborted.');
+				            } else {
+				                alert('Uncaught Error.n' + jqXHR.responseText);
+				            }		            
+				        }
+					   
+				    });
+					 return ProductData;
+				
+				}
+			    function funCheckPOSSalesData()
+			    {
+			    	
+			    	var flag=false;
+			    	var table = document.getElementById("tblProduct");
+				    var rowCount = table.rows.length;		   
+				    if(!(rowCount>0))
+			    	{
+				    	if(checkPOSSales=="Y")
+						{
+							var isPOSSales=funCheckPOSSales();
+							if(isPOSSales=="N")
+							{
+								var isCheckOk=confirm("POS Data is not posted Still Do You Want to Continue.."); 
+								
+								if(!isCheckOk)
+								{
+									 flag=true; 
+								}
+							}
+						}
+			
+			    	}
+			         return flag;
+				
+			    }
 	    
 	</script>
 	
@@ -1616,7 +1695,7 @@
 				<label id="lblStkPostDate">Stock Posting Date</label>
 				<s:input id="txtStkPostDate" type="text" path="dtPSDate"
 						required="required" pattern="\d{1,2}-\d{1,2}-\d{4}"
-						cssClass="calenderTextBox" style="width:80%;"/>
+						cssClass="calenderTextBox" onchange="funCheckPOSSalesData();" style="width:80%;"/>
 			</div>
 			<div class="col-md-2">	
 				<label>Conversion UOM</label>

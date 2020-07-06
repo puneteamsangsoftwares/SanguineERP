@@ -166,6 +166,7 @@ public class clsSecurityShellController {
 		String strModuleNo = req.getSession().getAttribute("moduleNo").toString();
 		String userCode = objBean.getStrUserCode();
 		String userName = objBean.getStrUserName();
+		
 		List<clsTreeMasterModel> objModel = objSecurityShellService.funGetFormList(objBean.getStrUserCode(), strModuleNo);
 		List<clsTreeMasterModel> objMasters = new ArrayList<clsTreeMasterModel>();
 		List<clsTreeMasterModel> objTransactions = new ArrayList<clsTreeMasterModel>();

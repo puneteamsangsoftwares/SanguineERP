@@ -98,6 +98,13 @@ public class clsStkPostingController {
 		/**
 		 * Checking Authorization
 		 */
+		String clientCode = request.getSession().getAttribute("clientCode").toString();
+		String propertyCode = request.getSession().getAttribute("propertyCode").toString();
+		clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
+
+		String strCheckPOSSales=objSetup.getStrCheckPOSSales();
+		model.put("strCheckPOSSales", strCheckPOSSales);
+		
 		String docCode = "";
 		boolean flagOpenFromAuthorization = true;
 		try {
@@ -576,9 +583,29 @@ public class clsStkPostingController {
 
 			String sqlHDQuery = "select a.strPSCode,DATE_FORMAT(a.dtPSDate,'%d-%m-%Y') as dtPSDate,a.strLocCode,b.strLocName " + " from tblstockpostinghd a,tbllocationmaster b " + "where a.strclientcode='" + clientCode + "' and b.strclientCode='" + clientCode + "' and a.strLocCode=b.strLocCode " + "and a.strPSCode='" + stockPostingCode + "' ";
 
-			String sqlDtlQuery = "select a.strProdCode,b.strProdName," + "b.strUOM,b.dblCostRM,b.strWtUOM,a.dblCStock,a.dblPStock," + "a.dblPStock-a.dblCStock as variance,(a.dblPStock-a.dblCStock)*b.dblCostRM as AjdValue " + " ,a.dblActualRate,(a.dblPStock-a.dblCStock)*a.dblActualRate  as actValue   " + "from tblstockpostingdtl a,tblproductmaster b where a.strProdCode=b.strProdCode  "
-					+ " and a.strPSCode='" + stockPostingCode + "' " + "and a.strClientCode='" + clientCode + "' and  b.strClientCode='" + clientCode + "'";
-
+			/*
+			 * String sqlDtlQuery = "select a.strProdCode,b.strProdName," +
+			 * "b.strUOM,b.dblCostRM,b.strWtUOM,a.dblCStock,a.dblPStock," +
+			 * "a.dblPStock-a.dblCStock as 
+			 * variance,(a.dblPStock-a.dblCStock)*b.dblCostRM as AjdValue "
+			 * +
+			 * " ,a.dblActualRate,(a.dblPStock-a.dblCStock)*a.dblActualRate  as actValue   "
+			 * +
+			 * "from tblstockpostingdtl a,tblproductmaster b where a.strProdCode=b.strProdCode  "
+			 * + " and a.strPSCode='" + stockPostingCode + "' " +
+			 * "and a.strClientCode='" + clientCode + "' and  b.strClientCode='"
+			 * + clientCode + "'";
+			 */
+			String sqlDtlQuery="SELECT a.strProdCode,b.strProdName,b.strUOM,b.dblCostRM,b.strWtUOM,\r\n" + 
+					"if(a.dblCStock=0,CONCAT('0 ',b.strUOM),funGetUOM(a.dblCStock,b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM))  as dblCStock,\r\n" + 
+					"a.dblCStock as dblCStock1,\r\n" + 
+					"if(a.dblPStock=0,CONCAT('0 ',b.strUOM),funGetUOM(a.dblPStock,b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM))  as dblPStock,\r\n" + 
+					"a.dblPStock as dblPStock1,\r\n" + 
+					"if((a.dblPStock-a.dblCStock)=0,CONCAT('0 ',b.strUOM),funGetUOM(a.dblPStock-a.dblCStock,b.dblRecipeConversion,b.dblIssueConversion,b.strReceivedUOM,b.strRecipeUOM))  AS VARIANCE ,\r\n" + 
+					"a.dblPStock-a.dblCStock AS VARIANCE1,\r\n" + 
+					"(a.dblPStock-a.dblCStock)*b.dblCostRM AS AjdValue,a.dblActualRate,(a.dblPStock-a.dblCStock)*a.dblActualRate AS actValue\r\n" + 
+					"from tblstockpostingdtl a,tblproductmaster b where a.strProdCode=b.strProdCode   and a.strPSCode='" + stockPostingCode + "' " +
+					" and a.strClientCode='" + clientCode + "' and  b.strClientCode='"+ clientCode + "'";
 			JasperDesign jd = JRXmlLoader.load(reportName);
 			JRDesignQuery newQuery = new JRDesignQuery();
 			newQuery.setText(sqlHDQuery);
@@ -647,7 +674,7 @@ public class clsStkPostingController {
 		String userCode = req.getSession().getAttribute("usercode").toString();
 		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
 		String sql="SELECT a.strProdCode FROM tblproductmaster a, tblsubgroupmaster c, tblgroupmaster d"
-				+ " WHERE a.strSGCode=c.strSGCode AND c.strGCode=d.strGCode AND a.strNotInUse='N' "
+				+ " WHERE a.strSGCode=c.strSGCode AND c.strGCode=d.strGCode "
 				+ " AND a.strClientCode='"+clientCode+"' AND c.strClientCode='"+clientCode+"' AND d.strClientCode='"+clientCode+"' "
 				+ " AND a.strProdType IN('Procured','Semi Finished','Non-Inventory') "
 				+ " AND a.strLocCode='"+strLocCode+"'  ";
@@ -655,6 +682,32 @@ public class clsStkPostingController {
 		List list = objGlobalFunctionsService.funGetList(sql, "sql");
 		
 		return list;
+
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/CheckPOSCheck", method = RequestMethod.GET)
+	private @ResponseBody clsReportBean funGetCheckPOSCheck( @RequestParam(value = "postingDate") String strpostingDate,@RequestParam(value = "location") String strLocCode,HttpServletResponse resp, HttpServletRequest req) {
+
+	    strpostingDate=objGlobalFunctions.funGetDate("yyyy/MM/dd", strpostingDate);
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		String companyName = req.getSession().getAttribute("companyName").toString();
+		String userCode = req.getSession().getAttribute("usercode").toString();
+		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
+		String sql="select * from tblstockadjustmenthd a where a.strNarration like '%Sales Data%'"
+				+ " and date(a.dtSADate)='"+strpostingDate+"' and a.strLocCode='"+strLocCode+"' and a.strClientCode='"+clientCode+"'; ";
+
+		//	+ " AND a.strLocCode='"+strLocCode+"'  ";
+
+	    clsReportBean obj = new clsReportBean();
+	    obj.setStrDocType("N");//This is to check pos sales
+		List list = objGlobalFunctionsService.funGetList(sql, "sql");
+		if(list.size()>0 && list !=null)
+		{
+			obj.setStrDocType("Y");
+		}
+		return obj;
+
 
 	}
 

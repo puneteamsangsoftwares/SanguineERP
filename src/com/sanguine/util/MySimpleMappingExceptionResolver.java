@@ -9,6 +9,8 @@ SimpleMappingExceptionResolver {
 
 @Override
 public String buildLogMessage(Exception ex, HttpServletRequest request) {
-		return "Spring MVC exception: " + ex.getLocalizedMessage();
+	  int abc=10;
+	  
+      return "Spring MVC exception: " + ex.getLocalizedMessage();
 	}	
 }

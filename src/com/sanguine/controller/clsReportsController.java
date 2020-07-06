@@ -3463,7 +3463,8 @@ public class clsReportsController {
 						sql = sql + " and (" + strLocCodes + ") ";
 					}
 					
-			sql = sql + " AND (a.dblQuantity* IFNULL(d.RecipeCost,c.dblCostRM))>0 ";
+					//This condition need to be discuss ,discuss and then uncommnet this line 		
+			//sql = sql + " AND (a.dblQuantity* IFNULL(d.RecipeCost,c.dblCostRM))>0 ";
 			
 			sql = sql + " GROUP BY c.strProdCode ORDER BY h.strLocName ASC, f.strGName ASC, e.strSGName ASC, c.strProdName ASC " ;
 		
@@ -4886,7 +4887,8 @@ public class clsReportsController {
 			if (showZeroItems.equals("No")) {
 				sql += "and (a.dblOpeningStk >0 or a.dblGRN >0 or dblSCGRN >0 or a.dblStkTransIn >0 or a.dblStkAdjIn >0 " + "or a.dblMISIn >0 or a.dblQtyProduced >0 or a.dblMaterialReturnIn>0 or a.dblStkTransOut >0 " + "or a.dblStkAdjOut >0 or a.dblMISOut >0 or a.dblQtyConsumed  >0 or a.dblSales  >0 " + "or a.dblMaterialReturnOut  >0 or a.dblDeliveryNote > 0)";
 			}
-
+			sql +=" and a.dblClosingStk <>0";
+			
 			clsLocationMasterModel objLocCode = objLocationMasterService.funGetObject(locCode, clientCode);
 			// System.out.println(sql);
 			// List list=objStkFlashService.funGetStockFlashData(sql,clientCode,
@@ -4896,7 +4898,17 @@ public class clsReportsController {
 			DecimalFormat df = new DecimalFormat("#.##");
 			for (int cnt = 0; cnt < list.size(); cnt++) {
 				Object[] arrObj = (Object[]) list.get(cnt);
-				double closeStk = Double.parseDouble(arrObj[6].toString());
+				double closeStk=0;
+				if(qtyWithUOM.equals("No"))
+				{
+					closeStk = Double.parseDouble(arrObj[2].toString());
+
+				}
+				else
+				{
+					closeStk=Double.parseDouble(arrObj[6].toString());
+				}
+				
 				double value = Double.parseDouble(arrObj[3].toString());
 
 				clsStockFlashModel objStkFlashModel = new clsStockFlashModel();
@@ -4956,8 +4968,8 @@ public class clsReportsController {
 			hm.put("dteToDate", tDate);
 			hm.put("stkMiniFlashList", listStockFlashModel);
 			hm.put("strLocName", objLocCode.getStrLocName());
-			hm.put("totValue", totValue);
-			hm.put("totClosingStk", totClosingStk);
+			hm.put("totValue", Math.round(Float.parseFloat(String.valueOf(totValue))));
+			hm.put("totClosingStk", Math.round(Float.parseFloat(String.valueOf(totClosingStk))));
 
 			JasperDesign jd = JRXmlLoader.load(reportName);
 			JasperReport jr = JasperCompileManager.compileReport(jd);
@@ -5210,8 +5222,8 @@ public class clsReportsController {
 	{
 
 		// funCallCategoryWiseSalesOrderReport(objBean, resp, req);
-		objBean.setDteFromDate(objGlobal.funGetDate("yyyy-MM-dd", objBean.getDteFromDate()));
-		objBean.setDteToDate(objGlobal.funGetDate("yyyy-MM-dd", objBean.getDteToDate()));
+		objBean.setDteFromDate(objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getDteFromDate()));
+		objBean.setDteToDate(objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getDteToDate()));
 		if (objBean.getStrReportView().equalsIgnoreCase("Item Wise"))
 		{
 			funCallPurchaseRegisterReport(objBean, resp, req);
@@ -5310,150 +5322,163 @@ public class clsReportsController {
 			{ "unused", "unused", "unused", "unchecked" })
 	private void funCallBillWisePurchaseRegisterReport(clsReportBean objBean, HttpServletResponse resp, HttpServletRequest req)
 	{
+	//Used by 1000 oaks ,before changing in this function first discuss with sir	
+	Connection con = objGlobalFunctions.funGetConnection(req);
+	String clientCode = req.getSession().getAttribute("clientCode").toString();
+	String companyName = req.getSession().getAttribute("companyName").toString();
+	String userCode = req.getSession().getAttribute("usercode").toString();
+	String propertyCode = req.getSession().getAttribute("propertyCode").toString();
+	double extraAmt=0.00;
+	double disAmt=0.00;
+	clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
+	if (objSetup == null)
+	{
+		objSetup = new clsPropertySetupModel();
+	}
 
-		Connection con = objGlobalFunctions.funGetConnection(req);
-		String clientCode = req.getSession().getAttribute("clientCode").toString();
-		String companyName = req.getSession().getAttribute("companyName").toString();
-		String userCode = req.getSession().getAttribute("usercode").toString();
-		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
-		clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
-		if (objSetup == null)
+	String reportName = servletContext.getRealPath("/WEB-INF/reports/rptBillWisePurchaseRegisterReport.jrxml");
+	String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
+
+	String webStockDB = req.getSession().getAttribute("WebStockDB").toString();
+
+	String propNameSql = "select a.strPropertyName  from " + webStockDB + ".tblpropertymaster a where a.strPropertyCode='" + propertyCode + "' and a.strClientCode='" + clientCode + "' ";
+	List listPropName = objGlobalFunctionsService.funGetDataList(propNameSql, "sql");
+	String propName = "";
+	if (listPropName.size() > 0)
+	{
+		propName = listPropName.get(0).toString();
+	}
+
+	ArrayList fieldList = new ArrayList();
+
+	//String sqlQuery = " SELECT d.strPName,a.strBillNo, a.dblTotal AS Amt,e.strLocName, DATE_FORMAT(a.dtGRNDate,'%d-%m-%Y')dtGRNDate ,a.strGRNCode" + " FROM tblgrnhd a,tblpartymaster d,tbllocationmaster e" + " WHERE  a.strSuppCode=d.strPCode  " + " and a.strLocCode=e.strLocCode ";
+
+	String sqlQuery = "SELECT d.strPName,a.strBillNo,ROUND( sum(((b.dblUnitPrice*(b.dblQty-b.dblRejected))-((b.dblUnitPrice*(b.dblQty-b.dblRejected))*a.dblDisRate)/100)+b.dblTaxAmt)) + ROUND(a.dblExtra) AS Amt,e.strLocName, "
+            +" DATE_FORMAT(a.dtGRNDate,'%d-%m-%Y')dtGRNDate,a.strGRNCode,a.dblExtra,a.dblDisAmt  "
+            +" FROM tblgrnhd a,tblgrndtl b,tblpartymaster d,tbllocationmaster e "
+            +" WHERE a.strGRNCode =b.strGRNCode and a.strSuppCode=d.strPCode AND a.strLocCode=e.strLocCode  "; 
+
+	
+	if (null != objBean.getStrDocCode() && objBean.getStrDocCode().length() > 0)
+	{
+		sqlQuery = sqlQuery + " and a.strSuppCode='" + objBean.getStrDocCode() + "' ";
+	}
+
+	if (null != objBean.getStrDocCode() && objBean.getStrDocCode().length() > 0 &&  !objBean.getStrSettlementName().equalsIgnoreCase("All"))
+	{
+		sqlQuery = sqlQuery + " and a.strPayMode='" + objBean.getStrSettlementName() + "' ";
+	}
+
+
+	String fromDate = objBean.getDteFromDate();
+	String toDate = objBean.getDteToDate();
+
+	String fd = fromDate.split("-")[2];
+	String fm = fromDate.split("-")[1];
+	String fy = fromDate.split("-")[0];
+
+	String td = toDate.split("-")[2];
+	String tm = toDate.split("-")[1];
+	
+	String ty = toDate.split("-")[0];
+
+	String dteFromDate = fd + "-" + fm + "-" + fy;
+	String dteToDate = td + "-" + tm + "-" + ty;
+
+	sqlQuery = sqlQuery + " and date(a.dtGRNDate) between  '" + fromDate + "' and '" + toDate + "'" + " ";
+	
+	sqlQuery = sqlQuery + "  group by b.strGRNCode "
+			+ " ORDER BY  a.dtGRNDate,d.strPName,a.strBillNo ";
+
+	List listProdDtl = objGlobalFunctionsService.funGetDataList(sqlQuery, "sql");
+
+	java.text.DecimalFormat objDecimalFormat = new java.text.DecimalFormat("0.00");
+
+	for (int j = 0; j < listProdDtl.size(); j++)
+	{
+		clsPurchaseRegisterReportBean objProdBean = new clsPurchaseRegisterReportBean();
+		Object[] prodArr = (Object[]) listProdDtl.get(j);
+
+		objProdBean.setStrPName(prodArr[0].toString());
+		objProdBean.setStrBillNo(prodArr[1].toString());
+
+		objProdBean.setDblAmount(Double.parseDouble(prodArr[2].toString()));
+		objProdBean.setStrFromLocation(prodArr[3].toString());
+		objProdBean.setDtGRNDate(prodArr[4].toString());
+		objProdBean.setStrGRNNo(prodArr[5].toString());
+		extraAmt=extraAmt+Double.parseDouble(prodArr[6].toString());
+        disAmt=disAmt+Double.parseDouble(prodArr[7].toString());
+		
+		fieldList.add(objProdBean);
+
+	}
+
+	HashMap hm = new HashMap();
+	hm.put("strCompanyName", companyName);
+	hm.put("strUserCode", userCode);
+	hm.put("strImagePath", imagePath);
+	hm.put("strAddr1", objSetup.getStrAdd1());
+	hm.put("strAddr2", objSetup.getStrAdd2());
+	hm.put("strCity", objSetup.getStrCity());
+	hm.put("strState", objSetup.getStrState());
+	hm.put("strCountry", objSetup.getStrCountry());
+	hm.put("strPin", objSetup.getStrPin());
+	hm.put("dteFromDate", dteFromDate);
+	hm.put("dteToDate", dteToDate);
+	//hm.put("dblExtraAmt", extraAmt);
+    //hm.put("dblDisAmt",disAmt);
+	try
+	{
+		JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(fieldList);
+		JasperDesign jd = JRXmlLoader.load(reportName);
+		JasperReport jr = JasperCompileManager.compileReport(jd);
+		JasperPrint jp = JasperFillManager.fillReport(jr, hm, beanCollectionDataSource);
+		List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
+		jprintlist.add(jp);
+		ServletOutputStream servletOutputStream = resp.getOutputStream();
+
+		if (jprintlist.size() > 0)
 		{
-			objSetup = new clsPropertySetupModel();
-		}
-
-		String reportName = servletContext.getRealPath("/WEB-INF/reports/rptBillWisePurchaseRegisterReport.jrxml");
-		String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
-
-		String webStockDB = req.getSession().getAttribute("WebStockDB").toString();
-
-		String propNameSql = "select a.strPropertyName  from " + webStockDB + ".tblpropertymaster a where a.strPropertyCode='" + propertyCode + "' and a.strClientCode='" + clientCode + "' ";
-		List listPropName = objGlobalFunctionsService.funGetDataList(propNameSql, "sql");
-		String propName = "";
-		if (listPropName.size() > 0)
-		{
-			propName = listPropName.get(0).toString();
-		}
-
-		ArrayList fieldList = new ArrayList();
-
-		String sqlQuery = " SELECT d.strPName,a.strBillNo, a.dblTotal AS Amt,e.strLocName, DATE_FORMAT(a.dtGRNDate,'%d-%m-%Y')dtGRNDate ,a.strGRNCode" + " FROM tblgrnhd a,tblpartymaster d,tbllocationmaster e" + " WHERE  a.strSuppCode=d.strPCode  " + " and a.strLocCode=e.strLocCode ";
-
-		if (null != objBean.getStrDocCode() && objBean.getStrDocCode().length() > 0)
-		{
-			sqlQuery = sqlQuery + " and a.strSuppCode='" + objBean.getStrDocCode() + "' ";
-		}
-
-		if (null != objBean.getStrDocCode() && objBean.getStrDocCode().length() > 0 &&  !objBean.getStrSettlementName().equalsIgnoreCase("All"))
-		{
-			sqlQuery = sqlQuery + " and a.strPayMode='" + objBean.getStrSettlementName() + "' ";
-		}
-
-
-		String fromDate = objBean.getDteFromDate();
-		String toDate = objBean.getDteToDate();
-
-		String fd = fromDate.split("-")[2];
-		String fm = fromDate.split("-")[1];
-		String fy = fromDate.split("-")[0];
-
-		String td = toDate.split("-")[2];
-		String tm = toDate.split("-")[1];
-		String ty = toDate.split("-")[0];
-
-		String dteFromDate = fd + "-" + fm + "-" + fy;
-		String dteToDate = td + "-" + tm + "-" + ty;
-
-		sqlQuery = sqlQuery + " and date(a.dtGRNDate) between  '" + fromDate + "' and '" + toDate + "'" + " ";
-		sqlQuery = sqlQuery + " ORDER BY  a.dtGRNDate,d.strPName,a.strBillNo ";
-
-		List listProdDtl = objGlobalFunctionsService.funGetDataList(sqlQuery, "sql");
-
-		java.text.DecimalFormat objDecimalFormat = new java.text.DecimalFormat("0.00");
-
-		for (int j = 0; j < listProdDtl.size(); j++)
-		{
-			clsPurchaseRegisterReportBean objProdBean = new clsPurchaseRegisterReportBean();
-			Object[] prodArr = (Object[]) listProdDtl.get(j);
-
-			objProdBean.setStrPName(prodArr[0].toString());
-			objProdBean.setStrBillNo(prodArr[1].toString());
-
-			objProdBean.setDblAmount(Double.parseDouble(prodArr[2].toString()));
-			objProdBean.setStrFromLocation(prodArr[3].toString());
-			objProdBean.setDtGRNDate(prodArr[4].toString());
-			objProdBean.setStrGRNNo(prodArr[5].toString());
-
-			fieldList.add(objProdBean);
-
-		}
-
-		HashMap hm = new HashMap();
-		hm.put("strCompanyName", companyName);
-		hm.put("strUserCode", userCode);
-		hm.put("strImagePath", imagePath);
-		hm.put("strAddr1", objSetup.getStrAdd1());
-		hm.put("strAddr2", objSetup.getStrAdd2());
-		hm.put("strCity", objSetup.getStrCity());
-		hm.put("strState", objSetup.getStrState());
-		hm.put("strCountry", objSetup.getStrCountry());
-		hm.put("strPin", objSetup.getStrPin());
-		hm.put("dteFromDate", dteFromDate);
-		hm.put("dteToDate", dteToDate);
-
-		try
-		{
-			JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(fieldList);
-			JasperDesign jd = JRXmlLoader.load(reportName);
-			JasperReport jr = JasperCompileManager.compileReport(jd);
-			JasperPrint jp = JasperFillManager.fillReport(jr, hm, beanCollectionDataSource);
-			List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
-			jprintlist.add(jp);
-			ServletOutputStream servletOutputStream = resp.getOutputStream();
-
-			if (jprintlist.size() > 0)
+			if (objBean.getStrDocType().equals("PDF"))
 			{
-				if (objBean.getStrDocType().equals("PDF"))
-				{
-					JRExporter exporter = new JRPdfExporter();
-					resp.setContentType("application/pdf");
-					exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
-					exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, servletOutputStream);
-					exporter.setParameter(JRPdfExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
-					resp.setHeader("Content-Disposition", "inline;filename=rptBillWisePurchaseRegisterReport" + dteFromDate + "_To_" + dteToDate + "_" + userCode + ".pdf");
-					exporter.exportReport();
-					servletOutputStream.flush();
-					servletOutputStream.close();
-
-				}
-				else
-				{
-					JRExporter exporter = new JRXlsExporter();
-					resp.setContentType("application/xlsx");
-					exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT_LIST, jprintlist);
-					exporter.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, servletOutputStream);
-					exporter.setParameter(JRXlsExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
-					resp.setHeader("Content-Disposition", "inline;filename=rptBillWisePurchaseRegisterReport" + dteFromDate + "_To_" + dteToDate + "_" + userCode + ".xls");
-					exporter.exportReport();
-					servletOutputStream.flush();
-					servletOutputStream.close();
-				}
+				JRExporter exporter = new JRPdfExporter();
+				resp.setContentType("application/pdf");
+				exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
+				exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, servletOutputStream);
+				exporter.setParameter(JRPdfExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
+				resp.setHeader("Content-Disposition", "inline;filename=rptBillWisePurchaseRegisterReport" + dteFromDate + "_To_" + dteToDate + "_" + userCode + ".pdf");
+				exporter.exportReport();
+				servletOutputStream.flush();
+				servletOutputStream.close();
 
 			}
 			else
 			{
-				resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-				resp.getWriter().append("No Record Found");
-
+				JRExporter exporter = new JRXlsExporter();
+				resp.setContentType("application/xlsx");
+				exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT_LIST, jprintlist);
+				exporter.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, servletOutputStream);
+				exporter.setParameter(JRXlsExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
+				resp.setHeader("Content-Disposition", "inline;filename=rptBillWisePurchaseRegisterReport" + dteFromDate + "_To_" + dteToDate + "_" + userCode + ".xls");
+				exporter.exportReport();
+				servletOutputStream.flush();
+				servletOutputStream.close();
 			}
 
 		}
-		catch (Exception ex)
+		else
 		{
-			ex.printStackTrace();
+			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			resp.getWriter().append("No Record Found");
+
 		}
 
 	}
+	catch (Exception ex)
+	{
+		ex.printStackTrace();
+	}
+}
 	
 	@SuppressWarnings({ "unused", "unused", "unused", "unchecked" })
 	private void funCallPurchaseRegisterReport(clsReportBean objBean, HttpServletResponse resp, HttpServletRequest req)

@@ -109,7 +109,7 @@ public class clsInvoiceDaoImpl implements clsInvoiceDao {
 	@Override
 	public List funListSOforInvoice(String strlocCode, String dtFullFilled, String clientCode, String custCode) {
 
-		String sql = "  select a.strSOCode,a.dteSODate,b.strLocName,c.strPName,a.strStatus " 
+		String sql = "  select a.strSOCode,DATE_FORMAT(a.dteSODate,'%d-%m-%Y'),b.strLocName,c.strPName,a.strStatus " 
 			+ " from tblsalesorderhd a,tbllocationmaster b,tblpartymaster c " 
 			+ " where a.strLocCode=b.strLocCode and a.strCustCode=c.strPCode and c.strPType='cust' " 
 			+ " and a.strSOCode NOT In(select strSOCode from tblinvsalesorderdtl) and a.strClientCode='" + clientCode + "' ";
