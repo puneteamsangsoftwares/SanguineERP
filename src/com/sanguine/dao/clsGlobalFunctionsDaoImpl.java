@@ -900,6 +900,7 @@ public class clsGlobalFunctionsDaoImpl implements clsGlobalFunctionsDao {
 			}
 		} catch (Exception e) {
 			logger.error(e);
+			e.printStackTrace();
 		}
 		return res;
 	}

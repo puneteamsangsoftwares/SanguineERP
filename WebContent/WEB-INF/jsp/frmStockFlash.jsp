@@ -673,7 +673,7 @@ border:1px solid #fff;
 <body> <!--  onload="funOnLoad();" -->
 <div class="container">
 		<label id="formHeading">Stock Flash</label>
-		<s:form action="frmStockFlashReport.html" method="GET" name="frmStkFlash" target="_blank">
+		<s:form method="GET" name="frmStkFlash">
 		<div class="row transTable">
 			<div class="col-md-2">
 				<label>Property Code</label>
@@ -766,10 +766,10 @@ border:1px solid #fff;
 			</div>	
 		</div>
 		<div class="center" style="text-align:center;">
-		 	<a href="#"><button class="btn btn-primary center-block" id="btnExport" value="Export">Export</button></a>&nbsp
+		 	<button type="button" class="btn btn-primary center-block" id="btnExport" value="Export">Export</button>&nbsp
 		 	<!-- <a href="#"><button class="btn btn-primary center-block" id="btnExecute" onclick="return funOnClick()" value="EXECUTE">Execute</button></a> -->
 		 	
-		 	<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="EXECUTE">Execute</button></a>
+		 	<button type="button" class="btn btn-primary center-block" id="btnExecute" value="EXECUTE">Execute</button>
 		 
 		</div>
 			

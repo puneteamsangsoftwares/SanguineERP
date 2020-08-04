@@ -336,7 +336,8 @@ public class clsSupplierMasterController {
 		objModel.setStrOperational(objBean.getStrOperational());
 		objModel.setStrAccManager("");
 		objModel.setStrECCNo("");
-		objModel.setDtInstallions(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+		//objModel.setDtInstallions(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+		objModel.setDtInstallions(objGlobal.funGetCurrentDate("yyyy-MM-dd"));
 		objModel.setStrGSTNo(objBean.getStrGSTNo());
 		objModel.setStrLocCode(objBean.getStrLocCode());
 		objModel.setStrPropCode(objBean.getStrPropCode());

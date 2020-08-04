@@ -219,6 +219,7 @@ public class clsGlobalFunctionsServiceImpl implements clsGlobalFunctionsService 
 	}
 
 	@Override
+	@Transactional(value = "hibernateTransactionManager")
 	public int funUpdate(String sql, String queryType) {
 
 		return objGlobalDao.funUpdate(sql, queryType);

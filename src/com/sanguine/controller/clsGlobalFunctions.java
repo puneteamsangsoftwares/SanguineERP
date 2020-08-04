@@ -1925,9 +1925,13 @@ public class clsGlobalFunctions {
 
 				funProcessStock(locCode, startDate, newToDate, clientCode, userCode, req, resp);
 
-				String sql = "Update tblcurrentstock set dblOpeningStk=dblClosingStk, dblGRN=0, dblSCGRN=0, dblFreeQty=0" + ", dblStkTransIn=0, dblStkAdjIn=0, dblMISIn=0, dblMaterialReturnIn=0, dblQtyProduced=0" + ", dblStkTransOut=0, dblStkAdjOut=0, dblMISOut=0, dblQtyConsumed=0, dblSales=0" + ", dblMaterialReturnOut=0, dblDeliveryNote=0, dblPurchaseReturn=0 " + " where strUserCode='" + userCode
+			    String sql = "Update tblcurrentstock set dblOpeningStk=dblClosingStk, dblGRN=0, dblSCGRN=0, dblFreeQty=0" + ", dblStkTransIn=0, dblStkAdjIn=0, dblMISIn=0, dblMaterialReturnIn=0, dblQtyProduced=0" + ", dblStkTransOut=0, dblStkAdjOut=0, dblMISOut=0, dblQtyConsumed=0, dblSales=0" + ", dblMaterialReturnOut=0, dblDeliveryNote=0, dblPurchaseReturn=0 " + " where strUserCode='" + userCode
 						+ "' and strClientCode='" + clientCode + "' ";
-				objGlobalFunctionsService.funUpdate(sql, "sql");
+				objGlobalFunctionsService.funUpdate(sql,"sql");
+				
+				/*String hql = "Update clsCurrentStockModel set dblOpeningStk=dblClosingStk, dblGRN=0, dblSCGRN=0, dblFreeQty=0" + ", dblStkTransIn=0, dblStkAdjIn=0, dblMISIn=0, dblMaterialReturnIn=0, dblQtyProduced=0" + ", dblStkTransOut=0, dblStkAdjOut=0, dblMISOut=0, dblQtyConsumed=0, dblSales=0" + ", dblMaterialReturnOut=0, dblDeliveryNote=0, dblPurchaseReturn=0 " + " where strUserCode='" + userCode
+						+ "' and strClientCode='" + clientCode + "' ";
+				objGlobalFunctionsService.funUpdate(hql,"hql");*/
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
