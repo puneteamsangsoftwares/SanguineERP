@@ -2746,7 +2746,7 @@ public class clsSearchFormController {
 
 		case "taxCode": {
 			columnNames = "a.strTaxCode,a.strTaxDesc,a.strTaxOnType,a.dblTaxValue,b.strDeptDesc";
-			tableName = "from tbltaxmaster a,tbldepartmentmaster b where a.strDeptCode=b.strDeptCode and a.strClientCode='" + clientCode + "' ";
+			tableName = "from tbltaxmaster a,tbldepartmentmaster b where a.strClientCode='" + clientCode + "' GROUP BY a.strTaxCode ";
 			listColumnNames = "Tax Code,Tax Desc,Tax On Tax,Tax Value,Department";
 			idColumnName = "strTaxCode";
 			flgQuerySelection = true;
