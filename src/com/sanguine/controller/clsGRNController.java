@@ -591,12 +591,12 @@ public class clsGRNController {
 				}
 				
 				List<clsGRNDtlModel> batchList = new ArrayList<clsGRNDtlModel>();
-				
+				DecimalFormat dff = new DecimalFormat("#.##");
 				for (clsGRNDtlModel ob : listGRNDtl) {
 					if (null != ob.getStrProdCode()) {
 						String binNo = objGlobalFunctions.funIfNull(objBean.getStrBillNo(), "", ob.getStrBinNo());
 						List listProdSupp = objGRNService.funGetProdSupp(objHdModel.getStrSuppCode(),ob.getStrProdCode(), clientCode);
-						funAddProdSuppMaster(listProdSupp, clientCode,ob.getDblUnitPrice() * currValue,objHdModel.getStrSuppCode(),ob.getStrProdCode(), userCode, binNo, grnCode);
+						funAddProdSuppMaster(listProdSupp, clientCode,Double.parseDouble(dff.format(ob.getDblUnitPrice())) * currValue,objHdModel.getStrSuppCode(),ob.getStrProdCode(), userCode, binNo, grnCode);
 						ob.setStrGRNCode(grnCode);
 						ob.setStrProdChar(" ");
 						if (ob.getStrMISCode() == null) {

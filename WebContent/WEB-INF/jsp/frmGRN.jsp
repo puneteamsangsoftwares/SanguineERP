@@ -1727,7 +1727,8 @@
 			$("#txtPayMode").val(response.strPayMode);
 			if(response.strPayMode=='Credit')
 			{
-			$("#txtPayMode").val(response.strPayMode.toLowerCase());
+				//$("#txtPayMode").val(response.strPayMode.toLowerCase());
+				$("#txtPayMode").val(response.strPayMode);
 			}
 			
 			funOnChange();
