@@ -99,7 +99,10 @@
 			});
 		}
     	
-
+		function funResetFields()
+		{
+			location.reload(true); 
+		}
 
 </script>
 <body>

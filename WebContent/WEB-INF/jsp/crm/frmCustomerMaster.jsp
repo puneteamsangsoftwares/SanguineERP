@@ -19,6 +19,7 @@
 
 <script type="text/javascript">
 var listProductData;
+var isLikeCustClk=false;
 	$(document).ready(function() {
 
 		$(".tab_content").hide();
@@ -438,8 +439,15 @@ var listProductData;
 			switch (fieldName) 
 			{		   
 			   case 'custMaster':
-				   funSetCustomer(code);
-			        break;
+				   if(isLikeCustClk)
+				   {
+				   		funPartyProdDataForLikeUser(code);
+				   }
+			       else
+				   {
+				   		funSetCustomer(code);
+				   }
+			       break;
 			   
 			   case 'productmaster':
 			    	funSetProduct(code);
@@ -1186,6 +1194,72 @@ var listProductData;
 		}
 	
 	
+		function funLikeCustomer()
+		{
+			isLikeCustClk=true;
+			funHelp('custMaster');
+		}
+		
+		function funPartyProdDataForLikeUser(code)
+		{
+			var clientCode='<%=session.getAttribute("clientCode").toString()%>';
+			funRemoveProdRows();
+			var searchUrl="";
+			searchUrl=getContextPath()+"/loadPartyProdData.html?partyCode="+code;
+			
+			$.ajax({
+			        type: "GET",
+			        url: searchUrl,
+				    dataType: "json",
+				    async:false,
+				    beforeSend : function(){
+						 $("#wait").css("display","block");
+				    },
+				    complete: function(){
+				    	 $("#wait").css("display","none");
+				    },
+				    success: function(response)
+				    {
+				    	if(clientCode!='141.001'){
+				    		funRemoveProdRows();
+					    	//funRemoveProdRows();
+					    	btnAllProduct="";
+					    	listProductData=response;
+					    	showTable();
+				    	}
+				    	else
+				    	{
+				    		 $.each(response, function(i,item)
+								    	{
+						    				count=i;
+						    				funloadAllProductinGrid(item.strProdCode,item.strProdName,item.dblLastCost,item.dblMargin,item.dblStandingOrder,item.dblAMCAmt,item.dteInstallation,item.intWarrantyDays);	
+								    	});
+					    	listRow=count+1;
+				    		
+				        }
+				    	isLikeCustClk=false;
+				    	
+					},
+				    error: function(jqXHR, exception) {
+			            if (jqXHR.status === 0) {
+			                alert('Not connect.n Verify Network.');
+			            } else if (jqXHR.status == 404) {
+			                alert('Requested page not found. [404]');
+			            } else if (jqXHR.status == 500) {
+			                alert('Internal Server Error [500].');
+			            } else if (exception === 'parsererror') {
+			                alert('Requested JSON parse failed.');
+			            } else if (exception === 'timeout') {
+			                alert('Time out error.');
+			            } else if (exception === 'abort') {
+			                alert('Ajax request aborted.');
+			            } else {
+			                alert('Uncaught Error.n' + jqXHR.responseText);
+			            }		            
+			        }
+			      });
+			
+		}
 		
 </script>
 
@@ -1541,6 +1615,8 @@ var listProductData;
 						            <a href="#"><button class="btn btn-primary center-block" id="btnAdd" value="Add" onclick="return funAddRow()">Add</button></a>&nbsp;
 									<a href="#"><button class="btn btn-primary center-block" id="btnAllProd" value="All Product" onclick="return funLoadAllProduct()"
 										class="form_button">All Product</button></a>
+								 <button  type="button" class="btn btn-primary center-block" id="btnLikeCustomer" value="Like Customer" onclick="funLikeCustomer()"
+										class="form_button">Like Customer</button>
 							</div>
 						</div>
 <!-- 						<div style="background-color: #a4d7ff; border: 1px solid #ccc; display: block; height: 250px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 80%;"> -->

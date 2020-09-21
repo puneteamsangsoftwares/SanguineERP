@@ -905,6 +905,8 @@ public class clsGRNController {
 		String grnDate = objBean.getDtGRNDate();
 		String grnCode = objBean.getStrGRNCode();
 		StringBuilder sqlBuilder = new StringBuilder();
+		
+		DecimalFormat df = new DecimalFormat("#.##");
 		Map<String, clsMISHdModel> hmMIS = new HashMap<String, clsMISHdModel>();
 		for (clsGRNDtlModel objGRNDtl : objBean.getListGRNDtl()) {
 			if (null != objGRNDtl.getStrProdCode()) {
@@ -922,8 +924,8 @@ public class clsGRNController {
 						objMISDtlModel.setDblQty(objGRNDtl.getDblQty());
 						objMISDtlModel.setDblUnitPrice(objGRNDtl
 								.getDblUnitPrice());
-						objMISDtlModel.setDblTotalPrice(objGRNDtl
-								.getDblTotalPrice());
+						objMISDtlModel.setDblTotalPrice(Double.parseDouble(df.format(objGRNDtl
+								.getDblTotalPrice())));
 						objMISDtlModel.setStrRemarks(objGRNDtl.getStrRemarks());
 						objMISDtlModel.setStrReqCode(objMISHdModel
 								.getStrReqCode());
@@ -994,8 +996,8 @@ public class clsGRNController {
 						objMISDtlModel.setDblQty(objGRNDtl.getDblQty());
 						objMISDtlModel.setDblUnitPrice(objGRNDtl
 								.getDblUnitPrice());
-						objMISDtlModel.setDblTotalPrice(objGRNDtl
-								.getDblTotalPrice());
+						objMISDtlModel.setDblTotalPrice(Double.parseDouble(df.format(objGRNDtl
+								.getDblTotalPrice())));
 						objMISDtlModel.setStrRemarks(objGRNDtl.getStrRemarks());
 						objMISDtlModel.setStrReqCode(reqCode);
 						
@@ -1478,7 +1480,7 @@ public class clsGRNController {
 		objHdModel.setStrAgainst(objBean.getStrAgainst());
 		objHdModel.setStrPONo(objGlobalFunctions.funIfNull(
 				objBean.getStrPONo(), " ", objBean.getStrPONo()));
-		objHdModel.setStrPayMode(objBean.getStrPayMode());
+		objHdModel.setStrPayMode(objGlobalFunctions.funIfNull(objBean.getStrPayMode()," ", objBean.getStrPayMode()));
 		objHdModel.setStrTimeInOut(objBean.getStrTimeInOut());
 		objHdModel.setDblSubTotal(objBean.getDblSubTotal() * currValue);
 		String conversion = objGlobalFunctions.funIfNull(

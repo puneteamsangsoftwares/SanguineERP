@@ -5351,12 +5351,15 @@ public class clsReportsController {
 
 	ArrayList fieldList = new ArrayList();
 
-	//String sqlQuery = " SELECT d.strPName,a.strBillNo, a.dblTotal AS Amt,e.strLocName, DATE_FORMAT(a.dtGRNDate,'%d-%m-%Y')dtGRNDate ,a.strGRNCode" + " FROM tblgrnhd a,tblpartymaster d,tbllocationmaster e" + " WHERE  a.strSuppCode=d.strPCode  " + " and a.strLocCode=e.strLocCode ";
-
-	String sqlQuery = "SELECT d.strPName,a.strBillNo,ROUND( sum(((b.dblUnitPrice*(b.dblQty-b.dblRejected))-((b.dblUnitPrice*(b.dblQty-b.dblRejected))*a.dblDisRate)/100)+b.dblTaxAmt)) + ROUND(a.dblExtra) AS Amt,e.strLocName, "
+	String sqlQuery = " SELECT d.strPName,a.strBillNo, a.dblTotal AS Amt,e.strLocName, DATE_FORMAT(a.dtGRNDate,'%d-%m-%Y')dtGRNDate ,a.strGRNCode,a.dblExtra,a.dblDisAmt" 
+	             + " FROM tblgrnhd a,tblpartymaster d,tbllocationmaster e" + " WHERE  a.strSuppCode=d.strPCode  " + " and a.strLocCode=e.strLocCode ";
+                  
+	
+	
+	/*String sqlQuery = "SELECT d.strPName,a.strBillNo,ROUND( sum(((b.dblUnitPrice*(b.dblQty-b.dblRejected))-((b.dblUnitPrice*(b.dblQty-b.dblRejected))*a.dblDisRate)/100)+b.dblTaxAmt)) + ROUND(a.dblExtra) AS Amt,e.strLocName, "
             +" DATE_FORMAT(a.dtGRNDate,'%d-%m-%Y')dtGRNDate,a.strGRNCode,a.dblExtra,a.dblDisAmt  "
             +" FROM tblgrnhd a,tblgrndtl b,tblpartymaster d,tbllocationmaster e "
-            +" WHERE a.strGRNCode =b.strGRNCode and a.strSuppCode=d.strPCode AND a.strLocCode=e.strLocCode  "; 
+            +" WHERE a.strGRNCode =b.strGRNCode and a.strSuppCode=d.strPCode AND a.strLocCode=e.strLocCode  "; */
 
 	
 	if (null != objBean.getStrDocCode() && objBean.getStrDocCode().length() > 0)
@@ -5387,8 +5390,9 @@ public class clsReportsController {
 
 	sqlQuery = sqlQuery + " and date(a.dtGRNDate) between  '" + fromDate + "' and '" + toDate + "'" + " ";
 	
-	sqlQuery = sqlQuery + "  group by b.strGRNCode "
-			+ " ORDER BY  a.dtGRNDate,d.strPName,a.strBillNo ";
+	/*sqlQuery = sqlQuery + "  group by b.strGRNCode "
+			+ " ORDER BY  a.dtGRNDate,d.strPName,a.strBillNo ";*/
+	sqlQuery = sqlQuery + " ORDER BY  a.dtGRNDate,d.strPName,a.strBillNo ";
 
 	List listProdDtl = objGlobalFunctionsService.funGetDataList(sqlQuery, "sql");
 

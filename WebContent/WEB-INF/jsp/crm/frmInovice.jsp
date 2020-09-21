@@ -340,7 +340,7 @@
 					alert('Internal Server Error [500].');
 				} else if (exception === 'parsererror') {
 					alert('Requested JSON parse failed.');
-				} else if (exception === 'timeout') {
+			} else if (exception === 'timeout') {
 					alert('Time out error.');
 				} else if (exception === 'abort') {
 					alert('Ajax request aborted.');
@@ -1106,7 +1106,7 @@
 		var table = document.getElementById("tblProdDet");
 	    var rowCount = table.rows.length;
 	    var row = table.insertRow(rowCount);
-	    rowCount=list;
+	    //rowCount=list;
 	    var strProdCode = $("#hidProdCode").val().trim();
 		var strProdName=$("#txtProdName").val().trim();
 		var strProdType=$("#hidProdType").val();	
@@ -2947,7 +2947,7 @@ function funChangeCombo() {
                  <div class="col-md-4"></div>
                  
 				<div class="col-md-2"><label>Location Code</label>
-						<s:input type="text" id="txtLocCode" path="strLocCode" cssClass="searchTextBox" readonly="true" />
+						<s:input type="text" id="txtLocCode" path="strLocCode" cssClass="searchTextBox" readonly="true" ondblclick="funHelp('locationmaster');"/>
 				</div>
 											  
 				<div class="col-md-2"><label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 50%; margin-top: 17%;padding:2px;"></label>

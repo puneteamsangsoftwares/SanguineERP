@@ -418,7 +418,7 @@ public class clsInvoiceController
 			objHDModel.setDteCreatedDate(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
 			objHDModel.setStrClientCode(clientCode);
 
-			objHDModel.setStrMobileNo(objBean.getStrMobileNoForSettlement());
+			objHDModel.setStrMobileNo(objGlobalFunctions.funIfNull(objBean.getStrMobileNoForSettlement(),"", objBean.getStrMobileNoForSettlement()));
 			double taxamt = 0.0;
 
 			if (objBean.getDblTaxAmt() != null)
@@ -631,12 +631,15 @@ public class clsInvoiceController
 					}*/
 					String prodTaxDtl = objInvDtl.getStrProdCode() + "," + prodRateForTaxCal + "," + objInvDtl.getStrCustCode() + "," + objInvDtl.getDblQty() +","+objInvDtl.getDblDisAmt()+","+objInvDtl.getDblWeight();
 					Map<String, String> hmProdTaxDtl = null;
+					
+					String[] date=objBean.getDteInvDate().split("-");
+					String invDate=date[2]+"-"+date[1]+"-"+date[0];
 					if(strModuleName.equalsIgnoreCase("7-WebBanquet")){
-						hmProdTaxDtl = objGlobalFunctions.funCalculateTax(prodTaxDtl, "Banquet", objBean.getDteInvDate(), "0",objBean.getStrSettlementCode(), req);
+						hmProdTaxDtl = objGlobalFunctions.funCalculateTax(prodTaxDtl, "Banquet", invDate, "0",objBean.getStrSettlementCode(), req);
 					}
 					else
 					{
-						hmProdTaxDtl = objGlobalFunctions.funCalculateTax(prodTaxDtl, "Sales", objBean.getDteInvDate(), "0",settlementCode, req);
+						hmProdTaxDtl = objGlobalFunctions.funCalculateTax(prodTaxDtl, "Sales", invDate, "0",settlementCode, req);
 					
 					System.out.println("Map Size= " + hmProdTaxDtl.size());
 					}
@@ -683,7 +686,7 @@ public class clsInvoiceController
 						{
 							objInvTaxModel = new clsInvoiceTaxDtlModel();
 							objInvTaxModel.setStrTaxCode(taxDtl.split("#")[1]);
-							objInvTaxModel.setDblTaxAmt(taxAmt);
+							objInvTaxModel.setDblTaxAmt(Double.parseDouble(decFormat.format(taxAmt)));
 							objInvTaxModel.setDblTaxableAmt(taxableAmt);
 							objInvTaxModel.setStrTaxDesc(taxDtl.split("#")[2]);
 						}
@@ -697,7 +700,7 @@ public class clsInvoiceController
 						objInvProdTaxDtl.setStrProdCode(objInvDtl.getStrProdCode());
 						objInvProdTaxDtl.setStrCustCode(objInvDtl.getStrCustCode());
 						objInvProdTaxDtl.setStrDocNo(taxDtl.split("#")[1]);
-						objInvProdTaxDtl.setDblValue(taxAmt);
+						objInvProdTaxDtl.setDblValue(Double.parseDouble(decFormat.format(taxAmt)));
 						objInvProdTaxDtl.setDblTaxableAmt(taxableAmt);
 						objInvProdTaxDtl.setDblWeight(objInvDtl.getDblWeight());
 						listInvProdTaxDtl.add(objInvProdTaxDtl);
@@ -1466,8 +1469,19 @@ public class clsInvoiceController
 		objBean.setStrSState(objInvHdModel.getStrSState());
 		objBean.setStrTimeInOut(objInvHdModel.getStrTimeInOut());
 		objBean.setStrVehNo(objInvHdModel.getStrVehNo());
+		
+		if(objInvHdModel.getStrWarraValidity().equals("") || objInvHdModel.getStrWarrPeriod().equals(""))
+		{
+			objBean.setStrWarraValidity(objInvHdModel.getStrWarraValidity());
+			objBean.setStrWarrPeriod(objInvHdModel.getStrWarrPeriod());
+		}
+		else
+		{	
 		objBean.setStrWarraValidity(objGlobalFunctions.funGetDate("dd-MM-yyyy", objInvHdModel.getStrWarraValidity()));
 		objBean.setStrWarrPeriod(objGlobalFunctions.funGetDate("dd-MM-yyyy", objInvHdModel.getStrWarrPeriod()));
+		}
+		
+		
 		objBean.setDblSubTotalAmt(objInvHdModel.getDblSubTotalAmt() / currValue);
 		objBean.setDblTaxAmt(objInvHdModel.getDblTaxAmt() / currValue);
 		objBean.setDblTotalAmt(objInvHdModel.getDblTotalAmt() / currValue);
