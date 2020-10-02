@@ -121,11 +121,14 @@ public class clsDebtorTrailBalanceController {
 			String webStockDB=req.getSession().getAttribute("WebStockDB").toString();
 
 			StringBuilder sbSql = new StringBuilder();
-			sbSql.append("SELECT a.strCurrencyCode from "+webStockDB+".tblcurrencymaster a WHERE a.strCurrencyName='Base' and strClientCode='"+clientCode+"' ");
+			sbSql.append("SELECT a.dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster a WHERE a.strCurrencyName='Base' and strClientCode='"+clientCode+"' ");
 			try
 			{
-				List list = objBaseService.funGetListForWebStocks(sbSql,"sql");
-				currencyCode=list.get(0).toString();
+				List list = objGlobalFunctionsService.funGetListModuleWise(sbSql.toString(), "sql");
+				if(!list.isEmpty())
+				{
+					conversionRate=Double.parseDouble(list.get(0).toString());
+				}
 			}catch(Exception e)
 			{
 				e.printStackTrace();
@@ -135,9 +138,12 @@ public class clsDebtorTrailBalanceController {
 			sbSql.append("select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster where strCurrencyCode='"+currencyCode+"' and strClientCode='"+clientCode+"' ");
 			try
 			{
-				//List list = objBaseService.funGetList(sbSql,"sql");
-				List list = objBaseService.funGetListForWebStocks(sbSql,"sql");
-				conversionRate=Double.parseDouble(list.get(0).toString());
+				//conversionRate=Double.parseDouble(list.get(0).toString());
+				List list = objGlobalFunctionsService.funGetListModuleWise(sbSql.toString(), "sql");
+				if(!list.isEmpty())
+				{
+					conversionRate=Double.parseDouble(list.get(0).toString());
+				}
 			}catch(Exception e)
 			{
 				e.printStackTrace();
@@ -264,7 +270,7 @@ public class clsDebtorTrailBalanceController {
 				
 
 				HashMap hm = new HashMap();
-				hm.put("strCompanyName", companyName);
+ 				hm.put("strCompanyName", companyName);
 				hm.put("strUserCode", userCode);
 				hm.put("strImagePath", imagePath);
 				hm.put("strAddr1", objSetup.getStrAdd1());

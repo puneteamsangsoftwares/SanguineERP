@@ -148,7 +148,6 @@ public class clsBankBalanceReportController {
 			String[] spDate = sp[0].split("/");
 			startDate = spDate[2] + "-" + spDate[1] + "-" + spDate[0];
 			HashMap<String, String> hmMap = new HashMap<String, String>();
-
 			double total=0.0;
 			String prevAcName="";
 			/*String sql = " select  b.strGroupCode,ifNull(b.strGroupName,''),a.strAccountCode,a.strAccountName,left(a.strAccountCode,8) as groupAcCode "
@@ -204,6 +203,7 @@ public class clsBankBalanceReportController {
 								cal.add(Calendar.DATE, -1);
 								String newToDate = (cal.getTime().getYear() + 1900) + "-" + (cal.getTime().getMonth() + 1) + "-" + (cal.getTime().getDate());
 
+								
 								funInsertCurrentAccountBal(acCode, startDate, newToDate, userCode, propertyCode, clientCode,hmTB);
 
 								
@@ -214,7 +214,8 @@ public class clsBankBalanceReportController {
 									
 								List list=new ArrayList();
 								try {
-									list = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+									//list = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+									list = objGlobalFunctionsService.funGetListModuleWise(sbSql.toString(), "sql");
 									if(list.size()>0)
 									{
 										Object[] obj1 = (Object[]) list.get(0);
@@ -306,7 +307,8 @@ public class clsBankBalanceReportController {
 							 List list=new ArrayList();
 								try 
 								{
-									list = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+									//list = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+									list = objGlobalFunctionsService.funGetListModuleWise(sbSql.toString(), "sql");
 									if(list.size()>0)
 									{
 										Object[] obj = (Object[]) list.get(0);
@@ -491,7 +493,9 @@ public class clsBankBalanceReportController {
 				+ " '" + clientCode + "' " + " FROM tbljvhd a, tbljvdtl b " + " WHERE a.strVouchNo=b.strVouchNo AND DATE(a.dteVouchDate) BETWEEN '" + fromDate + "' AND '" + toDate + "' " + " AND b.strAccountCode='" + acCode + "'  AND a.strPropertyCode=b.strPropertyCode " + " AND a.strPropertyCode='" + propertyCode + "' AND a.strClientCode='" + clientCode + "' group by b.strAccountCode ") ;
 
 		
-		List listJvAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+		
+		//List listJvAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+		List listJvAmt = objGlobalFunctionsService.funGetListModuleWise(sbSql.toString(), "sql");
 		if (listJvAmt  != null && listJvAmt .size() > 0) {
 			for (int j = 0; j < listJvAmt .size(); j++) {
 				clsCreditorOutStandingReportBean objOutStBean=new clsCreditorOutStandingReportBean();
@@ -515,7 +519,9 @@ public class clsBankBalanceReportController {
 		sbSql.append(" SELECT b.strAccountCode,b.strAccountName, sum(b.dblDrAmt),sum(b.dblCrAmt),sum(b.dblDrAmt - b.dblCrAmt),'" + userCode + "','" + propertyCode
 				+ "','" + clientCode + "' " + "  FROM tblpaymenthd a, tblpaymentdtl b " + " WHERE a.strVouchNo=b.strVouchNo AND DATE(a.dteVouchDate) BETWEEN '" + fromDate + "' AND '" + toDate + "' " + " AND b.strAccountCode='" + acCode + "'  AND a.strPropertyCode=b.strPropertyCode " + " AND a.strPropertyCode='" + propertyCode + "' AND a.strClientCode='" + clientCode + "' group by b.strAccountCode ") ;
 
-		List listPayAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+		//List listPayAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+		List listPayAmt = objGlobalFunctionsService.funGetListModuleWise(sbSql.toString(), "sql");
+		
 		if (listPayAmt  != null && listPayAmt .size() > 0) {
 			for (int j = 0; j < listPayAmt .size(); j++) {
 				clsCreditorOutStandingReportBean objOutStBean=new clsCreditorOutStandingReportBean();
@@ -540,7 +546,8 @@ public class clsBankBalanceReportController {
 				+ "','" + clientCode + "' " + " FROM tblreceipthd a, tblreceiptdtl b  " + " WHERE a.strVouchNo=b.strVouchNo AND DATE(a.dteVouchDate) BETWEEN '" + fromDate + "' AND '" + toDate + "' " + " AND b.strAccountCode='" + acCode + "'  AND a.strPropertyCode=b.strPropertyCode " + " AND a.strPropertyCode='" + propertyCode + "' AND a.strClientCode='" + clientCode + "' group by b.strAccountCode ") ;
 
 		
-		List listRecAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+		//List listRecAmt = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+		List listRecAmt = objGlobalFunctionsService.funGetListModuleWise(sbSql.toString(), "sql");
 		if (listRecAmt  != null && listRecAmt .size() > 0) {
 			for (int j = 0; j < listRecAmt .size(); j++) {
 				clsCreditorOutStandingReportBean objOutStBean=new clsCreditorOutStandingReportBean();

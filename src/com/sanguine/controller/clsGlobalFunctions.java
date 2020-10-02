@@ -8327,7 +8327,7 @@ public class clsGlobalFunctions {
 
 		// JV Amount
 		sbSql.setLength(0);
-		sbSql.append("select debtor.strDebtorCode,'',debtor.strCrDr, sum(ifnull(debtor.dblAmt,0.00)) "
+		sbSql.append("select debtor.strDebtorCode,debtor.strDebtorName,debtor.strCrDr, sum(ifnull(debtor.dblAmt,0.00)) "
 				+ " from tbljvdebtordtl debtor inner join tbljvhd hd on hd.strVouchNo=debtor.strVouchNo "
 				+ " where debtor.strAccountCode='"
 				+ glCode
@@ -8577,10 +8577,10 @@ public class clsGlobalFunctions {
 		sbSql = new StringBuilder(hql);
 		List listBillLedger = new ArrayList();
 		try {
-			listBillLedger = objBaseService.funGetListModuleWise(sbSql, "hql",
-					"WebBooks");
+			//listBillLedger = objBaseService.funGetListModuleWise(sbSql, "hql","WebBooks");
+			 listBillLedger = objGlobalFunctionsService.funGetListModuleWise(sbSql.toString(), "hql");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();			
 		}
 		// List listBillLedger =
 		// objGlobalFunctionsService.funGetListModuleWise(hql, "hql");
@@ -8644,7 +8644,7 @@ public class clsGlobalFunctions {
 		}
 
 		sbSql.setLength(0);
-		sbSql.append(" SELECT DATE(a.dteVouchDate) ,a.strVouchNo,'JV'  , DATE(a.dteVouchDate), "
+		sbSql.append(" SELECT DATE(a.dteVouchDate)AS vouchdate ,a.strVouchNo,'JV'  , DATE(a.dteVouchDate), "
 				+ " b.dblDrAmt ,b.dblCrAmt ,b.dblDrAmt - b.dblCrAmt ,'Cr','','1','"
 				+ userCode
 				+ "','"

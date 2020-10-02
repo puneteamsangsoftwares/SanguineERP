@@ -15,6 +15,9 @@ public class clsChartOfAccountReportBean
 	private String strGrpCategory;
 	private String strSubGroupCode;
 	private String strSubGroupName;
+	private String dteFromDate;
+	private String dteToDate;	
+	private String strCurrency;
 	
 	public String getStrGroupCode() {
 		return strGroupCode;
@@ -89,7 +92,24 @@ public class clsChartOfAccountReportBean
 		this.strSubGroupName = strSubGroupName;
 	}
 	
-	
+	public String getDteFromDate() {
+		return dteFromDate;
+	}
+	public void setDteFromDate(String dteFromDate) {
+		this.dteFromDate = dteFromDate;
+	}
+	public String getDteToDate() {
+		return dteToDate;
+	}
+	public void setDteToDate(String dteToDate) {
+		this.dteToDate = dteToDate;
+	}
+	public String getStrCurrency() {
+		return strCurrency;
+	}
+	public void setStrCurrency(String strCurrency) {
+		this.strCurrency = strCurrency;
+	}
 	
 	
 }

@@ -1,6 +1,7 @@
 package com.sanguine.util;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +15,6 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.view.document.AbstractXlsView;
 
@@ -157,9 +156,15 @@ public class clsExcelBuilderForAccountReports extends AbstractXlsView  {
 		for(int rowCount = 0; rowCount <maxListSize; rowCount++ ){
 			
 			Row aRow = sheet.createRow(excelRowCount);
-			if(rowCount<listAssets.size()){
-				String rowData=(String)listAssets.get(rowCount);
-				if(!rowData.equals("ASSET")){ //Sub Group
+			if(rowCount<listAssets.size()){				
+				 List list= new ArrayList<>();
+				 list.add(listAssets.get(rowCount));
+				 String str=list.get(rowCount).toString();
+				 char c[]=str.toCharArray();
+				 StringBuilder sbSql = new StringBuilder();				 
+				 for(int i=1;i<c.length-1;i++) {sbSql.append(c[i]);}						  
+				 String rowData=sbSql.toString();
+				 if(!rowData.equals("ASSET")){ //Sub Group
 					if(rowData.contains("_")){
 						aRow.createCell(0).setCellValue(rowData.replace("_","  "));
 						aRow.getCell(0).setCellStyle(style2);
@@ -178,7 +183,13 @@ public class clsExcelBuilderForAccountReports extends AbstractXlsView  {
 				}
 			}
 			if(rowCount<listLiabilities.size()){
-				String rowData=(String)listLiabilities.get(rowCount);
+				List list= new ArrayList<>();
+				 list.add(listLiabilities.get(rowCount));
+				 String str=list.get(list.size()-1).toString();
+				 char c[]=str.toCharArray();
+				 StringBuilder sbSql = new StringBuilder();				 
+				 for(int i=1;i<c.length-1;i++) {sbSql.append(c[i]);}	
+				String rowData=sbSql.toString();
 				if(!rowData.equals("LIABILITY")){
 					
 					if(rowData.contains("_")){ //sub Group 

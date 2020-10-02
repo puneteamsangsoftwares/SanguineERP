@@ -3,13 +3,9 @@ package com.sanguine.webbooks.controller;
 import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,6 +15,24 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.mysql.jdbc.Connection;
+import com.sanguine.base.service.intfBaseService;
+import com.sanguine.controller.clsGlobalFunctions;
+import com.sanguine.model.clsPropertySetupModel;
+import com.sanguine.service.clsCurrencyMasterService;
+import com.sanguine.service.clsGlobalFunctionsService;
+import com.sanguine.service.clsSetupMasterService;
+import com.sanguine.webbooks.bean.clsChartOfAccountReportBean;
+import com.sanguine.webbooks.bean.clsCreditorOutStandingReportBean;
+import com.sanguine.webbooks.bean.clsIncomeStmtReportBean;
 
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -32,24 +46,6 @@ import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.itextpdf.text.pdf.events.IndexEvents.Entry;
-import com.mysql.jdbc.Connection;
-import com.sanguine.base.service.intfBaseService;
-import com.sanguine.controller.clsGlobalFunctions;
-import com.sanguine.model.clsPropertySetupModel;
-import com.sanguine.service.clsCurrencyMasterService;
-import com.sanguine.service.clsGlobalFunctionsService;
-import com.sanguine.service.clsSetupMasterService;
-import com.sanguine.webbooks.bean.clsCreditorOutStandingReportBean;
-import com.sanguine.webbooks.bean.clsIncomeStmtReportBean;
 
 @Controller
 public class clsBalanceSheetController {
@@ -661,7 +657,7 @@ public class clsBalanceSheetController {
 		
 		
 		@RequestMapping(value = "/rptBalanceSheet", method = RequestMethod.GET)
-		private ModelAndView funGenerateBalanceSheetInExcel(@ModelAttribute("command") clsCreditorOutStandingReportBean objBean, HttpServletResponse resp, HttpServletRequest req)
+		private ModelAndView funGenerateBalanceSheetInExcel(@ModelAttribute("command") clsChartOfAccountReportBean objBean, HttpServletResponse resp, HttpServletRequest req)
 		{
 			List listExcelData = new ArrayList();
 			Connection con = objGlobal.funGetConnection(req);

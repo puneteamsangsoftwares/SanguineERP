@@ -110,7 +110,7 @@ public class clsCreditorLedgerController {
 			String clientCode = req.getSession().getAttribute("clientCode").toString();
 			String userCode = req.getSession().getAttribute("usercode").toString();
 			String propertyCode = req.getSession().getAttribute("propertyCode").toString();
-			return new ModelAndView("redirect:/frmDebtorLedger.html");
+			return new ModelAndView("redirect:/frmCreditorLedger.html");
 		} else {
 			return new ModelAndView("frmCreditorLedger");
 		}

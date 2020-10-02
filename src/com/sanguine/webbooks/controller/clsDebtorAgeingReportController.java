@@ -496,19 +496,24 @@ public class clsDebtorAgeingReportController {
 							}
 							objDebtorOutStanding.setDblBalAmt(newOutStandingAmt);
 							List<Object>listOfOSandAgeing=mapOSandAgeing.get(debtorCode);
+							listOfOSandAgeing.add(arrObj[1].toString());
 							listOfOSandAgeing.add(debitAmt);
 							if(listOfOSandAgeing.size()>listSise)
 							{
 								listSise=listOfOSandAgeing.size();
 							}
 						}
-//						else
-//						{			
-//							List<Double>listOfOSandAgeing=new LinkedList<>();
-//							listOfOSandAgeing.add(debitAmt);
-//							
-//							mapOSandAgeing.put(debtorCode, listOfOSandAgeing);
-//						}						
+						else
+						{			
+							List<Object>listOfOSandAgeing=new LinkedList<>();
+							listOfOSandAgeing.add(arrObj[1].toString());
+							listOfOSandAgeing.add(debitAmt);
+						
+							mapOSandAgeing.put(debtorCode, listOfOSandAgeing);
+							clsCreditorOutStandingReportBean objOutStBean = new clsCreditorOutStandingReportBean();
+							objOutStBean.setDblBalAmt(debitAmt);
+							hmOutstanding.put(debtorCode, objOutStBean);
+						}						
 					}
 				}
 			
@@ -614,6 +619,7 @@ public class clsDebtorAgeingReportController {
 		{
 			e.printStackTrace();
 		}
+
 
 		finally 
 		{

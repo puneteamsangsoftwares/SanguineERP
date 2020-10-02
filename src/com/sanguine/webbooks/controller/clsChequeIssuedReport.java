@@ -146,7 +146,8 @@ public class clsChequeIssuedReport
 			}
 			sbSql.append(" order by a.strBankCode,a.strVouchNo "); 
 
-			List listCheckIssue = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			//List listCheckIssue = objBaseService.funGetListModuleWise(sbSql, "sql", "WebBooks");
+			List listCheckIssue = objGlobalFunctionsService.funGetListModuleWise(sbSql.toString(), "sql");
 			if(listCheckIssue.size()>0)
 			{
 				for (int j = 0; j < listCheckIssue.size(); j++) 

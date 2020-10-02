@@ -100,7 +100,7 @@
 		var glCode = $("#txtGLCode").val();
 		var creditorCode =$("#txtFromDebtorCode").val()
 		funGetCreditorLedger(fromDate,toDate,glCode,creditorCode,propCode);
-		
+		return false;
 		
 	}
 	
@@ -132,6 +132,7 @@
 		{
 			window.open(getContextPath()+"/rptCreditorReport.html?creditorCode="+creditorCode+"&fromDate="+fromDate+"&toDate="+toDate+"&ledgerName="+ledgerName+"&glCode="+glCode+"&glName="+glName+"&creditorName="+creditorName+"&currency="+currency+"&strShowNarration="+strShowNarration,'_blank');
 		}	
+		return false;
 	}
 	
 	
@@ -152,11 +153,7 @@
 			    success: function(response)
 			    {
 			    	funShowCreditorLedger(response,currValue);
-			    },
-				error: function(e)
-			    {
-			       	alert('Error:=' + e);
-			    }
+			    },				
 		      });
 	}
 	
@@ -825,7 +822,10 @@
 			        async:false,
 			        success: function(response)
 			        {
-			        	$("#cmbCurrency").val(response);
+			        	if(response!="")
+		        		{
+				        	$("#cmbCurrency").val(response);
+		        		}
 					},
 					error: function(jqXHR, exception) {
 			            if (jqXHR.status === 0) {
@@ -974,9 +974,9 @@
 					
 				</div>
 				<div id="paraSubmit" class="center" style="text-align:center;  margin-right:-16%;">
-					<a href="#"><button class="btn btn-primary center-block" id="btnExecute"   value="Execute" onclick="funButtonExecute()" 
+					<a href="#"><button class="btn btn-primary center-block" id="btnExecute"   value="Execute" onclick="return funButtonExecute()" 
 						class="form_button">Execute</button></a>&nbsp
-					<a href="#"><button class="btn btn-primary center-block" value="Export" id="btnExport" onclick="funButtonExport()"
+					<a href="#"><button class="btn btn-primary center-block" value="Export" id="btnExport" onclick="return funButtonExport()"
 						class="form_button">Export</button></a>
 				</div>
 				<div id="dvCreditorLedgerBill" style="width: 100% ;height: 100% ;">

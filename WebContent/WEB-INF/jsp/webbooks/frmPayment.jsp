@@ -793,7 +793,7 @@ function funSetDebtorMasterData(debtorCode)
 // 	    		 if(transType=='Dr')
 // 	    			{ 
 	    			 debitAmt=parseFloat(transAmt).toFixed(maxQuantityDecimalPlaceLimit);	
-	    			 funAddDetailsRow(accountCode,debtorCode,description,'Dr',dimension,debitAmt,'0',debtorName);
+	    			 funAddDetailsRow(accountCode,debtorCode,description,transType,dimension,debitAmt,'0',debtorName);
 // 	    		 	}else
 // 	    		 	{
  	    		 		 	creditAmt=parseFloat(transAmt).toFixed(maxQuantityDecimalPlaceLimit);	    

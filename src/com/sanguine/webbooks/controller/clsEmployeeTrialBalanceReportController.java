@@ -111,8 +111,12 @@ public class clsEmployeeTrialBalanceReportController {
 			sbSql.append("select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster where strCurrencyCode='"+currencyCode+"' and strClientCode='"+clientCode+"' ");
 			try
 			{
-				List list = objBaseService.funGetList(sbSql,"sql");
-				conversionRate=Double.parseDouble(list.get(0).toString());
+				//List list = objBaseService.funGetList(sbSql,"sql");
+				List list = objGlobalFunctionsService.funGetListModuleWise(sbSql.toString(), "sql");
+				if(!list.isEmpty())
+				{
+					conversionRate=Double.parseDouble(list.get(0).toString());
+				}
 			}catch(Exception e)
 			{
 				e.printStackTrace();
@@ -151,7 +155,8 @@ public class clsEmployeeTrialBalanceReportController {
 			String sql="";
 			StringBuilder sbSqllink=new StringBuilder();
 			sbSqllink.append("select a.strEmployeeCode,a.strEmployeeName from tblemployeemaster a where a.strClientCode='"+clientCode+"'  and a.strPropertyCode='"+propertyCode+"'");
-			 List listDebtor = objBaseService.funGetListModuleWise(sbSqllink, "sql", "WebBooks");	 
+			 //List listDebtor = objBaseService.funGetListModuleWise(sbSqllink, "sql", "WebBooks");	 
+			 List listDebtor = objGlobalFunctionsService.funGetListModuleWise(sbSqllink.toString(), "sql");
 					 if (listDebtor.size() > 0 && listDebtor != null) {
 					for (int i = 0; i < listDebtor.size(); i++) {
 						Object[] debArr = (Object[]) listDebtor.get(i);

@@ -937,27 +937,27 @@
 		<label id="formHeading">JV Entry</label>
          <s:form name="JV" method="POST" action="saveJV.html">
 		 <div class="row">
-			<div class="col-md-2"><label>VouchNo</label>
+			<div class="col-md-2"><label>Voucher No</label>
 					<s:input  type="text" id="txtVouchNo" readonly="true" path="strVouchNo" cssClass="searchTextBox" ondblclick="funHelp('UserCreatedJVNo');"/>
 			</div>
 				
-			<div class="col-md-2"><label>VouchDate</label>
+			<div class="col-md-2"><label>VoucherDate</label>
 				<s:input  type="text" id="txtVouchDate" path="dteVouchDate" cssClass="calenderTextBox" style="width:70%;" />
 			</div>
 				
-			<div class="col-md-2"><label>Initiated By </label><br>
+			<!-- <div class="col-md-2"><label>Initiated By </label><br>
 				  <label id="lblInitialtedby" style="background-color:#fff;width:100%;padding-left: 7px;padding-bottom: 3px;padding-top: 3px;">USER</label>
-			</div>
+			</div> -->
 			
 			<div class="col-md-2"><label>Narration</label>
 				 <s:input type="text" id="txtNarration" path="strNarration"/>
 			</div>
 			
-			<div class="col-md-2"><label>User Created</label>
+		 <%-- 	<div class="col-md-2"><label>User Created</label>
 				<s:input type="text" id="txtUserCreated" path="strUserCreated"/>
 			</div>
 			<div class="col-md-2"></div>
-		    <div class="col-md-2"><label>User Edited</label>
+		   <div class="col-md-2"><label>User Edited</label>
 			     <s:input  type="text" id="txtUserEdited" path="strUserEdited"/>
 		    </div>
 				
@@ -967,7 +967,7 @@
 				
 			<div class="col-md-2"><label>Edited Date</label>
 				  <s:input  type="text" id="txtEditedDate" path="dteDateEdited" pattern="\d{1,2}-\d{1,2}-\d{4}" cssClass="calenderTextBox" style="width:70%;"/>
-		    </div>
+		    </div> --%>
 		    
 		    <div class="col-md-2"><label>Currency</label>
 				<div class="row">

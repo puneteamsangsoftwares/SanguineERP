@@ -1395,6 +1395,8 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 
 		funExecuteQuery(sql);
 		
+		sql = "UPDATE `ariasalu_dbwebmms`.`tbltreemast` SET `strFormDesc`='Receipt Report' WHERE  `strFormName`='frmReciptReport' AND `strModule`='5';";
+		funExecuteQuery(sql);
 				
 		sql = " INSERT INTO `tbltreemast` (`strFormName`, `strFormDesc`, `strRootNode`, `intRootIndex`, `strType`, `intFormKey`, `intFormNo`, `strImgSrc`, `strImgName`, `strModule`, `strTemp`, `strActFile`, `strHelpFile`, `strProcessForm`, `strAutorisationForm`, `strRequestMapping`, `strAdd`, `strAuthorise`, `strDelete`, `strDeliveryNote`, `strDirect`, `strEdit`, `strGRN`, `strGrant`, `strMinimumLevel`, `strOpeningStock`, `strPrint`, `strProductionOrder`, `strProject`, `strPurchaseIndent`, `strPurchaseOrder`, `strPurchaseReturn`, `strRateContractor`, `strRequisition`, `strSalesOrder`, `strSalesProjection`, `strSalesReturn`, `strServiceOrder`, `strSubContractorGRN`, `strView`, `strWorkOrder`, `strAuditForm`, `strMIS`, `strInvoice`, `strDeliverySchedule`, `strFormAccessYN`) VALUES "
 			 + " ('frmAgentCommision', 'Agent Commision', 'Master', 1, 'M', 13, 13, '1', 'imgAgentCommission.png', '3', 1, '1', '1', 'NO', 'NO', 'frmAgentCommision.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "

@@ -317,7 +317,7 @@ public class clsGlobalFunctionsServiceImpl implements clsGlobalFunctionsService 
 	 */
 
 	@Override
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false, value = "WebBooksTransactionManager")
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebBooksTransactionManager")
 	public int funDeleteWebBookLedgerSummary(String clientCode, String userCode, String propertyCode) {
 		return objGlobalDao.funDeleteWebBookLedgerSummary(clientCode, userCode, propertyCode);
 	}
@@ -330,7 +330,7 @@ public class clsGlobalFunctionsServiceImpl implements clsGlobalFunctionsService 
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false, value = "WebBooksTransactionManager")
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, value = "WebBooksTransactionManager")
 	public int funDeleteWebBookCurrentAccountBal(String clientCode, String userCode, String propertyCode) {
 		return objGlobalDao.funDeleteWebBookCurrentAccountBal(clientCode, userCode, propertyCode);
 	}

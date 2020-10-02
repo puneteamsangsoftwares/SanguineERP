@@ -116,8 +116,13 @@ public class clsCreditorsOutStandingReportController {
 			sbSql.append("select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster where strCurrencyCode='"+currencyCode+"' and strClientCode='"+clientCode+"' ");
 			try
 			{
-				List list = objBaseService.funGetListForWebStocks(sbSql,"sql");
-				conversionRate=Double.parseDouble(list.get(0).toString());
+				//List list = objBaseService.funGetListForWebStocks(sbSql,"sql");
+				List list = objGlobalFunctionsService.funGetListModuleWise(sbSql.toString(), "sql");
+				//conversionRate=Double.parseDouble(list.get(0).toString());
+				if(!list.isEmpty())
+				{
+					conversionRate=Double.parseDouble(list.get(0).toString());
+				}
 			}catch(Exception e)
 			{
 				e.printStackTrace();

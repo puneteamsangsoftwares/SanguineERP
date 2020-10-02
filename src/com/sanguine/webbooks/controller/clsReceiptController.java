@@ -574,7 +574,8 @@ public class clsReceiptController {
 		sbSql.append("select dblConvToBaseCurr from "+webStockDB+".tblcurrencymaster where strCurrencyCode='"+currencyCode+"' and strClientCode='"+clientCode+"' ");
 		try
 		{
-			List list = objBaseService.funGetListForWebStocks(sbSql,"sql");
+			//List list = objBaseService.funGetListForWebStocks(sbSql,"sql");
+			List list = objGlobalFunctionsService.funGetListModuleWise(sbSql.toString(), "sql");
 			conversionRate=Double.parseDouble(list.get(0).toString());
 		}catch(Exception e)
 		{
