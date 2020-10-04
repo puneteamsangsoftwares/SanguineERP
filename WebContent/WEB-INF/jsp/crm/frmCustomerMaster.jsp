@@ -1225,7 +1225,9 @@ var isLikeCustClk=false;
 					    	//funRemoveProdRows();
 					    	btnAllProduct="";
 					    	listProductData=response;
+					    	
 					    	showTable();
+					    	
 				    	}
 				    	else
 				    	{

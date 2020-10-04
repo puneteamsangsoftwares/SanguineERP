@@ -119,8 +119,8 @@ public class clsInvoiceHdServiceImpl implements clsInvoiceHdService {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	public void funDeleteSettlement(String invCode, String clientCode) {
-		 objInvoiceDao.funDeleteSettlement(invCode, clientCode);
+	public void funDeleteSettlement(String invCode,String settleCode, String clientCode) {
+		 objInvoiceDao.funDeleteSettlement(invCode,settleCode, clientCode);
 	}
 	
 }

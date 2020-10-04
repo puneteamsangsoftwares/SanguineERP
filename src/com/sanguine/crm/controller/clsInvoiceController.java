@@ -679,15 +679,15 @@ public class clsInvoiceController
 						if (hmInvTaxDtl.containsKey(entry.getKey()))
 						{
 							objInvTaxModel = hmInvTaxDtl.get(entry.getKey());
-							objInvTaxModel.setDblTaxableAmt(objInvTaxModel.getDblTaxableAmt() + taxableAmt);
-							objInvTaxModel.setDblTaxAmt(objInvTaxModel.getDblTaxAmt() + taxAmt);
+							objInvTaxModel.setDblTaxableAmt(Double.parseDouble(decFormat.format(objInvTaxModel.getDblTaxableAmt() + taxableAmt)));
+							objInvTaxModel.setDblTaxAmt(Double.parseDouble(decFormat.format(objInvTaxModel.getDblTaxAmt() + taxAmt)));
 						}
 						else
 						{
 							objInvTaxModel = new clsInvoiceTaxDtlModel();
 							objInvTaxModel.setStrTaxCode(taxDtl.split("#")[1]);
 							objInvTaxModel.setDblTaxAmt(Double.parseDouble(decFormat.format(taxAmt)));
-							objInvTaxModel.setDblTaxableAmt(taxableAmt);
+							objInvTaxModel.setDblTaxableAmt(Double.parseDouble(decFormat.format(taxableAmt)));
 							objInvTaxModel.setStrTaxDesc(taxDtl.split("#")[2]);
 						}
 
@@ -701,7 +701,7 @@ public class clsInvoiceController
 						objInvProdTaxDtl.setStrCustCode(objInvDtl.getStrCustCode());
 						objInvProdTaxDtl.setStrDocNo(taxDtl.split("#")[1]);
 						objInvProdTaxDtl.setDblValue(Double.parseDouble(decFormat.format(taxAmt)));
-						objInvProdTaxDtl.setDblTaxableAmt(taxableAmt);
+						objInvProdTaxDtl.setDblTaxableAmt(Double.parseDouble(decFormat.format(taxableAmt)));
 						objInvProdTaxDtl.setDblWeight(objInvDtl.getDblWeight());
 						listInvProdTaxDtl.add(objInvProdTaxDtl);
 						
@@ -1066,7 +1066,7 @@ public class clsInvoiceController
 								obj.setStrGiftVoucherCode("");
 								obj.setStrRemark("");
 								obj.setStrRoomNo("");
-								objInvoiceHdService.funDeleteSettlement(objHDModel.getStrInvCode(), clientCode);
+								objInvoiceHdService.funDeleteSettlement(objHDModel.getStrInvCode(),obj.getStrSettlementCode(), clientCode);
 								objInvoiceHdService.funAddUpdateInvSettlementdtl(obj);
 							}
 							
@@ -1091,7 +1091,7 @@ public class clsInvoiceController
 					obj.setStrGiftVoucherCode("");
 					obj.setStrRemark("");
 					obj.setStrRoomNo("");
-					objInvoiceHdService.funDeleteSettlement(objHDModel.getStrInvCode(), clientCode);
+					objInvoiceHdService.funDeleteSettlement(objHDModel.getStrInvCode(),obj.getStrSettlementCode(), clientCode);
 					objInvoiceHdService.funAddUpdateInvSettlementdtl(obj);
 				}
 				  

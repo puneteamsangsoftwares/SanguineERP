@@ -44,12 +44,23 @@ public class clsCRMSettlementMasterDaoImpl implements clsCRMSettlementMasterDao 
 	@Override
 	public Map<String, String> funGetSettlementComboBox(String clientCode) {
 		Map<String, String> map = new LinkedHashMap<String, String>();
-		Query query = sessionFactory.getCurrentSession().createQuery("from clsSettlementMasterModel where strClientCode=:clientCode and strApplicable='true'" );
+		Query query = sessionFactory.getCurrentSession().createQuery("from clsSettlementMasterModel where strClientCode=:clientCode and strApplicable='true' " );
 		query.setParameter("clientCode", clientCode);
 		List<clsSettlementMasterModel> subGroups = query.list();
 		for (clsSettlementMasterModel subGroup : subGroups) {
-			map.put(subGroup.getStrSettlementCode(), subGroup.getStrSettlementDesc());
+			if(subGroup.getStrSettlementDesc().contains("CASH"))
+			{
+				map.put(subGroup.getStrSettlementCode(), subGroup.getStrSettlementDesc());
+			}
 		}
+		for (clsSettlementMasterModel subGroup : subGroups) {
+			if(!subGroup.getStrSettlementDesc().equalsIgnoreCase("CASH"))
+			{
+				map.put(subGroup.getStrSettlementCode(), subGroup.getStrSettlementDesc());
+			}
+			
+		}
+		
 		return map;
 	}
 

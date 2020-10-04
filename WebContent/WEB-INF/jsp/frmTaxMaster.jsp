@@ -271,8 +271,8 @@ padding:0px;
 					        	
 					        	funLoadTaxes(response.strTaxCode,response.strTaxOnTaxCode);
 					        	funFillGrid(response.listTaxSGDtl);
-					        	
-					            funFillSettlemnt(response.strTaxCode);
+					        	funLoadSettlementForTaxes(response.strTaxCode);
+					            //funFillSettlemnt(response.strTaxCode);
 				        	}
 						},
 						error: function(jqXHR, exception) {
@@ -828,6 +828,45 @@ padding:0px;
 			    row.insertCell(2).innerHTML= "<input id=\"cbApplicable."+(rowCount)+"\" name=\"listTaxSettlement["+(rowCount)+"].strApplicable\" type=\"checkbox\" class=\"ApplicableCheckBoxClass\"   value='"+settlementCode+"' />";	
 			    }
 			}
+		    
+		    
+		    function funLoadSettlementForTaxes(taxCode)
+			{
+			  
+				$.ajax({
+					type: "GET",
+			        url: getContextPath()+"/loadSettlementForTaxesData.html?taxCode="+taxCode,
+			        dataType: "json",
+			        success: function(response)
+			        {
+			        	    $('#tblSettlement tbody').empty();
+			        		$.each(response, function(i,item)
+			                {   
+			        			funFillTaxSettlemnt(response[i][0],response[i][1],response[i][2]);
+							});
+			        	
+					},
+					error: function(jqXHR, exception) {
+			            if (jqXHR.status === 0) {
+			                alert('Not connect.n Verify Network.');
+			            } else if (jqXHR.status == 404) {
+			                alert('Requested page not found. [404]');
+			            } else if (jqXHR.status == 500) {
+			                alert('Internal Server Error [500].');
+			            } else if (exception === 'parsererror') {
+			                alert('Requested JSON parse failed.');
+			            } else if (exception === 'timeout') {
+			                alert('Time out error.');
+			            } else if (exception === 'abort') {
+			                alert('Ajax request aborted.');
+			            } else {
+			                alert('Uncaught Error.n' + jqXHR.responseText);
+			            }
+			        }
+		    });
+			}
+			
+		    
 	</script>
 </head>
 

@@ -388,5 +388,27 @@ public class clsTaxMasterController {
 //		return list;
 //	}
 //	
+	
+	@RequestMapping(value = "/loadSettlementForTaxesData", method = RequestMethod.GET)
+	public @ResponseBody List funLoadSettlementForTaxesData(@RequestParam("taxCode") String taxCode,HttpServletRequest req)
+	{
+		List list =null;
+		try{
+			String clientCode = req.getSession().getAttribute("clientCode").toString();
+			
+			String sql=" select a.strSettlementCode,a.strSettlementDesc,if(ifnull(b.strTaxCode,'')='','N',b.strApplicable) "
+					+ " from tblsettlementmaster a left outer join tbltaxsettlement b on a.strSettlementCode=b.strSettlementCode "
+                    + " and b.strTaxCode='"+taxCode+"' and b.strApplicable='Yes' and a.strClientCode='"+clientCode+"' ;";
+			
+			
+			list= objGlobalFunctionsService.funGetDataList(sql, "sql");		
+			
+		}
+		catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		return list;
+	}
 
 }

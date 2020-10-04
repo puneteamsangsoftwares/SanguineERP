@@ -1184,8 +1184,10 @@
 	 	row.insertCell(17).innerHTML= "<input readonly=\"readonly\" class=\"Box prevProdrice\" style=\"text-align: right;\" \size=\"3.9%\" id=\"prevProdrice."+(rowCount)+"\"   value='"+prevProdrice+"'/>";
 // 	 	 row.insertCell(18).innerHTML= "<input name=\"listclsInvoiceModelDtl["+(rowCount)+"].strProdType\" type=\"hidden\" size=\"0%\" id=\"txtProdTpye."+(rowCount)+"\" value='"+strProdType+"'/>";
 		     list++; 
-	 	 QtyTol+=parseFloat(dblQty);
-	 	$("#txtQtyTotl").val(QtyTol);
+		     funSetTotalQty(); 
+	 	// QtyTol+=parseFloat(dblQty);
+	 	//$("#txtQtyTotl").val(QtyTol);
+	 	
 	  //  $("#txtSubGroup").focus();
 	    funCalculateTotalAmt();
 	    funClearProduct();
@@ -1268,7 +1270,11 @@
 		   discType=""; 
 		   $("#txtDiscount").val(0);
 		}
-	   
+		funSetTotalQty();
+		
+		
+		
+		
 	}
 	
 	
@@ -1824,10 +1830,12 @@
 	    	
 	    	var qty=parseFloat(document.getElementById("txtQty."+cnt).value);		    	
 	    	var unitPrice=parseFloat(document.getElementById("unitprice."+cnt).value);
-	    	var discAmt1=parseFloat(document.getElementById("txtDiscount").value);
+	    	//var discAmt1=parseFloat(document.getElementById("txtDiscount").value);
+	    	
+	    	var discAmt1=parseFloat(document.getElementById("dblDisAmt."+cnt).value);
 	    	var dblWeight=parseFloat(document.getElementById("dblTotalWeight."+cnt).value);
 	    	
-	    	prodCodeForTax=prodCodeForTax+"!"+prodCode+","+unitPrice+","+suppCode+","+qty+",0,"+dblWeight;
+	    	prodCodeForTax=prodCodeForTax+"!"+prodCode+","+unitPrice+","+suppCode+","+qty+","+discAmt1+","+dblWeight;
 	    }
 		
 	    prodCodeForTax=prodCodeForTax.substring(1,prodCodeForTax.length).trim();
@@ -2871,6 +2879,20 @@ function funChangeCombo() {
 		}	
 	}
 	
+	//Caculating Total Quantity
+	function funSetTotalQty()
+	{
+	var totalQty=0.00;		   
+	$('#tblProdDet tr').each(function() {
+			   
+			    var qty = $(this).find('input')[2].value;
+			    
+			    totalQty=parseFloat(qty)+totalQty;
+			   
+			 });
+	        totalQty=parseFloat(totalQty).toFixed(maxAmountDecimalPlaceLimit);
+	        $("#txtQtyTotl").val(totalQty);
+	  }
 	
 </script>
 </head>

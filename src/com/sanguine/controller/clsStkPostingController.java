@@ -1,6 +1,7 @@
 package com.sanguine.controller;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -228,6 +229,7 @@ public class clsStkPostingController {
 		String startDate = request.getSession().getAttribute("startDate").toString();
 		objBean.setStrPSCode(objGlobalFunctions.funIfNull(objBean.getStrPSCode(), "", objBean.getStrPSCode()));
 		clsStkPostingHdModel objHdModel = funPrepareModel(objBean, userCode, clientCode, propCode, startDate, request);
+		DecimalFormat df = new DecimalFormat("#.##");
 		objGlobal = new clsGlobalFunctions();
 		if (!result.hasErrors()) {
 			List<clsStkPostingDtlModel> listStkPostDtl = objBean.getListStkPostDtl();
@@ -241,6 +243,8 @@ public class clsStkPostingController {
 						ob.setStrPSCode(psCode);
 						ob.setStrProdChar(" ");
 						ob.setStrClientCode(clientCode);
+					    ob.setDblPrice(Double.parseDouble(df.format(ob.getDblPrice())));
+					    ob.setDblCStock(Double.parseDouble(df.format(ob.getDblCStock())));
 						objStkPostService.funAddUpdateDtl(ob);
 						flagDtlDataInserted = true;
 						System.out.println(intt++);

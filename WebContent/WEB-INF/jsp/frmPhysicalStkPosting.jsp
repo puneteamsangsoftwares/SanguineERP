@@ -1095,7 +1095,8 @@
 						 		    $("#cmbConversionUOM").attr("disabled", true);
 						        	var LooseQty=0;
 							    	$.each(response, function(i,item)
-									{		
+									{	
+							    		document.getElementById("lblStatus").innerHTML='';
 							    		count=i;
 							    		var dblStock="";
 							    		if(response[i].strProdCode!=null)
@@ -1181,6 +1182,8 @@
 						    			    funFillFromExcelData(response[i].strProdCode,response[i].strProdName,response[i].dblPrice,
 							    				response[i].dblWeight,dblStock,dblQty,Displyqty,LooseQty,ReceivedconversionUOM,recipeconversionUOM,ConversionValue,response[i].dblActualRate,ProductData);
 						    			}
+							    		//document.getElementById("lblStatus").innerHTML='';
+							    		//$("#lblStatus").text(response[i].strProdName);
 								  	}); 
 							    	funCalSubTotal();
 							    	listRow=count+1;
@@ -1344,6 +1347,8 @@
 		    row.insertCell(14).innerHTML= "<input type=\"hidden\" name=\"listStkPostDtl["+(rowCount)+"].dblVariance\" id=\"lblVariance."+(rowCount)+"\" value="+variance+">";	
 		    row.insertCell(15).innerHTML= "<input type=\"hidden\" name=\"listStkPostDtl["+(rowCount)+"].dblCStock\" id=\"txtStock."+(rowCount)+"\" value="+currentStkQty+">";
 		    funApplyNumberValidation();
+		   
+    	    //$("#lblStatus").text(strProdName);
 		    return false;
 		}
 		
@@ -1708,6 +1713,8 @@
 			<div class="col-md-2">	
 			 	<label id="lblNote" style="color:red;font-size:13px  ">Note:Decimal values will be consider as recipe uom(loose qty)</label>
 			</div>
+			
+			
 			<div class="col-md-4"></div>
 			<div class="col-md-2">
 				<label id="lblLocation">Location</label>
@@ -1736,6 +1743,7 @@
 				<label>Actual Rate</label>
 				<input id="txtActualRate" readonly="readonly"   type="text" class="decimal-places-amt numberField" ></input>
 			 </div>
+			
 			 <div class="col-md-4"></div>
 			<div class="col-md-2">	
 					<label>Stock</label>
@@ -1755,11 +1763,16 @@
 			  </div>
 		 
 			<div class="col-md-5">
-			  <a href="#"><button class="btn btn-primary center-block" id="btnAdd"  value="Add" onclick="return btnAdd_onclick();">Add</button></a>
+			  <!-- <!-- <a href="#"><button class="btn btn-primary center-block" id="btnAdd"  value="Add" onclick="return btnAdd_onclick();">Add</button></a> -->
+			  <button type="button" class="btn btn-primary center-block" id="btnAdd"  value="Add" onclick="return btnAdd_onclick();">Add</button>
 			
-			  <a href="#"><button class="btn btn-primary center-block" id="btnRepost"  value="Repost" onclick="return btnRepost_onclick();">Repost</button></a> 
+			  <!--  <a href="#"><button class="btn btn-primary center-block" id="btnRepost"  value="Repost" onclick="return btnRepost_onclick();">Repost</button></a> --> 
+			 <button type="button" class="btn btn-primary center-block" id="btnRepost"  value="Repost" onclick="return btnRepost_onclick();">Repost</button>
 			
-			  <a href="#"><button class="btn btn-primary center-block" id="btnMakeStockZero" value="Make Stk Zero" onclick="return funGetLocationWiseProduct();" style="width:123px;" >Make Stk Zero</button></a>
+			  <!-- <a href="#"><button class="btn btn-primary center-block" id="btnMakeStockZero" value="Make Stk Zero" onclick="return funGetLocationWiseProduct();" style="width:123px;" >Make Stk Zero</button></a> -->
+			  <button type="button" class="btn btn-primary center-block" id="btnMakeStockZero" value="Make Stk Zero" onclick="return funGetLocationWiseProduct();" style="width:123px;" >Make Stk Zero</button>
+		      
+		      <label id="lblStatus"></label>
 		    </div>
 		</div>
 	

@@ -1723,6 +1723,7 @@ public class clsGlobalFunctions {
 		// startDate=request.getSession().getAttribute("startDate").toString();
 		long lastNo = 0;
 		String strSACode = null;
+		DecimalFormat df = new DecimalFormat("#.##");
 		clsStkAdjustmentHdModel objHdModel = new clsStkAdjustmentHdModel();
 		clsStkPostingHdModel ModelStkPostHd = objStkPostService
 				.funGetModelObject(strphyStkpostCode, clientCode);
@@ -1786,8 +1787,8 @@ public class clsGlobalFunctions {
 					objStkAdjDtl
 							.setStrRemark("Auto Adjustment by Physical Stock Posting");
 					objStkAdjDtl.setIntIndex(0);
-					objStkAdjDtl.setDblPrice(stkPostDtl.getDblPrice()
-							* objStkAdjDtl.getDblQty());
+					objStkAdjDtl.setDblPrice(Double.parseDouble(df.format(stkPostDtl.getDblPrice()
+							* objStkAdjDtl.getDblQty())));
 					objStkAdjDtl
 							.setStrClientCode(stkPostDtl.getStrClientCode());
 					objStkAdjDtl.setStrDisplayQty(stkPostDtl.getStrDisplyQty());
@@ -8327,7 +8328,7 @@ public class clsGlobalFunctions {
 
 		// JV Amount
 		sbSql.setLength(0);
-		sbSql.append("select debtor.strDebtorCode,debtor.strDebtorName,debtor.strCrDr, sum(ifnull(debtor.dblAmt,0.00)) "
+		sbSql.append("select debtor.strDebtorCode,'',debtor.strCrDr, sum(ifnull(debtor.dblAmt,0.00)) "
 				+ " from tbljvdebtordtl debtor inner join tbljvhd hd on hd.strVouchNo=debtor.strVouchNo "
 				+ " where debtor.strAccountCode='"
 				+ glCode
@@ -8577,10 +8578,10 @@ public class clsGlobalFunctions {
 		sbSql = new StringBuilder(hql);
 		List listBillLedger = new ArrayList();
 		try {
-			//listBillLedger = objBaseService.funGetListModuleWise(sbSql, "hql","WebBooks");
-			 listBillLedger = objGlobalFunctionsService.funGetListModuleWise(sbSql.toString(), "hql");
+			listBillLedger = objBaseService.funGetListModuleWise(sbSql, "hql",
+					"WebBooks");
 		} catch (Exception e) {
-			e.printStackTrace();			
+			// TODO Auto-generated catch block
 		}
 		// List listBillLedger =
 		// objGlobalFunctionsService.funGetListModuleWise(hql, "hql");
@@ -8644,7 +8645,7 @@ public class clsGlobalFunctions {
 		}
 
 		sbSql.setLength(0);
-		sbSql.append(" SELECT DATE(a.dteVouchDate)AS vouchdate ,a.strVouchNo,'JV'  , DATE(a.dteVouchDate), "
+		sbSql.append(" SELECT DATE(a.dteVouchDate) ,a.strVouchNo,'JV'  , DATE(a.dteVouchDate), "
 				+ " b.dblDrAmt ,b.dblCrAmt ,b.dblDrAmt - b.dblCrAmt ,'Cr','','1','"
 				+ userCode
 				+ "','"

@@ -47,6 +47,6 @@ public interface clsInvoiceDao {
 
 	public List<clsInvoiceModelDtl> funGetDtlList(String SACode, String clientCode);
 	
-	public void  funDeleteSettlement(String invCode, String clientCode);
+	public void  funDeleteSettlement(String invCode,String settleCode, String clientCode);
 
 }
