@@ -1509,6 +1509,7 @@ public class clsInvoiceController
 		objBean.setStrCurrencyCode(objInvHdModel.getStrCurrencyCode());
 		objBean.setDblCurrencyConv(objInvHdModel.getDblCurrencyConv());
 		objBean.setDblExtraCharges(objInvHdModel.getDblExtraCharges());
+		objBean.setDblGrandTotal(objInvHdModel.getDblGrandTotal());
 		
 		return objBean;
 	}

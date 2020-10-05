@@ -775,7 +775,8 @@
 						$("#txtSPin").val(response.strSPin);
 						$("#txtSCountry").val(response.strSCountry);
 						$("#txtSubTotlAmt").val(response.dblSubTotalAmt.toFixed(maxQuantityDecimalPlaceLimit));
-						$("#txtFinalAmt").val(response.dblTotalAmt.toFixed(maxQuantityDecimalPlaceLimit));
+						//$("#txtFinalAmt").val(response.dblTotalAmt.toFixed(maxQuantityDecimalPlaceLimit));
+						
 						$("#txtDiscount").val(response.dblDiscountAmt.toFixed(maxQuantityDecimalPlaceLimit));
 						$("#txtDiscountPer").val(response.dblDiscount);
 						
@@ -812,6 +813,7 @@
 			            {
 							funFillTaxRow(response.listInvoiceTaxDtl[i]);
 			            });
+						$("#txtFinalAmt").val(response.dblGrandTotal.toFixed(maxQuantityDecimalPlaceLimit));	
 	        		}
 			},
 			error: function(jqXHR, exception) {
@@ -1753,7 +1755,7 @@
 		dblDisAmt=dblDisAmt+parseFloat(discount); */
 		$("#txtDiscount").val(dblDisAmt.toFixed(maxQuantityDecimalPlaceLimit));
 		var disc=$("#txtDiscount").val();
-		var extraCharge = $('#txtExtraCharges').val();
+		var extraCharge = $('#txtExtraCharges').val();   
 		var finalAmt=parseFloat(totalAmt)+parseFloat(extraCharge)-parseFloat(disc);
 		$("#txtFinalAmt").val(finalAmt.toFixed(maxQuantityDecimalPlaceLimit));
 	}
