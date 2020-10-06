@@ -250,8 +250,9 @@ public class clsCRMReportsController {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void funCallCustomerWiseCategoryWiseSalesOrderReport(clsReportBean objBean, HttpServletResponse resp, HttpServletRequest req) {
 		try {
-
-			// Connection con = objGlobalFunctions.funGetConnection(req);
+            
+			String type = objBean.getStrDocType();
+			Connection con = objGlobalFunctions.funGetConnection(req);
 			String clientCode = req.getSession().getAttribute("clientCode").toString();
 			String companyName = req.getSession().getAttribute("companyName").toString();
 			String userCode = req.getSession().getAttribute("usercode").toString();
@@ -382,7 +383,7 @@ public class clsCRMReportsController {
 			hm.put("dteFromDate", objBean.getDteFromDate());
 			hm.put("dteToDate", objBean.getDteToDate());
 
-			JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(fieldList);
+		/*	JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(fieldList);
 			JasperDesign jd = JRXmlLoader.load(reportName);
 			JasperReport jr = JasperCompileManager.compileReport(jd);
 			JasperPrint jp = JasperFillManager.fillReport(jr, hm, beanCollectionDataSource);
@@ -400,9 +401,41 @@ public class clsCRMReportsController {
 				servletOutputStream.flush();
 				servletOutputStream.close();
 
+			}*/
+			
+			JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(fieldList);
+			JasperDesign jd = JRXmlLoader.load(reportName);
+			JasperReport jr = JasperCompileManager.compileReport(jd);
+			JasperPrint jp = JasperFillManager.fillReport(jr, hm, beanCollectionDataSource);
+			List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
+			if (jp != null) {
+				jprintlist.add(jp);
+				ServletOutputStream servletOutputStream = resp.getOutputStream();
+				if(objBean.getStrDocType().equals("PDF")){
+					JRExporter exporter = new JRPdfExporter();
+					resp.setContentType("application/pdf");
+					exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
+					exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, servletOutputStream);
+					exporter.setParameter(JRPdfExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
+					resp.setHeader("Content-Disposition", "inline;filename=rptCustomerWiseCategoryWiseSalesOrderReport" + dteFromDate + "_To_" + dteToDate + "_" + userCode + ".pdf");
+					exporter.exportReport();
+					
+	
+				}else if(objBean.getStrDocType().equals("XLS")){
+					
+					JRExporter exporterXLS = new JRXlsExporter();
+					exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, jp);
+					exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, resp.getOutputStream());
+					resp.setHeader("Content-Disposition", "attachment;filename=" + "rptCustomerWiseCategoryWiseSalesOrderReport." + dteFromDate + " To " + dteToDate + "&" + userCode + ".xls");
+					exporterXLS.exportReport();
+					resp.setContentType("application/xlsx");
+				
+				}
+				servletOutputStream.flush();
+				servletOutputStream.close();
 			}
-
-		} catch (Exception ex) {
+		}
+		 catch (Exception ex) {
 			ex.printStackTrace();
 		}
 

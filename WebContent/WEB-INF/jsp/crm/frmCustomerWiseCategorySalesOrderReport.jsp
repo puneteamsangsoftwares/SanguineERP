@@ -484,7 +484,7 @@ $(document).ready(function()
 			 /**
 			  * Export to excel
 			 **/
-		     if($("#cmbDocType").val()=="XLS")
+		    /*  if($("#cmbDocType").val()=="XLS")
 		    	{
 		    		flag=false;
 			    	var reportType=$("#cmbDocType").val();
@@ -493,8 +493,9 @@ $(document).ready(function()
 					var strSGCode=strSubGroupCode;
 					var param1=reportType+","+locCode+","+strSGCode;
 					var param2=strGCode;
-					window.location.href=getContextPath()+"/ExportReOrderLevelRpt.html?param1="+param1 +"&param2="+param2;
-		    	}
+					//window.location.href=getContextPath()+"/ExportReOrderLevelRpt.html?param1="+param1 +"&param2="+param2;
+					
+		    	} */
 			 
 			 
 			 
