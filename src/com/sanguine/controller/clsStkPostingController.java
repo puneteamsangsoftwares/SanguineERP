@@ -32,6 +32,8 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -87,6 +89,11 @@ public class clsStkPostingController {
 	 * @param request
 	 * @return
 	 */
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    binder.setAutoGrowCollectionLimit(100000);
+	}
+	
 	@RequestMapping(value = "/frmPhysicalStkPosting", method = RequestMethod.GET)
 	public ModelAndView funOpenForm(Map<String, Object> model, HttpServletRequest request) {
 		request.getSession().setAttribute("formName", "frmPhysicalStkPosting");
@@ -245,7 +252,10 @@ public class clsStkPostingController {
 						ob.setStrClientCode(clientCode);
 					    ob.setDblPrice(Double.parseDouble(df.format(ob.getDblPrice())));
 					    ob.setDblCStock(Double.parseDouble(df.format(ob.getDblCStock())));
-						objStkPostService.funAddUpdateDtl(ob);
+					    ob.setDblActualRate(Double.parseDouble(df.format(ob.getDblActualRate())));
+					    ob.setDblActualValue(Double.parseDouble(df.format(ob.getDblActualValue())));
+
+					    objStkPostService.funAddUpdateDtl(ob);
 						flagDtlDataInserted = true;
 						System.out.println(intt++);
 					}

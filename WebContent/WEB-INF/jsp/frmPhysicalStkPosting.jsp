@@ -1231,7 +1231,7 @@
 		  
 		    
 		    var tempQty=LooseQty.toString().split(".");
-		    var Displyqty=tempQty[0]+" "+ReceivedconversionUOM+" "+tempQty[1]+" "+recipeconversionUOM;
+		    var Displyqty=parseFloat(tempQty[0])/parseFloat(ConversionValue)+" "+ReceivedconversionUOM+" "+tempQty[1]+" "+recipeconversionUOM;
 		    if(recipeconversionUOM==ReceivedconversionUOM){
 		    	Displyqty=tempQty[0]+"."+tempQty[1] +ReceivedconversionUOM;
 		    }
