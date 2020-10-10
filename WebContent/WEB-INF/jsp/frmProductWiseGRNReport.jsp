@@ -414,9 +414,11 @@ function btnSubmit_Onclick()
 		
 			<br>
 			<p align="center">
-				 <input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button"  onclick="btnSubmit_Onclick()" id="btnSubmit" />
+				 <!-- <input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button"  onclick="btnSubmit_Onclick()" id="btnSubmit" /> -->
+				 <button type="button" class="btn btn-primary center-block" id="btnSubmit" value="Submit" onclick="btnSubmit_Onclick()">Submit</button>
 				 &nbsp;
-				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>			     
+				 <!-- <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/> -->			     
+			     <button type="button" class="btn btn-primary center-block" id="btnReset" value="Reset" onclick="funResetFields()">Reset</button>
 			</p>
 		
 			<div id="wait"

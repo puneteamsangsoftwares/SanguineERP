@@ -92,9 +92,9 @@
 				//alert(startDate);
 				var arr = startDate.split("/");
 				Dat=arr[0]+"-"+arr[1]+"-"+arr[2];
-	    	  
+				var startDateOfMonth="${startDateOfMonth}";
     			$( "#txtFromDate" ).datepicker({ dateFormat: 'dd-mm-yy' });		
-    			$("#txtFromDate" ).datepicker('setDate', Dat); 
+    			$("#txtFromDate" ).datepicker('setDate', startDateOfMonth); 
     			
     			$( "#txtToDate" ).datepicker({ dateFormat: 'dd-mm-yy' });		
     			$("#txtToDate" ).datepicker('setDate', 'today'); 
@@ -740,7 +740,8 @@
 
 		<br>
 			<p align="center">
-				 <input type="button" value="Submit" onclick="return btnSubmit_Onclick();" class="btn btn-primary center-block" class="form_button" />
+				 <!-- <input type="button" value="Submit" onclick="return btnSubmit_Onclick();" class="btn btn-primary center-block" class="form_button" /> -->
+				 <button type="button" class="btn btn-primary center-block" id="btnSubmit" value="Submit" onclick="return btnSubmit_Onclick();">Submit</button>
 				 &nbsp;
 				 <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()"/>			     
 			</p>  

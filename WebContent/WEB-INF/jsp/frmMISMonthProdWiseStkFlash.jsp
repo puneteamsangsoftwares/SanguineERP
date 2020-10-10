@@ -38,7 +38,7 @@
 			var arr = startDate.split("/");
 			Dat=arr[0]+"-"+arr[1]+"-"+arr[2];
 			$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' }); 
-			$("#txtFromDate").datepicker('setDate','today');
+			$("#txtFromDate").datepicker('setDate',startDateOfMonth);
 			$("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 			$("#txtToDate").datepicker('setDate', 'today');
 			$("#divValueTotal").hide();

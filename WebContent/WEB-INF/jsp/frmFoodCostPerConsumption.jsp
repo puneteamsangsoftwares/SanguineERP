@@ -126,10 +126,12 @@
 		var startDate="${startDate}";
 		var arr = startDate.split("/");
 		Date1=arr[0]+"-"+arr[1]+"-"+arr[2];
+		var startDateOfMonth="${startDateOfMonth}";
+		
 		$("#txtFromDate").datepicker({
 			dateFormat : 'dd-mm-yy'
 		});
-		$("#txtFromDate").datepicker('setDate', Date1);
+		$("#txtFromDate").datepicker('setDate', startDateOfMonth);
 
 		$("#txtToDate").datepicker({
 			dateFormat : 'dd-mm-yy'

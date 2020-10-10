@@ -28,8 +28,9 @@ $(document).ready(function()
 			var startDate="${startDate}";
 			var arr = startDate.split("/");
 			Date1=arr[2]+"-"+arr[1]+"-"+arr[0];
+			var startDateOfMonth="${startDateOfMonth}";
 			$("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
-			$("#txtFromDate" ).datepicker('setDate', Date1);
+			$("#txtFromDate" ).datepicker('setDate', startDateOfMonth);
 			$("#txtFromDate").datepicker();	
 			
 			 $("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
@@ -554,7 +555,7 @@ function funHelp(transactionName)
 			 </div>
 			<div class="col-md-6"></div>
 			
-			<div class="col-md-2"><label>ToLocation</label>
+			<div class="col-md-2"><label>To Location</label>
 			     <input type="text" id="txtLocCode" Class="searchTextBox" placeholder="Type to search"  ></input>
 			</div>
 			

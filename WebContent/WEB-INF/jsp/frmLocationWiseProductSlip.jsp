@@ -434,7 +434,8 @@
 <body>
 	<div class="container transTable">
 	   <label id="formHeading">LocationWise Product Slip </label>
-	    <s:form name="frmlocWiseprodectSlip" method="GET" action="rptLocationWiseProductSlip.html" target="_blank">
+	   <s:form name="frmlocWiseprodectSlip" method="GET" action="rptLocationWiseProductSlip.html" target="_blank">
+	   
 		<div class="row">
 			 <div class="col-md-2"><label>Product Code</label>
 				   <s:input id="txtProdCode" path="strProdCode" ondblclick="funHelp('productmasterslip')" cssClass="searchTextBox"
@@ -556,9 +557,11 @@
 		  </div>
 		<br>
 		<p align="center">
-			<input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="return btnSubmit_Onclick();"/>
+			<!-- <input type="submit" value="Submit" class="btn btn-primary center-block" class="form_button" onclick="return btnSubmit_Onclick();"/> -->
+			 <button type="button" class="btn btn-primary center-block" id="btnSubmit" value="Submit" onclick="return btnSubmit_Onclick();">Submit</button> 
 			 &nbsp;
-			<input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()" />
+			<!-- <input type="button" value="Reset" class="btn btn-primary center-block" class="form_button" onclick="funResetFields()" /> -->
+			<button type="button" class="btn btn-primary center-block" id="btnReset" value="Reset" onclick="funResetFields()">Reset</button>
 		</p>
 		<s:input type="hidden" id="hidLocCodes" path="strToLocCode"></s:input>
 		<s:input type="hidden" id="hidSubCodes" path="strSGCode"></s:input>

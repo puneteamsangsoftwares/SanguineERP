@@ -108,7 +108,7 @@ public class clsMISMonthProductWiseFlash
 	@RequestMapping(value = "/showMISFlash", method = RequestMethod.GET)
 	private @ResponseBody List funShowMISFlash(@RequestParam(value = "fDate") String fDate, @RequestParam(value = "tDate") String tDate, @RequestParam(value = "propCode") String propCode, @RequestParam(value = "locCode") String locCode, HttpServletRequest req, HttpServletResponse resp)
 	{
-
+		DecimalFormat df = new DecimalFormat("#.##");
 		List list = new ArrayList();
 		List listReturn = new ArrayList();
 		List finalList = new ArrayList();
@@ -159,7 +159,7 @@ public class clsMISMonthProductWiseFlash
 					subGroupList.add("");
 					subGroupList.add("");
 					list.add(totalQty);
-					list.add(price * totalQty);
+					list.add(df.format(price * totalQty));
 					if (i != 0)
 					{
 						hmProd.put(prodCode, list);

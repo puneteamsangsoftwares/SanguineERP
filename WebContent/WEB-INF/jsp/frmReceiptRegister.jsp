@@ -61,7 +61,7 @@ var fieldName="";
 			var arr = startDate.split("/");
 			Date1=arr[0]+"-"+arr[1]+"-"+arr[2];	
 	    	$( "#txtFromDate" ).datepicker({ dateFormat: 'dd-mm-yy' });		
-			$("#txtFromDate" ).datepicker('setDate', 'startDateOfMonth');
+			$("#txtFromDate" ).datepicker('setDate', startDateOfMonth);
 			$( "#txtToDate" ).datepicker({ dateFormat: 'dd-mm-yy' });		
 			$("#txtToDate" ).datepicker('setDate', 'today');
 			funRemRows("tblloc");

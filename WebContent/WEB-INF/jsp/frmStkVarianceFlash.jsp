@@ -367,7 +367,8 @@
 		<div  class="col-md-3">
 			<a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return funOnClick()">Execute</button></a>
 			&nbsp;
-			 <a href="#"><button class="btn btn-primary center-block" id="btnExport" value="Export" onclick="return funOnExport()">Export</button></a>
+			 <!-- <a href="#"><button class="btn btn-primary center-block" id="btnExport" value="Export" onclick="return funOnExport()">Export</button></a> -->
+		     <button type="button" class="btn btn-primary center-block" id="btnExport" value="Export" onclick="return funOnExport()">Export</button>
 		</div>
 	</div>
 		<div id="divProdDet" style="height: 280px;">

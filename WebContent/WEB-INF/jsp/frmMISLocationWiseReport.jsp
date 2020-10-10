@@ -28,11 +28,12 @@ $(document).ready(function()
 			 var startDate="${startDate}";
 			 var arr = startDate.split("/");
 			 Date1=arr[2]+"-"+arr[1]+"-"+arr[0];
-			 $("#txtFromDate").datepicker({ dateFormat: 'yy-mm-dd' });
-			 $("#txtFromDate" ).datepicker('setDate', Date1);
+			 var startDateOfMonth="${startDateOfMonth}";
+			 $("#txtFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
+			 $("#txtFromDate" ).datepicker('setDate', startDateOfMonth);
 			 $("#txtFromDate").datepicker();	
 			
-			 $("#txtToDate").datepicker({ dateFormat: 'yy-mm-dd' });
+			 $("#txtToDate").datepicker({ dateFormat: 'dd-mm-yy' });
 				$("#txtToDate" ).datepicker('setDate', 'today');
 				$("#txtToDate").datepicker();	
 				

@@ -6405,8 +6405,10 @@ public class clsReportsController {
 		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
 		String tempPCode[] = objBean.getStrPCode().split(",");
 		String tempsubGroupCode[] = objBean.getStrCatCode().split(",");
-		String fromDate = objGlobal.funGetDate("yyyy-MM-dd", objBean.getDteFromDate()) ;
-		String toDate =objGlobal.funGetDate("yyyy-MM-dd", objBean.getDteToDate()) ; 
+		/*String fromDate = objGlobal.funGetDate("yyyy-MM-dd", objBean.getDteFromDate()) ;
+		String toDate =objGlobal.funGetDate("yyyy-MM-dd", objBean.getDteToDate()) ; */
+		String fromDate = objBean.getDteFromDate();
+		String toDate = objBean.getDteToDate();
 		
 		String strSGCode = "";
 		String pCode = "";

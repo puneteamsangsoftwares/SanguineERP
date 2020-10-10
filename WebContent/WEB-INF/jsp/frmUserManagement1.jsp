@@ -598,7 +598,7 @@ $(document).ready(function(){
 		    			</tr> -->
 					<div class="col-md-2">
 						<label>User Code </label>
-						<s:input path="strUserCode1" id="txtUserCode" ondblclick="funHelp('usermaster')" cssClass="searchTextBox" readOnly="true"/>
+		                <s:input path="strUserCode1" id="txtUserCode" ondblclick="funHelp('usermaster')" cssClass="searchTextBox" /> 
 					</div>
 					<div class="col-md-2">
 						<label>User Name</label>
@@ -688,10 +688,9 @@ $(document).ready(function(){
 				
 				<br /><br />
 			<div class="center" style="margin-right:39%;">
-				<a href="#"><button class="btn btn-primary center-block"  value="Submit" onclick="return funCallFormAction()" 
-				>Submit</button></a>
-				<a href="#"><button class="btn btn-primary center-block"  value="reset" onclick="funResetFields()"
-				>Reset</button></a>
+				<a href="#"><button class="btn btn-primary center-block"  value="Submit" onclick="return funCallFormAction()" >Submit</button></a>
+				
+				<button type="button" class="btn btn-primary center-block"  value="reset" onclick="funResetFields()">Reset</button>
 			</div>
 		</s:form>
 	</div>

@@ -957,7 +957,8 @@
 				<div class="center" style="margin-right:40%;">
 					 <a href="#"><button class="btn btn-primary center-block" id="btnExecute" value="Execute" onclick="return funOnClick()" >Execute</button></a>
 					 &nbsp;
-					 <a href="#"><button class="btn btn-primary center-block" id="btnExport"  value="Export" >Export</button></a>
+					  <!-- <a href="#"><button class="btn btn-primary center-block" id="btnExport"  value="Export" >Export</button></a> -->
+				      <button type="button" class="btn btn-primary center-block" id="btnExport"  value="Export" >Export</button>
 				</div>
 			<br>
 			
