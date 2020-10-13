@@ -82,6 +82,10 @@ public class clsStkPostingController {
 	@Autowired
 	private clsJVGeneratorController objJVGen;
 
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    binder.setAutoGrowCollectionLimit(100000);
+	}
 	/**
 	 * Open Physical Stock Posting Form
 	 * 
@@ -89,10 +93,7 @@ public class clsStkPostingController {
 	 * @param request
 	 * @return
 	 */
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-	    binder.setAutoGrowCollectionLimit(100000);
-	}
+	
 	
 	@RequestMapping(value = "/frmPhysicalStkPosting", method = RequestMethod.GET)
 	public ModelAndView funOpenForm(Map<String, Object> model, HttpServletRequest request) {

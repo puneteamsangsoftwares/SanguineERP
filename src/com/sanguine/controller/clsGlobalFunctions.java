@@ -3510,6 +3510,7 @@ public class clsGlobalFunctions {
 		clsPropertySetupModel objSetup = objSetupMasterService
 				.funGetObjectPropertySetup(propCode, clientCode);
 		String shortName = "";
+		double abatement = 0;
 		try {
 			Map<String, clsProductTaxDtl> hmProductTaxDtl = new HashMap<String, clsProductTaxDtl>();
 			String supplierCodeForForeignTax = "";
@@ -3788,7 +3789,7 @@ public class clsGlobalFunctions {
 					String taxRounded = arrObj[9].toString();
 					String calTaxOnMRP = arrObj[10].toString();
 					String taxOnGD = arrObj[11].toString();
-					double abatement = Double
+					 abatement = Double
 							.parseDouble(arrObj[12].toString());
 					String exciseable = arrObj[13].toString();
 					String totOnMRPItems = arrObj[14].toString();
@@ -4140,7 +4141,7 @@ public class clsGlobalFunctions {
 					// order-> taxable amt,Tax code,tax desc,tax type,tax per
 					hmProductTaxDtl1.put(arrObj[1].toString(), taxDtl);
 				}
-
+				
 				// Start For Customer taxes are not add in Customer tax tab and
 				// also wants to calcutate taxes
 				if (false) // No need For Customer taxes are not add in Customer
@@ -4181,7 +4182,7 @@ public class clsGlobalFunctions {
 							String taxRounded = arrObj[8].toString();
 							String calTaxOnMRP = arrObj[9].toString();
 							String taxOnGD = arrObj[10].toString();
-							double abatement = Double.parseDouble(arrObj[11]
+							Double.parseDouble(arrObj[11]
 									.toString());
 							String exciseable = arrObj[12].toString();
 							String totOnMRPItems = arrObj[13].toString();
@@ -4490,7 +4491,7 @@ public class clsGlobalFunctions {
 					+ entry.getValue().getTaxName() + "#NA" + "#"
 					+ entry.getValue().getTaxPer() + "#"
 					+ entry.getValue().getTaxAmt() + "#"
-					+ entry.getValue().getStrTaxShorName();
+					+ entry.getValue().getStrTaxShorName()+"#"+abatement;
 			hmProductTaxDtl1.put(entry.getKey(), taxDtl);
 		}
 

@@ -1376,8 +1376,7 @@
 	    var dblQty = DCDtl.dblQty;
 	    parseFloat(dblQty).toFixed(maxQuantityDecimalPlaceLimit);
 	    var dblWeight=DCDtl.dblWeight;
-	    var dblTotalWeight=dblQty*dblWeight;
-	    
+	    var dblTotalWeight=dblQty*dblWeight;	    
 	  	var packingNo= DCDtl.strPktNo;
 	    var strSerialNo = DCDtl.strSerialNo;
 	    var strInvoiceable = DCDtl.strInvoiceable;

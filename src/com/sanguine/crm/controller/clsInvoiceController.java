@@ -631,7 +631,7 @@ public class clsInvoiceController
 					}*/
 					String prodTaxDtl = objInvDtl.getStrProdCode() + "," + prodRateForTaxCal + "," + objInvDtl.getStrCustCode() + "," + objInvDtl.getDblQty() +","+objInvDtl.getDblDisAmt()+","+objInvDtl.getDblWeight();
 					Map<String, String> hmProdTaxDtl = null;
-					
+					double abatement = 0;
 					String[] date=objBean.getDteInvDate().split("-");
 					String invDate=date[2]+"-"+date[1]+"-"+date[0];
 					if(strModuleName.equalsIgnoreCase("7-WebBanquet")){
@@ -666,12 +666,10 @@ public class clsInvoiceController
 						double taxableAmt = Double.parseDouble(taxDtl.split("#")[0]);
 						double taxAmt = Double.parseDouble(taxDtl.split("#")[5]);
 						String shortName = taxDtl.split("#")[6];
-
-						double taxAmtForSingleQty = taxAmt / objInvDtl.getDblQty();
-						
+						abatement= Double.parseDouble(taxDtl.split("#")[7]);
+						double taxAmtForSingleQty = taxAmt / objInvDtl.getDblQty();					
 						taxAmtForSingleQty = Double.parseDouble(decFormat.format(taxAmtForSingleQty));
 						taxAmt = taxAmtForSingleQty * objInvDtl.getDblQty();
-
 						// For Check it is Correct Or not
 						// double
 						// taxAmt=Math.round(Double.parseDouble(taxDtl.split("#")[5]));
@@ -742,8 +740,15 @@ public class clsInvoiceController
 
 					double totalMarginAmt = marginAmt * objInvDtlModel.getDblQty();
 					double totalDiscAmt = discAmt * objInvDtlModel.getDblQty();
-					double assesableRateForSingleQty = (prodMRP) - (totalMarginAmt + totalDiscAmt + taxtotal);
-					double assesableRate = (prodMRP * objInvDtlModel.getDblQty()) - (totalMarginAmt + totalDiscAmt + taxtotal);
+					double assesableRateForSingleQty = (prodMRP) - (totalMarginAmt + totalDiscAmt );
+					double assesableRate = (prodMRP * objInvDtlModel.getDblQty()) - (totalMarginAmt + totalDiscAmt);
+					
+					if(abatement > 0)
+					{
+						 assesableRateForSingleQty = (prodMRP) - (totalMarginAmt + totalDiscAmt + taxtotal);
+						 assesableRate = (prodMRP * objInvDtlModel.getDblQty()) - (totalMarginAmt + totalDiscAmt + taxtotal);
+						
+					}
 					if (assesableRate < 0)
 					{
 						assesableRate = 0;
@@ -814,7 +819,7 @@ public class clsInvoiceController
 						{
 
 							 sql = "select ifnull(max(MID(a.strInvCode,8,5)),'' ) " + " from tblinvoicehd a where MID(a.strInvCode,5,1) = '" + transYear + "' " + " and MID(a.strInvCode,6,1) = '" + transMonth + "' " + " and MID(a.strInvCode,1,2) = '" + propCode + "' and strClientCode='" + clientCode + "' ";
-						 sqlAudit = " select ifnull(max(MID(a.strTransCode,8,5)),'' ) " + " from tblaudithd a where MID(a.strTransCode,5,1) = '" + transYear + "' " + " and MID(a.strTransCode,6,1) = '" + transMonth + "' " + " and MID(a.strTransCode,1,2) = '" + propCode + "' and strClientCode='" + clientCode + "' " + "and a.strTransType='Invoice' ;  ";
+						     sqlAudit = " select ifnull(max(MID(a.strTransCode,8,5)),'' ) " + " from tblaudithd a where MID(a.strTransCode,5,1) = '" + transYear + "' " + " and MID(a.strTransCode,6,1) = '" + transMonth + "' " + " and MID(a.strTransCode,1,2) = '" + propCode + "' and strClientCode='" + clientCode + "' " + "and a.strTransType='Invoice' ;  ";
 							
 							
 						}
