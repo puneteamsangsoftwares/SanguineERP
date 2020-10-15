@@ -572,7 +572,7 @@
 		    }else{
 		    document.frmCostOfIssue.action="rptCostOfIssue.html";
 		    }
-			document.frmCostOfIssue.submit();
+			//document.frmCostOfIssue.submit();
 	    } 
 	    
 	   //Reset All Filed After Clicking Reset Button
