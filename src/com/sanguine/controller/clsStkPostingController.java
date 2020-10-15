@@ -252,6 +252,7 @@ public class clsStkPostingController {
 						ob.setStrProdChar(" ");
 						ob.setStrClientCode(clientCode);
 					    ob.setDblPrice(Double.parseDouble(df.format(ob.getDblPrice())));
+					  //  ob.setDblq(Double.parseDouble(df.format(ob.getDblPrice())));
 					    ob.setDblCStock(Double.parseDouble(df.format(ob.getDblCStock())));
 					    ob.setDblActualRate(Double.parseDouble(df.format(ob.getDblActualRate())));
 					    ob.setDblActualValue(Double.parseDouble(df.format(ob.getDblActualValue())));

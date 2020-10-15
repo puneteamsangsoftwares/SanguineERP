@@ -1779,10 +1779,10 @@ public class clsGlobalFunctions {
 					double stkAdjQty = PSQty - CStk;
 					if (stkAdjQty > 0) {
 						objStkAdjDtl.setStrType("IN");
-						objStkAdjDtl.setDblQty(stkAdjQty);
+						objStkAdjDtl.setDblQty(Double.parseDouble(df.format(stkAdjQty)));
 					} else {
 						objStkAdjDtl.setStrType("OUT");
-						objStkAdjDtl.setDblQty(-1 * (stkAdjQty));
+						objStkAdjDtl.setDblQty(-1 * (Double.parseDouble(df.format(stkAdjQty))));
 					}
 					objStkAdjDtl
 							.setStrRemark("Auto Adjustment by Physical Stock Posting");
