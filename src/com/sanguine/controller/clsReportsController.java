@@ -3261,7 +3261,7 @@ public class clsReportsController {
 			}
 			Connection con = objGlobal.funGetConnection(request);
 
-			String sql = "select b.strProdName,b.strUOM,b.dblCostRM,a.dtLastDate as GrnDate,c.strPName,a.strDefault,a.dblLastCost" + " from tblprodsuppmaster a, tblproductmaster b, tblpartymaster c " + " where a.strProdCode = b.strProdCode and a.strSuppCode = c.strPCode ";
+			String sql = "select b.strProdName,b.strUOM,ROUND(b.dblCostRM,2)AS dblCostRM,a.dtLastDate as GrnDate,c.strPName,a.strDefault,a.dblLastCost" + " from tblprodsuppmaster a, tblproductmaster b, tblpartymaster c " + " where a.strProdCode = b.strProdCode and a.strSuppCode = c.strPCode ";
 			if (ProdCode != null && ProdCode.length() > 0) {
 				sql = sql + " and a.strProdCode='" + ProdCode + "' ";
 			}

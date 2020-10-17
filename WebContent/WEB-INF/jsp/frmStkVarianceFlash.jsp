@@ -146,14 +146,16 @@
 		var recipeconversionUOM=ProductData.strRecipeUOM;
 		CStkQty=parseFloat(CStkQty).toFixed(maxQuantityDecimalPlaceLimit);
 	    var tempStkQty=CStkQty.split(".");
-	    DiscurrentStkQty=tempStkQty[0]+" "+ReceivedconversionUOM+"."+parseFloat("0."+tempStkQty[1])*parseFloat(ConversionValue)+" "+recipeconversionUOM;
+	   // DiscurrentStkQty=tempStkQty[0]+" "+ReceivedconversionUOM+"."+parseFloat("0."+tempStkQty[1])*parseFloat(ConversionValue)+"\ "+recipeconversionUOM;
+	    DiscurrentStkQty=tempStkQty[0]+" "+ReceivedconversionUOM+"."+parseFloat("0."+tempStkQty[1])*parseFloat(ConversionValue);
 	    phystkQty=parseFloat(phystkQty).toFixed(maxQuantityDecimalPlaceLimit);
 		var tempQty=phystkQty.split(".");
-		var Displyqty=tempQty[0]+" "+ReceivedconversionUOM+"."+Math.round(parseFloat("0."+tempQty[1])*parseFloat(ConversionValue))+" "+recipeconversionUOM;
-		
+		//var Displyqty=tempQty[0]+" "+ReceivedconversionUOM+"."+Math.round(parseFloat("0."+tempQty[1])*parseFloat(ConversionValue))+" "+recipeconversionUOM;
+		var Displyqty=tempQty[0]+" "+ReceivedconversionUOM+"."+Math.round(parseFloat("0."+tempQty[1])*parseFloat(ConversionValue));
 		variance=parseFloat(variance).toFixed(maxQuantityDecimalPlaceLimit);
 		var tempvariance=variance.split(".");
-		var DisplayVariance=tempvariance[0]+" "+ReceivedconversionUOM+"."+parseFloat("0."+tempvariance[1])*parseFloat(ConversionValue)+" "+recipeconversionUOM;
+		//var DisplayVariance=tempvariance[0]+" "+ReceivedconversionUOM+"."+parseFloat("0."+tempvariance[1])*parseFloat(ConversionValue)+" "+recipeconversionUOM;
+		var DisplayVariance=tempvariance[0]+" "+ReceivedconversionUOM+"."+parseFloat("0."+tempvariance[1])*parseFloat(ConversionValue);
 	    var table = document.getElementById("tblProdDet");
 	    var rowCount = table.rows.length;
 	    var row = table.insertRow(rowCount);
@@ -375,7 +377,7 @@
 			<table style="height: 25px; border: #0F0;width: 90%;font-size:11px;
 			font-weight: bold;overflow: scroll;table-layout: fixed;">
 				<tr bgcolor="#c0c0c0">
-					<th style="width:13%;text-align:left">SubGroup Name</th>					
+					<th style="width:13%;text-align:left">Sub Group Name</th>					
 					<th style="width:35%;text-align:left">Product Name</th>	
 					<th style="width:8%;text-align:left" >C Stock</th>				
 					<th style="width:8%;text-align:left">Phy Stk Qty</th>

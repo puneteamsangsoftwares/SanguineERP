@@ -22,8 +22,11 @@ import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,7 +44,6 @@ import com.sanguine.service.clsStkAdjustmentService;
 import com.sanguine.util.clsReportBean;
 
 import org.apache.poi.ss.usermodel.Workbook;
-
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -114,7 +116,7 @@ public class clsStockVaraianceFlashController extends AbstractXlsView {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	@RequestMapping(value = "/ExportExcelStkVariance", method = RequestMethod.GET)
+	@RequestMapping(value = "/ExportExcelStkVariancee", method = RequestMethod.GET)
 	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		objGlobal = new clsGlobalFunctions();
 		response.setContentType("application/vnd.ms-excel");
@@ -152,76 +154,65 @@ public class clsStockVaraianceFlashController extends AbstractXlsView {
 			value = value + Double.parseDouble(arrObj[6].toString());
 			listStockFlashModel.add(DataList);
 		}
-		// create a new Excel sheet
-		Sheet sheet = workbook.createSheet("Sheet");
-		sheet.setDefaultColumnWidth(20);
 
-		// create style for header cells
-		CellStyle style = workbook.createCellStyle();
-		Font font = workbook.createFont();
-		font.setFontName("Arial");
-		style.setFillForegroundColor(HSSFColor.BLUE.index);
-		style.setFillPattern(CellStyle.SOLID_FOREGROUND);
-		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-		font.setColor(HSSFColor.WHITE.index);
-		style.setFont(font);
-
-		Row header = sheet.createRow(0);
-		header.createCell(0).setCellValue("SubGroup Name");
-		header.getCell(0).setCellStyle(style);
-		header.createCell(1).setCellValue("Product Name");
-		header.getCell(1).setCellStyle(style);
-		header.createCell(2).setCellValue("Computer Stk");
-		header.getCell(2).setCellStyle(style);
-		header.createCell(3).setCellValue("Phy Stk");
-		header.getCell(3).setCellStyle(style);
-		header.createCell(4).setCellValue("Variance");
-		header.getCell(4).setCellStyle(style);
-		header.createCell(5).setCellValue("Unit Price");
-		header.getCell(5).setCellStyle(style);
-		header.createCell(6).setCellValue("Value");
-		header.getCell(6).setCellStyle(style);
-
-		// create style for Data cells
-		CellStyle Datastyle = workbook.createCellStyle();
-		Datastyle.setDataFormat(workbook.createDataFormat().getFormat("0.00"));
-		// create header row
-
-		// create data rows
-		int ColrowCount = 1;
-		for (int rowCount = 0; rowCount < listStockFlashModel.size(); rowCount++) {
-			Row aRow = sheet.createRow(ColrowCount++);
-			List arrObj = (List) listStockFlashModel.get(rowCount);
-			for (int Count = 0; Count < arrObj.size(); Count++) {
-				if (arrObj.get(Count).toString().length() > 0) {
-					if (isNumeric(arrObj.get(Count).toString())) {
-						aRow.createCell(Count).setCellValue(Double.parseDouble(arrObj.get(Count).toString()));
-						aRow.getCell(Count).setCellStyle(Datastyle);
-					} else {
-						aRow.createCell(Count).setCellValue(arrObj.get(Count).toString());
-					}
-				} else {
-					aRow.createCell(Count).setCellValue("");
-				}
-			}
-
+	}
+	
+	
+	
+	//new function to export
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/ExportExcelStkVariance", method = RequestMethod.GET)
+	private ModelAndView funProductListExport(@ModelAttribute("command") clsReportBean objBean, HttpServletResponse response, HttpServletRequest request) {
+		
+		objGlobal = new clsGlobalFunctions();
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition", "inline;filename=stkVarianceReport.xls");
+		String clientCode = request.getSession().getAttribute("clientCode").toString();
+		String userCode = request.getSession().getAttribute("usercode").toString();
+		String param1 = request.getParameter("param1");
+		String[] spParam1 = param1.split(",");
+		String strLocCode = spParam1[0];
+		String fromDate = objGlobal.funGetDate("yyyy-MM-dd", spParam1[1]);
+		String toDate = objGlobal.funGetDate("yyyy-MM-dd", spParam1[2]);
+		double value = 0;
+		List listStock = new ArrayList();
+		String[] ExcelHeader = { "Sub Group Name", "Product Name", "C Stock","Phy Stk Qty","Variance","	Unit Price","Value" };
+		listStock.add(ExcelHeader);
+		
+		String dateTime[] = objGlobal.funGetCurrentDateTime("dd-MM-yyyy").split(" ");
+		List footer = new ArrayList<>();		
+		String sql = "select e.strSGName,c.strProdName,sum(b.dblCStock),sum(b.dblPStock),sum(b.dblVariance),c.dblCostRM,(c.dblCostRM *sum(b.dblVariance)) as value " + " from clsStkPostingHdModel a,clsStkPostingDtlModel b,clsProductMasterModel c ,clsStkAdjustmentHdModel d,clsSubGroupMasterModel e " + " where a.strPSCode=b.strPSCode and b.strProdCode=c.strProdCode  and a.strSACode=d.strSACode and c.strSGCode=e.strSGCode  "
+				+ " and a.dtPSDate between '" + fromDate + "' and '" + toDate + "' " + " and a.strClientCode='" + clientCode + "' and  b.strClientCode='" + clientCode + "' " + " and c.strClientCode='" + clientCode + "' " + " and e.strClientCode='" + clientCode + "' ";
+		if (strLocCode.trim().length() > 0) {
+			sql = sql + "and a.strLocCode='" + strLocCode + "' ";
 		}
+		sql = sql + "group by b.strProdCode order by e.strSGName ASC,c.strProdName ASC";
+		List list = objGlobalFunctionsService.funGetList(sql, "hql");	
+		List listStockFlashModel = new ArrayList();
+		for (int cnt = 0; cnt < list.size(); cnt++) {
+			Object[] arrObj = (Object[]) list.get(cnt);
+			List DataList = new ArrayList<>();
+			DataList.add(arrObj[0].toString());
+			DataList.add(arrObj[1].toString());
+			DataList.add(arrObj[2].toString());
+			DataList.add(arrObj[3].toString());
+			DataList.add(Double.parseDouble(arrObj[4].toString()));
+			DataList.add(Double.parseDouble(arrObj[5].toString()));
+			DataList.add(arrObj[6].toString());
+			//DataList.add(arrObj[7].toString());
+			listStockFlashModel.add(DataList);
+		}
+		List blank = new ArrayList<>();
+		blank.add("");
+		listStockFlashModel.add(blank);
 
-		// create style for Footer cells
-		CellStyle sellStyle = workbook.createCellStyle();
-		Font cellfont = workbook.createFont();
-		cellfont.setFontName("Arial");
-		cellfont.setColor(HSSFColor.BLACK.index);
-		cellfont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-		sellStyle.setFont(cellfont);
-		Row aRow1 = sheet.createRow(ColrowCount + 1);
-		aRow1.createCell(5).setCellValue("Total Variance Value");
-		aRow1.getCell(5).setCellStyle(sellStyle);
-		aRow1.createCell(6).setCellValue(value);
-		aRow1.getCell(6).setCellStyle(sellStyle);
+		footer.add("Created on :" +dateTime[0]);
+		footer.add("AT :" +dateTime[1]);
+		footer.add("By :" +userCode);
+		listStockFlashModel.add(footer);
 
-		workbook.write(response.getOutputStream());
-
+		listStock.add(listStockFlashModel);
+		return new ModelAndView("excelView", "stocklist", listStock);
 	}
 	
 	
