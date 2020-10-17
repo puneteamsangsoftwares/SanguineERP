@@ -627,8 +627,8 @@ public class clsGRNController {
 						ob.setDblDiscount(dblDiscount*currValue);
 						ob.setDblRate(ob.getDblRate() * currValue);
 						ob.setDblTax(ob.getDblTax() * currValue);
-						ob.setDblTaxableAmt(taxableAmt * currValue);
-						ob.setDblTaxAmt(taxAmt * currValue);
+						ob.setDblTaxableAmt(Double.parseDouble(dff.format(taxableAmt * currValue)));
+						ob.setDblTaxAmt(Double.parseDouble(dff.format(taxAmt * currValue)));
 						
 						ob.setDblUnitPrice(ob.getDblUnitPrice() * currValue);
 						ob.setDblFreeQty(ob.getDblFreeQty());
