@@ -779,6 +779,8 @@ public class clsExcelExportImportController {
 		List ExportList = new ArrayList();
 		String[] ExcelHeader = header.split(",");
 		ExportList.add(ExcelHeader);
+		StringBuilder strBuilder = new StringBuilder();
+		String[] arr;
 		String propCode = request.getSession().getAttribute("propertyCode").toString();
 		clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propCode, clientCode);
 		String hql = "";
@@ -797,13 +799,62 @@ public class clsExcelExportImportController {
 				hql += "and b.strGCode='"+gCode+"'";
 			}
 			}else{
-				hql = " from clsProductMasterModel a, clsSubGroupMasterModel b,clsGroupMasterModel c ,clsProdSuppMasterModel d" + " where a.strSGCode=b.strSGCode  and b.strGCode=c.strGCode and a.strProdCode=d.strProdCode " + " and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' " + "and c.strClientCode='" + clientCode + "'  and d.strSuppCode='" + suppCode + "' ";	
-				if (!sgCode.equals("") || !sgCode.isEmpty()) 
+				hql = " from clsProductMasterModel a, clsSubGroupMasterModel b,clsGroupMasterModel c ,clsProdSuppMasterModel d" + " where a.strSGCode=b.strSGCode  and b.strGCode=c.strGCode and a.strProdCode=d.strProdCode " + " and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' " + "and c.strClientCode='" + clientCode + "' ";	
+				if(sgCode.contains(","))
+				{
+					arr = sgCode.split(",");			
+					for(int i=0;i<arr.length;i++)
+					{
+						if(i==0)
+						{
+							strBuilder.append("('"+arr[i]+"',");
+						}
+						else if(i==arr.length-1)
+						{
+							strBuilder.append("'"+arr[i]+"')");
+						}
+						else
+						{
+							strBuilder.append("'"+arr[i]+"',");
+						}						
+					}
+				}
+				if(sgCode.contains(","))
+				{
+					hql += "and a.strSGCode IN"+strBuilder.toString();
+				}
+				
+				
+				else if (!sgCode.equals("") || !sgCode.isEmpty()) 
 				{
 					hql += "and a.strSGCode='"+sgCode+"'";
 				}
+				strBuilder.setLength(0);
+				if(gCode.contains(","))
+				{
+					arr = gCode.split(",");			
+					for(int i=0;i<arr.length;i++)
+					{
+						if(i==0)
+						{
+							strBuilder.append("('"+arr[i]+"',");
+						}
+						else if(i==arr.length-1)
+						{
+							strBuilder.append("'"+arr[i]+"')");
+						}
+						else
+						{
+							strBuilder.append("'"+arr[i]+"',");
+						}						
+					}
+				}
+				if(gCode.contains(","))
+				{
+					hql += "and b.strGCode IN"+strBuilder.toString();
+				}
 				
-				if (!gCode.equals("") || !gCode.isEmpty()) 
+				else if (!gCode.equals("") || !gCode.isEmpty()) 
 				{
 					hql += "and b.strGCode='"+gCode+"'";
 				}
