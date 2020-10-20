@@ -437,7 +437,7 @@
 			<div class="col-md-8"></div>
 			
 				<div class="col-md-2"><label>Product Code</label>
-					<s:input id="txtProdCode" path="strDocCode" value="" cssClass="searchTextBox"  readonly="readonly" ondblclick="funHelp('productmasterslip');" cssStyle="width:150px;height:50%;background-position: 136px 4px;"/>
+					<s:input id="txtProdCode" path="strDocCode" value="" readonly="true" cssClass="searchTextBox" ondblclick="funHelp('productmasterslip');" cssStyle="width:150px;height:50%;background-position: 136px 4px;"/>
 				</div>
 				
 				<div class="col-md-2" id="spProdName" style="font-size: 12px;background-color:#dcdada94; width: 100%; height:24px; margin-top: 26px;padding:4px;">All Product</div>

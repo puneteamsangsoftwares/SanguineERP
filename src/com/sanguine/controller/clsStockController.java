@@ -419,55 +419,58 @@ public class clsStockController {
 
 			String sql = "select a.strOpStkCode,date_format(a.dtCreatedDate, '%d-%m-%Y'),b.strLocName " + " from tblinitialinventory a,tbllocationmaster b " + " where a.strLocCode=b.strLocCode and a.strOpStkCode='" + docCode + "' ";
 			List list = objGlobalFunctionsService.funGetList(sql, "sql");
-			Object[] ob = (Object[]) list.get(0);
-			String strOpStkCode = ob[0].toString();
-			String dtOpeningStkdate = ob[1].toString();
-			String LocName = ob[2].toString();
-
-			clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
-			String reportName = servletContext.getRealPath("/WEB-INF/reports/rptOpeningStockSlip.jrxml");
-			String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
-			String sqlHDQuery = "select d.strGName,c.strSGName,a.strProdCode,b.strProdName,a.strUOM,a.dblQty,a.dblCostPerUnit ,(a.dblQty*a.dblCostPerUnit) as Value " + " from tblinitialinvdtl a, tblproductmaster b, tblsubgroupmaster c, tblgroupmaster d  " + " where a.strProdCode=b.strProdCode and b.strSGCode=c.strSGCode and c.strGCode=d.strGCode " + " and a.strOpStkCode='" + docCode
-					+ "' and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' " + "and c.strClientCode='" + clientCode + "' and d.strClientCode='" + clientCode + "' ";
-			// System.out.println(sqlHDQuery);
-			JasperDesign jd = JRXmlLoader.load(reportName);
-			JRDesignQuery newQuery = new JRDesignQuery();
-			newQuery.setText(sqlHDQuery);
-			jd.setQuery(newQuery);
-			JasperReport jr = JasperCompileManager.compileReport(jd);
-			HashMap hm = new HashMap();
-			hm.put("strOpStkCode", strOpStkCode);
-			hm.put("dtOpeningStkdate", dtOpeningStkdate);
-			hm.put("LocName", LocName);
-			hm.put("strCompanyName", companyName);
-			hm.put("strUserCode", userCode);
-			hm.put("strImagePath", imagePath);
-			// System.out.println(imagePath);
-			hm.put("strAddr1", objSetup.getStrAdd1());
-			hm.put("strAddr2", objSetup.getStrAdd2());
-			hm.put("strCity", objSetup.getStrCity());
-			hm.put("strState", objSetup.getStrState());
-			hm.put("strCountry", objSetup.getStrCountry());
-			hm.put("strPin", objSetup.getStrPin());
-
-			JasperPrint p = JasperFillManager.fillReport(jr, hm, con);
-			if (type.trim().equalsIgnoreCase("pdf")) {
-				ServletOutputStream servletOutputStream = resp.getOutputStream();
-				byte[] bytes = null;
-				bytes = JasperRunManager.runReportToPdf(jr, hm, con);
-				resp.setContentType("application/pdf");
-				resp.setHeader("Content-Disposition", "inline;filename=" + "rptOpeningStockSlip." + type.trim());
-				resp.setContentLength(bytes.length);
-				servletOutputStream.write(bytes, 0, bytes.length);
-				servletOutputStream.flush();
-				servletOutputStream.close();
-			} else if (type.trim().equalsIgnoreCase("xls")) {
-				JRExporter exporterXLS = new JRXlsExporter();
-				exporterXLS.setParameter(JRPdfExporterParameter.JASPER_PRINT, p);
-				exporterXLS.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, resp.getOutputStream());
-				resp.setHeader("Content-Disposition", "attachment;filename=" + "rptOpeningStockSlip." + type.trim());
-				exporterXLS.exportReport();
-				resp.setContentType("application/xlsx");
+			if(list!=null)
+			{			
+				Object[] ob = (Object[]) list.get(0);
+				String strOpStkCode = ob[0].toString();
+				String dtOpeningStkdate = ob[1].toString();
+				String LocName = ob[2].toString();
+	
+				clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
+				String reportName = servletContext.getRealPath("/WEB-INF/reports/rptOpeningStockSlip.jrxml");
+				String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
+				String sqlHDQuery = "select d.strGName,c.strSGName,a.strProdCode,b.strProdName,a.strUOM,a.dblQty,a.dblCostPerUnit ,(a.dblQty*a.dblCostPerUnit) as Value " + " from tblinitialinvdtl a, tblproductmaster b, tblsubgroupmaster c, tblgroupmaster d  " + " where a.strProdCode=b.strProdCode and b.strSGCode=c.strSGCode and c.strGCode=d.strGCode " + " and a.strOpStkCode='" + docCode
+						+ "' and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' " + "and c.strClientCode='" + clientCode + "' and d.strClientCode='" + clientCode + "' ";
+				// System.out.println(sqlHDQuery);
+				JasperDesign jd = JRXmlLoader.load(reportName);
+				JRDesignQuery newQuery = new JRDesignQuery();
+				newQuery.setText(sqlHDQuery);
+				jd.setQuery(newQuery);
+				JasperReport jr = JasperCompileManager.compileReport(jd);
+				HashMap hm = new HashMap();
+				hm.put("strOpStkCode", strOpStkCode);
+				hm.put("dtOpeningStkdate", dtOpeningStkdate);
+				hm.put("LocName", LocName);
+				hm.put("strCompanyName", companyName);
+				hm.put("strUserCode", userCode);
+				hm.put("strImagePath", imagePath);
+				// System.out.println(imagePath);
+				hm.put("strAddr1", objSetup.getStrAdd1());
+				hm.put("strAddr2", objSetup.getStrAdd2());
+				hm.put("strCity", objSetup.getStrCity());
+				hm.put("strState", objSetup.getStrState());
+				hm.put("strCountry", objSetup.getStrCountry());
+				hm.put("strPin", objSetup.getStrPin());
+	
+				JasperPrint p = JasperFillManager.fillReport(jr, hm, con);
+				if (type.trim().equalsIgnoreCase("pdf")) {
+					ServletOutputStream servletOutputStream = resp.getOutputStream();
+					byte[] bytes = null;
+					bytes = JasperRunManager.runReportToPdf(jr, hm, con);
+					resp.setContentType("application/pdf");
+					resp.setHeader("Content-Disposition", "inline;filename=" + "rptOpeningStockSlip." + type.trim());
+					resp.setContentLength(bytes.length);
+					servletOutputStream.write(bytes, 0, bytes.length);
+					servletOutputStream.flush();
+					servletOutputStream.close();
+				} else if (type.trim().equalsIgnoreCase("xls")) {
+					JRExporter exporterXLS = new JRXlsExporter();
+					exporterXLS.setParameter(JRPdfExporterParameter.JASPER_PRINT, p);
+					exporterXLS.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, resp.getOutputStream());
+					resp.setHeader("Content-Disposition", "attachment;filename=" + "rptOpeningStockSlip." + type.trim());
+					exporterXLS.exportReport();
+					resp.setContentType("application/xlsx");
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

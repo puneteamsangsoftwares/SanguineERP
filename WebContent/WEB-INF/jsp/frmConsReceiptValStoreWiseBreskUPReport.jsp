@@ -310,7 +310,7 @@
 	
 		<br>
 		<div class="col-md-2"><label>Location</label>
-			<input type="text" id="txtToLocCode" ondblclick="funHelp('locationmaster')" Class="searchTextBox" placeholder="Type to search" style="width:105%;"  ></input>
+			<input type="text" id="txtToLocCode" readonly="true" ondblclick="funHelp('locationmaster')" Class="searchTextBox" placeholder="Type to search" style="width:105%;"  ></input>
 			<label id="lblToLocName"></label>
 		</div>
 		<br>

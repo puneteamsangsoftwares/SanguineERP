@@ -2751,14 +2751,18 @@ public class clsStockLedgerController {
 
 		List listStkLedger = new ArrayList();
 		Map<String, List> hmProduction = new HashMap<String, List>();
-		for (int i = 0; i < listStkLedger1.size(); i++) {
-			Object[] obj = (Object[]) listStkLedger1.get(i);
-			List dataList = new ArrayList();
-			for (int j = 0; j < obj.length; j++) {
-				dataList.add(obj[j]);
+		if(listStkLedger1!=null)
+		{
+			for (int i = 0; i < listStkLedger1.size(); i++) {
+				Object[] obj = (Object[]) listStkLedger1.get(i);
+				List dataList = new ArrayList();
+				for (int j = 0; j < obj.length; j++) {
+					dataList.add(obj[j]);
+				}
+				listStkLedger.add(dataList);
 			}
-			listStkLedger.add(dataList);
 		}
+		
 
 		// sql="select b.strProdCode  from tblproductionhd a, tblproductiondtl b where a.strLocCode='L000001' "
 		// +" and date(a.dtPDDate) >= '"+fromDate+"' and date(a.dtPDDate) <= '"+toDate+"' "

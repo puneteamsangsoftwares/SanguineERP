@@ -34,7 +34,15 @@
 				  $("#txtStkPostCode").prop('disabled', true);
 			  }	
 			  checkPOSSales="${strCheckPOSSales}" ;
-				  
+			  
+			  $(document).ajaxStart(function()
+						{
+						    $("#wait").css("display","block");
+						});
+						$(document).ajaxComplete(function()
+						{
+							$("#wait").css("display","none");
+						});
 			  
 	});
 </script>
@@ -1914,7 +1922,8 @@
 			<a href="frmPhysicalStkPosting.html?saddr=${urlHits}"><button class="btn btn-primary center-block"  value="Reset">Reset</button></a>
 		</div>
 		<br><br>
-		<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
+		
+			<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
 				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
 			</div>
 	</s:form>

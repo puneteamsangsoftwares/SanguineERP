@@ -298,7 +298,7 @@
 	
 	   <div class="row">	
 		         <div class="col-md-2"><label>Product Code</label>
-					   <s:input  id="txtProdCode" path="strDocCode" ondblclick="funHelp('productProducedslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
+					   <s:input  id="txtProdCode" readonly="true" path="strDocCode" ondblclick="funHelp('productProducedslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
 				  </div>
 				
 				<div class="col-md-2"><label>Report Type</label>
@@ -320,10 +320,10 @@
 				
 		<div class="row transTable">
 		   <div class="col-md-6"><label>Group</label>
-			      <input type="text"  style="width:35%;" id="searchGrp" placeholder="Type to search" Class="searchTextBox">
+			      <input type="text"  style="width:35%;" readonly="true" id="searchGrp" placeholder="Type to search" Class="searchTextBox">
 		   </div>
 		   <div class="col-md-6"><label>Sub Group</label>
-		  		   <input type="text" id="searchSGrp" style="width:35%;" Class="searchTextBox" placeholder="Type to search">
+		  		   <input type="text" id="searchSGrp" readonly="true" style="width:35%;" Class="searchTextBox" placeholder="Type to search">
 		   </div>
 		   
 		  <div class="col-md-12"></div><br>

@@ -423,7 +423,7 @@ $(document).ready(function()
 	   
 	   <div class="row">
 			 <div class="col-md-2"><label>Location Code</label>
-			        <s:input id="txtLocCode" path="strDocCode" ondblclick="funHelp('locationmaster')" cssClass="searchTextBox" cssStyle="width:160px;background-position: 138px 4px;"/>
+			        <s:input id="txtLocCode" path="strDocCode" readonly="true" ondblclick="funHelp('locationmaster')" cssClass="searchTextBox" cssStyle="width:160px;background-position: 138px 4px;"/>
 			  </div>
 			  
 			 <div class="col-md-2"><label id="lblLocName" style="background-color:#dcdada94; width: 100%; height:51%;margin-top: 27px;padding:4px;"></label></div>

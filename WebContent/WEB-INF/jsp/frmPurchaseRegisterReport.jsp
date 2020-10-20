@@ -121,7 +121,7 @@
 			<div class="col-md-8"></div>
 			
 			 <div class="col-md-2"><label>Supplier Code</label>
-				      <s:input id="txtSuppCode" path="strDocCode" style="height: 51%;"
+				      <s:input id="txtSuppCode" path="strDocCode" style="height: 51%;" readonly="true"
 						cssClass="searchTextBox" ondblclick="funHelp('suppcode')" />
 			 </div>
 			 

@@ -248,7 +248,7 @@ function funResetFields()
 </script>
 <body>
 	<div class="container transTable">
-		<label id="formHeading"> Supplier wise Category wise GRN Report</label>
+		<label id="formHeading"> Purchase GRN Variance Report</label>
 	     <s:form name="SupplierwiseGRNReport" method="GET" action="rptSupplierProdWisePurchAndGRNReport.html" target="_blank">
           <div class="row">
 			 <div class="col-md-2"><label>From Date :</label>
@@ -280,13 +280,13 @@ function funResetFields()
 			<div class="col-md-10"></div>
 				
 		     <div class="col-md-3"><label>Supplier</label>
-			       <input style="width: 75%;" type="text" id="txtSuppCode" 
+			       <input style="width: 75%;" type="text" id="txtSuppCode" readonly="true"
 			           Class="searchTextBox" placeholder="Type to search"></input>
 			       <label id="lblSuppName"></label>
 			</div>
 			
 			<div class="col-md-3"><label>Category</label>
-			      <input style="width: 75%;" type="text" id="txtSuppCode" 
+			      <input style="width: 75%;" type="text" id="txtSuppCode" readonly="true"
 			          Class="searchTextBox" placeholder="Type to search"></input>
 			      <label id="lblCategory"></label>
 			</div>

@@ -1553,8 +1553,7 @@ public class clsSetupMasterController {
 	public void getImage(HttpServletRequest req, HttpServletResponse response) {
 		String strCompanyCode = req.getSession().getAttribute("companyCode")
 				.toString();
-		clsCompanyLogoModel objSetup = objSetupMasterService
-				.funGetCompanyLogoObject(strCompanyCode);
+		clsCompanyLogoModel objSetup = objSetupMasterService.funGetCompanyLogoObject(strCompanyCode);
 		try {
 			//Blob image = null;
 			byte[] imgData = null;

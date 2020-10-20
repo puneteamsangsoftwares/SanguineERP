@@ -62,6 +62,15 @@
  			    $("#wait").css("display","none");
  			  });
  			funGetGroupData();
+ 			
+ 			$(document).ajaxStart(function()
+ 					{
+ 					    $("#wait").css("display","block");
+ 					});
+ 					$(document).ajaxComplete(function()
+ 					{
+ 						$("#wait").css("display","none");
+ 					});
  		});
  
 	 function searchTable(inputVal,tablename)
@@ -951,6 +960,10 @@
 			&nbsp; 
 			<input id="btnReset" type="reset" value="Reset" class="btn btn-primary center-block" vclass="btn btn-primary center-block" class="form_button" onclick="funResetField()" />
 	</p>
+	
+	<div id="wait" style="display:none;width:60px;height:60px;border:0px solid black;position:absolute;top:60%;left:55%;padding:2px;">
+				<img src="../${pageContext.request.contextPath}/resources/images/ajax-loader-light.gif" width="60px" height="60px" />
+			</div>
 	
 </s:form>
 </div>

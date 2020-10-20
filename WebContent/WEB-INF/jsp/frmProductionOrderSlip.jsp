@@ -54,7 +54,7 @@
 			
 	     <div class="row">	
 		        <div class="col-md-2"><label>Meal Planing Code</label>
-				      <s:input  id="txtProdOrderCode" path="strDocCode" ondblclick="funHelp('ProductionOrderslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 130px 5px;"/>
+				      <s:input  id="txtProdOrderCode" path="strDocCode" readonly="true" ondblclick="funHelp('ProductionOrderslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 130px 5px;"/>
 				</div>
 				<div class="col-md-10"></div>
 				

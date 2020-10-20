@@ -63,7 +63,7 @@
 	    <s:form name="PhysicalStockPostingSlip" method="GET" action="rptPhysicalStockPsostingSlip.html" target="_blank">
 	   	    <div class="row">	
 		       <div class="col-md-2"><label >Stock Posting Code</label>
-			         <s:input id="txtSTCode" path="strDocCode" ondblclick="funHelp('stkpostcodeslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
+			         <s:input id="txtSTCode" path="strDocCode" readonly="true" ondblclick="funHelp('stkpostcodeslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
 			   </div>
 			   <div class="col-md-10"></div>
 			   	

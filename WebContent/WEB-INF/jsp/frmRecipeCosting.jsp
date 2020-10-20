@@ -189,7 +189,7 @@
      
      <div class="row">	
 		        <div class="col-md-2"><label>Recipe Code</label>
-				     <s:input id="txtRecipeCode" path="strDocCode" cssClass="searchTextBox" ondblclick="funHelp('bomcodeslip')" />
+				     <s:input id="txtRecipeCode" readonly="true" path="strDocCode" cssClass="searchTextBox" ondblclick="funHelp('bomcodeslip')" />
 				</div>
 			
 		        <div class="col-md-2"><label id=lblParentName  style="background-color:#dcdada94; width: 100%; height: 56%;margin-top:15%"> All Recipe </label>	

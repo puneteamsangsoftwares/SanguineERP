@@ -241,23 +241,23 @@
 				<div class="col-md-8"></div>
 						
 			   <div class="col-md-2"><label>From Location </label>
-				    <s:input id="txtLocFrom" name="txtLocFrom" path="strFromLocCode" 
+				    <s:input id="txtLocFrom" name="txtLocFrom" path="strFromLocCode" readonly="true"
 				       ondblclick="funHelp('FromLocation')"  cssClass="searchTextBox" /> 
 			   </div>
 			   <div class="col-md-2"><label id="lblLocFrom" Class="namelabel" style="background-color:#dcdada94; width: 100%; height:51%;margin-top: 27px;padding:4px;"></label></div>
 
 			   <div class="col-md-2"><label>To Location </label>
-				     <s:input id="txtLocTo" name="txtLocTo" path="strToLocCode"  ondblclick="funHelp('ToLocation');" cssClass="searchTextBox" /> 
+				     <s:input id="txtLocTo" name="txtLocTo"  readonly="true" path="strToLocCode"  ondblclick="funHelp('ToLocation');" cssClass="searchTextBox" /> 
 			    </div>
 			    <div class="col-md-2"><label id="lblLocTo" Class="namelabel" style="background-color:#dcdada94; width: 100%; height:51%;margin-top: 27px;padding:4px;"></label></div>
 		        <div class="col-md-4"></div>
 		        
 			     <div class="col-md-2"><label >From Stock Transfer Code</label>
-			            <s:input id="txtFromSTCode" path="strFromDocCode" ondblclick="funHelp('stktransfercodeslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
+			            <s:input id="txtFromSTCode" path="strFromDocCode"  readonly="true" ondblclick="funHelp('stktransfercodeslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
 			     </div>
 			     
 			     <div class="col-md-2"><label >To Stock Transfer Code</label>
-			             <s:input id="txtToSTCode" path="strToDocCode" ondblclick="funHelp('stktransfercode1')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
+			             <s:input id="txtToSTCode" path="strToDocCode"  readonly="true" ondblclick="funHelp('stktransfercode1')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
 			     </div>
 		          
 			     <div class="col-md-2"><label>Report Type</label>

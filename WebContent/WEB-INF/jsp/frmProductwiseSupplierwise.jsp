@@ -179,7 +179,7 @@
 			<div class="col-md-8"></div>
 						
 			<div class="col-md-2"><label>Supplier Code</label>
-					<s:input  id="txtSuppCode" path="strDocCode" ondblclick="funHelp('suppcode')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
+					<s:input  id="txtSuppCode" path="strDocCode" readonly="true" ondblclick="funHelp('suppcode')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
 			</div>
 			
 			<div class="col-md-2" style="font-size: 12px;background-color:#dcdada94; width: 100%; height: 42%; margin-top: 27px;"><span id="txtSuppName"></span></div>

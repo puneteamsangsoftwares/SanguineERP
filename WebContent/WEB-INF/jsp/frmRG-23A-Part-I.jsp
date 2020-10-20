@@ -116,7 +116,7 @@
 			    <div class="col-md-8"></div>
 			    
 			    <div class="col-md-2"><label>Location Code</label>
-				  <s:input id="txtLocCode" name="txtLocCode" path="strLocationCode" ondblclick="funHelp('locationmaster')"  cssClass="searchTextBox"/>
+				  <s:input id="txtLocCode" name="txtLocCode" readonly="true" path="strLocationCode" ondblclick="funHelp('locationmaster')"  cssClass="searchTextBox"/>
 			    </div>
 			
 			    <div class="col-md-2"><label id="lblLocName" style="background-color:#dcdada94; width: 100%; height: 42%; margin: 27px 0px;"></label>

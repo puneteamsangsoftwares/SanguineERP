@@ -77,7 +77,7 @@
 	
 	    <div class="row">	
 		        <div class="col-md-2"><label>Stock Adjustment Code</label>
-					<s:input  id="txtSACode" path="strDocCode" ondblclick="funHelp('stkadjcodeslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
+					<s:input  id="txtSACode" path="strDocCode" readonly="true" ondblclick="funHelp('stkadjcodeslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
 				</div>
 				<div class="col-md-10"></div>
 				

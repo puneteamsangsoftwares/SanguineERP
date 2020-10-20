@@ -55,7 +55,7 @@
 	    <s:form name="materialReturn" method="GET" action="rptMaterialReturnDetail.html" target="_blank">
 			<div class="row">	
 		         <div class="col-md-2"><label>Material Return Code</label>
-					<s:input  id="txtMRCode" path="strDocCode" ondblclick="funHelp('MaterialReturnslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
+					<s:input  id="txtMRCode" readonly="true" path="strDocCode" ondblclick="funHelp('MaterialReturnslip')" cssClass="searchTextBox" cssStyle="width:150px;background-position: 136px 4px;"/>
 				 </div>
 				<div class="col-md-10"></div>
 				

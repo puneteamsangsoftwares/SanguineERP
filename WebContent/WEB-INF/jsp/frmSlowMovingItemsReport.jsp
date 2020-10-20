@@ -439,7 +439,7 @@
 					 <%-- <s:select id="cmbLocation" name="locCode" path="strLocationCode" cssClass="longTextBox" cssStyle="width:180px;" > 
 			    			<s:options items="${listLocation}"/>
 		    		</s:select> --%> 
-					<s:input id="txtLocCode" path="strLocationCode" required="required" value="${locationCode}"
+					<s:input id="txtLocCode" path="strLocationCode"  readonly="true" required="required" value="${locationCode}"
 				     ondblclick="funHelp('PropertyWiseLocation')" cssClass="searchTextBox"/>
 			    </div>	 
 			    

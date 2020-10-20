@@ -28,7 +28,7 @@
 			<%-- <tiles:insertAttribute name="banner"></tiles:insertAttribute> --%> 
 			</div>
 			 
-			<div class="row-container">
+			<div class="row-container" style="margin-top: -50px;">
 			    <!-- <div class="content"> -->
 			        <div class="sidebar">
 			          <tiles:insertAttribute name="menu"></tiles:insertAttribute>

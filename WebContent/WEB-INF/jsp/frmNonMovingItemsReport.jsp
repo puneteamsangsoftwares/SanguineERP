@@ -434,7 +434,7 @@
 		      </div>
 
 			  <div class="col-md-2"><label>Location</label>
-				   <s:input id="txtLocCode" path="strLocationCode" required="required" value="${locationCode}"
+				   <s:input id="txtLocCode" path="strLocationCode" readonly="true" required="required" value="${locationCode}"
 				  ondblclick="funHelp('PropertyWiseLocation')" cssClass="searchTextBox"/>
 			  </div>
 			 

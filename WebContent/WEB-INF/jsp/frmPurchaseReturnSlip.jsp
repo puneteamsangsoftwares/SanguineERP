@@ -327,13 +327,13 @@
 		     <div class="col-md-8"></div>
 		     
 		    <div class="col-md-6"><label>Location</label>
-					<input type="text" id="txtLocCode" style="width:30%"
+					<input type="text" id="txtLocCode" readonly="true" style="width:30%"
 					ondblclick="funHelp('locationmaster')" Class="searchTextBox"></input>
 					<label id="lblToLocName"></label>
 		    </div>
 		
 			 <div class="col-md-6"><label>Supplier</label><br> 
-				 <input id="txtSuppCode"  ondblclick="funHelp('suppcode')" Class="searchTextBox" style="width:30%"/> </input>
+				 <input id="txtSuppCode"  ondblclick="funHelp('suppcode')" readonly="true" Class="searchTextBox" style="width:30%"/> </input>
 				<label id="txtSuppName"></label>
 			 </div>
 	

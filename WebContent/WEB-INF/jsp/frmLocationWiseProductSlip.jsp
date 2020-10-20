@@ -438,7 +438,7 @@
 	   
 		<div class="row">
 			 <div class="col-md-2"><label>Product Code</label>
-				   <s:input id="txtProdCode" path="strProdCode" ondblclick="funHelp('productmasterslip')" cssClass="searchTextBox"
+				   <s:input id="txtProdCode" path="strProdCode" readonly="true" ondblclick="funHelp('productmasterslip')" cssClass="searchTextBox"
 						cssStyle="width:150px;background-position: 136px 4px;" /> 
 			 </div>
 			 
@@ -448,7 +448,7 @@
 	          <div class="col-md-8"></div>
 	          
 			  <div class="col-md-2"><label>Location</label>
-			       <input type="text" id="txtToLocCode" ondblclick="funHelp('locationmaster')" Class="searchTextBox"></input>
+			       <input type="text" id="txtToLocCode" readonly="true" ondblclick="funHelp('locationmaster')" Class="searchTextBox"></input>
 			       <label id="lblToLocName"></label>
 			  </div>
 			   <div class="col-md-10"></div>

@@ -287,7 +287,7 @@
 		  <div class="col-md-8"></div>
 		  
 		<div class="col-md-2"><label>Supplier</label>
-				 <input id="txtSuppCode"  ondblclick="funHelp('suppcode')" Class="searchTextBox" style="height:40%"/>
+				 <input id="txtSuppCode"  ondblclick="funHelp('suppcode')" readonly="true" Class="searchTextBox" style="height:40%"/>
 				<label id="txtSuppName"></label>
 			</div>
 	  <div class="col-md-10"></div>

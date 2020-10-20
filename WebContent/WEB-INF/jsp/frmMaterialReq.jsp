@@ -706,7 +706,12 @@ var fieldName,strLocationType,listRow=0,showReqVal="",showReqStk="";
 			document.getElementById("dblQty." + rowcount).focus();
 
 		}
-
+		//hit enter to add row in table
+		if (key == 13) 
+		{			
+			btnAdd_onclick()
+		}
+		
 	}
 
 	/**

@@ -204,7 +204,7 @@ function btnSubmit_Onclick()
 	   		
 		 <div class="row">	
 		    <div class="col-md-2"><label>Sub Group</label>
-		  		 <input type="text" id="searchSGrp" Class="searchTextBox" placeholder="Type to search">
+		  		 <input type="text" id="searchSGrp" readonly="true" Class="searchTextBox" placeholder="Type to search">
 		    </div>
 		 </div>
 		<br>
