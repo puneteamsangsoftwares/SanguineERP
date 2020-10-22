@@ -1203,8 +1203,9 @@ public class clsReportsController {
 			String[] sp = startDate.split(" ");
 			String[] spDate = sp[0].split("/");
 			startDate = spDate[2] + "-" + spDate[1] + "-" + spDate[0];
-
 			String toDate = objGlobal.funGetCurrentDate("yyyy-MM-dd");
+			map.put("reportName","ReOrderLevelRpt_"+toDate);
+			
 			String clientCode = req.getSession().getAttribute("clientCode").toString();
 			String userCode = req.getSession().getAttribute("usercode").toString();
 
@@ -1270,8 +1271,11 @@ public class clsReportsController {
 	public ModelAndView funExcelExport(String sql, HttpServletRequest req, ModelMap map) {
 		List listStock = new ArrayList();
 		String[] ExcelHeader = { "Product Code", "Product Name", "Class", "Group", "Sub Group", "Non Stockable Item", "UOM", "Closing Stock", "Rate", "ReOrder Level", "ReOrder Qty", "Open Req", "Order Qty", "Value", "Supplier Code", "Supplier Name", "Last Price", "Last Date" };
+		if(map.containsKey("reportName"))
+		{
+			listStock.add("reportName,"+map.get("reportName"));
+		}
 		listStock.add(ExcelHeader);
-
 		List listStockFlashModel = new ArrayList();
 		List list = objGlobalFunctionsService.funGetList(sql, "sql");
 		if (list.size() > 0 && !list.isEmpty() && list != null) {
@@ -4910,7 +4914,8 @@ public class clsReportsController {
 				}
 				
 				double value = Double.parseDouble(arrObj[3].toString());
-
+				double d;
+				StringBuilder sb=new StringBuilder();
 				clsStockFlashModel objStkFlashModel = new clsStockFlashModel();
 				objStkFlashModel.setStrProdCode(arrObj[0].toString());
 				objStkFlashModel.setStrProdName(arrObj[1].toString());
@@ -4918,10 +4923,36 @@ public class clsReportsController {
 					
 					objStkFlashModel.setDblClosingStock(df.format(closeStk).toString());	
 				}else{
-					
-					objStkFlashModel.setDblClosingStock(arrObj[2].toString());
-				}
-				
+					String str[]=arrObj[2].toString().split("BTL");
+					String str3;					
+					if(str.length>1)
+					{
+						sb.append(str[0]+"BTL.");//1 BTL
+						str=str[1].split("ML");						
+						str3=str[0].toString().replaceFirst(".","");
+						if(str3.contains("."))
+						{
+							d=Math.round(Double.parseDouble(str3));
+							sb.append(String.valueOf(df.format(d))+" ML");//1 BTL
+							objStkFlashModel.setDblClosingStock(sb.toString());
+						}
+						else
+						{
+							objStkFlashModel.setDblClosingStock(arrObj[2].toString());
+						}
+					}
+					else
+					{
+						objStkFlashModel.setDblClosingStock(arrObj[2].toString());
+					}
+				}/*
+				String str="1 BTL.200.025 ML";
+				String str1[]=str.split("BTL");
+				String str2[]=str1.toString().split("ML");
+				for(String s:str1)
+				{
+				   System.out.println(s);
+				}*/
 				objStkFlashModel.setDblValue(df.format(value).toString());
 				objStkFlashModel.setStrGroupName(arrObj[4].toString());
 				objStkFlashModel.setStrSubGroupName(arrObj[5].toString());

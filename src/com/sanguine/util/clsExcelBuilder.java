@@ -23,17 +23,20 @@ public class clsExcelBuilder extends AbstractXlsView {
 	
 	@SuppressWarnings({ "rawtypes" })
 	@Override
-	protected void buildExcelDocument(Map<String, Object> model,
-			Workbook workbook, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	protected void buildExcelDocument(Map<String, Object> model,Workbook workbook, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		// get data model which is passed by the Spring container
-
+		
 		List Datalist = (List) model.get("stocklist");
+		String reportName; 
 		response.setContentType("application/vnd.ms-excel");
 		response.setHeader("Content-disposition", "attachment; filename=Report.xls");
-
+		if(Datalist.get(0).toString().contains("reportName"));
+		{
+			reportName= (String) Datalist.get(0);
+			response.setHeader("Content-disposition", "attachment; filename=" + reportName.split(",")[1].trim() + ".xls");			
+			Datalist.remove(0);
+		}		
 		String[] HeaderList = (String[]) Datalist.get(0);
-
 		List listStock = new ArrayList();
 		try {
 			listStock = (List) Datalist.get(1);

@@ -49,6 +49,11 @@ function formSubmit()
 	var FromDate= new Date(spFromDate[2],spFromDate[1]-1,spFromDate[0]);
 	var ToDate = new Date(spToDate[2],spToDate[1]-1,spToDate[0]);
 	
+	if($("#txtSuppCode").val()=='')
+	{
+		 alert("Select Supplier Code");
+		 return false;  
+	}
 	if(!fun_isDate($("#txtFromDate").val())) 
     {
 		 alert('Invalid From Date');
@@ -157,7 +162,7 @@ function funSetData(code)
 				</s:select>
 			</div>
 		</div>
-		
+		 
 			<br>
 			<p align="center" style="margin-right: 45%;">
 				 <input type="button" value="Submit" onclick="return formSubmit();" class="btn btn-primary center-block" class="form_button" />

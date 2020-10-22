@@ -1148,11 +1148,12 @@ public class clsProductMasterController {
 		String propertyCode = req.getSession().getAttribute("propertyCode").toString();
 		String strLocCode = req.getSession().getAttribute("locationCode").toString();
 		clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
-		List listStock = new ArrayList();
+		List listStock = new ArrayList();	
 		String[] ExcelHeader = { "Product Code", "Product Name", "SubGroup Name","UOM","Cost","List Price","Location Name","Specification" };
+		String dateTime[] = objGlobal.funGetCurrentDateTime("dd-MM-yyyy").split(" ");
+		listStock.add("reportName,Product List_" + dateTime[0]+"_" + userCode);
 		listStock.add(ExcelHeader);
 		
-		String dateTime[] = objGlobal.funGetCurrentDateTime("dd-MM-yyyy").split(" ");
 		List footer = new ArrayList<>();
 		
 		String sql = "";
