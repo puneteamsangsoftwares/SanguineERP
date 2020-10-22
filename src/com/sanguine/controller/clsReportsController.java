@@ -4934,7 +4934,7 @@ public class clsReportsController {
 						{
 							d=Math.round(Double.parseDouble(str3));
 							sb.append(String.valueOf(df.format(d))+" ML");//1 BTL
-							objStkFlashModel.setDblClosingStock(sb.toString());
+							objStkFlashModel.setDblClosingStock(""+sb.toString());
 						}
 						else
 						{
