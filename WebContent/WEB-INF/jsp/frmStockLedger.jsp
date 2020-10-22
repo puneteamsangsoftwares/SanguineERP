@@ -626,12 +626,11 @@
 			$("#tdBAtchLabel").hide();
 			$("#tdBatchTxt").hide();
 			$("#txtBatch").val('');
-
+			var locCode=$("#cmbLocation").val();
 			fieldName = transactionName;
 			//window.open("searchform.html?formname="+transactionName+"&searchText=", 'window', 'width=600,height=600');
 			//	window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=","","dialogHeight:600px;dialogWidth:1000px;dialogLeft:200px;")
-			window.open("searchform.html?formname=" + transactionName
-					+ "&searchText=", "",
+			window.open("searchform.html?formname=" + transactionName+"&locationCode="+locCode+"&searchText=", "",
 					"dialogHeight:600px;dialogWidth:1000px;dialogLeft:200px;")
 		}
 
@@ -886,6 +885,8 @@
 			
 			return false;
 		}
+		
+		
 		
 	</script>
 </head>
