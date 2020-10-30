@@ -913,7 +913,7 @@
 <body onload="funOnLoad();">
 	<div class="container transTable">
 <!-- 		<label>Meal Planning</label> -->
-    <label id="formHeading">Production Order</label>
+    <label id="formHeading">Meal Planning</label>
 	<s:form method="POST" action="saveProductionOrderData.html?saddr=${urlHits}" name="productonorderform">
 	
 		 <div class="row">
@@ -960,7 +960,7 @@
                 <div class="col-md-8"></div>
 
 			  <div class="col-md-2"><label>Location </label>
-				  <s:input path="strLocCode" id="strLocCode" required="true" value="${locationCode}" ondblclick="funHelp('locationmaster')" cssClass="searchTextBox" />
+				  <s:input path="strLocCode" id="strLocCode" required="true" readony="true" value="${locationCode}" ondblclick="funHelp('locationmaster')" cssClass="searchTextBox" />
 			  </div>
 						
 			  <div class="col-md-2">

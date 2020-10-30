@@ -245,15 +245,13 @@ funRemRows() ;
 				</table>
 			</div>
 		</div>
+                          
                         
                         
-                        
-                        
-                        
-                        
-                        
-
-                    <input id="btnClose" type="Button" class="form_button" value="Close" onclick="return btnClose_onclick()" />                                      
+		<p align="center">
+               <input id="btnClose" type="Button" class="btn btn-primary center-block" value="Close" onclick="return btnClose_onclick()" />                                      
+		
+		</p>
 		<div id="wait"
 			style="display: none; width: 60px; height: 60px; border: 0px solid black; position: absolute; top: 60%; left: 55%; padding: 2px;">
 			<img

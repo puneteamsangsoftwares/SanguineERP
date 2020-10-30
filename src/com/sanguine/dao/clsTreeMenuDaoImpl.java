@@ -101,7 +101,7 @@ public class clsTreeMenuDaoImpl implements clsTreeMenuDao {
 		} else if (req.getSession().getAttribute("selectedModuleName").toString().equalsIgnoreCase("8-WebBookAPGL")) {
 			moduleCode = "8";
 		}
-		String sql = "select a.strFormDesc,a.strRequestMapping,a.strRootNode,a.strType from tbltreemast a where a.strRootNode='" + rootNode + "' and a.strModule='" + moduleCode + "' and a.strFormAccessYN='Y'  order by a.intFormNo";
+		String sql = "select a.strFormDesc,a.strRequestMapping,a.strRootNode,a.strType from tbltreemast a where a.strRootNode='" + rootNode + "' and a.strModule='" + moduleCode + "' and a.strFormAccessYN='Y'  order by a.strFormDesc ";
 		List<clsTreeRootNodeItemUtil> objTreeNode = (List<clsTreeRootNodeItemUtil>) sessionFactory.getCurrentSession().createSQLQuery(sql).list();
 		return objTreeNode;
 	}
@@ -227,7 +227,7 @@ public class clsTreeMenuDaoImpl implements clsTreeMenuDao {
 		} else if (req.getSession().getAttribute("selectedModuleName").toString().equalsIgnoreCase("8-WebBookAPGL")) {
 			moduleCode = "8";
 		}
-		String sql = "select a.strFormName,a.strFormDesc,a.strImgName,a.strRequestMapping " + "from tbltreemast a,tbluserdesktop b where a.strFormName=b.strformname and a.strModule='" + moduleCode + "' and b.strusercode='" + userCode + "'  and a.strFormAccessYN='Y' ";
+		String sql = "select a.strFormName,a.strFormDesc,a.strImgName,a.strRequestMapping " + "from tbltreemast a,tbluserdesktop b where a.strFormName=b.strformname and a.strModule='" + moduleCode + "' and b.strusercode='" + userCode + "'  and a.strFormAccessYN='Y' order by a.strFormDesc ";
 		List<clsUserDesktopUtil> objDesktopItem = sessionFactory.getCurrentSession().createSQLQuery(sql).list();
 
 		return objDesktopItem;

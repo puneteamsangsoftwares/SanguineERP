@@ -150,7 +150,7 @@ public class clsClientDetails {
 			hmClientDtl.put("184.001", clsClientDetails.createClientDetails("184.001", "BALAJI TRADERS PVT LTD", dFormat.parse("2017-07-03"), dFormat.parse("2020-01-07")));
 			hmClientDtl.put("189.001", clsClientDetails.createClientDetails("189.001", "CLASSIC BANGLES", dFormat.parse("2017-08-31"), dFormat.parse("2018-08-10"))); // for demo
 			hmClientDtl.put("193.001", clsClientDetails.createClientDetails("193.001", "PRECISION FOOD WORKS", dFormat.parse("2017-08-25"), dFormat.parse("2019-09-04")));//renewed on 24-09-2018 for 1 year 
-			hmClientDtl.put("194.001", clsClientDetails.createClientDetails("194.001", "SWIG", dFormat.parse("2017-09-11"), dFormat.parse("2020-10-30"))); // Name
+			hmClientDtl.put("194.001", clsClientDetails.createClientDetails("194.001", "SWIG", dFormat.parse("2017-09-11"), dFormat.parse("2021-10-30"))); // Name
 			hmClientDtl.put("197.001", clsClientDetails.createClientDetails("197.001", "PICCADILY HOTELS PVT LTD", dFormat.parse("2017-09-20"), dFormat.parse("2019-10-20")));// renewed on 31-10-2017 for 1 year till 20-09-2018b renamed  REZBERRY RHINOCERES to Juhu Hotel Pvt Ltd in JPOS
 			hmClientDtl.put("211.001", clsClientDetails.createClientDetails("211.001", "CHEFS CORNER", dFormat.parse("2017-11-29"), dFormat.parse("2019-09-05")));//renewed on 25-06-2019 for 10 days till 09-07-2019//Renewed On 17-05-2019 for 15 days till 31-05-2019// Renewed on 16-04-2019 for 1 month till 16-05-2019//Renewed on 14-03-2019 for 1 month till 16-04-2019//renewed on 15-02-2019 for 1 month till 15-03-2019 //renwed for on emonth on 01-12-2018 till  //renewed  on 30-11-2018 for one month till 30-12-2018  // renewd
 			hmClientDtl.put("217.001", clsClientDetails.createClientDetails("217.001", "BURNT CRUST HOSPITALITY PVT LTD", dFormat.parse("2017-12-13"), dFormat.parse("2020-01-03")));//renewed on 26-11-2108 (EndDate 03-12-2018)for one month till 03-01-2018//renewed on 25-10-2018 for one month 03-10-018(from date is 03-11-2018)//renewed on 03-07-2018 for 1 month till 03-08-2018// eenewed for one month till 05-10-2018
@@ -229,7 +229,7 @@ public class clsClientDetails {
 			hmClientDtl.put("359.001", clsClientDetails.createClientDetails("359.001", "Hotel Demo", dFormat.parse("2020-03-27"), dFormat.parse("2023-03-27")));//Generated on 2020-03-27 for 3 year till 2023-03-27 as per swapnil said
 			//345.001 is given to yogi resort please give license after this number
 			hmClientDtl.put("361.001", clsClientDetails.createClientDetails("361.001", "TASTY KORNER", dFormat.parse("2020-09-23"), dFormat.parse("2021-09-23")));//
-			hmClientDtl.put("365.001", clsClientDetails.createClientDetails("365.001", "TMF HOSPITALITY LLP", dFormat.parse("2020-07-27"), dFormat.parse("2020-10-27")));//(Mumbai)//Released on 27-07-2020 for 3 month till 27-10-2020
+			hmClientDtl.put("365.001", clsClientDetails.createClientDetails("365.001", "TMF HOSPITALITY LLP", dFormat.parse("2020-07-27"), dFormat.parse("2020-10-31")));//(Mumbai)//Released on 27-07-2020 for 3 month till 27-10-2020
 			
 			
 		} catch (Exception e) {
