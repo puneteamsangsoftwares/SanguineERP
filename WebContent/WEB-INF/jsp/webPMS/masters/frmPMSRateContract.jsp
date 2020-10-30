@@ -283,7 +283,7 @@
 	<s:form name="BookingType" method="POST" action="savePMSRateContract.html">
 		<div class="row">
 			<div class="col-md-2"><label>Rate Mgmt Code</label>
-				    <s:input type="text" id="txtBookingTypeCode" path="strRateContractID" value="" style="height: 48%" cssClass="searchTextBox" ondblclick="funHelp('PMSRateManagement');"/>
+				    <s:input type="text" id="txtBookingTypeCode" readonly="true" path="strRateContractID" value="" style="height: 48%" cssClass="searchTextBox" ondblclick="funHelp('PMSRateManagement');"/>
 			</div>
 			
 			<div class="col-md-3"><label>Rate Contract Name</label> 

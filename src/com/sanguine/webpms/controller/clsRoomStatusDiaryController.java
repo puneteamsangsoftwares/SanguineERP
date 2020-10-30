@@ -109,7 +109,7 @@ public class clsRoomStatusDiaryController {
 		return listViewDates;
 	}
 	
-	//For Seven Day
+	//For one Day
 	@RequestMapping(value = "/getRoomStatusListForOneDay", method = RequestMethod.GET)
 	public @ResponseBody List funLoadRoomStatusForOneDay(@RequestParam("viewDate") String viewDate, HttpServletRequest request) {
 		String clientCode = request.getSession().getAttribute("clientCode").toString();

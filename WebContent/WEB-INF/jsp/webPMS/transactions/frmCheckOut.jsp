@@ -51,11 +51,11 @@
 						if(test)
 						{
 							window.open(getContextPath() +"/frmPostRoomTerrif.html",'_blank');
-							returnValue=false;
+							returnValue=true;
 						}
 						else
 						{
-							returnValue=true;
+							returnValue=false;
 						}
 	 			   }
 		 		   else

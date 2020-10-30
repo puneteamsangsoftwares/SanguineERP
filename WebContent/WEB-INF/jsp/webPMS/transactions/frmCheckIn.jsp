@@ -952,6 +952,28 @@ overflow-x: hidden;
 			return flag;
 		}
 		
+		function funGetSelectedRow(obj)
+		{
+			 var index = obj.parentNode.parentNode.rowIndex;
+			  //  var table = document.getElementById("tblRommRate");
+			//    table.deleteRow(index);
+			
+			
+			var isOk=confirm("Do You Want Change Amount For all Room Type Rate ?");
+			if(isOk)
+				{
+					var value1=document.getElementById("dblRoomRate."+index).value;
+					for(var i=0;i<document.getElementById("tblRommRate").rows.length;i++)
+				    {
+						document.getElementById("dblRoomRate."+i).value=value1;
+						//var objName =document.getElementById("dblRoomRate."+i);
+				       // totalTarriff=totalTarriff+parseFloat(objName.value);
+				    }
+				}
+			funCalculateTotals();
+		}
+
+		
 		//calculate totals
 		function funCalculateTotals()
 		{
@@ -1109,7 +1131,7 @@ overflow-x: hidden;
 				 date=dateSplit[2]+"-"+dateSplit[1]+"-"+dateSplit[0];
 				 row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:50%;\" name=\"listReservationRoomRateDtl["+(rowCount)+"].dtDate\"  id=\"dtDate."+(rowCount)+"\" value='"+date+"' >";
 		 	     row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"15%\" id=\"strRoomTypeDesc."+(rowCount)+"\" value='"+roomtypeDesc+"' />";
-		 	     row.insertCell(2).innerHTML= "<input type=\"text\" style=\"text-align:right;\"  name=\"listReservationRoomRateDtl["+(rowCount)+"].dblRoomRate\" id=\"dblRoomRate."+(rowCount)+"\" onchange =\"Javacsript:funCalculateTotals()\" value='"+roomRate+"' >";
+		 	     row.insertCell(2).innerHTML= "<input type=\"text\" style=\"text-align:right;\"  name=\"listReservationRoomRateDtl["+(rowCount)+"].dblRoomRate\" id=\"dblRoomRate."+(rowCount)+"\" onchange =\"Javacsript:funGetSelectedRow(this)\" value='"+roomRate+"' >";
 		 	     row.insertCell(3).innerHTML= "<input type=\"hidden\" class=\"Box \" name=\"listReservationRoomRateDtl["+(rowCount)+"].strRoomType\" id=\"strRoomType."+(rowCount)+"\" value='"+roomType+"' >";
 				 
 		     }

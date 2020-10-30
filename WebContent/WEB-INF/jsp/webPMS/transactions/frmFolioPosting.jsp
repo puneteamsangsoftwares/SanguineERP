@@ -376,7 +376,7 @@
 				              <s:input id="dblRate" path=""/></div>
 				              
 			         <div class="col-md-6"><label>Quantity</label>
-			                  <s:input id="dblQuantity" path="dblQuantity"   class="decimal-places-amt numberField" value="1" placeholder="Quantity" onkeypress="funUpdateAmt()" />
+			                  <s:input id="dblQuantity" path="dblQuantity"  onblur="funUpdateAmt();" class="decimal-places-amt numberField" value="1" placeholder="Quantity"  />
 			         </div>
 			</div></div>			
 			
@@ -434,7 +434,7 @@
 		</div>		
 		<div class="dynamicTableContainer" style="height: 25px; width: 30%;overflow-x: hidden;background:#fbfafa">
 			<div class="row">
-				 <div class="col-md-3"> <label>Totals</label>
+				 <div class="col-md-3"> <label>Total</label>
 					  <label id ="dblTotalAmt">0.00</label>									
 				</div>				
 			</div>

@@ -168,7 +168,7 @@ public class clsExpectedArrivalListController {
 				
 				String sqlExpectedArrivalDtl ="SELECT a.strFirstName,a.strMiddleName,a.strLastName,d.strBedType,a.strAddress,a.strArrivalFrom,a.strProceedingTo "
 						+ "FROM tblguestmaster a,tblreservationhd b,tblroom d,tblreservationdtl e WHERE "
-						+ "a.strGuestCode=b.strGuestcode AND e.strReservationNo='"+strReservationNo+"' "
+						+ "a.strGuestCode=e.strGuestcode and b.strReservationNo=e.strReservationNo AND e.strReservationNo='"+strReservationNo+"' "
 						+ "AND e.strRoomType=d.strRoomTypeCode AND b.strReservationNo=e.strReservationNo AND date(b.dteArrivalDate) between '" + fromDate + "' and '" + toDate + "'  AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' AND d.strClientCode='"+clientCode+"' AND e.strClientCode='"+clientCode+"'"
 						+ "group by d.strBedType";
 				
@@ -196,24 +196,26 @@ public class clsExpectedArrivalListController {
 				}
 				}
 			}
-
-			JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(fieldList);
-			JasperDesign jd = JRXmlLoader.load(reportName);
-			JasperReport jr = JasperCompileManager.compileReport(jd);
-			JasperPrint jp = JasperFillManager.fillReport(jr, reportParams, beanCollectionDataSource);
-			List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
-			if (jp != null) {
-				jprintlist.add(jp);
-				ServletOutputStream servletOutputStream = resp.getOutputStream();
-				JRExporter exporter = new JRPdfExporter();
-				resp.setContentType("application/pdf");
-				exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
-				exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, servletOutputStream);
-				exporter.setParameter(JRPdfExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
-				resp.setHeader("Content-Disposition", "inline;filename=ExpectedArrival.pdf");
-				exporter.exportReport();
-				servletOutputStream.flush();
-				servletOutputStream.close();
+			if(!fieldList.isEmpty())
+			{			
+				JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(fieldList);
+				JasperDesign jd = JRXmlLoader.load(reportName);
+				JasperReport jr = JasperCompileManager.compileReport(jd);
+				JasperPrint jp = JasperFillManager.fillReport(jr, reportParams, beanCollectionDataSource);
+				List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
+				if (jp != null) {
+					jprintlist.add(jp);
+					ServletOutputStream servletOutputStream = resp.getOutputStream();
+					JRExporter exporter = new JRPdfExporter();
+					resp.setContentType("application/pdf");
+					exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
+					exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, servletOutputStream);
+					exporter.setParameter(JRPdfExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
+					resp.setHeader("Content-Disposition", "inline;filename=ExpectedArrival.pdf");
+					exporter.exportReport();
+					servletOutputStream.flush();
+					servletOutputStream.close();
+				}
 			}
 
 		} catch (Exception e) {

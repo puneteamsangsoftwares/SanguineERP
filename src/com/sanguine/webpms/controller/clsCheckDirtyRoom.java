@@ -180,6 +180,8 @@ public class clsCheckDirtyRoom {
 		String strCurrTime = time.format(formatter);
 
 		boolean flgCheckDirtyRoom = true;
+		if(objBean.getListBean()!=null)
+		{
 			for (clsDIrtyRoomBean objBeanData : objBean.getListBean())
 			{
 				if(objBeanData.isStrAdd())
@@ -221,7 +223,7 @@ public class clsCheckDirtyRoom {
 				}
 			}
 			
-		
+		}
 		
 		
 		

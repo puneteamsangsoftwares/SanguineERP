@@ -1641,11 +1641,11 @@
 			var remark=$("#txtRemark").val();
 			var address=$("#txtAddress").val();
 			var roomTypeDesc=$("#lblRoomType").text();
-			if(flg==true)
+			/* if(flg==true)
 			{
 				funAddDetailsRow(guestName,guestCode,mobileNo,roomType,remark,roomNo,roomDesc,extraBedCode,extraBedDesc,"N",address,roomTypeDesc);
 				funFillRoomRate(roomType,roomDesc);	
-			}
+			} */
 			
 		}
 		

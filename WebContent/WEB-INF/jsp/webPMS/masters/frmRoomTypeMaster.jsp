@@ -192,7 +192,7 @@
 			     </div>    -->
              
             <div class="col-md-2"><label>Room Type</label>
-				 <s:input id="txtRoomTypeCode" path="strRoomTypeCode" style="height: 45%;" cssClass="searchTextBox" ondblclick="funHelp('roomType')" />			
+				 <s:input id="txtRoomTypeCode" readonly="true" path="strRoomTypeCode" style="height: 45%;" cssClass="searchTextBox" ondblclick="funHelp('roomType')" />			
 			</div>
 			
 			<div class="col-md-2"><label>Room Type Desc</label>
