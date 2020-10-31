@@ -1683,6 +1683,11 @@
 			         return flag;
 				
 			    }
+			    
+			    function funResetFields()
+				{
+					location.reload(true); 
+				}	 
 	    
 	</script>
 	
@@ -1919,7 +1924,8 @@
 		</div>	
 		<div class="center" style="text-align:center">
 			<a href="#"><button class="btn btn-primary center-block" id="btnStkPost" tabindex="3" value="Submit">Submit</button></a> &nbsp;
-			<a href="frmPhysicalStkPosting.html?saddr=${urlHits}"><button class="btn btn-primary center-block"  value="Reset">Reset</button></a>
+			<%-- <a href="frmPhysicalStkPosting.html?saddr=${urlHits}"><button class="btn btn-primary center-block"  value="Reset">Reset</button></a> --%>
+			<input type="button" value="Reset" class="btn btn-primary center-block" class="form_button"  onclick="funResetFields()"/>
 		</div>
 		<br><br>
 		

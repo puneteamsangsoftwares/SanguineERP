@@ -30,12 +30,18 @@ public class clsExcelBuilder extends AbstractXlsView {
 		String reportName; 
 		response.setContentType("application/vnd.ms-excel");
 		response.setHeader("Content-disposition", "attachment; filename=Report.xls");
-		if(Datalist.get(0).toString().contains("reportName"));
+		try{
+			if(Datalist.get(0).toString().contains("reportName"));
+			{
+				reportName= (String) Datalist.get(0);
+				response.setHeader("Content-disposition", "attachment; filename=" + reportName.split(",")[1].trim() + ".xls");			
+				Datalist.remove(0);
+			}	
+		}
+		catch(Exception e)
 		{
-			reportName= (String) Datalist.get(0);
-			response.setHeader("Content-disposition", "attachment; filename=" + reportName.split(",")[1].trim() + ".xls");			
-			Datalist.remove(0);
-		}		
+			response.setHeader("Content-disposition", "attachment; filename=Report.xls");
+		}
 		String[] HeaderList = (String[]) Datalist.get(0);
 		List listStock = new ArrayList();
 		try {
