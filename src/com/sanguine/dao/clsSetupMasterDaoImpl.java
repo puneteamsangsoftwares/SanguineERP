@@ -144,44 +144,47 @@ public class clsSetupMasterDaoImpl implements clsSetupMasterDao {
 		// query.setParameter("propertyCode", propertyCode);
 		// query.setParameter("clientCode", clientCode);
 		List list = query.list();
-		Object[] objPropSetUp = (Object[]) list.get(0);
-		objSetUpModel.setStrCompanyCode(objPropSetUp[0].toString());
-		objSetUpModel.setStrPropertyCode(objPropSetUp[1].toString());
-		objSetUpModel.setDblBondAmt(objPropSetUp[2].toString());
-		objSetUpModel.setDtFromTime(objPropSetUp[3].toString());
-		objSetUpModel.setDtToTime(objPropSetUp[4].toString());
-		objSetUpModel.setIntDueDays(objPropSetUp[5].toString());
-		objSetUpModel.setIntId(Integer.parseInt(objPropSetUp[6].toString()));
-		objSetUpModel.setStrAcceptanceNo(objPropSetUp[7].toString());
-		objSetUpModel.setStrAdd1(objPropSetUp[8].toString());
-		objSetUpModel.setStrAdd2(objPropSetUp[9].toString());
-		objSetUpModel.setStrCity(objPropSetUp[10].toString());
-		objSetUpModel.setStrState(objPropSetUp[11].toString());
-		objSetUpModel.setStrCountry(objPropSetUp[12].toString());
-		objSetUpModel.setStrPin(objPropSetUp[13].toString());
-		objSetUpModel.setStrAsseeCode(objPropSetUp[14].toString());
-		objSetUpModel.setStrBAdd1(objPropSetUp[15].toString());
-		objSetUpModel.setStrBAdd2(objPropSetUp[16].toString());
-		objSetUpModel.setStrBCity(objPropSetUp[17].toString());
-		objSetUpModel.setStrBCountry(objPropSetUp[18].toString());
-		objSetUpModel.setStrBPin(objPropSetUp[19].toString());
-		objSetUpModel.setStrBState(objPropSetUp[20].toString());
-		objSetUpModel.setStrBankAccountNo(objPropSetUp[21].toString());
-		objSetUpModel.setStrBankAdd1(objPropSetUp[22].toString());
-		objSetUpModel.setStrBAdd2(objPropSetUp[23].toString());
-		objSetUpModel.setStrBankCity(objPropSetUp[24].toString());
-		objSetUpModel.setStrBankName(objPropSetUp[25].toString());
-		objSetUpModel.setStrBranchName(objPropSetUp[26].toString());
-		objSetUpModel.setStrCST(objPropSetUp[27].toString());
-		objSetUpModel.setStrCommi(objPropSetUp[28].toString());
-		objSetUpModel.setStrDivision(objPropSetUp[29].toString());
-		objSetUpModel.setStrEmail(objPropSetUp[30].toString());
-		objSetUpModel.setStrFax(objPropSetUp[31].toString());
-		objSetUpModel.setStrLocCode(objPropSetUp[32].toString());
-		objSetUpModel.setStrNegStock(objPropSetUp[33].toString());
-		objSetUpModel.setStrPOBOM(objPropSetUp[34].toString());
-		objSetUpModel.setStrPanNo(objPropSetUp[35].toString());
+		if(list.size()>0)
+		{					
+			Object[] objPropSetUp = (Object[]) list.get(0);
+			objSetUpModel.setStrCompanyCode(objPropSetUp[0].toString());
+			objSetUpModel.setStrPropertyCode(objPropSetUp[1].toString());
+			objSetUpModel.setDblBondAmt(objPropSetUp[2].toString());
+			objSetUpModel.setDtFromTime(objPropSetUp[3].toString());
+			objSetUpModel.setDtToTime(objPropSetUp[4].toString());
+			objSetUpModel.setIntDueDays(objPropSetUp[5].toString());
+			objSetUpModel.setIntId(Integer.parseInt(objPropSetUp[6].toString()));
+			objSetUpModel.setStrAcceptanceNo(objPropSetUp[7].toString());
+			objSetUpModel.setStrAdd1(objPropSetUp[8].toString());
+			objSetUpModel.setStrAdd2(objPropSetUp[9].toString());
+			objSetUpModel.setStrCity(objPropSetUp[10].toString());
+			objSetUpModel.setStrState(objPropSetUp[11].toString());
+			objSetUpModel.setStrCountry(objPropSetUp[12].toString());
+			objSetUpModel.setStrPin(objPropSetUp[13].toString());
+			objSetUpModel.setStrAsseeCode(objPropSetUp[14].toString());
+			objSetUpModel.setStrBAdd1(objPropSetUp[15].toString());
+			objSetUpModel.setStrBAdd2(objPropSetUp[16].toString());
+			objSetUpModel.setStrBCity(objPropSetUp[17].toString());
+			objSetUpModel.setStrBCountry(objPropSetUp[18].toString());
+			objSetUpModel.setStrBPin(objPropSetUp[19].toString());
+			objSetUpModel.setStrBState(objPropSetUp[20].toString());
+			objSetUpModel.setStrBankAccountNo(objPropSetUp[21].toString());
+			objSetUpModel.setStrBankAdd1(objPropSetUp[22].toString());
+			objSetUpModel.setStrBAdd2(objPropSetUp[23].toString());
+			objSetUpModel.setStrBankCity(objPropSetUp[24].toString());
+			objSetUpModel.setStrBankName(objPropSetUp[25].toString());
+			objSetUpModel.setStrBranchName(objPropSetUp[26].toString());
+			objSetUpModel.setStrCST(objPropSetUp[27].toString());
+			objSetUpModel.setStrCommi(objPropSetUp[28].toString());
+			objSetUpModel.setStrDivision(objPropSetUp[29].toString());
+			objSetUpModel.setStrEmail(objPropSetUp[30].toString());
+			objSetUpModel.setStrFax(objPropSetUp[31].toString());
+			objSetUpModel.setStrLocCode(objPropSetUp[32].toString());
+			objSetUpModel.setStrNegStock(objPropSetUp[33].toString());
+			objSetUpModel.setStrPOBOM(objPropSetUp[34].toString());
+			objSetUpModel.setStrPanNo(objPropSetUp[35].toString());
 
+		}
 		String sql2 = "SELECT a.strPhone,a.strPurEmail,a.strRangeDiv,a.strRegNo,a.strSAdd1,a.strSAdd2,a.strSCity,a.strSCountry,a.strSOBOM,a.strSPin,a.strSState, " + " a.strSaleEmail,a.strSerTax,a.strSwiftCode,a.strTotalWorkhour,a.strVAT,a.strWebsite,a.strWorkFlowbasedAuth ,a.strIndustryType,a.strLate,a.strRej, "
 				+ " a.strPChange,a.strExDelay,a.strMask,a.strRangeAdd,a.intdec,a.strListPriceInPO,a.strCMSModule,a.strSOKOTPrint "
 				// +" ,a.strTC1,a.strTC2,a.strTC3,a.strTC4,a.strTC5,a.strTC6,a.strTC7,a.strTC8,a.strTC9,a.strTC10,a.strTC11,a.strTC12 "
@@ -190,32 +193,35 @@ public class clsSetupMasterDaoImpl implements clsSetupMasterDao {
 		Query query2 = sessionFactory.getCurrentSession().createQuery(sql2);
 		// query.setParameter("propertyCode", propertyCode);
 		// query.setParameter("clientCode", clientCode);
-		List list2 = query2.list();
-		Object[] objPropSetUp2 = (Object[]) list2.get(0);
-		objSetUpModel.setStrPhone(objPropSetUp2[0].toString());
-		objSetUpModel.setStrPurEmail(objPropSetUp2[1].toString());
-		objSetUpModel.setStrRangeDiv(objPropSetUp2[2].toString());
-		objSetUpModel.setStrRegNo(objPropSetUp2[3].toString());
-		objSetUpModel.setStrSAdd1(objPropSetUp2[4].toString());
-		objSetUpModel.setStrSAdd2(objPropSetUp2[5].toString());
-		objSetUpModel.setStrSCity(objPropSetUp2[6].toString());
-		objSetUpModel.setStrSCountry(objPropSetUp2[7].toString());
-		objSetUpModel.setStrSOBOM(objPropSetUp2[8].toString());
-		objSetUpModel.setStrSPin(objPropSetUp2[9].toString());
-		objSetUpModel.setStrSState(objPropSetUp2[10].toString());
-		objSetUpModel.setStrSaleEmail(objPropSetUp2[11].toString());
-		objSetUpModel.setStrSerTax(objPropSetUp2[12].toString());
-		objSetUpModel.setStrSwiftCode(objPropSetUp2[13].toString());
-		objSetUpModel.setStrTotalWorkhour(objPropSetUp2[14].toString());
-		objSetUpModel.setStrVAT(objPropSetUp2[15].toString());
-		objSetUpModel.setStrWebsite(objPropSetUp2[16].toString());
-		objSetUpModel.setStrWorkFlowbasedAuth(objPropSetUp2[17].toString());
-		objSetUpModel.setStrIndustryType(objPropSetUp2[18].toString());
-		objSetUpModel.setStrLate(objPropSetUp2[19].toString());
-		objSetUpModel.setStrRej(objPropSetUp2[20].toString());
-		objSetUpModel.setStrPChange(objPropSetUp2[21].toString());
-		objSetUpModel.setStrExDelay(objPropSetUp2[22].toString());
-		objSetUpModel.setStrMask(objPropSetUp2[23].toString());
+		List list2 = query2.list();		
+		if(list2.size()>0)
+		{	
+			Object[] objPropSetUp2 = (Object[]) list2.get(0);
+			objSetUpModel.setStrPhone(objPropSetUp2[0].toString());
+			objSetUpModel.setStrPurEmail(objPropSetUp2[1].toString());
+			objSetUpModel.setStrRangeDiv(objPropSetUp2[2].toString());
+			objSetUpModel.setStrRegNo(objPropSetUp2[3].toString());
+			objSetUpModel.setStrSAdd1(objPropSetUp2[4].toString());
+			objSetUpModel.setStrSAdd2(objPropSetUp2[5].toString());
+			objSetUpModel.setStrSCity(objPropSetUp2[6].toString());
+			objSetUpModel.setStrSCountry(objPropSetUp2[7].toString());
+			objSetUpModel.setStrSOBOM(objPropSetUp2[8].toString());
+			objSetUpModel.setStrSPin(objPropSetUp2[9].toString());
+			objSetUpModel.setStrSState(objPropSetUp2[10].toString());
+			objSetUpModel.setStrSaleEmail(objPropSetUp2[11].toString());
+			objSetUpModel.setStrSerTax(objPropSetUp2[12].toString());
+			objSetUpModel.setStrSwiftCode(objPropSetUp2[13].toString());
+			objSetUpModel.setStrTotalWorkhour(objPropSetUp2[14].toString());
+			objSetUpModel.setStrVAT(objPropSetUp2[15].toString());
+			objSetUpModel.setStrWebsite(objPropSetUp2[16].toString());
+			objSetUpModel.setStrWorkFlowbasedAuth(objPropSetUp2[17].toString());
+			objSetUpModel.setStrIndustryType(objPropSetUp2[18].toString());
+			objSetUpModel.setStrLate(objPropSetUp2[19].toString());
+			objSetUpModel.setStrRej(objPropSetUp2[20].toString());
+			objSetUpModel.setStrPChange(objPropSetUp2[21].toString());
+			objSetUpModel.setStrExDelay(objPropSetUp2[22].toString());
+			objSetUpModel.setStrMask(objPropSetUp2[23].toString());
+		
 
 		if (objPropSetUp2[24] == null) {
 			objSetUpModel.setStrRangeAdd("");
@@ -226,7 +232,7 @@ public class clsSetupMasterDaoImpl implements clsSetupMasterDao {
 		objSetUpModel.setStrListPriceInPO(objPropSetUp2[26].toString());
 		objSetUpModel.setStrCMSModule(objPropSetUp2[27].toString());
 		objSetUpModel.setStrSOKOTPrint(objPropSetUp2[28].toString());
-
+		}
 		String sql3 = "SELECT a.strBatchMethod,a.strTPostingType,a.strAudit,a.strAutoDC,a.strUserCreated,a.dtCreatedDate,a.strUserModified,a.dtLastModified,a.strClientCode,a.intqtydec,a.strRatePickUpFrom, " + " a.strShowReqVal,a.strShowStkReq,a.strShowValMISSlip,a.strChangeUOMTrans,a.strShowProdMaster,a.strAuditFrom,a.strShowProdDoc, "
 				+ " a.strAllowDateChangeInMIS,a.strShowTransAsc_Desc,a.strNameChangeProdMast,a.strStkAdjReason,a.intNotificationTimeinterval, " + " a.strMonthEnd,a.strShowAllProdToAllLoc,a.strLocWiseProductionOrder,a.strShowStockInOP,a.strShowAvgQtyInOP, " + "a.strShowStockInSO,a.strShowAvgQtyInSO,a.strDivisionAdd,a.strEffectOfDiscOnPO,a.strInvFormat,a.strECCNo,  "
 				+ "a.strSMSProvider,a.strSMSAPI,a.strSMSContent,strInvNote,strCurrencyCode,strShowAllPropCustomer,a.strFifo,strCheckPOSSales ," + " strEffectOfInvoice,strEffectOfGRNWebBook , strMultiCurrency ,strShowAllPartyToAllLoc " + " FROM clsPropertySetupModel a where a.strPropertyCode='" + propertyCode + "' and  a.strClientCode ='" + clientCode + "' ";
@@ -235,88 +241,93 @@ public class clsSetupMasterDaoImpl implements clsSetupMasterDao {
 		// query.setParameter("propertyCode", propertyCode);
 		// query.setParameter("clientCode", clientCode);
 		List list3 = query3.list();
-		Object[] objPropSetUp3 = (Object[]) list3.get(0);
-		objSetUpModel.setStrBatchMethod(objPropSetUp3[0].toString());
-		objSetUpModel.setStrTPostingType(objPropSetUp3[1].toString());
-		objSetUpModel.setStrAudit(objPropSetUp3[2].toString());
-		objSetUpModel.setStrAutoDC(objPropSetUp3[3].toString());
-		objSetUpModel.setStrUserCreated(objPropSetUp3[4].toString());
-		objSetUpModel.setDtCreatedDate(objPropSetUp3[5].toString());
-		objSetUpModel.setStrUserModified(objPropSetUp3[6].toString());
-		objSetUpModel.setDtLastModified(objPropSetUp3[7].toString());
-		objSetUpModel.setClientCode(objPropSetUp3[8].toString());
-		if (!(objPropSetUp3[9].toString().equals(" "))) {
-			objSetUpModel.setIntqtydec(Integer.parseInt(objPropSetUp3[9].toString()));
+		if(list3.size()>0)
+		{	
+			Object[] objPropSetUp3 = (Object[]) list3.get(0);
+			objSetUpModel.setStrBatchMethod(objPropSetUp3[0].toString());
+			objSetUpModel.setStrTPostingType(objPropSetUp3[1].toString());
+			objSetUpModel.setStrAudit(objPropSetUp3[2].toString());
+			objSetUpModel.setStrAutoDC(objPropSetUp3[3].toString());
+			objSetUpModel.setStrUserCreated(objPropSetUp3[4].toString());
+			objSetUpModel.setDtCreatedDate(objPropSetUp3[5].toString());
+			objSetUpModel.setStrUserModified(objPropSetUp3[6].toString());
+			objSetUpModel.setDtLastModified(objPropSetUp3[7].toString());
+			objSetUpModel.setClientCode(objPropSetUp3[8].toString());
+			if (!(objPropSetUp3[9].toString().equals(" "))) {
+				objSetUpModel.setIntqtydec(Integer.parseInt(objPropSetUp3[9].toString()));
+			}
+			objSetUpModel.setStrRatePickUpFrom(objPropSetUp3[10].toString());
+			objSetUpModel.setStrShowReqVal(objPropSetUp3[11].toString());
+			objSetUpModel.setStrShowStkReq(objPropSetUp3[12].toString());
+			objSetUpModel.setStrShowValMISSlip(objPropSetUp3[13].toString());
+			objSetUpModel.setStrChangeUOMTrans(objPropSetUp3[14].toString());
+			objSetUpModel.setStrShowProdMaster(objPropSetUp3[15].toString());
+			objSetUpModel.setStrAuditFrom(objPropSetUp3[16].toString());
+			objSetUpModel.setStrShowProdDoc(objPropSetUp3[17].toString());
+			objSetUpModel.setStrAllowDateChangeInMIS(objPropSetUp3[18].toString());
+			objSetUpModel.setStrShowTransAsc_Desc(objPropSetUp3[19].toString());
+			objSetUpModel.setStrNameChangeProdMast(objPropSetUp3[20].toString());
+			objSetUpModel.setStrStkAdjReason(objPropSetUp3[21].toString());
+			if (!(objPropSetUp3[22].toString().equals(" "))) {
+				objSetUpModel.setIntNotificationTimeinterval(Integer.parseInt(objPropSetUp3[22].toString()));
+			}
+			objSetUpModel.setStrMonthEnd(objPropSetUp3[23].toString());
+			if (!(objPropSetUp3[24] == null)) {
+				objSetUpModel.setStrShowAllProdToAllLoc(objPropSetUp3[24].toString());
+			}
+			if (!(objPropSetUp3[25] == null)) {
+				objSetUpModel.setStrLocWiseProductionOrder(objPropSetUp3[25].toString());
+	
+			} else {
+				objSetUpModel.setStrLocWiseProductionOrder("N");
+	
+			}
+	
+	 		objSetUpModel.setStrShowStockInOP(objPropSetUp3[26].toString());
+			objSetUpModel.setStrShowAvgQtyInOP(objPropSetUp3[27].toString());
+			objSetUpModel.setStrShowStockInSO(objPropSetUp3[28].toString());
+			objSetUpModel.setStrShowAvgQtyInSO(objPropSetUp3[29].toString());
+			objSetUpModel.setStrDivisionAdd(objPropSetUp3[30].toString());
+			objSetUpModel.setStrEffectOfDiscOnPO(objPropSetUp3[31].toString());
+			objSetUpModel.setStrInvFormat(objPropSetUp3[32].toString());
+			objSetUpModel.setStrECCNo(objPropSetUp3[33].toString());
+			objSetUpModel.setStrSMSProvider(objPropSetUp3[34].toString());
+			objSetUpModel.setStrSMSAPI(objPropSetUp3[35].toString());
+			objSetUpModel.setStrSMSContent(objPropSetUp3[36].toString());
+			objSetUpModel.setStrInvNote(objPropSetUp3[37].toString());
+			objSetUpModel.setStrCurrencyCode(objPropSetUp3[38].toString());
+			objSetUpModel.setStrShowAllPropCustomer(objPropSetUp3[39].toString());
+			objSetUpModel.setStrEffectOfInvoice(objPropSetUp3[40].toString());
+			objSetUpModel.setStrEffectOfGRNWebBook(objPropSetUp3[41].toString());
+			objSetUpModel.setStrMultiCurrency(objPropSetUp3[42].toString());
+			objSetUpModel.setStrShowAllPartyToAllLoc(objPropSetUp3[43].toString());
+			objSetUpModel.setStrFifo(objPropSetUp3[44].toString());
+			objSetUpModel.setStrCheckPOSSales(objPropSetUp3[45].toString());
 		}
-		objSetUpModel.setStrRatePickUpFrom(objPropSetUp3[10].toString());
-		objSetUpModel.setStrShowReqVal(objPropSetUp3[11].toString());
-		objSetUpModel.setStrShowStkReq(objPropSetUp3[12].toString());
-		objSetUpModel.setStrShowValMISSlip(objPropSetUp3[13].toString());
-		objSetUpModel.setStrChangeUOMTrans(objPropSetUp3[14].toString());
-		objSetUpModel.setStrShowProdMaster(objPropSetUp3[15].toString());
-		objSetUpModel.setStrAuditFrom(objPropSetUp3[16].toString());
-		objSetUpModel.setStrShowProdDoc(objPropSetUp3[17].toString());
-		objSetUpModel.setStrAllowDateChangeInMIS(objPropSetUp3[18].toString());
-		objSetUpModel.setStrShowTransAsc_Desc(objPropSetUp3[19].toString());
-		objSetUpModel.setStrNameChangeProdMast(objPropSetUp3[20].toString());
-		objSetUpModel.setStrStkAdjReason(objPropSetUp3[21].toString());
-		if (!(objPropSetUp3[22].toString().equals(" "))) {
-			objSetUpModel.setIntNotificationTimeinterval(Integer.parseInt(objPropSetUp3[22].toString()));
-		}
-		objSetUpModel.setStrMonthEnd(objPropSetUp3[23].toString());
-		if (!(objPropSetUp3[24] == null)) {
-			objSetUpModel.setStrShowAllProdToAllLoc(objPropSetUp3[24].toString());
-		}
-		if (!(objPropSetUp3[25] == null)) {
-			objSetUpModel.setStrLocWiseProductionOrder(objPropSetUp3[25].toString());
-
-		} else {
-			objSetUpModel.setStrLocWiseProductionOrder("N");
-
-		}
-
- 		objSetUpModel.setStrShowStockInOP(objPropSetUp3[26].toString());
-		objSetUpModel.setStrShowAvgQtyInOP(objPropSetUp3[27].toString());
-		objSetUpModel.setStrShowStockInSO(objPropSetUp3[28].toString());
-		objSetUpModel.setStrShowAvgQtyInSO(objPropSetUp3[29].toString());
-		objSetUpModel.setStrDivisionAdd(objPropSetUp3[30].toString());
-		objSetUpModel.setStrEffectOfDiscOnPO(objPropSetUp3[31].toString());
-		objSetUpModel.setStrInvFormat(objPropSetUp3[32].toString());
-		objSetUpModel.setStrECCNo(objPropSetUp3[33].toString());
-		objSetUpModel.setStrSMSProvider(objPropSetUp3[34].toString());
-		objSetUpModel.setStrSMSAPI(objPropSetUp3[35].toString());
-		objSetUpModel.setStrSMSContent(objPropSetUp3[36].toString());
-		objSetUpModel.setStrInvNote(objPropSetUp3[37].toString());
-		objSetUpModel.setStrCurrencyCode(objPropSetUp3[38].toString());
-		objSetUpModel.setStrShowAllPropCustomer(objPropSetUp3[39].toString());
-		objSetUpModel.setStrEffectOfInvoice(objPropSetUp3[40].toString());
-		objSetUpModel.setStrEffectOfGRNWebBook(objPropSetUp3[41].toString());
-		objSetUpModel.setStrMultiCurrency(objPropSetUp3[42].toString());
-		objSetUpModel.setStrShowAllPartyToAllLoc(objPropSetUp3[43].toString());
-		objSetUpModel.setStrFifo(objPropSetUp3[44].toString());
-		objSetUpModel.setStrCheckPOSSales(objPropSetUp3[45].toString());
-
 		String sql4 = "SELECT a.strRateHistoryFormat,a.strPOSlipFormat,a.strSRSlipFormat,a.strWeightedAvgCal,a.strGRNRateEditable,a.strInvoiceRateEditable,	a.strSORateEditable,a.strSettlementWiseInvSer,a.strGRNProdPOWise , a.strPORateEditable,a.strCurrentDateForTransaction,a.strRoundOffFinalAmtOnTransaction ,a.strPOSTRoundOffAmtToWebBooks,a.strRecipeListPrice,a.strIncludeTaxInWeightAvgPrice"
 				+ " FROM clsPropertySetupModel a where a.strPropertyCode='" + propertyCode + "' and  a.strClientCode ='" + clientCode + "' ";
 
 		Query query4 = sessionFactory.getCurrentSession().createQuery(sql4);
 		List list4 = query4.list();
-		Object[] objPropSetUp4 = (Object[]) list4.get(0);
-		objSetUpModel.setStrRateHistoryFormat(objPropSetUp4[0].toString());
-		objSetUpModel.setStrPOSlipFormat(objPropSetUp4[1].toString());
-		objSetUpModel.setStrSRSlipFormat(objPropSetUp4[2].toString());
-		objSetUpModel.setStrWeightedAvgCal(objPropSetUp4[3].toString());
-		objSetUpModel.setStrGRNRateEditable(objPropSetUp4[4].toString());
-		objSetUpModel.setStrInvoiceRateEditable(objPropSetUp4[5].toString());
-		objSetUpModel.setStrSORateEditable(objPropSetUp4[6].toString());
-		objSetUpModel.setStrSettlementWiseInvSer(objPropSetUp4[7].toString());
-		objSetUpModel.setStrGRNProdPOWise(objPropSetUp4[8].toString());
-		objSetUpModel.setStrPORateEditable(objPropSetUp4[9].toString());
-		objSetUpModel.setStrCurrentDateForTransaction(objPropSetUp4[10].toString());//  StrAllowBackDateTransaction
-		objSetUpModel.setStrRoundOffFinalAmtOnTransaction(objPropSetUp4[11].toString());
-		objSetUpModel.setStrPOSTRoundOffAmtToWebBooks(objPropSetUp4[12].toString());
-		objSetUpModel.setStrIncludeTaxInWeightAvgPrice(objPropSetUp4[14].toString());
-		objSetUpModel.setStrRecipeListPrice(objPropSetUp4[13].toString());
+		if(list4.size()>0)
+		{	
+			Object[] objPropSetUp4 = (Object[]) list4.get(0);
+			objSetUpModel.setStrRateHistoryFormat(objPropSetUp4[0].toString());
+			objSetUpModel.setStrPOSlipFormat(objPropSetUp4[1].toString());
+			objSetUpModel.setStrSRSlipFormat(objPropSetUp4[2].toString());
+			objSetUpModel.setStrWeightedAvgCal(objPropSetUp4[3].toString());
+			objSetUpModel.setStrGRNRateEditable(objPropSetUp4[4].toString());
+			objSetUpModel.setStrInvoiceRateEditable(objPropSetUp4[5].toString());
+			objSetUpModel.setStrSORateEditable(objPropSetUp4[6].toString());
+			objSetUpModel.setStrSettlementWiseInvSer(objPropSetUp4[7].toString());
+			objSetUpModel.setStrGRNProdPOWise(objPropSetUp4[8].toString());
+			objSetUpModel.setStrPORateEditable(objPropSetUp4[9].toString());
+			objSetUpModel.setStrCurrentDateForTransaction(objPropSetUp4[10].toString());//  StrAllowBackDateTransaction
+			objSetUpModel.setStrRoundOffFinalAmtOnTransaction(objPropSetUp4[11].toString());
+			objSetUpModel.setStrPOSTRoundOffAmtToWebBooks(objPropSetUp4[12].toString());
+			objSetUpModel.setStrIncludeTaxInWeightAvgPrice(objPropSetUp4[14].toString());
+			objSetUpModel.setStrRecipeListPrice(objPropSetUp4[13].toString());
+		}
 		return objSetUpModel;
 
 	}

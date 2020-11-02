@@ -964,11 +964,17 @@ public class clsPMSPaymentController {
 			
 			/*String sqlCheckIn = "SELECT a.dblRoomTerrif FROM tblroomtypemaster a,tblcheckindtl  b "
 			 		+ "WHERE b.strCheckInNo = '"+AdvAmount+"' and a.strRoomTypeCode=b.strRoomType";*/
-			String sqlCheckIn="SELECT ifnull(ROUND(dblRoomRate-(temp2.dblRoomRate*temp2.dblDiscount)/100+ SUM(d.dblTaxAmt)),0) FROM "
+			
+			
+			String sqlCheckIn = "SELECT c.dblRoomRate FROM tblroomtypemaster a,tblcheckindtl b,tblreservationroomratedtl c,tblcheckinhd d"
+					+ "	WHERE b.strCheckInNo = '"+AdvAmount+"' AND a.strRoomTypeCode=b.strRoomType and a.strRoomTypeCode=c.strRoomType and d.strReservationNo=c.strReservationNo "
+							+ " and a.strClientCode=b.strClientCode and b.strClientCode=c.strClientCode and c.strClientCode=d.strClientCode";
+					
+			/*String sqlCheckIn="SELECT ifnull(ROUND(dblRoomRate-(temp2.dblRoomRate*temp2.dblDiscount)/100+ SUM(d.dblTaxAmt)),0) FROM "
 					+ "( SELECT temp.dblRoomRate,temp.dblDiscount,c.strFolioNo FROM ( SELECT b.dblRoomRate,b.dblDiscount,a.strCheckInNo FROM tblcheckinhd a "
 					+ "LEFT OUTER JOIN tblwalkinroomratedtl b ON b.strWalkinNo=a.strWalkInNo WHERE a.strCheckInNo='"+AdvAmount+"') temp "
 					+ ",tblfoliohd c WHERE temp.strCheckInNo=c.strCheckInNo) temp2,tblfoliotaxdtl d "
-					+ "WHERE temp2.strFolioNo=d.strFolioNo";
+					+ "WHERE temp2.strFolioNo=d.strFolioNo";*/
 			 List listResevation = objGlobalFunctionsService.funGetDataList(sqlCheckIn, "sql");
 			 if (listResevation.size()>0) 
 				{

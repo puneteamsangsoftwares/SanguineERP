@@ -167,7 +167,7 @@
 		
 		$.ajax({
 			type : "GET",
-			url : getContextPath()+ "/loadGuestCode.html?banquetCode=" + code,
+			url : getContextPath()+ "/loadGuestCode.html?guestCode=" + code,
 			dataType : "json",
 			success : function(response){ 
 				funSetGuestInfo(response);
