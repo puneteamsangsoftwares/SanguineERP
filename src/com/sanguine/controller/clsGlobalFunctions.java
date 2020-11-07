@@ -140,7 +140,7 @@ public class clsGlobalFunctions {
 	public List listChildNodes1;
 
 	public static String POSWSURL = "http://localhost:8080/prjSanguineWebService";
-
+	DecimalFormat dfForStock=null;
 	static {
 
 		try {
@@ -2895,6 +2895,7 @@ public class clsGlobalFunctions {
 	public @ResponseBody double funGetStockForProductRecUOM(
 			@RequestParam("prodCode") String prodCode,
 			HttpServletRequest request) {
+		dfForStock = funGetDecimatFormat(request);
 		String startDate = request.getSession().getAttribute("startDate")
 				.toString();
 		String[] sp = startDate.split(" ");
@@ -2935,7 +2936,287 @@ public class clsGlobalFunctions {
 				endDate, clientCode, userCode, 0.00, proprtyWiseStock);
 		return stock;
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public double funCalculateStockForTrans(String prodCode, String locCode, String fromDate, String toDate, String clientCode, String userCode, double opStk,String proprtyWiseStock) {
+		double finalStock = 0, grnQty = 0, opStkQty = 0, stkTransInQty = 0, stkAdjInQty = 0, misInQty = 0, matReturnInQty = 0;
+		double stkTransOutQty = 0, stkAdjOutQty = 0, misOutQty = 0, matReturnOutQty = 0, qtyProduced = 0, purchaseReturnQty = 0, saleQty = 0, productionQty = 0, reciptQty = 0, issueQty = 0, salesReturnQty = 0;
+		double scGRNQty = 0, deliveryNoteQty = 0;
+		clsLocationMasterModel locModelProperty = objLocationMasterService.funGetObject(locCode, clientCode);
+		clsPropertySetupModel setupModel = objSetupMasterService.funGetObjectPropertySetup(locModelProperty.getStrPropertyCode(), clientCode);
+		if(proprtyWiseStock!=null && !proprtyWiseStock.equalsIgnoreCase("N") && !proprtyWiseStock.equals("")){
+			clsPropertySetupModel objSetUp = objSetupMasterService.funGetObjectPropertySetup(proprtyWiseStock, clientCode);
+			
+			if(objSetUp!=null && objSetUp.getStrWeightedAvgCal().equals("Property Wise")){
+				List<clsLocationMasterModel> list = objLocationMasterService.funLoadLocationPropertyWise(proprtyWiseStock, clientCode);
+				locCode = "(";
+				if(list.size()>0){
+					clsLocationMasterModel obLoc;
+					for (int i = 0; i < list.size(); i++) {
+						obLoc=list.get(i);
+						if (i == 0) {
+							locCode = locCode + "'" + obLoc.getStrLocCode() + "'";
+						} else {
+							locCode = locCode + ",'" +obLoc.getStrLocCode()+ "'";
+						}
+					}
+					locCode += ")";
+				}
+			}
+		}
+		
+		if(!locCode.startsWith("(")){	
+			locCode="('"+locCode+"')";
+		}
+		
+		// Calculate GRN Qty for Product
+		
+		String hql_GRN = "select sum(b.dblQty-b.dblRejected+b.dblFreeQty) " + "from clsGRNHdModel a,clsGRNDtlModel b " + "where a.strGRNCode=b.strGRNCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtGRNDate) between '" + fromDate + "' and '" + toDate + "' ";
+		if (!locCode.equalsIgnoreCase("All")) {
+			hql_GRN += "and a.strLocCode In " + locCode + " ";
+		}
+		hql_GRN += "group by b.strProdCode";
 
+		List list_GRNProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_GRN, "hql");
+		if (list_GRNProductQty.size() > 0) {
+			grnQty = (Double) list_GRNProductQty.get(0);
+		}
+		// System.out.println("GRN="+grnQty);
+
+		// Calculate Opening Stock Qty for Product
+
+		String hql_OpStk = "select sum(b.dblQty) " + "from clsInitialInventoryModel a,clsOpeningStkDtl b " + "where a.strOpStkCode=b.strOpStkCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtCreatedDate) between '" + fromDate + "' and '" + toDate + "' ";
+		if (!locCode.equalsIgnoreCase("All")) {
+			hql_OpStk += "and a.strLocCode IN " + locCode + " ";
+		}
+		hql_OpStk += "group by b.strProdCode";
+
+		List list_OpStkProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_OpStk, "hql");
+		if (list_OpStkProductQty.size() > 0) {
+			opStkQty = (Double) list_OpStkProductQty.get(0);
+		}
+		// System.out.println("Op Stk="+opStkQty);
+
+		// Calculate Stock Transfer In Qty for Product
+
+		String hql_StkTransIn = "select sum(b.dblQty) " + "from clsStkTransferHdModel a,clsStkTransferDtlModel b " + "where a.strSTCode=b.strSTCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtSTDate) between '" + fromDate + "' and '" + toDate + "' ";
+		if (!locCode.equalsIgnoreCase("All")) {
+			hql_StkTransIn += "and a.strToLocCode  IN " + locCode + " ";
+		}
+		hql_StkTransIn += "group by b.strProdCode";
+
+		List list_StkTransProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_StkTransIn, "hql");
+		if (list_StkTransProductQty.size() > 0) {
+			stkTransInQty = (Double) list_StkTransProductQty.get(0);
+		}
+		// System.out.println("Stk Trans In="+stkTransInQty);
+
+		// Calculate MIS In Qty for Product
+
+		String hql_MISInQty = "select sum(b.dblQty) " + "from tblmishd a,tblmisdtl b " + "where a.strMISCode=b.strMISCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtMISDate) between '" + fromDate + "' and '" + toDate + "' ";
+		if (!locCode.equalsIgnoreCase("All")) {
+			hql_MISInQty += "and a.strLocTo IN " + locCode + " ";
+		}
+		hql_MISInQty += "group by b.strProdCode";
+		List list_MISInProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_MISInQty, "sql");
+		if (list_MISInProductQty.size() > 0) {
+			BigDecimal big = (BigDecimal) list_MISInProductQty.get(0);
+			misInQty = Double.parseDouble(big.toString());
+			// misInQty=(Double)list_MISInProductQty.get(0);
+		}
+		// System.out.println("MIS In="+misInQty);
+
+		// Calculate Material Return In Qty for Product
+
+		String hql_MatReturnInQty = "select sum(b.dblQty) " + "from clsMaterialReturnHdModel a,clsMaterialReturnDtlModel b " + "where a.strMRetCode=b.strMRetCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtMRetDate) between '" + fromDate + "' and '" + toDate + "' ";
+		if (!locCode.equalsIgnoreCase("All")) {
+			hql_MatReturnInQty += "and a.strLocTo IN " + locCode + " ";
+		}
+		hql_MatReturnInQty += "group by b.strProdCode";
+		List list_MatReturnInProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_MatReturnInQty, "hql");
+		if (list_MatReturnInProductQty.size() > 0) {
+			matReturnInQty = (Double) list_MatReturnInProductQty.get(0);
+		}
+		// System.out.println("Mat Return In="+matReturnInQty);
+
+		// Calculate Stock Adjustment In Qty for Product
+
+		String hql_StkAdjInQty = "select sum(b.dblQty) " + "from clsStkAdjustmentHdModel a,clsStkAdjustmentDtlModel b " + "where a.strSACode=b.strSACode and b.strProdCode='" + prodCode + "' " + "and date(a.dtSADate) between '" + fromDate + "' and '" + toDate + "' and b.strType='In'";
+		if (!locCode.equalsIgnoreCase("All")) {
+			hql_StkAdjInQty += "and a.strLocCode IN " + locCode + " ";
+		}
+		hql_StkAdjInQty += "group by b.strProdCode";
+		List list_StkAdjInProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_StkAdjInQty, "hql");
+		if (list_StkAdjInProductQty.size() > 0) {
+			stkAdjInQty = (Double) list_StkAdjInProductQty.get(0);
+		}
+		// System.out.println("Stk Adj In="+stkAdjInQty);
+
+		// Calculate Stock Transfer Out Qty for Product
+
+		String hql_StkTransOut = "select sum(b.dblQty) " + "from clsStkTransferHdModel a,clsStkTransferDtlModel b " + "where a.strSTCode=b.strSTCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtSTDate) between '" + fromDate + "' and '" + toDate + "' ";
+		if (!locCode.equalsIgnoreCase("All")) {
+			hql_StkTransOut += "and a.strFromLocCode IN " + locCode + " ";
+		}
+		hql_StkTransOut += "group by b.strProdCode";
+
+		List list_StkTransOutProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_StkTransOut, "hql");
+		if (list_StkTransOutProductQty.size() > 0) {
+			stkTransOutQty = (Double) list_StkTransOutProductQty.get(0);
+		}
+
+		// Calculate MIS Out Qty for Product
+
+		String hql_MISOutQty = "select sum(b.dblQty) " + "from tblmishd a,tblmisdtl b " + "where a.strMISCode=b.strMISCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtMISDate) between '" + fromDate + "' and '" + toDate + "' ";
+		if (!locCode.equalsIgnoreCase("All")) {
+			hql_MISOutQty += "and a.strLocFrom IN " + locCode + " ";
+		}
+		hql_MISOutQty += "group by b.strProdCode";
+		List list_MISOutProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_MISOutQty, "sql");
+		if (list_MISOutProductQty.size() > 0) {
+			BigDecimal big = (BigDecimal) list_MISOutProductQty.get(0);
+			misOutQty = Double.parseDouble(big.toString());
+		}
+
+		// Calculate Material Return Out Qty for Product
+
+		String hql_MatReturnOutQty = "select sum(b.dblQty) " + "from clsMaterialReturnHdModel a,clsMaterialReturnDtlModel b " + "where a.strMRetCode=b.strMRetCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtMRetDate) between '" + fromDate + "' and '" + toDate + "' ";
+		if (!locCode.equalsIgnoreCase("All")) {
+			hql_MatReturnOutQty += "and a.strLocFrom IN " + locCode + " ";
+		}
+		hql_MatReturnOutQty += "group by b.strProdCode";
+
+		List list_MatReturnOutProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_MatReturnOutQty, "hql");
+		if (list_MatReturnOutProductQty.size() > 0) {
+			matReturnOutQty = (Double) list_MatReturnOutProductQty.get(0);
+		}
+
+		// Calculate Stock Adjustment Out Qty for Product
+
+		String hql_StkAdjOutQty = "select sum(b.dblQty) " + "from clsStkAdjustmentHdModel a,clsStkAdjustmentDtlModel b " + "where a.strSACode=b.strSACode and b.strProdCode='" + prodCode + "' " + "and date(a.dtSADate) between '" + fromDate + "' and '" + toDate + "' and b.strType='Out'";
+		if (!locCode.equalsIgnoreCase("All")) {
+			hql_StkAdjOutQty += "and a.strLocCode IN " + locCode + " ";
+		}
+		hql_StkAdjOutQty += "group by b.strProdCode";
+		List list_StkAdjOutProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_StkAdjOutQty, "hql");
+		if (list_StkAdjOutProductQty.size() > 0) {
+			stkAdjOutQty = (Double) list_StkAdjOutProductQty.get(0);
+		}
+		
+
+		// Calculate Purchase Return Qty for Product
+
+		String hql_PurchaseReturnQty = "select sum(b.dblQty) " + "from clsPurchaseReturnHdModel a,clsPurchaseReturnDtlModel b " + "where a.strPRCode = b.strPRCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtPRDate) between '" + fromDate + "' and '" + toDate + "' ";
+		if (!locCode.equalsIgnoreCase("All")) {
+			hql_PurchaseReturnQty += "and a.strLocCode IN " + locCode + " ";
+		}
+		hql_PurchaseReturnQty += "group by b.strProdCode";
+
+		List list_PurchaseReturnQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_PurchaseReturnQty, "hql");
+		if (list_PurchaseReturnQty.size() > 0) {
+			purchaseReturnQty = (Double) list_PurchaseReturnQty.get(0);
+		}
+		// System.out.println("Pur return="+purchaseReturnQty);
+
+		String hql_SalesReturnQty = "select ifnull(sum(b.dblQty),0) " + "from tblsalesreturnhd a,tblsalesreturndtl b " + "where a.strSRCode=b.strSRCode and b.strProdCode='" + prodCode + "' " + "and date(a.dteSRDate) between '" + fromDate + "' and '" + toDate + "' ";
+		if (!locCode.equalsIgnoreCase("All")) {
+			hql_SalesReturnQty += "and a.strLocCode IN " + locCode + " ";
+		}
+		hql_SalesReturnQty += "group by b.strProdCode";
+		List list_SalesReturnQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_SalesReturnQty, "sql");
+		if (list_SalesReturnQty.size() > 0) {
+			salesReturnQty = ((BigDecimal) list_SalesReturnQty.get(0)).doubleValue();
+		}
+
+		if (setupModel.getStrEffectOfInvoice().equals("Invoice")) {
+			String sql_InvoiceQty = "select sum(b.dblQty) " + "from tblinvoicehd a,tblinvoicedtl b " + "where a.strInvCode = b.strInvCode and b.strProdCode='" + prodCode + "' " + "and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' ";
+			if (!locCode.equalsIgnoreCase("All")) {
+				sql_InvoiceQty += "and a.strLocCode IN " + locCode + " ";
+			}
+			sql_InvoiceQty += "group by b.strProdCode";
+			List list_InvoiceQty = objGlobalFunctionsService.funGetProdQtyForStock(sql_InvoiceQty, "sql");
+			if (list_InvoiceQty.size() > 0) {
+				saleQty = ((BigDecimal) list_InvoiceQty.get(0)).doubleValue();
+			}
+
+		} else {
+			String sql_DCQty = "select sum(b.dblQty) " + "from tbldeliverychallanhd a,tbldeliverychallandtl b " + "where a.strDCCode = b.strDCCode and b.strProdCode='" + prodCode + "' " + "and date(a.dteDCDate) between '" + fromDate + "' and '" + toDate + "' ";
+			if (!locCode.equalsIgnoreCase("All")) {
+				sql_DCQty += "and a.strLocCode IN " + locCode + " ";
+			}
+			sql_DCQty += "group by b.strProdCode";
+			List list_DCQty = objGlobalFunctionsService.funGetProdQtyForStock(sql_DCQty, "sql");
+			if (list_DCQty.size() > 0) {
+				saleQty = ((BigDecimal) list_DCQty.get(0)).doubleValue();
+			}
+		}
+
+		String sql = "SELECT b.strChildCode,b.dblQty,a.strParentCode,c.dblRecipeConversion from tblbommasterhd a ,tblbommasterdtl b,tblproductmaster c " + " where a.strBOMCode=b.strBOMCode and b.strChildCode='" + prodCode + "' and b.strChildCode=c.strProdCode  ";
+
+		List listChildProdStkLedger = objGlobalFunctionsService.funGetProdQtyForStock(sql, "sql");
+		for (int cnt = 0; cnt < listChildProdStkLedger.size(); cnt++) {
+			Object objParent[] = (Object[]) listChildProdStkLedger.get(cnt);
+
+			sql = "select  ifnull(sum(b.dblQtyProd),0) " + "from tblproductionhd a, tblproductiondtl b " + "where a.strPDCode  = b.strPDCode " + "and b.strProdCode = '" + objParent[2].toString() + "' and date(a.dtPDDate) between'" + fromDate + "' and  '" + toDate + "' ";
+			if (!locCode.equalsIgnoreCase("All")) {
+				sql += "and a.strLocCode IN " + locCode + " ";
+			}
+
+			sql += "group by b.strProdCode ";
+
+			List listProductionStkLedger = objGlobalFunctionsService.funGetProdQtyForStock(sql, "sql");
+			if (!listProductionStkLedger.isEmpty()) {
+				Object obj = (Object) listProductionStkLedger.get(0);
+				issueQty += Double.parseDouble(objParent[1].toString()) * Double.parseDouble(obj.toString()) / Double.parseDouble(objParent[3].toString());
+			}
+		}
+		sql = "select  ifnull(sum(b.dblQtyProd),0) " + "from tblproductionhd a, tblproductiondtl b " + "where a.strPDCode  = b.strPDCode " + "and b.strProdCode = '" + prodCode + "' and date(a.dtPDDate) between'" + fromDate + "' and  '" + toDate + "' ";
+		if (!locCode.equalsIgnoreCase("All")) {
+			sql += "and a.strLocCode IN " + locCode + " ";
+		}
+
+		sql += "group by b.strProdCode ";
+
+		List listProductionStkLedger = objGlobalFunctionsService.funGetProdQtyForStock(sql, "sql");
+		if (!listProductionStkLedger.isEmpty()) {
+			Object obj = (Object) listProductionStkLedger.get(0);
+			reciptQty += Double.parseDouble(obj.toString());
+		}
+
+		productionQty = reciptQty - issueQty;
+
+		sql = "select IFNULL(SUM(b.dblQty),0) " + " from tblscreturnhd a,tblscreturndtl b  " + "where a.strSRCode=b.strSRCode and b.strProdCode= '" + prodCode + "'  AND DATE(a.dteSRDate) between '" + fromDate + "'  AND  '" + toDate + "' ";
+		if (!locCode.equalsIgnoreCase("All")) {
+			sql += "and a.strLocCode  IN  " + locCode + " ";
+		}
+		sql += "  GROUP BY b.strProdCode ";
+
+		List list_SCGRN = objGlobalFunctionsService.funGetProdQtyForStock(sql, "sql");
+
+		if (list_SCGRN.size() > 0) {
+			scGRNQty = ((BigDecimal) list_SCGRN.get(0)).doubleValue();
+		}
+
+		sql = "select  IFNULL(SUM(b.dblQty),0)  Issue " + " from tbldeliverynotehd a,tbldeliverynotedtl b 	" + " where a.strDNCode=b.strDNCode  and b.strProdCode= '" + prodCode + "' AND DATE(a.dteDNDate) between'" + fromDate + "' " + " AND  '" + toDate + "' ";
+
+		if (!locCode.equalsIgnoreCase("All")) {
+			sql += "and a.strLocCode  IN  " + locCode + " ";
+		}
+		sql += "   GROUP BY b.strProdCode ";
+
+		List list_DN = objGlobalFunctionsService.funGetProdQtyForStock(sql, "sql");
+
+		if (list_DN.size() > 0) {
+			deliveryNoteQty = ((BigDecimal) list_DN.get(0)).doubleValue();
+		}
+
+		finalStock =Double.parseDouble(dfForStock.format( Double.parseDouble(dfForStock.format((opStkQty + grnQty + stkTransInQty + stkAdjInQty + misInQty + matReturnInQty + qtyProduced + reciptQty + scGRNQty + salesReturnQty)) )-  Double.parseDouble(dfForStock.format((stkTransOutQty + stkAdjOutQty + misOutQty + matReturnOutQty + purchaseReturnQty + saleQty + issueQty + deliveryNoteQty)))));
+
+		return finalStock;
+
+	}
+
+/*
 	@SuppressWarnings("rawtypes")
 	public double funCalculateStockForTrans(String prodCode, String locCode,
 			String fromDate, String toDate, String clientCode, String userCode,
@@ -3326,7 +3607,10 @@ public class clsGlobalFunctions {
 		return finalStock;
 
 	}
-
+*/
+	
+	
+	
 	// Function to convert Model into Bean of Stock Adjustment
 	@SuppressWarnings("rawtypes")
 	public clsStockAdjustmentBean funPrepareStockAdjBean(List listStkAdjHd) {
