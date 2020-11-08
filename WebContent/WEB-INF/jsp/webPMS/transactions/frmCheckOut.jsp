@@ -428,7 +428,7 @@
 					<s:radiobutton id="strSearchTypeGroup" path="strSearchType"      style="margin-left: 20px;margin-right:5px;" />Group
 					-->
 				<div class="col-md-2">
-					<s:radiobutton id="strSearchTypeRoom" path="strSearchType" style="margin-right:5px;" />Room
+					<s:radiobutton id="strSearchTypeRoom" path="strSearchType" style="margin-right:5px;" value="" checked="checked"/>Room
 					<s:input id="strSearchTextField" path="strSearchTextField" readonly="true" cssClass="searchTextBox" ondblclick="funHelp('checkInRooms')"/>
 				</div>
 				

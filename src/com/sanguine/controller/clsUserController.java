@@ -938,11 +938,24 @@ public class clsUserController {
 				sql = "select count(*) from tbldayendprocess " + " where strPropertyCode='" + propBean.getStrPropertyCode() + "' and strClientCode='" + clientCode + "' " + " and strDayEnd='N' ";
 				List listDayEnd = objGlobalService.funGetListModuleWise(sql, "sql");
 				BigInteger count = new BigInteger(listDayEnd.get(0).toString());
-
-				if (count.intValue() > 0) {
-					sql = "select date(max(dtePMSDate)),strStartDay from tbldayendprocess " + " where strPropertyCode='" + propBean.getStrPropertyCode() + "' and strClientCode='" + clientCode + "' " + " and strDayEnd='N' ";
-					List listStartFlag = objGlobalService.funGetListModuleWise(sql, "sql");
+				List listStartFlag = null;
+				if (count.intValue() > 0) { 
+					try{
+						//for phpmyadmin server query
+						sql = "select date(max(dtePMSDate)),ANY_VALUE(strStartDay) from tbldayendprocess " + " where strPropertyCode='" + propBean.getStrPropertyCode() + "' and strClientCode='" + clientCode + "' " + " and strDayEnd='N' ";
+						listStartFlag = objGlobalService.funGetListModuleWise(sql, "sql");   
+						
+					}
+					catch(Exception e)
+					{
+					}						
+					if(listStartFlag==null)
+					{
+						sql = "select date(max(dtePMSDate)),strStartDay  from tbldayendprocess " + " where strPropertyCode='" + propBean.getStrPropertyCode() + "' and strClientCode='" + clientCode + "' " + " and strDayEnd='N' ";
+						listStartFlag = objGlobalService.funGetListModuleWise(sql, "sql");
+					}
 					Object[] arrObjDayEnd = (Object[]) listStartFlag.get(0);
+					
 					req.getSession().setAttribute("PMSDate", objGlobalFun.funGetDate("dd-MM-yyyy", arrObjDayEnd[0].toString()));
 					req.getSession().setAttribute("PMSStartDay", arrObjDayEnd[1].toString());
 				} else {
@@ -1740,10 +1753,22 @@ public class clsUserController {
 				sql = "select count(*) from tbldayendprocess " + " where strPropertyCode='" + propertyCode + "' and strClientCode='" + clientCode + "' " + " and strDayEnd='N' ";
 				List listDayEnd = objGlobalService.funGetListModuleWise(sql, "sql");
 				BigInteger count = new BigInteger(listDayEnd.get(0).toString());
-
+				List listStartFlag = null;
 				if (count.intValue() > 0) {
-					sql = "select date(max(dtePMSDate)),strStartDay from tbldayendprocess " + " where strPropertyCode='" + propertyCode+ "' and strClientCode='" + clientCode + "' " + " and strDayEnd='N' ";
-					List listStartFlag = objGlobalService.funGetListModuleWise(sql, "sql");
+					try{
+						//for phpmyadmin server query
+						sql = "select date(max(dtePMSDate)),ANY_VALUE(strStartDay) from tbldayendprocess " + " where strPropertyCode='" + propertyCode+ "' and strClientCode='" + clientCode + "' " + " and strDayEnd='N' ";
+						listStartFlag = objGlobalService.funGetListModuleWise(sql, "sql");
+					}
+					catch(Exception e)
+					{
+						
+					}
+					if(listStartFlag==null)
+					{
+						sql = "select date(max(dtePMSDate)),strStartDay from tbldayendprocess " + " where strPropertyCode='" + propertyCode+ "' and strClientCode='" + clientCode + "' " + " and strDayEnd='N' ";
+						listStartFlag = objGlobalService.funGetListModuleWise(sql, "sql");
+					}					
 					Object[] arrObjDayEnd = (Object[]) listStartFlag.get(0);
 					req.getSession().setAttribute("PMSDate", objGlobalFun.funGetDate("dd-MM-yyyy", arrObjDayEnd[0].toString()));
 					req.getSession().setAttribute("PMSStartDay", arrObjDayEnd[1].toString());
