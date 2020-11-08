@@ -419,7 +419,7 @@ public class clsDeliveryChallanController {
 		
 		DCHDModel.setStrUserModified(userCode);
 		DCHDModel.setDteLastModified(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
-		DCHDModel.setDteDCDate(objBean.getDteDCDate());
+		DCHDModel.setDteDCDate(objGlobalFunctions.funGetDate("yyyy-MM-dd", objBean.getDteDCDate()));
 		DCHDModel.setStrAgainst(objBean.getStrAgainst());
 		DCHDModel.setStrAuthorise(objBean.getStrAuthorise());
 		DCHDModel.setStrCustCode(objBean.getStrCustCode());

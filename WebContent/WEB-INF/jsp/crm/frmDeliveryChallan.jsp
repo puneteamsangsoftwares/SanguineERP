@@ -384,7 +384,11 @@ $(document).ready(function()
 	        		}else{	
 	        			funRemoveAllRows();
 	        			$('#txtDCCode').val(response.strDCCode);
-	        			$('#txtDCDate').val(response.dteDCDate);
+	        			var Date=response.dteDCDate.split(" ");
+	        			
+	        			var DcDate=Date[0].split("-");
+	        			$('#txtDCDate').val(DcDate[2]+"-"+DcDate[1]+"-"+DcDate[0]); 
+	        			
 	        			$('#txtAginst').val(response.strAgainst);
 	        			$('#cmbAgainst').val(response.strAgainst);
 	        			if(response.strAgainst=="Sales Order")
