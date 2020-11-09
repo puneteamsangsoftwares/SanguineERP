@@ -229,7 +229,7 @@ public class clsClientDetails {
 			hmClientDtl.put("359.001", clsClientDetails.createClientDetails("359.001", "Hotel Demo", dFormat.parse("2020-03-27"), dFormat.parse("2023-03-27")));//Generated on 2020-03-27 for 3 year till 2023-03-27 as per swapnil said
 			//345.001 is given to yogi resort please give license after this number
 			hmClientDtl.put("361.001", clsClientDetails.createClientDetails("361.001", "TASTY KORNER", dFormat.parse("2020-09-23"), dFormat.parse("2021-09-23")));//
-			hmClientDtl.put("365.001", clsClientDetails.createClientDetails("365.001", "TMF HOSPITALITY LLP", dFormat.parse("2020-07-27"), dFormat.parse("2020-11-12")));//(Mumbai)//Released on 27-07-2020 for 3 month till 27-10-2020
+			hmClientDtl.put("365.001", clsClientDetails.createClientDetails("365.001", "TMF HOSPITALITY LLP", dFormat.parse("2020-07-27"), dFormat.parse("2020-11-25")));//(Mumbai)//Released on 27-07-2020 for 3 month till 27-10-2020
 			hmClientDtl.put("374.001", clsClientDetails.createClientDetails("374.001", "DVD FOODS LLP", dFormat.parse("2020-11-05"), dFormat.parse("2020-12-05")));//(Mumbai)//Released on 05-11-2020 for 1 month till 05-12-2020
 			
 		} catch (Exception e) {
