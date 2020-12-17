@@ -21,7 +21,7 @@ public interface clsMISDao {
 
 	public void funDeleteDtl(String MISCode, String strClientCode);
 
-	public List funMISforMRDetails(String strLocFrom, String strLocTo, String strClientCode);
+	public List funMISforMRDetails(String strLocFrom, String strLocTo, String strClientCode,String strFromDate,String strToDate);
 
 	public List<String> funGetProductDtl(String strProdCode, String clientCode);
 

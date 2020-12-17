@@ -9,11 +9,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+
 @Entity
 @Table(name = "tblstockpostingdtl")
 public class clsStkPostingDtlModel implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    binder.setAutoGrowCollectionLimit(1000000);
+	}
+	
 	@GeneratedValue
 	@Id
 	@Column(name = "intId")

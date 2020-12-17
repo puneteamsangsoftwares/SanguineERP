@@ -93,12 +93,17 @@ public class clsMISDaoImpl implements clsMISDao {
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public List funMISforMRDetails(String strLocFrom, String strLocTo, String strClientCode) {
+	public List funMISforMRDetails(String strLocFrom, String strLocTo, String strClientCode,String strFromDate, String strToDate) {
 
-		String sqlQuery = "select a.strReqCode,DATE_FORMAT(a.dtReqDate,'%m-%d-%Y'),b.strLocName as Locationby,c.strLocName as LocationOn,a.strNarration,a.strAuthorise,ifnull(DATE_FORMAT(dtReqiredDate,'%m-%d-%Y'),'') as dtReqiredDate,ifNull(s.strSessionName,'') " + " from tblreqhd a" + " left outer join tbllocationmaster b on  b.strLocCode=a.strLocBy and b.strClientCode='" + strClientCode + "' "
+		String sqlQuery = "select a.strReqCode,DATE_FORMAT(a.dtReqDate,'%d-%m-%Y'),b.strLocName as Locationby,c.strLocName as LocationOn,a.strNarration,a.strAuthorise,ifnull(DATE_FORMAT(dtReqiredDate,'%d-%m-%Y'),'') as dtReqiredDate,ifNull(s.strSessionName,'') " + " from tblreqhd a" + " left outer join tbllocationmaster b on  b.strLocCode=a.strLocBy and b.strClientCode='" + strClientCode + "' "
 				+ " left outer join tbllocationmaster c on  c.strLocCode=a.strLocOn and c.strClientCode='" + strClientCode + "' " + " left outer join tblsessionmaster s on a.strSessionCode=s.strSessionCode " + " Where a.strClientCode='" + strClientCode + "' and a.strReqCode IN" + " (select a.strReqCode  from tblreqdtl a left outer join (select b.strReqCode, b.strProdCode, SUM(dblQty) ReqQty "
-				+ " from tblmishd a, tblmisdtl b Where a.strMISCode = b.strMISCode and a.strClientCode='" + strClientCode + "'" + " and b.strClientCode='" + strClientCode + "' group by b.strReqCode, b.strProdCode) b " + " on a.strReqCode  = b.strReqCode and a.strProdCode = b.strProdCode " + " where  a.dblQty > ifnull(b.ReqQty,0)) " + " and a.strLocby='" + strLocTo + "' and a.strLocon='"
-				+ strLocFrom + "' and a.strClientCode='" + strClientCode + "' and a.strAuthorise='Yes' and a.strCloseReq='N' order by a.dtReqDate";
+				+ " from tblmishd a, tblmisdtl b Where a.strMISCode = b.strMISCode and a.strClientCode='" + strClientCode + "'" + " and b.strClientCode='" + strClientCode + "' and DATE(a.dtMISDate)  BETWEEN '"+strFromDate+"'  AND  '"+strToDate+"'  group by b.strReqCode, b.strProdCode) b " + " on a.strReqCode  = b.strReqCode and a.strProdCode = b.strProdCode " + " where  a.dblQty > ifnull(b.ReqQty,0)) " + " and a.strLocby='" + strLocTo + "' and a.strLocon='"
+				+ strLocFrom + "' and a.strClientCode='" + strClientCode + "' and a.strAuthorise='Yes' and a.strCloseReq='N' and date(a.dtReqDate)  BETWEEN  '"+strFromDate+"'  AND  '"+strToDate+"' order by a.dtReqDate";
+		
+		
+		
+		
+		
 		//String sqlQuery = "select a.strReqCode,DATE_FORMAT(a.dtReqDate,'%m-%d-%Y'),b.strLocName as Locationby,c.strLocName as LocationOn,a.strNarration,a.strAuthorise,ifnull(DATE_FORMAT(dtReqiredDate,'%m-%d-%Y'),'') as dtReqiredDate,ifNull(s.strSessionName,'') " + " from tblreqhd a" + " left outer join tbllocationmaster b on  b.strLocCode=a.strLocBy and b.strClientCode='" + strClientCode + "' "
 				//+ " left outer join tbllocationmaster c on  c.strLocCode=a.strLocOn and c.strClientCode='" + strClientCode + "' " + " left outer join tblsessionmaster s on a.strSessionCode=s.strSessionCode " + " Where a.strClientCode='" + strClientCode + "' and a.strReqCode IN" + " (select a.strReqCode  from tblreqdtl a left outer join (select b.strReqCode, b.strProdCode, SUM(dblQty) ReqQty "
 				//+ " from tblmishd a, tblmisdtl b Where a.strMISCode = b.strMISCode and a.strClientCode='" + strClientCode + "'" + " and b.strClientCode='" + strClientCode + "' group by b.strReqCode, b.strProdCode) b " + " on a.strReqCode  = b.strReqCode and a.strProdCode = b.strProdCode " + " where  a.dblQty > ifnull(b.ReqQty,0)) " + " and a.strLocby='" + strLocTo + "' and a.strLocon='"

@@ -10,7 +10,33 @@
 <script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js"/>"></script>	
 <script type="text/javascript" src="<spring:url value="/resources/js/validations.js"/>"></script>
 	
-<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" /> 	
+<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/design.css"/>" /> 
+
+  <link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap.min.css"/>" />
+<link rel="stylesheet" type="text/css" media="screen" href="<spring:url value="/resources/css/newdesigncss/bootstrap-grid.min.css"/>" />
+
+<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
+<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+
+ 	
+	<%-- End Default Script For Page  --%>
+	
+	<%-- Started Default CSS For Page  --%>
+
+	 	
+	 	<link rel="stylesheet"  href="<spring:url value="/resources/css/pagination.css"/>" />
+	 	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+	 	<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 
+	 
+ 	
+ 	<%-- End Default CSS For Page  --%>
+ 	
+ 	<%--  Started Script and CSS For Select Time in textBox  --%>
+	
+	
+	<%-- End Script and CSS For Select Time in textBox  --%>
+	
 
 <title>REQUISITION</title>	
 <script type="text/javascript">
@@ -26,11 +52,25 @@
 </script>
 <script type="text/javascript">
 
+
+
 /**
  * Ready Function for Ajax Waiting
 **/
 	$(document).ready(function() 
 		{
+		var startDate="${startDate}";
+		var arr = startDate.split("/");
+		 
+		var date = new Date(); 
+		var month=date.getMonth()+1;
+        Dat= 1 +"-"+month+"-"+date.getFullYear();
+        
+		$("#txtReqFromDate").datepicker({ dateFormat: 'dd-mm-yy' });
+		$("#txtReqFromDate" ).datepicker('setDate', Dat);
+		
+		$("#txtReqToDate").datepicker({ dateFormat: 'dd-mm-yy' });
+		$("#txtReqToDate" ).datepicker('setDate', 'today');
 			$(document).ajaxStart(function()
 		 	{
 			    $("#wait").css("display","block");
@@ -58,16 +98,16 @@
 	{		
 	    strLocFrom='<%=request.getParameter("strLocFrom") %>'
 	    strLocTo='<%=request.getParameter("strLocTo") %>'  
-	    funFillDetails(strLocFrom,strLocTo);
+	  //  funFillDetails(strLocFrom,strLocTo);
 	
 	});
 	
 	/**
 	 * Loding pending Requisition records passing value Location from code and Location to code
 	 **/
-	function funFillDetails(strLocFrom,strLocTo)
+	function funFillDetails(strLocFrom,strLocTo,fromDate,toDate)
 	{
-		var searchUrl=getContextPath()+"/loadMISforMR.html?strLocFrom="+strLocFrom+"&strLocTo="+strLocTo;	
+		var searchUrl=getContextPath()+"/loadMISforMR.html?strLocFrom="+strLocFrom+"&strLocTo="+strLocTo+"&fromDate="+fromDate+"&toDate="+toDate;	
 		//alert(searchUrl);
 		$.ajax({
 	 	        type: "GET",
@@ -179,7 +219,15 @@ function btnClose_onclick()
     window.returnValue=strMRCode+"#";
     window.close()
 }
+       function funExecute()
+		{
+    	   strLocFrom='<%=request.getParameter("strLocFrom") %>'
+           strLocTo='<%=request.getParameter("strLocTo") %>'  
+           var fromDate= $("#txtReqFromDate").val();
+           var toDate= $("#txtReqToDate").val();
 
+           funFillDetails(strLocFrom,strLocTo,fromDate,toDate);
+		}
 </script>
 </head>
 <body>
@@ -189,7 +237,7 @@ function btnClose_onclick()
     <form id="form1">
         
                         <table  class="masterTable" style="width: 100%">
-                            <tr>
+                           <%--  <tr>
                                 <td>Group</td>
                                 <td >
                                     <select id="cmbGroup" onchange="funFillSubGroup()" >
@@ -203,7 +251,32 @@ function btnClose_onclick()
                                     <select id="cmbSGroup">
                                         <option selected="selected" value="ALL">ALL</option>
                                     </select></td>
+                            </tr> --%>
+                            <tr>
+                            <td>
+							<div class="">
+								<label>from Date</label>.
+								<input id="txtReqFromDate" name="txtReqFromDate" type="text" required="required"  pattern="\d{1,2}-\d{1,2}-\d{4}" 
+										 cssClass="calenderTextBox" style="width:80%;"/>
+								
+							</div>
+                            </td>
+                            <td>
+                            
+								<div class="">
+									<!-- <td><label>MIS Date:</label></td> -->
+									<label>To Date</label>
+							<input id="txtReqToDate" name="txtReqToDate" type="text" required="required"  pattern="\d{1,2}-\d{1,2}-\d{4}" 
+											 cssClass="calenderTextBox" style="width:80%;"/>
+								</div>
+                            </td> 
+                            
+                             <td>
+                              		 	<button type="button" class="btn btn-primary center-block" id="btnExecute" onclick="funExecute()" value="EXECUTE">Execute</button>
+                              
+                             </td>
                             </tr>
+                           
                         </table>
                    
                    

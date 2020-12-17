@@ -544,16 +544,27 @@ function funGetFormName(){
 	});
 }); */
 
-<%--    $(document).ready(function()
-{
-	var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';
-	  if(null!=pmsDate)
- 	  {
-	 	  var dte=pmsDate.split("-");
-		  $("#txtPMSDate").text(dte[0]+"-"+dte[1]+"-"+dte[2]); 	
-	  }
- });   
-  --%>
+	$(document).ready(function()
+	{
+		var strModule='<%=session.getAttribute("selectedModuleName").toString()%>';
+		;
+		if(strModule=='3-WebPMS')
+		{
+			 var pmsDate='<%=session.getAttribute("PMSDate")%>';
+			  
+			  if(null!=pmsDate)
+		 	  {
+			 	  var dte=pmsDate.split("-");
+				  $("#txtPMSHeaderDate").val(dte[0]+"-"+dte[1]+"-"+dte[2]); 	
+			  } 
+		}
+		else
+		{
+			document.getElementById('lblPMSDate').style.display = 'none'
+		}	
+		 
+	});   
+	  
 
 </script>
 
@@ -575,9 +586,11 @@ function funGetFormName(){
          			 		</div>
           					<div class="navaction app-header-sub">
            			 			<p class="para"><img src="../${pageContext.request.contextPath}/resources/images/DSS_logo.png" alt="img" style="max-width:180px; height: 50px; padding-left:5px"><span style=" padding-left:16px; font-size:16px; font-weight: 600; color: #4a4a4a;">
-           			 			${companyName}</span> &nbsp; &nbsp;- &nbsp; ${propertyName} &nbsp;- ${financialYear}</p>
-           			 			<!-- <label>PMS Date</label>&nbsp; &nbsp;<input id="txtPMSDate" style="width: 90px;font-weight: bold;" readonly="readonly" class="longTextBox"/> -->
-           			 			<!-- <th style="width: 34%;"></th> --> 
+           			 			${companyName}</span> &nbsp; &nbsp;- &nbsp; ${propertyName} &nbsp;- ${financialYear}
+           			 			<label style="margin-left: 113px;color: black;font-weight: bold;" id="lblPMSDate">PMS Date</label>&nbsp; &nbsp;<input id="txtPMSHeaderDate" style="width: 90px;font-weight: bold;" readonly="readonly" class="longTextBox"/> 
+           			 		    <th style="width: 34%;"></th> 
+           			 			</p>
+           			 		
          		 			</div> 
         				</div>
         				<div class="right-menu" id="page_top_banner">

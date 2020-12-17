@@ -34,7 +34,7 @@
 		</table>
 		<br>
 		<p align="center">
-			<input type="submit" value="Submit" class="form_button" />
+			<input type="submit" value="Submit" class="btn btn-primary center-block" />
 		</p>
 		<br>
 		<br>

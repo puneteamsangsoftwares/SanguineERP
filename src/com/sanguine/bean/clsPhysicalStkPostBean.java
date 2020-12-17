@@ -1,10 +1,20 @@
 package com.sanguine.bean;
 
 import java.util.List;
+import java.util.Map;
+
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import com.sanguine.model.clsStkPostingDtlModel;
 
 public class clsPhysicalStkPostBean {
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    binder.setAutoGrowCollectionLimit(1000000);
+	}
+	
 	private String strPSCode;
 
 	private String dtPSDate;
@@ -26,9 +36,10 @@ public class clsPhysicalStkPostBean {
 	private String strConversionUOM;
 
 	private String strPhyStkFrom;
-
+	
 	private List<clsStkPostingDtlModel> listStkPostDtl;
 
+	
 	public String getStrPSCode() {
 		return strPSCode;
 	}
@@ -124,4 +135,6 @@ public class clsPhysicalStkPostBean {
 	public void setStrPhyStkFrom(String strPhyStkFrom) {
 		this.strPhyStkFrom = strPhyStkFrom;
 	}
+
+	
 }

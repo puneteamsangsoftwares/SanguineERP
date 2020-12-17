@@ -26,6 +26,7 @@
  var miseditable;
  var clickCount=0;
  $(document).ready(function () {
+	 
     resetForms('MIS');
     $("#txtLocTo").focus();
     $(document).ajaxStart(function(){

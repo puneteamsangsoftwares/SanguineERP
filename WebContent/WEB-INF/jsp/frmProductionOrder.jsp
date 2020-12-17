@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
@@ -50,17 +49,14 @@
 		  });
 		
 	});
-
 	 /**
 	 * Open help windows
 	 */
 	function funHelp(transactionName) {
 		fieldName = transactionName;
-
 // 		window.showModalDialog("searchform.html?formname=" + transactionName
 // 				+ "&searchText=", "",
 // 				"dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;")
-
 		window.open("searchform.html?formname=" + transactionName
 				+ "&searchText=", "",
 				"dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;")
@@ -175,7 +171,6 @@
 	        }
 		});
 	}
-
 	/**
 	 * Get and Set Production Order Hd Data after selecting form Help windows
 	 */
@@ -207,9 +202,7 @@
 	            }		            
 	        }
 		});
-
 	}
-
 	/**
 	 * Fill Production Order Data
 	 */
@@ -234,7 +227,6 @@
 			}
 		});
 	}
-
 	/**
 	 * Get and Set Production Order Dtl Data after selecting form Help windows
 	 */
@@ -254,7 +246,6 @@
 							response[i].strProdName, response[i].dblUnitPrice,
 							response[i].dblQty, response[i].dblWeight,
 							response[i].strSpCode);
-
 				});
 				listRow=count+1;
 			},
@@ -277,7 +268,6 @@
 	        }
 		});
 	}
-
 	/**
 	 * Filling Grid
 	 */
@@ -351,14 +341,12 @@
 // 				+ "\" value="
 // 				+ dblQty
 // 				+ " onblur=\"funUpdatePrice(this);\" class=\"decimal-places inputText-Auto dblQty\">";
-
 		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width: 100%;\" id=\"dblOrdQty."	+ (rowCount)+ "\" value="+ dblOrdQty+ " >";
 				
 		row.insertCell(3).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width: 100%;\"   id=\"dblStock."	+ (rowCount)+ "\" value="+ dblStock+ " >";
 				
 		row.insertCell(4).innerHTML = "<input type=\"text\"  required = \"required\" style=\"text-align: right;width: 100%;border: 1px solid #a2a2a2;padding: 1px;\" name=\"listclsProductionOrderDtlModel["+ (rowCount)+ "].dblQty\" id=\"dblQty."	+ (rowCount)+ "\" value="+ dblAcceptQty+ " onblur=\"funUpdatePrice(this);\" class=\"decimal-places inputText-Auto\">";		
 			
-
 		
 		row.insertCell(5).innerHTML = "<input type=\"text\"  required = \"required\" style=\"text-align: right;width: 100%;border: 1px solid #a2a2a2;padding: 1px;\" name=\"listclsProductionOrderDtlModel["
 				+ (rowCount)
@@ -382,7 +370,6 @@
 	function funRemRows() {
 		var table = document.getElementById("tblProdDet");
 		var rowCount = table.rows.length;
-
 		while(rowCount>0)
 		{
 			table.deleteRow(0);
@@ -399,7 +386,6 @@
 				* parseFloat(object.value);
 		price=parseFloat(price).toFixed(maxAmountDecimalPlaceLimit);
 		document.getElementById("dblTotalPrice." + index).value = price;
-
 	}
 	/**
 	 * Clear textfiled after adding data in textfield
@@ -436,7 +422,6 @@
 	 * Adding Product Data in grid 
 	 */
 	function funAddProductRow() {
-
 		var strProdCode = $("#strProdCode").val();
 		var strProdName = $("#strProductName").text();
 		var dblStock = $("#lblStock").text();
@@ -454,6 +439,10 @@
 		var rowCount = table.rows.length;
 		var row = table.insertRow(rowCount);
 		rowCount=listRow;
+		if($("#cmbAgainst").val() =='Direct')
+		{
+			dblAcceptQty = dblOrdQty - 0;
+		}
 		row.insertCell(0).innerHTML = "<input  readonly=\"readonly\" class=\"Box\" size=\"10%\" name=\"listclsProductionOrderDtlModel["	+ (rowCount) + "].strProdCode\" id=\"strProdCode."	+ (rowCount) + "\" value=" + strProdCode + " >";
 		row.insertCell(1).innerHTML= strProdName;
 		row.insertCell(2).innerHTML = "<input readonly=\"readonly\" class=\"Box\" style=\"text-align: right;width:100%;\" id=\"dblOrdQty."  + (rowCount)+ "\" value="+ dblOrdQty+ " >";
@@ -707,17 +696,14 @@
 // 				funSetSalesOrder();
 				
 // 				var SOCodes=strVal[0].split(",");
-
 // 			}
 		}
 		/*-----------------------------------Start For Child Product Shown in Grid----------------------------------- */		
 		
 // 		function funSetSalesOrder()
 // 		{
-
 // 		    strCodes = $('#txtDocCode').val();
 // 		    strSOCodes = strCodes.split(",")
-
 // 		    	var searchUrl=getContextPath()+ "/loadAgainstSO.html?SOCode=" + strCodes ;
 // 				$.ajax({
 // 				        type: "GET",
@@ -733,7 +719,6 @@
 // 					    		,item[3],"");
 // 							});
 					    	
-
 // 					    },
 // 					    error: function(jqXHR, exception) {
 // 				            if (jqXHR.status === 0) {
@@ -754,15 +739,11 @@
 // 				        }
 // 				      });
 // 		    }
-
 /*-----------------------------------End For Child Product Shown in Grid----------------------------------- */
-
 		function funSetSalesOrder()
 		{
-
 		    strCodes = $('#txtDocCode').val();
 		    strSOCodes = strCodes.split(",")
-
 		    	var searchUrl=getContextPath()+ "/loadAgainstSO.html?SOCode=" + strCodes ;
 				$.ajax({
 				        type: "GET",
@@ -781,7 +762,6 @@
 // 									}
 							});
 					    	
-
 					    },
 					    error: function(jqXHR, exception) {
 				            if (jqXHR.status === 0) {
@@ -822,20 +802,14 @@
 					    	
 					    	qty=parseFloat(qty)+parseFloat(preQty);
 					    	$(this).find(".dblQty").val(qty);
-
 		    				flgDProduct=false;
 	    				}
-
 					});
-
 		    	}
-
 		    return flgDProduct;
 		  
 		}
-
 	
-
 		/**
 		 * Get product stock passing value product code
 		 */

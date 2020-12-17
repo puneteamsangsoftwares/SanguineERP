@@ -30,6 +30,7 @@ border:1px solid #fff;
  		var loggedInLocation="";
  		$(document).ready(function() 
  				{
+ 			
 		  	loggedInProperty="${LoggedInProp}";
 			loggedInLocation="${LoggedInLoc}";
 			$("#cmbProperty").val(loggedInProperty);
@@ -37,6 +38,7 @@ border:1px solid #fff;
 			var propCode=$("#cmbProperty").val();
 			//funFillLocationCombo(propCode);
 			$("#divValueTotal").hide();
+			 funAddReprtType();
 			funAddExportType();
 		});	
  		function funChangeLocationCombo()
@@ -648,24 +650,38 @@ border:1px solid #fff;
         function funAddExportType()
 		{
         	var cSelect = document.getElementById("cmbExportType"); 
-        	while (cSelect.options.length > 0) 
+        	 while (cSelect.options.length > 0) 
 	       	 { 
 	       	  cSelect.remove(0); 
-	       	 }
-        	if($("#cmbReportType").val()=='Detail')
+	       	 } 
+        	 if($("#cmbReportType").val()=='Detail')
         	 {
         		cSelect.add(new Option('Excel'));
         	 }
-        	else if($("#cmbReportType").val()=='Total')
+        	 else if($("#cmbReportType").val()=='Total')
 	       	 {
 	       		cSelect.add(new Option('Excel'));
 	       	 }
-        	else
+        	 else
         	 {
         		cSelect.add(new Option('Excel'));
         		cSelect.add(new Option('PDF'));
         	 }	 
 		} 
+       function funAddReprtType()
+		{
+        	var cSelectReport = document.getElementById("cmbReportType"); 
+        	while (cSelectReport.options.length > 0) 
+	       	{ 
+        		cSelectReport.remove(0); 
+	       	} 
+        	cSelectReport.add(new Option('Mini'));
+        	cSelectReport.add(new Option('Detail'));
+        	cSelectReport.add(new Option('Summary'));
+        	cSelectReport.add(new Option('Total'));
+        	 
+		}
+         
 		 
 		 
 	</script>

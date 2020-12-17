@@ -4923,28 +4923,71 @@ public class clsReportsController {
 					
 					objStkFlashModel.setDblClosingStock(df.format(closeStk).toString());	
 				}else{
-					String str[]=arrObj[2].toString().split("BTL");
-					String str3;					
-					if(str.length>1)
+					try
 					{
-						sb.append(str[0]+"BTL.");//1 BTL
-						str=str[1].split("ML");						
-						str3=str[0].toString().replaceFirst(".","");
-						if(str3.contains("."))
+						objStkFlashModel.setDblClosingStock(arrObj[2].toString());
+
+						String str[]=arrObj[2].toString().split("BTL");
+						String str3;					
+						if(str.length>1)
 						{
-							d=Math.round(Double.parseDouble(str3));
-							sb.append(String.valueOf(df.format(d))+" ML");//1 BTL
-							objStkFlashModel.setDblClosingStock(""+sb.toString());
+							sb.append(str[0]+"BTL.");//1 BTL
+							str=str[1].split("ML");						
+							str3=str[0].toString().replaceFirst(".","");
+							if(str3.contains("."))
+							{
+								d=Math.round(Double.parseDouble(str3));
+								sb.append(String.valueOf(df.format(d))+" ML");//1 BTL
+								objStkFlashModel.setDblClosingStock(""+sb.toString());
+							}
+							else
+							{
+								objStkFlashModel.setDblClosingStock(arrObj[2].toString());
+							}
 						}
 						else
 						{
-							objStkFlashModel.setDblClosingStock(arrObj[2].toString());
+							String strML[]=arrObj[2].toString().split("ML");
+							if(strML.length >0)
+							{
+								
+
+								if(strML[0].contains("NOS"))
+								{
+									if(strML[0].contains("."))
+									{
+										String strNOSML[]=strML[0].split("NOS.");
+										{
+											if(strNOSML.length >1)
+											{
+												int intbtlNOSML=Integer.parseInt(String.valueOf(Math.round(Double.parseDouble(strNOSML[1]))));
+												String btlNOSML=String.valueOf(intbtlNOSML);
+												objStkFlashModel.setDblClosingStock(""+strNOSML[0]+" NOS."+btlNOSML+" ML" );
+											}
+											
+										}
+									}
+								}
+								else
+								{
+									if(!arrObj[2].toString().contains("LTR") && !arrObj[2].toString().contains("NOS"))
+									{
+										int bottleML=Integer.parseInt(String.valueOf(Math.round(Double.parseDouble(strML[0]))));
+										String btlML=String.valueOf(bottleML);
+										objStkFlashModel.setDblClosingStock(""+btlML+" ML");
+									}
+								
+								}
+								
+								
+							}
 						}
 					}
-					else
+					catch(Exception ex)
 					{
-						objStkFlashModel.setDblClosingStock(arrObj[2].toString());
+						ex.printStackTrace();
 					}
+
 				}/*
 				String str="1 BTL.200.025 ML";
 				String str1[]=str.split("BTL");
@@ -5756,7 +5799,7 @@ public class clsReportsController {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		String printedOnDate = dtf.format(now);
-		listLOCWiseData.add("rptMISLocationWiseReport_" + dteFromDate + "to" + dteToDate + "_" + userCode);
+		listLOCWiseData.add("rptMISLocationWiseReport_" + fromDate + "to" + toDate + "_" + userCode);
 		List titleData = new ArrayList<>();
 		titleData.add("MIS Location Wise Category Wise Report");
 		listLOCWiseData.add(titleData);
@@ -5804,7 +5847,7 @@ public class clsReportsController {
 		String sqlQuery = " select DISTINCT e.strSGName,c.strProdName,c.strIssueUOM, b.strProdCode,c.strSGCode,f.strGName " 
 						+ " from tblmishd a ,tblmisdtl b,tblproductmaster c ,tbllocationmaster d,tblsubgroupmaster e ,tblgroupmaster f  " 
 						+ " where a.strMISCode=b.strMISCode and a.strLocFrom='" + fromLoc + "' and b.strProdCode=c.strProdCode  " 
-						+ " and a.strLocTo=d.strLocCode and c.strSGCode=e.strSGCode  " + " and date(a.dtMISDate) between '" + fromDate + "' and '" + toDate + "'  "
+						+ " and a.strLocTo=d.strLocCode and c.strSGCode=e.strSGCode  " + " and date(a.dtMISDate) between '" + dteFromDate + "' and '" + dteToDate + "'  "
 						+ " and " + " ( " + strToLocCodes + ") and e.strGCode=f.strGCode and ("+strSubGroupCodes+")"
 						+ " group by b.strProdCode,a.strLocTo " + " order by f.strGName ,e.strSGName ASC, c.strProdName ASC ";
 
@@ -5878,7 +5921,13 @@ public class clsReportsController {
 				
 				for (int i = 0; i < tempToLoc.length; i++)
 				{
-					String sqlSGTot = " select c.strSGCode,e.strSGName,sum(b.dblTotalPrice),d.strLocName,sum(b.dblQty) " + " from tblmishd a ,tblmisdtl b,tblproductmaster c ,tbllocationmaster d,tblsubgroupmaster e " + " where a.strMISCode=b.strMISCode and a.strLocFrom='" + fromLoc + "' and b.strProdCode=c.strProdCode " + " and a.strLocTo=d.strLocCode and c.strSGCode=e.strSGCode and date(a.dtMISDate) " + " between '" + fromDate + "' and '" + toDate + "' and a.strLocTo='" + tempToLoc[i] + "' " + " and e.strSGCode='" + sgCode + "'  " + " group by e.strSGCode,a.strLocTo " + " order by e.strSGName ASC, c.strProdName ASC ";
+					String sqlSGTot = " select c.strSGCode,e.strSGName,sum(b.dblTotalPrice),d.strLocName,sum(b.dblQty) " + " "
+							+ " from tblmishd a ,tblmisdtl b,tblproductmaster c ,tbllocationmaster d,tblsubgroupmaster e " + " where a.strMISCode=b.strMISCode "
+							+ " and a.strLocFrom='" + fromLoc + "' "
+							+ " and b.strProdCode=c.strProdCode " + " "
+							+ " and a.strLocTo=d.strLocCode and c.strSGCode=e.strSGCode and date(a.dtMISDate) " + " "
+					        + " between '" + dteFromDate + "' and '" + dteToDate + "' and a.strLocTo='" + tempToLoc[i] + "' " + " and e.strSGCode='" + sgCode + "'  " + " "
+							+ " group by e.strSGCode,a.strLocTo " + " order by e.strSGName ASC, c.strProdName ASC ";
 
 					List listSGTot = objGlobalFunctionsService.funGetDataList(sqlSGTot, "sql");
 					if (listSGTot.size() != 0)
@@ -5933,7 +5982,7 @@ public class clsReportsController {
 				+ " and b.strProdCode= '" + prodCode + "' " 
 				+ " and a.strLocTo=d.strLocCode and c.strSGCode=e.strSGCode and " 
 				+ " a.strLocTo='" + tempToLoc[i] + "'  " 
-				+ " and date(a.dtMISDate) between '" + fromDate + "' and '" + toDate + "' " 
+				+ " and date(a.dtMISDate) between '" + dteFromDate + "' and '" + dteToDate + "' " 
 				+ " group by b.strProdCode,a.strLocTo " + " order by e.strSGName ASC, c.strProdName ASC ";
 
 				List listlocTot = objGlobalFunctionsService.funGetDataList(sqlloc, "sql");
@@ -5977,7 +6026,10 @@ public class clsReportsController {
 				totList.add("Total");
 				for (int i = 0; i < tempToLoc.length; i++)
 				{
-					String sqlSGTot = " select c.strSGCode,e.strSGName,sum(b.dblTotalPrice),d.strLocName,sum(b.dblQty) " + " from tblmishd a ,tblmisdtl b,tblproductmaster c ,tbllocationmaster d,tblsubgroupmaster e " + " where a.strMISCode=b.strMISCode and a.strLocFrom='" + fromLoc + "' and b.strProdCode=c.strProdCode " + " and a.strLocTo=d.strLocCode and c.strSGCode=e.strSGCode and date(a.dtMISDate) " + " between '" + fromDate + "' and '" + toDate + "' and a.strLocTo='" + tempToLoc[i] + "' " + " and e.strSGCode='" + sgCode + "'  " + " group by e.strSGCode,a.strLocTo  order by e.strSGName ASC, c.strProdName ASC ";
+					String sqlSGTot = " select c.strSGCode,e.strSGName,sum(b.dblTotalPrice),d.strLocName,sum(b.dblQty) " + " from tblmishd a ,tblmisdtl b,tblproductmaster c ,tbllocationmaster d,tblsubgroupmaster e " + " "
+							+ " where a.strMISCode=b.strMISCode and a.strLocFrom='" + fromLoc + "' and b.strProdCode=c.strProdCode " + " "
+							+ " and a.strLocTo=d.strLocCode and c.strSGCode=e.strSGCode and date(a.dtMISDate) " + " between '" + dteFromDate + "' and '" + dteToDate + "'"
+									+ " and a.strLocTo='" + tempToLoc[i] + "' " + " and e.strSGCode='" + sgCode + "'  " + " group by e.strSGCode,a.strLocTo  order by e.strSGName ASC, c.strProdName ASC ";
 
 					List listSGTot = objGlobalFunctionsService.funGetDataList(sqlSGTot, "sql");
 					if (listSGTot.size() != 0)
@@ -6041,7 +6093,10 @@ public class clsReportsController {
 			totList.add("Grand Total");
 			for (int i = 0; i < tempToLoc.length; i++)
 			{
-				String sqlGrandTot = " SELECT c.strSGCode,e.strSGName, SUM(b.dblTotalPrice),d.strLocName,sum(b.dblQty) " + " FROM tblmishd a,tblmisdtl b,tblproductmaster c,tbllocationmaster d,tblsubgroupmaster e " + " WHERE a.strMISCode=b.strMISCode AND a.strLocFrom='" + fromLoc + "' AND b.strProdCode=c.strProdCode AND a.strLocTo=d.strLocCode " + " AND DATE(a.dtMISDate) BETWEEN '" + fromDate + "' and '" + toDate + "' AND a.strLocTo='" + tempToLoc[i] + "' AND e.strSGCode='" + sgCode + "' " + " GROUP BY e.strSGCode,a.strLocTo; ";
+				String sqlGrandTot = " SELECT c.strSGCode,e.strSGName, SUM(b.dblTotalPrice),d.strLocName,sum(b.dblQty) " + " "
+						+ " FROM tblmishd a,tblmisdtl b,tblproductmaster c,tbllocationmaster d,tblsubgroupmaster e " + " WHERE a.strMISCode=b.strMISCode"
+						+ "  AND a.strLocFrom='" + fromLoc + "' AND b.strProdCode=c.strProdCode AND a.strLocTo=d.strLocCode " + " "
+						+ " AND DATE(a.dtMISDate) BETWEEN '" + dteFromDate + "' and '" + dteToDate + "' AND a.strLocTo='" + tempToLoc[i] + "' AND e.strSGCode='" + sgCode + "' " + " GROUP BY e.strSGCode,a.strLocTo; ";
 
 				List listGrandTot = objGlobalFunctionsService.funGetDataList(sqlGrandTot, "sql");
 				if (listGrandTot.size() != 0)

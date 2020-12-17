@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.SimpleDateFormat;
 import com.sanguine.bean.clsProductMasterBean;
 import com.sanguine.crm.service.clsPartyMasterService;
@@ -1181,19 +1182,25 @@ public class clsExcelExportImportController {
 				clsRoomMasterBean objBean = new clsRoomMasterBean(); 
 				HSSFRow row = worksheet.getRow(i++);
 				// Sets the Read data to the model class
+				
 				RowCount = row.getRowNum();
+               
 				
-				strRoomName = row.getCell(0).toString();
-				objModel = new clsRoomMasterModel();
-							
-				hm.put(row.getCell(1).toString(),Double.parseDouble(row.getCell(2).toString()));
-				hmRoom.put(row.getCell(0).toString(), row.getCell(1).toString());
+				if(row.getCell(0) !=null)
+				{
+					strRoomName = row.getCell(0).toString();
+					objModel = new clsRoomMasterModel();
+								
+					hm.put(row.getCell(1).toString(),Double.parseDouble(row.getCell(2).toString()));
+					hmRoom.put(row.getCell(0).toString(), row.getCell(1).toString());
+					
+					objBean.setStrRoomDesc(strRoomName);
+					objBean.setStrRoomTypeDesc(row.getCell(1).toString());
+					objBean.setDblTariff(Double.parseDouble(row.getCell(2).toString()));
+					
+					listRoom.add(objBean);
+				}
 				
-				objBean.setStrRoomDesc(strRoomName);
-				objBean.setStrRoomTypeDesc(row.getCell(1).toString());
-				objBean.setDblTariff(Double.parseDouble(row.getCell(2).toString()));
-				
-				listRoom.add(objBean);
 			}
 			
 			funCheckRoomType(hm,clientCode,userCode);
@@ -1322,7 +1329,7 @@ public class clsExcelExportImportController {
 		
 		 for (Map.Entry<String,Double> entry : hm.entrySet())  {
 			 
-		 
+		 DecimalFormat decformat=new DecimalFormat("#.##");
 		
 		String sqlCheck = "select  a.strRoomTypeCode,a.strRoomTypeDesc,a.dblRoomTerrif,a.strUserCreated,a.strUserEdited,a.dteDateCreated,a.dteDateEdited,a.strClientCode, "
 				+ "a.dblDoubleTariff,a.dblTrippleTariff,ifnull(a.strGuestCapcity,''),ifnull(a.strHsnSac,'') from tblroomtypemaster a where a.strRoomTypeDesc='"+entry.getKey()+"' and a.strClientCode='"+clientCode+"'";
@@ -1339,7 +1346,7 @@ public class clsExcelExportImportController {
 			
 			objRoomTypeMasterModel.setStrRoomTypeCode(arrObj[0].toString());
 			objRoomTypeMasterModel.setStrRoomTypeDesc(entry.getKey());
-			objRoomTypeMasterModel.setDblRoomTerrif(entry.getValue());
+			objRoomTypeMasterModel.setDblRoomTerrif(Double.parseDouble(decformat.format(entry.getValue())));
 			objRoomTypeMasterModel.setStrUserCreated(arrObj[3].toString());
 			objRoomTypeMasterModel.setStrUserEdited(arrObj[4].toString());
 			objRoomTypeMasterModel.setDteDateCreated(arrObj[5].toString());
@@ -1364,7 +1371,7 @@ public class clsExcelExportImportController {
 					
 					objRoomTypeMasterModel.setStrRoomTypeCode(roomTypeCode);
 					objRoomTypeMasterModel.setStrRoomTypeDesc(entry.getKey());
-					objRoomTypeMasterModel.setDblRoomTerrif(entry.getValue());
+					objRoomTypeMasterModel.setDblRoomTerrif(Double.parseDouble(decformat.format(entry.getValue())));
 					objRoomTypeMasterModel.setStrUserCreated(userCode);
 					objRoomTypeMasterModel.setStrUserEdited(userCode);
 					objRoomTypeMasterModel.setDteDateCreated(objGlobalFunctions.funGetCurrentDateTime("yyyy-MM-dd"));
@@ -1467,11 +1474,16 @@ public class clsExcelExportImportController {
 			int i = 1;
 			while (i <= worksheet.getLastRowNum()) {
 				// Creates an object for the Candidate Model
+				
 				clsStkPostingDtlModel PhyStkDtl = new clsStkPostingDtlModel();
 				// Creates an object representing a single row in excel
 				HSSFRow row = worksheet.getRow(i++);
 				// Sets the Read data to the model class
 				RowCount = row.getRowNum();
+				if(RowCount==700)//Above 700 rows are not coming from jsp to controller in pysical stock
+				{
+					break;
+				}
 				prodCode = row.getCell(2).getStringCellValue();
 				Cell c = row.getCell(4);
 				if (c != null && c.getCellType() != 1) {

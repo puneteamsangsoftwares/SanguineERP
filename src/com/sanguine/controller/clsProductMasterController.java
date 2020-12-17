@@ -655,13 +655,17 @@ public class clsProductMasterController {
 				o.flush();
 				o.close();*/
 
-			byte[] imgData = null;
+			    byte[] imgData = null;
 				imgData =objModel.getStrProductImage();
-				response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-				OutputStream o = response.getOutputStream();
-				o.write(imgData);
-				o.flush();
-				o.close();
+				if(imgData != null)
+				{
+					response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+					OutputStream o = response.getOutputStream();
+					o.write(imgData);
+					o.flush();
+					o.close();
+				}
+				
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -793,7 +797,7 @@ public class clsProductMasterController {
 		objModel.setDblReorderLvl(objBean.getDblReorderLvl());
 		objModel.setStrNotInUse(objGlobal.funIfNull(objBean.getStrNotInUse(), "N", "Y"));
 		objModel.setStrExpDate(objGlobal.funIfNull(objBean.getStrExpDate(), "N", "Y"));
-		objModel.setStrLotNo(objGlobal.funIfNull(objBean.getStrRevLevel(), "N", "Y"));
+		objModel.setStrLotNo(objGlobal.funIfNull(objBean.getStrLotNo(), "N", "Y"));
 		objModel.setStrRevLevel(objGlobal.funIfNull(objBean.getStrRevLevel(), "N", "Y"));
 		objModel.setStrSlNo(objGlobal.funIfNull(objBean.getStrSlNo(), "N", "Y"));
 		objModel.setStrForSale(objGlobal.funIfNull(objBean.getStrForSale(), "N", "Y"));

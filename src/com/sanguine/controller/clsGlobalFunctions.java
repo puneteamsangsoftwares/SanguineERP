@@ -140,7 +140,7 @@ public class clsGlobalFunctions {
 	public List listChildNodes1;
 
 	public static String POSWSURL = "http://localhost:8080/prjSanguineWebService";
-	DecimalFormat dfForStock=null;
+	DecimalFormat dfForStock=new DecimalFormat("#.##");
 	static {
 
 		try {
@@ -3209,7 +3209,17 @@ public class clsGlobalFunctions {
 		if (list_DN.size() > 0) {
 			deliveryNoteQty = ((BigDecimal) list_DN.get(0)).doubleValue();
 		}
-
+		sql="select a.intqtydec from tblpropertysetup a where a.strPropertyCode='01' and a.strClientCode='"+clientCode+"'";
+		List list = objGlobalFunctionsService.funGetList(sql, "sql");
+		StringBuilder sb=new StringBuilder();
+		StringBuilder sb1=new StringBuilder();
+		for(int i=0;i<Integer.parseInt(list.get(0).toString());i++)
+				{
+					sb.append("#");
+				}
+		sb1.append("#.");
+		sb1.append(sb);
+		dfForStock=new DecimalFormat(sb1.toString());
 		finalStock =Double.parseDouble(dfForStock.format( Double.parseDouble(dfForStock.format((opStkQty + grnQty + stkTransInQty + stkAdjInQty + misInQty + matReturnInQty + qtyProduced + reciptQty + scGRNQty + salesReturnQty)) )-  Double.parseDouble(dfForStock.format((stkTransOutQty + stkAdjOutQty + misOutQty + matReturnOutQty + purchaseReturnQty + saleQty + issueQty + deliveryNoteQty)))));
 
 		return finalStock;

@@ -18,7 +18,7 @@ public class clsProductBatchDaoImpl implements clsProductBatchDao {
 	private SessionFactory sessionFactory;
 
 	@Override
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public void funSaveBatch(clsBatchHdModel batchModel) {
 		sessionFactory.getCurrentSession().saveOrUpdate(batchModel);
 

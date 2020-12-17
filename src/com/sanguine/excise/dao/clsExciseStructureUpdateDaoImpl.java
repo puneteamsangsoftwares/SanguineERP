@@ -333,7 +333,7 @@ public class clsExciseStructureUpdateDaoImpl implements clsExciseStructureUpdate
 		 * +
 		 * " ('frmGRNSummaryReport', 'GRN Summary Report', 'Receiving Reports', 9, 'R', 85, 6, '1', 'default.png', '1', 1, '1', '1', 'NO', 'NO', 'frmGRNSummaryReport.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
 		 * +
-		 * " ('frmGroupConsumption', 'Group Consumption Report', 'Stores', 7, 'R', 52, 31, '1', 'default.pmg', '1', 1, '1', '1', 'NO', 'NO', 'frmGroupConsumption.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
+		 * " ('frmGroupConsumption', 'Group Consumption Report', 'Stores', 7, 'R', 52, 31, '1', 'default.png', '1', 1, '1', '1', 'NO', 'NO', 'frmGroupConsumption.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
 		 * +
 		 * " ('frmGroupMaster', 'Group Master', 'Master', 8, 'M', 7, 5, '1', 'Group_Master.png', '1', 1, '1', '1', 'NO', 'YES', 'frmGroupMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
 		 * +

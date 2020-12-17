@@ -287,7 +287,8 @@ public class clsProvisionalBillController
 				String sql = "select a.strReservationNo,a.strWalkInNo,count(b.strRoomNo) "
 						+ " from tblcheckinhd a,tblcheckindtl b "
 						+ " where a.strCheckInNo=b.strCheckInNo "
-						+ " and a.strCheckInNo='"+docNo+"' and date(a.dteDepartureDate)>='"+toDateForQuery+"' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' group by a.strCheckInNo";
+						+ " and a.strCheckInNo='"+docNo+"' and date(a.dteDepartureDate)>='"+toDateForQuery+"' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' "
+					    + " group by a.strCheckInNo";
 				List list = objWebPMSUtility.funExecuteQuery(sql, "sql");
 				if(list.size()>0)
 				{

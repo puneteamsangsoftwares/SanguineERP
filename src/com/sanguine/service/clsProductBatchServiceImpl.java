@@ -11,21 +11,21 @@ import com.sanguine.dao.clsProductBatchDao;
 import com.sanguine.model.clsBatchHdModel;
 
 @Service("objBatchProcessService")
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
+@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 public class clsProductBatchServiceImpl implements clsProductBatchService {
 
 	@Autowired
 	private clsProductBatchDao objBatchProcessDao;
 
 	@Override
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public void funSaveOrUpdateBatch(clsBatchHdModel BatchModel) {
 		objBatchProcessDao.funSaveBatch(BatchModel);
 
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public List<clsBatchHdModel> funGetList(String clientCode, String strProdCode) {
 		return objBatchProcessDao.funGetList(clientCode, strProdCode);
 	}

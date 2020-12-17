@@ -50,7 +50,7 @@
 			{
 				window.open(getContextPath()+"/rptProvisionBillPrinting.html?fromDate="+fromDate+"&toDate="+toDate+"&docNo="+billNo+"&against="+against+ "");
 			}else{
-			window.open(getContextPath()+"/rptProvisionBillPrinting.html?fromDate="+fromDate+"&toDate="+toDate+"&docNo="+billNo+"&against="+against+ "");
+			   window.open(getContextPath()+"/rptProvisionBillPrinting.html?fromDate="+fromDate+"&toDate="+toDate+"&docNo="+billNo+"&against="+against+ "");
 		    }	
 			}
 		
@@ -188,6 +188,12 @@
 					  <option value="CheckIn">CheckIn</option>
 				  </select>
 		  </div>
+		<%--   <div class="col-md-1.1"><label>Report Mode</label>
+				  <select id="cmbType">
+				      <option value="Detail">Detail</option>
+					  <option value="Summary">Summary</option>
+				  </select>
+		  </div> --%>
 		</div>
 		
 		<br />

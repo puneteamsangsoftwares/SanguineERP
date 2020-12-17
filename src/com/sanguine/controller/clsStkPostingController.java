@@ -84,7 +84,7 @@ public class clsStkPostingController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-	    binder.setAutoGrowCollectionLimit(100000);
+	    binder.setAutoGrowCollectionLimit(1000000);
 	}
 	/**
 	 * Open Physical Stock Posting Form
@@ -112,7 +112,7 @@ public class clsStkPostingController {
 		clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
 
 		String strCheckPOSSales=objSetup.getStrCheckPOSSales();
-		model.put("strCheckPOSSales", strCheckPOSSales);
+		model.put("strCheckPOSSales", 0);
 		
 		String docCode = "";
 		boolean flagOpenFromAuthorization = true;
@@ -231,6 +231,9 @@ public class clsStkPostingController {
 		}
 		int intt = 0;
 		String stkAdjCode = "";
+		
+		
+		
 		String clientCode = request.getSession().getAttribute("clientCode").toString();
 		String userCode = request.getSession().getAttribute("usercode").toString();
 		String propCode = request.getSession().getAttribute("propertyCode").toString();
@@ -252,7 +255,8 @@ public class clsStkPostingController {
 						ob.setStrProdChar(" ");
 						ob.setStrClientCode(clientCode);
 					    ob.setDblPrice(Double.parseDouble(df.format(ob.getDblPrice())));
-					  //  ob.setDblq(Double.parseDouble(df.format(ob.getDblPrice())));
+			
+					    //  ob.setDblq(Double.parseDouble(df.format(ob.getDblPrice())));
 					    ob.setDblCStock(Double.parseDouble(df.format(ob.getDblCStock())));
 					    ob.setDblActualRate(Double.parseDouble(df.format(ob.getDblActualRate())));
 					    ob.setDblActualValue(Double.parseDouble(df.format(ob.getDblActualValue())));
@@ -312,6 +316,8 @@ public class clsStkPostingController {
 					}
 				}
 			}
+		
+			
 
 			return new ModelAndView("redirect:/frmPhysicalStkPosting.html?saddr=" + urlHits);
 		} else {

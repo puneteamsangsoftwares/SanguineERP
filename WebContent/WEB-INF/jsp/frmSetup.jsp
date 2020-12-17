@@ -45,7 +45,7 @@
 		$("#strUser3_SB").css('visibility','hidden');
 		$("#strUser4_SB").css('visibility','hidden');
 		$("#strUser5_SB").css('visibility','hidden');
-		$('#itemImage').attr('src', getContextPath1()+"/resources/images/company_Logo.png");
+		$('#itemImage').attr('src', getContextPath()+"/resources/images/company_Logo.png");
 		 var property='<%=session.getAttribute("userProperty").toString()%>';
 		 funGetImage();
 //  		 funGetProperty(property);
@@ -1482,6 +1482,12 @@
 									<div class="col-md-2">	
 										<label>Check POS Sales In Physical Post </label>
 										<s:checkbox path="strCheckPOSSales" value="Y"/>
+									</div>
+									
+									<div class="col-md-2"></div>
+									<div class="col-md-2">	
+										<label>Show All Products </label>
+										<s:checkbox path="strShowAllProducts" value="Y"/>
 									</div>
 									
 									

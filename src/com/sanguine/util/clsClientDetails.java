@@ -64,7 +64,6 @@ public class clsClientDetails {
 		try {
 
 			hmClientDtl = new HashMap<String, clsClientDetails>();
-
 			hmClientDtl.put("001.001", clsClientDetails.createClientDetails("001.001", "Quick Bite", dFormat.parse("2015-08-01"), dFormat.parse("2016-08-30")));
 			hmClientDtl.put("001.002", clsClientDetails.createClientDetails("001.002", "Irish House", dFormat.parse("2015-08-01"), dFormat.parse("2016-08-30")));
 			hmClientDtl.put("001.003", clsClientDetails.createClientDetails("001.003", "CONTEMPORARY KITCHENS PVT LTD", dFormat.parse("2015-08-01"), dFormat.parse("2016-08-30")));
@@ -150,7 +149,7 @@ public class clsClientDetails {
 			hmClientDtl.put("184.001", clsClientDetails.createClientDetails("184.001", "BALAJI TRADERS PVT LTD", dFormat.parse("2017-07-03"), dFormat.parse("2020-01-07")));
 			hmClientDtl.put("189.001", clsClientDetails.createClientDetails("189.001", "CLASSIC BANGLES", dFormat.parse("2017-08-31"), dFormat.parse("2018-08-10"))); // for demo
 			hmClientDtl.put("193.001", clsClientDetails.createClientDetails("193.001", "PRECISION FOOD WORKS", dFormat.parse("2017-08-25"), dFormat.parse("2019-09-04")));//renewed on 24-09-2018 for 1 year 
-			hmClientDtl.put("194.001", clsClientDetails.createClientDetails("194.001", "SWIG", dFormat.parse("2017-09-11"), dFormat.parse("2020-10-30"))); // Name
+			hmClientDtl.put("194.001", clsClientDetails.createClientDetails("194.001", "SWIG", dFormat.parse("2017-09-11"), dFormat.parse("2021-10-30"))); // Name
 			hmClientDtl.put("197.001", clsClientDetails.createClientDetails("197.001", "PICCADILY HOTELS PVT LTD", dFormat.parse("2017-09-20"), dFormat.parse("2019-10-20")));// renewed on 31-10-2017 for 1 year till 20-09-2018b renamed  REZBERRY RHINOCERES to Juhu Hotel Pvt Ltd in JPOS
 			hmClientDtl.put("211.001", clsClientDetails.createClientDetails("211.001", "CHEFS CORNER", dFormat.parse("2017-11-29"), dFormat.parse("2020-09-05")));//renewed on 25-06-2019 for 10 days till 09-07-2019//Renewed On 17-05-2019 for 15 days till 31-05-2019// Renewed on 16-04-2019 for 1 month till 16-05-2019//Renewed on 14-03-2019 for 1 month till 16-04-2019//renewed on 15-02-2019 for 1 month till 15-03-2019 //renwed for on emonth on 01-12-2018 till  //renewed  on 30-11-2018 for one month till 30-12-2018  // renewd
 			hmClientDtl.put("217.001", clsClientDetails.createClientDetails("217.001", "BURNT CRUST HOSPITALITY PVT LTD", dFormat.parse("2017-12-13"), dFormat.parse("2020-01-03")));//renewed on 26-11-2108 (EndDate 03-12-2018)for one month till 03-01-2018//renewed on 25-10-2018 for one month 03-10-018(from date is 03-11-2018)//renewed on 03-07-2018 for 1 month till 03-08-2018// eenewed for one month till 05-10-2018
@@ -165,7 +164,7 @@ public class clsClientDetails {
 			hmClientDtl.put("233.003", clsClientDetails.createClientDetails("233.003", "SPJ HOSPITALITY AND HOTELS", dFormat.parse("2018-12-21"), dFormat.parse("2020-08-21")));//1yr till 21-8-20//on 20-05 for 3 months //Renewed on 12-02-2019 till 20-05-2019
 			hmClientDtl.put("236.001", clsClientDetails.createClientDetails("236.001", "JAMUN HOSPITALITY CONSULTANCY LLP", dFormat.parse("2018-03-16"), dFormat.parse("2018-06-18")));
 			hmClientDtl.put("242.001", clsClientDetails.createClientDetails("242.001", "SRINATHJIS CUISINES PVT LTD", dFormat.parse("2018-04-03"), dFormat.parse("2018-08-18")));//renewed on 01-06-2018 for 1 month till 30-06-2018// Contact No-022-23755444 / 666  Email-Id-srinathjiscuisine@gmail.com
-			hmClientDtl.put("240.001", clsClientDetails.createClientDetails("240.001", "THOUSAND OAKS", dFormat.parse("2018-04-12"), dFormat.parse("2020-11-17")));//renewed on 06-11-2020 for 10 days till 17-11-2020//renewed on 22-05-2019 for 1 year//renewed on 01-12-2018 for one month till 01-01-2019//renewed on 20-08-2018 for 1 week till 27-08-2018 //renewed on 13-06-2018 for 1 month// Mr. Sanjeet Lamba", 2417 East Street (G T Road),Camp, Pune 411001. Tel: (020) 2634 3194 / 2634 5598
+			hmClientDtl.put("240.001", clsClientDetails.createClientDetails("240.001", "THOUSAND OAKS", dFormat.parse("2018-04-12"), dFormat.parse("2021-04-12")));//renewed on 06-11-2020 for 10 days till 17-11-2020//renewed on 22-05-2019 for 1 year//renewed on 01-12-2018 for one month till 01-01-2019//renewed on 20-08-2018 for 1 week till 27-08-2018 //renewed on 13-06-2018 for 1 month// Mr. Sanjeet Lamba", 2417 East Street (G T Road),Camp, Pune 411001. Tel: (020) 2634 3194 / 2634 5598
 			hmClientDtl.put("241.001", clsClientDetails.createClientDetails("241.001", "LALITHA HOSPITALITY PVT LTD", dFormat.parse("2018-04-06"), dFormat.parse("2019-04-06")));//(MUMBAI)//release on 06-05-2018 for 1 month till 06-06-2018 for 4 SPOS ,6 APOS,1 WebStocks,No SMS Pack.", "Mr.Santosh Shetty", "+919769214553", "Santoshshetty_0173@gmail.com"
 			hmClientDtl.put("244.001", clsClientDetails.createClientDetails("244.001", "VIVIDH HOSPITALITY", dFormat.parse("2018-04-17"), dFormat.parse("2019-04-17")));//release on 17-04-2018 for 1 year till 17-04-22019
 			hmClientDtl.put("245.001", clsClientDetails.createClientDetails("245.001", "MEDUSA", dFormat.parse("2018-04-19"), dFormat.parse("2020-09-14")));//LSD name changed to medusa//renewed on 30-05-2018 for 1 year till 19-04-2019//release on 19-04-2018 for 1 month till 19-05-2018
@@ -179,7 +178,7 @@ public class clsClientDetails {
 			hmClientDtl.put("262.001", clsClientDetails.createClientDetails("262.001", "COCO JAMBO", dFormat.parse("2018-09-08"), dFormat.parse("2020-09-08")));//(AFRICA)//Renewed on 18-09-2019 foe 1 year till 08-09-2020//Renewed on 07-09-2019  till 18-09-2019 //released on 08-09-2018 for 1 year till 08-09-2019 
 			hmClientDtl.put("263.001", clsClientDetails.createClientDetails("263.001", "FIESTA CLUB", dFormat.parse("2018-09-08"), dFormat.parse("2020-09-08")));//(AFRICA)//Renewed on 18-09-2019 foe 1 year till 08-09-2020//Renewed on 07-09-2019  till 18-09-2019  //released on 08-09-2018 for 1 year till 08-09-2019hmClientDtl.put("263.001", clsClientDetails.createClientDetails("263.001", "FIESTA CLUB", dFormat.parse("2018-09-08"), dFormat.parse("2019-09-08")));//(AFRICA)//released on 08-09-2018 for 1 year till 08-09-2019
 			// 264-266 used for POS
-			hmClientDtl.put("267.001", clsClientDetails.createClientDetails("267.001", "AGA HOSPITALITY PVT LTD", dFormat.parse("2018-10-04"), dFormat.parse("2019-12-25")));//Renewed on 12-03-2019 for 1 year till 25-12-2019 //renewed on 06-12-2018 for one month till 06-01-2019// One month stsrt date 2018-10-04  end date Office	AddressB-304,	Dynasty	Business	Park,J.B.Nagar,Andheri	Kurla	Road,	Andheri	East	Mumbai-400059. Contact	Person(s)-Mr.Sandesh,Contact	Number(s)9987994188  Email	ID Sandesh.aga@gmail.com //MUBASHIR//Renew  on 04-05-2018
+			hmClientDtl.put("267.001", clsClientDetails.createClientDetails("267.001", "THE MASTER CLOCK & WATCH WORKS PVT LTD", dFormat.parse("2018-10-04"), dFormat.parse("2021-12-14")));//Renewed on 12-03-2019 for 1 year till 25-12-2019 //renewed on 06-12-2018 for one month till 06-01-2019// One month stsrt date 2018-10-04  end date Office	AddressB-304,	Dynasty	Business	Park,J.B.Nagar,Andheri	Kurla	Road,	Andheri	East	Mumbai-400059. Contact	Person(s)-Mr.Sandesh,Contact	Number(s)9987994188  Email	ID Sandesh.aga@gmail.com //MUBASHIR//Renew  on 04-05-2018
 			
 			hmClientDtl.put("268.001", clsClientDetails.createClientDetails("268.001", "ROVE HOSPITALITY", dFormat.parse("2018-10-04"), dFormat.parse("2020-10-15")));//Renewed on 16-10-2019 for one year till 2020-10-15//(Pune)//renewed on 23-11-2018 for 1 year till 15-10-2019 "Amol Gargote", "9545160160", "amololive6@gmail.com", 
 			
@@ -187,7 +186,7 @@ public class clsClientDetails {
 			hmClientDtl.put("270.001", clsClientDetails.createClientDetails("270.001", "Hotel Troy Ltd", dFormat.parse("2018-10-17"), dFormat.parse("2019-12-18")));//Kenya Client renewed on 17-10-2018 for one month 17-11-2018 "Mr Chris Karugu", "0705244273", "info@hotel-troy.com",
 			
 			
-			hmClientDtl.put("273.001", clsClientDetails.createClientDetails("273.001", "SHEESHA SKY LOUNGE", dFormat.parse("2018-10-25"), dFormat.parse("2019-10-24")));//released on 25-10-2018 for 1 Year till 24-10-2019 for 1 SPOS ,0 APOS,0 WebStocks,No SMS Pack,No Bill Deletion.", "Mr.Alam", "9920939306", "alam.sky@gmail.com");	
+			hmClientDtl.put("273.001", clsClientDetails.createClientDetails("273.001", "SHEESHA SKY LOUNGE", dFormat.parse("2018-10-25"), dFormat.parse("2021-10-24")));//released on 25-10-2018 for 1 Year till 24-10-2019 for 1 SPOS ,0 APOS,0 WebStocks,No SMS Pack,No Bill Deletion.", "Mr.Alam", "9920939306", "alam.sky@gmail.com");	
 		
 			hmClientDtl.put("277.001", clsClientDetails.createClientDetails("277.001", "Kapila Garden Restaurant", dFormat.parse("2018-11-21"), dFormat.parse("2020-04-01")));//Renewed on 01-04-2019 for 1 year till 2020-04-01//Renewed on 16-03-19 for 16 days till 01-04-2019//Renewed on 15-02-2019 for 1 months till 15-03-2019//Renewed on 01-02-2019 for 15 days till 15-02-2019//renewed on 10-01-2019 till 31-01-2019//relased on 21-11-2018 for 1 month till 2018-12-21
 			
@@ -218,20 +217,20 @@ public class clsClientDetails {
 			hmClientDtl.put("329.001", clsClientDetails.createClientDetails("329.001", "DASMEN FOODS AND BEVERAGES PVT LTD", dFormat.parse("2019-03-11"), dFormat.parse("2020-03-11")));//"(Mumbai)//Released on 17-08-2019 for 1 Year till 11-03-2020 for 3 SPOS ,20 APOS,WebStocks(Stocks,CRM),No SMS Pack,No Bill Deletion.", "Mr.KIRAN", "9916271380", "infofoodpath@gmail.com", "No Bill Deletion","santesting"
 			hmClientDtl.put("331.001", clsClientDetails.createClientDetails("331.001", "DMPRS HOSPITALITY LLP", dFormat.parse("2019-09-09"), dFormat.parse("2019-12-08")));//renewed on 09-11-2019 for one month till 2019-12-08//(Mumbai)//Released on 09-09-2019 for 1 MONTH till 08-10-2019 for 8 SPOS ,4 APOS, WebStocks,No SMS Pack,No Bill Deletion.", "Mr.RAVI", "7738332591", "bythebae.versova@gmail.com", "No Bill Deletion","santesting"));
 			hmClientDtl.put("336.001", clsClientDetails.createClientDetails("336.001", "SHAH SPORTS ACADEMY PRIVATE LIMITED", dFormat.parse("2019-10-05"), dFormat.parse("2020-12-07")));//renewed on 07-11-2020 till 07-12-2020//renewed on 06-02-2020 for 1 momnth //renewed on 05-11-2019 for one month till 05-12-2019//renewed on 06-12-2019 for one month till 05-1-2020
-			hmClientDtl.put("337.001", clsClientDetails.createClientDetails("337.001", "Symbiosis University", dFormat.parse("2019-10-08"), dFormat.parse("2020-04-13")));//Extended licence for month from 11-3-2020 to 13-4-2020 //Abhijit Rege  9112299043 headhospitality@symbiosis.ac.in regeabhijit@gmail.com
-			hmClientDtl.put("341.001", clsClientDetails.createClientDetails("341.001", "THE FLOUR WORKS", dFormat.parse("2019-12-01"), dFormat.parse("2020-11-17")));//(Mumbai)//Released on 09-12-2019 for 1 year till 09-12-2020
+			hmClientDtl.put("337.001", clsClientDetails.createClientDetails("337.001", "Symbiosis University", dFormat.parse("2019-10-08"), dFormat.parse("2021-04-13")));//Extended licence for month from 11-3-2020 to 13-4-2020 //Abhijit Rege  9112299043 headhospitality@symbiosis.ac.in regeabhijit@gmail.com
+			hmClientDtl.put("341.001", clsClientDetails.createClientDetails("341.001", "THE FLOUR WORKS", dFormat.parse("2019-12-01"), dFormat.parse("2020-12-21")));//(Mumbai)//Released on 09-12-2019 for 1 year till 09-12-2020
 			hmClientDtl.put("343.001", clsClientDetails.createClientDetails("343.001", "RASHI COMFORTS", dFormat.parse("2020-02-11"), dFormat.parse("2020-03-11")));//(Benglore)
 			hmClientDtl.put("338.001", clsClientDetails.createClientDetails("338.001", "ELEPHANT & CO", dFormat.parse("2019-10-22"), dFormat.parse("2019-12-08")));//(Pune)//Released on 22-10-2019 for 1 month till 22-11-2019 for 2 SPOS ,5 APOS,WebStocks,No SMS Pack,No Bill Deletion.", "ANUJ SOLANKI", "9819657210", "anujsolanki@gmail.com", "No Bill Deletion","santesting","2","PUNE","50K","10K"
 			hmClientDtl.put("344.001", clsClientDetails.createClientDetails("344.001", "THE GLOBAL ADDA", dFormat.parse("2019-12-09"), dFormat.parse("2020-12-09")));//(Mumbai)//Released on 09-12-2019 for 1 year till 09-12-2020
 			hmClientDtl.put("345.001", clsClientDetails.createClientDetails("345.001", "YOGI RESORTS", dFormat.parse("2019-12-10"), dFormat.parse("2020-03-20")));//Renewed on 11-02-2020 for 1 month till 09-03-2020//Created Licence On 10-12-2019 to 10-02-2020
-			hmClientDtl.put("346.001", clsClientDetails.createClientDetails("346.001", "MNV HOSPITALITY LLP", dFormat.parse("2020-02-01"), dFormat.parse("2021-02-01")));//(Mumbai)//Released on 04-02-2020 for 1 month till 10-03-2020
-			
-			
+			hmClientDtl.put("346.001", clsClientDetails.createClientDetails("346.001", "MNV HOSPITALITY LLP", dFormat.parse("2020-02-01"), dFormat.parse("2021-12-10")));//(Mumbai)//Released on 04-02-2020 for 1 month till 10-03-2020
 			hmClientDtl.put("359.001", clsClientDetails.createClientDetails("359.001", "Hotel Demo", dFormat.parse("2020-03-27"), dFormat.parse("2023-03-27")));//Generated on 2020-03-27 for 3 year till 2023-03-27 as per swapnil said
 			hmClientDtl.put("361.001", clsClientDetails.createClientDetails("361.001", "TASTY KORNER", dFormat.parse("2020-09-23"), dFormat.parse("2021-09-23")));//
-			hmClientDtl.put("365.001", clsClientDetails.createClientDetails("365.001", "TMF HOSPITALITY LLP", dFormat.parse("2020-07-27"), dFormat.parse("2020-11-25")));//(Mumbai)//Released on 27-07-2020 for 3 month till 27-10-2020
+			hmClientDtl.put("365.001", clsClientDetails.createClientDetails("365.001", "TMF HOSPITALITY LLP", dFormat.parse("2020-07-27"), dFormat.parse("2020-12-20")));//(Mumbai)//Released on 27-07-2020 for 3 month till 27-10-2020
 			hmClientDtl.put("374.001", clsClientDetails.createClientDetails("374.001", "DVD FOODS LLP", dFormat.parse("2020-11-05"), dFormat.parse("2020-12-05")));//(Mumbai)//Released on 05-11-2020 for 1 month till 05-12-2020
-			
+			hmClientDtl.put("376.001", clsClientDetails.createClientDetails("376.001", "METRO BAKERY", dFormat.parse("2020-07-27"), dFormat.parse("2020-11-31")));
+			hmClientDtl.put("378.001", clsClientDetails.createClientDetails("378.001", "CERATEC", dFormat.parse("2020-12-14"), dFormat.parse("2021-01-14")));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

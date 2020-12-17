@@ -95,12 +95,7 @@ public class clsDayEndController {
 			urlHits = "1";
 		}
 		model.put("urlHits", urlHits);
-
-		Date dt = new Date();
-		String PMSDate = request.getSession().getAttribute("PMSDate").toString();
-		// String
-		// PMSStartDay=request.getSession().getAttribute("PMSStartDay").toString();
-		model.put("PMSDate", objGlobal.funGetDate("yyyy-MM-dd", PMSDate));
+		model.put("PMSDate", request.getSession().getAttribute("PMSDate").toString());
 		model.put("POSData", "");
 		model.put("POSDayStart", "");
 		if ("2".equalsIgnoreCase(urlHits)) {
@@ -126,6 +121,8 @@ public class clsDayEndController {
 		String propCode = req.getSession().getAttribute("propertyCode").toString();
 		String strTransactionType = "Day End";
 		// Check POS Day End Table in PMS
+		
+		 objBean.setDtePMSDate(objGlobal.funGetDate("yyyy-MM-dd", objBean.getDtePMSDate()));
 		
 		String[] arrSpDate = objBean.getDtePMSDate().split("-");
 		// Date dtNextDate=new

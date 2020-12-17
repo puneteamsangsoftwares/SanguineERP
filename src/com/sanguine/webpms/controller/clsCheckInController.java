@@ -70,6 +70,8 @@ import com.sanguine.webpms.service.clsReservationService;
 import com.sanguine.webpms.service.clsRoomMasterService;
 import com.sanguine.webpms.service.clsWalkinService;
 
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -103,6 +105,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import sun.misc.BASE64Encoder;
 
 @Controller
@@ -178,6 +181,10 @@ public class clsCheckInController {
 	@Autowired
 	private clsPMSGroupBookingService objPMSGroupBookingService;
 	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    binder.setAutoGrowCollectionLimit(1000000);
+	}
 	// Open CheckIn
 	@RequestMapping(value = "/frmCheckIn", method = RequestMethod.GET)
 	public ModelAndView funOpenForm(Map<String, Object> model, HttpServletRequest request) {
@@ -1467,7 +1474,7 @@ public class clsCheckInController {
 			listRoomTerrifDocNo.add(docNo);
 			if(Double.valueOf(arrObjRoom[7].toString())>0)
 			{   
-				dblRoomRate=Double.valueOf(arrObjRoom[7].toString())/2;
+				dblRoomRate=Double.valueOf(arrObjRoom[7].toString());
 				objPostRoomTerrifBean = new clsPostRoomTerrifBean();
 				objPostRoomTerrifBean.setStrFolioNo(arrObjRoom[0].toString());
 				objPostRoomTerrifBean.setStrRoomNo(arrObjRoom[1].toString());

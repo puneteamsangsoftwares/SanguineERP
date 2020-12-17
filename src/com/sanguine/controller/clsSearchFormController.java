@@ -1527,7 +1527,8 @@ public class clsSearchFormController {
 
 			case "BatchHelpForMIS": {
 				columnNames = "a.strProdCode,b.strProdName,a.strRemarks";
-				tableName = "select a.strProdCode,b.strProdName,a.strRemarks from tblmisdtl a ,tblproductmaster b where a.strProdCode=b.strProdCode and " + " a.strMISCode='" + strMisCode + "' and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' ";
+				tableName = "select a.strProdCode,b.strProdName,a.strRemarks from tblmisdtl a ,tblproductmaster b where a.strProdCode=b.strProdCode and " + " a.strMISCode='" + strMisCode + "' and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' "
+						+ " and a.strProdCode in (select d.strProdCode FROM tblbatchhd d ) ";
 				listColumnNames = "Product Code,Product Name,Remarks";
 				idColumnName = "a.strProdCode";
 				flgQuerySelection = true;
@@ -1561,7 +1562,12 @@ public class clsSearchFormController {
 				} else {
 					tableName = tableName + "  where   ";
 				}
-				tableName = tableName + "  a.strSGCode=c.strSGCode and c.strGCode=d.strGCode and a.strNotInUse='N' " + " and a.strClientCode='" + clientCode + "'  and c.strClientCode='" + clientCode + "' and d.strClientCode='" + clientCode + "'";
+				tableName = tableName + "  a.strSGCode=c.strSGCode and c.strGCode=d.strGCode and a.strNotInUse='N' " + " and a.strClientCode='" + clientCode + "'  and c.strClientCode='" + clientCode + "' and d.strClientCode='" + clientCode + "' ";
+				
+				if(objSetup.getStrShowAllProducts().equalsIgnoreCase("N"))
+				{
+					tableName += "  and a.strProdType='Procured' ";
+				}
 				listColumnNames = "Product Code,Product Name,Sub Group,Group,UOM,Product Type,Code,Specification,Cal Amt On" + ",Class,Non Stockable,PartNo";
 				idColumnName = "a.strProdCode";
 				searchFormTitle = "Product Master";
@@ -1663,7 +1669,11 @@ public class clsSearchFormController {
 				} else {
 					tableName = tableName + "  where   ";
 				}
-				tableName = tableName + "  a.strSGCode=c.strSGCode and c.strGCode=d.strGCode and a.strNotInUse='N' " + " and a.strProdType='Procured' and a.strClientCode='" + clientCode + "'  and c.strClientCode='" + clientCode + "' and d.strClientCode='" + clientCode + "'";
+				tableName = tableName + "  a.strSGCode=c.strSGCode and c.strGCode=d.strGCode and a.strNotInUse='N' " + "  and a.strClientCode='" + clientCode + "'  and c.strClientCode='" + clientCode + "' and d.strClientCode='" + clientCode + "'";
+				if(objSetup.getStrShowAllProducts().equalsIgnoreCase("N"))
+				{
+					tableName += "  and a.strProdType='Procured' ";
+				}
 				listColumnNames = "Product Code,Product Name,Sub Group,Group,UOM,Product Type,Specification,Cal Amt On" + ",Class,Non Stockable,a.strPartNo";
 				idColumnName = "a.strProdCode";
 				searchFormTitle = "Product Master";
@@ -4531,7 +4541,12 @@ public class clsSearchFormController {
 			} else {
 				tableName = tableName + "  where   ";
 			}
-			tableName = tableName + "  a.strSGCode=c.strSGCode and c.strGCode=d.strGCode and a.strNotInUse='N' and a.strProdType='Procured' " + " and a.strClientCode='" + clientCode + "'  and c.strClientCode='" + clientCode + "' and d.strClientCode='" + clientCode + "'";
+			tableName = tableName + "  a.strSGCode=c.strSGCode and c.strGCode=d.strGCode and a.strNotInUse='N'  " + " and a.strClientCode='" + clientCode + "'  and c.strClientCode='" + clientCode + "' and d.strClientCode='" + clientCode + "'";			
+			if(objSetup.getStrShowAllProducts().equalsIgnoreCase("N"))
+			{
+				tableName += "  and a.strProdType='Procured' ";
+			}
+			
 			listColumnNames = "Product Code,Product Name,Sub Group,Group,UOM,Product Type,Code,Specification,Cal Amt On" + ",Class,Non Stockable,PartNo";
 			idColumnName = "a.strProdCode";
 			searchFormTitle = "Product Master";

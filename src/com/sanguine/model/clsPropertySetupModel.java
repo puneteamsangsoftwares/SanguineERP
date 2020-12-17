@@ -259,6 +259,9 @@ public class clsPropertySetupModel extends clsBaseModel implements Serializable 
 	@Column(name = "strCheckPOSSales", columnDefinition = "VARCHAR(1) default 'N'")
 	private String strCheckPOSSales;
 	
+	@Column(name = "strShowAllProducts", columnDefinition = "VARCHAR(1) default 'N'")
+	private String strShowAllProducts;
+	
 	
 	// SMS setUp Tab End
 
@@ -1296,6 +1299,14 @@ public class clsPropertySetupModel extends clsBaseModel implements Serializable 
 
 	public void setStrCheckPOSSales(String strCheckPOSSales) {
 		this.strCheckPOSSales = strCheckPOSSales;
+	}
+
+	public String getStrShowAllProducts() {
+		return strShowAllProducts;
+	}
+
+	public void setStrShowAllProducts(String strShowAllProducts) {
+		this.strShowAllProducts = strShowAllProducts;
 	}
 	
 

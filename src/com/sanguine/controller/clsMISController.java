@@ -2,6 +2,7 @@ package com.sanguine.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -255,6 +256,9 @@ public class clsMISController {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private clsMISHdModel funPrepareModelHd(clsMISBean misHdBean, HttpServletRequest req) {
+		
+		DecimalFormat df=new DecimalFormat("#.##");
+
 		String userCode = req.getSession().getAttribute("usercode").toString();
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		boolean res = false;
@@ -327,10 +331,12 @@ public class clsMISController {
 					dblActualProductCost=  objGlobalFunctions.funGetChildProduct(objModel.getStrProdType(),clientCode,"",Obj.getStrProdCode(),finalWeight,0);
 				}
 				if(Obj.getDblUnitPrice()==0){
-					Obj.setDblUnitPrice(dblActualProductCost);
-					Obj.setDblTotalPrice(dblActualProductCost * (Obj.getDblQty() / issueConversion));
+					Obj.setDblUnitPrice( Double.parseDouble(df.format(dblActualProductCost)));
+					Obj.setDblTotalPrice ( Double.parseDouble(df.format(dblActualProductCost * (Obj.getDblQty() / issueConversion))));
 				}
-				Obj.setDblQty(Obj.getDblQty() / issueConversion);
+				Obj.setDblQty( Double.parseDouble(df.format(Obj.getDblQty() / issueConversion)));
+				Obj.setDblUnitPrice(Double.parseDouble(df.format(Obj.getDblUnitPrice())));
+				Obj.setDblTotalPrice(Double.parseDouble(df.format(Obj.getDblTotalPrice())));
 				// /////////////
 			}
 		}
@@ -414,8 +420,13 @@ public class clsMISController {
 	public @ResponseBody List funOpenHelpMISforMR(HttpServletRequest req) {
 		String strLocFrom = req.getParameter("strLocFrom").toString();
 		String strLocTo = req.getParameter("strLocTo").toString();
+		String fromDate = req.getParameter("fromDate").toString();
+		String toDate = req.getParameter("toDate").toString();
+		String strFromDate=objGlobalFunctions.funGetDate("yyyy-MM-dd", fromDate);
+		String strToDate=objGlobalFunctions.funGetDate("yyyy-MM-dd", toDate);
+
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
-		return objMISService.funMISforMRDetails(strLocFrom, strLocTo, clientCode);
+		return objMISService.funMISforMRDetails(strLocFrom, strLocTo, clientCode,strFromDate,strToDate);
 	}
 
 	/**

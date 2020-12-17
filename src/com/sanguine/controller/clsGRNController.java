@@ -624,20 +624,17 @@ public class clsGRNController {
 								}
 						}
 						ob.setStrClientCode(clientCode);
-						ob.setDblDiscount(dblDiscount*currValue);
-						ob.setDblRate(ob.getDblRate() * currValue);
-						ob.setDblTax(ob.getDblTax() * currValue);
+						ob.setDblDiscount(Double.parseDouble(df.format(dblDiscount*currValue)));
+						ob.setDblRate(Double.parseDouble(df.format(ob.getDblRate() * currValue)));
+						ob.setDblTax(Double.parseDouble(df.format(ob.getDblTax() * currValue)));
 						ob.setDblTaxableAmt(Double.parseDouble(dff.format(taxableAmt * currValue)));
 						ob.setDblTaxAmt(Double.parseDouble(dff.format(taxAmt * currValue)));
-						
 						ob.setDblUnitPrice(ob.getDblUnitPrice() * currValue);
 						ob.setDblFreeQty(ob.getDblFreeQty());
 						
 						//save grn dtl
-						objGRNService.funAddUpdateDtl(ob);
-						
+						objGRNService.funAddUpdateDtl(ob);						
 						clsProductMasterModel objModel = objProductMasterService.funGetObject(ob.getStrProdCode(), clientCode);
-
 						if (objSetUp.getStrMultiCurrency().equalsIgnoreCase("N")) {
 							if (objSetUp.getStrWeightedAvgCal().equals("Property Wise")) {
 	// property wise rate save

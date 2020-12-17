@@ -61,9 +61,9 @@ public class clsMISServiceImpl implements clsMISService {
 	}
 
 	@Override
-	public List funMISforMRDetails(String strLocFrom, String strLocTo, String strClientCode) {
+	public List funMISforMRDetails(String strLocFrom, String strLocTo, String strClientCode,String strFromDate,String strToDate) {
 
-		return objMISDao.funMISforMRDetails(strLocFrom, strLocTo, strClientCode);
+		return objMISDao.funMISforMRDetails(strLocFrom, strLocTo, strClientCode,strFromDate,strToDate);
 	}
 
 	@Override

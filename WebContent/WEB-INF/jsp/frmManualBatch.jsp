@@ -61,9 +61,9 @@
 		{
 			transactionName="ProdBatchCode";
 			if(document.all("txtProdCode."+RowNo).value!="")
-				{
-					prodcode=document.all("txtProdCode."+RowNo).value;
-				}
+			{
+				prodcode=document.all("txtProdCode."+RowNo).value;
+			}
 			
 		}
 	//	window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=&prodCode="+prodcode,"","dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;")
@@ -80,19 +80,19 @@
 		var prodcode="";
 		var strMISCode=$("#txtMISCode").val();
 		if("ProdBatchCode"==transactionName)
+		{
+			if($("#txtProdcode").val()!="")
 			{
-				if($("#txtProdcode").val()!="")
-					{
-						prodcode=$("#txtProdcode").val();
-					}
-				else
-					{
-						alert("Please Select Product");
-						$("#txtProdcode").focus();
-						return false;
-					}
-				
+				prodcode=$("#txtProdcode").val();
 			}
+			else
+			{
+				alert("Please Select Product");
+				$("#txtProdcode").focus();
+				return false;
+			}
+			
+		}
 		
 		//	window.showModalDialog("searchform.html?formname="+transactionName+"&searchText=&prodCode="+prodcode+"&MISCode="+strMISCode,"","dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;");
 		window.open("searchform.html?formname="+transactionName+"&searchText=&prodCode="+prodcode+"&MISCode="+strMISCode,"","dialogHeight:600px;dialogWidth:600px;dialogLeft:400px;");
@@ -123,35 +123,35 @@
 	**/
 	function funGetMISProductData(code)
 	{
-	var searchUrl="";		
-	searchUrl=getContextPath()+"/loadProductMasterData.html?prodCode="+code;
-	$.ajax({
-	        type: "GET",
-	        url: searchUrl,
-		    dataType: "json",			   
-		    success: function(response)
-		    {
-		    	if('Invalid Code' == response.strProdCode){
-		    		alert('Invalid Product Code');
-			    	$("#txtProdcode").val('');
+		var searchUrl="";		
+		searchUrl=getContextPath()+"/loadProductMasterData.html?prodCode="+code;
+		$.ajax({
+		        type: "GET",
+		        url: searchUrl,
+			    dataType: "json",			   
+			    success: function(response)
+			    {
+			    	if('Invalid Code' == response.strProdCode){
+			    		alert('Invalid Product Code');
+				    	$("#txtProdcode").val('');
+				    	$("#spProdName").text('');
+				    	$("#txtProdCode").focus();
+			    	}else
+			    	{
+			    		
+				    	$("#txtProdcode").val(response.strProdCode);
+				    	$("#spProdName").text(response.strProdName);
+				    	document.all("txtBatchCode").focus();
+			    	}
+			    },
+				error: function(e)
+			    {
+			       	alert('Invalid Product Code');
+			       	$("#txtProdCode").val('');
 			    	$("#spProdName").text('');
-			    	$("#txtProdCode").focus();
-		    	}else
-		    	{
-		    		
-			    	$("#txtProdcode").val(response.strProdCode);
-			    	$("#spProdName").text(response.strProdName);
-			    	document.all("txtBatchCode").focus();
-		    	}
-		    },
-			error: function(e)
-		    {
-		       	alert('Invalid Product Code');
-		       	$("#txtProdCode").val('');
-		    	$("#spProdName").text('');
-		    	document.all("txtProdCode").focus();
-		    }
-	      });
+			    	document.all("txtProdCode").focus();
+			    }
+		      });
 	}
 	
 	/**
@@ -208,13 +208,13 @@
 			    dataType: "json",
 			    success: function(response)
 			    {
-			    	document.all("txtBatchCode."+RowNo).value=code;
-			    	document.all("txtExpiryDate."+RowNo).value=response.dtExpiryDate ;
-			    	document.all("txtManuBatchCode."+RowNo).value=response.strManuBatchCode;
-			    	document.all("txtBatchQty."+RowNo).value=(response.dblQty).toFixed(maxQuantityDecimalPlaceLimit);
-			    	var dblMISQty=document.all("txtQty."+RowNo).value;
+			    	document.getElementById("txtBatchCode."+RowNo).value=code;
+			    	document.getElementById("txtExpiryDate."+RowNo).value=response.dtExpiryDate ;
+			    	document.getElementById("txtManuBatchCode."+RowNo).value=response.strManuBatchCode;
+			    	document.getElementById("txtBatchQty."+RowNo).value=(response.dblQty).toFixed(maxQuantityDecimalPlaceLimit);
+			    	var dblMISQty= document.getElementById("txtQty."+RowNo).value;
 			    	var balQty=parseFloat(response.dblQty)-parseFloat(dblMISQty);
-			    	document.all("txtBalQty."+RowNo).value=balQty.toFixed(maxQuantityDecimalPlaceLimit);
+			    	document.getElementById("txtBalQty."+RowNo).value=balQty.toFixed(maxQuantityDecimalPlaceLimit);
 			    },
 			    error: function(jqXHR, exception) {
 		            if (jqXHR.status === 0) {
@@ -285,7 +285,8 @@
 		var strProdName=$("#spProdName").text();
 	    var dblProdQty = $("#txtQty").val();
 	    var dbBatchQty = $("#txtBatchQty").val();
-	    var dblBalQty=0;
+	    var dblBalQty= dbBatchQty - dblProdQty;
+	    
 	    var dtExpDate=$("#dtExpDate").val();
 	    var strBatchCode=$("#txtBatchCode").val();
 	    var strManuCode=$("#txtManuCode").val();
@@ -309,10 +310,11 @@
 	/**
 	 * 	Validation Check Issue Qty 
 	**/
+	var index=0;
 	function funCheckIssueQty(object)
 	{
 		
-		var index=object.parentNode.parentNode.rowIndex;
+		index=object.parentNode.parentNode.rowIndex;
 		var dblMISQty=document.all("txtQty."+index).value;
 		var dblBatchQty=document.all("txtBatchQty."+index).value;
 		if(dblBatchQty!=0)

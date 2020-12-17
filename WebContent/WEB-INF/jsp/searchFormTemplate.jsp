@@ -12,7 +12,15 @@
 	 	 
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.bundle.min.js"/>"></script>
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
+	
+	 	<link rel="stylesheet"  href="<spring:url value="/resources/css/pagination.css"/>" />
+	 	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+	 	<link rel="stylesheet" type="text/css" href="<spring:url value="/resources/css/Accordian/jquery-ui-1.8.9.custom.css "/>" />
+	 
 
+	  	
+	  	
+	  
 <title>Search Form</title>
 </head>
 <body>

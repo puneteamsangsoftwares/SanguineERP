@@ -2697,16 +2697,12 @@ public class clsBillPrintingController {
 				else 
 				{
 					clsBillPrintingBean folioPrintingBean = new clsBillPrintingBean();
-					String docNo = paymentArr[1].toString();
-					String particulars = paymentArr[2].toString();
-					double debitAmount = Double.parseDouble(paymentArr[3].toString());
-					double creditAmount = Double.parseDouble(paymentArr[4].toString());
-					balance = balance + debitAmount - creditAmount;
+					balance = balance +  Double.parseDouble(paymentArr[3].toString()) - Double.parseDouble(paymentArr[4].toString());
 					folioPrintingBean.setDteDocDate(objGlobal.funGetDate("dd-MM-yyyy", (docDate)));
-					folioPrintingBean.setStrDocNo(docNo);
-					folioPrintingBean.setStrPerticulars(particulars);
-					folioPrintingBean.setDblDebitAmt(debitAmount);
-					folioPrintingBean.setDblCreditAmt(creditAmount);
+					folioPrintingBean.setStrDocNo(paymentArr[1].toString());
+					folioPrintingBean.setStrPerticulars( paymentArr[2].toString());
+					folioPrintingBean.setDblDebitAmt( Double.parseDouble(paymentArr[3].toString()));
+					folioPrintingBean.setDblCreditAmt(Double.parseDouble(paymentArr[4].toString()));
 					folioPrintingBean.setDblBalanceAmt(balance);
 					pRoomTariff=balance;
 					dataList.add(folioPrintingBean);

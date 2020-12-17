@@ -1081,7 +1081,11 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		sql = "ALTER TABLE `tblpropertysetup`"
 				+ " ADD COLUMN `strCheckPOSSales` VARCHAR(1) NOT NULL DEFAULT 'N' AFTER `strFifo`;";
 			funExecuteQuery(sql);
-		
+			
+			
+	    sql="ALTER TABLE `tblpropertysetup` ADD COLUMN `strShowAllProducts` VARCHAR(1) NOT NULL DEFAULT 'N' AFTER `strCheckPOSSales`;";		
+	    funExecuteQuery(sql);
+
 		sql = "ALTER TABLE `tblpropertysetup`"
 				+ "ADD COLUMN `strFifo` VARCHAR(1) NOT NULL DEFAULT 'N' AFTER `strIncludeTaxInWeightAvgPrice`;";
 		funExecuteQuery(sql);
@@ -1215,7 +1219,7 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ " ('frmGRNRegisterReport', 'GRN Register Report', 'Receiving Reports', 9, 'R', 73, 5, '1', 'GRN Register Report.png', '1', 1, '1', '1', 'NO', 'NO', 'frmGRNRegisterReport.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
 				+ " ('frmGrnSlip', 'Grn Slip', 'Receiving Reports', 9, 'R', 35, 4, '1', 'GRN-Slip.png', '1', 1, '1', '1', 'NO', 'NO', 'frmGrnSlip.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
 				+ " ('frmGRNSummaryReport', 'GRN Summary Report', 'Receiving Reports', 9, 'R', 85, 6, '1', 'GRN Summary Report.png', '1', 1, '1', '1', 'NO', 'NO', 'frmGRNSummaryReport.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
-				+ " ('frmGroupConsumption', 'Group Consumption Report', 'Stores', 7, 'R', 52, 31, '1', 'default.pmg', '1', 1, '1', '1', 'NO', 'NO', 'frmGroupConsumption.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
+				+ " ('frmGroupConsumption', 'Group Consumption Report', 'Stores', 7, 'R', 52, 31, '1', 'default.png', '1', 1, '1', '1', 'NO', 'NO', 'frmGroupConsumption.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
 				+ " ('frmGroupMaster', 'Group Master', 'Master', 8, 'M', 7, 5, '1', 'Group_Master.png', '1', 1, '1', '1', 'NO', 'YES', 'frmGroupMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
 				+ " ('frmPOSItemMasterImport', 'Import POS Item', 'Tools', 8, 'L', 87, 4, '1', 'import pos item.png', '1', 1, '1', '1', 'NO', 'NO', 'frmPOSItemMasterImport.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "
 				+ " ('frmInterfaceMaster', 'Interface Master', 'Master', 7, 'M', 7, 7, '1', 'default.png', '5', 1, '1', '1', 'NO', 'NO', 'frmInterfaceMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL), "

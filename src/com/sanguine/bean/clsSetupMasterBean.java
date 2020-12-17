@@ -181,6 +181,7 @@ public class clsSetupMasterBean {
 	private String strPOSTRoundOffAmtToWebBooks;
 	private String strFifo;
 	private String strCheckPOSSales;
+	private String strShowAllProducts;
 
 
     public String getStrRateHistoryFormat() {
@@ -1440,6 +1441,14 @@ public class clsSetupMasterBean {
 
 	public void setStrCheckPOSSales(String strCheckPOSSales) {
 		this.strCheckPOSSales = strCheckPOSSales;
+	}
+
+	public String getStrShowAllProducts() {
+		return strShowAllProducts;
+	}
+
+	public void setStrShowAllProducts(String strShowAllProducts) {
+		this.strShowAllProducts = strShowAllProducts;
 	}
 
 

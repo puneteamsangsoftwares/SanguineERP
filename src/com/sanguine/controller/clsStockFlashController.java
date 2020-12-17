@@ -1086,7 +1086,7 @@ public class clsStockFlashController {
 		// List list=objStkFlashService.funGetStockFlashData(sql,clientCode,
 		// userCode);
 		List list = objGlobalService.funGetList(sql);
-
+        int d=0;
 		List<clsStockFlashModel> listStockFlashModel = new ArrayList<clsStockFlashModel>();
 		DecimalFormat df = new DecimalFormat("0.00");
 		for (int cnt = 0; cnt < list.size(); cnt++) {
@@ -1114,13 +1114,76 @@ public class clsStockFlashController {
 			// objStkFlashModel.setDblIssue(Double.toString(issueQty));
 
 			objStkFlashModel.setDblClosingStock(arrObj[2].toString());
+			//DecimalFormat df = new DecimalFormat("#.##");
 			try{
+				StringBuilder sb = new StringBuilder();
+				if (qtyWithUOM.equals("Yes")) {
+				String str[]=arrObj[2].toString().split("BTL");
+				String str3;					
+				if(str.length>1)
+				{
+					sb.append(str[0]+"BTL.");//1 BTL
+					str=str[1].split("ML");						
+					str3=str[0].toString().replaceFirst(".","");
+					if(str3.contains("."))
+					{
+						d=Integer.parseInt(String.valueOf(Math.round(Double.parseDouble(str3))));
+						sb.append(String.valueOf((d))+" ML");//1 BTL
+						objStkFlashModel.setDblClosingStock(""+sb.toString());
+					}
+					else
+					{
+						objStkFlashModel.setDblClosingStock(arrObj[2].toString());
+					}
+				}
+				else
+				{
+					String strML[]=arrObj[2].toString().split("ML");
+					if(strML.length >0)
+					{
+						
+						if(strML[0].contains("NOS"))
+						{
+							if(strML[0].contains("."))
+							{
+								String strNOSML[]=strML[0].split("NOS.");
+								{
+									if(strNOSML.length >1)
+									{
+										int intbtlNOSML=Integer.parseInt(String.valueOf(Math.round(Double.parseDouble(strNOSML[1]))));
+										String btlNOSML=String.valueOf(intbtlNOSML);
+										objStkFlashModel.setDblClosingStock(""+strNOSML[0]+" NOS."+btlNOSML+" ML" );
+									}
+									
+								}
+							}
+						}
+						else
+						{
+							if(!arrObj[2].toString().contains("LTR") && !arrObj[2].toString().contains("NOS"))
+							{
+								int bottleML=Integer.parseInt(String.valueOf(Math.round(Double.parseDouble(strML[0]))));
+								String btlML=String.valueOf(bottleML);
+								objStkFlashModel.setDblClosingStock(""+btlML+" ML");
+							}
+						
+						}
+						
+						
+						
+					}
+					
+
+				}
+					
+				}	
+				
 				if (qtyWithUOM.equals("No")) {
 					if(arrObj[4].toString().equalsIgnoreCase("NOS")){
 						objStkFlashModel.setDblClosingStock(String.valueOf(Math.round(Double.parseDouble(arrObj[2].toString())))); // openStk
 					}	
 				}else{
-					if(arrObj[4].toString().equalsIgnoreCase("NOS")){
+					if(arrObj[4].toString().equalsIgnoreCase("NOS") &&  !(arrObj[2].toString().contains("ML"))){
 						objStkFlashModel.setDblClosingStock(funGetDecimalNOSValue(arrObj[2].toString())); // openStk
 						
 					}

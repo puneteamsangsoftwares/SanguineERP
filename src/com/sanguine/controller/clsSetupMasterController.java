@@ -607,6 +607,7 @@ public class clsSetupMasterController {
 		bean.setStrSMSContent(objSetup.getStrSMSContent());
 		bean.setStrFifo(objSetup.getStrFifo());
 		bean.setStrCheckPOSSales(objSetup.getStrCheckPOSSales());
+		bean.setStrShowAllProducts(objSetup.getStrShowAllProducts());
 		
 	}
 
@@ -1275,6 +1276,7 @@ public class clsSetupMasterController {
 				.getAttribute("clientCode").toString());
 		objPropertySetupModel.setStrFifo(objGlobal.funIfNull(bean.getStrFifo(),"N",bean.getStrFifo()));
 		objPropertySetupModel.setStrCheckPOSSales(objGlobal.funIfNull(bean.getStrCheckPOSSales(),"N",bean.getStrCheckPOSSales()));
+		objPropertySetupModel.setStrShowAllProducts(objGlobal.funIfNull(bean.getStrShowAllProducts(),"N",bean.getStrShowAllProducts()));
 		
 		List auditFormList = bean.getListAuditForm();
 		String AuditFrom = "";

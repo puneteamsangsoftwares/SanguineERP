@@ -7041,6 +7041,7 @@ public void funCallReportInvoiceFormat8Report(@RequestParam("rptInvCode") String
 	Map<Double, Double> hmCGSTCalculateTax = new HashMap<Double, Double>();
 	Map<Double, Double> hmSGSTCalculateTax = new HashMap<Double, Double>();
 	Map<String,clsInvoiceDtlBean> mapGSTSummary=new HashMap<>();
+	double totalTaxAmt=0;
 	if (listProdDtl.size() > 0)
 	{
 		for (int i = 0; i < listProdDtl.size(); i++)
@@ -7142,10 +7143,11 @@ public void funCallReportInvoiceFormat8Report(@RequestParam("rptInvCode") String
 			DecimalFormat decFormat = new DecimalFormat("#.##");
 			objDtlBean.setDblTotalAmt(Double.parseDouble(decFormat.format(objDtlBean.getDblTaxableAmt()+objDtlBean.getDblSGSTAmt()+objDtlBean.getDblCGSTAmt()+objDtlBean.getDblIGSTAmt())));
 			// if abatement amount is greater than zero then tax not added in GT
+			totalTaxAmt += objDtlBean.getDblSGSTAmt()+objDtlBean.getDblCGSTAmt()+objDtlBean.getDblIGSTAmt();
 			if(isTaxAbatement){
 				grandTotal=totalInvoiceValue;
 			}else{
-				grandTotal=Double.parseDouble(decFormat.format(totalInvoiceValue+objDtlBean.getDblSGSTAmt()+objDtlBean.getDblCGSTAmt()+objDtlBean.getDblIGSTAmt()));
+				grandTotal = Double.parseDouble(decFormat.format(totalInvoiceValue+totalTaxAmt));
 			}
 			
 			dataList.add(objDtlBean);
