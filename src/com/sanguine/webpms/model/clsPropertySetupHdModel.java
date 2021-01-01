@@ -107,6 +107,9 @@ public class clsPropertySetupHdModel implements Serializable {
 	@Column(name = "strIntegrationUrl")
 	private String strIntegrationUrl;
 	
+	@Column(name = "strDayForHousekeeping")
+	private String strDayForHousekeeping;
+	
 	// SMS setUp Tab End
 
 	// Setter-Getter Methods
@@ -335,6 +338,14 @@ public class clsPropertySetupHdModel implements Serializable {
 
 	public void setStrIntegrationUrl(String strIntegrationUrl) {
 		this.strIntegrationUrl = strIntegrationUrl;
+	}
+
+	public String getStrDayForHousekeeping() {
+		return strDayForHousekeeping;
+	}
+
+	public void setStrDayForHousekeeping(String strDayForHousekeeping) {
+		this.strDayForHousekeeping = strDayForHousekeeping;
 	}
 
 	

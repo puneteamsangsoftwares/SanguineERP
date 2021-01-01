@@ -2881,9 +2881,9 @@ public class clsSearchFormController {
 		}
 
 		case "settlementCode": {
-			columnNames = "strSettlementCode,strSettlementType,strSettlementDesc,strApplicable";
+			columnNames = "strSettlementCode,strSettlementDesc,strSettlementType,strApplicable";
 			tableName = "clsPMSSettlementMasterHdModel  where strClientCode='" + clientCode + "' ";
-			listColumnNames = "Settlement Code,Settlement Type,Settlement Desc,Applicable";
+			listColumnNames = "Settlement Code,Settlement Desc,Settlement Type,Applicable";
 			idColumnName = "strSettlementCode";
 			// criteria = getCriteriaQuery(columnNames,search_with,tableName);
 			searchFormTitle = "Settlement Master";
@@ -3205,16 +3205,20 @@ public class clsSearchFormController {
 		case "roomByRoomType": {
 			if (req.getParameter("strRoomTypeCode") != null) {
 				roomTypeCode = req.getParameter("strRoomTypeCode");
-			}
-			columnNames = "a.strRoomCode,a.strRoomDesc,b.strRoomTypeDesc,a.strFloorCode,a.strBedType";
-			tableName = " from tblroom a,tblroomtypemaster b " + " where a.strRoomTypeCode=b.strRoomTypeCode "
-					  + " and b.strRoomTypeCode='"+roomTypeCode+"' and a.strStatus='Free' and a.strClientCode='" + clientCode + "' ";
-			listColumnNames = "Code,Description,Type,Floor No,Bed Type,Funiture,Extra Bed";
-			idColumnName = "strRoomCode";
-			flgQuerySelection = true;
-			search_with="";
-			searchFormTitle = "Room Master";
-			break;
+				}
+				columnNames = "a.strRoomCode,a.strRoomDesc,b.strRoomTypeDesc,ifnull(c.strFloorName,''),a.strBedType";
+				tableName = " from tblroom a"
+					 +" left outer join tblfloormaster c on c.strFloorCode=a.strFloorCode,tblroomtypemaster b "
+		             +" where a.strRoomTypeCode=b.strRoomTypeCode "
+					 +" and b.strRoomTypeCode='"+roomTypeCode+"' and a.strStatus='Free' and a.strClientCode='" + clientCode + "'"
+					 +" order by c.strFloorCode  ";
+				listColumnNames = "Code,Description,Type,Floor Name,Bed Type,Funiture,Extra Bed";
+				idColumnName = "strRoomCode";
+				flgQuerySelection = true;
+				search_with="";
+				searchFormTitle = "Room Master";
+				break;
+			
 		}
 		
 		case "roomByRoomTypeForReservation": {

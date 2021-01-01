@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.sanguine.controller.clsGlobalFunctions;
 import com.sanguine.service.clsGlobalFunctionsService;
 import com.sanguine.webpms.bean.clsPMSStaffMasterBean;
-import com.sanguine.webpms.dao.clsWebPMSDBUtilityDao;
 import com.sanguine.webpms.model.clsPMSStaffMasterDtlModel;
 import com.sanguine.webpms.model.clsPMSStaffMasterModel;
 import com.sanguine.webpms.model.clsPMSStaffMasterModel_ID;
@@ -160,8 +158,20 @@ public class clsPMSStaffMasterController{
 			return mpModel;		
 	}
 	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/loadRoomsDtlListForFloor", method = RequestMethod.GET)
+	public @ResponseBody List funLoadRoomsDtlListForFloor(@RequestParam("floorCode") String floorCode, HttpServletRequest req) {
+		String clientCode=req.getSession().getAttribute("clientCode").toString();
+		String sqlRoomCode = "select a.strRoomCode,a.strRoomDesc from tblroom a,tblfloormaster b"
+				+ " where a.strFloorCode=b.strFloorCode"
+				+ " and a.strClientCode=b.strClientCode  and b.strFloorCode='"+floorCode+"' and a.strClientCode='"+clientCode+"'";
+		List listRoomCode = objGlobalFunctionsService.funGetListModuleWise(sqlRoomCode, "sql");
+		
+		return listRoomCode;					
+	}
 	
 	
+			
 	
 	
 	

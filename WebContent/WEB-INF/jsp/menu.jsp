@@ -25,8 +25,20 @@
 		<script type="text/javascript" src="<spring:url value="/resources/js/newdesignjs/bootstrap.min.js"/>"></script>
 	<script type="text/javascript">
 		var cntrlIsPressed = false;
-		
-		
+		 $(document).ready(function()
+					{
+			<%--  var pmsDate='<%=session.getAttribute("PMSDate").toString()%>';			
+			 var today = new Date();			 
+			 var dd = today.getDate();
+			 var mm = today.getMonth()+1;
+			 var yyyy = today.getFullYear();
+			 var todayDate=dd+"-"+mm+"-"+yyyy;
+			 if(pmsDate != todayDate )
+			 {
+			    alert("PMS Date is not equal to System Date");
+			 } --%>
+			
+	});
 		$(document).keydown(function(event){
 		    if(event.which=="17")
 		        cntrlIsPressed = true;

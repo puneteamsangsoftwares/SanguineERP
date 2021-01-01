@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sanguine.bean.clsSecurityShellBean;
@@ -186,6 +187,7 @@ public class clsCheckDirtyRoom {
 			{
 				if(objBeanData.isStrAdd())
 				{
+					flgCheckDirtyRoom = true;
 					String sqlDeletePrevData = "delete from tblroomhousekeepdtl  where strRoomCode='"+objBeanData.getStrRoomCode()+"' and strRoomCodeFlg='Y' and date(dteDate) =  date('"+strPMSDate+"') and strHouseKeepCode='"+objBeanData.getStrHouseKeepCode()+"'";
 					objWebPMSUtility.funExecuteUpdate(sqlDeletePrevData, "sql");
 					
@@ -203,10 +205,18 @@ public class clsCheckDirtyRoom {
 				}
 				if(flgCheckDirtyRoom==true)
 				{
+					String strCheckBillForRoom="select * from tblfoliohd a where a.strRoomNo='"+objBeanData.getStrRoomCode()+"' and a.strClientCode='"+clientCode+"'";
+					List listCheckBillForRoom = objGlobalFunctionsService.funGetListModuleWise(strCheckBillForRoom, "sql");		
+
 					String strStatusCheck = "select a.strStatus from tblroom a where a.strRoomCode='"+objBeanData.getStrRoomCode()+"' and a.strClientCode='"+clientCode+"'";
 					List listStatusCheck = objGlobalFunctionsService.funGetListModuleWise(strStatusCheck, "sql");		
 					
 					if(listStatusCheck.get(0).toString().equalsIgnoreCase("Occupied"))
+					{
+						String sqlUpdateFlg = "update tblroom a set a.strHouseKeepingFlg='Y' ,a.strStatus= 'Occupied'  where a.strRoomCode='"+objBeanData.getStrRoomCode()+"' and a.strClientCode='"+clientCode+"'";
+						objWebPMSUtility.funExecuteUpdate(sqlUpdateFlg, "sql");
+					}
+					else if(listStatusCheck.get(0).toString().equalsIgnoreCase("Dirty") && listCheckBillForRoom.size() > 0 && listCheckBillForRoom != null)
 					{
 						String sqlUpdateFlg = "update tblroom a set a.strHouseKeepingFlg='Y' ,a.strStatus= 'Occupied'  where a.strRoomCode='"+objBeanData.getStrRoomCode()+"' and a.strClientCode='"+clientCode+"'";
 						objWebPMSUtility.funExecuteUpdate(sqlUpdateFlg, "sql");
@@ -233,4 +243,23 @@ public class clsCheckDirtyRoom {
 		return new ModelAndView("redirect:/frmRoomStatusDiary.html?saddr=" + urlHits);
 
 	}
+	
+	@RequestMapping(value = "/UpdateDirtyStatus", method = RequestMethod.GET)
+	public @ResponseBody List funUpdateDirtyStatus(HttpServletRequest res,  HttpServletRequest req) 
+	{
+		String urlHits="1";
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		String strRoomDesc=req.getParameter("RoomDesc").toString();
+		String sqlRoomUpdate = "update tblroom a set a.strStatus='Dirty' " + " where a.strRoomDesc='" + strRoomDesc + "' and a.strClientCode='" +clientCode+ "'";
+		/*webPMSSessionFactory.getCurrentSession().createSQLQuery(sql).executeUpdate();*/
+		objWebPMSUtility.funExecuteUpdate(sqlRoomUpdate, "sql");
+	
+		return new ArrayList<>();
+		 
+	}
+		
+		
+				
+	
+	
 }

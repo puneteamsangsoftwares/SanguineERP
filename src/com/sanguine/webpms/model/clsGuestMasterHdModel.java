@@ -189,6 +189,12 @@ public class clsGuestMasterHdModel implements Serializable {
 	@JsonIgnore
 	private byte[] strGuestImage;
 	
+	@Column(name = "strExternalID")
+	private String strExternalID;
+	
+	@Column(name = "strRemark")
+	private String strRemark;
+	
 	
 	
 	// Setter-Getter Methods
@@ -616,5 +622,25 @@ public class clsGuestMasterHdModel implements Serializable {
 
 	public void setStrGuestImage(byte[] imageBytes) {
 		this.strGuestImage = imageBytes;
+	}
+
+	public String getStrRemark() {
+		return strRemark;
+	}
+
+	public void setStrRemark(String strRemark) {
+		this.strRemark = strRemark;
+	}
+
+	public String getStrExternalID() {
+		return strExternalID;
+	}
+
+	public void setStrExternalID(String strExternalID) {
+		this.strExternalID = strExternalID;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }

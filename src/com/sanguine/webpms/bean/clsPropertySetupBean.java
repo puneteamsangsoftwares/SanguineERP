@@ -57,6 +57,8 @@ public class clsPropertySetupBean {
 	private String strOnlineIntegration;
 	
 	private String strIntegrationUrl;
+	
+	private String strDayForHousekeeping;
 
 	public String getStrGSTNo() {
 		return strGSTNo;
@@ -173,6 +175,14 @@ public class clsPropertySetupBean {
 
 	public String getStrBankAcName() {
 		return strBankAcName;
+	}
+
+	public String getStrDayForHousekeeping() {
+		return strDayForHousekeeping;
+	}
+
+	public void setStrDayForHousekeeping(String strDayForHousekeeping) {
+		this.strDayForHousekeeping = strDayForHousekeeping;
 	}
 
 	public void setStrBankAcName(String strBankAcName) {

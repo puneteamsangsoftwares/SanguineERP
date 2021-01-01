@@ -355,7 +355,22 @@ public class clsDayEndController {
 			objModel.setDtePMSDate(strNewDate);
 			objModel.setStrUserCode(userCode);
 			objDayEndService.funAddUpdateDayEndHd(objModel);
+			
+			
+			GregorianCalendar cd = new GregorianCalendar();
+			cd.set(Integer.parseInt(strNewDate.split("-")[0]) - 1900, Integer.parseInt(strNewDate.split("-")[1]) - 1, Integer.parseInt(strNewDate.split("-")[2]));
+			Date dt = new Date(Integer.parseInt(strNewDate.split("-")[0]) - 1900, Integer.parseInt(strNewDate.split("-")[1]) - 1, Integer.parseInt(strNewDate.split("-")[2]));
+			// System.out.println(dt.getDay());
+			// System.out.println(dt);
+			cd.setTime(dt);
+			String day = funGetDayOfWeekForDayEnd(cd.getTime().getDay());
+			clsPropertySetupHdModel objPropertySetupModel= objPropertySetupService.funGetPropertySetup(propCode, clientCode);
 
+			if(objPropertySetupModel.getStrDayForHousekeeping().equals(day))
+			{
+				String sqlUpdateStatusOfRoom = "update tblroom a set a.strStatus='Dirty' where a.strStatus='Occupied' and a.strClientCode='"+clientCode+"' ";
+				objWebPMSUtility.funExecuteUpdate(sqlUpdateStatusOfRoom, "sql"); 
+			}
 			model= new ModelAndView("redirect:/frmModuleSelection.html");
 		}
 		return model;
@@ -503,5 +518,40 @@ public class clsDayEndController {
 		  calendar.add(Calendar.DAY_OF_YEAR, 1);
 		  return format1.format(calendar.getTime()); 
 		}
+	
+	private String funGetDayOfWeekForDayEnd(int day) {
+		String dayOfWeek = "Sun";
+
+		switch (day) {
+		case 0:
+			dayOfWeek = "Sunday";
+			break;
+
+		case 1:
+			dayOfWeek = "Monday";
+			break;
+
+		case 2:
+			dayOfWeek = "Tuesday";
+			break;
+
+		case 3:
+			dayOfWeek = "Wednesday";
+			break;
+
+		case 4:
+			dayOfWeek = "Thursday";
+			break;
+
+		case 5:
+			dayOfWeek = "Friday";
+			break;
+
+		case 6:
+			dayOfWeek = "Saturday";
+			break;
+		}
+		return dayOfWeek;
+	}
 
 }

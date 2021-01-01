@@ -150,6 +150,12 @@ function funSetGuestCode(code)
 		        	$("#cmbStateOfc").val(response.strStateOfc);
 		        	$("#cmbCountryOfc").val(response.strCountryOfc);
 		        	$("#txtPinCodeOfc").val(response.intPinCodeOfc);
+		            $("#txtExternalID").val(response.strExternalID);
+		        	$("#txtRemark").val(response.strRemark);
+
+		        	
+		        	
+		        	
 		        	funloadMemberPhoto(response.strGuestCode);
 	        	}
 			},
@@ -423,7 +429,10 @@ function funSetGuestCode(code)
 			   <div class="col-md-2"><label>Guest Code</label>
 				  <s:input id="txtGuestCode" path="strGuestCode" cssClass="searchTextBox" style="height:25px;" ondblclick="funHelp('guestCode')" />				
 			   </div>
-			   <div class="col-md-10"></div>
+			   <div class="col-md-2"><label>External ID</label><label style="color: red;"></label>
+					<s:input type="text" id="txtExternalID" path="strExternalID" />
+				</div>
+			   <div class="col-md-8"></div>
 			   
 		        <div class="col-md-2"><label>Guest Prefix</label>
 					<s:select id="cmbGuestPrefix" path="strGuestPrefix" style="width:60%;">
@@ -521,11 +530,15 @@ function funSetGuestCode(code)
 			    		<s:option value="Office">Office</s:option><s:options/>
 			    	</s:select>
 			    </div>
+			   
+			    <div class="col-md-2"><label>Remark</label>
+					<s:textarea id="txtRemark" path="strRemark"  type="text" style="height: 57%;width: 177%;"/>
+				</div>
 					
 					
 				<div class="col-md-2">					
-				 	<div><img id="memImage" src="" style="width:auto;height:150px;margin: 10% 0%;font-size:14px;" alt="Member Image"></div>
-			        <div><input  id="memberImage" name="memberImage" type="file" accept="image/gif,image/png,image/jpeg" onchange="funShowImagePreview(this);" style="width:220px; background-color: #fbfafa"/></div>
+				 	<div><img id="memImage" src="" style="width:auto;height:150px;margin: 10% 0%;font-size:14px;margin-left:119%;" alt="Member Image"></div>
+			        <div><input  id="memberImage" name="memberImage" type="file" accept="image/gif,image/png,image/jpeg" onchange="funShowImagePreview(this);" style="width:220px; background-color: #fbfafa;margin-left:83%;"/></div>
        			</div>
 					
 				<div class="col-md-12" style="FONT-WEIGHT: bold;PADDING-TOP: 5px;">

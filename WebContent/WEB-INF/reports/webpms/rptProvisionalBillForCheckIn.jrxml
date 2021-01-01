@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<!-- Created with Jaspersoft Studio version 6.5.0.final using JasperReports Library version 6.5.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptCheckInList" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f2323f3-3122-4114-a59f-df89ff1ddda0">
 	<property name="ireport.zoom" value="1.156629868288595"/>
 	<property name="ireport.x" value="0"/>
@@ -18,6 +18,7 @@
 	<parameter name="pDocName" class="java.lang.String"/>
 	<parameter name="pRoomNo" class="java.lang.String"/>
 	<parameter name="pRoomName" class="java.lang.String"/>
+	<parameter name="dblTotalBill" class="java.lang.Double"/>
 	<queryString language="SQL">
 		<![CDATA[]]>
 	</queryString>
@@ -34,7 +35,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="187" splitType="Stretch">
+		<band height="166" splitType="Stretch">
 			<textField>
 				<reportElement x="183" y="10" width="314" height="20" uuid="2721457a-8086-462b-b990-f64b7c9148dd"/>
 				<textElement>
@@ -56,9 +57,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pAddress2}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="0" y="103" width="555" height="1" uuid="e18e9f7a-d80b-4aa5-b730-5a5416101055"/>
-			</line>
 			<image>
 				<reportElement x="13" y="10" width="136" height="79" uuid="5ea12fd6-6cbd-47f0-87cd-263c311d7cfd"/>
 				<imageExpression><![CDATA[$P{strImagePath}]]></imageExpression>
@@ -70,9 +68,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pContactDetails}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="0" y="125" width="555" height="1" uuid="e18e9f7a-d80b-4aa5-b730-5a5416101055"/>
-			</line>
 			<staticText>
 				<reportElement x="2" y="105" width="59" height="18" uuid="1e307570-e77a-4e7f-ba3e-903f5a174436"/>
 				<textElement verticalAlignment="Middle">
@@ -84,9 +79,6 @@
 				<reportElement x="62" y="103" width="146" height="20" uuid="c91f2980-9bed-40a5-beb0-0afac8734e83"/>
 				<textFieldExpression><![CDATA[$P{pCompanyName}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="0" y="143" width="555" height="1" uuid="e18e9f7a-d80b-4aa5-b730-5a5416101055"/>
-			</line>
 			<line>
 				<reportElement x="0" y="164" width="555" height="1" uuid="a30040ee-4d0e-4a01-9020-d0978d17843d"/>
 			</line>
@@ -133,80 +125,57 @@
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="46" splitType="Stretch">
+		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement x="396" y="1" width="85" height="20" uuid="0704d1e5-28bd-409f-aedd-4283394e57c3"/>
+				<reportElement x="470" y="1" width="85" height="15" uuid="0704d1e5-28bd-409f-aedd-4283394e57c3"/>
 				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Amount]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="298" y="1" width="100" height="20" uuid="246ab501-1b36-4eea-a38e-a011d5c8e09d"/>
+				<reportElement x="281" y="1" width="100" height="15" uuid="246ab501-1b36-4eea-a38e-a011d5c8e09d"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Bill Included]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="181" y="1" width="100" height="20" uuid="9fc994ef-45c6-459b-854b-3265d2dd7415"/>
+				<reportElement x="135" y="0" width="100" height="15" uuid="9fc994ef-45c6-459b-854b-3265d2dd7415"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Guest Name]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="0" width="80" height="21" uuid="2a7dfd1e-73d5-46ae-8698-dcfea9ec1a00"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{pRoomNo}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="83" y="0" width="95" height="21" uuid="607cebad-070c-4d65-86b4-0f9f37e6434e"/>
+				<reportElement x="1" y="0" width="109" height="15" uuid="607cebad-070c-4d65-86b4-0f9f37e6434e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pRoomName}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="489" y="1" width="65" height="20" uuid="8548bc8c-efc2-47f3-aa63-87a59fd6e795"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Date]]></text>
-			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="38" splitType="Stretch">
+		<band height="23" splitType="Stretch">
 			<textField>
-				<reportElement x="3" y="1" width="79" height="20" uuid="2721457a-8086-462b-b990-f64b7c9148dd"/>
-				<textElement>
-					<font size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{strRoomNo}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="401" y="1" width="80" height="20" uuid="fcbb113c-590d-443f-b560-a28e37b0faaa"/>
+				<reportElement x="470" y="-1" width="85" height="20" uuid="fcbb113c-590d-443f-b560-a28e37b0faaa"/>
 				<textElement textAlignment="Right" verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{dblBalanceAmt}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="82" y="1" width="96" height="20" uuid="c6c6d2f2-dd25-4cd3-a51c-2fa6c9c44267"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="135" height="20" uuid="c6c6d2f2-dd25-4cd3-a51c-2fa6c9c44267"/>
 				<textFieldExpression><![CDATA[$F{strRoomName}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="298" y="1" width="100" height="20" uuid="86cbfa43-da97-4ea7-b0ec-efd341ea042b"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="280" y="-1" width="190" height="20" uuid="86cbfa43-da97-4ea7-b0ec-efd341ea042b"/>
 				<textFieldExpression><![CDATA[$F{strBillIncluded}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="181" y="1" width="100" height="20" uuid="b326f293-df0e-418a-8270-66e74ce60006"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="135" y="0" width="145" height="20" uuid="b326f293-df0e-418a-8270-66e74ce60006"/>
 				<textFieldExpression><![CDATA[$F{strGuestName}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="489" y="1" width="65" height="20" uuid="9ab8c05a-067d-43f7-a516-43743035074a"/>
-				<textFieldExpression><![CDATA[$F{dteDocDate}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -218,7 +187,7 @@
 			<textField>
 				<reportElement x="401" y="5" width="80" height="20" uuid="af136399-4d2c-4765-86a8-b57941563be1"/>
 				<textElement textAlignment="Right" verticalAlignment="Top"/>
-				<textFieldExpression><![CDATA[$V{totalBill}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{dblTotalBill}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="343" y="5" width="72" height="20" uuid="67d4505a-11f4-4fd6-a0c4-801c4e9bd1b0"/>

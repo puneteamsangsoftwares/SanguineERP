@@ -561,7 +561,7 @@ public class clsPMSPaymentController {
 				{
 					sqlRecipt = "SELECT ifnull(SUM(a.dblReceiptAmt),0) "
 							+ "FROM tblreceipthd a "
-							+ "WHERE a.strCheckInNo='"+obj[5].toString()+"' AND a.strClientCode='"+clientCode+"'";
+							+ "WHERE a.strReservationNo='"+obj[5].toString()+"' AND a.strClientCode='"+clientCode+"'";
 				}
 				List listRecipt = objGlobalFunctionsService.funGetListModuleWise(sqlRecipt, "sql");
 				double reciptAmt=0.0;
@@ -671,16 +671,19 @@ public class clsPMSPaymentController {
 						+ "left outer join  tblsettlementmaster e on b.strSettlementCode=e.strSettlementCode " + "left outer join  tblguestmaster f    on c.strGuestCode=f.strGuestCode " + "where a.strReceiptNo='" + reciptNo + "' and a.strClientCode='" + clientCode + "'  ";
 				*/
 				String sqlPayment = "select a.strReceiptNo,ifnull(d.intNoOfAdults,''),ifnull(d.intNoOfChild,'')  ,ifnull(a.strReservationNo,'')" 
-						+ ",ifnull(c.strRoomType,''),DATE_FORMAT(d.dteArrivalDate,'%d-%m-%Y'),DATE_FORMAT(d.dteDepartureDate,'%d-%m-%Y'),f.strFirstName" 
-						+ ",f.strMiddleName,f.strLastName,ifnull(e.strSettlementDesc,''),a.dblPaidAmt,b.strRemarks"
-						+ ",DATE_FORMAT(a.dteReceiptDate,'%d-%m-%Y'),g.strRoomTypeDesc " 
-						+ "from tblreceipthd a left outer join  tblreceiptdtl b on a.strReceiptNo=b.strReceiptNo AND b.strClientCode='"+clientCode+"'" 
-						+ "left outer join  tblreservationdtl c on a.strReservationNo=c.strReservationNo AND c.strClientCode='"+clientCode+"'"
-						+ "left outer join  tblreservationhd d on a.strReservationNo=d.strReservationNo  AND d.strClientCode='"+clientCode+"'"
-						+ "left outer join  tblsettlementmaster e on b.strSettlementCode=e.strSettlementCode  AND e.strClientCode='"+clientCode+"'" 
-						+ "left outer join  tblguestmaster f    on c.strGuestCode=f.strGuestCode AND f.strClientCode='"+clientCode+"',tblroomtypemaster g " 
-						+ "where c.strRoomType=g.strRoomTypeCode "
-						+ "and a.strReceiptNo='" + reciptNo + "' and a.strClientCode='" + clientCode + "'  AND g.strClientCode='"+clientCode+"'";
+					    + ",ifnull(c.strRoomType,''),DATE_FORMAT(d.dteArrivalDate,'%d-%m-%Y'),DATE_FORMAT(d.dteDepartureDate,'%d-%m-%Y'),f.strFirstName" 
+					    + ",f.strMiddleName,f.strLastName,ifnull(e.strSettlementDesc,''),a.dblPaidAmt,b.strRemarks"
+					    + ",DATE_FORMAT(a.dteReceiptDate,'%d-%m-%Y'),g.strRoomTypeDesc,IFNULL(h.strRoomDesc,'') " 
+					    + "from tblreceipthd a left outer join  tblreceiptdtl b on a.strReceiptNo=b.strReceiptNo AND b.strClientCode='"+clientCode+"'" 
+				  	    + "left outer join  tblreservationdtl c on a.strReservationNo=c.strReservationNo AND c.strClientCode='"+clientCode+"'"
+					    + "left outer join  tblreservationhd d on a.strReservationNo=d.strReservationNo  AND d.strClientCode='"+clientCode+"'"
+					    + "left outer join  tblsettlementmaster e on b.strSettlementCode=e.strSettlementCode  AND e.strClientCode='"+clientCode+"'" 
+					    + "left outer join  tblguestmaster f    on c.strGuestCode=f.strGuestCode AND f.strClientCode='"+clientCode+"'"
+					    + "LEFT OUTER JOIN tblroom h ON h.strRoomCode=c.strRoomNo  "
+					    + ",tblroomtypemaster g " 
+					    + "where c.strRoomType=g.strRoomTypeCode "
+					    + "and a.strReceiptNo='" + reciptNo + "' and a.strClientCode='" + clientCode + "'  AND g.strClientCode='"+clientCode+"'";
+			
 				List listOfPayment = objGlobalFunctionsService.funGetDataList(sqlPayment, "sql");
 
 				for (int i = 0; i < listOfPayment.size(); i++) {

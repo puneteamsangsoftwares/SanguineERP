@@ -1356,6 +1356,7 @@ table tbody tr:nth-child(even) {
 					      toolTipText1+="\n"+response.strGuestName+"\n"+response.strReservationNo+"\n"+response.strRoomNo+"\n"+response.dteArrivalDate+"\n"+response.dteDepartureDate+"\n"+roomStatus+"\n"+response.dblRemainingAmt;
 			}
 		}
+		roomStatus=roomStatus+'                                      ,'+roomNo;
 		row.insertCell(0).innerHTML= "<div class=\"one\" style=\"margin:3px 0px;\"><input readonly=\"readonly\" class=\"Box \" style=\"text-align: center;width: 100%;\" value='"+roomNo+"' ></div>";
 		
 		var x1=row.insertCell(1);
@@ -1391,10 +1392,24 @@ table tbody tr:nth-child(even) {
 		{
 			case 'linear-gradient(250.46deg, rgb(58, 222, 94) 0%, rgb(43, 165, 110) 100%)'://RED-->CHECKED-IN-->OCCUPIED
 									  //code=obj.value;
-									  code=obj.defaultValue.split(",");//rgb(255, 79, 83)
-									  var subStr = code[1];
-									  gcode=code;
-									  showPopup(code);									
+				                      if(gViewSelection=='House Keeping View')
+			                    	  {
+				                    	  var isCheckOk=confirm("Do You Want to schedule this room for cleaning ?"); 
+				  						  if(isCheckOk){
+				  							code=obj.defaultValue.split(","); 
+				  						    var subStr = code[1];
+											
+				  						     funCallRoomDirty(obj,subStr);
+				  						  }
+			                    	  }
+				                      else
+			                    	  {
+				                    	  code=obj.defaultValue.split(",");//rgb(255, 79, 83)
+										  var subStr = code[1];
+										  gcode=code;
+										  showPopup(code);
+			                    	  } 
+									 									
 		   						  	  break;
 			case 'linear-gradient(250.46deg, rgb(213, 213, 213) 0%, rgb(157, 157, 157) 100%)'://GREY-->CHECKED-OUT
 									  
@@ -1416,11 +1431,17 @@ table tbody tr:nth-child(even) {
 					} 
 				  break;									  
 									  
-			case 'linear-gradient(250.46deg, rgb(255, 162, 162) 0%, rgb(255, 91, 91) 100%)'://purple-->WAITING
-				  code=obj.defaultValue.split(",");
-				  var subStr = code[1];
-				  url=getContextPath()+"/frmCheckIn1.html?docCode="+subStr
-				  window.open(url);
+			case 'linear-gradient(250.46deg, rgb(255, 148, 237) 0.67%, rgb(146, 66, 252) 100%)':          //'linear-gradient(250.46deg, rgb(255, 162, 162) 0%, rgb(255, 91, 91) 100%)'://purple-->WAITING
+			//
+	            var isCheckOk=confirm("Do You Want to Check In  ?"); 
+				if(isCheckOk){
+					
+					code=obj.defaultValue.split(",");
+					  var subStr = code[1];
+					  url=getContextPath()+"/frmCheckIn1.html?docCode="+subStr
+					  window.open(url);
+				}
+				  
 				  break;
 				  
 				  
@@ -1465,9 +1486,11 @@ table tbody tr:nth-child(even) {
 				  break;
 				  
 			case 'linear-gradient(70.46deg, rgb(228, 168, 70) 0%, rgb(255, 213, 142) 100%)'://Orange-->Dirty
-				 code=obj.defaultValue.split(","); 
+				  code=obj.defaultValue.split(","); 
 				  var subStr = code[1];
+				
 				  var isDirtyOk=confirm("Do You want to mark this room as Clean ?");
+				  
 				  if(isDirtyOk)
 					{		
 					  /* funCallRoomClean(subStr,obj); */
@@ -1475,7 +1498,7 @@ table tbody tr:nth-child(even) {
 					  
 						//window.open(getContextPath() + "/cleanRoomStatus.html?checkInNo=" +nextFinalTemp);
 					}
-
+			
 				  break;
 				  
 			/* case 'rgba(0, 0, 0, 0)'://GREEN-->CONFIRM
@@ -1551,6 +1574,35 @@ table tbody tr:nth-child(even) {
 			});
 	}
 		
+	function funCallRoomDirty(obj,subStr)
+	{  
+		$.ajax({
+			type : "GET",
+			  url: getContextPath()+ "/UpdateDirtyStatus.html?RoomDesc=" +subStr,
+			  dataType : "json",
+			  async:false,
+			  success: function(response) {
+				  location.reload(true); 
+			  },
+			  error: function(jqXHR, exception) {
+		            if (jqXHR.status === 0) {
+		                alert('Not connect.n Verify Network.');
+		            } else if (jqXHR.status == 404) {
+		                alert('Requested page not found. [404]');
+		            } else if (jqXHR.status == 500) {
+		                alert('Internal Server Error [500].');
+		            } else if (exception === 'parsererror') {
+	 	                alert('Requested JSON parse failed.');
+		            } else if (exception === 'timeout') {
+		                alert('Time out error.');
+		            } else if (exception === 'abort') {
+		                alert('Ajax request aborted.');
+		            } else {
+		                alert('Uncaught Error.n' + jqXHR.responseText);
+		            }		            
+		        }		
+			});
+	}
 		function funFillROomTypeHeaderRowsHeaderRows(key,value,roomCnt)
 		{
 		

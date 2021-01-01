@@ -1,6 +1,7 @@
 package com.sanguine.webpms.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ibm.icu.text.SimpleDateFormat;
 import com.sanguine.model.clsPropertySetupModel;
 import com.sanguine.service.clsSetupMasterService;
 import com.sanguine.webpms.bean.clsBillPrintingBean;
@@ -91,11 +93,11 @@ public class clsProvisionalBillController
 			}
 			String reportName = "";
 			String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
-
+            String strFolioNo="";
 			List<clsBillPrintingBean> dataList = new ArrayList<clsBillPrintingBean>();
 			@SuppressWarnings("rawtypes")
 			HashMap reportParams = new HashMap();
-
+			Map<String,clsBillPrintingBean> mapFolio = new HashMap<>();
 			reportParams.put("pCompanyName", companyName);
 			reportParams.put("pAddress1", objSetup.getStrAdd1() + "," + objSetup.getStrAdd2() + "," + objSetup.getStrCity());
 			reportParams.put("pAddress2", objSetup.getStrState() + "," + objSetup.getStrCountry() + "," + objSetup.getStrPin());
@@ -298,11 +300,21 @@ public class clsProvisionalBillController
 						roomCount=Integer.valueOf(arrObj[2].toString());
 						if(!arrObj[0].toString().isEmpty())
 						{
-							sqlBillDtl= " SELECT a.strCheckInNo,e.dblRoomRate,b.strRoomNo, DATEDIFF(a.dteDepartureDate, a.dteArrivalDate),a.dteCheckInDate,d.strRoomDesc,b.strFolioNo, CONCAT(f.strFirstName,' ',f.strMiddleName,' ',f.strLastName),ifnull(sum(g.dblIncomeHeadAmt),0),e.dtDate"
-									+ " FROM tblcheckinhd a left outer join tblroompackagedtl g on a.strCheckInNo=g.strCheckInNo and g.strRoomNo='',tblfoliohd b,tblroom d,tblreservationroomratedtl e,tblguestmaster f"
+							sqlBillDtl= " SELECT a.strCheckInNo,0,b.strRoomNo, DATEDIFF(a.dteDepartureDate, a.dteArrivalDate),"
+									+ " a.dteCheckInDate,d.strRoomDesc,b.strFolioNo, CONCAT(f.strFirstName,' ',f.strMiddleName,' ',f.strLastName), IFNULL((g.dblIncomeHeadAmt),0),e.dtDate,h.strPackageName "
+									+ " FROM tblcheckinhd a"
+									+ " LEFT OUTER JOIN tblroompackagedtl g ON a.strCheckInNo=g.strCheckInNo AND g.strRoomNo='', tblfoliohd b,tblroom d,"
+									+ " tblreservationroomratedtl e,tblguestmaster f,tblpackagemasterhd h"
+									+ " WHERE a.strCheckInNo=b.strCheckInNo AND b.strRoomNo=d.strRoomCode AND a.strReservationNo=e.strReservationNo "
+									+ " AND d.strRoomTypeCode=e.strRoomType AND b.strGuestCode=f.strGuestCode and g.strPackageCode=h.strPackageCode AND a.strCheckInNo='"+docNo+"' "
+									+ " AND DATE(a.dteDepartureDate)>='"+toDateForQuery+"'  and g.strType='IncomeHead'"
+									+ " GROUP BY g.strType"
+									+ " Union All "
+									+ " SELECT a.strCheckInNo,e.dblRoomRate,b.strRoomNo, DATEDIFF(a.dteDepartureDate, a.dteArrivalDate),a.dteCheckInDate,d.strRoomDesc,b.strFolioNo, CONCAT(f.strFirstName,' ',f.strMiddleName,' ',f.strLastName),0,e.dtDate,''"
+									+ " FROM tblcheckinhd a left outer join tblroompackagedtl g on a.strCheckInNo=g.strCheckInNo ,tblfoliohd b,tblroom d,tblreservationroomratedtl e,tblguestmaster f"
 									+ " WHERE a.strCheckInNo=b.strCheckInNo AND b.strRoomNo=d.strRoomCode AND a.strReservationNo=e.strReservationNo"
 									+ " AND d.strRoomTypeCode=e.strRoomType AND b.strGuestCode=f.strGuestCode AND a.strCheckInNo='"+docNo+"' "
-									+ " and date(a.dteDepartureDate)>='"+toDateForQuery+"'"
+									+ " and date(a.dteDepartureDate)>='"+toDateForQuery+"' and g.strType='RoomTariff' and  g.dblIncomeHeadAmt <> 0"
 									+ " GROUP BY e.dtDate,b.strRoomNo ";
 						}
 						else
@@ -318,16 +330,16 @@ public class clsProvisionalBillController
 					}
 				}
 				
-				
-				
+				clsBillPrintingBean billPrintingBean =null;
+				double billAmount=0.0;
+				double dblTerrifAmount=0;
 				List billDtlList = objWebPMSUtility.funExecuteQuery(sqlBillDtl, "sql");
+				int sizelist= billDtlList.size()-1;
 				for (int i = 0; i < billDtlList.size(); i++) 
 				{
 					Object[] billArr = (Object[]) billDtlList.get(i);
-					clsBillPrintingBean billPrintingBean = new clsBillPrintingBean();
-					 double billAmount=0.0;
-					String roomNo = billArr[2].toString();
-					
+					billPrintingBean = new clsBillPrintingBean();				
+					String roomNo = billArr[2].toString();					
 					int noOfNights = Integer.valueOf(billArr[3].toString());
 	                if(noOfNights==0)
 	                {
@@ -335,58 +347,165 @@ public class clsProvisionalBillController
 	                }
 	                String []spDocDate=billArr[9].toString().split("-");
 					billPrintingBean.setDteDocDate(spDocDate[2]+"-"+spDocDate[1]+"-"+spDocDate[0]);
+					
 					billPrintingBean.setStrDocNo(billArr[0].toString());
-					billPrintingBean.setStrRoomNo(roomNo);
+					
 					billPrintingBean.setDblBalanceAmt(Double.parseDouble(billArr[1].toString()));
 					billPrintingBean.setStrRoomName(billArr[5].toString());
+					
+					if(mapFolio.get(billArr[7].toString() +" "+roomNo) ==null)
+					{
+						billPrintingBean.setStrGuestName(billArr[7].toString());
+						billPrintingBean.setStrRoomNo(roomNo);
+						billPrintingBean.setStrRoomName(billArr[5].toString());
+					}
+					else
+					{
+						billPrintingBean.setStrGuestName("");
+						billPrintingBean.setStrRoomNo("");
+						billPrintingBean.setStrRoomName("");
+					}	
+					
+					
 					if(Double.parseDouble(billArr[8].toString())>0)
 					{
-						billPrintingBean.setStrBillIncluded("Tariff + Package");
+						billPrintingBean.setStrBillIncluded(billArr[10] + " Package");
 						billPrintingBean.setDblBalanceAmt((Double.parseDouble(billArr[1].toString()))+Double.parseDouble(billArr[8].toString())/roomCount);
-						billAmount = (Double.parseDouble(billArr[1].toString()))+Double.parseDouble(billArr[8].toString())/roomCount;
+						billAmount += (Double.parseDouble(billArr[1].toString()))+Double.parseDouble(billArr[8].toString())/roomCount;
+						
+						dataList.add(billPrintingBean);
 					}
 					else
 					{
 						billPrintingBean.setStrBillIncluded("Tariff");
-						billPrintingBean.setDblBalanceAmt(Double.parseDouble(billArr[1].toString()));
-						billAmount = Double.parseDouble(billArr[1].toString());
+						billAmount += Double.parseDouble(billArr[1].toString());
+						dblTerrifAmount +=Double.parseDouble(billArr[1].toString());
+						billPrintingBean.setDblBalanceAmt(dblTerrifAmount);
+						if(sizelist==i)
+						{
+							dataList.add(billPrintingBean);
+						}
 					}
-					billPrintingBean.setStrGuestName(billArr[7].toString());
-					dataList.add(billPrintingBean);
+									
+					mapFolio.put(billArr[7].toString() +" "+roomNo,billPrintingBean);		
 					
-					double pkgsAmt=0,totalRoomBill=0;
-					String sqlCheckInListDtl = " select b.strFolioNo,b.strPerticulars,b.dblDebitAmt,Date(b.dteDocDate) "
-							+ " from tblfoliohd a,tblfoliodtl b "
-							+ " where b.strFolioNo='"+billArr[6].toString()+"' and  b.strRevenueType!='Package' and b.strRevenueType!='Room' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' "
-							+ " group by b.strFolioNo ";
-					
-					List packagesList = objWebPMSUtility.funExecuteQuery(sqlCheckInListDtl, "sql");;
-					for (int j = 0; j < packagesList.size(); j++) {
-						Object[] pkgsArr = (Object[]) packagesList.get(j);
-						billPrintingBean = new clsBillPrintingBean();
-						billAmount+=Double.parseDouble(pkgsArr[2].toString());
-						billPrintingBean.setStrRoomNo("");
-						billPrintingBean.setDblBalanceAmt(Double.parseDouble(pkgsArr[2].toString()));
-						billPrintingBean.setStrRoomName("");
-						billPrintingBean.setStrBillIncluded(pkgsArr[1].toString());
-						billPrintingBean.setStrGuestName("");
-						billPrintingBean.setDteDocDate(pkgsArr[3].toString());
-						dataList.add(billPrintingBean);
-					}
+					strFolioNo=billArr[6].toString();
 					
 					
-					billPrintingBean = new clsBillPrintingBean();
-					billPrintingBean.setStrRoomNo("");
-					billPrintingBean.setDblBalanceAmt(billAmount);
-					billPrintingBean.setStrRoomName("");
-					billPrintingBean.setStrBillIncluded("Total:");
-					billPrintingBean.setStrGuestName("");
-					billPrintingBean.setDteDocDate("");
-					dataList.add(billPrintingBean);
+					
 					
 				}
+				
+				Map<String,clsBillPrintingBean> mapFolioPostingForIncomeHead=new HashMap<>();
+				String sqlCheckInListDtl = " select b.strFolioNo,b.strPerticulars,b.dblDebitAmt, DATE_FORMAT( DATE(b.dteDocDate),'%d-%m-%Y') "
+						+ " from tblfoliohd a,tblfoliodtl b "
+						+ " where b.strFolioNo='"+strFolioNo+"' and  b.strRevenueType!='Package' and b.strRevenueType!='Room' AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' "
+						+ " GROUP by b.strDocNo ";
+				
+				List packagesList = objWebPMSUtility.funExecuteQuery(sqlCheckInListDtl, "sql");;
+				for (int j = 0; j < packagesList.size(); j++) {					
+					Object[] pkgsArr = (Object[]) packagesList.get(j);
+					billPrintingBean = new clsBillPrintingBean();					
+				    //billAmount+=Double.parseDouble(pkgsArr[2].toString());
+					billPrintingBean.setStrRoomNo("");
+					billPrintingBean.setDblBalanceAmt(Double.parseDouble(pkgsArr[2].toString()));
+					billPrintingBean.setStrRoomName("");
+					billPrintingBean.setStrBillIncluded(pkgsArr[1].toString());
+					billPrintingBean.setStrGuestName("");
+					billPrintingBean.setDteDocDate("");
+					billPrintingBean.setDteDocDate(pkgsArr[3].toString());
+				   
+					if(mapFolioPostingForIncomeHead.get(pkgsArr[1].toString())!=null)
+					{
+						clsBillPrintingBean objBill=mapFolioPostingForIncomeHead.get(pkgsArr[1].toString());
+						objBill.setDblBalanceAmt(mapFolioPostingForIncomeHead.get(pkgsArr[1].toString()).getDblBalanceAmt() + Double.parseDouble(pkgsArr[2].toString()) );
+						mapFolioPostingForIncomeHead.put(pkgsArr[1].toString(), objBill);
+					}
+					else
+					{
+						mapFolioPostingForIncomeHead.put(pkgsArr[1].toString(), billPrintingBean);
+					}
+					
+				}
+				
+			 for (Map.Entry<String,clsBillPrintingBean> entry : mapFolioPostingForIncomeHead.entrySet()) 
+        	 {
+				 billAmount+=entry.getValue().getDblBalanceAmt();
+				 dataList.add(entry.getValue());
+        	 }
+				
+			
+				
+				Map<String,clsBillPrintingBean> mapForAdvancePayment = new HashMap<>();
+				String sqlPaymentDtl = "SELECT DATE_FORMAT(date(b.dteDocDate),'%d-%m-%Y'),c.strReceiptNo,e.strSettlementDesc,'0.00' as debitAmt,d.dblSettlementAmt as creditAmt" + " ,'0.00' as "
+						+ " balance " + " FROM tblfoliohd a LEFT OUTER JOIN tblfoliodtl b ON a.strFolioNo=b.strFolioNo AND a.strClientCode='"+clientCode+"' "
+						+ " AND b.strClientCode='"+clientCode+"'" + " left outer join tblreceipthd c on a.strFolioNo=c.strFolioNo OR a.strReservationNo=c.strReservationNo "
+						+ " AND c.strClientCode='"+clientCode+"'"
+						+ " left outer join tblreceiptdtl d on c.strReceiptNo=d.strReceiptNo AND d.strClientCode='"+clientCode+"'" + " left outer join"
+						+ "  tblsettlementmaster e on d.strSettlementCode=e.strSettlementCode AND e.strClientCode='"+clientCode+"'" + " "
+						+ " WHERE a.strFolioNo='" + strFolioNo + "' " + ""
+						+ " GROUP BY d.strReceiptNo,d.strSettlementCode ";
+				
+				List paymentDtlList =  objWebPMSUtility.funExecuteQuery(sqlPaymentDtl, "sql");
+				if(paymentDtlList!=null && paymentDtlList.size()>0){
+					
+					for (int i = 0; i < paymentDtlList.size(); i++) {
+						Object[] paymentArr = (Object[]) paymentDtlList.get(i);
+
+						String docDate = paymentArr[0].toString();
+						if (paymentArr[1] == null) {
+							continue;
+						} else {
+							billPrintingBean = new clsBillPrintingBean();		
+
+							String particulars = paymentArr[2].toString();
+							double debitAmount = Double.parseDouble(paymentArr[3].toString());
+							double creditAmount = Double.parseDouble(paymentArr[4].toString());
+
+						
+							
+							billPrintingBean = new clsBillPrintingBean();
+							billPrintingBean.setStrRoomNo("");
+							billPrintingBean.setDblBalanceAmt(creditAmount);
+							billPrintingBean.setStrRoomName("");
+							billPrintingBean.setStrBillIncluded(particulars);
+							billPrintingBean.setStrGuestName("");
+							billPrintingBean.setDteDocDate("");
+							if(mapForAdvancePayment.get(particulars) !=null)
+							{
+								clsBillPrintingBean billPrintBean= mapForAdvancePayment.get(particulars);					
+								billPrintingBean.setDblBalanceAmt( billPrintBean.getDblBalanceAmt() + creditAmount);
+								mapForAdvancePayment.put(particulars, billPrintingBean);
+							}
+							else
+							{
+								mapForAdvancePayment.put(particulars, billPrintingBean);
+							}
+							
+						
+						}
+					}
+
+				}
+				 for (Map.Entry<String,clsBillPrintingBean> entryPay : mapForAdvancePayment.entrySet()) 
+	        	 {
+					 billAmount -=entryPay.getValue().getDblBalanceAmt();
+					 dataList.add(entryPay.getValue());
+	        	 }
+			
+				
+				billPrintingBean = new clsBillPrintingBean();
+				billPrintingBean.setStrRoomNo("");
+				billPrintingBean.setDblBalanceAmt(billAmount);
+				billPrintingBean.setStrRoomName("");
+				billPrintingBean.setStrBillIncluded("Total:");
+				billPrintingBean.setStrGuestName("");
+				billPrintingBean.setDteDocDate("");
+				dataList.add(billPrintingBean);
+	
 				reportParams.put("pRoomNo","Room No");
 				reportParams.put("pRoomName","Room Name");
+				reportParams.put("dblTotalBill",billAmount);
 			}
 			
 

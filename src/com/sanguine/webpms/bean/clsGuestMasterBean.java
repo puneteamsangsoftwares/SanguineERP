@@ -109,7 +109,9 @@ public class clsGuestMasterBean {
 	
 	private String strReservationNo;
 	
+	private String strExternalID;
 	
+	private String strRemark;
 
 	// Setter-Getter Methods
 	public String getStrGuestCode() {
@@ -566,6 +568,22 @@ public class clsGuestMasterBean {
 
 	public void setStrReservationNo(String strReservationNo) {
 		this.strReservationNo = strReservationNo;
+	}
+
+	public String getStrExternalID() {
+		return strExternalID;
+	}
+
+	public void setStrExternalID(String strExternalID) {
+		this.strExternalID = strExternalID;
+	}
+
+	public String getStrRemark() {
+		return strRemark;
+	}
+
+	public void setStrRemark(String strRemark) {
+		this.strRemark = strRemark;
 	}
 	
 	

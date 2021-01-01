@@ -10,35 +10,35 @@
     
 <script type="text/javascript">
 	var fieldName,settlementType="",gstrIndustryType;
-	
+	var pmsDate="";
 	$(function() 
 	{
-		var pmsDate='2019-11-11';
-		<%-- '<%=session.getAttribute("PMSDate").toString()%>'; --%>
+		pmsDate='2019-11-11';
+		pmsDate='<%=session.getAttribute("PMSDate").toString()%>'; 
 		
 		 <%-- '<%=session.getAttribute("PMSDate").toString()%>'; --%>
 		 
 		$("#txtExpiryDate").datepicker({ dateFormat: 'dd-mm-yy' });
 		$("#txtExpiryDate").datepicker('setDate', pmsDate);		
 		
-		  var dte=pmsDate.split("-");
-		  $("#txtPMSDate").val(dte[2]+"-"+dte[1]+"-"+dte[0]);
-		  
-		  var code='${code}';
-		  var dblAmt='${dblBalanceAmt}';
-		  
-		  if(code!=''||code!="")
-		  {
+	   var dte=pmsDate.split("-");
+	   $("#txtPMSDate").val(dte[2]+"-"+dte[1]+"-"+dte[0]);
+	  
+	   var code='${code}';
+	   var dblAmt='${dblBalanceAmt}';
+	  
+	   if(code!=''||code!="")
+	   {
 		    $("#txtDocCode").val(code);
 		    $("#txtSettlementCode").focus();
 		    $("#flagForAdvAmt").val("Y");
 		    $("#lblBalnceAmount").text(dblAmt);
 		   
-		    
-		  }
-		  else{
-			  
-		  }
+	    
+	   }
+	   else{
+		  
+	  }
 		  
 		<%--   var strIndustryType='';
 		  gstrIndustryType=strIndustryType;
@@ -385,6 +385,14 @@
 		        	$("#txtSettlementCode").val(response.strSettlementCode);
 		        	$("#txtSettlementDesc").val(response.strSettlementDesc);
 		        	settlementType=response.strSettlementType;
+		        	$("#lblExpiryDate").text("Expiry Date"); 
+	        		$("#lblCardNo").text("Card No");  
+		        	if(settlementType=='Cheque')
+	        		{
+		        		$("#lblExpiryDate").text("Cheque Date"); 
+		        		$("#lblCardNo").text("Cheque No");  		        		 		        		
+	        		}
+		        	
 	        	}
 
 			},
@@ -658,10 +666,10 @@ function funCreateNewGuest(){
 		    
 			<div class="col-md-3">
 	   	       <div class="row">
-			     <div class="col-md-6" id="lblCardOrCheck"><label>Card No</label>
+			     <div class="col-md-6" id="lblCardOrCheck"><label id="lblCardNo">Card No</label>
 			        <s:input type="text" id="txtCardNo" path="strCardNo"/>
 			     </div>
-			     <div class="col-md-6"><label>Expiry Date</label>
+			     <div class="col-md-6"><label id="lblExpiryDate">Expiry Date</label>
 			        <s:input type="text" id="txtExpiryDate" path="dteExpiryDate" cssClass="calenderTextBox" />
 		         </div>
 		   </div></div>

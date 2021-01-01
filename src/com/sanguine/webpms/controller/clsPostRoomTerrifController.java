@@ -468,6 +468,7 @@ public class clsPostRoomTerrifController {
 				objFolioDtl.setStrRevenueCode(objBean.getStrRoomNo());
 				objFolioDtl.setStrUserEdited(strUserCode);
 				objFolioDtl.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+				objFolioDtl.setStrRemark("");
 				listFolioDtl.add(objFolioDtl);
 	    	}
 	    	else
@@ -512,6 +513,7 @@ public class clsPostRoomTerrifController {
 					objFolioDtl.setStrRevenueCode(objBean.getStrRoomNo());
 					objFolioDtl.setStrUserEdited(strUserCode);
 					objFolioDtl.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+					objFolioDtl.setStrRemark("");
 					listFolioDtl.add(objFolioDtl);
 		    	
 	    		}
@@ -588,6 +590,7 @@ public class clsPostRoomTerrifController {
 						objFolioDtl.setStrRevenueCode(objBean.getStrRoomNo());
 						objFolioDtl.setStrUserEdited(strUserCode);
 						objFolioDtl.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+						objFolioDtl.setStrRemark("");
 						listFolioDtl.add(objFolioDtl);
 		    		
 	    			
@@ -649,6 +652,7 @@ public class clsPostRoomTerrifController {
 			objFolioDtl.setStrTransactionType(strTransType);
 			objFolioDtl.setStrUserEdited(strUserCode);
 			objFolioDtl.setDteDateEdited(objGlobal.funGetCurrentDateTime("yyyy-MM-dd"));
+			objFolioDtl.setStrRemark("");
 			listFolioDtl.add(objFolioDtl);
 
 			objTaxProductDtl = new clsTaxProductDtl();

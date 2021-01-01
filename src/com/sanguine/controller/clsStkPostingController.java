@@ -240,7 +240,7 @@ public class clsStkPostingController {
 		String startDate = request.getSession().getAttribute("startDate").toString();
 		objBean.setStrPSCode(objGlobalFunctions.funIfNull(objBean.getStrPSCode(), "", objBean.getStrPSCode()));
 		clsStkPostingHdModel objHdModel = funPrepareModel(objBean, userCode, clientCode, propCode, startDate, request);
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat("#.###");
 		objGlobal = new clsGlobalFunctions();
 		if (!result.hasErrors()) {
 			List<clsStkPostingDtlModel> listStkPostDtl = objBean.getListStkPostDtl();
@@ -260,6 +260,7 @@ public class clsStkPostingController {
 					    ob.setDblCStock(Double.parseDouble(df.format(ob.getDblCStock())));
 					    ob.setDblActualRate(Double.parseDouble(df.format(ob.getDblActualRate())));
 					    ob.setDblActualValue(Double.parseDouble(df.format(ob.getDblActualValue())));
+					    ob.setDblPStock(Double.parseDouble(df.format(ob.getDblPStock())));
 
 					    objStkPostService.funAddUpdateDtl(ob);
 						flagDtlDataInserted = true;

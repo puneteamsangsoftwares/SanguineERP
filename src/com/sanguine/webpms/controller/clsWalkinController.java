@@ -373,6 +373,15 @@ public class clsWalkinController {
 				{
 					packageCode=objBean.getStrPackageCode();
 				}
+				
+				String strPackageInclusiveRoomTerrif="N";
+				List listPackage = objGlobalFunctionsService.funGetListModuleWise("select a.strPackageCode,a.strPackageInclusiveRoomTerrif from tblpackagemasterhd "
+						+ " a where a.strPackageCode='"+packageCode+"' and a.strClientCode='"+clientCode+"' ", "sql");
+				if(listPackage!=null && listPackage.size()>0 )
+				{
+					Object[] obj=(Object[])listPackage.get(0);
+					strPackageInclusiveRoomTerrif=obj[1].toString();
+				}
 				objPkgHdModel=new clsPackageMasterHdModel();
 				objPkgHdModel.setStrPackageCode(packageCode);
 				objPkgHdModel.setStrPackageName(objBean.getStrPackageName());
@@ -401,13 +410,17 @@ public class clsWalkinController {
 				}
 				if(null!=objBean.getListWalkinRoomRateDtl())
 				{
-				for (clsWalkinRoomRateDtlModel objRommDtlBean : objBean.getListWalkinRoomRateDtl()) 
-				{
-				     insertSql+=",('"+objHdModel.getStrWalkinNo()+"','','' "
-				    		 + ",'"+packageCode+"','','"+objRommDtlBean.getDblRoomRate()+"' "
-								+ ",'RoomTariff','"+objRommDtlBean.getStrRoomType()+"','"+clientCode+"')";
-				     objRommDtlBean.setDblDiscount(objBean.getDblDiscountPercent());
-				}
+					if(strPackageInclusiveRoomTerrif.equalsIgnoreCase("Y"))
+					{
+						for (clsWalkinRoomRateDtlModel objRommDtlBean : objBean.getListWalkinRoomRateDtl()) 
+						{
+						     insertSql+=",('"+objHdModel.getStrWalkinNo()+"','','' "
+						    		 + ",'"+packageCode+"','','"+objRommDtlBean.getDblRoomRate()+"' "
+										+ ",'RoomTariff','"+objRommDtlBean.getStrRoomType()+"','"+clientCode+"')";
+						     objRommDtlBean.setDblDiscount(objBean.getDblDiscountPercent());
+						}
+					}
+				
 			    }
 				
 				if(flgData)
@@ -417,7 +430,7 @@ public class clsWalkinController {
 					objWebPMSUtility.funExecuteUpdate(insertPkgDtl, "sql");
 					objPkgHdModel.setListPackageDtl(listPkgDtlModel);
 					try {
-						objBaseService.funSaveForPMS(objPkgHdModel);
+						//objBaseService.funSaveForPMS(objPkgHdModel);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

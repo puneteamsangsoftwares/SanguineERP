@@ -1060,10 +1060,7 @@
 		$("#txtIncomeHead").val(data.strIncomeHeadCode);
 		$("#txtIncomeHeadName").val(data.strIncomeHeadDesc);
 	 
-		//funAddIncomeHeadRow();
 		
-		//$("#txtIncomeHead").val('');
-		//$("#txtIncomeHeadName").text('');
 	
 	}
 	
@@ -1204,6 +1201,10 @@
 			if($("#txtRoomTypeCode").val()=='')
 			{
 				alert('Select RoomType!!');
+			}
+			else if($("#txtRoomNo").val()=='')
+			{
+				alert('Select Room Number!!');
 			}
 			else
 			{
@@ -1886,7 +1887,37 @@
 	function funCalculateTotals()
 	{			
 		
-		var totalAmt=0.00;
+		/* var totalAmt=0.00;
+		var table=document.getElementById("tblIncomeHeadDtl");
+		var rowCount=table.rows.length;
+		if(rowCount>0)
+		{
+		    for(var i=0;i<rowCount;i++)
+		    {
+		    	var containsAccountCode=table.rows[i].cells[2].innerHTML;
+		       	totalAmt=totalAmt+parseFloat($(containsAccountCode).val());
+		    }
+		   	totalAmt=parseFloat(totalAmt).toFixed(maxAmountDecimalPlaceLimit);
+		}
+		//$("#dblTotalAmt").text(totalAmt);
+		
+		//For tarrif
+		
+		
+		totalTarriff=0;
+		if(document.getElementById("tblRommRate").rows.length>0)
+		{
+			for(var i=0;i<document.getElementById("tblRommRate").rows.length;i++)
+		    {
+				var objName =document.getElementById("dblRoomRate."+i);
+		        totalTarriff=totalTarriff+parseFloat(objName.value);
+		    }
+			totalTarriff=parseFloat(totalTarriff).toFixed(maxAmountDecimalPlaceLimit);
+		}
+		$("#txtTotalAmt").val(totalTarriff); 
+		 */
+		 
+		 var totalAmt=0.00;
 		var table=document.getElementById("tblIncomeHeadDtl");
 		var rowCount=table.rows.length;
 		if(rowCount>0)

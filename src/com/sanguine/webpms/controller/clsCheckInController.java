@@ -373,7 +373,9 @@ public class clsCheckInController {
  
 			String sqlFolioNo = "select a.strFolioNo from tblfoliohd a where a.strCheckInNo='"+objBean.getStrCheckInNo()+"' and a.strClientCode='"+clientCode+"'";
 			String strFolioNo="";
-			List listFolioNo  = objGlobalFunctionsService.funGetListModuleWise(sqlFolioNo, "sql");			
+			List listFolioNo  = objGlobalFunctionsService.funGetListModuleWise(sqlFolioNo, "sql");	
+			String strPackageInclusiveRoomTerrif="N";
+			
 			if(listFolioNo.size()>0)
 			{
 				strFolioNo = listFolioNo.get(0).toString();
@@ -610,6 +612,13 @@ public class clsCheckInController {
 					{
 						packageCode=objBean.getStrPackageCode();
 					}
+					List listPackage = objGlobalFunctionsService.funGetListModuleWise("select a.strPackageCode,a.strPackageInclusiveRoomTerrif from tblpackagemasterhd "
+							+ " a where a.strPackageCode='"+packageCode+"' and a.strClientCode='"+clientCode+"' ", "sql");
+					if(listPackage!=null && listPackage.size()>0 )
+					{
+						Object[] obj=(Object[])listPackage.get(0);
+						strPackageInclusiveRoomTerrif=obj[1].toString();
+					}
 					objPkgHdModel=new clsPackageMasterHdModel();
 					objPkgHdModel.setStrPackageCode(packageCode);
 					objPkgHdModel.setStrPackageName(objBean.getStrPackageName());
@@ -670,20 +679,23 @@ public class clsCheckInController {
 							objPkdDtl.setDblAmt(Double.valueOf(objPkgDtlBean.getDblIncomeHeadAmt()));
 							listPkgDtlModel.add(objPkdDtl);
 						}
-						
-						for (clsWalkinRoomRateDtlModel objRommDtlBean : objBean.getListWalkinRoomRateDtl()) 
+						if(strPackageInclusiveRoomTerrif.equalsIgnoreCase("Y"))
 						{
-							for (clsCheckInDetailsBean objCheckInDtlBean : objBean.getListCheckInDetailsBean()) 
+							for (clsWalkinRoomRateDtlModel objRommDtlBean : objBean.getListWalkinRoomRateDtl()) 
 							{
-								if(objRommDtlBean.getStrRoomType().equals(objCheckInDtlBean.getStrRoomType()))
+								for (clsCheckInDetailsBean objCheckInDtlBean : objBean.getListCheckInDetailsBean()) 
 								{
-									insertSql+=",('"+objHdModel.getStrWalkInNo()+"','','"+objHdModel.getStrCheckInNo()+"' "
-								    		 + ",'"+packageCode+"','','"+objRommDtlBean.getDblRoomRate()+"' "
-												+ ",'RoomTariff','"+objCheckInDtlBean.getStrRoomNo()+"','"+clientCode+"')";
-									
+									if(objRommDtlBean.getStrRoomType().equals(objCheckInDtlBean.getStrRoomType()))
+									{
+										insertSql+=",('"+objHdModel.getStrWalkInNo()+"','','"+objHdModel.getStrCheckInNo()+"' "
+									    		 + ",'"+packageCode+"','','"+objRommDtlBean.getDblRoomRate()+"' "
+													+ ",'RoomTariff','"+objCheckInDtlBean.getStrRoomNo()+"','"+clientCode+"')";
+										
+									}
 								}
-							}
-						 }
+							 }
+						}
+						
 					}
 						
 					
@@ -695,7 +707,7 @@ public class clsCheckInController {
 						objWebPMSUtility.funExecuteUpdate(insertPkgDtl, "sql");
 						objPkgHdModel.setListPackageDtl(listPkgDtlModel);
 						try {
-							objBaseService.funSaveForPMS(objPkgHdModel);
+						//	objBaseService.funSaveForPMS(objPkgHdModel);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -1110,6 +1122,13 @@ public class clsCheckInController {
 				{
 					packageCode=objBean.getStrPackageCode();
 				}
+				List listPackage = objGlobalFunctionsService.funGetListModuleWise("select a.strPackageCode,a.strPackageInclusiveRoomTerrif from tblpackagemasterhd "
+						+ " a where a.strPackageCode='"+packageCode+"' and a.strClientCode='"+clientCode+"' ", "sql");
+				if(listPackage!=null && listPackage.size()>0 )
+				{
+					Object[] obj=(Object[])listPackage.get(0);
+					strPackageInclusiveRoomTerrif=obj[1].toString();
+				}
 				objPkgHdModel=new clsPackageMasterHdModel();
 				objPkgHdModel.setStrPackageCode(packageCode);
 				objPkgHdModel.setStrPackageName(objBean.getStrPackageName());
@@ -1140,19 +1159,22 @@ public class clsCheckInController {
 						objPkdDtl.setDblAmt(Double.valueOf(objPkgDtlBean.getDblIncomeHeadAmt()));
 						listPkgDtlModel.add(objPkdDtl);
 					}
-					for (clsReservationRoomRateModelDtl objRommDtlBean : objBean.getlistReservationRoomRateDtl()) 
+					if(strPackageInclusiveRoomTerrif.equalsIgnoreCase("Y"))
 					{
-						for (clsCheckInDetailsBean objCheckInDtlBean : objBean.getListCheckInDetailsBean()) 
+						for (clsReservationRoomRateModelDtl objRommDtlBean : objBean.getlistReservationRoomRateDtl()) 
 						{
-							if(objRommDtlBean.getStrRoomType().equals(objCheckInDtlBean.getStrRoomType()))
+							for (clsCheckInDetailsBean objCheckInDtlBean : objBean.getListCheckInDetailsBean()) 
 							{
-								insertSql+=",('','"+objHdModel.getStrReservationNo()+"','"+objHdModel.getStrCheckInNo()+"' "
-										+ ",'"+packageCode+"','','"+objRommDtlBean.getDblRoomRate()+"' "
-										+ ",'RoomTariff','"+objCheckInDtlBean.getStrRoomNo()+"','"+clientCode+"')";
-								
+								if(objRommDtlBean.getStrRoomType().equals(objCheckInDtlBean.getStrRoomType()))
+								{
+									insertSql+=",('','"+objHdModel.getStrReservationNo()+"','"+objHdModel.getStrCheckInNo()+"' "
+											+ ",'"+packageCode+"','','"+objRommDtlBean.getDblRoomRate()+"' "
+											+ ",'RoomTariff','"+objCheckInDtlBean.getStrRoomNo()+"','"+clientCode+"')";									
+								}
 							}
-						}
-					 }
+						 }
+					}
+					
 				}
 				else
 				{
@@ -1170,20 +1192,23 @@ public class clsCheckInController {
 						objPkdDtl.setDblAmt(Double.valueOf(objPkgDtlBean.getDblIncomeHeadAmt()));
 						listPkgDtlModel.add(objPkdDtl);
 					}
-					
-					for (clsWalkinRoomRateDtlModel objRommDtlBean : objBean.getListWalkinRoomRateDtl()) 
+					if(strPackageInclusiveRoomTerrif.equalsIgnoreCase("Y"))
 					{
-						for (clsCheckInDetailsBean objCheckInDtlBean : objBean.getListCheckInDetailsBean()) 
+						for (clsWalkinRoomRateDtlModel objRommDtlBean : objBean.getListWalkinRoomRateDtl()) 
 						{
-							if(objRommDtlBean.getStrRoomType().equals(objCheckInDtlBean.getStrRoomType()))
+							for (clsCheckInDetailsBean objCheckInDtlBean : objBean.getListCheckInDetailsBean()) 
 							{
-								insertSql+=",('"+objHdModel.getStrWalkInNo()+"','','"+objHdModel.getStrCheckInNo()+"' "
-							    		 + ",'"+packageCode+"','','"+objRommDtlBean.getDblRoomRate()+"' "
-											+ ",'RoomTariff','"+objCheckInDtlBean.getStrRoomNo()+"','"+clientCode+"')";
-								
+								if(objRommDtlBean.getStrRoomType().equals(objCheckInDtlBean.getStrRoomType()))
+								{
+									insertSql+=",('"+objHdModel.getStrWalkInNo()+"','','"+objHdModel.getStrCheckInNo()+"' "
+								    		 + ",'"+packageCode+"','','"+objRommDtlBean.getDblRoomRate()+"' "
+												+ ",'RoomTariff','"+objCheckInDtlBean.getStrRoomNo()+"','"+clientCode+"')";
+									
+								}
 							}
-						}
-					 }
+						 }
+					}
+					
 				}
 					
 				
@@ -1195,7 +1220,7 @@ public class clsCheckInController {
 					objWebPMSUtility.funExecuteUpdate(insertPkgDtl, "sql");
 					objPkgHdModel.setListPackageDtl(listPkgDtlModel);
 					try {
-						objBaseService.funSaveForPMS(objPkgHdModel);
+						//objBaseService.funSaveForPMS(objPkgHdModel);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -1391,19 +1416,28 @@ public class clsCheckInController {
 		String strTransactionType = "Check In";
 		String sqlPostRoom = "SELECT a.strFolioNo,a.strRoomNo,c.dblRoomTerrif,a.strExtraBedCode, "
 				+ "IFNULL(a.strReservationNo,''), IFNULL(a.strWalkInNo,''),c.strRoomTypeCode, "
-				+ "IFNULL(SUM(d.dblIncomeHeadAmt),0), IFNULL(e.strComplimentry,'N') "
+				+ "IFNULL(SUM(d.dblIncomeHeadAmt),0), IFNULL(e.strComplimentry,'N'),ifnull(d.strPackageCode,'') "
 				+ "FROM tblfoliohd a LEFT OUTER JOIN tblroompackagedtl d ON a.strCheckInNo=d.strCheckInNo,"
 				+ "tblroom b,tblroomtypemaster c,tblcheckinhd e WHERE a.strRoomNo=b.strRoomCode "
 				+ "AND b.strRoomTypeCode=c.strRoomTypeCode AND a.strCheckInNo=e.strCheckInNo "
 				+ "and e.strCheckInNo='"+strCheckInNo+"' AND a.strClientCode='"+clientCode+"'  AND b.strClientCode='"+clientCode+"' AND c.strClientCode='"+clientCode+"' AND e.strClientCode='"+clientCode+"' GROUP BY a.strFolioNo ";
 		
 		List listRoomInfo = objGlobalFunctionsService.funGetListModuleWise(sqlPostRoom, "sql");
-        
+		String strPackageInclusiveRoomTerrif="N";
+		
 		for (int cnt = 0; cnt < listRoomInfo.size(); cnt++) 
 		{
+			
 			clsPostRoomTerrifBean objPostRoomTerrifBean = new clsPostRoomTerrifBean();
 			Object[] arrObjRoom = (Object[]) listRoomInfo.get(cnt);
 			double dblRoomRate=0.0;
+			List listPackage = objGlobalFunctionsService.funGetListModuleWise("select a.strPackageCode,a.strPackageInclusiveRoomTerrif from tblpackagemasterhd "
+					+ " a where a.strPackageCode='"+arrObjRoom[9].toString()+"' and a.strClientCode='"+clientCode+"' ", "sql");
+			if(listPackage!=null && listPackage.size()>0 )
+			{
+				Object[] obj=(Object[])listPackage.get(0);
+				strPackageInclusiveRoomTerrif=obj[1].toString();
+			}
 			
 			if(!arrObjRoom[4].toString().equals(""))
 			{
@@ -1442,7 +1476,7 @@ public class clsCheckInController {
 				 
 				 if(listRoomRate.size()>0)
 				 {
-				 dblRoomRate=Double.parseDouble(listRoomRate.get(0).toString());
+				    dblRoomRate=Double.parseDouble(listRoomRate.get(0).toString());
 				 }
 				 else
 				 {
@@ -1451,7 +1485,7 @@ public class clsCheckInController {
 					  listRoomRate = objGlobalFunctionsService.funGetListModuleWise(sqlRoomRate, "sql");
 					 if(listRoomRate.size()>0)
 					 {
-					 dblRoomRate=Double.parseDouble(listRoomRate.get(0).toString());
+					    dblRoomRate=Double.parseDouble(listRoomRate.get(0).toString());
 					 }
 				 }
 			}
@@ -1470,8 +1504,12 @@ public class clsCheckInController {
 			}
 			objPostRoomTerrifBean.setStrFolioType("Room");
 			String folioNo = arrObjRoom[0].toString();
-			String docNo = objPostRoomTerrif.funInsertFolioRecords(folioNo, clientCode, propCode, objPostRoomTerrifBean,  strpmsDate, arrObjRoom[3].toString(),strTransactionType,userCode);
-			listRoomTerrifDocNo.add(docNo);
+			if(strPackageInclusiveRoomTerrif.equalsIgnoreCase("N"))
+			{
+				String docNo = objPostRoomTerrif.funInsertFolioRecords(folioNo, clientCode, propCode, objPostRoomTerrifBean,  strpmsDate, arrObjRoom[3].toString(),strTransactionType,userCode);
+				listRoomTerrifDocNo.add(docNo);
+			}
+			
 			if(Double.valueOf(arrObjRoom[7].toString())>0)
 			{   
 				dblRoomRate=Double.valueOf(arrObjRoom[7].toString());
@@ -1482,9 +1520,9 @@ public class clsCheckInController {
 				objPostRoomTerrifBean.setDblOriginalPostingAmt(dblRoomRate);
 				objPostRoomTerrifBean.setStrFolioType("Package");
 				folioNo = arrObjRoom[0].toString();
-				docNo=objPostRoomTerrif.funInsertFolioRecords(folioNo, clientCode, propCode, objPostRoomTerrifBean,strpmsDate, arrObjRoom[3].toString(),strTransactionType,userCode);	
+				String docNo=objPostRoomTerrif.funInsertFolioRecords(folioNo, clientCode, propCode, objPostRoomTerrifBean,strpmsDate, arrObjRoom[3].toString(),strTransactionType,userCode);	
 				listRoomTerrifDocNo.add(docNo);
-			}
+			} 
 			
 			
 			
@@ -1508,22 +1546,18 @@ public class clsCheckInController {
 			if (objSetup == null) {
 				objSetup = new clsPropertySetupModel();
 			}
-
 			String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
 			String userName = "";
 			String sqlUserName = "select strUserName from "+webStockDB+".tbluserhd where strUserCode='" + userCode + "' ";
-
 			List listOfUser = objGlobalFunctionsService.funGetDataList(sqlUserName, "sql");
 			if (listOfUser.size() > 0) {
 				// Object[] userData = (Object[]) listOfUser.get(0);
 				userName = listOfUser.get(0).toString();
 			}
 
-			HashMap reportParams = new HashMap();
-			
+			HashMap reportParams = new HashMap();			
 			ArrayList datalist = new ArrayList();
-			String reportName = servletContext.getRealPath("/WEB-INF/reports/webpms/rptCheckInSlip.jrxml");
-			
+			String reportName = servletContext.getRealPath("/WEB-INF/reports/webpms/rptCheckInSlip.jrxml");			
 			if(strAgainst.equalsIgnoreCase("Walk In")){
 			String sql = "SELECT a.strCheckInNo,a.strGuestCode,f.strRoomDesc,"
 					+ "ifnull(a.strExtraBedCode,''), b.strRoomTypeDesc,"
@@ -1784,6 +1818,25 @@ public class clsCheckInController {
 					reportParams.put("pdiscount", discAmt);
 				}
 			}
+			
+			double dblPackageAmount=0;
+			String sqlFolioPackage="select b.strPerticulars,b.dblDebitAmt from tblfoliohd a,tblfoliodtl b"
+					+ " where a.strFolioNo=b.strFolioNo and a.strCheckInNo='"+reciptNo+"'and a.strClientCode='"+clientCode+"'  and"
+					+ " b.strPerticulars='Package'";
+			
+			List listFolioPackage = objGlobalFunctionsService.funGetListModuleWise(sqlFolioPackage, "sql");
+
+			if(listFolioPackage!=null && listFolioPackage.size()>0)
+			{
+				for(int i=0;i<listFolioPackage.size();i++)
+				{
+					Object[] obj =(Object[])listFolioPackage.get(i);
+					dblPackageAmount+=Double.parseDouble(obj[1].toString());
+				}
+				
+			}
+			reportParams.put("pdblPackgeAmt", dblPackageAmount);
+			reportParams.put("strUserCode",userCode);
 
 			JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(datalist);
 			JasperDesign jd = JRXmlLoader.load(reportName);

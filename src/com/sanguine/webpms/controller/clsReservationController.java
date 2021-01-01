@@ -495,6 +495,14 @@ public class clsReservationController {
 				{
 					packageCode=objBean.getStrPackageCode();
 				}
+				String strPackageInclusiveRoomTerrif="N";
+				List listPackage = objGlobalFunctionsService.funGetListModuleWise("select a.strPackageCode,a.strPackageInclusiveRoomTerrif from tblpackagemasterhd "
+						+ " a where a.strPackageCode='"+packageCode+"' and a.strClientCode='"+clientCode+"' ", "sql");
+				if(listPackage!=null && listPackage.size()>0 )
+				{
+					Object[] obj=(Object[])listPackage.get(0);
+					strPackageInclusiveRoomTerrif=obj[1].toString();
+				}
 				objPkgHdModel=new clsPackageMasterHdModel();
 				objPkgHdModel.setStrPackageCode(packageCode);
 				objPkgHdModel.setStrPackageName(objBean.getStrPackageName());
@@ -527,12 +535,16 @@ public class clsReservationController {
 				
 				if(null!=objBean.getListReservationRoomRateDtl())
 				{
-				for (clsReservationRoomRateModelDtl objRommDtlBean : objBean.getListReservationRoomRateDtl()) 
-				{
-				     insertSql+=",('','"+objHdModel.getStrReservationNo()+"','' "
-							+ ",'"+packageCode+"','','"+objRommDtlBean.getDblRoomRate()+"' "
-							+ ",'RoomTariff','"+objRommDtlBean.getStrRoomType()+"','"+clientCode+"')";
-				}
+					if(strPackageInclusiveRoomTerrif.equalsIgnoreCase("Y"))
+					{
+						for (clsReservationRoomRateModelDtl objRommDtlBean : objBean.getListReservationRoomRateDtl()) 
+						{
+						     insertSql+=",('','"+objHdModel.getStrReservationNo()+"','' "
+									+ ",'"+packageCode+"','','"+objRommDtlBean.getDblRoomRate()+"' "
+									+ ",'RoomTariff','"+objRommDtlBean.getStrRoomType()+"','"+clientCode+"')";
+						}
+					}
+					
 			    }
 				if(flgData)
 				{
@@ -541,7 +553,7 @@ public class clsReservationController {
 					objWebPMSUtility.funExecuteUpdate(insertPkgDtl, "sql");
 					objPkgHdModel.setListPackageDtl(listPkgDtlModel);
 					try {
-						objBaseService.funSaveForPMS(objPkgHdModel);
+						//objBaseService.funSaveForPMS(objPkgHdModel);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

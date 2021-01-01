@@ -51,6 +51,10 @@ public class clsFolioDtlModel implements Serializable {
 	private String strTransactionType;
 	
 	
+	@Column(name = "strRemark")
+	private String strRemark;
+
+	
 	
 	// Setter-Getter Methods
 	public String getDteDocDate() {
@@ -162,6 +166,14 @@ public class clsFolioDtlModel implements Serializable {
 
 	public void setStrTransactionType(String strTransactionType) {
 		this.strTransactionType = strTransactionType;
+	}
+
+	public String getStrRemark() {
+		return strRemark;
+	}
+
+	public void setStrRemark(String strRemark) {
+		this.strRemark = strRemark;
 	}
 
 	

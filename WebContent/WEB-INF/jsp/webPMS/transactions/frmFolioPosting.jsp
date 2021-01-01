@@ -190,6 +190,7 @@
 		var amount=$("#dblIncomeHeadAmt").val();
 		var quantity = $("#dblQuantity").val();
 		var rate = $("#dblRate").val();
+		var Remark = $("#idRemark").val();
 		var flag=false;
 		flag=funChechDuplicate(incomeHeadCode);
 		if(flag)
@@ -202,11 +203,13 @@
 			var rowCount=table.rows.length;
 			var row=table.insertRow();
 			amount = quantity * rate
-	 	    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:95%;\" name=\"listIncomeHeadBeans["+(rowCount)+"].strIncomeHeadCode\" id=\"strIncomeHeadCode."+(rowCount)+"\" value='"+incomeHeadCode+"' >";
+			row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:95%;\" name=\"listIncomeHeadBeans["+(rowCount)+"].strIncomeHeadCode\" id=\"strIncomeHeadCode."+(rowCount)+"\" value='"+incomeHeadCode+"' >";
 	 	    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-left: 5px;width:95%;\" name=\"listIncomeHeadBeans["+(rowCount)+"].strIncomeHeadDesc\" id=\"strIncomeHeadDesc."+(rowCount)+"\" value='"+incomeHeadName+"' >";
 	        row.insertCell(2).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-right: 5px;width:95%;text-align: right;\" name=\"listIncomeHeadBeans["+(rowCount)+"].dblAmount\" id=\"dblAmount."+(rowCount)+"\"  value='"+amount+"' >";
-			row.insertCell(3).innerHTML= "<input type=\"button\" value=\"Delete\" style=\"padding-right: 5px;width:80%;text-align: right;\" class=\"deletebutton\" onclick=\"funRemoveRow(this,'tblIncomeHeadDtl')\" />";
-					
+	        row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-right: 5px;width:112%;\" name=\"listIncomeHeadBeans["+(rowCount)+"].strRemark\" id=\"idtblRemark."+(rowCount)+"\"  value='"+Remark+"' >";
+
+	        row.insertCell(4).innerHTML= "<input type=\"button\" value=\"Delete\" style=\"float: right;\" class=\"deletebutton\" onclick=\"funRemoveRow(this,'tblIncomeHeadDtl')\" />";
+			
 		//calculate totals
 			funCalculateTotals();
 			
@@ -383,55 +386,72 @@
 			<div class="col-md-5"><label>Amount</label>
 			   <div class="row">
 			       <div class="col-md-3"><s:input id="dblIncomeHeadAmt" path=""   class="decimal-places-amt numberField" value="0" placeholder="amt"  /></div>
-			       <div class="col-md-9"><input type="button" value="Add" class="btn btn-primary center-block" class="smallButton" onclick='return funAddRow()'/></div>
-			</div></div>
+			       
+			</div>
+			<div class="row">
+			<div class="col-md-3"><label style="margin-left: -323%;">Remark</label><br>
+							<s:textarea id="idRemark" path="" style="width: 374px;margin-left: -323%;"/>
+					 </div>
+				    <div class="col-md-9"><input type="button" value="Add" class="btn btn-primary center-block" class="smallButton" onclick='return funAddRow()'style="margin-top: 15%;"/></div>
+				    
+				    </div>
+				    
+			</div>
+			
+			
 			
 		</div>
 		
 		<br/>
 		<!-- Generate Dynamic Table   -->		
-		<div class="dynamicTableContainer" style="height: 200px; width: 60%">
+		<div class="dynamicTableContainer" style="height: 200px; width: 80%">
 			<table style="height: 28px; border: #0F0; width: 100%;font-size:11px; font-weight: bold;">
-				<tr bgcolor="#c0c0c0" style="height: 24px;">
+				<tbody><tr bgcolor="#c0c0c0" style="height: 24px;">
 					<!-- col1   -->
-					<td style="width: 26%">Income Head Code</td>
+					<td style="width: 21%">Income Head Code</td>
 					<!-- col1   -->
 					
 					<!-- col2   -->
-					<td style="width: 37%">Income Head Name</td>
+					<td style="width: 27%;">Income Head Name</td>
+					<!-- col2   -->
+					
+					<!-- col2   -->
+					<td style="width: 18%;">Amount</td>
 					<!-- col2   -->
 					
 					<!-- col3   -->					
-					<td style="width: 25%">Amount</td>
+					<td style="width: 28%;">Remark</td>
 					<!-- col4   -->
 					
 					<!-- col4   -->
 					<td>Delete</td>
 					<!-- col4   -->									
 				</tr>
-			</table>
+			</tbody>								
+				</tr>
+			</tbody></table>
 			<div style="background-color: #fafbfb; border: 1px solid #ccc; display: block; height: 200px; margin: auto; overflow-x: hidden; overflow-y: scroll; width: 100%;">
 				<table id="tblIncomeHeadDtl" style="width: 100%; border: #0F0; table-layout: fixed; overflow: scroll" class="transTablex col3-center">
 					<tbody>
 						<!-- col1   -->
-						<col width="25%">
+						</tbody><colgroup><col width="25%">
 						<!-- col1   -->
 						
 						<!-- col2   -->
-						<col width="35%" >
+						<col width="35%">
 						<!-- col2   -->
 						
 						<!-- col3   -->
-						<col align="right"  width="25%" >
-						<!-- col3   -->
-						
+						<col align="right" width="25%">
 						<!-- col4   -->
-						<col  width="10%">
+						<col width="35%">
+						<!-- col5  -->
+						<col width="10%">
 						<!-- col4   -->
-					</tbody>
+					</colgroup>
 				</table>
 			</div>			
-		</div>		
+		</div>	
 		<div class="dynamicTableContainer" style="height: 25px; width: 30%;overflow-x: hidden;background:#fbfafa">
 			<div class="row">
 				 <div class="col-md-3"> <label>Total</label>

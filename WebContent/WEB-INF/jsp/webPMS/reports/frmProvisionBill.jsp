@@ -184,8 +184,8 @@
 																
 			<div class="col-md-1.1"><label> Against</label>
 				  <select id="cmbType">
-				      <option value="Reservation">Reservation</option>
-					  <option value="CheckIn">CheckIn</option>
+<!-- 				      <option value="Reservation">Reservation</option>
+ -->					  <option value="CheckIn">CheckIn</option>
 				  </select>
 		  </div>
 		<%--   <div class="col-md-1.1"><label>Report Mode</label>

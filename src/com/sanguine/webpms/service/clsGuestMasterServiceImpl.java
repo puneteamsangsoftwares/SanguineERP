@@ -226,6 +226,8 @@ public class clsGuestMasterServiceImpl implements clsGuestMasterService {
 		objGuestMasterModel.setStrStateOfc(objGuestMasterBean.getStrStateOfc());
 		objGuestMasterModel.setStrCountryOfc(objGuestMasterBean.getStrCountryOfc());
 		objGuestMasterModel.setIntPinCodeOfc(objGuestMasterBean.getIntPinCodeOfc());
+		objGuestMasterModel.setStrExternalID((objGlobal.funIfNull(objGuestMasterBean.getStrExternalID()," ",objGuestMasterBean.getStrExternalID())));
+		objGuestMasterModel.setStrRemark((objGlobal.funIfNull(objGuestMasterBean.getStrRemark()," ",objGuestMasterBean.getStrRemark())));
 
 		// objGuestMasterModel.setDtePassportExpiryDate(objGlobal.funIfNull(objGuestMasterBean.getDtePassportExpiryDate(),"1900-01-01",objGuestMasterBean.getDtePassportExpiryDate()));
 		// objGuestMasterModel.setDtePassportIssueDate(objGlobal.funIfNull(objGuestMasterBean.getDtePassportIssueDate(),"1900-01-01",objGuestMasterBean.getDtePassportIssueDate()));

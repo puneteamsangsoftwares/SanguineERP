@@ -4809,6 +4809,15 @@
 			<put-attribute name="body" value="/WEB-INF/jsp/webPMS/tools/frmRoomStatusDiary.jsp" />
 		</definition>
 		
+		<definition name="frmPMSTallyLinkUp" extends="base.definition">
+			<put-attribute name="title" value="Tally Link Up" />
+			<put-attribute name="body" value="/WEB-INF/jsp/webPMS/tools/frmPMSTallyLinkUp.jsp" />
+		</definition>
+		<definition name="frmPMSTallyLinkUp_1" extends="base.definition4">
+			<put-attribute name="title" value="Tally Link Up" />
+			<put-attribute name="body" value="/WEB-INF/jsp/webPMS/tools/frmPMSTallyLinkUp.jsp" />
+		</definition>
+		
 		
 		<definition name="frmBillPrinting" extends="base.definition">
 			<put-attribute name="title" value="Bill Printing" />
@@ -5043,6 +5052,15 @@
 	<definition name="frmFloorMaster_1" extends="base.definition4">
  		<put-attribute name="title" value="Floor Master" /> 
  		<put-attribute name="body" value="/WEB-INF/jsp/webPMS/masters/frmFloorMaster.jsp" /> 
+ 	</definition>
+ 	
+ 	<definition name="frmPackageMaster" extends="base.definition">
+  		<put-attribute name="title" value="Package Master" /> 
+  		<put-attribute name="body" value="/WEB-INF/jsp/webPMS/masters/frmPackageMaster.jsp" />
+ 	</definition>	  	
+	<definition name="frmPackageMaster_1" extends="base.definition4">
+ 		<put-attribute name="title" value="Package Master" /> 
+ 		<put-attribute name="body" value="/WEB-INF/jsp/webPMS/masters/frmPackageMaster.jsp" /> 
  	</definition>	
 			
 		

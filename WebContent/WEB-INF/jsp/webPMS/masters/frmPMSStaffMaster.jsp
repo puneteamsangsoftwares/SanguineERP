@@ -201,7 +201,11 @@ margin:0px;}
 				 
 		    case 'PmsStaffCode':
 		    	funSetStaffCode(code);
-		        break;		
+		        break;	
+		    case 'floormaster':
+		    	funSetFloorCodeAndName(code);
+		        break;	    
+		        
 			}
 		}
 	 
@@ -349,7 +353,86 @@ margin:0px;}
 		
 
 	 
+	 function funSetFloorCodeAndName(code)
+	 {
+		 $("#txtFloorCodeForRoom").val(code);
+			var searchurl=getContextPath()+"/loadFloorMasterData.html?floorCode="+code;
+			 $.ajax({
+				        type: "GET",
+				        url: searchurl,
+				        dataType: "json",
+				        success: function(response)
+				        {
+				        	if(response.strFloorCode=='Invalid Code')
+				        	{
+				        		alert("Invalid Business Code");
+				        		$("#txtFloorCodeForRoom").val('');
+				        	}
+				        	else
+				        	{
+					        	$("#txtFloorForRoomDescription").val(response.strFloorName);
+					        	funSetRoomDtlListForFloor()
+					        	//$("#txtFloorAmt").val(response.dblFloorAmt);
+					        	
+				        	}
+						},
+						error: function(jqXHR, exception) {
+				            if (jqXHR.status === 0) {
+				                alert('Not connect.n Verify Network.');
+				            } else if (jqXHR.status == 404) {
+				                alert('Requested page not found. [404]');
+				            } else if (jqXHR.status == 500) {
+				                alert('Internal Server Error [500].');
+				            } else if (exception === 'parsererror') {
+				                alert('Requested JSON parse failed.');
+				            } else if (exception === 'timeout') {
+				                alert('Time out error.');
+				            } else if (exception === 'abort') {
+				                alert('Ajax request aborted.');
+				            } else {
+				                alert('Uncaught Error.n' + jqXHR.responseText);
+				            }		            
+				        }
+			      });
+	 } 
 	 
+	 function funSetRoomDtlListForFloor(){
+		 	funRemoveProductRows();
+			var floorCode=$("#txtFloorCodeForRoom").val();
+			var searchurl=getContextPath()+"/loadRoomsDtlListForFloor.html?floorCode="+floorCode;
+			//alert(searchurl);
+			 $.ajax({
+				        type: "GET",
+				        url: searchurl,
+				        dataType: "json",
+				        success: function(response)
+				        {
+				        	
+				        	$.each(response, function(cnt,item)
+		 					{
+					        	funAddRow(item[0],item[1])
+					        	//alert(response);
+				      		});					        	
+						},
+						error: function(jqXHR, exception) {
+				            if (jqXHR.status === 0) {
+				                alert('Not connect.n Verify Network.');
+				            } else if (jqXHR.status == 404) {
+				                alert('Requested page not found. [404]');
+				            } else if (jqXHR.status == 500) {
+				                alert('Internal Server Error [500].');
+				            } else if (exception === 'parsererror') {
+				                alert('Requested JSON parse failed.');
+				            } else if (exception === 'timeout') {
+				                alert('Time out error.');
+				            } else if (exception === 'abort') {
+				                alert('Ajax request aborted.');
+				            } else {
+				                alert('Uncaught Error.n' + jqXHR.responseText);
+				            }		            
+				        }
+			      });	 					
+	 } 
 	 
 </script>
 
@@ -382,34 +465,45 @@ margin:0px;}
 						<div class="row transTable">
 							<div class="col-md-6">
 									<div class="row">
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<label>Room Code</label><br>
 										<s:input id="txtRoomCode" required="" ondblclick="funHelp('roomForStaffMaster')" cssClass="searchTextBox"
 											readonly="true" placeholder="Room Code" type="text" path=""></s:input>
 										</div>
 					
-										<div class="col-md-6">
+										<div class="col-md-4">
 										<label>Room Description</label><br><s:input id="txtRoomDescription" path="" required="" readonly="true"
 									 		placeholder="Enter Room Descriptio" type="text"></s:input><s:errors path=""></s:errors>
 										</div>
-									</div>
-							</div>
-							<div class="col-md-6">
-									<div class="row">
+										<div class="row transTable" style="margin-left: 1px;">
+										
+										<div class="col-md-4">
+											<label>Floor Code</label><br>
+										<s:input id="txtFloorCodeForRoom" required="" ondblclick="funHelp('floormaster')" cssClass="searchTextBox"
+											readonly="true" placeholder="Floor Code" type="text" path=""></s:input>
+										</div>
+										<div class="col-md-4" style="margin-left: 10px;">
+										<label>Floor Description</label><br><s:input id="txtFloorForRoomDescription" path="" required="" readonly="true"
+									 		placeholder="floor Description" type="text"></s:input><s:errors path=""></s:errors>
+										</div>
+										<div class="center">
+										<a href="#"><button class="btn btn-primary center-block" id="btnAdd" value="Add" onclick="return btnAdd_onclick()" class="form_button">Add</button></a>
+										</div>
+										</div>
+										
+									
 									
 									<%-- <div class="col-md-4">
 										<label>Operational:</label><br>
 										<s:checkbox id="txtOperationalNY" path="" value="Y" checked="true" />
 									</div> --%>
-										<div class="col-md-6">
-										<div class="center">
-										<a href="#"><button class="btn btn-primary center-block" id="btnAdd" value="Add" onclick="return btnAdd_onclick()" class="form_button">Add</button></a>
-										</div>
-										</div>
+									
+										
+									
+							</div>
 									</div>
 							</div>
-						</div>
-						  <table class="table table-striped dynamicTableContainer"> 
+							  <table class="table table-striped dynamicTableContainer"> 
 								<thead>
 									<tr>
 									   <th>Room Code</th>
@@ -421,6 +515,8 @@ margin:0px;}
 									  
 								</tbody>
 						 </table> 
+						</div>
+						
 					</div>
 					</div>
 					<div class="center"style="text-align:center;">

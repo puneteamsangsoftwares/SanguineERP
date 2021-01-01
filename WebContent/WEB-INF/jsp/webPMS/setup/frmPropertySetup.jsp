@@ -56,6 +56,7 @@ ul.tabs1 li.active {
 	var billFormat; 
 	var ratePickUp;
 	var OnlineIntegration;
+	var dayforhousekeeping;
 	
 	$(document).ready(function() {
 
@@ -243,6 +244,14 @@ ul.tabs1 li.active {
 			OnlineIntegration =value="${OnlineIntegration}";
 			
 			$("#cmbOnlineIntegration").val(OnlineIntegration);
+			
+			dayforhousekeeping=value="${dayForHousekeeping}";
+			if(dayforhousekeeping.length>0)
+			{
+				$("#cmbDayForHousekeeping").val(dayforhousekeeping);
+
+			}
+			
 	});
 	/**
 		* Success Message After Saving Record
@@ -1127,6 +1136,8 @@ ul.tabs1 li.active {
 							<s:checkbox id="txtHouseKeeping"  value="N" path="strEnableHousekeeping" onclick="funTaxOnTaxableStateChange()" />
 <%-- 							<s:input type="checkbox"  id="txtHouseKeeping" value="N"  path="strEnableHousekeeping"/>
  --%>						</div>	
+ 
+                     
 							<%-- <tr>
 								<td ><label>Amount Decimal Places</label></td>
 									<td><s:select path="intdec" id="intdec"
@@ -1170,7 +1181,20 @@ ul.tabs1 li.active {
 							</s:select>
 						</div>
 						
- 				
+ 				<div class="col-md-2">
+							<label >Day for Housekeeping </label>
+							
+							<s:select  id="cmbDayForHousekeeping" path="strDayForHousekeeping"  style="width:100%;">
+								<option value="Select" selected >Select</option>
+								<option value="Sunday">Sunday</option>
+								<option value="Monday">Monday</option>
+								<option value="Tuesday">Tuesday</option>
+								<option value="Wednesday">Wednesday</option>
+								<option value="Thursday">Thursday</option>
+								<option value="Friday">Friday</option>
+								<option value="Saturday">Saturday</option>						
+							</s:select>
+						</div>	
  			
 					</div>
 				</div>

@@ -44,6 +44,8 @@ public class clsPaymentReciptBean {
 	private String strGuestCode;
 	
 	private int intNOfNights;
+	
+	private String strRoomNo;
 
 	public String getStrReceiptNo() {
 		return strReceiptNo;
@@ -211,6 +213,14 @@ public class clsPaymentReciptBean {
 
 	public void setIntNOfNights(int intNOfNights) {
 		this.intNOfNights = intNOfNights;
+	}
+
+	public String getStrRoomNo() {
+		return strRoomNo;
+	}
+
+	public void setStrRoomNo(String strRoomNo) {
+		this.strRoomNo = strRoomNo;
 	}
 
 }

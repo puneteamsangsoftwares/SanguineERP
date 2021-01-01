@@ -4960,6 +4960,11 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		
 		funExecutePMSQuery(sql);
 		
+		
+		sql = "ALTER TABLE `tblpropertysetup` ADD COLUMN `strDayForHousekeeping` VARCHAR(15) NOT NULL DEFAULT '' AFTER `strIntegrationUrl`;";
+		
+		funExecutePMSQuery(sql);
+		
 		sql = "CREATE TABLE `tblpmsfeedbackmaster` ( "
 				+ "`strFeedbackCode` VARCHAR(10) NOT NULL, "
 				+ "`strFeedbackDesc` VARCHAR(100) NOT NULL,"
@@ -5096,7 +5101,9 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ " ('frmMergeBill', 'Bill Merge', 'Transaction', 2, 'T', 11, 11, '5', 'default.png', '3', 5, '5', '5', 'NO', 'NO', 'frmMergeBill.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ "('frmPMSFeedbackMaster', 'PMS FeedbackMaster', 'Master', 1, 'M', 22, 22, '2', 'imgSeasonMaster.png', '3', 3, '3', '3', 'NO', 'YES', 'frmPMSFeedbackMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ "('frmPMSGuestFeedback', 'Guest Feedback', 'Transaction', 2, 'T', 2, 2, '1', 'imgCheckIn.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSGuestFeedback.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y') , "
-				+ " ('frmPMSFillMasters', 'Fill Masters ', 'Tools', 4, 'L', 1, 2, '12', 'imgPropertySetup.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSFillMasters.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
+				+ " ('frmPMSFillMasters', 'Fill Masters ', 'Tools', 4, 'L', 1, 2, '12', 'imgPropertySetup.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSFillMasters.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'), "
+				+ "('frmPackageMaster', 'Package Master', 'Master', 1, 'M', 25, 25, '1', 'imgPackageMaster.png', '3', 3, '3', '3', 'NO', 'NO', 'frmPackageMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,NULL, NULL, NULL, NULL, NULL, 'Y'),"
+				+ "('frmPMSTallyLinkUp', 'Tally Link Up', 'Tools', 4, 'L', 115, 115, '115', 'imgPMSTallyLinkUp.png', '3', 1, '1', '1', 'NO', 'NO', 'frmPMSTallyLinkUp.html',NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');";
 		
 
 		
@@ -5132,7 +5139,22 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ "ADD COLUMN `strRateContractName` VARCHAR(20) NOT NULL DEFAULT '' AFTER `strRateContractID`; ";
 		funExecutePMSQuery(sql);
 		
-		// / END ///
+		sql = "ALTER TABLE `tblguestmaster` "
+				+ " ADD COLUMN `strExternalID` VARCHAR(50) NOT NULL DEFAULT '' AFTER `strGuestImage`,"
+				+ " ADD COLUMN `strRemark` VARCHAR(600) NOT NULL DEFAULT '' AFTER `strExternalID`;";
+		funExecutePMSQuery(sql);
+		
+		sql = "ALTER TABLE `tblfoliodtl` ADD COLUMN `strRemark` VARCHAR(200) NOT NULL DEFAULT '' AFTER `strUserEdited`;";
+		funExecutePMSQuery(sql);
+		
+		sql = "ALTER TABLE `tblfoliobckp` ADD COLUMN `strRemark` VARCHAR(200) NOT NULL DEFAULT '' AFTER `strUserEdited`;";
+		funExecutePMSQuery(sql);
+		
+		sql = "ALTER TABLE `tblpackagemasterhd` ADD COLUMN `strPackageInclusiveRoomTerrif` VARCHAR(5) NOT NULL DEFAULT 'N' AFTER `strClientCode`;";
+		funExecutePMSQuery(sql);
+		
+		
+		/// END ///
 
 		/*----------------WebPMS Forms End---------------------------*/
 

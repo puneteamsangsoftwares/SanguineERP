@@ -101,6 +101,7 @@ public class clsPropertySetupController {
 			model.put("ratePickUpFrom", objModel.getStrRatepickUpFrom());
 			model.put("OnlineIntegration", objModel.getStrOnlineIntegration());
 			model.put("IntegrationUrl", objModel.getStrIntegrationUrl());
+			model.put("dayForHousekeeping", objModel.getStrDayForHousekeeping());
 		}
 		
 		String sql = "select count(1) from tblroom a where a.strClientCode='" + clientCode + "' ";
@@ -504,7 +505,7 @@ public class clsPropertySetupController {
 		}
 		objPropertySetupModel.setStrOnlineIntegration(objBean.getStrOnlineIntegration());
 		objPropertySetupModel.setStrIntegrationUrl(objBean.getStrIntegrationUrl());
-		
+		objPropertySetupModel.setStrDayForHousekeeping(objBean.getStrDayForHousekeeping());
 		return objPropertySetupModel;
 	}
 }

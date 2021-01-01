@@ -662,7 +662,7 @@ font-size:13px;
 			totalTarriff=parseFloat(totalTarriff).toFixed(maxAmountDecimalPlaceLimit);
 		}
 		
-		
+		$("#txtTotalAmt").val(totalTarriff);
 		var table=document.getElementById("tblTotalPackageDtl");
 		var rowCount=table.rows.length;
 		while(rowCount>0)
@@ -1286,7 +1286,7 @@ font-size:13px;
 				 date=day+"-"+month+"-"+dateSplit[0];
 			    row.insertCell(0).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:34%;\" name=\"listWalkinRoomRateDtl["+(rowCount)+"].dtDate\"  id=\"dtDate."+(rowCount)+"\" value='"+date+"' >";
 			    row.insertCell(1).innerHTML= "<input readonly=\"readonly\" class=\"Box\" size=\"34%\" id=\"strTypeRoomDesc."+(rowCount)+"\" value='"+list[2]+"' />";
-	 	        row.insertCell(2).innerHTML= "<input type=\"text\"    style=\"text-align:right;width:34%;\"  name=\"listWalkinRoomRateDtl["+(rowCount)+"].dblRoomRate\" id=\"dblRoomRate."+(rowCount)+"\" onchange =\"Javacsript:funCalculateTotals()\"  value='"+list[1]+"' >";
+	 	        row.insertCell(2).innerHTML= "<input type=\"text\"    style=\"text-align:right;width:34%;\"  name=\"listWalkinRoomRateDtl["+(rowCount)+"].dblRoomRate\" id=\"dblRoomRate."+(rowCount)+"\"  onchange =\"Javacsript:funGetSelectedRow(this)\" value='"+list[1]+"' >";
 	 	        row.insertCell(3).innerHTML= "<input readonly=\"readonly\" class=\"Box \"  style=\"padding-center: 5px;width:50%;\" name=\"listWalkinRoomRateDtl["+(rowCount)+"].strRoomType\" id=\"strRoomType."+(rowCount)+"\" value='"+list[3]+"' >";
 
 	 	       totalTerrAmt =totalTerrAmt + list[1];
@@ -1480,7 +1480,28 @@ font-size:13px;
 				alert(+discPer+' Percent Discount is applied');
 			
 		}
-	
+
+		function funGetSelectedRow(obj)
+		{
+			
+			 var index = obj.parentNode.parentNode.rowIndex;
+			  //  var table = document.getElementById("tblRommRate");
+			//    table.deleteRow(index);
+			
+			
+			var isOk=confirm("Do You Want Change Amount For all Room Type Rate ?");
+			if(isOk)
+				{
+					var value1=document.getElementById("dblRoomRate."+index).value;
+					for(var i=0;i<document.getElementById("tblRommRate").rows.length;i++)
+				    {
+						document.getElementById("dblRoomRate."+i).value=value1;
+						//var objName =document.getElementById("dblRoomRate."+i);
+				      //  totalTarriff=totalTarriff+parseFloat(objName.value);
+				    }
+				}
+			funCalculateTotals();
+		}
 </script>
 
 

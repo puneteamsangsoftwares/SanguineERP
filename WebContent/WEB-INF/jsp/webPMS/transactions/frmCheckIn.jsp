@@ -89,9 +89,9 @@ overflow-x: hidden;
 	    	session.removeAttribute("WarningMsg");
 	    }%>	
 	    if(Warmessage!='')
-	    	{
-	    	alert(Warmessage);
-	    	}
+    	{
+	      alert(Warmessage);
+    	}
 		
 		var checkInNo='';
 		<%if (session.getAttribute("checkInNo") != null) 
@@ -1427,8 +1427,9 @@ overflow-x: hidden;
 					 {
 						 	var ArrivalDate1 = $("#txtArrivalDate").val();
 							var DepartureDate1 = $("#txtDepartureDate").val();
-							if(ArrivalDate1>DepartureDate1){
+							if(ArrivalDate1 > DepartureDate1){
 								alert("Arrival Date must be Greater than DepartureDate")
+								return false;
 							}
 							
 						else{

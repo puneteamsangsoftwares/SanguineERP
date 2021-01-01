@@ -66,6 +66,9 @@ public class clsPackageMasterHdModel extends clsBaseModel implements Serializabl
 	
 	@Column(name = "strClientCode")
 	private String strClientCode;
+	
+	@Column(name = "strPackageInclusiveRoomTerrif")
+	private String strPackageInclusiveRoomTerrif;
 
 	public List<clsPackageMasterDtl> getListPackageDtl() {
 		return listPackageDtl;
@@ -137,6 +140,14 @@ public class clsPackageMasterHdModel extends clsBaseModel implements Serializabl
 
 	public void setStrClientCode(String strClientCode) {
 		this.strClientCode = strClientCode;
+	}
+
+	public String getStrPackageInclusiveRoomTerrif() {
+		return strPackageInclusiveRoomTerrif;
+	}
+
+	public void setStrPackageInclusiveRoomTerrif(String strPackageInclusiveRoomTerrif) {
+		this.strPackageInclusiveRoomTerrif = strPackageInclusiveRoomTerrif;
 	}
 	
 	

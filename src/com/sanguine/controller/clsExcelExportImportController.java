@@ -1478,53 +1478,57 @@ public class clsExcelExportImportController {
 				clsStkPostingDtlModel PhyStkDtl = new clsStkPostingDtlModel();
 				// Creates an object representing a single row in excel
 				HSSFRow row = worksheet.getRow(i++);
-				// Sets the Read data to the model class
-				RowCount = row.getRowNum();
-				if(RowCount==700)//Above 700 rows are not coming from jsp to controller in pysical stock
+				if(row!=null)
 				{
-					break;
-				}
-				prodCode = row.getCell(2).getStringCellValue();
-				Cell c = row.getCell(4);
-				if (c != null && c.getCellType() != 1) {
-					if (row.getCell(4).getNumericCellValue() >= 0) {
-						PhyStkDtl.setStrProdCode(row.getCell(2).getStringCellValue());
-						String prodName = "";
-						if (row.getCell(3).getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
-							prodName = String.valueOf(row.getCell(3).getNumericCellValue());
-						} else {
-							prodName = row.getCell(3).getRichStringCellValue().toString();
+					// Sets the Read data to the model class
+					RowCount = row.getRowNum();
+					if(RowCount==700)//Above 700 rows are not coming from jsp to controller in pysical stock
+					{
+						break;
+					}
+					prodCode = row.getCell(2).getStringCellValue();
+					Cell c = row.getCell(4);
+					if (c != null && c.getCellType() != 1) {
+						if (row.getCell(4).getNumericCellValue() >= 0) {
+							PhyStkDtl.setStrProdCode(row.getCell(2).getStringCellValue());
+							String prodName = "";
+							if (row.getCell(3).getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
+								prodName = String.valueOf(row.getCell(3).getNumericCellValue());
+							} else {
+								prodName = row.getCell(3).getRichStringCellValue().toString();
+							}
+
+							PhyStkDtl.setStrProdName(prodName);
+							if(prodStock.equals("Yes"))
+							{
+								PhyStkDtl.setDblPStock(row.getCell(5).getNumericCellValue());
+							}else{
+								PhyStkDtl.setDblPStock(row.getCell(4).getNumericCellValue());
+							}
+							clsProductMasterModel Prodmodel = objProductMasterService.funGetObject(prodCode, clientCode);
+							PhyStkDtl.setDblPrice(Prodmodel.getDblCostRM());
+							PhyStkDtl.setDblWeight(Prodmodel.getDblWeight());
+
+							List ProdList = objGRNController.funLatestGRNProductRate(prodCode, request);
+
+							if (!ProdList.isEmpty()) {
+								PhyStkDtl.setDblActualRate(Double.parseDouble((ProdList.get(1)).toString()));
+
+							} else {
+								PhyStkDtl.setDblActualRate(Prodmodel.getDblCostRM());
+							}
+
+							// PhyStkDtl.setDblCStock(objGlobalFunctions.funGetCurrentStockForProduct(prodCode,
+							// objMISHd.getStrLocFrom(), clientCode,
+							// userCode,startDate,objGlobalFunctions.funGetCurrentDate("yyyy-MM-dd")));
+							// Sends the model object to service layer for
+							// validation,
+							// data processing and then to persist
+							listPhyStklist.add(PhyStkDtl);
 						}
-
-						PhyStkDtl.setStrProdName(prodName);
-						if(prodStock.equals("Yes"))
-						{
-							PhyStkDtl.setDblPStock(row.getCell(5).getNumericCellValue());
-						}else{
-							PhyStkDtl.setDblPStock(row.getCell(4).getNumericCellValue());
-						}
-						clsProductMasterModel Prodmodel = objProductMasterService.funGetObject(prodCode, clientCode);
-						PhyStkDtl.setDblPrice(Prodmodel.getDblCostRM());
-						PhyStkDtl.setDblWeight(Prodmodel.getDblWeight());
-
-						List ProdList = objGRNController.funLatestGRNProductRate(prodCode, request);
-
-						if (!ProdList.isEmpty()) {
-							PhyStkDtl.setDblActualRate(Double.parseDouble((ProdList.get(1)).toString()));
-
-						} else {
-							PhyStkDtl.setDblActualRate(Prodmodel.getDblCostRM());
-						}
-
-						// PhyStkDtl.setDblCStock(objGlobalFunctions.funGetCurrentStockForProduct(prodCode,
-						// objMISHd.getStrLocFrom(), clientCode,
-						// userCode,startDate,objGlobalFunctions.funGetCurrentDate("yyyy-MM-dd")));
-						// Sends the model object to service layer for
-						// validation,
-						// data processing and then to persist
-						listPhyStklist.add(PhyStkDtl);
 					}
 				}
+			
 			}
 
 		} catch (Exception e) {
