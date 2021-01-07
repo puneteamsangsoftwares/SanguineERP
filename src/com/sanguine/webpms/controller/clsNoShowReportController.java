@@ -116,14 +116,13 @@ public class clsNoShowReportController {
 		return listRet;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/downloadNoShowFlashExcel", method = RequestMethod.GET)
 	public ModelAndView downloadNoShowFlashExcel(@RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate, HttpServletRequest req) {
 
 		String clientCode = req.getSession().getAttribute("clientCode").toString();
 		String userCode = req.getSession().getAttribute("usercode").toString();
-
-		List listExportDoc = new ArrayList();
+        List listExportDoc = new ArrayList();
 		
 		String[] fDate = fromDate.split("-");
 		String fromDateToDisplay = fDate[2]+fDate[1]+fDate[0];

@@ -28,6 +28,7 @@ public class clsFormSearchElements {
 	private String field20;
 	private String field21;
 	private String field22;
+	private double field23;
 
 	public clsFormSearchElements() {
 
@@ -388,6 +389,14 @@ public class clsFormSearchElements {
 		this.field21 = field21;
 		this.field22 = field22;
 	}
+	
+	public clsFormSearchElements(String field1, String field2, double field23) {
+		super();
+		this.field1 = field1;
+		this.field2 = field2;
+		this.field23 = field23;
+	}
+
 
 	public String getField1() {
 		return field1;
@@ -564,6 +573,15 @@ public class clsFormSearchElements {
 	public void setField22(String field22) {
 		this.field22 = field22;
 	}
+    
+    
+	public double getField23() {
+		return field23;
+	}
+
+	public void setField23(double field23) {
+		this.field23 = field23;
+	}
 
 	public static void main(String[] args) {
 		clsFormSearchElements e = new clsFormSearchElements("string", 10, 10.00, new Date());
@@ -574,5 +592,6 @@ public class clsFormSearchElements {
 	public String toString() {
 		return "clsFormSearchElements [field1=" + field1 + ", field2=" + field2 + ", field3=" + field3 + ", field4=" + field4 + ", field5=" + field5 + ", field6=" + field6 + ", field7=" + field7 + ", field8=" + field8 + ", field9=" + field9 + ", field10=" + field10 + ", field11=" + field11 + ", field12=" + field12 + "]";
 	}
-
+	
+	
 }

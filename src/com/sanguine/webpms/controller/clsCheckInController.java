@@ -1603,11 +1603,33 @@ public class clsCheckInController {
 			String gFirstName = arrObjRoomData[13].toString();
 			String gMiddleName = arrObjRoomData[14].toString();
 			String gLastName = arrObjRoomData[15].toString();
-			String guestCompanyAddr = arrObjRoomData[16].toString() + ","
+			/*String guestCompanyAddr = arrObjRoomData[16].toString() + ","
 					+ arrObjRoomData[17].toString() + ","
 					+ arrObjRoomData[18].toString() + ","
 					+ arrObjRoomData[19].toString() + ","
-					+ arrObjRoomData[20].toString();
+					+ arrObjRoomData[20].toString();*/
+			String guestCompanyAddr= arrObjRoomData[15].toString() ;
+			if(!arrObjRoomData[16].toString().equalsIgnoreCase(""))
+			{
+				guestCompanyAddr="," + arrObjRoomData[16].toString();
+			}
+			else if(!arrObjRoomData[17].toString().equalsIgnoreCase(""))
+			{
+				guestCompanyAddr="," + arrObjRoomData[17].toString();
+			}
+			else if(!arrObjRoomData[18].toString().equalsIgnoreCase(""))
+			{
+				guestCompanyAddr="," + arrObjRoomData[18].toString();
+			}
+			else if(!arrObjRoomData[19].toString().equalsIgnoreCase("0"))
+			{
+				guestCompanyAddr="," + arrObjRoomData[19].toString();
+			}
+			else
+			{
+				guestCompanyAddr=guestCompanyAddr;
+			}
+			
 			String strMobileNo = arrObjRoomData[21].toString();
 			String strComplimentry = arrObjRoomData[22].toString();
 			
@@ -1658,7 +1680,7 @@ public class clsCheckInController {
 			
 			datalist.add(objCheckInBean);
 			
-			reportParams.put("pgstno", gstNo);
+			//reportParams.put("pgstno", gstNo);
 			reportParams.put("ppanno", paNo);
 			reportParams.put("pguestCode", guestCode);
 			reportParams.put("proomType", roomType);
@@ -1671,6 +1693,18 @@ public class clsCheckInController {
 			reportParams.put("pGuestName", gFirstName + " "+ gMiddleName + " " + gLastName);
 			reportParams.put("pguestCompanyAddr", guestCompanyAddr);
 			reportParams.put("pstrMobileNo", strMobileNo);
+			if(clientCode.equalsIgnoreCase("378.001"))
+			{
+				reportParams.put("pNote", null);
+				reportParams.put("pCustomerGST",null);
+				reportParams.put("pgstno", null);
+			}
+			else
+			{
+				reportParams.put("pNote", "Note");
+				reportParams.put("pCustomerGST","Customer GST :");
+				reportParams.put("pgstno", gstNo);
+			}
 			if(strComplimentry.equalsIgnoreCase("N"))
 			{
 			reportParams.put("ptaxAmt", finalTax);
@@ -1731,11 +1765,33 @@ public class clsCheckInController {
 				String gFirstName = arrObjRoomData[12].toString();
 				String gMiddleName = arrObjRoomData[13].toString();
 				String gLastName = arrObjRoomData[14].toString();
-				String guestCompanyAddr = arrObjRoomData[15].toString() + ","
+				/*String guestCompanyAddr = arrObjRoomData[15].toString() + ","
 						+ arrObjRoomData[16].toString() + ","
 						+ arrObjRoomData[17].toString() + ","
 						+ arrObjRoomData[18].toString() + ","
-						+ arrObjRoomData[19].toString();
+						+ arrObjRoomData[19].toString();*/
+				String guestCompanyAddr= arrObjRoomData[15].toString() ;
+				if(!arrObjRoomData[16].toString().equalsIgnoreCase(""))
+				{
+					guestCompanyAddr="," + arrObjRoomData[16].toString();
+				}
+				else if(!arrObjRoomData[17].toString().equalsIgnoreCase(""))
+				{
+					guestCompanyAddr="," + arrObjRoomData[17].toString();
+				}
+				else if(!arrObjRoomData[18].toString().equalsIgnoreCase(""))
+				{
+					guestCompanyAddr="," + arrObjRoomData[18].toString();
+				}
+				else if(!arrObjRoomData[19].toString().equalsIgnoreCase("0"))
+				{
+					guestCompanyAddr="," + arrObjRoomData[19].toString();
+				}
+				else
+				{
+					guestCompanyAddr=guestCompanyAddr;
+				}
+				
 				String strMobileNo = arrObjRoomData[20].toString();
 				String strComplimentry = arrObjRoomData[21].toString();
 				
@@ -1786,7 +1842,7 @@ public class clsCheckInController {
 				datalist.add(objCheckInBean);
 				
 				
-				reportParams.put("pgstno", gstNo);
+				
 				reportParams.put("ppanno", paNo);
 				reportParams.put("pguestCode", guestCode);
 				reportParams.put("proomType", roomType);
@@ -1798,7 +1854,20 @@ public class clsCheckInController {
 				reportParams.put("userName", userName);
 				reportParams.put("pGuestName", gFirstName + " "+ gMiddleName + " " + gLastName);
 				reportParams.put("pguestCompanyAddr", guestCompanyAddr);
-				reportParams.put("pstrMobileNo", strMobileNo);	
+				reportParams.put("pstrMobileNo", strMobileNo);
+				if(clientCode.equalsIgnoreCase("378.001"))
+				{
+					reportParams.put("pNote", null);
+					reportParams.put("pCustomerGST",null);
+					reportParams.put("pgstno", null);
+				}
+				else
+				{
+					reportParams.put("pNote", "Note");
+					reportParams.put("pCustomerGST","Customer GST :");
+					reportParams.put("pgstno", gstNo);
+				}
+				
 				if(strComplimentry.equalsIgnoreCase("N"))
 				{
 				reportParams.put("ptaxAmt", finalTax);

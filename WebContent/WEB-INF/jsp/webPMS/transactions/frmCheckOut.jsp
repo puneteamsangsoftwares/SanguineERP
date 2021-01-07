@@ -260,14 +260,14 @@
 	
 	
 //set date
-/*
 	$(document).ready(function(){
 		$("#dteCheckOutDate").datepicker({
 			dateFormat : 'dd-mm-yy'
 		});
+		
 		$("#dteCheckOutDate").datepicker('setDate', 'today');
 	});	
-	*/
+	
 	
 //set time
 /*

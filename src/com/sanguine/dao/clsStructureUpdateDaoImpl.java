@@ -4986,7 +4986,7 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ "	`strGood` VARCHAR(1) NOT NULL DEFAULT '',"
 				+ "	`strFair` VARCHAR(1) NOT NULL DEFAULT '',"
 				+ "	`strPoor` VARCHAR(1) NOT NULL DEFAULT '',"
-				+ "	`steRemasrk` VARCHAR(100) NOT NULL DEFAULT '',"
+				+ "	`strRemark` VARCHAR(100) NOT NULL DEFAULT '',"
 				+ "	`strUserCreated` VARCHAR(10) NOT NULL,"
 				+ "	`strUserEdited` VARCHAR(10) NOT NULL,"
 				+ "	`dteDateCreated` DATETIME NOT NULL,"
@@ -5153,7 +5153,8 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 		sql = "ALTER TABLE `tblpackagemasterhd` ADD COLUMN `strPackageInclusiveRoomTerrif` VARCHAR(5) NOT NULL DEFAULT 'N' AFTER `strClientCode`;";
 		funExecutePMSQuery(sql);
 		
-		
+		sql="ALTER TABLE `tblguestfeedback` CHANGE COLUMN `steRemasrk` `strRemark` VARCHAR(100) NOT NULL DEFAULT '' AFTER `strPoor`;";
+		funExecutePMSQuery(sql);
 		/// END ///
 
 		/*----------------WebPMS Forms End---------------------------*/

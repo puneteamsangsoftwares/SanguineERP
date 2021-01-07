@@ -156,7 +156,7 @@ table tbody tr:nth-child(even) {
 		
 		$("#txtViewDate").datepicker({ dateFormat: 'dd-mm-yy' });
 		$("#txtViewDate").datepicker('setDate', pmsDate);
-		$("#lblPMSDate").text(pmsDate);
+		//$("#lblPMSDate").text(pmsDate);
 		funShowRoomStatusFlash();
 		//funFillHeaderRows();
 

@@ -254,7 +254,8 @@ public class clsRoomChangeController {
 			String strReasonCode = objBean.getStrReasonCode();
 			String strRemarks = objBean.getStrRemarks();
 			
-			String sqlOfChangeRoom = "select a.strRoomDesc as previousRoom,a.strRoomTypeDesc as previousroomType,d.strFolioNo,b.strCheckInNo,date(b.dteCheckInDate),concat(e.strFirstName,' ',e.strMiddleName,' ',e.strLastName) "
+			String sqlOfChangeRoom = "select a.strRoomDesc as previousRoom,a.strRoomTypeCode as previousroomType,d.strFolioNo,b.strCheckInNo,date(b.dteCheckInDate),concat(e.strFirstName,' ',e.strMiddleName,' ',e.strLastName) "
+					    //"select a.strRoomDesc as previousRoom,a.strRoomTypeDesc as previousroomType,d.strFolioNo,b.strCheckInNo,date(b.dteCheckInDate),concat(e.strFirstName,' ',e.strMiddleName,' ',e.strLastName) "
 						+ " ,b.strRemarks,b.strReasonCode,a.strStatus,e.strGuestCode "
 						+ " from tblfoliohd d,tblcheckinhd b left outer join tblcheckindtl c on b.strCheckInNo=c.strCheckInNo " 
 						+ " left outer join tblroom a on a.strRoomCode=c.strRoomNo , " 

@@ -169,6 +169,7 @@ public class clsExcelExportImportController {
 			hql = " from clsProductMasterModel a, clsSubGroupMasterModel b,clsGroupMasterModel c ,clsProductReOrderLevelModel d" + " where a.strSGCode=b.strSGCode  and b.strGCode=c.strGCode and a.strProdCode=d.strProdCode " + " and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' " + "and c.strClientCode='" + clientCode + "'  and d.strLocationCode='" + locCode + "' ";
 		} else {
 			hql = "from clsProductMasterModel a, clsSubGroupMasterModel b,clsGroupMasterModel c " + " where a.strSGCode=b.strSGCode  and b.strGCode=c.strGCode " + " and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' and c.strClientCode='" + clientCode + "'";
+		    
 		}
 
 		List list = objGlobalFunctionsService.funGetList(hql, "hql");
@@ -239,14 +240,83 @@ public class clsExcelExportImportController {
 		String propCode = request.getSession().getAttribute("propertyCode").toString();
 		clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propCode, clientCode);
 		String hql = "";
-		if (objSetup.getStrShowAllProdToAllLoc() == null || objSetup.getStrShowAllProdToAllLoc() == "N") {
+		if (objSetup.getStrShowAllProdToAllLoc() == null || objSetup.getStrShowAllProdToAllLoc().equalsIgnoreCase("N")) {
 			hql = " from clsProductMasterModel a, clsSubGroupMasterModel b,clsGroupMasterModel c ,clsProductReOrderLevelModel d" + " where a.strSGCode=b.strSGCode  and b.strGCode=c.strGCode and a.strProdCode=d.strProdCode " + " and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' " + "and c.strClientCode='" + clientCode + "'  and d.strLocationCode='" + locCode + "' ";
 		} else {
 			if (!locCode.equals("") || !locCode.isEmpty()) {
 			hql = " from clsProductMasterModel a, clsSubGroupMasterModel b,clsGroupMasterModel c " + " where a.strSGCode=b.strSGCode  and b.strGCode=c.strGCode  " + " and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' " + "and c.strClientCode='" + clientCode + "'  ";
+			StringBuilder strBuilder = new StringBuilder();
+			String[] arr;
+			if(sgCode.contains(","))
+			{
+				arr = sgCode.split(",");			
+				for(int i=0;i<arr.length;i++)
+				{
+					if(i==0)
+					{
+						strBuilder.append("('"+arr[i]+"',");
+					}
+					else if(i==arr.length-1)
+					{
+						strBuilder.append("'"+arr[i]+"')");
+					}
+					else
+					{
+						strBuilder.append("'"+arr[i]+"',");
+					}
+					
+				}
+			}
+			if(sgCode.contains(","))
+			{
+				hql += "and a.strSGCode IN"+strBuilder.toString();
+			}
+			else if (!sgCode.equals("") || !sgCode.isEmpty()) 
+			{
+				hql += "and a.strSGCode="+strBuilder.toString();
+			}
+			strBuilder.setLength(0);
+			if(gCode.contains(","))
+			{
+				arr = gCode.split(",");			
+				for(int i=0;i<arr.length;i++)
+				{
+					if(i==0)
+					{
+						strBuilder.append("('"+arr[i]+"',");
+					}
+					else if(i==arr.length-1)
+					{
+						strBuilder.append("'"+arr[i]+"')");
+					}
+					else
+					{
+						strBuilder.append("'"+arr[i]+"',");
+					}
+					
+				}
+			}
+			
+			if(gCode.contains(","))
+			{
+				hql += "and b.strGCode IN"+strBuilder.toString();
+			}
+			else if (!gCode.equals("") || !gCode.isEmpty()) 
+			{
+				hql += "and b.strGCode='"+gCode+"'";
+			}
 			
 			}else{
 				hql = " from clsProductMasterModel a, clsSubGroupMasterModel b,clsGroupMasterModel c ,clsProductReOrderLevelModel d" + " where a.strSGCode=b.strSGCode  and b.strGCode=c.strGCode and a.strProdCode=d.strProdCode " + " and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' " + "and c.strClientCode='" + clientCode + "'  and d.strLocationCode='" + locCode + "' ";	
+				if (!sgCode.equals("") || !sgCode.isEmpty()) 
+				{
+					hql += "and a.strGCode='"+sgCode+"'";
+				}
+				
+				if (!gCode.equals("") || !gCode.isEmpty()) 
+				{
+					hql += "and b.strGCode='"+gCode+"'";
+				}
 			}
 		
 		}
@@ -691,12 +761,63 @@ public class clsExcelExportImportController {
 		} else {
 			if (!locCode.equals("") || !locCode.isEmpty()) {
 			hql = " from clsProductMasterModel a, clsSubGroupMasterModel b,clsGroupMasterModel c " + " where a.strSGCode=b.strSGCode  and b.strGCode=c.strGCode  " + " and a.strClientCode='" + clientCode + "' and b.strClientCode='" + clientCode + "' " + "and c.strClientCode='" + clientCode + "'  ";
-			if (!sgCode.equals("") || !sgCode.isEmpty()) 
+			StringBuilder strBuilder = new StringBuilder();
+			String[] arr;
+			if(sgCode.contains(","))
 			{
-				hql += "and a.strSGCode='"+sgCode+"'";
+				arr = sgCode.split(",");			
+				for(int i=0;i<arr.length;i++)
+				{
+					if(i==0)
+					{
+						strBuilder.append("('"+arr[i]+"',");
+					}
+					else if(i==arr.length-1)
+					{
+						strBuilder.append("'"+arr[i]+"')");
+					}
+					else
+					{
+						strBuilder.append("'"+arr[i]+"',");
+					}
+					
+				}
+			}
+			if(sgCode.contains(","))
+			{
+				hql += "and a.strSGCode IN"+strBuilder.toString();
+			}
+			else if (!sgCode.equals("") || !sgCode.isEmpty()) 
+			{
+				hql += "and a.strSGCode="+strBuilder.toString();
+			}
+			strBuilder.setLength(0);
+			if(gCode.contains(","))
+			{
+				arr = gCode.split(",");			
+				for(int i=0;i<arr.length;i++)
+				{
+					if(i==0)
+					{
+						strBuilder.append("('"+arr[i]+"',");
+					}
+					else if(i==arr.length-1)
+					{
+						strBuilder.append("'"+arr[i]+"')");
+					}
+					else
+					{
+						strBuilder.append("'"+arr[i]+"',");
+					}
+					
+				}
 			}
 			
-			if (!gCode.equals("") || !gCode.isEmpty()) 
+			if(gCode.contains(","))
+			{
+				hql += "and b.strGCode IN"+strBuilder.toString();
+			}
+			else if (!gCode.equals("") || !gCode.isEmpty()) 
 			{
 				hql += "and b.strGCode='"+gCode+"'";
 			}

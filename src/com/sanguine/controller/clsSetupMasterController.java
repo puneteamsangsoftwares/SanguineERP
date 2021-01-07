@@ -1170,8 +1170,8 @@ public class clsSetupMasterController {
 		objPropertySetupModel.setIntNotificationTimeinterval(bean
 				.getIntNotificationTimeinterval());
 		objPropertySetupModel.setStrMonthEnd(bean.getStrMonthEnd());
-		objPropertySetupModel.setStrShowAllProdToAllLoc(bean
-				.getStrShowAllProdToAllLoc());
+		objPropertySetupModel.setStrShowAllProdToAllLoc(objGlobal.funIfNull(bean
+				.getStrShowAllProdToAllLoc(), "N", bean.getStrShowAllProdToAllLoc()));
 		objPropertySetupModel.setStrLocWiseProductionOrder(bean
 				.getStrLocWiseProductionOrder());
 		objPropertySetupModel.setStrShowAvgQtyInOP(objGlobal.funIfNull(

@@ -25,6 +25,8 @@
 	<parameter name="pstrTaxDesc" class="java.lang.String"/>
 	<parameter name="ptaxAmt" class="java.lang.Double"/>
 	<parameter name="pdblPackgeAmt" class="java.lang.Double"/>
+	<parameter name="pNote" class="java.lang.String"/>
+	<parameter name="pCustomerGST" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[]]>
 	</queryString>
@@ -210,13 +212,6 @@
 				<textFieldExpression><![CDATA[$F{intNoOfAdults}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="13" y="305" width="200" height="15" uuid="d2894ca3-e859-4c4a-bea9-68397e05def3"/>
-				<textElement>
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Note:]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="13" y="329" width="227" height="21" uuid="dd4c59c0-1dbd-4b5f-bfad-892b683cff11"/>
 				<textElement>
 					<font size="12" isBold="false"/>
@@ -237,26 +232,21 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tmeArrivalTime}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="13" y="278" width="90" height="20" uuid="e3d9af64-dc2a-47d8-b4e8-5c029873492b"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Customer GST :]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="103" y="278" width="176" height="20" uuid="bd1da632-82b9-4c98-813b-1ad39facc2f8"/>
+				<reportElement x="103" y="278" width="176" height="20" isRemoveLineWhenBlank="true" uuid="bd1da632-82b9-4c98-813b-1ad39facc2f8">
+					<printWhenExpression><![CDATA[$P{pgstno} != null]]></printWhenExpression>
+				</reportElement>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pgstno}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="30" width="93" height="20" uuid="9b801524-43b9-4fa1-8a81-d8a3a0415c4f"/>
+				<reportElement x="8" y="30" width="93" height="20" uuid="9b801524-43b9-4fa1-8a81-d8a3a0415c4f"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Comapany Addr  :]]></text>
+				<text><![CDATA[Homestel Addr :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="106" y="30" width="186" height="20" uuid="19bb0a9e-b50a-4f98-b1b5-a0646b0a5b87"/>
@@ -321,6 +311,24 @@
 				</textElement>
 				<text><![CDATA[Package     :]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="13" y="305" width="200" height="15" isRemoveLineWhenBlank="true" uuid="21eb1d00-c459-4b05-b3c9-58a69cf8cd9c">
+					<printWhenExpression><![CDATA[$P{pNote} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pNote}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="278" width="90" height="20" isRemoveLineWhenBlank="true" uuid="582cfb3d-ea37-4871-a425-8706fed00873">
+					<printWhenExpression><![CDATA[$P{pCustomerGST} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pCustomerGST}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<pageFooter>

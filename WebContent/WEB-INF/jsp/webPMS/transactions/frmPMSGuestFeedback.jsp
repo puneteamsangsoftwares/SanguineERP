@@ -348,11 +348,11 @@
 </script>
 
 </head>
-<body>
+<body  onload="funOnload();">
 
 	<div class="container">
 		<label id="formHeading">Feedback form</label>
-		<s:form name="frmCheckOut" method="POST" action="savePMSGuestFeedback.html" target="_blank">
+		<s:form name="frmCheckOut" method="POST" action="savePMSGuestFeedback.html">
 			<div class="row masterTable" style="padding-top:15px;">
 					
 			<%-- 	<div class="col-md-2">
@@ -469,12 +469,15 @@
 		<br />
 		<div class="center">
 			<a href="#"><button class="btn btn-primary center-block" value="Submit" onclick="return funValidateData()"
-				class="form_button">Submit</button></a>
+				class="form_button">Submit</button></a> 
+			 <!--  <button type="button" class="btn btn-primary center-block" id="btnSubmit"  value="Submit" onclick="return funValidateData()">Submit</button> --> 
 				
-				<a href="#"><button class="btn btn-primary center-block" value="Print" onclick="return funPrintData()"
-				class="form_button">Print</button></a>
-			<a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="return funResetFields()"
-				class="form_button">Reset</button></a>
+			<a href="#"><button class="btn btn-primary center-block" value="Print" onclick="return funPrintData()"
+				class="form_button">Print</button></a> 
+				
+			 <a href="#"><button class="btn btn-primary center-block" value="Reset" onclick="return funResetFields()"
+				class="form_button">Reset</button></a> 
+			   
 		</div>
 	</s:form>
 </div>

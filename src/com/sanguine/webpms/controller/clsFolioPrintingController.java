@@ -155,24 +155,91 @@ public class clsFolioPrintingController {
 					if (arrGuest[0].toString().equalsIgnoreCase("Permanent")) { // check
 																				// default
 																				// addr
-						guestAddr = arrGuest[6].toString() + ","
+						/*guestAddr = arrGuest[6].toString() + ","
 								+ arrGuest[7].toString() + ","
 								+ arrGuest[8].toString() + ","
 								+ arrGuest[9].toString() + ","
-								+ arrGuest[10].toString();
+								+ arrGuest[10].toString();*/
+						guestAddr= arrGuest[6].toString() ;
+						if(!arrGuest[6].toString().equalsIgnoreCase(""))
+						{
+							guestAddr="," + arrGuest[6].toString();
+						}
+						else if(!arrGuest[7].toString().equalsIgnoreCase(""))
+						{
+							guestAddr="," + arrGuest[7].toString();
+						}
+						else if(!arrGuest[8].toString().equalsIgnoreCase(""))
+						{
+							guestAddr="," + arrGuest[8].toString();
+						}
+						else if(!arrGuest[9].toString().equalsIgnoreCase(""))
+						{
+							guestAddr="," + arrGuest[9].toString();
+						}
+						else if(!arrGuest[10].toString().equalsIgnoreCase("0"))
+						{
+							guestAddr="," + arrGuest[10].toString();
+						}
+						else
+						{
+							guestAddr=guestAddr;
+						}
 					} else if (arrGuest[0].toString()
 							.equalsIgnoreCase("Office")) {
-						guestAddr = arrGuest[11].toString() + ","
+						/*guestAddr = arrGuest[11].toString() + ","
 								+ arrGuest[12].toString() + ","
 								+ arrGuest[13].toString() + ","
 								+ arrGuest[14].toString() + ","
-								+ arrGuest[15].toString();
+								+ arrGuest[15].toString();*/
+						guestAddr= arrGuest[11].toString() ;
+						if(!arrGuest[12].toString().equalsIgnoreCase(""))
+						{
+							guestAddr="," + arrGuest[12].toString();
+						}
+						else if(!arrGuest[13].toString().equalsIgnoreCase(""))
+						{
+							guestAddr="," + arrGuest[13].toString();
+						}
+						else if(!arrGuest[14].toString().equalsIgnoreCase(""))
+						{
+							guestAddr="," + arrGuest[14].toString();
+						}
+						else if(!arrGuest[15].toString().equalsIgnoreCase("0"))
+						{
+							guestAddr="," + arrGuest[15].toString();
+						}
+						else
+						{
+							guestAddr=guestAddr;
+						}
 					} else { // Local
-						guestAddr = arrGuest[1].toString() + ","
+						/*guestAddr = arrGuest[1].toString() + ","
 								+ arrGuest[2].toString() + ","
 								+ arrGuest[3].toString() + ","
 								+ arrGuest[4].toString() + ","
-								+ arrGuest[5].toString();
+								+ arrGuest[5].toString();*/
+						guestAddr= arrGuest[1].toString() ;
+						if(!arrGuest[2].toString().equalsIgnoreCase(""))
+						{
+							guestAddr="," + arrGuest[2].toString();
+						}
+						else if(!arrGuest[3].toString().equalsIgnoreCase(""))
+						{
+							guestAddr="," + arrGuest[3].toString();
+						}
+						else if(!arrGuest[4].toString().equalsIgnoreCase(""))
+						{
+							guestAddr="," + arrGuest[4].toString();
+						}
+						else if(!arrGuest[5].toString().equalsIgnoreCase("0"))
+						{
+							guestAddr="," + arrGuest[5].toString();
+						}
+						else
+						{
+							guestAddr=guestAddr;
+						}
 					}
 				}
 
@@ -190,13 +257,28 @@ public class clsFolioPrintingController {
 				reportParams.put("pArrivalTime", arrivalTime);
 				reportParams.put("pDepartureDate", objGlobal.funGetDate("dd-MM-yyyy", departureDate));
 				reportParams.put("pDepartureTime", departureTime);
-				reportParams.put("pAdult", adults);
-				reportParams.put("pChild", childs);
+				
+				
 				reportParams.put("pGuestAddress", guestAddr);
 				reportParams.put("pRemarks", "");
 				reportParams.put("strUserCode", userCode);
 				reportParams.put("pBillNo", billNo);
-
+				if(clientCode.equalsIgnoreCase("378.001"))
+				{
+					reportParams.put("plblAdult", "");
+					//reportParams.put("plblChild", "");
+					reportParams.put("pAdult", "");
+					//reportParams.put("pChild", null);
+				}
+				else
+				{
+					reportParams.put("plblAdult", "Adults");
+					//reportParams.put("plblChild", "Childs");
+					reportParams.put("pAdult", adults);
+					//reportParams.put("pChild", childs);
+					
+				}
+				
 				// get folio details
 				String sqlFolioDtl = "SELECT DATE_FORMAT(b.dteDocDate,'%d-%m-%Y'),b.strDocNo, CONCAT(IFNULL(SUBSTRING_INDEX(SUBSTRING_INDEX(b.strPerticulars,'(', -1),')',1),''),' ',b.strRemark),b.dblQuantity,b.dblDebitAmt,b.dblCreditAmt,b.dblBalanceAmt ,CONCAT(b.strPerticulars,' ',b.strRemark)  " + " FROM tblfoliohd a LEFT OUTER JOIN tblfoliodtl b ON a.strFolioNo=b.strFolioNo AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"'" + " WHERE a.strFolioNo='" + folioNo + "' and b.strRevenueType!='Discount'"
 									+ " order by b.dteDocDate ASC";

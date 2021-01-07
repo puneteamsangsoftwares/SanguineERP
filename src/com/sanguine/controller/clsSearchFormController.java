@@ -450,13 +450,12 @@ public class clsSearchFormController {
 			String clientCode = req.getSession().getAttribute("clientCode").toString();
 			String strLocCode = req.getSession().getAttribute("locationCode").toString();
 			String financialYear = req.getSession().getAttribute("financialYear").toString();
+			clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propCode, clientCode);
 			String[] finYear = financialYear.split("-");
 			String showAllProd = "Y";
-			if (null == req.getSession().getAttribute("showAllProdToAllLoc")) {
+			if (objSetup.getStrShowAllProdToAllLoc() == null || objSetup.getStrShowAllProdToAllLoc().equalsIgnoreCase("N")) {
 				showAllProd = "N";
-			} else {
-				showAllProd = "Y";
-			}
+			} 
 			String columnNames = "";
 			String tableName = "";
 			String criteria = "";
@@ -466,7 +465,7 @@ public class clsSearchFormController {
 			String idColumnName = "";
 			String searchFormTitle = "";
 			String propertyCode = req.getSession().getAttribute("propertyCode").toString();
-			clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
+			
 			String strShowTransOrder = objSetup.getStrShowTransAsc_Desc();
 			JSONArray jArrSearchList = null;
 			List<Object[]> listSearchData = new ArrayList<Object[]>();
@@ -3194,9 +3193,9 @@ public class clsSearchFormController {
 		}
 		
 		case "package": {
-			columnNames = " strPackageCode,strPackageName,strUserCreated,strClientCode";
-			tableName = "clsPackageMasterHdModel where strClientCode='" + clientCode + "'";
-			listColumnNames = "Code,Package Name,Created By,Created Date";
+			columnNames = " a.strPackageCode,a.strPackageName,a.dblPackageAmt";
+			tableName = "clsPackageMasterHdModel a where a.strClientCode='" + clientCode + "'";
+			listColumnNames = "Code,Package Name,Package Price";
 			idColumnName = "strPackageCode";
 			searchFormTitle = "Package Master";
 			break;
@@ -4051,11 +4050,12 @@ public class clsSearchFormController {
 		}
 
 		String showAllProd = "Y";
-		if (null == req.getSession().getAttribute("showAllProdToAllLoc")) {
+		
+	
+
+		if (objSetup.getStrShowAllProdToAllLoc() == null || objSetup.getStrShowAllProdToAllLoc().equalsIgnoreCase("N")) {
 			showAllProd = "N";
-		} else {
-			showAllProd = "Y";
-		}
+		} 
 
 		// String
 		// searchText=req.getSession().getAttribute("searchText").toString();
@@ -5651,13 +5651,11 @@ public class clsSearchFormController {
 		String strShowTransOrder = objSetup.getStrShowTransAsc_Desc();
 		String webStockDB=req.getSession().getAttribute("WebStockDB").toString();
 		String strWebBooksDB=req.getSession().getAttribute("WebBooksDB").toString();
-		String strLocCode = req.getSession().getAttribute("locationCode").toString();
+		String strLocCode = req.getSession().getAttribute("locationCode").toString();	
 		String showAllProd = "Y";
-		if (null == req.getSession().getAttribute("showAllProdToAllLoc")) {
+		if (objSetup.getStrShowAllProdToAllLoc() == null || objSetup.getStrShowAllProdToAllLoc().equalsIgnoreCase("N")) {
 			showAllProd = "N";
-		} else {
-			showAllProd = "Y";
-		}
+		} 
 		switch (formName) {
 		
 			case "Banquetgroup" :{
