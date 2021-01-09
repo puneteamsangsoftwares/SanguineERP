@@ -32,11 +32,27 @@
 			 var dd = today.getDate();
 			 var mm = today.getMonth()+1;
 			 var yyyy = today.getFullYear();
-			 var todayDate=dd+"-"+mm+"-"+yyyy;
-			 if(pmsDate != todayDate )
+			 var todayDate=yyyy+"-0"+mm+"-0"+dd;
+			 
+			 var dd1 = pmsDate.split("-")[0];
+			 var mm1 = pmsDate.split("-")[1];
+			 var yyyy1 = pmsDate.split("-")[2];
+			 var newpmsDate=yyyy1+"-"+mm1+"-"+dd1;//yyyy-mm-dd
+			 var g2 = new Date(newpmsDate); 
+			 
+			 var g1 = new Date(todayDate); 
+			 
+			 var moduleName='<%=session.getAttribute("selectedModuleName")%>';		
+			 if(moduleName=='3-WebPMS')
 			 {
-			    alert("PMS Date is not equal to System Date");
-			 } 
+				 if( g2.getTime() < g1.getTime() || g1.getTime() < g2.getTime() )
+				 {
+				    alert("PMS Date is not equal to System Date");
+				 } 
+			 }
+			 
+			 
+			
 			
 	});
 		$(document).keydown(function(event){

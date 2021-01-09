@@ -547,7 +547,6 @@ function funGetFormName(){
 	$(document).ready(function()
 	{
 		var strModule='<%=session.getAttribute("selectedModuleName").toString()%>';
-		;
 		if(strModule=='3-WebPMS')
 		{
 			 var pmsDate='<%=session.getAttribute("PMSDate")%>';

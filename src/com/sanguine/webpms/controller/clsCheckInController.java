@@ -1504,11 +1504,22 @@ public class clsCheckInController {
 			}
 			objPostRoomTerrifBean.setStrFolioType("Room");
 			String folioNo = arrObjRoom[0].toString();
-			if(strPackageInclusiveRoomTerrif.equalsIgnoreCase("N"))
+			if(Double.valueOf(arrObjRoom[7].toString())>0)
 			{
-				String docNo = objPostRoomTerrif.funInsertFolioRecords(folioNo, clientCode, propCode, objPostRoomTerrifBean,  strpmsDate, arrObjRoom[3].toString(),strTransactionType,userCode);
-				listRoomTerrifDocNo.add(docNo);
+				if(strPackageInclusiveRoomTerrif.equalsIgnoreCase("Y"))
+				{
+					String docNo = objPostRoomTerrif.funInsertFolioRecords(folioNo, clientCode, propCode, objPostRoomTerrifBean,  strpmsDate, arrObjRoom[3].toString(),strTransactionType,userCode);
+					listRoomTerrifDocNo.add(docNo);
+				}
 			}
+			else
+			{
+				
+			    String docNo = objPostRoomTerrif.funInsertFolioRecords(folioNo, clientCode, propCode, objPostRoomTerrifBean,  strpmsDate, arrObjRoom[3].toString(),strTransactionType,userCode);
+			    listRoomTerrifDocNo.add(docNo);
+				
+			}
+			
 			
 			if(Double.valueOf(arrObjRoom[7].toString())>0)
 			{   

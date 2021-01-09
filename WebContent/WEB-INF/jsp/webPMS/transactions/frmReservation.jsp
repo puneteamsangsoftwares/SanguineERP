@@ -1485,6 +1485,7 @@
 			var DepartureDate1 = $("#txtDepartureDate").val();
 			if(ArrivalDate1>DepartureDate1){
 				alert("Arrival Date must be Greater than DepartureDate")
+				flg=false;
 			}
 			
 			if($("#txtBookingTypeCode").val()=='')
