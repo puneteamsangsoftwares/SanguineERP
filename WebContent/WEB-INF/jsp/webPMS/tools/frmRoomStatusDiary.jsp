@@ -815,11 +815,11 @@ table tbody tr:nth-child(even) {
 		var toolTipText1="",toolTipText2="",toolTipText3="",toolTipText4="",toolTipText5="",toolTipText6="",toolTipText7="";
 		if(roomStatus=='Waiting')
 		{
-			color='linear-gradient(250.46deg, #ff94ed 0.67%, #9242fc 100%);';
+			color= 'linear-gradient(250.46deg, #ff94ed 0.67%, #9242fc 100%)'; // linear-gradient(250.46deg, #ff94ed 0.67%, #9242fc 100%);
 		}
 		else if(roomStatus=='RESERVATION')
 		{
-			color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
+			color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%)';//linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%)
 		}
 		else if(roomStatus=='Occupied')
 		{
@@ -1443,7 +1443,20 @@ table tbody tr:nth-child(even) {
 				}
 				  
 				  break;
-				  
+		
+			case 'linear-gradient(250.46deg, rgb(255, 162, 162) 0%, rgb(255, 91, 91) 100%)':          //'linear-gradient(250.46deg, rgb(255, 162, 162) 0%, rgb(255, 91, 91) 100%)'://purple-->WAITING
+				//
+		            var isCheckOk=confirm("Do You Want to Check In  ?"); 
+					if(isCheckOk){
+						
+						code=obj.defaultValue.split(",");
+						  var subStr = code[1];
+						  url=getContextPath()+"/frmCheckIn1.html?docCode="+subStr
+						  window.open(url);
+					}
+					  
+					  break;
+					  
 				  
 			case 'linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%)'://GREEN-->CONFIRM
 				 code=obj.defaultValue.split(",");
@@ -2100,11 +2113,11 @@ table tbody tr:nth-child(even) {
 					var toolTipText1="",toolTipText2="",toolTipText3="",toolTipText4="",toolTipText5="",toolTipText6="",toolTipText7="";
 					if(roomStatus=='Waiting')
 					{
-						color='linear-gradient(250.46deg, #ff94ed 0.67%, #9242fc 100%);';
+						color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';  //Purple color //color='linear-gradient(250.46deg, #ff94ed 0.67%, #9242fc 100%);';//This sould be purple
 					}
 					else if(roomStatus=='RESERVATION')
 					{
-						color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';
+						color='linear-gradient(250.46deg, #ffa2a2 0%, #ff5b5b 100%);';//This shold be red
 					}
 					else if(roomStatus=='Occupied')
 					{
@@ -2896,7 +2909,7 @@ table tbody tr:nth-child(even) {
 		              <div class="add-room">
 		                <i class="mdi mdi-plus " onclick="funOpenRoomMaster()"></i><span>Add Room</span>
 		              </div>
-		              <%-- <div class="icon-action">
+		             <%--  <div class="icon-action">
 		                <span class="mdi mdi-magnify" onclick="hidePopup()"></span>
 		              </div> --%>
 		              
