@@ -196,17 +196,7 @@ overflow-x: hidden;
 				window.open(getContextPath()+"/frmPMSPaymentAdvanceAmount.html?AdvAmount="+checkInNo);
 				session.removeAttribute("AdvanceAmount");
 				
-			}
-			else
-			{
-				if(isCheckOk)
-				{
-					checkInNo='<%=session.getAttribute("AdvanceAmount").toString()%>';
-					
-					window.open(getContextPath() + "/rptCheckInSlip.html?checkInNo=" +checkInNo+"&cmbAgainst="+against,'_blank');
-				}
-		    }
-			<%	
+			}<%	
 		}
 	}%>
 	

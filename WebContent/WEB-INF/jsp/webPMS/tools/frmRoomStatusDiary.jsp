@@ -2896,16 +2896,16 @@ table tbody tr:nth-child(even) {
 		              <div class="add-room">
 		                <i class="mdi mdi-plus " onclick="funOpenRoomMaster()"></i><span>Add Room</span>
 		              </div>
-		              <div class="icon-action">
+		              <%-- <div class="icon-action">
 		                <span class="mdi mdi-magnify" onclick="hidePopup()"></span>
-		              </div>
+		              </div> --%>
 		              
-		             <c > <div class="col-md-2"  onclick="funOpenCheckInList(this)">
+		             <%-- <c > <div class="col-md-2"  onclick="funOpenCheckInList(this)">
 					  <div  class="bar1"></div>
 					  <div class="bar2"></div>
 					  <div class="bar3"></div>
 					</div>
-					</c>
+					</c> --%>
 		            </div>
 		        </div>
 			</div>

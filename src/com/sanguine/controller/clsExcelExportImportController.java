@@ -2113,16 +2113,21 @@ public class clsExcelExportImportController {
 		List AllGuestlist= new ArrayList();
 		List DataGuestList=null;
 		clsGuestMasterBean objBean=null;
-		String header = "Guest Code,First Name,Middle Name,Last Name,Gender,MobileNo";
+		String header = "Guest Code,First Name,Middle Name,Last Name,Gender,MobileNo,External Id,BirthDate,Address,UID No,Email Id,Remark";
 		List ExportList = new ArrayList();
 		String[] ExcelHeader = header.split(",");
 		ExportList.add(ExcelHeader);
 		if(strFormName.equalsIgnoreCase("frmGuestMaster"))
 		{
 			try{
-				String sql="SELECT a.strGuestCode,a.strFirstName,a.strMiddleName,a.strLastName,a.strGender,a.lngMobileNo "
+				/*String sql="SELECT a.strGuestCode,a.strFirstName,a.strMiddleName,a.strLastName,a.strGender,a.lngMobileNo "
 						+ "FROM tblguestmaster a "
-						+ "WHERE a.strClientCode='"+clientCode+"';";
+						+ "WHERE a.strClientCode='"+clientCode+"';";*/
+				
+				String sql="SELECT a.strGuestCode,a.strFirstName,a.strMiddleName,a.strLastName,a.strGender,a.lngMobileNo, "
+                           +  " a.strExternalID,a.dteDOB,a.strAddress,a.strUIDNo,a.strEmailId,a.strRemark "
+                           +  " FROM tblguestmaster a "
+                           +  " WHERE a.strClientCode='"+clientCode+"';"	;
 			            
 				list=objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
 				if(!list.isEmpty())
@@ -2137,8 +2142,13 @@ public class clsExcelExportImportController {
 			             DataGuestList.add(obj[3].toString());
 			             DataGuestList.add(obj[4].toString());
 			             long mobNo = new Double(Double.parseDouble(obj[5].toString())).longValue(); 
-			            		 
-			             DataGuestList.add(mobNo);	           
+			             DataGuestList.add(mobNo);	   
+			             DataGuestList.add(obj[6].toString());
+			             DataGuestList.add(obj[7].toString());
+			             DataGuestList.add(obj[8].toString());
+			             DataGuestList.add(obj[9].toString());
+			             DataGuestList.add(obj[10].toString());
+			             DataGuestList.add(obj[11].toString());
 			            
 
 			             
@@ -2321,6 +2331,59 @@ public class clsExcelExportImportController {
 				{
 				long mobNo = new Double(Double.parseDouble(row.getCell(5).toString())).longValue(); 
 				objBean.setIntMobileNo(mobNo);
+				}
+				
+				if(row.getCell(6)==null)
+				{
+					objBean.setStrExternalID("");
+				}
+				else
+				{
+					objBean.setStrExternalID(row.getCell(6).toString());
+				}
+				
+				if(row.getCell(7)==null)
+				{
+					objBean.setDteDOB("");
+				}
+				else
+				{
+					objBean.setDteDOB(row.getCell(7).toString());
+				}
+				
+				if(row.getCell(8)==null)
+				{
+					objBean.setStrAddress("");
+				}
+				else
+				{
+					objBean.setStrAddress(row.getCell(8).toString());
+				}
+				if(row.getCell(9)==null)
+				{
+					objBean.setStrUIDNo("");
+				}
+				else
+				{
+					objBean.setStrUIDNo(row.getCell(9).toString());
+				}
+				
+				if(row.getCell(10)==null)
+				{
+					objBean.setStrEmailId("");
+				}
+				else
+				{
+					objBean.setStrEmailId(row.getCell(10).toString());
+				}
+				
+				if(row.getCell(11)==null)
+				{
+					objBean.setStrRemark("");
+				}
+				else
+				{
+					objBean.setStrRemark(row.getCell(11).toString());
 				}
 				listData.add(objBean);
 			/*	Guest Code,First Name,Middle Name,Last Name,Gender,MobileNo*/

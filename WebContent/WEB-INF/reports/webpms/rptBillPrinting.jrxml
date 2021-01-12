@@ -41,6 +41,8 @@
 	<parameter name="pSupportVoucher" class="java.lang.String"/>
 	<parameter name="isRoomTariff" class="java.lang.Boolean"/>
 	<parameter name="pstrCustNo" class="java.lang.String"/>
+	<parameter name="lblChild" class="java.lang.String"/>
+	<parameter name="lblRemark" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT b.dteDocDate,b.strDocNo,b.strPerticulars,b.dblDebitAmt,b.dblCreditAmt,b.dblBalanceAmt
 FROM tblfoliohd a
@@ -154,13 +156,6 @@ WHERE DATE(b.dteDocDate) BETWEEN '2016-03-25' AND '2016-03-25' AND a.strFolioNo=
 				<text><![CDATA[Room No             :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="221" width="94" height="14" uuid="1e307570-e77a-4e7f-ba3e-903f5a174436"/>
-				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Childs                 :]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="0" y="202" width="94" height="14" uuid="1e307570-e77a-4e7f-ba3e-903f5a174436"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
@@ -201,13 +196,6 @@ WHERE DATE(b.dteDocDate) BETWEEN '2016-03-25' AND '2016-03-25' AND a.strFolioNo=
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Arrival Time         :]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="240" width="94" height="14" uuid="1e307570-e77a-4e7f-ba3e-903f5a174436"/>
-				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Remarks             :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="94" y="98" width="246" height="14" uuid="2721457a-8086-462b-b990-f64b7c9148dd"/>
@@ -251,14 +239,14 @@ WHERE DATE(b.dteDocDate) BETWEEN '2016-03-25' AND '2016-03-25' AND a.strFolioNo=
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pAdult}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="94" y="221" width="246" height="14" uuid="2721457a-8086-462b-b990-f64b7c9148dd"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="94" y="221" width="246" height="14" isRemoveLineWhenBlank="true" uuid="2721457a-8086-462b-b990-f64b7c9148dd"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pChild}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="94" y="240" width="246" height="14" uuid="2721457a-8086-462b-b990-f64b7c9148dd"/>
 				<textElement>
 					<font size="11"/>
@@ -378,6 +366,20 @@ WHERE DATE(b.dteDocDate) BETWEEN '2016-03-25' AND '2016-03-25' AND a.strFolioNo=
 				</textElement>
 				<text><![CDATA[Bill]]></text>
 			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="221" width="94" height="14" isRemoveLineWhenBlank="true" uuid="cd46c627-7978-4995-a634-56b4bfd4e129"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lblChild}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="240" width="94" height="14" uuid="7c17c89d-78d8-4088-a1df-97ea99cfffba"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lblRemark}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

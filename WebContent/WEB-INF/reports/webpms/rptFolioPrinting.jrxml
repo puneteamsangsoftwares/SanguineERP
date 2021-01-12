@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.5.0.final using JasperReports Library version 6.5.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f2323f3-3122-4114-a59f-df89ff1ddda0">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -25,6 +25,10 @@
 	<parameter name="pDepartureDate" class="java.lang.String"/>
 	<parameter name="pDepartureTime" class="java.lang.String"/>
 	<parameter name="strUserCode" class="java.lang.String"/>
+	<parameter name="lblAdult" class="java.lang.String"/>
+	<parameter name="lblChild" class="java.lang.String"/>
+	<parameter name="lblDepartureDate" class="java.lang.String"/>
+	<parameter name="lblDepartureTime" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT b.dteDocDate,b.strDocNo,b.strPerticulars,b.dblDebitAmt,b.dblCreditAmt,b.dblBalanceAmt
 FROM tblfoliohd a
@@ -136,39 +140,11 @@ WHERE DATE(b.dteDocDate) BETWEEN '2016-03-25' AND '2016-03-25' AND a.strFolioNo=
 				<text><![CDATA[Room No             :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="211" width="94" height="14" uuid="1e307570-e77a-4e7f-ba3e-903f5a174436"/>
-				<textElement verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Childs                 :]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="192" width="94" height="14" uuid="1e307570-e77a-4e7f-ba3e-903f5a174436"/>
-				<textElement verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Adults                 :]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="340" y="211" width="97" height="14" uuid="1e307570-e77a-4e7f-ba3e-903f5a174436"/>
-				<textElement verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Departure Time     :]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="340" y="155" width="97" height="14" uuid="1e307570-e77a-4e7f-ba3e-903f5a174436"/>
 				<textElement verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Arrival Date          :]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="340" y="193" width="97" height="14" uuid="1e307570-e77a-4e7f-ba3e-903f5a174436"/>
-				<textElement verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Departure Date     :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="340" y="136" width="97" height="14" uuid="1e307570-e77a-4e7f-ba3e-903f5a174436"/>
@@ -226,15 +202,19 @@ WHERE DATE(b.dteDocDate) BETWEEN '2016-03-25' AND '2016-03-25' AND a.strFolioNo=
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pRoomNo}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="94" y="192" width="205" height="14" uuid="2721457a-8086-462b-b990-f64b7c9148dd"/>
+			<textField isBlankWhenNull="true">
+				<reportElement key="" x="94" y="192" width="205" height="14" isRemoveLineWhenBlank="true" uuid="2721457a-8086-462b-b990-f64b7c9148dd">
+					<printWhenExpression><![CDATA[$P{pAdult} != null]]></printWhenExpression>
+				</reportElement>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pAdult}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="94" y="211" width="205" height="14" uuid="2721457a-8086-462b-b990-f64b7c9148dd"/>
+			<textField isBlankWhenNull="true">
+				<reportElement key="" x="94" y="211" width="205" height="14" isRemoveLineWhenBlank="true" uuid="2721457a-8086-462b-b990-f64b7c9148dd">
+					<printWhenExpression><![CDATA[$P{pChild} != null]]></printWhenExpression>
+				</reportElement>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -269,14 +249,18 @@ WHERE DATE(b.dteDocDate) BETWEEN '2016-03-25' AND '2016-03-25' AND a.strFolioNo=
 				<textFieldExpression><![CDATA[$P{pArrivalTime}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="437" y="193" width="115" height="14" uuid="2721457a-8086-462b-b990-f64b7c9148dd"/>
+				<reportElement x="437" y="193" width="115" height="14" isRemoveLineWhenBlank="true" uuid="2721457a-8086-462b-b990-f64b7c9148dd">
+					<printWhenExpression><![CDATA[$P{pDepartureDate} != null]]></printWhenExpression>
+				</reportElement>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pDepartureDate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="437" y="211" width="115" height="14" uuid="2721457a-8086-462b-b990-f64b7c9148dd"/>
+				<reportElement x="437" y="211" width="115" height="14" uuid="2721457a-8086-462b-b990-f64b7c9148dd">
+					<printWhenExpression><![CDATA[$P{pDepartureTime} != null]]></printWhenExpression>
+				</reportElement>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -295,6 +279,42 @@ WHERE DATE(b.dteDocDate) BETWEEN '2016-03-25' AND '2016-03-25' AND a.strFolioNo=
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pBillNo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="192" width="94" height="14" isRemoveLineWhenBlank="true" uuid="3afe550d-dd37-4500-833c-6d4e45eb8184">
+					<printWhenExpression><![CDATA[$P{lblAdult} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lblAdult}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="211" width="94" height="14" isRemoveLineWhenBlank="true" uuid="85f3aed0-9280-4133-84ff-72df925fa012">
+					<printWhenExpression><![CDATA[$P{lblChild} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lblChild}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="193" width="97" height="14" isRemoveLineWhenBlank="true" uuid="f711ff07-f15c-4abc-999e-bbe845f913bc">
+					<printWhenExpression><![CDATA[$P{lblDepartureDate} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lblDepartureDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="211" width="97" height="14" isRemoveLineWhenBlank="true" uuid="5ae162fc-94e5-4ad4-8d3a-f0f8c8f77fd4">
+					<printWhenExpression><![CDATA[$P{lblDepartureTime} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lblDepartureTime}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

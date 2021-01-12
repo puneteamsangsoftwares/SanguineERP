@@ -1544,217 +1544,55 @@ public class clsCheckInController {
 	}
 
 	//check in slip
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/rptCheckInSlip", method = RequestMethod.GET)
-	public void funGeneratePaymentRecipt(@RequestParam("checkInNo") String reciptNo,@RequestParam("cmbAgainst") String strAgainst , HttpServletRequest req, HttpServletResponse resp) {
-		try {
-			String clientCode = req.getSession().getAttribute("clientCode").toString();
-			String userCode = req.getSession().getAttribute("usercode").toString();
-			String propertyCode = req.getSession().getAttribute("propertyCode").toString();
-			String companyName = req.getSession().getAttribute("companyName").toString();
-			String webStockDB=req.getSession().getAttribute("WebStockDB").toString();
-			clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
-			if (objSetup == null) {
-				objSetup = new clsPropertySetupModel();
-			}
-			String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
-			String userName = "";
-			String sqlUserName = "select strUserName from "+webStockDB+".tbluserhd where strUserCode='" + userCode + "' ";
-			List listOfUser = objGlobalFunctionsService.funGetDataList(sqlUserName, "sql");
-			if (listOfUser.size() > 0) {
-				// Object[] userData = (Object[]) listOfUser.get(0);
-				userName = listOfUser.get(0).toString();
-			}
-
-			HashMap reportParams = new HashMap();			
-			ArrayList datalist = new ArrayList();
-			String reportName = servletContext.getRealPath("/WEB-INF/reports/webpms/rptCheckInSlip.jrxml");			
-			if(strAgainst.equalsIgnoreCase("Walk In")){
-			String sql = "SELECT a.strCheckInNo,a.strGuestCode,f.strRoomDesc,"
-					+ "ifnull(a.strExtraBedCode,''), b.strRoomTypeDesc,"
-					+ "c.dblRoomRate, IFNULL(c.dblDiscount,0.0),d.intNoOfAdults,"
-					+ " DATE_FORMAT(d.dteCheckInDate,'%d-%m-%Y'),e.strGSTNo,"
-					+ "e.strPANNo, d.tmeArrivalTime,ifnull(g.dblChargePerBed,0), "
-					+ "e.strFirstName,e.strMiddleName,e.strLastName, "
-					+ "IFNULL(e.strAddressOfc,''), IFNULL(e.strCityOfc,''), "
-					+ "IFNULL(e.strStateOfc,''), IFNULL(e.strCountryOfc,''), "
-					+ "IFNULL(e.intPinCodeOfc,''),IFNULL(e.lngMobileNo,0),d.strComplimentry "
-					+ "FROM tblroomtypemaster b,tblwalkinroomratedtl c, "
-					+ "tblcheckinhd d,tblguestmaster e,tblroom f, "
-					+ "tblcheckindtl a left outer join  tblextrabed g on "
-					+ "g.strExtraBedTypeCode=a.strExtraBedCode  AND g.strClientCode='"+clientCode+"'"
-					+ "WHERE a.strRoomType=b.strRoomTypeCode "
-					+ "AND c.strWalkinNo=d.strWalkInNo "
-					+ "AND a.strGuestCode=e.strGuestCode "
-					+ "AND a.strCheckInNo=d.strCheckInNo  "
-					+ "AND d.strCheckInNo = '"+reciptNo+"' "
-					+ "AND a.strRoomNo=f.strRoomCode "
-					+ "AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' AND c.strClientCode='"+clientCode+"' AND d.strClientCode='"+clientCode+"' AND e.strClientCode='"+clientCode+"' AND f.strClientCode='"+clientCode+"'  ; ";
-			
-			List listCheckInsData = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
-			Object[] arrObjRoomData = (Object[]) listCheckInsData.get(0);
-			clsCheckInBean objCheckInBean = new clsCheckInBean();
-			objCheckInBean.setStrCheckInNo(arrObjRoomData[0].toString());
-			String guestCode = arrObjRoomData[1].toString();
-			objCheckInBean.setStrRoomNo(arrObjRoomData[2].toString());
-			objCheckInBean.setStrExtraBedCode(arrObjRoomData[3].toString());
-			String roomType = arrObjRoomData[4].toString();
-			double roomTarrifWithExtraBed = Double.parseDouble(arrObjRoomData[5].toString());					
-			double discount  = Double.parseDouble(arrObjRoomData[6].toString());
-			objCheckInBean.setIntNoOfAdults(Integer.parseInt(arrObjRoomData[7].toString()));
-			objCheckInBean.setDteArrivalDate(arrObjRoomData[8].toString());
-			String gstNo = arrObjRoomData[9].toString();
-			String paNo = arrObjRoomData[10].toString();
-			objCheckInBean.setTmeArrivalTime(arrObjRoomData[11].toString());
-			double dblExtraBedAmt = Double.parseDouble(arrObjRoomData[12].toString());
-			if(!objCheckInBean.getStrExtraBedCode().isEmpty())
-			{
-				roomTarrifWithExtraBed = dblExtraBedAmt+roomTarrifWithExtraBed;
-			}
-			String gFirstName = arrObjRoomData[13].toString();
-			String gMiddleName = arrObjRoomData[14].toString();
-			String gLastName = arrObjRoomData[15].toString();
-			/*String guestCompanyAddr = arrObjRoomData[16].toString() + ","
-					+ arrObjRoomData[17].toString() + ","
-					+ arrObjRoomData[18].toString() + ","
-					+ arrObjRoomData[19].toString() + ","
-					+ arrObjRoomData[20].toString();*/
-			String guestCompanyAddr= arrObjRoomData[15].toString() ;
-			if(!arrObjRoomData[16].toString().equalsIgnoreCase(""))
-			{
-				guestCompanyAddr="," + arrObjRoomData[16].toString();
-			}
-			else if(!arrObjRoomData[17].toString().equalsIgnoreCase(""))
-			{
-				guestCompanyAddr="," + arrObjRoomData[17].toString();
-			}
-			else if(!arrObjRoomData[18].toString().equalsIgnoreCase(""))
-			{
-				guestCompanyAddr="," + arrObjRoomData[18].toString();
-			}
-			else if(!arrObjRoomData[19].toString().equalsIgnoreCase("0"))
-			{
-				guestCompanyAddr="," + arrObjRoomData[19].toString();
-			}
-			else
-			{
-				guestCompanyAddr=guestCompanyAddr;
-			}
-			
-			String strMobileNo = arrObjRoomData[21].toString();
-			String strComplimentry = arrObjRoomData[22].toString();
-			
-			
-			double roomTarrif = Double.parseDouble(arrObjRoomData[5].toString());
-			//List<clsTaxProductDtl> listTaxProdDtl = new ArrayList<clsTaxProductDtl>();
-			//Map<String, List<clsTaxCalculation>> hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
-
-			Date dt = new Date();
-			String date = (dt.getYear() + 1900) + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
-
-			String sqlTax = "SELECT strTaxCode,strTaxDesc,strIncomeHeadCode,"
-					+ "strTaxType,dblTaxValue,strTaxOn,strDeptCode,dblFromRate,"
-					+ "dblToRate FROM tbltaxmaster WHERE DATE(dteValidFrom)<='"+date+"' "
-					+ "and  date(dteValidTo)>='"+date+"' and strTaxOnType = 'Room Night' AND strClientCode = '"+clientCode+"'";
-			
-			List listTaxDtl = objGlobalFunService.funGetListModuleWise(sqlTax, "sql");
-			double finalTax = 0.0;
-			double tariffAmt = roomTarrifWithExtraBed-((roomTarrifWithExtraBed*discount)/100);
-			double discAmt = ((roomTarrifWithExtraBed*discount)/100);
-			String strTaxOn="";
-			for (int cnt = 0; cnt < listTaxDtl.size(); cnt++) {
-				String taxCalType = "Forward";
-				Object[] arrObjTaxDtl = (Object[]) listTaxDtl.get(cnt);
-				double taxValue = Double.parseDouble(arrObjTaxDtl[4].toString());
-				double fromRate = Double.parseDouble(arrObjTaxDtl[7].toString());
-				double toRate = Double.parseDouble(arrObjTaxDtl[8].toString());
-				if(fromRate<(tariffAmt)&& (tariffAmt)<=toRate)
-				{
-					double taxAmt = 0;
-					if (taxCalType.equals("Forward")) // Forward Tax
-														// Calculation
-					{
-						taxAmt = (tariffAmt * taxValue) / 100;
-					} 
-					else // Backward Tax Calculation
-					{
-						taxAmt = tariffAmt * 100 / (100 + taxValue);
-						taxAmt = tariffAmt - taxAmt;
-					}
-					finalTax = finalTax+taxAmt;
+		@SuppressWarnings("unchecked")
+		@RequestMapping(value = "/rptCheckInSlip", method = RequestMethod.GET)
+		public void funGeneratePaymentRecipt(@RequestParam("checkInNo") String reciptNo,@RequestParam("cmbAgainst") String strAgainst , HttpServletRequest req, HttpServletResponse resp) {
+			try {
+				String clientCode = req.getSession().getAttribute("clientCode").toString();
+				String userCode = req.getSession().getAttribute("usercode").toString();
+				String propertyCode = req.getSession().getAttribute("propertyCode").toString();
+				String companyName = req.getSession().getAttribute("companyName").toString();
+				String webStockDB=req.getSession().getAttribute("WebStockDB").toString();
+				clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propertyCode, clientCode);
+				if (objSetup == null) {
+					objSetup = new clsPropertySetupModel();
 				}
-				else
-				{
-					
+				String imagePath = servletContext.getRealPath("/resources/images/company_Logo.png");
+				String userName = "";
+				String sqlUserName = "select strUserName from "+webStockDB+".tbluserhd where strUserCode='" + userCode + "' ";
+				List listOfUser = objGlobalFunctionsService.funGetDataList(sqlUserName, "sql");
+				if (listOfUser.size() > 0) {
+					// Object[] userData = (Object[]) listOfUser.get(0);
+					userName = listOfUser.get(0).toString();
 				}
-			}
-			
-			datalist.add(objCheckInBean);
-			
-			//reportParams.put("pgstno", gstNo);
-			reportParams.put("ppanno", paNo);
-			reportParams.put("pguestCode", guestCode);
-			reportParams.put("proomType", roomType);
-			reportParams.put("pCompanyName", companyName);
-			reportParams.put("pAddress1", objSetup.getStrAdd1() + "," + objSetup.getStrAdd2() + "," + objSetup.getStrCity());
-			reportParams.put("pAddress2", objSetup.getStrState() + "," + objSetup.getStrCountry() + "," + objSetup.getStrPin());
-			reportParams.put("pContactDetails", "");
-			reportParams.put("strImagePath", imagePath);
-			reportParams.put("userName", userName);
-			reportParams.put("pGuestName", gFirstName + " "+ gMiddleName + " " + gLastName);
-			reportParams.put("pguestCompanyAddr", guestCompanyAddr);
-			reportParams.put("pstrMobileNo", strMobileNo);
-			if(clientCode.equalsIgnoreCase("378.001"))
-			{
-				reportParams.put("pNote", null);
-				reportParams.put("pCustomerGST",null);
-				reportParams.put("pgstno", null);
-			}
-			else
-			{
-				reportParams.put("pNote", "Note");
-				reportParams.put("pCustomerGST","Customer GST :");
-				reportParams.put("pgstno", gstNo);
-			}
-			if(strComplimentry.equalsIgnoreCase("N"))
-			{
-			reportParams.put("ptaxAmt", finalTax);
-			reportParams.put("proomTarrif", roomTarrif);
-			reportParams.put("proomTarrifWithExtBed", roomTarrifWithExtraBed);
-			reportParams.put("pdiscount", discAmt);
-			}
-			else
-			{
-				finalTax=0.0;
-				roomTarrif=0.0;
-				discAmt = 0.0;
-				roomTarrifWithExtraBed=0.0;
-				reportParams.put("ptaxAmt", finalTax);
-				reportParams.put("proomTarrif", roomTarrif);
-				reportParams.put("proomTarrifWithExtBed", roomTarrifWithExtraBed);
-				reportParams.put("pdiscount", discAmt);
-			}
-			}
-			else
-			{
-				String sqlReservation ="SELECT a.strCheckInNo,a.strGuestCode,"
-						+ "f.strRoomDesc, IFNULL(a.strExtraBedCode,''),"
-						+ "b.strRoomTypeDesc,b.dblRoomTerrif,d.intNoOfAdults, "
-						+ "DATE_FORMAT(d.dteCheckInDate,'%d-%m-%Y'),e.strGSTNo,"
-						+ "e.strPANNo, d.tmeArrivalTime, IFNULL(g.dblChargePerBed,0), "
+
+				HashMap reportParams = new HashMap();			
+				ArrayList datalist = new ArrayList();
+				String reportName = servletContext.getRealPath("/WEB-INF/reports/webpms/rptCheckInSlip.jrxml");			
+				if(strAgainst.equalsIgnoreCase("Walk In")){
+				String sql = "SELECT a.strCheckInNo,a.strGuestCode,f.strRoomDesc,"
+						+ "ifnull(a.strExtraBedCode,''), b.strRoomTypeDesc,"
+						+ "c.dblRoomRate, IFNULL(c.dblDiscount,0.0),d.intNoOfAdults,"
+						+ " DATE_FORMAT(d.dteCheckInDate,'%d-%m-%Y'),e.strGSTNo,"
+						+ "e.strPANNo, d.tmeArrivalTime,ifnull(g.dblChargePerBed,0), "
 						+ "e.strFirstName,e.strMiddleName,e.strLastName, "
 						+ "IFNULL(e.strAddressOfc,''), IFNULL(e.strCityOfc,''), "
 						+ "IFNULL(e.strStateOfc,''), IFNULL(e.strCountryOfc,''), "
-						+ "IFNULL(e.intPinCodeOfc,''), IFNULL(e.lngMobileNo,0) ,d.strComplimentry "
-						+ "FROM tblroomtypemaster b , tblcheckinhd d,tblguestmaster e,"
-						+ "tblroom f, tblcheckindtl a "
-						+ "LEFT OUTER JOIN tblextrabed g ON g.strExtraBedTypeCode=a.strExtraBedCode "
-						+ "WHERE a.strRoomType=b.strRoomTypeCode AND a.strGuestCode=e.strGuestCode  "
-						+ "AND a.strCheckInNo=d.strCheckInNo  AND d.strCheckInNo = '"+reciptNo+"' "
-						+ "AND a.strRoomNo=f.strRoomCode ; ";
-				List listCheckInRes = objGlobalFunctionsService.funGetListModuleWise(sqlReservation, "sql");
-
-				Object[] arrObjRoomData = (Object[]) listCheckInRes.get(0);
+						+ "IFNULL(e.intPinCodeOfc,''),IFNULL(e.lngMobileNo,0),d.strComplimentry,DATE_FORMAT(d.dteArrivalDate,'%d-%m-%Y'),DATE_FORMAT(d.dteDepartureDate,'%d-%m-%Y')"
+						+ "FROM tblroomtypemaster b,tblwalkinroomratedtl c, "
+						+ "tblcheckinhd d,tblguestmaster e,tblroom f, "
+						+ "tblcheckindtl a left outer join  tblextrabed g on "
+						+ "g.strExtraBedTypeCode=a.strExtraBedCode  AND g.strClientCode='"+clientCode+"'"
+						+ "WHERE a.strRoomType=b.strRoomTypeCode "
+						+ "AND c.strWalkinNo=d.strWalkInNo "
+						+ "AND a.strGuestCode=e.strGuestCode "
+						+ "AND a.strCheckInNo=d.strCheckInNo  "
+						+ "AND d.strCheckInNo = '"+reciptNo+"' "
+						+ "AND a.strRoomNo=f.strRoomCode "
+						+ "AND a.strClientCode='"+clientCode+"' AND b.strClientCode='"+clientCode+"' AND c.strClientCode='"+clientCode+"' AND d.strClientCode='"+clientCode+"' AND e.strClientCode='"+clientCode+"' AND f.strClientCode='"+clientCode+"'  ; ";
+				
+				List listCheckInsData = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
+				Object[] arrObjRoomData = (Object[]) listCheckInsData.get(0);
 				clsCheckInBean objCheckInBean = new clsCheckInBean();
 				objCheckInBean.setStrCheckInNo(arrObjRoomData[0].toString());
 				String guestCode = arrObjRoomData[1].toString();
@@ -1762,25 +1600,25 @@ public class clsCheckInController {
 				objCheckInBean.setStrExtraBedCode(arrObjRoomData[3].toString());
 				String roomType = arrObjRoomData[4].toString();
 				double roomTarrifWithExtraBed = Double.parseDouble(arrObjRoomData[5].toString());					
-				/*double discount  = Double.parseDouble(arrObjRoomData[6].toString());*/
-				objCheckInBean.setIntNoOfAdults(Integer.parseInt(arrObjRoomData[6].toString()));
-				objCheckInBean.setDteArrivalDate(arrObjRoomData[7].toString());
-				String gstNo = arrObjRoomData[8].toString();
-				String paNo = arrObjRoomData[9].toString();
-				objCheckInBean.setTmeArrivalTime(arrObjRoomData[10].toString());
-				double dblExtraBedAmt = Double.parseDouble(arrObjRoomData[11].toString());
+				double discount  = Double.parseDouble(arrObjRoomData[6].toString());
+				objCheckInBean.setIntNoOfAdults(Integer.parseInt(arrObjRoomData[7].toString()));
+				objCheckInBean.setDteArrivalDate(arrObjRoomData[8].toString());
+				String gstNo = arrObjRoomData[9].toString();
+				String paNo = arrObjRoomData[10].toString();
+				objCheckInBean.setTmeArrivalTime(arrObjRoomData[11].toString());
+				double dblExtraBedAmt = Double.parseDouble(arrObjRoomData[12].toString());
 				if(!objCheckInBean.getStrExtraBedCode().isEmpty())
 				{
 					roomTarrifWithExtraBed = dblExtraBedAmt+roomTarrifWithExtraBed;
 				}
-				String gFirstName = arrObjRoomData[12].toString();
-				String gMiddleName = arrObjRoomData[13].toString();
-				String gLastName = arrObjRoomData[14].toString();
-				/*String guestCompanyAddr = arrObjRoomData[15].toString() + ","
-						+ arrObjRoomData[16].toString() + ","
+				String gFirstName = arrObjRoomData[13].toString();
+				String gMiddleName = arrObjRoomData[14].toString();
+				String gLastName = arrObjRoomData[15].toString();
+				/*String guestCompanyAddr = arrObjRoomData[16].toString() + ","
 						+ arrObjRoomData[17].toString() + ","
 						+ arrObjRoomData[18].toString() + ","
-						+ arrObjRoomData[19].toString();*/
+						+ arrObjRoomData[19].toString() + ","
+						+ arrObjRoomData[20].toString();*/
 				String guestCompanyAddr= arrObjRoomData[15].toString() ;
 				if(!arrObjRoomData[16].toString().equalsIgnoreCase(""))
 				{
@@ -1803,10 +1641,20 @@ public class clsCheckInController {
 					guestCompanyAddr=guestCompanyAddr;
 				}
 				
-				String strMobileNo = arrObjRoomData[20].toString();
-				String strComplimentry = arrObjRoomData[21].toString();
+				String strMobileNo = arrObjRoomData[21].toString();
+				String strComplimentry = arrObjRoomData[22].toString();
 				
-				double roomTarrif = Double.parseDouble(arrObjRoomData[5].toString());
+				 String arrDate = arrObjRoomData[23].toString();
+			     String depDate = arrObjRoomData[24].toString();
+			     
+			     Date arrivalDte=new SimpleDateFormat("dd-MM-yyyy").parse(arrDate);  
+			     Date departureDte=new SimpleDateFormat("dd-MM-yyyy").parse(depDate); 
+			     long arrTme=arrivalDte.getTime();
+			     long deptTme=departureDte.getTime();
+			     long difference = arrivalDte.getTime() - departureDte.getTime();
+			     float daysBetween = (difference / (1000*60*60*24));
+			     
+				 double roomTarrif = Double.parseDouble(arrObjRoomData[5].toString());
 				//List<clsTaxProductDtl> listTaxProdDtl = new ArrayList<clsTaxProductDtl>();
 				//Map<String, List<clsTaxCalculation>> hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
 
@@ -1816,11 +1664,10 @@ public class clsCheckInController {
 				String sqlTax = "SELECT strTaxCode,strTaxDesc,strIncomeHeadCode,"
 						+ "strTaxType,dblTaxValue,strTaxOn,strDeptCode,dblFromRate,"
 						+ "dblToRate FROM tbltaxmaster WHERE DATE(dteValidFrom)<='"+date+"' "
-						+ "and  date(dteValidTo)>='"+date+"' and strTaxOnType = 'Room Night' ";
+						+ "and  date(dteValidTo)>='"+date+"' and strTaxOnType = 'Room Night' AND strClientCode = '"+clientCode+"'";
 				
 				List listTaxDtl = objGlobalFunService.funGetListModuleWise(sqlTax, "sql");
 				double finalTax = 0.0;
-				double discount=0.0;
 				double tariffAmt = roomTarrifWithExtraBed-((roomTarrifWithExtraBed*discount)/100);
 				double discAmt = ((roomTarrifWithExtraBed*discount)/100);
 				String strTaxOn="";
@@ -1850,10 +1697,10 @@ public class clsCheckInController {
 						
 					}
 				}
+				
 				datalist.add(objCheckInBean);
 				
-				
-				
+				//reportParams.put("pgstno", gstNo);
 				reportParams.put("ppanno", paNo);
 				reportParams.put("pguestCode", guestCode);
 				reportParams.put("proomType", roomType);
@@ -1871,17 +1718,29 @@ public class clsCheckInController {
 					reportParams.put("pNote", null);
 					reportParams.put("pCustomerGST",null);
 					reportParams.put("pgstno", null);
+					reportParams.put("lblTax", "Total Days For Accomodation :");
 				}
 				else
 				{
 					reportParams.put("pNote", "Note");
 					reportParams.put("pCustomerGST","Customer GST :");
 					reportParams.put("pgstno", gstNo);
+					reportParams.put("lblTax", "Tax  :");
 				}
+				
 				
 				if(strComplimentry.equalsIgnoreCase("N"))
 				{
-				reportParams.put("ptaxAmt", finalTax);
+					if(clientCode.equalsIgnoreCase("378.001"))
+					{
+						reportParams.put("ptaxAmt", daysBetween);
+					}
+					else
+					{
+						reportParams.put("ptaxAmt", finalTax);
+					}
+				
+				
 				reportParams.put("proomTarrif", roomTarrif);
 				reportParams.put("proomTarrifWithExtBed", roomTarrifWithExtraBed);
 				reportParams.put("pdiscount", discAmt);
@@ -1892,57 +1751,258 @@ public class clsCheckInController {
 					roomTarrif=0.0;
 					discAmt = 0.0;
 					roomTarrifWithExtraBed=0.0;
-					reportParams.put("ptaxAmt", finalTax);
+
+					if(clientCode.equalsIgnoreCase("378.001"))
+					{
+						reportParams.put("ptaxAmt", daysBetween);
+					}
+					else
+					{
+						reportParams.put("ptaxAmt", finalTax);
+					}
+					
 					reportParams.put("proomTarrif", roomTarrif);
 					reportParams.put("proomTarrifWithExtBed", roomTarrifWithExtraBed);
 					reportParams.put("pdiscount", discAmt);
 				}
-			}
-			
-			double dblPackageAmount=0;
-			String sqlFolioPackage="select b.strPerticulars,b.dblDebitAmt from tblfoliohd a,tblfoliodtl b"
-					+ " where a.strFolioNo=b.strFolioNo and a.strCheckInNo='"+reciptNo+"'and a.strClientCode='"+clientCode+"'  and"
-					+ " b.strPerticulars='Package'";
-			
-			List listFolioPackage = objGlobalFunctionsService.funGetListModuleWise(sqlFolioPackage, "sql");
-
-			if(listFolioPackage!=null && listFolioPackage.size()>0)
-			{
-				for(int i=0;i<listFolioPackage.size();i++)
+				}
+				else
 				{
-					Object[] obj =(Object[])listFolioPackage.get(i);
-					dblPackageAmount+=Double.parseDouble(obj[1].toString());
+					String sqlReservation ="SELECT a.strCheckInNo,a.strGuestCode,"
+							+ "f.strRoomDesc, IFNULL(a.strExtraBedCode,''),"
+							+ "b.strRoomTypeDesc,b.dblRoomTerrif,d.intNoOfAdults, "
+							+ "DATE_FORMAT(d.dteCheckInDate,'%d-%m-%Y'),e.strGSTNo,"
+							+ "e.strPANNo, d.tmeArrivalTime, IFNULL(g.dblChargePerBed,0), "
+							+ "e.strFirstName,e.strMiddleName,e.strLastName, "
+							+ "IFNULL(e.strAddressOfc,''), IFNULL(e.strCityOfc,''), "
+							+ "IFNULL(e.strStateOfc,''), IFNULL(e.strCountryOfc,''), "
+							+ "IFNULL(e.intPinCodeOfc,''), IFNULL(e.lngMobileNo,0) ,d.strComplimentry,DATE_FORMAT(d.dteArrivalDate,'%d-%m-%Y'),DATE_FORMAT(d.dteDepartureDate,'%d-%m-%Y') "
+							+ "FROM tblroomtypemaster b , tblcheckinhd d,tblguestmaster e,"
+							+ "tblroom f, tblcheckindtl a "
+							+ "LEFT OUTER JOIN tblextrabed g ON g.strExtraBedTypeCode=a.strExtraBedCode "
+							+ "WHERE a.strRoomType=b.strRoomTypeCode AND a.strGuestCode=e.strGuestCode  "
+							+ "AND a.strCheckInNo=d.strCheckInNo  AND d.strCheckInNo = '"+reciptNo+"' "
+							+ "AND a.strRoomNo=f.strRoomCode ; ";
+					List listCheckInRes = objGlobalFunctionsService.funGetListModuleWise(sqlReservation, "sql");
+
+					Object[] arrObjRoomData = (Object[]) listCheckInRes.get(0);
+					clsCheckInBean objCheckInBean = new clsCheckInBean();
+					objCheckInBean.setStrCheckInNo(arrObjRoomData[0].toString());
+					String guestCode = arrObjRoomData[1].toString();
+					objCheckInBean.setStrRoomNo(arrObjRoomData[2].toString());
+					objCheckInBean.setStrExtraBedCode(arrObjRoomData[3].toString());
+					String roomType = arrObjRoomData[4].toString();
+					double roomTarrifWithExtraBed = Double.parseDouble(arrObjRoomData[5].toString());					
+					/*double discount  = Double.parseDouble(arrObjRoomData[6].toString());*/
+					objCheckInBean.setIntNoOfAdults(Integer.parseInt(arrObjRoomData[6].toString()));
+					objCheckInBean.setDteArrivalDate(arrObjRoomData[7].toString());
+					String gstNo = arrObjRoomData[8].toString();
+					String paNo = arrObjRoomData[9].toString();
+					objCheckInBean.setTmeArrivalTime(arrObjRoomData[10].toString());
+					double dblExtraBedAmt = Double.parseDouble(arrObjRoomData[11].toString());
+					if(!objCheckInBean.getStrExtraBedCode().isEmpty())
+					{
+						roomTarrifWithExtraBed = dblExtraBedAmt+roomTarrifWithExtraBed;
+					}
+					String gFirstName = arrObjRoomData[12].toString();
+					String gMiddleName = arrObjRoomData[13].toString();
+					String gLastName = arrObjRoomData[14].toString();
+					/*String guestCompanyAddr = arrObjRoomData[15].toString() + ","
+							+ arrObjRoomData[16].toString() + ","
+							+ arrObjRoomData[17].toString() + ","
+							+ arrObjRoomData[18].toString() + ","
+							+ arrObjRoomData[19].toString();*/
+					String guestCompanyAddr= arrObjRoomData[15].toString() ;
+					if(!arrObjRoomData[16].toString().equalsIgnoreCase(""))
+					{
+						guestCompanyAddr="," + arrObjRoomData[16].toString();
+					}
+					else if(!arrObjRoomData[17].toString().equalsIgnoreCase(""))
+					{
+						guestCompanyAddr="," + arrObjRoomData[17].toString();
+					}
+					else if(!arrObjRoomData[18].toString().equalsIgnoreCase(""))
+					{
+						guestCompanyAddr="," + arrObjRoomData[18].toString();
+					}
+					else if(!arrObjRoomData[19].toString().equalsIgnoreCase("0"))
+					{
+						guestCompanyAddr="," + arrObjRoomData[19].toString();
+					}
+					else
+					{
+						guestCompanyAddr=guestCompanyAddr;
+					}
+					
+					String strMobileNo = arrObjRoomData[20].toString();
+					String strComplimentry = arrObjRoomData[21].toString();
+					
+					 String arrDate = arrObjRoomData[22].toString();
+				     String depDate = arrObjRoomData[23].toString();
+				   
+				     Date arrivalDte=new SimpleDateFormat("dd-MM-yyyy").parse(arrDate);  
+				     Date departureDte=new SimpleDateFormat("dd-MM-yyyy").parse(depDate); 
+				     
+				     long arrTme=arrivalDte.getTime();
+				     long deptTme=departureDte.getTime();
+				     long difference = arrivalDte.getTime() - departureDte.getTime();
+				     float daysBetween = (difference / (1000*60*60*24));
+					
+					double roomTarrif = Double.parseDouble(arrObjRoomData[5].toString());
+					//List<clsTaxProductDtl> listTaxProdDtl = new ArrayList<clsTaxProductDtl>();
+					//Map<String, List<clsTaxCalculation>> hmTaxCalDtl = objPMSUtility.funCalculatePMSTax(listTaxProdDtl, "Room Night");
+
+					Date dt = new Date();
+					String date = (dt.getYear() + 1900) + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
+
+					String sqlTax = "SELECT strTaxCode,strTaxDesc,strIncomeHeadCode,"
+							+ "strTaxType,dblTaxValue,strTaxOn,strDeptCode,dblFromRate,"
+							+ "dblToRate FROM tbltaxmaster WHERE DATE(dteValidFrom)<='"+date+"' "
+							+ "and  date(dteValidTo)>='"+date+"' and strTaxOnType = 'Room Night' ";
+					
+					List listTaxDtl = objGlobalFunService.funGetListModuleWise(sqlTax, "sql");
+					double finalTax = 0.0;
+					double discount=0.0;
+					double tariffAmt = roomTarrifWithExtraBed-((roomTarrifWithExtraBed*discount)/100);
+					double discAmt = ((roomTarrifWithExtraBed*discount)/100);
+					String strTaxOn="";
+					for (int cnt = 0; cnt < listTaxDtl.size(); cnt++) {
+						String taxCalType = "Forward";
+						Object[] arrObjTaxDtl = (Object[]) listTaxDtl.get(cnt);
+						double taxValue = Double.parseDouble(arrObjTaxDtl[4].toString());
+						double fromRate = Double.parseDouble(arrObjTaxDtl[7].toString());
+						double toRate = Double.parseDouble(arrObjTaxDtl[8].toString());
+						if(fromRate<(tariffAmt)&& (tariffAmt)<=toRate)
+						{
+							double taxAmt = 0;
+							if (taxCalType.equals("Forward")) // Forward Tax
+																// Calculation
+							{
+								taxAmt = (tariffAmt * taxValue) / 100;
+							} 
+							else // Backward Tax Calculation
+							{
+								taxAmt = tariffAmt * 100 / (100 + taxValue);
+								taxAmt = tariffAmt - taxAmt;
+							}
+							finalTax = finalTax+taxAmt;
+						}
+						else
+						{
+							
+						}
+					}
+					datalist.add(objCheckInBean);
+					
+					
+					
+					reportParams.put("ppanno", paNo);
+					reportParams.put("pguestCode", guestCode);
+					reportParams.put("proomType", roomType);
+					reportParams.put("pCompanyName", companyName);
+					reportParams.put("pAddress1", objSetup.getStrAdd1() + "," + objSetup.getStrAdd2() + "," + objSetup.getStrCity());
+					reportParams.put("pAddress2", objSetup.getStrState() + "," + objSetup.getStrCountry() + "," + objSetup.getStrPin());
+					reportParams.put("pContactDetails", "");
+					reportParams.put("strImagePath", imagePath);
+					reportParams.put("userName", userName);
+					reportParams.put("pGuestName", gFirstName + " "+ gMiddleName + " " + gLastName);
+					reportParams.put("pguestCompanyAddr", guestCompanyAddr);
+					reportParams.put("pstrMobileNo", strMobileNo);
+					if(clientCode.equalsIgnoreCase("378.001"))
+					{
+						reportParams.put("pNote", null);
+						reportParams.put("pCustomerGST",null);
+						reportParams.put("pgstno", null);
+						reportParams.put("lblTax", "Total Days For Accomodation :");
+					}
+					else
+					{
+						reportParams.put("pNote", "Note");
+						reportParams.put("pCustomerGST","Customer GST :");
+						reportParams.put("pgstno", gstNo);
+						reportParams.put("lblTax", "Tax  :");
+					}
+					
+					if(strComplimentry.equalsIgnoreCase("N"))
+					{
+						
+						if(clientCode.equalsIgnoreCase("378.001"))
+						{
+							reportParams.put("ptaxAmt",daysBetween );
+						}
+						else
+						{
+							reportParams.put("ptaxAmt", finalTax);
+						}
+						reportParams.put("proomTarrif", roomTarrif);
+						reportParams.put("proomTarrifWithExtBed", roomTarrifWithExtraBed);
+						reportParams.put("pdiscount", discAmt);
+					}
+					else
+					{
+						finalTax=0.0;
+						roomTarrif=0.0;
+						discAmt = 0.0;
+						roomTarrifWithExtraBed=0.0;
+						if(clientCode.equalsIgnoreCase("378.001"))
+						{
+							reportParams.put("ptaxAmt", daysBetween);
+						}
+						else
+						{
+							reportParams.put("ptaxAmt", finalTax);
+						}
+						
+						reportParams.put("proomTarrif", roomTarrif);
+						reportParams.put("proomTarrifWithExtBed", roomTarrifWithExtraBed);
+						reportParams.put("pdiscount", discAmt);
+					}
 				}
 				
-			}
-			reportParams.put("pdblPackgeAmt", dblPackageAmount);
-			reportParams.put("strUserCode",userCode);
+				double dblPackageAmount=0;
+				String sqlFolioPackage="select b.strPerticulars,b.dblDebitAmt from tblfoliohd a,tblfoliodtl b"
+						+ " where a.strFolioNo=b.strFolioNo and a.strCheckInNo='"+reciptNo+"'and a.strClientCode='"+clientCode+"'  and"
+						+ " b.strPerticulars='Package'";
+				
+				List listFolioPackage = objGlobalFunctionsService.funGetListModuleWise(sqlFolioPackage, "sql");
 
-			JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(datalist);
-			JasperDesign jd = JRXmlLoader.load(reportName);
-			JasperReport jr = JasperCompileManager.compileReport(jd);
-			JasperPrint jp = JasperFillManager.fillReport(jr, reportParams, beanCollectionDataSource);
-			List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
-			if (jp != null) {
-				jprintlist.add(jp);
-				ServletOutputStream servletOutputStream = resp.getOutputStream();
-				JRExporter exporter = new JRPdfExporter();
-				resp.setContentType("application/pdf");
-				exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
-				exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, servletOutputStream);
-				exporter.setParameter(JRPdfExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
-				resp.setHeader("Content-Disposition", "inline;filename=PaymentRecipt.pdf");
-				exporter.exportReport();
-				servletOutputStream.flush();
-				servletOutputStream.close();
+				if(listFolioPackage!=null && listFolioPackage.size()>0)
+				{
+					for(int i=0;i<listFolioPackage.size();i++)
+					{
+						Object[] obj =(Object[])listFolioPackage.get(i);
+						dblPackageAmount+=Double.parseDouble(obj[1].toString());
+					}
+					
+				}
+				reportParams.put("pdblPackgeAmt", dblPackageAmount);
+				reportParams.put("strUserCode",userCode);
+
+				JRDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(datalist);
+				JasperDesign jd = JRXmlLoader.load(reportName);
+				JasperReport jr = JasperCompileManager.compileReport(jd);
+				JasperPrint jp = JasperFillManager.fillReport(jr, reportParams, beanCollectionDataSource);
+				List<JasperPrint> jprintlist = new ArrayList<JasperPrint>();
+				if (jp != null) {
+					jprintlist.add(jp);
+					ServletOutputStream servletOutputStream = resp.getOutputStream();
+					JRExporter exporter = new JRPdfExporter();
+					resp.setContentType("application/pdf");
+					exporter.setParameter(JRPdfExporterParameter.JASPER_PRINT_LIST, jprintlist);
+					exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM, servletOutputStream);
+					exporter.setParameter(JRPdfExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
+					resp.setHeader("Content-Disposition", "inline;filename=PaymentRecipt.pdf");
+					exporter.exportReport();
+					servletOutputStream.flush();
+					servletOutputStream.close();
+				}
+				
+				
 			}
-			
-			
+			 catch (Exception e) {
+					e.printStackTrace();
+				}
 		}
-		 catch (Exception e) {
-				e.printStackTrace();
-			}
-	}
 	
 	
 	// Convert bean to model function

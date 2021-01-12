@@ -313,15 +313,32 @@ public class clsBillPrintingController {
 				reportParams.put("pArrivalTime", arrivalTime);
 				reportParams.put("pDepartureTime", chkOutTime);
 				reportParams.put("pAdult", adults);
-				reportParams.put("pChild", childs);
+				
 				reportParams.put("pGuestAddress", guestAddr);
-				reportParams.put("pRemarks", remark);
+				
 				reportParams.put("strUserCode", userCode);
 				reportParams.put("pBillNo", billNo);
 				reportParams.put("pGuestNo", guestgstNO);
 				reportParams.put("pGuestOfficeAddress", guestCompanyAddress);
 				reportParams.put("pGuestNo", guestgstNO);
 				reportParams.put("pstrCustNo", strCustNo);
+				
+				if(clientCode.equalsIgnoreCase("378.001"))
+				{
+				    reportParams.put("lblChild", "Remarks             :");
+				    reportParams.put("pChild", remark);
+				    reportParams.put("lblRemark", null);
+				    reportParams.put("pRemarks",null);
+				    
+				    
+				}
+				else
+				{
+					reportParams.put("lblChild","Childs                 :" );
+					reportParams.put("pChild", childs);
+					reportParams.put("lblRemark", "Remarks             :");
+					reportParams.put("pRemarks", remark);
+				}
 				
 				if(clientCode.equalsIgnoreCase("320.001"))
 				{

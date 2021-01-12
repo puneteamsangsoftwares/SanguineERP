@@ -5488,8 +5488,8 @@ public class clsStructureUpdateDaoImpl implements clsStructureUpdateDao {
 				+ "('frmBanquetMaster', 'Banquet Master', 'Master', '1', 'M', '19', '19', '2', 'default.png', '7', '3', '1', '1', 'No', 'No', 'frmBanquetMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ "('frmBanquetTypeMaster', 'Banquet Type Master', 'Master', '1', 'M', '19', '19', '2', 'default.png', '7', '3', '1', '1', 'No', 'No', 'frmBanquetTypeMaster.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
 				+ "('frmAdvanceStatusReport', 'Advance Status Report', 'Report', 1, 'R', 1, 2, '1', 'default.png', '7', 1, '1', '1', 'NO', 'NA', 'frmAdvanceStatusReport.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
-				+ "('frmBookingFlash', 'Banquet Flash', 'Report', 1, 'R', 1, 2, '1', 'default.png', '7', 1, '1', '1', 'NO', 'NA', 'frmBookingFlash.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y')";
-				
+				+ "('frmBookingFlash', 'Banquet Flash', 'Report', 1, 'R', 1, 2, '1', 'default.png', '7', 1, '1', '1', 'NO', 'NA', 'frmBookingFlash.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y'),"
+		        + "('frmRefund', 'Refund', 'Transaction', 1, 'T', 5, 5, '1', 'default.png', '3', 1, '1', '1', 'NO', 'NO', 'frmRefund.html', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y') ";
 		
 		funExecuteQuery(sql);
 		

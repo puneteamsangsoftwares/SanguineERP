@@ -257,6 +257,8 @@ public class clsFolioPrintingController {
 				reportParams.put("pArrivalTime", arrivalTime);
 				reportParams.put("pDepartureDate", objGlobal.funGetDate("dd-MM-yyyy", departureDate));
 				reportParams.put("pDepartureTime", departureTime);
+				//reportParams.put("pAdult", adults);
+				//reportParams.put("pChild", childs);
 				
 				
 				reportParams.put("pGuestAddress", guestAddr);
@@ -265,17 +267,26 @@ public class clsFolioPrintingController {
 				reportParams.put("pBillNo", billNo);
 				if(clientCode.equalsIgnoreCase("378.001"))
 				{
-					reportParams.put("plblAdult", "");
-					//reportParams.put("plblChild", "");
-					reportParams.put("pAdult", "");
-					//reportParams.put("pChild", null);
+					reportParams.put("lblAdult", "Departure Date     :");
+					reportParams.put("pAdult", objGlobal.funGetDate("dd-MM-yyyy", departureDate));
+					reportParams.put("lblChild", "Departure Time     :");
+					reportParams.put("pChild", departureTime);
+					reportParams.put("lblDepartureDate", null);
+					reportParams.put("pDepartureDate", null);
+					reportParams.put("lblDepartureTime", null);
+					reportParams.put("pDepartureTime", null);
+					
 				}
 				else
 				{
-					reportParams.put("plblAdult", "Adults");
-					//reportParams.put("plblChild", "Childs");
-					reportParams.put("pAdult", adults);
-					//reportParams.put("pChild", childs);
+					reportParams.put("lblAdult", "Adults :");
+					reportParams.put("pAdult",adults );
+					reportParams.put("lblChild", "Childs :");
+					reportParams.put("pChild", childs);
+					reportParams.put("lblDepartureDate", "Departure Date     :");
+					reportParams.put("pDepartureDate", objGlobal.funGetDate("dd-MM-yyyy", departureDate));
+					reportParams.put("lblDepartureTime","Departure Time     :");
+					reportParams.put("pDepartureTime", departureTime);
 					
 				}
 				

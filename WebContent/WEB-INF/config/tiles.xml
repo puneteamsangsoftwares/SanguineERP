@@ -5367,6 +5367,16 @@
 		<put-attribute name="title" value="Fill Masters"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/jsp/webPMS/tools/frmPMSFillMasters.jsp"></put-attribute>
 	</definition>
+	
+	<definition name="frmRefund" extends="base.definition">
+		<put-attribute name="title" value="Refund"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webPMS/transactions/frmRefund.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="frmRefund_1" extends="base.definition4">
+		<put-attribute name="title" value="Refund"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/webPMS/transactions/frmRefund.jsp"></put-attribute>
+	</definition>
   	
 <!-- 	End Of WebPMS Tiles Entry -->
 

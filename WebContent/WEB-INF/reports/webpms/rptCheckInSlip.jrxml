@@ -27,6 +27,7 @@
 	<parameter name="pdblPackgeAmt" class="java.lang.Double"/>
 	<parameter name="pNote" class="java.lang.String"/>
 	<parameter name="pCustomerGST" class="java.lang.String"/>
+	<parameter name="lblTax" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[]]>
 	</queryString>
@@ -290,13 +291,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ptaxAmt}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="203" y="189" width="90" height="20" uuid="0b68c603-7cbb-499d-9ffa-470101319525"/>
-				<textElement textAlignment="Left">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Tax    :]]></text>
-			</staticText>
 			<textField pattern="#0">
 				<reportElement x="307" y="213" width="73" height="20" uuid="50f47afc-8fda-4058-97dd-cbc16fda6d05"/>
 				<textElement textAlignment="Right">
@@ -328,6 +322,13 @@
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pCustomerGST}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="203" y="189" width="90" height="20" uuid="f90716ff-8d57-42f6-adb6-39760a9f0c89"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lblTax}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

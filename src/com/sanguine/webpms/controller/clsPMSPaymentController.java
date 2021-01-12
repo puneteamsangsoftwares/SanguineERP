@@ -662,6 +662,14 @@ public class clsPMSPaymentController {
 			reportParams.put("pContactDetails", "");
 			reportParams.put("strImagePath", imagePath);
 			reportParams.put("userName", userName);
+			if(clientCode.equalsIgnoreCase("378.001"))
+			{
+				reportParams.put("lblChild", null);
+			}
+			else
+			{
+			    reportParams.put("lblChild", "Child                    :")	;
+			}
 			ArrayList datalist = new ArrayList();
 			String reportName = "";
 			if (checkAgainst.equalsIgnoreCase("Reservation")) {
@@ -691,7 +699,15 @@ public class clsPMSPaymentController {
 
 					String strReceiptNo = PaymentData[0].toString();
 					String intNoOfAdults = PaymentData[1].toString();
-					String intNoOfChild = PaymentData[2].toString();
+					String intNoOfChild ;
+					if(clientCode.equalsIgnoreCase("378.001"))
+					{
+						intNoOfChild=null;
+					}
+					else
+					{
+						intNoOfChild = PaymentData[2].toString();
+					}
 					String strReservationNo = PaymentData[3].toString();
 					String strRoomType = PaymentData[14].toString();
 					String dteArrivalDate = PaymentData[5].toString();
@@ -803,7 +819,15 @@ public class clsPMSPaymentController {
 
 					String strReceiptNo = PaymentData[0].toString();
 					String intNoOfAdults = PaymentData[1].toString();
-					String intNoOfChild = PaymentData[2].toString();
+					String intNoOfChild ; 
+					if(clientCode.equalsIgnoreCase("378.001"))
+					{
+						intNoOfChild=null;
+					}
+					else
+					{
+						intNoOfChild = PaymentData[2].toString();
+					}
 					String strReservationNo = PaymentData[3].toString();
 					String strBillNo = PaymentData[4].toString();
 					String strRoomType = PaymentData[5].toString();

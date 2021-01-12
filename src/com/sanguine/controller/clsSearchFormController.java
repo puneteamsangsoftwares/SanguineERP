@@ -3364,6 +3364,19 @@ public class clsSearchFormController {
 			break;
 		}
 		
+		case "refundReceiptNo": {
+			columnNames = "a.strReceiptNo,DATE(a.dteReceiptDate),a.strAgainst,a.strBillNo";
+			tableName = "from tblreceipthd a "
+					+ " WHERE MID(a.strReceiptNo,3,1)='R' ";
+			listColumnNames = "Receipt No,Receipt Date,Against,Bill No";
+			idColumnName = "strReceiptNo";
+			flgQuerySelection = true;
+			// criteria = getCriteriaQuery(columnNames,search_with,tableName);
+			searchFormTitle = "Payment Receipt";
+			break;
+		}
+
+		
 		}
 		mainMap.put("columnNames", columnNames);
 		mainMap.put("tableName", tableName);
