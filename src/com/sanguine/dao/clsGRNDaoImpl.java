@@ -12,6 +12,7 @@ import com.sanguine.model.clsGRNDtlModel;
 import com.sanguine.model.clsGRNHdModel;
 import com.sanguine.model.clsGRNTaxDtlModel;
 
+
 @Repository("clsGRNDao")
 public class clsGRNDaoImpl implements clsGRNDao {
 	@Autowired
@@ -286,4 +287,8 @@ public class clsGRNDaoImpl implements clsGRNDao {
 	public void funAddUpdateGRNTaxDtl(clsGRNTaxDtlModel objTaxDtlModel) {
 		sessionFactory.getCurrentSession().saveOrUpdate(objTaxDtlModel);
 	}
+	
+	
+	
+	
 }

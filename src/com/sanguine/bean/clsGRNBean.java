@@ -106,7 +106,8 @@ public class clsGRNBean {
 	
 	private double dblFreeQty;
 
-
+    private String strGroupTaxCode;
+    
 	public double getDblFreeQty() {
 		return dblFreeQty;
 	}
@@ -510,6 +511,14 @@ public class clsGRNBean {
 
 	public void setStrRateEditableYN(String strRateEditableYN) {
 		this.strRateEditableYN = strRateEditableYN;
+	}
+
+	public String getStrGroupTaxCode() {
+		return strGroupTaxCode;
+	}
+
+	public void setStrGroupTaxCode(String strGroupTaxCode) {
+		this.strGroupTaxCode = strGroupTaxCode;
 	}
 
 

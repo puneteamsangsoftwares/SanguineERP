@@ -103,7 +103,8 @@ public class clsGRNDtlModel implements Serializable {
 
 	@Transient
 	private double dblTotalWt;
-
+	
+	
 	@Column(name = "dblTotalPrice", columnDefinition = "DECIMAL(18,4) NOT NULL default '0.0000'")
 	private double dblTotalPrice;
 
@@ -136,6 +137,9 @@ public class clsGRNDtlModel implements Serializable {
 
 	@Column(name = "dblFreeQty", columnDefinition = "DECIMAL(18,4) NOT NULL default '0.0000'")
 	private double dblFreeQty;
+	
+	@Column(name = "strGroupTaxCode")
+	private String strGroupTaxCode;
 	
 	public long getIntId() {
 		return intId;
@@ -469,5 +473,13 @@ public class clsGRNDtlModel implements Serializable {
 
 	public void setDblFreeQty(double dblFreeQty) {
 		this.dblFreeQty = dblFreeQty;
+	}
+
+	public String getStrGroupTaxCode() {
+		return strGroupTaxCode;
+	}
+
+	public void setStrGroupTaxCode(String strGroupTaxCode) {
+		this.strGroupTaxCode = strGroupTaxCode;
 	}
 }

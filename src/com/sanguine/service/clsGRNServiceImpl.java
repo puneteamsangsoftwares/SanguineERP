@@ -12,6 +12,7 @@ import com.sanguine.model.clsGRNDtlModel;
 import com.sanguine.model.clsGRNHdModel;
 import com.sanguine.model.clsGRNTaxDtlModel;
 
+
 @Repository("clsGRNService")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 public class clsGRNServiceImpl implements clsGRNService {
@@ -110,4 +111,7 @@ public class clsGRNServiceImpl implements clsGRNService {
 	public void funAddUpdateGRNTaxDtl(clsGRNTaxDtlModel objModel) {
 		objGRNDao.funAddUpdateGRNTaxDtl(objModel);
 	}
+	
+	
+	
 }

@@ -87,6 +87,7 @@
 		var gPOQty=0;
 		var gPOCode="";
 		var taxOnTax='N';
+		var clientCode='<%=session.getAttribute("clientCode").toString()%>';
 		
 		$(function()
 		{
@@ -534,7 +535,15 @@
 		    var strMISCode="";
 		    var freeQuantity  = $("#txtFreeQty").val();
 		    freeQuantity=parseFloat(freeQuantity).toFixed(maxQuantityDecimalPlaceLimit);
-		    
+		    var groupTaxCode="";
+		    if(clientCode=='382.000')
+	    	{
+		    	 groupTaxCode= $("#txtGroupTaxCode").val();
+		    	 if(groupTaxCode == "No Tax")
+	    		 {
+		    		 groupTaxCode="";
+	    		 }
+	    	}
 		    var table = document.getElementById("tblProduct");
 		    var rowCount = table.rows.length;
 		    var row = table.insertRow(rowCount);		   
@@ -542,8 +551,6 @@
 		   
 		    row.insertCell(0).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strProdCode\" readonly=\"readonly\" class=\"Box prodCode\" size=\"9%\" id=\"txtProdCode."+(rowCount)+"\" value='"+prodCode+"'>";
 		    row.insertCell(1).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strProdName\" readonly=\"readonly\" class=\"Box\" size=\"17%\"  id=\"lblProdName."+(rowCount)+"\" value='"+prodName+"' >";
-		   
-		    
 		    row.insertCell(2).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblQtyRbl\" readonly=\"readonly\" type=\"text\"  required = \"required\" size=\"7%\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto QtyRecable\" id=\"txtQtyRec."+(rowCount)+"\" value='"+qtyrecb+"'>";
 		    row.insertCell(3).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDCQty\" type=\"text\"  required = \"required\" size=\"6%\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" class=\"decimal-places inputText-Auto\" id=\"txtDCQty."+(rowCount)+"\" value='"+dcQty+"'>";
 		    row.insertCell(4).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblDCWt\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"6%\" class=\"decimal-places inputText-Auto\" id=\"txtDCWt."+(rowCount)+"\" value='"+dcWt+"'>";
@@ -580,12 +587,14 @@
 		    row.insertCell(19).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strCode\" readonly=\"readonly\" class=\"Box PoCode\" size=\"10%\" id=\"txtCode."+(rowCount)+"\" value="+code+">";
 		    
 		    row.insertCell(20).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].dblRework\" type=\"text\" required = \"required\" style=\"text-align: right;width:100%\" class=\"decimal-places inputText-Auto\" size=\"5%\" id=\"txtRework."+(rowCount)+"\" value="+rework+">";
-		    row.insertCell(21).innerHTML= "<input type=\"hidden\" id=\"txtTempTax."+(rowCount)+"\" size=\"0%\" value="+gTaxAmount+">";
-		    row.insertCell(22).innerHTML= '<input type="button" value = "Delete" class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
-		    row.insertCell(23).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strExpiry\" type=\"hidden\" value = '"+strExpiry+"' >";
-		    row.insertCell(24).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strStkble\" type=\"hidden\" value = '"+strStkble+"' >";
-		    row.insertCell(25).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strMISCode\" type=\"hidden\" value = '"+strMISCode+"' >";
-		   
+		    row.insertCell(21).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strGroupTaxCode\" readonly=\"readonly\" class=\"Box\" size=\"20%\"   id=\"groupTaxCode."+(rowCount)+"\" value = '"+groupTaxCode+"' >";
+
+		    row.insertCell(22).innerHTML= "<input type=\"hidden\" id=\"txtTempTax."+(rowCount)+"\" size=\"0%\" value="+gTaxAmount+">";
+		    row.insertCell(23).innerHTML= '<input type="button" value = "Delete" class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
+		    row.insertCell(24).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strExpiry\" type=\"hidden\" value = '"+strExpiry+"' >";
+		    row.insertCell(25).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strStkble\" type=\"hidden\" value = '"+strStkble+"' >";
+		    row.insertCell(26).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strMISCode\" type=\"hidden\" value = '"+strMISCode+"' >";
+		    
 		    listRow++;
 		    funUpdateIssueUOM();
 		    funResetProductFields();
@@ -1035,7 +1044,7 @@
 														,item.dblQty, item.dblQty, 0.0,item.dblQty, 0.0,0.0
 														,0.0,0.0, '', 0.00, '',0.00
 														,(item.dblQty*item.dblUnitPrice).toFixed(maxAmountDecimalPlaceLimit),'N','','',''
-														,'','');
+														,'','','');
 				       	       	    	 });
 								listRow=count+1;
 								funGetQtyTotal();
@@ -1062,7 +1071,7 @@
 			                alert('Uncaught Error.n' + jqXHR.responseText);
 			            }		            
 			        }
-		      });
+		       });
 		
 		}
 		
@@ -1293,11 +1302,23 @@
 		    	var qty=parseFloat(document.getElementById("txtQuantity1."+cnt).value);		    	
 		    	var unitPrice=parseFloat(document.getElementById("txtCostRM."+cnt).value);
 		    	var discAmt1=parseFloat(document.getElementById("txtDiscount."+cnt).value);
-		    	
+		    	var GroupTaxCode=document.getElementById("groupTaxCode."+cnt).value;
+                if(GroupTaxCode == "No Tax")
+               	{
+                	GroupTaxCode="";
+               	}
 		    	/*var qty=parseFloat($(this).find(".QtyCell").val());
 		    	var discAmt1=parseFloat($(this).find(".txtDisc").val());
 		    	var unitPrice=parseFloat($(this).find(".price").val());*/
-		    	prodCodeForTax=prodCodeForTax+"!"+prodCode+","+unitPrice+","+suppCode+","+qty+","+discAmt1;
+	    	    if(clientCode=='382.000')
+		    	{
+	    	    	var weight=0;
+			    	prodCodeForTax=prodCodeForTax+"!"+prodCode+","+unitPrice+","+suppCode+","+qty+","+discAmt1+","+weight+","+GroupTaxCode;
+		    	}
+	    	    else
+	    	    {
+			    	prodCodeForTax=prodCodeForTax+"!"+prodCode+","+unitPrice+","+suppCode+","+qty+","+discAmt1;
+	    	    }	
 		    	//alert(prodCodeForTax);
 		    }
 		    
@@ -1799,7 +1820,7 @@
 							,this.dblQty, this.dblQtyRbl, this.dblDCWt,this.dblDCQty, this.dblRejected,this.dblPOWeight
 							,this.dblRework,this.dblPackForw, this.strRemarks, this.dblDiscount/currValue, '',this.strCode
 							,this.dblTotalPrice/currValue,this.strExpiry,this.strIssueLocation,this.strIsueLocName,this.strStkble
-							,this.strMISCode,this.strReqCode,this.dblFreeQty);
+							,this.strMISCode,this.strReqCode,this.dblFreeQty,this.strGroupTaxCode);
 					});
 					listRow=count+1;
 					funGetQtyTotal();
@@ -1864,7 +1885,7 @@
 		//Set product data in grid
 		function funAddProductForGRN(prodCode, prodName, uom, unitPrice,wtunit, qtyrecevd, qtyrecb, dcWt, dcQty, rejected, poWt
 				,rework, packforward, remarks, disc, binNo, code,dblTotalPrice,strExpiry,strIssueLocCode,strIsueLocName
-				,strNONStkble,strMISCode,strReqCode,freeQuantity) {
+				,strNONStkble,strMISCode,strReqCode,freeQuantity,groupTaxCode) {
 			var currValue=1;
 		  	/* var currValue=$("#txtDblConversion").val();
     		if(currValue==null ||currValue==''||currValue==0)
@@ -1996,13 +2017,15 @@
 					+ (rowCount)
 					+ "].dblRework\" type=\"text\"  required = \"required\" style=\"text-align: right;width:100%;border:1px solid #a2a2a2;padding:1px;\" size=\"5%\" class=\"decimal-places inputText-Auto\" id=\"txtRework."
 					+ (rowCount) + "\" value=" + rework + ">";
-			row.insertCell(21).innerHTML = "<input type=\"hidden\" id=\"txtTempTax."
+			row.insertCell(21).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strGroupTaxCode\" readonly=\"readonly\" class=\"Box\" size=\"20%\"  id=\"groupTaxCode."+(rowCount)+"\" value = '"+groupTaxCode+"' >";
+
+			row.insertCell(22).innerHTML = "<input type=\"hidden\" id=\"txtTempTax."
 					+ (rowCount) + "\" size=\"0%\" value=" + gTaxAmount + ">";
-			row.insertCell(22).innerHTML = '<input type="button" value = "Delete" class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
-			row.insertCell(23).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strExpiry\" type=\"hidden\" value = '"+strExpiry+"' >";
-			row.insertCell(24).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strStkble\" type=\"hidden\" value = '"+strNONStkble+"' >";
-			row.insertCell(25).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strMISCode\" type=\"hidden\" value = '"+strMISCode+"' >";
-			
+			row.insertCell(23).innerHTML = '<input type="button" value = "Delete" class="deletebutton" onClick="Javacsript:funDeleteRow(this)">';
+			row.insertCell(24).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strExpiry\" type=\"hidden\" value = '"+strExpiry+"' >";
+			row.insertCell(25).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strStkble\" type=\"hidden\" value = '"+strNONStkble+"' >";
+			row.insertCell(26).innerHTML= "<input name=\"listGRNDtl["+(rowCount)+"].strMISCode\" type=\"hidden\" value = '"+strMISCode+"' >";
+
 			funResetProductFields();
 			funApplyNumberValidation();
 			return false;
@@ -3283,7 +3306,7 @@
 								,this.dblQty, this.dblQtyRbl, this.dblDCWt,this.dblDCQty, this.dblRejected,this.dblPOWeight
 								,this.dblRework,this.dblPackForw, this.strRemarks, this.dblDiscount, '',this.strCode
 								,this.dblTotalPrice,this.strExpiry,this.strIssueLocation,this.strIsueLocName,this.strStkble
-								,this.strMISCode,this.strReqCode);
+								,this.strMISCode,this.strReqCode,this.strGroupTaxCode);
 		                    });
 	        		
 			    },
@@ -3658,6 +3681,17 @@ function funCalculateOtherChargesTotal()
 							<s:input id="txtFreeQty" value="0" style="text-align: right;"
 								path="dblFreeQty" cssClass="decimal-places-amt numberField" />
 						</div>
+						<div class="col-md-2">
+							<label id="lblGroupTaxCode">Tax Mode</label>
+							<s:select id="txtGroupTaxCode" path="strGroupTaxCode"
+								items="${mapTaxGroupName}">
+							</s:select>
+
+							<%-- <div class="col-md-2"><s:select id="txtPayMode" path="strPayMode"  cssClass="BoxW124px" onkeypress="funGetKeyCode(event,'PayMode')">
+											<option value="Credit" selected>CREDIT</option>
+											<option value="Cash">CASH</option>
+										</s:select></div> --%>
+						</div>
 
 					</div>
 					<br>
@@ -3706,6 +3740,7 @@ function funCalculateOtherChargesTotal()
 								<td width="3%">code</td>
 								<!--  COl19   -->
 								<td width="1%">rework</td>
+								<td width="6%">Tax Name</td>
 								<!--  COl120   -->
 								<td style="width: 10%; display: none">gTaxAmount</td>
 								<!--  COl21   -->

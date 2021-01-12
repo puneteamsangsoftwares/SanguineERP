@@ -140,7 +140,7 @@ public class clsGlobalFunctions {
 	public List listChildNodes1;
 
 	public static String POSWSURL = "http://localhost:8080/prjSanguineWebService";
-	DecimalFormat dfForStock=new DecimalFormat("#.##");
+	DecimalFormat dfForStock = new DecimalFormat("#.##");
 	static {
 
 		try {
@@ -1648,19 +1648,6 @@ public class clsGlobalFunctions {
 					+ " and MID(a.strReceiptNo,1,2) = '"
 					+ propCode + "' and strClientCode='" + clientCode + "' ";
 			break;
-			
-		case "frmRefund":
-			strDocLiteral = "REF";
-			sql = "select ifnull(max(MID(a.strReceiptNo,8,6)),'' )as strReceiptNo "
-					+ " from tblreceipthd a where MID(a.strReceiptNo,6,1) = '"
-					+ transYear
-					+ "' "
-					+ " and MID(a.strReceiptNo,7,1) = '"
-					+ transMonth
-					+ "' "
-					+ " and MID(a.strReceiptNo,1,2) = '"
-					+ propCode + "' and strClientCode='" + clientCode + "' ";
-			break;	
 		}
 		List list = objGlobalFunctionsService.funGetListModuleWise(sql, "sql");
 		if (list != null && !list.isEmpty() && !list.contains("")) {
@@ -1792,16 +1779,19 @@ public class clsGlobalFunctions {
 					double stkAdjQty = PSQty - CStk;
 					if (stkAdjQty > 0) {
 						objStkAdjDtl.setStrType("IN");
-						objStkAdjDtl.setDblQty(Double.parseDouble(df.format(stkAdjQty)));
+						objStkAdjDtl.setDblQty(Double.parseDouble(df
+								.format(stkAdjQty)));
 					} else {
 						objStkAdjDtl.setStrType("OUT");
-						objStkAdjDtl.setDblQty(-1 * (Double.parseDouble(df.format(stkAdjQty))));
+						objStkAdjDtl.setDblQty(-1
+								* (Double.parseDouble(df.format(stkAdjQty))));
 					}
 					objStkAdjDtl
 							.setStrRemark("Auto Adjustment by Physical Stock Posting");
 					objStkAdjDtl.setIntIndex(0);
-					objStkAdjDtl.setDblPrice(Double.parseDouble(df.format(stkPostDtl.getDblPrice()
-							* objStkAdjDtl.getDblQty())));
+					objStkAdjDtl.setDblPrice(Double.parseDouble(df
+							.format(stkPostDtl.getDblPrice()
+									* objStkAdjDtl.getDblQty())));
 					objStkAdjDtl
 							.setStrClientCode(stkPostDtl.getStrClientCode());
 					objStkAdjDtl.setStrDisplayQty(stkPostDtl.getStrDisplyQty());
@@ -1923,10 +1913,15 @@ public class clsGlobalFunctions {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void funInvokeStockFlash(String startDate, String locCode, String fromDate, String toDate, String clientCode, String userCode, String stockableItem, HttpServletRequest req, HttpServletResponse resp) {
-		funDeleteAndInsertStkTempTable(clientCode, userCode, locCode, stockableItem);
+	public void funInvokeStockFlash(String startDate, String locCode,
+			String fromDate, String toDate, String clientCode, String userCode,
+			String stockableItem, HttpServletRequest req,
+			HttpServletResponse resp) {
+		funDeleteAndInsertStkTempTable(clientCode, userCode, locCode,
+				stockableItem);
 		if (!startDate.equals(fromDate)) {
-			String tempFromDate = fromDate.split("-")[2] + "-" + fromDate.split("-")[1] + "-" + fromDate.split("-")[0];
+			String tempFromDate = fromDate.split("-")[2] + "-"
+					+ fromDate.split("-")[1] + "-" + fromDate.split("-")[0];
 			SimpleDateFormat obj = new SimpleDateFormat("dd-MM-yyyy");
 			Date dt1;
 
@@ -1935,22 +1930,41 @@ public class clsGlobalFunctions {
 				GregorianCalendar cal = new GregorianCalendar();
 				cal.setTime(dt1);
 				cal.add(Calendar.DATE, -1);
-				String newToDate = (cal.getTime().getYear() + 1900) + "-" + (cal.getTime().getMonth() + 1) + "-" + (cal.getTime().getDate());
+				String newToDate = (cal.getTime().getYear() + 1900) + "-"
+						+ (cal.getTime().getMonth() + 1) + "-"
+						+ (cal.getTime().getDate());
 
-				funProcessStock(locCode, startDate, newToDate, clientCode, userCode, req, resp);
+				funProcessStock(locCode, startDate, newToDate, clientCode,
+						userCode, req, resp);
 
-			    String sql = "Update tblcurrentstock set dblOpeningStk=dblClosingStk, dblGRN=0, dblSCGRN=0, dblFreeQty=0" + ", dblStkTransIn=0, dblStkAdjIn=0, dblMISIn=0, dblMaterialReturnIn=0, dblQtyProduced=0" + ", dblStkTransOut=0, dblStkAdjOut=0, dblMISOut=0, dblQtyConsumed=0, dblSales=0" + ", dblMaterialReturnOut=0, dblDeliveryNote=0, dblPurchaseReturn=0 " + " where strUserCode='" + userCode
+				String sql = "Update tblcurrentstock set dblOpeningStk=dblClosingStk, dblGRN=0, dblSCGRN=0, dblFreeQty=0"
+						+ ", dblStkTransIn=0, dblStkAdjIn=0, dblMISIn=0, dblMaterialReturnIn=0, dblQtyProduced=0"
+						+ ", dblStkTransOut=0, dblStkAdjOut=0, dblMISOut=0, dblQtyConsumed=0, dblSales=0"
+						+ ", dblMaterialReturnOut=0, dblDeliveryNote=0, dblPurchaseReturn=0 "
+						+ " where strUserCode='"
+						+ userCode
 						+ "' and strClientCode='" + clientCode + "' ";
-				objGlobalFunctionsService.funUpdate(sql,"sql");
-				
-				/*String hql = "Update clsCurrentStockModel set dblOpeningStk=dblClosingStk, dblGRN=0, dblSCGRN=0, dblFreeQty=0" + ", dblStkTransIn=0, dblStkAdjIn=0, dblMISIn=0, dblMaterialReturnIn=0, dblQtyProduced=0" + ", dblStkTransOut=0, dblStkAdjOut=0, dblMISOut=0, dblQtyConsumed=0, dblSales=0" + ", dblMaterialReturnOut=0, dblDeliveryNote=0, dblPurchaseReturn=0 " + " where strUserCode='" + userCode
-						+ "' and strClientCode='" + clientCode + "' ";
-				objGlobalFunctionsService.funUpdate(hql,"hql");*/
+				objGlobalFunctionsService.funUpdate(sql, "sql");
+
+				/*
+				 * String hql =
+				 * "Update clsCurrentStockModel set dblOpeningStk=dblClosingStk, dblGRN=0, dblSCGRN=0, dblFreeQty=0"
+				 * +
+				 * ", dblStkTransIn=0, dblStkAdjIn=0, dblMISIn=0, dblMaterialReturnIn=0, dblQtyProduced=0"
+				 * +
+				 * ", dblStkTransOut=0, dblStkAdjOut=0, dblMISOut=0, dblQtyConsumed=0, dblSales=0"
+				 * +
+				 * ", dblMaterialReturnOut=0, dblDeliveryNote=0, dblPurchaseReturn=0 "
+				 * + " where strUserCode='" + userCode + "' and strClientCode='"
+				 * + clientCode + "' ";
+				 * objGlobalFunctionsService.funUpdate(hql,"hql");
+				 */
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		}
-		funProcessStock(locCode, fromDate, toDate, clientCode, userCode, req, resp);
+		funProcessStock(locCode, fromDate, toDate, clientCode, userCode, req,
+				resp);
 	}
 
 	public void funDeleteAndInsertStkTempTable(String clientCode,
@@ -2380,9 +2394,11 @@ public class clsGlobalFunctions {
 	public int funProcessStock(String locCode, String fromDate, String toDate,
 			String clientCode, String userCode, HttpServletRequest req,
 			HttpServletResponse resp) {
-		
+
 		String propertyCode = "";
-		String sql = "select strPropertyCode from tbllocationmaster " + " where strLocCode='" + locCode + "' and strClientCode='" + clientCode + "'";
+		String sql = "select strPropertyCode from tbllocationmaster "
+				+ " where strLocCode='" + locCode + "' and strClientCode='"
+				+ clientCode + "'";
 		List listProperty = objGlobalFunctionsService.funGetList(sql, "sql");
 		Iterator itrPropCode = listProperty.iterator();
 		if (itrPropCode.hasNext()) {
@@ -2390,7 +2406,9 @@ public class clsGlobalFunctions {
 		}
 
 		Map<String, String> hmAuthorisedForms = new HashMap<String, String>();
-		sql = "select strFormName from tblworkflowforslabbasedauth " + "where strPropertyCode='" + propertyCode + "' and strClientCode='" + clientCode + "'";
+		sql = "select strFormName from tblworkflowforslabbasedauth "
+				+ "where strPropertyCode='" + propertyCode
+				+ "' and strClientCode='" + clientCode + "'";
 		List list = objGlobalFunctionsService.funGetList(sql, "sql");
 		Iterator itr = list.iterator();
 		while (itr.hasNext()) {
@@ -2399,7 +2417,15 @@ public class clsGlobalFunctions {
 		}
 
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
-		String hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode,dblFreeQty) " + "select b.strProdCode,sum(b.dblQty-b.dblRejected),'" + clientCode + "','" + userCode + "',sum(b.dblFreeQty)" + "from clsGRNHdModel a,clsGRNDtlModel b " + "where a.strGRNCode=b.strGRNCode and date(a.dtGRNDate) between '" + fromDate + "' and '" + toDate + "' ";
+		String hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode,dblFreeQty) "
+				+ "select b.strProdCode,sum(b.dblQty-b.dblRejected),'"
+				+ clientCode
+				+ "','"
+				+ userCode
+				+ "',sum(b.dblFreeQty)"
+				+ "from clsGRNHdModel a,clsGRNDtlModel b "
+				+ "where a.strGRNCode=b.strGRNCode and date(a.dtGRNDate) between '"
+				+ fromDate + "' and '" + toDate + "' ";
 		if (!locCode.equalsIgnoreCase("All")) {
 			hql += "and a.strLocCode='" + locCode + "' ";
 		}
@@ -2413,12 +2439,29 @@ public class clsGlobalFunctions {
 		 * "Update clsCurrentStockModel a Set a.dblGRN = IFNULL((select b.dblQty from clsTempItemStockModel b "
 		 * +"where a.strProdCode = b.strProdCode and b.dblQty),0)";
 		 */
-		//hql = "Update tblcurrentstock a Set a.dblGRN = a.dblGRN + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty ),0)";
-		
-		//hql = "Update tblcurrentstock a Set a.dblGRN = a.dblGRN + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty ),0),a.dblFreeQty = a.dblFreeQty + IFNULL((select b.dblFreeQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty and b.dblFreeQty ),0)";
+		// hql =
+		// "Update tblcurrentstock a Set a.dblGRN = a.dblGRN + IFNULL((select b.dblQty from tbltempitemstock b "
+		// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+		// clientCode + "' and b.strUserCode='" + userCode +
+		// "' and b.dblQty ),0)";
 
-		//hql = "Update tblcurrentstock a Set a.dblGRN = a.dblGRN + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty ),0),a.dblFreeQty = a.dblFreeQty + IFNULL((select b.dblFreeQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' ),0)";
-		
+		// hql =
+		// "Update tblcurrentstock a Set a.dblGRN = a.dblGRN + IFNULL((select b.dblQty from tbltempitemstock b "
+		// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+		// clientCode + "' and b.strUserCode='" + userCode +
+		// "' and b.dblQty ),0),a.dblFreeQty = a.dblFreeQty + IFNULL((select b.dblFreeQty from tbltempitemstock b "
+		// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+		// clientCode + "' and b.strUserCode='" + userCode +
+		// "' and b.dblQty and b.dblFreeQty ),0)";
+
+		// hql =
+		// "Update tblcurrentstock a Set a.dblGRN = a.dblGRN + IFNULL((select b.dblQty from tbltempitemstock b "
+		// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+		// clientCode + "' and b.strUserCode='" + userCode +
+		// "' and b.dblQty ),0),a.dblFreeQty = a.dblFreeQty + IFNULL((select b.dblFreeQty from tbltempitemstock b "
+		// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+		// clientCode + "' and b.strUserCode='" + userCode + "' ),0)";
+
 		hql = "Update tblcurrentstock a Set a.dblGRN =  CONVERT(a.dblGRN + IFNULL((select b.dblQty from tbltempitemstock b "
 				+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 				+ clientCode
@@ -2434,9 +2477,17 @@ public class clsGlobalFunctions {
 
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
-		
+
 		// Insert Opening Stock Qty into tblTempItemStock Table
-		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsInitialInventoryModel a,clsOpeningStkDtl b " + "where a.strOpStkCode=b.strOpStkCode and date(a.dtCreatedDate) between '" + fromDate + "' and '" + toDate + "' ";
+		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) "
+				+ "select b.strProdCode,sum(b.dblQty),'"
+				+ clientCode
+				+ "','"
+				+ userCode
+				+ "' "
+				+ "from clsInitialInventoryModel a,clsOpeningStkDtl b "
+				+ "where a.strOpStkCode=b.strOpStkCode and date(a.dtCreatedDate) between '"
+				+ fromDate + "' and '" + toDate + "' ";
 		if (!locCode.equalsIgnoreCase("All")) {
 			hql += "and a.strLocCode='" + locCode + "' ";
 		}
@@ -2447,7 +2498,11 @@ public class clsGlobalFunctions {
 		hql += "group by b.strProdCode";
 		objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		// Update Opening Stock Qty in tblCurrentStock table
-		//hql = "Update tblcurrentstock a Set a.dblOpeningStk = a.dblOpeningStk + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		// hql =
+		// "Update tblcurrentstock a Set a.dblOpeningStk = a.dblOpeningStk + IFNULL((select b.dblQty from tbltempitemstock b "
+		// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+		// clientCode + "' and b.strUserCode='" + userCode +
+		// "' and b.dblQty),0)";
 		hql = "Update tblcurrentstock a Set a.dblOpeningStk = CONVERT(a.dblOpeningStk + IFNULL((select b.dblQty from tbltempitemstock b "
 				+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 				+ clientCode
@@ -2458,16 +2513,33 @@ public class clsGlobalFunctions {
 
 		if (!locCode.equalsIgnoreCase("All")) {
 			// Delete TempItemStock Table
-			objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
+			objGlobalFunctionsService.funDeleteTempItemStock(clientCode,
+					userCode);
 			// Insert Stock Transfer In Qty into tblTempItemStock Table
-			hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsStkTransferHdModel a,clsStkTransferDtlModel b " + "where a.strSTCode=b.strSTCode and date(a.dtSTDate) between '" + fromDate + "' and '" + toDate + "' " + "and a.strToLocCode='" + locCode + "' ";
+			hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) "
+					+ "select b.strProdCode,sum(b.dblQty),'"
+					+ clientCode
+					+ "','"
+					+ userCode
+					+ "' "
+					+ "from clsStkTransferHdModel a,clsStkTransferDtlModel b "
+					+ "where a.strSTCode=b.strSTCode and date(a.dtSTDate) between '"
+					+ fromDate
+					+ "' and '"
+					+ toDate
+					+ "' "
+					+ "and a.strToLocCode='" + locCode + "' ";
 			if (null != hmAuthorisedForms.get("frmStockTransfer")) {
 				hql += "and a.strAuthorise='Yes' ";
 			}
 			hql += "group by b.strProdCode";
 			objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 			// Update Stock Transfer In Qty in tblCurrentStock table
-			//hql = "Update tblcurrentstock a Set a.dblStkTransIn = a.dblStkTransIn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+			// hql =
+			// "Update tblcurrentstock a Set a.dblStkTransIn = a.dblStkTransIn + IFNULL((select b.dblQty from tbltempitemstock b "
+			// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+			// clientCode + "' and b.strUserCode='" + userCode +
+			// "' and b.dblQty),0)";
 			hql = "Update tblcurrentstock a Set a.dblStkTransIn = CONVERT(a.dblStkTransIn + IFNULL((select b.dblQty from tbltempitemstock b "
 					+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 					+ clientCode
@@ -2477,9 +2549,18 @@ public class clsGlobalFunctions {
 			objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 			// Delete TempItemStock Table
-			objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
+			objGlobalFunctionsService.funDeleteTempItemStock(clientCode,
+					userCode);
 			// Insert MIS In Qty into tblTempItemStock Table
-			hql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblmishd a,tblmisdtl b " + "where a.strMISCode=b.strMISCode and date(a.dtMISDate) between '" + fromDate + "' and '" + toDate + "' ";
+			hql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+					+ "select b.strProdCode,sum(b.dblQty),'"
+					+ clientCode
+					+ "','"
+					+ userCode
+					+ "' "
+					+ "from tblmishd a,tblmisdtl b "
+					+ "where a.strMISCode=b.strMISCode and date(a.dtMISDate) between '"
+					+ fromDate + "' and '" + toDate + "' ";
 			if (!locCode.equalsIgnoreCase("All")) {
 				hql += "and a.strLocTo='" + locCode + "' ";
 			}
@@ -2489,7 +2570,11 @@ public class clsGlobalFunctions {
 			hql += "group by b.strProdCode";
 			objGlobalFunctionsService.funAddTempItemStock(hql, "sql");
 			// Update MIS In Qty in tblCurrentStock table
-			//hql = "Update tblcurrentstock a Set a.dblMISIn = a.dblMISIn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+			// hql =
+			// "Update tblcurrentstock a Set a.dblMISIn = a.dblMISIn + IFNULL((select b.dblQty from tbltempitemstock b "
+			// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+			// clientCode + "' and b.strUserCode='" + userCode +
+			// "' and b.dblQty),0)";
 			hql = "Update tblcurrentstock a Set a.dblMISIn = CONVERT(a.dblMISIn + IFNULL((select b.dblQty from tbltempitemstock b "
 					+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 					+ clientCode
@@ -2499,16 +2584,29 @@ public class clsGlobalFunctions {
 			objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 			// Delete TempItemStock Table
-			objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
+			objGlobalFunctionsService.funDeleteTempItemStock(clientCode,
+					userCode);
 			// Insert SalesReturn Qty into tblTempItemStock Table
-			hql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblsalesreturnhd a,tblsalesreturndtl b " + "where a.strSRCode=b.strSRCode and date(a.dteSRDate) between '" + fromDate + "' and '" + toDate + "' ";
+			hql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+					+ "select b.strProdCode,sum(b.dblQty),'"
+					+ clientCode
+					+ "','"
+					+ userCode
+					+ "' "
+					+ "from tblsalesreturnhd a,tblsalesreturndtl b "
+					+ "where a.strSRCode=b.strSRCode and date(a.dteSRDate) between '"
+					+ fromDate + "' and '" + toDate + "' ";
 			if (!locCode.equalsIgnoreCase("All")) {
 				hql += "and a.strLocCode='" + locCode + "' ";
 			}
 			hql += "group by b.strProdCode";
 			objGlobalFunctionsService.funAddTempItemStock(hql, "sql");
 			// Update SalesReturn Qty in tblCurrentStock table
-			//hql = "Update tblcurrentstock a Set a.dblSalesReturn = a.dblSalesReturn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+			// hql =
+			// "Update tblcurrentstock a Set a.dblSalesReturn = a.dblSalesReturn + IFNULL((select b.dblQty from tbltempitemstock b "
+			// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+			// clientCode + "' and b.strUserCode='" + userCode +
+			// "' and b.dblQty),0)";
 			hql = "Update tblcurrentstock a Set a.dblSalesReturn = CONVERT(a.dblSalesReturn + IFNULL((select b.dblQty from tbltempitemstock b "
 					+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 					+ clientCode
@@ -2518,9 +2616,18 @@ public class clsGlobalFunctions {
 			objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 			// Delete TempItemStock Table
-			objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
+			objGlobalFunctionsService.funDeleteTempItemStock(clientCode,
+					userCode);
 			// Insert Material In Qty into tblTempItemStock Table
-			hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsMaterialReturnHdModel a,clsMaterialReturnDtlModel b " + "where a.strMRetCode=b.strMRetCode and date(a.dtMRetDate) between '" + fromDate + "' and '" + toDate + "' ";
+			hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) "
+					+ "select b.strProdCode,sum(b.dblQty),'"
+					+ clientCode
+					+ "','"
+					+ userCode
+					+ "' "
+					+ "from clsMaterialReturnHdModel a,clsMaterialReturnDtlModel b "
+					+ "where a.strMRetCode=b.strMRetCode and date(a.dtMRetDate) between '"
+					+ fromDate + "' and '" + toDate + "' ";
 			if (!locCode.equalsIgnoreCase("All")) {
 				hql += "and a.strLocTo='" + locCode + "' ";
 			}
@@ -2530,7 +2637,11 @@ public class clsGlobalFunctions {
 			hql += "group by b.strProdCode";
 			objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 			// Update Material In Qty in tblCurrentStock table
-			//hql = "Update tblcurrentstock a Set a.dblMaterialReturnIn = a.dblMaterialReturnIn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+			// hql =
+			// "Update tblcurrentstock a Set a.dblMaterialReturnIn = a.dblMaterialReturnIn + IFNULL((select b.dblQty from tbltempitemstock b "
+			// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+			// clientCode + "' and b.strUserCode='" + userCode +
+			// "' and b.dblQty),0)";
 			hql = "Update tblcurrentstock a Set a.dblMaterialReturnIn = CONVERT(a.dblMaterialReturnIn + IFNULL((select b.dblQty from tbltempitemstock b "
 					+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 					+ clientCode
@@ -2540,16 +2651,33 @@ public class clsGlobalFunctions {
 			objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 			// Delete TempItemStock Table
-			objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
+			objGlobalFunctionsService.funDeleteTempItemStock(clientCode,
+					userCode);
 			// Insert Stock Transfer Out Qty into tblTempItemStock Table
-			hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsStkTransferHdModel a,clsStkTransferDtlModel b " + "where a.strSTCode=b.strSTCode and date(a.dtSTDate) between '" + fromDate + "' and '" + toDate + "' " + "and a.strFromLocCode='" + locCode + "' ";
+			hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) "
+					+ "select b.strProdCode,sum(b.dblQty),'"
+					+ clientCode
+					+ "','"
+					+ userCode
+					+ "' "
+					+ "from clsStkTransferHdModel a,clsStkTransferDtlModel b "
+					+ "where a.strSTCode=b.strSTCode and date(a.dtSTDate) between '"
+					+ fromDate
+					+ "' and '"
+					+ toDate
+					+ "' "
+					+ "and a.strFromLocCode='" + locCode + "' ";
 			if (null != hmAuthorisedForms.get("frmStockTransfer")) {
 				hql += "and a.strAuthorise='Yes' ";
 			}
 			hql += "group by b.strProdCode";
 			objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 			// Update Stock Transfer Out Qty in tblCurrentStock table
-			//hql = "Update tblcurrentstock a Set a.dblStkTransOut = a.dblStkTransOut + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+			// hql =
+			// "Update tblcurrentstock a Set a.dblStkTransOut = a.dblStkTransOut + IFNULL((select b.dblQty from tbltempitemstock b "
+			// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+			// clientCode + "' and b.strUserCode='" + userCode +
+			// "' and b.dblQty),0)";
 			hql = "Update tblcurrentstock a Set a.dblStkTransOut = CONVERT(a.dblStkTransOut + IFNULL((select b.dblQty from tbltempitemstock b "
 					+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 					+ clientCode
@@ -2559,9 +2687,18 @@ public class clsGlobalFunctions {
 			objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 			// Delete TempItemStock Table
-			objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
+			objGlobalFunctionsService.funDeleteTempItemStock(clientCode,
+					userCode);
 			// Insert MIS Out Qty into tblTempItemStock Table
-			hql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from tblmishd a,tblmisdtl b " + "where a.strMISCode=b.strMISCode and date(a.dtMISDate) between '" + fromDate + "' and '" + toDate + "' ";
+			hql = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+					+ "select b.strProdCode,sum(b.dblQty),'"
+					+ clientCode
+					+ "','"
+					+ userCode
+					+ "' "
+					+ "from tblmishd a,tblmisdtl b "
+					+ "where a.strMISCode=b.strMISCode and date(a.dtMISDate) between '"
+					+ fromDate + "' and '" + toDate + "' ";
 			if (!locCode.equalsIgnoreCase("All")) {
 				hql += "and a.strLocFrom='" + locCode + "' ";
 			}
@@ -2571,7 +2708,11 @@ public class clsGlobalFunctions {
 			hql += "group by b.strProdCode";
 			objGlobalFunctionsService.funAddTempItemStock(hql, "sql");
 			// Update MIS Out Qty in tblCurrentStock table
-			//hql = "Update tblcurrentstock a Set a.dblMISOut = a.dblMISOut + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+			// hql =
+			// "Update tblcurrentstock a Set a.dblMISOut = a.dblMISOut + IFNULL((select b.dblQty from tbltempitemstock b "
+			// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+			// clientCode + "' and b.strUserCode='" + userCode +
+			// "' and b.dblQty),0)";
 			hql = "Update tblcurrentstock a Set a.dblMISOut = CONVERT(a.dblMISOut + IFNULL((select b.dblQty from tbltempitemstock b "
 					+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 					+ clientCode
@@ -2581,9 +2722,18 @@ public class clsGlobalFunctions {
 			objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 			// Delete TempItemStock Table
-			objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
+			objGlobalFunctionsService.funDeleteTempItemStock(clientCode,
+					userCode);
 			// Insert Material Out Qty into tblTempItemStock Table
-			hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsMaterialReturnHdModel a,clsMaterialReturnDtlModel b " + "where a.strMRetCode=b.strMRetCode and date(a.dtMRetDate) between '" + fromDate + "' and '" + toDate + "' ";
+			hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) "
+					+ "select b.strProdCode,sum(b.dblQty),'"
+					+ clientCode
+					+ "','"
+					+ userCode
+					+ "' "
+					+ "from clsMaterialReturnHdModel a,clsMaterialReturnDtlModel b "
+					+ "where a.strMRetCode=b.strMRetCode and date(a.dtMRetDate) between '"
+					+ fromDate + "' and '" + toDate + "' ";
 			if (!locCode.equalsIgnoreCase("All")) {
 				hql += "and a.strLocFrom='" + locCode + "' ";
 			}
@@ -2593,7 +2743,11 @@ public class clsGlobalFunctions {
 			hql += "group by b.strProdCode";
 			objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 			// Update Material In Qty in tblCurrentStock table
-			//hql = "Update tblcurrentstock a Set a.dblMaterialReturnOut = a.dblMaterialReturnOut + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+			// hql =
+			// "Update tblcurrentstock a Set a.dblMaterialReturnOut = a.dblMaterialReturnOut + IFNULL((select b.dblQty from tbltempitemstock b "
+			// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+			// clientCode + "' and b.strUserCode='" + userCode +
+			// "' and b.dblQty),0)";
 			hql = "Update tblcurrentstock a Set a.dblMaterialReturnOut = CONVERT(a.dblMaterialReturnOut + IFNULL((select b.dblQty from tbltempitemstock b "
 					+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 					+ clientCode
@@ -2606,7 +2760,15 @@ public class clsGlobalFunctions {
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		// Insert Stock Adjustment In Qty into tblTempItemStock Table
-		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsStkAdjustmentHdModel a,clsStkAdjustmentDtlModel b " + "where a.strSACode=b.strSACode and date(a.dtSADate) between '" + fromDate + "' and '" + toDate + "' and b.strType='In' ";
+		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) "
+				+ "select b.strProdCode,sum(b.dblQty),'"
+				+ clientCode
+				+ "','"
+				+ userCode
+				+ "' "
+				+ "from clsStkAdjustmentHdModel a,clsStkAdjustmentDtlModel b "
+				+ "where a.strSACode=b.strSACode and date(a.dtSADate) between '"
+				+ fromDate + "' and '" + toDate + "' and b.strType='In' ";
 		if (!locCode.equalsIgnoreCase("All")) {
 			hql += "and a.strLocCode='" + locCode + "' ";
 		}
@@ -2616,7 +2778,11 @@ public class clsGlobalFunctions {
 		hql += "group by b.strProdCode";
 		objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		// Update Stock Adjustment In Qty in tblCurrentStock table
-		//hql = "Update tblcurrentstock a Set a.dblStkAdjIn = a.dblStkAdjIn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		// hql =
+		// "Update tblcurrentstock a Set a.dblStkAdjIn = a.dblStkAdjIn + IFNULL((select b.dblQty from tbltempitemstock b "
+		// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+		// clientCode + "' and b.strUserCode='" + userCode +
+		// "' and b.dblQty),0)";
 		hql = "Update tblcurrentstock a Set a.dblStkAdjIn = CONVERT(a.dblStkAdjIn + IFNULL((select b.dblQty from tbltempitemstock b "
 				+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 				+ clientCode
@@ -2628,7 +2794,15 @@ public class clsGlobalFunctions {
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		// Insert Stock Adjustment Out Qty into tblTempItemStock Table
-		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsStkAdjustmentHdModel a,clsStkAdjustmentDtlModel b " + "where a.strSACode=b.strSACode and date(a.dtSADate) between '" + fromDate + "' and '" + toDate + "' and b.strType='Out' ";
+		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) "
+				+ "select b.strProdCode,sum(b.dblQty),'"
+				+ clientCode
+				+ "','"
+				+ userCode
+				+ "' "
+				+ "from clsStkAdjustmentHdModel a,clsStkAdjustmentDtlModel b "
+				+ "where a.strSACode=b.strSACode and date(a.dtSADate) between '"
+				+ fromDate + "' and '" + toDate + "' and b.strType='Out' ";
 		if (!locCode.equalsIgnoreCase("All")) {
 			hql += "and a.strLocCode='" + locCode + "' ";
 		}
@@ -2638,7 +2812,11 @@ public class clsGlobalFunctions {
 		hql += "group by b.strProdCode";
 		objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		// Update Stock Adjustment Out Qty in tblCurrentStock table
-		//hql = "Update tblcurrentstock a Set a.dblStkAdjOut = a.dblStkAdjOut + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		// hql =
+		// "Update tblcurrentstock a Set a.dblStkAdjOut = a.dblStkAdjOut + IFNULL((select b.dblQty from tbltempitemstock b "
+		// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+		// clientCode + "' and b.strUserCode='" + userCode +
+		// "' and b.dblQty),0)";
 		hql = "Update tblcurrentstock a Set a.dblStkAdjOut = CONVERT(a.dblStkAdjOut + IFNULL((select b.dblQty from tbltempitemstock b "
 				+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 				+ clientCode
@@ -2650,7 +2828,15 @@ public class clsGlobalFunctions {
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		// Insert Produced Qty into tblTempItemStock Table
-		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQtyProd),'" + clientCode + "','" + userCode + "' " + "from clsProductionHdModel a,clsProductionDtlModel b " + "where a.strPDCode=b.strPDCode and date(a.dtPDDate) between '" + fromDate + "' and '" + toDate + "' ";
+		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) "
+				+ "select b.strProdCode,sum(b.dblQtyProd),'"
+				+ clientCode
+				+ "','"
+				+ userCode
+				+ "' "
+				+ "from clsProductionHdModel a,clsProductionDtlModel b "
+				+ "where a.strPDCode=b.strPDCode and date(a.dtPDDate) between '"
+				+ fromDate + "' and '" + toDate + "' ";
 		if (!locCode.equalsIgnoreCase("All")) {
 			hql += "and a.strLocCode='" + locCode + "' ";
 		}
@@ -2660,7 +2846,11 @@ public class clsGlobalFunctions {
 		hql += "group by b.strProdCode";
 		objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		// Update Produced Qty in tblCurrentStock table
-		//hql = "Update tblcurrentstock a Set a.dblQtyProduced = a.dblQtyProduced + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		// hql =
+		// "Update tblcurrentstock a Set a.dblQtyProduced = a.dblQtyProduced + IFNULL((select b.dblQty from tbltempitemstock b "
+		// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+		// clientCode + "' and b.strUserCode='" + userCode +
+		// "' and b.dblQty),0)";
 		hql = "Update tblcurrentstock a Set a.dblQtyProduced = CONVERT(a.dblQtyProduced + IFNULL((select b.dblQty from tbltempitemstock b "
 				+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 				+ clientCode
@@ -2672,7 +2862,15 @@ public class clsGlobalFunctions {
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		// Insert Purchase Return In Qty into tblTempItemStock Table
-		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsPurchaseReturnHdModel a,clsPurchaseReturnDtlModel b " + "where a.strPRCode=b.strPRCode and date(a.dtPRDate) between '" + fromDate + "' and '" + toDate + "' ";
+		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) "
+				+ "select b.strProdCode,sum(b.dblQty),'"
+				+ clientCode
+				+ "','"
+				+ userCode
+				+ "' "
+				+ "from clsPurchaseReturnHdModel a,clsPurchaseReturnDtlModel b "
+				+ "where a.strPRCode=b.strPRCode and date(a.dtPRDate) between '"
+				+ fromDate + "' and '" + toDate + "' ";
 		if (!locCode.equalsIgnoreCase("All")) {
 			hql += "and a.strLocCode='" + locCode + "' ";
 		}
@@ -2682,7 +2880,11 @@ public class clsGlobalFunctions {
 		hql += "group by b.strProdCode";
 		objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		// Update Purchase Return In Qty in tblCurrentStock table
-		//hql = "Update tblcurrentstock a Set a.dblPurchaseReturn = a.dblPurchaseReturn + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		// hql =
+		// "Update tblcurrentstock a Set a.dblPurchaseReturn = a.dblPurchaseReturn + IFNULL((select b.dblQty from tbltempitemstock b "
+		// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+		// clientCode + "' and b.strUserCode='" + userCode +
+		// "' and b.dblQty),0)";
 		hql = "Update tblcurrentstock a Set a.dblPurchaseReturn = CONVERT(a.dblPurchaseReturn + IFNULL((select b.dblQty from tbltempitemstock b "
 				+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 				+ clientCode
@@ -2694,7 +2896,15 @@ public class clsGlobalFunctions {
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		// Insert SCGRN Qty into tblTempItemStock Table
-		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsSubContractorGRNModelHd a,clsSubContractorGRNModelDtl b " + "where a.strSRCode=b.strSRCode and date(a.dteSRDate) between '" + fromDate + "' and '" + toDate + "' ";
+		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) "
+				+ "select b.strProdCode,sum(b.dblQty),'"
+				+ clientCode
+				+ "','"
+				+ userCode
+				+ "' "
+				+ "from clsSubContractorGRNModelHd a,clsSubContractorGRNModelDtl b "
+				+ "where a.strSRCode=b.strSRCode and date(a.dteSRDate) between '"
+				+ fromDate + "' and '" + toDate + "' ";
 		if (!locCode.equalsIgnoreCase("All")) {
 			hql += "and a.strLocCode='" + locCode + "' ";
 		}
@@ -2704,7 +2914,11 @@ public class clsGlobalFunctions {
 		hql += "group by b.strProdCode";
 		objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		// Update SCGRN Qty in tblCurrentStock table
-		//hql = "Update tblcurrentstock a Set a.dblSCGRN = a.dblSCGRN + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		// hql =
+		// "Update tblcurrentstock a Set a.dblSCGRN = a.dblSCGRN + IFNULL((select b.dblQty from tbltempitemstock b "
+		// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+		// clientCode + "' and b.strUserCode='" + userCode +
+		// "' and b.dblQty),0)";
 		hql = "Update tblcurrentstock a Set a.dblSCGRN = CONVERT(a.dblSCGRN + IFNULL((select b.dblQty from tbltempitemstock b "
 				+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 				+ clientCode
@@ -2716,7 +2930,15 @@ public class clsGlobalFunctions {
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		// Insert Delivery Note Qty into tblTempItemStock Table
-		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsDeliveryNoteHdModel a,clsDeliveryNoteDtlModel b " + "where a.strDNCode=b.strDNCode and date(a.dteDNDate) between '" + fromDate + "' and '" + toDate + "' ";
+		hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) "
+				+ "select b.strProdCode,sum(b.dblQty),'"
+				+ clientCode
+				+ "','"
+				+ userCode
+				+ "' "
+				+ "from clsDeliveryNoteHdModel a,clsDeliveryNoteDtlModel b "
+				+ "where a.strDNCode=b.strDNCode and date(a.dteDNDate) between '"
+				+ fromDate + "' and '" + toDate + "' ";
 		if (!locCode.equalsIgnoreCase("All")) {
 			hql += "and a.strLocCode='" + locCode + "' ";
 		}
@@ -2726,7 +2948,11 @@ public class clsGlobalFunctions {
 		hql += "group by b.strProdCode";
 		objGlobalFunctionsService.funAddTempItemStock(hql, "hql");
 		// Update Delivery Note Qty in tblCurrentStock table
-		//hql = "Update tblcurrentstock a Set a.dblDeliveryNote = a.dblDeliveryNote + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		// hql =
+		// "Update tblcurrentstock a Set a.dblDeliveryNote = a.dblDeliveryNote + IFNULL((select b.dblQty from tbltempitemstock b "
+		// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+		// clientCode + "' and b.strUserCode='" + userCode +
+		// "' and b.dblQty),0)";
 		hql = "Update tblcurrentstock a Set a.dblDeliveryNote = CONVERT(a.dblDeliveryNote + IFNULL((select b.dblQty from tbltempitemstock b "
 				+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 				+ clientCode
@@ -2737,12 +2963,22 @@ public class clsGlobalFunctions {
 
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
-		String propCode = req.getSession().getAttribute("propertyCode").toString();
-		clsPropertySetupModel objSetup = objSetupMasterService.funGetObjectPropertySetup(propCode, clientCode);
+		String propCode = req.getSession().getAttribute("propertyCode")
+				.toString();
+		clsPropertySetupModel objSetup = objSetupMasterService
+				.funGetObjectPropertySetup(propCode, clientCode);
 		if (objSetup.getStrEffectOfInvoice().equalsIgnoreCase("Invoice")) {
 			// Insert Invoice chaaln Qty into tblTempItemStock Table when
 			// Industry type is Retaling
-			String sqlForRetail = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) " + " select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + " FROM tblinvoicehd a,tblinvoicedtl b " + " WHERE a.strInvCode=b.strInvCode AND DATE(a.dteInvDate)  between '" + fromDate + "' and '" + toDate + "' ";
+			String sqlForRetail = "insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) "
+					+ " select b.strProdCode,sum(b.dblQty),'"
+					+ clientCode
+					+ "','"
+					+ userCode
+					+ "' "
+					+ " FROM tblinvoicehd a,tblinvoicedtl b "
+					+ " WHERE a.strInvCode=b.strInvCode AND DATE(a.dteInvDate)  between '"
+					+ fromDate + "' and '" + toDate + "' ";
 			if (!locCode.equalsIgnoreCase("All")) {
 				sqlForRetail += "and a.strLocCode='" + locCode + "' ";
 			}
@@ -2754,7 +2990,15 @@ public class clsGlobalFunctions {
 			objGlobalFunctionsService.funExcuteQuery(sqlForRetail);
 		} else {
 			// Insert Delivery Challan (Sale) Qty into tblTempItemStock Table
-			hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) " + "select b.strProdCode,sum(b.dblQty),'" + clientCode + "','" + userCode + "' " + "from clsDeliveryChallanHdModel a,clsDeliveryChallanModelDtl b " + "where a.strDCCode=b.strDCCode and date(a.dteDCDate) between '" + fromDate + "' and '" + toDate + "' ";
+			hql = "insert into clsTempItemStockModel(strProdCode,dblQty,strClientCode,strUserCode) "
+					+ "select b.strProdCode,sum(b.dblQty),'"
+					+ clientCode
+					+ "','"
+					+ userCode
+					+ "' "
+					+ "from clsDeliveryChallanHdModel a,clsDeliveryChallanModelDtl b "
+					+ "where a.strDCCode=b.strDCCode and date(a.dteDCDate) between '"
+					+ fromDate + "' and '" + toDate + "' ";
 			if (!locCode.equalsIgnoreCase("All")) {
 				hql += "and a.strLocCode='" + locCode + "' ";
 			}
@@ -2766,7 +3010,11 @@ public class clsGlobalFunctions {
 		}
 
 		// Update Delivery Note Qty in tblCurrentStock table
-		//hql = "Update tblcurrentstock a Set a.dblSales = a.dblSales + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		// hql =
+		// "Update tblcurrentstock a Set a.dblSales = a.dblSales + IFNULL((select b.dblQty from tbltempitemstock b "
+		// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+		// clientCode + "' and b.strUserCode='" + userCode +
+		// "' and b.dblQty),0)";
 		hql = "Update tblcurrentstock a Set a.dblSales = CONVERT(a.dblSales + IFNULL((select b.dblQty from tbltempitemstock b "
 				+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 				+ clientCode
@@ -2778,9 +3026,19 @@ public class clsGlobalFunctions {
 		// Delete TempItemStock Table
 		objGlobalFunctionsService.funDeleteTempItemStock(clientCode, userCode);
 		// Insert Consumed Qty into tblTempItemStock Table
-	
-		hql = " select d.strChildCode,sum((d.dblQty/e.dblRecipeConversion)*b.dblQtyProd),'" + clientCode + "','" + userCode + "' " + "	from clsProductionHdModel a,clsProductionDtlModel b,clsBomHdModel c,clsBomDtlModel d, clsProductMasterModel e " + "	where a.strPDCode=b.strPDCode and b.strProdCode=c.strParentCode and c.strBOMCode=d.strBOMCode " + "	and d.strChildCode=e.strProdCode "
-				+ " and date(a.dtPDDate) between '" + fromDate + "' and '" + toDate + "' ";
+
+		hql = " select d.strChildCode,sum((d.dblQty/e.dblRecipeConversion)*b.dblQtyProd),'"
+				+ clientCode
+				+ "','"
+				+ userCode
+				+ "' "
+				+ "	from clsProductionHdModel a,clsProductionDtlModel b,clsBomHdModel c,clsBomDtlModel d, clsProductMasterModel e "
+				+ "	where a.strPDCode=b.strPDCode and b.strProdCode=c.strParentCode and c.strBOMCode=d.strBOMCode "
+				+ "	and d.strChildCode=e.strProdCode "
+				+ " and date(a.dtPDDate) between '"
+				+ fromDate
+				+ "' and '"
+				+ toDate + "' ";
 
 		if (!locCode.equalsIgnoreCase("All")) {
 			hql += "and a.strLocCode='" + locCode + "' ";
@@ -2802,9 +3060,11 @@ public class clsGlobalFunctions {
 				hmChildNodes.put(ob[0].toString(), qtyChild);
 			} else {
 
-				hmChildNodes.put(ob[0].toString(), Double.parseDouble(ob[1].toString()));
+				hmChildNodes.put(ob[0].toString(),
+						Double.parseDouble(ob[1].toString()));
 			}
-			funGetBOMNodes(ob[0].toString(), 0, Double.parseDouble(ob[1].toString()));
+			funGetBOMNodes(ob[0].toString(), 0,
+					Double.parseDouble(ob[1].toString()));
 		}
 		String restHql2 = "";
 		if (!hmChildNodes.isEmpty()) {
@@ -2813,17 +3073,22 @@ public class clsGlobalFunctions {
 				String prodCode = entry.getKey();
 				double reqdQty = entry.getValue();
 
-				restHql2 += " ('" + prodCode + "','" + reqdQty + "','" + clientCode + "','" + userCode + "'),";
+				restHql2 += " ('" + prodCode + "','" + reqdQty + "','"
+						+ clientCode + "','" + userCode + "'),";
 			}
 			restHql2 = restHql2.substring(1, (restHql2.length() - 1));
 			String restHql1 = " insert into tbltempitemstock(strProdCode,dblQty,strClientCode,strUserCode) values  ";
 
-			objGlobalFunctionsService.funAddTempItemStock(restHql1 + restHql2, "sql");
+			objGlobalFunctionsService.funAddTempItemStock(restHql1 + restHql2,
+					"sql");
 		}
-		
 
 		// Update Consumed Qty in tblCurrentStock table
-		//hql = "Update tblcurrentstock a Set a.dblQtyConsumed = a.dblQtyConsumed + IFNULL((select b.dblQty from tbltempitemstock b " + "where a.strProdCode = b.strProdCode and b.strClientCode='" + clientCode + "' and b.strUserCode='" + userCode + "' and b.dblQty),0)";
+		// hql =
+		// "Update tblcurrentstock a Set a.dblQtyConsumed = a.dblQtyConsumed + IFNULL((select b.dblQty from tbltempitemstock b "
+		// + "where a.strProdCode = b.strProdCode and b.strClientCode='" +
+		// clientCode + "' and b.strUserCode='" + userCode +
+		// "' and b.dblQty),0)";
 		hql = "Update tblcurrentstock a Set a.dblQtyConsumed = CONVERT(a.dblQtyConsumed + IFNULL((select b.dblQty from tbltempitemstock b "
 				+ "where a.strProdCode = b.strProdCode and b.strClientCode='"
 				+ clientCode
@@ -2833,7 +3098,13 @@ public class clsGlobalFunctions {
 		objGlobalFunctionsService.funUpdateCurrentStock(hql);
 
 		// Update dblClosingStock field in tblCurrentStock table
-		//hql = "update tblcurrentstock set dblClosingStk=(dblOpeningStk+dblGRN+dblFreeQty+dblSCGRN+dblStkTransIn+dblStkAdjIn+" + "dblMISIn+dblMaterialReturnIn+dblSalesReturn+dblQtyProduced-dblStkTransOut-dblStkAdjOut-dblMISOut-dblQtyConsumed" + "-dblSales-dblMaterialReturnOut-dblDeliveryNote-dblPurchaseReturn) where strClientCode='" + clientCode + "' and strUserCode='" + userCode + "'";
+		// hql =
+		// "update tblcurrentstock set dblClosingStk=(dblOpeningStk+dblGRN+dblFreeQty+dblSCGRN+dblStkTransIn+dblStkAdjIn+"
+		// +
+		// "dblMISIn+dblMaterialReturnIn+dblSalesReturn+dblQtyProduced-dblStkTransOut-dblStkAdjOut-dblMISOut-dblQtyConsumed"
+		// +
+		// "-dblSales-dblMaterialReturnOut-dblDeliveryNote-dblPurchaseReturn) where strClientCode='"
+		// + clientCode + "' and strUserCode='" + userCode + "'";
 		hql = "update tblcurrentstock set dblClosingStk=(dblOpeningStk+dblGRN+dblFreeQty+dblSCGRN+dblStkTransIn+dblStkAdjIn+"
 				+ "dblMISIn+dblMaterialReturnIn+dblSalesReturn+dblQtyProduced-dblStkTransOut-dblStkAdjOut-dblMISOut-dblQtyConsumed"
 				+ "-dblSales-dblMaterialReturnOut-dblDeliveryNote-dblPurchaseReturn) where strClientCode='"
@@ -2949,297 +3220,7 @@ public class clsGlobalFunctions {
 				endDate, clientCode, userCode, 0.00, proprtyWiseStock);
 		return stock;
 	}
-	
-	@SuppressWarnings("rawtypes")
-	public double funCalculateStockForTrans(String prodCode, String locCode, String fromDate, String toDate, String clientCode, String userCode, double opStk,String proprtyWiseStock) {
-		double finalStock = 0, grnQty = 0, opStkQty = 0, stkTransInQty = 0, stkAdjInQty = 0, misInQty = 0, matReturnInQty = 0;
-		double stkTransOutQty = 0, stkAdjOutQty = 0, misOutQty = 0, matReturnOutQty = 0, qtyProduced = 0, purchaseReturnQty = 0, saleQty = 0, productionQty = 0, reciptQty = 0, issueQty = 0, salesReturnQty = 0;
-		double scGRNQty = 0, deliveryNoteQty = 0;
-		clsLocationMasterModel locModelProperty = objLocationMasterService.funGetObject(locCode, clientCode);
-		clsPropertySetupModel setupModel = objSetupMasterService.funGetObjectPropertySetup(locModelProperty.getStrPropertyCode(), clientCode);
-		if(proprtyWiseStock!=null && !proprtyWiseStock.equalsIgnoreCase("N") && !proprtyWiseStock.equals("")){
-			clsPropertySetupModel objSetUp = objSetupMasterService.funGetObjectPropertySetup(proprtyWiseStock, clientCode);
-			
-			if(objSetUp!=null && objSetUp.getStrWeightedAvgCal().equals("Property Wise")){
-				List<clsLocationMasterModel> list = objLocationMasterService.funLoadLocationPropertyWise(proprtyWiseStock, clientCode);
-				locCode = "(";
-				if(list.size()>0){
-					clsLocationMasterModel obLoc;
-					for (int i = 0; i < list.size(); i++) {
-						obLoc=list.get(i);
-						if (i == 0) {
-							locCode = locCode + "'" + obLoc.getStrLocCode() + "'";
-						} else {
-							locCode = locCode + ",'" +obLoc.getStrLocCode()+ "'";
-						}
-					}
-					locCode += ")";
-				}
-			}
-		}
-		
-		if(!locCode.startsWith("(")){	
-			locCode="('"+locCode+"')";
-		}
-		
-		// Calculate GRN Qty for Product
-		
-		String hql_GRN = "select sum(b.dblQty-b.dblRejected+b.dblFreeQty) " + "from clsGRNHdModel a,clsGRNDtlModel b " + "where a.strGRNCode=b.strGRNCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtGRNDate) between '" + fromDate + "' and '" + toDate + "' ";
-		if (!locCode.equalsIgnoreCase("All")) {
-			hql_GRN += "and a.strLocCode In " + locCode + " ";
-		}
-		hql_GRN += "group by b.strProdCode";
 
-		List list_GRNProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_GRN, "hql");
-		if (list_GRNProductQty.size() > 0) {
-			grnQty = (Double) list_GRNProductQty.get(0);
-		}
-		// System.out.println("GRN="+grnQty);
-
-		// Calculate Opening Stock Qty for Product
-
-		String hql_OpStk = "select sum(b.dblQty) " + "from clsInitialInventoryModel a,clsOpeningStkDtl b " + "where a.strOpStkCode=b.strOpStkCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtCreatedDate) between '" + fromDate + "' and '" + toDate + "' ";
-		if (!locCode.equalsIgnoreCase("All")) {
-			hql_OpStk += "and a.strLocCode IN " + locCode + " ";
-		}
-		hql_OpStk += "group by b.strProdCode";
-
-		List list_OpStkProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_OpStk, "hql");
-		if (list_OpStkProductQty.size() > 0) {
-			opStkQty = (Double) list_OpStkProductQty.get(0);
-		}
-		// System.out.println("Op Stk="+opStkQty);
-
-		// Calculate Stock Transfer In Qty for Product
-
-		String hql_StkTransIn = "select sum(b.dblQty) " + "from clsStkTransferHdModel a,clsStkTransferDtlModel b " + "where a.strSTCode=b.strSTCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtSTDate) between '" + fromDate + "' and '" + toDate + "' ";
-		if (!locCode.equalsIgnoreCase("All")) {
-			hql_StkTransIn += "and a.strToLocCode  IN " + locCode + " ";
-		}
-		hql_StkTransIn += "group by b.strProdCode";
-
-		List list_StkTransProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_StkTransIn, "hql");
-		if (list_StkTransProductQty.size() > 0) {
-			stkTransInQty = (Double) list_StkTransProductQty.get(0);
-		}
-		// System.out.println("Stk Trans In="+stkTransInQty);
-
-		// Calculate MIS In Qty for Product
-
-		String hql_MISInQty = "select sum(b.dblQty) " + "from tblmishd a,tblmisdtl b " + "where a.strMISCode=b.strMISCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtMISDate) between '" + fromDate + "' and '" + toDate + "' ";
-		if (!locCode.equalsIgnoreCase("All")) {
-			hql_MISInQty += "and a.strLocTo IN " + locCode + " ";
-		}
-		hql_MISInQty += "group by b.strProdCode";
-		List list_MISInProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_MISInQty, "sql");
-		if (list_MISInProductQty.size() > 0) {
-			BigDecimal big = (BigDecimal) list_MISInProductQty.get(0);
-			misInQty = Double.parseDouble(big.toString());
-			// misInQty=(Double)list_MISInProductQty.get(0);
-		}
-		// System.out.println("MIS In="+misInQty);
-
-		// Calculate Material Return In Qty for Product
-
-		String hql_MatReturnInQty = "select sum(b.dblQty) " + "from clsMaterialReturnHdModel a,clsMaterialReturnDtlModel b " + "where a.strMRetCode=b.strMRetCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtMRetDate) between '" + fromDate + "' and '" + toDate + "' ";
-		if (!locCode.equalsIgnoreCase("All")) {
-			hql_MatReturnInQty += "and a.strLocTo IN " + locCode + " ";
-		}
-		hql_MatReturnInQty += "group by b.strProdCode";
-		List list_MatReturnInProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_MatReturnInQty, "hql");
-		if (list_MatReturnInProductQty.size() > 0) {
-			matReturnInQty = (Double) list_MatReturnInProductQty.get(0);
-		}
-		// System.out.println("Mat Return In="+matReturnInQty);
-
-		// Calculate Stock Adjustment In Qty for Product
-
-		String hql_StkAdjInQty = "select sum(b.dblQty) " + "from clsStkAdjustmentHdModel a,clsStkAdjustmentDtlModel b " + "where a.strSACode=b.strSACode and b.strProdCode='" + prodCode + "' " + "and date(a.dtSADate) between '" + fromDate + "' and '" + toDate + "' and b.strType='In'";
-		if (!locCode.equalsIgnoreCase("All")) {
-			hql_StkAdjInQty += "and a.strLocCode IN " + locCode + " ";
-		}
-		hql_StkAdjInQty += "group by b.strProdCode";
-		List list_StkAdjInProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_StkAdjInQty, "hql");
-		if (list_StkAdjInProductQty.size() > 0) {
-			stkAdjInQty = (Double) list_StkAdjInProductQty.get(0);
-		}
-		// System.out.println("Stk Adj In="+stkAdjInQty);
-
-		// Calculate Stock Transfer Out Qty for Product
-
-		String hql_StkTransOut = "select sum(b.dblQty) " + "from clsStkTransferHdModel a,clsStkTransferDtlModel b " + "where a.strSTCode=b.strSTCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtSTDate) between '" + fromDate + "' and '" + toDate + "' ";
-		if (!locCode.equalsIgnoreCase("All")) {
-			hql_StkTransOut += "and a.strFromLocCode IN " + locCode + " ";
-		}
-		hql_StkTransOut += "group by b.strProdCode";
-
-		List list_StkTransOutProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_StkTransOut, "hql");
-		if (list_StkTransOutProductQty.size() > 0) {
-			stkTransOutQty = (Double) list_StkTransOutProductQty.get(0);
-		}
-
-		// Calculate MIS Out Qty for Product
-
-		String hql_MISOutQty = "select sum(b.dblQty) " + "from tblmishd a,tblmisdtl b " + "where a.strMISCode=b.strMISCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtMISDate) between '" + fromDate + "' and '" + toDate + "' ";
-		if (!locCode.equalsIgnoreCase("All")) {
-			hql_MISOutQty += "and a.strLocFrom IN " + locCode + " ";
-		}
-		hql_MISOutQty += "group by b.strProdCode";
-		List list_MISOutProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_MISOutQty, "sql");
-		if (list_MISOutProductQty.size() > 0) {
-			BigDecimal big = (BigDecimal) list_MISOutProductQty.get(0);
-			misOutQty = Double.parseDouble(big.toString());
-		}
-
-		// Calculate Material Return Out Qty for Product
-
-		String hql_MatReturnOutQty = "select sum(b.dblQty) " + "from clsMaterialReturnHdModel a,clsMaterialReturnDtlModel b " + "where a.strMRetCode=b.strMRetCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtMRetDate) between '" + fromDate + "' and '" + toDate + "' ";
-		if (!locCode.equalsIgnoreCase("All")) {
-			hql_MatReturnOutQty += "and a.strLocFrom IN " + locCode + " ";
-		}
-		hql_MatReturnOutQty += "group by b.strProdCode";
-
-		List list_MatReturnOutProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_MatReturnOutQty, "hql");
-		if (list_MatReturnOutProductQty.size() > 0) {
-			matReturnOutQty = (Double) list_MatReturnOutProductQty.get(0);
-		}
-
-		// Calculate Stock Adjustment Out Qty for Product
-
-		String hql_StkAdjOutQty = "select sum(b.dblQty) " + "from clsStkAdjustmentHdModel a,clsStkAdjustmentDtlModel b " + "where a.strSACode=b.strSACode and b.strProdCode='" + prodCode + "' " + "and date(a.dtSADate) between '" + fromDate + "' and '" + toDate + "' and b.strType='Out'";
-		if (!locCode.equalsIgnoreCase("All")) {
-			hql_StkAdjOutQty += "and a.strLocCode IN " + locCode + " ";
-		}
-		hql_StkAdjOutQty += "group by b.strProdCode";
-		List list_StkAdjOutProductQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_StkAdjOutQty, "hql");
-		if (list_StkAdjOutProductQty.size() > 0) {
-			stkAdjOutQty = (Double) list_StkAdjOutProductQty.get(0);
-		}
-		
-
-		// Calculate Purchase Return Qty for Product
-
-		String hql_PurchaseReturnQty = "select sum(b.dblQty) " + "from clsPurchaseReturnHdModel a,clsPurchaseReturnDtlModel b " + "where a.strPRCode = b.strPRCode and b.strProdCode='" + prodCode + "' " + "and date(a.dtPRDate) between '" + fromDate + "' and '" + toDate + "' ";
-		if (!locCode.equalsIgnoreCase("All")) {
-			hql_PurchaseReturnQty += "and a.strLocCode IN " + locCode + " ";
-		}
-		hql_PurchaseReturnQty += "group by b.strProdCode";
-
-		List list_PurchaseReturnQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_PurchaseReturnQty, "hql");
-		if (list_PurchaseReturnQty.size() > 0) {
-			purchaseReturnQty = (Double) list_PurchaseReturnQty.get(0);
-		}
-		// System.out.println("Pur return="+purchaseReturnQty);
-
-		String hql_SalesReturnQty = "select ifnull(sum(b.dblQty),0) " + "from tblsalesreturnhd a,tblsalesreturndtl b " + "where a.strSRCode=b.strSRCode and b.strProdCode='" + prodCode + "' " + "and date(a.dteSRDate) between '" + fromDate + "' and '" + toDate + "' ";
-		if (!locCode.equalsIgnoreCase("All")) {
-			hql_SalesReturnQty += "and a.strLocCode IN " + locCode + " ";
-		}
-		hql_SalesReturnQty += "group by b.strProdCode";
-		List list_SalesReturnQty = objGlobalFunctionsService.funGetProdQtyForStock(hql_SalesReturnQty, "sql");
-		if (list_SalesReturnQty.size() > 0) {
-			salesReturnQty = ((BigDecimal) list_SalesReturnQty.get(0)).doubleValue();
-		}
-
-		if (setupModel.getStrEffectOfInvoice().equals("Invoice")) {
-			String sql_InvoiceQty = "select sum(b.dblQty) " + "from tblinvoicehd a,tblinvoicedtl b " + "where a.strInvCode = b.strInvCode and b.strProdCode='" + prodCode + "' " + "and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate + "' ";
-			if (!locCode.equalsIgnoreCase("All")) {
-				sql_InvoiceQty += "and a.strLocCode IN " + locCode + " ";
-			}
-			sql_InvoiceQty += "group by b.strProdCode";
-			List list_InvoiceQty = objGlobalFunctionsService.funGetProdQtyForStock(sql_InvoiceQty, "sql");
-			if (list_InvoiceQty.size() > 0) {
-				saleQty = ((BigDecimal) list_InvoiceQty.get(0)).doubleValue();
-			}
-
-		} else {
-			String sql_DCQty = "select sum(b.dblQty) " + "from tbldeliverychallanhd a,tbldeliverychallandtl b " + "where a.strDCCode = b.strDCCode and b.strProdCode='" + prodCode + "' " + "and date(a.dteDCDate) between '" + fromDate + "' and '" + toDate + "' ";
-			if (!locCode.equalsIgnoreCase("All")) {
-				sql_DCQty += "and a.strLocCode IN " + locCode + " ";
-			}
-			sql_DCQty += "group by b.strProdCode";
-			List list_DCQty = objGlobalFunctionsService.funGetProdQtyForStock(sql_DCQty, "sql");
-			if (list_DCQty.size() > 0) {
-				saleQty = ((BigDecimal) list_DCQty.get(0)).doubleValue();
-			}
-		}
-
-		String sql = "SELECT b.strChildCode,b.dblQty,a.strParentCode,c.dblRecipeConversion from tblbommasterhd a ,tblbommasterdtl b,tblproductmaster c " + " where a.strBOMCode=b.strBOMCode and b.strChildCode='" + prodCode + "' and b.strChildCode=c.strProdCode  ";
-
-		List listChildProdStkLedger = objGlobalFunctionsService.funGetProdQtyForStock(sql, "sql");
-		for (int cnt = 0; cnt < listChildProdStkLedger.size(); cnt++) {
-			Object objParent[] = (Object[]) listChildProdStkLedger.get(cnt);
-
-			sql = "select  ifnull(sum(b.dblQtyProd),0) " + "from tblproductionhd a, tblproductiondtl b " + "where a.strPDCode  = b.strPDCode " + "and b.strProdCode = '" + objParent[2].toString() + "' and date(a.dtPDDate) between'" + fromDate + "' and  '" + toDate + "' ";
-			if (!locCode.equalsIgnoreCase("All")) {
-				sql += "and a.strLocCode IN " + locCode + " ";
-			}
-
-			sql += "group by b.strProdCode ";
-
-			List listProductionStkLedger = objGlobalFunctionsService.funGetProdQtyForStock(sql, "sql");
-			if (!listProductionStkLedger.isEmpty()) {
-				Object obj = (Object) listProductionStkLedger.get(0);
-				issueQty += Double.parseDouble(objParent[1].toString()) * Double.parseDouble(obj.toString()) / Double.parseDouble(objParent[3].toString());
-			}
-		}
-		sql = "select  ifnull(sum(b.dblQtyProd),0) " + "from tblproductionhd a, tblproductiondtl b " + "where a.strPDCode  = b.strPDCode " + "and b.strProdCode = '" + prodCode + "' and date(a.dtPDDate) between'" + fromDate + "' and  '" + toDate + "' ";
-		if (!locCode.equalsIgnoreCase("All")) {
-			sql += "and a.strLocCode IN " + locCode + " ";
-		}
-
-		sql += "group by b.strProdCode ";
-
-		List listProductionStkLedger = objGlobalFunctionsService.funGetProdQtyForStock(sql, "sql");
-		if (!listProductionStkLedger.isEmpty()) {
-			Object obj = (Object) listProductionStkLedger.get(0);
-			reciptQty += Double.parseDouble(obj.toString());
-		}
-
-		productionQty = reciptQty - issueQty;
-
-		sql = "select IFNULL(SUM(b.dblQty),0) " + " from tblscreturnhd a,tblscreturndtl b  " + "where a.strSRCode=b.strSRCode and b.strProdCode= '" + prodCode + "'  AND DATE(a.dteSRDate) between '" + fromDate + "'  AND  '" + toDate + "' ";
-		if (!locCode.equalsIgnoreCase("All")) {
-			sql += "and a.strLocCode  IN  " + locCode + " ";
-		}
-		sql += "  GROUP BY b.strProdCode ";
-
-		List list_SCGRN = objGlobalFunctionsService.funGetProdQtyForStock(sql, "sql");
-
-		if (list_SCGRN.size() > 0) {
-			scGRNQty = ((BigDecimal) list_SCGRN.get(0)).doubleValue();
-		}
-
-		sql = "select  IFNULL(SUM(b.dblQty),0)  Issue " + " from tbldeliverynotehd a,tbldeliverynotedtl b 	" + " where a.strDNCode=b.strDNCode  and b.strProdCode= '" + prodCode + "' AND DATE(a.dteDNDate) between'" + fromDate + "' " + " AND  '" + toDate + "' ";
-
-		if (!locCode.equalsIgnoreCase("All")) {
-			sql += "and a.strLocCode  IN  " + locCode + " ";
-		}
-		sql += "   GROUP BY b.strProdCode ";
-
-		List list_DN = objGlobalFunctionsService.funGetProdQtyForStock(sql, "sql");
-
-		if (list_DN.size() > 0) {
-			deliveryNoteQty = ((BigDecimal) list_DN.get(0)).doubleValue();
-		}
-		sql="select a.intqtydec from tblpropertysetup a where a.strPropertyCode='01' and a.strClientCode='"+clientCode+"'";
-		List list = objGlobalFunctionsService.funGetList(sql, "sql");
-		StringBuilder sb=new StringBuilder();
-		StringBuilder sb1=new StringBuilder();
-		for(int i=0;i<Integer.parseInt(list.get(0).toString());i++)
-				{
-					sb.append("#");
-				}
-		sb1.append("#.");
-		sb1.append(sb);
-		dfForStock=new DecimalFormat(sb1.toString());
-		finalStock =Double.parseDouble(dfForStock.format( Double.parseDouble(dfForStock.format((opStkQty + grnQty + stkTransInQty + stkAdjInQty + misInQty + matReturnInQty + qtyProduced + reciptQty + scGRNQty + salesReturnQty)) )-  Double.parseDouble(dfForStock.format((stkTransOutQty + stkAdjOutQty + misOutQty + matReturnOutQty + purchaseReturnQty + saleQty + issueQty + deliveryNoteQty)))));
-
-		return finalStock;
-
-	}
-
-/*
 	@SuppressWarnings("rawtypes")
 	public double funCalculateStockForTrans(String prodCode, String locCode,
 			String fromDate, String toDate, String clientCode, String userCode,
@@ -3286,7 +3267,7 @@ public class clsGlobalFunctions {
 
 		// Calculate GRN Qty for Product
 
-		String hql_GRN = "select sum(b.dblQty-b.dblRejected) "
+		String hql_GRN = "select sum(b.dblQty-b.dblRejected+b.dblFreeQty) "
 				+ "from clsGRNHdModel a,clsGRNDtlModel b "
 				+ "where a.strGRNCode=b.strGRNCode and b.strProdCode='"
 				+ prodCode + "' " + "and date(a.dtGRNDate) between '"
@@ -3620,20 +3601,341 @@ public class clsGlobalFunctions {
 		if (list_DN.size() > 0) {
 			deliveryNoteQty = ((BigDecimal) list_DN.get(0)).doubleValue();
 		}
-
-		finalStock = (opStkQty + grnQty + stkTransInQty + stkAdjInQty
-				+ misInQty + matReturnInQty + qtyProduced + reciptQty
-				+ scGRNQty + salesReturnQty)
-				- (stkTransOutQty + stkAdjOutQty + misOutQty + matReturnOutQty
-						+ purchaseReturnQty + saleQty + issueQty + deliveryNoteQty);
+		sql = "select a.intqtydec from tblpropertysetup a where a.strPropertyCode='01' and a.strClientCode='"
+				+ clientCode + "'";
+		List list = objGlobalFunctionsService.funGetList(sql, "sql");
+		StringBuilder sb = new StringBuilder();
+		StringBuilder sb1 = new StringBuilder();
+		for (int i = 0; i < Integer.parseInt(list.get(0).toString()); i++) {
+			sb.append("#");
+		}
+		sb1.append("#.");
+		sb1.append(sb);
+		dfForStock = new DecimalFormat(sb1.toString());
+		finalStock = Double
+				.parseDouble(dfForStock.format(Double.parseDouble(dfForStock
+						.format((opStkQty + grnQty + stkTransInQty
+								+ stkAdjInQty + misInQty + matReturnInQty
+								+ qtyProduced + reciptQty + scGRNQty + salesReturnQty)))
+						- Double.parseDouble(dfForStock
+								.format((stkTransOutQty + stkAdjOutQty
+										+ misOutQty + matReturnOutQty
+										+ purchaseReturnQty + saleQty
+										+ issueQty + deliveryNoteQty)))));
 
 		return finalStock;
 
 	}
-*/
-	
-	
-	
+
+	/*
+	 * @SuppressWarnings("rawtypes") public double
+	 * funCalculateStockForTrans(String prodCode, String locCode, String
+	 * fromDate, String toDate, String clientCode, String userCode, double
+	 * opStk, String proprtyWiseStock) { double finalStock = 0, grnQty = 0,
+	 * opStkQty = 0, stkTransInQty = 0, stkAdjInQty = 0, misInQty = 0,
+	 * matReturnInQty = 0; double stkTransOutQty = 0, stkAdjOutQty = 0,
+	 * misOutQty = 0, matReturnOutQty = 0, qtyProduced = 0, purchaseReturnQty =
+	 * 0, saleQty = 0, productionQty = 0, reciptQty = 0, issueQty = 0,
+	 * salesReturnQty = 0; double scGRNQty = 0, deliveryNoteQty = 0;
+	 * clsLocationMasterModel locModelProperty = objLocationMasterService
+	 * .funGetObject(locCode, clientCode); clsPropertySetupModel setupModel =
+	 * objSetupMasterService .funGetObjectPropertySetup(
+	 * locModelProperty.getStrPropertyCode(), clientCode); if (proprtyWiseStock
+	 * != null && !proprtyWiseStock.equalsIgnoreCase("N") &&
+	 * !proprtyWiseStock.equals("")) { clsPropertySetupModel objSetUp =
+	 * objSetupMasterService .funGetObjectPropertySetup(proprtyWiseStock,
+	 * clientCode);
+	 * 
+	 * if (objSetUp != null &&
+	 * objSetUp.getStrWeightedAvgCal().equals("Property Wise")) {
+	 * List<clsLocationMasterModel> list = objLocationMasterService
+	 * .funLoadLocationPropertyWise(proprtyWiseStock, clientCode); locCode =
+	 * "("; if (list.size() > 0) { clsLocationMasterModel obLoc; for (int i = 0;
+	 * i < list.size(); i++) { obLoc = list.get(i); if (i == 0) { locCode =
+	 * locCode + "'" + obLoc.getStrLocCode() + "'"; } else { locCode = locCode +
+	 * ",'" + obLoc.getStrLocCode() + "'"; } } locCode += ")"; } } }
+	 * 
+	 * if (!locCode.startsWith("(")) { locCode = "('" + locCode + "')"; }
+	 * 
+	 * // Calculate GRN Qty for Product
+	 * 
+	 * String hql_GRN = "select sum(b.dblQty-b.dblRejected) " +
+	 * "from clsGRNHdModel a,clsGRNDtlModel b " +
+	 * "where a.strGRNCode=b.strGRNCode and b.strProdCode='" + prodCode + "' " +
+	 * "and date(a.dtGRNDate) between '" + fromDate + "' and '" + toDate + "' ";
+	 * if (!locCode.equalsIgnoreCase("All")) { hql_GRN += "and a.strLocCode In "
+	 * + locCode + " "; } hql_GRN += "group by b.strProdCode";
+	 * 
+	 * List list_GRNProductQty = objGlobalFunctionsService
+	 * .funGetProdQtyForStock(hql_GRN, "hql"); if (list_GRNProductQty.size() >
+	 * 0) { grnQty = (Double) list_GRNProductQty.get(0); } //
+	 * System.out.println("GRN="+grnQty);
+	 * 
+	 * // Calculate Opening Stock Qty for Product
+	 * 
+	 * String hql_OpStk = "select sum(b.dblQty) " +
+	 * "from clsInitialInventoryModel a,clsOpeningStkDtl b " +
+	 * "where a.strOpStkCode=b.strOpStkCode and b.strProdCode='" + prodCode +
+	 * "' " + "and date(a.dtCreatedDate) between '" + fromDate + "' and '" +
+	 * toDate + "' "; if (!locCode.equalsIgnoreCase("All")) { hql_OpStk +=
+	 * "and a.strLocCode IN " + locCode + " "; } hql_OpStk +=
+	 * "group by b.strProdCode";
+	 * 
+	 * List list_OpStkProductQty = objGlobalFunctionsService
+	 * .funGetProdQtyForStock(hql_OpStk, "hql"); if (list_OpStkProductQty.size()
+	 * > 0) { opStkQty = (Double) list_OpStkProductQty.get(0); } //
+	 * System.out.println("Op Stk="+opStkQty);
+	 * 
+	 * // Calculate Stock Transfer In Qty for Product
+	 * 
+	 * String hql_StkTransIn = "select sum(b.dblQty) " +
+	 * "from clsStkTransferHdModel a,clsStkTransferDtlModel b " +
+	 * "where a.strSTCode=b.strSTCode and b.strProdCode='" + prodCode + "' " +
+	 * "and date(a.dtSTDate) between '" + fromDate + "' and '" + toDate + "' ";
+	 * if (!locCode.equalsIgnoreCase("All")) { hql_StkTransIn +=
+	 * "and a.strToLocCode  IN " + locCode + " "; } hql_StkTransIn +=
+	 * "group by b.strProdCode";
+	 * 
+	 * List list_StkTransProductQty = objGlobalFunctionsService
+	 * .funGetProdQtyForStock(hql_StkTransIn, "hql"); if
+	 * (list_StkTransProductQty.size() > 0) { stkTransInQty = (Double)
+	 * list_StkTransProductQty.get(0); } //
+	 * System.out.println("Stk Trans In="+stkTransInQty);
+	 * 
+	 * // Calculate MIS In Qty for Product
+	 * 
+	 * String hql_MISInQty = "select sum(b.dblQty) " +
+	 * "from tblmishd a,tblmisdtl b " +
+	 * "where a.strMISCode=b.strMISCode and b.strProdCode='" + prodCode + "' " +
+	 * "and date(a.dtMISDate) between '" + fromDate + "' and '" + toDate + "' ";
+	 * if (!locCode.equalsIgnoreCase("All")) { hql_MISInQty +=
+	 * "and a.strLocTo IN " + locCode + " "; } hql_MISInQty +=
+	 * "group by b.strProdCode"; List list_MISInProductQty =
+	 * objGlobalFunctionsService .funGetProdQtyForStock(hql_MISInQty, "sql"); if
+	 * (list_MISInProductQty.size() > 0) { BigDecimal big = (BigDecimal)
+	 * list_MISInProductQty.get(0); misInQty =
+	 * Double.parseDouble(big.toString()); //
+	 * misInQty=(Double)list_MISInProductQty.get(0); } //
+	 * System.out.println("MIS In="+misInQty);
+	 * 
+	 * // Calculate Material Return In Qty for Product
+	 * 
+	 * String hql_MatReturnInQty = "select sum(b.dblQty) " +
+	 * "from clsMaterialReturnHdModel a,clsMaterialReturnDtlModel b " +
+	 * "where a.strMRetCode=b.strMRetCode and b.strProdCode='" + prodCode + "' "
+	 * + "and date(a.dtMRetDate) between '" + fromDate + "' and '" + toDate +
+	 * "' "; if (!locCode.equalsIgnoreCase("All")) { hql_MatReturnInQty +=
+	 * "and a.strLocTo IN " + locCode + " "; } hql_MatReturnInQty +=
+	 * "group by b.strProdCode"; List list_MatReturnInProductQty =
+	 * objGlobalFunctionsService .funGetProdQtyForStock(hql_MatReturnInQty,
+	 * "hql"); if (list_MatReturnInProductQty.size() > 0) { matReturnInQty =
+	 * (Double) list_MatReturnInProductQty.get(0); } //
+	 * System.out.println("Mat Return In="+matReturnInQty);
+	 * 
+	 * // Calculate Stock Adjustment In Qty for Product
+	 * 
+	 * String hql_StkAdjInQty = "select sum(b.dblQty) " +
+	 * "from clsStkAdjustmentHdModel a,clsStkAdjustmentDtlModel b " +
+	 * "where a.strSACode=b.strSACode and b.strProdCode='" + prodCode + "' " +
+	 * "and date(a.dtSADate) between '" + fromDate + "' and '" + toDate +
+	 * "' and b.strType='In'"; if (!locCode.equalsIgnoreCase("All")) {
+	 * hql_StkAdjInQty += "and a.strLocCode IN " + locCode + " "; }
+	 * hql_StkAdjInQty += "group by b.strProdCode"; List list_StkAdjInProductQty
+	 * = objGlobalFunctionsService .funGetProdQtyForStock(hql_StkAdjInQty,
+	 * "hql"); if (list_StkAdjInProductQty.size() > 0) { stkAdjInQty = (Double)
+	 * list_StkAdjInProductQty.get(0); } //
+	 * System.out.println("Stk Adj In="+stkAdjInQty);
+	 * 
+	 * // Calculate Stock Transfer Out Qty for Product
+	 * 
+	 * String hql_StkTransOut = "select sum(b.dblQty) " +
+	 * "from clsStkTransferHdModel a,clsStkTransferDtlModel b " +
+	 * "where a.strSTCode=b.strSTCode and b.strProdCode='" + prodCode + "' " +
+	 * "and date(a.dtSTDate) between '" + fromDate + "' and '" + toDate + "' ";
+	 * if (!locCode.equalsIgnoreCase("All")) { hql_StkTransOut +=
+	 * "and a.strFromLocCode IN " + locCode + " "; } hql_StkTransOut +=
+	 * "group by b.strProdCode";
+	 * 
+	 * List list_StkTransOutProductQty = objGlobalFunctionsService
+	 * .funGetProdQtyForStock(hql_StkTransOut, "hql"); if
+	 * (list_StkTransOutProductQty.size() > 0) { stkTransOutQty = (Double)
+	 * list_StkTransOutProductQty.get(0); }
+	 * 
+	 * // Calculate MIS Out Qty for Product
+	 * 
+	 * String hql_MISOutQty = "select sum(b.dblQty) " +
+	 * "from tblmishd a,tblmisdtl b " +
+	 * "where a.strMISCode=b.strMISCode and b.strProdCode='" + prodCode + "' " +
+	 * "and date(a.dtMISDate) between '" + fromDate + "' and '" + toDate + "' ";
+	 * if (!locCode.equalsIgnoreCase("All")) { hql_MISOutQty +=
+	 * "and a.strLocFrom IN " + locCode + " "; } hql_MISOutQty +=
+	 * "group by b.strProdCode"; List list_MISOutProductQty =
+	 * objGlobalFunctionsService .funGetProdQtyForStock(hql_MISOutQty, "sql");
+	 * if (list_MISOutProductQty.size() > 0) { BigDecimal big = (BigDecimal)
+	 * list_MISOutProductQty.get(0); misOutQty =
+	 * Double.parseDouble(big.toString()); }
+	 * 
+	 * // Calculate Material Return Out Qty for Product
+	 * 
+	 * String hql_MatReturnOutQty = "select sum(b.dblQty) " +
+	 * "from clsMaterialReturnHdModel a,clsMaterialReturnDtlModel b " +
+	 * "where a.strMRetCode=b.strMRetCode and b.strProdCode='" + prodCode + "' "
+	 * + "and date(a.dtMRetDate) between '" + fromDate + "' and '" + toDate +
+	 * "' "; if (!locCode.equalsIgnoreCase("All")) { hql_MatReturnOutQty +=
+	 * "and a.strLocFrom IN " + locCode + " "; } hql_MatReturnOutQty +=
+	 * "group by b.strProdCode";
+	 * 
+	 * List list_MatReturnOutProductQty = objGlobalFunctionsService
+	 * .funGetProdQtyForStock(hql_MatReturnOutQty, "hql"); if
+	 * (list_MatReturnOutProductQty.size() > 0) { matReturnOutQty = (Double)
+	 * list_MatReturnOutProductQty.get(0); }
+	 * 
+	 * // Calculate Stock Adjustment Out Qty for Product
+	 * 
+	 * String hql_StkAdjOutQty = "select sum(b.dblQty) " +
+	 * "from clsStkAdjustmentHdModel a,clsStkAdjustmentDtlModel b " +
+	 * "where a.strSACode=b.strSACode and b.strProdCode='" + prodCode + "' " +
+	 * "and date(a.dtSADate) between '" + fromDate + "' and '" + toDate +
+	 * "' and b.strType='Out'"; if (!locCode.equalsIgnoreCase("All")) {
+	 * hql_StkAdjOutQty += "and a.strLocCode IN " + locCode + " "; }
+	 * hql_StkAdjOutQty += "group by b.strProdCode"; List
+	 * list_StkAdjOutProductQty = objGlobalFunctionsService
+	 * .funGetProdQtyForStock(hql_StkAdjOutQty, "hql"); if
+	 * (list_StkAdjOutProductQty.size() > 0) { stkAdjOutQty = (Double)
+	 * list_StkAdjOutProductQty.get(0); }
+	 * 
+	 * // Calculate Purchase Return Qty for Product
+	 * 
+	 * String hql_PurchaseReturnQty = "select sum(b.dblQty) " +
+	 * "from clsPurchaseReturnHdModel a,clsPurchaseReturnDtlModel b " +
+	 * "where a.strPRCode = b.strPRCode and b.strProdCode='" + prodCode + "' " +
+	 * "and date(a.dtPRDate) between '" + fromDate + "' and '" + toDate + "' ";
+	 * if (!locCode.equalsIgnoreCase("All")) { hql_PurchaseReturnQty +=
+	 * "and a.strLocCode IN " + locCode + " "; } hql_PurchaseReturnQty +=
+	 * "group by b.strProdCode";
+	 * 
+	 * List list_PurchaseReturnQty = objGlobalFunctionsService
+	 * .funGetProdQtyForStock(hql_PurchaseReturnQty, "hql"); if
+	 * (list_PurchaseReturnQty.size() > 0) { purchaseReturnQty = (Double)
+	 * list_PurchaseReturnQty.get(0); } //
+	 * System.out.println("Pur return="+purchaseReturnQty);
+	 * 
+	 * String hql_SalesReturnQty = "select ifnull(sum(b.dblQty),0) " +
+	 * "from tblsalesreturnhd a,tblsalesreturndtl b " +
+	 * "where a.strSRCode=b.strSRCode and b.strProdCode='" + prodCode + "' " +
+	 * "and date(a.dteSRDate) between '" + fromDate + "' and '" + toDate + "' ";
+	 * if (!locCode.equalsIgnoreCase("All")) { hql_SalesReturnQty +=
+	 * "and a.strLocCode IN " + locCode + " "; } hql_SalesReturnQty +=
+	 * "group by b.strProdCode"; List list_SalesReturnQty =
+	 * objGlobalFunctionsService .funGetProdQtyForStock(hql_SalesReturnQty,
+	 * "sql"); if (list_SalesReturnQty.size() > 0) { salesReturnQty =
+	 * ((BigDecimal) list_SalesReturnQty.get(0)) .doubleValue(); }
+	 * 
+	 * if (setupModel.getStrEffectOfInvoice().equals("Invoice")) { String
+	 * sql_InvoiceQty = "select sum(b.dblQty) " +
+	 * "from tblinvoicehd a,tblinvoicedtl b " +
+	 * "where a.strInvCode = b.strInvCode and b.strProdCode='" + prodCode + "' "
+	 * + "and date(a.dteInvDate) between '" + fromDate + "' and '" + toDate +
+	 * "' "; if (!locCode.equalsIgnoreCase("All")) { sql_InvoiceQty +=
+	 * "and a.strLocCode IN " + locCode + " "; } sql_InvoiceQty +=
+	 * "group by b.strProdCode"; List list_InvoiceQty =
+	 * objGlobalFunctionsService .funGetProdQtyForStock(sql_InvoiceQty, "sql");
+	 * if (list_InvoiceQty.size() > 0) { saleQty = ((BigDecimal)
+	 * list_InvoiceQty.get(0)).doubleValue(); }
+	 * 
+	 * } else { String sql_DCQty = "select sum(b.dblQty) " +
+	 * "from tbldeliverychallanhd a,tbldeliverychallandtl b " +
+	 * "where a.strDCCode = b.strDCCode and b.strProdCode='" + prodCode + "' " +
+	 * "and date(a.dteDCDate) between '" + fromDate + "' and '" + toDate + "' ";
+	 * if (!locCode.equalsIgnoreCase("All")) { sql_DCQty +=
+	 * "and a.strLocCode IN " + locCode + " "; } sql_DCQty +=
+	 * "group by b.strProdCode"; List list_DCQty =
+	 * objGlobalFunctionsService.funGetProdQtyForStock( sql_DCQty, "sql"); if
+	 * (list_DCQty.size() > 0) { saleQty = ((BigDecimal)
+	 * list_DCQty.get(0)).doubleValue(); } }
+	 * 
+	 * String sql =
+	 * "SELECT b.strChildCode,b.dblQty,a.strParentCode,c.dblRecipeConversion from tblbommasterhd a ,tblbommasterdtl b,tblproductmaster c "
+	 * + " where a.strBOMCode=b.strBOMCode and b.strChildCode='" + prodCode +
+	 * "' and b.strChildCode=c.strProdCode  ";
+	 * 
+	 * List listChildProdStkLedger = objGlobalFunctionsService
+	 * .funGetProdQtyForStock(sql, "sql"); for (int cnt = 0; cnt <
+	 * listChildProdStkLedger.size(); cnt++) { Object objParent[] = (Object[])
+	 * listChildProdStkLedger.get(cnt);
+	 * 
+	 * sql = "select  ifnull(sum(b.dblQtyProd),0) " +
+	 * "from tblproductionhd a, tblproductiondtl b " +
+	 * "where a.strPDCode  = b.strPDCode " + "and b.strProdCode = '" +
+	 * objParent[2].toString() + "' and date(a.dtPDDate) between'" + fromDate +
+	 * "' and  '" + toDate + "' "; if (!locCode.equalsIgnoreCase("All")) { sql
+	 * += "and a.strLocCode IN " + locCode + " "; }
+	 * 
+	 * sql += "group by b.strProdCode ";
+	 * 
+	 * List listProductionStkLedger = objGlobalFunctionsService
+	 * .funGetProdQtyForStock(sql, "sql"); if
+	 * (!listProductionStkLedger.isEmpty()) { Object obj = (Object)
+	 * listProductionStkLedger.get(0); issueQty +=
+	 * Double.parseDouble(objParent[1].toString())
+	 * Double.parseDouble(obj.toString()) /
+	 * Double.parseDouble(objParent[3].toString()); } } sql =
+	 * "select  ifnull(sum(b.dblQtyProd),0) " +
+	 * "from tblproductionhd a, tblproductiondtl b " +
+	 * "where a.strPDCode  = b.strPDCode " + "and b.strProdCode = '" + prodCode
+	 * + "' and date(a.dtPDDate) between'" + fromDate + "' and  '" + toDate +
+	 * "' "; if (!locCode.equalsIgnoreCase("All")) { sql +=
+	 * "and a.strLocCode IN " + locCode + " "; }
+	 * 
+	 * sql += "group by b.strProdCode ";
+	 * 
+	 * List listProductionStkLedger = objGlobalFunctionsService
+	 * .funGetProdQtyForStock(sql, "sql"); if
+	 * (!listProductionStkLedger.isEmpty()) { Object obj = (Object)
+	 * listProductionStkLedger.get(0); reciptQty +=
+	 * Double.parseDouble(obj.toString()); }
+	 * 
+	 * productionQty = reciptQty - issueQty;
+	 * 
+	 * sql = "select IFNULL(SUM(b.dblQty),0) " +
+	 * " from tblscreturnhd a,tblscreturndtl b  " +
+	 * "where a.strSRCode=b.strSRCode and b.strProdCode= '" + prodCode +
+	 * "'  AND DATE(a.dteSRDate) between '" + fromDate + "'  AND  '" + toDate +
+	 * "' "; if (!locCode.equalsIgnoreCase("All")) { sql +=
+	 * "and a.strLocCode  IN  " + locCode + " "; } sql +=
+	 * "  GROUP BY b.strProdCode ";
+	 * 
+	 * List list_SCGRN = objGlobalFunctionsService.funGetProdQtyForStock(sql,
+	 * "sql");
+	 * 
+	 * if (list_SCGRN.size() > 0) { scGRNQty = ((BigDecimal)
+	 * list_SCGRN.get(0)).doubleValue(); }
+	 * 
+	 * sql = "select  IFNULL(SUM(b.dblQty),0)  Issue " +
+	 * " from tbldeliverynotehd a,tbldeliverynotedtl b 	" +
+	 * " where a.strDNCode=b.strDNCode  and b.strProdCode= '" + prodCode +
+	 * "' AND DATE(a.dteDNDate) between'" + fromDate + "' " + " AND  '" + toDate
+	 * + "' ";
+	 * 
+	 * if (!locCode.equalsIgnoreCase("All")) { sql += "and a.strLocCode  IN  " +
+	 * locCode + " "; } sql += "   GROUP BY b.strProdCode ";
+	 * 
+	 * List list_DN = objGlobalFunctionsService.funGetProdQtyForStock(sql,
+	 * "sql");
+	 * 
+	 * if (list_DN.size() > 0) { deliveryNoteQty = ((BigDecimal)
+	 * list_DN.get(0)).doubleValue(); }
+	 * 
+	 * finalStock = (opStkQty + grnQty + stkTransInQty + stkAdjInQty + misInQty
+	 * + matReturnInQty + qtyProduced + reciptQty + scGRNQty + salesReturnQty) -
+	 * (stkTransOutQty + stkAdjOutQty + misOutQty + matReturnOutQty +
+	 * purchaseReturnQty + saleQty + issueQty + deliveryNoteQty);
+	 * 
+	 * return finalStock;
+	 * 
+	 * }
+	 */
+
 	// Function to convert Model into Bean of Stock Adjustment
 	@SuppressWarnings("rawtypes")
 	public clsStockAdjustmentBean funPrepareStockAdjBean(List listStkAdjHd) {
@@ -3807,10 +4109,8 @@ public class clsGlobalFunctions {
 		Map<String, String> hmProductTaxDtl1 = new HashMap<String, String>();
 		List listTaxDtl = new ArrayList<String>();
 		List listTaxes = new ArrayList();
-		String clientCode = req.getSession().getAttribute("clientCode")
-				.toString();
-		String propCode = req.getSession().getAttribute("propertyCode")
-				.toString();
+		String clientCode = req.getSession().getAttribute("clientCode").toString();
+		String propCode = req.getSession().getAttribute("propertyCode").toString();
 		Map<String, clsTaxDtl> hmTaxCalDtl = new HashMap<String, clsTaxDtl>();
 		Map<String, clsTaxDtl> hmTaxCalDtlTemp = new HashMap<String, clsTaxDtl>();
 		Map<String, Map<String, clsTaxDtl>> hmProdTaxCalDtl = new HashMap<String, Map<String, clsTaxDtl>>();
@@ -3941,7 +4241,120 @@ public class clsGlobalFunctions {
 
 				}
 
-			} else {
+			} 
+		    else if (clientCode.equals("382.000"))
+			{
+		    	String[] spProduct = prodDetails.split("!");
+				String supplierCode = "", productCode = "";
+				for (int cn = 0; cn < spProduct.length; cn++) {
+					String[] sp1 = spProduct[cn].split(",");
+					supplierCode = sp1[2];
+					productCode = sp1[0];
+					double unitPrice = Double.parseDouble(sp1[1]);
+					double qty = Double.parseDouble(sp1[3]);
+					double discAmt = Double.parseDouble(sp1[4]);
+					double weight = 0;
+					if (sp1.length > 5) {
+						weight = Double.parseDouble(sp1[5]);
+					}
+					String strGroupTaxCode="";
+					if (sp1.length > 6) {
+						if((sp1[6])!= null)
+						{
+							strGroupTaxCode = (sp1[6]).toString();
+						}
+						
+					}
+				
+					String AlltaxCode="";
+					if(strGroupTaxCode.length()>0)
+					{
+						
+						String sqlGroupTax = " select a.strTaxCode,a.strGroupTaxName  from tblgrouptaxdtl a where a.strGroupTaxCode='"+strGroupTaxCode+"'"
+								              +" and a.strClientCode='"+clientCode+"'";
+						listTaxDtl = objGlobalFunctionsService.funGetList(sqlGroupTax, "sql");
+						if(listTaxDtl!=null && listTaxDtl.size()>0)
+						{
+							for(int k=0;k<listTaxDtl.size();k++)
+							{
+								Object[] obj=(Object[])listTaxDtl.get(k);
+								if(AlltaxCode.isEmpty())
+								{
+									AlltaxCode="'"+obj[0].toString()+"'";
+								}
+								else
+								{
+									AlltaxCode +=",'"+obj[0].toString()+"'";
+								}
+							}
+						}
+						
+					}
+					
+					
+
+					String sqlTaxIndicator = "select strProdCode,strTaxIndicator,dblMRP,strPickMRPForTaxCal,strExciseable "
+							+ " from tblproductmaster where strProdCode='"
+							+ productCode
+							+ "' and strClientCode='"
+							+ clientCode + "' ";
+					listTaxDtl = objGlobalFunctionsService.funGetList(
+							sqlTaxIndicator, "sql");
+					for (int cnt = 0; cnt < listTaxDtl.size(); cnt++) {
+						double taxableAmt = unitPrice * qty;
+						if (weight > 0) {
+							taxableAmt = unitPrice * qty * weight;
+						}
+						Object[] arrObj = (Object[]) listTaxDtl.get(0);
+
+						clsProductTaxDtl objProdTaxDtl = new clsProductTaxDtl();
+						if (hmProductTaxDtl.containsKey(productCode)) {
+							objProdTaxDtl = hmProductTaxDtl.get(productCode);
+							objProdTaxDtl.setDblQty(objProdTaxDtl.getDblQty()
+									+ qty);
+						} else {
+							String sqlMarginDisc = "select a.dblDiscount,b.dblMargin "
+									+ " from tblpartymaster a,tblprodsuppmaster b "
+									+ " where a.strPCode=b.strSuppCode and a.strClientCode=b.strClientCode and a.strPCode='"
+									+ supplierCode
+									+ "' "
+									+ " and b.strProdCode='"
+									+ productCode
+									+ "' and a.strClientCode='"
+									+ clientCode
+									+ "' ";
+							List listMarginDisc = objGlobalFunctionsService
+									.funGetList(sqlMarginDisc, "sql");
+							if (listMarginDisc.size() > 0) {
+								Object[] arrObjMarginDisc = (Object[]) listMarginDisc
+										.get(0);
+								objProdTaxDtl.setDblDiscountPer(Double.parseDouble(arrObjMarginDisc[0].toString()));
+								objProdTaxDtl.setDblMarginPer(Double
+										.parseDouble(arrObjMarginDisc[1]
+												.toString()));
+							} else {
+								objProdTaxDtl.setDblDiscountPer(0);
+								objProdTaxDtl.setDblMarginPer(0);
+							}
+
+							objProdTaxDtl.setStrProductCode(productCode);
+							objProdTaxDtl.setStrSupplierCode(supplierCode);
+							objProdTaxDtl.setStrTaxIndicator(AlltaxCode);//All tax link with group
+							objProdTaxDtl.setDblUnitPrice(unitPrice);
+							objProdTaxDtl.setDblMRP(Double
+									.parseDouble(arrObj[2].toString()));
+							objProdTaxDtl.setDblQty(qty);
+							objProdTaxDtl.setDblDiscountAmt(discAmt);
+							objProdTaxDtl.setStrPickMRPForTaxCal(arrObj[3]
+									.toString());
+							objProdTaxDtl.setStrExcisable(arrObj[4].toString());
+							objProdTaxDtl.setDblWeight(weight);
+						}
+						hmProductTaxDtl.put(productCode, objProdTaxDtl);
+					}
+				}
+			}
+			else {
 				String[] spProduct = prodDetails.split("!");
 				String supplierCode = "", productCode = "";
 				for (int cn = 0; cn < spProduct.length; cn++) {
@@ -3961,8 +4374,7 @@ public class clsGlobalFunctions {
 							+ productCode
 							+ "' and strClientCode='"
 							+ clientCode + "' ";
-					listTaxDtl = objGlobalFunctionsService.funGetList(
-							sqlTaxIndicator, "sql");
+					listTaxDtl = objGlobalFunctionsService.funGetList(sqlTaxIndicator, "sql");
 					for (int cnt = 0; cnt < listTaxDtl.size(); cnt++) {
 						double taxableAmt = unitPrice * qty;
 						if (weight > 0) {
@@ -4050,8 +4462,25 @@ public class clsGlobalFunctions {
 							+ "' "
 							+ " AND b.strTaxReversal='N' ");
 
-				} else {
-
+				} 
+				else if (clientCode.equals("382.000"))
+				{
+					sbSql.append("select '',b.strTaxCode,b.strTaxDesc,b.strTaxType,b.dblPercent,b.strTaxOnTax,b.strTaxOnTaxCode "
+							+ " ,b.strTaxCalculation,b.strTaxOnSubGroup,b.strTaxRounded,b.strCalTaxOnMRP,b.strTaxOnGD,b.dblAbatement "
+							+ " ,b.strExcisable,strTOTOnMRPItems,b.dblAmount,ifNull(b.strShortName ,'')"
+							+ " from  tbltaxhd b "
+							+ " where  strTaxOnSP='"
+							+ taxType
+							+ "' "
+							+ " and b.strTaxCode in ("+ entry.getValue().getStrTaxIndicator()+") "
+							+ " and date(b.dtValidFrom) <= '"
+							+ transDate
+							+ "' and b.dtValidTo >= '"
+							+ transDate
+							+ "' "
+							+ " and b.strTaxReversal='N' ");
+				}
+				else {
 					sbSql.append("select a.strPCode,b.strTaxCode,b.strTaxDesc,b.strTaxType,b.dblPercent,b.strTaxOnTax,b.strTaxOnTaxCode "
 							+ " ,b.strTaxCalculation,b.strTaxOnSubGroup,b.strTaxRounded,b.strCalTaxOnMRP,b.strTaxOnGD,b.dblAbatement "
 							+ " ,b.strExcisable,strTOTOnMRPItems,b.dblAmount,ifNull(b.strShortName ,'')"
@@ -4085,6 +4514,7 @@ public class clsGlobalFunctions {
 				System.out.println(sbSql);
 				List listTax = objGlobalFunctionsService.funGetList(
 						sbSql.toString(), "sql");
+				if(listTax!=null && listTax.size()>0){
 				for (int cnt = 0; cnt < listTax.size(); cnt++) {
 					boolean flgEligibleForTax = false;
 					Object[] arrObj = (Object[]) listTax.get(cnt);
@@ -4096,8 +4526,7 @@ public class clsGlobalFunctions {
 					String taxRounded = arrObj[9].toString();
 					String calTaxOnMRP = arrObj[10].toString();
 					String taxOnGD = arrObj[11].toString();
-					 abatement = Double
-							.parseDouble(arrObj[12].toString());
+					abatement = Double.parseDouble(arrObj[12].toString());
 					String exciseable = arrObj[13].toString();
 					String totOnMRPItems = arrObj[14].toString();
 					double taxableAmt = entry.getValue().getDblUnitPrice()
@@ -4198,12 +4627,8 @@ public class clsGlobalFunctions {
 							}
 						}
 
-					} else if (taxType.equalsIgnoreCase("Banquet")) // Code to
-																	// calculate
-																	// taxable
-																	// amt for
-																	// Banquet
-																	// taxes.
+					} 
+					else if (taxType.equalsIgnoreCase("Banquet")) // Code to// calculate// taxable// amt for// Banque// taxes.																
 					{
 						boolean checkSettlementWiseTax = true;
 						if (objSetup.getStrSettlementWiseInvSer().equals("Yes")) {
@@ -4448,7 +4873,7 @@ public class clsGlobalFunctions {
 					// order-> taxable amt,Tax code,tax desc,tax type,tax per
 					hmProductTaxDtl1.put(arrObj[1].toString(), taxDtl);
 				}
-				
+				}
 				// Start For Customer taxes are not add in Customer tax tab and
 				// also wants to calcutate taxes
 				if (false) // No need For Customer taxes are not add in Customer
@@ -4832,16 +5257,13 @@ public class clsGlobalFunctions {
 								+ "' and  a.strClientCode='"
 								+ clientCode + "' ");
 			} else if (productCode.startsWith("EC")) {
-				sqlProdTax
-						.append("select a.strEquipmentCode,a.strTaxIndicator,a.dblEquipmentRate from tblequipment  a where a.strEquipmentCode='"
+				sqlProdTax.append("select a.strEquipmentCode,a.strTaxIndicator,a.dblEquipmentRate from tblequipment  a where a.strEquipmentCode='"
 								+ productCode
 								+ "' and  a.strClientCode='"
 								+ clientCode + "' ");
 			} else if (productCode.startsWith("S0")) {
 				sqlProdTax
-						.append("select a.strServiceCode ,a.strTaxIndicator,a.dblRate from tblservicemaster a where a.strServiceCode='"
-								+ productCode
-								+ "' and  a.strClientCode='"
+						.append("select a.strServiceCode ,a.strTaxIndicator,a.dblRate from tblservicemaster a where a.strServiceCode='"+ productCode+ "' and  a.strClientCode='"
 								+ clientCode + "' ");
 			}
 			listprodTaxDetail = objBaseService.funGetListModuleWise(sqlProdTax,
@@ -4945,7 +5367,7 @@ public class clsGlobalFunctions {
 					List list = objBaseService.funGetList(sbSqlProducts, "sql");
 					if (list.size() > 0)
 						checkComesaRegionTax = true;
-				}
+			}
 			} else {
 				String[] spProduct = prodDetails.split("!");
 				String supplierCode = "", productCode = "";

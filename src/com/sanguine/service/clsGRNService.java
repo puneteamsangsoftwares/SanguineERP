@@ -44,4 +44,5 @@ public interface clsGRNService {
 
 	public void funAddUpdateGRNTaxDtl(clsGRNTaxDtlModel objModel);
 
+	
 }

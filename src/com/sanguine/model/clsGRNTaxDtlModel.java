@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class clsGRNTaxDtlModel {
 	@Column(name = "strGRNCode", columnDefinition = "VARCHAR(20) NOT NULL default ''")
 	private String strGRNCode;
-
+	
 	@Column(name = "strTaxCode", columnDefinition = "VARCHAR(20) NOT NULL default ''")
 	private String strTaxCode;
 

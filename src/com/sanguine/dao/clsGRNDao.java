@@ -6,6 +6,7 @@ import com.sanguine.model.clsGRNDtlModel;
 import com.sanguine.model.clsGRNHdModel;
 import com.sanguine.model.clsGRNTaxDtlModel;
 
+
 public interface clsGRNDao {
 	public void funAddUpdate(clsGRNHdModel object);
 
@@ -38,4 +39,7 @@ public interface clsGRNDao {
 	public int funDeleteGRNTaxDtl(String GRNCode, String clientCode);
 
 	public void funAddUpdateGRNTaxDtl(clsGRNTaxDtlModel objModel);
+	
+	
+	
 }

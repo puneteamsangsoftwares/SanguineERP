@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -238,6 +239,24 @@ public class clsGRNController {
 	    }
 	    model.put("settlementList", settlementList);
 	    
+	    Map<String, String> mapTaxGroupName=new LinkedHashMap<>();
+	    mapTaxGroupName.put("No Tax", "No Tax");
+	    StringBuilder sqlBuilder = new StringBuilder();
+		sqlBuilder.setLength(0);
+		sqlBuilder.append("SELECT a.strGroupTaxCode,a.strGroupTaxName FROM tblgrouptaxdtl a where a.strClientCode='"+clientCode+"' "
+			         	+ " and a.strOperationalYN='Y'"
+				        + " group by a.strGroupTaxCode ");
+		List listTaxGroupName = objGlobalFunctionsService.funGetList(sqlBuilder.toString(),"sql");
+		if(listTaxGroupName!=null && listTaxGroupName.size()>0 )
+		{
+			for(int k=0;k<listTaxGroupName.size();k++)
+			{
+				Object[] obj=(Object[])listTaxGroupName.get(k);
+				mapTaxGroupName.put(obj[0].toString(), obj[1].toString());
+
+			}
+		}
+		 model.put("mapTaxGroupName", mapTaxGroupName);
 		if ("2".equalsIgnoreCase(urlHits)) {
 			return new ModelAndView("frmGRN_1", "command", objBean);
 		} else if ("1".equalsIgnoreCase(urlHits)) {
@@ -513,6 +532,7 @@ public class clsGRNController {
 			}
 			objGRNDtl.setStrStkble(prodMaster.getStrNonStockableItem());
 			objGRNDtl.setDblFreeQty(grnDtl.getDblFreeQty());
+			objGRNDtl.setStrGroupTaxCode(grnDtl.getStrGroupTaxCode());
 			StringBuilder sqlBuilder = new StringBuilder();
 			sqlBuilder.setLength(0);
 			sqlBuilder
@@ -608,10 +628,14 @@ public class clsGRNController {
 						{
 							dblDiscount=ob.getDblTotalPrice()/dblDisPercent;
 						}
-						double taxableAmt = 0.0,taxAmt = 0.0;
-						
+						double taxableAmt = 0.0,taxAmt = 0.0;						
 						String prdDetailForTax = ob.getStrProdCode() + "," + ob.getDblUnitPrice() + ","
 								+ objHdModel.getStrSuppCode() + "," + ob.getDblQty() + "," + dblDiscount;
+						if(clientCode.equals("382.000"))
+						{
+							prdDetailForTax = ob.getStrProdCode() + "," + ob.getDblUnitPrice() + ","
+									+ objHdModel.getStrSuppCode() + "," + ob.getDblQty() + "," + dblDiscount+ ",0," + ob.getStrGroupTaxCode();
+						}
 						Map<String, String> hmProdTax = objGlobalFunctions.funCalculateTax(prdDetailForTax, "Purchase", objHdModel.getDtGRNDate(), "0","", request);
                         if (hmProdTax.size() > 0) 
 						{
@@ -623,6 +647,7 @@ public class clsGRNController {
 									taxAmt =taxAmt + Double.parseDouble(spItem[5].toString());
 								}
 						}
+                        
 						ob.setStrClientCode(clientCode);
 						ob.setDblDiscount(Double.parseDouble(df.format(dblDiscount*currValue)));
 						ob.setDblRate(Double.parseDouble(df.format(ob.getDblRate() * currValue)));
@@ -631,13 +656,14 @@ public class clsGRNController {
 						ob.setDblTaxAmt(Double.parseDouble(dff.format(taxAmt * currValue)));
 						ob.setDblUnitPrice(ob.getDblUnitPrice() * currValue);
 						ob.setDblFreeQty(ob.getDblFreeQty());
+						ob.setStrGroupTaxCode(objGlobalFunctions.funIfNull(ob.getStrGroupTaxCode(), "", ob.getStrGroupTaxCode()));
+						objGRNService.funAddUpdateDtl(ob);	
 						
 						//save grn dtl
-						objGRNService.funAddUpdateDtl(ob);						
+											
 						clsProductMasterModel objModel = objProductMasterService.funGetObject(ob.getStrProdCode(), clientCode);
 						if (objSetUp.getStrMultiCurrency().equalsIgnoreCase("N")) {
-							if (objSetUp.getStrWeightedAvgCal().equals("Property Wise")) {
-	// property wise rate save
+							if (objSetUp.getStrWeightedAvgCal().equals("Property Wise")) {// property wise rate save
 								double dblreOrderPrice = 0;
 								clsProductReOrderLevelModel objReOrder = objProductMasterService.funGetProdReOrderLvl(ob.getStrProdCode(),objHdModel.getStrLocCode(),clientCode);
 								if (objReOrder != null) {
@@ -657,7 +683,7 @@ public class clsGRNController {
 										
 										if(objSetUp.getStrIncludeTaxInWeightAvgPrice().equalsIgnoreCase("Y"))
 										{
-										tempval=tempval + ob.getDblTaxAmt();	
+										   tempval=tempval + ob.getDblTaxAmt();	
 										}
 
 										weightedStk = stock + ob.getDblQty()+ob.getDblFreeQty();
@@ -875,6 +901,8 @@ public class clsGRNController {
 				}
 			}
 
+			
+			
 			return ("redirect:/frmGRN.html?saddr=" + urlHits);
 		} else {
 			return ("redirect:/frmGRN.html?saddr=" + urlHits);
@@ -2056,7 +2084,7 @@ public class clsGRNController {
 							+ fromDate
 							+ "' and '"
 							+ toDate
-							+ "' and a.strClientCode='" + clientCode + "' ");
+							+ "' and a.strClientCode='" + clientCode + "'");
 
 			if (objBean.getStrSuppCode().trim().length() > 0) {
 				for (int i = 0; i < tempSupp.length; i++) {
