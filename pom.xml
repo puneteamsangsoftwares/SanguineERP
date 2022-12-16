@@ -71,7 +71,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-beans</artifactId>
-		    <version>5.0.8.RELEASE</version>
+		    <version>5.2.20.RELEASE</version>
 		</dependency>
 		<dependency>
 		    <groupId>javax.servlet</groupId>
